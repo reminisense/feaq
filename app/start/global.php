@@ -17,7 +17,8 @@ ClassLoader::addDirectories(array(
 	app_path().'/controllers',
 	app_path().'/models',
 	app_path().'/database/seeds',
-	app_path(). '/constants', // add directory for featherq constants
+	app_path().'/constants', // add directory for featherq constants
+	app_path().'/validators', // add directory for featherq validators
 
 ));
 
@@ -84,3 +85,11 @@ require app_path().'/filters.php';
 // Declare featherq constants
 FeatherqConstants::roles();
 FeatherqConstants::frontlineSms();
+
+/**
+ * This is for the custom validation purposes of FeatherQ.
+ *
+ */
+Validator::resolver(function($translator, $data, $rules, $message){
+	return new FeatherqValidation($translator, $data, $rules, $message);
+});
