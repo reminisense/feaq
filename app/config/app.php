@@ -40,7 +40,7 @@ return array(
 	*/
 
 	'timezone' => 'UTC',
-sdrfsdfdsf
+
 	/*
 	|--------------------------------------------------------------------------
 	| Application Locale Configuration
