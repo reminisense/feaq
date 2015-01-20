@@ -17,6 +17,7 @@ ClassLoader::addDirectories(array(
 	app_path().'/controllers',
 	app_path().'/models',
 	app_path().'/database/seeds',
+	app_path(). '/constants', // add directory for featherq constants
 
 ));
 
@@ -79,3 +80,7 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+// Declare featherq constants
+FeatherqConstants::roles();
+FeatherqConstants::frontlineSms();
