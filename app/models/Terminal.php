@@ -8,4 +8,8 @@
 
 class Terminal extends Eloquent{
 
+    protected $table = 'terminal';
+    protected $primaryKey = 'terminal_id';
+    public $timestamps = false;
+
 }

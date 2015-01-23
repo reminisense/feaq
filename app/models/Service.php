@@ -8,4 +8,8 @@
 
 class Service extends Eloquent{
 
+    protected $table = 'service';
+    protected $primaryKey = 'service_id';
+    public $timestamps = false;
+
 }

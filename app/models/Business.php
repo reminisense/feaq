@@ -8,4 +8,8 @@
 
 class Business extends Eloquent{
 
+    protected $table = 'business';
+    protected $primaryKey = 'business_id';
+    public $timestamps = false;
+
 }

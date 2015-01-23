@@ -8,4 +8,8 @@
 
 class Branch extends Eloquent{
 
+    protected $table = 'branch';
+    protected $primaryKey = 'branch_id';
+    public $timestamps = false;
+
 }
