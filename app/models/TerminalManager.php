@@ -32,4 +32,9 @@ class TerminalManager extends Eloquent{
         return $row ? $row->login_id : null;
     }
 
+    public static function checkLoginIdIsUser($user_id, $login_id){
+        $row = DB::table('terminal_manager')->where('user_id', '=', $user_id)->where('login_id', '=', $login_id)->get();
+        return $row ? true: false;
+    }
+
 }

@@ -12,4 +12,8 @@ class Branch extends Eloquent{
     protected $primaryKey = 'branch_id';
     public $timestamps = false;
 
+    public static function businessId($branch_id){
+        return Branch::find($branch_id)->business_id;
+    }
+
 }

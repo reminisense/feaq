@@ -14,11 +14,19 @@
 class Helper extends Eloquent {
 
     /**
+     * gets the user id of the current user
+     * @return mixed
+     */
+    public static function userId(){
+        return Auth::user()->user_id;
+    }
+
+    /**
      * gets the role id of the current session's user
      * @return mixed
      */
     public static function currentUserRoleId(){
-        return DB::table('user_role')->where('user_id', '=', Auth::user()->user_id)->first()->role_id;
+        return DB::table('user_role')->where('user_id', '=', Helper::userId())->first()->role_id;
     }
 
     /**
