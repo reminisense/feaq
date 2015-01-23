@@ -13,10 +13,6 @@
 
 class Helper extends Eloquent {
 
-    public static function allNumbers($service_id){
-        return array();
-    }
-
     /**
      * gets the role id of the current session's user
      * @return mixed

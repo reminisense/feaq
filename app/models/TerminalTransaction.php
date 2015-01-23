@@ -33,6 +33,7 @@ class TerminalTransaction extends Eloquent{
         TerminalTransaction::insert($values);
     }
 
+
     /**
      * updates the time called of a particular transaction
      * @param unknown $transaction_number
