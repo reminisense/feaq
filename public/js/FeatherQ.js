@@ -112,7 +112,27 @@ FeatherQ.facebook = {
                 'email': response.email,
                 'gender': response.gender
             };
-            $.post('/fb/save-details', fbData);
+
+            $.get('/user/facebook-user/' + fbData['fb_id'], function(){
+
+            }).success(function(data){
+                getResp = jQuery.parseJSON(data);
+                if (getResp.success == 1){
+                    window.location.href = '/dashboard';
+                } else {
+                    $('body').html(
+                        '<form action="/user/verify" name="fb_submit" method="post" style="display: none;">' +
+                        '<input name="fb_id" value="' + fbData['fb_id'] + '" />' +
+                        '<input name="fb_url" value="' + fbData['fb_url'] + '" />' +
+                        '<input name="first_name" value="' + fbData['first_name'] + '" />' +
+                        '<input name="last_name" value="' + fbData['last_name'] + '" />' +
+                        '<input name="email" value="' + fbData['email'] + '" />' +
+                        '<input name="gender" value="' + fbData['gender'] + '" />' +
+                        '</form>'
+                    );
+                    document.forms['fb_submit'].submit();
+                }
+            });
         });
     })
 

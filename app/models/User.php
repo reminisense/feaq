@@ -76,9 +76,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		}
 	}
 
-	private static function checkFBUser($fb_id)
-	{
+	public static function checkFBUser($fb_id)
+    {
 		return User::where('fb_id', '=', $fb_id)->exists();
+
 	}
 
 	public static function getUserIdByFbId($fb_id)
