@@ -25,10 +25,10 @@ class TerminalTransaction extends Eloquent{
      * @param unknown $transaction_number
      * @param string $time_queued
      */
-    public static function createTerminalTransaction($transaction_number, $time_queued = null){
+    public static function createTerminalTransaction($transaction_number, $time_queued){
         $values = [
             'transaction_number' => $transaction_number,
-            'time_queued' => $time_queued == null ? time() : $time_queued
+            'time_queued' => $time_queued,
         ];
         TerminalTransaction::insert($values);
     }

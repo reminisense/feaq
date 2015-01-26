@@ -8,86 +8,50 @@
 
 class ProcessQueue extends Eloquent{
 
-    public static function allNumbers($service_id){
-        $numbers = []; //@todo add query to get all numbers
-        $called_numbers = array();
-        $uncalled_numbers = array();
-        $processed_numbers = array();
-        if($numbers){
-            foreach($numbers as $number){
-                $called = $number->time_called != 0 ? TRUE : FALSE;
-                $served = $number->time_completed != 0 ? TRUE : FALSE;
-                $removed = $number->time_removed != 0 ? TRUE : FALSE;
+    public static function issueNumber($service_id, $priority_number = null, $date = null, $queue_platform = 'web'){
+        $date = $date == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $date;
 
-                /*legend*/
-                //uncalled  : not served and not removed
-                //called    : called, not served and not removed
-                //dropped   : called, not served but removed
-                //removed   : not called but removed
-                //served    : called and served
-                //processed : dropped/removed/served
+        $branch_id = Service::branchId($service_id);
+        $number_start = QueueSettings::numberStart($service_id, $date);
+        $number_limit = QueueSettings::numberLimit($service_id, $date);
+        $last_number_given = ProcessQueue::lastNumberGiven($service_id, $date);
+        $current_number = ProcessQueue::currentNumber($service_id, $date);
 
-                $terminal_name = '';
-                if($number->terminal_id){
-                    try{
-                        $terminal = Terminal::findOrFail($number->terminal_id);
-                        $terminal_name = $terminal->name;
-                    }catch(Exception $e){
-                        $terminal_name = '';
-                    }
-                }
+        if(!$priority_number){
+            $priority_number = ($last_number_given < $number_limit && $last_number_given != 0) ? $last_number_given + 1 : $number_start;
+        }
 
-                if(!$called && !$removed){
-                    $uncalled_numbers[$number->transaction_number] = $number->priority_number;
-                }else if($called && !$served && !$removed){
-                    $called_numbers[$number->transaction_number] = array(
-                        'transaction_number' => $number->transaction_number,
-                        'priority_number' => $number->priority_number,
-                        'confirmation_code' => $number->confirmation_code,
-                        'terminal_id' => $number->terminal_id,
-                    );
-                }else if($called && !$served && $removed){
-                    $processed_numbers[$number->transaction_number] = array(
-                        'transaction_number' => $number->transaction_number,
-                        'priority_number' => $number->priority_number,
-                        'confirmation_code' => $number->confirmation_code,
-                        'terminal_id' => $number->terminal_id,
-                        'terminal_name' => $terminal_name,
-                        'time_processed' => $number->time_removed,
-                        'status' => 'Dropped',
-                    );
-                }else if(!$called && $removed){
-                    $processed_numbers[$number->transaction_number] = array(
-                        'transaction_number' => $number->transaction_number,
-                        'priority_number' => $number->priority_number,
-                        'confirmation_code' => $number->confirmation_code,
-                        'terminal_id' => $number->terminal_id,
-                        'terminal_name' => $terminal_name,
-                        'time_processed' => $number->time_removed,
-                        'status' => 'Removed',
-                    );
-                }else if($called && $served){
-                    $processed_numbers[$number->transaction_number] = array(
-                        'transaction_number' => $number->transaction_number,
-                        'priority_number' => $number->priority_number,
-                        'confirmation_code' => $number->confirmation_code,
-                        'terminal_id' => $number->terminal_id,
-                        'terminal_name' => $terminal_name,
-                        'time_processed' => $number->time_completed,
-                        'status' => 'Served',
-                    );
-                }
+        $confirmation_code = strtoupper(substr(md5($date), 0, 4));
+        $user_id = Helper::userId();
+
+        $track_id = PriorityNumber::createPriorityNumber($service_id, $branch_id, $number_start, $number_limit, $last_number_given, $current_number, $date);
+        $transaction_number = PriorityQueue::createPriorityQueue($track_id, $priority_number, $confirmation_code, $user_id, $queue_platform);
+        TerminalTransaction::createTerminalTransaction($transaction_number, time());
+
+        $number = array(
+            'transaction_number' => $transaction_number,
+            'priority_number' => $priority_number,
+            'confirmation_code' => $confirmation_code,
+        );
+
+        return $number;
+    }
+
+    //calls a number based on its transaction number
+    public static function callTransactionNumber($transaction_number, $user_id, $terminal_id = null){
+        if(Helper::currentUserIsEither([1, 2, 6])){ //for business user and master admins
+            if(is_numeric($terminal_id)){
+                $login_id = TerminalManager::hookedTerminal(null, $terminal_id) ? TerminalManager::getLatestLoginIdOfTerminal($terminal_id) : 0;
+                TerminalTransaction::updateTransactionTimeCalled($transaction_number, $login_id, null, $terminal_id);
+            }else{
+                throw new Exception('Please assign a terminal.');
             }
-
-            usort($processed_numbers, array('PriorityQueue', 'sortProcessedNumbers'));
-            $priority_numbers = new stdClass();
-            $priority_numbers->called_numbers = $called_numbers;
-            $priority_numbers->uncalled_numbers = $uncalled_numbers;
-            $priority_numbers->processed_numbers = array_reverse($processed_numbers);
-
-            return $priority_numbers;
+        }else if(Helper::currentUserIsEither([4])){ //for terminal admin
+            $login_id = TerminalManager::getTerminalManagerLoginId($user_id);
+            $terminal_id = TerminalManager::hookedTerminal($user_id);
+            TerminalTransaction::updateTransactionTimeCalled($transaction_number, $login_id, null, $terminal_id);
         }else{
-            return null;
+            throw new Exception('You are not allowed to call a number.');
         }
     }
 
@@ -139,21 +103,130 @@ class ProcessQueue extends Eloquent{
         ));
     }
 
-    //calls a number based on its transaction number
-    public static function callTransactionNumber($transaction_number, $user_id, $terminal_id = null){
-        if(Helper::currentUserIsEither([1, 2, 6])){ //for business user and master admins
-            if(is_numeric($terminal_id)){
-                $login_id = TerminalManager::hookedTerminal(null, $terminal_id) ? TerminalManager::getLatestLoginIdOfTerminal($terminal_id) : 0;
-                TerminalTransaction::updateTransactionTimeCalled($transaction_number, $login_id, null, $terminal_id);
-            }else{
-                throw new Exception('Please assign a terminal.');
+    public static function allNumbers($service_id, $date = null){
+        $date = $date == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $date;
+        $numbers = ProcessQueue::queuedNumbers($service_id, $date);
+        $called_numbers = array();
+        $uncalled_numbers = array();
+        $processed_numbers = array();
+        if($numbers){
+            foreach($numbers as $number){
+                $called = $number->time_called != 0 ? TRUE : FALSE;
+                $served = $number->time_completed != 0 ? TRUE : FALSE;
+                $removed = $number->time_removed != 0 ? TRUE : FALSE;
+
+                /*legend*/
+                //uncalled  : not served and not removed
+                //called    : called, not served and not removed
+                //dropped   : called, not served but removed
+                //removed   : not called but removed
+                //served    : called and served
+                //processed : dropped/removed/served
+
+                $terminal_name = '';
+                if($number->terminal_id){
+                    try{
+                        $terminal = Terminal::findOrFail($number->terminal_id);
+                        $terminal_name = $terminal->name;
+                    }catch(Exception $e){
+                        $terminal_name = '';
+                    }
+                }
+
+                if(!$called && !$removed){
+                    $uncalled_numbers[$number->transaction_number] = array(
+                        'transaction_number' => $number->transaction_number,
+                        'priority_number' => $number->priority_number,
+                    );
+                }else if($called && !$served && !$removed){
+                    $called_numbers[$number->transaction_number] = array(
+                        'transaction_number' => $number->transaction_number,
+                        'priority_number' => $number->priority_number,
+                        'confirmation_code' => $number->confirmation_code,
+                        'terminal_id' => $number->terminal_id,
+                    );
+                }else if($called && !$served && $removed){
+                    $processed_numbers[$number->transaction_number] = array(
+                        'transaction_number' => $number->transaction_number,
+                        'priority_number' => $number->priority_number,
+                        'confirmation_code' => $number->confirmation_code,
+                        'terminal_id' => $number->terminal_id,
+                        'terminal_name' => $terminal_name,
+                        'time_processed' => $number->time_removed,
+                        'status' => 'Dropped',
+                    );
+                }else if(!$called && $removed){
+                    $processed_numbers[$number->transaction_number] = array(
+                        'transaction_number' => $number->transaction_number,
+                        'priority_number' => $number->priority_number,
+                        'confirmation_code' => $number->confirmation_code,
+                        'terminal_id' => $number->terminal_id,
+                        'terminal_name' => $terminal_name,
+                        'time_processed' => $number->time_removed,
+                        'status' => 'Removed',
+                    );
+                }else if($called && $served){
+                    $processed_numbers[$number->transaction_number] = array(
+                        'transaction_number' => $number->transaction_number,
+                        'priority_number' => $number->priority_number,
+                        'confirmation_code' => $number->confirmation_code,
+                        'terminal_id' => $number->terminal_id,
+                        'terminal_name' => $terminal_name,
+                        'time_processed' => $number->time_completed,
+                        'status' => 'Served',
+                    );
+                }
             }
-        }else if(Helper::currentUserIsEither([4])){ //for terminal admin
-            $login_id = TerminalManager::getTerminalManagerLoginId($user_id);
-            $terminal_id = TerminalManager::hookedTerminal($user_id);
-            TerminalTransaction::updateTransactionTimeCalled($transaction_number, $login_id, null, $terminal_id);
+
+            usort($processed_numbers, array('PriorityQueue', 'sortProcessedNumbers'));
+            $priority_numbers = new stdClass();
+            $priority_numbers->last_number_given = $numbers[count($numbers) - 1]->priority_number;
+            $priority_numbers->current_number = $called_numbers ? $called_numbers[0]->priority_number : 0;
+            $priority_numbers->called_numbers = $called_numbers;
+            $priority_numbers->uncalled_numbers = $uncalled_numbers;
+            $priority_numbers->processed_numbers = array_reverse($processed_numbers);
+
+            return $priority_numbers;
         }else{
-            throw new Exception('You are not allowed to call a number.');
+            return null;
         }
+    }
+
+    public static function queuedNumbers($service_id, $date, $start = 0, $take = 2147483648){
+        $query = DB::select('
+			SELECT
+				n.*,
+				q.priority_number,
+				q.confirmation_code,
+				q.queue_platform,
+				t.transaction_number,
+				t.time_called,
+				t.time_removed,
+				t.time_completed,
+			    t.terminal_id
+			FROM
+				`priority_number` n,
+				`priority_queue` q,
+				`terminal_transaction` t
+			WHERE
+				n.date = ? AND
+				n.service_id = ? AND
+				q.track_id = n.track_id AND
+				t.transaction_number = q.transaction_number
+			GROUP BY
+				n.track_id
+			LIMIT ?, ?
+		', [$date, $service_id, $start, $take]);
+        return !empty($query) ? $query : [];
+    }
+
+    public static function lastNumberGiven($service_id, $date = null, $default = 0){
+        $numbers = ProcessQueue::allNumbers($service_id, $date);
+        return $numbers ? $numbers->last_number_given : $default;
+    }
+
+    public static function currentNumber($service_id, $date = null, $default = 0){
+        $numbers = ProcessQueue::allNumbers($service_id, $date);
+        return $numbers ? $numbers->current_number : $default;
     }
 }

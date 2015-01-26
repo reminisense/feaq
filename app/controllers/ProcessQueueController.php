@@ -14,26 +14,36 @@ class ProcessQueueController extends BaseController{
      * @param $service_id
      */
     public function getMain($service_id, $terminal_id = null){
-        return 'Hello';
+        return View::make('process-queue.process-queue')
+            ->with('service_id', $service_id);
     }
 
+    /*==============================
+            Ajax functions
+    ================================*/
+
+    /**
+     * @param $transaction_number
+     * @param null $terminal_id
+     * @return string
+     */
     public function getCallnumber($transaction_number, $terminal_id = null){
         try{
             if(is_null(TerminalTransaction::find($transaction_number))){
-                return json_encode(array('error' => 'You have called an invalid input.'));
+                return json_encode(['error' => 'You have called an invalid input.']);
             }else if(Helper::currentUserIsEither([2]) && is_null(Terminal::find($terminal_id))){
-                return json_encode(array('error' => 'Please choose a valid terminal.'));
+                return json_encode(['error' => 'Please choose a valid terminal.']);
             }
 
             $terminal_transaction = TerminalTransaction::find($transaction_number);
             $priority_queue = PriorityQueue::find($transaction_number);
             if($terminal_transaction->time_called != 0){
-                return json_encode(array('error' => 'Number ' . $priority_queue->priority_number . ' has already been called. Please call another number.'));
+                return json_encode(['error' => 'Number ' . $priority_queue->priority_number . ' has already been called. Please call another number.']);
             }else{
                 PriorityQueue::callTransactionNumber($transaction_number, Auth::user()->user_id, $terminal_id);
             }
         }catch(Exception $e){
-            return json_encode(array('error' => $e->getMessage()));
+            return json_encode(['error' => $e->getMessage()]);
         }
     }
 
@@ -41,21 +51,37 @@ class ProcessQueueController extends BaseController{
         try{
             return ProcessQueue::processNumber($transaction_number, 'serve');
         }catch(Exception $e){
-            return json_encode(array('error' => $e->getMessage()));
+            return json_encode(['error' => $e->getMessage()]);
         }
     }
 
-    public function getRemovenumber($transaction_number){
+    public function getDropnumber($transaction_number){
         try{
             return ProcessQueue::processNumber($transaction_number, 'remove');
         }catch(Exception $e){
-            return json_encode(array('error' => $e->getMessage()));
+            return json_encode(['error' => $e->getMessage()]);
         }
     }
 
+    public function getIssuenumber($service_id, $priority_number = null, $date = null){
+        $number = ProcessQueue::issueNumber($service_id, $priority_number, $date);
+        return json_encode(['success' => 1, 'number' => $number]);
+    }
+
+    public function getIssuemultiple($service_id, $range, $date = null){
+        for($i = 1; $i <= $range; $i++){
+            $number = json_decode($this->getIssuenumber($service_id, null, $date));
+            if($i == 1){
+                $first = $number->priority_number . ' ' . $number->confirmation_code;
+            }
+        }
+        $last = $number->priority_number . ' ' . $number->confirmation_code;
+        return json_encode(['success' => 1, 'first_number' => $first, 'last_number' => $last,]);
+    }
+
     public function getAllnumbers($service_id){
-        $priority_numbers = ProcessQueue::allNumbers($service_id);
-        return json_encode(['success' => 1, 'priority_numbers' => $priority_numbers]);
+        $numbers = ProcessQueue::allNumbers($service_id);
+        return json_encode(['success' => 1, 'numbers' => $numbers]);
     }
 
 }
