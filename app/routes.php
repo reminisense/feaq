@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -10,10 +11,9 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
-
 Route::get('/', function()
 {
-	return View::make('page-front');
+	return _renderFrontView();
 	/*
 	if (!Auth::check())
 	{
@@ -57,3 +57,15 @@ Route::get('/', function()
 Route::controller('fb', 'FBController');
 
 Route::controller('processqueue', 'ProcessQueueController');
+
+function _renderFrontView($session = NULL)
+{
+	if (Auth::check())
+	{
+		return View::make('dashboard');
+	}
+	else
+	{
+		return View::make('page-front');
+	}
+}

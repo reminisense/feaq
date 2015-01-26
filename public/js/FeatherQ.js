@@ -28,17 +28,19 @@ FeatherQ.facebook = {
         if (response.status === 'connected') {
             // Logged into your app and Facebook.
             $('#login').hide();
-            FeatherQ.facebook.testAPI();
+            //FeatherQ.facebook.testAPI();
             FeatherQ.facebook.saveFbDetails();
         } else if (response.status === 'not_authorized') {
             // The person is logged into Facebook, but not your app.
-            document.getElementById('status').innerHTML = 'Please log ' +
-            'into this app.';
+            $.post('/fb/laravel-logout');
+            //document.getElementById('status').innerHTML = 'Please log ' +
+            //'into this app.';
         } else {
             // The person is not logged into Facebook, so we're not sure if
             // they are logged into this app or not.
-            document.getElementById('status').innerHTML = 'Please log ' +
-            'into Facebook.';
+            $.post('/fb/laravel-logout');
+            //document.getElementById('status').innerHTML = 'Please log ' +
+            //'into Facebook.';
         }
     }),
 
@@ -53,7 +55,7 @@ FeatherQ.facebook = {
 
     'fbAsyncInit': window.fbAsyncInit = (function() {
         FB.init({
-            appId      : '1574984442747638',
+            appId      : '1577295149183234',
             cookie     : true,  // enable cookies to allow the server to access
                                 // the session
             xfbml      : true,  // parse social plugins on this page

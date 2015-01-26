@@ -19,7 +19,13 @@ class FBController extends BaseController {
             'gender' => $_POST['gender'],
         );
         User::saveFBDetails($data);
+        Auth::loginUsingId(User::getUserIdByFbId($data['fb_id']));
         return json_encode(array('success' => $data['fb_id']));
+    }
+
+    public function postLaravelLogout()
+    {
+        Auth::logout();
     }
 
     public function getSaveDetails()

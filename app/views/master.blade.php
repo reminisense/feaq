@@ -9,6 +9,12 @@
     <meta charset="UTF-8">
 </head>
 <body>
+    <script>
+        FeatherQ.facebook.statusChangeCallback();
+        FeatherQ.facebook.checkLoginState();
+        FeatherQ.facebook.fbAsyncInit();
+        FeatherQ.facebook.loadSDK();
+    </script>
     @yield('body')
 </body>
 </html>

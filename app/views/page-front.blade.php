@@ -6,13 +6,6 @@
 
 @section('body')
 
-<script>
-    FeatherQ.facebook.statusChangeCallback();
-    FeatherQ.facebook.checkLoginState();
-    FeatherQ.facebook.fbAsyncInit();
-    FeatherQ.facebook.loadSDK();
-</script>
-
 <!--
   Below we include the Login Button social plugin. This button uses
   the JavaScript SDK to present a graphical Login button that triggers
