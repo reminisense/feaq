@@ -18,7 +18,7 @@ class Helper extends Eloquent {
      * @return mixed
      */
     public static function userId(){
-        return Auth::user()->user_id;
+        return 1; //Auth::user()->user_id;
     }
 
     /**

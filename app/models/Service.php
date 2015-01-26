@@ -12,4 +12,8 @@ class Service extends Eloquent{
     protected $primaryKey = 'service_id';
     public $timestamps = false;
 
+    public static function branchId($service_id){
+        return Service::find($service_id)->branch_id;
+    }
+
 }

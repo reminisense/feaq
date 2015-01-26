@@ -12,4 +12,15 @@ class PriorityQueue extends Eloquent {
     protected $primaryKey = 'transaction_number';
     public $timestamps = false;
 
+    public static function createPriorityQueue($track_id, $priority_number, $confirmation_code, $user_id, $queue_platform){
+        $values = [
+            'priority_number' => $priority_number,
+            'track_id' => $track_id,
+            'confirmation_code' => $confirmation_code,
+            'user_id' => $user_id,
+            'queue_platform' => $queue_platform
+        ];
+        return PriorityQueue::insertGetId($values);
+    }
+
 }
