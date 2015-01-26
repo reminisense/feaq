@@ -57,3 +57,5 @@ Route::get('/', function()
 Route::controller('fb', 'FBController');
 
 Route::controller('processqueue', 'ProcessQueueController');
+
+Route::controller('user', 'UserController');
