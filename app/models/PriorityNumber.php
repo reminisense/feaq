@@ -24,4 +24,8 @@ class PriorityNumber extends Eloquent {
         ];
         return PriorityNumber::insertGetId($values);
     }
+
+    public static function serviceId($track_id){
+        return PriorityNumber::find($track_id)->service_id;
+    }
 }

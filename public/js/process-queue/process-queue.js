@@ -3,6 +3,7 @@
  */
 //global variables
 var service_id = angular.element(document.querySelector('#service-id')).val();
+var terminal_id = angular.element(document.querySelector('#terminal-id')).val();
 var all_numbers_url = angular.element(document.querySelector('#all-numbers-url')).val() + '/';
 var issue_numbers_url = angular.element(document.querySelector('#issue-numbers-url')).val() + '/';
 var issue_multiple_url = angular.element(document.querySelector('#issue-multiple-url')).val() + '/';
@@ -19,41 +20,50 @@ app.controller('processqueueController', function($scope, $http){
     $scope.processed_numbers = [];
 
     $scope.getAllNumbers = function(){
-        $http.get(all_numbers_url + service_id)
-            .success(function(response){
-                $scope.called_numbers = response.numbers.called_numbers;
-                $scope.uncalled_numbers = response.numbers.uncalled_numbers;
-                $scope.processed_numbers = response.numbers.processed_numbers;
-            });
+        getResponseResetValues(all_numbers_url + service_id);
     };
 
     $scope.callNumber = function(transaction_number){
-        $http.get(call_number_url + transaction_number)
-            .success(function(response){
-                //@todo call number success function
-            });
+        getResponseResetValues(call_number_url + transaction_number + '/' + terminal_id);
     };
 
     $scope.serveNumber = function(transaction_number){
-        $http.get(serve_number_url + transaction_number)
-            .success(function(response){
-                //@todo serve number success function
-            });
+        getResponseResetValues(serve_number_url + transaction_number);
     };
 
     $scope.dropNumber = function(transaction_number){
-        $http.get(drop_number_url + transaction_number)
-            .success(function(response){
-                //@todo drop number success function
-            });
+        getResponseResetValues(drop_number_url + transaction_number);
     };
 
+    //non scope functions
+    getResponseResetValues = function(url, callback){
+        $http.get(url).success(function(response){
+            resetValues(response);
+            if(typeof callback === 'function'){
+                callback();
+            }
+        });
+    };
 
+    resetValues = function(response){
+        $scope.called_numbers = response.numbers.called_numbers;
+        $scope.uncalled_numbers = response.numbers.uncalled_numbers;
+        $scope.processed_numbers = response.numbers.processed_numbers;
+
+//        if($scope.called_number == null && $scope.uncalled_numbers){
+//            $scope.called_number = $scope.uncalled_numbers[Object.keys($scope.uncalled_numbers)[0]].transaction_number;
+//        }
+    };
+
+    //****************************** refreshing
+    $scope.getAllNumbers();
     setInterval(function(){
         $scope.getAllNumbers();
     }, 2000);
 });
 
+
+//Issue numbers
 app.controller('issuenumbersController', function($scope, $http){
     $scope.issueNumber = function(){
         $http.get(issue_numbers_url + service_id)

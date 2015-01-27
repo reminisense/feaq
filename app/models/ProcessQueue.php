@@ -20,11 +20,10 @@ class ProcessQueue extends Eloquent{
         if(!$priority_number){
             $priority_number = ($last_number_given < $number_limit && $last_number_given != 0) ? $last_number_given + 1 : $number_start;
         }
-
-        $confirmation_code = strtoupper(substr(md5($date), 0, 4));
         $user_id = Helper::userId();
 
         $track_id = PriorityNumber::createPriorityNumber($service_id, $branch_id, $number_start, $number_limit, $last_number_given, $current_number, $date);
+        $confirmation_code = strtoupper(substr(md5($track_id), 0, 4));
         $transaction_number = PriorityQueue::createPriorityQueue($track_id, $priority_number, $confirmation_code, $user_id, $queue_platform);
         TerminalTransaction::createTerminalTransaction($transaction_number, time());
 
@@ -99,7 +98,8 @@ class ProcessQueue extends Eloquent{
                 'confirmation_code' => $confirmation_code,
                 'terminal_id' => $terminal_id,
                 'terminal_name' => $terminal_name,
-            )
+            ),
+            'numbers' => ProcessQueue::allNumbers($priority_number->service_id),
         ));
     }
 
@@ -178,10 +178,10 @@ class ProcessQueue extends Eloquent{
                 }
             }
 
-            usort($processed_numbers, array('PriorityQueue', 'sortProcessedNumbers'));
+            usort($processed_numbers, array('ProcessQueue', 'sortProcessedNumbers'));
             $priority_numbers = new stdClass();
             $priority_numbers->last_number_given = $numbers[count($numbers) - 1]->priority_number;
-            $priority_numbers->current_number = $called_numbers ? $called_numbers[0]->priority_number : 0;
+            $priority_numbers->current_number = $called_numbers ? $called_numbers[key($called_numbers)]['priority_number'] : 0;
             $priority_numbers->called_numbers = $called_numbers;
             $priority_numbers->uncalled_numbers = $uncalled_numbers;
             $priority_numbers->processed_numbers = array_reverse($processed_numbers);
@@ -228,5 +228,9 @@ class ProcessQueue extends Eloquent{
     public static function currentNumber($service_id, $date = null, $default = 0){
         $numbers = ProcessQueue::allNumbers($service_id, $date);
         return $numbers ? $numbers->current_number : $default;
+    }
+
+    private static function sortProcessedNumbers($a, $b){
+        return $a['time_processed'] - $b['time_processed'];
     }
 }
