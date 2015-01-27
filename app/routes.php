@@ -13,45 +13,7 @@
 
 Route::get('/', function()
 {
-	return View::make('page-front');
-	/*
-	if (!Auth::check())
-	{
-		return View::make('page-front');
-	}
-	else {
-		$role = Role::roleId(Auth::user()->user_id);
-		if ($role == REMINISENSE) {
-			return View::make('user.dashboard')
-				->with('title', 'Dashboard')
-				->with('header_title', 'FeatherQ Dashboard')
-				->with('businesses', DashboardController::businessesBranchesServices());
-		}
-		elseif ($role == BUSINESS_OWNER || $role == IT_ADMIN) {
-			return View::make('user.dashboard')
-				->with('title', 'Dashboard')
-				->with('header_title', Business::businessName(Business::getBusinessIdByOwner(Auth::user()->user_id)) . ' / Dashboard')
-				->with('businesses', DashboardController::businessesBranchesServices(Business::getBusinessIdByOwner(Auth::user()->user_id)))
-				->with('role', $role);
-		}
-		elseif ($role == TERMINAL_ADMIN || $role == QUEUE_ADMIN) {
-			$hooked_terminal = 0;
-			$user = Auth::user()->user_id;
-			if (TerminalOpsController::userIsHooked($user)) {
-				$hooked_terminal = TerminalTransaction::hookedTerminal($user);
-			}
-
-			return View::make('terminal.dashboard')
-				->with('userIsHooked', TerminalOpsController::userIsHooked($user))
-				->with('hookedTerminal', $hooked_terminal)
-				->with('terminalsArray', TerminalController::terminalsInService($user));
-		} else {
-			return View::make('user.dashboard')
-				->with('title', 'Dashboard')
-				->with('header_title', 'Dashboard');
-		}
-	}
-	*/
+	return _renderFrontView();
 });
 
 Route::controller('fb', 'FBController');
@@ -60,7 +22,9 @@ Route::controller('processqueue', 'ProcessQueueController');
 
 Route::controller('user', 'UserController');
 
-function _renderFrontView($session = NULL)
+Route::controller('broadcast', 'BroadcastController');
+
+function _renderFrontView()
 {
 	if (Auth::check())
 	{

@@ -1,0 +1,575 @@
+@font-face {
+    font-family: 'ralewayregular';
+    src: url('../fontss/raleway-regular-webfont.eot');
+    src: url('../fontss/raleway-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/raleway-regular-webfont.woff2') format('woff2'),
+         url('../fonts/raleway-regular-webfont.woff') format('woff'),
+         url('../fonts/raleway-regular-webfont.ttf') format('truetype'),
+         url('../fonts/raleway-regular-webfont.svg#ralewayregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'ralewaybold';
+    src: url('../fonts/raleway-bold-webfont.eot');
+    src: url('../fonts/raleway-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/raleway-bold-webfont.woff2') format('woff2'),
+         url('../fonts/raleway-bold-webfont.woff') format('woff'),
+         url('../fonts/raleway-bold-webfont.ttf') format('truetype'),
+         url('../fonts/raleway-bold-webfont.svg#ralewaybold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'ralewaysemibold';
+    src: url('../fonts/raleway-semibold-webfont.eot');
+    src: url('../fonts/raleway-semibold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/raleway-semibold-webfont.woff2') format('woff2'),
+         url('../fonts/raleway-semibold-webfont.woff') format('woff'),
+         url('../fonts/raleway-semibold-webfont.ttf') format('truetype'),
+         url('../fonts/raleway-semibold-webfont.svg#ralewaysemibold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'ralewaymedium';
+    src: url('../fonts/raleway-medium-webfont.eot');
+    src: url('../fonts/raleway-medium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/raleway-medium-webfont.woff2') format('woff2'),
+         url('../fonts/raleway-medium-webfont.woff') format('woff'),
+         url('../fonts/raleway-medium-webfont.ttf') format('truetype'),
+         url('../fonts/raleway-medium-webfont.svg#ralewaymedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+::selection {
+  background: #ffbf9f; /* WebKit/Blink Browsers */
+}
+::-moz-selection {
+  background: #ffbf9f; /* Gecko Browsers */
+}
+#login {
+	color: #ff925b;
+}
+#login span {
+	margin-right: 6px;
+}
+h1 {
+	line-height: 46px;
+	margin-bottom: 32px;
+	font-size: 30px;
+}
+
+body {
+	font-family: 'ralewayregular', sans-serif;
+}
+.banner {
+	padding-top: 190px;
+	height: 620px;
+	color: #fff;
+	background: url(../images/featherq-banner.jpg) top center no-repeat;
+}
+.banner h1 {
+	font-weight: normal;
+	margin-bottom: 26px;
+	font-size: 36px;
+	color: #ff925b;
+}
+.banner p {
+	font-size: 13px;
+	line-height: 22px;
+	margin-bottom: 40px;
+}
+.fb {
+	font-size: 15px;
+}
+.fb img {
+	margin-right: 8px;
+}
+.subhead {
+	line-height: 26px;
+	font-size: 15px;
+}
+#attn {
+	margin-top: -45px;
+	margin-bottom: 0px;
+}
+.navbar-inverse .navbar-collapse {
+  border: none;
+}
+.navbar-inverse {
+  background: none;
+  border: none;
+  height: 80px;
+}
+.navbar-fixed-top {
+	background-color: rgba(6, 6, 7, 0.6);
+}
+.navbar-fixed-top.shrink {
+	background-color: rgba(6, 6, 7, 0.8);	
+}
+.contact {
+	padding: 140px 0;
+	color: #fff;
+	position: relative;
+	background: #121212 url(../images/bg-contact.jpg) top center no-repeat;
+}
+.contact input,
+textarea {
+	margin-bottom: 20px;
+	background: none;
+	padding-top: 24px;
+	padding-bottom: 24px;
+	color: #fff;
+}
+.contact p {
+	text-shadow: inherit!important;
+	line-height: 28px;
+}
+.contact table td {
+	border: none!important;
+}
+.contact table {
+	margin-bottom: 50px;
+}
+.socials {
+	width: 32px;
+	margin-right: 3px;
+}
+.footer a {
+	color: #fff;
+}
+.footer {
+	background-color: #1a1917;
+	background-color: rgba(0, 0, 0, .45);
+	color: #a6a6a6;
+	position: absolute;
+	bottom: 0;
+	padding: 20px 0;
+	width: 100%;
+}
+.footer p {
+	margin: 0;
+	font-size: 12px;
+}
+.prefooter h5 {
+	margin-top: 0;
+	margin-bottom: 20px;
+	font-weight: bold;
+}
+.prefooter a {
+	color: #fff;
+	padding: 2px;
+}
+.prefooter span {
+	display: inline-block;
+}
+.prefooter a:hover {
+	text-decoration: underline;
+}
+.request {
+	background: #1c1c1f url(../images/request.jpg) top center no-repeat;
+	color: #fff;
+	padding: 100px 0;
+}
+.request h3 {
+	line-height: 36px;
+	margin: 0;
+	font-family: 'ralewayregular', sans-serif;
+	font-weight: normal;
+	font-size: 26px;
+}
+.request h3 span {
+	color: #ff925b;
+}
+.mr10 {
+	margin-right: 10px;
+}
+.mb30 {
+	margin-bottom: 30px;
+}
+.btn {
+	-webkit-border-radius: 23px;
+	-moz-border-radius: 23px;
+	border-radius: 23px;
+}
+.button a {
+	font-size: 18px;
+}
+.button span {
+	padding-right: 15px;
+}
+.fb {
+	padding-left: 40px!important;
+	padding-right: 40px!important;
+}
+.btn {
+	border: none;
+	padding: 10px 30px 10px;
+	margin-top: 11px;
+}
+.btn-orange {
+	background-color: #d9733c;
+	color: #fff;
+	font-family: 'ralewaysemibold';
+	-webkit-transition: background-color 0.4s linear;
+    -moz-transition: background-color 0.4s linear;
+    -o-transition: background-color 0.4s linear;
+    -ms-transition: background-color 0.4s linear;
+    transition: background-color 0.4s linear;
+}
+.btn-orange:hover {
+	background-color: #c66838;
+	color: #fff;	
+}
+.btn-blue {
+	background-color: #5b75b3;
+	color: #fff;
+	font-family: 'ralewaysemibold';
+	-webkit-transition: background-color 0.4s linear;
+    -moz-transition: background-color 0.4s linear;
+    -o-transition: background-color 0.4s linear;
+    -ms-transition: background-color 0.4s linear;
+    transition: background-color 0.4s linear;
+}
+.btn-blue:hover {
+	background-color: #5880de;
+	color: #fff;	
+}
+.content {
+	padding: 50px 0;
+}
+.space {
+	height: 90px;
+}
+.content p {
+	font-size: 14px;
+	line-height: 30px;
+	text-shadow: 0 1px 0 #f5f3ed;
+}
+hr {
+	border-top: 1px solid #aaa;
+}
+.features h4 {
+	font-family: 'ralewaybold', sans-serif;
+	font-size: 15px;
+	margin-bottom: 20px;
+}
+.features h5 {
+	text-transform: uppercase;
+	margin-bottom: 40px;
+	font-weight: 700;
+	color: #bf4d28;
+	font-size: 18px;
+}
+.features p {
+	font-size: 13.5px;
+	line-height: 26px;
+	text-align: center;
+}
+.signup .content {
+	padding: 110px 0;
+}
+.what h1 {
+	margin-bottom: 70px;
+}
+.what p img {
+	float: left; 
+	margin-right: 20px;
+}
+/*animate the header nav*/
+.navbar {
+	height: 72px;
+	-webkit-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+.navbar-brand {
+	padding-top: 17px;
+	display: block;
+}
+.navbar.shrink a.navbar-brand {
+    padding-top: 9px!important;
+}
+.navbar img {
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    width: 100%
+}
+.navbar.shrink img {
+    width: 150px;
+}
+.navbar.shrink {
+    height: 54px;    
+    visibility: visible!important;
+}
+.navbar.shrink .navbar-brand {
+  font-size: 25px;
+}
+.navbar.shrink .navbar-toggle {
+  margin-top: 19px;
+}
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus {
+	background: none;
+	color: #d9733c;
+}
+.navbar-nav>li>a {
+	color: #fff;
+	font-size: 13px;
+	-webkit-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+    padding: 26px 16px;
+}
+.navbar.shrink .nav li a {
+	padding: 14px 16px;
+}
+.navbar-nav>li>a:hover,
+.nav>li>a:focus {
+	color: #ff925b;
+	background: none;
+}
+.navbar-inverse .navbar-nav>li>a {
+	color: #413220;	
+}
+.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus {
+	color: #d9733c;
+}
+#socials {
+	display: inline-block;
+	margin-left: 70px;
+}
+.signup {
+	background: url(../images/bg-signup.png) repeat-x;
+}
+.image-bg-fixed-height {
+	background: url(../images/bot-banner.jpg) no-repeat center center scroll;
+	height: 278px;
+}
+.image-bg-fixed-height2 {
+	background: url(../images/banner.jpg) no-repeat center center scroll;
+	height: 512px;
+}
+.paperx {
+	background: url(../images/paper.jpg) no-repeat center center scroll;
+	height: 512px;
+}
+.paper h4 {
+	margin-top: 0;
+}
+.row,
+.container>.navbar-header {
+	margin-right: 0px;
+}
+.container {
+	padding-right: 0px;
+}
+
+.paper h4 {
+	color: #bf4d28;
+}
+.navbar-nav>li>.dropdown-menu {
+	background-color: #f88344;
+	border: none;
+	padding: 0;
+	margin-top: 1px;
+	border-radius: 0;
+}
+.dropdown-menu>li>a {
+	padding: 8px 20px;
+	color: #fff;
+	font-weight: 700;
+}
+.nav li.open {
+	border-radius: 6px 6px 0px 0px!important;
+}
+.dropdown-menu>li>a:hover {
+	background-color: #d9733c;
+	color: #fff;
+}
+a {
+	color: #ff925b;
+}
+a:hover {
+	color: #ffb57e;
+}
+.navbar-toggle .icon-bar {
+	border: 1px solid #808080;
+}
+.navbar-collapse {
+	border-top: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	background: none!important;
+}
+
+
+ 
+@media (min-width: 768px) and (max-width: 979px) {
+	.prefooter h5 {
+		margin-top: 40px;
+	}
+	.nav li a {
+		padding: 8px 10px!important;
+	}
+
+}
+@media (max-width: 990px) {
+	/*.nav li a {
+		padding: 8px 10px!important;
+		font-size: 12px!important;
+	}*/
+}
+
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+	.signup,
+	.orange,
+	.prefooter {
+		text-align: center;
+	}
+	.signup img {
+		margin-top: 40px;
+	}
+	.prefooter {
+		padding-top: 20px;
+	}
+	.prefooter h5 {
+		margin-top: 40px;
+	}
+	.orange h3 {
+		font-size: 20px;
+	}
+	.navbar-toggle {
+		margin-top: 19px;
+		background-color: #2b2926;
+	}
+	.nav {
+		margin-top: 0;
+	}
+	.navbar-collapse {
+		background-color: #e7e4dc;
+	}
+	.navbar.shrink .navbar-toggle {
+		margin-top: 9px;
+	}
+	.signup img {
+		width: 210px;
+	}
+	.banner {
+		padding-top: 120px;
+	}
+	.signup .content {
+		padding-top: 0px;
+	}
+	.navbar-nav>li>a {
+		font-size: 14px;
+		padding: 20px 16px;
+	}
+	.navbar-collapse.collapse .nav {
+		background-color: rgba(0, 0, 0, .9);
+		-moz-transition-property: none!important;
+		-webkit-transition-property: none!important;
+		-o-transition-property: none!important;
+		transition-property: none!important;
+	}
+	.navbar-nav>li>a {
+		color: #fff;
+		-webkit-transition: all 0.1s ease!important;
+    	transition: all 0.1s ease!important;
+	}
+
+}
+
+ 
+/* Landscape phones and down */
+@media (max-width: 480px) {
+	.about h1 {
+		font-size: 26px;
+	}
+	.request, .contact {
+		background-image: none;
+	}
+	.request h3 {
+		font-size: 24px;
+	}
+	.navbar {
+		height: 72px!important;
+	}
+	.navbar-brand {
+		padding-top: 15px;
+	}
+	.navbar.shrink img {
+		width: inherit!important;
+	}
+	.navbar.shrink a.navbar-brand {
+		padding: 15px!important;
+	}
+	.signup {
+		background-image: none;
+		background-color: #ebebeb;
+	}
+	.signup a.btn {
+		font-size: 14px;
+	}
+	.about h1 {
+		font-size: 24px;
+		line-height: 32px;
+	}
+	.request,
+	.banner,
+	.contact {
+		text-align: center;
+	}
+	.contact .table {
+		text-align: left;
+	}
+	.request .btn {
+		margin-top: 40px;
+	}
+	.footer {
+		text-align: center;
+	}
+	.footer .text-right {
+		text-align: center;
+	}
+	a#login {
+		margin-right: 0px;
+		margin-left: 0px;
+	}
+	.footer a {
+		color: #a6a6a6;
+	}
+	.signup,
+	.orange,
+	.prefooter {
+		text-align: center;
+	}
+	.signup img {
+		margin-top: 40px;
+	}
+	.prefooter {
+		padding-top: 20px;
+	}
+	.prefooter h5 {
+		margin-top: 50px;
+	}
+	.orange h3 {
+		font-size: 20px;
+	} 
+	.navbar-brand  {
+		height: 72px;
+	}
+	.navbar-collapse .nav {
+		margin: 0;
+	}
+	.navbar-collapse {
+		padding: 0;
+		overflow: hidden;
+		margin-right: 0!important;
+	}
+	
+}
