@@ -23,6 +23,19 @@ class FBController extends BaseController {
         return json_encode(array('success' => $data['fb_id']));
     }
 
+    /*
+     * author: CSD
+     * @description: get page request with fb_id parameter
+     */
+    public function getFacebookUser() {
+        $fb_id = $_GET['fb_id'];
+        if (User::checkFBUser($fb_id)){
+            return json_encode(array('success' => 1));
+        } else {
+            return json_encode(array('success' => 0));
+        }
+    }
+
     public function postLaravelLogout()
     {
         Auth::logout();

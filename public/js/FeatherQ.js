@@ -1,4 +1,6 @@
 var FeatherQ = FeatherQ || {
+    'ajax': {},
+
     'test': {},
     'facebook': {},
     'business': {},
@@ -17,6 +19,19 @@ FeatherQ.test = {
     })
 };
 
+FeatherQ.ajax = {
+    'request': (function(method, url, data, fn_success, fn_error) {
+        $.ajax({
+            type: method,
+            url: url,
+            data: data,
+            dataType    : 'json', // what type of data do we expect back from the server
+            success : fn_success,
+            error: fn_error
+        });
+    })
+};
+
 FeatherQ.facebook = {
 
     // This is called with the results from from FB.getLoginStatus().
@@ -30,7 +45,6 @@ FeatherQ.facebook = {
             $('#fb-login').hide();
             $('#fb-login-2').hide();
             //FeatherQ.facebook.testAPI();
-            FeatherQ.facebook.saveFbDetails();
         } else if (response.status === 'not_authorized') {
             // The person is logged into Facebook, but not your app.
             $.post('/fb/laravel-logout');
@@ -106,46 +120,23 @@ FeatherQ.facebook = {
     'saveFbDetails': (function() {
         FB.api('/me', function(response) {
             fbData = {
-                'fb_id': response.id,
-                'fb_url': response.link,
-                'first_name': response.first_name,
-                'last_name': response.last_name,
-                'email': response.email,
-                'gender': response.gender
+                "fb_id": response.id,
+                "fb_url": response.link,
+                "first_name": response.first_name,
+                "last_name": response.last_name,
+                "email": response.email,
+                "gender": response.gender
             };
-
-            $.get('/user/facebook-user/' + fbData['fb_id'], function(){
-
-            }).success(function(data){
-                getResp = jQuery.parseJSON(data);
-                if (getResp.success == 1){
-                    window.location.href = '/dashboard';
-                } else {
-                    $('body').html(
-                        '<form action="/user/verify" name="fb_submit" method="post" style="display: none;">' +
-                        '<input name="fb_id" value="' + fbData['fb_id'] + '" />' +
-                        '<input name="fb_url" value="' + fbData['fb_url'] + '" />' +
-                        '<input name="first_name" value="' + fbData['first_name'] + '" />' +
-                        '<input name="last_name" value="' + fbData['last_name'] + '" />' +
-                        '<input name="email" value="' + fbData['email'] + '" />' +
-                        '<input name="gender" value="' + fbData['gender'] + '" />' +
-                        '</form>'
-                    );
-                    document.forms['fb_submit'].submit();
-                }
-            });
+            FeatherQ.ajax.request('POST', '/fb/save-details', fbData, function(response) {
+                window.location.reload(true);
+            }, function(response) {});
         });
     }),
 
     'login': (function() {
         FB.login(function(response) {
             if (response.authResponse) {
-                console.log('Welcome!  Fetching your information.... ');
-                FB.api('/me', function(response) {
-                    console.log('Good to see you, ' + response.name + '.');
-                });
-            } else {
-                console.log('User cancelled login or did not fully authorize.');
+               FeatherQ.facebook.saveFbDetails();
             }
         }, {'scope': 'public_profile,email,user_friends'});
     })

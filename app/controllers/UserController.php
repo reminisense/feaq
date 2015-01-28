@@ -56,18 +56,6 @@ class UserController extends BaseController{
 
     /*
      * author: CSD
-     * @description: get page request with fb_id parameter
-     */
-    public function getFacebookUser($fb_id){
-        if (User::checkFBUser($fb_id)){
-            return json_encode(array('succes' => 1));
-        } else {
-            return json_encode(array('success' => 0));
-        }
-    }
-
-    /*
-     * author: CSD
      * @description: get dashboard page
      */
     public function getDashboard(){
