@@ -18,10 +18,10 @@
 
 <div class="banner wow fadeIn">
     <div class="container">
-        <div class="col-md-4 col-md-offset-8 wow fadeInRight">
+        <div class="col-md-4 col-md-offset-8 wow fadeInRight" ng-controller="fbController">
             <h1>Change the wait</h1>
             <p>FeatherQ is the first ever cloud-based queuing system that works perfectly with any browser thus allowing a universal compatibility function. With the processes happening online, users need not wait in line anymore as they can allow their phone to wait in line for them.</p>
-            <a href="#" class="btn btn-blue fb" onclick="FeatherQ.facebook.login();" id="fb-login"><img src="images/icon-fb.png"> Login with Facebook</a>
+            <a href="#" class="btn btn-blue fb" ng-click="login()" id="fb-login"><img src="images/icon-fb.png"> Login with Facebook</a>
         </div>
     </div>
 </div>

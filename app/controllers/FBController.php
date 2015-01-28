@@ -10,13 +10,14 @@ class FBController extends BaseController {
 
     public function postSaveDetails()
     {
+        $post = json_decode(file_get_contents("php://input"));
         $data = array(
-            'fb_id' => $_POST['fb_id'],
-            'fb_url' => $_POST['fb_url'],
-            'first_name' => $_POST['first_name'],
-            'last_name' => $_POST['last_name'],
-            'email' => $_POST['email'],
-            'gender' => $_POST['gender'],
+            'fb_id' => $post->fb_id,
+            'fb_url' => $post->fb_url,
+            'first_name' => $post->first_name,
+            'last_name' => $post->last_name,
+            'email' => $post->email,
+            'gender' => $post->gender,
         );
         User::saveFBDetails($data);
         Auth::loginUsingId(User::getUserIdByFbId($data['fb_id']));

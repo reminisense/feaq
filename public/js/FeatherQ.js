@@ -20,15 +20,22 @@ FeatherQ.test = {
 };
 
 FeatherQ.ajax = {
-    'request': (function(method, url, data, fn_success, fn_error) {
-        $.ajax({
-            type: method,
-            url: url,
-            data: data,
-            dataType    : 'json', // what type of data do we expect back from the server
-            success : fn_success,
-            error: fn_error
-        });
+    'request': (function(method, url, passedData, fn_success, fn_error, $http) {
+        if (method == 'GET') {
+            var request = {
+                url: url,
+                method: method,
+                params: passedData
+            }
+        }
+        else {
+            var request = {
+                url: url,
+                method: method,
+                data: passedData
+            }
+        }
+        $http(request).success(fn_success).error(fn_error);
     })
 };
 
@@ -129,7 +136,7 @@ FeatherQ.facebook = {
             };
             FeatherQ.ajax.request('POST', '/fb/save-details', fbData, function(response) {
                 window.location.reload(true);
-            }, function(response) {});
+            }, function(response) {}, $http);
         });
     }),
 

@@ -13,7 +13,11 @@ class Branch extends Eloquent{
     public $timestamps = false;
 
     public static function businessId($branch_id){
-        return Branch::find($branch_id)->business_id;
+        return Branch::where('branch_id', '=', $branch_id)->select(array('business_id'))->first()->business_id;
+    }
+
+    public static function name($branch_id){
+        return Branch::where('branch_id', '=', $branch_id)->select(array('name'))->first()->name;
     }
 
 }
