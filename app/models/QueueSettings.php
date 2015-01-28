@@ -31,4 +31,7 @@ class QueueSettings extends Eloquent{
         return isset($queue_setting->$field) ? $queue_setting->$field : $default;
     }
 
+    public static function createQueueSetting($values){
+        return QueueSettings::insertGetId($values);
+    }
 }

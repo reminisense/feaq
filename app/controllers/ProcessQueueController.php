@@ -15,7 +15,8 @@ class ProcessQueueController extends BaseController{
      */
     public function getMain($service_id, $terminal_id = null){
         return View::make('process-queue.process-queue')
-            ->with('service_id', $service_id);
+            ->with('service_id', $service_id)
+            ->with('terminal_id', $terminal_id);
     }
 
     /*==============================
@@ -40,7 +41,8 @@ class ProcessQueueController extends BaseController{
             if($terminal_transaction->time_called != 0){
                 return json_encode(['error' => 'Number ' . $priority_queue->priority_number . ' has already been called. Please call another number.']);
             }else{
-                PriorityQueue::callTransactionNumber($transaction_number, Auth::user()->user_id, $terminal_id);
+                ProcessQueue::callTransactionNumber($transaction_number, Helper::userId(), $terminal_id);
+                return $this->getAllnumbers(PriorityNumber::serviceId($priority_queue->track_id));
             }
         }catch(Exception $e){
             return json_encode(['error' => $e->getMessage()]);
