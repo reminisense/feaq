@@ -8,26 +8,28 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="images/favicon.png">
 
-    <title>FeatherQ</title>
+    <title>{{ $business_name }} | FeatherQ</title>
 
     {{ HTML::style('css/bootstrap.min.css') }}
     {{ HTML::style('css/animate.css') }}
     {{ HTML::style('css/style.css') }}
-    @yield('styles')
 
     {{ HTML::script('js/jquery1.11.0.js') }}
     {{ HTML::script('js/bootstrap.min.js') }}
     {{ HTML::script('js/wow.min.js') }}
     {{ HTML::script('js/custom.js') }}
     {{ HTML::script('js/angular.js') }}
-    {{ HTML::script('js/ngFeatherQ.js') }}
-    {{ HTML::script('js/ngFacebook.js') }}
-    @yield('scripts')
+    {{ HTML::script('js/FeatherQ.js') }}
+    {{ HTML::script('js/broadcast.js') }}
 </head>
-<body ng-app="FeatherQ">
-<h2>WELCOME TO YOUR DASHBOARD</h2>
+<body ng-app="">
 <script>
-    new WOW().init();
+    FeatherQ.facebook.statusChangeCallback();
+    FeatherQ.facebook.checkLoginState();
+    FeatherQ.facebook.fbAsyncInit();
+    FeatherQ.facebook.loadSDK();
 </script>
+    <div>{{ $business_name }}</div>
+    <div></div>
 </body>
 </html>

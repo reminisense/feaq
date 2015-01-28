@@ -19,16 +19,12 @@
     {{ HTML::script('js/bootstrap.min.js') }}
     {{ HTML::script('js/wow.min.js') }}
     {{ HTML::script('js/custom.js') }}
-    {{ HTML::script('js/FeatherQ.js') }}
+    {{ HTML::script('js/angular.js') }}
+    {{ HTML::script('js/ngFeatherQ.js') }}
+    {{ HTML::script('js/ngFacebook.js') }}
     @yield('scripts')
 </head>
-<body>
-    <script>
-        FeatherQ.facebook.statusChangeCallback();
-        FeatherQ.facebook.checkLoginState();
-        FeatherQ.facebook.fbAsyncInit();
-        FeatherQ.facebook.loadSDK();
-    </script>
+<body ng-app="FeatherQ">
     <div class="navbar-wrapper">
         <div class="navbar navbar-fixed-top" role="navigation">
             <div class="container">
