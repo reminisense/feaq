@@ -13,7 +13,7 @@ class ProcessQueueController extends BaseController{
      * Renders process queue page
      * @param $service_id
      */
-    public function getMain($service_id, $terminal_id = null){
+    public function getService($service_id, $terminal_id = null){
         return View::make('process-queue.process-queue')
             ->with('service_id', $service_id)
             ->with('terminal_id', $terminal_id);
@@ -65,21 +65,7 @@ class ProcessQueueController extends BaseController{
         }
     }
 
-    public function getIssuenumber($service_id, $priority_number = null, $date = null){
-        $number = ProcessQueue::issueNumber($service_id, $priority_number, $date);
-        return json_encode(['success' => 1, 'number' => $number]);
-    }
 
-    public function getIssuemultiple($service_id, $range, $date = null){
-        for($i = 1; $i <= $range; $i++){
-            $number = json_decode($this->getIssuenumber($service_id, null, $date));
-            if($i == 1){
-                $first = $number->priority_number . ' ' . $number->confirmation_code;
-            }
-        }
-        $last = $number->priority_number . ' ' . $number->confirmation_code;
-        return json_encode(['success' => 1, 'first_number' => $first, 'last_number' => $last,]);
-    }
 
     public function getAllnumbers($service_id){
         $numbers = ProcessQueue::allNumbers($service_id);

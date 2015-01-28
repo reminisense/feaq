@@ -18,11 +18,15 @@ Route::get('/', function()
 
 Route::controller('fb', 'FBController');
 
-Route::controller('processqueue', 'ProcessQueueController');
-
 Route::controller('user', 'UserController');
 
 Route::controller('broadcast', 'BroadcastController');
+
+Route::controller('processqueue', 'ProcessQueueController');
+
+Route::controller('issuenumber', 'IssueNumberController');
+
+Route::controller('queuesettings', 'QueueSettingsController');
 
 function _renderFrontView()
 {

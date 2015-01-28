@@ -5,19 +5,28 @@
 <input type="hidden" id="service-id" value="{{ $service_id }}">
 <input type="hidden" id="terminal-id" value="{{ $terminal_id }}">
 <input type="hidden" id="all-numbers-url" value="{{ url('/processqueue/allnumbers/') }}">
-<input type="hidden" id="issue-numbers-url" value="{{ url('/processqueue/issuenumber/') }}">
-<input type="hidden" id="issue-multiple-url" value="{{ url('/processqueue/issuemultiple/') }}">
 <input type="hidden" id="call-number-url" value="{{ url('/processqueue/callnumber/') }}">
 <input type="hidden" id="serve-number-url" value="{{ url('/processqueue/servenumber/') }}">
 <input type="hidden" id="drop-number-url" value="{{ url('/processqueue/dropnumber/') }}">
+<input type="hidden" id="issue-numbers-url" value="{{ url('/issuenumber/single/') }}">
+<input type="hidden" id="issue-multiple-url" value="{{ url('/issuenumber/multiple/') }}">
 
 
 <h1>Process Queue Test</h1>
 
 <div ng-controller="issuenumbersController">
     <button ng-click="issueNumber()">Issue number</button>
+    <br>
+    <input type="text" ng-model="range">
+    <button ng-click="issueMultiple(range)">Issue Multiple</button>
 </div>
 <br><br>
+
+<div ng-controller="queuesettingsController">
+
+</div>
+<br><br>
+
 
 <div ng-controller="processqueueController">
     <select id="called-number" ng-model="called_number">
