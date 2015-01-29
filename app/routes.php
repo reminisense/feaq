@@ -28,7 +28,7 @@ function _renderFrontView()
 {
 	if (Auth::check())
 	{
-		return View::make('dashboard');
+		return View::make('user.dashboard');
 	}
 	else
 	{

@@ -2,7 +2,7 @@
 
     var app = angular.module('Facebook', []);
 
-    app.run(function() {
+    app.run(function($http) {
 
         window.fbAsyncInit = (function () {
             FB.init({
@@ -18,16 +18,19 @@
                     // Logged into your app and Facebook.
                     $('#fb-login').hide();
                     $('#fb-login-2').hide();
+                    $http.post('/fb/laravel-login', { 'fb_id': response.authResponse.userID }).success(function(response) {
+                        if (response.success == 1) window.location.replace('/');
+                    });
                     //FeatherQ.facebook.testAPI();
                 } else if (response.status === 'not_authorized') {
                     // The person is logged into Facebook, but not your app.
-                    $.post('/fb/laravel-logout');
+                    $http.post('/fb/laravel-logout');
                     //document.getElementById('status').innerHTML = 'Please log ' +
                     //'into this app.';
                 } else {
                     // The person is not logged into Facebook, so we're not sure if
                     // they are logged into this app or not.
-                    $.post('/fb/laravel-logout');
+                    $http.post('/fb/laravel-logout');
                     //document.getElementById('status').innerHTML = 'Please log ' +
                     //'into Facebook.';
                 }

@@ -24,6 +24,19 @@ class FBController extends BaseController {
         return json_encode(array('success' => $data['fb_id']));
     }
 
+    public function postLaravelLogin()
+    {
+        $post = json_decode(file_get_contents("php://input"));
+        if (User::checkFBUser($post->fb_id) && !Auth::check()) {
+            Auth::loginUsingId(User::getUserIdByFbId($post->fb_id));
+            $success = 1;
+        }
+        else {
+            $success = 0;
+        }
+        return json_encode(array('success' => $success));
+    }
+
     public function postLaravelLogout()
     {
         Auth::logout();
