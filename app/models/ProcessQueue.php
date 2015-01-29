@@ -40,14 +40,14 @@ class ProcessQueue extends Eloquent{
     public static function callTransactionNumber($transaction_number, $user_id, $terminal_id = null){
         if(Helper::currentUserIsEither([1, 2, 6])){ //for business user and master admins
             if(is_numeric($terminal_id)){
-                $login_id = TerminalManager::hookedTerminal(null, $terminal_id) ? TerminalManager::getLatestLoginIdOfTerminal($terminal_id) : 0;
+                $login_id = TerminalManager::hookedTerminal($terminal_id) ? TerminalManager::getLatestLoginIdOfTerminal($terminal_id) : 0;
                 TerminalTransaction::updateTransactionTimeCalled($transaction_number, $login_id, null, $terminal_id);
             }else{
                 throw new Exception('Please assign a terminal.');
             }
         }else if(Helper::currentUserIsEither([4])){ //for terminal admin
             $login_id = TerminalManager::getTerminalManagerLoginId($user_id);
-            $terminal_id = TerminalManager::hookedTerminal($user_id);
+            $terminal_id = TerminalManager::getAssignedTerminal($user_id);
             TerminalTransaction::updateTransactionTimeCalled($transaction_number, $login_id, null, $terminal_id);
         }else{
             throw new Exception('You are not allowed to call a number.');
@@ -69,7 +69,7 @@ class ProcessQueue extends Eloquent{
         }
 
         $login_id = $transaction->login_id;
-        if(Helper::currentUserIsEither([4]) && (!TerminalManager::checkLoginIdIsUser(Helper::userId(), $login_id) || TerminalManager::hookedTerminal(Helper::userId()) != $terminal_id)){
+        if(Helper::currentUserIsEither([4]) && (!TerminalManager::checkLoginIdIsUser(Helper::userId(), $login_id) || TerminalManager::getAssignedTerminal(Helper::userId()) != $terminal_id)){
             return json_encode(array('error' => 'Access Denied'));
         }else if (Helper::currentUserIsEither([2, 6]) && UserBusiness::getBusinessIdByOwner(Helper::userId()) != Branch::businessId($priority_number->branch_id)) {
             return json_encode(array('error' => 'Access Denied'));

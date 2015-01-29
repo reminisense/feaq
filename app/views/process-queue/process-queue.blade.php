@@ -48,11 +48,6 @@
 </div>
 <br><br>
 
-<div ng-controller="queuesettingsController">
-
-</div>
-<br><br>
-
 
 <div ng-controller="processqueueController">
     <select id="called-number" ng-model="called_number">

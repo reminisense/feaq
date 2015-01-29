@@ -1,33 +1,34 @@
 /**
  * Created by USER on 1/26/15.
  */
-    //global variables
-    var ids = {
-        service_id : angular.element(document.querySelector('#service-id')).val(),
-        terminal_id : angular.element(document.querySelector('#terminal-id')).val()
-    };
+//global variables
+var ids = {
+    service_id : angular.element(document.querySelector('#service-id')).val(),
+    terminal_id : angular.element(document.querySelector('#terminal-id')).val()
+};
 
 
-    var urls = {
-        process_queue : {
-            all_numbers_url : angular.element(document.querySelector('#all-numbers-url')).val() + '/',
-            call_number_url : angular.element(document.querySelector('#call-number-url')).val() + '/',
-            serve_number_url : angular.element(document.querySelector('#serve-number-url')).val() + '/',
-            drop_number_url : angular.element(document.querySelector('#drop-number-url')).val() + '/'
-        },
+var urls = {
+    process_queue : {
+        all_numbers_url : angular.element(document.querySelector('#all-numbers-url')).val() + '/',
+        call_number_url : angular.element(document.querySelector('#call-number-url')).val() + '/',
+        serve_number_url : angular.element(document.querySelector('#serve-number-url')).val() + '/',
+        drop_number_url : angular.element(document.querySelector('#drop-number-url')).val() + '/'
+    },
 
-        issue_numbers : {
-            issue_numbers_url : angular.element(document.querySelector('#issue-numbers-url')).val() + '/',
-            issue_multiple_url : angular.element(document.querySelector('#issue-multiple-url')).val() + '/',
-            issue_specific_url : angular.element(document.querySelector('#issue-specific-url')).val() + '/'
-        },
+    issue_numbers : {
+        issue_numbers_url : angular.element(document.querySelector('#issue-numbers-url')).val() + '/',
+        issue_multiple_url : angular.element(document.querySelector('#issue-multiple-url')).val() + '/',
+        issue_specific_url : angular.element(document.querySelector('#issue-specific-url')).val() + '/'
+    },
 
-        queue_settings : {
-            queue_settings_get_url : angular.element(document.querySelector('#queue-settings-get-url')).val() + '/',
-            queue_settings_update_url : angular.element(document.querySelector('#queue-settings-update-url')).val() + '/'
-        }
-    };
+    queue_settings : {
+        queue_settings_get_url : angular.element(document.querySelector('#queue-settings-get-url')).val() + '/',
+        queue_settings_update_url : angular.element(document.querySelector('#queue-settings-update-url')).val() + '/'
+    }
+};
 
+(function(){
     var app = angular.module('processqueue', []);
     app.controller('processqueueController', function($scope, $http){
         $scope.called_numbers = [];
@@ -169,3 +170,4 @@
         /*================================*/
         $scope.getQueueSettings();
     });
+})();
