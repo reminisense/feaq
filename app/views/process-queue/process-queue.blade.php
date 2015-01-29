@@ -8,13 +8,39 @@
 <input type="hidden" id="call-number-url" value="{{ url('/processqueue/callnumber/') }}">
 <input type="hidden" id="serve-number-url" value="{{ url('/processqueue/servenumber/') }}">
 <input type="hidden" id="drop-number-url" value="{{ url('/processqueue/dropnumber/') }}">
+
 <input type="hidden" id="issue-numbers-url" value="{{ url('/issuenumber/single/') }}">
 <input type="hidden" id="issue-multiple-url" value="{{ url('/issuenumber/multiple/') }}">
+<input type="hidden" id="issue-specific-url" value="{{ url('/issuenumber/insertspecific/') }}">
 
+<input type="hidden" id="queue-settings-get-url" value="{{ url('/queuesettings/allvalues/') }}">
+<input type="hidden" id="queue-settings-update-url" value="{{ url('/queuesettings/update/') }}">
 
 <h1>Process Queue Test</h1>
 
+
+<div ng-controller="queuesettingsController">
+    Number Start <input type="text" name="number_start" ng-model="number_start" ng-blur="updateNumberStart(number_start)"><br>
+    Number Limit <input type="text" name="number_limit" ng-model="number_limit" ng-blur="updateNumberLimit(number_limit)"><br>
+    <br>
+    Auto Issue<input type="checkbox" name="auto_issue" ng-model="auto_issue" ng-change="updateAutoIssue(auto_issue)"><br>
+    Allow SMS<input type="checkbox" name="allow_sms" ng-model="allow_sms" ng-change="updateAllowSms(allow_sms)"><br>
+    Allow Remote<input type="checkbox" name="allow_remote" ng-model="allow_remote" ng-change="updateAllowRemote(allow_remote)"><br>
+
+    <button>Save</button>
+</div>
+<br><br>
+
+
 <div ng-controller="issuenumbersController">
+    <div>
+        <input type="text" name="priority_number" ng-model="priority_number"><br>
+        <input type="text" name="name" ng-model="name"><br>
+        <input type="text" name="phone" ng-model="phone"><br>
+        <input type="text" name="email" ng-model="email"><br>
+        <button ng-click="issueSpecific(priority_number, name, phone, email)">Issue</button>
+    </div>
+    <br>
     <button ng-click="issueNumber()">Issue number</button>
     <br>
     <input type="text" ng-model="range">

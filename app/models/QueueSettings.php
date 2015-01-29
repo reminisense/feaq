@@ -20,18 +20,31 @@ class QueueSettings extends Eloquent{
         return QueueSettings::queueSetting('number_limit', 99, $service_id, $date);
     }
 
-    public static function queueSetting($field, $default, $service_id, $date = null){
-        $date = $date == null ? time() : $date;
-        $queue_setting = DB::table('queue_settings')
-            ->where('service_id', '=', $service_id)
-            ->where('date', '<=', $date)
-            ->orderBy('queue_setting_id', 'desc')
-            ->orderBy('date', 'asc')
-            ->first();
-        return isset($queue_setting->$field) ? $queue_setting->$field : $default;
+    public static function updateQueueSetting($service_id, $field, $value){
+        QueueSettings::where('service_id', '=', $service_id)->update([$field => $value]);
     }
 
     public static function createQueueSetting($values){
         return QueueSettings::insertGetId($values);
+    }
+
+    public static function serviceExists($service_id){
+        return isset(QueueSettings::where('service_id', '=', $service_id)->first()->service_id) ? true : false;
+    }
+
+    public static function queueSetting($field, $default, $service_id, $date = null){
+        $date = $date == null ? time() : $date;
+        $queue_setting = QueueSettings::getServiceQueueSettings($service_id, $date);
+        return isset($queue_setting->$field) ? $queue_setting->$field : $default;
+    }
+
+    public static function getServiceQueueSettings($service_id, $date = null){
+        $date = $date == null ? time() : $date;
+        $queue_setting = QueueSettings::where('service_id', '=', $service_id)
+            ->where('date', '<=', $date)
+            ->orderBy('queue_setting_id', 'desc')
+            ->orderBy('date', 'asc')
+            ->first();
+        return $queue_setting;
     }
 }

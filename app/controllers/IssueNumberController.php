@@ -15,12 +15,26 @@ class IssueNumberController extends BaseController{
 
     public function getMultiple($service_id, $range, $date = null){
         for($i = 1; $i <= $range; $i++){
-            $result = json_decode($this->getSingle($service_id, null, $date));
+            $number = ProcessQueue::issueNumber($service_id, null, $date);
             if($i == 1){
-                $first = $result->number->priority_number . ' ' . $result->number->confirmation_code;
+                $first = $number['priority_number'] . ' ' . $number['confirmation_code'];
             }
         }
-        $last = $result->number->priority_number . ' ' . $result->number->confirmation_code;
+        $last = $number['priority_number'] . ' ' . $number['confirmation_code'];
         return json_encode(['success' => 1, 'first_number' => $first, 'last_number' => $last,]);
+    }
+
+    public function postInsertspecific($service_id){
+        $priority_number = Input::get('priority_number');
+        $name = Input::get('name');
+        $phone = Input::get('phone');
+        $email = Input::get('email');
+
+        //for new feature
+        //$time = Input::get('time');
+
+        $number = ProcessQueue::issueNumber($service_id, $priority_number);
+        PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
+        return json_encode(['success' => 1, 'number' => $number]);
     }
 }
