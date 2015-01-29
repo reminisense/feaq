@@ -10,27 +10,42 @@ class UserController extends BaseController{
 
     /*
      * @author: CSD
-     * @description: verify user data page for first time fb login
+     * @description: check if user data is validated through verified user table row
      */
-    public function postVerify(){
-        $user = [
-            'first_name'    => Input::get('first_name'),
-            'last_name'     => Input::get('last_name'),
-            'email'         => Input::get('email'),
-            'mobile'        => Input::get('mobile'),
-            'location'      => Input::get('location'),
-        ];
+    public function getUserStatus()
+    {
+        $user = Auth::user();
 
-        // $user find user by fb id
-        // update user details based on validation form
-        // return json response
+        return json_encode([
+            'success'   => 1,
+            'user'      => $user,
+        ]);
     }
-
     /*
-     * author: CSD
-     * @description: get dashboard page
+     * @author: CSD
+     * @description: verify data and update user details
      */
-    public function getDashboard(){
-        return View::make('dashboard');
+    public function postVerifyUser(){
+        $userData = $_POST;
+
+        $user = User::find($userData['user_id']);
+        $user->first_name = $userData['first_name'];
+        $user->last_name = $userData['last_name'];
+        $user->email = $userData['email'];
+        $user->phone = $userData['mobile'];
+        $user->local_address = $userData['location'];
+        $user->verified = 1;
+
+        if ($user->save()){
+            return json_encode([
+                'success' => 1,
+            ]);
+        } else {
+            return json_encode([
+                'success' => 0,
+            ]);
+        }
+
+
     }
 }

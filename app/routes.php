@@ -24,6 +24,8 @@ Route::controller('user', 'UserController');
 
 Route::controller('broadcast', 'BroadcastController');
 
+Route::controller('business', 'BusinessController');
+
 function _renderFrontView()
 {
 	if (Auth::check())

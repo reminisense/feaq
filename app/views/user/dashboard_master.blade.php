@@ -48,5 +48,7 @@
 <script>
 new WOW().init();
 </script>
+
+    @yield('modals')
 </body>
 </html>
