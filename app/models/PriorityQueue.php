@@ -23,4 +23,13 @@ class PriorityQueue extends Eloquent {
         return PriorityQueue::insertGetId($values);
     }
 
+    public static function updatePriorityQueueUser($transaction_number, $name = null, $phone = null, $email = null){
+        $values = [
+            'name' => $name,
+            'phone' => $phone,
+            'email' => $email,
+        ];
+        PriorityQueue::where('transaction_number', '=', $transaction_number)->update($values);
+    }
+
 }
