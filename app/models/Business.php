@@ -12,4 +12,8 @@ class Business extends Eloquent{
     protected $primaryKey = 'business_id';
     public $timestamps = false;
 
+    public static function name($business_id){
+        return Business::where('business_id', '=', $business_id)->select(array('name'))->first()->name;
+    }
+
 }
