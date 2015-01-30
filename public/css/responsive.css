@@ -9,6 +9,15 @@
   .ads-mobile {
     display: block!important;
   }
+  .processq .btn-cyan,
+  .processq .btn-blue,
+  .processq .btn-orange {
+    margin-top: 10px;
+  }
+  .processq table .btn-cyan,
+  .navbar-nav {
+    margin: 0;
+  }
 }
 
 @media (max-width: 990px) {
@@ -16,6 +25,17 @@
 }
 
 @media (max-width: 767px) {
+  .processq .btn-cyan,
+  .processq .btn-blue,
+  .processq .btn-orange {
+    margin-top: 10px;
+  }
+  .processq table .btn-cyan,
+  .processq table .btn-blue,
+  .processq table .btn-orange {
+    font-size: 11px;
+  }
+  .processq table .btn-cyan,
   .navbar-nav {
     margin: 0;
   }
@@ -55,10 +75,20 @@
   .subnav .container {
     padding: 0;
   }
-  .boxed .head.head-wbtn .btn-half {
-    margin-top: -36px;
-  }
   .navbar-nav {
     margin: 0;
+  }
+  .processq #btn-call {
+    margin-top: 15px;
+  }
+  .processq .dropdown-menu {
+    width: 90%!important;
+  }
+  #moreq .nav-tabs>li.active>a:focus, 
+  #moreq .nav-tabs>li>a:hover, 
+  #moreq .nav-tabs>li.active>a, 
+  #moreq .nav-tabs>li.active>a:hover {
+    background-color: #ff8649;
+    color: #fff;
   }
 }

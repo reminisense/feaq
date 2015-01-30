@@ -1,0 +1,27 @@
+{
+  "box1": {
+    "number": "4",
+    "terminal": ""
+  },
+  "box2": {
+    "number": "5",
+    "terminal": "1"
+  },
+  "box3": {
+    "number": "6",
+    "terminal": "2"
+  },
+  "box4": {
+    "number": "7",
+    "terminal": "3"
+  },
+  "box5": {
+    "number": "8",
+    "terminal": ""
+  },
+  "box6": {
+    "number": "9",
+    "terminal": "3"
+  },
+  "get_num": "9"
+}
