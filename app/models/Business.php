@@ -16,4 +16,39 @@ class Business extends Eloquent{
         return Business::where('business_id', '=', $business_id)->select(array('name'))->first()->name;
     }
 
+    public static function localAddress($business_id)
+    {
+        return Business::where('business_id', '=', $business_id)->select(array('local_address'))->first()->local_address;
+    }
+
+    public static function openHour($business_id)
+    {
+        return Business::where('business_id', '=', $business_id)->select(array('open_hour'))->first()->open_hour;
+    }
+
+    public static function openMinute($business_id)
+    {
+        return Business::where('business_id', '=', $business_id)->select(array('open_minute'))->first()->open_minute;
+    }
+
+    public static function openAMPM($business_id)
+    {
+        return Business::where('business_id', '=', $business_id)->select(array('open_ampm'))->first()->open_ampm;
+    }
+
+    public static function closeHour($business_id)
+    {
+        return Business::where('business_id', '=', $business_id)->select(array('close_hour'))->first()->close_hour;
+    }
+
+    public static function closeMinute($business_id)
+    {
+        return Business::where('business_id', '=', $business_id)->select(array('close_minute'))->first()->close_minute;
+    }
+
+    public static function closeAMPM($business_id)
+    {
+        return Business::where('business_id', '=', $business_id)->select(array('close_ampm'))->first()->close_ampm;
+    }
+
 }

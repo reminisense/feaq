@@ -1,0 +1,94 @@
+@media (max-width: 1024px) {
+
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+  .ads {
+    display: none;
+  }
+  .ads-mobile {
+    display: block!important;
+  }
+  .processq .btn-cyan,
+  .processq .btn-blue,
+  .processq .btn-orange {
+    margin-top: 10px;
+  }
+  .processq table .btn-cyan,
+  .navbar-nav {
+    margin: 0;
+  }
+}
+
+@media (max-width: 990px) {
+
+}
+
+@media (max-width: 767px) {
+  .processq .btn-cyan,
+  .processq .btn-blue,
+  .processq .btn-orange {
+    margin-top: 10px;
+  }
+  .processq table .btn-cyan,
+  .processq table .btn-blue,
+  .processq table .btn-orange {
+    font-size: 11px;
+  }
+  .processq table .btn-cyan,
+  .navbar-nav {
+    margin: 0;
+  }
+  .navbar-default .navbar-collapse {
+    border: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-brand {
+    margin-left: 10px;
+  }
+  .ads {
+    display: none;
+  }
+  .ads-mobile {
+    display: block!important;
+  }
+  .filterwrap .btn {
+    padding-left: 0;
+  }
+  .filters {
+    margin-top: 0;
+  }
+  .filters .filterwrap {
+    margin-bottom: 15px;
+  }
+  .subnav .nav span {
+    display: block!important;
+    margin-bottom: 3px;
+  }
+  .subnav .nav-tabs>li>a {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+  }
+  .subnav .container {
+    padding: 0;
+  }
+  .navbar-nav {
+    margin: 0;
+  }
+  .processq #btn-call {
+    margin-top: 15px;
+  }
+  .processq .dropdown-menu {
+    width: 90%!important;
+  }
+  #moreq .nav-tabs>li.active>a:focus, 
+  #moreq .nav-tabs>li>a:hover, 
+  #moreq .nav-tabs>li.active>a, 
+  #moreq .nav-tabs>li.active>a:hover {
+    background-color: #ff8649;
+    color: #fff;
+  }
+}
