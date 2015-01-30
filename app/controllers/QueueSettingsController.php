@@ -35,4 +35,9 @@ class QueueSettingsController extends BaseController{
 
         return json_encode(['success' => 1, 'queue_settings' => $queue_settings]);
     }
+
+    public function getAssignterminal($terminal_id, $user_id){
+        TerminalManager::addToTerminal($user_id, $terminal_id);
+        return json_encode(['success' => 1]);
+    }
 }

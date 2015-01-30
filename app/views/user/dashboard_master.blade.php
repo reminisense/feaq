@@ -23,7 +23,6 @@
     {{ HTML::script('js/angular.js') }}
     {{ HTML::script('js/ngFeatherQ.js') }}
     {{ HTML::script('js/ngFacebook.js') }}
-    @yield('scripts')
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -84,6 +83,8 @@
 <script>
 new WOW().init();
 </script>
+    @yield('scripts') <!--ARA Best practice to add scripts at the bottom so that scripts could be loaded after the page has benn rendered -->
+
     @yield('modals')
 </body>
 </html>
