@@ -1,4 +1,6 @@
 var FeatherQ = FeatherQ || {
+    'ajax': {},
+
     'test': {},
     'facebook': {},
     'business': {},
@@ -135,7 +137,7 @@ FeatherQ.facebook = {
             FeatherQ.ajax.request('POST', '/fb/save-details', fbData, function(response) {
                 window.location.reload(true);
             }, function(response) {}, $http);
-            });
+        });
     }),
 
     'login': (function() {
