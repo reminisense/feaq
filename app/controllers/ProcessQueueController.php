@@ -19,6 +19,12 @@ class ProcessQueueController extends BaseController{
             ->with('terminal_id', $terminal_id);
     }
 
+    public function getTest($service_id, $terminal_id = null){
+        return View::make('process-queue.process-queue-copy')
+            ->with('service_id', $service_id)
+            ->with('terminal_id', $terminal_id);
+    }
+
     /*==============================
             Ajax functions
     ================================*/
