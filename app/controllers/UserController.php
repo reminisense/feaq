@@ -45,7 +45,24 @@ class UserController extends BaseController{
                 'success' => 0,
             ]);
         }
+    }
 
+    public function getUserDashboard(){
+        if (Auth::check())
+        {
+            $user_id = Auth::user()->user_id;
+            if (UserBusiness::getBusinessIdByOwner($user_id)){
+                $user_type = "business_user";
+            } else {
+                $user_type = "queue_user";
+            }
 
+            return View::make('user.dashboard')
+                ->with('user_type', $user_type);
+        }
+        else
+        {
+            return View::make('page-front');
+        }
     }
 }

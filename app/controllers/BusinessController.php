@@ -25,25 +25,46 @@ class BusinessController extends BaseController{
         $business->name = $business_data['business_name'];
         $business->local_address = $business_data['business_address'];
         $business->industry = $business_data['industry'];
-        $business->email = $business_data['email'];
 
-        $time_open = $business_data['time_open'];
-        $time_close = $business_data['time_close'];
+        $time_open_arr = $this->parseTime($business_data['time_open']);
+        $business->open_hour = $time_open_arr['hour'];
+        $business->open_minute = $time_open_arr['min'];
+        $business->open_ampm = $time_open_arr['ampm'];
 
-        return json_encode([
-            'time_open' => $time_open,
-            'time_open' => $time_close,
-        ]);
+        $time_close_arr = $this->parseTime($business_data['time_close']);
+        $business->close_hour = $time_close_arr['hour'];
+        $business->close_minute = $time_close_arr['min'];
+        $business->close_ampm = $time_close_arr['ampm'];
 
+        $business->queue_limit = $business_data['queue_limit'];
+        $business->num_terminals = $business_data['num_terminals'];
+        $business->save();
 
-        $time_open = $this->parseTime($time_open);
-        $time_close = $this->parseTime($time_close);
+        $business_user = new UserBusiness();
+        $business_user->user_id = $business_data['user_id'];
+        $business_user->business_id = $business->business_id;
+        $business_user->save();
 
-
+        if ($business->save()){
+            return json_encode([
+                'success' => 1,
+            ]);
+        } else {
+            return json_encode([
+                'success' => 0,
+            ]);
+        }
     }
 
     private function parseTime($time)
     {
+        $arr = explode(' ', $time);
+        $hourmin = explode(':', $arr[0]);
 
+        return [
+            'hour' => trim($hourmin[0]),
+            'min'  => trim($hourmin[1]),
+            'ampm' => trim($arr[1]),
+        ];
     }
 }
