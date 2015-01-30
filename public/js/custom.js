@@ -1,27 +1,37 @@
-$('a[href*=#]:not([href=#])').click(function() {
-    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') 
-        || location.hostname == this.hostname) {
+$(document).ready(function(){
+    $('#btn-bcast-details').click(function () {
+        if ( $( '.bcast-details' ).is( ':hidden' ) ) {
+            $('.bcast-details').slideDown( 'fast' );
+            $('#btn-bcast-details').html("BROADCAST <span class='glyphicon glyphicon-minus'></span>");
+        } else {
+            $( '.bcast-details' ).slideUp( 'slow' );
+            $('#btn-bcast-details').html("DETAILS <span class='glyphicon glyphicon-plus'></span>'");
+        }
+    });
 
-        var target = $(this.hash);
-    target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-    if (target.length) {
-       $('html,body').animate({
-           scrollTop: target.offset().top
-       }, 1000);
-       return false;
-   }
-}
+    $('.nav-tabs li').click( function () {
+        $('.nav-tabs li').removeClass('active');
+        $(this).addClass('active');
+        if ($(this).hasClass('biz')) {
+            $('.filters').slideUp('fast');
+            $('#my_businesses').css('display', 'block');
+            $('#search_business').css('display', 'none');
+        } else {
+            $('.filters').slideDown('fast');
+            $('#my_businesses').css('display', 'none');
+            $('#search_business').css('display', 'block');
+        }
+    });
 
-});
-jQuery(window).scroll(function() {
-  if (jQuery(document).scrollTop() > 50) {
-    jQuery('.navbar').addClass('shrink');
-} else {
-    jQuery('.navbar').removeClass('shrink');
-}
-if (jQuery(document).scrollTop() > 150) {
-    jQuery('#gotop').show();
-} else {
-    jQuery('#gotop').hide();
-}
+    $('.to-terminals').click( function () {
+        if ( $('.edit-biz').find( '.biz-terminals' ).is( ':hidden' ) ) {
+            $(this).parent().next().slideDown('fast');
+        } else {
+            $('.edit-biz').find('.biz-terminals').slideUp('fast');
+        }
+        return false;
+    });
+    $('html').click(function() {
+        $('.biz-terminals').slideUp('fast');
+    });
 });
