@@ -51,7 +51,7 @@
                 $scope.box6 = response.box6.number;
                 $scope.get_num = response.get_num;
             });
-        }, 300);
+        }, 1000);
 
         $scope.callNumberSound = function (soundobj) {
             var thissound = document.getElementById(soundobj);
