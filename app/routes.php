@@ -11,12 +11,11 @@
 |
 */
 
-Route::get('/', function()
-{
-	return _renderFrontView();
-});
+Route::get('/', 'UserController@getUserDashboard');
 
 Route::controller('fb', 'FBController');
+
+Route::controller('processqueue', 'ProcessQueueController');
 
 Route::controller('user', 'UserController');
 
@@ -28,14 +27,4 @@ Route::controller('issuenumber', 'IssueNumberController');
 
 Route::controller('queuesettings', 'QueueSettingsController');
 
-function _renderFrontView()
-{
-	if (Auth::check())
-	{
-		return View::make('user.dashboard');
-	}
-	else
-	{
-		return View::make('page-front');
-	}
-}
+Route::controller('business', 'BusinessController');

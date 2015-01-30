@@ -10,55 +10,59 @@ class UserController extends BaseController{
 
     /*
      * @author: CSD
-     * @description: verify user data page for first time fb login
+     * @description: check if user data is validated through verified user table row
      */
-    public function postVerify(){
-        $fb_id = Input::get('fb_id');
-        if (User::checkFBUser($fb_id)){
-            return Redirect::intended('/user/dashboard');
-        } else {
-            $user = [
-                'first_name'    => Input::get('first_name'),
-                'last_name'     => Input::get('last_name'),
-                'email'         => Input::get('email'),
-                'mobile'        => Input::get('mobile'),
-                'location'      => Input::get('location'),
-                'gender'        => Input::get('gender'),
-                'fb_id'         => Input::get('fb_id'),
-                'fb_url'        => Input::get('fb_url'),
-            ];
+    public function getUserStatus()
+    {
+        $user = Auth::user();
 
-            return View::make('user.verify')
-                ->with('user', $user);
-        }
+        return json_encode([
+            'success'   => 1,
+            'user'      => $user,
+        ]);
     }
-
     /*
-     * author: CSD
-     * @description: store user data from verify user page
+     * @author: CSD
+     * @description: verify data and update user details
      */
-    public function postStore(){
-        $userData = Input::all();
+    public function postVerifyUser(){
+        $userData = $_POST;
 
-        $user = new User();
+        $user = User::find($userData['user_id']);
         $user->first_name = $userData['first_name'];
         $user->last_name = $userData['last_name'];
         $user->email = $userData['email'];
         $user->phone = $userData['mobile'];
         $user->local_address = $userData['location'];
-        $user->sex = $userData['gender'];
-        $user->fb_id = $userData['fb_id'];
-        $user->fb_url = $userData['fb_url'];
-        $user->save();
+        $user->verified = 1;
 
-        return View::make('dashboard');
+        if ($user->save()){
+            return json_encode([
+                'success' => 1,
+            ]);
+        } else {
+            return json_encode([
+                'success' => 0,
+            ]);
+        }
     }
 
-    /*
-     * author: CSD
-     * @description: get dashboard page
-     */
-    public function getDashboard(){
-        return View::make('dashboard');
+    public function getUserDashboard(){
+        if (Auth::check())
+        {
+            $user_id = Auth::user()->user_id;
+            if (UserBusiness::getBusinessIdByOwner($user_id)){
+                $user_type = "business_user";
+            } else {
+                $user_type = "queue_user";
+            }
+
+            return View::make('user.dashboard')
+                ->with('user_type', $user_type);
+        }
+        else
+        {
+            return View::make('page-front');
+        }
     }
 }
