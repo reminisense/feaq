@@ -3,11 +3,14 @@
 @section('scripts')
     {{ HTML::script('js/dashboard/dashboard.js') }}
     {{ HTML::script('js/jquery.timepicker.min.js') }}
+    {{ HTML::script('js/intlTelInput.js') }}
+    {{ HTML::script('js/dashboard/jquery.validate.js') }}
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
 @stop
 
 @section('styles')
     {{ HTML::style('css/jquery.timepicker.min.css') }}
+    {{ HTML::style('css/intlTelInput.css') }}
 @stop
 
 @section('content')
@@ -131,30 +134,31 @@
           <div class="form-group row">
             <div class="col-md-12">
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6 has-warning">
                     <small>First Name</small>
-                    <input type="text" class=" form-control" id="first_name" name="first_name" value="" />
+                    <input type="text" class=" form-control" id="first_name" name="first_name" required />
                 </div>
                 <div class="col-md-6">
                     <small>Last Name</small>
-                    <input type="text" class=" form-control" id="last_name" name="last_name" value="" />
+                    <input type="text" class=" form-control" id="last_name" name="last_name" required />
                 </div>
               </div>
             </div>
             <div class="col-md-12">
                 <small>Email</small>
-                <input type="text" class=" form-control" id="email" name="email" value="" />
+                <input type="email" class=" form-control" id="email" name="email" required />
             </div>
             <div class="col-md-12">
                 <small>Mobile</small>
-                <input type="text" class=" form-control" id="mobile" name="mobile" value="" required=""/>
+                <input type="tel" class=" form-control" id="mobile" name="mobile" required/>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12" style="margin-top: 20px;">
                 <small>Location</small>
-                <input type="text" class=" form-control" id="user_location" name="location" autocomplete="off" value="" required=""/>
+                <input type="text" class=" form-control" id="user_location" name="location" autocomplete="off" required=""/>
             </div>
           </div>
         </form>
+        <div class="alert alert-danger" id="verifyError" style="display: none;"></div>
       </div>
       <div class="modal-footer">
         <button id="start_queuing" type="submit" class="btn btn-orange btn-lg">Start Queuing</button>
@@ -174,7 +178,7 @@
             <input type="hidden" class="user_id" name="user_id" value="" />
           <div class="form-group row">
             <div class="col-md-12">
-              <input type="text" class=" form-control" placeholder="Business Name" name="business_name">
+              <input type="text" class=" form-control" placeholder="Business Name" id="business_name" name="business_name">
             </div>
             <div class="col-md-12">
               <input type="text" class=" form-control" placeholder="Business Address" id="business_location" name="business_address">
@@ -182,18 +186,19 @@
             <div class="col-md-12">
               <div class="row">
                 <div class="col-md-6">
-                    <input type="text" name="time_open" placeholder="Time Open" class="timepicker form-control" />
+                    <input type="text" id="time_open" name="time_open" placeholder="Time Open" class="timepicker form-control" />
                     <span class="caret pull-right"></span>
                 </div>
                 <div class="col-md-6">
-                    <input type="text" name="time_close" placeholder="Time Close" class="timepicker form-control" />
+                    <input type="text" id="time_close" name="time_close" placeholder="Time Close" class="timepicker form-control" />
                     <span class="caret pull-right"></span>
                 </div>
               </div>
             </div>
             <div class="col-md-12">
               <div class="btn-group">
-                <select class="form-control" name="industry">
+                <select class="form-control" name="industry" id="industry">
+                  <option value="">Select Industry</option>
                   <option value="Pharmaceutical">Pharmaceutical</option>
                   <option value="Education">Education</option>
                   <option value="Medical">Medical</option>
@@ -202,10 +207,10 @@
               </div>
             </div>
             <div class="col-md-12 mt10">
-              <input type="text" class=" form-control" placeholder="Queue Number Limit" name="queue_limit">
+              <input type="text" class=" form-control" placeholder="Queue Number Limit" id="queue_limit" name="queue_limit">
             </div>
             <div class="col-md-12 mt10">
-              <select class="form-control" name="num_terminals">
+              <select class="form-control" name="num_terminals" id="num_terminals">
                 <option value="">Select Number of Terminals</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -214,6 +219,7 @@
             </div>
           </div>
         </form>
+        <div class="alert alert-danger" id="setupError" style="display: none;"></div>
       </div>
       <div class="modal-footer">
         <a id="skip_step_link" class="orange" style="margin-right: 140px;" href="/">Setup Business Later</a>
