@@ -13,16 +13,12 @@ class ProcessQueueController extends BaseController{
      * Renders process queue page
      * @param $service_id
      */
-    public function getService($service_id, $terminal_id = null){
+    public function getTerminal($terminal_id){
         return View::make('process-queue.process-queue')
-            ->with('service_id', $service_id)
-            ->with('terminal_id', $terminal_id);
-    }
-
-    public function getTest($service_id, $terminal_id = null){
-        return View::make('process-queue.process-queue-copy')
-            ->with('service_id', $service_id)
-            ->with('terminal_id', $terminal_id);
+            ->with('terminal_id', $terminal_id)
+            ->with('service_id', Terminal::serviceId($terminal_id))
+            ->with('terminal_name', Terminal::name($terminal_id))
+            ->with('business_name', Business::getBusinessNameByTerminalId($terminal_id));
     }
 
     /*==============================

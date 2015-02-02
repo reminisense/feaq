@@ -12,4 +12,12 @@ class Terminal extends Eloquent{
     protected $primaryKey = 'terminal_id';
     public $timestamps = false;
 
+    public static function name($terminal_id){
+        return Terminal::find($terminal_id)->name;
+    }
+
+    public static function serviceId($terminal_id){
+        return Terminal::find($terminal_id)->service_id;
+    }
+
 }

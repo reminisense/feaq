@@ -51,4 +51,16 @@ class Business extends Eloquent{
         return Business::where('business_id', '=', $business_id)->select(array('close_ampm'))->first()->close_ampm;
     }
 
+    /** functions to get the Business name **/
+    public static function getBusinessNameByTerminalId($terminal_id){
+        return Business::getBusinessNameByServiceId(Terminal::serviceId($terminal_id));
+    }
+
+    public static function getBusinessNameByServiceId($service_id){
+        return Business::getBusinessNameByBranchId(Service::branchId($service_id));
+    }
+
+    public static function getBusinessNameByBranchId($branch_id){
+        return Business::name(Branch::businessId($branch_id));
+    }
 }
