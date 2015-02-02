@@ -65,32 +65,37 @@
 
  <div class="row mt30">
     <div id="my_businesses" style="display: none;">
-        <div class="col-md-3">
-          <div class="boxed boxed-single edit-biz">
-            <div class="wrap">
-              <h3>Kublai Khan Ayala</h3>
-              <small>Parkmall, North Reclamation Area</small>
-              <a href="" class="to-terminals"><span class="glyphicon glyphicon-share-alt"></span> Process</a>
-              <button data-toggle="modal" data-target="#editBusiness" class="btn btn-nobg"><span class="glyphicon glyphicon-cog"></span></button>
-            </div>
-            <div class="biz-terminals">
-              <div class="clearfix">
-                <a href="#">
-                  <span class="glyphicon glyphicon-ok"></span>
-                  <small>terminal 1</small>
-                </a>
-                <a href="#" class="not-active">
-                  <span class="glyphicon glyphicon-ban-circle"></span>
-                  <small>terminal 2</small>
-                </a>
-                <a href="#" class="not-active">
-                  <span class="glyphicon glyphicon-ban-circle"></span>
-                  <small>terminal 3</small>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
+
+        @if(count($my_businesses) > 0)
+            @foreach($my_businesses as $business)
+                <div class="col-md-3">
+                  <div class="boxed boxed-single edit-biz">
+                    <div class="wrap">
+                      <h3>{{ $business->name }}</h3>
+                      <small>{{  $business->local_address }}</small>
+                      <a href="" class="to-terminals"><span class="glyphicon glyphicon-share-alt"></span> Process</a>
+                      <button data-toggle="modal" data-target="#editBusiness" class="btn btn-nobg"><span class="glyphicon glyphicon-cog"></span></button>
+                    </div>
+                    <div class="biz-terminals">
+                      <div class="clearfix">
+                        <a href="#">
+                          <span class="glyphicon glyphicon-ok"></span>
+                          <small>terminal 1</small>
+                        </a>
+                        <a href="#" class="not-active">
+                          <span class="glyphicon glyphicon-ban-circle"></span>
+                          <small>terminal 2</small>
+                        </a>
+                        <a href="#" class="not-active">
+                          <span class="glyphicon glyphicon-ban-circle"></span>
+                          <small>terminal 3</small>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            @endforeach
+        @endif
 
         <div class="col-md-3">
           <div class="boxed boxed-single to-modal" data-toggle="modal" id="add_business">
@@ -105,14 +110,27 @@
         <div class="col-md-12">
           <h5 class="mb30">POPULAR BUSINESSES</h5>
         </div>
+        @if(count($search_businesses) > 0)
+            @foreach($search_businesses as $business)
+                <div class="col-md-3">
+                  <div class="boxed boxed-single clickable">
+                    <div class="wrap">
+                      <h3>{{ $business->name }}</h3>
+                      <small>{{ $business->local_address }}</small>
+                    </div>
+                  </div>
+                </div>
+            @endforeach
+        @else
         <div class="col-md-3">
           <div class="boxed boxed-single clickable">
             <div class="wrap">
-              <h3>Kublai Khan Ayala</h3>
-              <small>Parkmall, North Reclamation Area</small>
+              <h3>No Available Businesses</h3>
+              <small></small>
             </div>
           </div>
         </div>
+        @endif
     </div>
 
  </div>

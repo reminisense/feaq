@@ -50,15 +50,18 @@ class UserController extends BaseController{
     public function getUserDashboard(){
         if (Auth::check())
         {
-            $user_id = Auth::user()->user_id;
-            if (UserBusiness::getBusinessIdByOwner($user_id)){
-                $user_type = "business_user";
-            } else {
-                $user_type = "queue_user";
+            $search_businesses = Business::all();
+            $business_ids = UserBusiness::getAllBusinessIdByOwner(Auth::user()->user_id);
+
+            $my_businesses = [];
+            foreach($business_ids as $b_id)
+            {
+                array_push($my_businesses, Business::find($b_id->business_id));
             }
 
             return View::make('user.dashboard')
-                ->with('user_type', $user_type);
+                ->with('search_businesses', $search_businesses)
+                ->with('my_businesses', $my_businesses);
         }
         else
         {
