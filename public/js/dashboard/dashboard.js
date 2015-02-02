@@ -132,7 +132,6 @@ $(document).ready(function(){
 
     $('#add_business').on('click', function(){
         $('#add_business_header').html('Add a Business');
-        $('#add_business_form').attr('action', '/business/add-business');
         $('#skip_step_link').remove();
         $('#setupBusiness').modal('show');
         $('#setupBusiness').prepend('<div class="modal-backdrop fade in" style="height: ' + $( window ).height() + 'px"></div>');

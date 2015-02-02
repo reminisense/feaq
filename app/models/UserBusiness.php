@@ -20,4 +20,8 @@ class UserBusiness extends Eloquent{
             return false;
         }
     }
+
+    public static function getAllBusinessIdByOwner($user_id){
+        return UserBusiness::where('user_id', '=', $user_id)->get();
+    }
 }
