@@ -17,10 +17,10 @@ class IssueNumberController extends BaseController{
         for($i = 1; $i <= $range; $i++){
             $number = ProcessQueue::issueNumber($service_id, null, $date);
             if($i == 1){
-                $first = $number['priority_number'] . ' ' . $number['confirmation_code'];
+                $first = $number['priority_number'];
             }
         }
-        $last = $number['priority_number'] . ' ' . $number['confirmation_code'];
+        $last = $number['priority_number'];
         return json_encode(['success' => 1, 'first_number' => $first, 'last_number' => $last,]);
     }
 

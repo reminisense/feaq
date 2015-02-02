@@ -144,6 +144,7 @@ class ProcessQueue extends Eloquent{
                         'priority_number' => $number->priority_number,
                         'confirmation_code' => $number->confirmation_code,
                         'terminal_id' => $number->terminal_id,
+                        'terminal_name' => $terminal_name,
                     );
                 }else if($called && !$served && $removed){
                     $processed_numbers[$number->transaction_number] = array(

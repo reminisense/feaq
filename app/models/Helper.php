@@ -36,5 +36,4 @@ class Helper extends Eloquent {
     public static function currentUserIsEither($roles = array()){
         return in_array(Helper::currentUserRoleId(), $roles);
     }
-
 }
