@@ -886,8 +886,9 @@ strong {
   background-color: #858689;
 }
 .btn-group.open .dropdown-toggle {
-  -webkit-box-shadow: inset 0 3px 5px rgba(0,0,0,.4);
-  box-shadow: inset 0 3px 5px rgba(0,0,0,.4);  
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .4);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .4);
+}
 
 .blur {
     -webkit-filter: blur(5px);
