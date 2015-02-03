@@ -901,7 +901,7 @@ strong {
 
 .ui-timepicker-container {
     z-index: 10000!important;
-    position: absolute;
+    overflow-y: scroll!important;
 }
 
 #mobile {

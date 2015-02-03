@@ -65,7 +65,6 @@
 
  <div class="row mt30">
     <div id="my_businesses" style="display: none;">
-
         @if(count($my_businesses) > 0)
             @foreach($my_businesses as $business)
                 <div class="col-md-3">
@@ -78,18 +77,12 @@
                     </div>
                     <div class="biz-terminals">
                       <div class="clearfix">
-                        <a href="#">
+                      @foreach($business->terminals as $terminal)
+                        <a href="#manterminal{{ $terminal->terminal_id }}">
                           <span class="glyphicon glyphicon-ok"></span>
-                          <small>terminal 1</small>
+                          <small>{{ $terminal->name; }}</small>
                         </a>
-                        <a href="#" class="not-active">
-                          <span class="glyphicon glyphicon-ban-circle"></span>
-                          <small>terminal 2</small>
-                        </a>
-                        <a href="#" class="not-active">
-                          <span class="glyphicon glyphicon-ban-circle"></span>
-                          <small>terminal 3</small>
-                        </a>
+                      @endforeach
                       </div>
                     </div>
                   </div>
@@ -205,11 +198,9 @@
               <div class="row">
                 <div class="col-md-6">
                     <input type="text" id="time_open" name="time_open" placeholder="Time Open" class="timepicker form-control" />
-                    <span class="caret pull-right"></span>
                 </div>
                 <div class="col-md-6">
                     <input type="text" id="time_close" name="time_close" placeholder="Time Close" class="timepicker form-control" />
-                    <span class="caret pull-right"></span>
                 </div>
               </div>
             </div>
@@ -225,15 +216,19 @@
               </div>
             </div>
             <div class="col-md-12 mt10">
-              <input type="text" class=" form-control" placeholder="Queue Number Limit" id="queue_limit" name="queue_limit">
-            </div>
-            <div class="col-md-12 mt10">
-              <select class="form-control" name="num_terminals" id="num_terminals">
-                <option value="">Select Number of Terminals</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-              </select>
+              <div class="row">
+                <div class="col-md-6">
+                  <input type="text" class=" form-control" placeholder="Queue Number Limit" id="queue_limit" name="queue_limit">
+                </div>
+                <div class="col-md-6">
+                  <select class="form-control" name="num_terminals" id="num_terminals">
+                    <option value="">Select Number of Terminals</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                  </select>
+                </div>
+              </div>
             </div>
           </div>
         </form>
