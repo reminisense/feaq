@@ -45,10 +45,6 @@ class Terminal extends Eloquent{
         return Terminal::find($terminal_id)->service_id;
     }
 
-    public static function getTerminalsByServiceId($service_id){
-        return Terminal::where('service_id', '=', $service_id)->get()->toArray();
-    }
-
     public static function getTerminalsByBranchId($branch_id){
         $services = Service::where('branch_id', '=', $branch_id)->get();
         $terminals = [];
