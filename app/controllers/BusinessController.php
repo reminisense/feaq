@@ -26,12 +26,12 @@ class BusinessController extends BaseController{
         $business->local_address = $business_data['business_address'];
         $business->industry = $business_data['industry'];
 
-        $time_open_arr = $this->parseTime($business_data['time_open']);
+        $time_open_arr = Helper::parseTime($business_data['time_open']);
         $business->open_hour = $time_open_arr['hour'];
         $business->open_minute = $time_open_arr['min'];
         $business->open_ampm = $time_open_arr['ampm'];
 
-        $time_close_arr = $this->parseTime($business_data['time_close']);
+        $time_close_arr = Helper::parseTime($business_data['time_close']);
         $business->close_hour = $time_close_arr['hour'];
         $business->close_minute = $time_close_arr['min'];
         $business->close_ampm = $time_close_arr['ampm'];
@@ -77,4 +77,10 @@ class BusinessController extends BaseController{
             'ampm' => trim($arr[1]),
         ];
     }
+
+    public function getBusinessdetails($business_id){
+        $business = Business::getBusinessDetails($business_id);
+        return json_encode(['success' => 1, 'business' => $business]);
+    }
+
 }

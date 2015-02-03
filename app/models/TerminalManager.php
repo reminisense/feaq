@@ -38,6 +38,12 @@ class TerminalManager extends Eloquent{
 
     public static function getAssignedUsers($terminal_id, $date = null ){
         //@todo implement function that gets the users that have hooked in but have not hooked out
+        return TerminalManager::where('terminal_id', '=', $terminal_id)
+            ->where('in_out', '=', 1)
+            ->join('user', 'user.user_id', '=', 'terminal_manager.user_id')
+            ->select('terminal_manager.*', 'user.first_name' , 'user.last_name')
+            ->get()
+            ->toArray();
     }
 
     public static function addToTerminal($user_id, $terminal_id){
@@ -53,11 +59,14 @@ class TerminalManager extends Eloquent{
     }
 
     public static function assignToTerminal($user_id, $terminal_id){
-        TerminalManager::addTerminalManager($user_id, $terminal_id, 1);
+        return TerminalManager::addTerminalManager($user_id, $terminal_id, 1);
     }
 
     public static function unassignFromTerminal($user_id, $terminal_id){
-        TerminalManager::addTerminalManager($user_id, $terminal_id, 0);
+        TerminalManager::where('user_id', '=', $user_id)
+            ->where('terminal_id', '=', $terminal_id)
+            ->where('in_out', '=', 1)
+            ->update(['in_out' => 0]);
     }
 
     public static function addTerminalManager($user_id, $terminal_id, $in_out = 1){
@@ -66,6 +75,6 @@ class TerminalManager extends Eloquent{
             'terminal_id' => $terminal_id,
             'in_out' => $in_out,
         ];
-        TerminalManager::insertGetId($values);
+        return TerminalManager::insertGetId($values);
     }
 }

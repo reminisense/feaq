@@ -24,4 +24,19 @@ class UserBusiness extends Eloquent{
     public static function getAllBusinessIdByOwner($user_id){
         return UserBusiness::where('user_id', '=', $user_id)->get();
     }
+
+    public static function getAllBusinessDetailsByOwner($user_id){
+        $businesses = [];
+        $user_businesses = UserBusiness::getAllBusinessIdByOwner($user_id);
+        foreach($user_businesses as $user_business){
+            $business = Business::find($user_business->business_id);
+            array_push($businesses, $business);
+        }
+
+        return $businesses;
+    }
+
+    public static function getMyBusinesses(){
+        return UserBusiness::getAllBusinessDetailsByOwner(Helper::userId());
+    }
 }
