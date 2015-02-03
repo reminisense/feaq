@@ -65,7 +65,6 @@
 
  <div class="row mt30">
     <div id="my_businesses" style="display: none;">
-
         @if(count($my_businesses) > 0)
             @foreach($my_businesses as $business)
                 <div class="col-md-3">
@@ -78,18 +77,12 @@
                     </div>
                     <div class="biz-terminals">
                       <div class="clearfix">
-                        <a href="#">
+                      @foreach($business->terminals as $terminal)
+                        <a href="#manterminal{{ $terminal->terminal_id }}">
                           <span class="glyphicon glyphicon-ok"></span>
-                          <small>terminal 1</small>
+                          <small>{{ $terminal->name; }}</small>
                         </a>
-                        <a href="#" class="not-active">
-                          <span class="glyphicon glyphicon-ban-circle"></span>
-                          <small>terminal 2</small>
-                        </a>
-                        <a href="#" class="not-active">
-                          <span class="glyphicon glyphicon-ban-circle"></span>
-                          <small>terminal 3</small>
-                        </a>
+                      @endforeach
                       </div>
                     </div>
                   </div>

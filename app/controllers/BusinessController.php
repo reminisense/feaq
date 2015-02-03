@@ -15,7 +15,7 @@ class BusinessController extends BaseController{
     /*
      * @author: CSD
      * @description: post business data from initial setup modal form
-     *
+     * @return success on successful business create
      */
     public function postSetupBusiness()
     {
@@ -45,6 +45,11 @@ class BusinessController extends BaseController{
         $business_user->business_id = $business->business_id;
         $business_user->save();
 
+        $branch_id = Branch::createBusinessBranch( $business->business_id, $business->name );
+        $service_id = Service::createBranchService( $branch_id, $business->name );
+
+        $terminals = Terminal::createBranchServiceTerminal($branch_id, $service_id, $business->num_terminals);
+
         if ($business->save()){
             return json_encode([
                 'success' => 1,
@@ -56,6 +61,11 @@ class BusinessController extends BaseController{
         }
     }
 
+    /*
+     * @author: CSD
+     * @description: parse time input for database field
+     * @return: associative array of time details (hour, min, ampm)
+     */
     private function parseTime($time)
     {
         $arr = explode(' ', $time);
