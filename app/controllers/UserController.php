@@ -51,13 +51,7 @@ class UserController extends BaseController{
         if (Auth::check())
         {
             $search_businesses = Business::all();
-            $business_ids = UserBusiness::getAllBusinessIdByOwner(Auth::user()->user_id);
-
-            $my_businesses = [];
-            foreach($business_ids as $b_id)
-            {
-                array_push($my_businesses, Business::find($b_id->business_id));
-            }
+            $my_businesses = UserBusiness::getMyBusinesses();
 
             return View::make('user.dashboard')
                 ->with('search_businesses', $search_businesses)

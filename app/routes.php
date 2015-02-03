@@ -28,3 +28,5 @@ Route::controller('issuenumber', 'IssueNumberController');
 Route::controller('queuesettings', 'QueueSettingsController');
 
 Route::controller('business', 'BusinessController');
+
+Route::controller('terminal', 'TerminalController');

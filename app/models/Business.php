@@ -63,4 +63,31 @@ class Business extends Eloquent{
     public static function getBusinessNameByBranchId($branch_id){
         return Business::name(Branch::businessId($branch_id));
     }
+
+    public static function getBusinessIdByTerminalId($terminal_id){
+        return Business::getBusinessIdByServiceId(Terminal::serviceId($terminal_id));
+    }
+
+    public static function getBusinessIdByServiceId($service_id){
+        return Branch::businessId(Service::branchId($service_id));
+    }
+
+    public static function getBusinessDetails($business_id){
+        $business = Business::find($business_id)->first();
+        $terminals = Terminal::getTerminalsByBusinessId($business_id);
+        $terminals = Terminal::getAssignedTerminalWithUsers($terminals);
+        $business_details = [
+            'business_id' => $business_id,
+            'business_name' => $business->name,
+            'business_address' => $business->local_address,
+            //'facebook_url' => $business->face,
+            'industry' => $business->industry,
+            'time_open' => Helper::mergeTime($business->open_hour, $business->open_minute, $business->open_ampm),
+            'time_closed' => Helper::mergeTime($business->close_hour, $business->close_minute, $business->close_ampm),
+            //'description' =>
+            'terminals' => $terminals
+        ];
+
+        return $business_details;
+    }
 }
