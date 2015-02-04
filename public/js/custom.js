@@ -1,5 +1,3 @@
-
-
 $(document).ready(function(){
     /*broadcast - more details*/
     $('#btn-bcast-details').click(function () {
@@ -26,30 +24,6 @@ $(document).ready(function(){
         }
     });
 
-    $('.to-terminals').click( function () {
-        if ( $('.edit-biz').find( '.biz-terminals' ).is( ':hidden' ) ) {
-            $(this).parent().next().slideDown('fast');
-        } else {
-            $('.edit-biz').find('.biz-terminals').slideUp('fast');
-        }
-        return false;
-    });
-    $('html').click(function() {
-        $('.biz-terminals').slideUp('fast');
-    });
-
-    /*business - show search bar*/
-    $('.nav-tabs li').click( function () {
-        $('.nav-tabs li').removeClass('active');
-        $(this).addClass('active');
-        if ($(this).hasClass('biz')) {
-            $('.filters').slideUp('fast');
-        } else {
-            $('.filters').slideDown('fast');
-        }
-    });
-
-    /*business - show terminals*/
     $('.to-terminals').click( function () {
         if ( $('.edit-biz').find( '.biz-terminals' ).is( ':hidden' ) ) {
             $(this).parent().next().slideDown('fast');
