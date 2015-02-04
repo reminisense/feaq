@@ -43,6 +43,38 @@ class BusinessController extends BaseController{
         $business_user = new UserBusiness();
         $business_user->user_id = $business_data['user_id'];
         $business_user->business_id = $business->business_id;
+
+        $contents = '
+            {
+              "box1": {
+                "number": "1",
+                "terminal": ""
+              },
+              "box2": {
+                "number": "2",
+                "terminal": ""
+              },
+              "box3": {
+                "number": "3",
+                "terminal": ""
+              },
+              "box4": {
+                "number": "4",
+                "terminal": ""
+              },
+              "box5": {
+                "number": "5",
+                "terminal": ""
+              },
+              "box6": {
+                "number": "6",
+                "terminal": ""
+              },
+              "get_num": "1"
+            }
+        ';
+
+        File::put(public_path() . '/json/' . $business->business_id . '.json', $contents);
         $business_user->save();
 
         $branch_id = Branch::createBusinessBranch( $business->business_id, $business->name );
