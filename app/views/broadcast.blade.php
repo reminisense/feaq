@@ -114,7 +114,7 @@
 
     <div class="row top-space-20">
         <div class="col-md-6 ads">
-            <img class="img-responsive mb30" src="/images/ads1.jpg" />
+            <img class="img-responsive mb30" src="/images/ads.jpg" />
         </div>
         <div class="col-md-6" ng-controller="nowServingCtrl">
             <audio id="call-number-sound" src="/audio/doorbell_x.wav" controls preload="auto" autobuffer style="display: none;"></audio>
@@ -203,9 +203,9 @@
                         <div class="col-md-7 getnum-info">
                             <div class="clearfix">
                                 <div class="pull-left">
-                                    <strong>Available Queue Number:</strong>
-                                    Approximately, your number
-                                    will be served <br><span>2hrs from now</span>
+                                    <strong>Next Available Number:</strong>
+                                    {{--Approximately, your number
+                                    will be served <br><span>2hrs from now</span>--}}
                                 </div>
                                 <div class="pull-right">
                                     @{{ get_num }}
@@ -217,7 +217,7 @@
                             <button class="btn btn-orange btn-getnum btn-disabled">
                                 GET THIS NUMBER <span class="glyphicon glyphicon-save"></span>
                             </button>
-                            <p class="text-center mt10 mb0">Coming Soon</p>
+                            <p class="text-center mt10 mb0">Coming Soon!</p>
                         </div>
                     </div>
                 </div>
