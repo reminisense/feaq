@@ -18,6 +18,7 @@ class Terminal extends Eloquent{
      * @return none
      */
     public static function createBranchServiceTerminal($branch_id, $service_id, $num){
+        $terminals = [];
         for($i = 1; $i <= $num; $i++){
             $terminal = new Terminal();
             $terminal->name = "Terminal " . $i;
@@ -25,7 +26,11 @@ class Terminal extends Eloquent{
             $terminal->status = 1;
 
             $terminal->save();
+
+            array_push($terminals, $terminal);
         }
+
+        return $terminals;
     }
 
     /*

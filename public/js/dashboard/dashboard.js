@@ -119,8 +119,9 @@ $(document).ready(function(){
                 dataType: 'text json',
                 data: $('#add_business_form').serialize(),
                 success: function(response){
+                    var terminal = response.terminals[0];
                     $('#setupBusiness').modal('hide');
-                    window.location.href = '/';
+                    window.location.href = "/processqueue/terminal/" + terminal.terminal_id;
                 }
             });
         } else {
