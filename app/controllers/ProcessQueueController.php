@@ -34,8 +34,6 @@ class ProcessQueueController extends BaseController{
         try{
             if(is_null(TerminalTransaction::find($transaction_number))){
                 return json_encode(['error' => 'You have called an invalid input.']);
-            }else if(Helper::currentUserIsEither([2]) && is_null(Terminal::find($terminal_id))){
-                return json_encode(['error' => 'Please choose a valid terminal.']);
             }
 
             $terminal_transaction = TerminalTransaction::find($transaction_number);
@@ -43,8 +41,7 @@ class ProcessQueueController extends BaseController{
             if($terminal_transaction->time_called != 0){
                 return json_encode(['error' => 'Number ' . $priority_queue->priority_number . ' has already been called. Please call another number.']);
             }else{
-                ProcessQueue::callTransactionNumber($transaction_number, Helper::userId(), $terminal_id);
-                return $this->getAllnumbers(PriorityNumber::serviceId($priority_queue->track_id));
+                return ProcessQueue::callTransactionNumber($transaction_number, Helper::userId(), $terminal_id);
             }
         }catch(Exception $e){
             return json_encode(['error' => $e->getMessage()]);

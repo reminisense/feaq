@@ -37,19 +37,12 @@ class ProcessQueue extends Eloquent{
 
     //calls a number based on its transaction number
     public static function callTransactionNumber($transaction_number, $user_id, $terminal_id = null){
-        if(Helper::currentUserIsEither([1, 2, 6])){ //for business user and master admins
-            if(is_numeric($terminal_id)){
-                $login_id = TerminalManager::hookedTerminal($terminal_id) ? TerminalManager::getLatestLoginIdOfTerminal($terminal_id) : 0;
-                TerminalTransaction::updateTransactionTimeCalled($transaction_number, $login_id, null, $terminal_id);
-            }else{
-                throw new Exception('Please assign a terminal.');
-            }
-        }else if(Helper::currentUserIsEither([4])){ //for terminal admin
-            $login_id = TerminalManager::getTerminalManagerLoginId($user_id);
-            $terminal_id = TerminalManager::getAssignedTerminal($user_id);
+        if(is_numeric($terminal_id)){
+            $login_id = TerminalManager::hookedTerminal($terminal_id) ? TerminalManager::getLatestLoginIdOfTerminal($terminal_id) : 0;
             TerminalTransaction::updateTransactionTimeCalled($transaction_number, $login_id, null, $terminal_id);
+            return json_encode(['success' => 1, 'numbers' => ProcessQueue::allNumbers(Terminal::serviceId($terminal_id))]);
         }else{
-            throw new Exception('You are not allowed to call a number.');
+            return json_encode(['error' => 'Please assign a terminal.']);
         }
     }
 
@@ -67,13 +60,6 @@ class ProcessQueue extends Eloquent{
             $terminal_name = '';
         }
 
-        $login_id = $transaction->login_id;
-        if(Helper::currentUserIsEither([4]) && (!TerminalManager::checkLoginIdIsUser(Helper::userId(), $login_id) || TerminalManager::getAssignedTerminal(Helper::userId()) != $terminal_id)){
-            return json_encode(array('error' => 'Access Denied'));
-        }else if (Helper::currentUserIsEither([2, 6]) && UserBusiness::getBusinessIdByOwner(Helper::userId()) != Branch::businessId($priority_number->branch_id)) {
-            return json_encode(array('error' => 'Access Denied'));
-        }
-
         if($transaction->time_removed == 0 && $transaction->time_completed == 0){
             if($process == 'serve'){
                 TerminalTransaction::updateTransactionTimeCompleted($transaction_number);
@@ -83,11 +69,6 @@ class ProcessQueue extends Eloquent{
         }else{
             return json_encode(array('error' => 'Number ' . $pnumber . ' has already been processed. If the number still exists, please reload the page.'));
         }
-
-//        if(PriorityQueue::getQueueSettingRepeatIssue($priority_number->service_id)){
-//            $pc = new PriorityController();
-//            $pc->getIssuenumber($priority_number->service_id, Service::branchId($priority_number->service_id), $pnumber);
-//        }
 
         return json_encode(array(
             'success' => 1,
