@@ -178,6 +178,7 @@
             </div>
         </div>
     </div>
+    <a href="#0" class="cd-top"><span class="glyphicon glyphicon-chevron-up"></span></a>
 </div>
 
 @stop
