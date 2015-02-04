@@ -62,6 +62,7 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-orange btn-lg" data-dismiss="modal" aria-label="Close">CLOSE</button>
                 <button id="issue-specific-submit" type="button" class="issue-submit-btn btn btn-orange btn-lg" ng-click="issueSpecific(priority_number, name, phone, email)">SUBMIT</button>
                 <button id="issue-multiple-submit" type="button" class="issue-submit-btn btn btn-orange btn-lg" ng-click="issueMultiple(range)" style="display: none">SUBMIT</button>
             </div>
