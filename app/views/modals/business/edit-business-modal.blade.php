@@ -18,29 +18,29 @@
                                     <h5>BUSINESS DETAILS
                                     </h5>
                                     <small>Business Name</small>
-                                    <input type="text" class=" form-control" placeholder="@{{ business_name }}" id="business-name">
+                                    <input type="text" class=" form-control" value="@{{ business_name }}" ng-model="business_name">
                                 </div>
                                 <div class="col-md-12">
                                     <small>Business Address</small>
-                                    <input type="text" class=" form-control" placeholder="@{{ business_address }}" id="business-name">
+                                    <input type="text" class=" form-control" value="@{{ business_address }}" ng-model="business_address">
                                 </div>
                                 <div class="col-md-12">
                                     <small>Facebook URL</small>
-                                    <input type="text" class=" form-control" placeholder="@{{ facebook_url }}" id="business-name">
+                                    <input type="text" class=" form-control" value="@{{ facebook_url }}" ng-model="facebook_url">
                                 </div>
                                 <div class="col-md-12">
                                     <small>Industry</small>
-                                    <input type="text" class=" form-control" placeholder="@{{ industry }}" id="business-name">
+                                    <input type="text" class=" form-control" value="@{{ industry }}" ng-model="industry">
                                 </div>
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <small>Time Open</small>
-                                            <input type="text" class=" form-control" placeholder="08:00 am" id="time-open">
+                                            <input type="text" class=" form-control" value="08:00 am" ng-model="time_open">
                                         </div>
                                         <div class="col-md-6">
                                             <small>Time Close</small>
-                                            <input type="text" class=" form-control" placeholder="10:00 pm" id="time-close">
+                                            <input type="text" class=" form-control" value="10:00 pm" ng-model="time_close">
                                         </div>
                                     </div>
                                 </div>
@@ -161,7 +161,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-orange btn-lg">SUBMIT</button>
+                <button type="button" id="edit_business" class="btn btn-orange btn-lg" ng-click="saveBusinessDetails()">SUBMIT</button>
             </div>
         </div>
     </div>

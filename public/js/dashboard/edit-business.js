@@ -48,7 +48,6 @@ var eb = {
                 scope.business_id = business_id;
             })
         }
-
     }
 };
 
@@ -85,6 +84,7 @@ var eb = {
             $scope.business_id = business.business_id;
             $scope.business_name = business.business_name;
             $scope.business_address = business.business_address;
+            $scope.facebook_url = business.facebook_url;
             $scope.industry = business.industry;
             $scope.time_open = business.time_open;
             $scope.time_closed = business.time_closed;
@@ -102,6 +102,27 @@ var eb = {
 
         $scope.assignToTerminal = function(fb_id, terminal_id){
             $http.get('terminal/assign/' + fb_id + '/' + terminal_id)
+                .success(function(response){
+                    setBusinessFields(response.business);
+                });
+        }
+
+        /*
+         * @author: CSD
+         * @description: post edit business form
+         */
+        $scope.saveBusinessDetails = function(business){
+            var data = {
+                business_id : $scope.business_id,
+                business_name: $scope.business_name,
+                business_address: $scope.business_address,
+                facebook_url: $scope.facebook_url,
+                industry: $scope.industry,
+                time_open: $scope.time_open,
+                time_close: $scope.time_closed
+            }
+            console.log(data);
+            $http.post('/business/edit-business', data)
                 .success(function(response){
                     setBusinessFields(response.business);
                 });

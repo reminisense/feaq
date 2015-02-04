@@ -95,6 +95,37 @@ class BusinessController extends BaseController{
 
     /*
      * @author: CSD
+     * @description: post edit business details
+     * @return updated business row
+     */
+    public function postEditBusiness(){
+        $business_data = Input::all();
+        $business = Business::find($business_data['business_id']);
+
+        $business->name = $business_data['business_name'];
+        $business->local_address = $business_data['business_address'];
+        $business->industry = $business_data['industry'];
+
+        $time_open_arr = Helper::parseTime($business_data['time_open']);
+        $business->open_hour = $time_open_arr['hour'];
+        $business->open_minute = $time_open_arr['min'];
+        $business->open_ampm = $time_open_arr['ampm'];
+
+        $time_close_arr = Helper::parseTime($business_data['time_close']);
+        $business->close_hour = $time_close_arr['hour'];
+        $business->close_minute = $time_close_arr['min'];
+        $business->close_ampm = $time_close_arr['ampm'];
+
+        $business->save();
+
+        return json_encode([
+            'success' => 1,
+            'business' => $business
+            ]);
+    }
+
+    /*
+     * @author: CSD
      * @description: parse time input for database field
      * @return: associative array of time details (hour, min, ampm)
      */
