@@ -18,8 +18,11 @@ $(document).ready(function(){
     $('body').on('click', '.btn-adduser', function(e){
         e.preventDefault();
         $(this).next('.inputuser').show();
+        $(this).next('.inputuser').next('ul').show();
         $(this).hide();
     });
+
+    eb.jquery_functions.load_users();
 });
 
 var eb = {
@@ -47,7 +50,15 @@ var eb = {
             scope.$apply(function(){
                 scope.business_id = business_id;
             })
+        },
+
+        load_users : function(){
+            var scope = angular.element($("#editBusiness")).scope();
+            scope.$apply(function(){
+                scope.getUsers();
+            })
         }
+
     }
 };
 
@@ -64,6 +75,7 @@ var eb = {
         $scope.time_closed = null;
 
         $scope.terminals = [];
+        $scope.users = [];
 
         $scope.number_start = 1;
         $scope.number_limit = 99;
@@ -72,6 +84,13 @@ var eb = {
         $scope.allow_remote = 0;
         //$scope.remote_limit = 0;
         //$scope.repeat_issue = 0;
+
+        $scope.getUsers = function(){
+            $http.get('/user/userlist')
+                .success(function(response){
+                    $scope.users = response.users;
+                });
+        }
 
         $scope.getBusinessDetails = function(){
             $http.get(eb.urls.business.business_details_url + $scope.business_id)
@@ -100,8 +119,8 @@ var eb = {
                 });
         }
 
-        $scope.assignToTerminal = function(fb_id, terminal_id){
-            $http.get('terminal/assign/' + fb_id + '/' + terminal_id)
+        $scope.assignToTerminal = function(user_id, terminal_id){
+            $http.get('terminal/assign/' + user_id + '/' + terminal_id)
                 .success(function(response){
                     setBusinessFields(response.business);
                 });

@@ -87,4 +87,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return User::where('fb_id', '=', $fb_id)->select(array('user_id'))->first()->user_id;
 	}
 
+    public static function getAllUsers(){
+        return User::where('verified', '=', 1)
+            ->where('first_name', '!=', '' )
+            ->where('last_name', '!=', '' )
+            ->select('user_id', 'first_name', 'last_name')
+            ->get()
+            ->toArray();
+    }
+
 }

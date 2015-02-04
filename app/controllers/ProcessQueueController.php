@@ -14,6 +14,9 @@ class ProcessQueueController extends BaseController{
      * @param $service_id
      */
     public function getTerminal($terminal_id){
+        if(!TerminalUser::isCurrentUserAssignedToTerminal($terminal_id)){
+            return Redirect::back();
+        }
         return View::make('process-queue.process-queue')
             ->with('terminal_id', $terminal_id)
             ->with('service_id', Terminal::serviceId($terminal_id))

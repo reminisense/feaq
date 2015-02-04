@@ -125,23 +125,6 @@ class BusinessController extends BaseController{
             ]);
     }
 
-    /*
-     * @author: CSD
-     * @description: parse time input for database field
-     * @return: associative array of time details (hour, min, ampm)
-     */
-    private function parseTime($time)
-    {
-        $arr = explode(' ', $time);
-        $hourmin = explode(':', $arr[0]);
-
-        return [
-            'hour' => trim($hourmin[0]),
-            'min'  => trim($hourmin[1]),
-            'ampm' => trim($arr[1]),
-        ];
-    }
-
     public function getBusinessdetails($business_id){
         $business = Business::getBusinessDetails($business_id);
         return json_encode(['success' => 1, 'business' => $business]);

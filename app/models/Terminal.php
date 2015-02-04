@@ -46,7 +46,7 @@ class Terminal extends Eloquent{
      * @return: terminal array by service id
      */
     public static function getTerminalsByServiceId($service_id){
-        return Terminal::where('service_id', '=', $service_id)->get();
+        return Terminal::where('service_id', '=', $service_id)->get()->toArray();
     }
 
     public static function name($terminal_id){
@@ -83,7 +83,7 @@ class Terminal extends Eloquent{
 
     public static function getAssignedTerminalWithUsers($terminals){
         foreach($terminals as $index => $terminal){
-            $terminals[$index]['users'] = TerminalManager::getAssignedUsers($terminal['terminal_id']);
+            $terminals[$index]['users'] = TerminalUser::getAssignedUsers($terminal['terminal_id']);
         }
         return $terminals;
     }
