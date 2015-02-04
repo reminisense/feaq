@@ -233,7 +233,7 @@
         </div>
     </div>
 
-    <div class="row">
+    {{--<div class="row">
         <div class="col-md-3">
             <div class="boxed boxed-single clickable">
                 <div class="wrap">
@@ -298,7 +298,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--}}
 
 </div>
 <div class="footer">
