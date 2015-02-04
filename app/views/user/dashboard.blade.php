@@ -134,6 +134,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="add_business_cloase" style="display: none;"><span aria-hidden="true">&times;</span></button>
         <h3 class="modal-title" id="add_business_header">Setup your Business</h3>
       </div>
       <div class="modal-body">

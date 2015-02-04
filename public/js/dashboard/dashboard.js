@@ -135,6 +135,7 @@ $(document).ready(function(){
         $('#skip_step_link').remove();
         $('#setupBusiness').modal('show');
         $('#setupBusiness').prepend('<div class="modal-backdrop fade in" style="height: ' + $( window ).height() + 'px"></div>');
+        $('#add_business_cloase').css('display', 'block');
     });
 
     $("#mobile").intlTelInput();

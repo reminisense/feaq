@@ -73,14 +73,14 @@ class Business extends Eloquent{
     }
 
     public static function getBusinessDetails($business_id){
-        $business = Business::find($business_id)->first();
+        $business = Business::where('business_id', '=', $business_id)->get()->first();
         $terminals = Terminal::getTerminalsByBusinessId($business_id);
         $terminals = Terminal::getAssignedTerminalWithUsers($terminals);
         $business_details = [
             'business_id' => $business_id,
             'business_name' => $business->name,
             'business_address' => $business->local_address,
-            //'facebook_url' => $business->face,
+            'facebook_url' => $business->fb_url,
             'industry' => $business->industry,
             'time_open' => Helper::mergeTime($business->open_hour, $business->open_minute, $business->open_ampm),
             'time_closed' => Helper::mergeTime($business->close_hour, $business->close_minute, $business->close_ampm),

@@ -45,7 +45,7 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hello Rodeldo! <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hello {{Auth::user()->first_name}}! <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="#">Action</a></li>
                         <li><a href="#">Another action</a></li>
@@ -122,7 +122,7 @@
                 <div class="head head-wbtn">
                     <h3>{{ $business_name }}</h3>
                     <small>{{ $local_address }}</small>
-                    <a class="btn btn-half btn-blue" id="btn-bcast-details"> <span class="glyphicon glyphicon-plus"></span></a>
+                    <a class="btn btn-half btn-blue" id="btn-bcast-details">DETAILS <span class="glyphicon glyphicon-plus"></span></a>
                 </div>
                 <div class="body broadcast body-gradient">
                     @{{ numbers() }}
