@@ -17,7 +17,7 @@ class Terminal extends Eloquent{
      * @description: create terminal on business creation/setup
      * @return none
      */
-    public static function createBranchServiceTerminal($branch_id, $service_id, $num){
+    public static function createBranchServiceTerminal($user_id, $service_id, $num){
         $terminals = [];
         for($i = 1; $i <= $num; $i++){
             $terminal = new Terminal();
@@ -26,6 +26,13 @@ class Terminal extends Eloquent{
             $terminal->status = 1;
 
             $terminal->save();
+
+            $terminaluser = new TerminalUser();
+            $terminaluser->user_id = $user_id;
+            $terminaluser->terminal_id = $terminal->terminal_id;
+            $terminaluser->status = 1;
+            $terminaluser->date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+            $terminaluser->save();
 
             array_push($terminals, $terminal);
         }

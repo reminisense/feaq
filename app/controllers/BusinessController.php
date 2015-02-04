@@ -80,7 +80,7 @@ class BusinessController extends BaseController{
         $branch_id = Branch::createBusinessBranch( $business->business_id, $business->name );
         $service_id = Service::createBranchService( $branch_id, $business->name );
 
-        $terminals = Terminal::createBranchServiceTerminal($branch_id, $service_id, $business->num_terminals);
+        $terminals = Terminal::createBranchServiceTerminal(Auth::user()->user_id, $service_id, $business->num_terminals);
 
         if ($business->save()){
             return json_encode([
