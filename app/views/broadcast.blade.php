@@ -114,7 +114,7 @@
 
     <div class="row top-space-20">
         <div class="col-md-6 ads">
-            <img class="img-responsive mb30" src="/images/ads.jpg" />
+            <img class="img-responsive mb30" src="/images/ads1.jpg" />
         </div>
         <div class="col-md-6" ng-controller="nowServingCtrl">
             <audio id="call-number-sound" src="/audio/doorbell_x.wav" controls preload="auto" autobuffer style="display: none;"></audio>
@@ -214,9 +214,10 @@
                             </div>
                         </div>
                         <div class="col-md-5">
-                            <button class="btn btn-orange btn-getnum">
+                            <button class="btn btn-orange btn-getnum btn-disabled">
                                 GET THIS NUMBER <span class="glyphicon glyphicon-save"></span>
                             </button>
+                            <p class="text-center mt10 mb0">Coming Soon</p>
                         </div>
                     </div>
                 </div>

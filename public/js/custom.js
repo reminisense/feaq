@@ -1,16 +1,16 @@
-$(document).ready(function(){
+$(document).ready(function() {
     /*broadcast - more details*/
     $('#btn-bcast-details').click(function () {
-        if ( $( '.bcast-details' ).is( ':hidden' ) ) {
-            $('.bcast-details').slideDown( 'fast' );
+        if ($('.bcast-details').is(':hidden')) {
+            $('.bcast-details').slideDown('fast');
             $('#btn-bcast-details').html("BROADCAST <span class='glyphicon glyphicon-minus'></span>");
         } else {
-            $( '.bcast-details' ).slideUp( 'slow' );
+            $('.bcast-details').slideUp('slow');
             $('#btn-bcast-details').html("DETAILS <span class='glyphicon glyphicon-plus'></span>");
         }
     });
 
-    $('.nav-tabs li').click( function () {
+    $('.nav-tabs li').click(function () {
         $('.nav-tabs li').removeClass('active');
         $(this).addClass('active');
         if ($(this).hasClass('biz')) {
@@ -24,15 +24,15 @@ $(document).ready(function(){
         }
     });
 
-    $('.to-terminals').click( function () {
-        if ( $('.edit-biz').find( '.biz-terminals' ).is( ':hidden' ) ) {
+    $('.to-terminals').click(function () {
+        if ($('.edit-biz').find('.biz-terminals').is(':hidden')) {
             $(this).parent().next().slideDown('fast');
         } else {
             $('.edit-biz').find('.biz-terminals').slideUp('fast');
         }
         return false;
     });
-    $('html').click(function() {
+    $('html').click(function () {
         $('.biz-terminals').slideUp('fast');
     });
 

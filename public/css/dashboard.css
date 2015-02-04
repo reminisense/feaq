@@ -912,6 +912,20 @@ strong {
 .clickable a:hover {
     text-decoration: none;
 }
+/* RBM */
+.btn-disabled {
+    background-color: #bbb;
+    cursor: default;
+}
+.btn-disabled:hover {
+    background-color: #bbb;
+}
+.btn-disabled:focus,
+.btn-disabled:active:focus {
+    margin: 0!important;
+    outline: 0;
+}
+
 
 .top-space-20 {
     padding-top: 20px;
