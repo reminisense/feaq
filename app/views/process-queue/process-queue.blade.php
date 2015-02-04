@@ -6,56 +6,6 @@
 @stop
 
 @section('content')
-<div class="container main-wrap">
-    <div class="row filters">
-        <div class="col-md-5 col-md-offset-1">
-            <div class="filterwrap">
-                <span>FILTER:</span>
-                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                    <div class="btn-group" role="group">
-                        <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            Location
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupDrop1">
-                            <li><a href="#">Dropdown link</a></li>
-                            <li><a href="#">Dropdown link</a></li>
-                        </ul>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            Industry Type
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupDrop1">
-                            <li><a href="#">Dropdown 2</a></li>
-                            <li><a href="#">Dropdown 2</a></li>
-                        </ul>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            Time Open
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupDrop1">
-                            <li><a href="#">Dropdown 3</a></li>
-                            <li><a href="#">Dropdown 3</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="searchblock">
-                <form>
-                    <input type="text" placeholder="Search a Business">
-                    <button type="button" class="btn btn-orange btn-md">SEARCH</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-
     <!-- Process queue main -->
     <div class="row " ng-controller="processqueueController">
         <div class="col-md-12">
@@ -141,83 +91,10 @@
 
 <input type="hidden" id="issue-multiple-url" value="{{ url('/issuenumber/multiple/') }}">
 <input type="hidden" id="issue-specific-url" value="{{ url('/issuenumber/insertspecific/') }}">
-
-<input type="hidden" id="queue-settings-get-url" value="{{ url('/queuesettings/allvalues/') }}">
-<input type="hidden" id="queue-settings-update-url" value="{{ url('/queuesettings/update/') }}">
 <!-- end urls -->
 <!-- end process queue main -->
 @stop
 
 @section('modals')
-<!-- modal -->
-<div class="modal fade" id="moreq" tabindex="-1" ng-controller="issuenumberController">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h3 class="modal-title" id="myModalLabel">Insert Queue</h3>
-            </div>
-            <div class="modal-body">
-                <ul id="pmore-tab" class="nav nav-tabs nav-justified">
-                    <li class="active"><a data-submit="#issue-specific-submit" href="#insertq" data-toggle="tab">INSERT TO QUEUE</a></li>
-                    <li><a data-submit="#issue-multiple-submit" href="#multipleq" data-toggle="tab" >ISSUE MULTIPLE</a></li>
-                </ul>
-                <div class="clearfix tab-content">
-                    <div class="tab-pane fade active in" id="insertq">
-                        <form class="navbar-form navbar-left">
-                            <div class="form-group row">
-                                <div class="col-md-4">
-                                    <label><strong>Specific #</strong></label>
-                                </div>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="priority_number">
-                                </div>
-                                <div class="col-md-4">
-                                    <label>Name</label>
-                                </div>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="name">
-                                </div>
-                                <div class="col-md-4">
-                                    <label>Cellphone</label>
-                                </div>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="phone">
-                                </div>
-                                <div class="col-md-4">
-                                    <label>Email</label>
-                                </div>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="email">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="tab-pane fade" id="multipleq" aria-labelledby="profile-tab">
-                        <form class="navbar-form navbar-left">
-                            <div class="form-group row">
-                                <div class="col-md-4">
-                                    <label><strong>Amount</strong></label>
-                                </div>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="range">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="alert alert-success" style="display: none" role="alert" id="issue-number-success">
-                    <div><strong class="message"></strong></div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button id="issue-specific-submit" type="button" class="issue-submit-btn btn btn-orange btn-lg" ng-click="issueSpecific(priority_number, name, phone, email)">SUBMIT</button>
-                <button id="issue-multiple-submit" type="button" class="issue-submit-btn btn btn-orange btn-lg" ng-click="issueMultiple(range)" style="display: none">SUBMIT</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--eo modal-->
+    @include('modals.process-queue.issue-number-modal')
 @stop

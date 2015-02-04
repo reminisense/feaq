@@ -901,11 +901,20 @@ strong {
 
 .ui-timepicker-container {
     z-index: 10000!important;
-    position: absolute;
+    overflow-y: scroll!important;
 }
 
 #mobile {
     margin-left: 12px;
+}
+
+/* RDH Removes underlines from the business card details */
+.clickable a:hover {
+    text-decoration: none;
+}
+
+.top-space-20 {
+    padding-top: 20px;
 }
 
 /*******************/

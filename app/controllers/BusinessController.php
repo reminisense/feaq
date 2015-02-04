@@ -15,7 +15,7 @@ class BusinessController extends BaseController{
     /*
      * @author: CSD
      * @description: post business data from initial setup modal form
-     *
+     * @return success on successful business create
      */
     public function postSetupBusiness()
     {
@@ -26,12 +26,12 @@ class BusinessController extends BaseController{
         $business->local_address = $business_data['business_address'];
         $business->industry = $business_data['industry'];
 
-        $time_open_arr = $this->parseTime($business_data['time_open']);
+        $time_open_arr = Helper::parseTime($business_data['time_open']);
         $business->open_hour = $time_open_arr['hour'];
         $business->open_minute = $time_open_arr['min'];
         $business->open_ampm = $time_open_arr['ampm'];
 
-        $time_close_arr = $this->parseTime($business_data['time_close']);
+        $time_close_arr = Helper::parseTime($business_data['time_close']);
         $business->close_hour = $time_close_arr['hour'];
         $business->close_minute = $time_close_arr['min'];
         $business->close_ampm = $time_close_arr['ampm'];
@@ -45,6 +45,11 @@ class BusinessController extends BaseController{
         $business_user->business_id = $business->business_id;
         $business_user->save();
 
+        $branch_id = Branch::createBusinessBranch( $business->business_id, $business->name );
+        $service_id = Service::createBranchService( $branch_id, $business->name );
+
+        $terminals = Terminal::createBranchServiceTerminal($branch_id, $service_id, $business->num_terminals);
+
         if ($business->save()){
             return json_encode([
                 'success' => 1,
@@ -56,6 +61,11 @@ class BusinessController extends BaseController{
         }
     }
 
+    /*
+     * @author: CSD
+     * @description: parse time input for database field
+     * @return: associative array of time details (hour, min, ampm)
+     */
     private function parseTime($time)
     {
         $arr = explode(' ', $time);
@@ -67,4 +77,10 @@ class BusinessController extends BaseController{
             'ampm' => trim($arr[1]),
         ];
     }
+
+    public function getBusinessdetails($business_id){
+        $business = Business::getBusinessDetails($business_id);
+        return json_encode(['success' => 1, 'business' => $business]);
+    }
+
 }

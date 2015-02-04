@@ -49,7 +49,9 @@
                 $scope.box4 = response.box4.number;
                 $scope.box5 = response.box5.number;
                 $scope.box6 = response.box6.number;
-                $scope.get_num = response.get_num;
+
+                /* RDH Checks if empty, show '-' if yes*/
+                $scope.get_num = (response.get_num === "") ? "-": response.get_num;
             });
         }, 1000);
 

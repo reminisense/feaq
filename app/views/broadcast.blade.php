@@ -38,7 +38,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><img src="/images/featherq-home-logo.png"></a>
+            <a class="navbar-brand" href="{{URL::to('/')}}"> {{--RDH Added link to homepage--}}
+                <img src="/images/featherq-home-logo.png">
+            </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -62,7 +64,7 @@
 
 
 <div class="container main-wrap">
-    <div class="row filters">
+    <div class="row filters hidden">
         <div class="col-md-5 col-md-offset-1">
             <div class="filterwrap">
                 <span>FILTER:</span>
@@ -110,7 +112,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row top-space-20">
         <div class="col-md-6 ads">
             <img class="img-responsive mb30" src="/images/ads.jpg" />
         </div>
@@ -231,7 +233,7 @@
         </div>
     </div>
 
-    <div class="row">
+    {{--<div class="row">
         <div class="col-md-3">
             <div class="boxed boxed-single clickable">
                 <div class="wrap">
@@ -296,7 +298,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--}}
 
 </div>
 <div class="footer">

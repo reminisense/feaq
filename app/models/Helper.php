@@ -18,7 +18,7 @@ class Helper extends Eloquent {
      * @return mixed
      */
     public static function userId(){
-        return 1; //Auth::user()->user_id;
+        return Auth::user()->user_id;
     }
 
     /**
@@ -35,5 +35,24 @@ class Helper extends Eloquent {
      */
     public static function currentUserIsEither($roles = array()){
         return in_array(Helper::currentUserRoleId(), $roles);
+    }
+
+    public static function parseTime($time){
+        $arr = explode(' ', $time);
+        $hourmin = explode(':', $arr[0]);
+
+        return [
+            'hour' => trim($hourmin[0]),
+            'min'  => trim($hourmin[1]),
+            'ampm' => trim($arr[1]),
+        ];
+    }
+
+    public static function mergeTime($hour, $min, $ampm){
+        return Helper::doubleZero($hour).':'.Helper::doubleZero($min).' '.$ampm;
+    }
+
+    public static function doubleZero($number){
+        return $number == 0 ? '00' : $number;
     }
 }

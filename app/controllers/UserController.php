@@ -21,6 +21,7 @@ class UserController extends BaseController{
             'user'      => $user,
         ]);
     }
+
     /*
      * @author: CSD
      * @description: verify data and update user details
@@ -47,6 +48,10 @@ class UserController extends BaseController{
         }
     }
 
+    /*
+     * @author: CSD
+     * @description: render dashboard, fetch all businesses for default search view, and businesses created by logged in user
+     */
     public function getUserDashboard(){
         if (Auth::check())
         {
@@ -56,7 +61,7 @@ class UserController extends BaseController{
             $my_businesses = [];
             foreach($business_ids as $b_id)
             {
-                array_push($my_businesses, Business::find($b_id->business_id));
+                array_push($my_businesses, Business::getBusinessArray($b_id->business_id));
             }
 
             return View::make('user.dashboard')

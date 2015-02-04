@@ -6,6 +6,7 @@
 $(document).ready(function(){
     pq.jquery_functions.load_switch_tabs();
     pq.jquery_functions.load_select_number();
+    pq.jquery_functions.load_default_navbar_link();
 });
 
 //these functions and variables are separated since they are using jquery
@@ -28,12 +29,8 @@ var pq = {
         issue_numbers : {
             issue_multiple_url : $('#issue-multiple-url').val() + '/',
             issue_specific_url : $('#issue-specific-url').val() + '/'
-        },
-
-        queue_settings : {
-            queue_settings_get_url : $('#queue-settings-get-url').val() + '/',
-            queue_settings_update_url : $('#queue-settings-update-url').val() + '/'
         }
+
     },
 
     jquery_functions : {
@@ -52,6 +49,12 @@ var pq = {
                 $('#selected-tnumber').val($(this).attr('data-tnumber'));
                 $('#selected-pnumber').html($(this).attr('data-pnumber'));
             });
+        },
+
+        load_default_navbar_link : function(){
+            $('.nav-tabs li.search').removeClass('active');
+            $('.nav-tabs li.biz').addClass('active');
+            $('.filters').hide();
         },
 
         remove_and_update_dropdown : function(transaction_number){

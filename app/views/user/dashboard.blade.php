@@ -2,6 +2,7 @@
 
 @section('scripts')
     {{ HTML::script('js/dashboard/dashboard.js') }}
+    {{ HTML::script('js/dashboard/edit-business.js') }}
     {{ HTML::script('js/jquery.timepicker.min.js') }}
     {{ HTML::script('js/intlTelInput.js') }}
     {{ HTML::script('js/dashboard/jquery.validate.js') }}
@@ -14,58 +15,8 @@
 @stop
 
 @section('content')
-<div class="container main-wrap">
-<div class="row filters">
-  <div class="col-md-5 col-md-offset-1">
-    <div class="filterwrap">
-      <span>FILTER:</span>
-      <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-        <div class="btn-group" role="group">
-          <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-            Location
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupDrop1">
-            <li><a href="#">Dropdown link</a></li>
-            <li><a href="#">Dropdown link</a></li>
-          </ul>
-        </div>
-        <div class="btn-group" role="group">
-          <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-            Industry Type
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupDrop1">
-            <li><a href="#">Dropdown 2</a></li>
-            <li><a href="#">Dropdown 2</a></li>
-          </ul>
-        </div>
-        <div class="btn-group" role="group">
-          <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-            Time Open
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupDrop1">
-            <li><a href="#">Dropdown 3</a></li>
-            <li><a href="#">Dropdown 3</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="searchblock">
-      <form>
-        <input type="text" placeholder="Search a Business">
-        <button type="button" class="btn btn-orange btn-md">SEARCH</button>
-      </form>
-    </div>
-  </div>
-</div>
-
  <div class="row mt30">
     <div id="my_businesses" style="display: none;">
-
         @if(count($my_businesses) > 0)
             @foreach($my_businesses as $business)
                 <div class="col-md-3">
@@ -74,22 +25,16 @@
                       <h3>{{ $business->name }}</h3>
                       <small>{{  $business->local_address }}</small>
                       <a href="" class="to-terminals"><span class="glyphicon glyphicon-share-alt"></span> Process</a>
-                      <button data-toggle="modal" data-target="#editBusiness" class="btn btn-nobg"><span class="glyphicon glyphicon-cog"></span></button>
+                      <button data-toggle="modal" data-target="#editBusiness" data-business-id="{{ $business->business_id }}" class="btn btn-nobg edit-business-cog"><span class="glyphicon glyphicon-cog"></span></button>
                     </div>
                     <div class="biz-terminals">
                       <div class="clearfix">
-                        <a href="#">
+                      @foreach($business->terminals as $terminal)
+                        <a href="#manterminal{{ $terminal->terminal_id }}">
                           <span class="glyphicon glyphicon-ok"></span>
-                          <small>terminal 1</small>
+                          <small>{{ $terminal->name; }}</small>
                         </a>
-                        <a href="#" class="not-active">
-                          <span class="glyphicon glyphicon-ban-circle"></span>
-                          <small>terminal 2</small>
-                        </a>
-                        <a href="#" class="not-active">
-                          <span class="glyphicon glyphicon-ban-circle"></span>
-                          <small>terminal 3</small>
-                        </a>
+                      @endforeach
                       </div>
                     </div>
                   </div>
@@ -114,10 +59,12 @@
             @foreach($search_businesses as $business)
                 <div class="col-md-3">
                   <div class="boxed boxed-single clickable">
-                    <div class="wrap">
-                      <h3>{{ $business->name }}</h3>
-                      <small>{{ $business->local_address }}</small>
-                    </div>
+                      <a href="{{ URL::to( '/broadcast/business/' . $business->business_id ) }}"> {{--RDH Links for Business' broadcast page--}}
+                          <div class="wrap">
+                              <h3>{{ $business->name }}</h3>
+                              <small>{{ $business->local_address }}</small>
+                          </div>
+                      </a>
                   </div>
                 </div>
             @endforeach
@@ -134,8 +81,6 @@
     </div>
 
  </div>
-
-</div>
 @stop
 
 @section('modals')
@@ -205,11 +150,9 @@
               <div class="row">
                 <div class="col-md-6">
                     <input type="text" id="time_open" name="time_open" placeholder="Time Open" class="timepicker form-control" />
-                    <span class="caret pull-right"></span>
                 </div>
                 <div class="col-md-6">
                     <input type="text" id="time_close" name="time_close" placeholder="Time Close" class="timepicker form-control" />
-                    <span class="caret pull-right"></span>
                 </div>
               </div>
             </div>
@@ -225,15 +168,19 @@
               </div>
             </div>
             <div class="col-md-12 mt10">
-              <input type="text" class=" form-control" placeholder="Queue Number Limit" id="queue_limit" name="queue_limit">
-            </div>
-            <div class="col-md-12 mt10">
-              <select class="form-control" name="num_terminals" id="num_terminals">
-                <option value="">Select Number of Terminals</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-              </select>
+              <div class="row">
+                <div class="col-md-6">
+                  <input type="text" class=" form-control" placeholder="Queue Number Limit" id="queue_limit" name="queue_limit">
+                </div>
+                <div class="col-md-6">
+                  <select class="form-control" name="num_terminals" id="num_terminals">
+                    <option value="">Select Number of Terminals</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                  </select>
+                </div>
+              </div>
             </div>
           </div>
         </form>
@@ -247,4 +194,6 @@
   </div>
 </div>
 <!--eo modal-->
+
+@include('modals.business.edit-business-modal')
 @stop
