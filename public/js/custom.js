@@ -1,13 +1,14 @@
 
 
 $(document).ready(function(){
+    /*broadcast - more details*/
     $('#btn-bcast-details').click(function () {
         if ( $( '.bcast-details' ).is( ':hidden' ) ) {
             $('.bcast-details').slideDown( 'fast' );
             $('#btn-bcast-details').html("BROADCAST <span class='glyphicon glyphicon-minus'></span>");
         } else {
             $( '.bcast-details' ).slideUp( 'slow' );
-            $('#btn-bcast-details').html("DETAILS <span class='glyphicon glyphicon-plus'></span>'");
+            $('#btn-bcast-details').html("DETAILS <span class='glyphicon glyphicon-plus'></span>");
         }
     });
 
@@ -35,18 +36,6 @@ $(document).ready(function(){
     });
     $('html').click(function() {
         $('.biz-terminals').slideUp('fast');
-    });
-
-
-    /*broadcast - more details*/
-    $('#btn-bcast-details').click(function () {
-        if ( $( '.bcast-details' ).is( ':hidden' ) ) {
-            $('.bcast-details').slideDown( 'fast' );
-            $('#btn-bcast-details').html("<span class='glyphicon glyphicon-minus'></span>");
-        } else {
-            $( '.bcast-details' ).slideUp( 'slow' );
-            $('#btn-bcast-details').html("<span class='glyphicon glyphicon-plus'></span>");
-        }
     });
 
     /*business - show search bar*/
