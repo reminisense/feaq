@@ -64,7 +64,7 @@
 
 
 <div class="container main-wrap">
-    <div class="row filters">
+    <div class="row filters hidden">
         <div class="col-md-5 col-md-offset-1">
             <div class="filterwrap">
                 <span>FILTER:</span>
@@ -112,7 +112,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row top-space-20">
         <div class="col-md-6 ads">
             <img class="img-responsive mb30" src="/images/ads.jpg" />
         </div>
