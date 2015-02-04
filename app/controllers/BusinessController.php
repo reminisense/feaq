@@ -53,6 +53,7 @@ class BusinessController extends BaseController{
         if ($business->save()){
             return json_encode([
                 'success' => 1,
+                'terminals' => $terminals
             ]);
         } else {
             return json_encode([
