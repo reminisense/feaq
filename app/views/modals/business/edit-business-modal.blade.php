@@ -83,7 +83,12 @@
                                                     <div class="block mb10" ng-if="terminal.users.length == 0">
                                                         <a href="#" class="btn btn-blue btn-adduser"><span class="glyphicon glyphicon-add"></span> Add User</a>
                                                         <form>
-                                                            <input type="text" class="form-control inputuser" style="display: none">
+                                                            <input type="text" class="form-control inputuser" ng-model="search_user" style="display: none">
+                                                            <ul style="display: none">
+                                                                <li ng-repeat="user in users | filter:search_user" >
+                                                                    <button ng-click="assignToTerminal(user.user_id, terminal.terminal_id)">@{{ user.first_name + ' ' + user.last_name }}<button>
+                                                                </li>
+                                                            </ul>
                                                         </form>
                                                     </div>
                                                 </td>

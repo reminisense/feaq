@@ -73,4 +73,9 @@ class UserController extends BaseController{
             return View::make('page-front');
         }
     }
+
+    public function getUserlist(){
+        $users = User::getAllUsers();
+        return json_encode(['success' => 1 , 'users' => $users]);
+    }
 }

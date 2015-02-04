@@ -8,15 +8,14 @@
 
 class TerminalController extends BaseController{
 
-    public function getAssign($fb_id, $terminal_id){
-        $user_id = User::where('fb_id', '=', $fb_id)->first()->user_id;
-        $login_id = TerminalManager::assignToTerminal($user_id, $terminal_id);
+    public function getAssign($user_id, $terminal_id){
+        TerminalUser::assignTerminalUser($user_id, $terminal_id);
         $business = Business::getBusinessDetails(Business::getBusinessIdByTerminalId($terminal_id));
-        return json_encode(['success' => 1 , 'login_id' => $login_id, 'business' => $business]);
+        return json_encode(['success' => 1, 'business' => $business]);
     }
 
     public function getUnassign($user_id, $terminal_id){
-        TerminalManager::unassignFromTerminal($user_id, $terminal_id);
+        TerminalUser::unassignTerminalUser($user_id, $terminal_id);
         $business = Business::getBusinessDetails(Business::getBusinessIdByTerminalId($terminal_id));
         return json_encode(['success' => 1, 'business' => $business]);
     }
