@@ -12,10 +12,9 @@ class PriorityNumber extends Eloquent {
     protected $primaryKey = 'track_id';
     public $timestamps = false;
 
-    public static function createPriorityNumber($service_id, $branch_id, $number_start, $number_limit, $last_number_given, $current_number, $date){
+    public static function createPriorityNumber($service_id, $number_start, $number_limit, $last_number_given, $current_number, $date){
         $values = [
             'service_id' => $service_id,
-            'branch_id' => $branch_id,
             'number_start' => $number_start,
             'number_limit' => $number_limit,
             'last_number_given' => $last_number_given,
