@@ -59,10 +59,12 @@
             @foreach($search_businesses as $business)
                 <div class="col-md-3">
                   <div class="boxed boxed-single clickable">
-                    <div class="wrap">
-                      <h3>{{ $business->name }}</h3>
-                      <small>{{ $business->local_address }}</small>
-                    </div>
+                      <a href="{{ URL::to( '/broadcast/business/' . $business->business_id ) }}"> {{--RDH Links for Business' broadcast page--}}
+                          <div class="wrap">
+                              <h3>{{ $business->name }}</h3>
+                              <small>{{ $business->local_address }}</small>
+                          </div>
+                      </a>
                   </div>
                 </div>
             @endforeach

@@ -908,4 +908,9 @@ strong {
     margin-left: 12px;
 }
 
+/* RDH Removes underlines from the business card details */
+.clickable a:hover {
+    text-decoration: none;
+}
+
 /*******************/
