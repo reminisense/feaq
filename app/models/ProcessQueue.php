@@ -11,7 +11,6 @@ class ProcessQueue extends Eloquent{
     public static function issueNumber($service_id, $priority_number = null, $date = null, $queue_platform = 'web'){
         $date = $date == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $date;
 
-        $branch_id = Service::branchId($service_id);
         $number_start = QueueSettings::numberStart($service_id, $date);
         $number_limit = QueueSettings::numberLimit($service_id, $date);
         $last_number_given = ProcessQueue::lastNumberGiven($service_id, $date);
@@ -22,7 +21,7 @@ class ProcessQueue extends Eloquent{
         }
         $user_id = Helper::userId();
 
-        $track_id = PriorityNumber::createPriorityNumber($service_id, $branch_id, $number_start, $number_limit, $last_number_given, $current_number, $date);
+        $track_id = PriorityNumber::createPriorityNumber($service_id, $number_start, $number_limit, $last_number_given, $current_number, $date);
         $confirmation_code = strtoupper(substr(md5($track_id), 0, 4));
         $transaction_number = PriorityQueue::createPriorityQueue($track_id, $priority_number, $confirmation_code, $user_id, $queue_platform);
         TerminalTransaction::createTerminalTransaction($transaction_number, time());
