@@ -8,7 +8,7 @@
 
         $scope.searchBusiness = (function(location, industry) {
             var keyword = document.getElementById('search-keyword').value;
-            var time_open = document.getElementById('time_open').value;
+            var time_open = document.getElementById('time_open-filter').value;
             $http.post('/business/filter-search', {
                 "keyword": keyword,
                 "country": location,

@@ -340,7 +340,7 @@
                         </ul>
                     </div>
                     <div class="btn-group" role="group">
-                        <input type="text" id="time_open" name="time_open" placeholder="Time Open" class="timepicker form-control" style="width: 145px;"/>
+                        <input type="text" id="time_open-filter" name="time_open" placeholder="Time Open" class="timepicker form-control" style="width: 145px;"/>
                     </div>
                 </div>
             </div>
