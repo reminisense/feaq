@@ -7,6 +7,7 @@ $(document).ready(function(){
     pq.jquery_functions.load_switch_tabs();
     pq.jquery_functions.load_select_number();
     pq.jquery_functions.load_default_navbar_link();
+    pq.jquery_functions.load_show_modal();
 });
 
 //these functions and variables are separated since they are using jquery
@@ -48,6 +49,7 @@ var pq = {
                 e.preventDefault();
                 $('#selected-tnumber').val($(this).attr('data-tnumber'));
                 $('#selected-pnumber').html($(this).attr('data-pnumber'));
+                $('#btn-call').removeAttr('disabled');
             });
         },
 
@@ -57,7 +59,14 @@ var pq = {
             $('.filters').hide();
         },
 
+        load_show_modal : function(){
+            $('#moreq').on('show.bs.modal', function(){
+                pq.jquery_functions.show_tab_content();
+            });
+        },
+
         remove_and_update_dropdown : function(transaction_number){
+            $('#selected-tnumber').val(0);
             pq.jquery_functions.remove_from_dropdown(transaction_number);
             if($('#uncalled-numbers li').length == 0){
                 pq.jquery_functions.change_dropdown_message('Please issue a number');
@@ -79,14 +88,31 @@ var pq = {
         },
 
         issue_number_success_alert : function(message){
+            pq.jquery_functions.hide_tab_content();
+
             $('#issue-number-success .message').html(message);
-            $('#issue-number-success').show();
+            $('#issue-number-success').fadeIn('fast');
+            setTimeout(function(){$('#issue-number-success').fadeOut('slow')}, 3000);
         },
 
         issue_number_success : function(message){
             pq.jquery_functions.issue_number_success_alert(message);
             pq.jquery_functions.change_dropdown_message('Please select a number');
+        },
+
+        hide_tab_content : function(){
+            $('#pmore-tab').hide();
+            $('#pmore-tab').next().hide();
+            $('.issue-submit-btn').hide();
+        },
+
+        show_tab_content : function(){
+            $('#pmore-tab').show();
+            $('#pmore-tab').next().show();
+            $($('#pmore-tab li.active a').attr('data-submit')).show();
         }
+
+
     }
 };
 

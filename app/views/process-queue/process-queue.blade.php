@@ -20,7 +20,7 @@
                             <form class="clearfix">
                                 <div class="row mb30">
                                     <div class="col-md-8 col-xs-12">
-                                        <input id="selected-tnumber" type="hidden" ng-value="called_number" value="0">
+                                        <input id="selected-tnumber" type="hidden" ng-value="called_number" value=0>
                                         <button class="btn-select btn-md dropdown-toggle" type="button" data-toggle="dropdown">
                                             <span id="selected-pnumber">Please select a number</span><span class="caret"></span> <!-- @todo replace this with selected number-->
                                         </button>
@@ -50,7 +50,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-2 col-xs-12 text-right">
-                                        <button class="btn btn-lg btn-orange" id="btn-call" ng-click="callNumber()">CALL NUMBER</button>
+                                        <button class="btn btn-lg btn-orange" id="btn-call" ng-click="callNumber()" ng-disabled="isCalling">CALL NUMBER</button>
                                     </div>
                                 </div>
                             </form>
@@ -62,9 +62,9 @@
                                     <th scope="row">@{{ number.priority_number }}</th>
                                     <!-- if this terminal -->
                                     <td ng-if="number.terminal_id == terminal_id">
-                                        <button class="btn btn-gray" ng-click="dropNumber(number.transaction_number)"><span class="glyphicon glyphicon-trash"></span></button>
-                                        <button class="btn btn-cyan" ng-click="serveAndCallNext(number.transaction_number)"><span class="glyphicon glyphicon-arrow-right"></span> Next</button>
-                                        <button class="btn btn-cyan" ng-click="serveNumber(number.transaction_number)"><span class="glyphicon glyphicon-ok"></span> Serve</button>
+                                        <button class="btn btn-gray" ng-click="dropNumber(number.transaction_number)" ng-disabled="isProcessing"><span class="glyphicon glyphicon-trash"></span></button>
+                                        <button class="btn btn-cyan" ng-click="serveAndCallNext(number.transaction_number)" ng-disabled="isProcessing"><span class="glyphicon glyphicon-arrow-right"></span> Next</button>
+                                        <button class="btn btn-cyan" ng-click="serveNumber(number.transaction_number)" ng-disabled="isProcessing"><span class="glyphicon glyphicon-ok"></span> Serve</button>
                                     </td>
                                     <!-- not this terminal -->
                                     <td ng-if="number.terminal_id != terminal_id">

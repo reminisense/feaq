@@ -69,7 +69,7 @@
                                             <tbody>
                                             <tr ng-repeat="terminal in terminals">
                                                 <td>
-                                                    <div>0</div>
+                                                    <div>@{{ $index + 1 }}</div>
                                                 </td>
                                                 <td>
                                                     <div class="block mb10">
@@ -104,7 +104,7 @@
                                             <!-- -->
                                             <tr>
                                                 <td>
-                                                    <div>3</div>
+                                                    <div></div>
                                                 </td>
                                                 <td>
                                                     <div class="block mb10">
