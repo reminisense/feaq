@@ -126,4 +126,28 @@ class Business extends Eloquent{
 
         return $business;
     }
+
+    public static function getBusinessByNameCountryIndustryTimeopen($name, $country, $industry, $time_open = NULL) {
+        if ($time_open) {
+            $time_open_arr = Helper::parseTime($time_open);
+        }
+        else {
+            $time_open_arr['hour'] = '';
+            $time_open_arr['min'] = '';
+            $time_open_arr['ampm'] = '';
+        }
+        if ($country == 'Location') {
+            $country = '';
+        }
+        if ($industry == 'Industry') {
+            $industry = '';
+        }
+        return Business::where('name', 'LIKE', '%' . $name . '%')
+          ->where('local_address', 'LIKE', '%' . $country . '%')
+          ->where('industry', 'LIKE', '%' . $industry . '%')
+          ->where('open_hour', 'LIKE', '%' . $time_open_arr['hour'] . '%')
+          ->where('open_minute', 'LIKE', '%' . $time_open_arr['min'] . '%')
+          ->where('open_ampm', 'LIKE', '%' . $time_open_arr['ampm'] . '%')
+          ->get();
+    }
 }

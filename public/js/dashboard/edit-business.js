@@ -64,7 +64,6 @@ var eb = {
 
 
 (function(){
-    var app = angular.module('FeatherQ', []);
     app.controller('editBusinessController', function($scope, $http){
         $scope.business_id = null;
         $scope.business_name = null;
