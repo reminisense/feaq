@@ -6,6 +6,7 @@
     {{ HTML::script('js/jquery.timepicker.min.js') }}
     {{ HTML::script('js/intlTelInput.js') }}
     {{ HTML::script('js/dashboard/jquery.validate.js') }}
+    {{ HTML::script('js/dashboard/search-business.js') }}
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
 @stop
 
@@ -53,9 +54,10 @@
 
     <div id="search_business" style="display: block;">
         <div class="col-md-12">
-          <h5 class="mb30">POPULAR BUSINESSES</h5>
+          <h5 class="mb30">@{{ searchLabel }}</h5>
         </div>
         @if(count($search_businesses) > 0)
+        <div id="popular-businesses">
             @foreach($search_businesses as $business)
                 <div class="col-md-3">
                   <div class="boxed boxed-single clickable">
@@ -68,6 +70,17 @@
                   </div>
                 </div>
             @endforeach
+        </div>
+        <div class="col-md-3" ng-repeat="business in businesses">
+            <div class="boxed boxed-single clickable">
+                <a href="/broadcast/business/@{{ business.business_id }}">
+                    <div class="wrap">
+                        <h3>@{{ business.business_name }}</h3>
+                        <small>@{{ business.local_address }}</small>
+                    </div>
+                </a>
+            </div>
+        </div>
         @else
         <div class="col-md-3">
           <div class="boxed boxed-single clickable">

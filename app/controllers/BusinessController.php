@@ -115,4 +115,18 @@ class BusinessController extends BaseController{
         return json_encode(['success' => 1, 'business' => $business]);
     }
 
+    public function postFilterSearch() {
+        $post = json_decode(file_get_contents("php://input"));
+        $res = Business::getBusinessByNameCountryIndustryTimeopen($post->keyword, $post->country, $post->industry, $post->time_open);
+        $arr = array();
+        foreach ($res as $count => $data) {
+            $arr[] = array(
+                'business_id' => $data->business_id,
+                'business_name' => $data->name,
+                'local_address' => $data->local_address,
+            );
+        }
+        return json_encode($arr);
+    }
+
 }
