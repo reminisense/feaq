@@ -235,21 +235,24 @@ class ProcessQueue extends Eloquent{
     }
 
     public static function updateBusinessBroadcast($business_id){
+        $file_path = public_path() . '/json/' . $business_id . '.json';
+        $json = file_get_contents($file_path);
+        $boxes = json_decode($json);
+
         $first_branch = Branch::where('business_id', '=', $business_id)->first();
         $first_service = Service::where('branch_id', '=', $first_branch->branch_id)->first();
 
         $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
         $numbers = array_merge($all_numbers->called_numbers, $all_numbers->uncalled_numbers);
-        $boxes = [];
 
         for($counter = 1; $counter <= 6; $counter++){
             $index = $counter - 1;
-            $boxes['box'.$counter]['number'] = isset($numbers[$index]['priority_number']) ? $numbers[$index]['priority_number'] : '';
-            $boxes['box'.$counter]['terminal'] = isset($numbers[$index]['terminal_name']) ? $numbers[$index]['terminal_name'] : '';
+            $box = 'box'.$counter;
+            $boxes->$box->number = isset($numbers[$index]['priority_number']) ? $numbers[$index]['priority_number'] : '';
+            $boxes->$box->terminal = isset($numbers[$index]['terminal_name']) ? $numbers[$index]['terminal_name'] : '';
         }
-        $boxes['get_number'] = $all_numbers->next_number;
+        $boxes->get_num = $all_numbers->next_number;
 
-
-        File::put(public_path() . '/json/' . $business_id . '.json', json_encode($boxes));
+        File::put($file_path, json_encode($boxes));
     }
 }
