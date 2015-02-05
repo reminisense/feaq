@@ -143,7 +143,7 @@
                                             </tr>--}}
                                             <tr>
                                                 <td>Number Limit</td>
-                                                <td><input class="mb0 form-control" type="text" value="@{{ queue_limit }}" ng-model="queue_limit" ></td> /* RDH Added queue_limit to Edit Business Page */
+                                                <td><input class="mb0 form-control" type="text" value="@{{ queue_limit }}" ng-model="queue_limit" ></td>  {{--RDH Added queue_limit to Edit Business Page--}}
                                             </tr>
                                             {{--<tr>
                                                 <td>Loop numbers automatically.</td>
