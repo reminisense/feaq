@@ -71,7 +71,7 @@ class BusinessController extends BaseController{
                 "terminal": ""
               },
               "get_num": " ",
-              "display": "6",
+              "display": "6"
             }
         ';
 
