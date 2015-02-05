@@ -73,6 +73,7 @@ var eb = {
         $scope.industry = null;
         $scope.time_open = null;
         $scope.time_closed = null;
+        $scope.queue_limit = null; /* RDH Added queue_limit to Edit Business Page */
 
         $scope.terminals = [];
         $scope.users = [];
@@ -107,6 +108,7 @@ var eb = {
             $scope.industry = business.industry;
             $scope.time_open = business.time_open;
             $scope.time_closed = business.time_closed;
+            $scope.queue_limit = business.queue_limit; /* RDH Added queue_limit to Edit Business Page */
 
             $scope.terminals = business.terminals;
 
@@ -138,7 +140,8 @@ var eb = {
                 facebook_url: $scope.facebook_url,
                 industry: $scope.industry,
                 time_open: $scope.time_open,
-                time_close: $scope.time_closed
+                time_close: $scope.time_closed,
+                queue_limit: $scope.queue_limit /* RDH Added queue_limit to Edit Business Page */
             }
             console.log(data);
             $http.post('/business/edit-business', data)

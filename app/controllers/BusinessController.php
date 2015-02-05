@@ -117,6 +117,8 @@ class BusinessController extends BaseController{
         $business->close_minute = $time_close_arr['min'];
         $business->close_ampm = $time_close_arr['ampm'];
 
+        $business->queue_limit = $business_data['queue_limit']; /* RDH Added queue_limit to Edit Business Page */
+
         $business->save();
 
         return json_encode([

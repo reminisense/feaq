@@ -84,6 +84,7 @@ class Business extends Eloquent{
             'industry' => $business->industry,
             'time_open' => Helper::mergeTime($business->open_hour, $business->open_minute, $business->open_ampm),
             'time_closed' => Helper::mergeTime($business->close_hour, $business->close_minute, $business->close_ampm),
+            'queue_limit' => $business->queue_limit, /* RDH Added queue_limit to Edit Business Page */
             //'description' =>
             'terminals' => $terminals
         ];

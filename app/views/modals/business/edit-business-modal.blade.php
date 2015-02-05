@@ -40,7 +40,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <small>Time Close</small>
-                                            <input type="text" class=" form-control" value="10:00 pm" ng-model="time_close">
+                                            <input type="text" class=" form-control" value="10:00 pm" ng-model="time_closed"> <!-- RDH -->
                                         </div>
                                     </div>
                                 </div>
@@ -86,7 +86,7 @@
                                                             <input type="text" class="form-control inputuser" ng-model="search_user" style="display: none">
                                                             <ul style="display: none">
                                                                 <li ng-repeat="user in users | filter:search_user" >
-                                                                    <button ng-click="assignToTerminal(user.user_id, terminal.terminal_id)">@{{ user.first_name + ' ' + user.last_name }}<button>
+                                                                    <button ng-click="assignToTerminal(user.user_id, terminal.terminal_id)">@{{ user.first_name + ' ' + user.last_name }}</button>
                                                                 </li>
                                                             </ul>
                                                         </form>
@@ -143,7 +143,7 @@
                                             </tr>--}}
                                             <tr>
                                                 <td>Number Limit</td>
-                                                <td><input class="mb0 form-control" type="text" placeholder="@{{ number_limit }}" ></td>
+                                                <td><input class="mb0 form-control" type="text" value="@{{ queue_limit }}" ng-model="queue_limit" ></td> /* RDH Added queue_limit to Edit Business Page */
                                             </tr>
                                             {{--<tr>
                                                 <td>Loop numbers automatically.</td>
