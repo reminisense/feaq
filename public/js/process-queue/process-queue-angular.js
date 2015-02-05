@@ -3,7 +3,7 @@
  */
 //angularjs implementation
 (function(){
-    var app = angular.module('FeatherQ', []);
+    //var app = angular.module('FeatherQ', []);
     app.controller('processqueueController', function($scope, $http){
         $scope.terminal_id = pq.ids.terminal_id;
         $scope.called_numbers = [];
