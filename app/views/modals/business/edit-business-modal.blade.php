@@ -7,7 +7,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h3 class="modal-title" id="myModalLabel">Edit Kublai Khan</h3>
+                <h3 class="modal-title" id="myModalLabel">Edit Business</h3> {{--CSD Goob job finding this!--}}
             </div>
             <div class="modal-body">
                 <form class="">
