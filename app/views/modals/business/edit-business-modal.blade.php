@@ -135,15 +135,17 @@
                                     </div>
                                     <div id="collapseTwo" class="panel-collapse collapse in">
                                         <table class="table">
-                                            <tbody><tr>
+                                            <tbody>
+                                            {{--RDH Removed Other Queue Settings Since These Do Not Apply To This Release--}}
+                                            {{--<tr>
                                                 <td>Number Start</td>
                                                 <td><input class="mb0 form-control" type="text" placeholder="@{{ number_start }}"></td>
-                                            </tr>
+                                            </tr>--}}
                                             <tr>
                                                 <td>Number Limit</td>
                                                 <td><input class="mb0 form-control" type="text" placeholder="@{{ number_limit }}" ></td>
                                             </tr>
-                                            <tr>
+                                            {{--<tr>
                                                 <td>Loop numbers automatically.</td>
                                                 <td><input type="radio">Yes <input type="radio">No </td>
                                             </tr>
@@ -154,7 +156,7 @@
                                             <tr>
                                                 <td>Allow Remote Queuing.</td>
                                                 <td><input type="radio">Yes <input type="radio">No </td>
-                                            </tr>
+                                            </tr>--}}
                                             </tbody></table>
 
                                     </div>
