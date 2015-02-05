@@ -11,6 +11,26 @@
 
 class BroadcastController extends BaseController{
 
+    /*public function getBranch($branch_id = 0)
+    {
+        $business_id = Branch::businessId($branch_id);
+        if (Branch::name($branch_id) == 'Main') {
+            $business_name = Business::name($business_id);
+        }
+        else {
+            $business_name = Branch::name($branch_id) . ' > ' . Business::name($business_id);
+        }
+        $open_time = str_pad(Business::openHour($business_id), 2, 0) . ':' . str_pad(Business::openMinute($business_id), 2, 0) . ' ' . Business::openAMPM($business_id);
+        $close_time = str_pad(Business::closeHour($business_id), 2, 0) . ':' . str_pad(Business::closeMinute($business_id), 2, 0) . ' ' . Business::closeAMPM($business_id);
+        return View::make('broadcast')
+          ->with('open_time', $open_time)
+          ->with('close_time', $close_time)
+          ->with('local_address', Business::localAddress($business_id))
+          ->with('branch_id', $branch_id)
+          ->with('lines_in_queue', TerminalTransaction::getTransactionsNotYetCompleted())
+          ->with('business_name', $business_name);
+    }*/
+
     /**
      * @author Ruffy
      * @param int $business_id
@@ -23,12 +43,12 @@ class BroadcastController extends BaseController{
         $open_time = str_pad(Business::openHour($business_id), 2, 0) . ':' . str_pad(Business::openMinute($business_id), 2, 0) . ' ' . Business::openAMPM($business_id);
         $close_time = str_pad(Business::closeHour($business_id), 2, 0) . ':' . str_pad(Business::closeMinute($business_id), 2, 0) . ' ' . Business::closeAMPM($business_id);
         return View::make('broadcast')
-          ->with('open_time', $open_time)
-          ->with('close_time', $close_time)
-          ->with('local_address', Business::localAddress($business_id))
-          ->with('business_id', $business_id)
-          ->with('lines_in_queue', TerminalTransaction::getTransactionsNotYetCompleted())
-          ->with('business_name', $business_name);
+            ->with('open_time', $open_time)
+            ->with('close_time', $close_time)
+            ->with('local_address', Business::localAddress($business_id))
+            ->with('branch_id', $business_id)
+            ->with('business_name', $business_name)
+            ->with('lines_in_queue', TerminalTransaction::getTransactionsNotYetCompleted());
     }
 
     public function getNumbers($branch_id = 0) {

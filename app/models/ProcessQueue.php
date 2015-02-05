@@ -11,13 +11,15 @@ class ProcessQueue extends Eloquent{
     public static function issueNumber($service_id, $priority_number = null, $date = null, $queue_platform = 'web'){
         $date = $date == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $date;
 
-        $number_start = QueueSettings::numberStart($service_id, $date);
-        $number_limit = QueueSettings::numberLimit($service_id, $date);
-        $last_number_given = ProcessQueue::lastNumberGiven($service_id, $date);
-        $current_number = ProcessQueue::currentNumber($service_id, $date);
+        $service_properties = ProcessQueue::getServiceProperties($service_id, $date);
+
+        $number_start = $service_properties->number_start;
+        $number_limit = $service_properties->number_limit;
+        $last_number_given = $service_properties->last_number_given;
+        $current_number = $service_properties->current_number;
 
         if(!$priority_number){
-            $priority_number = ($last_number_given < $number_limit && $last_number_given != 0) ? $last_number_given + 1 : $number_start;
+            $priority_number = $service_properties->next_number;
         }
         $user_id = Helper::userId();
 
@@ -162,6 +164,7 @@ class ProcessQueue extends Eloquent{
             usort($processed_numbers, array('ProcessQueue', 'sortProcessedNumbers'));
             $priority_numbers = new stdClass();
             $priority_numbers->last_number_given = $numbers[count($numbers) - 1]->priority_number;
+            $priority_numbers->next_number = ProcessQueue::nextNumber($priority_numbers->last_number_given, QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
             $priority_numbers->current_number = $called_numbers ? $called_numbers[key($called_numbers)]['priority_number'] : 0;
             $priority_numbers->called_numbers = $called_numbers;
             $priority_numbers->uncalled_numbers = $uncalled_numbers;
@@ -211,7 +214,45 @@ class ProcessQueue extends Eloquent{
         return $numbers ? $numbers->current_number : $default;
     }
 
+    public static function nextNumber($last_number_given, $number_start, $number_limit){
+        return ($last_number_given < $number_limit && $last_number_given != 0) ? $last_number_given + 1 : $number_start;
+    }
+
     private static function sortProcessedNumbers($a, $b){
         return $a['time_processed'] - $b['time_processed'];
+    }
+
+    public static function getServiceProperties($service_id, $date = null){
+        $date = $date == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $date;
+        $properties = new stdClass();
+        $properties->number_start = QueueSettings::numberStart($service_id, $date);
+        $properties->number_limit = QueueSettings::numberLimit($service_id, $date);
+        $properties->last_number_given = ProcessQueue::lastNumberGiven($service_id, $date);
+        $properties->current_number = ProcessQueue::currentNumber($service_id, $date);
+        $properties->next_number = ProcessQueue::nextNumber($properties->last_number_given, $properties->number_start, $properties->number_limit);
+
+        return $properties;
+    }
+
+    public static function updateBusinessBroadcast($business_id){
+        $file_path = public_path() . '/json/' . $business_id . '.json';
+        $json = file_get_contents($file_path);
+        $boxes = json_decode($json);
+
+        $first_branch = Branch::where('business_id', '=', $business_id)->first();
+        $first_service = Service::where('branch_id', '=', $first_branch->branch_id)->first();
+
+        $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
+        $numbers = array_merge($all_numbers->called_numbers, $all_numbers->uncalled_numbers);
+
+        for($counter = 1; $counter <= 6; $counter++){
+            $index = $counter - 1;
+            $box = 'box'.$counter;
+            $boxes->$box->number = isset($numbers[$index]['priority_number']) ? $numbers[$index]['priority_number'] : '';
+            $boxes->$box->terminal = isset($numbers[$index]['terminal_name']) ? $numbers[$index]['terminal_name'] : '';
+        }
+        $boxes->get_num = $all_numbers->next_number;
+
+        File::put($file_path, json_encode($boxes));
     }
 }
