@@ -27,7 +27,7 @@
 <!-- NAVBAR
   ================================================== -->
 <body cz-shortcut-listen="true" ng-app="Broadcast">
-<div id="branch-id" branch_id="{{ $branch_id }}"></div>
+<div id="business-id" business_id="{{ $business_id }}"></div>
 <!-- Static navbar -->
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container">

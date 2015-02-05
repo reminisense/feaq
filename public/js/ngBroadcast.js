@@ -4,9 +4,9 @@
 
     app.controller('nowServingCtrl', function($scope, $http) {
 
-        var branch_id = document.getElementById('branch-id').getAttribute('branch_id');
+        var business_id = document.getElementById('business-id').getAttribute('business_id');
         setInterval(function() {
-            $http.get('/json/'+branch_id+'.json').success(function(response) {
+            $http.get('/json/'+business_id+'.json').success(function(response) {
                 if ($scope.tbox1 != response.box1.terminal) {
                     $scope.tbox1 = response.box1.terminal;
                     if ($scope.tbox1 != "") {
