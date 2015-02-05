@@ -66,7 +66,7 @@
 </nav>
 <div class="subnav">
     <div class="container">
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs" id="header-tabs">
             <li class="search active"><a href="#"><span class="glyphicon glyphicon-search"></span> Search</a></li>
             <li class="biz"><a href="#"><span class="glyphicon glyphicon-home"></span> My Business</a></li>
         </ul>

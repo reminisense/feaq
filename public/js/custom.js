@@ -10,7 +10,7 @@ $(document).ready(function() {
         }
     });
 
-    $('.nav-tabs li').click(function () {
+    $('#header-tabs.nav-tabs li').click(function () {
         $('.nav-tabs li').removeClass('active');
         $(this).addClass('active');
         if ($(this).hasClass('biz')) {
