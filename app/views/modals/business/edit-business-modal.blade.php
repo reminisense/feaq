@@ -26,7 +26,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <small>Facebook URL</small>
-                                    <input type="text" class=" form-control" value="@{{ facebook_url }}" ng-model="facebook_url">
+                                    <input type="text" class=" form-control" value="@{{ facebook_url }}" placeholder="Add Your Facebook Page!" ng-model="facebook_url">
                                 </div>
                                 <div class="col-md-12">
                                     <small>Industry</small>
