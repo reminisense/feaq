@@ -27,7 +27,7 @@ class Branch extends Eloquent{
      */
     public static function createBusinessBranch($business_id, $business_name){
         $branch = new Branch();
-        $branch->name = $business_name . " Main";
+        $branch->name = $business_name . " Branch";
         $branch->business_id = $business_id;
         $branch->save();
 

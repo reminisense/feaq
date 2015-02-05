@@ -81,6 +81,11 @@ class BusinessController extends BaseController{
         $branch_id = Branch::createBusinessBranch( $business->business_id, $business->name );
         $service_id = Service::createBranchService( $branch_id, $business->name );
 
+        /* @CSD Auto issue on business create */
+        $issueController = new IssueNumberController();
+        $issueController->getMultiple($service_id, 10);
+        /* Auto issue end */
+
         $terminals = Terminal::createBranchServiceTerminal(Auth::user()->user_id, $service_id, $business->num_terminals);
 
         if ($business->save()){
