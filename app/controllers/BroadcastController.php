@@ -27,6 +27,7 @@ class BroadcastController extends BaseController{
           ->with('close_time', $close_time)
           ->with('local_address', Business::localAddress($business_id))
           ->with('branch_id', $branch_id)
+          ->with('lines_in_queue', TerminalTransaction::getTransactionsNotYetCompleted())
           ->with('business_name', $business_name);
     }
 

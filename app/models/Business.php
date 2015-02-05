@@ -97,7 +97,7 @@ class Business extends Eloquent{
      * @description: fetch business row by business id
      * @return business row with all branches, services and terminals
      */
-    public static function getBusinessArray($business_id){
+    public static function getBusinessArray($business_id, $business_owner){
         $business = Business::where('business_id', '=', $business_id)->get()->first();
         $branches = [];
         $services = [];
@@ -113,10 +113,20 @@ class Business extends Eloquent{
 
                 $rawTerminals = Terminal::getTerminalsByServiceId($service->service_id);
 
+                /* get terminal id's of assigned terminals */
+                $terminalAssignments = TerminalUser::getTerminalAssignement(Auth::user()->user_id);
+                $terminalIds = [];
+                foreach($terminalAssignments as $assignment){
+                    array_push($terminalIds, $assignment['terminal_id']);
+                }
+                /* end */
+
                 foreach($rawTerminals as $terminal) {
+                    if (in_array($terminal['terminal_id'], $terminalIds)){
+                        $terminal['status'] = 1;
+                    }
                     array_push($terminals, $terminal);
                 }
-
             }
         }
 
