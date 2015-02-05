@@ -52,6 +52,55 @@
 
                 /* RDH Checks if empty, show '-' if yes*/
                 $scope.get_num = (response.get_num === "") ? "-": response.get_num;
+
+                if (response.display == 1) {
+                    $scope.boxdisplay1 = '';
+                    $scope.boxdisplay2 = 'display: none;';
+                    $scope.boxdisplay3 = 'display: none;';
+                    $scope.boxdisplay4 = 'display: none;';
+                    $scope.boxdisplay5 = 'display: none;';
+                    $scope.boxdisplay6 = 'display: none;';
+                }
+                else if (response.display == 2) {
+                    $scope.boxdisplay1 = '';
+                    $scope.boxdisplay2 = '';
+                    $scope.boxdisplay3 = 'display: none;';
+                    $scope.boxdisplay4 = 'display: none;';
+                    $scope.boxdisplay5 = 'display: none;';
+                    $scope.boxdisplay6 = 'display: none;';
+                }
+                else if (response.display == 3) {
+                    $scope.boxdisplay1 = '';
+                    $scope.boxdisplay2 = '';
+                    $scope.boxdisplay3 = '';
+                    $scope.boxdisplay4 = 'display: none;';
+                    $scope.boxdisplay5 = 'display: none;';
+                    $scope.boxdisplay6 = 'display: none;';
+                }
+                else if (response.display == 4) {
+                    $scope.boxdisplay1 = '';
+                    $scope.boxdisplay2 = '';
+                    $scope.boxdisplay3 = '';
+                    $scope.boxdisplay4 = '';
+                    $scope.boxdisplay5 = 'display: none;';
+                    $scope.boxdisplay6 = 'display: none;';
+                }
+                else if (response.display == 5) {
+                    $scope.boxdisplay1 = '';
+                    $scope.boxdisplay2 = '';
+                    $scope.boxdisplay3 = '';
+                    $scope.boxdisplay4 = '';
+                    $scope.boxdisplay5 = '';
+                    $scope.boxdisplay6 = 'display: none;';
+                }
+                else if (response.display == 6) {
+                    $scope.boxdisplay1 = '';
+                    $scope.boxdisplay2 = '';
+                    $scope.boxdisplay3 = '';
+                    $scope.boxdisplay4 = '';
+                    $scope.boxdisplay5 = '';
+                    $scope.boxdisplay6 = '';
+                }
             });
         }, 1000);
 
