@@ -59,10 +59,20 @@ class UserController extends BaseController{
             $business_ids = UserBusiness::getAllBusinessIdByOwner(Auth::user()->user_id);
 
             $my_businesses = [];
-            foreach($business_ids as $b_id)
-            {
-                array_push($my_businesses, Business::getBusinessArray($b_id->business_id));
+            if (count($business_ids) > 0){
+                foreach($business_ids as $b_id)
+                {
+                    array_push($my_businesses, Business::getBusinessArray($b_id->business_id, true)); // @author: CSD boolean true for business owner
+                }
+            } else {
+                $my_terminals = TerminalUser::getTerminalAssignement(Auth::user()->user_id);
+
+                foreach($my_terminals as $terminal){
+                    $b_id = Business::getBusinessIdByTerminalId($terminal->terminal_id);
+                    array_push($my_businesses, Business::getBusinessArray($b_id->business_id, false)); // @author: CSD boolean false for non business owner
+                }
             }
+
 
             return View::make('user.dashboard')
                 ->with('search_businesses', $search_businesses)

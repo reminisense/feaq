@@ -32,7 +32,7 @@
                       <div class="clearfix">
                       @foreach($business->terminals as $terminal)
                         <a href="{{url( '/processqueue/terminal/' . $terminal['terminal_id']) }}">
-                          <span class="glyphicon glyphicon-ok"></span>
+                          <span class="@if ($terminal['status'] == 1) {{ 'glyphicon glyphicon-ok' }} @else {{ 'glyphicon glyphicon-remove' }} @endif "></span>
                           <small>{{ $terminal['name']; }}</small>
                         </a>
                       @endforeach
