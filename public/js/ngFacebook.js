@@ -14,8 +14,6 @@ fbapp.run(function($http) {
         FB.getLoginStatus(function(response) {
             if (response.status === 'connected') {
                 // Logged into your app and Facebook.
-                $('#fb-login').hide();
-                $('#fb-login-2').hide();
                 $http.post('/fb/laravel-login', { 'fb_id': response.authResponse.userID }).success(function(response) {
                     if (response.success == 1) window.location.replace('/');
                 });
