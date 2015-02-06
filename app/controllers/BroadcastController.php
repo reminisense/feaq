@@ -46,7 +46,7 @@ class BroadcastController extends BaseController{
             ->with('open_time', $open_time)
             ->with('close_time', $close_time)
             ->with('local_address', Business::localAddress($business_id))
-            ->with('branch_id', $business_id)
+            ->with('business_id', $business_id) /* RDH Changed error, 'branch_id' to 'business_id' */
             ->with('business_name', $business_name)
             ->with('lines_in_queue', TerminalTransaction::getTransactionsNotYetCompleted());
     }
