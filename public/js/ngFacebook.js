@@ -51,7 +51,7 @@ fbapp.controller('fbController', function($scope, $http) {
                 $scope.saveFbDetails();
             }
         }, {'scope': 'public_profile,email,user_friends'});
-        e.stopPropagation();
+        //e.stopPropagation();
     });
 
     $scope.saveFbDetails = (function() {
