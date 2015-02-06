@@ -30,6 +30,16 @@
   .processq .btn-orange {
     margin-top: 10px;
   }
+    .processq #btn-call {
+        margin-top: -55px;
+        margin-bottom: 0;
+    }
+    .processq .mb30 {
+        margin-bottom: 0;
+    }
+    .processq .table {
+        margin-bottom: 0;
+    }
   .processq table .btn-cyan,
   .processq table .btn-blue,
   .processq table .btn-orange {
@@ -78,9 +88,7 @@
   .navbar-nav {
     margin: 0;
   }
-  .processq #btn-call {
-    margin-top: 15px;
-  }
+
   .processq .dropdown-menu {
     width: 90%!important;
   }
