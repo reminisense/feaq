@@ -17,7 +17,9 @@ class QueueSettings extends Eloquent{
     }
 
     public static function numberLimit($service_id, $date = null){
-        return QueueSettings::queueSetting('number_limit', 99, $service_id, $date);
+        $business_id = Business::getBusinessIdByServiceId($service_id);
+        return Business::find($business_id)->queue_limit;
+        //return QueueSettings::queueSetting('number_limit', 99, $service_id, $date);
     }
 
     public static function updateQueueSetting($service_id, $field, $value){

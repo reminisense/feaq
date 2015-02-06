@@ -94,7 +94,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="block mb10">
-                                                        <a href="#"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+                                                        <a href="#" ng-click="deleteTerminal(terminal.terminal_id)" ><span class="glyphicon glyphicon-trash"></span> Delete</a>
                                                     </div>
                                                     <div class="block">
                                                         <a href="#" ng-repeat="user in terminal.users" ng-click="unassignFromTerminal(user.user_id, user.terminal_id)"><span class="glyphicon glyphicon-remove"></span> Remove</a>
@@ -109,8 +109,8 @@
                                                 <td>
                                                     <div class="block mb10">
                                                         <a href="#" id="btn-addterminal" class="btn btn-blue"><span class="glyphicon glyphicon-add"></span> Add Terminal</a>
-                                                        <form>
-                                                            <input id="inputterminal" type="text" class="form-control">
+                                                        <form id="inputterminal-form" ng-submit="createTerminal(terminal_name)">
+                                                            <input id="inputterminal" type="text" class="form-control" ng-model="terminal_name">
                                                         </form>
                                                     </div>
                                                 </td>
