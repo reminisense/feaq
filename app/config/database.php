@@ -54,10 +54,10 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => '128.199.194.138',
+			'host'      => 'aa84q1f125vg9b.cwhwok9vhiau.ap-southeast-1.rds.amazonaws.com',
 			'database'  => 'feaq',
-			'username'  => 'forge',
-			'password'  => 'UeW0u9GJvDtzh6aGsIs7',
+			'username'  => 'ebdb',
+			'password'  => 'Reminisense!1',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
