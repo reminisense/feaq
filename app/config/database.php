@@ -55,8 +55,8 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'aa84q1f125vg9b.cwhwok9vhiau.ap-southeast-1.rds.amazonaws.com',
-			'database'  => 'feaq',
-			'username'  => 'ebdb',
+			'database'  => 'ebdb',
+			'username'  => 'featherq',
 			'password'  => 'Reminisense!1',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
