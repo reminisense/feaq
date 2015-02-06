@@ -7,6 +7,7 @@ $(document).ready(function(){
     pq.jquery_functions.load_switch_tabs();
     pq.jquery_functions.load_select_number();
     pq.jquery_functions.load_default_navbar_link();
+    pq.jquery_functions.load_search_filter_behavior();
     pq.jquery_functions.load_show_modal();
 });
 
@@ -57,6 +58,16 @@ var pq = {
             $('.nav-tabs li.search').removeClass('active');
             $('.nav-tabs li.biz').addClass('active');
             $('.filters').hide();
+        },
+
+        load_search_filter_behavior : function(){
+            $('.nav-tabs li.biz').on('click', function(){
+                $('#search_results').slideUp();
+            });
+
+            $('.nav-tabs li.search').on('click', function(){
+                $('#search_results').slideDown();
+            });
         },
 
         load_show_modal : function(){
@@ -111,8 +122,6 @@ var pq = {
             $('#pmore-tab').next().show();
             $($('#pmore-tab li.active a').attr('data-submit')).show();
         }
-
-
     }
 };
 
