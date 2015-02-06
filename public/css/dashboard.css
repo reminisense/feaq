@@ -116,12 +116,17 @@
   font-size: 30px;
   text-align: center;
   padding: 18px 10px;
-  width: 40%;
+  width: 38%;
   font-family: 'ralewaybold';
   position: relative;
 }
 .getnum-info .pull-left {
-  width: 58%;
+  width: 57%;
+}
+.getnum-info .pull-left strong {
+    display: inline-block;
+    margin-bottom: 8px;
+    margin-top: 6px;
 }
 .ads-mobile {
   display: none;
@@ -268,6 +273,58 @@
   display: none;
 }
 
+/*RBM verify user modal from fb*/
+
+#verifyUser .modal-header {
+    background: none;
+}
+#verifyUser .modal-header h3 {
+    color: #00ba8b;
+}
+#verifyUser .modal-content,
+#verifyUser .modal-body{
+    background: none;
+}
+#verifyUser .modal-content {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: none;
+}
+#verifyUser label {
+    color: #999;
+    margin-bottom: 0;
+    font-family: ralewayregular;
+    font-size: 11px;
+}
+#verifyUser input {
+    background: rgba(0,0,0,0.4);
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    font-family: ralewaybold;
+    border-bottom: 1px solid #444;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+#verifyUser .form-control {
+    margin-bottom: 25px;
+}
+#verifyUser .modal-footer {
+    border: none;
+    text-align: center;
+    padding-top: 0;
+}
+#verifyUser .intl-tel-input {
+    display: inherit;
+    margin-left: 0;
+}
+#verifyUser .intl-tel-input input {
+    margin-left: 0;
+    padding-left: 50px;
+}
+.modal-backdrop.in {
+    opacity: .8;
+}
 
 
 
@@ -445,6 +502,16 @@ h5.heading {
   padding-bottom: 5px!important;
   font-size: 13px;
 }
+.modal-body label {
+    color: #555;
+    font-weight: normal;
+    font-family: ralewayregular;
+}
+.modal-body input {
+    font-family: ralewaymedium;
+    color: #222222;
+}
+
 #accordion a.h5 {
   text-decoration: none;
 }
@@ -588,7 +655,7 @@ h5.heading {
   }
   .boxed.to-modal,
   .boxed.to-modal .wrap {
-    min-height: 82px;
+    min-height: 60px;
   }
   .boxed.to-modal:hover {
     cursor: pointer;
@@ -659,7 +726,7 @@ h5.heading {
   .modal .form-control {
     border: none;
     border-bottom: 1px solid #c7c7c7;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     padding-left: 2px;
   }
   .form-control {
@@ -699,6 +766,34 @@ h5.heading {
   }
   .dd-select li:hover {
     background-color: #ddd;
+  }
+  /*RBM set overlay scroll to filter dropdowns*/
+  .filterwrap .dropdown-menu {
+      height: 300px;
+      overflow: scroll;
+      margin-left: 14px;
+      overflow-y: visible;
+      overflow-style: scrollbar;
+  }
+  .filterwrap .btn:focus {
+      color: inherit;
+  }
+  #time_open-filter {
+      display: none;
+  }
+  .filterwrap input[type="text"] {
+      padding: 2px 6px;
+      height: 25px;
+      margin-top: 4px;
+  }
+  ::-webkit-scrollbar {
+      -webkit-appearance: none;
+      width: 7px;
+  }
+  ::-webkit-scrollbar-thumb {
+      border-radius: 4px;
+      background-color: rgba(0,0,0,.5);
+      -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
   }
   /*remove style, webkit shadows*/
   .filterwrap .btn,
@@ -759,12 +854,13 @@ h5.heading {
   .tri-right {
     width: 0px;
     height: 0px;
-    border-top: 20px solid transparent;
-    border-bottom: 20px solid transparent;
-    border-right: 20px solid #00ba8b;
-    margin-right: -20px;
+      top: 8px;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid #00ba8b;
+    margin-right: -10px;
     position: absolute;
-    left: -15px;
+    left: -10px;
   }
 
 
@@ -861,7 +957,7 @@ strong {
   padding: 14px 30px;
   font-size: 14px;
   width: 100%;
-  margin-top: 14px;
+  /*margin-top: 14px;*/
 }
 .btn-getnum span {
   padding-left: 4px;

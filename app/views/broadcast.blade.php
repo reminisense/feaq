@@ -121,7 +121,7 @@
                 <div class="head head-wbtn">
                     <h3>{{ $business_name }}</h3>
                     <small>{{ $local_address }}</small>
-                    <a class="btn btn-half btn-blue" id="btn-bcast-details">DETAILS <span class="glyphicon glyphicon-plus"></span></a>
+                    <a class="btn btn-half btn-blue" id="btn-bcast-details"> <span class="glyphicon glyphicon-plus"></span></a>
                 </div>
                 <div class="body broadcast body-gradient">
                     @{{ numbers() }}
@@ -195,6 +195,7 @@
                             <div class="clearfix">
                                 <div class="pull-left">
                                     <strong>Next Available Number:</strong>
+                                    This is the available priority number
                                     {{--Approximately, your number
                                     will be served <br><span>2hrs from now</span>--}}
                                 </div>
@@ -205,10 +206,9 @@
                             </div>
                         </div>
                         <div class="col-md-5">
-                            <button class="btn btn-orange btn-getnum btn-disabled">
+                            <button class="btn btn-orange btn-getnum">
                                 GET THIS NUMBER <span class="glyphicon glyphicon-save"></span>
                             </button>
-                            <p class="text-center mt10 mb0">Coming Soon!</p>
                         </div>
                     </div>
                 </div>

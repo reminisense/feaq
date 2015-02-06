@@ -10,22 +10,27 @@
                     <input type="hidden" class="user_id" name="user_id" value="" />
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <input type="text" class=" form-control" placeholder="Business Name" id="business_name" name="business_name">
+                            <label>Business Name</label>
+                            <input type="text" class=" form-control" placeholder="for example: ABC Company" id="business_name" name="business_name">
                         </div>
                         <div class="col-md-12">
-                            <input type="text" class=" form-control" placeholder="Business Address" id="business_location" name="business_address">
+                            <label>Business Address</label>
+                            <input type="text" class=" form-control" placeholder="for example: Cebu City" id="business_location" name="business_address">
                         </div>
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <input type="text" id="time_open" name="time_open" placeholder="Time Open" class="timepicker form-control" />
+                                    <label>Time Open</label>
+                                    <input type="text" id="time_open" name="time_open" placeholder="for example: 8:00am" class="timepicker form-control" />
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" id="time_close" name="time_close" placeholder="Time Close" class="timepicker form-control" />
+                                    <label>Time Close</label>
+                                    <input type="text" id="time_close" name="time_close" placeholder="for example: 10:00pm" class="timepicker form-control" />
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-12">
+                            <label>Industry</label>
                             <div class="btn-group">
                                 <select class="form-control" name="industry" id="industry">
                                     <option value="0">Select Industry</option>
@@ -80,9 +85,11 @@
                         <div class="col-md-12 mt10">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <input type="text" class=" form-control" placeholder="Queue Number Limit" id="queue_limit" name="queue_limit">
+                                    <label>Queue Number Limit</label>
+                                    <input type="text" class=" form-control" placeholder="for example: 300" id="queue_limit" name="queue_limit">
                                 </div>
                                 <div class="col-md-6">
+                                    <label>No of Terminals</label>
                                     <select class="form-control" name="num_terminals" id="num_terminals">
                                         <option value="">Select Number of Terminals</option>
                                         <option value="1">1</option>

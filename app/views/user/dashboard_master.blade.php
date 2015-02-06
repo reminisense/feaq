@@ -341,6 +341,10 @@
                         </ul>
                     </div>
                     <div class="btn-group" role="group">
+                        <button id="btnTimeOpen" type="button" class="btn btn-default dropdown-toggle ng-binding" data-toggle="dropdown" aria-expanded="false">
+                            Time Open
+                            <span class="caret"></span>
+                        </button>
                         <input type="text" id="time_open-filter" name="time_open" placeholder="Time Open" class="timepicker form-control" style="width: 145px;"/>
                     </div>
                 </div>

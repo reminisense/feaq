@@ -3,10 +3,10 @@ $(document).ready(function() {
     $('#btn-bcast-details').click(function () {
         if ($('.bcast-details').is(':hidden')) {
             $('.bcast-details').slideDown('fast');
-            $('#btn-bcast-details').html("BROADCAST <span class='glyphicon glyphicon-minus'></span>");
+            $('#btn-bcast-details').html("<span class='glyphicon glyphicon-minus'></span>");
         } else {
             $('.bcast-details').slideUp('slow');
-            $('#btn-bcast-details').html("DETAILS <span class='glyphicon glyphicon-plus'></span>");
+            $('#btn-bcast-details').html("<span class='glyphicon glyphicon-plus'></span>");
         }
     });
 
@@ -45,5 +45,30 @@ $(document).ready(function() {
         $('#inputterminal').show();
         $('#btn-addterminal').hide();
     });
+
+    /*hovering get this number button*/
+    $('.btn-getnum').hover(
+        function () {
+            var $this = $(this); // caching $(this)
+            $this.data("GET THIS NUMBER <span class='glyphicon glyphicon-save'></span>", $this.text());
+            $this.text("Coming Soon!");
+        },
+        function () {
+            var $this = $(this); // caching $(this)
+            $this.text($this.data("GET THIS NUMBER <span class='glyphicon glyphicon-save'></span>"));
+        }
+    );
+
+    /*replace ugly input time filter*/
+    $('#btnTimeOpen').click(function (){
+        if ($('#time_open-filter').is(':hidden')) {
+            $('#time_open-filter').show();
+            $(this).hide();
+        }
+    });
+    $('#time_open-filter').focusout(function () {
+
+    });
+
 
 });

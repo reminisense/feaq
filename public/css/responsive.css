@@ -91,4 +91,7 @@
     background-color: #ff8649;
     color: #fff;
   }
+    .filterwrap input[type="text"] {
+        width: 100px!important;
+    }
 }

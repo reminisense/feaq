@@ -25,8 +25,12 @@ $(document).ready(function(){
             $('#email').val(jsonData.user.email);
             $('#mobile').val(jsonData.user.phone);
             $('#user_location').val(jsonData.user.local_address);
-            $('#verifyUser').modal('show');
-            $('#verifyUser').prepend('<div class="modal-backdrop fade in" style="height: ' + $( window ).height() + 'px"></div>');
+            /*$('#verifyUser').modal('show');*/
+            /*RBM -modal cannot be escaped*/
+            $('#verifyUser').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
         }
     });
 
@@ -65,7 +69,6 @@ $(document).ready(function(){
                 success: function(response){
                     $('#verifyUser').modal('hide');
                     $('#setupBusiness').modal();
-                    $('#setupBusiness').prepend('<div class="modal-backdrop fade in" style="height: ' + $( window ).height() + 'px"></div>');
                 }
             });
         } else {
@@ -135,7 +138,6 @@ $(document).ready(function(){
         $('#add_business_header').html('Add a Business');
         $('#skip_step_link').remove();
         $('#setupBusiness').modal('show');
-        $('#setupBusiness').prepend('<div class="modal-backdrop fade in" style="height: ' + $( window ).height() + 'px"></div>');
         $('#add_business_cloase').css('display', 'block');
     });
 
