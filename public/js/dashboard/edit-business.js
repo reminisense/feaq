@@ -49,14 +49,19 @@ var eb = {
             var scope = angular.element($("#editBusiness")).scope();
             scope.$apply(function(){
                 scope.business_id = business_id;
-            })
+            });
         },
 
         load_users : function(){
             var scope = angular.element($("#editBusiness")).scope();
             scope.$apply(function(){
                 scope.getUsers();
-            })
+            });
+        },
+
+        hide_add_terminal_form : function(){
+            $('#inputterminal').hide();
+            $('#btn-addterminal').show();
         }
 
     }
@@ -124,6 +129,23 @@ var eb = {
             $http.get('terminal/assign/' + user_id + '/' + terminal_id)
                 .success(function(response){
                     setBusinessFields(response.business);
+                });
+        }
+
+        $scope.deleteTerminal = function(terminal_id){
+            $http.get('terminal/delete/' + terminal_id)
+                .success(function(response){
+                    setBusinessFields(response.business);
+                });
+        }
+
+        $scope.createTerminal = function(terminal_name){
+            data = { name : terminal_name };
+            $http.post('terminal/create/' + $scope.business_id, data)
+                .success(function(response){
+                    setBusinessFields(response.business);
+                    $scope.terminal_name = '';
+                    eb.jquery_functions.hide_add_terminal_form();
                 });
         }
 

@@ -88,4 +88,21 @@ class Terminal extends Eloquent{
         return $terminals;
     }
 
+    public static function deleteTerminal($terminal_id){
+        TerminalUser::where('terminal_id', '=', $terminal_id)->delete();
+        Terminal::where('terminal_id', '=', $terminal_id)->delete();
+    }
+
+    public static function createBusinessNewTerminal($business_id, $name){
+        $first_branch = Branch::where('business_id', '=', $business_id)->first();
+        $first_service = Service::where('branch_id', '=', $first_branch->branch_id)->first();
+
+        $terminal = new Terminal();
+        $terminal->name = $name;
+        $terminal->service_id = $first_service->service_id;
+        $terminal->status = 1;
+
+        $terminal->save();
+    }
+
 }

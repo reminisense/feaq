@@ -19,4 +19,19 @@ class TerminalController extends BaseController{
         $business = Business::getBusinessDetails(Business::getBusinessIdByTerminalId($terminal_id));
         return json_encode(['success' => 1, 'business' => $business]);
     }
+
+    public function getDelete($terminal_id){
+        $business_id = Business::getBusinessIdByTerminalId($terminal_id);
+        Terminal::deleteTerminal($terminal_id);
+        $business = Business::getBusinessDetails($business_id);
+        return json_encode(['success' => 1, 'business' => $business]);
+    }
+
+    public function postCreate($business_id){
+        $name = Input::get('name');
+        Terminal::createBusinessNewTerminal($business_id, $name);
+        $business = Business::getBusinessDetails($business_id);
+        return json_encode(['success' => 1, 'business' => $business]);
+    }
+
 }
