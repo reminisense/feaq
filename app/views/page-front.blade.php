@@ -163,9 +163,9 @@
                     <td>(032) 345-4658</td>
                 </tr>
             </table>
-            <a href="" target="_blank"><img src="images/social-fb.png" class="socials" /></a>
-            <a href="" target="_blank"><img src="images/social-gp.png" class="socials" /></a>
-            <a href="" target="_blank"><img src="images/social-tw.png" class="socials"/></a>
+            <a href="https://www.facebook.com/theFeatherQ" target="_blank"><img src="images/social-fb.png" class="socials" /></a>
+            <a href="https://plus.google.com/+Featherq/posts" target="_blank"><img src="images/social-gp.png" class="socials" /></a>
+            <a href="https://twitter.com/thefeatherq" target="_blank"><img src="images/social-tw.png" class="socials"/></a>
         </div>
     </div>
     <div class="footer">

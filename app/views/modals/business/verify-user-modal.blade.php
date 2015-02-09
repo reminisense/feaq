@@ -38,7 +38,7 @@
                 <div class="alert alert-danger" id="verifyError" style="display: none;"></div>
             </div>
             <div class="modal-footer">
-                <button id="start_queuing" type="submit" class="btn btn-orange btn-lg">START QUEUIING</button>
+                <button id="start_queuing" type="submit" class="btn btn-orange btn-lg">START QUEUING</button>
             </div>
         </div>
     </div>
