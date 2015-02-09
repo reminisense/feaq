@@ -965,6 +965,10 @@ strong {
   vertical-align: middle;
   margin-top: -3px;
 }
+.btn-getnum:hover {
+  background-color: #888888;
+}
+
 .btn-select {
   background: none;
   outline: none;
