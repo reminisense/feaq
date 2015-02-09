@@ -36,11 +36,11 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <small>Time Open</small>
-                                            <input type="text" class=" form-control" value="08:00 am" ng-model="time_open">
+                                            <input type="text" class="timepicker form-control" value="08:00 am" ng-model="time_open"> <!-- RDH  Added timepicker -->
                                         </div>
                                         <div class="col-md-6">
                                             <small>Time Close</small>
-                                            <input type="text" class=" form-control" value="10:00 pm" ng-model="time_closed"> <!-- RDH -->
+                                            <input type="text" class="timepicker form-control" value="10:00 pm" ng-model="time_closed"> <!-- RDH  Added timepicker -->
                                         </div>
                                     </div>
                                 </div>
