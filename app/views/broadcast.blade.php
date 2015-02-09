@@ -129,37 +129,37 @@
                     <div class="row">
                         <div class="col-md-4 col-xs-6" style="@{{ boxdisplay1 }}">
                             <div class="numbers t@{{ tbox1 }}">
-                                <p class="terminal">@{{ tbox1 }}</p>
+                                <p class="terminal">Terminal @{{ tbox1 }}</p>
                                 @{{ box1 }}
                             </div>
                         </div>
                         <div class="col-md-4 col-xs-6" style="@{{ boxdisplay2 }}">
                             <div class="numbers t@{{ tbox2 }}">
-                                <p class="terminal">@{{ tbox2 }}</p>
+                                <p class="terminal">Terminal @{{ tbox2 }}</p>
                                 @{{ box2 }}
                             </div>
                         </div>
                         <div class="col-md-4 col-xs-6" style="@{{ boxdisplay3 }}">
                             <div class="numbers t@{{ tbox3 }}">
-                                <p class="terminal">@{{ tbox3 }}</p>
+                                <p class="terminal">Terminal @{{ tbox3 }}</p>
                                 @{{ box3 }}
                             </div>
                         </div>
                         <div class="col-md-4 col-xs-6" style="@{{ boxdisplay4 }}">
                             <div class="numbers t@{{ tbox4 }}">
-                                <p class="terminal">@{{ tbox4 }}</p>
+                                <p class="terminal">Terminal @{{ tbox4 }}</p>
                                 @{{ box4 }}
                             </div>
                         </div>
                         <div class="col-md-4 col-xs-6" style="@{{ boxdisplay5 }}">
                             <div class="numbers t@{{ tbox5 }}">
-                                <p class="terminal">@{{ tbox5 }}</p>
+                                <p class="terminal">Terminal @{{ tbox5 }}</p>
                                 @{{ box5 }}
                             </div>
                         </div>
                         <div class="col-md-4 col-xs-6" style="@{{ boxdisplay6 }}">
                             <div class="numbers t@{{ tbox6 }}">
-                                <p class="terminal none">@{{ tbox6 }}</p>
+                                <p class="terminal none">Terminal @{{ tbox6 }}</p>
                                 @{{ box6 }}
                             </div>
                         </div>
