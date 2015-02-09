@@ -65,7 +65,7 @@
                                     </div>
                                     <div id="collapseOne" class="panel-collapse collapse in">
 
-                                        <table class="table">
+                                        <table class="table" ng-init="terminal_index = 0">
                                             <tbody>
                                             <tr ng-repeat="terminal in terminals">
                                                 <td>
@@ -102,7 +102,7 @@
                                                 </td>
                                             </tr>
                                             <!-- -->
-                                            <tr>
+                                            <tr ng-if="terminals.length < 3">
                                                 <td>
                                                     <div></div>
                                                 </td>

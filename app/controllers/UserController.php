@@ -56,7 +56,7 @@ class UserController extends BaseController{
         if (Auth::check())
         {
             $search_businesses = Business::all();
-            $business_ids = UserBusiness::getAllBusinessIdByOwner(Auth::user()->user_id);
+            $business_ids = UserBusiness::getAllBusinessIdByOwner(Helper::userId());
 
             $my_businesses = [];
             if (count($business_ids) > 0){
@@ -65,11 +65,11 @@ class UserController extends BaseController{
                     array_push($my_businesses, Business::getBusinessArray($b_id->business_id, true)); // @author: CSD boolean true for business owner
                 }
             } else {
-                $my_terminals = TerminalUser::getTerminalAssignement(Auth::user()->user_id);
+                $my_terminals = TerminalUser::getTerminalAssignement(Helper::userId());
 
                 foreach($my_terminals as $terminal){
-                    $b_id = Business::getBusinessIdByTerminalId($terminal->terminal_id);
-                    array_push($my_businesses, Business::getBusinessArray($b_id->business_id, false)); // @author: CSD boolean false for non business owner
+                    $b_id = Business::getBusinessIdByTerminalId($terminal['terminal_id']); //ARA changed to array implementation TerminalUser::getTerminalAssignement function returns array
+                    array_push($my_businesses, Business::getBusinessArray($b_id, false)); // @author: CSD boolean false for non business owner
                 }
             }
 

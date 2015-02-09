@@ -10,7 +10,7 @@ $(document).ready(function(){
         eb.jquery_functions.getBusinessDetails();
     });
 
-    $('#btn-addterminal').click(function () {
+    $('body').on('click', '#btn-addterminal',function () {
         $('#inputterminal').show();
         $('#btn-addterminal').hide();
     });

@@ -33,7 +33,7 @@ class ProcessQueueController extends BaseController{
      * @param null $terminal_id
      * @return string
      */
-    public function getCallnumber($transaction_number, $terminal_id = null){
+    public function getCallnumber($transaction_number, $terminal_id){
         try{
             if(is_null(TerminalTransaction::find($transaction_number))){
                 return json_encode(['error' => 'You have called an invalid input.']);

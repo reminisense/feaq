@@ -38,10 +38,11 @@ class ProcessQueue extends Eloquent{
     }
 
     //calls a number based on its transaction number
-    public static function callTransactionNumber($transaction_number, $user_id, $terminal_id = null){
+    public static function callTransactionNumber($transaction_number, $user_id, $terminal_id){
         if(is_numeric($terminal_id)){
             $login_id = TerminalManager::hookedTerminal($terminal_id) ? TerminalManager::getLatestLoginIdOfTerminal($terminal_id) : 0;
             TerminalTransaction::updateTransactionTimeCalled($transaction_number, $login_id, null, $terminal_id);
+            Notifier::sendNumberCalledToAllChannels($transaction_number);
             return json_encode(['success' => 1, 'numbers' => ProcessQueue::allNumbers(Terminal::serviceId($terminal_id))]);
         }else{
             return json_encode(['error' => 'Please assign a terminal.']);
