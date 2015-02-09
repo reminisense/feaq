@@ -17,11 +17,20 @@
                     <div class="tab-pane fade active in" id="insertq">
                         <form class="navbar-form navbar-left">
                             <div class="form-group row">
+                                <div class="alert alert-warning">
+                                    <p>An empty value in the <strong>Specific #</strong> field will automatically give you the next available number.</p>
+                                </div>
                                 <div class="col-md-4">
                                     <label><strong>Specific #</strong></label>
                                 </div>
                                 <div class="col-md-8">
                                     <input type="text" class="form-control" ng-model="priority_number">
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Time to call</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" ng-model="time_assigned" placeholder="ex. 11:59 am"> <!--ARA for timebound numbers-->
                                 </div>
                                 <div class="col-md-4">
                                     <label>Name</label>
@@ -63,7 +72,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-orange btn-lg" data-dismiss="modal" aria-label="Close">CLOSE</button>
-                <button id="issue-specific-submit" type="button" class="issue-submit-btn btn btn-orange btn-lg" ng-disabled="isIssuing" ng-click="issueSpecific(priority_number, name, phone, email)">SUBMIT</button>
+                <button id="issue-specific-submit" type="button" class="issue-submit-btn btn btn-orange btn-lg" ng-disabled="isIssuing" ng-click="issueSpecific(priority_number, name, phone, email, time_assigned)">SUBMIT</button>
                 <button id="issue-multiple-submit" type="button" class="issue-submit-btn btn btn-orange btn-lg" ng-disabled="isIssuing" ng-click="issueMultiple(range)" style="display: none">SUBMIT</button>
             </div>
         </div>

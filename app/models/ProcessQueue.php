@@ -92,11 +92,14 @@ class ProcessQueue extends Eloquent{
         $called_numbers = array();
         $uncalled_numbers = array();
         $processed_numbers = array();
+        $timebound_numbers = array(); //ARA Timebound assignment
         if($numbers){
             foreach($numbers as $number){
                 $called = $number->time_called != 0 ? TRUE : FALSE;
                 $served = $number->time_completed != 0 ? TRUE : FALSE;
                 $removed = $number->time_removed != 0 ? TRUE : FALSE;
+
+                $timebound = ($number->time_assigned) != 0 && ($number->time_assigned <= time()) ? TRUE : FALSE;
 
                 /*legend*/
                 //uncalled  : not served and not removed
@@ -116,7 +119,12 @@ class ProcessQueue extends Eloquent{
                     }
                 }
 
-                if(!$called && !$removed){
+                if(!$called && !$removed && $timebound){
+                    $timebound_numbers[$number->transaction_number] = array(
+                        'transaction_number' => $number->transaction_number,
+                        'priority_number' => $number->priority_number,
+                    );
+                }else if(!$called && !$removed){
                     $uncalled_numbers[$number->transaction_number] = array(
                         'transaction_number' => $number->transaction_number,
                         'priority_number' => $number->priority_number,
@@ -168,7 +176,7 @@ class ProcessQueue extends Eloquent{
             $priority_numbers->next_number = ProcessQueue::nextNumber($priority_numbers->last_number_given, QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
             $priority_numbers->current_number = $called_numbers ? $called_numbers[key($called_numbers)]['priority_number'] : 0;
             $priority_numbers->called_numbers = $called_numbers;
-            $priority_numbers->uncalled_numbers = $uncalled_numbers;
+            $priority_numbers->uncalled_numbers = array_merge($timebound_numbers, $uncalled_numbers);
             $priority_numbers->processed_numbers = array_reverse($processed_numbers);
 
             return $priority_numbers;
@@ -188,6 +196,7 @@ class ProcessQueue extends Eloquent{
 				t.time_called,
 				t.time_removed,
 				t.time_completed,
+				t.time_assigned,
 			    t.terminal_id
 			FROM
 				`priority_number` n,

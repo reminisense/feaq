@@ -91,13 +91,14 @@
                 });
         };
 
-        $scope.issueSpecific = function(priority_number, name, phone, email){
+        $scope.issueSpecific = function(priority_number, name, phone, email, time_assigned){
             $scope.isIssuing = true;
             data = {
                 priority_number : priority_number,
                 name : name,
                 phone : phone,
-                email : email
+                email : email,
+                time_assigned : time_assigned
             };
             $http.post(pq.urls.issue_numbers.issue_specific_url + pq.ids.service_id, data)
                 .success(function(response){
@@ -108,6 +109,7 @@
                     $scope.name = '';
                     $scope.phone = '';
                     $scope.email = '';
+                    $scope.time_assigned = '';
                     $scope.isIssuing = false;
                 });
         }

@@ -1,6 +1,7 @@
 @extends('user.dashboard_master')
 
 @section('scripts')
+{{ HTML::script('js/jquery.timepicker.min.js') }}
 {{ HTML::script('js/process-queue/process-queue.js') }}
 {{ HTML::script('js/process-queue/process-queue-angular.js') }}
 @stop
