@@ -127,6 +127,7 @@ class ProcessQueue extends Eloquent{
                         'confirmation_code' => $number->confirmation_code,
                         'terminal_id' => $number->terminal_id,
                         'terminal_name' => $terminal_name,
+                        'box_rank' => Terminal::boxRank($number->terminal_id) // Added by PAG
                     );
                 }else if($called && !$served && $removed){
                     $processed_numbers[$number->transaction_number] = array(
@@ -250,6 +251,7 @@ class ProcessQueue extends Eloquent{
             $box = 'box'.$counter;
             $boxes->$box->number = isset($numbers[$index]['priority_number']) ? $numbers[$index]['priority_number'] : '';
             $boxes->$box->terminal = isset($numbers[$index]['terminal_name']) ? $numbers[$index]['terminal_name'] : '';
+            $boxes->$box->rank = isset($numbers[$index]['box_rank']) ? $numbers[$index]['box_rank'] : ''; // Added by PAG
         }
         $boxes->get_num = $all_numbers->next_number;
 
