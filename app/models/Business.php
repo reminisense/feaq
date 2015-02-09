@@ -152,12 +152,44 @@ class Business extends Eloquent{
         if ($industry == 'Industry') {
             $industry = '';
         }
-        return Business::where('name', 'LIKE', '%' . $name . '%')
-          ->where('local_address', 'LIKE', '%' . $country . '%')
-          ->where('industry', 'LIKE', '%' . $industry . '%')
-          ->where('open_hour', 'LIKE', '%' . $time_open_arr['hour'] . '%')
-          ->where('open_minute', 'LIKE', '%' . $time_open_arr['min'] . '%')
-          ->where('open_ampm', 'LIKE', '%' . $time_open_arr['ampm'] . '%')
-          ->get();
+        if ($time_open_arr['ampm'] == 'PM' && $time_open_arr['min'] == '00') {
+            return Business::where('name', 'LIKE', '%' . $name . '%')
+              ->where('local_address', 'LIKE', '%' . $country . '%')
+              ->where('industry', 'LIKE', '%' . $industry . '%')
+              ->where('open_ampm', '=', 'PM')
+              ->where('open_hour', '>=', $time_open_arr['hour'])
+              ->get();
+        }
+        elseif ($time_open_arr['ampm'] == 'PM' && $time_open_arr['min'] == '30') {
+            return Business::where('name', 'LIKE', '%' . $name . '%')
+              ->where('local_address', 'LIKE', '%' . $country . '%')
+              ->where('industry', 'LIKE', '%' . $industry . '%')
+              ->where('open_ampm', '=', 'PM')
+              ->whereRaw('open_hour > ? OR (open_hour = ? AND open_minute = ?)',
+                array($time_open_arr['hour'], $time_open_arr['hour'], '30'))
+              ->get();
+        }
+        elseif ($time_open_arr['ampm'] == 'AM' && $time_open_arr['min'] == '00') {
+            return Business::where('name', 'LIKE', '%' . $name . '%')
+              ->where('local_address', 'LIKE', '%' . $country . '%')
+              ->where('industry', 'LIKE', '%' . $industry . '%')
+              ->whereRaw('(open_hour >= ? AND open_ampm = ?) OR (open_hour < ? AND open_ampm = ?)',
+                  array($time_open_arr['hour'], 'AM', $time_open_arr['hour'], 'PM'))
+              ->get();
+        }
+        elseif ($time_open_arr['ampm'] == 'AM' && $time_open_arr['min'] == '30') {
+            return Business::where('name', 'LIKE', '%' . $name . '%')
+              ->where('local_address', 'LIKE', '%' . $country . '%')
+              ->where('industry', 'LIKE', '%' . $industry . '%')
+              ->whereRaw('(open_hour > ? AND open_ampm = ?) OR (open_hour < ? AND open_ampm = ?) OR (open_hour = ? AND open_minute = ? AND open_ampm = ?)',
+                array($time_open_arr['hour'], 'AM', $time_open_arr['hour'], 'PM', $time_open_arr['hour'], '30', 'AM'))
+              ->get();
+        }
+        else {
+            return Business::where('name', 'LIKE', '%' . $name . '%')
+              ->where('local_address', 'LIKE', '%' . $country . '%')
+              ->where('industry', 'LIKE', '%' . $industry . '%')
+              ->get();
+        }
     }
 }
