@@ -52,18 +52,18 @@ return array(
 			'prefix'   => '',
 		),
 
-		'mysql' => array(
-			'driver'    => 'mysql',
-			'host'      => 'localhost',
-			'database'  => 'feaq',
-			'username'  => 'forge',
-			'password'  => 'TkLKr5ysCF9DQfJuVzx7',
-			'charset'   => 'utf8',
-			'collation' => 'utf8_unicode_ci',
-			'prefix'    => '',
-		),
+        'mysql' => array(
+            'driver'    => 'mysql',
+            'host'      => 'aahu59sjmqvtmp.cwhwok9vhiau.ap-southeast-1.rds.amazonaws.com',
+            'database'  => 'ebdb',
+            'username'  => 'featherq',
+            'password'  => 'Reminisense!1',
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+        ),
 
-		'pgsql' => array(
+        'pgsql' => array(
 			'driver'   => 'pgsql',
 			'host'     => 'localhost',
 			'database' => 'forge',
