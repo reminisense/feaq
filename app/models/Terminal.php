@@ -24,7 +24,6 @@ class Terminal extends Eloquent{
             $terminal->name = "Terminal " . $i;
             $terminal->service_id = $service_id;
             $terminal->status = 1;
-            $terminal->box_rank = Terminal::generateBoxRank($service_id); // Added by PAG
 
             $terminal->save();
 
@@ -102,18 +101,8 @@ class Terminal extends Eloquent{
         $terminal->name = $name;
         $terminal->service_id = $first_service->service_id;
         $terminal->status = 1;
-        $terminal->box_rank = Terminal::generateBoxRank($first_service->service_id); // Added by PAG
 
         $terminal->save();
-    }
-
-    // Added by PAG
-    private static function generateBoxRank($service_id) {
-        return Terminal::where('service_id', '=', $service_id)->select(DB::raw('COUNT(*) AS rankcount'))->first()->rankcount + 1;
-    }
-
-    public static function boxRank($terminal_id) {
-        return $terminal_id ? Terminal::where('terminal_id', '=', $terminal_id)->select(array('box_rank'))->first()->box_rank : 0;
     }
 
 }
