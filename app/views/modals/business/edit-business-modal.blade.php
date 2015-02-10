@@ -45,9 +45,17 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
+                                    <small>QR Code</small>
+                                    <div class="row">
+                                        <a id="qr_code_download" href="https://api.qrserver.com/v1/create-qr-code/?data={{ url('broadcast/business') }}/@{{ business_id }}&size=150x150" ng-model="business_id" class="btn btn-blue" download="qrcode.png"><span class="glyphicon glyphicon-add"></span> Download QR Code</a>
+                                    </div>
+                                </div>
+                                <!--
+                                <div class="col-md-12">
                                     <small>Description</small>
                                     <textarea rows="10" class="form-control" placeholder="Add A Description Of Your Business Here! Try and talk about what your business does, how it started, and how valuable it is to your customers' lives! When we talk about our business, we can definitely say a whole lot about it! So don't hesitate to write it down here."></textarea>
                                 </div>
+                                -->
 
                             </div>
                         </div>

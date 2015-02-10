@@ -219,9 +219,9 @@
   border-top: 2px solid;
 }
 #moreq .nav-tabs>li>a,
-#moreq .nav-tabs>li.active>a:focus, 
-#moreq .nav-tabs>li>a:hover, 
-#moreq .nav-tabs>li.active>a, 
+#moreq .nav-tabs>li.active>a:focus,
+#moreq .nav-tabs>li>a:hover,
+#moreq .nav-tabs>li.active>a,
 #moreq .nav-tabs>li.active>a:hover {
   background: none;
 }
@@ -436,18 +436,18 @@ h5.heading {
 ::-moz-selection {
   background: #ffbf9f; /* Gecko Browsers */
 }
-::-webkit-input-placeholder { 
+::-webkit-input-placeholder {
     color:    #484848;
 }
-:-moz-placeholder { 
+:-moz-placeholder {
    color:    #484848;
    opacity:  1;
 }
-::-moz-placeholder { 
+::-moz-placeholder {
    color:    #484848;
    opacity:  1;
 }
-:-ms-input-placeholder { 
+:-ms-input-placeholder {
    color:    #484848;
 }
 .orange {
@@ -467,15 +467,15 @@ h5.heading {
 .navbar-default .navbar-brand {
   color: #fff;
 }
-.navbar-default .navbar-nav>li>a:focus, 
+.navbar-default .navbar-nav>li>a:focus,
 .navbar-default .navbar-nav>li>a:hover {
   color: #00ba8b;
 }
-.navbar-default .navbar-nav>.active>a, 
-.navbar-default .navbar-nav>.active>a:focus, 
+.navbar-default .navbar-nav>.active>a,
+.navbar-default .navbar-nav>.active>a:focus,
 .navbar-default .navbar-nav>.active>a:hover,
-.navbar-default .navbar-nav>.open>a, 
-.navbar-default .navbar-nav>.open>a:focus, 
+.navbar-default .navbar-nav>.open>a,
+.navbar-default .navbar-nav>.open>a:focus,
 .navbar-default .navbar-nav>.open>a:hover {
   color: #fff;
   background-color: #00ba8b;
@@ -554,7 +554,7 @@ h5.heading {
   }
   .boxed .head small,
   .boxed-single small {
-    color: #58585a;  
+    color: #58585a;
     margin-top: 4px;
     display: inline-block;
   }
@@ -799,7 +799,7 @@ h5.heading {
   .filterwrap .btn,
   .modal .form-control:focus,
   .modal .form-control,
-  .modal .form-group button.dropdown-toggle {  
+  .modal .form-group button.dropdown-toggle {
     -webkit-box-shadow: none!important;
     -moz-box-shadow: none!important;
     box-shadow: none!important;
@@ -1030,5 +1030,10 @@ strong {
 .top-space-20 {
     padding-top: 20px;
 }
+
+#qr_code_download {
+    margin-left: 15px; margin-top: 5px;
+}
+
 
 /*******************/
