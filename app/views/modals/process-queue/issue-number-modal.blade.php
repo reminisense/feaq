@@ -15,7 +15,7 @@
                 </ul>
                 <div class="clearfix tab-content">
                     <div class="tab-pane fade active in" id="insertq">
-                        <form class="navbar-form navbar-left">
+                        <form class="navbar-form navbar-left" name="issue_specific_form">
                             <div class="form-group row">
                                 <div class="alert alert-warning">
                                     <p>An empty value in the <strong>Specific #</strong> field will automatically give you the next available number.</p>
@@ -24,44 +24,50 @@
                                     <label><strong>Specific #</strong></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="priority_number">
+                                    <input type="text" class="form-control" ng-model="priority_number" name="priority_number">
                                 </div>
                                 <div class="col-md-4">
                                     <label>Time to call</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="time_assigned" placeholder="ex. 11:59 am"> <!--ARA for timebound numbers-->
+                                    <input type="text" class="form-control" ng-model="time_assigned" name="time_assigned" placeholder="ex. 11:59 am"> <!--ARA for timebound numbers-->
                                 </div>
                                 <div class="col-md-4">
                                     <label>Name</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="name">
+                                    <input type="text" class="form-control" ng-model="name" name="name">
                                 </div>
                                 <div class="col-md-4">
                                     <label>Cellphone</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="phone">
+                                    <input type="text" class="form-control" ng-model="phone" name="phone">
                                 </div>
                                 <div class="col-md-4">
                                     <label>Email</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="email">
+                                    <input type="email" class="form-control" ng-model="email" name="email">
                                 </div>
+                            </div>
+                            <div class="alert alert-danger" role="alert" ng-show="checkIssueSpecificErrors()">
+                                <div><strong class="message">@{{ issue_specific_error }}</strong></div>
                             </div>
                         </form>
                     </div>
                     <div class="tab-pane fade" id="multipleq" aria-labelledby="profile-tab">
-                        <form class="navbar-form navbar-left">
+                        <form class="navbar-form navbar-left" name="issue_multiple_form">
                             <div class="form-group row">
                                 <div class="col-md-4">
-                                    <label><strong>Amount</strong></label>
+                                    <label><strong>Quantity</strong></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="range">
+                                    <input type="number" class="form-control" ng-model="range" name="range" required>
                                 </div>
+                            </div>
+                            <div class="alert alert-danger" role="alert" ng-show="checkIssueMultipleErrors()">
+                                <div><strong class="message">@{{ issue_multiple_error }}</strong></div>
                             </div>
                         </form>
                     </div>
@@ -72,8 +78,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-orange btn-lg" data-dismiss="modal" aria-label="Close">CLOSE</button>
-                <button id="issue-specific-submit" type="button" class="issue-submit-btn btn btn-orange btn-lg" ng-disabled="isIssuing" ng-click="issueSpecific(priority_number, name, phone, email, time_assigned)">SUBMIT</button>
-                <button id="issue-multiple-submit" type="button" class="issue-submit-btn btn btn-orange btn-lg" ng-disabled="isIssuing" ng-click="issueMultiple(range)" style="display: none">SUBMIT</button>
+                <button id="issue-specific-submit" type="button" class="issue-submit-btn btn btn-orange btn-lg" ng-disabled="isIssuing || checkIssueSpecificErrors()" ng-click="issueSpecific(priority_number, name, phone, email, time_assigned)">SUBMIT</button>
+                <button id="issue-multiple-submit" type="button" class="issue-submit-btn btn btn-orange btn-lg" ng-disabled="isIssuing || checkIssueMultipleErrors()" ng-click="issueMultiple(range)" style="display: none">SUBMIT</button>
             </div>
         </div>
     </div>

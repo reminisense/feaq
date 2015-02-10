@@ -70,9 +70,4 @@ class TerminalTransaction extends Eloquent{
         $values['time_removed'] = $time_removed == null ? time() : $time_removed;
         TerminalTransaction::where('transaction_number', '=', $transaction_number)->update($values);
     }
-
-    public static function getTransactionsNotYetCompleted() {
-        return TerminalTransaction::where('time_completed', '=', 0)->select(array(DB::raw('COUNT(*) as nums')))->first()->nums;
-    }
-
 }

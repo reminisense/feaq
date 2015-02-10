@@ -48,7 +48,7 @@ class BroadcastController extends BaseController{
             ->with('local_address', Business::localAddress($business_id))
             ->with('business_id', $business_id) /* RDH Changed error, 'branch_id' to 'business_id' */
             ->with('business_name', $business_name)
-            ->with('lines_in_queue', TerminalTransaction::getTransactionsNotYetCompleted());
+            ->with('lines_in_queue', Analytics::getBusinessRemainingCount($business_id));
     }
 
     public function getNumbers($branch_id = 0) {
