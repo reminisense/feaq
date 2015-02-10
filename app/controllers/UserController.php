@@ -62,17 +62,20 @@ class UserController extends BaseController{
             if (count($business_ids) > 0){
                 foreach($business_ids as $b_id)
                 {
-                    array_push($my_businesses, Business::getBusinessArray($b_id->business_id, true)); // @author: CSD boolean true for business owner
-                }
-            } else {
-                $my_terminals = TerminalUser::getTerminalAssignement(Auth::user()->user_id);
-
-                foreach($my_terminals as $terminal){
-                    $b_id = Business::getBusinessIdByTerminalId($terminal->terminal_id);
-                    array_push($my_businesses, Business::getBusinessArray($b_id->business_id, false)); // @author: CSD boolean false for non business owner
+                    array_push($my_businesses, Business::getBusinessArray($b_id->business_id));
                 }
             }
 
+            $my_terminals = TerminalUser::getTerminalAssignement(Auth::user()->user_id);
+            if (count($my_terminals) > 0){
+                foreach($my_terminals as $terminal){
+                    $b_id = Business::getBusinessIdByTerminalId($terminal['terminal_id']);
+                    $business = Business::getBusinessArray($b_id);
+                    if (!$this->inArrayBusiness($my_businesses, $business)){
+                        array_push($my_businesses, $business);
+                    }
+                }
+            }
 
             return View::make('user.dashboard')
                 ->with('search_businesses', $search_businesses)
@@ -82,6 +85,16 @@ class UserController extends BaseController{
         {
             return View::make('page-front');
         }
+    }
+
+    private function inArrayBusiness($businesses, $business){
+        foreach($businesses as $haystack){
+            if ($haystack->business_id == $business->business_id){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function getUserlist(){

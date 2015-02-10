@@ -97,7 +97,7 @@ class Business extends Eloquent{
      * @description: fetch business row by business id
      * @return business row with all branches, services and terminals
      */
-    public static function getBusinessArray($business_id, $business_owner){
+    public static function getBusinessArray($business_id){
         $business = Business::where('business_id', '=', $business_id)->get()->first();
         $branches = [];
         $services = [];
