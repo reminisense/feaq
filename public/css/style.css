@@ -431,7 +431,7 @@ a:hover {
 	.prefooter {
 		text-align: center;
 	}
-	.signup img {
+	.signup .col-lg-4 img {
 		margin-top: 40px;
 	}
 	.prefooter {
@@ -456,7 +456,7 @@ a:hover {
 	.navbar.shrink .navbar-toggle {
 		margin-top: 9px;
 	}
-	.signup img {
+	.signup .col-lg-4 img {
 		width: 210px;
 	}
 	.banner {
@@ -466,20 +466,11 @@ a:hover {
 		padding-top: 0px;
 	}
 	.navbar-nav>li>a {
-		font-size: 14px;
-		padding: 20px 16px;
-	}
-	.navbar-collapse.collapse .nav {
-		background-color: rgba(0, 0, 0, .9);
-		-moz-transition-property: none!important;
-		-webkit-transition-property: none!important;
-		-o-transition-property: none!important;
-		transition-property: none!important;
-	}
-	.navbar-nav>li>a {
 		color: #fff;
-		-webkit-transition: all 0.1s ease!important;
-    	transition: all 0.1s ease!important;
+        font-size: 14px;
+        padding: 20px 16px;
+		-webkit-transition: all 0.2s ease!important;
+    	transition: all 0.2s ease!important;
 	}
 
 }
@@ -548,7 +539,7 @@ a:hover {
 	.prefooter {
 		text-align: center;
 	}
-	.signup img {
+	.signup .col-lg-4 img {
 		margin-top: 40px;
 	}
 	.prefooter {
@@ -571,6 +562,14 @@ a:hover {
 		overflow: hidden;
 		margin-right: 0!important;
 	}
+    .navbar-nav>li>a {
+        color: #fff;
+        font-size: 14px;
+        padding: 20px 16px;
+        background-color: rgba(0, 0, 0, .8);
+        -webkit-transition: all 0.2s ease!important;
+        transition: all 0.2s ease!important;
+    }
 	
 }
 
