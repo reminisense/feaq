@@ -156,7 +156,7 @@
                 </tr>
                 <tr>
                     <td>Email:</td>
-                    <td>contact@featherq.net</td>
+                    <td>contact@featherq.com</td>
                 </tr>
                 <tr>
                     <td>Telephone:</td>

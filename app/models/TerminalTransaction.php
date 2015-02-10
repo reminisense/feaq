@@ -16,6 +16,11 @@ class TerminalTransaction extends Eloquent{
      * retrieve methods
      =======================*/
 
+    public static function terminalId($transaction_number){
+        return TerminalTransaction::where('transaction_number', '=', $transaction_number)->first()->terminal_id;
+    }
+
+
     /*===========================
      * update and create methods
      ============================*/

@@ -30,11 +30,15 @@ class IssueNumberController extends BaseController{
         $phone = Input::get('phone');
         $email = Input::get('email');
 
-        //for new feature
-        //$time = Input::get('time');
+        if(Input::get('time_assigned')){
+            $time_assigned = strtotime(Input::get('time_assigned'));
+        }else{
+            $time_assigned = 0;
+        }
 
         $number = ProcessQueue::issueNumber($service_id, $priority_number);
         PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
+        TerminalTransaction::where('transaction_number', '=', $number['transaction_number'])->update(['time_assigned' => $time_assigned]);
         return json_encode(['success' => 1, 'number' => $number]);
     }
 }

@@ -56,7 +56,7 @@ class UserController extends BaseController{
         if (Auth::check())
         {
             $search_businesses = Business::all();
-            $business_ids = UserBusiness::getAllBusinessIdByOwner(Auth::user()->user_id);
+            $business_ids = UserBusiness::getAllBusinessIdByOwner(Helper::userId());
 
             $my_businesses = [];
             if (count($business_ids) > 0){
