@@ -77,7 +77,7 @@ FeatherQ.facebook = {
 
     'fbAsyncInit': window.fbAsyncInit = (function() {
         FB.init({
-            appId      : '1577295149183234',
+            appId      : '1574952899417459', /* Test: 1577295149183234, Prod: 1574952899417459 */
             cookie     : true,  // enable cookies to allow the server to access
                                 // the session
             xfbml      : true,  // parse social plugins on this page
