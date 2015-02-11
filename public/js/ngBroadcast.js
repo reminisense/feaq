@@ -1,6 +1,6 @@
 (function() {
 
-    var app = angular.module('Broadcast', ['Facebook']);
+    var app = angular.module('Broadcast', []);
 
     app.controller('nowServingCtrl', function($scope, $http) {
 

@@ -17,7 +17,6 @@
     {{ HTML::script('js/jquery1.11.2.js') }}
     {{ HTML::script('js/angular.js') }}
     {{ HTML::script('js/ngBroadcast.js') }}
-    {{ HTML::script('js/ngFacebook.js') }}
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -45,7 +44,14 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hello {{Auth::user()->first_name}}! <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        @if (Auth::check())
+                            Hello {{Auth::user()->first_name}}!
+                        @else
+                            Sign up now!
+                        @endif
+                        <span class="caret"></span>
+                    </a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="{{URL::to('/')}}">Dashboard</a></li>
                         <li class="divider"></li>
@@ -207,6 +213,9 @@
                         </div>
                         <div class="col-md-5">
                             <button class="btn btn-orange btn-getnum">
+                                @if (!Auth::check())
+                                    <strong>LOGIN TO <br></strong>
+                                @endif
                                 GET THIS NUMBER <span class="glyphicon glyphicon-save"></span>
                             </button>
                         </div>
@@ -224,73 +233,6 @@
             <div class="sep"></div>
         </div>
     </div>
-
-    {{--<div class="row">
-        <div class="col-md-3">
-            <div class="boxed boxed-single clickable">
-                <div class="wrap">
-                    <h3>Kublai Khan Ayala</h3>
-                    <small>Parkmall, North Reclamation Area</small>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="boxed boxed-single clickable">
-                <div class="wrap">
-                    <h3>Kublai Khan Ayala</h3>
-                    <small>Parkmall, North Reclamation Area</small>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="boxed boxed-single clickable">
-                <div class="wrap">
-                    <h3>Kublai Khan Ayala</h3>
-                    <small>Parkmall, North Reclamation Area</small>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="boxed boxed-single clickable">
-                <div class="wrap">
-                    <h3>Kublai Khan Ayala</h3>
-                    <small>Parkmall, North Reclamation Area</small>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="boxed boxed-single clickable">
-                <div class="wrap">
-                    <h3>Kublai Khan Ayala</h3>
-                    <small>Parkmall, North Reclamation Area</small>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="boxed boxed-single clickable">
-                <div class="wrap">
-                    <h3>Kublai Khan Ayala</h3>
-                    <small>Parkmall, North Reclamation Area</small>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="boxed boxed-single clickable">
-                <div class="wrap">
-                    <h3>Kublai Khan Ayala</h3>
-                    <small>Parkmall, North Reclamation Area</small>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="boxed boxed-single clickable">
-                <div class="wrap">
-                    <h3>Kublai Khan Ayala</h3>
-                    <small>Parkmall, North Reclamation Area</small>
-                </div>
-            </div>
-        </div>
-    </div>--}}
 
 </div>
 <div class="footer">
