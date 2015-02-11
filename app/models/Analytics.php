@@ -27,6 +27,6 @@ class Analytics extends Eloquent{
 
     public static function getServiceRemainingCount($service_id){
         $all_numbers = ProcessQueue::allNumbers($service_id);
-        return count($all_numbers->uncalled_numbers);
+        return isset($all_numbers->uncalled_numbers) ? count($all_numbers->uncalled_numbers) : 0;
     }
 }
