@@ -7,12 +7,14 @@ $(document).ready(function(){
 
     var user_location = document.getElementById('user_location');
     var business_location = document.getElementById('business_location');
+    var edit_business_location = document.getElementById('edit_business_address');
     var options = {
         componentRestrictions: {country: 'ph'}
     };
 
     var autocomplete = new google.maps.places.Autocomplete(user_location, options);
     var autocomplete = new google.maps.places.Autocomplete(business_location, options);
+    var autocomplete = new google.maps.places.Autocomplete(edit_business_location, options);
 
     $.get('/user/user-status', function(){
 

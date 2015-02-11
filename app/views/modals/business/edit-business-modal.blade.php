@@ -22,7 +22,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <small>Business Address</small>
-                                    <input type="text" class=" form-control" value="@{{ business_address }}" ng-model="business_address">
+                                    <input type="text" id="edit_business_address" class=" form-control" value="@{{ business_address }}" ng-model="business_address">
                                 </div>
                                 <div class="col-md-12">
                                     <small>Facebook URL</small>
