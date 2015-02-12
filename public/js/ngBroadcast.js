@@ -49,6 +49,26 @@
                         $scope.callNumberSound('call-number-sound');
                     }
                 }
+
+                if ($scope.box1 != response.box1.number && $scope.rank1 != "") {
+                    $scope.callNumberSound('call-number-sound');
+                }
+                if ($scope.box2 != response.box2.number && $scope.rank2 != "") {
+                    $scope.callNumberSound('call-number-sound');
+                }
+                if ($scope.box3 != response.box3.number && $scope.rank3 != "") {
+                    $scope.callNumberSound('call-number-sound');
+                }
+                if ($scope.box4 != response.box4.number && $scope.rank4 != "") {
+                    $scope.callNumberSound('call-number-sound');
+                }
+                if ($scope.box5 != response.box5.number && $scope.rank5 != "") {
+                    $scope.callNumberSound('call-number-sound');
+                }
+                if ($scope.box6 != response.box6.number && $scope.rank6 != "") {
+                    $scope.callNumberSound('call-number-sound');
+                }
+
                 $scope.box1 = response.box1.number;
                 $scope.box2 = response.box2.number;
                 $scope.box3 = response.box3.number;
