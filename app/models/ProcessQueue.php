@@ -17,6 +17,7 @@ class ProcessQueue extends Eloquent{
         $number_limit = $service_properties->number_limit;
         $last_number_given = $service_properties->last_number_given;
         $current_number = $service_properties->current_number;
+        $time_queued = time();
 
         if(!$priority_number){
             $priority_number = $service_properties->next_number;
@@ -26,8 +27,8 @@ class ProcessQueue extends Eloquent{
         $track_id = PriorityNumber::createPriorityNumber($service_id, $number_start, $number_limit, $last_number_given, $current_number, $date);
         $confirmation_code = strtoupper(substr(md5($track_id), 0, 4));
         $transaction_number = PriorityQueue::createPriorityQueue($track_id, $priority_number, $confirmation_code, $user_id, $queue_platform);
-        TerminalTransaction::createTerminalTransaction($transaction_number, time());
-
+        TerminalTransaction::createTerminalTransaction($transaction_number, $time_queued);
+        Analytics::insertAnalyticsQueueNumberIssued($transaction_number, $service_id, $date, $time_queued); //insert to queue_analytics
         $number = array(
             'transaction_number' => $transaction_number,
             'priority_number' => $priority_number,
@@ -40,9 +41,13 @@ class ProcessQueue extends Eloquent{
     //calls a number based on its transaction number
     public static function callTransactionNumber($transaction_number, $user_id, $terminal_id){
         if(is_numeric($terminal_id)){
+            $pq = PriorityQueue::find($transaction_number)->first();
+            $pn = PriorityNumber::find($pq->track_id)->first();
+            $time_called = time();
             $login_id = TerminalManager::hookedTerminal($terminal_id) ? TerminalManager::getLatestLoginIdOfTerminal($terminal_id) : 0;
-            TerminalTransaction::updateTransactionTimeCalled($transaction_number, $login_id, null, $terminal_id);
-            Notifier::sendNumberCalledToAllChannels($transaction_number);
+            TerminalTransaction::updateTransactionTimeCalled($transaction_number, $login_id, $time_called, $terminal_id);
+            Analytics::insertAnalyticsQueueNumberCalled($transaction_number, $pn->service_id, $pn->date, $time_called, $terminal_id); //insert to queue_analytics
+            Notifier::sendNumberCalledToAllChannels($transaction_number); //notifies users that his/her number is called
             return json_encode(['success' => 1, 'numbers' => ProcessQueue::allNumbers(Terminal::serviceId($terminal_id))]);
         }else{
             return json_encode(['error' => 'Please assign a terminal.']);
@@ -64,10 +69,13 @@ class ProcessQueue extends Eloquent{
         }
 
         if($transaction->time_removed == 0 && $transaction->time_completed == 0){
+            $time = time();
             if($process == 'serve'){
-                TerminalTransaction::updateTransactionTimeCompleted($transaction_number);
+                TerminalTransaction::updateTransactionTimeCompleted($transaction_number, $time);
+                Analytics::insertAnalyticsQueueNumberServed($transaction_number, $pnumber->service_id, $pnumber->date, $time, $terminal_id); //insert to queue_analytics
             }else if($process == 'remove'){
-                TerminalTransaction::updateTransactionTimeRemoved($transaction_number);
+                TerminalTransaction::updateTransactionTimeRemoved($transaction_number, $time);
+                Analytics::insertAnalyticsQueueNumberRemoved($transaction_number, $pnumber->service_id, $pnumber->date, $time, $terminal_id); //insert to queue_analytics
             }
         }else{
             return json_encode(array('error' => 'Number ' . $pnumber . ' has already been processed. If the number still exists, please reload the page.'));
