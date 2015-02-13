@@ -99,9 +99,9 @@
                     <h1>Sign-up for FeatherQ Today!</h1>
                     <p>If you have a business that needs a queuing system then FeatherQ is for you! For a limited time FeatherQ Premium will be open for 3 months free trial to a limited number of businesses! Be part of history as We change the way the world waits.</p>
                     <br>
-                    <div class="button mb30">
+                    <div class="button mb30" ng-controller="fbController">
                         <!-- <a href="" class="btn btn-orange">Sign up for a Free Account</a> CHANGED TO FB LOGIN -->
-                        <a href="#" class="btn btn-blue fb" onclick="FeatherQ.facebook.login();" id="fb-login-2"><img src="images/icon-fb.png"> Signup through Facebook</a>
+                        <a href="#" class="btn btn-blue fb" ng-click="login()" id="fb-login-2"><img src="images/icon-fb.png"> Signup through Facebook</a>
                     </div>
                 </div>
             </div>
