@@ -128,20 +128,25 @@
     <div class="container">
         <div class="col-md-6 wow fadeInDown ">
             <a name="contact"></a>
-            <form class="row">
+            {{ Form::open(array('url' => '/', 'class' => 'row', 'role' => 'form')) }}
+                @if(Session::has('message'))
+                <div class="alert alert-success col-md-10">
+                    <p>{{ Session::get('message') }}</p>
+                </div>
+                @endif
                 <div class="col-md-10">
-                    <input type="text" id="name" class="form-control col-md-4" placeholder="Name*" name="name">
+                    {{ Form::text('name', null, array('id' => 'name', 'name' => 'name', 'class' => 'form-control', 'placeholder' => 'Name*')) }}
                 </div>
                 <div class="col-md-10">
-                    <input type="text" id="email" class="form-control col-md-4" placeholder="Email*" name="email">
+                    {{ Form::text('email', null, array('type' => 'email', 'id' => 'inputEmail3', 'name' => 'email', 'class' => 'form-control col-md-4', 'placeholder' => 'Email*')) }}
                 </div>
                 <div class="col-md-10">
-                    <textarea class="form-control" style="background:none; color:#fff;" rows="6" placeholder="Message*"></textarea>
+                    {{ Form::textarea('message', null, array('rows' => '6', 'class' => 'form-control', 'placeholder' => 'Message*', 'style' => 'background: none; color: #fff')) }}
                 </div>
                 <div class="col-md-10 button">
-                    <a href="" class="btn btn-orange mb30">Send</a>
+                    {{ Form::submit('Send', array('id' => 'contact', 'class' => 'btn btn-orange mb30')) }}
                 </div>
-            </form>
+            {{ Form::close() }}
         </div>
         <div class="col-md-6 wow fadeInDown">
             <p class="mb30">If you have a business that needs a queuing system then FeatherQ is for you! For a limited time FeatherQ Premium will be open for 3 months free trial to a limited number of businesses! Be part of history as We change the way the world waits.</p>

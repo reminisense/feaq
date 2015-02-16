@@ -87,6 +87,28 @@ class UserController extends BaseController{
         }
     }
 
+    public function processContactForm(){
+        $data = [
+            'name' => Input::get('name'),
+            'email' => Input::get('email'),
+            'messageContent' => Input::get('message')
+        ];
+        Mail::send('emails.contact', $data, function($message)
+        {
+            $message->subject('Inquiry at FeatherQ'); // RDH Changed to correct spelling "Inquiry"
+            $message->to('admin@reminisense.com');
+        });
+
+        Mail::send('emails.contact_confirmation', $data, function($message)
+        {
+            $message->subject('Confirmation Message from FeatherQ');
+            $message->to(Input::get('email'));
+        });
+
+        return Redirect::to('/#contact')
+            ->with('message', 'Email successfully sent!');
+    }
+
     private function inArrayBusiness($businesses, $business){
         foreach($businesses as $haystack){
             if ($haystack->business_id == $business->business_id){
