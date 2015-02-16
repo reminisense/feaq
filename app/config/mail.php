@@ -28,7 +28,7 @@ return array(
 	|
 	*/
 
-	'host' => 'outlook.office365.com',
+	'host' => 'smtp.gmail.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-    'from' => array('address' => 'contact@featherq.net', 'name' => 'FeatherQ'),
+    'from' => array('address' => 'contact@featherq.com', 'name' => 'FeatherQ'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return array(
 	|
 	*/
 
-    'username' => 'contact@featherq.net',
+    'username' => 'contact@featherq.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return array(
 	|
 	*/
 
-    'password' => '@FeatherQ868',
+    'password' => '9v4fgMMm',
 
 	/*
 	|--------------------------------------------------------------------------

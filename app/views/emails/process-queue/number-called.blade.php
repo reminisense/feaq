@@ -7,8 +7,9 @@
 <h2>Your number has been called!</h2>
 
 <div>
-    <p>Your number (# {{ $priority_number }}) has been called by {{ $terminal_name }} in {{ $business_name }}.</p>
+    <p>Hello{{ $name }}!</p>
     <p>Thank you for using FeatherQ!</p>
+    <p>Your number (# {{ $priority_number }}) has been called by {{ $terminal_name }} in {{ $business_name }}.</p>
 </div>
 </body>
 </html>

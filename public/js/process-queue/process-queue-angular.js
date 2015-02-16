@@ -12,7 +12,11 @@
         $scope.called_number = 0;
 
         $scope.getAllNumbers = function(){
-            getResponseResetValues(pq.urls.process_queue.all_numbers_url + pq.ids.service_id);
+            getResponseResetValues(pq.urls.process_queue.all_numbers_url + pq.ids.service_id, null, null, function(){
+                setTimeout(function(){
+                    $scope.getAllNumbers();
+                }, 1000);
+            });
         };
 
         $scope.callNumber = function(){
@@ -46,7 +50,7 @@
         };
 
         //non scope functions
-        getResponseResetValues = function(url, successFunc, errorFunc){
+        getResponseResetValues = function(url, successFunc, errorFunc, finallyFunc){
             $http.get(url)
                 .success(function(response){
                     if(response.numbers) resetValues(response.numbers);
@@ -54,6 +58,8 @@
                 })
                 .error(function(){
                     if(typeof errorFunc === 'function') errorFunc();
+                }).finally(function(){
+                    if(typeof finallyFunc === 'function') finallyFunc();
                 });
         };
 
@@ -69,9 +75,7 @@
 
         //****************************** refreshing
         $scope.getAllNumbers();
-        setInterval(function(){
-            $scope.getAllNumbers();
-        }, 2000);
+
     });
 
 
