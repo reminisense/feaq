@@ -82,7 +82,10 @@
                                                 <td>
                                                     <div class="block mb10">
                                                         <small>Terminal Name</small>
-                                                        <p class="bold">@{{ terminal.name }}</p>
+                                                        <p class="bold">
+                                                            <span class="terminal-name-display" terminal_id="@{{ terminal.terminal_id }}" style="font-size: 14px; ">@{{ terminal.name }}</span>
+                                                            <input type="text" class="terminal-name-update" terminal_id="@{{ terminal.terminal_id }}" value="@{{ terminal.name }}" style="display: none;">
+                                                        </p>
                                                     </div>
                                                     <div class="block" ng-if="terminal.users.length != 0">
                                                         <small>User</small>
@@ -102,7 +105,9 @@
                                                 </td>
                                                 <td>
                                                     <div class="block mb10">
-                                                        <a href="#" ng-click="deleteTerminal(terminal.terminal_id)" ><span class="glyphicon glyphicon-trash"></span> Delete</a>
+                                                        <a href="#" ng-click="editTerminal(terminal.terminal_id)" class="edit-terminal-button" terminal_id="@{{ terminal.terminal_id }}" ><span class="glyphicon glyphicon-trash"></span> Edit</a>
+                                                        <a href="#" ng-click="updateTerminal(terminal.terminal_id)" class="update-terminal-button" terminal_id="@{{ terminal.terminal_id }}" style="display: none;"><span class="glyphicon glyphicon-trash"></span> Update</a>
+                                                        <a href="#" ng-click="deleteTerminal(terminal.terminal_id)"><span class="glyphicon glyphicon-trash"></span> Delete</a>
                                                     </div>
                                                     <div class="block">
                                                         <a href="#" ng-repeat="user in terminal.users" ng-click="unassignFromTerminal(user.user_id, user.terminal_id)"><span class="glyphicon glyphicon-remove"></span> Remove</a>

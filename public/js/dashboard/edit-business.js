@@ -69,6 +69,7 @@ var eb = {
 
 
 (function(){
+
     app.controller('editBusinessController', function($scope, $http){
         $scope.business_id = null;
         $scope.business_name = null;
@@ -138,6 +139,29 @@ var eb = {
                     setBusinessFields(response.business);
                 });
         }
+
+        $scope.editTerminal = function(terminal_id){
+            $('.terminal-name-display[terminal_id='+terminal_id+']').hide();
+            $('.edit-terminal-button[terminal_id='+terminal_id+']').hide();
+            $('.terminal-name-update[terminal_id='+terminal_id+']').show();
+            $('.update-terminal-button[terminal_id='+terminal_id+']').show();
+        }
+
+        $scope.updateTerminal = (function(terminal_id) {
+            var new_name = $('.terminal-name-update[terminal_id='+terminal_id+']').val();
+            $('.terminal-name-display[terminal_id='+terminal_id+']').text(new_name);
+            $http.post('/terminal/edit', {
+                terminal_id : terminal_id,
+                name : new_name
+            }).success(function(response) {
+                $('.update-terminal-button[terminal_id=' + terminal_id + ']').hide();
+                $('.terminal-name-update[terminal_id=' + terminal_id + ']').hide();
+                $('.terminal-name-display[terminal_id=' + terminal_id + ']').show();
+                $('.edit-terminal-button[terminal_id=' + terminal_id + ']').show();
+            }).error(function(response) {
+                alert('Something went wrong..');
+            });
+        });
 
         $scope.createTerminal = function(terminal_name){
             data = { name : terminal_name };

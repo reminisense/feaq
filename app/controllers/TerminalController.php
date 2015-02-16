@@ -34,4 +34,10 @@ class TerminalController extends BaseController{
         return json_encode(['success' => 1, 'business' => $business]);
     }
 
+  public function postEdit() {
+    $post = json_decode(file_get_contents("php://input"));
+    Terminal::setName($post->terminal_id, $post->name);
+    return json_encode(array('status' => 1));
+  }
+
 }
