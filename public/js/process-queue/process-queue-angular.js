@@ -60,6 +60,7 @@
                     if(typeof errorFunc === 'function') errorFunc();
                 }).finally(function(){
                     if(typeof finallyFunc === 'function') finallyFunc();
+                    select_next_number();
                 });
         };
 
@@ -67,11 +68,18 @@
             $scope.called_numbers = numbers.called_numbers;
             $scope.uncalled_numbers = numbers.uncalled_numbers;
             $scope.processed_numbers = numbers.processed_numbers;
-
-//        if($scope.called_number == null && $scope.uncalled_numbers){
-//            $scope.called_number = $scope.uncalled_numbers[Object.keys($scope.uncalled_numbers)[0]].transaction_number;
-//        }
         };
+
+        select_next_number = function(){
+            next_number = angular.element(document.querySelector('#selected-tnumber')).val();
+            is_uncalled = pq.jquery_functions.find_in_uncalled(next_number, $scope.uncalled_numbers);
+            if($scope.uncalled_numbers.length == 0){
+                pq.jquery_functions.remove_and_update_dropdown();
+            }else if($scope.uncalled_numbers && (next_number == 0 || is_uncalled.length == 0)){
+                angular.element(document.querySelector('#selected-tnumber')).val($scope.uncalled_numbers[0].transaction_number);
+                angular.element(document.querySelector('#selected-pnumber')).html($scope.uncalled_numbers[0].priority_number);
+            }
+        }
 
         //****************************** refreshing
         $scope.getAllNumbers();
