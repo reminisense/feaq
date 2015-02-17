@@ -24,7 +24,7 @@
     <div id="my_businesses" style="display: none;">
         @if(count($my_businesses) > 0)
             @foreach($my_businesses as $business)
-                <div class="col-md-3">
+                <div class="col-md-3" business_id="{{ $business->business_id }}">
                   <div class="boxed boxed-single edit-biz">
                     <div class="wrap">
                       <h3>{{ $business->name }}</h3>

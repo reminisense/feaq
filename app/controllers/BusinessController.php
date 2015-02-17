@@ -159,4 +159,23 @@ class BusinessController extends BaseController{
         return json_encode($arr);
     }
 
+  public function postRemove() {
+    $post = json_decode(file_get_contents("php://input"));
+    Business::deleteBusinessByBusinessId($post->business_id);
+    $branches = Branch::getBranchesByBusinessId($post->business_id);
+    foreach ($branches as $count => $data) {
+      $services = Service::getServicesByBranchId($data->branch_id);
+      foreach ($services as $count2 => $data2) {
+        $terminals = Terminal::getTerminalsByServiceId($data2->service_id);
+        foreach ($terminals as $count3 => $data3) {
+          TerminalUser::deleteUserByTerminalId($data3['terminal_id']);
+        }
+        Terminal::deleteTerminalsByServiceId($data2->service_id);
+      }
+      Service::deleteServicesByBranchId($data->branch_id);
+    }
+    Branch::deleteBranchesByBusinessId($post->business_id);
+    UserBusiness::deleteUserByBusinessId($post->business_id);
+    return json_encode(array('status' => 1));
+  }
 }
