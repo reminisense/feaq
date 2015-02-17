@@ -132,6 +132,7 @@ class BusinessController extends BaseController{
         $business->queue_limit = $business_data['queue_limit']; /* RDH Added queue_limit to Edit Business Page */
 
         $business->save();
+        $business = Business::getBusinessDetails($business->business_id);
 
         return json_encode([
             'success' => 1,
