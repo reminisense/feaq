@@ -504,6 +504,7 @@ h5.heading {
 }
 .modal-body label {
     color: #555;
+    margin-bottom: 0;
     font-weight: normal;
     font-family: ralewayregular;
 }
@@ -926,6 +927,7 @@ strong {
 .btn:hover,
 .btn.focus, .btn:focus {
   color: #fff;
+    outline: 0;
 }
 .btn-orange {
   background-color: #ff925b;
