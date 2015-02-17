@@ -135,13 +135,13 @@
                 </div>
                 @endif
                 <div class="col-md-10">
-                    {{ Form::text('name', null, array('id' => 'name', 'name' => 'name', 'class' => 'form-control', 'placeholder' => 'Name*')) }}
+                    {{ Form::text('name', null, array('id' => 'name', 'name' => 'name', 'class' => 'form-control', 'placeholder' => 'Name*', 'required' => 'required')) }}
                 </div>
                 <div class="col-md-10">
-                    {{ Form::text('email', null, array('type' => 'email', 'id' => 'inputEmail3', 'name' => 'email', 'class' => 'form-control col-md-4', 'placeholder' => 'Email*')) }}
+                    {{ Form::email('email', null, array('type' => 'email', 'id' => 'inputEmail3', 'name' => 'email', 'class' => 'form-control col-md-4', 'placeholder' => 'Email*', 'required' => 'required')) }}
                 </div>
                 <div class="col-md-10">
-                    {{ Form::textarea('message', null, array('rows' => '6', 'class' => 'form-control', 'placeholder' => 'Message*', 'style' => 'background: none; color: #fff')) }}
+                    {{ Form::textarea('message', null, array('rows' => '6', 'class' => 'form-control', 'placeholder' => 'Message*', 'style' => 'background: none; color: #fff', 'required' => 'required')) }}
                 </div>
                 <div class="col-md-10 button">
                     {{ Form::submit('Send', array('id' => 'contact', 'class' => 'btn btn-orange mb30')) }}
@@ -179,11 +179,28 @@
                 <p>Copyright 2014 : FeatherQ</p>
             </div>
             <div class="col-md-6 text-right">
-                <p><a href="">Terms and Conditions</a></p>
+
             </div>
         </div>
     </div>
     <a href="#0" class="cd-top"><span class="glyphicon glyphicon-chevron-up"></span></a>
 </div>
+
+<script type="text/javascript">
+$('a[href*=#]:not([href=#])').click(function() {
+    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
+        || location.hostname == this.hostname) {
+
+        var target = $(this.hash);
+        target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+           if (target.length) {
+             $('html,body').animate({
+                 scrollTop: target.offset().top
+            }, 1000);
+            return false;
+        }
+    }
+});
+</script>
 
 @stop

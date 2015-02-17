@@ -136,7 +136,7 @@ var eb = {
         $scope.deleteTerminal = function(terminal_id){
             $http.get('terminal/delete/' + terminal_id)
                 .success(function(response){
-                    setBusinessFields(response.business);
+                    setBusinessFields();
                 });
         }
 
@@ -173,26 +173,72 @@ var eb = {
                 });
         }
 
+        $scope.isValidTime = function(time){
+            var regex = /^(0?[1-9]|1[012])(:[0-5]\d) [APap][mM]$/;
+            return regex.test(time);
+        }
+
         /*
          * @author: CSD
          * @description: post edit business form
          */
         $scope.saveBusinessDetails = function(business){
-            var data = {
-                business_id : $scope.business_id,
-                business_name: $scope.business_name,
-                business_address: $scope.business_address,
-                facebook_url: $scope.facebook_url,
-                industry: $scope.industry,
-                time_open: $scope.time_open,
-                time_close: $scope.time_closed,
-                queue_limit: $scope.queue_limit /* RDH Added queue_limit to Edit Business Page */
+            var errorMessage = "";
+            if ($scope.business_name == ""){
+                errorMessage = "Business Name field is required. ";
             }
-            console.log(data);
-            $http.post('/business/edit-business', data)
-                .success(function(response){
-                    setBusinessFields(response.business);
-                });
+
+            if ($scope.business_address == ""){
+                errorMessage = errorMessage + "Business Address field is required. ";
+            }
+
+            if ($scope.time_open == ""){
+                errorMessage = errorMessage + "Time Open field is required. ";
+            } else if (!$scope.isValidTime($scope.time_open)) {
+                errorMessage = errorMessage + "Invalid Time Open field input. ";
+            }
+
+            if ($scope.time_closed == ""){
+                errorMessage = errorMessage + "Time Close field is required. ";
+            } else if (!$scope.isValidTime($scope.time_closed)) {
+                errorMessage = errorMessage + "Invalid Time Open field input. ";
+            }
+
+            if (errorMessage != ""){
+                $('#edit_message').removeClass('alert-success');
+                $('#edit_message').addClass('alert-danger');
+                $('#edit_message p').html(errorMessage);
+                $('#edit_message').fadeIn();
+                setTimeout(function(){ $('#edit_message').fadeOut(); }, 3000);
+            } else {
+                var data = {
+                    business_id : $scope.business_id,
+                    business_name: $scope.business_name,
+                    business_address: $scope.business_address,
+                    facebook_url: $scope.facebook_url,
+                    industry: $scope.industry,
+                    time_open: $scope.time_open,
+                    time_close: $scope.time_closed,
+                    queue_limit: $scope.queue_limit /* RDH Added queue_limit to Edit Business Page */
+                }
+
+                $http.post('/business/edit-business', data)
+                    .success(function(response){
+                        setBusinessFields(response.business);
+                        $('#edit_message').removeClass('alert-danger');
+                        $('#edit_message').addClass('alert-success');
+                        $('#edit_message p').html("Your business details have been updated");
+                        $('#edit_message').fadeIn();
+                        setTimeout(function(){ $('#edit_message').fadeOut(); }, 3000);
+                    })
+                    .error(function(){
+                        $('#edit_message').removeClass('alert-success');
+                        $('#edit_message').addClass('alert-danger');
+                        $('#edit_message p').html("Something went wrong while saving your business details");
+                        $('#edit_message').fadeIn();
+                        setTimeout(function(){ $('#edit_message').fadeOut(); }, 3000);
+                    });
+            }
         }
 
 

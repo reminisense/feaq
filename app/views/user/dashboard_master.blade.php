@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="{{ url('images/favicon.png')}}">
 
-    <title>FeatherQ</title>
+    <title>@yield('subtitle') | FeatherQ</title>
 
     {{ HTML::style('css/bootstrap.min.css') }}
     {{ HTML::style('css/animate.css') }}
