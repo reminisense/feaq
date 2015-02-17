@@ -135,13 +135,13 @@
                 </div>
                 @endif
                 <div class="col-md-10">
-                    {{ Form::text('name', null, array('id' => 'name', 'name' => 'name', 'class' => 'form-control', 'placeholder' => 'Name*')) }}
+                    {{ Form::text('name', null, array('id' => 'name', 'name' => 'name', 'class' => 'form-control', 'placeholder' => 'Name*', 'required' => 'required')) }}
                 </div>
                 <div class="col-md-10">
-                    {{ Form::text('email', null, array('type' => 'email', 'id' => 'inputEmail3', 'name' => 'email', 'class' => 'form-control col-md-4', 'placeholder' => 'Email*')) }}
+                    {{ Form::email('email', null, array('type' => 'email', 'id' => 'inputEmail3', 'name' => 'email', 'class' => 'form-control col-md-4', 'placeholder' => 'Email*', 'required' => 'required')) }}
                 </div>
                 <div class="col-md-10">
-                    {{ Form::textarea('message', null, array('rows' => '6', 'class' => 'form-control', 'placeholder' => 'Message*', 'style' => 'background: none; color: #fff')) }}
+                    {{ Form::textarea('message', null, array('rows' => '6', 'class' => 'form-control', 'placeholder' => 'Message*', 'style' => 'background: none; color: #fff', 'required' => 'required')) }}
                 </div>
                 <div class="col-md-10 button">
                     {{ Form::submit('Send', array('id' => 'contact', 'class' => 'btn btn-orange mb30')) }}
