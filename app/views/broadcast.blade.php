@@ -201,7 +201,7 @@
                             <div class="clearfix">
                                 <div class="pull-left">
                                     <strong>Next Available Number:</strong>
-                                    This is the available priority number
+                                    Remote queuing feature is still on the works!
                                     {{--Approximately, your number
                                     will be served <br><span>2hrs from now</span>--}}
                                 </div>
@@ -213,9 +213,6 @@
                         </div>
                         <div class="col-md-5">
                             <button class="btn btn-orange btn-getnum">
-                                @if (!Auth::check())
-                                    <strong>LOGIN TO <br></strong>
-                                @endif
                                 GET THIS NUMBER <span class="glyphicon glyphicon-save"></span>
                             </button>
                         </div>
