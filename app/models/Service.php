@@ -39,4 +39,9 @@ class Service extends Eloquent{
     public static function getServicesByBranchId($branch_id){
         return Service::where('branch_id', '=', $branch_id)->get();
     }
+
+  public static function deleteServicesByBranchId($branch_id){
+    return Service::where('branch_id', '=', $branch_id)->delete();
+  }
+
 }

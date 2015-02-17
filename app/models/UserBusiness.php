@@ -39,4 +39,9 @@ class UserBusiness extends Eloquent{
     public static function getMyBusinesses(){
         return UserBusiness::getAllBusinessDetailsByOwner(Helper::userId());
     }
+
+  public static function deleteUserByBusinessId($business_id) {
+    UserBusiness::where('business_id', '=', $business_id)->delete();
+  }
+
 }

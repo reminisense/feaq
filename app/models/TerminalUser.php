@@ -63,4 +63,8 @@ class TerminalUser extends Eloquent{
     public static function isCurrentUserAssignedToTerminal($terminal_id){
         return TerminalUser::isUserAssignedToTerminal(Helper::userId(), $terminal_id);
     }
+
+  public static function deleteUserByTerminalId($terminal_id) {
+    TerminalUser::where('terminal_id', '=', $terminal_id)->delete();
+  }
 }

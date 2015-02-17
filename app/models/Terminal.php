@@ -120,4 +120,8 @@ class Terminal extends Eloquent{
         Terminal::where('terminal_id', '=', $terminal_id)->update(array('name' => $name));
     }
 
+  public static function deleteTerminalsByServiceId($service_id) {
+    Terminal::where('service_id', '=', $service_id)->delete();
+  }
+
 }

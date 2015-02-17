@@ -195,7 +195,16 @@ var eb = {
                 });
         }
 
-
+        $scope.deleteBusiness = (function(business_id) {
+            if (confirm('Are you sure you want to remove this business?')) {
+                $http.post('/business/remove', {
+                    business_id : business_id
+                }).success(function(response) {
+                    $('.col-md-3[business_id='+business_id+']').remove();
+                    $('#editBusiness').hide();
+                });
+            }
+        });
 
 
         /*****************unya na ni********************/
