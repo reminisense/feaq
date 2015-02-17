@@ -23,6 +23,7 @@
     {{ HTML::script('js/angular.js') }}
     {{ HTML::script('js/ngFeatherQ.js') }}
     {{ HTML::script('js/ngFacebook.js') }}
+    {{ HTML::script('js/ngAutocomplete.js') }}
     {{ HTML::script('js/dashboard/search-business.js') }}
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>

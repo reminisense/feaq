@@ -22,6 +22,7 @@
     {{ HTML::script('js/angular.js') }}
     {{ HTML::script('js/ngFeatherQ.js') }}
     {{ HTML::script('js/ngFacebook.js') }}
+    {{ HTML::script('js/ngAutocomplete.js') }}
     {{ HTML::script('js/ngBroadcast.js') }} <!-- RDH Added ngBroadcast.js since initial homepage was not loading -->
     @yield('scripts')
 </head>
