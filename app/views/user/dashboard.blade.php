@@ -11,7 +11,6 @@
     {{ HTML::script('js/intlTelInput.js') }}
     {{ HTML::script('js/dashboard/jquery.validate.js') }}
     {{ HTML::script('js/dashboard/search-business.js') }}
-    {{ HTML::script('js/ngAutocomplete.js') }}
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
 @stop
 
