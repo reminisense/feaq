@@ -30,7 +30,7 @@
                                     <label>Time to call</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="time_assigned" name="time_assigned" placeholder="ex. 11:59 am"> <!--ARA for timebound numbers-->
+                                    <input type="text" class="form-control" ng-model="time_assigned" name="time_assigned" placeholder="ex. 01:59 am"> <!--ARA for timebound numbers-->
                                 </div>
                                 <div class="col-md-4">
                                     <label>Name</label>

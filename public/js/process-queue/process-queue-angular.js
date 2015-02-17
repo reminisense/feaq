@@ -138,6 +138,7 @@
         }
 
         $scope.checkIssueSpecificErrors = function(){
+            time_format = /^([0-9]{2})\:([0-9]{2})([ ][aApP][mM])$/g;
             error = false
             error_message = '';
 
@@ -158,6 +159,13 @@
                 error = true;
                 error_message += 'Invalid email format. ';
             }
+
+            //check time assigned
+            if(time_format.test($scope.time_assigned) != true && $scope.time_assigned != null){
+                error = true;
+                error_message += 'Invalid time format. ';
+            }
+
 
             $scope.issue_specific_error = error_message;
             return error;
