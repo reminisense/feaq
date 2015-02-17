@@ -179,11 +179,28 @@
                 <p>Copyright 2014 : FeatherQ</p>
             </div>
             <div class="col-md-6 text-right">
-                <p><a href="">Terms and Conditions</a></p>
+
             </div>
         </div>
     </div>
     <a href="#0" class="cd-top"><span class="glyphicon glyphicon-chevron-up"></span></a>
 </div>
+
+<script type="text/javascript">
+$('a[href*=#]:not([href=#])').click(function() {
+    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
+        || location.hostname == this.hostname) {
+
+        var target = $(this.hash);
+        target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+           if (target.length) {
+             $('html,body').animate({
+                 scrollTop: target.offset().top
+            }, 1000);
+            return false;
+        }
+    }
+});
+</script>
 
 @stop

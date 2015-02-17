@@ -112,6 +112,9 @@ body {
 .navbar-fixed-top.shrink {
 	background-color: rgba(6, 6, 7, 0.8);	
 }
+#contact {
+    background-color: #d9733c;
+}
 .contact {
 	padding: 140px 0;
 	color: #fff;
