@@ -41,10 +41,11 @@ $(document).ready(function() {
         $(this).tab('show')
     });
 
-    $('#btn-addterminal').click(function () {
-        $('#inputterminal').show();
-        $('#btn-addterminal').hide();
-    });
+//    ARA Moved to edit-business.js
+//    $('#btn-addterminal').click(function () {
+//        $('#inputterminal').show();
+//        $('#btn-addterminal').hide();
+//    });
 
     /*hovering get this number button*/
     $('.btn-getnum').hover(

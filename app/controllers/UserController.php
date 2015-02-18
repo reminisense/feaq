@@ -119,8 +119,14 @@ class UserController extends BaseController{
         return false;
     }
 
-    public function getUserlist(){
-        $users = User::getAllUsers();
-        return json_encode(['success' => 1 , 'users' => $users]);
+//    removed due to new implementation of assigning users
+//    public function getUserlist(){
+//        $users = User::getAllUsers();
+//        return json_encode(['success' => 1 , 'users' => $users]);
+//    }
+
+    public function getEmailsearch($email){
+        $user = User::searchByEmail($email);
+        return json_encode(['success' => 1, 'user' => $user]);
     }
 }
