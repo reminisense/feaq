@@ -1,3 +1,9 @@
+@media (max-width: 1195px) {
+    .btn-getnum {
+        font-size: 11px;
+        padding: 14px;
+    }
+}
 @media (max-width: 1024px) {
 
 }
@@ -21,7 +27,9 @@
 }
 
 @media (max-width: 990px) {
-
+    .btn-getnum {
+        margin-top: 15px;
+    }
 }
 
 @media (max-width: 767px) {
@@ -52,6 +60,11 @@
   .navbar-default .navbar-collapse {
     border: none;
   }
+    .btn-getnum {
+        margin-top: 15px;
+        font-size: 14px;
+        padding: 14px 30px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -88,7 +101,11 @@
   .navbar-nav {
     margin: 0;
   }
-
+    .btn-getnum {
+        margin-top: 15px;
+        font-size: 14px;
+        padding: 14px 30px;
+    }
   .processq .dropdown-menu {
     width: 90%!important;
   }
@@ -101,5 +118,11 @@
   }
     .filterwrap input[type="text"] {
         width: 100px!important;
+    }
+    #setupBusiness .modal-footer {
+        text-align: center;
+    }
+    #setupBusiness .modal-footer button {
+        margin-bottom: 15px;
     }
 }
