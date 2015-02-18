@@ -1,5 +1,9 @@
 @extends('user.dashboard_master')
 
+@section('subtitle')
+    Dashboard
+@stop
+
 @section('scripts')
     {{ HTML::script('js/dashboard/dashboard.js') }}
     {{ HTML::script('js/dashboard/edit-business.js') }}
@@ -20,7 +24,7 @@
     <div id="my_businesses" style="display: none;">
         @if(count($my_businesses) > 0)
             @foreach($my_businesses as $business)
-                <div class="col-md-3">
+                <div class="col-md-3" business_id="{{ $business->business_id }}">
                   <div class="boxed boxed-single edit-biz">
                     <div class="wrap">
                       <h3>{{ $business->name }}</h3>
@@ -31,7 +35,7 @@
                     <div class="biz-terminals">
                       <div class="clearfix">
                       @foreach($business->terminals as $terminal)
-                        <a href="{{url( '/processqueue/terminal/' . $terminal['terminal_id']) }}">
+                        <a href="{{url( '/processqueue/terminal/' . $terminal['terminal_id']) }}" target="_blank">
                           <span class="@if ($terminal['status'] == 1) {{ 'glyphicon glyphicon-ok' }} @else {{ 'glyphicon glyphicon-remove' }} @endif "></span>
                           <small>{{ $terminal['name']; }}</small>
                         </a>
@@ -61,7 +65,7 @@
             @foreach($search_businesses as $business)
                 <div class="col-md-3">
                   <div class="boxed boxed-single clickable">
-                      <a href="{{ URL::to( '/broadcast/business/' . $business->business_id ) }}"> {{--RDH Links for Business' broadcast page--}}
+                      <a href="{{ URL::to( '/broadcast/business/' . $business->business_id ) }}" target="_blank"> {{--RDH Links for Business' broadcast page--}}
                           <div class="wrap">
                               <h3>{{ $business->name }}</h3>
                               <small>{{ $business->local_address }}</small>

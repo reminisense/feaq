@@ -12,7 +12,11 @@
         $scope.called_number = 0;
 
         $scope.getAllNumbers = function(){
-            getResponseResetValues(pq.urls.process_queue.all_numbers_url + pq.ids.service_id);
+            getResponseResetValues(pq.urls.process_queue.all_numbers_url + pq.ids.service_id, null, null, function(){
+                setTimeout(function(){
+                    $scope.getAllNumbers();
+                }, 1000);
+            });
         };
 
         $scope.callNumber = function(){
@@ -46,7 +50,7 @@
         };
 
         //non scope functions
-        getResponseResetValues = function(url, successFunc, errorFunc){
+        getResponseResetValues = function(url, successFunc, errorFunc, finallyFunc){
             $http.get(url)
                 .success(function(response){
                     if(response.numbers) resetValues(response.numbers);
@@ -54,6 +58,9 @@
                 })
                 .error(function(){
                     if(typeof errorFunc === 'function') errorFunc();
+                }).finally(function(){
+                    if(typeof finallyFunc === 'function') finallyFunc();
+                    select_next_number();
                 });
         };
 
@@ -62,16 +69,23 @@
             $scope.uncalled_numbers = numbers.uncalled_numbers;
             $scope.processed_numbers = numbers.processed_numbers;
 
-//        if($scope.called_number == null && $scope.uncalled_numbers){
-//            $scope.called_number = $scope.uncalled_numbers[Object.keys($scope.uncalled_numbers)[0]].transaction_number;
-//        }
+            pq.jquery_functions.set_next_priority_number(numbers.next_number);
         };
+
+        select_next_number = function(){
+            next_number = angular.element(document.querySelector('#selected-tnumber')).val();
+            is_uncalled = pq.jquery_functions.find_in_uncalled(next_number, $scope.uncalled_numbers);
+            if($scope.uncalled_numbers.length == 0){
+                pq.jquery_functions.remove_and_update_dropdown();
+            }else if($scope.uncalled_numbers && (next_number == 0 || is_uncalled.length == 0)){
+                angular.element(document.querySelector('#selected-tnumber')).val($scope.uncalled_numbers[0].transaction_number);
+                angular.element(document.querySelector('#selected-pnumber')).html($scope.uncalled_numbers[0].priority_number);
+            }
+        }
 
         //****************************** refreshing
         $scope.getAllNumbers();
-        setInterval(function(){
-            $scope.getAllNumbers();
-        }, 2000);
+
     });
 
 
@@ -126,6 +140,7 @@
         }
 
         $scope.checkIssueSpecificErrors = function(){
+            time_format = /^([0-9]{2})\:([0-9]{2})([ ][aApP][mM])$/g;
             error = false
             error_message = '';
 
@@ -146,6 +161,13 @@
                 error = true;
                 error_message += 'Invalid email format. ';
             }
+
+            //check time assigned
+            if(time_format.test($scope.time_assigned) != true && $scope.time_assigned != null){
+                error = true;
+                error_message += 'Invalid time format. ';
+            }
+
 
             $scope.issue_specific_error = error_message;
             return error;

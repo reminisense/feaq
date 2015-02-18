@@ -112,6 +112,9 @@ body {
 .navbar-fixed-top.shrink {
 	background-color: rgba(6, 6, 7, 0.8);	
 }
+#contact {
+    background-color: #d9733c;
+}
 .contact {
 	padding: 140px 0;
 	color: #fff;
@@ -197,8 +200,12 @@ textarea {
 	-moz-border-radius: 23px;
 	border-radius: 23px;
 }
-.button a {
+.button a, .button input {
 	font-size: 18px;
+}
+
+#contact {
+    padding: 10px 30px 10px;
 }
 .button span {
 	padding-right: 15px;

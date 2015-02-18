@@ -78,12 +78,18 @@ var pq = {
 
         remove_and_update_dropdown : function(transaction_number){
             $('#selected-tnumber').val(0);
-            pq.jquery_functions.remove_from_dropdown(transaction_number);
+            if(transaction_number) pq.jquery_functions.remove_from_dropdown(transaction_number);
             if($('#uncalled-numbers li').length == 0){
                 pq.jquery_functions.change_dropdown_message('Please issue a number');
             }else{
                 pq.jquery_functions.select_next_number();
             }
+        },
+
+        find_in_uncalled : function(transaction_number, uncalled_numbers){
+            return $.grep(uncalled_numbers, function(e){
+                return e.transaction_number == transaction_number;
+            });
         },
 
         select_next_number : function(){
@@ -121,6 +127,10 @@ var pq = {
             $('#pmore-tab').show();
             $('#pmore-tab').next().show();
             $($('#pmore-tab li.active a').attr('data-submit')).show();
+        },
+
+        set_next_priority_number : function(value){
+            $('#moreq form input[name=priority_number]').val(value);
         }
     }
 };

@@ -1,4 +1,4 @@
-<div class="modal fade" id="setupBusiness" tabindex="-1">
+<div class="modal fade" id="setupBusiness" tabindex="-1" style="overflow: auto">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

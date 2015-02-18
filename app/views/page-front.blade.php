@@ -99,9 +99,9 @@
                     <h1>Sign-up for FeatherQ Today!</h1>
                     <p>If you have a business that needs a queuing system then FeatherQ is for you! For a limited time FeatherQ Premium will be open for 3 months free trial to a limited number of businesses! Be part of history as We change the way the world waits.</p>
                     <br>
-                    <div class="button mb30">
+                    <div class="button mb30" ng-controller="fbController">
                         <!-- <a href="" class="btn btn-orange">Sign up for a Free Account</a> CHANGED TO FB LOGIN -->
-                        <a href="#" class="btn btn-blue fb" onclick="FeatherQ.facebook.login();" id="fb-login-2"><img src="images/icon-fb.png"> Signup through Facebook</a>
+                        <a href="#" class="btn btn-blue fb" ng-click="login()" id="fb-login-2"><img src="images/icon-fb.png"> Signup through Facebook</a>
                     </div>
                 </div>
             </div>
@@ -128,20 +128,25 @@
     <div class="container">
         <div class="col-md-6 wow fadeInDown ">
             <a name="contact"></a>
-            <form class="row">
+            {{ Form::open(array('url' => '/', 'class' => 'row', 'role' => 'form')) }}
+                @if(Session::has('message'))
+                <div class="alert alert-success col-md-10">
+                    <p>{{ Session::get('message') }}</p>
+                </div>
+                @endif
                 <div class="col-md-10">
-                    <input type="text" id="name" class="form-control col-md-4" placeholder="Name*" name="name">
+                    {{ Form::text('name', null, array('id' => 'name', 'name' => 'name', 'class' => 'form-control', 'placeholder' => 'Name*', 'required' => 'required')) }}
                 </div>
                 <div class="col-md-10">
-                    <input type="text" id="email" class="form-control col-md-4" placeholder="Email*" name="email">
+                    {{ Form::email('email', null, array('type' => 'email', 'id' => 'inputEmail3', 'name' => 'email', 'class' => 'form-control col-md-4', 'placeholder' => 'Email*', 'required' => 'required')) }}
                 </div>
                 <div class="col-md-10">
-                    <textarea class="form-control" style="background:none; color:#fff;" rows="6" placeholder="Message*"></textarea>
+                    {{ Form::textarea('message', null, array('rows' => '6', 'class' => 'form-control', 'placeholder' => 'Message*', 'style' => 'background: none; color: #fff', 'required' => 'required')) }}
                 </div>
                 <div class="col-md-10 button">
-                    <a href="" class="btn btn-orange mb30">Send</a>
+                    {{ Form::submit('Send', array('id' => 'contact', 'class' => 'btn btn-orange mb30')) }}
                 </div>
-            </form>
+            {{ Form::close() }}
         </div>
         <div class="col-md-6 wow fadeInDown">
             <p class="mb30">If you have a business that needs a queuing system then FeatherQ is for you! For a limited time FeatherQ Premium will be open for 3 months free trial to a limited number of businesses! Be part of history as We change the way the world waits.</p>
@@ -163,9 +168,9 @@
                     <td>(032) 345-4658</td>
                 </tr>
             </table>
-            <a href="" target="_blank"><img src="images/social-fb.png" class="socials" /></a>
-            <a href="" target="_blank"><img src="images/social-gp.png" class="socials" /></a>
-            <a href="" target="_blank"><img src="images/social-tw.png" class="socials"/></a>
+            <a href="https://www.facebook.com/theFeatherQ" target="_blank"><img src="images/social-fb.png" class="socials" /></a>
+            <a href="https://plus.google.com/+Featherq/posts" target="_blank"><img src="images/social-gp.png" class="socials" /></a>
+            <a href="https://twitter.com/thefeatherq" target="_blank"><img src="images/social-tw.png" class="socials"/></a>
         </div>
     </div>
     <div class="footer">
@@ -174,11 +179,28 @@
                 <p>Copyright 2014 : FeatherQ</p>
             </div>
             <div class="col-md-6 text-right">
-                <p><a href="">Terms and Conditions</a></p>
+
             </div>
         </div>
     </div>
     <a href="#0" class="cd-top"><span class="glyphicon glyphicon-chevron-up"></span></a>
 </div>
+
+<script type="text/javascript">
+$('a[href*=#]:not([href=#])').click(function() {
+    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
+        || location.hostname == this.hostname) {
+
+        var target = $(this.hash);
+        target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+           if (target.length) {
+             $('html,body').animate({
+                 scrollTop: target.offset().top
+            }, 1000);
+            return false;
+        }
+    }
+});
+</script>
 
 @stop

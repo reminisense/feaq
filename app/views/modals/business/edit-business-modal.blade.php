@@ -12,6 +12,11 @@
             <div class="modal-body">
                 <form class="">
                     <div class="form-group row">
+                        <div class="col-md-12">
+                            <div class="alert" id="edit_message" style="display: none;">
+                                <p style="text-align: center;"></p>
+                            </div>
+                        </div>
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col-md-12">
@@ -22,7 +27,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <small>Business Address</small>
-                                    <input type="text" id="edit_business_address" class=" form-control" value="@{{ business_address }}" ng-model="business_address">
+                                    <input type="text" class="form-control" id="edit_business_address" ng-autocomplete value="@{{ business_address }}" ng-model="business_address" options="options" details="details">
                                 </div>
                                 <div class="col-md-12">
                                     <small>Facebook URL</small>
@@ -30,17 +35,66 @@
                                 </div>
                                 <div class="col-md-12">
                                     <small>Industry</small>
-                                    <input type="text" class=" form-control" value="@{{ industry }}" ng-model="industry">
+                                    <div class="btn-group">
+                                        <select class="form-control" name="industry" id="industry">
+                                            <option value="@{{ industry }}">@{{ industry }}</option>
+                                            <option value="Accounting and Finance">Accounting and Finance</option>
+                                            <option value="Advertising">Advertising</option>
+                                            <option value="Agriculture">Agriculture</option>
+                                            <option value="Air Services">Air Services</option>
+                                            <option value="Airlines">Airlines</option>
+                                            <option value="Apparel">Apparel</option>
+                                            <option value="Appliances">Appliances</option>
+                                            <option value="Auto Dealership">Auto Dealership</option>
+                                            <option value="Banking">Banking</option>
+                                            <option value="Broadcasting">Broadcasting</option>
+                                            <option value="Business Services">Business Services</option>
+                                            <option value="Communications Technology">Communications Technology</option>
+                                            <option value="Corporate">Corporate</option>
+                                            <option value="Customer Service">Customer Service</option>
+                                            <option value="Delivery">Delivery</option>
+                                            <option value="Delivery Services">Delivery Services</option>
+                                            <option value="Education">Education</option>
+                                            <option value="Energy">Energy</option>
+                                            <option value="Entertainment">Entertainment</option>
+                                            <option value="Events">Events</option>
+                                            <option value="Food and Beverage">Food and Beverage</option>
+                                            <option value="Government">Government</option>
+                                            <option value="Grocery">Grocery</option>
+                                            <option value="Healthcare">Healthcare</option>
+                                            <option value="Hobbies and Collections">Hobbies and Collections</option>
+                                            <option value="Hospitality">Hospitality</option>
+                                            <option value="Insurance">Insurance</option>
+                                            <option value="Information Technology">Information Technology</option>
+                                            <option value="Lifestyle">Lifestyle</option>
+                                            <option value="Mail Order Services">Mail Order Services</option>
+                                            <option value="Manufacturing">Manufacturing</option>
+                                            <option value="Pharmaceutical">Pharmaceutical</option>
+                                            <option value="Photography, Videography, and Media">Photography, Videography, and Media</option>
+                                            <option value="Professional Services">Professional Services</option>
+                                            <option value="Publishing">Publishing</option>
+                                            <option value="Real Estate">Real Estate</option>
+                                            <option value="Recreation">Recreation</option>
+                                            <option value="Rentals">Rentals</option>
+                                            <option value="Retail">Retail</option>
+                                            <option value="Software Development">Software Development</option>
+                                            <option value="Technology">Technology</option>
+                                            <option value="Travel and Tours">Travel and Tours</option>
+                                            <option value="Utility Services">Utility Services</option>
+                                            <option value="Web Services">Web Services</option>
+                                            <option value="Wholesale">Wholesale</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <small>Time Open</small>
-                                            <input type="text" class="timepicker form-control" value="08:00 am" ng-model="time_open"> <!-- RDH  Added timepicker -->
+                                            <input type="text" class="form-control" value="@{{ time_open }}" ng-model="time_open"> <!-- RDH  Added timepicker -->
                                         </div>
                                         <div class="col-md-6">
                                             <small>Time Close</small>
-                                            <input type="text" class="timepicker form-control" value="10:00 pm" ng-model="time_closed"> <!-- RDH  Added timepicker -->
+                                            <input type="text" class="form-control" value="@{{ time_closed }}" ng-model="time_closed"> <!-- RDH  Added timepicker -->
                                         </div>
                                     </div>
                                 </div>
@@ -56,7 +110,6 @@
                                     <textarea rows="10" class="form-control" placeholder="Add A Description Of Your Business Here! Try and talk about what your business does, how it started, and how valuable it is to your customers' lives! When we talk about our business, we can definitely say a whole lot about it! So don't hesitate to write it down here."></textarea>
                                 </div>
                                 -->
-
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -82,7 +135,10 @@
                                                 <td>
                                                     <div class="block mb10">
                                                         <small>Terminal Name</small>
-                                                        <p class="bold">@{{ terminal.name }}</p>
+                                                        <p class="bold">
+                                                            <span class="terminal-name-display" terminal_id="@{{ terminal.terminal_id }}" style="font-size: 14px; ">@{{ terminal.name }}</span>
+                                                            <input type="text" class="terminal-name-update" terminal_id="@{{ terminal.terminal_id }}" value="@{{ terminal.name }}" style="display: none;">
+                                                        </p>
                                                     </div>
                                                     <div class="block" ng-if="terminal.users.length != 0">
                                                         <small>User</small>
@@ -102,7 +158,9 @@
                                                 </td>
                                                 <td>
                                                     <div class="block mb10">
-                                                        <a href="#" ng-click="deleteTerminal(terminal.terminal_id)" ><span class="glyphicon glyphicon-trash"></span> Delete</a>
+                                                        <a href="#" ng-click="editTerminal(terminal.terminal_id)" class="edit-terminal-button" terminal_id="@{{ terminal.terminal_id }}" ><span class="glyphicon glyphicon-trash"></span> Edit</a>
+                                                        <a href="#" ng-click="updateTerminal(terminal.terminal_id)" class="update-terminal-button" terminal_id="@{{ terminal.terminal_id }}" style="display: none;"><span class="glyphicon glyphicon-trash"></span> Update</a>
+                                                        <a href="#" ng-click="deleteTerminal(terminal.terminal_id)"><span class="glyphicon glyphicon-trash"></span> Delete</a>
                                                     </div>
                                                     <div class="block">
                                                         <a href="#" ng-repeat="user in terminal.users" ng-click="unassignFromTerminal(user.user_id, user.terminal_id)"><span class="glyphicon glyphicon-remove"></span> Remove</a>
@@ -150,7 +208,7 @@
                                                 <td><input class="mb0 form-control" type="text" placeholder="@{{ number_start }}"></td>
                                             </tr>--}}
                                             <tr>
-                                                <td>Number Limit</td>
+                                                <td style="padding-top: 20px;">Number Limit</td>
                                                 <td><input class="mb0 form-control" type="text" value="@{{ queue_limit }}" ng-model="queue_limit" ></td>  {{--RDH Added queue_limit to Edit Business Page--}}
                                             </tr>
                                             {{--<tr>
@@ -176,6 +234,7 @@
                 </form>
             </div>
             <div class="modal-footer">
+                <button type="button" id="delete_business" class="btn btn-danger btn-lg" ng-click="deleteBusiness(business_id)">DELETE BUSINESS</button>
                 <button type="button" id="edit_business" class="btn btn-orange btn-lg" ng-click="saveBusinessDetails()">SUBMIT</button>
             </div>
         </div>

@@ -192,4 +192,8 @@ class Business extends Eloquent{
               ->get();
         }
     }
+
+  public static function deleteBusinessByBusinessId($business_id) {
+    Business::where('business_id', '=', $business_id)->delete();
+  }
 }

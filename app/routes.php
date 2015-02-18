@@ -13,6 +13,8 @@
 
 Route::get('/', 'UserController@getUserDashboard');
 
+Route::post('/', 'UserController@processContactForm');
+
 Route::controller('fb', 'FBController');
 
 Route::controller('processqueue', 'ProcessQueueController');

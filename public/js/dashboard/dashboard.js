@@ -70,7 +70,10 @@ $(document).ready(function(){
                 data: $('#verification_form').serialize(),
                 success: function(response){
                     $('#verifyUser').modal('hide');
-                    $('#setupBusiness').modal();
+                    $('#setupBusiness').modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    });
                 }
             });
         } else {

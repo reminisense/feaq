@@ -1,6 +1,15 @@
 @extends('user.dashboard_master')
 
+@section('subtitle')
+    Processs Queue > {{ $business_name }}
+@stop
+
 @section('scripts')
+    <script>
+        $(document).ready(function() {
+           $('.subnav').hide();
+        });
+    </script>
 {{ HTML::script('js/jquery.timepicker.min.js') }}
 {{ HTML::script('js/process-queue/process-queue.js') }}
 {{ HTML::script('js/process-queue/process-queue-angular.js') }}

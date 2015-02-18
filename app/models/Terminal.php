@@ -116,4 +116,12 @@ class Terminal extends Eloquent{
         return $terminal_id ? Terminal::where('terminal_id', '=', $terminal_id)->select(array('box_rank'))->first()->box_rank : 0;
     }
 
+    public static function setName($terminal_id, $name) {
+        Terminal::where('terminal_id', '=', $terminal_id)->update(array('name' => $name));
+    }
+
+  public static function deleteTerminalsByServiceId($service_id) {
+    Terminal::where('service_id', '=', $service_id)->delete();
+  }
+
 }
