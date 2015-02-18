@@ -68,6 +68,8 @@
             $scope.called_numbers = numbers.called_numbers;
             $scope.uncalled_numbers = numbers.uncalled_numbers;
             $scope.processed_numbers = numbers.processed_numbers;
+
+            pq.jquery_functions.set_next_priority_number(numbers.next_number);
         };
 
         select_next_number = function(){
