@@ -127,6 +127,10 @@ var pq = {
             $('#pmore-tab').show();
             $('#pmore-tab').next().show();
             $($('#pmore-tab li.active a').attr('data-submit')).show();
+        },
+
+        set_next_priority_number : function(value){
+            $('#moreq form input[name=priority_number]').val(value);
         }
     }
 };
