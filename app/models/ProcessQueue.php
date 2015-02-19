@@ -254,25 +254,27 @@ class ProcessQueue extends Eloquent{
     }
 
     public static function updateBusinessBroadcast($business_id){
-        $file_path = public_path() . '/json/' . $business_id . '.json';
-        $json = file_get_contents($file_path);
-        $boxes = json_decode($json);
-
         $first_branch = Branch::where('business_id', '=', $business_id)->first();
         $first_service = Service::where('branch_id', '=', $first_branch->branch_id)->first();
 
         $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
-        $numbers = array_merge($all_numbers->called_numbers, $all_numbers->uncalled_numbers);
+        if($all_numbers){
+            $numbers = array_merge($all_numbers->called_numbers, $all_numbers->uncalled_numbers);
 
-        for($counter = 1; $counter <= 6; $counter++){
-            $index = $counter - 1;
-            $box = 'box'.$counter;
-            $boxes->$box->number = isset($numbers[$index]['priority_number']) ? $numbers[$index]['priority_number'] : '';
-            $boxes->$box->terminal = isset($numbers[$index]['terminal_name']) ? $numbers[$index]['terminal_name'] : '';
-            $boxes->$box->rank = isset($numbers[$index]['box_rank']) ? $numbers[$index]['box_rank'] : ''; // Added by PAG
+            $file_path = public_path() . '/json/' . $business_id . '.json';
+            $json = file_get_contents($file_path);
+            $boxes = json_decode($json);
+
+            for($counter = 1; $counter <= 6; $counter++){
+                $index = $counter - 1;
+                $box = 'box'.$counter;
+                $boxes->$box->number = isset($numbers[$index]['priority_number']) ? $numbers[$index]['priority_number'] : '';
+                $boxes->$box->terminal = isset($numbers[$index]['terminal_name']) ? $numbers[$index]['terminal_name'] : '';
+                $boxes->$box->rank = isset($numbers[$index]['box_rank']) ? $numbers[$index]['box_rank'] : ''; // Added by PAG
+            }
+            $boxes->get_num = $all_numbers->next_number;
+
+            File::put($file_path, json_encode($boxes));
         }
-        $boxes->get_num = $all_numbers->next_number;
-
-        File::put($file_path, json_encode($boxes));
     }
 }

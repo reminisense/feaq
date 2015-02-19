@@ -29,7 +29,7 @@
     </div>
 </div>
 <!-- Process queue main -->
-<div class="row " ng-controller="processqueueController">
+<div class="row " ng-controller="processqueueController" id="process-queue-wrapper">
     <div class="col-md-12">
         <h2 class="heading">{{ $business_name }}</h2>
         <div class="row">

@@ -73,6 +73,7 @@ var pq = {
         load_show_modal : function(){
             $('#moreq').on('show.bs.modal', function(){
                 pq.jquery_functions.show_tab_content();
+                pq.jquery_functions.set_next_priority_number();
             });
         },
 
@@ -129,8 +130,13 @@ var pq = {
             $($('#pmore-tab li.active a').attr('data-submit')).show();
         },
 
-        set_next_priority_number : function(value){
-            $('#moreq form input[name=priority_number]').val(value);
+        set_next_priority_number : function(){
+            process_queue = angular.element($("#process-queue-wrapper")).scope();
+            $('#moreq form input[name=priority_number]').val(process_queue.next_number);
+        },
+
+        set_next_number_placeholder : function(next_number){
+            $('#moreq form input[name=priority_number]').attr('placeholder', next_number);
         }
     }
 };
