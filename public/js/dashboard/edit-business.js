@@ -18,11 +18,10 @@ $(document).ready(function(){
     $('body').on('click', '.btn-adduser', function(e){
         e.preventDefault();
         $(this).next('.inputuser').show();
-        $(this).next('.inputuser').next('ul').show();
         $(this).hide();
     });
 
-    eb.jquery_functions.load_users();
+    //eb.jquery_functions.load_users();
 });
 
 var eb = {
@@ -52,12 +51,12 @@ var eb = {
             });
         },
 
-        load_users : function(){
-            var scope = angular.element($("#editBusiness")).scope();
-            scope.$apply(function(){
-                scope.getUsers();
-            });
-        },
+//        load_users : function(){
+//            var scope = angular.element($("#editBusiness")).scope();
+//            scope.$apply(function(){
+//                scope.getUsers();
+//            });
+//        },
 
         hide_add_terminal_form : function(){
             $('#inputterminal').hide();
@@ -90,13 +89,6 @@ var eb = {
         $scope.allow_remote = 0;
         //$scope.remote_limit = 0;
         //$scope.repeat_issue = 0;
-
-        $scope.getUsers = function(){
-            $http.get('/user/userlist')
-                .success(function(response){
-                    $scope.users = response.users;
-                });
-        }
 
         $scope.getBusinessDetails = function(){
             $http.get(eb.urls.business.business_details_url + $scope.business_id)
@@ -133,10 +125,23 @@ var eb = {
                 });
         }
 
+        $scope.emailSearch = function(email, terminal_id){
+            $http.get('user/emailsearch/' + email)
+                .success(function(response){
+                    if(response.user){
+                        $scope.user_found = true;
+                        $scope.assignToTerminal(response.user.user_id, terminal_id);
+                    }else{
+                        $scope.user_found = false;
+                    }
+                });
+        }
+
+
         $scope.deleteTerminal = function(terminal_id){
             $http.get('terminal/delete/' + terminal_id)
                 .success(function(response){
-                    setBusinessFields();
+                    setBusinessFields(response.business);
                 });
         }
 
