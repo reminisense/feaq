@@ -213,9 +213,6 @@
                         </div>
                         <div class="col-md-5">
                             <button class="btn btn-orange btn-getnum">
-                                @if (!Auth::check())
-                                    <strong>LOGIN TO <br></strong>
-                                @endif
                                 GET THIS NUMBER <span class="glyphicon glyphicon-save"></span>
                             </button>
                         </div>
