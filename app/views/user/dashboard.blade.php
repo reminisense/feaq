@@ -35,8 +35,12 @@
                     <div class="biz-terminals">
                       <div class="clearfix">
                       @foreach($business->terminals as $terminal)
-                        <a href="{{url( '/processqueue/terminal/' . $terminal['terminal_id']) }}" target="_blank">
-                          <span class="@if ($terminal['status'] == 1) {{ 'glyphicon glyphicon-ok' }} @else {{ 'glyphicon glyphicon-remove' }} @endif "></span>
+                        @if($terminal['assigned'] == 1)
+                            <a href="{{url( '/processqueue/terminal/' . $terminal['terminal_id']) }}" target="_blank">
+                        @else
+                            <a href="#forbidden" class="not-active">
+                        @endif
+                          <span class="@if ($terminal['assigned'] == 1) {{ 'glyphicon glyphicon-ok' }} @else {{ 'glyphicon glyphicon-ban-circle' }} @endif "></span>
                           <small>{{ $terminal['name']; }}</small>
                         </a>
                       @endforeach
