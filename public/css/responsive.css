@@ -88,7 +88,9 @@
   .navbar-nav {
     margin: 0;
   }
-
+    .boxed-single .wrap {
+        padding: 20px;
+    }
   .processq .dropdown-menu {
     width: 90%!important;
   }

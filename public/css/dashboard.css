@@ -630,12 +630,11 @@ h5.heading {
   }
   .boxed-single small {
     font-size: 11px;
-    overflow: hidden;
     height: 17px;
     display: block;
   }
   .boxed-single .wrap {
-    padding: 20px;
+    padding: 20px 20px 33px;
     background-color: #fff;
   }
   .boxed-single h3 {
