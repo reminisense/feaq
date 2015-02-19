@@ -101,6 +101,9 @@
   .navbar-nav {
     margin: 0;
   }
+    .boxed-single .wrap {
+        padding: 20px;
+    }
     .btn-getnum {
         margin-top: 15px;
         font-size: 14px;
