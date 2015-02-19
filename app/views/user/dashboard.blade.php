@@ -30,7 +30,9 @@
                       <h3>{{ $business->name }}</h3>
                       <small>{{  $business->local_address }}</small>
                       <a href="" class="to-terminals"><span class="glyphicon glyphicon-share-alt"></span> Process</a>
-                      <button data-toggle="modal" data-target="#editBusiness" data-business-id="{{ $business->business_id }}" class="btn btn-nobg edit-business-cog"><span class="glyphicon glyphicon-cog"></span></button>
+                      @if($business->owner == 1)
+                        <button data-toggle="modal" data-target="#editBusiness" data-business-id="{{ $business->business_id }}" class="btn btn-nobg edit-business-cog"><span class="glyphicon glyphicon-cog"></span></button>
+                      @endif
                     </div>
                     <div class="biz-terminals">
                       <div class="clearfix">
