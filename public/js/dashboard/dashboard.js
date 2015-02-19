@@ -4,12 +4,11 @@
 $(document).ready(function(){
     $('input.timepicker').timepicker({});
 
-
     var user_location = document.getElementById('user_location');
     var business_location = document.getElementById('business_location');
     var edit_business_location = document.getElementById('edit_business_address');
     var options = {
-        componentRestrictions: {country: 'ph'}
+
     };
 
     var autocomplete = new google.maps.places.Autocomplete(user_location, options);
@@ -106,18 +105,6 @@ $(document).ready(function(){
 
         if ($('#industry').val() == ""){
             errorMessage = errorMessage + "Industry field is required. ";
-        }
-
-        if ($('#num_terminals').val() == ""){
-            errorMessage = errorMessage + "Terminal Number field is required. ";
-        }
-
-        if ($('#queue_limit').val() == ""){
-            errorMessage = errorMessage + "Queue Number Limit field is required. ";
-        } else if (!$.isNumeric($('#queue_limit').val())){
-            errorMessage = errorMessage + "Invalid Queue Limit field input. ";
-        } else if ($('#queue_limit').val() < 0 && $.isNumeric($('#queue_limit').val())){
-            errorMessage = errorMessage + "Invalid Queue Limit field input. ";
         }
 
         if (errorMessage == ""){

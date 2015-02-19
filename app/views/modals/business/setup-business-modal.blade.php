@@ -6,7 +6,7 @@
                 <h3 class="modal-title" id="add_business_header">Setup your Business</h3>
             </div>
             <div class="modal-body">
-                <form id="add_business_form" class="" action="business/setup-business" method="post">
+                <form id="add_business_form" class="mb30" action="business/setup-business" method="post">
                     <input type="hidden" class="user_id" name="user_id" value="" />
                     <div class="form-group row">
                         <div class="col-md-6">
@@ -14,22 +14,6 @@
                             <input type="text" class=" form-control" placeholder="ex: ABC Company" id="business_name" name="business_name">
                         </div>
                         <div class="col-md-6">
-                            <label>Business Address</label>
-                            <input type="text" class=" form-control" placeholder="ex: Cebu City" id="business_location" name="business_address">
-                        </div>
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Time Open</label>
-                                    <input type="text" id="time_open" name="time_open" placeholder="ex: 8:00am" class="timepicker form-control" />
-                                </div>
-                                <div class="col-md-6">
-                                    <label>Time Close</label>
-                                    <input type="text" id="time_close" name="time_close" placeholder="ex: 10:00pm" class="timepicker form-control" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
                             <label>Industry</label>
                             <div class="btn-group">
                                 <select class="form-control" name="industry" id="industry">
@@ -82,22 +66,28 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-12 mt10">
+                        <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label>Queue Number Limit</label>
-                                    <input type="text" class=" form-control" placeholder="ex: 300" id="queue_limit" name="queue_limit">
+                                    <label>Time Open</label>
+                                    <input type="text" id="time_open" name="time_open" placeholder="ex: 8:00am" class="timepicker form-control" />
                                 </div>
                                 <div class="col-md-6">
-                                    <label>No of Terminals</label>
-                                    <select class="form-control" name="num_terminals" id="num_terminals">
-                                        <option value="">-Select-</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                    </select>
+                                    <label>Time Close</label>
+                                    <input type="text" id="time_close" name="time_close" placeholder="ex: 10:00pm" class="timepicker form-control" />
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Business Address</label>
+                                    <input type="text" class=" form-control" placeholder="ex: Cebu City" id="business_location" name="business_address">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <span><i class="glyphicon glyphicon-info-sign"></i>&nbsp;&nbsp;You are provided with 3 default terminals to manage your business queue.</span>
                         </div>
                     </div>
                 </form>

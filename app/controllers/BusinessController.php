@@ -36,8 +36,19 @@ class BusinessController extends BaseController{
         $business->close_minute = $time_close_arr['min'];
         $business->close_ampm = $time_close_arr['ampm'];
 
+        /*
         $business->queue_limit = $business_data['queue_limit'];
         $business->num_terminals = $business_data['num_terminals'];
+        */
+
+        /*
+         * @author CSD
+         * @description:
+         * set default num terminals to 3 when creating a business
+         * set default queue limit to 9999 max
+         */
+        $business->queue_limit = 9999;
+        $business->num_terminals = 3;
         $business->save();
 
         $business_user = new UserBusiness();
