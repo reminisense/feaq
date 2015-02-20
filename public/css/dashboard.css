@@ -77,7 +77,7 @@
   text-align: center;
   display: block;
   height: 100%;
-  padding: 40px 0;
+  padding: 51px 0;
 }
 .biz-terminals a:hover {
   background-color: #3c93e4;
@@ -578,7 +578,7 @@ h5.heading {
   .boxed .head h3,
   .boxed-single h3 {
     margin: 0;
-    font-size: 16px;
+    font-size: 14px;
     color: #356ab1;
   }
   .boxed .head small,
