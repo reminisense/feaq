@@ -55,6 +55,8 @@ class BusinessController extends BaseController{
         $business_user->user_id = $business_data['user_id'];
         $business_user->business_id = $business->business_id;
 
+        date_default_timezone_set("Asia/Manila"); // Manila Timezone for now but this depends on business location
+
         $contents = '
             {
               "box1": {
@@ -88,7 +90,8 @@ class BusinessController extends BaseController{
                 "rank": ""
               },
               "get_num": " ",
-              "display": "6"
+              "display": "6",
+              "date": "' . date("mdy") . '"
             }
         ';
 

@@ -72,8 +72,9 @@ class BroadcastController extends BaseController{
     }
 
   public function getResetNumbers($business_id) {
-    if (date("G:i", time()) == '23:59') {
-      $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
+    date_default_timezone_set("Asia/Manila"); // Manila Timezone for now but this depends on business location
+    $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
+    if ($data->date != date("mdy")) {
       $data->box1->number = '';
       $data->box1->terminal = '';
       $data->box1->rank = '';
@@ -93,7 +94,13 @@ class BroadcastController extends BaseController{
       $data->box6->terminal = '';
       $data->box6->rank = '';
       $data->get_num = '';
-      file_put_contents(public_path() . '/json/' . $business_id . '.json', $data);
+      $data->date = date("mdy");
+      $encode = json_encode($data);
+      file_put_contents(public_path() . '/json/' . $business_id . '.json', $encode);
+      return json_encode(array('status' => 1));
+    }
+    else {
+      return json_encode(array('status' => 0));
     }
   }
 

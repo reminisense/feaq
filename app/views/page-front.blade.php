@@ -124,7 +124,7 @@
     </div>
 </div>
 
-<div class="row contact">
+<div class="row contact" id="contact-form">
     <div class="container">
         <div class="col-md-6 wow fadeInDown ">
             <a name="contact"></a>
@@ -148,7 +148,7 @@
                 </div>
             {{ Form::close() }}
         </div>
-        <div class="col-md-6 wow fadeInDown" id="contact-form">
+        <div class="col-md-6 wow fadeInDown">
             <p class="mb30">If you have a business that needs a queuing system then FeatherQ is for you! For a limited time FeatherQ Premium will be open for 3 months free trial to a limited number of businesses! Be part of history as We change the way the world waits.</p>
             <table class="table mb30">
                 <tr>

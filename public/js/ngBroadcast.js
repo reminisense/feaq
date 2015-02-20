@@ -6,7 +6,11 @@
 
         var business_id = document.getElementById('business-id').getAttribute('business_id');
         setInterval(function() {
-            $http.get('/broadcast/reset-numbers/'+business_id).success(function(response) {});
+            $http.get('/broadcast/reset-numbers/'+business_id).success(function(response) {
+                if (response.status == '1') {
+                    window.location.reload(true);
+                }
+            });
             $http.get('/json/'+business_id+'.json').success(function(response) {
                 if ($scope.rank1 != response.box1.rank) {
                     $scope.rank1 = response.box1.rank;
