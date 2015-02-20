@@ -72,10 +72,10 @@ class ProcessQueue extends Eloquent{
             $time = time();
             if($process == 'serve'){
                 TerminalTransaction::updateTransactionTimeCompleted($transaction_number, $time);
-                Analytics::insertAnalyticsQueueNumberServed($transaction_number, $pnumber->service_id, $pnumber->date, $time, $terminal_id); //insert to queue_analytics
+                Analytics::insertAnalyticsQueueNumberServed($transaction_number, $priority_number->service_id, $priority_number->date, $time, $terminal_id); //insert to queue_analytics
             }else if($process == 'remove'){
                 TerminalTransaction::updateTransactionTimeRemoved($transaction_number, $time);
-                Analytics::insertAnalyticsQueueNumberRemoved($transaction_number, $pnumber->service_id, $pnumber->date, $time, $terminal_id); //insert to queue_analytics
+                Analytics::insertAnalyticsQueueNumberRemoved($transaction_number, $priority_number->service_id, $priority_number->date, $time, $terminal_id); //insert to queue_analytics
             }
         }else{
             return json_encode(array('error' => 'Number ' . $pnumber . ' has already been processed. If the number still exists, please reload the page.'));

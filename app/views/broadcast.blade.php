@@ -187,7 +187,7 @@
                                 </tr>
                                 <tr>
                                     <td>Estimate time serving per #</td>
-                                    <td>COMING SOON!</td>
+                                    <td>{{ $estimate_serving_time }}</td>
                                 </tr>
                             </table>
                         </div>
