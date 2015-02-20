@@ -101,6 +101,10 @@ var pq = {
             $('#uncalled-numbers li[data-tnumber=' + transaction_number + ']').remove();
         },
 
+        remove_from_called : function(transaction_number){
+            $('#called-numbers tr[data-tnumber=' + transaction_number + ']').remove();
+        },
+
         change_dropdown_message : function(message){
             $('#selected-pnumber').html(message);
         },
