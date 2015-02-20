@@ -566,12 +566,19 @@ h5.heading {
   }
   .boxed .head.head-wbtn {
     padding-right: 0;
+      position: relative;
   }
   .boxed .head.head-wbtn .btn-half {
-    float: right;
-    margin-top: -14px;
+    position: absolute;
+      right: 0;
+      top: 25px;
   }
-  .boxed .head.head-wbtn .btn span {
+
+
+.boxed .head.head-wbtn small {
+    margin-top: 4px;
+}
+.boxed .head.head-wbtn .btn span {
     font-size: 10px;
     margin-left: 2px;
   }

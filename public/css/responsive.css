@@ -74,9 +74,7 @@
 }
 
 @media (max-width: 480px) {
-  .navbar-brand {
-    margin-left: 10px;
-  }
+
   .ads {
     display: none;
   }
