@@ -32,25 +32,28 @@
         $scope.serveNumber = function(transaction_number, callback){
             $scope.isProcessing = true;
             getResponseResetValues(pq.urls.process_queue.serve_number_url + transaction_number, function(){
-                $scope.isProcessing = false;
+                pq.jquery_functions.remove_from_called(transaction_number);
                 if(typeof callback === 'function') callback();
+            }, null, function(){
+                $scope.isProcessing = false;
             });
         };
 
         $scope.dropNumber = function(transaction_number){
             $scope.isProcessing = true;
             getResponseResetValues(pq.urls.process_queue.drop_number_url + transaction_number, function(){
+                pq.jquery_functions.remove_from_called(transaction_number);
+            }, null, function(){
                 $scope.isProcessing = false;
             });
         };
 
         $scope.serveAndCallNext = function(transaction_number){
-            $scope.isProcessing = true;
             $scope.serveNumber(transaction_number, function(){
                 $scope.callNumber();
-                $scope.isProcessing = false;
             });
         };
+
 
         //non scope functions
         getResponseResetValues = function(url, successFunc, errorFunc, finallyFunc){
