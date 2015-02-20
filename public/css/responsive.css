@@ -87,8 +87,12 @@
   .filters {
     margin-top: 0;
   }
+    .filters .col-xs-12 {
+        padding-left: 0;
+        padding-right: 0;
+    }
   .filters .filterwrap {
-    margin-bottom: 15px;
+    margin-bottom: 5px;
   }
 
   .subnav .nav-tabs>li>a {
@@ -103,7 +107,7 @@
   }
     .boxed-single .wrap {
         padding: 20px;
-        min-height: inherit;
+        min-height: inherit!important;
     }
     .btn-getnum {
         margin-top: 15px;
