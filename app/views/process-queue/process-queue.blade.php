@@ -77,10 +77,10 @@
                             </div>
                         </form>
                         <!-- called numbers -->
-                        <table class="table">
+                        <table class="table" id="called-numbers">
                             <thead></thead>
                             <tbody>
-                            <tr ng-repeat="number in called_numbers">
+                            <tr ng-repeat="number in called_numbers" data-tnumber="@{{ number.transaction_number }}">
                                 <th scope="row">@{{ number.priority_number }}</th>
                                 <!-- if this terminal -->
                                 <td ng-if="number.terminal_id == terminal_id">
