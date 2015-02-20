@@ -3,6 +3,8 @@
   background: url('../images/bg-sep.jpg') repeat-x bottom;
   padding-bottom: 35px;
   margin-top: 25px;
+    margin-left: 0;
+    margin-right: 0;
 }
 .filterwrap .btn {
   background: none!important;
@@ -75,7 +77,7 @@
   text-align: center;
   display: block;
   height: 100%;
-  padding: 33px 0;
+  padding: 40px 0;
 }
 .biz-terminals a:hover {
   background-color: #3c93e4;
@@ -93,9 +95,24 @@
   color: #fff;
   height: 100%;
 }
+/*RBM 02202015*/
+#my_businesses .boxed-single .wrap small {
+    height: 29px;
+    overflow: hidden;
+}
+#my_businesses .boxed-single .wrap {
+    min-height: 147px;
+}
+#add_business .wrap {
+    min-height: 63px!important;
+}
+.table>tbody>tr>td {
+    border-top: none;
+}
+/**/
 .to-terminals {
   font-size: 13px;
-  margin-top: 8px;
+  margin-top: 10px;
   display: inline-block;
   font-family: 'ralewaybold';
   font-weight: normal;
@@ -493,6 +510,7 @@ h5.heading {
 .navbar-brand {
   height: inherit;
   padding: 12px 0;
+    padding-left: 15px;
 }
 .navbar-nav>li>a {
   padding-top: 18px;
@@ -566,7 +584,7 @@ h5.heading {
   .boxed .head small,
   .boxed-single small {
     color: #58585a;
-    margin-top: 4px;
+    margin-top: 10px;
     display: inline-block;
   }
   .boxed .body h4 {
@@ -640,15 +658,16 @@ h5.heading {
   }
   .boxed-single small {
     font-size: 11px;
-    height: 17px;
-    display: block;
+    display: block!important;
   }
   .boxed-single .wrap {
-    padding: 20px 20px 33px;
+    padding: 20px;
+      min-height: 135px;
     background-color: #fff;
   }
   .boxed-single h3 {
     color: #262a31;
+      line-height: 20px;
   }
   .boxed.clickable:hover {
     cursor: pointer;
@@ -693,10 +712,13 @@ h5.heading {
     color: #fff;
   }
   .boxed.edit-biz button {
-    right: 15px;
-    top: 15px;
-    background: none;
-    padding: 0;
+    right: 0px;
+    top: 0px;
+    background-color: #eee;
+    padding: 0!important;
+      border-radius: 0;
+      padding: 6px 8px!important;
+      border-bottom-left-radius: 4px;
   }
   .boxed.edit-biz .btn-nobg {
     position: absolute;

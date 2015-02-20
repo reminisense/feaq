@@ -24,6 +24,9 @@
   .navbar-nav {
     margin: 0;
   }
+    .boxed-single .wrap {
+        min-height: inherit;
+    }
 }
 
 @media (max-width: 990px) {
@@ -65,6 +68,9 @@
         font-size: 14px;
         padding: 14px 30px;
     }
+    .boxed-single .wrap {
+        min-height: inherit;
+    }
 }
 
 @media (max-width: 480px) {
@@ -86,13 +92,9 @@
   .filters .filterwrap {
     margin-bottom: 15px;
   }
-  .subnav .nav span {
-    display: block!important;
-    margin-bottom: 3px;
-  }
+
   .subnav .nav-tabs>li>a {
-    padding-top: 12px;
-    padding-bottom: 12px;
+
     text-align: center;
   }
   .subnav .container {
@@ -103,6 +105,7 @@
   }
     .boxed-single .wrap {
         padding: 20px;
+        min-height: inherit;
     }
     .btn-getnum {
         margin-top: 15px;

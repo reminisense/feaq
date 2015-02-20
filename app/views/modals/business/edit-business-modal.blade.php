@@ -130,7 +130,7 @@
                                             <tbody>
                                             <tr ng-repeat="terminal in terminals">
                                                 <td>
-                                                    <div>@{{ $index + 1 }}</div>
+                                                    <div class="bold">@{{ $index + 1 }}</div>
                                                 </td>
                                                 <td>
                                                     <div class="block mb10">
@@ -156,7 +156,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="block mb10">
-                                                        <a href="#" ng-click="editTerminal(terminal.terminal_id)" class="edit-terminal-button" terminal_id="@{{ terminal.terminal_id }}" ><span class="glyphicon glyphicon-trash"></span> Edit</a>
+                                                        <a href="#" ng-click="editTerminal(terminal.terminal_id)" class="edit-terminal-button" terminal_id="@{{ terminal.terminal_id }}" ><span class="glyphicon glyphicon-pencil"></span> Edit</a>
                                                         <a href="#" ng-click="updateTerminal(terminal.terminal_id)" class="update-terminal-button" terminal_id="@{{ terminal.terminal_id }}" style="display: none;"><span class="glyphicon glyphicon-trash"></span> Update</a>
                                                         <a href="#" ng-click="deleteTerminal(terminal.terminal_id)"><span class="glyphicon glyphicon-trash"></span> Delete</a>
                                                     </div>
