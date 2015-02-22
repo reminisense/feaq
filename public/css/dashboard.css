@@ -3,6 +3,8 @@
   background: url('../images/bg-sep.jpg') repeat-x bottom;
   padding-bottom: 35px;
   margin-top: 25px;
+    margin-left: 0;
+    margin-right: 0;
 }
 .filterwrap .btn {
   background: none!important;
@@ -75,7 +77,7 @@
   text-align: center;
   display: block;
   height: 100%;
-  padding: 33px 0;
+  padding: 51px 0;
 }
 .biz-terminals a:hover {
   background-color: #3c93e4;
@@ -93,9 +95,24 @@
   color: #fff;
   height: 100%;
 }
+/*RBM 02202015*/
+#my_businesses .boxed-single .wrap small {
+    height: 29px;
+    overflow: hidden;
+}
+#my_businesses .boxed-single .wrap {
+    min-height: 147px;
+}
+#add_business .wrap {
+    min-height: 63px!important;
+}
+.table>tbody>tr>td {
+    border-top: none;
+}
+/**/
 .to-terminals {
   font-size: 13px;
-  margin-top: 8px;
+  margin-top: 10px;
   display: inline-block;
   font-family: 'ralewaybold';
   font-weight: normal;
@@ -297,7 +314,7 @@
     font-size: 11px;
 }
 #verifyUser input {
-    background: rgba(0,0,0,0.4);
+    background: rgba(0,0,0,0.86);
     border: none;
     color: #fff;
     font-size: 14px;
@@ -314,6 +331,15 @@
     text-align: center;
     padding-top: 0;
 }
+#setupBusiness .modal-footer {
+    border: none;
+    position: relative;
+    padding-bottom: 20px;
+    margin-top: -35px;
+}
+#setupBusiness .alert {
+    margin-bottom: 35px;
+}
 #verifyUser .intl-tel-input {
     display: inherit;
     margin-left: 0;
@@ -325,6 +351,7 @@
 .modal-backdrop.in {
     opacity: .8;
 }
+
 
 
 
@@ -483,6 +510,7 @@ h5.heading {
 .navbar-brand {
   height: inherit;
   padding: 12px 0;
+    padding-left: 15px;
 }
 .navbar-nav>li>a {
   padding-top: 18px;
@@ -538,25 +566,32 @@ h5.heading {
   }
   .boxed .head.head-wbtn {
     padding-right: 0;
+      position: relative;
   }
   .boxed .head.head-wbtn .btn-half {
-    float: right;
-    margin-top: -14px;
+    position: absolute;
+      right: 0;
+      top: 25px;
   }
-  .boxed .head.head-wbtn .btn span {
+
+
+.boxed .head.head-wbtn small {
+    margin-top: 4px;
+}
+.boxed .head.head-wbtn .btn span {
     font-size: 10px;
     margin-left: 2px;
   }
   .boxed .head h3,
   .boxed-single h3 {
     margin: 0;
-    font-size: 16px;
+    font-size: 14px;
     color: #356ab1;
   }
   .boxed .head small,
   .boxed-single small {
     color: #58585a;
-    margin-top: 4px;
+    margin-top: 10px;
     display: inline-block;
   }
   .boxed .body h4 {
@@ -630,16 +665,16 @@ h5.heading {
   }
   .boxed-single small {
     font-size: 11px;
-    overflow: hidden;
-    height: 17px;
-    display: block;
+    display: block!important;
   }
   .boxed-single .wrap {
     padding: 20px;
+      min-height: 135px;
     background-color: #fff;
   }
   .boxed-single h3 {
     color: #262a31;
+      line-height: 20px;
   }
   .boxed.clickable:hover {
     cursor: pointer;
@@ -684,10 +719,13 @@ h5.heading {
     color: #fff;
   }
   .boxed.edit-biz button {
-    right: 15px;
-    top: 15px;
-    background: none;
-    padding: 0;
+    right: 0px;
+    top: 0px;
+    background-color: #eee;
+    padding: 0!important;
+      border-radius: 0;
+      padding: 6px 8px!important;
+      border-bottom-left-radius: 4px;
   }
   .boxed.edit-biz .btn-nobg {
     position: absolute;
@@ -835,6 +873,7 @@ h5.heading {
     border-radius: 0px;
   }
   /*equal rounded*/
+    #verification_form .form-control,
   .boxed-single .wrap,
   .boxed,
   .getnum-info .pull-right {
@@ -855,7 +894,8 @@ h5.heading {
   .tri-right {
     width: 0px;
     height: 0px;
-      top: 8px;
+      margin-top: -10px;
+      top: 50%;
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent;
     border-right: 10px solid #00ba8b;

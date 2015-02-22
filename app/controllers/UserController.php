@@ -62,7 +62,9 @@ class UserController extends BaseController{
             if (count($business_ids) > 0){
                 foreach($business_ids as $b_id)
                 {
-                    array_push($my_businesses, Business::getBusinessArray($b_id->business_id));
+                    $temp_array = Business::getBusinessArray($b_id->business_id);
+                    $temp_array->owner = 1;
+                    array_push($my_businesses, $temp_array);
                 }
             }
 
@@ -72,6 +74,7 @@ class UserController extends BaseController{
                     $b_id = Business::getBusinessIdByTerminalId($terminal['terminal_id']);
                     $business = Business::getBusinessArray($b_id);
                     if (!$this->inArrayBusiness($my_businesses, $business)){
+                        $business->owner = 0;
                         array_push($my_businesses, $business);
                     }
                 }
@@ -119,8 +122,14 @@ class UserController extends BaseController{
         return false;
     }
 
-    public function getUserlist(){
-        $users = User::getAllUsers();
-        return json_encode(['success' => 1 , 'users' => $users]);
+//    removed due to new implementation of assigning users
+//    public function getUserlist(){
+//        $users = User::getAllUsers();
+//        return json_encode(['success' => 1 , 'users' => $users]);
+//    }
+
+    public function getEmailsearch($email){
+        $user = User::searchByEmail($email);
+        return json_encode(['success' => 1, 'user' => $user]);
     }
 }

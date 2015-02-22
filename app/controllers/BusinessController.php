@@ -36,13 +36,26 @@ class BusinessController extends BaseController{
         $business->close_minute = $time_close_arr['min'];
         $business->close_ampm = $time_close_arr['ampm'];
 
+        /*
         $business->queue_limit = $business_data['queue_limit'];
         $business->num_terminals = $business_data['num_terminals'];
+        */
+
+        /*
+         * @author CSD
+         * @description:
+         * set default num terminals to 3 when creating a business
+         * set default queue limit to 9999 max
+         */
+        $business->queue_limit = 9999;
+        $business->num_terminals = 3;
         $business->save();
 
         $business_user = new UserBusiness();
         $business_user->user_id = $business_data['user_id'];
         $business_user->business_id = $business->business_id;
+
+        date_default_timezone_set("Asia/Manila"); // Manila Timezone for now but this depends on business location
 
         $contents = '
             {
@@ -77,7 +90,8 @@ class BusinessController extends BaseController{
                 "rank": ""
               },
               "get_num": " ",
-              "display": "6"
+              "display": "6",
+              "date": "' . date("mdy") . '"
             }
         ';
 
@@ -118,6 +132,7 @@ class BusinessController extends BaseController{
         $business->name = $business_data['business_name'];
         $business->local_address = $business_data['business_address'];
         $business->industry = $business_data['industry'];
+        $business->fb_url = $business_data['facebook_url'];
 
         $time_open_arr = Helper::parseTime($business_data['time_open']);
         $business->open_hour = $time_open_arr['hour'];

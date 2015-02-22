@@ -107,6 +107,8 @@ class Analytics extends Eloquent{
      * individual queries
      */
 
+    /*time served*/
+
     public static function getTotalNumbersIssuedByBusinessId($business_id){
         return count(Analytics::getQueueAnalyticsRows(['action' => ['=', 0], 'business_id' => ['=', $business_id ]]));
     }
@@ -125,6 +127,32 @@ class Analytics extends Eloquent{
 
     public static function getTotalNumbersProcessedByBusinessId($business_id){
         return count(Analytics::getQueueAnalyticsRows(['action' => ['>', 1], 'business_id' => ['=', $business_id ]]));
+    }
+
+    public static function getAverageTimeServedByBusinessId($business_id){
+        return Analytics::getAverageTimeFromActionByBusinessId(1, 2, $business_id);
+    }
+
+    public static function getAverageTimeFromActionByBusinessId($action1, $action2, $business_id){
+        $action1_numbers = Analytics::getQueueAnalyticsRows(['action' => ['=', $action1], 'business_id' => ['=', $business_id ]]);
+        $action2_numbers = Analytics::getQueueAnalyticsRows(['action' => ['=', $action2], 'business_id' => ['=', $business_id ]]);
+        return Analytics::getAverageTimeFromActionArray($action1_numbers, $action2_numbers);
+    }
+
+    public static function getAverageTimeFromActionArray($action1_numbers, $action2_numbers){
+        $counter = 0;
+        $time_sum = 0;
+        foreach($action1_numbers as $action1_number){
+            foreach($action2_numbers as $action2_number){
+                if($action1_number->transaction_number == $action2_number->transaction_number){
+                    $counter++;
+                    $time_sum += ($action2_number->action_time - $action1_number->action_time);
+                    break 1;
+                }
+            }
+        }
+        $average = $counter == 0 ? 0 : round($time_sum/$counter);
+        return Helper::millisecondsToHMSFormat($average);
     }
 
 }

@@ -187,7 +187,7 @@
                                 </tr>
                                 <tr>
                                     <td>Estimate time serving per #</td>
-                                    <td>COMING SOON!</td>
+                                    <td>{{ $estimate_serving_time }}</td>
                                 </tr>
                             </table>
                         </div>
@@ -213,9 +213,6 @@
                         </div>
                         <div class="col-md-5">
                             <button class="btn btn-orange btn-getnum">
-                                @if (!Auth::check())
-                                    <strong>LOGIN TO <br></strong>
-                                @endif
                                 GET THIS NUMBER <span class="glyphicon glyphicon-save"></span>
                             </button>
                         </div>

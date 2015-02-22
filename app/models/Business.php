@@ -123,7 +123,9 @@ class Business extends Eloquent{
 
                 foreach($rawTerminals as $terminal) {
                     if (in_array($terminal['terminal_id'], $terminalIds)){
-                        $terminal['status'] = 1;
+                        $terminal['assigned'] = 1;
+                    } else {
+                        $terminal['assigned'] = 0;
                     }
                     array_push($terminals, $terminal);
                 }

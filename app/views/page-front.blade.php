@@ -117,14 +117,14 @@
         </div>
         <div class="col-lg-4 col-md-4  wow fadeInRight">
             <div class="button">
-                <a href="" class="btn btn-orange">Request a demo</a>
+                <a href="#contact-form" class="btn btn-orange">Request a demo</a>
             </div>
         </div>
 
     </div>
 </div>
 
-<div class="row contact">
+<div class="row contact" id="contact-form">
     <div class="container">
         <div class="col-md-6 wow fadeInDown ">
             <a name="contact"></a>

@@ -1,3 +1,9 @@
+@media (max-width: 1195px) {
+    .btn-getnum {
+        font-size: 11px;
+        padding: 14px;
+    }
+}
 @media (max-width: 1024px) {
 
 }
@@ -18,10 +24,15 @@
   .navbar-nav {
     margin: 0;
   }
+    .boxed-single .wrap {
+        min-height: inherit;
+    }
 }
 
 @media (max-width: 990px) {
-
+    .btn-getnum {
+        margin-top: 15px;
+    }
 }
 
 @media (max-width: 767px) {
@@ -52,12 +63,18 @@
   .navbar-default .navbar-collapse {
     border: none;
   }
+    .btn-getnum {
+        margin-top: 15px;
+        font-size: 14px;
+        padding: 14px 30px;
+    }
+    .boxed-single .wrap {
+        min-height: inherit;
+    }
 }
 
 @media (max-width: 480px) {
-  .navbar-brand {
-    margin-left: 10px;
-  }
+
   .ads {
     display: none;
   }
@@ -70,16 +87,16 @@
   .filters {
     margin-top: 0;
   }
+    .filters .col-xs-12 {
+        padding-left: 0;
+        padding-right: 0;
+    }
   .filters .filterwrap {
-    margin-bottom: 15px;
+    margin-bottom: 5px;
   }
-  .subnav .nav span {
-    display: block!important;
-    margin-bottom: 3px;
-  }
+
   .subnav .nav-tabs>li>a {
-    padding-top: 12px;
-    padding-bottom: 12px;
+
     text-align: center;
   }
   .subnav .container {
@@ -88,7 +105,15 @@
   .navbar-nav {
     margin: 0;
   }
-
+    .boxed-single .wrap {
+        padding: 20px;
+        min-height: inherit!important;
+    }
+    .btn-getnum {
+        margin-top: 15px;
+        font-size: 14px;
+        padding: 14px 30px;
+    }
   .processq .dropdown-menu {
     width: 90%!important;
   }
@@ -101,5 +126,11 @@
   }
     .filterwrap input[type="text"] {
         width: 100px!important;
+    }
+    #setupBusiness .modal-footer {
+        text-align: center;
+    }
+    #setupBusiness .modal-footer button {
+        margin-bottom: 15px;
     }
 }

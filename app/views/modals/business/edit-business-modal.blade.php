@@ -125,12 +125,12 @@
                                         </h4>
                                     </div>
                                     <div id="collapseOne" class="panel-collapse collapse in">
-
+                                        <form></form> <!-- ARA I just placed this because if not placed other form elements below will not be rendered -->
                                         <table class="table" ng-init="terminal_index = 0">
                                             <tbody>
                                             <tr ng-repeat="terminal in terminals">
                                                 <td>
-                                                    <div>@{{ $index + 1 }}</div>
+                                                    <div class="bold">@{{ $index + 1 }}</div>
                                                 </td>
                                                 <td>
                                                     <div class="block mb10">
@@ -146,20 +146,18 @@
                                                     </div>
                                                     <div class="block mb10" ng-if="terminal.users.length == 0">
                                                         <a href="#" class="btn btn-blue btn-adduser"><span class="glyphicon glyphicon-add"></span> Add User</a>
-                                                        <form>
-                                                            <input type="text" class="form-control inputuser" ng-model="search_user" style="display: none">
-                                                            <ul style="display: none">
-                                                                <li ng-repeat="user in users | filter:search_user" >
-                                                                    <button ng-click="assignToTerminal(user.user_id, terminal.terminal_id)">@{{ user.first_name + ' ' + user.last_name }}</button>
-                                                                </li>
-                                                            </ul>
-                                                        </form>
+                                                        <div class="block inputuser" style="display: none">
+                                                            <form ng-submit="emailSearch(search_user, terminal.terminal_id)">
+                                                                <input type="text" class="form-control" ng-model="search_user">
+                                                            </form>
+                                                            <div class="alert alert-danger" ng-show="user_found == false"> User does not exist. </div>
+                                                        </div>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="block mb10">
-                                                        <a href="#" ng-click="editTerminal(terminal.terminal_id)" class="edit-terminal-button" terminal_id="@{{ terminal.terminal_id }}" ><span class="glyphicon glyphicon-trash"></span> Edit</a>
-                                                        <a href="#" ng-click="updateTerminal(terminal.terminal_id)" class="update-terminal-button" terminal_id="@{{ terminal.terminal_id }}" style="display: none;"><span class="glyphicon glyphicon-trash"></span> Update</a>
+                                                        <a href="#" ng-click="editTerminal(terminal.terminal_id)" class="edit-terminal-button" terminal_id="@{{ terminal.terminal_id }}" ><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+                                                        <a href="#" ng-click="updateTerminal(terminal.terminal_id)" class="update-terminal-button" terminal_id="@{{ terminal.terminal_id }}" style="display: none;"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
                                                         <a href="#" ng-click="deleteTerminal(terminal.terminal_id)"><span class="glyphicon glyphicon-trash"></span> Delete</a>
                                                     </div>
                                                     <div class="block">
