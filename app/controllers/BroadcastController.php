@@ -40,15 +40,17 @@ class BroadcastController extends BaseController{
     public function getBusiness($business_id = 0)
     {
         $business_name = Business::name($business_id);
-        $open_time = str_pad(Business::openHour($business_id), 2, 0) . ':' . str_pad(Business::openMinute($business_id), 2, 0) . ' ' . Business::openAMPM($business_id);
-        $close_time = str_pad(Business::closeHour($business_id), 2, 0) . ':' . str_pad(Business::closeMinute($business_id), 2, 0) . ' ' . Business::closeAMPM($business_id);
+        $open_time = str_pad(Business::openHour($business_id), 2, 0, STR_PAD_LEFT) . ':' . str_pad(Business::openMinute($business_id), 2, 0, STR_PAD_LEFT) . ' ' . Business::openAMPM($business_id);
+        $close_time = str_pad(Business::closeHour($business_id), 2, 0, STR_PAD_LEFT) . ':' . str_pad(Business::closeMinute($business_id), 2, 0, STR_PAD_LEFT) . ' ' . Business::closeAMPM($business_id);
+
         return View::make('broadcast')
             ->with('open_time', $open_time)
             ->with('close_time', $close_time)
             ->with('local_address', Business::localAddress($business_id))
             ->with('business_id', $business_id) /* RDH Changed error, 'branch_id' to 'business_id' */
             ->with('business_name', $business_name)
-            ->with('lines_in_queue', Analytics::getBusinessRemainingCount($business_id));
+            ->with('lines_in_queue', Analytics::getBusinessRemainingCount($business_id))
+            ->with('estimate_serving_time', Analytics::getAverageTimeServedByBusinessId($business_id));
     }
 
     public function getNumbers($branch_id = 0) {

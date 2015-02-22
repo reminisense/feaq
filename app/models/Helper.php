@@ -55,4 +55,23 @@ class Helper extends Eloquent {
     public static function doubleZero($number){
         return $number == 0 ? '00' : $number;
     }
+
+    public static function millisecondsToHMSFormat($ms){
+        $second = $ms % 60;
+        $ms = floor($ms / 60);
+
+        $minute = $ms % 60;
+        $ms = floor($ms / 60);
+
+        $hour = $ms % 24;
+        return Helper::formatTime($second, $minute, $hour);
+    }
+
+    public static function formatTime($second, $minute, $hour){
+        $time_string = '';
+        $time_string .= $hour > 0 ? $hour . ' hour(s) ' : '';
+        $time_string .= $minute > 0 ? $minute . ' minute(s) ' : '';
+        $time_string .= $second > 0 ? $second . ' second(s) ' : '';
+        return $time_string;
+    }
 }
