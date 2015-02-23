@@ -41,8 +41,8 @@ class ProcessQueue extends Eloquent{
     //calls a number based on its transaction number
     public static function callTransactionNumber($transaction_number, $user_id, $terminal_id){
         if(is_numeric($terminal_id)){
-            $pq = PriorityQueue::find($transaction_number)->first();
-            $pn = PriorityNumber::find($pq->track_id)->first();
+            $pq = PriorityQueue::find($transaction_number);
+            $pn = PriorityNumber::find($pq->track_id);
             $time_called = time();
             $login_id = TerminalManager::hookedTerminal($terminal_id) ? TerminalManager::getLatestLoginIdOfTerminal($terminal_id) : 0;
             TerminalTransaction::updateTransactionTimeCalled($transaction_number, $login_id, $time_called, $terminal_id);
