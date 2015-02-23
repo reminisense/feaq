@@ -95,15 +95,15 @@ $(document).ready(function(){
         }
 
         if ($('#time_open').val() == ""){
-            errorMessage = errorMessage + "Time Open Time field is required. ";
+            errorMessage = errorMessage + "Time Open field is required. ";
         } else if (!isValidTime($('#time_open').val())) {
-            errorMessage = errorMessage + "Invalid Time Open value. ";
+            errorMessage = errorMessage + "Invalid Time Open input value. ";
         }
 
         if ($('#time_close').val() == ""){
-            errorMessage = errorMessage + "Time Close Time field is required. ";
+            errorMessage = errorMessage + "Time Close field is required. ";
         } else if (!isValidTime($('#time_close').val())) {
-            errorMessage = errorMessage + "Invalid Time Close value. ";
+            errorMessage = errorMessage + "Invalid Time Close input value. ";
         }
 
         if ($('#industry').val() == 0){
