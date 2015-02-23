@@ -69,10 +69,12 @@ $(document).ready(function(){
                 data: $('#verification_form').serialize(),
                 success: function(response){
                     $('#verifyUser').modal('hide');
+                    /*
                     $('#setupBusiness').modal({
                         backdrop: 'static',
                         keyboard: false
                     });
+                    */
                 }
             });
         } else {
@@ -82,6 +84,7 @@ $(document).ready(function(){
     });
 
     $('#submit_business').on('click', function(){
+        $(this).attr('disabled', '');
         var errorMessage = '';
         if ($('#business_name').val() == ""){
             errorMessage = "Business Name field is required. ";
@@ -92,18 +95,18 @@ $(document).ready(function(){
         }
 
         if ($('#time_open').val() == ""){
-            errorMessage = errorMessage + "Time Open field is required. ";
+            errorMessage = errorMessage + "Time Open Time field is required. ";
         } else if (!isValidTime($('#time_open').val())) {
-            errorMessage = errorMessage + "Invalid Time Open field input. ";
+            errorMessage = errorMessage + "Invalid Time Open value. ";
         }
 
         if ($('#time_close').val() == ""){
-            errorMessage = errorMessage + "Time Close field is required. ";
+            errorMessage = errorMessage + "Time Close Time field is required. ";
         } else if (!isValidTime($('#time_close').val())) {
-            errorMessage = errorMessage + "Invalid Time Open field input. ";
+            errorMessage = errorMessage + "Invalid Time Close value. ";
         }
 
-        if ($('#industry').val() == ""){
+        if ($('#industry').val() == 0){
             errorMessage = errorMessage + "Industry field is required. ";
         }
 
@@ -112,14 +115,20 @@ $(document).ready(function(){
                 url: $('#add_business_form').attr('action'),
                 type: 'POST',
                 dataType: 'text json',
-                data: $('#add_business_form').serialize(),
-                success: function(response){
+                data: $('#add_business_form').serialize()
+            }).done(function(response){
+                $('#submit_business').removeAttr('disabled');
+                if(response.success == 1){
                     var terminal = response.terminals[0];
                     $('#setupBusiness').modal('hide');
                     window.location.href = "/processqueue/terminal/" + terminal.terminal_id;
+                } else {
+                    $('#setupError').text(response.error);
+                    $('#setupError').fadeIn( 400 );
                 }
             });
         } else {
+            $('#submit_business').removeAttr('disabled');
             $('#setupError').text(errorMessage);
             $('#setupError').fadeIn( 400 );
         }

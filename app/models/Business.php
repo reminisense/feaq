@@ -195,7 +195,13 @@ class Business extends Eloquent{
         }
     }
 
-  public static function deleteBusinessByBusinessId($business_id) {
-    Business::where('business_id', '=', $business_id)->delete();
-  }
+    public static function businessExistsByNameByAddress($business_name, $business_address){
+        return Business::where('name', '=', $business_name)
+            ->where('local_address', '=', $business_address)
+            ->get();
+    }
+
+    public static function deleteBusinessByBusinessId($business_id) {
+      Business::where('business_id', '=', $business_id)->delete();
+    }
 }
