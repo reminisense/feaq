@@ -142,7 +142,9 @@ $(document).ready(function(){
         $('#add_business_cloase').css('display', 'block');
     });
 
-    $("#mobile").intlTelInput();
+    $("#mobile").intlTelInput({
+        defaultCountry: "auto"
+    });
 
     function isEmail(email) {
         var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
