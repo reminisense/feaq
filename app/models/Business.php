@@ -227,10 +227,13 @@ class Business extends Eloquent{
             foreach ($priority_numbers as $count4 => $priority_number) {
               $priority_queues = PriorityQueue::getTransactionNumberByTrackId($priority_number->track_id);
               foreach ($priority_queues as $count5 => $priority_queue) {
-                $terminal_transactions = TerminalTransaction::getTimeQueuedByTransactionNumber($priority_queue->transaction_number);
+                $terminal_transactions = TerminalTransaction::getTimesByTransactionNumber($priority_queue->transaction_number);
                 foreach ($terminal_transactions as $count6 => $terminal_transaction) {
                   $grace_period = time() - $terminal_transaction->time_queued; // issued time must be on the current day to count as active
-                  if ($terminal_transaction->time_queued != 0 && $grace_period < 86400) { // 1 day; 60secs * 60 min * 24 hours
+                  if ($terminal_transaction->time_queued != 0
+                    && $terminal_transaction->time_completed == 0
+                    && $terminal_transaction->time_removed == 0
+                    && $grace_period < 86400 ) { // 1 day; 60secs * 60 min * 24 hours
                     $active_businesses[$business->business_id] = array(
                       'local_address' => $business->local_address,
                       'name' => $business->name,
@@ -238,15 +241,25 @@ class Business extends Eloquent{
                     break;
                   }
                 }
+                if (array_key_exists($business->business_id, $active_businesses)) {
+                  break;
+                }
+              }
+              if (array_key_exists($business->business_id, $active_businesses)) {
                 break;
               }
+            }
+            if (array_key_exists($business->business_id, $active_businesses)) {
               break;
             }
+          }
+          if (array_key_exists($business->business_id, $active_businesses)) {
             break;
           }
+        }
+        if (array_key_exists($business->business_id, $active_businesses)) {
           break;
         }
-        break;
       }
       return $active_businesses;
     }
