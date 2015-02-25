@@ -26,4 +26,19 @@ class RestController extends BaseController {
 
     }
 
+    /**
+     * @author Ruffy
+     * @param $query Query string input for searching for a business
+     * @return JSON response containing businesses that qualified with the search query
+     */
+    public function getSearchBusiness($query) {
+        $search_results = DB::table('business')
+            ->where('name', 'LIKE', '%' . $query . '%')
+            ->select(array('business_id', 'name', 'local_address'))
+            ->get();
+
+        $found_business = array('search-result' => $search_results);
+        return Response::json($found_business);
+    }
+
 }
