@@ -229,20 +229,21 @@ var eb = {
 
                 $http.post('/business/edit-business', data)
                     .success(function(response){
-                        setBusinessFields(response.business);
-                        $('#edit_message').removeClass('alert-danger');
-                        $('#edit_message').addClass('alert-success');
-                        $('#edit_message p').html("Your business details have been updated");
-                        $('#edit_message').fadeIn();
-                        setTimeout(function(){ $('#edit_message').fadeOut(); }, 3000);
+                        if(response.success == 1){
+                            setBusinessFields(response.business);
+                            $('#edit_message').removeClass('alert-danger');
+                            $('#edit_message').addClass('alert-success');
+                            $('#edit_message p').html("Your business details have been updated");
+                            $('#edit_message').fadeIn();
+                            setTimeout(function(){ $('#edit_message').fadeOut(); }, 3000);
+                        } else {
+                            $('#edit_message').removeClass('alert-success');
+                            $('#edit_message').addClass('alert-danger');
+                            $('#edit_message p').html(response.error);
+                            $('#edit_message').fadeIn();
+                            setTimeout(function(){ $('#edit_message').fadeOut(); }, 3000);
+                        }
                     })
-                    .error(function(){
-                        $('#edit_message').removeClass('alert-success');
-                        $('#edit_message').addClass('alert-danger');
-                        $('#edit_message p').html("Something went wrong while saving your business details");
-                        $('#edit_message').fadeIn();
-                        setTimeout(function(){ $('#edit_message').fadeOut(); }, 3000);
-                    });
             }
         }
 
