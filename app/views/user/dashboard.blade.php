@@ -64,6 +64,26 @@
 
     <div id="search_business" style="display: block;">
         <div class="col-md-12">
+            <h5 class="mb30">ACTIVE BUSINESSES</h5>
+            @if(count($active_businesses) > 0)
+                <div id="active-businesses">
+                    @foreach($active_businesses as $ac_business_id => $actives)
+                        <div class="col-md-3">
+                            <div class="boxed boxed-single clickable">
+                                <a href="{{ URL::to( '/broadcast/business/' . $ac_business_id ) }}" target="_blank"> {{--RDH Links for Business' broadcast page--}}
+                                    <div class="wrap">
+                                        <h3>{{ $actives['name'] }}</h3>
+                                        <small>{{ $actives['local_address'] }}</small>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+        </div>
+
+        <div class="col-md-12">
           <h5 class="mb30">@{{ searchLabel }}</h5>
         </div>
         @if(count($search_businesses) > 0)
