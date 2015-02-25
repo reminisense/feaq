@@ -204,4 +204,50 @@ class Business extends Eloquent{
     public static function deleteBusinessByBusinessId($business_id) {
       Business::where('business_id', '=', $business_id)->delete();
     }
+
+    public static function getActiveBusinesses() {
+      /*
+      return DB::table('business')->join('branch', 'business.business_id', '=', 'branch.business_id')
+        ->join('service', 'branch.branch_id', '=', 'service.branch_id')
+        ->join('priority_number', 'service.service_id', '=', 'priority_number.service_id')
+        ->join('priority_queue', 'priority_number.track_id', '=', 'priority_queue.track_id')
+        ->join('terminal_transaction', 'priority_queue.transaction_number', '=', 'terminal_transaction.transaction_number')
+        ->where('terminal_transaction.time_queued', '!=', 0)
+        ->select(array('business.business_id', 'business.name', 'business.local_address'))
+        ->get();
+      */
+      $active_businesses = array();
+      $businesses = Business::all();
+      foreach ($businesses as $count => $business) {
+        $branches = Branch::getBranchesByBusinessId($business->business_id);
+        foreach ($branches as $count2 => $branch) {
+          $services = Service::getServicesByBranchId($branch->branch_id);
+          foreach ($services as $count3 => $service) {
+            $priority_numbers = PriorityNumber::getTrackIdByServiceId($service->service_id);
+            foreach ($priority_numbers as $count4 => $priority_number) {
+              $priority_queues = PriorityQueue::getTransactionNumberByTrackId($priority_number->track_id);
+              foreach ($priority_queues as $count5 => $priority_queue) {
+                $terminal_transactions = TerminalTransaction::getTimeQueuedByTransactionNumber($priority_queue->transaction_number);
+                foreach ($terminal_transactions as $count6 => $terminal_transaction) {
+                  $grace_period = time() - $terminal_transaction->time_queued; // issued time must be on the current day to count as active
+                  if ($terminal_transaction->time_queued != 0 && $grace_period < 86400) { // 1 day; 60secs * 60 min * 24 hours
+                    $active_businesses[$business->business_id] = array(
+                      'local_address' => $business->local_address,
+                      'name' => $business->name,
+                    );
+                    break;
+                  }
+                }
+                break;
+              }
+              break;
+            }
+            break;
+          }
+          break;
+        }
+        break;
+      }
+      return $active_businesses;
+    }
 }

@@ -48,4 +48,8 @@ class PriorityQueue extends Eloquent {
         PriorityQueue::where('transaction_number', '=', $transaction_number)->update($values);
     }
 
+  public static function getTransactionNumberByTrackId($track_id) {
+    return PriorityQueue::where('track_id', '=', $track_id)->select(array('transaction_number'))->get();
+  }
+
 }

@@ -70,4 +70,8 @@ class TerminalTransaction extends Eloquent{
         $values['time_removed'] = $time_removed == null ? time() : $time_removed;
         TerminalTransaction::where('transaction_number', '=', $transaction_number)->update($values);
     }
+
+  public static function getTimeQueuedByTransactionNumber($transaction_number) {
+    return TerminalTransaction::where('transaction_number', '=', $transaction_number)->select(array('time_queued'))->get();
+  }
 }
