@@ -41,6 +41,16 @@ class RestController extends BaseController {
 
     /**
      * @author Ruffy
+     * @param $id BusinessI ID of the selected business
+     * @return JSON object generated through businessId according to the database
+     */
+    public function getBusinessDetail($id) {
+        $search = Business::find($id);
+        return Response::json($search);
+    }
+
+    /**
+     * @author Ruffy
      * @return JSON response containing list of active businesses
      */
     public function getActiveBusiness() {
