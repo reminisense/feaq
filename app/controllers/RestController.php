@@ -20,7 +20,9 @@ class RestController extends BaseController {
             ->take($quantity == null ? 5 : $quantity)
             ->get();
 
-        return Response::json($businesses);
+        $popular_business = array('popular-business' => $businesses);
+
+        return Response::json($popular_business);
 
     }
 
