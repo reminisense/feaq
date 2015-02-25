@@ -257,9 +257,6 @@ class Business extends Eloquent{
             break;
           }
         }
-        if (array_key_exists($business->business_id, $active_businesses)) {
-          break;
-        }
       }
       return $active_businesses;
     }
