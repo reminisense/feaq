@@ -101,6 +101,8 @@ class ProcessQueue extends Eloquent{
         $uncalled_numbers = array();
         $processed_numbers = array();
         $timebound_numbers = array(); //ARA Timebound assignment
+        $priority_numbers = new stdClass();
+
         if($numbers){
             foreach($numbers as $number){
                 $called = $number->time_called != 0 ? TRUE : FALSE;
@@ -128,17 +130,17 @@ class ProcessQueue extends Eloquent{
                 }
 
                 if(!$called && !$removed && $timebound){
-                    $timebound_numbers[$number->transaction_number] = array(
+                    $timebound_numbers[] = array(
                         'transaction_number' => $number->transaction_number,
                         'priority_number' => $number->priority_number,
                     );
                 }else if(!$called && !$removed){
-                    $uncalled_numbers[$number->transaction_number] = array(
+                    $uncalled_numbers[] = array(
                         'transaction_number' => $number->transaction_number,
                         'priority_number' => $number->priority_number,
                     );
                 }else if($called && !$served && !$removed){
-                    $called_numbers[$number->transaction_number] = array(
+                    $called_numbers[] = array(
                         'transaction_number' => $number->transaction_number,
                         'priority_number' => $number->priority_number,
                         'confirmation_code' => $number->confirmation_code,
@@ -147,7 +149,7 @@ class ProcessQueue extends Eloquent{
                         'box_rank' => Terminal::boxRank($number->terminal_id) // Added by PAG
                     );
                 }else if($called && !$served && $removed){
-                    $processed_numbers[$number->transaction_number] = array(
+                    $processed_numbers[] = array(
                         'transaction_number' => $number->transaction_number,
                         'priority_number' => $number->priority_number,
                         'confirmation_code' => $number->confirmation_code,
@@ -157,7 +159,7 @@ class ProcessQueue extends Eloquent{
                         'status' => 'Dropped',
                     );
                 }else if(!$called && $removed){
-                    $processed_numbers[$number->transaction_number] = array(
+                    $processed_numbers[] = array(
                         'transaction_number' => $number->transaction_number,
                         'priority_number' => $number->priority_number,
                         'confirmation_code' => $number->confirmation_code,
@@ -167,7 +169,7 @@ class ProcessQueue extends Eloquent{
                         'status' => 'Removed',
                     );
                 }else if($called && $served){
-                    $processed_numbers[$number->transaction_number] = array(
+                    $processed_numbers[] = array(
                         'transaction_number' => $number->transaction_number,
                         'priority_number' => $number->priority_number,
                         'confirmation_code' => $number->confirmation_code,
@@ -180,18 +182,24 @@ class ProcessQueue extends Eloquent{
             }
 
             usort($processed_numbers, array('ProcessQueue', 'sortProcessedNumbers'));
-            $priority_numbers = new stdClass();
             $priority_numbers->last_number_given = $numbers[count($numbers) - 1]->priority_number;
             $priority_numbers->next_number = ProcessQueue::nextNumber($priority_numbers->last_number_given, QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
             $priority_numbers->current_number = $called_numbers ? $called_numbers[key($called_numbers)]['priority_number'] : 0;
             $priority_numbers->called_numbers = $called_numbers;
-            $priority_numbers->uncalled_numbers = array_merge($timebound_numbers, $uncalled_numbers);
+            $priority_numbers->uncalled_numbers = $uncalled_numbers;
             $priority_numbers->processed_numbers = array_reverse($processed_numbers);
-
-            return $priority_numbers;
+            $priority_numbers->timebound_numbers = $timebound_numbers;
         }else{
-            return null;
+            $priority_numbers->last_number_given = 0;
+            $priority_numbers->next_number = QueueSettings::numberStart($service_id);
+            $priority_numbers->current_number = 0;
+            $priority_numbers->called_numbers = $called_numbers;
+            $priority_numbers->uncalled_numbers = $uncalled_numbers;
+            $priority_numbers->processed_numbers = array_reverse($processed_numbers);
+            $priority_numbers->timebound_numbers = $timebound_numbers;
         }
+
+        return $priority_numbers;
     }
 
     public static function queuedNumbers($service_id, $date, $start = 0, $take = 2147483648){

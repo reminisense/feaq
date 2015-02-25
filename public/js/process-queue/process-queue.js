@@ -48,8 +48,7 @@ var pq = {
         load_select_number : function(){
             $('#uncalled-numbers').on('click', 'li', function(e){
                 e.preventDefault();
-                $('#selected-tnumber').val($(this).attr('data-tnumber'));
-                $('#selected-pnumber').html($(this).attr('data-pnumber'));
+                pq.jquery_functions.select_number($(this).attr('data-tnumber'), $(this).attr('data-pnumber'));
                 $('#btn-call').removeAttr('disabled');
             });
         },
@@ -87,10 +86,15 @@ var pq = {
             }
         },
 
-        find_in_uncalled : function(transaction_number, uncalled_numbers){
+        find_in_numbers_array : function(transaction_number, uncalled_numbers){
             return $.grep(uncalled_numbers, function(e){
                 return e.transaction_number == transaction_number;
             });
+        },
+
+        select_number : function(tnumber, pnumber){
+            $('#selected-tnumber').val(tnumber);
+            $('#selected-pnumber').html(pnumber);
         },
 
         select_next_number : function(){
@@ -119,7 +123,6 @@ var pq = {
 
         issue_number_success : function(message){
             pq.jquery_functions.issue_number_success_alert(message);
-            pq.jquery_functions.change_dropdown_message('Please select a number');
         },
 
         hide_tab_content : function(){
