@@ -21,7 +21,7 @@ class RestController extends BaseController {
 
         $popular_business = array('popular-business' => $businesses);
 
-        return Response::json($popular_business);
+        return Response::json($popular_business, 200, array(), JSON_PRETTY_PRINT);
     }
 
     /**
@@ -36,7 +36,7 @@ class RestController extends BaseController {
             ->get();
 
         $found_business = array('search-result' => $search_results);
-        return Response::json($found_business);
+        return Response::json($found_business, 200, array(), JSON_PRETTY_PRINT);
     }
 
     /**
@@ -46,7 +46,7 @@ class RestController extends BaseController {
      */
     public function getBusinessDetail($id) {
         $search = Business::find($id);
-        return Response::json($search);
+        return Response::json($search, 200, array(), JSON_PRETTY_PRINT);
     }
 
     /**
@@ -98,7 +98,7 @@ class RestController extends BaseController {
                 }
             }
         }
-        return $actives;
+        return Response::json($actives, 200, array(), JSON_PRETTY_PRINT);
     }
 
 }
