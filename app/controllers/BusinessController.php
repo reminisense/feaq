@@ -135,30 +135,37 @@ class BusinessController extends BaseController{
         $business_data = Input::all();
         $business = Business::find($business_data['business_id']);
 
-        $business->name = $business_data['business_name'];
-        $business->local_address = $business_data['business_address'];
-        $business->industry = $business_data['industry'];
-        $business->fb_url = $business_data['facebook_url'];
+        if($this->validateBusinessNameBusinessAddress($business, $business_data)){
+            $business->name = $business_data['business_name'];
+            $business->local_address = $business_data['business_address'];
+            $business->industry = $business_data['industry'];
+            $business->fb_url = $business_data['facebook_url'];
 
-        $time_open_arr = Helper::parseTime($business_data['time_open']);
-        $business->open_hour = $time_open_arr['hour'];
-        $business->open_minute = $time_open_arr['min'];
-        $business->open_ampm = $time_open_arr['ampm'];
+            $time_open_arr = Helper::parseTime($business_data['time_open']);
+            $business->open_hour = $time_open_arr['hour'];
+            $business->open_minute = $time_open_arr['min'];
+            $business->open_ampm = $time_open_arr['ampm'];
 
-        $time_close_arr = Helper::parseTime($business_data['time_close']);
-        $business->close_hour = $time_close_arr['hour'];
-        $business->close_minute = $time_close_arr['min'];
-        $business->close_ampm = $time_close_arr['ampm'];
+            $time_close_arr = Helper::parseTime($business_data['time_close']);
+            $business->close_hour = $time_close_arr['hour'];
+            $business->close_minute = $time_close_arr['min'];
+            $business->close_ampm = $time_close_arr['ampm'];
 
-        $business->queue_limit = $business_data['queue_limit']; /* RDH Added queue_limit to Edit Business Page */
+            $business->queue_limit = $business_data['queue_limit']; /* RDH Added queue_limit to Edit Business Page */
 
-        $business->save();
-        $business = Business::getBusinessDetails($business->business_id);
+            $business->save();
+            $business = Business::getBusinessDetails($business->business_id);
 
-        return json_encode([
-            'success' => 1,
-            'business' => $business
+            return json_encode([
+                'success' => 1,
+                'business' => $business
             ]);
+        } else {
+            return json_encode([
+                'success' => 0,
+                'error' => 'Business name already exists with the same business address.'
+            ]);
+        }
     }
 
     public function getBusinessdetails($business_id){
@@ -180,23 +187,45 @@ class BusinessController extends BaseController{
         return json_encode($arr);
     }
 
-  public function postRemove() {
-    $post = json_decode(file_get_contents("php://input"));
-    Business::deleteBusinessByBusinessId($post->business_id);
-    $branches = Branch::getBranchesByBusinessId($post->business_id);
-    foreach ($branches as $count => $data) {
-      $services = Service::getServicesByBranchId($data->branch_id);
-      foreach ($services as $count2 => $data2) {
-        $terminals = Terminal::getTerminalsByServiceId($data2->service_id);
-        foreach ($terminals as $count3 => $data3) {
-          TerminalUser::deleteUserByTerminalId($data3['terminal_id']);
+    public function postRemove() {
+        $post = json_decode(file_get_contents("php://input"));
+            Business::deleteBusinessByBusinessId($post->business_id);
+            $branches = Branch::getBranchesByBusinessId($post->business_id);
+            foreach ($branches as $count => $data) {
+                $services = Service::getServicesByBranchId($data->branch_id);
+                foreach ($services as $count2 => $data2) {
+                    $terminals = Terminal::getTerminalsByServiceId($data2->service_id);
+                    foreach ($terminals as $count3 => $data3) {
+                        TerminalUser::deleteUserByTerminalId($data3['terminal_id']);
+                    }
+                    Terminal::deleteTerminalsByServiceId($data2->service_id);
+                }
+            Service::deleteServicesByBranchId($data->branch_id);
         }
-        Terminal::deleteTerminalsByServiceId($data2->service_id);
-      }
-      Service::deleteServicesByBranchId($data->branch_id);
+
+        Branch::deleteBranchesByBusinessId($post->business_id);
+        UserBusiness::deleteUserByBusinessId($post->business_id);
+
+        return json_encode(array('status' => 1));
     }
-    Branch::deleteBranchesByBusinessId($post->business_id);
-    UserBusiness::deleteUserByBusinessId($post->business_id);
-    return json_encode(array('status' => 1));
-  }
+
+    /*
+     * @author: CSD
+     * @description:
+     * checks if business name or business address input is different from db data,
+     * if different validate if it exists or not
+     *
+     */
+    private function validateBusinessNameBusinessAddress($dbBusiness, $inputBusiness){
+        if ($dbBusiness->name != $inputBusiness['business_name'] || $dbBusiness->local_address != $inputBusiness['business_address']){
+            $row = Business::businessExistsByNameByAddress($inputBusiness['business_name'], $inputBusiness['business_address']);
+            if(count($row) == 0){
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return true;
+        }
+    }
 }
