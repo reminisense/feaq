@@ -55,13 +55,12 @@ fbapp.controller('fbController', function($scope, $http) {
     });
 
     $scope.saveFbDetails = (function() {
-
-        // This fix is based on response data from users who uncheck email permissions on app approval
-        if (!response.email) {
-            response.email = '';
-        }
-
         FB.api('/me', function(response) {
+            // PAG - This fix is based on response data from users who uncheck email permissions on app approval
+            if (!response.email) {
+                response.email = '';
+            }
+
             fbData = {
                 "fb_id": response.id,
                 "fb_url": response.link,
