@@ -9,6 +9,8 @@
         $scope.called_numbers = [];
         $scope.uncalled_numbers = [];
         $scope.processed_numbers = [];
+        $scope.timebound_numbers = [];
+
         $scope.called_number = 0;
         $scope.next_number = 0;
 
@@ -74,18 +76,28 @@
             $scope.called_numbers = numbers.called_numbers;
             $scope.uncalled_numbers = numbers.uncalled_numbers;
             $scope.processed_numbers = numbers.processed_numbers;
+            $scope.timebound_numbers = numbers.timebound_numbers;
             $scope.next_number = numbers.next_number
+
             pq.jquery_functions.set_next_number_placeholder($scope.next_number);
         };
 
         select_next_number = function(){
             next_number = angular.element(document.querySelector('#selected-tnumber')).val();
-            is_uncalled = pq.jquery_functions.find_in_uncalled(next_number, $scope.uncalled_numbers);
-            if($scope.uncalled_numbers.length == 0){
+            is_uncalled = pq.jquery_functions.find_in_numbers_array(next_number, $scope.uncalled_numbers);
+            is_timebound = pq.jquery_functions.find_in_numbers_array(next_number, $scope.timebound_numbers);
+
+
+            if($scope.timebound_numbers.length == 0 && $scope.uncalled_numbers.length == 0){
                 pq.jquery_functions.remove_and_update_dropdown();
-            }else if($scope.uncalled_numbers && (next_number == 0 || is_uncalled.length == 0)){
-                angular.element(document.querySelector('#selected-tnumber')).val($scope.uncalled_numbers[0].transaction_number);
-                angular.element(document.querySelector('#selected-pnumber')).html($scope.uncalled_numbers[0].priority_number);
+            }else if(next_number == 0){
+                if($scope.timebound_numbers.length > 0){
+                    pq.jquery_functions.select_number($scope.timebound_numbers[0].transaction_number, $scope.timebound_numbers[0].priority_number);
+                }else if($scope.uncalled_numbers.length > 0){
+                    pq.jquery_functions.select_number($scope.uncalled_numbers[0].transaction_number, $scope.uncalled_numbers[0].priority_number);
+                }
+            }else if($scope.timebound_numbers.length > 0 && is_timebound.length == 0){
+                pq.jquery_functions.select_number($scope.timebound_numbers[0].transaction_number, $scope.timebound_numbers[0].priority_number);
             }
         }
 
