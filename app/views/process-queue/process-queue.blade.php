@@ -47,6 +47,7 @@
                                         <span id="selected-pnumber">Please select a number</span><span class="caret"></span> <!-- @todo replace this with selected number-->
                                     </button>
                                     <ul class="dropdown-menu dd-select" id="uncalled-numbers">
+                                        <li ng-repeat="number in timebound_numbers" data-tnumber="@{{ number.transaction_number }}" data-pnumber="@{{ number.priority_number }}">@{{ number.priority_number }}</li>
                                         <li ng-repeat="number in uncalled_numbers" data-tnumber="@{{ number.transaction_number }}" data-pnumber="@{{ number.priority_number }}">@{{ number.priority_number }}</li>
                                     </ul>
                                 </div>

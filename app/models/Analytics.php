@@ -7,6 +7,9 @@
  */
 
 class Analytics extends Eloquent{
+    protected $table = 'queue_analytics';
+    public $timestamps = false;
+
     public static function getBusinessRemainingCount($business_id){
         $uncalled_numbers = 0;
         $branches = Branch::getBranchesByBusinessId($business_id);

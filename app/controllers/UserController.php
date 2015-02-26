@@ -57,6 +57,7 @@ class UserController extends BaseController{
         {
             $search_businesses = Business::all();
             $business_ids = UserBusiness::getAllBusinessIdByOwner(Helper::userId());
+            $active_businesses = Business::getActiveBusinesses();
 
             $my_businesses = [];
             if (count($business_ids) > 0){
@@ -81,6 +82,7 @@ class UserController extends BaseController{
             }
 
             return View::make('user.dashboard')
+                ->with('active_businesses', $active_businesses)
                 ->with('search_businesses', $search_businesses)
                 ->with('my_businesses', $my_businesses);
         }
