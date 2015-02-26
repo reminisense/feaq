@@ -53,8 +53,12 @@ class UserController extends BaseController{
      * @description: render dashboard, fetch all businesses for default search view, and businesses created by logged in user
      */
     public function getUserDashboard(){
-        $search_businesses = Business::all();
+        $search_businesses = Business::orderBy('business_id', 'desc')
+                                ->take(4)
+                                ->get(); // RDH Changed implementation to only include newest 4 businesses
+
         $active_businesses = Business::getActiveBusinesses();
+        $active_businesses = array_slice($active_businesses, 0, 4); // RDH Implemented to only show maximum 4 businesses
 
         if (Auth::check())
         {
