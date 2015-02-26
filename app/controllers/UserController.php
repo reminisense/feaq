@@ -53,12 +53,12 @@ class UserController extends BaseController{
      * @description: render dashboard, fetch all businesses for default search view, and businesses created by logged in user
      */
     public function getUserDashboard(){
+        $search_businesses = Business::all();
+        $active_businesses = Business::getActiveBusinesses();
+
         if (Auth::check())
         {
-            $search_businesses = Business::all();
             $business_ids = UserBusiness::getAllBusinessIdByOwner(Helper::userId());
-            $active_businesses = Business::getActiveBusinesses();
-
             $my_businesses = [];
             if (count($business_ids) > 0){
                 foreach($business_ids as $b_id)
@@ -88,7 +88,9 @@ class UserController extends BaseController{
         }
         else
         {
-            return View::make('page-front');
+            return View::make('page-front')
+                ->with('active_businesses', $active_businesses)
+                ->with('search_businesses', $search_businesses);
         }
     }
 
