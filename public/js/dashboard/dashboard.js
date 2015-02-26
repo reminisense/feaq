@@ -4,16 +4,9 @@
 $(document).ready(function(){
     $('input.timepicker').timepicker({});
 
-    var user_location = document.getElementById('user_location');
-    var business_location = document.getElementById('business_location');
-    var edit_business_location = document.getElementById('edit_business_address');
-    var options = {
-
-    };
-
-    var autocomplete = new google.maps.places.Autocomplete(user_location, options);
-    var autocomplete = new google.maps.places.Autocomplete(business_location, options);
-    var autocomplete = new google.maps.places.Autocomplete(edit_business_location, options);
+    $("#user_location").geocomplete();
+    $("#business_location").geocomplete();
+    $("#edit_business_address").geocomplete();
 
     $.get('/user/user-status', function(){
 
@@ -49,7 +42,7 @@ $(document).ready(function(){
             errorMessage = errorMessage + "Email field is required. ";
         }
 
-        if ($('#mobile').val() == "" || $('#mobile').val() == "0"){
+        if (!isValidPhone($('#mobile').val()) && ($('#mobile').val() != 0 || $('#mobile').val() == '')){
             errorMessage = errorMessage + "Mobile field is required. ";
         }
 
@@ -69,12 +62,7 @@ $(document).ready(function(){
                 data: $('#verification_form').serialize(),
                 success: function(response){
                     $('#verifyUser').modal('hide');
-                    /*
-                    $('#setupBusiness').modal({
-                        backdrop: 'static',
-                        keyboard: false
-                    });
-                    */
+                    location.reload();
                 }
             });
         } else {
@@ -86,6 +74,7 @@ $(document).ready(function(){
     $('#submit_business').on('click', function(){
         $(this).attr('disabled', '');
         var errorMessage = '';
+
         if ($('#business_name').val() == ""){
             errorMessage = "Business Name field is required. ";
         }
@@ -108,10 +97,6 @@ $(document).ready(function(){
 
         if ($('#industry').val() == 0){
             errorMessage = errorMessage + "Industry field is required. ";
-        }
-
-        if ( !isValidPhone($('#mobile').val()) ){
-            errorMessage = errorMessage + "Invalid mobile field input. ";
         }
 
         if (errorMessage == ""){
@@ -146,7 +131,9 @@ $(document).ready(function(){
         $('#add_business_cloase').css('display', 'block');
     });
 
-    $('#edit_business_address').tooltip();
+    if (!isMobile()){
+        $('#edit_business_address').tooltip();
+    }
 
     $("#mobile").intlTelInput({
         defaultCountry: "auto"
@@ -155,6 +142,11 @@ $(document).ready(function(){
     $('#mobile').keypress(function(key) {
         if(key.charCode < 48 || key.charCode > 57) return false;
     });
+
+    function isMobile() {
+        try{ document.createEvent("TouchEvent"); return true; }
+        catch(e){ return false; }
+    }
 
     function isEmail(email) {
         var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -167,9 +159,8 @@ $(document).ready(function(){
     }
 
     function isValidPhone (txtPhone) {
-        var a = document.getElementById(txtPhone).value;
         var filter = /^[0-9-+]+$/;
-        if (filter.test(a)) {
+        if (filter.test(txtPhone)) {
             return true;
         } else {
             return false;
