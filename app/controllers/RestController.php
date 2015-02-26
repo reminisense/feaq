@@ -101,4 +101,36 @@ class RestController extends BaseController {
         return Response::json($actives, 200, array(), JSON_PRETTY_PRINT);
     }
 
+    /**
+     * @author Ruffy
+     * @param int $business_id
+     * @return Formatted single JSON Object that contains all attributes related to the Broadcast Page numbers
+     */
+    public function getShowNumber($business_id = 0) {
+        $numbers = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'), true);
+        $output = array();
+
+        $get_num = $numbers['get_num'];
+        $display = $numbers['display'];
+        $date = $numbers['date'];
+
+        unset($numbers['get_num']);
+        unset($numbers['display']);
+        unset($numbers['date']);
+
+        foreach($numbers as $key => $box_data) {
+            // generate object attribute
+            $title = $key;
+            foreach($box_data as $key2 => $box_details) {
+                $title = $title . $key2;
+                $output[$title] = $numbers[$key][$key2];
+            }
+        }
+        $output['get_num'] = $get_num;
+        $output['display'] = $display;
+        $output['date'] = $date;
+
+        return Response::json($output, 200, array(), JSON_PRETTY_PRINT);
+    }
+
 }
