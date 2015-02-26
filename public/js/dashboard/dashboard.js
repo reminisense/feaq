@@ -142,6 +142,8 @@ $(document).ready(function(){
         $('#add_business_cloase').css('display', 'block');
     });
 
+    $('#edit_business_address').tooltip();
+
     $("#mobile").intlTelInput({
         defaultCountry: "auto"
     });
