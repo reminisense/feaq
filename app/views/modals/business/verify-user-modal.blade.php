@@ -27,7 +27,7 @@
                         </div>
                         <div class="col-md-12">
                             <label>Mobile</label>
-                            <input type="tel" class=" form-control" id="mobile" name="mobile" required/>
+                            <input type="" maxlength="15" class=" form-control" id="mobile" name="mobile" required/>
                         </div>
                         <div class="col-md-12" style="margin-top: 20px;">
                             <label>Location</label>

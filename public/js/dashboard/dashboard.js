@@ -110,6 +110,10 @@ $(document).ready(function(){
             errorMessage = errorMessage + "Industry field is required. ";
         }
 
+        if ( !isValidPhone($('#mobile').val()) ){
+            errorMessage = errorMessage + "Invalid mobile field input. ";
+        }
+
         if (errorMessage == ""){
             $.ajax({
                 url: $('#add_business_form').attr('action'),
@@ -148,6 +152,10 @@ $(document).ready(function(){
         defaultCountry: "auto"
     });
 
+    $('#mobile').keypress(function(key) {
+        if(key.charCode < 48 || key.charCode > 57) return false;
+    });
+
     function isEmail(email) {
         var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         return regex.test(email);
@@ -158,4 +166,13 @@ $(document).ready(function(){
         return regex.test(time);
     }
 
+    function isValidPhone (txtPhone) {
+        var a = document.getElementById(txtPhone).value;
+        var filter = /^[0-9-+]+$/;
+        if (filter.test(a)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 });
