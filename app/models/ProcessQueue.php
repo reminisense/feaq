@@ -47,7 +47,7 @@ class ProcessQueue extends Eloquent{
             $login_id = TerminalManager::hookedTerminal($terminal_id) ? TerminalManager::getLatestLoginIdOfTerminal($terminal_id) : 0;
             TerminalTransaction::updateTransactionTimeCalled($transaction_number, $login_id, $time_called, $terminal_id);
             Analytics::insertAnalyticsQueueNumberCalled($transaction_number, $pn->service_id, $pn->date, $time_called, $terminal_id); //insert to queue_analytics
-            Notifier::sendNumberCalledToAllChannels($transaction_number); //notifies users that his/her number is called
+            Notifier::sendNumberCalledNotification($transaction_number); //notifies users that his/her number is called
             return json_encode(['success' => 1, 'numbers' => ProcessQueue::allNumbers(Terminal::serviceId($terminal_id))]);
         }else{
             return json_encode(['error' => 'Please assign a terminal.']);

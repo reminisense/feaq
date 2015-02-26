@@ -13,10 +13,33 @@ class Notifier extends Eloquent{
 
     public $timestamps = false;
 
-    public static function sendNumberCalledToAllChannels($transacion_number){
-        Notifier::sendNumberCalledEmail($transacion_number);
-        Notifier::sendNumberCalledSms($transacion_number);
+    public static function sendNumberCalledNotification($transaction_number){
+        Notifier::sendNumberCalledToAllChannels($transaction_number);
+        Notifier::sendNumberCalledToNextNumber($transaction_number, 1);
+        Notifier::sendNumberCalledToNextNumber($transaction_number, 5);
+        Notifier::sendNumberCalledToNextNumber($transaction_number, 10);
     }
+
+    public static function sendNumberCalledToAllChannels($transaction_number){
+        Notifier::sendNumberCalledEmail($transaction_number);
+        Notifier::sendNumberCalledSms($transaction_number);
+    }
+
+    public static function sendNumberNextToAllChannels($transaction_number){
+        Notifier::sendNumberNextEmail($transaction_number);
+        Notifier::sendNumberNextSms($transaction_number);
+    }
+
+    public static function sendNumberCalledToNextNumber($transaction_number, $diff){
+        $number = TerminalTransaction::where('transaction_number', '>=', $transaction_number)->skip($diff)->first();
+        if($number){
+            Notifier::sendNumberNextToAllChannels($number->transaction_number);
+        }
+    }
+
+    /**
+     * Email sending templates
+     */
 
     public static function sendNumberCalledEmail($transaction_number){
         $email = PriorityQueue::email($transaction_number);
@@ -26,27 +49,57 @@ class Notifier extends Eloquent{
             $data = [
                 'name' => $name == null ? null : ' ' . $name,
                 'priority_number' => PriorityQueue::priorityNumber($transaction_number),
-                'terminal_name' => Terminal::name($terminal_id),
-                'business_name' => Business::name(Business::getBusinessIdByTerminalId($terminal_id)),
+                'terminal_name' => $terminal_id != 0 ? Terminal::name($terminal_id) : '',
+                'business_name' => $terminal_id != 0 ? Business::name(Business::getBusinessIdByTerminalId($terminal_id)) : '',
             ];
             Notifier::sendEmail($email, 'emails.process-queue.number-called', 'FeatherQ Message: Your number has been called.', $data);
         }
     }
 
+    public static function sendNumberNextEmail($transaction_number){
+        $email = PriorityQueue::email($transaction_number);
+        $name = PriorityQueue::name($transaction_number);
+        if($email){
+            $data = [
+                'name' => $name == null ? null : ' ' . $name,
+                'priority_number' => PriorityQueue::priorityNumber($transaction_number),
+            ];
+            Notifier::sendEmail($email, 'emails.process-queue.number-next', 'FeatherQ Message: Your number will be called soon.', $data);
+        }
+    }
+
+    /**
+     * Sms sending templates
+     */
+
     public static function sendNumberCalledSms($transaction_number){
+        $phone = PriorityQueue::phone($transaction_number);
+        $name = PriorityQueue::name($transaction_number);
+        if($phone){
+            $terminal_id = TerminalTransaction::terminalId($transaction_number);
+            $name = $name == null ? null : ' ' . $name;
+            $priority_number = PriorityQueue::priorityNumber($transaction_number);
+            $terminal_name = $terminal_id != 0 ? Terminal::name($terminal_id) : '';
+            $business_name = $terminal_id != 0 ? Business::name(Business::getBusinessIdByTerminalId($terminal_id)) : '';
+            $message = "Hello$name! Thank you for using FeatherQ. Your number (# $priority_number ) has been called by $terminal_name in $business_name.";
+            Notifier::sendFrontlineSMS($message, $phone, Notifier::$frontline_sms_url, Notifier::$frontline_sms_secret);
+        }
+    }
+
+    public static function sendNumberNextSms($transaction_number){
         $phone = PriorityQueue::phone($transaction_number);
         $name = PriorityQueue::name($transaction_number);
         if($phone){
             $name = $name == null ? null : ' ' . $name;
             $priority_number = PriorityQueue::priorityNumber($transaction_number);
-            $terminal_id = TerminalTransaction::terminalId($transaction_number);
-            $terminal_name =  Terminal::name($terminal_id);
-            $business_name = Business::name(Business::getBusinessIdByTerminalId($terminal_id));
-            $message = "Hello$name! Thank you for using FeatherQ. Your number (# $priority_number ) has been called by $terminal_name in $business_name.";
+            $message = "Hello$name! Thank you for using FeatherQ. Your number (# $priority_number ) will be called soon.";
             Notifier::sendFrontlineSMS($message, $phone, Notifier::$frontline_sms_url, Notifier::$frontline_sms_secret);
         }
-
     }
+
+    /**
+     * Core sending functions
+     */
 
     public static function sendEmail($email, $template, $subject, $data = array()){
         Mail::send($template, $data, function($message) use($email , $subject){
