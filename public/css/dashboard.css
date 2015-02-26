@@ -1039,7 +1039,6 @@ strong {
 
 .pac-container {
     z-index: 99999;
-    pointer-events: none;
 }
 
 .ui-timepicker-container {

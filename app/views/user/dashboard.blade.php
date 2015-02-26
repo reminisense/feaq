@@ -11,7 +11,8 @@
     {{ HTML::script('js/intlTelInput.js') }}
     {{ HTML::script('js/dashboard/jquery.validate.js') }}
     {{ HTML::script('js/dashboard/search-business.js') }}
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+    {{ HTML::script('js/jquery.geocomplete.js') }}
 @stop
 
 @section('styles')
