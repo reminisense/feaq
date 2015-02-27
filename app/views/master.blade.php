@@ -28,29 +28,27 @@
 </head>
 <body ng-app="FeatherQ">
     <div class="navbar-wrapper">
-        <div class="navbar navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/">
-                        <img src="images/featherq-home-logo.png" alt="FeatherQ">
-                    </a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#about">ABOUT</a></li>
-                        <li><a href="#features">FEATURES</a></li>
-                        <li><a href="#contact">CONTACT US</a></li>
-                        <!-- <li><a id="login" href=""><span class="glyphicon glyphicon-log-in"></span> LOGIN</a></li> -->
-                    </ul>
-                </div>
+        <!-- Static navbar -->
+        <nav class="navbar navbar-default navbar-static-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#"><img src="images/featherq-home-logo.png"></a>
             </div>
-        </div>
+            <div id="navbar" class="navbar-collapse collapse" ng-controller="fbController">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="">How it works</a></li>
+                <li><a href="">Features</a></li>
+                <li><a href="#" class="btn btn-blue btn-fb" ng-click="login()" role="button"><img src="images/icon-fb.png"> Login with Facebook</a></li>
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div>
+        </nav>
     </div>
     @yield('body')
     <script>

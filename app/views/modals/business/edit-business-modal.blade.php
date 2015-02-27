@@ -27,7 +27,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <small>Business Address</small>
-                                    <input type="text" class="form-control" id="edit_business_address" ng-autocomplete value="@{{ business_address }}" ng-model="business_address" options="options" details="details">
+                                    <input type="text" class="form-control" id="edit_business_address" value="@{{ business_address }}" ng-model="business_address" ng-autocomplete options="options" details="details">
                                 </div>
                                 <div class="col-md-12">
                                     <small>Facebook URL</small>
