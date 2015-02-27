@@ -144,7 +144,7 @@
                                                         <small>User</small>
                                                         <p class="bold" ng-repeat="user in terminal.users">@{{ user.first_name + ' ' + user.last_name }}</p>
                                                     </div>
-                                                    <div class="block mb10" ng-if="terminal.users.length == 0">
+                                                    <div class="block mb10" ng-if="terminal.users.length < 3">
                                                         <a href="#" class="btn btn-blue btn-adduser"><span class="glyphicon glyphicon-add"></span> Add User</a>
                                                         <div class="block inputuser" style="display: none">
                                                             <form ng-submit="emailSearch(search_user, terminal.terminal_id)">
@@ -160,8 +160,8 @@
                                                         <a href="#" ng-click="updateTerminal(terminal.terminal_id)" class="update-terminal-button" terminal_id="@{{ terminal.terminal_id }}" style="display: none;"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
                                                         <a href="#" ng-click="deleteTerminal(terminal.terminal_id)"><span class="glyphicon glyphicon-trash"></span> Delete</a>
                                                     </div>
-                                                    <div class="block">
-                                                        <a href="#" ng-repeat="user in terminal.users" ng-click="unassignFromTerminal(user.user_id, user.terminal_id)"><span class="glyphicon glyphicon-remove"></span> Remove</a>
+                                                    <div class="block" ng-repeat="user in terminal.users">
+                                                        <a href="#" ng-click="unassignFromTerminal(user.user_id, user.terminal_id)"><span class="glyphicon glyphicon-remove"></span> Remove</a>
                                                     </div>
                                                 </td>
                                             </tr>
