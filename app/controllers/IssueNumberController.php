@@ -29,14 +29,13 @@ class IssueNumberController extends BaseController{
         $name = Input::get('name');
         $phone = Input::get('phone');
         $email = Input::get('email');
+        $time_assigned = Input::get('time_assigned') ? strtotime(Input::get('time_assigned')) : 0;
 
-        if(Input::get('time_assigned')){
-            $time_assigned = strtotime(Input::get('time_assigned'));
-        }else{
-            $time_assigned = 0;
-        }
+        $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
+        $queue_platform = $priority_number == $next_number || $priority_number == null ? 'web' : 'specific';
 
-        $number = ProcessQueue::issueNumber($service_id, $priority_number);
+        //save
+        $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform);
         PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
         TerminalTransaction::where('transaction_number', '=', $number['transaction_number'])->update(['time_assigned' => $time_assigned]);
         return json_encode(['success' => 1, 'number' => $number]);
