@@ -101,7 +101,7 @@
                                 <div class="col-md-12">
                                     <small>QR Code</small>
                                     <div class="row">
-                                        <a id="qr_code_download" href="https://api.qrserver.com/v1/create-qr-code/?data={{ url('broadcast/business') }}/@{{ business_id }}&size=150x150" ng-model="business_id" class="btn btn-blue" download="qrcode.png"><span class="glyphicon glyphicon-add"></span> Download QR Code</a>
+                                        <a id="qr_code_download" href="{{ url('business/pdf-download') }}/@{{ business_id }}" target="_blank" ng-model="business_id" class="btn btn-blue"><span class="glyphicon glyphicon-add"></span> View QR Code</a>
                                     </div>
                                 </div>
                                 <!--
