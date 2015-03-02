@@ -6,10 +6,10 @@
 </head>
 
 <body style="font-family: 'Arial', sans-serif;">
-  <div style="height:91px;background-color:#cdced0;text-align:center;margin-bottom:12px;border-bottom:1px dashed #777;">
+  <div style="height:92px;background-color:#cdced0;text-align:center;margin-bottom:12px;border-bottom:1px dashed #777;">
     <img src="{{ url('/images/ins.png') }}"/>
   </div>
-  <div style="height:89px;background-color:#cf6733;text-align:center;">
+  <div style="height:90px;background-color:#cf6733;text-align:center;">
     <img src="{{ url('/images/logo.png') }}"/>
   </div>
   <div style="text-align:center;">
