@@ -15,7 +15,7 @@
         $scope.next_number = 0;
 
         $scope.getAllNumbers = function(){
-            getResponseResetValues(pq.urls.process_queue.all_numbers_url + pq.ids.service_id, null, null, function(){
+            getResponseResetValues(pq.urls.process_queue.all_numbers_url + pq.ids.service_id + '/' + pq.ids.terminal_id, null, null, function(){
                 setTimeout(function(){
                     $scope.getAllNumbers();
                 }, 1000);
@@ -121,7 +121,7 @@
 
         $scope.issueMultiple = function(range, date){
             $scope.isIssuing = true;
-            url = pq.urls.issue_numbers.issue_multiple_url + pq.ids.service_id + '/' + range;
+            url = pq.urls.issue_numbers.issue_multiple_url + pq.ids.service_id + '/' + range + '/' + $pq.ids.terminal_id;
             url = date == undefined ? url : url + '/' + date;
 
             $http.get( url )
@@ -144,7 +144,7 @@
                 email : email,
                 time_assigned : time_assigned
             };
-            $http.post(pq.urls.issue_numbers.issue_specific_url + pq.ids.service_id, data)
+            $http.post(pq.urls.issue_numbers.issue_specific_url + pq.ids.service_id + '/' + pq.ids.terminal_id, data)
                 .success(function(response){
                     message = 'Issue number successful! <br> Number : ' + response.number.priority_number;
                     pq.jquery_functions.issue_number_success(message);

@@ -8,7 +8,7 @@
 
 class ProcessQueue extends Eloquent{
 
-    public static function issueNumber($service_id, $priority_number = null, $date = null, $queue_platform = 'web'){
+    public static function issueNumber($service_id, $priority_number = null, $date = null, $queue_platform = 'web', $terminal_id = null){
         $date = $date == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $date;
 
         $service_properties = ProcessQueue::getServiceProperties($service_id, $date);
@@ -22,12 +22,14 @@ class ProcessQueue extends Eloquent{
         if(!$priority_number){
             $priority_number = $service_properties->next_number;
         }
+
+
         $user_id = Helper::userId();
 
         $track_id = PriorityNumber::createPriorityNumber($service_id, $number_start, $number_limit, $last_number_given, $current_number, $date);
         $confirmation_code = strtoupper(substr(md5($track_id), 0, 4));
         $transaction_number = PriorityQueue::createPriorityQueue($track_id, $priority_number, $confirmation_code, $user_id, $queue_platform);
-        TerminalTransaction::createTerminalTransaction($transaction_number, $time_queued);
+        TerminalTransaction::createTerminalTransaction($transaction_number, $time_queued, $terminal_id);
         Analytics::insertAnalyticsQueueNumberIssued($transaction_number, $service_id, $date, $time_queued); //insert to queue_analytics
         $number = array(
             'transaction_number' => $transaction_number,
@@ -94,9 +96,10 @@ class ProcessQueue extends Eloquent{
         ));
     }
 
-    public static function allNumbers($service_id, $date = null){
+    public static function allNumbers($service_id, $terminal_id = null, $date = null){
         $date = $date == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $date;
         $numbers = ProcessQueue::queuedNumbers($service_id, $date);
+        $terminal_specific_calling = QueueSettings::terminalSpecificIssue($service_id);
         $last_number_given = 0;
         $called_numbers = array();
         $uncalled_numbers = array();
@@ -112,13 +115,6 @@ class ProcessQueue extends Eloquent{
 
                 $timebound = ($number->time_assigned) != 0 && ($number->time_assigned <= time()) ? TRUE : FALSE;
 
-                /*legend*/
-                //uncalled  : not served and not removed
-                //called    : called, not served and not removed
-                //dropped   : called, not served but removed
-                //removed   : not called but removed
-                //served    : called and served
-                //processed : dropped/removed/served
 
                 $terminal_name = '';
                 if($number->terminal_id){
@@ -134,12 +130,25 @@ class ProcessQueue extends Eloquent{
                     $last_number_given = $number->priority_number;
                 }
 
+                /*legend*/
+                //uncalled  : not served and not removed
+                //called    : called, not served and not removed
+                //dropped   : called, not served but removed
+                //removed   : not called but removed
+                //served    : called and served
+                //processed : dropped/removed/served
+
                 if(!$called && !$removed && $timebound){
                     $timebound_numbers[] = array(
                         'transaction_number' => $number->transaction_number,
                         'priority_number' => $number->priority_number,
                     );
-                }else if(!$called && !$removed){
+                }else if(!$called && !$removed && $terminal_specific_calling && ($number->terminal_id == $terminal_id || $number->terminal_id == 0)){
+                    $uncalled_numbers[] = array(
+                        'transaction_number' => $number->transaction_number,
+                        'priority_number' => $number->priority_number,
+                    );
+                }else if(!$called && !$removed && !$terminal_specific_calling){
                     $uncalled_numbers[] = array(
                         'transaction_number' => $number->transaction_number,
                         'priority_number' => $number->priority_number,
@@ -237,12 +246,12 @@ class ProcessQueue extends Eloquent{
     }
 
     public static function lastNumberGiven($service_id, $date = null, $default = 0){
-        $numbers = ProcessQueue::allNumbers($service_id, $date);
+        $numbers = ProcessQueue::allNumbers($service_id, null, $date);
         return $numbers ? $numbers->last_number_given : $default;
     }
 
     public static function currentNumber($service_id, $date = null, $default = 0){
-        $numbers = ProcessQueue::allNumbers($service_id, $date);
+        $numbers = ProcessQueue::allNumbers($service_id, null, $date);
         return $numbers ? $numbers->current_number : $default;
     }
 

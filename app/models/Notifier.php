@@ -7,10 +7,6 @@
  */
 
 class Notifier extends Eloquent{
-    /***Temp**/
-    public static $frontline_sms_secret = 'Reminisense!1';
-    public static $frontline_sms_url = 'https://cloud.frontlinesms.com/api/1/webconnection/3225';
-
     public $timestamps = false;
 
     public static function sendNumberCalledNotification($transaction_number){
@@ -82,7 +78,7 @@ class Notifier extends Eloquent{
             $terminal_name = $terminal_id != 0 ? Terminal::name($terminal_id) : '';
             $business_name = $terminal_id != 0 ? Business::name(Business::getBusinessIdByTerminalId($terminal_id)) : '';
             $message = "Hello$name! Thank you for using FeatherQ. Your number (# $priority_number ) has been called by $terminal_name in $business_name.";
-            Notifier::sendFrontlineSMS($message, $phone, Notifier::$frontline_sms_url, Notifier::$frontline_sms_secret);
+            Notifier::sendFrontlineSMS($message, $phone, FRONTLINE_SMS_URL, FRONTLINE_SMS_SECRET);
         }
     }
 
@@ -93,7 +89,7 @@ class Notifier extends Eloquent{
             $name = $name == null ? null : ' ' . $name;
             $priority_number = PriorityQueue::priorityNumber($transaction_number);
             $message = "Hello$name! Thank you for using FeatherQ. Your number (# $priority_number ) will be called soon.";
-            Notifier::sendFrontlineSMS($message, $phone, Notifier::$frontline_sms_url, Notifier::$frontline_sms_secret);
+            Notifier::sendFrontlineSMS($message, $phone, FRONTLINE_SMS_URL, FRONTLINE_SMS_SECRET);
         }
     }
 
