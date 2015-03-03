@@ -1,0 +1,148 @@
+@media (max-width: 1024px) {
+    .caption {
+        margin-top: 110px;
+    }
+    .filterwrap>span{
+        display: none;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+    .ads {
+        display: none;
+    }
+    .ads-mobile {
+        display: block!important;
+    }
+    .processq .btn-cyan,
+    .processq .btn-blue,
+    .processq .btn-orange {
+        margin-top: 10px;
+    }
+    .processq table .btn-cyan,
+    .navbar-nav {
+        margin: 0;
+    }
+    .caption {
+        margin-top: 30px;
+    }
+    .businesses {
+        margin-top: 0px;
+    }
+    .banner {
+        height: inherit;
+        background-color: #261c1b;
+        padding-bottom: 30px;
+    }
+    .heading {
+        margin-top: 25px;
+    }
+}
+
+@media (max-width: 990px) {
+
+}
+
+@media (max-width: 767px) {
+    .processq .btn-cyan,
+    .processq .btn-blue,
+    .processq .btn-orange {
+        margin-top: 10px;
+    }
+    .processq table .btn-cyan,
+    .processq table .btn-blue,
+    .processq table .btn-orange {
+        font-size: 11px;
+    }
+    .processq table .btn-cyan,
+    .navbar-nav {
+        margin: 0;
+    }
+    .navbar-default .navbar-collapse {
+        border: none;
+    }
+    .navbar-brand {
+        margin-left: 20px;
+    }
+    .caption {
+        margin-top: 30px;
+    }
+    .businesses {
+        margin-top: 0px;
+    }
+    .banner {
+        height: inherit;
+        background-color: #261c1b;
+        padding-bottom: 30px;
+    }
+    .heading {
+        margin-top: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar-brand {
+        margin-left: 20px;
+    }
+    .ads,
+    .filterwrap>span{
+        display: none;
+    }
+    .ads-mobile {
+        display: block!important;
+    }
+    .filterwrap .btn {
+        padding-left: 0;
+    }
+    .filters {
+        padding-top: 10px;
+        padding-bottom: 15px;
+        margin-top: 0;
+    }
+    .filters .filterwrap {
+        margin-bottom: 10px;
+    }
+    .subnav .nav span {
+        display: block!important;
+        margin-bottom: 3px;
+    }
+    .subnav .nav-tabs>li>a {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: center;
+    }
+    .subnav .container {
+        padding: 0;
+    }
+    .navbar-nav {
+        margin: 0;
+    }
+    .businesses {
+        margin-top: 0;
+    }
+    .processq #btn-call {
+        margin-top: 15px;
+    }
+    .processq .dropdown-menu {
+        width: 90%!important;
+    }
+    #moreq .nav-tabs>li.active>a:focus,
+    #moreq .nav-tabs>li>a:hover,
+    #moreq .nav-tabs>li.active>a,
+    #moreq .nav-tabs>li.active>a:hover {
+        background-color: #ff8649;
+        color: #fff;
+    }
+    .caption {
+        display: none;
+    }
+    .banner {
+        height: inherit;
+        background: none;
+        background-color: #2f2523;
+        padding-bottom: 30px;
+    }
+    .heading {
+        margin-top: 25px;
+    }
+}
