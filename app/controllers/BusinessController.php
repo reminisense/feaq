@@ -168,6 +168,22 @@ class BusinessController extends BaseController{
         }
     }
 
+    public function getPdfDownload($business_id){
+        $business_name = Business::name($business_id);
+        $business_address = Business::localAddress($business_id);
+
+        $qr_link = "https://api.qrserver.com/v1/create-qr-code/?data=" . Request::url() ."&size=302x302";
+
+        $data = [
+            'business_name' => $business_name,
+            'business_address' => $business_address,
+            'qr_code' => $qr_link
+        ];
+
+        $pdf = PDF::loadView('pdf.pdftemplate', $data);
+        return $pdf->stream($business_name . '.pdf');
+    }
+
     public function getBusinessdetails($business_id){
         $business = Business::getBusinessDetails($business_id);
         return json_encode(['success' => 1, 'business' => $business]);

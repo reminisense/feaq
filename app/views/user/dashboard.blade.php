@@ -85,43 +85,43 @@
         </div>
 
         <div class="col-md-12">
-          <h5 class="mb30">@{{ searchLabel }}</h5>
-        </div>
-        @if(count($search_businesses) > 0)
-        <div id="popular-businesses">
-            @foreach($search_businesses as $business)
-                <div class="col-md-3">
-                  <div class="boxed boxed-single clickable">
-                      <a href="{{ URL::to( '/broadcast/business/' . $business->business_id ) }}" target="_blank"> {{--RDH Links for Business' broadcast page--}}
-                          <div class="wrap">
-                              <h3>{{ $business->name }}</h3>
-                              <small>{{ $business->local_address }}</small>
-                          </div>
-                      </a>
-                  </div>
-                </div>
-            @endforeach
-        </div>
-        <div class="col-md-3" ng-repeat="business in businesses">
-            <div class="boxed boxed-single clickable">
-                <a href="/broadcast/business/@{{ business.business_id }}">
-                    <div class="wrap">
-                        <h3>@{{ business.business_name }}</h3>
-                        <small>@{{ business.local_address }}</small>
+            <h5 class="mb30">@{{ searchLabel }}</h5>
+            @if(count($search_businesses) > 0)
+            <div id="popular-businesses">
+                @foreach($search_businesses as $business)
+                    <div class="col-md-3">
+                      <div class="boxed boxed-single clickable">
+                          <a href="{{ URL::to( '/broadcast/business/' . $business->business_id ) }}" target="_blank"> {{--RDH Links for Business' broadcast page--}}
+                              <div class="wrap">
+                                  <h3>{{ $business->name }}</h3>
+                                  <small>{{ $business->local_address }}</small>
+                              </div>
+                          </a>
+                      </div>
                     </div>
-                </a>
+                @endforeach
             </div>
-        </div>
-        @else
-        <div class="col-md-3">
-          <div class="boxed boxed-single clickable">
-            <div class="wrap">
-              <h3>No Available Businesses</h3>
-              <small></small>
+            <div class="col-md-3" ng-repeat="business in businesses">
+                <div class="boxed boxed-single clickable">
+                    <a href="/broadcast/business/@{{ business.business_id }}">
+                        <div class="wrap">
+                            <h3>@{{ business.business_name }}</h3>
+                            <small>@{{ business.local_address }}</small>
+                        </div>
+                    </a>
+                </div>
             </div>
-          </div>
+            @else
+            <div class="col-md-3">
+              <div class="boxed boxed-single clickable">
+                <div class="wrap">
+                  <h3>No Available Businesses</h3>
+                  <small></small>
+                </div>
+              </div>
+            </div>
+            @endif
         </div>
-        @endif
     </div>
 
  </div>

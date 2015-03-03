@@ -96,6 +96,8 @@
                 }else if($scope.uncalled_numbers.length > 0){
                     pq.jquery_functions.select_number($scope.uncalled_numbers[0].transaction_number, $scope.uncalled_numbers[0].priority_number);
                 }
+            }else if(is_uncalled.length == 0 && is_timebound.length == 0){
+                pq.jquery_functions.remove_and_update_dropdown();
             }else if($scope.timebound_numbers.length > 0 && is_timebound.length == 0){
                 pq.jquery_functions.select_number($scope.timebound_numbers[0].transaction_number, $scope.timebound_numbers[0].priority_number);
             }

@@ -38,7 +38,7 @@
                                     <div class="btn-group">
                                         <select class="form-control" name="industry" id="industry">
                                             <option value="@{{ industry }}">@{{ industry }}</option>
-                                            <option value="Accounting and Finance">Accounting and Finance</option>
+                                            <option value="Accounting">Accounting</option>
                                             <option value="Advertising">Advertising</option>
                                             <option value="Agriculture">Agriculture</option>
                                             <option value="Air Services">Air Services</option>
@@ -49,7 +49,7 @@
                                             <option value="Banking">Banking</option>
                                             <option value="Broadcasting">Broadcasting</option>
                                             <option value="Business Services">Business Services</option>
-                                            <option value="Communications Technology">Communications Technology</option>
+                                            <option value="Communications">Communications</option>
                                             <option value="Corporate">Corporate</option>
                                             <option value="Customer Service">Customer Service</option>
                                             <option value="Delivery">Delivery</option>
@@ -70,7 +70,7 @@
                                             <option value="Mail Order Services">Mail Order Services</option>
                                             <option value="Manufacturing">Manufacturing</option>
                                             <option value="Pharmaceutical">Pharmaceutical</option>
-                                            <option value="Photography, Videography, and Media">Photography, Videography, and Media</option>
+                                            <option value="Media">Media</option>
                                             <option value="Professional Services">Professional Services</option>
                                             <option value="Publishing">Publishing</option>
                                             <option value="Real Estate">Real Estate</option>
@@ -101,7 +101,7 @@
                                 <div class="col-md-12">
                                     <small>QR Code</small>
                                     <div class="row">
-                                        <a id="qr_code_download" href="https://api.qrserver.com/v1/create-qr-code/?data={{ url('broadcast/business') }}/@{{ business_id }}&size=150x150" ng-model="business_id" class="btn btn-blue" download="qrcode.png"><span class="glyphicon glyphicon-add"></span> Download QR Code</a>
+                                        <a id="qr_code_download" href="{{ url('business/pdf-download') }}/@{{ business_id }}" target="_blank" ng-model="business_id" class="btn btn-blue"><span class="glyphicon glyphicon-add"></span> View QR Code</a>
                                     </div>
                                 </div>
                                 <!--
@@ -144,7 +144,7 @@
                                                         <small>User</small>
                                                         <p class="bold" ng-repeat="user in terminal.users">@{{ user.first_name + ' ' + user.last_name }}</p>
                                                     </div>
-                                                    <div class="block mb10" ng-if="terminal.users.length == 0">
+                                                    <div class="block mb10" ng-if="terminal.users.length < 3">
                                                         <a href="#" class="btn btn-blue btn-adduser"><span class="glyphicon glyphicon-add"></span> Add User</a>
                                                         <div class="block inputuser" style="display: none">
                                                             <form ng-submit="emailSearch(search_user, terminal.terminal_id)">
@@ -160,8 +160,8 @@
                                                         <a href="#" ng-click="updateTerminal(terminal.terminal_id)" class="update-terminal-button" terminal_id="@{{ terminal.terminal_id }}" style="display: none;"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
                                                         <a href="#" ng-click="deleteTerminal(terminal.terminal_id)"><span class="glyphicon glyphicon-trash"></span> Delete</a>
                                                     </div>
-                                                    <div class="block">
-                                                        <a href="#" ng-repeat="user in terminal.users" ng-click="unassignFromTerminal(user.user_id, user.terminal_id)"><span class="glyphicon glyphicon-remove"></span> Remove</a>
+                                                    <div class="block" ng-repeat="user in terminal.users">
+                                                        <a href="#" ng-click="unassignFromTerminal(user.user_id, user.terminal_id)"><span class="glyphicon glyphicon-remove"></span> Remove</a>
                                                     </div>
                                                 </td>
                                             </tr>

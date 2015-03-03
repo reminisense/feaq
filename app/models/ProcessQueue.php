@@ -97,6 +97,7 @@ class ProcessQueue extends Eloquent{
     public static function allNumbers($service_id, $date = null){
         $date = $date == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $date;
         $numbers = ProcessQueue::queuedNumbers($service_id, $date);
+        $last_number_given = 0;
         $called_numbers = array();
         $uncalled_numbers = array();
         $processed_numbers = array();
@@ -127,6 +128,10 @@ class ProcessQueue extends Eloquent{
                     }catch(Exception $e){
                         $terminal_name = '';
                     }
+                }
+
+                if($number->queue_platform != 'specific'){
+                    $last_number_given = $number->priority_number;
                 }
 
                 if(!$called && !$removed && $timebound){
@@ -182,7 +187,7 @@ class ProcessQueue extends Eloquent{
             }
 
             usort($processed_numbers, array('ProcessQueue', 'sortProcessedNumbers'));
-            $priority_numbers->last_number_given = $numbers[count($numbers) - 1]->priority_number;
+            $priority_numbers->last_number_given = $last_number_given;
             $priority_numbers->next_number = ProcessQueue::nextNumber($priority_numbers->last_number_given, QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
             $priority_numbers->current_number = $called_numbers ? $called_numbers[key($called_numbers)]['priority_number'] : 0;
             $priority_numbers->called_numbers = $called_numbers;

@@ -294,7 +294,7 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupDrop1">
-                            <li ng-click="industryFilter('Accounting and Finance');"><a href="#">Accounting and Finance</a></li>
+                            <li ng-click="industryFilter('Accounting');"><a href="#">Accounting</a></li>
                             <li ng-click="industryFilter('Advertising');"><a href="#">Advertising</a></li>
                             <li ng-click="industryFilter('Agriculture');"><a href="#">Agriculture</a></li>
                             <li ng-click="industryFilter('Air Services');"><a href="#">Air Services</a></li>
@@ -305,7 +305,7 @@
                             <li ng-click="industryFilter('Banking');"><a href="#">Banking</a></li>
                             <li ng-click="industryFilter('Broadcasting');"><a href="#">Broadcasting</a></li>
                             <li ng-click="industryFilter('Business Services');"><a href="#">Business Services</a></li>
-                            <li ng-click="industryFilter('Communications Technology');"><a href="#">Communications Technology</a></li>
+                            <li ng-click="industryFilter('Communications');"><a href="#">Communications</a></li>
                             <li ng-click="industryFilter('Corporate');"><a href="#">Corporate</a></li>
                             <li ng-click="industryFilter('Customer Service');"><a href="#">Customer Service</a></li>
                             <li ng-click="industryFilter('Delivery');"><a href="#">Delivery</a></li>
@@ -326,7 +326,7 @@
                             <li ng-click="industryFilter('Mail Order Services');"><a href="#">Mail Order Services</a></li>
                             <li ng-click="industryFilter('Manufacturing');"><a href="#">Manufacturing</a></li>
                             <li ng-click="industryFilter('Pharmaceutical');"><a href="#">Pharmaceutical</a></li>
-                            <li ng-click="industryFilter('Photography, Videography, and Media');"><a href="#">Photography, Videography, and Media</a></li>
+                            <li ng-click="industryFilter('Media');"><a href="#">Media</a></li>
                             <li ng-click="industryFilter('Professional services');"><a href="#">Professional services</a></li>
                             <li ng-click="industryFilter('Publishing');"><a href="#">Publishing</a></li>
                             <li ng-click="industryFilter('Real Estate');"><a href="#">Real Estate</a></li>
