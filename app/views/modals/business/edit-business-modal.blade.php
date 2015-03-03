@@ -38,7 +38,7 @@
                                     <div class="btn-group">
                                         <select class="form-control" name="industry" id="industry">
                                             <option value="@{{ industry }}">@{{ industry }}</option>
-                                            <option value="Accounting and Finance">Accounting and Finance</option>
+                                            <option value="Accounting">Accounting</option>
                                             <option value="Advertising">Advertising</option>
                                             <option value="Agriculture">Agriculture</option>
                                             <option value="Air Services">Air Services</option>
@@ -49,7 +49,7 @@
                                             <option value="Banking">Banking</option>
                                             <option value="Broadcasting">Broadcasting</option>
                                             <option value="Business Services">Business Services</option>
-                                            <option value="Communications Technology">Communications Technology</option>
+                                            <option value="Communications">Communications</option>
                                             <option value="Corporate">Corporate</option>
                                             <option value="Customer Service">Customer Service</option>
                                             <option value="Delivery">Delivery</option>
@@ -70,7 +70,7 @@
                                             <option value="Mail Order Services">Mail Order Services</option>
                                             <option value="Manufacturing">Manufacturing</option>
                                             <option value="Pharmaceutical">Pharmaceutical</option>
-                                            <option value="Photography, Videography, and Media">Photography, Videography, and Media</option>
+                                            <option value="Media">Media</option>
                                             <option value="Professional Services">Professional Services</option>
                                             <option value="Publishing">Publishing</option>
                                             <option value="Real Estate">Real Estate</option>
@@ -101,7 +101,7 @@
                                 <div class="col-md-12">
                                     <small>QR Code</small>
                                     <div class="row">
-                                        <a id="qr_code_download" href="https://api.qrserver.com/v1/create-qr-code/?data={{ url('broadcast/business') }}/@{{ business_id }}&size=150x150" ng-model="business_id" class="btn btn-blue" download="qrcode.png"><span class="glyphicon glyphicon-add"></span> Download QR Code</a>
+                                        <a id="qr_code_download" href="{{ url('business/pdf-download') }}/@{{ business_id }}" target="_blank" ng-model="business_id" class="btn btn-blue"><span class="glyphicon glyphicon-add"></span> View QR Code</a>
                                     </div>
                                 </div>
                                 <!--
