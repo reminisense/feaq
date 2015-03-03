@@ -126,7 +126,7 @@
       </div>
     </div>
 
-    <div class="how">
+    <div id="how" class="how">
       <div class="container">
         <div class="col-md-12">
           <h1>How does it work?</h1>
@@ -150,7 +150,7 @@
       </div>
     </div>
 
-    <div class="feats">
+    <div id="feats" class="feats">
       <div class="container">
         <div class="col-md-12">
           <h1>FeatherQ Features</h1>

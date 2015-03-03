@@ -43,8 +43,8 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse" ng-controller="fbController">
               <ul class="nav navbar-nav navbar-right">
-                <li><a href="">How it works</a></li>
-                <li><a href="">Features</a></li>
+                <li><a href="#how">How it works</a></li>
+                <li><a href="#feats">Features</a></li>
                 <li><a href="#" class="btn btn-blue btn-fb" ng-click="login()" role="button"><img src="images/icon-fb.png"> Login with Facebook</a></li>
               </ul>
             </div><!--/.nav-collapse -->
