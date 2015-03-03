@@ -11,6 +11,9 @@ class QueueSettings extends Eloquent{
     protected $primaryKey = 'queue_setting_id';
     public $timestamps = false;
 
+    /**
+     * Queue Settings
+     */
 
     public static function numberStart($service_id, $date = null){
         return QueueSettings::queueSetting('number_start', 1, $service_id, $date);
@@ -21,6 +24,15 @@ class QueueSettings extends Eloquent{
         return Business::find($business_id)->queue_limit;
         //return QueueSettings::queueSetting('number_limit', 99, $service_id, $date);
     }
+
+    public static function terminalSpecificIssue($service_id, $date = null){
+        return QueueSettings::queueSetting('terminal_specific_issue', 0, $service_id, $date);
+    }
+
+
+    /**
+     * Bsic functions
+     */
 
     public static function updateQueueSetting($service_id, $field, $value){
         QueueSettings::where('service_id', '=', $service_id)->update([$field => $value]);

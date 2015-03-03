@@ -8,14 +8,10 @@
 
 class IssueNumberController extends BaseController{
 
-    public function getSingle($service_id, $priority_number = null, $date = null){
-        $number = ProcessQueue::issueNumber($service_id, $priority_number, $date);
-        return json_encode(['success' => 1, 'number' => $number]);
-    }
-
-    public function getMultiple($service_id, $range, $date = null){
+    public function getMultiple($service_id, $range, $terminal_id = null, $date = null){
+        $terminal_id = QueueSettings::terminalSpecificIssue($service_id) ? $terminal_id : null;
         for($i = 1; $i <= $range; $i++){
-            $number = ProcessQueue::issueNumber($service_id, null, $date);
+            $number = ProcessQueue::issueNumber($service_id, null, $date, 'web', $terminal_id);
             if($i == 1){
                 $first = $number['priority_number'];
             }
@@ -24,18 +20,19 @@ class IssueNumberController extends BaseController{
         return json_encode(['success' => 1, 'first_number' => $first, 'last_number' => $last,]);
     }
 
-    public function postInsertspecific($service_id){
+    public function postInsertspecific($service_id, $terminal_id = null){
         $priority_number = Input::get('priority_number');
         $name = Input::get('name');
         $phone = Input::get('phone');
         $email = Input::get('email');
         $time_assigned = Input::get('time_assigned') ? strtotime(Input::get('time_assigned')) : 0;
+        $terminal_id = QueueSettings::terminalSpecificIssue($service_id) ? $terminal_id : null;
 
         $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
         $queue_platform = $priority_number == $next_number || $priority_number == null ? 'web' : 'specific';
 
         //save
-        $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform);
+        $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, $terminal_id);
         PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
         TerminalTransaction::where('transaction_number', '=', $number['transaction_number'])->update(['time_assigned' => $time_assigned]);
         return json_encode(['success' => 1, 'number' => $number]);

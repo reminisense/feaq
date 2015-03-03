@@ -209,6 +209,10 @@
                                                 <td style="padding-top: 20px;">Number Limit</td>
                                                 <td><input class="mb0 form-control" type="text" value="@{{ queue_limit }}" ng-model="queue_limit" ></td>  {{--RDH Added queue_limit to Edit Business Page--}}
                                             </tr>
+                                            <tr>
+                                                <td style="padding-top: 20px;">Show Only Numbers Issued By Terminal</td>
+                                                <td><input type="checkbox" ng-model="terminal_specific_issue"></td> {{--ARA Terminal-specific issue numbers--}}
+                                            </tr>
                                             {{--<tr>
                                                 <td>Loop numbers automatically.</td>
                                                 <td><input type="radio">Yes <input type="radio">No </td>

@@ -83,12 +83,13 @@ var eb = {
         $scope.users = [];
 
         $scope.number_start = 1;
-        $scope.number_limit = 99;
-        $scope.auto_issue = 0;
-        $scope.allow_sms = 0;
-        $scope.allow_remote = 0;
+        //$scope.number_limit = 99;
+        //$scope.auto_issue = 0;
+        //$scope.allow_sms = 0;
+        //$scope.allow_remote = 0;
         //$scope.remote_limit = 0;
         //$scope.repeat_issue = 0;
+        $scope.terminal_specific_issue = 0;
 
         $scope.getBusinessDetails = function(){
             $http.get(eb.urls.business.business_details_url + $scope.business_id)
@@ -224,7 +225,8 @@ var eb = {
                     industry: $scope.industry,
                     time_open: $scope.time_open,
                     time_close: $scope.time_closed,
-                    queue_limit: $scope.queue_limit /* RDH Added queue_limit to Edit Business Page */
+                    queue_limit: $scope.queue_limit, /* RDH Added queue_limit to Edit Business Page */
+                    terminal_specific_issue : $scope.terminal_specific_issue
                 }
 
                 $http.post('/business/edit-business', data)
@@ -261,7 +263,7 @@ var eb = {
 
         /*****************unya na ni********************/
 
-        $scope.getQueueSettings = function(){
+//        $scope.getQueueSettings = function(){
 //            $http.get(eb.urls.queue_settings.queue_settings_get_url + eb.ids.service_id)
 //                .success(function(response){
 //                    $scope.number_start = response.queue_settings.number_start;
@@ -271,45 +273,45 @@ var eb = {
 //                    $scope.allow_sms = response.queue_settings.allow_sms ? true : false;
 //                    $scope.allow_remote = response.queue_settings.allow_remote ? true : false;
 //                });
-        };
-
-        $scope.updateNumberStart = function(number_start){
-            updateQueueSetting('number_start', number_start);
-        };
-
-        $scope.updateNumberLimit = function(number_limit){
-            updateQueueSetting('number_limit', number_limit);
-        };
-
-        $scope.updateAutoIssue = function(auto_issue){
-            auto_issue = auto_issue ? 1 : 0;
-            updateQueueSetting('auto_issue', auto_issue);
-        };
-
-        $scope.updateAllowSms = function(allow_sms){
-            allow_sms = allow_sms ? 1 : 0;
-            updateQueueSetting('allow_sms', allow_sms);
-        };
-
-        $scope.updateAllowRemote = function(allow_remote){
-            allow_remote = allow_remote ? 1 : 0;
-            updateQueueSetting('allow_remote', allow_remote);
-        };
-
-        updateQueueSetting = function(field, value){
-            console.log('update');
+//        };
+//
+//        $scope.updateNumberStart = function(number_start){
+//            updateQueueSetting('number_start', number_start);
+//        };
+//
+//        $scope.updateNumberLimit = function(number_limit){
+//            updateQueueSetting('number_limit', number_limit);
+//        };
+//
+//        $scope.updateAutoIssue = function(auto_issue){
+//            auto_issue = auto_issue ? 1 : 0;
+//            updateQueueSetting('auto_issue', auto_issue);
+//        };
+//
+//        $scope.updateAllowSms = function(allow_sms){
+//            allow_sms = allow_sms ? 1 : 0;
+//            updateQueueSetting('allow_sms', allow_sms);
+//        };
+//
+//        $scope.updateAllowRemote = function(allow_remote){
+//            allow_remote = allow_remote ? 1 : 0;
+//            updateQueueSetting('allow_remote', allow_remote);
+//        };
+//
+//        updateQueueSetting = function(field, value){
+//            console.log('update');
 //            data = {
 //                field : field,
 //                value : value
 //            }
-//            $http.post()
+//            $http.post('/queuesettings/update/' + $scope.business_id)
 //                .success(function(response){
 //                    //@todo update queue settings success function
 //                });
-        };
-
-
-        /*================================*/
-        $scope.getQueueSettings();
+//        };
+//
+//
+//        /*================================*/
+//        $scope.getQueueSettings();
     });
 })();
