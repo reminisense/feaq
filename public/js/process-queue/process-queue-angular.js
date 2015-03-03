@@ -121,7 +121,7 @@
 
         $scope.issueMultiple = function(range, date){
             $scope.isIssuing = true;
-            url = pq.urls.issue_numbers.issue_multiple_url + pq.ids.service_id + '/' + range + '/' + $pq.ids.terminal_id;
+            url = pq.urls.issue_numbers.issue_multiple_url + pq.ids.service_id + '/' + range + '/' + pq.ids.terminal_id;
             url = date == undefined ? url : url + '/' + date;
 
             $http.get( url )

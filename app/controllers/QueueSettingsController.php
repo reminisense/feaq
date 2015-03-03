@@ -6,15 +6,15 @@
  * Time: 6:55 PM
  */
 class QueueSettingsController extends BaseController{
-    public function postUpdate($service_id){
-        $field = Input::get('field');
-        $value = Input::get('value');
+    public function getUpdate($business_id, $field, $value){
+        $first_branch = Branch::where('business_id', '=', $business_id)->first();
+        $first_service = Service::where('branch_id', '=', $first_branch->branch_id)->first();
 
-        if(QueueSettings::serviceExists($service_id)){
-            QueueSettings::updateQueueSetting($service_id, $field, $value);
+        if(QueueSettings::serviceExists($first_service->service_id)){
+            QueueSettings::updateQueueSetting($first_service->service_id, $field, $value);
         }else{
             QueueSettings::createQueueSetting([
-                'service_id' => $service_id,
+                'service_id' => $first_service->service_id,
                 'date' => mktime(0, 0, 0, date('m'), date('d'), date('Y')),
                 $field => $value
             ]);
