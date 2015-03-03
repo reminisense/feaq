@@ -13,6 +13,7 @@
     {{ HTML::style('css/bootstrap.min.css') }}
     {{ HTML::style('css/animate.css') }}
     {{ HTML::style('css/style.css') }}
+    {{ HTML::style('css/responsive.page-front.css') }}
     @yield('styles')
 
     {{ HTML::script('js/jquery1.11.0.js') }}
@@ -26,7 +27,7 @@
     {{ HTML::script('js/ngBroadcast.js') }} <!-- RDH Added ngBroadcast.js since initial homepage was not loading -->
     @yield('scripts')
 </head>
-<body ng-app="FeatherQ">
+<body cz-shortcut-listen="true" ng-app="FeatherQ">
     <div class="navbar-wrapper">
         <!-- Static navbar -->
         <nav class="navbar navbar-default navbar-static-top">
