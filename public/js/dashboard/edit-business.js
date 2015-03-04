@@ -107,7 +107,7 @@ var eb = {
             $scope.time_open = business.time_open;
             $scope.time_closed = business.time_closed;
             $scope.queue_limit = business.queue_limit; /* RDH Added queue_limit to Edit Business Page */
-
+            $scope.terminal_specific_issue = business.terminal_specific_issue ? true : false;
             $scope.terminals = business.terminals;
 
         }
@@ -226,7 +226,7 @@ var eb = {
                     time_open: $scope.time_open,
                     time_close: $scope.time_closed,
                     queue_limit: $scope.queue_limit, /* RDH Added queue_limit to Edit Business Page */
-                    terminal_specific_issue : $scope.terminal_specific_issue
+                    terminal_specific_issue : $scope.terminal_specific_issue ? 1 : 0
                 }
 
                 $http.post('/business/edit-business', data)

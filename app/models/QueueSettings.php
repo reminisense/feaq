@@ -46,10 +46,17 @@ class QueueSettings extends Eloquent{
         return isset(QueueSettings::where('service_id', '=', $service_id)->first()->service_id) ? true : false;
     }
 
+    /**
+     * @param $field = field name in db
+     * @param $default = default value in case null or no row found
+     * @param $service_id
+     * @param null $date
+     * @return mixed
+     */
     public static function queueSetting($field, $default, $service_id, $date = null){
         $date = $date == null ? time() : $date;
         $queue_setting = QueueSettings::getServiceQueueSettings($service_id, $date);
-        return isset($queue_setting->$field) ? $queue_setting->$field : $default;
+        return isset($queue_setting->$field) && $queue_setting->$field ? $queue_setting->$field : $default;
     }
 
     public static function getServiceQueueSettings($service_id, $date = null){

@@ -160,6 +160,7 @@ class ProcessQueue extends Eloquent{
                         'confirmation_code' => $number->confirmation_code,
                         'terminal_id' => $number->terminal_id,
                         'terminal_name' => $terminal_name,
+                        'time_called' => $number->time_called,
                         'box_rank' => Terminal::boxRank($number->terminal_id) // Added by PAG
                     );
                 }else if($called && !$served && $removed){
@@ -196,6 +197,8 @@ class ProcessQueue extends Eloquent{
             }
 
             usort($processed_numbers, array('ProcessQueue', 'sortProcessedNumbers'));
+            usort($called_numbers, array('ProcessQueue', 'sortCalledNumbers'));
+
             $priority_numbers->last_number_given = $last_number_given;
             $priority_numbers->next_number = ProcessQueue::nextNumber($priority_numbers->last_number_given, QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
             $priority_numbers->current_number = $called_numbers ? $called_numbers[key($called_numbers)]['priority_number'] : 0;
@@ -260,7 +263,11 @@ class ProcessQueue extends Eloquent{
     }
 
     private static function sortProcessedNumbers($a, $b){
-        return $a['time_processed'] - $b['time_processed'];
+        return Helper::customSort('time_processed', $a, $b);
+    }
+
+    private static function sortCalledNumbers($a, $b){
+        return Helper::customSortRev('time_called', $a, $b);
     }
 
     public static function getServiceProperties($service_id, $date = null){
