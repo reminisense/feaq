@@ -153,6 +153,7 @@
                                                             <div class="alert alert-danger" ng-show="user_found == false"> User does not exist. </div>
                                                         </div>
                                                     </div>
+                                                    <div style="display: none;" class="alert alert-danger terminal-error-message" terminal_id="@{{ terminal.terminal_id }}"> Terminal name already exists.</div>
                                                 </td>
                                                 <td>
                                                     <div class="block mb10">
