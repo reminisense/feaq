@@ -294,12 +294,25 @@ class ProcessQueue extends Eloquent{
             $json = file_get_contents($file_path);
             $boxes = json_decode($json);
 
-            for($counter = 1; $counter <= 6; $counter++){
+            // PAG Addition for Broadcast Display Settings
+            if ($boxes->display == '1-1' || $boxes->display == '0-1') {
+              $max_count = 1;
+            }
+            elseif ($boxes->display == '1-4' || $boxes->display == '0-4') {
+              $max_count = 4;
+            }
+            elseif ($boxes->display == '1-6' || $boxes->display == '0-6') {
+              $max_count = 6;
+            }
+
+            $box_count = 1;
+            for($counter = 1; $counter <= $max_count; $counter++){
                 $index = $counter - 1;
-                $box = 'box'.$counter;
+                $box = 'box'.$box_count;
                 $boxes->$box->number = isset($numbers[$index]['priority_number']) ? $numbers[$index]['priority_number'] : '';
                 $boxes->$box->terminal = isset($numbers[$index]['terminal_name']) ? $numbers[$index]['terminal_name'] : '';
                 $boxes->$box->rank = isset($numbers[$index]['box_rank']) ? $numbers[$index]['box_rank'] : ''; // Added by PAG
+                $box_count++;
             }
             $boxes->get_num = $all_numbers->next_number;
 

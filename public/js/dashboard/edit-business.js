@@ -319,4 +319,20 @@ var eb = {
 //        /*================================*/
 //        $scope.getQueueSettings();
     });
+
+    app.controller('broadcastDisplayController', function($scope, $http) {
+        var business_id = document.getElementById('business-id').getAttribute('business_id');
+        $scope.activateTheme = (function(theme_type) {
+            $http.post('/broadcast/set-theme', {
+                'business_id' : business_id,
+                'theme_type' : theme_type
+            }).success(function(response) {
+                $('button').removeAttr('disabled');
+                $('button').html('Activate');
+                $('.'+theme_type).html('Active');
+                $('.'+theme_type).attr('disabled', 'disabled');
+            });
+        });
+    });
+
 })();
