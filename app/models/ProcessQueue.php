@@ -294,6 +294,7 @@ class ProcessQueue extends Eloquent{
             $json = file_get_contents($file_path);
             $boxes = json_decode($json);
 
+            $max_count = 6; //RDH via ARA : gisugo ko ni ruffy (dili ni tinuod) : set default value for $max_count
             // PAG Addition for Broadcast Display Settings
             if ($boxes->display == '1-1' || $boxes->display == '0-1') {
               $max_count = 1;
