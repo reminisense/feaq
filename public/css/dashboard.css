@@ -1077,5 +1077,9 @@ strong {
     margin-left: 15px; margin-top: 5px;
 }
 
+#btn-bcast-details {
+    top: 10px!important;
+}
+
 
 /*******************/
