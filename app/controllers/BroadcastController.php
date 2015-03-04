@@ -106,4 +106,74 @@ class BroadcastController extends BaseController{
     }
   }
 
+  public function postSetTheme() {
+    $post = json_decode(file_get_contents("php://input"));
+    $data = json_decode(file_get_contents(public_path() . '/json/' . $post->business_id . '.json'));
+    $data->display = $post->theme_type;
+    if ($post->theme_type == '0-1' || $post->theme_type == '1-1') {
+      unset($data->box2);
+      unset($data->box3);
+      unset($data->box4);
+      unset($data->box5);
+      unset($data->box6);
+    }
+    elseif ($post->theme_type == '0-4' || $post->theme_type == '1-4') {
+      if (!isset($data->box2)) {
+        $data->box2 = new stdClass();
+        $data->box2->number = '';
+        $data->box2->terminal = '';
+        $data->box2->rank = '';
+      }
+      if (!isset($data->box3)) {
+        $data->box3 = new stdClass();
+        $data->box3->number = '';
+        $data->box3->terminal = '';
+        $data->box3->rank = '';
+      }
+      if (!isset($data->box4)) {
+        $data->box4 = new stdClass();
+        $data->box4->number = '';
+        $data->box4->terminal = '';
+        $data->box4->rank = '';
+      }
+      unset($data->box5);
+      unset($data->box6);
+    }
+    elseif ($post->theme_type == '0-6' || $post->theme_type == '1-6') {
+      if (!isset($data->box2)) {
+        $data->box2 = new stdClass();
+        $data->box2->number = '';
+        $data->box2->terminal = '';
+        $data->box2->rank = '';
+      }
+      if (!isset($data->box3)) {
+        $data->box3 = new stdClass();
+        $data->box3->number = '';
+        $data->box3->terminal = '';
+        $data->box3->rank = '';
+      }
+      if (!isset($data->box4)) {
+        $data->box4 = new stdClass();
+        $data->box4->number = '';
+        $data->box4->terminal = '';
+        $data->box4->rank = '';
+      }
+      if (!isset($data->box5)) {
+        $data->box5 = new stdClass();
+        $data->box5->number = '';
+        $data->box5->terminal = '';
+        $data->box5->rank = '';
+      }
+      if (!isset($data->box6)) {
+        $data->box6 = new stdClass();
+        $data->box6->number = '';
+        $data->box6->terminal = '';
+        $data->box6->rank = '';
+      }
+    }
+    $encode = json_encode($data);
+    file_put_contents(public_path() . '/json/' . $post->business_id . '.json', $encode);
+    return json_encode(array('status' => 1));
+  }
+
 }

@@ -87,7 +87,7 @@ class BusinessController extends BaseController{
                     "rank": ""
                   },
                   "get_num": " ",
-                  "display": "6",
+                  "display": "1-6",
                   "date": "' . date("mdy") . '"
                 }
             ';
@@ -244,4 +244,9 @@ class BusinessController extends BaseController{
             return true;
         }
     }
+
+  public function getBroadcast($business_id = 0) {
+    return View::make('tests.broadcast')
+      ->with('business_id', $business_id);
+  }
 }
