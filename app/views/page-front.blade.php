@@ -86,7 +86,7 @@
                   <p class="heading">New Businesses</p>
                 </div>
                 @foreach($search_businesses as $business)
-                <div class="col-md-6 col-xs-6">
+                <div class="col-md-6 col-xs-12">
                   <div class="boxed boxed-single clickable">
                     <a class="business_link" href="{{ URL::to( '/broadcast/business/' . $business['business_id'] ) }}" target="_blank">
                     <div class="wrap">
@@ -107,7 +107,7 @@
                     <p class="heading">Active Businesses</p>
                   </div>
                   @foreach($active_businesses as $ac_business_id => $actives)
-                  <div class="col-md-6 col-xs-6">
+                  <div class="col-md-6 col-xs-12">
                     <div class="boxed boxed-single clickable">
                       <a class="business_link" href="{{ URL::to( '/broadcast/business/' . $ac_business_id ) }}" target="_blank">
                       <div class="wrap">
