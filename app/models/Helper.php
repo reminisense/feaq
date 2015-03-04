@@ -74,4 +74,12 @@ class Helper extends Eloquent {
         $time_string .= $second > 0 ? $second . ' second(s) ' : '';
         return $time_string;
     }
+
+    public static function customSort($property, $var1, $var2){
+        return $var1[$property] - $var2[$property];
+    }
+
+    public static function customSortRev($property, $var1, $var2){
+        return $var2[$property] - $var1[$property];
+    }
 }

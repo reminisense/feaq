@@ -76,6 +76,7 @@ class Business extends Eloquent{
         $business = Business::where('business_id', '=', $business_id)->get()->first();
         $terminals = Terminal::getTerminalsByBusinessId($business_id);
         $terminals = Terminal::getAssignedTerminalWithUsers($terminals);
+        $first_service = Service::getFirstServiceOfBusiness($business_id);
         $business_details = [
             'business_id' => $business_id,
             'business_name' => $business->name,
@@ -85,7 +86,7 @@ class Business extends Eloquent{
             'time_open' => Helper::mergeTime($business->open_hour, $business->open_minute, $business->open_ampm),
             'time_closed' => Helper::mergeTime($business->close_hour, $business->close_minute, $business->close_ampm),
             'queue_limit' => $business->queue_limit, /* RDH Added queue_limit to Edit Business Page */
-            //'description' =>
+            'terminal_specific_issue' => QueueSettings::terminalSpecificIssue($first_service->service_id),
             'terminals' => $terminals
         ];
 

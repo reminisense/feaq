@@ -44,4 +44,13 @@ class Service extends Eloquent{
     return Service::where('branch_id', '=', $branch_id)->delete();
   }
 
+    public static function getFirstServiceOfBusiness($business_id){
+        $first_branch = Branch::getFirstBranchOfBusiness($business_id);
+        return Service::getFirstServiceOfBranch($first_branch->branch_id);
+    }
+
+    public static function getFirstServiceOfBranch($branch_id){
+        return Service::where('branch_id', '=', $branch_id)->first();
+    }
+
 }

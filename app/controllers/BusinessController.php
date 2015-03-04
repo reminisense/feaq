@@ -154,14 +154,13 @@ class BusinessController extends BaseController{
             $business->queue_limit = $business_data['queue_limit']; /* RDH Added queue_limit to Edit Business Page */
 
             $business->save();
-            $business = Business::getBusinessDetails($business->business_id);
-
 
             //ARA For queue settings terminal-specific numbers
             $queue_settings = new QueueSettingsController();
             $queue_settings->getUpdate($business['business_id'], 'number_limit', $business_data['queue_limit']);
             $queue_settings->getUpdate($business['business_id'], 'terminal_specific_issue', $business_data['terminal_specific_issue']);
 
+            $business = Business::getBusinessDetails($business->business_id);
             return json_encode([
                 'success' => 1,
                 'business' => $business

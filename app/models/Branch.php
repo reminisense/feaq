@@ -47,4 +47,8 @@ class Branch extends Eloquent{
     return Branch::where('business_id', '=', $business_id)->delete();
   }
 
+    public static function getFirstBranchOfBusiness($business_id){
+        return Branch::where('business_id', '=', $business_id)->first();
+    }
+
 }
