@@ -49,7 +49,7 @@ class TerminalController extends BaseController{
         $terminals = Terminal::getTerminalsByBusinessId($business);
 
         foreach($terminals as $terminal){
-            if($terminal['name']==$input_terminal_name){
+            if($terminal['terminal_id'] != $terminal_id && $terminal['name'] == $input_terminal_name){
                 return false;
             }
         }
