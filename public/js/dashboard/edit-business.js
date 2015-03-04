@@ -159,10 +159,15 @@ var eb = {
                 terminal_id : terminal_id,
                 name : new_name
             }).success(function(response) {
-                $('.update-terminal-button[terminal_id=' + terminal_id + ']').hide();
-                $('.terminal-name-update[terminal_id=' + terminal_id + ']').hide();
-                $('.terminal-name-display[terminal_id=' + terminal_id + ']').show();
-                $('.edit-terminal-button[terminal_id=' + terminal_id + ']').show();
+                if(response.status){
+                    $('.update-terminal-button[terminal_id=' + terminal_id + ']').hide();
+                    $('.terminal-name-update[terminal_id=' + terminal_id + ']').hide();
+                    $('.terminal-name-display[terminal_id=' + terminal_id + ']').show();
+                    $('.edit-terminal-button[terminal_id=' + terminal_id + ']').show();
+                    $('.terminal-error-message[terminal_id=' + terminal_id + ']').hide();
+                }else{
+                    $('.terminal-error-message[terminal_id=' + terminal_id + ']').show();
+                }
             }).error(function(response) {
                 alert('Something went wrong..');
             });
