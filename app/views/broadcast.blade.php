@@ -201,7 +201,7 @@
                             <div class="clearfix">
                                 <div class="pull-left">
                                     <strong>Next Available Number:</strong>
-                                    This is the available priority number
+                                    Remote queuing feature is still on the works!
                                     {{--Approximately, your number
                                     will be served <br><span>2hrs from now</span>--}}
                                 </div>
