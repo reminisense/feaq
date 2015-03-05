@@ -17,7 +17,7 @@
 -->
 
     <div class="banner" style="visibility: visible;">
-      <div class="row filters">
+      {{--<div class="row filters"> CSD Temporarily hiding the search bar for front-page
         <div class="container">
           <div class="col-md-5 col-md-offset-1">
             <div class="filterwrap">
@@ -65,7 +65,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div>--}}
 
       <div class="container">
         <div class="caption">
