@@ -82,15 +82,7 @@ class Analytics extends Eloquent{
      * @return mixed
      */
     public static function getQueueAnalyticsRows($conditions){
-        $query = DB::table('queue_analytics');
-        foreach($conditions as $field => $value){
-            if(is_array($value)){
-                $query->where($field, $value[0], $value[1]);
-            }else{
-                $query->where($field, '=', $value);
-            }
-        }
-        return $query->get();
+        return Helper::getMultipleQueries('queue_analytics', $conditions);
     }
 
     public static function getBusinessAnalytics($business_id){

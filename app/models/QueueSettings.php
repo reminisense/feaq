@@ -29,6 +29,14 @@ class QueueSettings extends Eloquent{
         return QueueSettings::queueSetting('terminal_specific_issue', 0, $service_id, $date);
     }
 
+    public static function frontlineSecret($service_id, $date = null){
+        return QueueSettings::queueSetting('frontline_sms_secret', FRONTLINE_SMS_SECRET, $service_id, $date);
+    }
+
+    public static function frontlineUrl($service_id, $date = null){
+        return QueueSettings::queueSetting('frontline_sms_url', FRONTLINE_SMS_URL, $service_id, $date);
+    }
+
 
     /**
      * Bsic functions

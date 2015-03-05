@@ -87,6 +87,8 @@ class Business extends Eloquent{
             'time_closed' => Helper::mergeTime($business->close_hour, $business->close_minute, $business->close_ampm),
             'queue_limit' => $business->queue_limit, /* RDH Added queue_limit to Edit Business Page */
             'terminal_specific_issue' => QueueSettings::terminalSpecificIssue($first_service->service_id),
+            'frontline_sms_secret' => QueueSettings::queueSetting('frontline_sms_secret', null, $first_service->service_id),
+            'frontline_sms_url' => QueueSettings::queueSetting('frontline_sms_url', null, $first_service->service_id),
             'terminals' => $terminals
         ];
 

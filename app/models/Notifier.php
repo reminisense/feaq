@@ -73,12 +73,13 @@ class Notifier extends Eloquent{
         $name = PriorityQueue::name($transaction_number);
         if($phone){
             $terminal_id = TerminalTransaction::terminalId($transaction_number);
+            $service_id = Terminal::serviceId($terminal_id);
             $name = $name == null ? null : ' ' . $name;
             $priority_number = PriorityQueue::priorityNumber($transaction_number);
             $terminal_name = $terminal_id != 0 ? Terminal::name($terminal_id) : '';
             $business_name = $terminal_id != 0 ? Business::name(Business::getBusinessIdByTerminalId($terminal_id)) : '';
             $message = "Hello$name! Thank you for using FeatherQ. Your number (# $priority_number ) has been called by $terminal_name in $business_name.";
-            Notifier::sendFrontlineSMS($message, $phone, FRONTLINE_SMS_URL, FRONTLINE_SMS_SECRET);
+            Notifier::sendServiceSms($message, $phone, $service_id);
         }
     }
 
@@ -86,11 +87,19 @@ class Notifier extends Eloquent{
         $phone = PriorityQueue::phone($transaction_number);
         $name = PriorityQueue::name($transaction_number);
         if($phone){
+            $pq = Helper::firstFromTable('priority_queue', 'transaction_number', $transaction_number);
+            $service_id = PriorityNumber::serviceId($pq->track_id);
             $name = $name == null ? null : ' ' . $name;
             $priority_number = PriorityQueue::priorityNumber($transaction_number);
             $message = "Hello$name! Thank you for using FeatherQ. Your number (# $priority_number ) will be called soon.";
-            Notifier::sendFrontlineSMS($message, $phone, FRONTLINE_SMS_URL, FRONTLINE_SMS_SECRET);
+            Notifier:: sendServiceSms($message, $phone, $service_id);
         }
+    }
+
+    public static function sendServiceSms($message, $phone, $service_id){
+        $url = QueueSettings::frontlineUrl($service_id);
+        $secret = QueueSettings::frontlineSecret($service_id);
+        Notifier::sendFrontlineSMS($message, $phone, $url, $secret);
     }
 
     /**
