@@ -108,6 +108,8 @@ var eb = {
             $scope.time_closed = business.time_closed;
             $scope.queue_limit = business.queue_limit; /* RDH Added queue_limit to Edit Business Page */
             $scope.terminal_specific_issue = business.terminal_specific_issue ? true : false;
+            $scope.frontline_secret = business.frontline_sms_secret;
+            $scope.frontline_url = business.frontline_sms_url
             $scope.terminals = business.terminals;
 
         }
@@ -231,7 +233,9 @@ var eb = {
                     time_open: $scope.time_open,
                     time_close: $scope.time_closed,
                     queue_limit: $scope.queue_limit, /* RDH Added queue_limit to Edit Business Page */
-                    terminal_specific_issue : $scope.terminal_specific_issue ? 1 : 0
+                    terminal_specific_issue : $scope.terminal_specific_issue ? 1 : 0,
+                    frontline_sms_secret : $scope.frontline_secret,
+                    frontline_sms_url : $scope.frontline_url
                 }
 
                 $http.post('/business/edit-business', data)

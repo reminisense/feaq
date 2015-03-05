@@ -148,7 +148,7 @@ class ProcessQueue extends Eloquent{
                         'transaction_number' => $number->transaction_number,
                         'priority_number' => $number->priority_number,
                     );
-                }else if(!$called && !$removed && !$terminal_specific_calling){
+                }else if(!$called && !$removed && (!$terminal_specific_calling || $terminal_id == null)){
                     $uncalled_numbers[] = array(
                         'transaction_number' => $number->transaction_number,
                         'priority_number' => $number->priority_number,

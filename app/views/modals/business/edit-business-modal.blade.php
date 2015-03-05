@@ -214,6 +214,14 @@
                                                 <td style="padding-top: 20px;">Show Only Numbers Issued By Terminal</td>
                                                 <td><input type="checkbox" ng-model="terminal_specific_issue"></td> {{--ARA Terminal-specific issue numbers--}}
                                             </tr>
+                                            <tr>
+                                                <td style="padding-top: 20px;">Frontline SMS Secret</td>
+                                                <td><input class="mb0 form-control" type="password" value="@{{ frontline_secret }}" ng-model="frontline_secret" ></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding-top: 20px;">Frontline SMS URL</td>
+                                                <td><input class="mb0 form-control" type="text" value="@{{ frontline_url }}" ng-model="frontline_url" ></td>
+                                            </tr>
                                             {{--<tr>
                                                 <td>Loop numbers automatically.</td>
                                                 <td><input type="radio">Yes <input type="radio">No </td>
