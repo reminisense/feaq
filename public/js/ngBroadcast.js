@@ -166,6 +166,14 @@
                     $scope.boxdisplay5 = '';
                     $scope.boxdisplay6 = '';
                 }
+
+                if (response.display == '0-1' || response.display == '0-4' || response.display == '0-6') {
+                    $scope.ad_display = 'display: none;';
+                }
+                else {
+                    $scope.ad_display = '';
+                }
+
             });
         }, 1000);
 

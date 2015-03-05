@@ -117,11 +117,12 @@
         </div>
     </div>
 
-    <div class="row top-space-20">
-        <div class="col-md-6 ads">
+    <div class="row top-space-20" ng-controller="nowServingCtrl">
+
+        <div class="col-md-6 ads" style="@{{ ad_display }}">
             <img class="img-responsive mb30" src="/images/ads.jpg" />
         </div>
-        <div class="col-md-6" ng-controller="nowServingCtrl">
+        <div class="col-md-6">
             <audio id="call-number-sound" src="/audio/doorbell_x.wav" controls preload="auto" autobuffer style="display: none;"></audio>
             <div class="boxed mb20">
                 <div class="head head-wbtn">
