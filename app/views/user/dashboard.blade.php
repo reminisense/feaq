@@ -131,4 +131,5 @@
     @include('modals.business.verify-user-modal')
     @include('modals.business.setup-business-modal')
     @include('modals.business.edit-business-modal')
+    @include('modals.user.edit-user-modal')
 @stop
