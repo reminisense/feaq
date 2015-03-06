@@ -251,8 +251,4 @@ class BusinessController extends BaseController{
         }
     }
 
-  public function getBroadcast($business_id = 0) {
-    return View::make('tests.broadcast')
-      ->with('business_id', $business_id);
-  }
 }
