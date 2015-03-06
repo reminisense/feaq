@@ -24,6 +24,31 @@ class UserController extends BaseController{
 
     /*
      * @author: CSD
+     * @description: update user profile details
+     */
+    public function postUpdateUser(){
+        $userData = $_POST;
+
+        $user = User::find($userData['user_id']);
+        $user->first_name = $userData['edit_first_name'];
+        $user->last_name = $userData['edit_last_name'];
+        $user->phone = $userData['edit_mobile'];
+        $user->local_address = $userData['edit_user_location'];
+
+        if ($user->save()){
+            return json_encode([
+                'success' => 1,
+            ]);
+        } else {
+            return json_encode([
+                'success' => 0,
+                'error' => 'Something went wrong while trying to save your profile.'
+            ]);
+        }
+    }
+
+    /*
+     * @author: CSD
      * @description: verify data and update user details
      */
     public function postVerifyUser(){

@@ -7,6 +7,7 @@ $(document).ready(function(){
     $("#user_location").geocomplete();
     $("#business_location").geocomplete();
     $("#edit_business_address").geocomplete();
+    $("#edit_user_location").geocomplete();
 
     $.get('/user/user-status', function(){
 
@@ -19,8 +20,6 @@ $(document).ready(function(){
             $('#email').val(jsonData.user.email);
             $('#mobile').val(jsonData.user.phone);
             $('#user_location').val(jsonData.user.local_address);
-            /*$('#verifyUser').modal('show');*/
-            /*RBM -modal cannot be escaped*/
             $('#verifyUser').modal({
                 backdrop: 'static',
                 keyboard: false
@@ -71,6 +70,62 @@ $(document).ready(function(){
         }
     });
 
+    $('#update_profile_button').on('click', function(){
+        $(this).attr('disabled', '');
+        var errorMessage = '';
+        if ($('#edit_first_name').val() == ""){
+            errorMessage = "First Name field is required. ";
+        }
+
+        if ($('#edit_last_name').val() == ""){
+            errorMessage = errorMessage + "Last Name field is required. ";
+        }
+
+        if (!isValidPhone($('#edit_mobile').val()) && ($('#edit_mobile').val() != 0 || $('#edit_mobile').val() == '')){
+            errorMessage = errorMessage + "Mobile field is required. ";
+        }
+
+        if ($('#edit_user_location').val() == ""){
+            errorMessage = errorMessage + "Location field is required. ";
+        }
+
+        if (errorMessage == ""){
+            $.ajax({
+                url: $('#update_user_form').attr('action'),
+                type: 'POST',
+                dataType: 'text json',
+                data: $('#update_user_form').serialize()
+            }).done(function(response){
+                $('#update_profile_button').removeAttr('disabled');
+                if(response.success == 1){
+                    if ($('#profile_update_message').hasClass('alert-danger')){
+                        $('#profile_update_message').removeClass('alert-danger');
+                        $('#profile_update_message').addClass('alert-success');
+                        $('#profile_update_message').text("Your profile has been successfully updated!");
+                    }
+                    $('#profile_update_message').text("Your profile has been successfully updated!");
+                } else {
+                    if ($('#profile_update_message').hasClass('alert-success')){
+                        $('#profile_update_message').removeClass('alert-success');
+                        $('#profile_update_message').addClass('alert-danger');
+                    }
+                    $('#profile_update_message').text(response.error);
+                }
+                $('#profile_update_message').fadeIn( 400 );
+                setTimeout(function(){ $('#profile_update_message').fadeOut(); }, 3000);
+            });
+        } else {
+            $('#update_profile_button').removeAttr('disabled');
+            if ($('#profile_update_message').hasClass('alert-success')){
+                $('#profile_update_message').removeClass('alert-success');
+                $('#profile_update_message').addClass('alert-danger');
+            }
+            $('#profile_update_message').text(errorMessage);
+            $('#profile_update_message').fadeIn( 400 );
+            setTimeout(function(){ $('#profile_update_message').fadeOut(); }, 3000);
+        }
+    });
+
     $('#submit_business').on('click', function(){
         $(this).attr('disabled', '');
         var errorMessage = '';
@@ -114,14 +169,15 @@ $(document).ready(function(){
                 } else {
                     $('#setupError').text(response.error);
                     $('#setupError').fadeIn( 400 );
+                    setTimeout(function(){ $('#setupError').fadeOut(); }, 3000);
                 }
             });
         } else {
             $('#submit_business').removeAttr('disabled');
             $('#setupError').text(errorMessage);
             $('#setupError').fadeIn( 400 );
+            setTimeout(function(){ $('#setupError').fadeOut(); }, 3000);
         }
-
     });
 
     $('#add_business').on('click', function(){
@@ -129,6 +185,23 @@ $(document).ready(function(){
         $('#skip_step_link').remove();
         $('#setupBusiness').modal('show');
         $('#add_business_cloase').css('display', 'block');
+    });
+
+    $('#edit_profile').on('click', function(){
+        $.get('/user/user-status', function(){
+
+        }).success(function(data){
+            var jsonData = jQuery.parseJSON(data);
+            var user = jsonData.user;
+            $('.user_id').val(jsonData.user.user_id);
+            $('#edit_first_name').val(user.first_name);
+            $('#edit_last_name').val(user.last_name);
+            $('#edit_email').html(user.email);
+            $('#edit_mobile').val(user.phone);
+            $('#edit_user_location').val(user.local_address);
+
+            $('#updateUser').modal('show');
+        });
     });
 
     if (!isMobile()){
@@ -139,7 +212,15 @@ $(document).ready(function(){
         defaultCountry: "auto"
     });
 
+    $("#edit_mobile").intlTelInput({
+        defaultCountry: "auto"
+    });
+
     $('#mobile').keypress(function(key) {
+        if(key.charCode < 48 || key.charCode > 57) return false;
+    });
+
+    $('#edit_mobile').keypress(function(key) {
         if(key.charCode < 48 || key.charCode > 57) return false;
     });
 

@@ -74,4 +74,34 @@ class Helper extends Eloquent {
         $time_string .= $second > 0 ? $second . ' second(s) ' : '';
         return $time_string;
     }
+
+    public static function customSort($property, $var1, $var2){
+        return $var1[$property] - $var2[$property];
+    }
+
+    public static function customSortRev($property, $var1, $var2){
+        return $var2[$property] - $var1[$property];
+    }
+
+    public static function firstFromTable($table, $field, $value, $operator = '='){
+        return DB::table($table)->where($field, $operator, $value)->first();
+    }
+
+    /**
+     * requires an array of arrays
+     * ex. 'field' => array('conditional_operator', 'value')
+     * @param $conditions
+     * @return mixed
+     */
+    public static function getMultipleQueries($table, $conditions){
+        $query = DB::table($table);
+        foreach($conditions as $field => $value){
+            if(is_array($value)){
+                $query->where($field, $value[0], $value[1]);
+            }else{
+                $query->where($field, '=', $value);
+            }
+        }
+        return $query->get();
+    }
 }

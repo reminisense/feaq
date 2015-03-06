@@ -87,7 +87,7 @@ class BusinessController extends BaseController{
                     "rank": ""
                   },
                   "get_num": " ",
-                  "display": "6",
+                  "display": "1-6",
                   "date": "' . date("mdy") . '"
                 }
             ';
@@ -154,8 +154,14 @@ class BusinessController extends BaseController{
             $business->queue_limit = $business_data['queue_limit']; /* RDH Added queue_limit to Edit Business Page */
 
             $business->save();
-            $business = Business::getBusinessDetails($business->business_id);
 
+            //ARA For queue settings terminal-specific numbers
+            $queue_settings = new QueueSettingsController();
+            $queue_settings->getUpdate($business['business_id'], 'number_limit', $business_data['queue_limit']);
+            $queue_settings->getUpdate($business['business_id'], 'terminal_specific_issue', $business_data['terminal_specific_issue']);
+            $queue_settings->getUpdate($business['business_id'], 'frontline_sms_secret', $business_data['frontline_sms_secret']);
+            $queue_settings->getUpdate($business['business_id'], 'frontline_sms_url', $business_data['frontline_sms_url']);
+            $business = Business::getBusinessDetails($business->business_id);
             return json_encode([
                 'success' => 1,
                 'business' => $business
@@ -172,7 +178,7 @@ class BusinessController extends BaseController{
         $business_name = Business::name($business_id);
         $business_address = Business::localAddress($business_id);
 
-        $qr_link = "https://api.qrserver.com/v1/create-qr-code/?data=" . Request::url() ."&size=302x302";
+        $qr_link = "https://api.qrserver.com/v1/create-qr-code/?data=" . URL('/broadcast/business/' . $business_id) ."&size=302x302"; // CSD Updated QR Link
 
         $data = [
             'business_name' => $business_name,
@@ -244,4 +250,5 @@ class BusinessController extends BaseController{
             return true;
         }
     }
+
 }

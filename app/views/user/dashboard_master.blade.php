@@ -54,6 +54,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hello {{Auth::user()->first_name}}! <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="{{URL::to('/')}}">Dashboard</a></li>
+                        <li><a href="#" id="edit_profile">Edit My Profile</a></li>
                         <li class="divider"></li>
                         <li class="dropdown-header">Connect with us!</li>
                         <li><a href="{{URL::to('https://www.facebook.com/theFeatherQ')}}">Facebook</a></li>

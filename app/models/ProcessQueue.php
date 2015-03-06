@@ -8,7 +8,7 @@
 
 class ProcessQueue extends Eloquent{
 
-    public static function issueNumber($service_id, $priority_number = null, $date = null, $queue_platform = 'web'){
+    public static function issueNumber($service_id, $priority_number = null, $date = null, $queue_platform = 'web', $terminal_id = null){
         $date = $date == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $date;
 
         $service_properties = ProcessQueue::getServiceProperties($service_id, $date);
@@ -22,12 +22,14 @@ class ProcessQueue extends Eloquent{
         if(!$priority_number){
             $priority_number = $service_properties->next_number;
         }
+
+
         $user_id = Helper::userId();
 
         $track_id = PriorityNumber::createPriorityNumber($service_id, $number_start, $number_limit, $last_number_given, $current_number, $date);
         $confirmation_code = strtoupper(substr(md5($track_id), 0, 4));
         $transaction_number = PriorityQueue::createPriorityQueue($track_id, $priority_number, $confirmation_code, $user_id, $queue_platform);
-        TerminalTransaction::createTerminalTransaction($transaction_number, $time_queued);
+        TerminalTransaction::createTerminalTransaction($transaction_number, $time_queued, $terminal_id);
         Analytics::insertAnalyticsQueueNumberIssued($transaction_number, $service_id, $date, $time_queued); //insert to queue_analytics
         $number = array(
             'transaction_number' => $transaction_number,
@@ -94,9 +96,10 @@ class ProcessQueue extends Eloquent{
         ));
     }
 
-    public static function allNumbers($service_id, $date = null){
+    public static function allNumbers($service_id, $terminal_id = null, $date = null){
         $date = $date == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $date;
         $numbers = ProcessQueue::queuedNumbers($service_id, $date);
+        $terminal_specific_calling = QueueSettings::terminalSpecificIssue($service_id);
         $last_number_given = 0;
         $called_numbers = array();
         $uncalled_numbers = array();
@@ -112,13 +115,6 @@ class ProcessQueue extends Eloquent{
 
                 $timebound = ($number->time_assigned) != 0 && ($number->time_assigned <= time()) ? TRUE : FALSE;
 
-                /*legend*/
-                //uncalled  : not served and not removed
-                //called    : called, not served and not removed
-                //dropped   : called, not served but removed
-                //removed   : not called but removed
-                //served    : called and served
-                //processed : dropped/removed/served
 
                 $terminal_name = '';
                 if($number->terminal_id){
@@ -134,12 +130,25 @@ class ProcessQueue extends Eloquent{
                     $last_number_given = $number->priority_number;
                 }
 
+                /*legend*/
+                //uncalled  : not served and not removed
+                //called    : called, not served and not removed
+                //dropped   : called, not served but removed
+                //removed   : not called but removed
+                //served    : called and served
+                //processed : dropped/removed/served
+
                 if(!$called && !$removed && $timebound){
                     $timebound_numbers[] = array(
                         'transaction_number' => $number->transaction_number,
                         'priority_number' => $number->priority_number,
                     );
-                }else if(!$called && !$removed){
+                }else if(!$called && !$removed && $terminal_specific_calling && ($number->terminal_id == $terminal_id || $number->terminal_id == 0)){
+                    $uncalled_numbers[] = array(
+                        'transaction_number' => $number->transaction_number,
+                        'priority_number' => $number->priority_number,
+                    );
+                }else if(!$called && !$removed && (!$terminal_specific_calling || $terminal_id == null)){
                     $uncalled_numbers[] = array(
                         'transaction_number' => $number->transaction_number,
                         'priority_number' => $number->priority_number,
@@ -151,6 +160,7 @@ class ProcessQueue extends Eloquent{
                         'confirmation_code' => $number->confirmation_code,
                         'terminal_id' => $number->terminal_id,
                         'terminal_name' => $terminal_name,
+                        'time_called' => $number->time_called,
                         'box_rank' => Terminal::boxRank($number->terminal_id) // Added by PAG
                     );
                 }else if($called && !$served && $removed){
@@ -187,6 +197,8 @@ class ProcessQueue extends Eloquent{
             }
 
             usort($processed_numbers, array('ProcessQueue', 'sortProcessedNumbers'));
+            usort($called_numbers, array('ProcessQueue', 'sortCalledNumbers'));
+
             $priority_numbers->last_number_given = $last_number_given;
             $priority_numbers->next_number = ProcessQueue::nextNumber($priority_numbers->last_number_given, QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
             $priority_numbers->current_number = $called_numbers ? $called_numbers[key($called_numbers)]['priority_number'] : 0;
@@ -237,12 +249,12 @@ class ProcessQueue extends Eloquent{
     }
 
     public static function lastNumberGiven($service_id, $date = null, $default = 0){
-        $numbers = ProcessQueue::allNumbers($service_id, $date);
+        $numbers = ProcessQueue::allNumbers($service_id, null, $date);
         return $numbers ? $numbers->last_number_given : $default;
     }
 
     public static function currentNumber($service_id, $date = null, $default = 0){
-        $numbers = ProcessQueue::allNumbers($service_id, $date);
+        $numbers = ProcessQueue::allNumbers($service_id, null, $date);
         return $numbers ? $numbers->current_number : $default;
     }
 
@@ -251,7 +263,11 @@ class ProcessQueue extends Eloquent{
     }
 
     private static function sortProcessedNumbers($a, $b){
-        return $a['time_processed'] - $b['time_processed'];
+        return Helper::customSort('time_processed', $a, $b);
+    }
+
+    private static function sortCalledNumbers($a, $b){
+        return Helper::customSortRev('time_called', $a, $b);
     }
 
     public static function getServiceProperties($service_id, $date = null){
@@ -278,12 +294,26 @@ class ProcessQueue extends Eloquent{
             $json = file_get_contents($file_path);
             $boxes = json_decode($json);
 
-            for($counter = 1; $counter <= 6; $counter++){
+            $max_count = 6; //RDH via ARA : gisugo ko ni ruffy (dili ni tinuod) : set default value for $max_count
+            // PAG Addition for Broadcast Display Settings
+            if ($boxes->display == '1-1' || $boxes->display == '0-1') {
+              $max_count = 1;
+            }
+            elseif ($boxes->display == '1-4' || $boxes->display == '0-4') {
+              $max_count = 4;
+            }
+            elseif ($boxes->display == '1-6' || $boxes->display == '0-6') {
+              $max_count = 6;
+            }
+
+            $box_count = 1;
+            for($counter = 1; $counter <= $max_count; $counter++){
                 $index = $counter - 1;
-                $box = 'box'.$counter;
+                $box = 'box'.$box_count;
                 $boxes->$box->number = isset($numbers[$index]['priority_number']) ? $numbers[$index]['priority_number'] : '';
                 $boxes->$box->terminal = isset($numbers[$index]['terminal_name']) ? $numbers[$index]['terminal_name'] : '';
                 $boxes->$box->rank = isset($numbers[$index]['box_rank']) ? $numbers[$index]['box_rank'] : ''; // Added by PAG
+                $box_count++;
             }
             $boxes->get_num = $all_numbers->next_number;
 

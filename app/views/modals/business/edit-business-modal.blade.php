@@ -3,7 +3,7 @@
 <input type="hidden" id="business-details-url" value="{{ url('/business/businessdetails/') }}">
 <!-- modal -->
 <div class="modal fade" id="editBusiness" tabindex="-1" ng-controller="editBusinessController">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -12,221 +12,309 @@
             <div class="modal-body">
                 <form class="">
                     <div class="form-group row">
+
+                        <ul class="nav nav-tabs nav-justified" id="editbiz-tabs">
+                          <li class="active"><a href="#bizdetails" data-toggle="tab">Business Details</a></li>
+                          <li> <a href="#bizterminals" data-toggle="tab">Terminals</a></li>
+                          <li> <a href="#bizqueuesettings" data-toggle="tab">Queue Settings</a></li>
+                          <li> <a href="#bizbroadcast" data-toggle="tab" ng-click="currentActiveTheme(business_id)">Broadcast Page</a></li>
+                        </ul>
                         <div class="col-md-12">
                             <div class="alert" id="edit_message" style="display: none;">
                                 <p style="text-align: center;"></p>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h5>BUSINESS DETAILS
-                                    </h5>
-                                    <small>Business Name</small>
-                                    <input type="text" class=" form-control" value="@{{ business_name }}" ng-model="business_name">
-                                </div>
-                                <div class="col-md-12">
-                                    <small>Business Address</small>
-                                    <input type="text" class="form-control" id="edit_business_address" value="@{{ business_address }}" ng-model="business_address" ng-autocomplete options="options" details="details">
-                                </div>
-                                <div class="col-md-12">
-                                    <small>Facebook URL</small>
-                                    <input type="text" class=" form-control" value="@{{ facebook_url }}" placeholder="Add Your Facebook Page!" ng-model="facebook_url">
-                                </div>
-                                <div class="col-md-12">
-                                    <small>Industry</small>
-                                    <div class="btn-group">
-                                        <select class="form-control" name="industry" id="industry">
-                                            <option value="@{{ industry }}">@{{ industry }}</option>
-                                            <option value="Accounting">Accounting</option>
-                                            <option value="Advertising">Advertising</option>
-                                            <option value="Agriculture">Agriculture</option>
-                                            <option value="Air Services">Air Services</option>
-                                            <option value="Airlines">Airlines</option>
-                                            <option value="Apparel">Apparel</option>
-                                            <option value="Appliances">Appliances</option>
-                                            <option value="Auto Dealership">Auto Dealership</option>
-                                            <option value="Banking">Banking</option>
-                                            <option value="Broadcasting">Broadcasting</option>
-                                            <option value="Business Services">Business Services</option>
-                                            <option value="Communications">Communications</option>
-                                            <option value="Corporate">Corporate</option>
-                                            <option value="Customer Service">Customer Service</option>
-                                            <option value="Delivery">Delivery</option>
-                                            <option value="Delivery Services">Delivery Services</option>
-                                            <option value="Education">Education</option>
-                                            <option value="Energy">Energy</option>
-                                            <option value="Entertainment">Entertainment</option>
-                                            <option value="Events">Events</option>
-                                            <option value="Food and Beverage">Food and Beverage</option>
-                                            <option value="Government">Government</option>
-                                            <option value="Grocery">Grocery</option>
-                                            <option value="Healthcare">Healthcare</option>
-                                            <option value="Hobbies and Collections">Hobbies and Collections</option>
-                                            <option value="Hospitality">Hospitality</option>
-                                            <option value="Insurance">Insurance</option>
-                                            <option value="Information Technology">Information Technology</option>
-                                            <option value="Lifestyle">Lifestyle</option>
-                                            <option value="Mail Order Services">Mail Order Services</option>
-                                            <option value="Manufacturing">Manufacturing</option>
-                                            <option value="Pharmaceutical">Pharmaceutical</option>
-                                            <option value="Media">Media</option>
-                                            <option value="Professional Services">Professional Services</option>
-                                            <option value="Publishing">Publishing</option>
-                                            <option value="Real Estate">Real Estate</option>
-                                            <option value="Recreation">Recreation</option>
-                                            <option value="Rentals">Rentals</option>
-                                            <option value="Retail">Retail</option>
-                                            <option value="Software Development">Software Development</option>
-                                            <option value="Technology">Technology</option>
-                                            <option value="Travel and Tours">Travel and Tours</option>
-                                            <option value="Utility Services">Utility Services</option>
-                                            <option value="Web Services">Web Services</option>
-                                            <option value="Wholesale">Wholesale</option>
-                                        </select>
+                        <div id="myTabContent" class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade active in" id="bizdetails">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5>BUSINESS DETAILS
+                                        </h5>
+                                        <small>Business Name</small>
+                                        <input type="text" class=" form-control" value="@{{ business_name }}" ng-model="business_name">
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <small>Time Open</small>
-                                            <input type="text" class="form-control" value="@{{ time_open }}" ng-model="time_open"> <!-- RDH  Added timepicker -->
-                                        </div>
-                                        <div class="col-md-6">
-                                            <small>Time Close</small>
-                                            <input type="text" class="form-control" value="@{{ time_closed }}" ng-model="time_closed"> <!-- RDH  Added timepicker -->
+                                    <div class="col-md-12">
+                                        <small>Business Address</small>
+                                        <input type="text" class="form-control" id="edit_business_address" value="@{{ business_address }}" ng-model="business_address" ng-autocomplete options="options" details="details">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <small>Facebook URL</small>
+                                        <input type="text" class=" form-control" value="@{{ facebook_url }}" placeholder="Add Your Facebook Page!" ng-model="facebook_url">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <small>Time Open</small>
+                                                <input type="text" class="form-control" value="@{{ time_open }}" ng-model="time_open"> <!-- RDH  Added timepicker -->
+                                            </div>
+                                            <div class="col-md-6">
+                                                <small>Time Close</small>
+                                                <input type="text" class="form-control" value="@{{ time_closed }}" ng-model="time_closed"> <!-- RDH  Added timepicker -->
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <small>QR Code</small>
-                                    <div class="row">
-                                        <a id="qr_code_download" href="{{ url('business/pdf-download') }}/@{{ business_id }}" target="_blank" ng-model="business_id" class="btn btn-blue"><span class="glyphicon glyphicon-add"></span> View QR Code</a>
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                        <div class="col-md-6">
+                                            <small>Industry</small>
+                                            <div class="btn-group">
+                                                <select class="form-control" name="industry" id="industry">
+                                                    <option value="@{{ industry }}">@{{ industry }}</option>
+                                                    <option value="Accounting">Accounting</option>
+                                                    <option value="Advertising">Advertising</option>
+                                                    <option value="Agriculture">Agriculture</option>
+                                                    <option value="Air Services">Air Services</option>
+                                                    <option value="Airlines">Airlines</option>
+                                                    <option value="Apparel">Apparel</option>
+                                                    <option value="Appliances">Appliances</option>
+                                                    <option value="Auto Dealership">Auto Dealership</option>
+                                                    <option value="Banking">Banking</option>
+                                                    <option value="Broadcasting">Broadcasting</option>
+                                                    <option value="Business Services">Business Services</option>
+                                                    <option value="Communications">Communications</option>
+                                                    <option value="Corporate">Corporate</option>
+                                                    <option value="Customer Service">Customer Service</option>
+                                                    <option value="Delivery">Delivery</option>
+                                                    <option value="Delivery Services">Delivery Services</option>
+                                                    <option value="Education">Education</option>
+                                                    <option value="Energy">Energy</option>
+                                                    <option value="Entertainment">Entertainment</option>
+                                                    <option value="Events">Events</option>
+                                                    <option value="Food and Beverage">Food and Beverage</option>
+                                                    <option value="Government">Government</option>
+                                                    <option value="Grocery">Grocery</option>
+                                                    <option value="Healthcare">Healthcare</option>
+                                                    <option value="Hobbies and Collections">Hobbies and Collections</option>
+                                                    <option value="Hospitality">Hospitality</option>
+                                                    <option value="Insurance">Insurance</option>
+                                                    <option value="Information Technology">Information Technology</option>
+                                                    <option value="Lifestyle">Lifestyle</option>
+                                                    <option value="Mail Order Services">Mail Order Services</option>
+                                                    <option value="Manufacturing">Manufacturing</option>
+                                                    <option value="Pharmaceutical">Pharmaceutical</option>
+                                                    <option value="Media">Media</option>
+                                                    <option value="Professional Services">Professional Services</option>
+                                                    <option value="Publishing">Publishing</option>
+                                                    <option value="Real Estate">Real Estate</option>
+                                                    <option value="Recreation">Recreation</option>
+                                                    <option value="Rentals">Rentals</option>
+                                                    <option value="Retail">Retail</option>
+                                                    <option value="Software Development">Software Development</option>
+                                                    <option value="Technology">Technology</option>
+                                                    <option value="Travel and Tours">Travel and Tours</option>
+                                                    <option value="Utility Services">Utility Services</option>
+                                                    <option value="Web Services">Web Services</option>
+                                                    <option value="Wholesale">Wholesale</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <small>QR Code</small>
+                                            <div class="row" style="margin-top: 12px;">
+                                                <a id="qr_code_download" href="{{ url('business/pdf-download') }}/@{{ business_id }}" target="_blank" ng-model="business_id" class="btn-boxy btn-xs btn-primary"><span class="glyphicon glyphicon-add"></span> View QR Code</a>
+                                            </div>
+                                        </div>
+                                        </div>
                                     </div>
+                                    <!--
+                                    <div class="col-md-12">
+                                        <small>Description</small>
+                                        <textarea rows="10" class="form-control" placeholder="Add A Description Of Your Business Here! Try and talk about what your business does, how it started, and how valuable it is to your customers' lives! When we talk about our business, we can definitely say a whole lot about it! So don't hesitate to write it down here."></textarea>
+                                    </div>
+                                    -->
                                 </div>
-                                <!--
-                                <div class="col-md-12">
-                                    <small>Description</small>
-                                    <textarea rows="10" class="form-control" placeholder="Add A Description Of Your Business Here! Try and talk about what your business does, how it started, and how valuable it is to your customers' lives! When we talk about our business, we can definitely say a whole lot about it! So don't hesitate to write it down here."></textarea>
-                                </div>
-                                -->
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <!-- accordion -->
-                            <div class="panel-group" id="accordion">
-                                <div class="">
-                                    <div id="headingOne">
-                                        <h4 class="mb20">
-                                            <a class="h5" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                TERMINALS
-                                            </a>
-                                            <span class="caret"></span>
-                                        </h4>
-                                    </div>
-                                    <div id="collapseOne" class="panel-collapse collapse in">
-                                        <form></form> <!-- ARA I just placed this because if not placed other form elements below will not be rendered -->
-                                        <table class="table" ng-init="terminal_index = 0">
-                                            <tbody>
-                                            <tr ng-repeat="terminal in terminals">
-                                                <td>
-                                                    <div class="bold">@{{ $index + 1 }}</div>
-                                                </td>
-                                                <td>
-                                                    <div class="block mb10">
-                                                        <small>Terminal Name</small>
-                                                        <p class="bold">
-                                                            <span class="terminal-name-display" terminal_id="@{{ terminal.terminal_id }}" style="font-size: 14px; ">@{{ terminal.name }}</span>
-                                                            <input type="text" class="terminal-name-update" terminal_id="@{{ terminal.terminal_id }}" value="@{{ terminal.name }}" style="display: none;">
-                                                        </p>
-                                                    </div>
-                                                    <div class="block" ng-if="terminal.users.length != 0">
-                                                        <small>User</small>
-                                                        <p class="bold" ng-repeat="user in terminal.users">@{{ user.first_name + ' ' + user.last_name }}</p>
-                                                    </div>
-                                                    <div class="block mb10" ng-if="terminal.users.length < 3">
-                                                        <a href="#" class="btn btn-blue btn-adduser"><span class="glyphicon glyphicon-add"></span> Add User</a>
-                                                        <div class="block inputuser" style="display: none">
-                                                            <form ng-submit="emailSearch(search_user, terminal.terminal_id)">
-                                                                <input type="text" class="form-control" ng-model="search_user">
-                                                            </form>
-                                                            <div class="alert alert-danger" ng-show="user_found == false"> User does not exist. </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="block mb10">
-                                                        <a href="#" ng-click="editTerminal(terminal.terminal_id)" class="edit-terminal-button" terminal_id="@{{ terminal.terminal_id }}" ><span class="glyphicon glyphicon-pencil"></span> Edit</a>
-                                                        <a href="#" ng-click="updateTerminal(terminal.terminal_id)" class="update-terminal-button" terminal_id="@{{ terminal.terminal_id }}" style="display: none;"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
-                                                        <a href="#" ng-click="deleteTerminal(terminal.terminal_id)"><span class="glyphicon glyphicon-trash"></span> Delete</a>
-                                                    </div>
-                                                    <div class="block" ng-repeat="user in terminal.users">
-                                                        <a href="#" ng-click="unassignFromTerminal(user.user_id, user.terminal_id)"><span class="glyphicon glyphicon-remove"></span> Remove</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <!-- -->
-                                            <tr ng-if="terminals.length < 3">
-                                                <td>
-                                                    <div></div>
-                                                </td>
-                                                <td>
-                                                    <div class="block mb10">
-                                                        <a href="#" id="btn-addterminal" class="btn btn-blue"><span class="glyphicon glyphicon-add"></span> Add Terminal</a>
-                                                        <form id="inputterminal-form" ng-submit="createTerminal(terminal_name)">
-                                                            <input id="inputterminal" type="text" class="form-control" ng-model="terminal_name">
-                                                        </form>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="block mb10">
-                                                        <!-- button here -->
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div id="headingTwo">
-                                        <h4 class="mb20">
-                                            <a class="h5 collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                QUEUE SETTINGS
-                                            </a>
-                                            <span class="caret"></span>
-                                        </h4>
-                                    </div>
-                                    <div id="collapseTwo" class="panel-collapse collapse in">
-                                        <table class="table">
-                                            <tbody>
-                                            {{--RDH Removed Other Queue Settings Since These Do Not Apply To This Release--}}
-                                            {{--<tr>
-                                                <td>Number Start</td>
-                                                <td><input class="mb0 form-control" type="text" placeholder="@{{ number_start }}"></td>
-                                            </tr>--}}
-                                            <tr>
-                                                <td style="padding-top: 20px;">Number Limit</td>
-                                                <td><input class="mb0 form-control" type="text" value="@{{ queue_limit }}" ng-model="queue_limit" ></td>  {{--RDH Added queue_limit to Edit Business Page--}}
-                                            </tr>
-                                            {{--<tr>
-                                                <td>Loop numbers automatically.</td>
-                                                <td><input type="radio">Yes <input type="radio">No </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Allow SMS notification.</td>
-                                                <td><input type="radio">Yes <input type="radio">No </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Allow Remote Queuing.</td>
-                                                <td><input type="radio">Yes <input type="radio">No </td>
-                                            </tr>--}}
-                                            </tbody></table>
+                            </div>
 
+                            <div role="tabpanel" class="tab-pane fade" id="bizterminals" aria-labelledby="profile-tab">
+                            <div class="col-md-12">
+                                <!-- accordion -->
+                                <div class="panel-group" id="accordion">
+                                    <div class="">
+                                        <div id="headingOne">
+                                            <h4 class="mb20">
+                                                <a class="h5" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                    TERMINALS
+                                                </a>
+                                                <span class="caret"></span>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseOne" class="panel-collapse collapse in">
+                                            <form></form> <!-- ARA I just placed this because if not placed other form elements below will not be rendered -->
+                                            <table class="table table-hover table-spaces table-responsive" ng-init="terminal_index = 0">
+                                                <thead>
+                                                  <tr>
+                                                    <th>#</th>
+                                                    <th>Terminal Name</th>
+                                                    <th>Users</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr ng-repeat="terminal in terminals">
+                                                    <td>
+                                                        <div class="bold">@{{ $index + 1 }}</div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="terminal-name-display" terminal_id="@{{ terminal.terminal_id }}" style="font-size: 14px; ">@{{ terminal.name }}</span>
+                                                        <input type="text" class="terminal-name-update" terminal_id="@{{ terminal.terminal_id }}" value="@{{ terminal.name }}" style="display: none;">
+                                                        <div class="mt10 mb10">
+                                                            <span class="inline-btns">
+                                                                <a href="#" ng-click="editTerminal(terminal.terminal_id)" class="edit-terminal-button btn-boxy btn-xs btn-primary" terminal_id="@{{ terminal.terminal_id }}" ><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+                                                                <a href="#" ng-click="updateTerminal(terminal.terminal_id)" class="update-terminal-button btn-boxy btn-xs btn-primary" terminal_id="@{{ terminal.terminal_id }}" style="display: none;"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
+                                                                <a href="#" ng-click="deleteTerminal(terminal.terminal_id)" class="btn-boxy btn-xs btn-primary"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+                                                            </span>
+                                                        </div>
+
+                                                    </td>
+                                                    <td>
+                                                        <span ng-if="terminal.users.length != 0">
+                                                            <span ng-repeat="user in terminal.users">@{{ user.first_name + ' ' + user.last_name }}</span>
+                                                        </span>
+                                                        <div class="block mb10" style="margin-top: 5px;" ng-if="terminal.users.length < 3">
+                                                            <span class="inline-btns">
+                                                                <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary"><span class="glyphicon glyphicon-add"></span> Add User</a>
+                                                                <span ng-repeat="user in terminal.users">
+                                                                    <a href="#" class="vtn-boxy btn-xs btn-primary" ng-click="unassignFromTerminal(user.user_id, user.terminal_id)"><span class="glyphicon glyphicon-remove"></span> Remove</a>
+                                                                </span>
+                                                            </span>
+                                                            <div class="mb10 mt10 inputuser" style="display: none">
+                                                                <form ng-submit="emailSearch(search_user, terminal.terminal_id)">
+                                                                    <input type="text" class="form-control" ng-model="search_user">
+                                                                </form>
+                                                                <div class="alert alert-danger" ng-show="user_found == false"> User does not exist. </div>
+                                                            </div>
+                                                        </div>
+                                                        <div style="display: none;" class="alert alert-danger terminal-error-message" terminal_id="@{{ terminal.terminal_id }}"> Terminal name already exists.</div>
+                                                    </td>
+                                                </tr>
+                                                <!-- -->
+                                                <tr ng-if="terminals.length < 3">
+                                                    <td>
+                                                        <div></div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="block mb10">
+                                                            <a href="#" id="btn-addterminal" class="btn-boxy btn-xs btn-adduser btn-primary"><span class="glyphicon glyphicon-add"></span> Add Terminal</a>
+                                                            <form id="inputterminal-form" ng-submit="createTerminal(terminal_name)">
+                                                                <input id="inputterminal" type="text" class="form-control" ng-model="terminal_name">
+                                                            </form>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="block mb10">
+                                                            <!-- button here -->
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- accordion -->
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane fade" id="bizqueuesettings" aria-labelledby="profile-tab">
+                                <div class="col-md-12">
+                                    <div>
+                                        <div id="headingTwo">
+                                            <h4 class="mb20">
+                                                <a class="h5 collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                    QUEUE SETTINGS
+                                                </a>
+                                                <span class="caret"></span>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseTwo" class="panel-collapse collapse in">
+                                            <table class="table">
+                                                <tbody>
+                                                {{--RDH Removed Other Queue Settings Since These Do Not Apply To This Release--}}
+                                                {{--<tr>
+                                                    <td>Number Start</td>
+                                                    <td><input class="mb0 form-control" type="text" placeholder="@{{ number_start }}"></td>
+                                                </tr>--}}
+                                                <tr>
+                                                    <td style="padding-top: 20px;">Number Limit</td>
+                                                    <td><input class="mb0 form-control" type="text" value="@{{ queue_limit }}" ng-model="queue_limit" ></td>  {{--RDH Added queue_limit to Edit Business Page--}}
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-top: 20px;">Show Only Numbers Issued By Terminal</td>
+                                                    <td style="padding-top: 20px;"><input type="checkbox" ng-model="terminal_specific_issue"></td> {{--ARA Terminal-specific issue numbers--}}
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-top: 20px;">Frontline SMS Secret</td>
+                                                    <td><input class="mb0 form-control" type="password" value="@{{ frontline_secret }}" ng-model="frontline_secret" ></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-top: 20px;">Frontline SMS URL</td>
+                                                    <td><input class="mb0 form-control" type="text" value="@{{ frontline_url }}" ng-model="frontline_url" ></td>
+                                                </tr>
+                                                {{--<tr>
+                                                    <td>Loop numbers automatically.</td>
+                                                    <td><input type="radio">Yes <input type="radio">No </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Allow SMS notification.</td>
+                                                    <td><input type="radio">Yes <input type="radio">No </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Allow Remote Queuing.</td>
+                                                    <td><input type="radio">Yes <input type="radio">No </td>
+                                                </tr>--}}
+                                            </tbody></table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- accordion -->
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="bizbroadcast" aria-labelledby="profile-tab">
+                                <div class="col-md-12">
+                                    <h5>BROADCAST LAYOUT</h5><br>
+                                </div>
+                                <div class="col-md-4 col-xs-6 mb20">
+                                    <img src="images/icon-b1.jpg" class="mb10 img-responsive">
+                                    <span class="inline-btns">
+                                        <p class="orange h5 nomg 1-1 activated" style="display: none;">Active</p>
+                                        <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 1-1 theme-btn" ng-click="activateTheme('1-1', business_id)">Activate</a>
+                                    </span>
+                                </div>
+                                <div class="col-md-4 col-xs-6 mb20">
+                                    <img src="images/icon-b2.jpg" class="mb10 img-responsive">
+                                    <span class="inline-btns">
+                                        <p class="orange h5 nomg 1-4 activated" style="display: none;">Active</p>
+                                        <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 1-4 theme-btn" ng-click="activateTheme('1-4', business_id)">Activate</a>
+                                    </span>
+                                </div>
+                                <div class="col-md-4 col-xs-6 mb20">
+                                    <img src="images/icon-b3.jpg" class="mb10 img-responsive">
+                                    <span class="inline-btns">
+                                        <p class="orange h5 nomg 1-6 activated" style="display: none;">Active</p>
+                                        <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 1-6 theme-btn" ng-click="activateTheme('1-6', business_id)">Activate</a>
+                                    </span>
+                                </div>
+                                <div class="col-md-4 col-xs-6 mb20">
+                                    <img src="images/icon-b4.jpg" class="mb10 img-responsive">
+                                    <span class="inline-btns">
+                                        <p class="orange h5 nomg 0-1 activated" style="display: none;">Active</p>
+                                        <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 0-1 theme-btn" ng-click="activateTheme('0-1', business_id)">Activate</a>
+                                    </span>
+                                </div>
+                                <div class="col-md-4 col-xs-6 mb20">
+                                    <img src="images/icon-b5.jpg" class="mb10 img-responsive">
+                                    <span class="inline-btns">
+                                        <p class="orange h5 nomg 0-4 activated" style="display: none;">Active</p>
+                                        <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 0-4 theme-btn" ng-click="activateTheme('0-4', business_id)">Activate</a>
+                                    </span>
+                                </div>
+                                <div class="col-md-4 col-xs-6 mb20">
+                                    <img src="images/icon-b6.jpg" class="mb10 img-responsive">
+                                    <span class="inline-btns">
+                                        <p class="orange h5 nomg 0-6 activated" style="display: none;">Active</p>
+                                        <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 0-6 theme-btn" ng-click="activateTheme('0-6', business_id)">Activate</a>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>

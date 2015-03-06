@@ -34,10 +34,25 @@ class TerminalController extends BaseController{
         return json_encode(['success' => 1, 'business' => $business]);
     }
 
-  public function postEdit() {
-    $post = json_decode(file_get_contents("php://input"));
-    Terminal::setName($post->terminal_id, $post->name);
-    return json_encode(array('status' => 1));
-  }
+    public function postEdit() {
+        $post = json_decode(file_get_contents("php://input"));
+        if($this->validateTerminalName($post->terminal_id,$post->name)){
+            Terminal::setName($post->terminal_id, $post->name);
+            return json_encode(array('status' => 1));
+        }else{
+            return json_encode(array('status' => 0));
+        }
+    }
 
+    public function validateTerminalName($terminal_id, $input_terminal_name){
+        $business = Business::getBusinessIdByTerminalId($terminal_id);
+        $terminals = Terminal::getTerminalsByBusinessId($business);
+
+        foreach($terminals as $terminal){
+            if($terminal['terminal_id'] != $terminal_id && $terminal['name'] == $input_terminal_name){
+                return false;
+            }
+        }
+        return true;
+    }
 }

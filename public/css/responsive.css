@@ -133,4 +133,18 @@
     #setupBusiness .modal-footer button {
         margin-bottom: 15px;
     }
+
+    /*rodels 352015*/
+    #editbiz-tabs {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    #bizbroadcast .mb20 {
+        min-height: 122px;
+    }
+    #bizbroadcast .inline-btns p {
+        height: 28px;
+        margin: 4px 0px 4px 4px;
+    }
 }
+

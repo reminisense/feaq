@@ -67,8 +67,8 @@ class ProcessQueueController extends BaseController{
         }
     }
 
-    public function getAllnumbers($service_id){
-        $numbers = ProcessQueue::allNumbers($service_id);
+    public function getAllnumbers($service_id, $terminal_id){
+        $numbers = ProcessQueue::allNumbers($service_id, $terminal_id);
         ProcessQueue::updateBusinessBroadcast(Business::getBusinessIdByServiceId($service_id));
         return json_encode(['success' => 1, 'numbers' => $numbers]);
     }
