@@ -335,6 +335,15 @@ var eb = {
             });
         });
 
+        $scope.currentActiveTheme = (function(business_id) {
+            $http.get('/json/'+business_id+'.json').success(function(response) {
+                $('.activated').hide();
+                $('.theme-btn').show();
+                $('.'+response.display+'.theme-btn').hide();
+                $('.'+response.display+'.activated').show();
+            });
+        });
+
     });
 
 })();

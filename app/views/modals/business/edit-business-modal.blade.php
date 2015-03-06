@@ -17,7 +17,7 @@
                           <li class="active"><a href="#bizdetails" data-toggle="tab">Business Details</a></li>
                           <li> <a href="#bizterminals" data-toggle="tab">Terminals</a></li>
                           <li> <a href="#bizqueuesettings" data-toggle="tab">Queue Settings</a></li>
-                          <li> <a href="#bizbroadcast" data-toggle="tab">Broadcast Page</a></li>
+                          <li> <a href="#bizbroadcast" data-toggle="tab" ng-click="currentActiveTheme(business_id)">Broadcast Page</a></li>
                         </ul>
                         <div class="col-md-12">
                             <div class="alert" id="edit_message" style="display: none;">
