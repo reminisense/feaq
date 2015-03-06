@@ -3,6 +3,8 @@
  */
 (function() {
 
+    $('input.timepicker').timepicker({});
+
     app.controller('searchBusinessCtrl', function($scope, $http) {
 
         $scope.location_filter = 'Location';
@@ -20,16 +22,21 @@
             }).success(function(response) {
                 $('.active-businesses').hide();
                 $scope.businesses = new Array();
+                var length_limit = 12;
                 for (var i = 0; i < response.length; i++) {
                     $scope.businesses.push({
                         "business_id": response[i].business_id,
                         "business_name": response[i].business_name,
                         "local_address": response[i].local_address
                     });
+                    if(i == length_limit-1) break;
                 }
                 $('.new-businesses').hide();
                 $('#business-search').show();
-                $scope.searchLabel= 'SHOWING RESULTS '+response.length+' OF '+response.length;
+                if(response.length != length_limit + 1){
+                    length_limit = response.length;
+                }
+                $scope.searchLabel= 'Showing Top '+ length_limit +' Result(s)';
 
             });
         });

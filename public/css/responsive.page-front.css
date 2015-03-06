@@ -1,3 +1,45 @@
+/** JCA - For Search Front Page **/
+
+.filterwrap .btn,
+.modal .form-control:focus,
+.modal .form-control,
+.modal .form-group button.dropdown-toggle {
+    -webkit-box-shadow: none!important;
+    -moz-box-shadow: none!important;
+    box-shadow: none!important;
+}
+
+.ui-timepicker-container {
+    z-index: 10000!important;
+    overflow-y: scroll!important;
+}
+.filterwrap .dropdown-menu {
+    height: 300px;
+    overflow: scroll;
+    margin-left: 14px;
+    overflow-y: visible;
+    overflow-style: scrollbar;
+}
+.filterwrap .btn:focus {
+    color: inherit;
+}
+#time_open-filter {
+    display: none;
+}
+.filterwrap input[type="text"] {
+    padding: 2px 6px;
+    height: 25px;
+    margin-top: 4px;
+}
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
 @media (max-width: 1024px) {
     .caption {
         margin-top: 110px;

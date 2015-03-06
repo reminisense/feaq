@@ -1,8 +1,10 @@
 @extends('master')
 
+    {{ HTML::style('css/jquery.timepicker.min.css') }}
 @section('scripts')
     {{ HTML::script('js/user/user.js') }}
     {{ HTML::script('js/search-business.js') }}
+    {{ HTML::script('js/jquery.timepicker.min.js') }}
 @stop
 
 @section('body')
@@ -341,10 +343,10 @@
               </div>
             </div>
             <div id="business-search" style="display: none">
-              <h5 id="search-label" class="mb30">@{{ searchLabel }}</h5>
+              <p id="search-label" class="heading">@{{ searchLabel }}</p>
                 <div class="col-md-3" ng-repeat="business in businesses">
                     <div class="boxed boxed-single clickable">
-                        <a href="/broadcast/business/@{{ business.business_id }}">
+                        <a class ="business_link" href="/broadcast/business/@{{ business.business_id }}" target="_blank">
                             <div class="wrap">
                                 <h3>@{{ business.business_name }}</h3>
                                 <small>@{{ business.local_address }}</small>
