@@ -165,7 +165,7 @@
                                                                 <a href="#" ng-click="deleteTerminal(terminal.terminal_id)" class="btn-boxy btn-xs btn-primary"><span class="glyphicon glyphicon-trash"></span> Delete</a>
                                                             </span>
                                                         </div>
-
+                                                        <div style="display: none;" class="alert alert-danger terminal-error-message" terminal_id="@{{ terminal.terminal_id }}"> Terminal name already exists.</div>
                                                     </td>
                                                     <td>
                                                         <span ng-if="terminal.users.length != 0">
@@ -185,7 +185,6 @@
                                                                 <div class="alert alert-danger" ng-show="user_found == false"> User does not exist. </div>
                                                             </div>
                                                         </div>
-                                                        <div style="display: none;" class="alert alert-danger terminal-error-message" terminal_id="@{{ terminal.terminal_id }}"> Terminal name already exists.</div>
                                                     </td>
                                                 </tr>
                                                 <!-- -->
