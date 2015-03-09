@@ -6,7 +6,6 @@ $(document).ready(function(){
 
     $("#user_location").geocomplete();
     $("#business_location").geocomplete();
-    $("#edit_business_address").geocomplete();
     $("#edit_user_location").geocomplete();
 
     $.get('/user/user-status', function(){
