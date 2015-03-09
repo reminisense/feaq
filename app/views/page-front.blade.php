@@ -339,6 +339,16 @@
                   </div>
                 </div>
                 @endforeach
+                <div class="col-md-6 col-xs-12">
+                  <div class="boxed boxed-single clickable" ng-controller="fbController">
+                    <a class="business_link" ng-click="login()" href="">
+                    <div class="wrap">
+                      <h3 class="orange">More New Businesses</h3>
+                      <small>Login to View more New Businesses</small>
+                    </div>
+                    </a>
+                  </div>
+                </div>
               @endif
               </div>
             </div>
@@ -346,7 +356,7 @@
               <p id="search-label" class="heading">@{{ searchLabel }}</p>
                 <div class="col-md-3" ng-repeat="business in businesses">
                     <div class="boxed boxed-single clickable">
-                        <a class ="business_link" href="/broadcast/business/@{{ business.business_id }}" target="_blank">
+                        <a class="business_link" href="/broadcast/business/@{{ business.business_id }}" target="_blank">
                             <div class="wrap">
                                 <h3>@{{ business.business_name }}</h3>
                                 <small>@{{ business.local_address }}</small>
@@ -373,6 +383,16 @@
                     </div>
                   </div>
                   @endforeach
+                  <div class="col-md-6 col-xs-12">
+                    <div class="boxed boxed-single clickable" ng-controller="fbController">
+                      <a class="business_link" ng-click="login()" href="">
+                      <div class="wrap">
+                        <h3 class="orange">More Active Businesses</h3>
+                        <small>Login to View more Active Businesses</small>
+                      </div>
+                      </a>
+                    </div>
+                  </div>
                 @endif
               </div>
             </div>

@@ -79,11 +79,11 @@ class UserController extends BaseController{
      */
     public function getUserDashboard(){
         $search_businesses_front = Business::orderBy('business_id', 'desc')
-                                ->take(4)
+                                ->take(5)
                                 ->get(); // RDH Changed implementation to only include newest 4 businesses
 
         $active_businesses_front = Business::getActiveBusinesses();
-        $active_businesses_front = array_slice($active_businesses_front, 0, 4, true); // RDH Implemented to only show maximum 4 businesses
+        $active_businesses_front = array_slice($active_businesses_front, 0, 5, true); // RDH Implemented to only show maximum 4 businesses
 
 
         $search_businesses = Business::all();
