@@ -221,7 +221,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 ads-mobile">
+        <div class="col-md-6 ads-mobile" style="@{{ ad_display }}">
             <img class="img-responsive mb30" src="/images/ads.jpg" />
         </div>
     </div>

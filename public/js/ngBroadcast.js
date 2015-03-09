@@ -168,7 +168,7 @@
                 }
 
                 if (response.display == '0-1' || response.display == '0-4' || response.display == '0-6') {
-                    $scope.ad_display = 'display: none;';
+                    $scope.ad_display = 'display: none !important;';
                 }
                 else {
                     $scope.ad_display = '';
