@@ -1,6 +1,6 @@
 @extends('master')
 
-    {{ HTML::style('css/jquery.timepicker.min.css') }}
+
 @section('scripts')
     {{ HTML::script('js/user/user.js') }}
     {{ HTML::script('js/search-business.js') }}
@@ -8,7 +8,7 @@
 @stop
 
 @section('body')
-
+    {{ HTML::style('css/jquery.timepicker.min.css') }}
 <!--
   Below we include the Login Button social plugin. This button uses
   the JavaScript SDK to present a graphical Login button that triggers
