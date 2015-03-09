@@ -27,7 +27,7 @@
                                     <label>Mobile</label><br/>
                                     <input style="margin-left: 45px;" type="" min="9" maxlength="15" class=" form-control" id="edit_mobile" name="edit_mobile" required/>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6 email-fld">
                                     <label>Email</label>
                                     <span class=" form-control" id="edit_email"></span>
                                 </div>
