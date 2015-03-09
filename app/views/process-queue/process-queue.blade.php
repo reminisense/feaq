@@ -82,7 +82,11 @@
                             <thead></thead>
                             <tbody>
                             <tr ng-repeat="number in called_numbers" data-tnumber="@{{ number.transaction_number }}">
-                                <th scope="row">@{{ number.priority_number }}</th>
+                                <th scope="row">
+                                    <a class="priority-number" title="Number: @{{ number.priority_number }}" data-name="@{{ number.name }}" data-phone="@{{ number.phone }}" data-email="@{{ number.email }}" href="#" data-toggle="modal" data-target="#priority-number-modal">
+                                        @{{ number.priority_number }}
+                                    </a>
+                                </th>
                                 <!-- if this terminal -->
                                 <td ng-if="number.terminal_id == terminal_id">
                                     <button class="btn btn-gray" ng-click="dropNumber(number.transaction_number)" ng-disabled="isProcessing"><span class="glyphicon glyphicon-trash"></span></button>
@@ -119,4 +123,5 @@
 
 @section('modals')
 @include('modals.process-queue.issue-number-modal')
+@include('modals.process-queue.priority-number-details-modal')
 @stop

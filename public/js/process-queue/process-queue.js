@@ -10,6 +10,7 @@ $(document).ready(function(){
     pq.jquery_functions.load_default_navbar_link();
     pq.jquery_functions.load_search_filter_behavior();
     pq.jquery_functions.load_show_modal();
+    pq.jquery_functions.load_priority_number_modal_content();
 });
 
 //these functions and variables are separated since they are using jquery
@@ -74,6 +75,22 @@ var pq = {
             $('#moreq').on('show.bs.modal', function(){
                 pq.jquery_functions.show_tab_content();
                 pq.jquery_functions.set_next_priority_number();
+            });
+        },
+
+        load_priority_number_modal_content : function(){
+            $('body').on('click', '.priority-number', function(e){
+                e.preventDefault();
+                name = $(this).attr('data-name') ? $(this).attr('data-name') : 'Not specified';
+                phone = $(this).attr('data-phone') ? $(this).attr('data-phone') : 'Not specified';
+                email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
+                priority_number = $(this).html();
+
+                $('#priority-number-modal .modal-title').html('#' + priority_number);
+                $('#priority-number-number').html(priority_number);
+                $('#priority-number-name').html(name);
+                $('#priority-number-phone').html(phone);
+                $('#priority-number-email').html(email);
             });
         },
 
