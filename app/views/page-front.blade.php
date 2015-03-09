@@ -409,18 +409,18 @@
         <div class="col-md-6">
           <h5>FOR BUSINESS</h5>
           <h3>1. Login via Facebook</h3>
-          <p>Choose from a variety of email providers. We currently support Mandrill, Sendgrid and SendWithUs, and the list is growing. </p>
+          <p>Signing up is easy. With just a Facebook account, it takes only a minute to start using FeatherQ.</p>
           <h3>2. Setup your Business</h3>
-          <p>Choose from a variety of email providers. We currently support Mandrill, Sendgrid and SendWithUs, and the list is growing. </p>
-          <h3>3. Process your Queue</h3>
-          <p>Choose from a variety of email providers. We currently support Mandrill, Sendgrid and SendWithUs, and the list is growing. </p>
+          <p>Add your business information, set up your service and start serving.</p>
+          <h3>3. Manage Your Lines</h3>
+          <p>Manage lines with just a smart device and an internet connection. FeatherQ is a complete queuing solution that's quick to set up, easy to use and best of all, it's free.</p>
         </div>
         <div class="col-md-6">
           <h5>FOR USERS</h5>
-          <h3>1. Login via Facebook</h3>
-          <p>Choose from a variety of email providers. We currently support Mandrill, Sendgrid and SendWithUs, and the list is growing. </p>
-          <h3>2. Queue to any Business</h3>
-          <p>Choose from a variety of email providers. We currently support Mandrill, Sendgrid and SendWithUs, and the list is growing. </p>
+          <h3>1. No-frills Sign Up</h3>
+          <p>Do away with lengthy sign up forms. Sign up for FeatherQ with just one click. FeatherQ is instantly synced up with your Facebook account.</p>
+          <h3>2. Hassle-free</h3>
+          <p>Let your phone wait for you. FeatherQ lets you queue up for the important things while you're free to do what matters.</p>
         </div>
       </div>
     </div>
@@ -428,32 +428,33 @@
     <div id="feats" class="feats">
       <div class="container">
         <div class="col-md-12">
-          <h1>FeatherQ Features</h1>
+          <h1>FeatherQ for Business</h1>
         </div>
         <div class="col-md-3">
           <h3>30-second Business Setup</h3>
-          <p>Choose from a variety of email providers. We currently support Mandrill, Sendgrid and SendWithUs, and the list is growing. </p>
+          <p>Have a Facebook account? In as short as 30-seconds, setup your business account and begin managing your lines today.</p>
         </div>
         <div class="col-md-3">
-          <h3>Remote Queuing</h3>
-          <p>Choose from a variety of email providers. We currently support Mandrill, Sendgrid and SendWithUs, and the list is growing. </p>
+          <h3>Featureful Process Queue</h3>
+          <p>FeatherQ offers functionality no matter the business process. Enjoy a flexible queuing solution that's able to suit your needs.</p>
+        </div>
+        <div class="col-md-3">
+          <h3>Customizable Broadcast Screens</h3>
+          <p>Choose from a wide-array of templates and designs to customize your broadcast screens. FeatherQ helps you connect with your customers in the best way possible.</p>
         </div>
         <div class="col-md-3">
           <h3>Business Analytics</h3>
-          <p>Choose from a variety of email providers. We currently support Mandrill, Sendgrid and SendWithUs, and the list is growing. </p>
+          <p>FeatherQ doesn't just manage lines. It helps you manage your business better. See what you can learn about your establishment from your customers.</p>
         </div>
         <div class="col-md-3">
-          <h3>its FREE!</h3>
-          <p>Choose from a variety of email providers. We currently support Mandrill, Sendgrid and SendWithUs, and the list is growing. </p>
+          <h3>Seamless Integration</h3>
+          <p>Do away with expensive overhead costs for broadcasting and network integration. FeatherQ's browser-based solution requires only a smart device and an internet connection.</p>
         </div>
         <div class="col-md-3">
-          <h3>Customisable Broadcast Screens</h3>
-          <p>Choose from a variety of email providers. We currently support Mandrill, Sendgrid and SendWithUs, and the list is growing. </p>
+          <h3>It's FREE!</h3>
+          <p>FeatherQ is a complete queuing solution software that is absolutely free.</p>
         </div>
-        <div class="col-md-3">
-          <h3>Mobile Responsive</h3>
-          <p>Choose from a variety of email providers. We currently support Mandrill, Sendgrid and SendWithUs, and the list is growing. </p>
-        </div>
+          <!--
         <div class="col-md-3">
           <h3>SMS and Email Notifications</h3>
           <p>Choose from a variety of email providers. We currently support Mandrill, Sendgrid and SendWithUs, and the list is growing. </p>
@@ -462,7 +463,39 @@
           <h3>Featureful Process Queue</h3>
           <p>Choose from a variety of email providers. We currently support Mandrill, Sendgrid and SendWithUs, and the list is growing. </p>
         </div>
+        -->
       </div>
+        <div class="container">
+            <div class="col-md-12">
+                <h1>FeatherQ for You</h1>
+            </div>
+            <div class="col-md-3">
+                <h3>Remote Queuing</h3>
+                <p>With FeatherQ's remote queuing feature, you can make the best choice on how to spend your time. Instantly view how long lines are at your destination, and line up from the comfort of your home.</p>
+            </div>
+            <div class="col-md-3">
+                <h3>SMS and Email Notifications</h3>
+                <p>With SMS and Email notifications, life does not go on pause while you wait in line.</p>
+            </div>
+            <div class="col-md-3">
+                <h3>Change the Wait</h3>
+                <p>Join the movement. Revolutionize the wait. With FeatherQ, life doesn't have to go on pause while you wait in line.</p>
+            </div>
+            <div class="col-md-3">
+                <h3>Mobile Responsive</h3>
+                <p>Access FeatherQ on any internet-ready device. No bulky app-ware downloads. Get in line quick, fast, and easy.</p>
+            </div>
+            <!--
+          <div class="col-md-3">
+            <h3>SMS and Email Notifications</h3>
+            <p>Choose from a variety of email providers. We currently support Mandrill, Sendgrid and SendWithUs, and the list is growing. </p>
+          </div>
+          <div class="col-md-3">
+            <h3>Featureful Process Queue</h3>
+            <p>Choose from a variety of email providers. We currently support Mandrill, Sendgrid and SendWithUs, and the list is growing. </p>
+          </div>
+          -->
+        </div>
     </div>
 
     <div class="signup">
