@@ -81,9 +81,9 @@ var pq = {
         load_priority_number_modal_content : function(){
             $('body').on('click', '.priority-number', function(e){
                 e.preventDefault();
-                name = $(this).attr('data-name') ? $(this).attr('data-name') : 'N/A';
-                phone = $(this).attr('data-phone') ? $(this).attr('data-phone') : 'N/A';
-                email = $(this).attr('data-email') ? $(this).attr('data-email') : 'N/A';
+                name = $(this).attr('data-name') ? $(this).attr('data-name') : 'Not specified';
+                phone = $(this).attr('data-phone') ? $(this).attr('data-phone') : 'Not specified';
+                email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
                 priority_number = $(this).html();
 
                 $('#priority-number-modal .modal-title').html('#' + priority_number);
