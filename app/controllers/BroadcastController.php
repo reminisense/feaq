@@ -80,21 +80,31 @@ class BroadcastController extends BaseController{
       $data->box1->number = '';
       $data->box1->terminal = '';
       $data->box1->rank = '';
-      $data->box2->number = '';
-      $data->box2->terminal = '';
-      $data->box2->rank = '';
-      $data->box3->number = '';
-      $data->box3->terminal = '';
-      $data->box3->rank = '';
-      $data->box4->number = '';
-      $data->box4->terminal = '';
-      $data->box4->rank = '';
-      $data->box5->number = '';
-      $data->box5->terminal = '';
-      $data->box5->rank = '';
-      $data->box6->number = '';
-      $data->box6->terminal = '';
-      $data->box6->rank = '';
+      if (isset($data->box2)) {
+        $data->box2->number = '';
+        $data->box2->terminal = '';
+        $data->box2->rank = '';
+      }
+      if (isset($data->box3)) {
+        $data->box3->number = '';
+        $data->box3->terminal = '';
+        $data->box3->rank = '';
+      }
+      if (isset($data->box4)) {
+        $data->box4->number = '';
+        $data->box4->terminal = '';
+        $data->box4->rank = '';
+      }
+      if (isset($data->box5)) {
+        $data->box5->number = '';
+        $data->box5->terminal = '';
+        $data->box5->rank = '';
+      }
+      if (isset($data->box6)) {
+        $data->box6->number = '';
+        $data->box6->terminal = '';
+        $data->box6->rank = '';
+      }
       $data->get_num = '';
       $data->date = date("mdy");
       $encode = json_encode($data);
