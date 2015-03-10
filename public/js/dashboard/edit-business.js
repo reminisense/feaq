@@ -81,6 +81,7 @@ var eb = {
 
         $scope.terminals = [];
         $scope.users = [];
+        $scope.analytics = [];
 
         $scope.number_start = 1;
         //$scope.number_limit = 99;
@@ -111,6 +112,7 @@ var eb = {
             $scope.frontline_secret = business.frontline_sms_secret;
             $scope.frontline_url = business.frontline_sms_url
             $scope.terminals = business.terminals;
+            $scope.analytics = business.analytics;
 
         }
 
