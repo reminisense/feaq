@@ -14,10 +14,11 @@
                     <div class="form-group row">
 
                         <ul class="nav nav-tabs nav-justified" id="editbiz-tabs">
-                          <li class="active"><a href="#bizdetails" data-toggle="tab">Business Details</a></li>
-                          <li> <a href="#bizterminals" data-toggle="tab">Terminals</a></li>
-                          <li> <a href="#bizqueuesettings" data-toggle="tab">Queue Settings</a></li>
-                          <li> <a href="#bizbroadcast" data-toggle="tab" ng-click="currentActiveTheme(business_id)">Broadcast Page</a></li>
+                            <li class="active"><a href="#bizdetails" data-toggle="tab">Business Details</a></li>
+                            <li> <a href="#bizterminals" data-toggle="tab">Business Terminals</a></li>
+                            <li> <a href="#bizqueuesettings" data-toggle="tab">Queue Settings</a></li>
+                            <li> <a href="#bizbroadcast" data-toggle="tab" ng-click="currentActiveTheme(business_id)">Broadcast Page</a></li>
+                            <li> <a href="#bizanalytics" data-toggle="tab">Business Analytics</a></li>
                         </ul>
                         <div class="col-md-12">
                             <div class="alert" id="edit_message" style="display: none;">
@@ -267,6 +268,7 @@
                                 </div>
                                 <!-- accordion -->
                             </div>
+
                             <div role="tabpanel" class="tab-pane fade" id="bizbroadcast" aria-labelledby="profile-tab">
                                 <div class="col-md-12">
                                     <h5>BROADCAST LAYOUT</h5><br>
@@ -312,6 +314,44 @@
                                         <p class="orange h5 nomg 0-6 activated" style="display: none;">Active</p>
                                         <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 0-6 theme-btn" ng-click="activateTheme('0-6', business_id)">Activate</a>
                                     </span>
+                                </div>
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane fade" id="bizanalytics" aria-lavelledby="profile-tab">
+                                <div class="col-md-12">
+                                    <h5>BUSINESS ANALYTICS</h5>
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <td style="padding-top: 20px;">Queued Numbers Remaining: </td>
+                                                <td style="padding-top: 20px;">@{{ analytics.remaining_count ? analytics.remaining_count : 0 }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total Numbers Issued: </td>
+                                                <td>@{{ analytics.total_numbers_issued ? analytics.total_numbers_issued : 0 }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total Numbers Called: </td>
+                                                <td>@{{ analytics.total_numbers_called ? analytics.total_numbers_called : 0 }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total Numbers Served: </td>
+                                                <td>@{{ analytics.total_numbers_served ? analytics.total_numbers_served : 0 }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total Numbers Dropped: </td>
+                                                <td>@{{ analytics.total_numbers_dropped ? analytics.total_numbers_dropped : 0 }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Average Waiting Time: </td> <!-- from number issued to calling -->
+                                                <td>@{{ analytics.average_time_called ? analytics.average_time_called : 0 }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Average Serving Time: </td> <!-- from number called to served -->
+                                                <td>@{{ analytics.average_time_served ? analytics.average_time_served : 0 }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>

@@ -76,6 +76,7 @@ class Business extends Eloquent{
         $business = Business::where('business_id', '=', $business_id)->get()->first();
         $terminals = Terminal::getTerminalsByBusinessId($business_id);
         $terminals = Terminal::getAssignedTerminalWithUsers($terminals);
+        $analytics = Analytics::getBusinessAnalytics($business_id);
         $first_service = Service::getFirstServiceOfBusiness($business_id);
         $business_details = [
             'business_id' => $business_id,
@@ -89,7 +90,8 @@ class Business extends Eloquent{
             'terminal_specific_issue' => QueueSettings::terminalSpecificIssue($first_service->service_id),
             'frontline_sms_secret' => QueueSettings::queueSetting('frontline_sms_secret', null, $first_service->service_id),
             'frontline_sms_url' => QueueSettings::queueSetting('frontline_sms_url', null, $first_service->service_id),
-            'terminals' => $terminals
+            'terminals' => $terminals,
+            'analytics' => $analytics
         ];
 
         return $business_details;
