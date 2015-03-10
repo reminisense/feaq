@@ -17,7 +17,7 @@ $(document).ready(function(){
 
     $('body').on('click', '.btn-adduser', function(e){
         e.preventDefault();
-        $(this).parent().next('.inputuser').show();
+        $(this).parent().find('.inputuser').show();
         $(this).hide();
     });
 
