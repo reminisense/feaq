@@ -23,6 +23,9 @@
     <br>
     <h1 style="font-weight:800;font-size:32px; margin-top: 20px; margin-bottom:5px;">Scan this QR Code</h1>
     <p style="font-size:22px;color:#282828; margin-top:2px;">to view our Broadcast Screen</p>
+    <p style="font-size:22px;color:#282828; margin-top:2px;">or</p>
+    <p style="font-size:22px;color:#282828; margin-top:2px;">Visit the link below</p>
+    <h1 style="font-weight:800;font-size:30px; margin-top: 20px; margin-bottom:5px;">{{ $shortlink }}</h1>
   </div>
 </body>
 </html>
