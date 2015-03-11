@@ -22,7 +22,9 @@ class TerminalController extends BaseController{
 
     public function getDelete($terminal_id){
         $business_id = Business::getBusinessIdByTerminalId($terminal_id);
-        Terminal::deleteTerminal($terminal_id);
+        if(TerminalTransaction::terminalActiveNumbers($terminal_id) == 0){
+            Terminal::deleteTerminal($terminal_id);
+        }
         $business = Business::getBusinessDetails($business_id);
         return json_encode(['success' => 1, 'business' => $business]);
     }

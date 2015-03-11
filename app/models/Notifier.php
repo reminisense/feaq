@@ -78,7 +78,7 @@ class Notifier extends Eloquent{
             $priority_number = PriorityQueue::priorityNumber($transaction_number);
             $terminal_name = $terminal_id != 0 ? Terminal::name($terminal_id) : '';
             $business_name = $terminal_id != 0 ? Business::name(Business::getBusinessIdByTerminalId($terminal_id)) : '';
-            $message = "Hello$name! Thank you for using FeatherQ. Your number (# $priority_number ) has been called by $terminal_name in $business_name.";
+            $message = "Hello$name! Thank you for using FeatherQ. Your number (# $priority_number ) has been called by $terminal_name in $business_name. To know more about the status of your queue, log on to FeatherQ.com.";
             Notifier::sendServiceSms($message, $phone, $service_id);
         }
     }
@@ -91,7 +91,7 @@ class Notifier extends Eloquent{
             $service_id = PriorityNumber::serviceId($pq->track_id);
             $name = $name == null ? null : ' ' . $name;
             $priority_number = PriorityQueue::priorityNumber($transaction_number);
-            $message = "Hello$name! Thank you for using FeatherQ. Your number (# $priority_number ) will be called soon.";
+            $message = "Hello$name! Thank you for using FeatherQ. Your number (# $priority_number ) will be called soon. To know more about the status of your queue, log on to FeatherQ.com.";
             Notifier:: sendServiceSms($message, $phone, $service_id);
         }
     }

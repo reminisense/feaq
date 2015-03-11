@@ -91,7 +91,7 @@ class Analytics extends Eloquent{
             'total_numbers_issued' => Analytics::getTotalNumbersIssuedByBusinessId($business_id),
             'total_numbers_called' => Analytics::getTotalNumbersCalledByBusinessId($business_id),
             'total_numbers_served' => Analytics::getTotalNumbersServedByBusinessId($business_id),
-            'total_number_dropped' => Analytics::getTotalNumbersDroppedByBusinessId($business_id),
+            'total_numbers_dropped' => Analytics::getTotalNumbersDroppedByBusinessId($business_id),
             'average_time_called' => Analytics::getAverageTimeCalledByBusinessId($business_id),
             'average_time_served' => Analytics::getAverageTimeServedByBusinessId($business_id)
         ];
