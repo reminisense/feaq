@@ -72,7 +72,17 @@ class TerminalTransaction extends Eloquent{
         TerminalTransaction::where('transaction_number', '=', $transaction_number)->update($values);
     }
 
-  public static function getTimesByTransactionNumber($transaction_number) {
-    return TerminalTransaction::where('transaction_number', '=', $transaction_number)->select(array('time_queued', 'time_completed', 'time_removed'))->get();
-  }
+    public static function getTimesByTransactionNumber($transaction_number) {
+        return TerminalTransaction::where('transaction_number', '=', $transaction_number)->select(array('time_queued', 'time_completed', 'time_removed'))->get();
+    }
+
+    public static function terminalActiveNumbers($terminal_id){
+        $results = TerminalTransaction::where('terminal_id', '=', $terminal_id)
+            ->where('time_queued', '!=', 0)
+            ->where('time_completed', '=', 0)
+            ->where('time_removed', '=', 0)
+            ->get()
+            ->toArray();
+        return $results ? count($results) : 0;
+    }
 }
