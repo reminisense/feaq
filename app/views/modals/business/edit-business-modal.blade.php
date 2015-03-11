@@ -172,9 +172,9 @@
                                                         <span ng-if="terminal.users.length != 0">
                                                             <span ng-repeat="user in terminal.users">
                                                                 <span>@{{ user.first_name + ' ' + user.last_name }}</span>
-                                                                <div class="block mb10" style="margin-top: 5px;" ng-if="terminal.users.length < 3">
-                                                                    <span class="inline-btns">
-                                                                        <a href="#" class="vtn-boxy btn-xs btn-primary" ng-click="unassignFromTerminal(user.user_id, user.terminal_id)"><span class="glyphicon glyphicon-remove"></span> Remove</a>
+                                                                <div class="block mb10" style="margin-top: 5px;">
+                                                                    <a href="#" class="vtn-boxy btn-xs btn-primary" ng-click="unassignFromTerminal(user.user_id, user.terminal_id)"><span class="glyphicon glyphicon-remove"></span> Remove</a>
+                                                                    <span class="inline-btns" ng-if="terminal.users.length < 3">
                                                                         <span ng-if="user.user_id == terminal.users[terminal.users.length - 1].user_id">
                                                                             <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary"><span class="glyphicon glyphicon-plus"></span> Add User</a>
                                                                             <div class="mb10 mt10 inputuser" style="display: none">
@@ -183,6 +183,11 @@
                                                                                 </form>
                                                                                 <div class="alert alert-danger" ng-show="user_found == false"> User does not exist. </div>
                                                                             </div>
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="inline-btns" ng-if="terminal.users.length == 3">
+                                                                        <span ng-if="user.user_id == terminal.users[terminal.users.length - 1].user_id">
+                                                                            <a class="btn-boxy btn-xs btn-disabled"><span class="glyphicon glyphicon-plus"></span> Add User</a>
                                                                         </span>
                                                                     </span>
                                                                 </div>

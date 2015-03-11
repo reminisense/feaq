@@ -1060,7 +1060,7 @@ strong {
     cursor: default;
 }
 .btn-disabled:hover {
-    background-color: #bbb;
+    background-color: #bbb!important;
 }
 .btn-disabled:focus,
 .btn-disabled:active:focus {
