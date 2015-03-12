@@ -219,6 +219,7 @@
                                                             <form id="inputterminal-form" ng-submit="createTerminal(terminal_name)">
                                                                 <input id="inputterminal" type="text" class="form-control" ng-model="terminal_name">
                                                             </form>
+                                                            <div style="display: none;" class="alert alert-danger terminal-error-msg"> Terminal name already exists.</div>
                                                         </div>
                                                     </td>
                                                     <td>

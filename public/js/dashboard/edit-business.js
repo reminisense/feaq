@@ -182,9 +182,14 @@ var eb = {
             data = { name : terminal_name };
             $http.post('terminal/create/' + $scope.business_id, data)
                 .success(function(response){
-                    setBusinessFields(response.business);
-                    $scope.terminal_name = '';
-                    eb.jquery_functions.hide_add_terminal_form();
+                    if(response.status == 0){
+                        $('.terminal-error-msg').show();
+                    }else{
+                        setBusinessFields(response.business);
+                        $scope.terminal_name = '';
+                        eb.jquery_functions.hide_add_terminal_form();
+                        $('.terminal-error-msg').hide();
+                    }
                 });
         }
 
