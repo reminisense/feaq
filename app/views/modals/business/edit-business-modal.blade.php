@@ -158,7 +158,7 @@
                                                     </td>
                                                     <td>
                                                         <span class="terminal-name-display" terminal_id="@{{ terminal.terminal_id }}" style="font-size: 14px; ">@{{ terminal.name }}</span>
-                                                        <input type="text" class="terminal-name-update" terminal_id="@{{ terminal.terminal_id }}" value="@{{ terminal.name }}" style="display: none;">
+                                                        <input type="text" class="terminal-name-update terminal-update-field" terminal_id="@{{ terminal.terminal_id }}" value="@{{ terminal.name }}" style="display: none;">
                                                         <div class="mt10 mb10">
                                                             <span class="inline-btns">
                                                                 <a href="#" ng-click="editTerminal(terminal.terminal_id)" class="edit-terminal-button btn-boxy btn-xs btn-primary" terminal_id="@{{ terminal.terminal_id }}" ><span class="glyphicon glyphicon-pencil"></span> Edit</a>
@@ -172,7 +172,7 @@
                                                         <span ng-if="terminal.users.length != 0">
                                                             <span ng-repeat="user in terminal.users">
                                                                 <span>@{{ user.first_name + ' ' + user.last_name }}</span>
-                                                                <div class="block mb10" style="margin-top: 5px;">
+                                                                <div class="block mb10 mt10">
                                                                     <a href="#" class="vtn-boxy btn-xs btn-primary" ng-click="unassignFromTerminal(user.user_id, user.terminal_id)"><span class="glyphicon glyphicon-remove"></span> Remove</a>
                                                                     <span class="inline-btns" ng-if="terminal.users.length < 3">
                                                                         <span ng-if="user.user_id == terminal.users[terminal.users.length - 1].user_id">
