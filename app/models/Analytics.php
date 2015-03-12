@@ -114,6 +114,10 @@ class Analytics extends Eloquent{
         return count(Analytics::getQueueAnalyticsRows(['action' => ['=', 1], 'business_id' => ['=', $business_id ]]));
     }
 
+    public static function getTotalNumbersCalledByBusinessIdWithDate($business_id, $startdate, $enddate){
+        return count(Analytics::getQueueAnalyticsRows(['action' => ['=', 1], 'business_id' => ['=', $business_id ], 'date' => ['>=', $startdate], 'date' => ['<=', $enddate]]));
+    }
+
     public static function getTotalNumbersServedByBusinessId($business_id){
         return count(Analytics::getQueueAnalyticsRows(['action' => ['=', 2], 'business_id' => ['=', $business_id ]]));
     }

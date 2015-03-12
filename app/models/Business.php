@@ -210,6 +210,39 @@ class Business extends Eloquent{
       Business::where('business_id', '=', $business_id)->delete();
     }
 
+    /*
+     * @author: CSD
+     * @description get called numbers of all services under each business
+     */
+    public static function getPopularBusinesses(){
+        $business_ids = Business::select('business_id')->get();
+        $business_arr = [];
+        foreach($business_ids as $business){
+            array_push($business_arr, Business::getBusinessArray($business->business_id));
+        }
+
+        $date = new DateTime();
+        $newDate = $date->modify('-7 days');
+
+        $enddate = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+        $startdate = mktime(0, 0, 0, $newDate->format('m'), $newDate->format('d'), $newDate->format('Y'));
+
+        $currMax = 0;
+        $new_bizz_array = [];
+        foreach($business_arr as $b_id => $business) {
+            $count = Analytics::getTotalNumbersCalledByBusinessIdWithDate($business->business_id, $startdate, $enddate);
+            $business_arr[$b_id]->count = $count;
+            if($count > $currMax){
+                array_unshift($new_bizz_array, $business_arr[$b_id]);
+                $currMax = $count;
+            } else {
+                array_push($new_bizz_array, $business_arr[$b_id]);
+            }
+        }
+
+        return $new_bizz_array;
+    }
+
     public static function getActiveBusinesses() {
       /*
       return DB::table('business')->join('branch', 'business.business_id', '=', 'branch.business_id')
