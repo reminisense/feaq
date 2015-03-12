@@ -5,6 +5,8 @@
     {{ HTML::script('js/user/user.js') }}
     {{ HTML::script('js/search-business.js') }}
     {{ HTML::script('js/jquery.timepicker.min.js') }}
+    {{ HTML::script('js/google-analytics/googleAnalytics.js') }}
+    {{ HTML::script('js/google-analytics/ga-page_front.js') }}
 @stop
 
 @section('body')
