@@ -230,6 +230,7 @@
                                                 </tr>
                                                 </tbody>
                                             </table>
+                                            <div class="alert alert-danger" ng-show="terminal_delete_error"> @{{ terminal_delete_error }}</div>
                                         </div>
                                     </div>
                                 </div>

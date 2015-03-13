@@ -113,8 +113,9 @@ var eb = {
             $scope.frontline_url = business.frontline_sms_url
             $scope.terminals = business.terminals;
             $scope.analytics = business.analytics;
+            $scope.terminal_delete_error = business.error ? business.error : null;
 
-        }
+       }
 
         $scope.unassignFromTerminal = function(user_id, terminal_id){
             $http.get('terminal/unassign/' + user_id + '/' + terminal_id)

@@ -22,11 +22,15 @@ class TerminalController extends BaseController{
 
     public function getDelete($terminal_id){
         $business_id = Business::getBusinessIdByTerminalId($terminal_id);
+        $error = 'There are still pending numbers for this terminal.';
         if(TerminalTransaction::terminalActiveNumbers($terminal_id) == 0){
             Terminal::deleteTerminal($terminal_id);
+            $error = null;
         }
         $business = Business::getBusinessDetails($business_id);
+        $business['error'] = $error;
         return json_encode(['success' => 1, 'business' => $business]);
+
     }
 
     public function postCreate($business_id){
