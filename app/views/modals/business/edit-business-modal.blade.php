@@ -14,10 +14,11 @@
                     <div class="form-group row">
 
                         <ul class="nav nav-tabs nav-justified" id="editbiz-tabs">
-                          <li class="active"><a href="#bizdetails" data-toggle="tab">Business Details</a></li>
-                          <li> <a href="#bizterminals" data-toggle="tab">Terminals</a></li>
-                          <li> <a href="#bizqueuesettings" data-toggle="tab">Queue Settings</a></li>
-                          <li> <a href="#bizbroadcast" data-toggle="tab" ng-click="currentActiveTheme(business_id)">Broadcast Page</a></li>
+                            <li class="active"><a href="#bizdetails" data-toggle="tab">Business Details</a></li>
+                            <li> <a href="#bizterminals" data-toggle="tab">Business Terminals</a></li>
+                            <li> <a href="#bizqueuesettings" data-toggle="tab">Queue Settings</a></li>
+                            <li> <a href="#bizbroadcast" data-toggle="tab" ng-click="currentActiveTheme(business_id)">Broadcast Page</a></li>
+                            <li> <a href="#bizanalytics" data-toggle="tab">Business Analytics</a></li>
                         </ul>
                         <div class="col-md-12">
                             <div class="alert" id="edit_message" style="display: none;">
@@ -36,7 +37,7 @@
                                     </div>
                                     <div class="col-md-12">
                                         <small>Business Address</small>
-                                        <input type="text" class="form-control" id="edit_business_address" value="@{{ business_address }}" ng-model="business_address" ng-autocomplete options="options" details="details">
+                                        <input type="text" class="form-control" value="@{{ business_address }}" ng-model="business_address" ng-autocomplete options="options" details="details">
                                     </div>
                                     <div class="col-md-12">
                                         <small>Facebook URL</small>
@@ -157,7 +158,7 @@
                                                     </td>
                                                     <td>
                                                         <span class="terminal-name-display" terminal_id="@{{ terminal.terminal_id }}" style="font-size: 14px; ">@{{ terminal.name }}</span>
-                                                        <input type="text" class="terminal-name-update" terminal_id="@{{ terminal.terminal_id }}" value="@{{ terminal.name }}" style="display: none;">
+                                                        <input type="text" class="terminal-name-update terminal-update-field" terminal_id="@{{ terminal.terminal_id }}" value="@{{ terminal.name }}" style="display: none;">
                                                         <div class="mt10 mb10">
                                                             <span class="inline-btns">
                                                                 <a href="#" ng-click="editTerminal(terminal.terminal_id)" class="edit-terminal-button btn-boxy btn-xs btn-primary" terminal_id="@{{ terminal.terminal_id }}" ><span class="glyphicon glyphicon-pencil"></span> Edit</a>
@@ -165,27 +166,46 @@
                                                                 <a href="#" ng-click="deleteTerminal(terminal.terminal_id)" class="btn-boxy btn-xs btn-primary"><span class="glyphicon glyphicon-trash"></span> Delete</a>
                                                             </span>
                                                         </div>
-
+                                                        <div style="display: none;" class="alert alert-danger terminal-error-message" terminal_id="@{{ terminal.terminal_id }}"> Terminal name already exists.</div>
                                                     </td>
                                                     <td>
                                                         <span ng-if="terminal.users.length != 0">
-                                                            <span ng-repeat="user in terminal.users">@{{ user.first_name + ' ' + user.last_name }}</span>
-                                                        </span>
-                                                        <div class="block mb10" style="margin-top: 5px;" ng-if="terminal.users.length < 3">
-                                                            <span class="inline-btns">
-                                                                <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary"><span class="glyphicon glyphicon-add"></span> Add User</a>
-                                                                <span ng-repeat="user in terminal.users">
+                                                            <span ng-repeat="user in terminal.users">
+                                                                <span>@{{ user.first_name + ' ' + user.last_name }}</span>
+                                                                <div class="block mb10 mt10">
                                                                     <a href="#" class="vtn-boxy btn-xs btn-primary" ng-click="unassignFromTerminal(user.user_id, user.terminal_id)"><span class="glyphicon glyphicon-remove"></span> Remove</a>
-                                                                </span>
+                                                                    <span class="inline-btns" ng-if="terminal.users.length < 3">
+                                                                        <span ng-if="user.user_id == terminal.users[terminal.users.length - 1].user_id">
+                                                                            <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary"><span class="glyphicon glyphicon-plus"></span> Add User</a>
+                                                                            <div class="mb10 mt10 inputuser" style="display: none">
+                                                                                <form ng-submit="emailSearch(search_user, terminal.terminal_id)">
+                                                                                    <input type="text" class="form-control" ng-model="search_user">
+                                                                                </form>
+                                                                                <div class="alert alert-danger" ng-show="user_found == false"> User does not exist. </div>
+                                                                            </div>
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="inline-btns" ng-if="terminal.users.length == 3">
+                                                                        <span ng-if="user.user_id == terminal.users[terminal.users.length - 1].user_id">
+                                                                            <a class="btn-boxy btn-xs btn-disabled"><span class="glyphicon glyphicon-plus"></span> Add User</a>
+                                                                        </span>
+                                                                    </span>
+                                                                </div>
                                                             </span>
-                                                            <div class="mb10 mt10 inputuser" style="display: none">
-                                                                <form ng-submit="emailSearch(search_user, terminal.terminal_id)">
-                                                                    <input type="text" class="form-control" ng-model="search_user">
-                                                                </form>
-                                                                <div class="alert alert-danger" ng-show="user_found == false"> User does not exist. </div>
-                                                            </div>
-                                                        </div>
-                                                        <div style="display: none;" class="alert alert-danger terminal-error-message" terminal_id="@{{ terminal.terminal_id }}"> Terminal name already exists.</div>
+                                                        </span>
+                                                        <span ng-if="terminal.users.length == 0">
+                                                            <div class="mt30">
+                                                                <span ng-if="user.user_id == terminal.users[terminal.users.length - 1].user_id">
+                                                                    <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary"><span class="glyphicon glyphicon-plus"></span> Add User</a>
+                                                                    <div class="mb10 mt10 inputuser" style="display: none">
+                                                                        <form ng-submit="emailSearch(search_user, terminal.terminal_id)">
+                                                                            <input type="text" class="form-control" ng-model="search_user">
+                                                                        </form>
+                                                                        <div class="alert alert-danger" ng-show="user_found == false"> User does not exist. </div>
+                                                                    </div>
+                                                                </span>
+                                                             </div>
+                                                        </span>
                                                     </td>
                                                 </tr>
                                                 <!-- -->
@@ -199,6 +219,7 @@
                                                             <form id="inputterminal-form" ng-submit="createTerminal(terminal_name)">
                                                                 <input id="inputterminal" type="text" class="form-control" ng-model="terminal_name">
                                                             </form>
+                                                            <div style="display: none;" class="alert alert-danger terminal-error-msg"> Terminal name already exists.</div>
                                                         </div>
                                                     </td>
                                                     <td>
@@ -209,6 +230,7 @@
                                                 </tr>
                                                 </tbody>
                                             </table>
+                                            <div class="alert alert-danger" ng-show="terminal_delete_error"> @{{ terminal_delete_error }}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -268,6 +290,7 @@
                                 </div>
                                 <!-- accordion -->
                             </div>
+
                             <div role="tabpanel" class="tab-pane fade" id="bizbroadcast" aria-labelledby="profile-tab">
                                 <div class="col-md-12">
                                     <h5>BROADCAST LAYOUT</h5><br>
@@ -313,6 +336,44 @@
                                         <p class="orange h5 nomg 0-6 activated" style="display: none;">Active</p>
                                         <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 0-6 theme-btn" ng-click="activateTheme('0-6', business_id)">Activate</a>
                                     </span>
+                                </div>
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane fade" id="bizanalytics" aria-lavelledby="profile-tab">
+                                <div class="col-md-12">
+                                    <h5>BUSINESS ANALYTICS</h5>
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <td style="padding-top: 20px;">Queued Numbers Remaining: </td>
+                                                <td style="padding-top: 20px;">@{{ analytics.remaining_count ? analytics.remaining_count : 0 }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total Numbers Issued: </td>
+                                                <td>@{{ analytics.total_numbers_issued ? analytics.total_numbers_issued : 0 }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total Numbers Called: </td>
+                                                <td>@{{ analytics.total_numbers_called ? analytics.total_numbers_called : 0 }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total Numbers Served: </td>
+                                                <td>@{{ analytics.total_numbers_served ? analytics.total_numbers_served : 0 }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total Numbers Dropped: </td>
+                                                <td>@{{ analytics.total_numbers_dropped ? analytics.total_numbers_dropped : 0 }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Average Waiting Time: </td> <!-- from number issued to calling -->
+                                                <td>@{{ analytics.average_time_called ? analytics.average_time_called : 0 }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Average Serving Time: </td> <!-- from number called to served -->
+                                                <td>@{{ analytics.average_time_served ? analytics.average_time_served : 0 }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>

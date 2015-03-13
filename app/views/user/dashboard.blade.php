@@ -13,6 +13,8 @@
     {{ HTML::script('js/dashboard/search-business.js') }}
     <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
     {{ HTML::script('js/jquery.geocomplete.js') }}
+    {{ HTML::script('js/google-analytics/googleAnalytics.js') }}
+    {{ HTML::script('js/google-analytics/ga-dashboard.js') }}
 @stop
 
 @section('styles')

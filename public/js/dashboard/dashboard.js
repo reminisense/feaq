@@ -6,7 +6,6 @@ $(document).ready(function(){
 
     $("#user_location").geocomplete();
     $("#business_location").geocomplete();
-    $("#edit_business_address").geocomplete();
     $("#edit_user_location").geocomplete();
 
     $.get('/user/user-status', function(){
@@ -28,6 +27,7 @@ $(document).ready(function(){
     });
 
     $('#start_queuing').on('click', function(){
+        $(this).attr('disabled', '');
         var errorMessage = '';
         if ($('#first_name').val() == ""){
             errorMessage = "First Name field is required. ";
@@ -54,17 +54,20 @@ $(document).ready(function(){
         }
 
         if (errorMessage == ""){
+            $('#start_queuing').html('PROCESSING... &nbsp;<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
             $.ajax({
                 url: $('#verification_form').attr('action'),
                 type: 'POST',
                 dataType: 'text json',
-                data: $('#verification_form').serialize(),
-                success: function(response){
-                    $('#verifyUser').modal('hide');
-                    location.reload();
-                }
+                data: $('#verification_form').serialize()
+            }).done(function(){
+                $('#start_queuing').removeAttr('disabled');
+                $('#start_queuing').html('START QUEUING');
+                $('#verifyUser').modal('hide');
+                location.reload();
             });
         } else {
+            $('#start_queuing').removeAttr('disabled');
             $('#verifyError').text(errorMessage);
             $('#verifyError').fadeIn( 400 );
         }
@@ -155,6 +158,7 @@ $(document).ready(function(){
         }
 
         if (errorMessage == ""){
+            $('#submit_business').html('SUBMITTING... &nbsp;<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
             $.ajax({
                 url: $('#add_business_form').attr('action'),
                 type: 'POST',
@@ -162,6 +166,7 @@ $(document).ready(function(){
                 data: $('#add_business_form').serialize()
             }).done(function(response){
                 $('#submit_business').removeAttr('disabled');
+                $('#submit_business').html('SUBMIT');
                 if(response.success == 1){
                     var terminal = response.terminals[0];
                     $('#setupBusiness').modal('hide');

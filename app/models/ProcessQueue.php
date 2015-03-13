@@ -161,6 +161,9 @@ class ProcessQueue extends Eloquent{
                         'terminal_id' => $number->terminal_id,
                         'terminal_name' => $terminal_name,
                         'time_called' => $number->time_called,
+                        'name' => $number->name,
+                        'phone' => $number->phone,
+                        'email' => $number->email,
                         'box_rank' => Terminal::boxRank($number->terminal_id) // Added by PAG
                     );
                 }else if($called && !$served && $removed){
@@ -226,6 +229,9 @@ class ProcessQueue extends Eloquent{
 				q.priority_number,
 				q.confirmation_code,
 				q.queue_platform,
+				q.name,
+			    q.phone,
+			    q.email,
 				t.transaction_number,
 				t.time_called,
 				t.time_removed,

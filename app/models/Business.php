@@ -76,6 +76,7 @@ class Business extends Eloquent{
         $business = Business::where('business_id', '=', $business_id)->get()->first();
         $terminals = Terminal::getTerminalsByBusinessId($business_id);
         $terminals = Terminal::getAssignedTerminalWithUsers($terminals);
+        $analytics = Analytics::getBusinessAnalytics($business_id);
         $first_service = Service::getFirstServiceOfBusiness($business_id);
         $business_details = [
             'business_id' => $business_id,
@@ -89,7 +90,8 @@ class Business extends Eloquent{
             'terminal_specific_issue' => QueueSettings::terminalSpecificIssue($first_service->service_id),
             'frontline_sms_secret' => QueueSettings::queueSetting('frontline_sms_secret', null, $first_service->service_id),
             'frontline_sms_url' => QueueSettings::queueSetting('frontline_sms_url', null, $first_service->service_id),
-            'terminals' => $terminals
+            'terminals' => $terminals,
+            'analytics' => $analytics
         ];
 
         return $business_details;
@@ -117,7 +119,8 @@ class Business extends Eloquent{
                 $rawTerminals = Terminal::getTerminalsByServiceId($service->service_id);
 
                 /* get terminal id's of assigned terminals */
-                $terminalAssignments = TerminalUser::getTerminalAssignement(Auth::user()->user_id);
+                $user_id = isset(Auth::user()->user_id) ? Auth::user()->user_id : 0; // ARA Checks if user has been logged in
+                $terminalAssignments = TerminalUser::getTerminalAssignement($user_id);
                 $terminalIds = [];
                 foreach($terminalAssignments as $assignment){
                     array_push($terminalIds, $assignment['terminal_id']);
@@ -206,6 +209,39 @@ class Business extends Eloquent{
 
     public static function deleteBusinessByBusinessId($business_id) {
       Business::where('business_id', '=', $business_id)->delete();
+    }
+
+    /*
+     * @author: CSD
+     * @description get called numbers of all services under each business
+     */
+    public static function getPopularBusinesses(){
+        $business_ids = Business::select('business_id')->get();
+        $business_arr = [];
+        foreach($business_ids as $business){
+            array_push($business_arr, Business::getBusinessArray($business->business_id));
+        }
+
+        $date = new DateTime();
+        $newDate = $date->modify('-7 days');
+
+        $enddate = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+        $startdate = mktime(0, 0, 0, $newDate->format('m'), $newDate->format('d'), $newDate->format('Y'));
+
+        $currMax = 0;
+        $new_bizz_array = [];
+        foreach($business_arr as $b_id => $business) {
+            $count = Analytics::getTotalNumbersCalledByBusinessIdWithDate($business->business_id, $startdate, $enddate);
+            $business_arr[$b_id]->count = $count;
+            if($count > $currMax){
+                array_unshift($new_bizz_array, $business_arr[$b_id]);
+                $currMax = $count;
+            } else {
+                array_push($new_bizz_array, $business_arr[$b_id]);
+            }
+        }
+
+        return $new_bizz_array;
     }
 
     public static function getActiveBusinesses() {

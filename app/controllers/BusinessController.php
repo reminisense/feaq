@@ -178,17 +178,42 @@ class BusinessController extends BaseController{
         $business_name = Business::name($business_id);
         $business_address = Business::localAddress($business_id);
 
-        $qr_link = "https://api.qrserver.com/v1/create-qr-code/?data=" . URL('/broadcast/business/' . $business_id) ."&size=302x302"; // CSD Updated QR Link
+        $businesslink = $this->make_bitly_url(url('/broadcast/business/' . $business_id), 'reminisense', 'R_553289e06aaf4ca684392d2dbadec0a8', 'json');
+        $qr_link = "https://api.qrserver.com/v1/create-qr-code/?data=" . $businesslink ."&size=302x302"; // CSD Updated QR Link
 
         $data = [
             'business_name' => $business_name,
             'business_address' => $business_address,
-            'qr_code' => $qr_link
+            'qr_code' => $qr_link,
+            'shortlink' => $businesslink
         ];
 
         $pdf = PDF::loadView('pdf.pdftemplate', $data);
         return $pdf->stream($business_name . '.pdf');
     }
+
+    /* make a URL small */
+    private function make_bitly_url($url, $login, $appkey, $format = 'xml', $version = '2.0.1') {
+        //create the URL
+        $bitly = 'http://api.bit.ly/shorten?version='.$version.'&longUrl='.urlencode($url).'&login='.$login.'&apiKey='.$appkey.'&format='.$format;
+
+        //get the url
+        //could also use cURL here
+        $response = file_get_contents($bitly);
+
+        //parse depending on desired format
+        if(strtolower($format) == 'json')
+        {
+            $json = @json_decode($response,true);
+            return $json['results'][$url]['shortUrl'];
+        }
+        else //xml
+        {
+            $xml = simplexml_load_string($response);
+            return 'http://bit.ly/'.$xml->results->nodeKeyVal->hash;
+        }
+    }
+
 
     public function getBusinessdetails($business_id){
         $business = Business::getBusinessDetails($business_id);

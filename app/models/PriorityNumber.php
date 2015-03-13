@@ -31,4 +31,5 @@ class PriorityNumber extends Eloquent {
   public static function getTrackIdByServiceId($service_id) {
     return PriorityNumber::where('service_id', '=', $service_id)->select(array('track_id'))->get();
   }
+
 }

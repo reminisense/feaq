@@ -87,11 +87,13 @@ class Analytics extends Eloquent{
 
     public static function getBusinessAnalytics($business_id){
         $analytics = [
-            'Remaining Numbers in Queue' => Analytics::getBusinessRemainingCount($business_id),
-            'Total Numbers Issued' => Analytics::getTotalNumbersIssuedByBusinessId($business_id),
-            'Total Numbers Called' => Analytics::getTotalNumbersCalledByBusinessId($business_id),
-            'Total Numbers Served' => Analytics::getTotalNumbersServedByBusinessId($business_id),
-            'Total Numbers Dropped' => Analytics::getTotalNumbersDroppedByBusinessId($business_id),
+            'remaining_count' => Analytics::getBusinessRemainingCount($business_id),
+            'total_numbers_issued' => Analytics::getTotalNumbersIssuedByBusinessId($business_id),
+            'total_numbers_called' => Analytics::getTotalNumbersCalledByBusinessId($business_id),
+            'total_numbers_served' => Analytics::getTotalNumbersServedByBusinessId($business_id),
+            'total_numbers_dropped' => Analytics::getTotalNumbersDroppedByBusinessId($business_id),
+            'average_time_called' => Analytics::getAverageTimeCalledByBusinessId($business_id),
+            'average_time_served' => Analytics::getAverageTimeServedByBusinessId($business_id)
         ];
 
         return $analytics;
@@ -112,6 +114,10 @@ class Analytics extends Eloquent{
         return count(Analytics::getQueueAnalyticsRows(['action' => ['=', 1], 'business_id' => ['=', $business_id ]]));
     }
 
+    public static function getTotalNumbersCalledByBusinessIdWithDate($business_id, $startdate, $enddate){
+        return count(Analytics::getQueueAnalyticsRows(['action' => ['=', 1], 'business_id' => ['=', $business_id ], 'date' => ['>=', $startdate], 'date' => ['<=', $enddate]]));
+    }
+
     public static function getTotalNumbersServedByBusinessId($business_id){
         return count(Analytics::getQueueAnalyticsRows(['action' => ['=', 2], 'business_id' => ['=', $business_id ]]));
     }
@@ -122,6 +128,10 @@ class Analytics extends Eloquent{
 
     public static function getTotalNumbersProcessedByBusinessId($business_id){
         return count(Analytics::getQueueAnalyticsRows(['action' => ['>', 1], 'business_id' => ['=', $business_id ]]));
+    }
+
+    public static function getAverageTimeCalledByBusinessId($business_id){
+        return Analytics::getAverageTimeFromActionByBusinessId(0, 1, $business_id);
     }
 
     public static function getAverageTimeServedByBusinessId($business_id){

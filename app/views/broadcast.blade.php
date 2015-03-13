@@ -18,6 +18,9 @@
     {{ HTML::script('js/angular.js') }}
     {{ HTML::script('js/ngBroadcast.js') }}
 
+    {{ HTML::script('js/google-analytics/googleAnalytics.js') }}
+    {{ HTML::script('js/google-analytics/ga-broadcast.js') }}
+
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -221,7 +224,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 ads-mobile">
+        <div class="col-md-6 ads-mobile" style="@{{ ad_display }}">
             <img class="img-responsive mb30" src="/images/ads.jpg" />
         </div>
     </div>

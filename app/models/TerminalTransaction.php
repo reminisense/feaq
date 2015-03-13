@@ -72,7 +72,21 @@ class TerminalTransaction extends Eloquent{
         TerminalTransaction::where('transaction_number', '=', $transaction_number)->update($values);
     }
 
-  public static function getTimesByTransactionNumber($transaction_number) {
-    return TerminalTransaction::where('transaction_number', '=', $transaction_number)->select(array('time_queued', 'time_completed', 'time_removed'))->get();
-  }
+    public static function getTimesByTransactionNumber($transaction_number) {
+        return TerminalTransaction::where('transaction_number', '=', $transaction_number)->select(array('time_queued', 'time_completed', 'time_removed'))->get();
+    }
+
+    public static function terminalActiveNumbers($terminal_id, $date = null){
+        $date = $date == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $date;
+        $results = TerminalTransaction::where('terminal_id', '=', $terminal_id)
+            ->where('time_queued', '!=', 0)
+            ->where('time_completed', '=', 0)
+            ->where('time_removed', '=', 0)
+            ->where('priority_number.date', '=', $date)
+            ->leftJoin('priority_queue', 'terminal_transaction.transaction_number', '=', 'priority_queue.transaction_number')
+            ->leftJoin('priority_number', 'priority_queue.track_id', '=', 'priority_number.track_id')
+            ->get()
+            ->toArray();
+        return $results ? count($results) : 0;
+    }
 }

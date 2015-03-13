@@ -1060,7 +1060,7 @@ strong {
     cursor: default;
 }
 .btn-disabled:hover {
-    background-color: #bbb;
+    background-color: #bbb!important;
 }
 .btn-disabled:focus,
 .btn-disabled:active:focus {
@@ -1097,14 +1097,14 @@ strong {
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
-    padding: 5px 14px;
+    padding: 5px 10px;
     font-family: 'ralewayregular';
     font-size: 12px;
     font-weight: normal;
     color: #fff;
 }
 .inline-btns a {
-    margin: 4px 0px 4px 4px;
+    margin: 4px 0px 4px 0px;
 }
 #bizbroadcast .inline-btns p {
     height: 22px;
@@ -1116,5 +1116,20 @@ strong {
     margin: 0;
 }
 
+/* CSD Animate */
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
 
 /*******************/

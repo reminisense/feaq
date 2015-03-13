@@ -17,7 +17,7 @@ $(document).ready(function(){
 
     $('body').on('click', '.btn-adduser', function(e){
         e.preventDefault();
-        $(this).parent().next('.inputuser').show();
+        $(this).parent().find('.inputuser').show();
         $(this).hide();
     });
 
@@ -81,6 +81,7 @@ var eb = {
 
         $scope.terminals = [];
         $scope.users = [];
+        $scope.analytics = [];
 
         $scope.number_start = 1;
         //$scope.number_limit = 99;
@@ -111,8 +112,10 @@ var eb = {
             $scope.frontline_secret = business.frontline_sms_secret;
             $scope.frontline_url = business.frontline_sms_url
             $scope.terminals = business.terminals;
+            $scope.analytics = business.analytics;
+            $scope.terminal_delete_error = business.error ? business.error : null;
 
-        }
+       }
 
         $scope.unassignFromTerminal = function(user_id, terminal_id){
             $http.get('terminal/unassign/' + user_id + '/' + terminal_id)
@@ -180,9 +183,14 @@ var eb = {
             data = { name : terminal_name };
             $http.post('terminal/create/' + $scope.business_id, data)
                 .success(function(response){
-                    setBusinessFields(response.business);
-                    $scope.terminal_name = '';
-                    eb.jquery_functions.hide_add_terminal_form();
+                    if(response.status == 0){
+                        $('.terminal-error-msg').show();
+                    }else{
+                        setBusinessFields(response.business);
+                        $scope.terminal_name = '';
+                        eb.jquery_functions.hide_add_terminal_form();
+                        $('.terminal-error-msg').hide();
+                    }
                 });
         }
 
