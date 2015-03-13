@@ -8,6 +8,7 @@ $(document).ready(function(){
 
     $('#editBusiness').on('show.bs.modal', function(){
         eb.jquery_functions.getBusinessDetails();
+        $('#editbiz-tabs li.active a').trigger('click'); //ARA Added to execute functions triggered by clicking tabs
     });
 
     $('body').on('click', '#btn-addterminal',function () {
@@ -84,12 +85,6 @@ var eb = {
         $scope.analytics = [];
 
         $scope.number_start = 1;
-        //$scope.number_limit = 99;
-        //$scope.auto_issue = 0;
-        //$scope.allow_sms = 0;
-        //$scope.allow_remote = 0;
-        //$scope.remote_limit = 0;
-        //$scope.repeat_issue = 0;
         $scope.terminal_specific_issue = 0;
 
         $scope.getBusinessDetails = function(){
@@ -277,69 +272,17 @@ var eb = {
             }
         });
 
-
-        /*****************unya na ni********************/
-
-//        $scope.getQueueSettings = function(){
-//            $http.get(eb.urls.queue_settings.queue_settings_get_url + eb.ids.service_id)
-//                .success(function(response){
-//                    $scope.number_start = response.queue_settings.number_start;
-//                    $scope.number_limit = response.queue_settings.number_limit;
-//
-//                    $scope.auto_issue = response.queue_settings.auto_issue ? true : false;
-//                    $scope.allow_sms = response.queue_settings.allow_sms ? true : false;
-//                    $scope.allow_remote = response.queue_settings.allow_remote ? true : false;
-//                });
-//        };
-//
-//        $scope.updateNumberStart = function(number_start){
-//            updateQueueSetting('number_start', number_start);
-//        };
-//
-//        $scope.updateNumberLimit = function(number_limit){
-//            updateQueueSetting('number_limit', number_limit);
-//        };
-//
-//        $scope.updateAutoIssue = function(auto_issue){
-//            auto_issue = auto_issue ? 1 : 0;
-//            updateQueueSetting('auto_issue', auto_issue);
-//        };
-//
-//        $scope.updateAllowSms = function(allow_sms){
-//            allow_sms = allow_sms ? 1 : 0;
-//            updateQueueSetting('allow_sms', allow_sms);
-//        };
-//
-//        $scope.updateAllowRemote = function(allow_remote){
-//            allow_remote = allow_remote ? 1 : 0;
-//            updateQueueSetting('allow_remote', allow_remote);
-//        };
-//
-//        updateQueueSetting = function(field, value){
-//            console.log('update');
-//            data = {
-//                field : field,
-//                value : value
-//            }
-//            $http.post('/queuesettings/update/' + $scope.business_id)
-//                .success(function(response){
-//                    //@todo update queue settings success function
-//                });
-//        };
-//
-//
-//        /*================================*/
-//        $scope.getQueueSettings();
-
-        $scope.activateTheme = (function(theme_type, business_id) {
+        $scope.activateTheme = (function(theme_type, business_id, show_called_only) {
             $http.post('/broadcast/set-theme', {
                 'business_id' : business_id,
-                'theme_type' : theme_type
+                'theme_type' : theme_type,
+                'show_issued' : !show_called_only //ARA Added for toggling to show only called numbers in broadcast page
             }).success(function(response) {
                 $('.activated').hide();
                 $('.theme-btn').show();
                 $('.'+theme_type+'.theme-btn').hide();
                 $('.'+theme_type+'.activated').show();
+                $scope.theme_type = theme_type;
             });
         });
 
@@ -349,9 +292,12 @@ var eb = {
                 $('.theme-btn').show();
                 $('.'+response.display+'.theme-btn').hide();
                 $('.'+response.display+'.activated').show();
+
+                //ARA Added for toggling to show only called numbers in broadcast page
+                $scope.theme_type = response.display;
+                $scope.show_called_only = response.show_issued != undefined ? !response.show_issued : false;
             });
         });
-
     });
 
 })();

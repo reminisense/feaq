@@ -294,11 +294,16 @@ class ProcessQueue extends Eloquent{
 
         $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
         if($all_numbers){
-            $numbers = array_merge($all_numbers->called_numbers, $all_numbers->uncalled_numbers);
-
             $file_path = public_path() . '/json/' . $business_id . '.json';
             $json = file_get_contents($file_path);
             $boxes = json_decode($json);
+
+            //ARA conditions to determine if only called numbers will be displayed on broadcast page
+            if(!isset($boxes->show_issued) || $boxes->show_issued){
+                $numbers =  array_merge($all_numbers->called_numbers, $all_numbers->uncalled_numbers);
+            }else{
+                $numbers = $all_numbers->called_numbers;
+            }
 
             $max_count = 6; //RDH via ARA : gisugo ko ni ruffy (dili ni tinuod) : set default value for $max_count
             // PAG Addition for Broadcast Display Settings
