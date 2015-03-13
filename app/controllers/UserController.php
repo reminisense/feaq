@@ -86,7 +86,8 @@ class UserController extends BaseController{
         $active_businesses_front = array_slice($active_businesses_front, 0, 5, true); // RDH Implemented to only show maximum 4 businesses
 
 
-        $search_businesses = Business::getPopularBusinesses();
+//        $search_businesses = Business::getPopularBusinesses();
+        $search_businesses = Business::all(); // RDH Re-implenting this to make site usable for the mean time, temporary commit
         $active_businesses = Business::getActiveBusinesses();
 
         if (Auth::check())
