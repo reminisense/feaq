@@ -43,7 +43,7 @@ class TerminalUser extends Eloquent{
         return TerminalUser::insertGetId($values);
     }
 
-    public static function getTerminalAssignement($user_id){
+    public static function getTerminalAssignement($user_id = 0){
         return TerminalUser::where('status', '=', 1)->where('user_id', '=', $user_id)->get()->toArray();
     }
 

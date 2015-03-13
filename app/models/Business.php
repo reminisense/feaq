@@ -119,7 +119,8 @@ class Business extends Eloquent{
                 $rawTerminals = Terminal::getTerminalsByServiceId($service->service_id);
 
                 /* get terminal id's of assigned terminals */
-                $terminalAssignments = TerminalUser::getTerminalAssignement(Auth::user()->user_id);
+                $user_id = isset(Auth::user()->user_id) ? Auth::user()->user_id : 0; // ARA Checks if user has been logged in
+                $terminalAssignments = TerminalUser::getTerminalAssignement($user_id);
                 $terminalIds = [];
                 foreach($terminalAssignments as $assignment){
                     array_push($terminalIds, $assignment['terminal_id']);
