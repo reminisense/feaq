@@ -265,11 +265,21 @@
                                                     <td style="padding-top: 20px;"><input type="checkbox" ng-model="terminal_specific_issue"></td> {{--ARA Terminal-specific issue numbers--}}
                                                 </tr>
                                                 <tr>
-                                                    <td style="padding-top: 20px;">Frontline SMS Secret</td>
+                                                    <td style="padding-top: 20px;">
+                                                        Frontline SMS Secret
+                                                        <a href="https://frontlinecloud.zendesk.com/entries/28395408-Using-the-WebConnection-API-to-send-messages" target="_blank">
+                                                            <span class="glyphicon glyphicon-question-sign" title="How to create a Web Connection in Frontlinesms"></span>
+                                                        </a>
+                                                    </td>
                                                     <td><input class="mb0 form-control" type="password" value="@{{ frontline_secret }}" ng-model="frontline_secret" ></td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="padding-top: 20px;">Frontline SMS URL</td>
+                                                    <td style="padding-top: 20px;">
+                                                        Frontline SMS URL
+                                                        <a href="https://frontlinecloud.zendesk.com/entries/28395408-Using-the-WebConnection-API-to-send-messages" target="_blank">
+                                                            <span class="glyphicon glyphicon-question-sign" title="How to create a Web Connection in Frontlinesms"></span>
+                                                        </a>
+                                                    </td>
                                                     <td><input class="mb0 form-control" type="text" value="@{{ frontline_url }}" ng-model="frontline_url" ></td>
                                                 </tr>
                                                 {{--<tr>
@@ -294,47 +304,48 @@
                             <div role="tabpanel" class="tab-pane fade" id="bizbroadcast" aria-labelledby="profile-tab">
                                 <div class="col-md-12">
                                     <h5>BROADCAST LAYOUT</h5><br>
+                                    <input type="checkbox" ng-model="show_called_only" ng-click="activateTheme(theme_type, business_id, show_called_only)"> Show only called numbers in broadcast page
                                 </div>
                                 <div class="col-md-4 col-xs-6 mb20">
                                     <img src="images/icon-b1.jpg" class="mb10 img-responsive">
                                     <span class="inline-btns">
                                         <p class="orange h5 nomg 1-1 activated" style="display: none;">Active</p>
-                                        <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 1-1 theme-btn" ng-click="activateTheme('1-1', business_id)">Activate</a>
+                                        <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 1-1 theme-btn" ng-click="activateTheme('1-1', business_id, show_called_only)">Activate</a>
                                     </span>
                                 </div>
                                 <div class="col-md-4 col-xs-6 mb20">
                                     <img src="images/icon-b2.jpg" class="mb10 img-responsive">
                                     <span class="inline-btns">
                                         <p class="orange h5 nomg 1-4 activated" style="display: none;">Active</p>
-                                        <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 1-4 theme-btn" ng-click="activateTheme('1-4', business_id)">Activate</a>
+                                        <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 1-4 theme-btn" ng-click="activateTheme('1-4', business_id, show_called_only)">Activate</a>
                                     </span>
                                 </div>
                                 <div class="col-md-4 col-xs-6 mb20">
                                     <img src="images/icon-b3.jpg" class="mb10 img-responsive">
                                     <span class="inline-btns">
                                         <p class="orange h5 nomg 1-6 activated" style="display: none;">Active</p>
-                                        <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 1-6 theme-btn" ng-click="activateTheme('1-6', business_id)">Activate</a>
+                                        <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 1-6 theme-btn" ng-click="activateTheme('1-6', business_id, show_called_only)">Activate</a>
                                     </span>
                                 </div>
                                 <div class="col-md-4 col-xs-6 mb20">
                                     <img src="images/icon-b4.jpg" class="mb10 img-responsive">
                                     <span class="inline-btns">
                                         <p class="orange h5 nomg 0-1 activated" style="display: none;">Active</p>
-                                        <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 0-1 theme-btn" ng-click="activateTheme('0-1', business_id)">Activate</a>
+                                        <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 0-1 theme-btn" ng-click="activateTheme('0-1', business_id, show_called_only)">Activate</a>
                                     </span>
                                 </div>
                                 <div class="col-md-4 col-xs-6 mb20">
                                     <img src="images/icon-b5.jpg" class="mb10 img-responsive">
                                     <span class="inline-btns">
                                         <p class="orange h5 nomg 0-4 activated" style="display: none;">Active</p>
-                                        <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 0-4 theme-btn" ng-click="activateTheme('0-4', business_id)">Activate</a>
+                                        <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 0-4 theme-btn" ng-click="activateTheme('0-4', business_id, show_called_only)">Activate</a>
                                     </span>
                                 </div>
                                 <div class="col-md-4 col-xs-6 mb20">
                                     <img src="images/icon-b6.jpg" class="mb10 img-responsive">
                                     <span class="inline-btns">
                                         <p class="orange h5 nomg 0-6 activated" style="display: none;">Active</p>
-                                        <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 0-6 theme-btn" ng-click="activateTheme('0-6', business_id)">Activate</a>
+                                        <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 0-6 theme-btn" ng-click="activateTheme('0-6', business_id, show_called_only)">Activate</a>
                                     </span>
                                 </div>
                             </div>

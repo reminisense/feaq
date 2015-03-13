@@ -119,6 +119,7 @@ class BroadcastController extends BaseController{
   public function postSetTheme() {
     $post = json_decode(file_get_contents("php://input"));
     $data = json_decode(file_get_contents(public_path() . '/json/' . $post->business_id . '.json'));
+    $data->show_issued = $post->show_issued;
     $data->display = $post->theme_type;
     if ($post->theme_type == '0-1' || $post->theme_type == '1-1') {
       unset($data->box2);
