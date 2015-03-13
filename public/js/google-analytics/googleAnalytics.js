@@ -9,7 +9,7 @@ var google_analytics = {
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
     },
     create: function(){
-        ga('create', 'UA-54178246-1', { 'cookieDomain' : 'none' });
+        ga('create', 'UA-60680143-1', { 'cookieDomain' : 'none' });
     },
     send: function(page, title){
         var data = {
