@@ -33,7 +33,7 @@
                 }
                 $('.new-businesses').hide();
                 $('#business-search').show();
-                if(response.length != length_limit + 1){
+                if(response.length <= length_limit){
                     length_limit = response.length;
                 }
                 $scope.searchLabel= 'Showing Top '+ length_limit +' Result(s)';
