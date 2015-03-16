@@ -33,4 +33,6 @@ Route::controller('business', 'BusinessController');
 
 Route::controller('terminal', 'TerminalController');
 
+Route::controller('advertisement', 'AdvertisementController');
+
 Route::controller('rest', 'RestController'); /* RDH For Android Webservices*/
