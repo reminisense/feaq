@@ -61,7 +61,12 @@ class TerminalController extends BaseController{
         $terminals = Terminal::getTerminalsByBusinessId($business_id);
 
         foreach($terminals as $terminal){
-            if($terminal['terminal_id'] != $terminal_id && strtolower($terminal['name']) == strtolower($input_terminal_name)){
+
+            /* JCA - string to lower case, remove spaces before and after, and removes whitepaces in between*/
+            $trimmed_input_terminal_name_lower = preg_replace('/\s+/', ' ', trim(strtolower($input_terminal_name)));
+            $trimmed_terminal_name_lower = preg_replace('/\s+/', ' ', trim(strtolower($terminal['name'])));
+
+            if($terminal['terminal_id'] != $terminal_id && $trimmed_terminal_name_lower == $trimmed_input_terminal_name_lower){
                 return false;
             }
         }
