@@ -16,8 +16,8 @@
                         <ul class="nav nav-tabs nav-justified" id="editbiz-tabs">
                             <li class="active"><a href="#bizdetails" data-toggle="tab">Business Details</a></li>
                             <li> <a href="#bizterminals" data-toggle="tab">Business Terminals</a></li>
-                            <li> <a href="#bizqueuesettings" data-toggle="tab">Queue Settings</a></li>
                             <li> <a href="#bizbroadcast" data-toggle="tab" ng-click="currentActiveTheme(business_id)">Broadcast Page</a></li>
+                            <li> <a href="#bizqueuesettings" data-toggle="tab">Queue Settings</a></li>
                             <li> <a href="#bizanalytics" data-toggle="tab">Business Analytics</a></li>
                         </ul>
                         <div class="col-md-12">
@@ -237,70 +237,6 @@
                             </div>
                             </div>
 
-                            <div role="tabpanel" class="tab-pane fade" id="bizqueuesettings" aria-labelledby="profile-tab">
-                                <div class="col-md-12">
-                                    <div>
-                                        <div id="headingTwo">
-                                            <h4 class="mb20">
-                                                <a class="h5 collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                    QUEUE SETTINGS
-                                                </a>
-                                                <span class="caret"></span>
-                                            </h4>
-                                        </div>
-                                        <div id="collapseTwo" class="panel-collapse collapse in">
-                                            <table class="table">
-                                                <tbody>
-                                                {{--RDH Removed Other Queue Settings Since These Do Not Apply To This Release--}}
-                                                {{--<tr>
-                                                    <td>Number Start</td>
-                                                    <td><input class="mb0 form-control" type="text" placeholder="@{{ number_start }}"></td>
-                                                </tr>--}}
-                                                <tr>
-                                                    <td style="padding-top: 20px;">Number Limit</td>
-                                                    <td><input class="mb0 form-control" type="text" value="@{{ queue_limit }}" ng-model="queue_limit" ></td>  {{--RDH Added queue_limit to Edit Business Page--}}
-                                                </tr>
-                                                <tr>
-                                                    <td style="padding-top: 20px;">Show Only Numbers Issued By Terminal</td>
-                                                    <td style="padding-top: 20px;"><input type="checkbox" ng-model="terminal_specific_issue"></td> {{--ARA Terminal-specific issue numbers--}}
-                                                </tr>
-                                                <tr>
-                                                    <td style="padding-top: 20px;">
-                                                        Frontline SMS Secret
-                                                        <a href="https://frontlinecloud.zendesk.com/entries/28395408-Using-the-WebConnection-API-to-send-messages" target="_blank">
-                                                            <span class="glyphicon glyphicon-question-sign" title="How to create a Web Connection in Frontlinesms"></span>
-                                                        </a>
-                                                    </td>
-                                                    <td><input class="mb0 form-control" type="password" value="@{{ frontline_secret }}" ng-model="frontline_secret" ></td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="padding-top: 20px;">
-                                                        Frontline SMS URL
-                                                        <a href="https://frontlinecloud.zendesk.com/entries/28395408-Using-the-WebConnection-API-to-send-messages" target="_blank">
-                                                            <span class="glyphicon glyphicon-question-sign" title="How to create a Web Connection in Frontlinesms"></span>
-                                                        </a>
-                                                    </td>
-                                                    <td><input class="mb0 form-control" type="text" value="@{{ frontline_url }}" ng-model="frontline_url" ></td>
-                                                </tr>
-                                                {{--<tr>
-                                                    <td>Loop numbers automatically.</td>
-                                                    <td><input type="radio">Yes <input type="radio">No </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Allow SMS notification.</td>
-                                                    <td><input type="radio">Yes <input type="radio">No </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Allow Remote Queuing.</td>
-                                                    <td><input type="radio">Yes <input type="radio">No </td>
-                                                </tr>--}}
-                                            </tbody></table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- accordion -->
-                            </div>
-
                             <div role="tabpanel" class="tab-pane fade" id="bizbroadcast" aria-labelledby="profile-tab">
                                 <div class="col-md-12">
                                     <h5>BROADCAST LAYOUT</h5><br>
@@ -350,6 +286,75 @@
                                 </div>
                             </div>
 
+                            <div role="tabpanel" class="tab-pane fade" id="bizqueuesettings" aria-labelledby="profile-tab">
+                                <div class="col-md-12">
+                                    <div>
+                                        <div id="headingTwo">
+                                            <h4 class="mb20">
+                                                <a class="h5 collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                    QUEUE SETTINGS
+                                                </a>
+                                                <span class="caret"></span>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseTwo" class="panel-collapse collapse in">
+                                            <table class="table">
+                                                <tbody>
+                                                {{--RDH Removed Other Queue Settings Since These Do Not Apply To This Release--}}
+                                                {{--<tr>
+                                                    <td>Number Start</td>
+                                                    <td><input class="mb0 form-control" type="text" placeholder="@{{ number_start }}"></td>
+                                                </tr>--}}
+                                                <tr>
+                                                    <td style="padding-top: 20px;">Number Limit</td>
+                                                    <td><input class="mb0 form-control" type="text" value="@{{ queue_limit }}" ng-model="queue_limit" ></td>  {{--RDH Added queue_limit to Edit Business Page--}}
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-top: 20px;">Show Only Numbers Issued By Terminal</td>
+                                                    <td style="padding-top: 20px;"><input type="checkbox" ng-model="terminal_specific_issue"></td> {{--ARA Terminal-specific issue numbers--}}
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-top: 20px;">
+                                                        <strong>*</strong>Frontline SMS Secret
+                                                        <a href="https://frontlinecloud.zendesk.com/entries/28395408-Using-the-WebConnection-API-to-send-messages" target="_blank">
+                                                            <span class="glyphicon glyphicon-question-sign" title="How to create a Web Connection in Frontlinesms"></span>
+                                                        </a>
+                                                    </td>
+                                                    <td><input class="mb0 form-control" type="password" value="@{{ frontline_secret }}" ng-model="frontline_secret" ></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-top: 20px;">
+                                                        <strong>*</strong>Frontline SMS URL
+                                                        <a href="https://frontlinecloud.zendesk.com/entries/28395408-Using-the-WebConnection-API-to-send-messages" target="_blank">
+                                                            <span class="glyphicon glyphicon-question-sign" title="How to create a Web Connection in Frontlinesms"></span>
+                                                        </a>
+                                                    </td>
+                                                    <td><input class="mb0 form-control" type="text" value="@{{ frontline_url }}" ng-model="frontline_url" ></td>
+                                                </tr>
+                                                {{--<tr>
+                                                    <td>Loop numbers automatically.</td>
+                                                    <td><input type="radio">Yes <input type="radio">No </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Allow SMS notification.</td>
+                                                    <td><input type="radio">Yes <input type="radio">No </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Allow Remote Queuing.</td>
+                                                    <td><input type="radio">Yes <input type="radio">No </td>
+                                                </tr>--}}
+                                                </tbody>
+                                            </table>
+                                            <div class="alert alert-warning" role="alert">
+                                                <strong>* FeatherQ Frontline SMS</strong> features will be given for <strong>free</strong> for the next few months.
+                                                However, future developments might classify these features to be given exclusively to premium users without prior notice.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- accordion -->
+                            </div>
+
                             <div role="tabpanel" class="tab-pane fade" id="bizanalytics" aria-lavelledby="profile-tab">
                                 <div class="col-md-12">
                                     <h5>BUSINESS ANALYTICS</h5>
@@ -385,6 +390,10 @@
                                             </tr>
                                         </tbody>
                                     </table>
+                                    <div class="alert alert-warning" role="alert">
+                                        <strong>FeatherQ Business Analytics</strong> features will be given for <strong>free</strong> for the next few months.
+                                        However, future developments might classify these features to be given exclusively to premium users without prior notice.
+                                    </div>
                                 </div>
                             </div>
                         </div>
