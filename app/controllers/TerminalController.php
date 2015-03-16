@@ -61,7 +61,7 @@ class TerminalController extends BaseController{
         $terminals = Terminal::getTerminalsByBusinessId($business_id);
 
         foreach($terminals as $terminal){
-            if($terminal['terminal_id'] != $terminal_id && strtolower($terminal['name']) == strtolower($input_terminal_name)){
+            if($terminal['terminal_id'] != $terminal_id && str_replace(' ', '', strtolower($terminal['name'])) == str_replace(' ', '', strtolower($input_terminal_name))){
                 return false;
             }
         }
