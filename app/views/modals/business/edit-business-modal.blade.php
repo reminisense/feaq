@@ -253,48 +253,53 @@
                                                 <tbody>
                                                 {{--RDH Removed Other Queue Settings Since These Do Not Apply To This Release--}}
                                                 {{--<tr>
-                                                    <td>Number Start</td>
-                                                    <td><input class="mb0 form-control" type="text" placeholder="@{{ number_start }}"></td>
-                                                </tr>--}}
-                                                <tr>
-                                                    <td style="padding-top: 20px;">Number Limit</td>
-                                                    <td><input class="mb0 form-control" type="text" value="@{{ queue_limit }}" ng-model="queue_limit" ></td>  {{--RDH Added queue_limit to Edit Business Page--}}
-                                                </tr>
-                                                <tr>
-                                                    <td style="padding-top: 20px;">Show Only Numbers Issued By Terminal</td>
-                                                    <td style="padding-top: 20px;"><input type="checkbox" ng-model="terminal_specific_issue"></td> {{--ARA Terminal-specific issue numbers--}}
-                                                </tr>
-                                                <tr>
-                                                    <td style="padding-top: 20px;">
-                                                        Frontline SMS Secret
-                                                        <a href="https://frontlinecloud.zendesk.com/entries/28395408-Using-the-WebConnection-API-to-send-messages" target="_blank">
-                                                            <span class="glyphicon glyphicon-question-sign" title="How to create a Web Connection in Frontlinesms"></span>
-                                                        </a>
-                                                    </td>
-                                                    <td><input class="mb0 form-control" type="password" value="@{{ frontline_secret }}" ng-model="frontline_secret" ></td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="padding-top: 20px;">
-                                                        Frontline SMS URL
-                                                        <a href="https://frontlinecloud.zendesk.com/entries/28395408-Using-the-WebConnection-API-to-send-messages" target="_blank">
-                                                            <span class="glyphicon glyphicon-question-sign" title="How to create a Web Connection in Frontlinesms"></span>
-                                                        </a>
-                                                    </td>
-                                                    <td><input class="mb0 form-control" type="text" value="@{{ frontline_url }}" ng-model="frontline_url" ></td>
-                                                </tr>
-                                                {{--<tr>
-                                                    <td>Loop numbers automatically.</td>
-                                                    <td><input type="radio">Yes <input type="radio">No </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Allow SMS notification.</td>
-                                                    <td><input type="radio">Yes <input type="radio">No </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Allow Remote Queuing.</td>
-                                                    <td><input type="radio">Yes <input type="radio">No </td>
-                                                </tr>--}}
-                                            </tbody></table>
+                                                        <td>Number Start</td>
+                                                        <td><input class="mb0 form-control" type="text" placeholder="@{{ number_start }}"></td>
+                                                    </tr>--}}
+                                                    <tr>
+                                                        <td style="padding-top: 20px;">Number Limit</td>
+                                                        <td><input class="mb0 form-control" type="text" value="@{{ queue_limit }}" ng-model="queue_limit" ></td>  {{--RDH Added queue_limit to Edit Business Page--}}
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding-top: 20px;">Show Only Numbers Issued By Terminal</td>
+                                                        <td style="padding-top: 20px;"><input type="checkbox" ng-model="terminal_specific_issue"></td> {{--ARA Terminal-specific issue numbers--}}
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding-top: 20px;">
+                                                            <strong>*</strong>Frontline SMS Secret
+                                                            <a href="https://frontlinecloud.zendesk.com/entries/28395408-Using-the-WebConnection-API-to-send-messages" target="_blank">
+                                                                <span class="glyphicon glyphicon-question-sign" title="How to create a Web Connection in Frontlinesms"></span>
+                                                            </a>
+                                                        </td>
+                                                        <td><input class="mb0 form-control" type="password" value="@{{ frontline_secret }}" ng-model="frontline_secret" ></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding-top: 20px;">
+                                                            <strong>*</strong>Frontline SMS URL
+                                                            <a href="https://frontlinecloud.zendesk.com/entries/28395408-Using-the-WebConnection-API-to-send-messages" target="_blank">
+                                                                <span class="glyphicon glyphicon-question-sign" title="How to create a Web Connection in Frontlinesms"></span>
+                                                            </a>
+                                                        </td>
+                                                        <td><input class="mb0 form-control" type="text" value="@{{ frontline_url }}" ng-model="frontline_url" ></td>
+                                                    </tr>
+                                                    {{--<tr>
+                                                        <td>Loop numbers automatically.</td>
+                                                        <td><input type="radio">Yes <input type="radio">No </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Allow SMS notification.</td>
+                                                        <td><input type="radio">Yes <input type="radio">No </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Allow Remote Queuing.</td>
+                                                        <td><input type="radio">Yes <input type="radio">No </td>
+                                                    </tr>--}}
+                                                </tbody>
+                                            </table>
+                                            <div class="alert alert-warning" role="alert">
+                                                <strong>* FeatherQ Frontline SMS</strong> features will be given for <strong>free</strong> for the next few months.
+                                                However, future developments might classify these features to be given exclusively to premium users without prior notice.
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -385,6 +390,10 @@
                                             </tr>
                                         </tbody>
                                     </table>
+                                    <div class="alert alert-warning" role="alert">
+                                        <strong>FeatherQ Business Analytics</strong> features will be given for <strong>free</strong> for the next few months.
+                                        However, future developments might classify these features to be given exclusively to premium users without prior notice.
+                                    </div>
                                 </div>
                             </div>
                         </div>
