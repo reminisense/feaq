@@ -6,6 +6,7 @@
 
 @section('scripts')
     {{ HTML::script('js/dashboard/dashboard.js') }}
+    {{ HTML::script('js/jquery.form.js') }}
     {{ HTML::script('js/dashboard/edit-business.js') }}
     {{ HTML::script('js/jquery.timepicker.min.js') }}
     {{ HTML::script('js/intlTelInput.js') }}

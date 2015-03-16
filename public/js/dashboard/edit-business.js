@@ -26,6 +26,7 @@ $(document).ready(function(){
 });
 
 var eb = {
+
     urls : {
         business: {
             business_details_url : $('#business-details-url').val() + '/'
@@ -63,7 +64,6 @@ var eb = {
             $('#inputterminal').hide();
             $('#btn-addterminal').show();
         }
-
     }
 };
 
@@ -292,10 +292,70 @@ var eb = {
                 $('.theme-btn').show();
                 $('.'+response.display+'.theme-btn').hide();
                 $('.'+response.display+'.activated').show();
+                if (!response.ad_image) {
+                    response.ad_image = '/images/ads.jpg'
+                }
+                $('#ad-preview').attr('src', response.ad_image); // default ad image
 
                 //ARA Added for toggling to show only called numbers in broadcast page
                 $scope.theme_type = response.display;
                 $scope.show_called_only = response.show_issued != undefined ? !response.show_issued : false;
+            });
+        });
+
+        $scope.adImageUpload = (function(business_id) {
+            $('#ad-image-uploader').submit(function() {
+                $(this).ajaxSubmit({
+                    data : {
+                        business_id : business_id
+                    },
+                    //target:   '#ad-preview',   // target element(s) to be updated with server response
+                    beforeSubmit:  (function() {
+                        //check whether browser fully supports all File API
+                        if (window.File && window.FileReader && window.FileList && window.Blob)
+                        {
+
+                            var fsize = $('#ad-image')[0].files[0].size; //get file size
+                            var ftype = $('#ad-image')[0].files[0].type; // get file type
+
+
+                            //allow only valid image file types
+                            switch(ftype)
+                            {
+                                case 'image/png': case 'image/jpeg': case 'image/jpg':
+                                break;
+                                default:
+                                    $("#ad-preview").html("<b>"+ftype+"</b> Unsupported file type!");
+                                    return false
+                            }
+
+                            //Allowed file size is less than 10 MB (1048576)
+                            if(fsize>10485760)
+                            {
+                                $("#ad-preview").html("<b>"+fsize +"</b> Too big Image file! <br />Please reduce the size of your photo using an image editor.");
+                                return false
+                            }
+
+                            $('#submit-btn').hide(); //hide submit button
+                            $('#loading-img').show(); //hide submit button
+                        }
+                        else
+                        {
+                            //Output error to older browsers that do not support HTML5 File API
+                            $("#ad-preview").html("Please upgrade your browser, because your current browser lacks some new features we need!");
+                            return false;
+                        }
+                    }),  // pre-submit callback
+                    resetForm: true,        // reset the form after successful submit
+                    success : function(response) {
+                        var result = jQuery.parseJSON(response);
+                        $('#ad-preview').attr('src', result.src);
+                        $('#loading-img').hide();
+                        $('#submit-btn').show();
+                    }
+                });  //Ajax Submit form
+                // return false to prevent standard browser submit and page navigation
+                return false;
             });
         });
     });

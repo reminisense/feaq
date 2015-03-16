@@ -123,7 +123,7 @@
     <div class="row top-space-20" ng-controller="nowServingCtrl">
 
         <div class="col-md-6 ads" style="@{{ ad_display }}">
-            <img class="img-responsive mb30" src="/images/ads.jpg" />
+            <img class="img-responsive mb30" src="@{{ ad_image }}"/>
         </div>
         <div class="col-md-6">
             <audio id="call-number-sound" src="/audio/doorbell_x.wav" controls preload="auto" autobuffer style="display: none;"></audio>
@@ -225,7 +225,7 @@
             </div>
         </div>
         <div class="col-md-6 ads-mobile" style="@{{ ad_display }}">
-            <img class="img-responsive mb30" src="/images/ads.jpg" />
+            <img class="img-responsive mb30" src="@{{ ad_image }}" />
         </div>
     </div>
 

@@ -355,6 +355,8 @@
                                 <!-- accordion -->
                             </div>
 
+                            @include('modals.business.broadcast')
+
                             <div role="tabpanel" class="tab-pane fade" id="bizanalytics" aria-lavelledby="profile-tab">
                                 <div class="col-md-12">
                                     <h5>BUSINESS ANALYTICS</h5>

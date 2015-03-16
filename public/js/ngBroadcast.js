@@ -172,6 +172,12 @@
                 }
                 else {
                     $scope.ad_display = '';
+                    if (typeof response.ad_image != 'undefined') {
+                        $scope.ad_image = response.ad_image;
+                    }
+                    else {
+                        $scope.ad_image = '/images/ads.jpg';
+                    }
                 }
 
             });
