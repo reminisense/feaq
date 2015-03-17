@@ -22,11 +22,12 @@
             });
         };
 
-        $scope.callNumber = function(){
+        $scope.callNumber = function(transaction_number){
             $scope.isCalling = true;
-            transaction_number = angular.element(document.querySelector('#selected-tnumber')).val();
+            transaction_number = transaction_number != undefined ? transaction_number : angular.element(document.querySelector('#selected-tnumber')).val();
             getResponseResetValues(pq.urls.process_queue.call_number_url + transaction_number + '/' + pq.ids.terminal_id, function(){
                 pq.jquery_functions.remove_and_update_dropdown(transaction_number);
+                $scope.issue_call_number = null;
                 $scope.isCalling = false;
             });
         };
@@ -55,6 +56,27 @@
                 $scope.callNumber();
             });
         };
+
+        $scope.issueAndCall = function(priority_number){
+            if(!isNaN(priority_number)){
+                $http.post(pq.urls.issue_numbers.issue_specific_url + pq.ids.service_id + '/' + pq.ids.terminal_id, {priority_number : priority_number})
+                    .success(function(response){
+                        $scope.callNumber(response.number.transaction_number);
+                    });
+            }else{
+                $scope.isCalling = false;
+            }
+        }
+
+        $scope.issueOrCall = function(){
+            $scope.isCalling = true;
+            if($scope.timebound_numbers.length == 0 && $scope.uncalled_numbers.length == 0){
+                $scope.issueAndCall($scope.issue_call_number);
+            }else{
+                $scope.callNumber();
+            }
+        }
+
 
 
         //non scope functions
@@ -104,7 +126,7 @@
         }
 
         //****************************** refreshing
-        $scope.getAllNumbers();
+            $scope.getAllNumbers();
 
     });
 

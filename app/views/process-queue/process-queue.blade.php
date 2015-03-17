@@ -43,13 +43,18 @@
                             <div class="row mb30">
                                 <div class="col-md-8 col-xs-12">
                                     <input id="selected-tnumber" type="hidden" ng-value="called_number" value=0>
-                                    <button class="btn-select btn-md dropdown-toggle" type="button" data-toggle="dropdown">
-                                        <span id="selected-pnumber">Please select a number</span><span class="caret"></span> <!-- @todo replace this with selected number-->
-                                    </button>
-                                    <ul class="dropdown-menu dd-select" id="uncalled-numbers">
-                                        <li ng-repeat="number in timebound_numbers" data-tnumber="@{{ number.transaction_number }}" data-pnumber="@{{ number.priority_number }}">@{{ number.priority_number }}</li>
-                                        <li ng-repeat="number in uncalled_numbers" data-tnumber="@{{ number.transaction_number }}" data-pnumber="@{{ number.priority_number }}">@{{ number.priority_number }}</li>
-                                    </ul>
+                                    <div ng-show="timebound_numbers.length == 0 && uncalled_numbers.length == 0">
+                                        <input id="issue-call-number" type="number" class="form-control" ng-model="issue_call_number">
+                                    </div>
+                                    <div ng-show="timebound_numbers.length != 0 || uncalled_numbers.length != 0">
+                                        <button class="btn-select btn-md dropdown-toggle" type="button" data-toggle="dropdown">
+                                            <span id="selected-pnumber">Please select a number</span><span class="caret"></span> <!-- @todo replace this with selected number-->
+                                        </button>
+                                        <ul class="dropdown-menu dd-select" id="uncalled-numbers">
+                                            <li ng-repeat="number in timebound_numbers" data-tnumber="@{{ number.transaction_number }}" data-pnumber="@{{ number.priority_number }}">@{{ number.priority_number }}</li>
+                                            <li ng-repeat="number in uncalled_numbers" data-tnumber="@{{ number.transaction_number }}" data-pnumber="@{{ number.priority_number }}">@{{ number.priority_number }}</li>
+                                        </ul>
+                                    </div>
                                 </div>
                                 <div class="col-md-2 col-xs-12">
                                     <div id="pmsg">
@@ -73,7 +78,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2 col-xs-12 text-right">
-                                    <button class="btn btn-lg btn-orange" id="btn-call" ng-click="callNumber()" ng-disabled="isCalling">CALL NUMBER</button>
+                                    <button class="btn btn-lg btn-orange" id="btn-call" ng-click="issueOrCall()" ng-disabled="isCalling">CALL NUMBER</button>
                                 </div>
                             </div>
                         </form>
