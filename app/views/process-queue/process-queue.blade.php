@@ -13,6 +13,8 @@
 {{ HTML::script('js/jquery.timepicker.min.js') }}
 {{ HTML::script('js/process-queue/process-queue.js') }}
 {{ HTML::script('js/process-queue/process-queue-angular.js') }}
+{{ HTML::script('js/google-analytics/googleAnalytics.js') }}
+{{ HTML::script('js/google-analytics/ga-process_queue.js') }}
 @stop
 
 @section('content')
@@ -47,14 +49,14 @@
                                         <input id="issue-call-number" type="number" class="form-control" ng-model="issue_call_number">
                                     </div>
                                     <div ng-show="timebound_numbers.length != 0 || uncalled_numbers.length != 0">
-                                        <button class="btn-select btn-md dropdown-toggle" type="button" data-toggle="dropdown">
-                                            <span id="selected-pnumber">Please select a number</span><span class="caret"></span> <!-- @todo replace this with selected number-->
-                                        </button>
-                                        <ul class="dropdown-menu dd-select" id="uncalled-numbers">
-                                            <li ng-repeat="number in timebound_numbers" data-tnumber="@{{ number.transaction_number }}" data-pnumber="@{{ number.priority_number }}">@{{ number.priority_number }}</li>
-                                            <li ng-repeat="number in uncalled_numbers" data-tnumber="@{{ number.transaction_number }}" data-pnumber="@{{ number.priority_number }}">@{{ number.priority_number }}</li>
-                                        </ul>
-                                    </div>
+                                    <button class="btn-select btn-md dropdown-toggle" type="button" data-toggle="dropdown">
+                                        <span id="selected-pnumber">Please select a number</span><span class="caret"></span> <!-- @todo replace this with selected number-->
+                                    </button>
+                                    <ul class="dropdown-menu dd-select" id="uncalled-numbers">
+                                        <li ng-repeat="number in timebound_numbers" data-tnumber="@{{ number.transaction_number }}" data-pnumber="@{{ number.priority_number }}">@{{ number.priority_number }}</li>
+                                        <li ng-repeat="number in uncalled_numbers" data-tnumber="@{{ number.transaction_number }}" data-pnumber="@{{ number.priority_number }}">@{{ number.priority_number }}</li>
+                                    </ul>
+                                </div>
                                 </div>
                                 <div class="col-md-2 col-xs-12">
                                     <div id="pmsg">
