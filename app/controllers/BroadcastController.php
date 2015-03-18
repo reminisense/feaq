@@ -50,7 +50,8 @@ class BroadcastController extends BaseController{
             ->with('business_id', $business_id) /* RDH Changed error, 'branch_id' to 'business_id' */
             ->with('business_name', $business_name)
             ->with('lines_in_queue', Analytics::getBusinessRemainingCount($business_id))
-            ->with('estimate_serving_time', Analytics::getAverageTimeServedByBusinessId($business_id));
+            ->with('estimate_serving_time', Analytics::getAverageTimeServedByBusinessId($business_id))
+            ->with('first_service', Service::getFirstServiceOfBusiness($business_id));
     }
 
     public function getNumbers($branch_id = 0) {

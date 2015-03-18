@@ -13,6 +13,7 @@
 {{ HTML::script('js/jquery.timepicker.min.js') }}
 {{ HTML::script('js/process-queue/process-queue.js') }}
 {{ HTML::script('js/process-queue/process-queue-angular.js') }}
+{{ HTML::script('js/process-queue/issue-number-angular.js') }}
 {{ HTML::script('js/google-analytics/googleAnalytics.js') }}
 {{ HTML::script('js/google-analytics/ga-process_queue.js') }}
 @stop

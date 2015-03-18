@@ -1,6 +1,6 @@
 (function() {
 
-    var app = angular.module('Broadcast', []);
+    //var app = angular.module('Broadcast', []); --ARA moved declaration to js/broadcast.js
 
     app.controller('nowServingCtrl', function($scope, $http) {
 

@@ -16,6 +16,7 @@
 
     {{ HTML::script('js/jquery1.11.2.js') }}
     {{ HTML::script('js/angular.js') }}
+    {{ HTML::script('js/broadcast.js') }}
     {{ HTML::script('js/ngBroadcast.js') }}
 
     {{ HTML::script('js/google-analytics/googleAnalytics.js') }}
@@ -49,9 +50,9 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                         @if (Auth::check())
-                            Hello {{Auth::user()->first_name}}!
+                        Hello {{Auth::user()->first_name}}!
                         @else
-                            Sign up now!
+                        Sign up now!
                         @endif
                         <span class="caret"></span>
                     </a>
@@ -120,7 +121,7 @@
         </div>
     </div>
 
-    <div class="row top-space-20" ng-controller="nowServingCtrl">
+    <div class="row top-space-20" id="nowServingCtrl" ng-controller="nowServingCtrl">
 
         <div class="col-md-6 ads" style="@{{ ad_display }}">
             <img class="img-responsive mb30" src="@{{ ad_image }}"/>
@@ -210,13 +211,13 @@
                                     will be served <br><span>2hrs from now</span>--}}
                                 </div>
                                 <div class="pull-right">
-                                    @{{ get_num }}
+                                    <div id="get_num">@{{ get_num }}</div>
                                     <span class="tri-right"></span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-5">
-                            <button class="btn btn-orange btn-getnum">
+                            <button class="btn btn-orange btn-getnum" data-toggle="modal" data-target="#remote-queue-modal">
                                 GET THIS NUMBER <span class="glyphicon glyphicon-save"></span>
                             </button>
                         </div>
@@ -243,9 +244,13 @@
         </div>
     </div>
 </div>
+@include('modals.broadcast.remote-queue-modal')
 
 {{ HTML::script('js/bootstrap.min.js') }}
 {{ HTML::script('js/custom.js') }}
+{{ HTML::script('js/process-queue/process-queue.js') }}
+{{ HTML::script('js/process-queue/issue-number-angular.js') }}
+
 
 </body>
 </html>
