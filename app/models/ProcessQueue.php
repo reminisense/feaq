@@ -8,7 +8,7 @@
 
 class ProcessQueue extends Eloquent{
 
-    public static function issueNumber($service_id, $priority_number = null, $date = null, $queue_platform = 'web', $terminal_id = null){
+    public static function issueNumber($service_id, $priority_number = null, $date = null, $queue_platform = 'web', $terminal_id = 0){
         $date = $date == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $date;
 
         $service_properties = ProcessQueue::getServiceProperties($service_id, $date);
@@ -30,7 +30,7 @@ class ProcessQueue extends Eloquent{
         $confirmation_code = strtoupper(substr(md5($track_id), 0, 4));
         $transaction_number = PriorityQueue::createPriorityQueue($track_id, $priority_number, $confirmation_code, $user_id, $queue_platform);
         TerminalTransaction::createTerminalTransaction($transaction_number, $time_queued, $terminal_id);
-        Analytics::insertAnalyticsQueueNumberIssued($transaction_number, $service_id, $date, $time_queued); //insert to queue_analytics
+        Analytics::insertAnalyticsQueueNumberIssued($transaction_number, $service_id, $date, $time_queued, $terminal_id); //insert to queue_analytics
         $number = array(
             'transaction_number' => $transaction_number,
             'priority_number' => $priority_number,

@@ -52,13 +52,16 @@
                 });
         }
 
-        $scope.checkIssueSpecificErrors = function(){
+        $scope.checkIssueSpecificErrors = function(priority_number){
             time_format = /^([0-9]{2})\:([0-9]{2})([ ][aApP][mM])$/g;
             error = false
             error_message = '';
 
-            //check phone number
-            if(isNaN($scope.priority_number)){
+            //variables
+            priority_number = priority_number ? priority_number : $scope.priority_number;
+
+            //check priority number
+            if(isNaN(priority_number) && priority_number % 1 != 0){
                 error = true;
                 error_message += 'Priority number is invalid. ';
             }

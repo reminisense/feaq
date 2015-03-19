@@ -24,7 +24,7 @@
                                     <label><strong>Specific #</strong></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="priority_number" name="priority_number">
+                                    <input type="number" min="1" class="form-control" ng-model="priority_number" name="priority_number">
                                 </div>
                                 <div class="col-md-4">
                                     <label>Time to call</label>

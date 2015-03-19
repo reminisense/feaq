@@ -20,7 +20,7 @@ class IssueNumberController extends BaseController{
         return json_encode(['success' => 1, 'first_number' => $first, 'last_number' => $last,]);
     }
 
-    public function postInsertspecific($service_id, $terminal_id = null){
+    public function postInsertspecific($service_id, $terminal_id = 0){
         $priority_number = Input::get('priority_number');
         $name = Input::get('name');
         $phone = Input::get('phone');

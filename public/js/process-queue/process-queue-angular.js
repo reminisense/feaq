@@ -58,7 +58,7 @@
         };
 
         $scope.issueAndCall = function(priority_number){
-            if(!isNaN(priority_number)){
+            if(!checkTextfieldErrors(priority_number)){
                 $http.post(pq.urls.issue_numbers.issue_specific_url + pq.ids.service_id + '/' + pq.ids.terminal_id, {priority_number : priority_number})
                     .success(function(response){
                         $scope.callNumber(response.number.transaction_number);
@@ -78,7 +78,10 @@
             }
         }
 
-
+        checkTextfieldErrors = function(priority_number){
+            var issue_number_scope = angular.element(document.querySelector('#moreq')).scope();
+            return issue_number_scope.checkIssueSpecificErrors(priority_number);
+        }
 
         //non scope functions
         getResponseResetValues = function(url, successFunc, errorFunc, finallyFunc){

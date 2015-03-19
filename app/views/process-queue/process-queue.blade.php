@@ -47,7 +47,7 @@
                                 <div class="col-md-8 col-xs-12">
                                     <input id="selected-tnumber" type="hidden" ng-value="called_number" value=0>
                                     <div ng-show="timebound_numbers.length == 0 && uncalled_numbers.length == 0">
-                                        <input id="issue-call-number" type="number" class="form-control" ng-model="issue_call_number">
+                                        <input id="issue-call-number" type="number" min="1" class="form-control" ng-model="issue_call_number">
                                     </div>
                                     <div ng-show="timebound_numbers.length != 0 || uncalled_numbers.length != 0">
                                     <button class="btn-select btn-md dropdown-toggle" type="button" data-toggle="dropdown">

@@ -59,8 +59,8 @@ class Analytics extends Eloquent{
 
     }
 
-    public static function insertAnalyticsQueueNumberIssued($transaction_number, $service_id, $date, $time){
-        Analytics::insertAnalyticsQueueNumber(0, $transaction_number, $service_id, $date, $time);
+    public static function insertAnalyticsQueueNumberIssued($transaction_number, $service_id, $date, $time, $terminal_id = 0){
+        Analytics::insertAnalyticsQueueNumber(0, $transaction_number, $service_id, $date, $time, $terminal_id);
     }
 
     public static function insertAnalyticsQueueNumberCalled($transaction_number, $service_id, $date, $time, $terminal_id){
