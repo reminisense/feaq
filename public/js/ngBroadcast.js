@@ -11,7 +11,7 @@
                     window.location.reload(true);
                 }
             });
-            $http.get('/json/'+business_id+'.json').success(function(response) {
+            $http.get('/json/'+business_id+'.json?nocache='+Math.floor((Math.random() * 10000) + 1)).success(function(response) {
                 if ($scope.rank1 != response.box1.rank) {
                     $scope.rank1 = response.box1.rank;
                     $scope.name1 = response.box1.terminal;
