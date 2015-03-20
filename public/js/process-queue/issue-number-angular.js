@@ -58,10 +58,10 @@
             error_message = '';
 
             //variables
-            priority_number = priority_number ? priority_number : $scope.priority_number;
+            priority_number = priority_number != null ? priority_number : $scope.priority_number;
 
             //check priority number
-            if(isNaN(priority_number) && priority_number % 1 != 0){
+            if(isNaN(priority_number) || priority_number % 1 != 0){
                 error = true;
                 error_message += 'Priority number is invalid. ';
             }

@@ -48,7 +48,7 @@
                                     <input type="email" class="form-control" ng-model="email" name="email" required>
                                 </div>
                             </div>
-                            <div class="alert alert-danger" role="alert" ng-show="checkIssueSpecificErrors()">
+                            <div class="alert alert-danger" role="alert" ng-show="checkIssueSpecificErrors(priority_number)">
                                 <div><strong class="message">@{{ issue_specific_error }}</strong></div>
                             </div>
                         </form>
