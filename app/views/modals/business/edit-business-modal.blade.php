@@ -331,6 +331,33 @@
                                                     </td>
                                                     <td><input class="mb0 form-control" type="text" value="@{{ frontline_url }}" ng-model="frontline_url" ></td>
                                                 </tr>
+                                                <tr>
+                                                    <td style="padding-top: 20px;">
+                                                        SMS Notification Settings<strong>:</strong>
+                                                        <span class="glyphicon glyphicon-info-sign" style="color:#337ab7;" title="When to notify users via SMS."></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-top: 10px; padding-left:20px;">Priority Number is called<strong>.</strong></td>
+                                                    <td style="padding-top: 10px;"><input type="checkbox"  ng-model="sms_current_number"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-top: 5px; padding-left:20px;">Priority Number is next in queue<strong>.</strong></td>
+                                                    <td style="padding-top: 5px;;"><input type="checkbox"  ng-model="sms_1_ahead"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-top: 5px; padding-left:20px;">5 Numbers ahead in queue<strong>.</strong></td>
+                                                    <td style="padding-top: 5px;"><input type="checkbox"  ng-model="sms_5_ahead"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-top: 5px; padding-left:20px;">10 Numbers ahead in queue<strong>.</strong></td>
+                                                    <td style="padding-top: 5px;"><input type="checkbox"  ng-model="sms_10_ahead"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-top: 5px; padding-left:20px;"><input id="input_sms_field" type="text" ng-model="input_sms_field"> Numbers ahead in queue.</td>
+                                                    <td style="padding-top: 5px;"><input type="checkbox"  ng-model="sms_blank_ahead"></td>
+                                                </tr>
+
                                                 {{--<tr>
                                                     <td>Loop numbers automatically.</td>
                                                     <td><input type="radio">Yes <input type="radio">No </td>

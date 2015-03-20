@@ -86,6 +86,12 @@ var eb = {
 
         $scope.number_start = 1;
         $scope.terminal_specific_issue = 0;
+        $scope.sms_current_number = 0;
+        $scope.sms_1_ahead  = 0;
+        $scope.sms_5_ahead  = 0;
+        $scope.sms_10_ahead  = 0;
+        $scope.sms_blank_ahead = 0;
+        $scope.input_sms_field = 0;
 
         $scope.getBusinessDetails = function(){
             $http.get(eb.urls.business.business_details_url + $scope.business_id)
@@ -105,7 +111,13 @@ var eb = {
             $scope.queue_limit = business.queue_limit; /* RDH Added queue_limit to Edit Business Page */
             $scope.terminal_specific_issue = business.terminal_specific_issue ? true : false;
             $scope.frontline_secret = business.frontline_sms_secret;
-            $scope.frontline_url = business.frontline_sms_url
+            $scope.frontline_url = business.frontline_sms_url;
+            $scope.sms_current_number = business.sms_current_number ? true : false;
+            $scope.sms_1_ahead  = business.sms_1_ahead ? true : false;
+            $scope.sms_5_ahead  = business.sms_5_ahead ? true : false;
+            $scope.sms_10_ahead  = business.sms_10_ahead ? true : false;
+            $scope.sms_blank_ahead = business.sms_blank_ahead ? true : false;
+            $scope.input_sms_field = business.input_sms_field;
             $scope.terminals = business.terminals;
             $scope.analytics = business.analytics;
             $scope.terminal_delete_error = business.error ? business.error : null;
@@ -220,6 +232,18 @@ var eb = {
                 errorMessage = errorMessage + "Invalid Time Open field input. ";
             }
 
+            if ($scope.sms_blank_ahead == 1 && $scope.input_sms_field == ""){
+                errorMessage = errorMessage + "Please input a valid number for the SMS notification field. ";
+            }else{
+
+                if(($scope.input_sms_field % 1) != 0){
+                errorMessage = errorMessage + "Please input a whole number on the SMS notification field. ";
+                }else if($scope.input_sms_field <= 0 && $scope.input_sms_field !=""){
+                errorMessage = errorMessage + "Please input a positive number on the SMS notification field. ";
+                }
+
+            }
+
             if (errorMessage != ""){
                 $('#edit_message').removeClass('alert-success');
                 $('#edit_message').addClass('alert-danger');
@@ -238,7 +262,13 @@ var eb = {
                     queue_limit: $scope.queue_limit, /* RDH Added queue_limit to Edit Business Page */
                     terminal_specific_issue : $scope.terminal_specific_issue ? 1 : 0,
                     frontline_sms_secret : $scope.frontline_secret,
-                    frontline_sms_url : $scope.frontline_url
+                    frontline_sms_url : $scope.frontline_url,
+                    sms_current_number : $scope.sms_current_number ? 1 : 0,
+                    sms_1_ahead : $scope.sms_1_ahead ? 1 : 0,
+                    sms_5_ahead : $scope.sms_5_ahead ? 1 : 0,
+                    sms_10_ahead : $scope.sms_10_ahead ? 1 : 0,
+                    sms_blank_ahead : $scope.sms_blank_ahead ? 1 : 0,
+                    input_sms_field: $scope.input_sms_field
                 }
 
                 $http.post('/business/edit-business', data)
