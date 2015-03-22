@@ -26,7 +26,7 @@ class IssueNumberController extends BaseController{
         $phone = Input::get('phone');
         $email = Input::get('email');
         $time_assigned = Input::get('time_assigned') ? strtotime(Input::get('time_assigned')) : 0;
-        $terminal_id = QueueSettings::terminalSpecificIssue($service_id) ? $terminal_id : null;
+        $terminal_id = QueueSettings::terminalSpecificIssue($service_id) ? $terminal_id : 0;
 
         $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
         $queue_platform = $priority_number == $next_number || $priority_number == null ? 'web' : 'specific';

@@ -76,6 +76,15 @@ var pq = {
                 pq.jquery_functions.show_tab_content();
                 pq.jquery_functions.set_next_priority_number();
             });
+
+            $('#moreq').on('hide.bs.modal', function(){
+                process_queue = angular.element($("#process-queue-wrapper")).scope();
+                issue_number_modal = angular.element($("#moreq")).scope();
+                issue_number_modal.$apply(function(){
+                    issue_number_modal.priority_number = process_queue.next_number;
+                });
+            });
+
         },
 
         load_priority_number_modal_content : function(){

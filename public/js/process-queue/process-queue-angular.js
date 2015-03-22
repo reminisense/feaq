@@ -13,6 +13,7 @@
 
         $scope.called_number = 0;
         $scope.next_number = 0;
+        $scope.issue_call_number = null;
 
         $scope.getAllNumbers = function(){
             getResponseResetValues(pq.urls.process_queue.all_numbers_url + pq.ids.service_id + '/' + pq.ids.terminal_id, null, null, function(){
@@ -53,34 +54,34 @@
 
         $scope.serveAndCallNext = function(transaction_number){
             $scope.serveNumber(transaction_number, function(){
+                $scope.issue_call_number = null;
                 $scope.callNumber();
             });
         };
 
         $scope.issueAndCall = function(priority_number){
-            if(!checkTextfieldErrors(priority_number)){
-                $http.post(pq.urls.issue_numbers.issue_specific_url + pq.ids.service_id + '/' + pq.ids.terminal_id, {priority_number : priority_number})
-                    .success(function(response){
-                        $scope.callNumber(response.number.transaction_number);
-                    });
-            }else{
-                $scope.isCalling = false;
-            }
+            $http.post(pq.urls.issue_numbers.issue_specific_url + pq.ids.service_id + '/' + pq.ids.terminal_id, {priority_number : priority_number})
+                .success(function(response){
+                    $scope.callNumber(response.number.transaction_number);
+                });
+            $scope.isCalling = false;
         }
 
         $scope.issueOrCall = function(){
             $scope.isCalling = true;
             if($scope.timebound_numbers.length == 0 && $scope.uncalled_numbers.length == 0){
-                priority_number = $scope.issue_call_number == undefined ? null : $scope.issue_call_number;
-                $scope.issueAndCall(priority_number);
+                if(!checkTextfieldErrors($scope.issue_call_number) && $scope.issue_call_number !== undefined){
+                    $scope.issueAndCall($scope.issue_call_number);
+                }else{
+                    $scope.isCalling = false;
+                }
             }else{
                 $scope.callNumber();
             }
         }
 
         checkTextfieldErrors = function(priority_number){
-            var issue_number_scope = angular.element(document.querySelector('#moreq')).scope();
-            return issue_number_scope.checkIssueSpecificErrors(priority_number);
+            return angular.element(document.querySelector('#moreq')).scope().checkIssueSpecificErrors(priority_number);
         }
 
         //non scope functions
