@@ -37,6 +37,30 @@ class QueueSettings extends Eloquent{
         return QueueSettings::queueSetting('frontline_sms_url', FRONTLINE_SMS_URL, $service_id, $date);
     }
 
+    public static function smsCurrentNumber($service_id, $date = null){
+        return QueueSettings::queueSetting('sms_current_number', 0, $service_id, $date);
+    }
+
+    public static function smsOneAhead($service_id, $date = null){
+        return QueueSettings::queueSetting('sms_1_ahead', 0, $service_id, $date);
+    }
+
+    public static function smsFiveAhead($service_id, $date = null){
+        return QueueSettings::queueSetting('sms_5_ahead', 0, $service_id, $date);
+    }
+
+    public static function smsTenAhead($service_id, $date = null){
+        return QueueSettings::queueSetting('sms_10_ahead', 0, $service_id, $date);
+    }
+
+    public static function smsBlankAhead($service_id, $date = null){
+        return QueueSettings::queueSetting('sms_blank_ahead', 0, $service_id, $date);
+    }
+
+    public static function inputSmsField($service_id, $date = null){
+        return QueueSettings::queueSetting('input_sms_field', 0, $service_id, $date);
+    }
+
 
     /**
      * Bsic functions

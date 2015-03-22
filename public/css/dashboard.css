@@ -1132,4 +1132,19 @@ strong {
     to { transform: scale(1) rotate(360deg);}
 }
 
+/* JCA Queue Settings SMS */
+#input_sms_field {
+    border: none;
+    border-bottom: 1px solid #c7c7c7;
+    width: 30px;
+    padding-bottom: 4px;
+    text-align: center;
+}
+
+input#input_sms_field:focus{
+    outline-width: 0;
+    background-color: #fff9e3;
+
+}
+
 /*******************/

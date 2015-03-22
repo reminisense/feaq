@@ -9,11 +9,16 @@
 class Notifier extends Eloquent{
     public $timestamps = false;
 
-    public static function sendNumberCalledNotification($transaction_number){
-        Notifier::sendNumberCalledToAllChannels($transaction_number);
-        Notifier::sendNumberCalledToNextNumber($transaction_number, 1);
-        Notifier::sendNumberCalledToNextNumber($transaction_number, 5);
-        Notifier::sendNumberCalledToNextNumber($transaction_number, 10);
+    public static function sendNumberCalledNotification($transaction_number, $terminal_id){
+
+        $service_id = Terminal::serviceId($terminal_id);
+        $queue_setting = QueueSettings::getServiceQueueSettings($service_id);
+
+        if($queue_setting->sms_current_number) Notifier::sendNumberCalledToAllChannels($transaction_number);
+        if($queue_setting->sms_1_ahead) Notifier::sendNumberCalledToNextNumber($transaction_number, 1);
+        if($queue_setting->sms_5_ahead) Notifier::sendNumberCalledToNextNumber($transaction_number, 5);
+        if($queue_setting->sms_10_ahead) Notifier::sendNumberCalledToNextNumber($transaction_number, 10);
+        if($queue_setting->sms_blank_ahead) Notifier::sendNumberCalledToNextNumber($transaction_number, $queue_setting->input_sms_field);
     }
 
     public static function sendNumberCalledToAllChannels($transaction_number){

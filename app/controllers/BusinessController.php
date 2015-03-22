@@ -161,6 +161,12 @@ class BusinessController extends BaseController{
             $queue_settings->getUpdate($business['business_id'], 'terminal_specific_issue', $business_data['terminal_specific_issue']);
             $queue_settings->getUpdate($business['business_id'], 'frontline_sms_secret', $business_data['frontline_sms_secret']);
             $queue_settings->getUpdate($business['business_id'], 'frontline_sms_url', $business_data['frontline_sms_url']);
+            $queue_settings->getUpdate($business['business_id'], 'sms_current_number', $business_data['sms_current_number']);
+            $queue_settings->getUpdate($business['business_id'], 'sms_1_ahead', $business_data['sms_1_ahead']);
+            $queue_settings->getUpdate($business['business_id'], 'sms_5_ahead', $business_data['sms_5_ahead']);
+            $queue_settings->getUpdate($business['business_id'], 'sms_10_ahead', $business_data['sms_10_ahead']);
+            $queue_settings->getUpdate($business['business_id'], 'sms_blank_ahead', $business_data['sms_blank_ahead']);
+            $queue_settings->getUpdate($business['business_id'], 'input_sms_field', $business_data['input_sms_field']);
             $business = Business::getBusinessDetails($business->business_id);
             return json_encode([
                 'success' => 1,

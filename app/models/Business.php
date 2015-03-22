@@ -90,6 +90,12 @@ class Business extends Eloquent{
             'terminal_specific_issue' => QueueSettings::terminalSpecificIssue($first_service->service_id),
             'frontline_sms_secret' => QueueSettings::queueSetting('frontline_sms_secret', null, $first_service->service_id),
             'frontline_sms_url' => QueueSettings::queueSetting('frontline_sms_url', null, $first_service->service_id),
+            'sms_current_number' => QueueSettings::smsCurrentNumber($first_service->service_id),
+            'sms_1_ahead' => QueueSettings::smsOneAhead($first_service->service_id),
+            'sms_5_ahead' => QueueSettings::smsFiveAhead($first_service->service_id),
+            'sms_10_ahead' => QueueSettings::smsTenAhead($first_service->service_id),
+            'sms_blank_ahead' => QueueSettings::smsBlankAhead($first_service->service_id),
+            'input_sms_field' => QueueSettings::inputSmsField($first_service->service_id),
             'terminals' => $terminals,
             'analytics' => $analytics
         ];
