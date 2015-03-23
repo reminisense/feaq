@@ -54,11 +54,19 @@
     <div class="ad-image-preview">
 
     </div>
-    <div style="width: 100%; float: left;">
+    <div class="col-md-12">
         <form action="/advertisement/upload" method="POST" enctype="multipart/form-data" id="ad-image-uploader">
-            <input name="ad_image" id="ad-image" type="file" />
-            <input type="submit"  id="submit-btn" value="Upload" ng-click="adImageUpload(business_id)"/>
-            <img src="/images/ajax-loader.gif" id="loading-img" style="display:none;" alt="Please Wait"/>
+            <div class="form-group">
+                <label for="exampleInputFile">Choose Image to upload:</label>
+                <input name="ad_image" type="file" id="ad-image">
+                <em class="help-block">Upload images with .jpg, .png file format</em>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-orange"  id="submit-btn" value="Upload" ng-click="adImageUpload(business_id)"/>
+                <img src="/images/ajax-loader.gif" id="loading-img" style="display:none;" alt="Please Wait"/>
+
+            </div>
+
         </form>
         <div style="text-align: center;">
             <img src="/" id="ad-preview" width="555px">
