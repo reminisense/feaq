@@ -71,7 +71,9 @@
             <h5 class="mb30">ACTIVE BUSINESSES</h5>
             @if(count($active_businesses) > 0)
                 <div id="active-businesses">
+                    <div class="row">
                     @foreach($active_businesses as $ac_business_id => $actives)
+
                         <div class="col-md-3">
                             <div class="boxed boxed-single clickable">
                                 <a href="{{ URL::to( '/broadcast/business/' . $ac_business_id ) }}" target="_blank"> {{--RDH Links for Business' broadcast page--}}
@@ -84,6 +86,7 @@
                         </div>
                     @endforeach
                 </div>
+                </div>
             @endif
         </div>
 
@@ -91,6 +94,7 @@
             <h5 class="mb30">@{{ searchLabel }}</h5>
             @if(count($search_businesses) > 0)
             <div id="popular-businesses">
+                <div class="row">
                 @foreach($search_businesses as $business)
                     <div class="col-md-3">
                       <div class="boxed boxed-single clickable">
@@ -103,6 +107,7 @@
                       </div>
                     </div>
                 @endforeach
+                </div>
             </div>
             <div class="col-md-3" ng-repeat="business in businesses">
                 <div class="boxed boxed-single clickable">

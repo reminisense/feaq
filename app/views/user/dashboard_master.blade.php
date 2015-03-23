@@ -76,6 +76,7 @@
 </div>
 <div class="container main-wrap" ng-controller="searchBusinessCtrl">
     <div class="row filters">
+        <div class="row">
         <div class="col-md-5 col-md-offset-1 col-xs-12">
             <div class="filterwrap">
                 <span>FILTER:</span>
@@ -352,6 +353,7 @@
                 </div>
             </div>
         </div>
+    </div>
         <div class="col-md-4 col-xs-12">
             <div class="searchblock">
                 <form>

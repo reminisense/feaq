@@ -69,8 +69,23 @@
     .filters .filterwrap {
         margin-bottom: 15px;
     }
+    .filterwrap .dropdown-menu {
+        position: relative;
+        width: 100%;
+    }
+    .container > .mt30 {
+        margin-top: 10px!important;
+    }
+    #search_business h5.mb30 {
+        margin-bottom: 15px!important;
+    }
+    .filterwrap .dropdown-menu {
+        margin-left: 0!important;
+    }
+    .subnav {
+        height: 42px;
+    }
     .subnav .nav span {
-        display: block!important;
         margin-bottom: 3px;
     }
     .subnav .nav-tabs>li>a {
