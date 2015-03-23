@@ -67,7 +67,12 @@
         margin-top: 0;
     }
     .filters .filterwrap {
-        margin-bottom: 15px;
+        margin-bottom: 5px;
+    }
+    .filters .col-md-5,
+    .filters .col-md-4 {
+        padding-left: 0;
+        padding-right: 0;
     }
     .filterwrap .dropdown-menu {
         position: relative;
@@ -78,6 +83,10 @@
     }
     #search_business h5.mb30 {
         margin-bottom: 15px!important;
+    }
+    .filterwrap {
+        padding-top: 15px;
+        margin-bottom: 10px;
     }
     .filterwrap .dropdown-menu {
         margin-left: 0!important;
