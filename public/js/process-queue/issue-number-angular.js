@@ -5,6 +5,7 @@
     //Issue numbers
     app.controller('issuenumberController', function($scope, $http){
         $scope.priority_number = null;
+        $scope.queue_platform = 'web';
         $scope.time_assigned = null;
         $scope.name = null;
         $scope.phone = null;
@@ -30,6 +31,9 @@
 
         $scope.issueSpecific = function(priority_number, name, phone, email, time_assigned){
             $scope.isIssuing = true;
+            url = pq.urls.issue_numbers.issue_specific_url;
+            service_id = pq.ids.service_id;
+            terminal_id = pq.ids.terminal_id ? pq.ids.terminal_id : 0;
             data = {
                 priority_number : priority_number,
                 name : name,
@@ -37,7 +41,7 @@
                 email : email,
                 time_assigned : time_assigned
             };
-            $http.post(pq.urls.issue_numbers.issue_specific_url + pq.ids.service_id + '/' + pq.ids.terminal_id, data)
+            $http.post(url + service_id + '/' + terminal_id + '/' + $scope.queue_platform, data)
                 .success(function(response){
                     message = 'Issue number successful! <br> Number : ' + response.number.priority_number;
                     pq.jquery_functions.issue_number_success(message);
@@ -127,7 +131,10 @@
 
         $scope.initializePriorityNumber = function(){
             var broadcast = false;
-            try{ if(angular.module('Broadcast')) broadcast = true; }
+            try{ if(angular.module('Broadcast'))
+                broadcast = true;
+                $scope.queue_platform = 'remote';
+            }
             catch(err){ broadcast = false; }
 
             if(broadcast){

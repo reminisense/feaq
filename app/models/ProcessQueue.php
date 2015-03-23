@@ -30,7 +30,7 @@ class ProcessQueue extends Eloquent{
         $confirmation_code = strtoupper(substr(md5($track_id), 0, 4));
         $transaction_number = PriorityQueue::createPriorityQueue($track_id, $priority_number, $confirmation_code, $user_id, $queue_platform);
         TerminalTransaction::createTerminalTransaction($transaction_number, $time_queued, $terminal_id);
-        Analytics::insertAnalyticsQueueNumberIssued($transaction_number, $service_id, $date, $time_queued, $terminal_id); //insert to queue_analytics
+        Analytics::insertAnalyticsQueueNumberIssued($transaction_number, $service_id, $date, $time_queued, $terminal_id, $queue_platform); //insert to queue_analytics
         $number = array(
             'transaction_number' => $transaction_number,
             'priority_number' => $priority_number,
@@ -48,7 +48,7 @@ class ProcessQueue extends Eloquent{
             $time_called = time();
             $login_id = TerminalManager::hookedTerminal($terminal_id) ? TerminalManager::getLatestLoginIdOfTerminal($terminal_id) : 0;
             TerminalTransaction::updateTransactionTimeCalled($transaction_number, $login_id, $time_called, $terminal_id);
-            Analytics::insertAnalyticsQueueNumberCalled($transaction_number, $pn->service_id, $pn->date, $time_called, $terminal_id); //insert to queue_analytics
+            Analytics::insertAnalyticsQueueNumberCalled($transaction_number, $pn->service_id, $pn->date, $time_called, $terminal_id, $pq->queue_platform); //insert to queue_analytics
             Notifier::sendNumberCalledNotification($transaction_number, $terminal_id); //notifies users that his/her number is called
             return json_encode(['success' => 1, 'numbers' => ProcessQueue::allNumbers(Terminal::serviceId($terminal_id))]);
         }else{
@@ -74,10 +74,10 @@ class ProcessQueue extends Eloquent{
             $time = time();
             if($process == 'serve'){
                 TerminalTransaction::updateTransactionTimeCompleted($transaction_number, $time);
-                Analytics::insertAnalyticsQueueNumberServed($transaction_number, $priority_number->service_id, $priority_number->date, $time, $terminal_id); //insert to queue_analytics
+                Analytics::insertAnalyticsQueueNumberServed($transaction_number, $priority_number->service_id, $priority_number->date, $time, $terminal_id, $priority_queue->queue_platform); //insert to queue_analytics
             }else if($process == 'remove'){
                 TerminalTransaction::updateTransactionTimeRemoved($transaction_number, $time);
-                Analytics::insertAnalyticsQueueNumberRemoved($transaction_number, $priority_number->service_id, $priority_number->date, $time, $terminal_id); //insert to queue_analytics
+                Analytics::insertAnalyticsQueueNumberRemoved($transaction_number, $priority_number->service_id, $priority_number->date, $time, $terminal_id, $priority_queue->queue_platform); //insert to queue_analytics
             }
         }else{
             return json_encode(array('error' => 'Number ' . $pnumber . ' has already been processed. If the number still exists, please reload the page.'));
