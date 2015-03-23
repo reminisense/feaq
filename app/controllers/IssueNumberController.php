@@ -20,7 +20,7 @@ class IssueNumberController extends BaseController{
         return json_encode(['success' => 1, 'first_number' => $first, 'last_number' => $last,]);
     }
 
-    public function postInsertspecific($service_id, $terminal_id = 0){
+    public function postInsertspecific($service_id, $terminal_id = 0, $queue_platform = 'web'){
         $priority_number = Input::get('priority_number');
         $name = Input::get('name');
         $phone = Input::get('phone');
@@ -29,7 +29,7 @@ class IssueNumberController extends BaseController{
         $terminal_id = QueueSettings::terminalSpecificIssue($service_id) ? $terminal_id : 0;
 
         $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
-        $queue_platform = $priority_number == $next_number || $priority_number == null ? 'web' : 'specific';
+        $queue_platform = $priority_number == $next_number || $priority_number == null ? $queue_platform : 'specific';
 
         //save
         $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, $terminal_id);
