@@ -44,7 +44,7 @@
                                 <h3>{{ $terminal_name }}</h3>
                             </div>
                             <div class="col-sm-1">
-                                <a class="btn btn-boxy btn-cyan pull-right text-center" href="{{ url('/broadcast/business/' . $business_id) }}" target="_blank">View Broadcast Page</a>
+                                <a class="btn btn-boxy btn-cyan pull-right text-center" href="{{ url('/broadcast/business/' . $business_id) }}" target="_blank"><span class="glyphicon glyphicon-blackboard"></span> View Broadcast Page</a>
                             </div>
                         </div>
                     </div>
