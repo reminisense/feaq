@@ -39,7 +39,14 @@
             <div class="col-md-12">
                 <div class="boxed mb20 processq">
                     <div class="head head-blue">
-                        <h3>{{ $terminal_name }}</h3>
+                        <div class="row">
+                            <div class="col-sm-11">
+                                <h3>{{ $terminal_name }}</h3>
+                            </div>
+                            <div class="col-sm-1">
+                                <a class="btn btn-boxy btn-cyan pull-right text-center" href="{{ url('/broadcast/business/' . $business_id) }}" target="_blank">View Broadcast Page</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="body">
                         <form class="clearfix">
@@ -75,7 +82,7 @@
                                         </div>
                                     </div>
                                     <div id="pmore">
-                                        <button id="btn-pmore" class="btn btn-blue btn-lg" data-toggle="modal" data-target="#moreq">
+                                        <button id="btn-pmore" class="btn btn-blue btn-lg" data-toggle="modal" data-target="#moreq" title="Issue a number.">
                                             <span class="glyphicon glyphicon-plus"></span>
                                         </button>
                                     </div>

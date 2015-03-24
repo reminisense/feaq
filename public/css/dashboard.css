@@ -117,6 +117,13 @@
   font-family: 'ralewaybold';
   font-weight: normal;
 }
+.to-broadcast { /*ARA added style for broadcast page link since to-terminal selector is used in jquery*/
+    font-size: 13px;
+    margin-top: 10px;
+    display: inline-block;
+    font-family: 'ralewaybold';
+    font-weight: normal;
+}
 .getnum-info {
   font-size: 13px;
 }
