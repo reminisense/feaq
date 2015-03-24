@@ -3,7 +3,7 @@
 <input type="hidden" id="business-details-url" value="{{ url('/business/businessdetails/') }}">
 <!-- modal -->
 <div class="modal fade" id="editBusiness" tabindex="-1" ng-controller="editBusinessController">
-    <div class="modal-dialog modal-md">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -171,12 +171,12 @@
                                                     <td>
                                                         <span ng-if="terminal.users.length != 0">
                                                             <span ng-repeat="user in terminal.users">
-                                                                <span>@{{ user.first_name + ' ' + user.last_name }}</span>
-                                                                <div class="block mb10 mt10">
-                                                                    <a href="#" class="vtn-boxy btn-xs btn-primary" ng-click="unassignFromTerminal(user.user_id, user.terminal_id)"><span class="glyphicon glyphicon-remove"></span> Remove</a>
+                                                                <span class="terminal_user">@{{ user.first_name + ' ' + user.last_name }}</span>
+                                                                <div class="block terminal-buttons">
+                                                                    <a href="#" class="btn-boxy btn-primary" ng-click="unassignFromTerminal(user.user_id, user.terminal_id)"><span class="glyphicon glyphicon-remove"></span> Remove</a>
                                                                     <span class="inline-btns" ng-if="terminal.users.length < 3">
                                                                         <span ng-if="user.user_id == terminal.users[terminal.users.length - 1].user_id">
-                                                                            <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary"><span class="glyphicon glyphicon-plus"></span> Add User</a>
+                                                                            <a href="#" class="btn-boxy btn-adduser btn-primary"><span class="glyphicon glyphicon-plus"></span> Add User</a>
                                                                             <div class="mb10 mt10 inputuser" style="display: none">
                                                                                 <form ng-submit="emailSearch(search_user, terminal.terminal_id)">
                                                                                     <input type="text" class="form-control" ng-model="search_user">

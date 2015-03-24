@@ -280,7 +280,7 @@
   padding: 4px 10px;
 }
 .modal-body .table .block a:hover {
-  background-color: #5f87ba;
+  background-color: #286090;
   text-decoration: none;
   color: #fff;
   border-radius: 4px;
@@ -1152,3 +1152,15 @@ input#input_sms_field:focus{
 }
 
 /*******************/
+
+/* CSD 03242015 */
+.terminal_user {
+    font-size: 14px;
+}
+.boxed.clickable a {
+    text-decoration: none;
+}
+.broadcast-preview {
+    height: 100px;
+    width: 150px;
+}

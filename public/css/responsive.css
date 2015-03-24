@@ -18,6 +18,10 @@
     .navbar-nav {
         margin: 0;
     }
+
+    .btn-getnum {
+        margin-top: 10px;
+    }
 }
 
 @media (max-width: 990px) {
@@ -47,6 +51,10 @@
     }
     .ads-mobile {
         display: block!important;
+    }
+
+    .btn-getnum {
+        margin-top: 10px;
     }
 }
 
@@ -151,6 +159,14 @@
     }
     .terminal-update-field{
         width: 73px;
+    }
+
+    .btn-getnum {
+        margin-top: 10px;
+    }
+
+    .terminal-buttons {
+        margin-top: 10px;
     }
 
 }
