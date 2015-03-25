@@ -361,8 +361,8 @@ class Business extends Eloquent{
 
       // if there are more than 5 currently processing businesses, then return
       // a randomized result set
-      if (sizeof($pool) > 5) {
-        $keys = shuffle(range(0, sizeof($pool) - 1));
+      if (sizeof($pool) > 4) {
+        $keys = range(0, 4);
         foreach ($keys as $key) {
           $active_businesses[$pool[$key]]['business_id'] = $pool[$key];
           $active_businesses[$pool[$key]]['name'] = Business::name($pool[$key]);
