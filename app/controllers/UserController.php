@@ -78,19 +78,10 @@ class UserController extends BaseController{
      * @description: render dashboard, fetch all businesses for default search view, and businesses created by logged in user
      */
     public function getUserDashboard(){
-        $search_businesses_front = Business::orderBy('business_id', 'desc')
-                                ->take(5)
-                                ->get(); // RDH Changed implementation to only include newest 4 businesses
-
-        $active_businesses_front = Business::getActiveBusinesses();
-        $active_businesses_front = array_slice($active_businesses_front, 0, 5, true); // RDH Implemented to only show maximum 4 businesses
-
-
-        $search_businesses = Business::getPopularBusinesses();
-        $active_businesses = Business::getActiveBusinesses();
-
+        $active_businesses = Business::getProcessingBusinesses();
         if (Auth::check())
         {
+            $search_businesses = Business::getPopularBusinesses();
             $business_ids = UserBusiness::getAllBusinessIdByOwner(Helper::userId());
             $my_businesses = [];
             if (count($business_ids) > 0){
@@ -122,8 +113,8 @@ class UserController extends BaseController{
         else
         {
             return View::make('page-front')
-                ->with('active_businesses', $active_businesses_front)
-                ->with('search_businesses', $search_businesses_front); // RDH Active and New Businesses on Front Use Different Results
+                ->with('active_businesses', $active_businesses)
+                ->with('search_businesses', Business::getNewBusinesses()); // RDH Active and New Businesses on Front Use Different Results
         }
     }
 

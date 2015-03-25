@@ -303,6 +303,80 @@ class Business extends Eloquent{
           }
         }
       }
+
       return $active_businesses;
     }
+
+    public static function getNewBusinesses() {
+      return Business::orderBy('business_id', 'desc')->limit(5)->get(); // RDH Changed implementation to only include newest 4 businesses
+    }
+
+    public static function getProcessingBusinesses() {
+      $pool = array();
+      $new_pool = array();
+      $active_businesses = array();
+      $json_path = public_path() . '/json';
+      $iter = new DirectoryIterator($json_path);
+      foreach( $iter as $item ) {
+        if ($item != '.' && $item != '..' && $item->getFilename() != '.DS_Store' /* Mac Prob */) {
+          if( $item->isDir() ) {
+            Business::getProcessingBusinesses("$json_path/$item");
+          } else {
+            $filepath = $json_path . '/' . $item->getFilename();
+            $data = json_decode(file_get_contents($filepath));
+            if ($data->box1->number != '') {
+              $pool[] = basename($item->getFilename(), '.json');
+            }
+            elseif (isset($data->box2)) {
+              if ($data->box2->number != '') {
+                $pool[] = basename($item->getFilename(), '.json');
+              }
+            }
+            elseif (isset($data->box3)) {
+              if ($data->box3->number != '') {
+                $pool[] = basename($item->getFilename(), '.json');
+              }
+            }
+            elseif (isset($data->box4)) {
+              if ($data->box4->number != '') {
+                $pool[] = basename($item->getFilename(), '.json');
+              }
+            }
+            elseif (isset($data->box5)) {
+              if ($data->box5->number != '') {
+                $pool[] = basename($item->getFilename(), '.json');
+              }
+            }
+            elseif (isset($data->box6)) {
+              if ($data->box6->number != '') {
+                $pool[] = basename($item->getFilename(), '.json');
+              }
+            }
+            elseif ($data->get_num != '') {
+              $pool[] = basename($item->getFilename(), '.json');
+            }
+          }
+        }
+      }
+
+      // if there are more than 5 currently processing businesses, then return
+      // a randomized result set
+      if (sizeof($pool) > 5) {
+        $keys = shuffle(range(0, sizeof($pool) - 1));
+        foreach ($keys as $key) {
+          $active_businesses[$pool[$key]]['business_id'] = $pool[$key];
+          $active_businesses[$pool[$key]]['name'] = Business::name($pool[$key]);
+          $active_businesses[$pool[$key]]['local_address'] = Business::localAddress($pool[$key]);
+        }
+      }
+      else {
+        foreach ($pool as $key => $value) {
+          $active_businesses[$value]['business_id'] = $pool[$key];
+          $active_businesses[$value]['name'] = Business::name($pool[$key]);
+          $active_businesses[$value]['local_address'] = Business::localAddress($pool[$key]);
+        }
+      }
+      return $active_businesses;
+    }
+
 }
