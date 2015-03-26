@@ -13,6 +13,7 @@
 
         $scope.called_number = 0;
         $scope.next_number = 0;
+        $scope.number_limit = null;
         $scope.issue_call_number = null;
 
         $scope.getAllNumbers = function(){
@@ -81,7 +82,7 @@
         }
 
         checkTextfieldErrors = function(priority_number){
-            return angular.element(document.querySelector('#moreq')).scope().checkIssueSpecificErrors(priority_number);
+            return angular.element(document.querySelector('#moreq')).scope().checkIssueSpecificErrors(priority_number, $scope.number_limit);
         }
 
         //non scope functions
@@ -104,7 +105,8 @@
             $scope.uncalled_numbers = numbers.uncalled_numbers;
             $scope.processed_numbers = numbers.processed_numbers;
             $scope.timebound_numbers = numbers.timebound_numbers;
-            $scope.next_number = numbers.next_number
+            $scope.next_number = numbers.next_number;
+            $scope.number_limit = numbers.number_limit;
 
             pq.jquery_functions.set_next_number_placeholder($scope.next_number);
         };

@@ -5,6 +5,7 @@
     //Issue numbers
     app.controller('issuenumberController', function($scope, $http){
         $scope.priority_number = null;
+        $scope.number_limit = null;
         $scope.queue_platform = 'web';
         $scope.time_assigned = null;
         $scope.name = null;
@@ -56,7 +57,7 @@
                 });
         }
 
-        $scope.checkIssueSpecificErrors = function(priority_number){
+        $scope.checkIssueSpecificErrors = function(priority_number, number_limit){
             time_format = /^([0-9]{2})\:([0-9]{2})([ ][aApP][mM])$/g;
             error = false
             error_message = '';
@@ -68,6 +69,11 @@
             if(isNaN(priority_number) || priority_number % 1 != 0){
                 error = true;
                 error_message += 'Priority number is invalid. ';
+            }
+
+            if(number_limit != null && (priority_number > number_limit)){
+                error = true;
+                error_message += 'Priority number is greater than the limit. ';
             }
 
             //check phone number

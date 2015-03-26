@@ -39,12 +39,8 @@ Processs Queue > {{ $business_name }}
         <div class="row">
             <h2 class="heading col-md-9"><small>Processing Queue's for: </small>{{ $business_name }}</h2>
             <div class="col-md-3 text-right">
-                <a href="{{ url('/') }}" class="tobroadcast">
-                    <span class="glyphicon glyphicon-home"></span> Home
-                </a>
-                <a href="{{ url('/broadcast/business/' . $business_id) }}" target="_blank" class="tobroadcast">
-                    <span class="glyphicon glyphicon-blackboard"></span> View Broadcast Screen
-                </a>
+                <a href="{{ url('/') }}" class="tobroadcast"><span class="glyphicon glyphicon-home"></span>Home </a>
+                <a href="{{ url('/broadcast/business/' . $business_id) }}" target="_blank" class="tobroadcast"><span class="glyphicon glyphicon-blackboard"></span>View Broadcast Screen </a>
             </div>
         </div>
         <div class="row">
@@ -59,7 +55,7 @@ Processs Queue > {{ $business_name }}
                                 <div class="col-md-8 col-xs-12">
                                     <input id="selected-tnumber" type="hidden" ng-value="called_number" value=0>
                                     <div ng-show="timebound_numbers.length == 0 && uncalled_numbers.length == 0">
-                                        <input id="issue-call-number" type="number" min="1" class="form-control" ng-model="issue_call_number">
+                                        <input id="issue-call-number" type="number" min="1" max="@{{ number_limit }}" class="form-control" ng-model="issue_call_number">
                                     </div>
                                     <div ng-show="timebound_numbers.length != 0 || uncalled_numbers.length != 0">
                                         <button class="btn-select btn-md dropdown-toggle" type="button" data-toggle="dropdown">

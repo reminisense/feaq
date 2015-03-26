@@ -100,6 +100,7 @@ class ProcessQueue extends Eloquent{
         $date = $date == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $date;
         $numbers = ProcessQueue::queuedNumbers($service_id, $date);
         $terminal_specific_calling = QueueSettings::terminalSpecificIssue($service_id);
+        $number_limit = QueueSettings::numberLimit($service_id);
         $last_number_given = 0;
         $called_numbers = array();
         $uncalled_numbers = array();
@@ -205,6 +206,7 @@ class ProcessQueue extends Eloquent{
             $priority_numbers->last_number_given = $last_number_given;
             $priority_numbers->next_number = ProcessQueue::nextNumber($priority_numbers->last_number_given, QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
             $priority_numbers->current_number = $called_numbers ? $called_numbers[key($called_numbers)]['priority_number'] : 0;
+            $priority_numbers->number_limit = $number_limit;
             $priority_numbers->called_numbers = $called_numbers;
             $priority_numbers->uncalled_numbers = $uncalled_numbers;
             $priority_numbers->processed_numbers = array_reverse($processed_numbers);
@@ -213,6 +215,7 @@ class ProcessQueue extends Eloquent{
             $priority_numbers->last_number_given = 0;
             $priority_numbers->next_number = QueueSettings::numberStart($service_id);
             $priority_numbers->current_number = 0;
+            $priority_numbers->number_limit = $number_limit;
             $priority_numbers->called_numbers = $called_numbers;
             $priority_numbers->uncalled_numbers = $uncalled_numbers;
             $priority_numbers->processed_numbers = array_reverse($processed_numbers);
