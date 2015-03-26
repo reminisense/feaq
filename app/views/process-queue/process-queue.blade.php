@@ -39,8 +39,11 @@ Processs Queue > {{ $business_name }}
         <div class="row">
             <h2 class="heading col-md-9"><small>Processing Queue's for: </small>{{ $business_name }}</h2>
             <div class="col-md-3 text-right">
+                <a href="{{ url('/') }}" class="tobroadcast">
+                    <span class="glyphicon glyphicon-home"></span> Home
+                </a>
                 <a href="{{ url('/broadcast/business/' . $business_id) }}" target="_blank" class="tobroadcast">
-                    <span class="glyphicon glyphicon-bullhorn"></span> View Broadcast Screen
+                    <span class="glyphicon glyphicon-blackboard"></span> View Broadcast Screen
                 </a>
             </div>
         </div>
