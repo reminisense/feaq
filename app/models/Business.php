@@ -215,6 +215,9 @@ class Business extends Eloquent{
 
     public static function deleteBusinessByBusinessId($business_id) {
       Business::where('business_id', '=', $business_id)->delete();
+
+      // PAG delete also the json file
+      unlink(public_path() . '/json/' . $business_id . '.json');
     }
 
     /*
@@ -361,12 +364,14 @@ class Business extends Eloquent{
 
       // if there are more than 5 currently processing businesses, then return
       // a randomized result set
-      if (sizeof($pool) > 4) {
-        $keys = range(0, 4);
-        foreach ($keys as $key) {
-          $active_businesses[$pool[$key]]['business_id'] = $pool[$key];
-          $active_businesses[$pool[$key]]['name'] = Business::name($pool[$key]);
-          $active_businesses[$pool[$key]]['local_address'] = Business::localAddress($pool[$key]);
+      if (sizeof($pool) > 5) {
+        shuffle($pool);
+        foreach ($pool as $key => $val) {
+          if (Business::where('business_id', '=', $val)->exists()) {
+            $active_businesses[$val]['business_id'] = $val;
+            $active_businesses[$val]['name'] = Business::name($val);
+            $active_businesses[$val]['local_address'] = Business::localAddress($val);
+          }
         }
       }
       else {
