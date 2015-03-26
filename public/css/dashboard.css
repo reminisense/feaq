@@ -1062,6 +1062,7 @@ strong {
 .btn-disabled {
     background-color: #bbb;
     cursor: default;
+    pointer-events: none;
 }
 .btn-disabled:hover {
     background-color: #bbb!important;
@@ -1163,6 +1164,10 @@ input#input_sms_field:focus{
 .broadcast-preview {
     height: 100px;
     width: 150px;
+}
+#edit_business_body {
+    max-height: 600px;
+    overflow-y: scroll;
 }
 
 /*3-24-2015*/

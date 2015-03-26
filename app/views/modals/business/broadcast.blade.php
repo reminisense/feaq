@@ -67,7 +67,7 @@
                             <em class="help-block">Upload images with .jpg, .png file format</em>
                         </div>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-orange"  id="submit-btn" value="UPLOAD" ng-click="adImageUpload(business_id)" style="color: #ffffff;"/>
+                            <input type="submit" class="btn btn-orange btn-disabled"  id="image-submit-btn" value="UPLOAD" ng-click="adImageUpload(business_id)" style="color: #ffffff;"/>
                         </div>
                     </form>
                 </div>
@@ -86,7 +86,7 @@
                             <em class="help-block">Only supports Youtube videos for now</em>
                         </div>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-orange"  id="submit-btn" value="EMBED" ng-click="adVideoEmbed(business_id)" style="color: #ffffff;"/>
+                            <input type="submit" class="btn btn-orange btn-disabled"  id="vid-submit-btn" value="EMBED" ng-click="adVideoEmbed(business_id)" style="color: #ffffff;"/>
                             <img src="/images/ajax-loader.gif" id="loading-img-2" style="display:none;" alt="Please Wait"/>
                         </div>
                     </form>

@@ -22,6 +22,14 @@ $(document).ready(function(){
         $(this).hide();
     });
 
+    $(document).on('change', '#ad-image', function(){
+        $('#image-submit-btn').removeClass('btn-disabled');
+    });
+
+    $(document).on('change', '#ad-video', function(){
+        $('#vid-submit-btn').removeClass('btn-disabled');
+    });
+
     //eb.jquery_functions.load_users();
 });
 
