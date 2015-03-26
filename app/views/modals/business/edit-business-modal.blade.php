@@ -323,7 +323,7 @@
                                                 </tr>--}}
                                                 </tbody>
                                             </table>
-                                            <div class="alert alert-warning" role="alert">
+                                            <div class="alert alert-info" role="alert">
                                                 <strong>* FeatherQ Frontline SMS</strong> features will be given for <strong>free</strong> for the next few months.
                                                 However, future developments might classify these features to be given exclusively to premium users without prior notice.
                                             </div>
@@ -370,7 +370,7 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <div class="alert alert-warning" role="alert">
+                                    <div class="alert alert-info" role="alert">
                                         <strong>FeatherQ Business Analytics</strong> features will be given for <strong>free</strong> for the next few months.
                                         However, future developments might classify these features to be given exclusively to premium users without prior notice.
                                     </div>
