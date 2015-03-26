@@ -1164,3 +1164,28 @@ input#input_sms_field:focus{
     height: 100px;
     width: 150px;
 }
+
+/*3-24-2015*/
+.tobroadcast {
+    color: #00ba8b;
+    display: inline-block;
+    margin-top: 22px;
+    margin-right: 10px;
+    font-size: 12px;
+    font-family: 'ralewaybold';
+}
+.tobroadcast span {
+    padding-right: 8px;
+}
+.tobroadcast:hover {
+    color: #ff925b;
+    text-decoration: none;
+}
+.processq .btn-cyan,
+.processq .btn-gray {
+    font-family: 'ralewayregular'!important;
+}
+.processq .btn span {
+    font-size: 10px;
+    margin-right: 4px;
+}

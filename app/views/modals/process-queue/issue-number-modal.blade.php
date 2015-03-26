@@ -51,7 +51,7 @@
                                     <input type="email" class="form-control" ng-model="email" name="email">
                                 </div>
                             </div>
-                            <div class="alert alert-danger" role="alert" ng-show="checkIssueSpecificErrors(priority_number)">
+                            <div class="alert alert-danger" role="alert" ng-show="checkIssueSpecificErrors(priority_number, number_limit)">
                                 <div><strong class="message">@{{ issue_specific_error }}</strong></div>
                             </div>
                         </form>
@@ -78,7 +78,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-orange btn-lg" data-dismiss="modal" aria-label="Close">CLOSE</button>
-                <button id="issue-specific-submit" type="button" class="issue-submit-btn btn btn-orange btn-lg" ng-disabled="isIssuing || checkIssueSpecificErrors()" ng-click="issueSpecific(priority_number, name, phone, email, time_assigned)">SUBMIT</button>
+                <button id="issue-specific-submit" type="button" class="issue-submit-btn btn btn-orange btn-lg" ng-disabled="isIssuing || checkIssueSpecificErrors(priority_number, number_limit)" ng-click="issueSpecific(priority_number, name, phone, email, time_assigned)">SUBMIT</button>
                 <button id="issue-multiple-submit" type="button" class="issue-submit-btn btn btn-orange btn-lg" ng-disabled="isIssuing || checkIssueMultipleErrors()" ng-click="issueMultiple(range)" style="display: none">SUBMIT</button>
             </div>
         </div>
