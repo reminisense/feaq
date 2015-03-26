@@ -26,6 +26,9 @@
 
 @media (max-width: 990px) {
 
+    .email-fld {
+        margin-top: 30px;
+    }
 }
 
 @media (max-width: 767px) {
@@ -154,9 +157,6 @@
     }
 
     /*jonas 392015*/
-    .email-fld{
-        margin-top: 30px;
-    }
     .terminal-update-field{
         width: 73px;
     }
