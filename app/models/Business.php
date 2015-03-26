@@ -365,20 +365,23 @@ class Business extends Eloquent{
       // if there are more than 5 currently processing businesses, then return
       // a randomized result set
       if (sizeof($pool) > 5) {
+        $business_count = 0;
         shuffle($pool);
         foreach ($pool as $key => $val) {
+          if ($business_count == 5) break; // only show 5 random businesses
           if (Business::where('business_id', '=', $val)->exists()) {
             $active_businesses[$val]['business_id'] = $val;
             $active_businesses[$val]['name'] = Business::name($val);
             $active_businesses[$val]['local_address'] = Business::localAddress($val);
+            $business_count++;
           }
         }
       }
       else {
-        foreach ($pool as $key => $value) {
-          $active_businesses[$value]['business_id'] = $pool[$key];
-          $active_businesses[$value]['name'] = Business::name($pool[$key]);
-          $active_businesses[$value]['local_address'] = Business::localAddress($pool[$key]);
+        foreach ($pool as $key => $val) {
+          $active_businesses[$val]['business_id'] = $val;
+          $active_businesses[$val]['name'] = Business::name($val);
+          $active_businesses[$val]['local_address'] = Business::localAddress($val);
         }
       }
       return $active_businesses;
