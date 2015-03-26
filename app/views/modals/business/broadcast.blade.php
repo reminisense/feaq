@@ -53,26 +53,45 @@
     </div>
     <div class="col-md-12">
         <div class="row">
-            <div class="col-md-6">
-                <div class="col-md-12" style="text-align: center;">
-                    <img src="/" id="ad-preview" style="width: 100%;">
+            <div style="float: left; width: 100%">
+                <div class="col-md-6">
+                    <div class="col-md-12" style="text-align: center;">
+                        <img src="/" id="ad-preview" style="width: 100%;">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <form action="/advertisement/upload" method="POST" enctype="multipart/form-data" id="ad-image-uploader">
+                        <div class="form-group">
+                            <label for="exampleInputFile">Choose Image to upload:</label>
+                            <input name="ad_image" type="file" id="ad-image">
+                            <em class="help-block">Upload images with .jpg, .png file format</em>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-orange"  id="submit-btn" value="UPLOAD" ng-click="adImageUpload(business_id)" style="color: #ffffff;"/>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="col-md-4">
-                <form action="/advertisement/upload" method="POST" enctype="multipart/form-data" id="ad-image-uploader">
-                    <div class="form-group">
-                        <label for="exampleInputFile">Choose Image to upload:</label>
-                        <input name="ad_image" type="file" id="ad-image">
-                        <em class="help-block">Upload images with .jpg, .png file format</em>
+            <div style="float: left; width: 100%; margin-top: 10px;">
+                <div class="col-md-6">
+                    <div class="col-md-12" style="text-align: center;">
+                        <iframe id="vid-preview" width="100%" height="315" src="" frameborder="0" allowfullscreen></iframe>
                     </div>
-                    <div class="form-group">
-                        <input type="submit" class="btn btn-orange"  id="submit-btn" value="UPLOAD" ng-click="adImageUpload(business_id)" style="color: #ffffff;"/>
-                        <img src="/images/ajax-loader.gif" id="loading-img" style="display:none;" alt="Please Wait"/>
-
-                    </div>
-                </form>
+                </div>
+                <div class="col-md-4">
+                    <form action="/advertisement/embed-video" method="POST" enctype="multipart/form-data" id="ad-video-uploader">
+                        <div class="form-group">
+                            <label for="exampleInputFile">Paste video URL:</label>
+                            <input name="ad_video" type="text" id="ad-video">
+                            <em class="help-block">Only supports Youtube videos for now</em>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-orange"  id="submit-btn" value="EMBED" ng-click="adVideoEmbed(business_id)" style="color: #ffffff;"/>
+                            <img src="/images/ajax-loader.gif" id="loading-img-2" style="display:none;" alt="Please Wait"/>
+                        </div>
+                    </form>
+                </div>
             </div>
-
         </div>
     </div>
 </div>
