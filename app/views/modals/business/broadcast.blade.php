@@ -45,13 +45,13 @@
                                         <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 0-6 theme-btn" ng-click="activateTheme('0-6', business_id, show_called_only)">Activate</a>
                                     </span>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-12" style="float: left; width: 100%;">
         <h5></h5><br>
     </div>
-    <div class="col-md-12" style="margin-bottom: -20px;">
+    <div class="col-md-12" style="margin-bottom: -20px; float: left; width: 100%;">
         <h5>ADVERTISEMENT IMAGE</h5><br>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-12" style="float: left; width: 100%;">
         <div class="row">
             <div style="float: left; width: 100%">
                 <div class="col-md-6">
