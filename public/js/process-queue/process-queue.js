@@ -55,8 +55,9 @@ var pq = {
         },
 
         load_default_navbar_link : function(){
-            $('.nav-tabs li.search').removeClass('active').removeClass('search');
-            $('.nav-tabs li.biz').removeClass('active').removeClass('biz');
+//            $('.nav-tabs li.search').removeClass('active').removeClass('search');
+//            $('.nav-tabs li.biz').removeClass('active').removeClass('biz');
+            $('.subnav').remove();
             $('.filters').remove();
         },
 

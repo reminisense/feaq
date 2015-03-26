@@ -14,11 +14,11 @@
                     <div class="form-group row">
 
                         <ul class="nav nav-tabs nav-justified" id="editbiz-tabs">
-                            <li class="active"><a href="#bizdetails" data-toggle="tab">Business Details</a></li>
-                            <li> <a href="#bizterminals" data-toggle="tab">Business Terminals</a></li>
-                            <li> <a href="#bizbroadcast" data-toggle="tab" ng-click="currentActiveTheme(business_id)">Broadcast Page</a></li>
-                            <li> <a href="#bizqueuesettings" data-toggle="tab">Queue Settings</a></li>
-                            <li> <a href="#bizanalytics" data-toggle="tab">Business Analytics</a></li>
+                            <li class="active"><a href="#bizdetails" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Details</a></li>
+                            <li> <a href="#bizterminals" data-toggle="tab"><span class="glyphicon glyphicon-th"></span> Terminals</a></li>
+                            <li> <a href="#bizbroadcast" data-toggle="tab" ng-click="currentActiveTheme(business_id)"><span class="glyphicon glyphicon-blackboard"></span> Broadcast</a></li>
+                            <li> <a href="#bizqueuesettings" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+                            <li> <a href="#bizanalytics" data-toggle="tab"><span class="glyphicon glyphicon-stats"></span> Analytics</a></li>
                         </ul>
                         <div class="col-md-12">
                             <div class="alert" id="edit_message" style="display: none;">
@@ -111,9 +111,9 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <small>QR Code</small>
+                                            <small><span class="glyphicon glyphicon-qrcode"></span> QR Code</small>
                                             <div class="row" style="margin-top: 12px;">
-                                                <a id="qr_code_download" href="{{ url('business/pdf-download') }}/@{{ business_id }}" target="_blank" ng-model="business_id" class="btn-boxy btn-xs btn-primary"><span class="glyphicon glyphicon-add"></span> View QR Code</a>
+                                                <a id="qr_code_download" href="{{ url('business/pdf-download') }}/@{{ business_id }}" target="_blank" ng-model="business_id" class="btn-boxy btn-xs btn-primary"><span class="glyphicon glyphicon-qrcode"></span> View QR Code </a>
                                             </div>
                                         </div>
                                         </div>
@@ -381,8 +381,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" id="delete_business" class="btn btn-danger btn-lg" ng-click="deleteBusiness(business_id)">DELETE BUSINESS</button>
-                <button type="button" id="edit_business" class="btn btn-orange btn-lg" ng-click="saveBusinessDetails()">SUBMIT</button>
+                <button type="button" id="delete_business" class="btn btn-danger btn-lg" ng-click="deleteBusiness(business_id)"><span class="glyphicon glyphicon-trash"></span> DELETE BUSINESS</button>
+                <button type="button" id="edit_business" class="btn btn-orange btn-lg" ng-click="saveBusinessDetails()"><span class="glyphicon glyphicon-check"></span> SUBMIT</button>
             </div>
         </div>
     </div>
