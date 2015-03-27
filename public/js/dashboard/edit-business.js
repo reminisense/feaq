@@ -343,6 +343,7 @@ var eb = {
         });
 
         $scope.adImageUpload = (function(business_id) {
+            $('#image-submit-btn').addClass('btn-disabled');
             $('#ad-image-uploader').submit(function() {
                 $(this).ajaxSubmit({
                     data : {
@@ -399,19 +400,28 @@ var eb = {
         });
 
         $scope.adVideoEmbed = (function(business_id) {
+            $('#vid-submit-btn').addClass('btn-disabled');
             $('#ad-video-uploader').submit(function() {
-                $(this).ajaxSubmit({
-                    data : {
-                        business_id : business_id
-                    },
-                    resetForm: true,        // reset the form after successful submit
-                    success : function(response) {
-                        var result = jQuery.parseJSON(response);
-                        $('#vid-preview').attr('src', result.vid_url);
-                        $('#loading-img-2').hide();
-                        $('#submit-btn').show();
-                    }
-                });  //Ajax Submit form
+                var regYoutube = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+
+                if(regYoutube.test($('#ad-video').val())){
+                    $(this).ajaxSubmit({
+                        data : {
+                            business_id : business_id
+                        },
+                        resetForm: true,        // reset the form after successful submit
+                        success : function(response) {
+                            console.log(response);
+                            var result = jQuery.parseJSON(response);
+                            $('#vid-preview').attr('src', result.vid_url);
+                            $('#loading-img-2').hide();
+                            $('#submit-btn').show();
+                        }
+                    });  //Ajax Submit form
+                } else {
+                    $('#embed-alert').fadeIn();
+                    setTimeout(function(){ $('#embed-alert').fadeOut(); }, 3000);
+                }
                 // return false to prevent standard browser submit and page navigation
                 return false;
             });

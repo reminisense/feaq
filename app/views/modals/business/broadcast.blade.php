@@ -84,6 +84,7 @@
                             <label for="exampleInputFile">Paste video URL:</label>
                             <input name="ad_video" type="text" id="ad-video">
                             <em class="help-block">Only supports Youtube videos for now</em>
+                            <div class="alert alert-danger" id="embed-alert" style="display: none;">Invalid Youtube video link</div>
                         </div>
                         <div class="form-group">
                             <input type="submit" class="btn btn-orange btn-disabled"  id="vid-submit-btn" value="EMBED" ng-click="adVideoEmbed(business_id)" style="color: #ffffff;"/>
