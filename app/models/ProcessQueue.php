@@ -8,7 +8,7 @@
 
 class ProcessQueue extends Eloquent{
 
-    public static function issueNumber($service_id, $priority_number = null, $date = null, $queue_platform = 'web', $terminal_id = null){
+    public static function issueNumber($service_id, $priority_number = null, $date = null, $queue_platform = 'web', $terminal_id = 0){
         $date = $date == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $date;
 
         $service_properties = ProcessQueue::getServiceProperties($service_id, $date);
@@ -30,7 +30,7 @@ class ProcessQueue extends Eloquent{
         $confirmation_code = strtoupper(substr(md5($track_id), 0, 4));
         $transaction_number = PriorityQueue::createPriorityQueue($track_id, $priority_number, $confirmation_code, $user_id, $queue_platform);
         TerminalTransaction::createTerminalTransaction($transaction_number, $time_queued, $terminal_id);
-        Analytics::insertAnalyticsQueueNumberIssued($transaction_number, $service_id, $date, $time_queued); //insert to queue_analytics
+        Analytics::insertAnalyticsQueueNumberIssued($transaction_number, $service_id, $date, $time_queued, $terminal_id, $queue_platform); //insert to queue_analytics
         $number = array(
             'transaction_number' => $transaction_number,
             'priority_number' => $priority_number,
@@ -48,8 +48,8 @@ class ProcessQueue extends Eloquent{
             $time_called = time();
             $login_id = TerminalManager::hookedTerminal($terminal_id) ? TerminalManager::getLatestLoginIdOfTerminal($terminal_id) : 0;
             TerminalTransaction::updateTransactionTimeCalled($transaction_number, $login_id, $time_called, $terminal_id);
-            Analytics::insertAnalyticsQueueNumberCalled($transaction_number, $pn->service_id, $pn->date, $time_called, $terminal_id); //insert to queue_analytics
-            Notifier::sendNumberCalledNotification($transaction_number); //notifies users that his/her number is called
+            Analytics::insertAnalyticsQueueNumberCalled($transaction_number, $pn->service_id, $pn->date, $time_called, $terminal_id, $pq->queue_platform); //insert to queue_analytics
+            Notifier::sendNumberCalledNotification($transaction_number, $terminal_id); //notifies users that his/her number is called
             return json_encode(['success' => 1, 'numbers' => ProcessQueue::allNumbers(Terminal::serviceId($terminal_id))]);
         }else{
             return json_encode(['error' => 'Please assign a terminal.']);
@@ -74,10 +74,10 @@ class ProcessQueue extends Eloquent{
             $time = time();
             if($process == 'serve'){
                 TerminalTransaction::updateTransactionTimeCompleted($transaction_number, $time);
-                Analytics::insertAnalyticsQueueNumberServed($transaction_number, $priority_number->service_id, $priority_number->date, $time, $terminal_id); //insert to queue_analytics
+                Analytics::insertAnalyticsQueueNumberServed($transaction_number, $priority_number->service_id, $priority_number->date, $time, $terminal_id, $priority_queue->queue_platform); //insert to queue_analytics
             }else if($process == 'remove'){
                 TerminalTransaction::updateTransactionTimeRemoved($transaction_number, $time);
-                Analytics::insertAnalyticsQueueNumberRemoved($transaction_number, $priority_number->service_id, $priority_number->date, $time, $terminal_id); //insert to queue_analytics
+                Analytics::insertAnalyticsQueueNumberRemoved($transaction_number, $priority_number->service_id, $priority_number->date, $time, $terminal_id, $priority_queue->queue_platform); //insert to queue_analytics
             }
         }else{
             return json_encode(array('error' => 'Number ' . $pnumber . ' has already been processed. If the number still exists, please reload the page.'));
@@ -100,6 +100,7 @@ class ProcessQueue extends Eloquent{
         $date = $date == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $date;
         $numbers = ProcessQueue::queuedNumbers($service_id, $date);
         $terminal_specific_calling = QueueSettings::terminalSpecificIssue($service_id);
+        $number_limit = QueueSettings::numberLimit($service_id);
         $last_number_given = 0;
         $called_numbers = array();
         $uncalled_numbers = array();
@@ -205,6 +206,7 @@ class ProcessQueue extends Eloquent{
             $priority_numbers->last_number_given = $last_number_given;
             $priority_numbers->next_number = ProcessQueue::nextNumber($priority_numbers->last_number_given, QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
             $priority_numbers->current_number = $called_numbers ? $called_numbers[key($called_numbers)]['priority_number'] : 0;
+            $priority_numbers->number_limit = $number_limit;
             $priority_numbers->called_numbers = $called_numbers;
             $priority_numbers->uncalled_numbers = $uncalled_numbers;
             $priority_numbers->processed_numbers = array_reverse($processed_numbers);
@@ -213,6 +215,7 @@ class ProcessQueue extends Eloquent{
             $priority_numbers->last_number_given = 0;
             $priority_numbers->next_number = QueueSettings::numberStart($service_id);
             $priority_numbers->current_number = 0;
+            $priority_numbers->number_limit = $number_limit;
             $priority_numbers->called_numbers = $called_numbers;
             $priority_numbers->uncalled_numbers = $uncalled_numbers;
             $priority_numbers->processed_numbers = array_reverse($processed_numbers);
@@ -294,11 +297,16 @@ class ProcessQueue extends Eloquent{
 
         $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
         if($all_numbers){
-            $numbers = array_merge($all_numbers->called_numbers, $all_numbers->uncalled_numbers);
-
             $file_path = public_path() . '/json/' . $business_id . '.json';
             $json = file_get_contents($file_path);
             $boxes = json_decode($json);
+
+            //ARA conditions to determine if only called numbers will be displayed on broadcast page
+            if(!isset($boxes->show_issued) || $boxes->show_issued){
+                $numbers =  array_merge($all_numbers->called_numbers, $all_numbers->uncalled_numbers);
+            }else{
+                $numbers = $all_numbers->called_numbers;
+            }
 
             $max_count = 6; //RDH via ARA : gisugo ko ni ruffy (dili ni tinuod) : set default value for $max_count
             // PAG Addition for Broadcast Display Settings

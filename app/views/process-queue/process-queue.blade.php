@@ -1,18 +1,23 @@
 @extends('user.dashboard_master')
 
 @section('subtitle')
-    Processs Queue > {{ $business_name }}
+Processs Queue > {{ $business_name }}
 @stop
 
 @section('scripts')
-    <script>
-        $(document).ready(function() {
-           $('.subnav').hide();
+<script>
+    $(document).ready(function() {
+        $('.subnav').on('click', 'li a', function(e){
+            window.location.href = $(this).attr('href');
         });
-    </script>
+    });
+</script>
 {{ HTML::script('js/jquery.timepicker.min.js') }}
 {{ HTML::script('js/process-queue/process-queue.js') }}
 {{ HTML::script('js/process-queue/process-queue-angular.js') }}
+{{ HTML::script('js/process-queue/issue-number-angular.js') }}
+{{ HTML::script('js/google-analytics/googleAnalytics.js') }}
+{{ HTML::script('js/google-analytics/ga-process_queue.js') }}
 @stop
 
 @section('content')
@@ -31,7 +36,13 @@
 <!-- Process queue main -->
 <div class="row " ng-controller="processqueueController" id="process-queue-wrapper">
     <div class="col-md-12">
-        <h2 class="heading">{{ $business_name }}</h2>
+        <div class="row">
+            <h2 class="heading col-md-9"><small>Processing Queue's for: </small>{{ $business_name }}</h2>
+            <div class="col-md-3 text-right">
+                <a href="{{ url('/') }}" class="tobroadcast"><span class="glyphicon glyphicon-home"></span>Home </a>
+                <a href="{{ url('/broadcast/business/' . $business_id) }}" target="_blank" class="tobroadcast"><span class="glyphicon glyphicon-blackboard"></span>View Broadcast Screen </a>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="boxed mb20 processq">
@@ -43,13 +54,18 @@
                             <div class="row mb30">
                                 <div class="col-md-8 col-xs-12">
                                     <input id="selected-tnumber" type="hidden" ng-value="called_number" value=0>
-                                    <button class="btn-select btn-md dropdown-toggle" type="button" data-toggle="dropdown">
-                                        <span id="selected-pnumber">Please select a number</span><span class="caret"></span> <!-- @todo replace this with selected number-->
-                                    </button>
-                                    <ul class="dropdown-menu dd-select" id="uncalled-numbers">
-                                        <li ng-repeat="number in timebound_numbers" data-tnumber="@{{ number.transaction_number }}" data-pnumber="@{{ number.priority_number }}">@{{ number.priority_number }}</li>
-                                        <li ng-repeat="number in uncalled_numbers" data-tnumber="@{{ number.transaction_number }}" data-pnumber="@{{ number.priority_number }}">@{{ number.priority_number }}</li>
-                                    </ul>
+                                    <div ng-show="timebound_numbers.length == 0 && uncalled_numbers.length == 0">
+                                        <input id="issue-call-number" type="number" min="1" max="@{{ number_limit }}" class="form-control" ng-model="issue_call_number">
+                                    </div>
+                                    <div ng-show="timebound_numbers.length != 0 || uncalled_numbers.length != 0">
+                                        <button class="btn-select btn-md dropdown-toggle" type="button" data-toggle="dropdown">
+                                            <span id="selected-pnumber">Please select a number</span><span class="caret"></span> <!-- @todo replace this with selected number-->
+                                        </button>
+                                        <ul class="dropdown-menu dd-select" id="uncalled-numbers">
+                                            <li ng-repeat="number in timebound_numbers" data-tnumber="@{{ number.transaction_number }}" data-pnumber="@{{ number.priority_number }}">@{{ number.priority_number }}</li>
+                                            <li ng-repeat="number in uncalled_numbers" data-tnumber="@{{ number.transaction_number }}" data-pnumber="@{{ number.priority_number }}">@{{ number.priority_number }}</li>
+                                        </ul>
+                                    </div>
                                 </div>
                                 <div class="col-md-2 col-xs-12">
                                     <div id="pmsg">
@@ -67,13 +83,13 @@
                                         </div>
                                     </div>
                                     <div id="pmore">
-                                        <button id="btn-pmore" class="btn btn-blue btn-lg" data-toggle="modal" data-target="#moreq">
+                                        <button id="btn-pmore" class="btn btn-blue btn-lg" data-toggle="modal" data-target="#moreq" title="Issue a number.">
                                             <span class="glyphicon glyphicon-plus"></span>
                                         </button>
                                     </div>
                                 </div>
                                 <div class="col-md-2 col-xs-12 text-right">
-                                    <button class="btn btn-lg btn-orange" id="btn-call" ng-click="callNumber()" ng-disabled="isCalling">CALL NUMBER</button>
+                                    <button class="btn btn-lg btn-orange" id="btn-call" ng-click="issueOrCall()" ng-disabled="isCalling">CALL NUMBER</button>
                                 </div>
                             </div>
                         </form>

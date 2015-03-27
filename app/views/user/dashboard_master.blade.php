@@ -69,8 +69,8 @@
 <div class="subnav">
     <div class="container">
         <ul class="nav nav-tabs" id="header-tabs">
-            <li class="search active"><a href="#"><span class="glyphicon glyphicon-search"></span> Search</a></li>
-            <li class="biz"><a href="#"><span class="glyphicon glyphicon-home"></span> My Business</a></li>
+            <li class="search active"><a href="{{ url('/') }}"><span class="glyphicon glyphicon-search"></span> Search</a></li>
+            <li class="biz"><a href="{{ url('/') }}"><span class="glyphicon glyphicon-home"></span> My Business</a></li>
         </ul>
     </div>
 </div>
@@ -352,6 +352,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-md-4 col-xs-12">
             <div class="searchblock">
                 <form>
@@ -363,6 +364,7 @@
     </div>
     @yield('content')
 </div>
+
 <div class="footer">
     <div class="container">
         <div class="col-md-12">

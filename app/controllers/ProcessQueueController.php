@@ -21,6 +21,7 @@ class ProcessQueueController extends BaseController{
             ->with('terminal_id', $terminal_id)
             ->with('service_id', Terminal::serviceId($terminal_id))
             ->with('terminal_name', Terminal::name($terminal_id))
+            ->with('business_id', Business::getBusinessIdByTerminalId($terminal_id))
             ->with('business_name', Business::getBusinessNameByTerminalId($terminal_id));
     }
 

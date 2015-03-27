@@ -90,6 +90,12 @@ class Business extends Eloquent{
             'terminal_specific_issue' => QueueSettings::terminalSpecificIssue($first_service->service_id),
             'frontline_sms_secret' => QueueSettings::queueSetting('frontline_sms_secret', null, $first_service->service_id),
             'frontline_sms_url' => QueueSettings::queueSetting('frontline_sms_url', null, $first_service->service_id),
+            'sms_current_number' => QueueSettings::smsCurrentNumber($first_service->service_id),
+            'sms_1_ahead' => QueueSettings::smsOneAhead($first_service->service_id),
+            'sms_5_ahead' => QueueSettings::smsFiveAhead($first_service->service_id),
+            'sms_10_ahead' => QueueSettings::smsTenAhead($first_service->service_id),
+            'sms_blank_ahead' => QueueSettings::smsBlankAhead($first_service->service_id),
+            'input_sms_field' => QueueSettings::inputSmsField($first_service->service_id),
             'terminals' => $terminals,
             'analytics' => $analytics
         ];
@@ -209,6 +215,9 @@ class Business extends Eloquent{
 
     public static function deleteBusinessByBusinessId($business_id) {
       Business::where('business_id', '=', $business_id)->delete();
+
+      // PAG delete also the json file
+      unlink(public_path() . '/json/' . $business_id . '.json');
     }
 
     /*
@@ -297,6 +306,85 @@ class Business extends Eloquent{
           }
         }
       }
+
       return $active_businesses;
     }
+
+    public static function getNewBusinesses() {
+      return Business::orderBy('business_id', 'desc')->limit(5)->get(); // RDH Changed implementation to only include newest 4 businesses
+    }
+
+    public static function getProcessingBusinesses() {
+      $pool = array();
+      $new_pool = array();
+      $active_businesses = array();
+      $json_path = public_path() . '/json';
+      $iter = new DirectoryIterator($json_path);
+      foreach( $iter as $item ) {
+        if ($item != '.' && $item != '..' && $item->getFilename() != '.DS_Store' /* Mac Prob */) {
+          if( $item->isDir() ) {
+            Business::getProcessingBusinesses("$json_path/$item");
+          } else {
+            $filepath = $json_path . '/' . $item->getFilename();
+            $data = json_decode(file_get_contents($filepath));
+            if ($data->box1->number != '') {
+              $pool[] = basename($item->getFilename(), '.json');
+            }
+            elseif (isset($data->box2)) {
+              if ($data->box2->number != '') {
+                $pool[] = basename($item->getFilename(), '.json');
+              }
+            }
+            elseif (isset($data->box3)) {
+              if ($data->box3->number != '') {
+                $pool[] = basename($item->getFilename(), '.json');
+              }
+            }
+            elseif (isset($data->box4)) {
+              if ($data->box4->number != '') {
+                $pool[] = basename($item->getFilename(), '.json');
+              }
+            }
+            elseif (isset($data->box5)) {
+              if ($data->box5->number != '') {
+                $pool[] = basename($item->getFilename(), '.json');
+              }
+            }
+            elseif (isset($data->box6)) {
+              if ($data->box6->number != '') {
+                $pool[] = basename($item->getFilename(), '.json');
+              }
+            }
+            elseif ($data->get_num != '') {
+              $pool[] = basename($item->getFilename(), '.json');
+            }
+          }
+        }
+      }
+
+      // if there are more than 5 currently processing businesses, then return
+      // a randomized result set
+      if (sizeof($pool) > 5) {
+        $business_count = 0;
+        shuffle($pool);
+        foreach ($pool as $key => $val) {
+          if ($business_count == 5) break; // only show 5 random businesses
+          if (Business::where('business_id', '=', $val)->exists()) {
+            $active_businesses[$val]['business_id'] = $val;
+            $active_businesses[$val]['name'] = Business::name($val);
+            $active_businesses[$val]['local_address'] = Business::localAddress($val);
+            $business_count++;
+          }
+        }
+      }
+      else {
+        foreach ($pool as $key => $val) {
+          $active_businesses[$val]['business_id'] = $val;
+          $active_businesses[$val]['name'] = Business::name($val);
+          $active_businesses[$val]['local_address'] = Business::localAddress($val);
+        }
+      }
+      return $active_businesses;
+    }
+
 }

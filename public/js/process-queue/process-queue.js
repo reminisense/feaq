@@ -8,7 +8,6 @@ $(document).ready(function(){
     pq.jquery_functions.load_switch_tabs();
     pq.jquery_functions.load_select_number();
     pq.jquery_functions.load_default_navbar_link();
-    pq.jquery_functions.load_search_filter_behavior();
     pq.jquery_functions.load_show_modal();
     pq.jquery_functions.load_priority_number_modal_content();
 });
@@ -56,26 +55,30 @@ var pq = {
         },
 
         load_default_navbar_link : function(){
-            $('.nav-tabs li.search').removeClass('active');
-            $('.nav-tabs li.biz').addClass('active');
-            $('.filters').hide();
-        },
-
-        load_search_filter_behavior : function(){
-            $('.nav-tabs li.biz').on('click', function(){
-                $('#search_results').slideUp();
-            });
-
-            $('.nav-tabs li.search').on('click', function(){
-                $('#search_results').slideDown();
-            });
+//            $('.nav-tabs li.search').removeClass('active').removeClass('search');
+//            $('.nav-tabs li.biz').removeClass('active').removeClass('biz');
+            $('.subnav').remove();
+            $('.filters').remove();
         },
 
         load_show_modal : function(){
+            process_queue = angular.element($("#process-queue-wrapper")).scope();
+            issue_number_modal = angular.element($("#moreq")).scope();
             $('#moreq').on('show.bs.modal', function(){
                 pq.jquery_functions.show_tab_content();
                 pq.jquery_functions.set_next_priority_number();
+                issue_number_modal.$apply(function(){
+                    issue_number_modal.number_limit = process_queue.number_limit;
+                    console.log(issue_number_modal.number_limit);
+                });
             });
+
+            $('#moreq').on('hide.bs.modal', function(){
+                issue_number_modal.$apply(function(){
+                    issue_number_modal.priority_number = process_queue.next_number;
+                });
+            });
+
         },
 
         load_priority_number_modal_content : function(){
@@ -162,6 +165,7 @@ var pq = {
 
         set_next_number_placeholder : function(next_number){
             $('#moreq form input[name=priority_number]').attr('placeholder', next_number);
+            $('#issue-call-number').attr('placeholder', next_number);
         }
     }
 };

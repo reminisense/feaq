@@ -3,22 +3,22 @@
 <input type="hidden" id="business-details-url" value="{{ url('/business/businessdetails/') }}">
 <!-- modal -->
 <div class="modal fade" id="editBusiness" tabindex="-1" ng-controller="editBusinessController">
-    <div class="modal-dialog modal-md">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h3 class="modal-title" id="myModalLabel">Edit Business</h3> {{--CSD Goob job finding this!--}}
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="edit_business_body">
                 <form class="">
                     <div class="form-group row">
 
                         <ul class="nav nav-tabs nav-justified" id="editbiz-tabs">
-                            <li class="active"><a href="#bizdetails" data-toggle="tab">Business Details</a></li>
-                            <li> <a href="#bizterminals" data-toggle="tab">Business Terminals</a></li>
-                            <li> <a href="#bizqueuesettings" data-toggle="tab">Queue Settings</a></li>
-                            <li> <a href="#bizbroadcast" data-toggle="tab" ng-click="currentActiveTheme(business_id)">Broadcast Page</a></li>
-                            <li> <a href="#bizanalytics" data-toggle="tab">Business Analytics</a></li>
+                            <li class="active"><a href="#bizdetails" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Details</a></li>
+                            <li> <a href="#bizterminals" data-toggle="tab"><span class="glyphicon glyphicon-th"></span> Terminals</a></li>
+                            <li> <a href="#bizbroadcast" data-toggle="tab" ng-click="currentActiveTheme(business_id)"><span class="glyphicon glyphicon-blackboard"></span> Broadcast</a></li>
+                            <li> <a href="#bizqueuesettings" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+                            <li> <a href="#bizanalytics" data-toggle="tab"><span class="glyphicon glyphicon-stats"></span> Analytics</a></li>
                         </ul>
                         <div class="col-md-12">
                             <div class="alert" id="edit_message" style="display: none;">
@@ -111,9 +111,9 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <small>QR Code</small>
+                                            <small><span class="glyphicon glyphicon-qrcode"></span> QR Code</small>
                                             <div class="row" style="margin-top: 12px;">
-                                                <a id="qr_code_download" href="{{ url('business/pdf-download') }}/@{{ business_id }}" target="_blank" ng-model="business_id" class="btn-boxy btn-xs btn-primary"><span class="glyphicon glyphicon-add"></span> View QR Code</a>
+                                                <a id="qr_code_download" href="{{ url('business/pdf-download') }}/@{{ business_id }}" target="_blank" ng-model="business_id" class="btn-boxy btn-xs btn-primary"><span class="glyphicon glyphicon-qrcode"></span> View QR Code </a>
                                             </div>
                                         </div>
                                         </div>
@@ -171,12 +171,12 @@
                                                     <td>
                                                         <span ng-if="terminal.users.length != 0">
                                                             <span ng-repeat="user in terminal.users">
-                                                                <span>@{{ user.first_name + ' ' + user.last_name }}</span>
-                                                                <div class="block mb10 mt10">
-                                                                    <a href="#" class="vtn-boxy btn-xs btn-primary" ng-click="unassignFromTerminal(user.user_id, user.terminal_id)"><span class="glyphicon glyphicon-remove"></span> Remove</a>
+                                                                <span class="terminal_user">@{{ user.first_name + ' ' + user.last_name }}</span>
+                                                                <div class="block terminal-buttons">
+                                                                    <a href="#" class="btn-boxy btn-primary" ng-click="unassignFromTerminal(user.user_id, user.terminal_id)"><span class="glyphicon glyphicon-remove"></span> Remove</a>
                                                                     <span class="inline-btns" ng-if="terminal.users.length < 3">
                                                                         <span ng-if="user.user_id == terminal.users[terminal.users.length - 1].user_id">
-                                                                            <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary"><span class="glyphicon glyphicon-plus"></span> Add User</a>
+                                                                            <a href="#" class="btn-boxy btn-adduser btn-primary"><span class="glyphicon glyphicon-plus"></span> Add User</a>
                                                                             <div class="mb10 mt10 inputuser" style="display: none">
                                                                                 <form ng-submit="emailSearch(search_user, terminal.terminal_id)">
                                                                                     <input type="text" class="form-control" ng-model="search_user">
@@ -265,13 +265,50 @@
                                                     <td style="padding-top: 20px;"><input type="checkbox" ng-model="terminal_specific_issue"></td> {{--ARA Terminal-specific issue numbers--}}
                                                 </tr>
                                                 <tr>
-                                                    <td style="padding-top: 20px;">Frontline SMS Secret</td>
+                                                    <td style="padding-top: 20px;">
+                                                        <strong>*</strong>Frontline SMS Secret
+                                                        <a href="https://frontlinecloud.zendesk.com/entries/28395408-Using-the-WebConnection-API-to-send-messages" target="_blank">
+                                                            <span class="glyphicon glyphicon-question-sign" title="How to create a Web Connection in Frontlinesms"></span>
+                                                        </a>
+                                                    </td>
                                                     <td><input class="mb0 form-control" type="password" value="@{{ frontline_secret }}" ng-model="frontline_secret" ></td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="padding-top: 20px;">Frontline SMS URL</td>
+                                                    <td style="padding-top: 20px;">
+                                                        <strong>*</strong>Frontline SMS URL
+                                                        <a href="https://frontlinecloud.zendesk.com/entries/28395408-Using-the-WebConnection-API-to-send-messages" target="_blank">
+                                                            <span class="glyphicon glyphicon-question-sign" title="How to create a Web Connection in Frontlinesms"></span>
+                                                        </a>
+                                                    </td>
                                                     <td><input class="mb0 form-control" type="text" value="@{{ frontline_url }}" ng-model="frontline_url" ></td>
                                                 </tr>
+                                                <tr>
+                                                    <td style="padding-top: 20px;">
+                                                        SMS Notification Settings<strong>:</strong>
+                                                        <span class="glyphicon glyphicon-info-sign" style="color:#337ab7;" title="When to notify users via SMS."></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-top: 10px; padding-left:20px;">Priority Number is called<strong>.</strong></td>
+                                                    <td style="padding-top: 10px;"><input type="checkbox"  ng-model="sms_current_number"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-top: 5px; padding-left:20px;">Priority Number is next in queue<strong>.</strong></td>
+                                                    <td style="padding-top: 5px;;"><input type="checkbox"  ng-model="sms_1_ahead"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-top: 5px; padding-left:20px;">5 Numbers ahead in queue<strong>.</strong></td>
+                                                    <td style="padding-top: 5px;"><input type="checkbox"  ng-model="sms_5_ahead"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-top: 5px; padding-left:20px;">10 Numbers ahead in queue<strong>.</strong></td>
+                                                    <td style="padding-top: 5px;"><input type="checkbox"  ng-model="sms_10_ahead"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-top: 5px; padding-left:20px;"><input id="input_sms_field" type="text" ng-model="input_sms_field"> Numbers ahead in queue.</td>
+                                                    <td style="padding-top: 5px;"><input type="checkbox"  ng-model="sms_blank_ahead"></td>
+                                                </tr>
+
                                                 {{--<tr>
                                                     <td>Loop numbers automatically.</td>
                                                     <td><input type="radio">Yes <input type="radio">No </td>
@@ -284,60 +321,19 @@
                                                     <td>Allow Remote Queuing.</td>
                                                     <td><input type="radio">Yes <input type="radio">No </td>
                                                 </tr>--}}
-                                            </tbody></table>
+                                                </tbody>
+                                            </table>
+                                            <div class="alert alert-info" role="alert">
+                                                <strong>* FeatherQ Frontline SMS</strong> features will be given for <strong>free</strong> for the next few months.
+                                                However, future developments might classify these features to be given exclusively to premium users without prior notice.
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- accordion -->
                             </div>
 
-                            <div role="tabpanel" class="tab-pane fade" id="bizbroadcast" aria-labelledby="profile-tab">
-                                <div class="col-md-12">
-                                    <h5>BROADCAST LAYOUT</h5><br>
-                                </div>
-                                <div class="col-md-4 col-xs-6 mb20">
-                                    <img src="images/icon-b1.jpg" class="mb10 img-responsive">
-                                    <span class="inline-btns">
-                                        <p class="orange h5 nomg 1-1 activated" style="display: none;">Active</p>
-                                        <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 1-1 theme-btn" ng-click="activateTheme('1-1', business_id)">Activate</a>
-                                    </span>
-                                </div>
-                                <div class="col-md-4 col-xs-6 mb20">
-                                    <img src="images/icon-b2.jpg" class="mb10 img-responsive">
-                                    <span class="inline-btns">
-                                        <p class="orange h5 nomg 1-4 activated" style="display: none;">Active</p>
-                                        <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 1-4 theme-btn" ng-click="activateTheme('1-4', business_id)">Activate</a>
-                                    </span>
-                                </div>
-                                <div class="col-md-4 col-xs-6 mb20">
-                                    <img src="images/icon-b3.jpg" class="mb10 img-responsive">
-                                    <span class="inline-btns">
-                                        <p class="orange h5 nomg 1-6 activated" style="display: none;">Active</p>
-                                        <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 1-6 theme-btn" ng-click="activateTheme('1-6', business_id)">Activate</a>
-                                    </span>
-                                </div>
-                                <div class="col-md-4 col-xs-6 mb20">
-                                    <img src="images/icon-b4.jpg" class="mb10 img-responsive">
-                                    <span class="inline-btns">
-                                        <p class="orange h5 nomg 0-1 activated" style="display: none;">Active</p>
-                                        <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 0-1 theme-btn" ng-click="activateTheme('0-1', business_id)">Activate</a>
-                                    </span>
-                                </div>
-                                <div class="col-md-4 col-xs-6 mb20">
-                                    <img src="images/icon-b5.jpg" class="mb10 img-responsive">
-                                    <span class="inline-btns">
-                                        <p class="orange h5 nomg 0-4 activated" style="display: none;">Active</p>
-                                        <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 0-4 theme-btn" ng-click="activateTheme('0-4', business_id)">Activate</a>
-                                    </span>
-                                </div>
-                                <div class="col-md-4 col-xs-6 mb20">
-                                    <img src="images/icon-b6.jpg" class="mb10 img-responsive">
-                                    <span class="inline-btns">
-                                        <p class="orange h5 nomg 0-6 activated" style="display: none;">Active</p>
-                                        <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 0-6 theme-btn" ng-click="activateTheme('0-6', business_id)">Activate</a>
-                                    </span>
-                                </div>
-                            </div>
+                            @include('modals.business.broadcast')
 
                             <div role="tabpanel" class="tab-pane fade" id="bizanalytics" aria-lavelledby="profile-tab">
                                 <div class="col-md-12">
@@ -374,6 +370,10 @@
                                             </tr>
                                         </tbody>
                                     </table>
+                                    <div class="alert alert-info" role="alert">
+                                        <strong>FeatherQ Business Analytics</strong> features will be given for <strong>free</strong> for the next few months.
+                                        However, future developments might classify these features to be given exclusively to premium users without prior notice.
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -381,8 +381,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" id="delete_business" class="btn btn-danger btn-lg" ng-click="deleteBusiness(business_id)">DELETE BUSINESS</button>
-                <button type="button" id="edit_business" class="btn btn-orange btn-lg" ng-click="saveBusinessDetails()">SUBMIT</button>
+                <button type="button" id="delete_business" class="btn btn-danger btn-lg" ng-click="deleteBusiness(business_id)"><span class="glyphicon glyphicon-trash"></span> DELETE BUSINESS</button>
+                <button type="button" id="edit_business" class="btn btn-orange btn-lg" ng-click="saveBusinessDetails()"><span class="glyphicon glyphicon-check"></span> SUBMIT</button>
             </div>
         </div>
     </div>

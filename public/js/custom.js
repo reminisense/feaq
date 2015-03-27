@@ -10,14 +10,15 @@ $(document).ready(function() {
         }
     });
 
-    $('#header-tabs.nav-tabs li').click(function () {
+    $('#header-tabs.nav-tabs li').click(function (e) {
+        e.preventDefault();
         $('.nav-tabs li').removeClass('active');
         $(this).addClass('active');
         if ($(this).hasClass('biz')) {
             $('.filters').slideUp('fast');
             $('#my_businesses').css('display', 'block');
             $('#search_business').css('display', 'none');
-        } else {
+        } else if($(this).hasClass('search')){
             $('.filters').slideDown('fast');
             $('#my_businesses').css('display', 'none');
             $('#search_business').css('display', 'block');
@@ -49,11 +50,6 @@ $(document).ready(function() {
 
     /*hovering get this number button*/
     $('.btn-getnum').hover(
-        function () {
-            var $this = $(this); // caching $(this)
-            $this.data("GET THIS NUMBER <span class='glyphicon glyphicon-save'></span>", $this.text());
-            $this.text("Coming Soon!");
-        },
         function () {
             var $this = $(this); // caching $(this)
             $this.text($this.data("GET THIS NUMBER <span class='glyphicon glyphicon-save'></span>"));

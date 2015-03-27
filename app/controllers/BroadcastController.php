@@ -50,7 +50,8 @@ class BroadcastController extends BaseController{
             ->with('business_id', $business_id) /* RDH Changed error, 'branch_id' to 'business_id' */
             ->with('business_name', $business_name)
             ->with('lines_in_queue', Analytics::getBusinessRemainingCount($business_id))
-            ->with('estimate_serving_time', Analytics::getAverageTimeServedByBusinessId($business_id));
+            ->with('estimate_serving_time', Analytics::getAverageTimeServedByBusinessId($business_id))
+            ->with('first_service', Service::getFirstServiceOfBusiness($business_id));
     }
 
     public function getNumbers($branch_id = 0) {
@@ -119,6 +120,7 @@ class BroadcastController extends BaseController{
   public function postSetTheme() {
     $post = json_decode(file_get_contents("php://input"));
     $data = json_decode(file_get_contents(public_path() . '/json/' . $post->business_id . '.json'));
+    $data->show_issued = $post->show_issued;
     $data->display = $post->theme_type;
     if ($post->theme_type == '0-1' || $post->theme_type == '1-1') {
       unset($data->box2);

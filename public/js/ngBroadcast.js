@@ -1,186 +1,109 @@
 (function() {
 
-    var app = angular.module('Broadcast', []);
+    //var app = angular.module('Broadcast', []); --ARA moved declaration to js/broadcast.js
 
     app.controller('nowServingCtrl', function($scope, $http) {
 
         var business_id = document.getElementById('business-id').getAttribute('business_id');
-        setInterval(function() {
-            $http.get('/broadcast/reset-numbers/'+business_id).success(function(response) {
-                if (response.status == '1') {
-                    window.location.reload(true);
-                }
-            });
-            $http.get('/json/'+business_id+'.json').success(function(response) {
-                if ($scope.rank1 != response.box1.rank) {
-                    $scope.rank1 = response.box1.rank;
-                    $scope.name1 = response.box1.terminal;
-                    if ($scope.rank1 != "") {
-                        $scope.callNumberSound('call-number-sound');
-                    }
-                }
-                if (typeof response.box2 != 'undefined') {
-                    if ($scope.rank2 != response.box2.rank) {
-                        $scope.rank2 = response.box2.rank;
-                        $scope.name2 = response.box2.terminal;
-                        if ($scope.rank2 != "") {
-                            $scope.callNumberSound('call-number-sound');
-                        }
-                    }
-                }
-                if (typeof response.box3 != 'undefined') {
-                    if ($scope.rank3 != response.box3.rank) {
-                        $scope.rank3 = response.box3.rank;
-                        $scope.name3 = response.box3.terminal;
-                        if ($scope.rank3 != "") {
-                            $scope.callNumberSound('call-number-sound');
-                        }
-                    }
-                }
-                if (typeof response.box4 != 'undefined') {
-                    if ($scope.rank4 != response.box4.rank) {
-                        $scope.rank4 = response.box4.rank;
-                        $scope.name4 = response.box4.terminal;
-                        if ($scope.rank4 != "") {
-                            $scope.callNumberSound('call-number-sound');
-                        }
-                    }
-                }
-                if (typeof response.box5 != 'undefined') {
-                    if ($scope.rank5 != response.box5.rank) {
-                        $scope.rank5 = response.box5.rank;
-                        $scope.name5 = response.box5.terminal;
-                        if ($scope.rank5 != "") {
-                            $scope.callNumberSound('call-number-sound');
-                        }
-                    }
-                }
-                if (typeof response.box6 != 'undefined') {
-                    if ($scope.rank6 != response.box6.rank) {
-                        $scope.rank6 = response.box6.rank;
-                        $scope.name6 = response.box6.terminal;
-                        if ($scope.rank6 != "") {
-                            $scope.callNumberSound('call-number-sound');
-                        }
-                    }
-                }
 
-                if ($scope.box1 != response.box1.number && $scope.rank1 != "") {
-                    $scope.callNumberSound('call-number-sound');
-                }
-                if (typeof response.box2 != 'undefined') {
-                    if ($scope.box2 != response.box2.number && $scope.rank2 != "") {
-                        $scope.callNumberSound('call-number-sound');
-                    }
-                }
-                if (typeof response.box3 != 'undefined') {
-                    if ($scope.box3 != response.box3.number && $scope.rank3 != "") {
-                        $scope.callNumberSound('call-number-sound');
-                    }
-                }
-                if (typeof response.box4 != 'undefined') {
-                    if ($scope.box4 != response.box4.number && $scope.rank4 != "") {
-                        $scope.callNumberSound('call-number-sound');
-                    }
-                }
-                if (typeof response.box5 != 'undefined') {
-                    if ($scope.box5 != response.box5.number && $scope.rank5 != "") {
-                        $scope.callNumberSound('call-number-sound');
-                    }
-                }
-                if (typeof response.box6 != 'undefined') {
-                    if ($scope.box6 != response.box6.number && $scope.rank6 != "") {
-                        $scope.callNumberSound('call-number-sound');
-                    }
-                }
-
-                $scope.box1 = response.box1.number;
-                if (typeof response.box2 != 'undefined') {
-                    $scope.box2 = response.box2.number;
-                }
-                if (typeof response.box3 != 'undefined') {
-                    $scope.box3 = response.box3.number;
-                }
-                if (typeof response.box4 != 'undefined') {
-                    $scope.box4 = response.box4.number;
-                }
-                if (typeof response.box5 != 'undefined') {
-                    $scope.box5 = response.box5.number;
-                }
-                if (typeof response.box6 != 'undefined') {
-                    $scope.box6 = response.box6.number;
-                }
-
-                /* RDH Checks if empty, show '-' if yes*/
-                $scope.get_num = (response.get_num === "") ? "-": response.get_num;
-
-                if (response.display == '1-1' || response.display == '0-1') {
-                    $scope.boxdisplay1 = '';
-                    $scope.boxdisplay2 = 'display: none;';
-                    $scope.boxdisplay3 = 'display: none;';
-                    $scope.boxdisplay4 = 'display: none;';
-                    $scope.boxdisplay5 = 'display: none;';
-                    $scope.boxdisplay6 = 'display: none;';
-                }
-                /*
-                else if (response.display == 2) {
-                    $scope.boxdisplay1 = '';
-                    $scope.boxdisplay2 = '';
-                    $scope.boxdisplay3 = 'display: none;';
-                    $scope.boxdisplay4 = 'display: none;';
-                    $scope.boxdisplay5 = 'display: none;';
-                    $scope.boxdisplay6 = 'display: none;';
-                }
-                else if (response.display == 3) {
-                    $scope.boxdisplay1 = '';
-                    $scope.boxdisplay2 = '';
-                    $scope.boxdisplay3 = '';
-                    $scope.boxdisplay4 = 'display: none;';
-                    $scope.boxdisplay5 = 'display: none;';
-                    $scope.boxdisplay6 = 'display: none;';
-                }
-                */
-                else if (response.display == '1-4' || response.display == '0-4') {
-                    $scope.boxdisplay1 = '';
-                    $scope.boxdisplay2 = '';
-                    $scope.boxdisplay3 = '';
-                    $scope.boxdisplay4 = '';
-                    $scope.boxdisplay5 = 'display: none;';
-                    $scope.boxdisplay6 = 'display: none;';
-                }
-                /*
-                else if (response.display == 5) {
-                    $scope.boxdisplay1 = '';
-                    $scope.boxdisplay2 = '';
-                    $scope.boxdisplay3 = '';
-                    $scope.boxdisplay4 = '';
-                    $scope.boxdisplay5 = '';
-                    $scope.boxdisplay6 = 'display: none;';
-                }
-                */
-                else if (response.display == '1-6' || response.display == '0-6') {
-                    $scope.boxdisplay1 = '';
-                    $scope.boxdisplay2 = '';
-                    $scope.boxdisplay3 = '';
-                    $scope.boxdisplay4 = '';
-                    $scope.boxdisplay5 = '';
-                    $scope.boxdisplay6 = '';
-                }
-
-                if (response.display == '0-1' || response.display == '0-4' || response.display == '0-6') {
-                    $scope.ad_display = 'display: none !important;';
-                }
-                else {
-                    $scope.ad_display = '';
-                }
-
-            });
-        }, 1000);
-
-        $scope.callNumberSound = function (soundobj) {
+        $scope.callNumberSound = (function (soundobj) {
             var thissound = document.getElementById(soundobj);
             thissound.play();
-        }
+        });
+
+        $scope.announceNumber = (function(response, rank_num, box_num, name_num) {
+            if (typeof response[box_num] != 'undefined') {
+                if ($scope[rank_num] != response[box_num].rank) {
+                    $scope[rank_num] = response[box_num].rank;
+                    $scope[name_num] = response[box_num].terminal;
+                    if ($scope[rank_num] != "") {
+                        $scope.callNumberSound('call-number-sound');
+                    }
+                }
+            }
+        });
+
+        $scope.announceNumberFromBlank = (function(response, box_num, rank_num) {
+            if (typeof response[box_num] != 'undefined') {
+                if ($scope[box_num] != response[box_num].number && $scope[rank_num] != "") {
+                    $scope.callNumberSound('call-number-sound');
+                }
+            }
+        });
+
+        $scope.writeNumber = (function(response, box_num) {
+            if (typeof response[box_num] != 'undefined') {
+                $scope[box_num] = response[box_num].number;
+            }
+        });
+
+        $scope.getNum = (function(response) {
+            $scope.get_num = (response.get_num === "") ? "-": response.get_num;
+        });
+
+        $scope.showHideNumbers = (function(response) {
+            var boxes = response.display.split("-");
+            $scope.boxdisplay1 = '';
+            $scope.boxdisplay2 = (boxes[1] >= '4') ? '' : 'display: none;';
+            $scope.boxdisplay3 = (boxes[1] >= '4') ? '' : 'display: none;';
+            $scope.boxdisplay4 = (boxes[1] >= '4') ? '' : 'display: none;';
+            $scope.boxdisplay5 = (boxes[1] >= '6') ? '' : 'display: none;';
+            $scope.boxdisplay6 = (boxes[1] >= '6') ? '' : 'display: none;';
+        });
+
+        $scope.showHideAds = (function(response) {
+            var boxes = response.display.split("-");
+            if (boxes[0] == '0') {
+                $scope.ad_display = 'display: none !important;';
+            }
+            else {
+                $scope.ad_display = '';
+                $scope.ad_image = (typeof response.ad_image != 'undefined') ? response.ad_image : '/images/ads.jpg';
+            }
+        });
+
+        $scope.updateBroadcastPage = (function(response) {
+            $scope.announceNumber(response, 'rank1', 'box1', 'name1');
+            $scope.announceNumber(response, 'rank2', 'box2', 'name2');
+            $scope.announceNumber(response, 'rank3', 'box3', 'name3');
+            $scope.announceNumber(response, 'rank4', 'box4', 'name4');
+            $scope.announceNumber(response, 'rank5', 'box5', 'name5');
+            $scope.announceNumber(response, 'rank6', 'box6', 'name6');
+
+            $scope.announceNumberFromBlank(response, 'box1', 'rank1');
+            $scope.announceNumberFromBlank(response, 'box2', 'rank2');
+            $scope.announceNumberFromBlank(response, 'box3', 'rank3');
+            $scope.announceNumberFromBlank(response, 'box4', 'rank4');
+            $scope.announceNumberFromBlank(response, 'box5', 'rank5');
+            $scope.announceNumberFromBlank(response, 'box6', 'rank6');
+
+            $scope.writeNumber(response, 'box1');
+            $scope.writeNumber(response, 'box2');
+            $scope.writeNumber(response, 'box3');
+            $scope.writeNumber(response, 'box4');
+            $scope.writeNumber(response, 'box5');
+            $scope.writeNumber(response, 'box6');
+
+            /* RDH Checks if empty, show '-' if yes*/
+            $scope.getNum(response);
+
+            $scope.showHideNumbers(response);
+            $scope.showHideAds(response);
+        });
+
+        $scope.resetNumbers = (function(response) {
+            if (response.status == '1') {
+                window.location.reload(true);
+            }
+        });
+
+        setInterval(function() {
+
+            $http.get('/broadcast/reset-numbers/'+business_id).success($scope.resetNumbers);
+
+            $http.get('/json/'+business_id+'.json?nocache='+Math.floor((Math.random() * 10000) + 1)).success($scope.updateBroadcastPage);
+
+        }, 1000);
 
     });
 

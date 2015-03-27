@@ -41,7 +41,7 @@ class Analytics extends Eloquent{
         DB::table('queue_analytics')->insert($values);
     }
 
-    public static function insertAnalyticsQueueNumber($action, $transaction_number, $service_id, $date, $time, $terminal_id = 0){
+    public static function insertAnalyticsQueueNumber($action, $transaction_number, $service_id, $date, $time, $terminal_id, $queue_platform){
         $values = [
             'transaction_number' => $transaction_number,
             'date' => $date,
@@ -49,7 +49,7 @@ class Analytics extends Eloquent{
             'branch_id' => Service::branchId($service_id),
             'service_id' => $service_id,
             'terminal_id' => $terminal_id,
-            'queue_platform' => 'web',
+            'queue_platform' => $queue_platform,
             'user_id' => Helper::userId(),
             'action' => $action,
             'action_time' => $time
@@ -59,20 +59,20 @@ class Analytics extends Eloquent{
 
     }
 
-    public static function insertAnalyticsQueueNumberIssued($transaction_number, $service_id, $date, $time){
-        Analytics::insertAnalyticsQueueNumber(0, $transaction_number, $service_id, $date, $time);
+    public static function insertAnalyticsQueueNumberIssued($transaction_number, $service_id, $date, $time, $terminal_id, $queue_platform){
+        Analytics::insertAnalyticsQueueNumber(0, $transaction_number, $service_id, $date, $time, $terminal_id, $queue_platform);
     }
 
-    public static function insertAnalyticsQueueNumberCalled($transaction_number, $service_id, $date, $time, $terminal_id){
-        Analytics::insertAnalyticsQueueNumber(1, $transaction_number, $service_id, $date, $time, $terminal_id);
+    public static function insertAnalyticsQueueNumberCalled($transaction_number, $service_id, $date, $time, $terminal_id, $queue_platform){
+        Analytics::insertAnalyticsQueueNumber(1, $transaction_number, $service_id, $date, $time, $terminal_id, $queue_platform);
     }
 
-    public static function insertAnalyticsQueueNumberServed($transaction_number, $service_id, $date, $time, $terminal_id){
-        Analytics::insertAnalyticsQueueNumber(2, $transaction_number, $service_id, $date, $time, $terminal_id);
+    public static function insertAnalyticsQueueNumberServed($transaction_number, $service_id, $date, $time, $terminal_id, $queue_platform){
+        Analytics::insertAnalyticsQueueNumber(2, $transaction_number, $service_id, $date, $time, $terminal_id, $queue_platform);
     }
 
-    public static function insertAnalyticsQueueNumberRemoved($transaction_number, $service_id, $date, $time, $terminal_id){
-        Analytics::insertAnalyticsQueueNumber(3, $transaction_number, $service_id, $date, $time, $terminal_id);
+    public static function insertAnalyticsQueueNumberRemoved($transaction_number, $service_id, $date, $time, $terminal_id, $queue_platform){
+        Analytics::insertAnalyticsQueueNumber(3, $transaction_number, $service_id, $date, $time, $terminal_id, $queue_platform);
     }
 
     /**

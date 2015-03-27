@@ -6,6 +6,7 @@
 
 @section('scripts')
     {{ HTML::script('js/dashboard/dashboard.js') }}
+    {{ HTML::script('js/jquery.form.js') }}
     {{ HTML::script('js/dashboard/edit-business.js') }}
     {{ HTML::script('js/jquery.timepicker.min.js') }}
     {{ HTML::script('js/intlTelInput.js') }}
@@ -32,7 +33,8 @@
                     <div class="wrap">
                       <h3>{{ $business->name }}</h3>
                       <small>{{  $business->local_address }}</small>
-                      <a href="" class="to-terminals"><span class="glyphicon glyphicon-share-alt"></span> Process</a>
+                      <a href="" class="to-terminals" title="Process Queue."><span class="glyphicon glyphicon-share-alt"></span> Process</a>
+                      <a href="{{ url('/broadcast/business/' . $business->business_id) }}" class="pull-right to-broadcast" target="_blank" title="View Broadcast Page."><span class="glyphicon glyphicon-blackboard"></span> Broadcast</a>
                       @if($business->owner == 1)
                         <button data-toggle="modal" data-target="#editBusiness" data-business-id="{{ $business->business_id }}" class="btn btn-nobg edit-business-cog"><span class="glyphicon glyphicon-cog"></span></button>
                       @endif
@@ -70,10 +72,12 @@
             <h5 class="mb30">ACTIVE BUSINESSES</h5>
             @if(count($active_businesses) > 0)
                 <div id="active-businesses">
+                    <div class="row">
                     @foreach($active_businesses as $ac_business_id => $actives)
+
                         <div class="col-md-3">
                             <div class="boxed boxed-single clickable">
-                                <a href="{{ URL::to( '/broadcast/business/' . $ac_business_id ) }}" target="_blank"> {{--RDH Links for Business' broadcast page--}}
+                                <a href="{{ URL::to( '/broadcast/business/' . $ac_business_id ) }}" target="_blank" title="View Broadcast Page."> {{--RDH Links for Business' broadcast page--}}
                                     <div class="wrap">
                                         <h3>{{ $actives['name'] }}</h3>
                                         <small>{{ $actives['local_address'] }}</small>
@@ -83,6 +87,7 @@
                         </div>
                     @endforeach
                 </div>
+                </div>
             @endif
         </div>
 
@@ -90,10 +95,11 @@
             <h5 class="mb30">@{{ searchLabel }}</h5>
             @if(count($search_businesses) > 0)
             <div id="popular-businesses">
+                <div class="row">
                 @foreach($search_businesses as $business)
                     <div class="col-md-3">
                       <div class="boxed boxed-single clickable">
-                          <a href="{{ URL::to( '/broadcast/business/' . $business->business_id ) }}" target="_blank"> {{--RDH Links for Business' broadcast page--}}
+                          <a href="{{ URL::to( '/broadcast/business/' . $business->business_id ) }}" target="_blank" title="View Broadcast Page."> {{--RDH Links for Business' broadcast page--}}
                               <div class="wrap">
                                   <h3>{{ $business->name }}</h3>
                                   <small>{{ $business->local_address }}</small>
@@ -102,6 +108,7 @@
                       </div>
                     </div>
                 @endforeach
+                </div>
             </div>
             <div class="col-md-3" ng-repeat="business in businesses">
                 <div class="boxed boxed-single clickable">
