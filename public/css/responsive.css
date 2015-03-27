@@ -62,6 +62,15 @@
 }
 
 @media (max-width: 480px) {
+    #delete_business {
+        margin-bottom: 5px;
+    }
+
+    .btn {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
     .navbar-brand {
         margin-left: 10px;
     }

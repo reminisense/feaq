@@ -1194,3 +1194,7 @@ input#input_sms_field:focus{
     font-size: 10px;
     margin-right: 4px;
 }
+
+#embed-alert {
+    padding: 10px!important;
+}
