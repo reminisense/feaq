@@ -20,7 +20,8 @@
     {{ HTML::script('js/bootstrap.min.js') }}
     {{ HTML::script('js/wow.min.js') }}
     {{ HTML::script('js/custom.js') }}
-    {{ HTML::script('js/angular.js') }}
+    {{--{{ HTML::script('js/angular.js') }}--}}
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script> {{-- RDH Using CDN for Angular JS File --}}
     {{ HTML::script('js/ngFeatherQ.js') }}
     {{ HTML::script('js/ngFacebook.js') }}
     {{ HTML::script('js/ngAutocomplete.js') }}

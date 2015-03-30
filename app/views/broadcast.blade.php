@@ -15,7 +15,8 @@
     {{ HTML::style('css/responsive.css') }}
 
     {{ HTML::script('js/jquery1.11.2.js') }}
-    {{ HTML::script('js/angular.js') }}
+    {{--{{ HTML::script('js/angular.js') }}--}}
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script> {{-- RDH Using CDN for Angular JS File --}}
     {{ HTML::script('js/broadcast.js') }}
     {{ HTML::script('js/ngBroadcast.js') }}
 

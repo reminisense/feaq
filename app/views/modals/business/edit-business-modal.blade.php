@@ -111,7 +111,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <small><span class="glyphicon glyphicon-qrcode"></span> QR Code</small>
+                                            <small><span class="glyphicon"></span> QR Code</small>
                                             <div class="row" style="margin-top: 12px;">
                                                 <a id="qr_code_download" href="{{ url('business/pdf-download') }}/@{{ business_id }}" target="_blank" ng-model="business_id" class="btn-boxy btn-xs btn-primary"><span class="glyphicon glyphicon-qrcode"></span> View QR Code </a>
                                             </div>
