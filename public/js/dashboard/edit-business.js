@@ -22,6 +22,16 @@ $(document).ready(function(){
         $(this).hide();
     });
 
+    $('body').on('click', '.cancel-adduser', function(e){
+        e.preventDefault();
+        $(this).parents('.inputuser').hide();
+        $(this).parents('.inputuser').siblings('.btn-adduser').show();
+    });
+
+    $('body').on('click', '.cancel-add-terminal', function(){
+        eb.jquery_functions.hide_add_terminal_form();
+    });
+
     $(document).on('change', '#ad-image', function(){
         $('#image-submit-btn').removeClass('btn-disabled');
     });
