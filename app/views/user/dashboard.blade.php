@@ -5,22 +5,46 @@
 @stop
 
 @section('scripts')
-    {{ HTML::script('js/dashboard/dashboard.js') }}
-    {{ HTML::script('js/jquery.form.js') }}
-    {{ HTML::script('js/dashboard/edit-business.js') }}
-    {{ HTML::script('js/jquery.timepicker.min.js') }}
-    {{ HTML::script('js/intlTelInput.js') }}
-    {{ HTML::script('js/dashboard/jquery.validate.js') }}
-    {{ HTML::script('js/dashboard/search-business.js') }}
+    {{--{{ HTML::script('js/dashboard/dashboard.js') }}--}}
+    <script src="/js/dashboard/dashboard.js"></script>
+
+    {{--{{ HTML::script('js/jquery.form.js') }}--}}
+    <script src="/js/jquery.form.js"></script>
+
+    {{--{{ HTML::script('js/dashboard/edit-business.js') }}--}}
+    <script src="/js/dashboard/edit-business.js"></script>
+
+    {{--{{ HTML::script('js/jquery.timepicker.min.js') }}--}}
+    <script src="/js/jquery.timepicker.min.js"></script>
+
+    {{--{{ HTML::script('js/intlTelInput.js') }}--}}
+    <script src="/js/intlTelInput.js"></script>
+
+    {{--{{ HTML::script('js/dashboard/jquery.validate.js') }}--}}
+    <script src="/js/dashboard/jquery.validate.js"></script>
+
+    {{--{{ HTML::script('js/dashboard/search-business.js') }}--}}
+    <script src="/js/dashboard/search-business.js"></script>
+
     <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
-    {{ HTML::script('js/jquery.geocomplete.js') }}
-    {{ HTML::script('js/google-analytics/googleAnalytics.js') }}
-    {{ HTML::script('js/google-analytics/ga-dashboard.js') }}
+
+    {{--{{ HTML::script('js/jquery.geocomplete.js') }}--}}
+    <script src="/js/jquery.geocomplete.js"></script>
+
+    {{--{{ HTML::script('js/google-analytics/googleAnalytics.js') }}--}}
+    <script src="/js/google-analytics/googleAnalytics.js"></script>
+
+    {{--{{ HTML::script('js/google-analytics/ga-dashboard.js') }}--}}
+    <script src="/js/google-analytics/ga-dashboard.js"></script>
+
 @stop
 
 @section('styles')
-    {{ HTML::style('css/jquery.timepicker.min.css') }}
-    {{ HTML::style('css/intlTelInput.css') }}
+    {{--{{ HTML::style('css/jquery.timepicker.min.css') }}--}}
+    <link media="all" type="text/css" rel="stylesheet" href="/css/jquery.timepicker.min.css">
+
+    {{--{{ HTML::style('css/intlTelInput.css') }}--}}
+    <link media="all" type="text/css" rel="stylesheet" href="/css/intlTelInput.css">
 @stop
 
 @section('content')

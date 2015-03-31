@@ -2,15 +2,27 @@
 
 
 @section('scripts')
-    {{ HTML::script('js/user/user.js') }}
-    {{ HTML::script('js/search-business.js') }}
-    {{ HTML::script('js/jquery.timepicker.min.js') }}
-    {{ HTML::script('js/google-analytics/googleAnalytics.js') }}
-    {{ HTML::script('js/google-analytics/ga-page_front.js') }}
+    {{--{{ HTML::script('js/user/user.js') }}--}}
+    <script src="/js/user/user.js"></script>
+
+    {{--{{ HTML::script('js/search-business.js') }}--}}
+    <script src="/js/search-business.js"></script>
+
+    {{--{{ HTML::script('js/jquery.timepicker.min.js') }}--}}
+    <script src="/js/jquery.timepicker.min.js"></script>
+
+    {{--{{ HTML::script('js/google-analytics/googleAnalytics.js') }}--}}
+    <script src="/js/google-analytics/googleAnalytics.js"></script>
+
+    {{--{{ HTML::script('js/google-analytics/ga-page_front.js') }}--}}
+    <script src="/js/google-analytics/ga-page_front.js"></script>
+
 @stop
 
 @section('body')
-    {{ HTML::style('css/jquery.timepicker.min.css') }}
+    {{--{{ HTML::style('css/jquery.timepicker.min.css') }}--}}
+    <link media="all" type="text/css" rel="stylesheet" href="/css/jquery.timepicker.min.css">
+
 <!--
   Below we include the Login Button social plugin. This button uses
   the JavaScript SDK to present a graphical Login button that triggers

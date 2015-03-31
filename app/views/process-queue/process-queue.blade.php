@@ -12,12 +12,24 @@ Processs Queue > {{ $business_name }}
         });
     });
 </script>
-{{ HTML::script('js/jquery.timepicker.min.js') }}
-{{ HTML::script('js/process-queue/process-queue.js') }}
-{{ HTML::script('js/process-queue/process-queue-angular.js') }}
-{{ HTML::script('js/process-queue/issue-number-angular.js') }}
-{{ HTML::script('js/google-analytics/googleAnalytics.js') }}
-{{ HTML::script('js/google-analytics/ga-process_queue.js') }}
+{{--{{ HTML::script('js/jquery.timepicker.min.js') }}--}}
+<script src="/js/jquery.timepicker.min.js"></script>
+
+{{--{{ HTML::script('js/process-queue/process-queue.js') }}--}}
+<script src="/js/process-queue/process-queue.js"></script>
+
+{{--{{ HTML::script('js/process-queue/process-queue-angular.js') }}--}}
+<script src="/js/process-queue/process-queue-angular.js"></script>
+
+{{--{{ HTML::script('js/process-queue/issue-number-angular.js') }}--}}
+<script src="/js/process-queue/issue-number-angular.js"></script>
+
+{{--{{ HTML::script('js/google-analytics/googleAnalytics.js') }}--}}
+<script src="/js/google-analytics/googleAnalytics.js"></script>
+
+{{--{{ HTML::script('js/google-analytics/ga-process_queue.js') }}--}}
+<script src="/js/google-analytics/ga-process_queue.js"></script>
+
 @stop
 
 @section('content')

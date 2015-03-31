@@ -10,18 +10,33 @@
 
     <title>{{ $business_name }} | FeatherQ</title>
 
-    {{ HTML::style('css/bootstrap.min.css') }}
-    {{ HTML::style('css/dashboard.css') }}
-    {{ HTML::style('css/responsive.css') }}
+    {{--{{ HTML::style('css/bootstrap.min.css') }}--}}
+    <link media="all" type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">
 
-    {{ HTML::script('js/jquery1.11.2.js') }}
+    {{--{{ HTML::style('css/dashboard.css') }}--}}
+    <link media="all" type="text/css" rel="stylesheet" href="/css/dashboard.css">
+
+    {{--{{ HTML::style('css/responsive.css') }}--}}
+    <link media="all" type="text/css" rel="stylesheet" href="/css/responsive.css">
+
+
+    {{--{{ HTML::script('js/jquery1.11.0.js') }}--}}
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+
     {{--{{ HTML::script('js/angular.js') }}--}}
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script> {{-- RDH Using CDN for Angular JS File --}}
-    {{ HTML::script('js/broadcast.js') }}
-    {{ HTML::script('js/ngBroadcast.js') }}
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
 
-    {{ HTML::script('js/google-analytics/googleAnalytics.js') }}
-    {{ HTML::script('js/google-analytics/ga-broadcast.js') }}
+    {{--{{ HTML::script('js/broadcast.js') }}--}}
+    <script src="/js/broadcast.js"></script>
+
+    {{--{{ HTML::script('js/ngBroadcast.js') }}--}}
+    <script src="/js/ngBroadcast.js"></script>
+
+    {{--{{ HTML::script('js/google-analytics/googleAnalytics.js') }}--}}
+    <script src="/js/google-analytics/googleAnalytics.js"></script>
+
+    {{--{{ HTML::script('js/google-analytics/ga-broadcast.js') }}--}}
+    <script src="/js/google-analytics/ga-broadcast.js"></script>
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -247,11 +262,17 @@
 </div>
 @include('modals.broadcast.remote-queue-modal')
 
-{{ HTML::script('js/bootstrap.min.js') }}
-{{ HTML::script('js/custom.js') }}
-{{ HTML::script('js/process-queue/process-queue.js') }}
-{{ HTML::script('js/process-queue/issue-number-angular.js') }}
+{{--{{ HTML::script('js/bootstrap.min.js') }}--}}
+<script src="/js/bootstrap.min.js"></script>
 
+{{--{{ HTML::script('js/custom.js') }}--}}
+<script src="/js/custom.js"></script>
+
+{{--{{ HTML::script('js/process-queue/process-queue.js') }}--}}
+<script src="/js/process-queue/process-queue.js"></script>
+
+{{--{{ HTML::script('js/process-queue/issue-number-angular.js') }}--}}
+<script src="/js/process-queue/issue-number-angular.js"></script>
 
 </body>
 </html>
