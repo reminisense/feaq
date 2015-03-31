@@ -316,7 +316,7 @@ class Business extends Eloquent{
 
     public static function getProcessingBusinesses() {
       $pool = array();
-      $new_pool = array();
+      //$new_pool = array();
       $active_businesses = array();
       $json_path = public_path() . '/json';
       $iter = new DirectoryIterator($json_path);
@@ -364,27 +364,86 @@ class Business extends Eloquent{
 
       // if there are more than 5 currently processing businesses, then return
       // a randomized result set
-      if (sizeof($pool) > 5) {
-        $business_count = 0;
-        shuffle($pool);
+//      if (sizeof($pool) > 5) {
+//        $business_count = 0;
+//        shuffle($pool);
+//        foreach ($pool as $key => $val) {
+//          if ($business_count == 5) break; // only show 5 random businesses
+//          if (Business::where('business_id', '=', $val)->exists()) {
+//            $active_businesses[$val]['business_id'] = $val;
+//            $active_businesses[$val]['name'] = Business::name($val);
+//            $active_businesses[$val]['local_address'] = Business::localAddress($val);
+//            $business_count++;
+//          }
+//        }
+//      }
+//      else {
+//        foreach ($pool as $key => $val) {
+//            $active_businesses[$val]['business_id'] = $val;
+//            $active_businesses[$val]['name'] = Business::name($val);
+//            $active_businesses[$val]['local_address'] = Business::localAddress($val);
+//        }
+//      }
+
+        //ARA no need to randomize active businesses since all businesses will now be shown
         foreach ($pool as $key => $val) {
-          if ($business_count == 5) break; // only show 5 random businesses
-          if (Business::where('business_id', '=', $val)->exists()) {
             $active_businesses[$val]['business_id'] = $val;
-            $active_businesses[$val]['name'] = Business::name($val);
-            $active_businesses[$val]['local_address'] = Business::localAddress($val);
-            $business_count++;
-          }
         }
-      }
-      else {
-        foreach ($pool as $key => $val) {
-          $active_businesses[$val]['business_id'] = $val;
-          $active_businesses[$val]['name'] = Business::name($val);
-          $active_businesses[$val]['local_address'] = Business::localAddress($val);
-        }
-      }
+
       return $active_businesses;
+    }
+
+    /**
+     * ARA merges active businesses and other businesses
+     * @return array
+     */
+    public static function getDashboardBusinesses(){
+        $businesses = array();
+        $active_businesses = Business::getProcessingBusinesses();
+        $all_businesses = Business::where('status', '=', 1)->get()->toArray();
+        foreach($all_businesses as $index => $business){
+            $open_time_string = $business['open_hour'] . ':' . Helper::doubleZero($business['open_minute']) . ' ' . $business['open_ampm'];
+            $closing_time_string = $business['close_hour'] . ':' . Helper::doubleZero($business['close_minute']) . ' ' . $business['close_ampm'];
+            $time_icon_color = '';
+
+            //check for opening and closing time to change time icon color
+            if( (strtotime($closing_time_string) - time()) < 1800 ){
+                $time_icon_color = 'text-danger';
+            }else if( strtotime($open_time_string) < time() && strtotime($closing_time_string) > time() ){
+                $time_icon_color = 'text-success';
+            }
+
+            //determine how many user icons will show at the bottom
+            $time_before_called = 0; //@todo get time before the next available number is called. should be in minutes
+
+            $queue_population = 0;
+            if($time_before_called > 15){
+                $queue_population = 3;
+            }else if($time_before_called <= 15 && $time_before_called > 5){
+                $queue_population = 2;
+            }else if($time_before_called <= 5 && $time_before_called > 0){
+                $queue_population = 1;
+            }
+
+
+            $business_details = array(
+                'business_id' => $business['business_id'],
+                'name' => $business['name'],
+                'local_address' => $business['local_address'],
+                'open_time' => $open_time_string,
+                'close_time' => $closing_time_string,
+                'time_icon_color' => $time_icon_color,
+                'queue_population' => $queue_population
+            );
+
+            //Add active business to top of list
+            if(isset($active_businesses[$business['business_id']])){
+                array_unshift($businesses, $business_details);
+            }else{
+                array_push($businesses, $business_details);
+            }
+        }
+        return $businesses;
     }
 
 }

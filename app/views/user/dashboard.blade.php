@@ -93,47 +93,40 @@
 
     <div id="search_business" style="display: block;">
         <div class="col-md-12">
-            <h5 class="mb30">ACTIVE BUSINESSES</h5>
+            <h5 class="mb30">BUSINESSES</h5>
             @if(count($active_businesses) > 0)
                 <div id="active-businesses">
                     <div class="row">
-                    @foreach($active_businesses as $ac_business_id => $actives)
-
-                        <div class="col-md-3">
-                            <div class="boxed boxed-single clickable">
-                                <a href="{{ URL::to( '/broadcast/business/' . $ac_business_id ) }}" target="_blank" title="View Broadcast Page."> {{--RDH Links for Business' broadcast page--}}
-                                    <div class="wrap">
-                                        <h3>{{ $actives['name'] }}</h3>
-                                        <small>{{ $actives['local_address'] }}</small>
-                                    </div>
-                                </a>
+                        @foreach($active_businesses as $ac_business_id => $actives)
+                            <div class="col-md-3">
+                                <div class="boxed boxed-single clickable">
+                                    <a href="{{ URL::to( '/broadcast/business/' . $ac_business_id ) }}" target="_blank" title="View Broadcast Page."> {{--RDH Links for Business' broadcast page--}}
+                                        <div class="wrap" style="position: relative">
+                                            <h3> {{ $actives['name'] }}
+                                                <span class="glyphicon glyphicon-time pull-right {{ $actives['time_icon_color'] }}" title="{{ $actives['open_time'] . ' - ' . $actives['close_time'] }}"></span>
+                                            </h3>
+                                            <small>{{ $actives['local_address'] }}</small>
+                                            <small class="pull-right" style="position: absolute; bottom: 5px; right: 18px; margin: 0; padding: 5px 3px;">
+                                                @if($actives['queue_population'])
+                                                    @for($counter = 1; $counter <= $actives['queue_population']; $counter++)
+                                                    <span class="glyphicon glyphicon-user text-success"></span>
+                                                    @endfor
+                                                @else
+                                                    <span class="glyphicon glyphicon-user"></span>
+                                                @endif
+                                            </small>
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                    @endforeach
-                </div>
+                        @endforeach
+                    </div>
                 </div>
             @endif
         </div>
 
-        <div class="col-md-12">
-            <h5 class="mb30">@{{ searchLabel }}</h5>
-            @if(count($search_businesses) > 0)
-            <div id="popular-businesses">
-                <div class="row">
-                @foreach($search_businesses as $business)
-                    <div class="col-md-3">
-                      <div class="boxed boxed-single clickable">
-                          <a href="{{ URL::to( '/broadcast/business/' . $business->business_id ) }}" target="_blank" title="View Broadcast Page."> {{--RDH Links for Business' broadcast page--}}
-                              <div class="wrap">
-                                  <h3>{{ $business->name }}</h3>
-                                  <small>{{ $business->local_address }}</small>
-                              </div>
-                          </a>
-                      </div>
-                    </div>
-                @endforeach
-                </div>
-            </div>
+        <div class="col-md-12" ng-if="businesses.length !== 0">
+            <h5 class="mb30" ng-if="businesses.length !== 0">@{{ searchLabel }}</h5>
             <div class="col-md-3" ng-repeat="business in businesses">
                 <div class="boxed boxed-single clickable">
                     <a href="/broadcast/business/@{{ business.business_id }}">
@@ -143,17 +136,15 @@
                         </div>
                     </a>
                 </div>
-            </div>
-            @else
-            <div class="col-md-3">
-              <div class="boxed boxed-single clickable">
-                <div class="wrap">
-                  <h3>No Available Businesses</h3>
-                  <small></small>
+                <div class="col-md-3" ng-if="businesses.length === 0">
+                    <div class="boxed boxed-single clickable">
+                        <div class="wrap">
+                            <h3>No Available Businesses</h3>
+                            <small></small>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-            @endif
         </div>
     </div>
 

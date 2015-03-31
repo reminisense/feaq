@@ -78,10 +78,10 @@ class UserController extends BaseController{
      * @description: render dashboard, fetch all businesses for default search view, and businesses created by logged in user
      */
     public function getUserDashboard(){
-        $active_businesses = Business::getProcessingBusinesses();
+        $active_businesses = Business::getDashboardBusinesses();
         if (Auth::check())
         {
-            $search_businesses = Business::getPopularBusinesses();
+            //$search_businesses = Business::getPopularBusinesses(); ARA No more popular businesses. only active businesses
             $business_ids = UserBusiness::getAllBusinessIdByOwner(Helper::userId());
             $my_businesses = [];
             if (count($business_ids) > 0){
@@ -106,8 +106,8 @@ class UserController extends BaseController{
             }
 
             return View::make('user.dashboard')
+                //->with('search_businesses', $search_businesses) ARA No more popular businesses. only active businesses
                 ->with('active_businesses', $active_businesses)
-                ->with('search_businesses', $search_businesses)
                 ->with('my_businesses', $my_businesses);
         }
         else
