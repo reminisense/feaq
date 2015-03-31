@@ -69,6 +69,7 @@
                     </div>
                     <div class="form-group">
                         <input type="submit" class="btn btn-orange btn-disabled"  id="image-submit-btn" value="UPLOAD" ng-click="adImageUpload(business_id)" style="color: #ffffff;"/>
+                        <button id="loading-img" style="display:none;" class="btn btn-orange btn-disabled"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
                     </div>
                 </form>
             </div>
@@ -93,7 +94,7 @@
                     </div>
                     <div class="form-group">
                         <input type="submit" class="btn btn-orange btn-disabled"  id="vid-submit-btn" value="EMBED" ng-click="adVideoEmbed(business_id)" style="color: #ffffff;"/>
-                        <img src="/images/ajax-loader.gif" id="loading-img-2" style="display:none;" alt="Please Wait"/>
+                        <button id="loading-vid" style="display:none;" class="btn btn-orange btn-disabled"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
                     </div>
                 </form>
                 <div>

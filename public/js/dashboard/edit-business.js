@@ -376,7 +376,7 @@ var eb = {
                                 return false
                             }
 
-                            $('#submit-btn').hide(); //hide submit button
+                            $('#image-submit-btn').hide(); //hide submit button
                             $('#loading-img').show(); //hide submit button
                         }
                         else
@@ -394,6 +394,7 @@ var eb = {
                         $('#submit-btn').show();
                         $('#adimage-danger').hide();
                         $('#adimage-success').fadeIn();
+                        $('#image-submit-btn').show();
                     },
                     error: function(response) {
                         $('#adimage-success').hide();
