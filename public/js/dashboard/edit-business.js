@@ -376,7 +376,7 @@ var eb = {
                                 return false
                             }
 
-                            $('#submit-btn').hide(); //hide submit button
+                            $('#image-submit-btn').hide(); //hide submit button
                             $('#loading-img').show(); //hide submit button
                         }
                         else
@@ -391,7 +391,7 @@ var eb = {
                         var result = jQuery.parseJSON(response);
                         $('#ad-preview').attr('src', result.src);
                         $('#loading-img').hide();
-                        $('#submit-btn').show();
+                        $('#image-submit-btn').show();
                     }
                 });  //Ajax Submit form
                 // return false to prevent standard browser submit and page navigation
@@ -404,6 +404,9 @@ var eb = {
             $('#ad-video-uploader').submit(function() {
                 var regYoutube = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
 
+                $('#vid-submit-btn').hide();
+                $('#loading-vid').show();
+
                 if(regYoutube.test($('#ad-video').val())){
                     $(this).ajaxSubmit({
                         data : {
@@ -414,8 +417,8 @@ var eb = {
                             console.log(response);
                             var result = jQuery.parseJSON(response);
                             $('#vid-preview').attr('src', result.vid_url);
-                            $('#loading-img-2').hide();
-                            $('#submit-btn').show();
+                            $('#loading-vid').hide();
+                            $('#vid-submit-btn').show();
                         }
                     });  //Ajax Submit form
                 } else {
