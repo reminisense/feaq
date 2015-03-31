@@ -58,6 +58,7 @@
             @endforeach
         @endif
 
+        @if(count($my_businesses) < 1)
         <div class="col-md-3">
           <div class="boxed boxed-single to-modal" data-toggle="modal" id="add_business">
             <div class="wrap">
@@ -65,6 +66,7 @@
             </div>
           </div>
         </div>
+        @endif
     </div>
 
     <div id="search_business" style="display: block;">
@@ -88,6 +90,17 @@
                     @endforeach
                 </div>
                 </div>
+            @else
+            <div class="row">
+               <div class="col-md-3">
+                  <div class="boxed boxed-single clickable">
+                    <div class="wrap">
+                      <h3>No Active Businesses</h3>
+                      <small></small>
+                    </div>
+                  </div>
+                </div>
+            </div>
             @endif
         </div>
 
@@ -121,13 +134,15 @@
                 </div>
             </div>
             @else
-            <div class="col-md-3">
-              <div class="boxed boxed-single clickable">
-                <div class="wrap">
-                  <h3>No Available Businesses</h3>
-                  <small></small>
+            <div class="row">
+               <div class="col-md-3">
+                  <div class="boxed boxed-single clickable">
+                    <div class="wrap">
+                      <h3>No Available Businesses</h3>
+                      <small></small>
+                    </div>
+                  </div>
                 </div>
-              </div>
             </div>
             @endif
         </div>
