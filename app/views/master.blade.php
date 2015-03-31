@@ -25,7 +25,7 @@
     {{ HTML::script('js/ngFeatherQ.js') }}
     {{ HTML::script('js/ngFacebook.js') }}
     {{ HTML::script('js/ngAutocomplete.js') }}
-    {{ HTML::script('js/ngBroadcast.js') }} <!-- RDH Added ngBroadcast.js since initial homepage was not loading -->
+    {{ HTML::script(ngPungPublicBroadcast.jsjs) }} <!-- RDH AddedngPublicBroadcast.jss since initial homepage was not loading -->
     @yield('scripts')
 </head>
 <body cz-shortcut-listen="true" ng-app="FeatherQ">

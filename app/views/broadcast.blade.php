@@ -10,15 +10,13 @@
 
     <title>{{ $business_name }} | FeatherQ</title>
 
-    {{ HTML::style('css/bootstrap.min.css') }}
+    {{ HTML::style('css/broadcast/bootstrap.min.css') }}
     {{ HTML::style('css/dashboard.css') }}
-    {{ HTML::style('css/responsive.css') }}
+    {{ HTML::style('css/broadcast/responsive.css') }}
 
     {{ HTML::script('js/jquery1.11.2.js') }}
-    {{--{{ HTML::script('js/angular.js') }}--}}
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script> {{-- RDH Using CDN for Angular JS File --}}
-    {{ HTML::script('js/broadcast.js') }}
-    {{ HTML::script('js/ngBroadcast.js') }}
+    {{ HTML::script('js/ngPublicBroadcast.js') }}
 
     {{ HTML::script('js/google-analytics/googleAnalytics.js') }}
     {{ HTML::script('js/google-analytics/ga-broadcast.js') }}
@@ -30,7 +28,7 @@
 </head>
 <!-- NAVBAR
   ================================================== -->
-<body cz-shortcut-listen="true" ng-app="Broadcast">
+<body cz-shortcut-listen="true" ng-app="PublicBroadcast">
 <div id="business-id" business_id="{{ $business_id }}"></div>
 <!-- Static navbar -->
 <nav class="navbar navbar-default navbar-static-top">
@@ -127,7 +125,7 @@
         <div class="col-md-6 ads" style="@{{ ad_display }}">
             <img class="img-responsive mb30" src="@{{ ad_image }}"/>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-@{{ colsize }}">
             <audio id="call-number-sound" src="/audio/doorbell_x.wav" controls preload="auto" autobuffer style="display: none;"></audio>
             <div class="boxed mb20">
                 <div class="head head-wbtn">
@@ -139,37 +137,37 @@
                     @{{ numbers() }}
                     <h4 class="text-center">Now Serving</h4>
                     <div class="row">
-                        <div class="col-md-4 col-xs-6" style="@{{ boxdisplay1 }}">
-                            <div class="numbers t@{{ rank1 }}">
+                        <div class="col-md-@{{ boxsize }} col-sm-12 col-xs-12" style="@{{ boxdisplay1 }}">
+                            <div class="numbers t@{{ rank1 }} @{{ spaceht }}">
                                 <p class="terminal">@{{ name1 }}</p>
                                 @{{ box1 }}
                             </div>
                         </div>
-                        <div class="col-md-4 col-xs-6" style="@{{ boxdisplay2 }}">
+                        <div class="col-md-@{{ boxsize }} col-sm-6 col-xs-12" style="@{{ boxdisplay2 }}">
                             <div class="numbers t@{{ rank2 }}">
                                 <p class="terminal">@{{ name2 }}</p>
                                 @{{ box2 }}
                             </div>
                         </div>
-                        <div class="col-md-4 col-xs-6" style="@{{ boxdisplay3 }}">
+                        <div class="col-md-@{{ boxsize }} col-sm-6 col-xs-12" style="@{{ boxdisplay3 }}">
                             <div class="numbers t@{{ rank3 }}">
                                 <p class="terminal">@{{ name3 }}</p>
                                 @{{ box3 }}
                             </div>
                         </div>
-                        <div class="col-md-4 col-xs-6" style="@{{ boxdisplay4 }}">
+                        <div class="col-md-@{{ boxsize }} col-sm-6 col-xs-12" style="@{{ boxdisplay4 }}">
                             <div class="numbers t@{{ rank4 }}">
                                 <p class="terminal">@{{ name4 }}</p>
                                 @{{ box4 }}
                             </div>
                         </div>
-                        <div class="col-md-4 col-xs-6" style="@{{ boxdisplay5 }}">
+                        <div class="col-md-@{{ boxsize }} col-sm-6 col-xs-12" style="@{{ boxdisplay5 }}">
                             <div class="numbers t@{{ rank5 }}">
                                 <p class="terminal">@{{ name5 }}</p>
                                 @{{ box5 }}
                             </div>
                         </div>
-                        <div class="col-md-4 col-xs-6" style="@{{ boxdisplay6 }}">
+                        <div class="col-md-@{{ boxsize }} col-sm-6 col-xs-12" style="@{{ boxdisplay6 }}">
                             <div class="numbers t@{{ rank6 }}">
                                 <p class="terminal none">@{{ name6 }}</p>
                                 @{{ box6 }}

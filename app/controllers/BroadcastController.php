@@ -43,7 +43,21 @@ class BroadcastController extends BaseController{
         $open_time = str_pad(Business::openHour($business_id), 2, 0, STR_PAD_LEFT) . ':' . str_pad(Business::openMinute($business_id), 2, 0, STR_PAD_LEFT) . ' ' . Business::openAMPM($business_id);
         $close_time = str_pad(Business::closeHour($business_id), 2, 0, STR_PAD_LEFT) . ':' . str_pad(Business::closeMinute($business_id), 2, 0, STR_PAD_LEFT) . ' ' . Business::closeAMPM($business_id);
 
-        return View::make('broadcast')
+        if (Auth::check()) {
+
+          // business owners have different broadcast screens for display
+          if (UserBusiness::getBusinessIdByOwner(Auth::user()->user_id) == $business_id) {
+            $broadcast_template = 'business-broadcast';
+          }
+
+          else {
+            $broadcast_template = 'broadcast';
+          }
+        }
+        else {
+          $broadcast_template = 'broadcast';
+        }
+        return View::make($broadcast_template)
             ->with('open_time', $open_time)
             ->with('close_time', $close_time)
             ->with('local_address', Business::localAddress($business_id))
