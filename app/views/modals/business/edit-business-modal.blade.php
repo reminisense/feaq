@@ -183,8 +183,8 @@
                                                                                         <input type="text" class="form-control" ng-model="search_user" placeholder="Email address of a registered FeatherQ user">
                                                                                     </div>
                                                                                     <div class="">
-                                                                                        <button type="submit" class="btn-boxy btn-primary"><span class="glyphicon glyphicon-plus"></span> Add</button>
-                                                                                        <button class="btn-boxy btn-primary cancel-adduser"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                                                                                        <button type="submit" class="btn-boxy btn-cyan"><span class="glyphicon glyphicon-plus"></span> Add</button>
+                                                                                        <button class="btn-boxy btn-danger cancel-adduser"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
                                                                                     </div>
                                                                                 </form>
                                                                                 <div class="alert alert-danger" ng-show="user_found == false"> User does not exist. </div>
@@ -209,8 +209,8 @@
                                                                                 <input type="text" class="form-control" ng-model="search_user" placeholder="Email address of a registered FeatherQ user">
                                                                             </div>
                                                                             <div class="">
-                                                                                <button type="submit" class="btn-boxy btn-primary"><span class="glyphicon glyphicon-plus"></span> Add</button>
-                                                                                <button class="btn-boxy btn-primary cancel-adduser"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                                                                                <button type="submit" class="btn-boxy btn-cyan"><span class="glyphicon glyphicon-plus"></span> Add</button>
+                                                                                <button class="btn-boxy btn-danger cancel-adduser"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
                                                                             </div>
                                                                         </form>
                                                                         <div class="alert alert-danger" ng-show="user_found == false"> User does not exist. </div>
@@ -234,8 +234,8 @@
                                                                         <input type="text" class="form-control" ng-model="terminal_name" placeholder="Terminal Name">
                                                                     </div>
                                                                     <div class="">
-                                                                        <button class="btn-boxy btn-xs btn-primary" type="submit"><span class="glyphicon glyphicon-plus"></span> Add</button>
-                                                                        <button class="btn-boxy btn-xs btn-primary cancel-add-terminal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                                                                        <button class="btn-boxy btn-xs btn-cyan" type="submit"><span class="glyphicon glyphicon-plus"></span> Add</button>
+                                                                        <button type="button" class="btn-boxy btn-xs btn-danger cancel-add-terminal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
                                                                     </div>
                                                                 </div>
                                                             </form>
