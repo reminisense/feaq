@@ -334,7 +334,7 @@ var eb = {
                     response.ad_image = '/images/ads.jpg'
                 }
                 $('#ad-preview').attr('src', response.ad_image); // default ad image
-                $('#vid-preview').attr('src', response.ad_video); // default ad video
+                $('#tv-status').prop('checked', response.turn_on_tv); // tv status
 
                 //ARA Added for toggling to show only called numbers in broadcast page
                 $scope.theme_type = response.display;
@@ -392,6 +392,12 @@ var eb = {
                         $('#ad-preview').attr('src', result.src);
                         $('#loading-img').hide();
                         $('#submit-btn').show();
+                        $('#adimage-danger').hide();
+                        $('#adimage-success').fadeIn();
+                    },
+                    error: function(response) {
+                        $('#adimage-success').hide();
+                        $('#adimage-danger').fadeIn();
                     }
                 });  //Ajax Submit form
                 // return false to prevent standard browser submit and page navigation
@@ -402,28 +408,36 @@ var eb = {
         $scope.adVideoEmbed = (function(business_id) {
             $('#vid-submit-btn').addClass('btn-disabled');
             $('#ad-video-uploader').submit(function() {
-                var regYoutube = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
-
-                if(regYoutube.test($('#ad-video').val())){
-                    $(this).ajaxSubmit({
-                        data : {
-                            business_id : business_id
-                        },
-                        resetForm: true,        // reset the form after successful submit
-                        success : function(response) {
-                            console.log(response);
-                            var result = jQuery.parseJSON(response);
-                            $('#vid-preview').attr('src', result.vid_url);
-                            $('#loading-img-2').hide();
-                            $('#submit-btn').show();
-                        }
-                    });  //Ajax Submit form
-                } else {
-                    $('#embed-alert').fadeIn();
-                    setTimeout(function(){ $('#embed-alert').fadeOut(); }, 3000);
-                }
+                $(this).ajaxSubmit({
+                    data : {
+                        business_id : business_id
+                    },
+                    resetForm: true,        // reset the form after successful submit
+                    success : function(response) {
+                        console.log(response);
+                        var result = jQuery.parseJSON(response);
+                        $('#loading-img-2').hide();
+                        $('#submit-btn').show();
+                        $('#embed-danger').hide();
+                        $('#embed-success').fadeIn();
+                    },
+                    error: function(response) {
+                        $('#embed-success').hide();
+                        $('#embed-danger').fadeIn();
+                    }
+                });
                 // return false to prevent standard browser submit and page navigation
                 return false;
+            });
+        });
+
+        $scope.turnOnTV = (function(business_id) {
+            $http.post('/advertisement/turn-on-tv', {
+                business_id : business_id,
+                status : $scope.tv_status
+            }).success(function(response) {
+                $('#turnon-danger').hide();
+                $('#turnon-success').fadeIn();
             });
         });
     });

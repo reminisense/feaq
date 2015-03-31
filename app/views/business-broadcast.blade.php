@@ -66,7 +66,8 @@
       </div>
     </div>
       <div class="col-md-6 ads" style="@{{ ad_display }}">
-          <img class="img-responsive mb30" src="@{{ ad_image }}" />
+          <img class="img-responsive mb30" src="@{{ ad_image }}" id="image-ad"/>
+          <div id="internet-tv"></div>
       </div>
     <div class="col-md-@{{ colsize }}">
       <div class="boxed mb20 bcast-big">

@@ -61,6 +61,21 @@ app.controller('nowServingCtrl', function($scope, $http) {
         }
     });
 
+    $scope.showInternetTV = (function(response) {
+        if (response.turn_on_tv) {
+            $('#internet-tv').show();
+            $('#image-ad').hide();
+        }
+        else {
+            $('#internet-tv').hide();
+            $('#image-ad').show();
+        }
+    });
+
+    $scope.setInternetTV = (function(response) {
+        $('#internet-tv').html(response.ad_video);
+    });
+
     $scope.showHideAds = (function(response) {
         var boxes = response.display.split("-");
         if (boxes[0] == '0') {
@@ -102,8 +117,8 @@ app.controller('nowServingCtrl', function($scope, $http) {
 
         /* RDH Checks if empty, show '-' if yes*/
         $scope.getNum(response);
-
         $scope.showHideNumbers(response);
+        $scope.showInternetTV(response);
         $scope.showHideAds(response);
     });
 
@@ -113,6 +128,7 @@ app.controller('nowServingCtrl', function($scope, $http) {
         }
     });
 
+    $http.get('/json/'+business_id+'.json?nocache='+Math.floor((Math.random() * 10000) + 1)).success($scope.setInternetTV);
     setInterval(function() {
         $http.get('/broadcast/reset-numbers/'+business_id).success($scope.resetNumbers);
         $http.get('/json/'+business_id+'.json?nocache='+Math.floor((Math.random() * 10000) + 1)).success($scope.updateBroadcastPage);
