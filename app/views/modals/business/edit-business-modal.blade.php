@@ -181,7 +181,7 @@
                                                                                 <form ng-submit="emailSearch(search_user, terminal.terminal_id)">
                                                                                     <input type="text" class="form-control" ng-model="search_user">
                                                                                 </form>
-                                                                                <div class="alert alert-danger" ng-show="user_found == false"> User does not exist. </div>
+                                                                                <div class="alert alert-danger" ng-show="user_found == false"> User does not exist in FeatherQ. </div>
                                                                             </div>
                                                                         </span>
                                                                     </span>
@@ -201,7 +201,7 @@
                                                                         <form ng-submit="emailSearch(search_user, terminal.terminal_id)">
                                                                             <input type="text" class="form-control" ng-model="search_user">
                                                                         </form>
-                                                                        <div class="alert alert-danger" ng-show="user_found == false"> User does not exist. </div>
+                                                                        <div class="alert alert-danger" ng-show="user_found == false"> User does not exist in FeatherQ. </div>
                                                                     </div>
                                                                 </span>
                                                              </div>
