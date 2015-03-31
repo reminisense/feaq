@@ -179,7 +179,7 @@
                                                                             <a href="#" class="btn-boxy btn-adduser btn-primary"><span class="glyphicon glyphicon-plus"></span> Add User</a>
                                                                             <div class="mb10 mt10 inputuser" style="display: none">
                                                                                 <form ng-submit="emailSearch(search_user, terminal.terminal_id)">
-                                                                                    <input type="text" class="form-control" ng-model="search_user">
+                                                                                    <input type="text" class="form-control" ng-model="search_user" placeholder="Facebook Email">
                                                                                 </form>
                                                                                 <div class="alert alert-danger" ng-show="user_found == false"> User does not exist in FeatherQ. </div>
                                                                             </div>
@@ -199,7 +199,7 @@
                                                                     <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary"><span class="glyphicon glyphicon-plus"></span> Add User</a>
                                                                     <div class="mb10 mt10 inputuser" style="display: none">
                                                                         <form ng-submit="emailSearch(search_user, terminal.terminal_id)">
-                                                                            <input type="text" class="form-control" ng-model="search_user">
+                                                                            <input type="text" class="form-control" ng-model="search_user" placeholder="Facebook Email">
                                                                         </form>
                                                                         <div class="alert alert-danger" ng-show="user_found == false"> User does not exist in FeatherQ. </div>
                                                                     </div>
