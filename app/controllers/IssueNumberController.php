@@ -8,10 +8,14 @@
 
 class IssueNumberController extends BaseController{
 
-    public function getMultiple($service_id, $range, $terminal_id = 0, $date = null){
+    public function getMultiple($service_id, $range, $terminal_id = 0, $number_start = null, $date = null){
         $terminal_id = QueueSettings::terminalSpecificIssue($service_id) ? $terminal_id : 0;
+        $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
+        $queue_platform = $number_start == $next_number || $number_start == null ? 'web' : 'specific';
+        $number_start = $number_start == null ? $next_number : $number_start;
         for($i = 1; $i <= $range; $i++){
-            $number = ProcessQueue::issueNumber($service_id, null, $date, 'web', $terminal_id);
+            $number = ProcessQueue::issueNumber($service_id, $number_start, $date, $queue_platform, $terminal_id);
+            $number_start++;
             if($i == 1){
                 $first = $number['priority_number'];
             }
