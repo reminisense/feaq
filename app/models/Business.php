@@ -368,7 +368,7 @@ class Business extends Eloquent{
         $business_count = 0;
         shuffle($pool);
         foreach ($pool as $key => $val) {
-          if ($business_count == 5) break; // only show 5 random businesses
+          if ($business_count == 7) break; // only show 7 random businesses as homepage businesses limit
           if (Business::where('business_id', '=', $val)->exists()) {
             $active_businesses[$val]['business_id'] = $val;
             $active_businesses[$val]['name'] = Business::name($val);
