@@ -82,6 +82,7 @@
             @endforeach
         @endif
 
+        @if(!$has_business)
         <div class="col-md-3">
           <div class="boxed boxed-single to-modal" data-toggle="modal" id="add_business">
             <div class="wrap">
@@ -89,6 +90,7 @@
             </div>
           </div>
         </div>
+        @endif
     </div>
 
     <div id="search_business" style="display: block;">
@@ -97,15 +99,16 @@
             @if(count($active_businesses) > 0)
                 <div id="active-businesses">
                     <div class="row">
-                        @foreach($active_businesses as $ac_business_id => $actives)
+                        @foreach($active_businesses as $actives)
                             <div class="col-md-3">
                                 <div class="boxed boxed-single clickable">
-                                    <a href="{{ URL::to( '/broadcast/business/' . $ac_business_id ) }}" target="_blank" title="View Broadcast Page."> {{--RDH Links for Business' broadcast page--}}
+                                    <a href="{{ URL::to( '/broadcast/business/' . $actives['business_id'] ) }}" target="_blank" title="View Broadcast Page."> {{--RDH Links for Business' broadcast page--}}
                                         <div class="wrap" style="position: relative">
                                             <h3> {{ $actives['name'] }}
                                                 <span class="glyphicon glyphicon-time pull-right {{ $actives['time_icon_color'] }}" title="{{ $actives['open_time'] . ' - ' . $actives['close_time'] }}"></span>
                                             </h3>
                                             <small>{{ $actives['local_address'] }}</small>
+
                                             <small class="pull-right" style="position: absolute; bottom: 5px; right: 18px; margin: 0; padding: 5px 3px;">
                                                 @if($actives['queue_population'])
                                                     @for($counter = 1; $counter <= $actives['queue_population']; $counter++)

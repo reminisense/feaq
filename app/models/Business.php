@@ -414,7 +414,8 @@ class Business extends Eloquent{
             }
 
             //determine how many user icons will show at the bottom
-            $time_before_called = 0; //@todo get time before the next available number is called. should be in minutes
+            $time_before_called = Analytics::getWaitingTime($business['business_id']); //get time before the next available number is called. should be in minutes
+            $time_before_called = $time_before_called / 60;
 
             $queue_population = 0;
             if($time_before_called > 15){

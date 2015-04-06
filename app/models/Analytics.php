@@ -130,15 +130,29 @@ class Analytics extends Eloquent{
         return count(Analytics::getQueueAnalyticsRows(['action' => ['>', 1], 'business_id' => ['=', $business_id ]]));
     }
 
-    public static function getAverageTimeCalledByBusinessId($business_id){
-        return Analytics::getAverageTimeFromActionByBusinessId(0, 1, $business_id);
+    public static function getAverageTimeCalledByBusinessId($business_id, $format = 'string'){
+        if($format === 'string'){
+            return Analytics::getAverageTimeFromActionByBusinessId(0, 1, $business_id);
+        }else{
+            return Analytics::getAverageTimeValueFromActionByBusinessId(0, 1, $business_id);
+        }
     }
 
-    public static function getAverageTimeServedByBusinessId($business_id){
-        return Analytics::getAverageTimeFromActionByBusinessId(1, 2, $business_id);
+    public static function getAverageTimeServedByBusinessId($business_id, $format = 'string'){
+        if($format === 'string'){
+            return Analytics::getAverageTimeFromActionByBusinessId(1, 2, $business_id);
+        }else{
+            return Analytics::getAverageTimeValueFromActionByBusinessId(1, 2, $business_id);
+        }
     }
 
+    //gets the string representation of the average time
     public static function getAverageTimeFromActionByBusinessId($action1, $action2, $business_id){
+        return Helper::millisecondsToHMSFormat(Analytics::getAverageTimeValueFromActionByBusinessId($action1, $action2, $business_id));
+    }
+
+    //gets the numeric representation of the average time
+    public static function getAverageTimeValueFromActionByBusinessId($action1, $action2, $business_id){
         $action1_numbers = Analytics::getQueueAnalyticsRows(['action' => ['=', $action1], 'business_id' => ['=', $business_id ]]);
         $action2_numbers = Analytics::getQueueAnalyticsRows(['action' => ['=', $action2], 'business_id' => ['=', $business_id ]]);
         return Analytics::getAverageTimeFromActionArray($action1_numbers, $action2_numbers);
@@ -157,7 +171,17 @@ class Analytics extends Eloquent{
             }
         }
         $average = $counter == 0 ? 0 : round($time_sum/$counter);
-        return Helper::millisecondsToHMSFormat($average);
+        return $average;
+    }
+
+    /**
+     * ARA Computes for the time the next available number has to wait in order to be called
+     * equation : time_to_be_called = average_calling_time x numbers_remaining_in_queue
+     */
+    public static function getWaitingTime($business_id){
+        $numbers_in_queue = Analytics::getBusinessRemainingCount($business_id);
+        $average_waiting_time = Analytics::getAverageTimeCalledByBusinessId($business_id, 'numeric');
+        return $average_waiting_time * $numbers_in_queue;
     }
 
 }
