@@ -98,8 +98,8 @@
                 </div>
               </div>
             </div>
+            <iframe src="@{{ ad_video }}" id="video-ad" width="100%" height="400"></iframe>
           </div>
-        <div id="internet-tv"></div>
       </div>
       @endif
     <div class="col-md-@{{ colsize }}">
