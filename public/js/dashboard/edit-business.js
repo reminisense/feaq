@@ -305,7 +305,7 @@ var eb = {
                     business_id : business_id
                 }).success(function(response) {
                     $('.col-md-3[business_id='+business_id+']').remove();
-                    $('#editBusiness').hide();
+                    $('#editBusiness').modal('hide');
                 });
             }
         });
