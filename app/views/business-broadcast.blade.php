@@ -15,7 +15,11 @@
 
   {{ HTML::script('js/jquery1.11.2.js') }}
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script> {{-- RDH Using CDN for Angular JS File --}}
-  {{ HTML::script('js/ngBusinessBroadcast.js') }}
+    @if ($tv_mode)
+        {{ HTML::script('js/ngBusinessBroadcast.tv.js') }}
+    @else
+        {{ HTML::script('js/ngBusinessBroadcast.js') }}
+    @endif
 
   {{ HTML::script('js/google-analytics/googleAnalytics.js') }}
   {{ HTML::script('js/google-analytics/ga-broadcast.js') }}
@@ -50,6 +54,7 @@
 
 
 <div class="container main-wrap" id="nowServingCtrl" ng-controller="nowServingCtrl">
+    <div id="broadcast-type" broadcast_type="{{ $broadcast_type }}"></div>
     <audio id="call-number-sound" src="/audio/doorbell_x.wav" controls preload="auto" autobuffer style="display: none;"></audio>
   <div class="row mt20">
     <div class="col-md-3 mobileme" style="@{{ qry }}">
@@ -65,6 +70,11 @@
         </div>
       </div>
     </div>
+      @if ($tv_mode)
+          <div class="col-md-6 ads">
+              {{ $tv_channel }}
+          </div>
+      @else
       <div class="col-md-6 ads" style="@{{ ad_display }}">
         <div id="ad-image-container">
           <img class="img-responsive mb30" src="@{{ ad_image }}" id="image-ad" style="@{{ ad_display_upload }}"/>
@@ -91,6 +101,7 @@
           </div>
         <div id="internet-tv"></div>
       </div>
+      @endif
     <div class="col-md-@{{ colsize }}">
       <div class="boxed mb20 bcast-big">
         <div class="head head-wbtn">

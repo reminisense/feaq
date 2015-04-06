@@ -138,7 +138,6 @@
     </div>
 
     <div class="row top-space-20" id="nowServingCtrl" ng-controller="nowServingCtrl">
-
         <div class="col-md-6 ads" style="@{{ ad_display }}">
             <div id="ad-image-container">
                 <img class="img-responsive mb30" src="@{{ ad_image }}" id="image-ad" style="@{{ ad_display_upload }}"/>
@@ -162,6 +161,7 @@
                         </div>
                     </div>
                 </div>
+                <iframe src="@{{ ad_video }}" id="video-ad" width="100%" height="400"></iframe>
             </div>
         </div>
         <div class="col-md-@{{ colsize }}">

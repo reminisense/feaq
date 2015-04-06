@@ -335,16 +335,30 @@ var eb = {
         });
 
         $scope.currentActiveTheme = (function(business_id) {
-            $http.get('/json/'+business_id+'.json').success(function(response) {
+            $http.get('/json/'+business_id+'.json?nocache='+Math.floor((Math.random() * 10000) + 1)).success(function(response) {
                 $('.activated').hide();
                 $('.theme-btn').show();
                 $('.'+response.display+'.theme-btn').hide();
                 $('.'+response.display+'.activated').show();
+
+                // default ad video / image
                 if (!response.ad_image) {
                     response.ad_image = '/images/ads.jpg'
                 }
-                $('#ad-preview').attr('src', response.ad_image); // default ad image
-                $('#tv-status').prop('checked', response.turn_on_tv); // tv status
+                $('#ad-preview').attr('src', response.ad_image);
+                $('#advideo-preview').attr('src', response.ad_video);
+
+                // ad type
+                if (response.ad_type == 'video') {
+                    $('input:radio[name=ad_type]').filter('[value=video]').prop('checked', true);
+                    $('#image-adtype').hide();
+                    $('#video-adtype').show();
+                }
+                else {
+                    $('input:radio[name=ad_type]').filter('[value=image]').prop('checked', true);
+                    $('#video-adtype').hide();
+                    $('#image-adtype').show();
+                }
 
                 //ARA Added for toggling to show only called numbers in broadcast page
                 $scope.theme_type = response.display;
@@ -417,28 +431,29 @@ var eb = {
         });
 
         $scope.adVideoEmbed = (function(business_id) {
-            $('#vid-submit-btn').addClass('btn-disabled');
-            $('#ad-video-uploader').submit(function() {
-                $(this).ajaxSubmit({
-                    data : {
-                        business_id : business_id
-                    },
-                    resetForm: true,        // reset the form after successful submit
-                    success : function(response) {
-                        console.log(response);
-                        var result = jQuery.parseJSON(response);
-                        $('#loading-img-2').hide();
-                        $('#submit-btn').show();
-                        $('#embed-danger').hide();
-                        $('#embed-success').fadeIn();
-                    },
-                    error: function(response) {
-                        $('#embed-success').hide();
-                        $('#embed-danger').fadeIn();
-                    }
-                });
-                // return false to prevent standard browser submit and page navigation
-                return false;
+            $http.post('/advertisement/embed-video', {
+                business_id : business_id,
+                ad_video : $scope.ad_video
+            }).success(function(response) {
+                $('#advideo-preview').attr('src', response.ad_video);
+                $('#advideo-danger').hide();
+                $('#advideo-success').fadeIn();
+            }).error(function() {
+                $('#advideo-danger').hide();
+                $('#advideo-success').fadeIn();
+            });
+        });
+
+        $scope.selectTV = (function(business_id) {
+            $http.post('/advertisement/tv-select', {
+                business_id : business_id,
+                tv_channel : $scope.tv_channel
+            }).success(function() {
+                $('#tvchannel-danger').hide();
+                $('#tvchannel-success').fadeIn();
+            }).error(function() {
+                $('#tvchannel-danger').hide();
+                $('#tvchannel-success').fadeIn();
             });
         });
 
@@ -446,9 +461,27 @@ var eb = {
             $http.post('/advertisement/turn-on-tv', {
                 business_id : business_id,
                 status : $scope.tv_status
-            }).success(function(response) {
+            }).success(function() {
                 $('#turnon-danger').hide();
                 $('#turnon-success').fadeIn();
+            });
+        });
+
+        $scope.adType = (function(ad_type, business_id) {
+            $http.post('/advertisement/ad-type', {
+                ad_type : ad_type,
+                business_id : business_id
+            }).success(function() {
+                if (ad_type == 'video') {
+                    $('#image-adtype').fadeOut(300, function() {
+                        $('#video-adtype').show();
+                    });
+                }
+                else {
+                    $('#video-adtype').fadeOut(300, function() {
+                        $('#image-adtype').show();
+                    });
+                }
             });
         });
     });
