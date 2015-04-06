@@ -82,7 +82,7 @@
             @endforeach
         @endif
 
-        @if(count($my_businesses) < 1)
+        @if(!$has_business)
         <div class="col-md-3">
           <div class="boxed boxed-single to-modal" data-toggle="modal" id="add_business">
             <div class="wrap">

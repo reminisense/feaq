@@ -92,6 +92,12 @@ class UserController extends BaseController{
                     array_push($my_businesses, $temp_array);
                 }
             }
+            /* @author: CSD
+             * @desc: check if user already has own business
+             */
+            if(count($my_businesses) > 0){
+                $has_business = true;
+            }
 
             $my_terminals = TerminalUser::getTerminalAssignement(Auth::user()->user_id);
             if (count($my_terminals) > 0){
@@ -108,7 +114,8 @@ class UserController extends BaseController{
             return View::make('user.dashboard')
                 ->with('active_businesses', $active_businesses)
                 ->with('search_businesses', $search_businesses)
-                ->with('my_businesses', $my_businesses);
+                ->with('my_businesses', $my_businesses)
+                ->with('has_business', $has_business);
         }
         else
         {
