@@ -71,7 +71,14 @@ app.controller('nowServingCtrl', function($scope, $http) {
         }
         else {
             $scope.ad_display = '';
-            $scope.ad_image = (typeof response.ad_image != 'undefined') ? response.ad_image : '/images/ads.jpg';
+            if(typeof response.ad_image != 'undefined'){
+                $scope.ad_display_upload = '';
+                $scope.ad_display_default = 'display: none;';
+                $scope.ad_image = response.ad_image;
+            }else{
+                $scope.ad_display_upload = 'margin-bottom: 0px; display: none;';
+                $scope.ad_display_default = '';
+            }
             $scope.colsize = '6';
         }
     });

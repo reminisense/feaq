@@ -64,11 +64,11 @@ app.controller('nowServingCtrl', function($scope, $http) {
     $scope.showInternetTV = (function(response) {
         if (response.turn_on_tv) {
             $('#internet-tv').show();
-            $('#image-ad').hide();
+            $('#ad-image-container').hide();
         }
         else {
             $('#internet-tv').hide();
-            $('#image-ad').show();
+            $('#ad-image-container').show();
         }
     });
 
@@ -89,7 +89,14 @@ app.controller('nowServingCtrl', function($scope, $http) {
             $scope.qrx = '';
             $scope.qry = 'display: none;';
             $scope.colsize = '6';
-            $scope.ad_image = (typeof response.ad_image != 'undefined') ? response.ad_image : '/images/ads.jpg';
+            if(typeof response.ad_image != 'undefined'){
+                $scope.ad_display_upload = '';
+                $scope.ad_display_default = 'display: none;';
+                $scope.ad_image = response.ad_image;
+            }else{
+                $scope.ad_display_upload = 'margin-bottom: 0px; display: none;';
+                $scope.ad_display_default = '';
+            }
         }
     });
 
