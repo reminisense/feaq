@@ -11,7 +11,7 @@
 
 class AdvertisementController extends BaseController{
 
-  public function postUpload() {
+  public function postUploadImage() {
 
     if(isset($_POST)) {
 
@@ -36,13 +36,24 @@ class AdvertisementController extends BaseController{
   }
 
   public function postEmbedVideo() {
-    if (isset($_POST)) {
-      $data = json_decode(file_get_contents(public_path() . '/json/' . $_POST['business_id'] . '.json'));
-      //$data->ad_video = preg_replace("/\s*[a-zA-Z\/\/:\.]*youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i", "//www.youtube.com/embed/$1", $_POST['ad_video']);
-      $data->ad_video = $_POST['ad_video'];
+    $post = json_decode(file_get_contents("php://input"));
+    if ($post) {
+      $data = json_decode(file_get_contents(public_path() . '/json/' . $post->business_id . '.json'));
+      $data->ad_video = preg_replace("/\s*[a-zA-Z\/\/:\.]*youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i", "//www.youtube.com/embed/$1", $post->ad_video);
       $encode = json_encode($data);
-      file_put_contents(public_path() . '/json/' . $_POST['business_id'] . '.json', $encode);
-      return json_encode(array('vid_url' => $data->ad_video));
+      file_put_contents(public_path() . '/json/' . $post->business_id . '.json', $encode);
+      return json_encode(array('ad_video' => $data->ad_video));
+    }
+  }
+
+  public function postTvSelect() {
+    $post = json_decode(file_get_contents("php://input"));
+    if ($post) {
+      $data = json_decode(file_get_contents(public_path() . '/json/' . $post->business_id . '.json'));
+      //$data->ad_video = preg_replace("/\s*[a-zA-Z\/\/:\.]*youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i", "//www.youtube.com/embed/$1", $_POST['ad_video']);
+      $data->tv_channel = $post->tv_channel;
+      $encode = json_encode($data);
+      file_put_contents(public_path() . '/json/' . $post->business_id . '.json', $encode);
     }
   }
 
@@ -54,7 +65,18 @@ class AdvertisementController extends BaseController{
       $data->turn_on_tv = $post->status;
       $encode = json_encode($data);
       file_put_contents(public_path() . '/json/' . $post->business_id . '.json', $encode);
-      return json_encode(array('turn_on_tv' => $data->turn_on_tv));
+      //return json_encode(array('turn_on_tv' => $data->turn_on_tv));
+    }
+  }
+
+  public function postAdType() {
+    $post = json_decode(file_get_contents("php://input"));
+    if ($post) {
+      $data = json_decode(file_get_contents(public_path() . '/json/' . $post->business_id . '.json'));
+      $data->ad_type = $post->ad_type;
+      $encode = json_encode($data);
+      file_put_contents(public_path() . '/json/' . $post->business_id . '.json', $encode);
+      //return json_encode(array('ad_type' => $data->ad_type));
     }
   }
 

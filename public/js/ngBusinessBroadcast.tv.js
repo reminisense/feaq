@@ -64,27 +64,11 @@ app.controller('nowServingCtrl', function($scope, $http) {
     $scope.showHideAds = (function(response) {
         var broadcast_type = document.getElementById('broadcast-type').getAttribute('broadcast_type');
         var boxes = response.display.split("-");
-        if (boxes[0] == '2' && boxes[0] != broadcast_type) window.location.reload(true); // reload if tv is turned on
-        if (boxes[0] == '0') {
-            $scope.ad_display = 'display: none !important;';
-            $scope.qry = '';
-            $scope.qrx = 'display: none;';
-            $scope.colsize = '9';
-        }
-        else {
-            $scope.ad_display = '';
-            $scope.qrx = '';
-            $scope.qry = 'display: none;';
-            $scope.colsize = '6';
-            if (response.ad_type == 'video') {
-                $('#image-ad').hide();
-                $('#video-ad').show();
-            }
-            else {
-                $('#image-ad').show();
-                $('#video-ad').hide();
-            }
-        }
+        $scope.ad_display = '';
+        $scope.qrx = '';
+        $scope.qry = 'display: none;';
+        $scope.colsize = '6';
+        if (boxes[0] != broadcast_type && broadcast_type == '2') window.location.reload(true); // reload if tv is turned off
     });
 
     $scope.updateBroadcastPage = (function(response) {
@@ -121,15 +105,6 @@ app.controller('nowServingCtrl', function($scope, $http) {
         }
     });
 
-    $scope.setAds = (function(response) {
-        $scope.ad_image = (typeof response.ad_image != 'undefined') ? response.ad_image : '/images/ads.jpg'; // ad image
-
-        // ad video
-        if (typeof response.ad_video != 'undefined') $('#video-ad').attr('src', response.ad_video);
-        else $('#video-ad').attr('src', '');
-    });
-
-    $http.get('/json/'+business_id+'.json?nocache='+Math.floor((Math.random() * 10000) + 1)).success($scope.setAds);
     setInterval(function() {
         $http.get('/broadcast/reset-numbers/'+business_id).success($scope.resetNumbers);
         $http.get('/json/'+business_id+'.json?nocache='+Math.floor((Math.random() * 10000) + 1)).success($scope.updateBroadcastPage);

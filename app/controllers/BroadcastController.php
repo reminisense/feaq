@@ -39,6 +39,9 @@ class BroadcastController extends BaseController{
      */
     public function getBusiness($business_id = 0)
     {
+        $tv_mode = false;
+        $tv_channel = '';
+        $broadcast_type = 1;
         $business_name = Business::name($business_id);
         $open_time = str_pad(Business::openHour($business_id), 2, 0, STR_PAD_LEFT) . ':' . str_pad(Business::openMinute($business_id), 2, 0, STR_PAD_LEFT) . ' ' . Business::openAMPM($business_id);
         $close_time = str_pad(Business::closeHour($business_id), 2, 0, STR_PAD_LEFT) . ':' . str_pad(Business::closeMinute($business_id), 2, 0, STR_PAD_LEFT) . ' ' . Business::closeAMPM($business_id);
@@ -47,6 +50,13 @@ class BroadcastController extends BaseController{
 
           // business owners have different broadcast screens for display
           if (UserBusiness::getBusinessIdByOwner(Auth::user()->user_id) == $business_id) {
+            $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
+            $arr = explode("-", $data->display);
+            if ($arr[0] == 2) {
+              $tv_channel = $data->tv_channel;
+              $tv_mode = true;
+              $broadcast_type = 2;
+            }
             $broadcast_template = 'business-broadcast';
           }
 
@@ -58,6 +68,9 @@ class BroadcastController extends BaseController{
           $broadcast_template = 'broadcast';
         }
         return View::make($broadcast_template)
+            ->with('tv_channel', $tv_channel)
+            ->with('broadcast_type', $broadcast_type)
+            ->with('tv_mode', $tv_mode)
             ->with('open_time', $open_time)
             ->with('close_time', $close_time)
             ->with('local_address', Business::localAddress($business_id))

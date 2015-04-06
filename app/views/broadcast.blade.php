@@ -30,7 +30,7 @@
     <script src="/js/broadcast.js"></script>
 
     {{--{{ HTML::script('js/ngBroadcast.js') }}--}}
-    <script src="/js/ngBroadcast.js"></script>
+    <script src="/js/ngPublicBroadcast.js"></script>
 
     {{--{{ HTML::script('js/google-analytics/googleAnalytics.js') }}--}}
     <script src="/js/google-analytics/googleAnalytics.js"></script>
@@ -138,9 +138,9 @@
     </div>
 
     <div class="row top-space-20" id="nowServingCtrl" ng-controller="nowServingCtrl">
-
         <div class="col-md-6 ads" style="@{{ ad_display }}">
-            <img class="img-responsive mb30" src="@{{ ad_image }}"/>
+            <img class="img-responsive mb30" src="@{{ ad_image }}" id="image-ad"/>
+            <iframe src="@{{ ad_video }}" id="video-ad" width="100%" height="400"></iframe>
         </div>
         <div class="col-md-@{{ colsize }}">
             <audio id="call-number-sound" src="/audio/doorbell_x.wav" controls preload="auto" autobuffer style="display: none;"></audio>

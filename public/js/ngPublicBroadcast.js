@@ -73,6 +73,14 @@ app.controller('nowServingCtrl', function($scope, $http) {
             $scope.ad_display = '';
             $scope.ad_image = (typeof response.ad_image != 'undefined') ? response.ad_image : '/images/ads.jpg';
             $scope.colsize = '6';
+            if (response.ad_type == 'video') {
+                $('#image-ad').hide();
+                $('#video-ad').show();
+            }
+            else {
+                $('#image-ad').show();
+                $('#video-ad').hide();
+            }
         }
     });
 
@@ -111,12 +119,18 @@ app.controller('nowServingCtrl', function($scope, $http) {
         }
     });
 
+    $scope.setAds = (function(response) {
+        $scope.ad_image = (typeof response.ad_image != 'undefined') ? response.ad_image : '/images/ads.jpg'; // ad image
+
+        // ad video
+        if (typeof response.ad_video != 'undefined') $('#video-ad').attr('src', response.ad_video);
+        else $('#video-ad').attr('src', '');
+    });
+
+    $http.get('/json/'+business_id+'.json?nocache='+Math.floor((Math.random() * 10000) + 1)).success($scope.setAds);
     setInterval(function() {
-
         $http.get('/broadcast/reset-numbers/'+business_id).success($scope.resetNumbers);
-
         $http.get('/json/'+business_id+'.json?nocache='+Math.floor((Math.random() * 10000) + 1)).success($scope.updateBroadcastPage);
-
     }, 1000);
 
 });
