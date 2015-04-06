@@ -381,7 +381,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" id="delete_business" class="btn btn-danger btn-lg" ng-click="deleteBusiness(business_id)"><span class="glyphicon glyphicon-trash"></span> DELETE BUSINESS</button>
+                {{--<button type="button" id="delete_business" class="btn btn-danger btn-lg" ng-click="deleteBusiness(business_id)"><span class="glyphicon glyphicon-trash"></span> DELETE BUSINESS</button>--}}
                 <button type="button" id="edit_business" class="btn btn-orange btn-lg" ng-click="saveBusinessDetails()"><span class="glyphicon glyphicon-check"></span> SUBMIT</button>
             </div>
         </div>
