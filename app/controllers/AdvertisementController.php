@@ -37,12 +37,24 @@ class AdvertisementController extends BaseController{
 
   public function postEmbedVideo() {
     if (isset($_POST)) {
-
       $data = json_decode(file_get_contents(public_path() . '/json/' . $_POST['business_id'] . '.json'));
-      $data->ad_video = preg_replace("/\s*[a-zA-Z\/\/:\.]*youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i", "//www.youtube.com/embed/$1", $_POST['ad_video']);
+      //$data->ad_video = preg_replace("/\s*[a-zA-Z\/\/:\.]*youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i", "//www.youtube.com/embed/$1", $_POST['ad_video']);
+      $data->ad_video = $_POST['ad_video'];
       $encode = json_encode($data);
       file_put_contents(public_path() . '/json/' . $_POST['business_id'] . '.json', $encode);
       return json_encode(array('vid_url' => $data->ad_video));
+    }
+  }
+
+  public function postTurnOnTv() {
+    $post = json_decode(file_get_contents("php://input"));
+    if ($post) {
+      $data = json_decode(file_get_contents(public_path() . '/json/' . $post->business_id . '.json'));
+      //$data->ad_video = preg_replace("/\s*[a-zA-Z\/\/:\.]*youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i", "//www.youtube.com/embed/$1", $_POST['ad_video']);
+      $data->turn_on_tv = $post->status;
+      $encode = json_encode($data);
+      file_put_contents(public_path() . '/json/' . $post->business_id . '.json', $encode);
+      return json_encode(array('turn_on_tv' => $data->turn_on_tv));
     }
   }
 

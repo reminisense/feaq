@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,8 +29,8 @@
     {{--{{ HTML::script('js/broadcast.js') }}--}}
     <script src="/js/broadcast.js"></script>
 
-    {{--{{ HTML::script('js/ngBroadcast.js') }}--}}
-    <script src="/js/ngBroadcast.js"></script>
+    {{--{{ HTML::script('js/ngPublicBroadcast.js') }}--}}
+    <script src="/js/ngPublicBroadcast.js"></script>
 
     {{--{{ HTML::script('js/google-analytics/googleAnalytics.js') }}--}}
     <script src="/js/google-analytics/googleAnalytics.js"></script>
@@ -140,7 +140,29 @@
     <div class="row top-space-20" id="nowServingCtrl" ng-controller="nowServingCtrl">
 
         <div class="col-md-6 ads" style="@{{ ad_display }}">
-            <img class="img-responsive mb30" src="@{{ ad_image }}"/>
+            <div id="ad-image-container">
+                <img class="img-responsive mb30" src="@{{ ad_image }}" id="image-ad" style="@{{ ad_display_upload }}"/>
+                <div id="fqCarousel" class="carousel slide" data-ride="carousel" style="@{{ ad_display_default }}">
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner" role="listbox">
+                        <div class="item active">
+                            <img src="/images/ads.jpg" alt="Ad1">
+                        </div>
+                        <div class="item">
+                            <img src="/images/broadcast1.jpg" alt="Ad2">
+                        </div>
+                        <div class="item">
+                            <img src="/images/broadcast2.jpg" alt="Ad3">
+                        </div>
+                        <div class="item">
+                            <img src="/images/broadcast3.jpg" alt="Ad4">
+                        </div>
+                        <div class="item">
+                            <img src="/images/broadcast4.jpg" alt="Ad5">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-md-@{{ colsize }}">
             <audio id="call-number-sound" src="/audio/doorbell_x.wav" controls preload="auto" autobuffer style="display: none;"></audio>

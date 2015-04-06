@@ -87,7 +87,7 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <span><i class="glyphicon glyphicon-info-sign"></i>&nbsp;&nbsp;You are provided with 3 default terminals to manage your business queue.</span>
+                            <span><i class="glyphicon glyphicon-info-sign"></i>&nbsp;&nbsp;You are provided with 1 default terminal to manage your business queue. To create more terminals, just go to Business Settings and select Terminal.</span>
                         </div>
                     </div>
                 </form>

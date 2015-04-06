@@ -45,7 +45,7 @@ class BusinessController extends BaseController{
              * set default queue limit to 9999 max
              */
             $business->queue_limit = 9999;
-            $business->num_terminals = 3;
+            $business->num_terminals = 1;
             $business->save();
 
             $business_user = new UserBusiness();

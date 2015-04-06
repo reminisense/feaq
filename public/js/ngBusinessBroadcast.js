@@ -61,6 +61,21 @@ app.controller('nowServingCtrl', function($scope, $http) {
         }
     });
 
+    $scope.showInternetTV = (function(response) {
+        if (response.turn_on_tv) {
+            $('#internet-tv').show();
+            $('#ad-image-container').hide();
+        }
+        else {
+            $('#internet-tv').hide();
+            $('#ad-image-container').show();
+        }
+    });
+
+    $scope.setInternetTV = (function(response) {
+        $('#internet-tv').html(response.ad_video);
+    });
+
     $scope.showHideAds = (function(response) {
         var boxes = response.display.split("-");
         if (boxes[0] == '0') {
@@ -74,7 +89,14 @@ app.controller('nowServingCtrl', function($scope, $http) {
             $scope.qrx = '';
             $scope.qry = 'display: none;';
             $scope.colsize = '6';
-            $scope.ad_image = (typeof response.ad_image != 'undefined') ? response.ad_image : '/images/ads.jpg';
+            if(typeof response.ad_image != 'undefined'){
+                $scope.ad_display_upload = '';
+                $scope.ad_display_default = 'display: none;';
+                $scope.ad_image = response.ad_image;
+            }else{
+                $scope.ad_display_upload = 'margin-bottom: 0px; display: none;';
+                $scope.ad_display_default = '';
+            }
         }
     });
 
@@ -102,8 +124,8 @@ app.controller('nowServingCtrl', function($scope, $http) {
 
         /* RDH Checks if empty, show '-' if yes*/
         $scope.getNum(response);
-
         $scope.showHideNumbers(response);
+        $scope.showInternetTV(response);
         $scope.showHideAds(response);
     });
 
@@ -113,6 +135,7 @@ app.controller('nowServingCtrl', function($scope, $http) {
         }
     });
 
+    $http.get('/json/'+business_id+'.json?nocache='+Math.floor((Math.random() * 10000) + 1)).success($scope.setInternetTV);
     setInterval(function() {
         $http.get('/broadcast/reset-numbers/'+business_id).success($scope.resetNumbers);
         $http.get('/json/'+business_id+'.json?nocache='+Math.floor((Math.random() * 10000) + 1)).success($scope.updateBroadcastPage);

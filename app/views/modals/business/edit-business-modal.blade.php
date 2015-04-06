@@ -180,14 +180,14 @@
                                                                             <div class="mb10 mt10 inputuser" style="display: none">
                                                                                 <form ng-submit="emailSearch(search_user, terminal.terminal_id)">
                                                                                     <div class="">
-                                                                                        <input type="text" class="form-control" ng-model="search_user" placeholder="Email address of a registered FeatherQ user">
+                                                                                        <input type="text" class="form-control" ng-model="search_user" placeholder="Facebook Email">
                                                                                     </div>
                                                                                     <div class="">
                                                                                         <button type="submit" class="btn-boxy btn-cyan"><span class="glyphicon glyphicon-plus"></span> Add</button>
                                                                                         <button class="btn-boxy btn-danger cancel-adduser"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
                                                                                     </div>
                                                                                 </form>
-                                                                                <div class="alert alert-danger" ng-show="user_found == false"> User does not exist. </div>
+                                                                                <div class="alert alert-danger" ng-show="user_found == false"> User does not exist in FeatherQ. </div>
                                                                             </div>
                                                                         </span>
                                                                     </span>
@@ -206,14 +206,14 @@
                                                                     <div class="mb10 mt10 inputuser" style="display: none">
                                                                         <form ng-submit="emailSearch(search_user, terminal.terminal_id)">
                                                                             <div class="">
-                                                                                <input type="text" class="form-control" ng-model="search_user" placeholder="Email address of a registered FeatherQ user">
+                                                                                <input type="text" class="form-control" ng-model="search_user" placeholder="Facebook Email">
                                                                             </div>
                                                                             <div class="">
                                                                                 <button type="submit" class="btn-boxy btn-cyan"><span class="glyphicon glyphicon-plus"></span> Add</button>
                                                                                 <button class="btn-boxy btn-danger cancel-adduser"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
                                                                             </div>
                                                                         </form>
-                                                                        <div class="alert alert-danger" ng-show="user_found == false"> User does not exist. </div>
+                                                                        <div class="alert alert-danger" ng-show="user_found == false"> User does not exist in FeatherQ. </div>
                                                                     </div>
                                                                 </span>
                                                              </div>
@@ -401,7 +401,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" id="delete_business" class="btn btn-danger btn-lg" ng-click="deleteBusiness(business_id)"><span class="glyphicon glyphicon-trash"></span> DELETE BUSINESS</button>
+                {{--<button type="button" id="delete_business" class="btn btn-danger btn-lg" ng-click="deleteBusiness(business_id)"><span class="glyphicon glyphicon-trash"></span> DELETE BUSINESS</button>--}}
                 <button type="button" id="edit_business" class="btn btn-orange btn-lg" ng-click="saveBusinessDetails()"><span class="glyphicon glyphicon-check"></span> SUBMIT</button>
             </div>
         </div>

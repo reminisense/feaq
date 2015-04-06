@@ -60,10 +60,16 @@
                         <form class="navbar-form navbar-left" name="issue_multiple_form">
                             <div class="form-group row">
                                 <div class="col-md-4">
-                                    <label><strong>Quantity</strong></label>
+                                    <label><strong>First Number</strong></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="number" class="form-control" ng-model="range" name="range" required>
+                                    <input type="number" class="form-control" ng-model="number_start" name="number_start" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label><strong>Last Number</strong></label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="number" class="form-control" ng-model="number_end" name="number_end" required>
                                 </div>
                             </div>
                             <div class="alert alert-danger" role="alert" ng-show="checkIssueMultipleErrors()">
@@ -79,7 +85,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-orange btn-lg" data-dismiss="modal" aria-label="Close">CLOSE</button>
                 <button id="issue-specific-submit" type="button" class="issue-submit-btn btn btn-orange btn-lg" ng-disabled="isIssuing || checkIssueSpecificErrors(priority_number, number_limit)" ng-click="issueSpecific(priority_number, name, phone, email, time_assigned)">SUBMIT</button>
-                <button id="issue-multiple-submit" type="button" class="issue-submit-btn btn btn-orange btn-lg" ng-disabled="isIssuing || checkIssueMultipleErrors()" ng-click="issueMultiple(range)" style="display: none">SUBMIT</button>
+                <button id="issue-multiple-submit" type="button" class="issue-submit-btn btn btn-orange btn-lg" ng-disabled="isIssuing || checkIssueMultipleErrors()" ng-click="issueMultiple(range, number_start)" style="display: none">SUBMIT</button>
             </div>
         </div>
     </div>

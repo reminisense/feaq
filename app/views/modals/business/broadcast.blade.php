@@ -53,44 +53,54 @@
     </div>
     <div class="col-md-12" style="float: left; width: 100%;">
         <div class="row">
-            <div style="float: left; width: 100%">
-                <div class="col-md-6">
-                    <div class="col-md-12" style="text-align: center;">
-                        <img src="/" id="ad-preview" style="width: 100%;">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <form action="/advertisement/upload" method="POST" enctype="multipart/form-data" id="ad-image-uploader">
-                        <div class="form-group">
-                            <label for="exampleInputFile">Choose Image to upload:</label>
-                            <input name="ad_image" type="file" id="ad-image">
-                            <em class="help-block">Upload images with .jpg, .png file format</em>
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" class="btn btn-orange btn-disabled"  id="image-submit-btn" value="UPLOAD" ng-click="adImageUpload(business_id)" style="color: #ffffff;"/>
-                        </div>
-                    </form>
+            <div class="col-md-6">
+                <div class="col-md-12" style="text-align: center;">
+                    <img src="/" id="ad-preview" style="width: 100%;">
                 </div>
             </div>
-            <div style="float: left; width: 100%; margin-top: 10px;">
-                <div class="col-md-6">
-                    <div class="col-md-12" style="text-align: center;">
-                        <iframe id="vid-preview" width="100%" height="315" src="" frameborder="0" allowfullscreen></iframe>
+            <div class="col-md-4">
+                <form action="/advertisement/upload" method="POST" enctype="multipart/form-data" id="ad-image-uploader">
+                    <div class="form-group">
+                        <label for="exampleInputFile">Choose Image to upload:</label>
+                        <input name="ad_image" type="file" id="ad-image">
+                        <em class="help-block">Upload images with .jpg, .png file format</em>
+                        <div class="alert alert-success" id="adimage-success" style="display: none;">Success! <strong><a href="/broadcast/business/@{{ business_id }}" target="_blank">View Broadcast Page</a></strong></div>
+                        <div class="alert alert-danger" id="adimage-danger" style="display: none;">Oops! Something went wrong.</div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <form action="/advertisement/embed-video" method="POST" enctype="multipart/form-data" id="ad-video-uploader">
-                        <div class="form-group">
-                            <label for="exampleInputFile">Paste video URL:</label>
-                            <input name="ad_video" type="text" id="ad-video">
-                            <em class="help-block">Only supports Youtube videos for now</em>
-                            <div class="alert alert-danger" id="embed-alert" style="display: none;">Invalid Youtube video link</div>
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" class="btn btn-orange btn-disabled"  id="vid-submit-btn" value="EMBED" ng-click="adVideoEmbed(business_id)" style="color: #ffffff;"/>
-                            <img src="/images/ajax-loader.gif" id="loading-img-2" style="display:none;" alt="Please Wait"/>
-                        </div>
-                    </form>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-orange btn-disabled"  id="image-submit-btn" value="UPLOAD" ng-click="adImageUpload(business_id)" style="color: #ffffff;"/>
+                        <button id="loading-img" style="display:none;" class="btn btn-orange btn-disabled"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12" style="float: left; width: 100%;">
+        <h5></h5><br>
+    </div>
+    <div class="col-md-12" style="margin-bottom: -20px; float: left; width: 100%;">
+        <h5>INTERNET TV</h5><br>
+    </div>
+    <div class="col-md-12" style="float: left; width: 100%;">
+        <div class="row">
+            <div class="col-md-4" style="width: 100%; float: left;">
+                <form action="/advertisement/embed-video" method="POST" enctype="multipart/form-data" id="ad-video-uploader">
+                    <div class="form-group">
+                        <label for="exampleInputFile">Paste video URL:</label>
+                        <input name="ad_video" type="text" id="ad-video">
+                        <em class="help-block">Internet TV can be viewed in the broadcast screen.</em>
+                        <div class="alert alert-success" id="embed-success" style="display: none;">Success! <strong><a href="/broadcast/business/@{{ business_id }}" target="_blank">View Broadcast Page</a></strong></div>
+                        <div class="alert alert-danger" id="embed-danger" style="display: none;">Oops! Something went wrong.</div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-orange btn-disabled"  id="vid-submit-btn" value="EMBED" ng-click="adVideoEmbed(business_id)" style="color: #ffffff;"/>
+                        <button id="loading-vid" style="display:none;" class="btn btn-orange btn-disabled"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
+                    </div>
+                </form>
+                <div>
+                    <input type="checkbox" ng-model="tv_status" ng-click="turnOnTV(business_id)" id="tv-status"> <label><strong>Turn on TV and Disable Image Ads?</strong></label>
+                    <div class="alert alert-success" id="turnon-success" style="display: none;">Success! <strong><a href="/broadcast/business/@{{ business_id }}" target="_blank">View Broadcast Page</a></strong></div>
+                    <div class="alert alert-danger" id="turnon-danger" style="display: none;">Oops! Something went wrong.</div>
                 </div>
             </div>
         </div>
