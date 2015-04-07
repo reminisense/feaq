@@ -140,12 +140,12 @@
     <div class="row top-space-20" id="nowServingCtrl" ng-controller="nowServingCtrl">
         <div class="col-md-6 ads" style="@{{ ad_display }}">
             <div id="ad-image-container">
-                <img class="img-responsive mb30" src="@{{ ad_image }}" id="image-ad" style="@{{ ad_display_upload }}"/>
+                {{--<img class="img-responsive mb30" src="@{{ ad_image }}" id="image-ad" style="@{{ ad_display_upload }}"/>--}}
                 <div id="fqCarousel" class="carousel slide" data-ride="carousel" style="@{{ ad_display_default }}">
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner" role="listbox">
                         <div class="item active">
-                            <img src="/images/ads.jpg" alt="Ad1">
+                            <img class="img-responsive mb30" src="@{{ ad_image }}" id="image-ad" style="@{{ ad_display_upload }}" alt="Ad1"/>
                         </div>
                         <div class="item">
                             <img src="/images/broadcast1.jpg" alt="Ad2">

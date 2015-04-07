@@ -387,7 +387,10 @@ class Business extends Eloquent{
 
         //ARA no need to randomize active businesses since all businesses will now be shown
         foreach ($pool as $key => $val) {
-            $active_businesses[$val]['business_id'] = $val;
+//          if ($business_count == 7) break; // only show 7 random businesses as homepage businesses limit
+          if (Business::where('business_id', '=', $val)->exists()) {
+              $active_businesses[$val]['business_id'] = $val;
+          }
         }
 
       return $active_businesses;

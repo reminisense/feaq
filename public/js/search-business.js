@@ -2,11 +2,7 @@
  * Created by JONAS on 3/4/2015.
  */
 (function() {
-
-    $('input.timepicker').timepicker({});
-
     app.controller('searchBusinessCtrl', function($scope, $http) {
-
         $scope.location_filter = 'Location';
         $scope.industry_filter = 'Industry';
 
@@ -20,9 +16,9 @@
                 "industry": industry,
                 "time_open": time_open
             }).success(function(response) {
-                $('.active-businesses').hide();
+                $('#active-businesses').hide();
                 $scope.businesses = new Array();
-                var length_limit = 12;
+                var length_limit = 7;
                 for (var i = 0; i < response.length; i++) {
                     $scope.businesses.push({
                         "business_id": response[i].business_id,
@@ -31,13 +27,12 @@
                     });
                     if(i == length_limit-1) break;
                 }
-                $('.new-businesses').hide();
                 $('#business-search').show();
+                $('#business-search-label').show();
                 if(response.length <= length_limit){
                     length_limit = response.length;
                 }
                 $scope.searchLabel= 'Showing Top '+ length_limit +' Result(s)';
-
             });
         });
 
@@ -49,16 +44,24 @@
             $scope.industry_filter = industry;
         });
 
-    });
+        $('#btnTimeOpen').on('click', function (e){
+            if ($('#time_open-filter').is(':hidden')) {
+                $('#time_open-filter').show();
+                $('#time_open-filter').timeEntry({
+                    ampmPrefix: ' ',
+                    spinnerImage: ''
+                });
+                e.preventDefault();
+                $('#time_open-filter').focus();
+                $(this).hide();
+            }
+        });
 
-    $('#btnTimeOpen').click(function (){
-        if ($('#time_open-filter').is(':hidden')) {
-            $('#time_open-filter').show();
-            $(this).hide();
-        }
+        $('#time_open-filter').focusout(function () {
+            if ($(this).val() == ''){
+                $(this).hide();
+                $('#btnTimeOpen').show();
+            }
+        });
     });
-    $('#time_open-filter').focusout(function () {
-
-    });
-
 })();
