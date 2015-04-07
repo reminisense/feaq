@@ -9,20 +9,20 @@
   <link rel="shortcut icon" href="/images/favicon.png">
   <title>{{ $business_name }} | FeatherQ</title>
   <!-- Bootstrap core CSS -->
-  {{ HTML::style('css/broadcast/bootstrap.min.css') }}
-  {{ HTML::style('css/broadcast/dashboard.css') }}
-  {{ HTML::style('css/broadcast/responsive.css') }}
+  <link href="/css/broadcast/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
+  <link href="/css/broadcast/dashboard.css" rel="stylesheet" type="text/css" media="all">
+  <link href="/css/broadcast/responsive.css" rel="stylesheet" type="text/css" media="all">
 
-  {{ HTML::script('js/jquery1.11.2.js') }}
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script> {{-- RDH Using CDN for Angular JS File --}}
     @if ($tv_mode)
-        {{ HTML::script('js/ngBusinessBroadcast.tv.js') }}
+        <script src="/js/ngBusinessBroadcast.tv.js"></script>
     @else
-        {{ HTML::script('js/ngBusinessBroadcast.js') }}
+        <script src="/js/ngBusinessBroadcast.js"></script>
     @endif
 
-  {{ HTML::script('js/google-analytics/googleAnalytics.js') }}
-  {{ HTML::script('js/google-analytics/ga-broadcast.js') }}
+    <script src="/js/google-analytics/googleAnalytics.js"></script>
+    <script src="/js/google-analytics/ga-broadcast.js"></script>
 
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -179,13 +179,8 @@
 </div>
 
 
-{{ HTML::script('js/broadcast/bootstrap.min.js') }}
-{{ HTML::script('js/broadcast/custom.js') }}
-{{ HTML::script('js/process-queue/process-queue.js') }}
-{{ HTML::script('js/process-queue/issue-number-angular.js') }}
-
-
-
+<script src="/js/broadcast/bootstrap.min.js"></script>
+<script src="/js/broadcast/custom.js"></script>
 
 
 </body>
