@@ -97,6 +97,8 @@ class UserController extends BaseController{
              */
             if(count($my_businesses) > 0){
                 $has_business = true;
+            } else {
+                $has_business = false;
             }
 
             $my_terminals = TerminalUser::getTerminalAssignement(Auth::user()->user_id);
