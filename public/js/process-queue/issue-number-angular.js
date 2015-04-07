@@ -131,10 +131,10 @@
                 error_message += 'First number is required. ';
             }else if($scope.issue_multiple_form.number_start.$error.number){
                 error = true;
-                error_message += 'First number should be a number. ';
+                error_message += 'First number must not contain letters or symbols. ';
             }else if($scope.issue_multiple_form.number_start.$viewValue <= 0){
                 error = true;
-                error_message += 'First number should be greater than zero. ';
+                error_message += 'First number must be greater than zero. ';
             }
 
             //check last number
@@ -143,10 +143,10 @@
                 error_message += 'Last number is required. ';
             }else if($scope.issue_multiple_form.number_end.$error.number){
                 error = true;
-                error_message += 'Last number should be a number. ';
+                error_message += 'Last number must not contain letters or symbols. ';
             }else if($scope.issue_multiple_form.number_end.$viewValue <= 0){
                 error = true;
-                error_message += 'Last number should be greater than zero. ';
+                error_message += 'Last number must be greater than zero. ';
             }else if($scope.issue_multiple_form.number_end.$viewValue > $scope.number_limit){
                 error = true;
                 error_message += 'Cannot issue numbers greater than ' + $scope.number_limit + '. ';
@@ -155,7 +155,7 @@
             //check the range
             if($scope.range <= 0){
                 error = true;
-                error_message += 'Last number must not be greater than the first number. ';
+                error_message += 'First number must not be greater than the last number. ';
             }else if($scope.range > 100){
                 error = true;
                 error_message += 'Cannot issue more than 100 numbers at the same time. ';
