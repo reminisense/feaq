@@ -10,15 +10,9 @@
 
     <title>{{ $business_name }} | FeatherQ</title>
 
-    {{--{{ HTML::style('css/bootstrap.min.css') }}--}}
-    <link media="all" type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">
-
-    {{--{{ HTML::style('css/dashboard.css') }}--}}
-    <link media="all" type="text/css" rel="stylesheet" href="/css/dashboard.css">
-
-    {{--{{ HTML::style('css/responsive.css') }}--}}
-    <link media="all" type="text/css" rel="stylesheet" href="/css/responsive.css">
-
+    <link href="/css/broadcast/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/css/broadcast/dashboard.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/css/broadcast/responsive.css" rel="stylesheet" type="text/css" media="all">
 
     {{--{{ HTML::script('js/jquery1.11.0.js') }}--}}
     <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
@@ -45,7 +39,7 @@
 </head>
 <!-- NAVBAR
   ================================================== -->
-<body cz-shortcut-listen="true" ng-app="PublicBroadcast">
+<body cz-shortcut-listen="true" id="biz-broadcast" ng-app="PublicBroadcast">
 <div id="business-id" business_id="{{ $business_id }}"></div>
 <!-- Static navbar -->
 <nav class="navbar navbar-default navbar-static-top">
@@ -89,55 +83,7 @@
 
 
 <div class="container main-wrap">
-    <div class="row filters hidden">
-        <div class="col-md-5 col-md-offset-1">
-            <div class="filterwrap">
-                <span>FILTER:</span>
-                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                    <div class="btn-group" role="group">
-                        <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            Location
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupDrop1">
-                            <li><a href="#">Dropdown link</a></li>
-                            <li><a href="#">Dropdown link</a></li>
-                        </ul>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            Industry Type
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupDrop1">
-                            <li><a href="#">Dropdown 2</a></li>
-                            <li><a href="#">Dropdown 2</a></li>
-                        </ul>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            Time Open
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupDrop1">
-                            <li><a href="#">Dropdown 3</a></li>
-                            <li><a href="#">Dropdown 3</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="searchblock">
-                <form>
-                    <input type="text" placeholder="Search a Business">
-                    <button type="button" class="btn btn-orange btn-md">SEARCH</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="row top-space-20" id="nowServingCtrl" ng-controller="nowServingCtrl">
+    <div class="row mt20" id="nowServingCtrl" ng-controller="nowServingCtrl">
         <div class="col-md-6 ads" style="@{{ ad_display }}">
             <div id="ad-image-container">
                 {{--<img class="img-responsive mb30" src="@{{ ad_image }}" id="image-ad" style="@{{ ad_display_upload }}"/>--}}
@@ -176,7 +122,7 @@
                     @{{ numbers() }}
                     <h4 class="text-center">Now Serving</h4>
                     <div class="row">
-                        <div class="col-md-@{{ boxsize }} col-sm-12 col-xs-12" style="@{{ boxdisplay1 }}">
+                        <div class="col-md-@{{ boxsize }} col-sm-6 col-xs-12" style="@{{ boxdisplay1 }}">
                             <div class="numbers t@{{ rank1 }} @{{ spaceht }}">
                                 <p class="terminal">@{{ name1 }}</p>
                                 @{{ box1 }}
@@ -237,31 +183,26 @@
                     </div>
                 </div>
             </div>
+
             <div class="boxed boxed-single">
                 <div class="wrap">
                     <div class="row">
-                        <div class="col-md-7 getnum-info">
-                            <div class="clearfix">
-                                <div class="pull-left">
-                                    <strong>Next Available Number:</strong>
-                                    Remote queuing feature is still on the works!
-                                    {{--Approximately, your number
-                                    will be served <br><span>2hrs from now</span>--}}
-                                </div>
-                                <div class="pull-right">
-                                    <div id="get_num">@{{ get_num }}</div>
-                                    <span class="tri-right"></span>
-                                </div>
-                            </div>
+                        <div class="col-md-6 getnum-info">
+                            <h3 class="mt20">Next Available Number:</h3>
+                            <p>Remote queuing feature is still on the works!</p>
                         </div>
-                        <div class="col-md-5">
-                            <button class="btn btn-orange btn-getnum" data-toggle="modal" data-target="#remote-queue-modal">
-                                GET THIS NUMBER <span class="glyphicon glyphicon-save"></span>
-                            </button>
+                        <div class="col-md-6 getnum-info">
+                            <div class="ng-binding">
+                                <h1 class="nomg">@{{ get_num }}</h1>
+                                <a href="" class="btn-getnum" data-toggle="modal" data-target="#remote-queue-modal">
+                                    Get this number <span class="glyphicon glyphicon-save"></span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
         <div class="col-md-6 ads-mobile" style="@{{ ad_display }}">
             <img class="img-responsive mb30" src="@{{ ad_image }}" />
@@ -285,10 +226,10 @@
 @include('modals.broadcast.remote-queue-modal')
 
 {{--{{ HTML::script('js/bootstrap.min.js') }}--}}
-<script src="/js/bootstrap.min.js"></script>
+<script src="/js/broadcast/bootstrap.min.js"></script>
 
 {{--{{ HTML::script('js/custom.js') }}--}}
-<script src="/js/custom.js"></script>
+<script src="/js/broadcast/custom.js"></script>
 
 {{--{{ HTML::script('js/process-queue/process-queue.js') }}--}}
 <script src="/js/process-queue/process-queue.js"></script>
