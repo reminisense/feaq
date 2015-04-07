@@ -12,6 +12,13 @@
 
 class BusinessController extends BaseController{
 
+
+    public function getMyBusiness($business_id){
+        return View::make('business.my-business')
+            ->with('business_id', $business_id)
+            ->with('first_terminal', 1);
+    }
+
     /*
      * @author: CSD
      * @description: post business data from initial setup modal form
