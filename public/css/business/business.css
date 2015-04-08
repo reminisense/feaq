@@ -85,3 +85,37 @@
 .biz-details p {
     margin-bottom: 5px;
 }
+
+/*ARA 04082015*/
+.biz-navs .form-control {
+    border: none;
+    border-bottom: 1px solid #c7c7c7;
+    margin-bottom: 30px;
+    padding-left: 2px;
+}
+.form-control {
+    font-size: 13px;
+}
+.biz-navs .form-control:focus {
+    background-color: #fff9e3;
+}
+.biz-navs .form-group button.dropdown-toggle,
+.biz-navs .form-group .btn-group,
+.biz-navs .form-group .dropdown-menu {
+    color: #555;
+    width: 100%;
+}
+.biz-navs .form-group .btn-group .btn {
+    background: none;
+    padding-left: 2px;
+    padding-right: 2px;
+    text-align: left;
+    font-weight: normal;
+    border-bottom: 1px solid #c7c7c7;
+    font-family: 'ralewayregular'!important;
+    font-size: 14px;
+    color: #555;
+}
+.biz-navs .form-group .btn-group .btn .caret {
+    text-align: right;
+}

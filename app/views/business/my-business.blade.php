@@ -58,30 +58,43 @@ My Business
     </div>
     <div class="row">
         <div class="biz-navs">
-            <ul id="bizTab" class="nav nav-tabs" role="tablist">
-                <li class="active"><a href="#details" id="details-tab" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span>Details</a></li>
-                <li class=""><a href="#terminals" id="terminals-tab" data-toggle="tab"><span class="glyphicon glyphicon-tasks"></span> Terminals</a></li>
-                <li class=""><a href="#broadcast" id="broadcast-tab" data-toggle="tab"><span class="glyphicon glyphicon-th-large"></span> Broadcast</a></li>
-                <li class=""><a href="#settings" id="settings-tab" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
-                <li class=""><a href="#analytics" id="analytics-tab" data-toggle="tab"><span class="glyphicon glyphicon-stats"></span> Analytics</a></li>
-            </ul>
-            <div id="bizTabContent" class="tab-content" style="min-height: 500px;">
-                <div role="tabpanel" class="tab-pane fade active in" id="details" aria-labelledby="details-tab">
-                    <p>@include('business.my-business-tabs.details-tab')</p>
+            <form>
+                <div class="form-group row">
+                    <ul id="bizTab" class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#details" id="details-tab" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span>Details</a></li>
+                        <li class=""><a href="#terminals" id="terminals-tab" data-toggle="tab"><span class="glyphicon glyphicon-tasks"></span> Terminals</a></li>
+                        <li class=""><a href="#broadcast" id="broadcast-tab" data-toggle="tab"><span class="glyphicon glyphicon-th-large"></span> Broadcast</a></li>
+                        <li class=""><a href="#ads" id="ads-tab" data-toggle="tab"><span class="glyphicon glyphicon-blackboard"></span> Advertisements</a></li>
+                        <li class=""><a href="#settings" id="settings-tab" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+                        <li class=""><a href="#analytics" id="analytics-tab" data-toggle="tab"><span class="glyphicon glyphicon-stats"></span> Analytics</a></li>
+                    </ul>
+                    <div id="bizTabContent" class="tab-content" style="min-height: 600px;">
+                        <div class="col-md-12">
+                            <div class="alert" id="edit_message" style="display: none;">
+                                <p style="text-align: center;"></p>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade active in" id="details" aria-labelledby="details-tab">
+                            <p>@include('business.my-business-tabs.details-tab')</p>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="terminals" aria-labelledby="terminals-tab">
+                            <p>@include('business.my-business-tabs.terminals-tab')</p>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="broadcast" aria-labelledby="broadcast-tab">
+                            <p>@include('business.my-business-tabs.broadcast-tab')</p>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="ads" aria-labelledby="ads-tab">
+                            <p>@include('business.my-business-tabs.advertisements-tab')</p>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="settings" aria-labelledby="settings-tab">
+                            <p>@include('business.my-business-tabs.settings-tab')</p>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="analytics" aria-labelledby="analytics-tab">
+                            <p>@include('business.my-business-tabs.analytics-tab')</p>
+                        </div>
+                    </div>
                 </div>
-                <div role="tabpanel" class="tab-pane fade" id="terminals" aria-labelledby="terminals-tab">
-                    <p>@include('business.my-business-tabs.terminals-tab')</p>
-                </div>
-                <div role="tabpanel" class="tab-pane fade" id="broadcast" aria-labelledby="broadcast-tab">
-                    <p>@include('business.my-business-tabs.broadcast-tab')</p>
-                </div>
-                <div role="tabpanel" class="tab-pane fade" id="settings" aria-labelledby="settings-tab">
-                    <p>@include('business.my-business-tabs.settings-tab')</p>
-                </div>
-                <div role="tabpanel" class="tab-pane fade" id="analytics" aria-labelledby="analytics-tab">
-                    <p>@include('business.my-business-tabs.analytics-tab')</p>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

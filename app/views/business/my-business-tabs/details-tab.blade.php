@@ -79,9 +79,11 @@
                     </select>
                 </div>
             </div>
+            <div class="col-md-6">
+                <div>
+                    <button type="button" id="edit_business" class="btn btn-orange btn-lg" ng-click="saveBusinessDetails()"><span class="glyphicon glyphicon-check"></span> SUBMIT</button>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="pull-right">
-        <button type="button" id="edit_business" class="btn btn-orange btn-lg" ng-click="saveBusinessDetails()"><span class="glyphicon glyphicon-check"></span> SUBMIT</button>
     </div>
 </div>
