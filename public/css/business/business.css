@@ -1,5 +1,5 @@
 .feat-business {
-    background: url('/img/feat-business.jpg') center no-repeat;
+    background: #03121a url('/img/feat-business.jpg') center no-repeat;
     height: 195px;
 }
 .biz-details-wrap {
@@ -28,7 +28,7 @@
 #process-queue {
     font-family: 'ralewaybold';
     display: block;
-    padding: 9px 20px 6px 90px;
+    padding: 9px 20px 6px 98px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
     height: 56px;
@@ -70,6 +70,8 @@
     box-shadow: 0 2px 8px 0 rgba(0,0,0,.2);
     border-bottom-right-radius: 4px;
     border-bottom-left-radius: 4px;
+    margin-bottom: 40px;
+    min-height: 300px;
 }
 #bizTabContent p {
     margin-bottom: 20px;

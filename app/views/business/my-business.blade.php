@@ -1,22 +1,20 @@
-@extends('user.dashboard_master')
+@extends('dashboard')
 
 @section('subtitle')
 My Business
 @stop
 
 @section('styles')
-    <link rel='stylesheet' type='text/css' href='/css/global.css'>
     <link rel='stylesheet' type='text/css' href='/css/business/business.css'>
+    <link rel='stylesheet' type='text/css' href='/css/dashboard.css'>
+    <link media="all" type="text/css" rel="stylesheet" href="/css/jquery.timepicker.min.css">
 @stop
 
 @section('scripts')
     <script src="/js/dashboard/dashboard.js"></script>
-    <script src="/js/jquery.form.js"></script>
     <script src="/js/dashboard/edit-business.js"></script>
     <script src="/js/jquery.timepicker.min.js"></script>
     <script src="/js/intlTelInput.js"></script>
-    <script src="/js/dashboard/jquery.validate.js"></script>
-    <script src="/js/dashboard/search-business.js"></script>
     <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
     <script src="/js/jquery.geocomplete.js"></script>
 
@@ -24,7 +22,7 @@ My Business
     {{--<script src="/js/google-analytics/ga-dashboard.js"></script>--}}
 @stop
 
-@section('content')
+@section('container')
 <div class="feat feat-business">
     <div class="container">
         <div class="text-center">

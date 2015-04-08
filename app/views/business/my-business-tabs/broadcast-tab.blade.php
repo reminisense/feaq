@@ -5,8 +5,8 @@
     </div>
     <!-- -->
     <div class="col-md-12">
-        <h6>Image Advertisement Options: </h6>
         <div class="well">
+            <h6>Image Advertisement Options: </h6>
             <div class="row">
                 <div class="col-md-4 col-xs-6 mb20">
                     <img src="/images/icon-b1.jpg" class="mb10 img-responsive broadcast-preview">
@@ -35,8 +35,8 @@
 
     <!-- -->
     <div class="col-md-12">
-        <h6>Internet TV Options: </h6>
         <div class="well">
+            <h6>Internet TV Options: </h6>
             <div class="row">
                 <div class="col-md-4 col-xs-6 mb20">
                     <img src="/images/icon-b1.jpg" class="mb10 img-responsive broadcast-preview">
@@ -65,8 +65,8 @@
 
     <!-- -->
     <div class="col-md-12">
-        <h6>Numbers Only Options: </h6>
         <div class="well">
+            <h6>Numbers Only Options: </h6>
             <div class="row">
                 <div class="col-md-4 col-xs-6 mb20">
                     <img src="/images/icon-b4.jpg" class="mb10 img-responsive broadcast-preview">

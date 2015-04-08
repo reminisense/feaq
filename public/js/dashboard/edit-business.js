@@ -43,6 +43,7 @@ $(document).ready(function(){
     //eb.jquery_functions.load_users();
     eb.jquery_functions.setBusinessId($('#business_id').val());
     eb.jquery_functions.getBusinessDetails();
+    eb.jquery_functions.my_business_link_active();
 });
 
 var eb = {
@@ -104,6 +105,11 @@ var eb = {
         hide_add_terminal_form : function(){
             $('#inputterminal').hide();
             $('#btn-addterminal').show();
+        },
+
+        my_business_link_active : function(){
+            $('#my-business').addClass('active');
+            $('#search-business').removeClass('active');
         }
     }
 };

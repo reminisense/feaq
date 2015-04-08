@@ -77,3 +77,10 @@
     <strong>* FeatherQ Frontline SMS</strong> features will be given for <strong>free</strong> for the next few months.
     However, future developments might classify these features to be given exclusively to premium users without prior notice.
 </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="pull-right">
+            <button type="button" id="edit_business" class="btn btn-orange btn-lg" ng-click="saveBusinessDetails()"><span class="glyphicon glyphicon-check"></span> SUBMIT</button>
+        </div>
+    </div>
+</div>

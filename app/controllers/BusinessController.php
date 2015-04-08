@@ -13,10 +13,19 @@
 class BusinessController extends BaseController{
 
 
-    public function getMyBusiness($business_id){
-        return View::make('business.my-business')
-            ->with('business_id', $business_id)
-            ->with('first_terminal', 1);
+    public function getMyBusiness(){
+        $businesses = UserBusiness::getAllBusinessIdByOwner(Helper::userId());
+        if(count($businesses) === 0){
+            return Redirect::to('/');
+        }else{
+            $business = $businesses[0];
+            $business_id = $business->business_id;
+            $first_service = Service::getFirstServiceOfBusiness($business_id);
+            $terminals = Terminal::getTerminalsByServiceId($first_service->service_id);
+            return View::make('business.my-business')
+                ->with('business_id', $business_id)
+                ->with('first_terminal', $terminals[0]['terminal_id']);
+        }
     }
 
     /*

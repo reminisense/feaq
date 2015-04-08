@@ -9,8 +9,8 @@
   <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=no">
   <link rel="shortcut icon" id="favicon" href="favicon.png">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <link rel='stylesheet' type='text/css' href='css/global.css'>
-  <link rel='stylesheet' type='text/css' href='css/responsive.css'>
+  <link rel='stylesheet' type='text/css' href='/css/global.css'>
+  <link rel='stylesheet' type='text/css' href='/css/responsive.css'>
 
       @yield('styles')
 
@@ -21,7 +21,6 @@
   <script src="/js/ngFacebook.js"></script>
   <script src="/js/ngAutocomplete.js"></script>
 
-      @yield('scripts')
 
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]-->
@@ -43,8 +42,8 @@
       </div>
       <nav class="pull-right collapse navbar-collapse bs-navbar-collapse" role="navigation">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#"><span class="glyphicon glyphicon-search"></span> Business Search</a></li>
-          <li><a href="#" ><span class="glyphicon glyphicon-home"></span> My Business</a></li>
+          <li id="search-business" class="active"><a href="{{ url('/') }}"><span class="glyphicon glyphicon-search"></span> Business Search</a></li>
+          <li id="my-business"><a href="{{ url('/business/my-business') }}" ><span class="glyphicon glyphicon-home"></span> My Business</a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> My Account <b class="caret"></b></a>
             <ul class="dropdown-menu">
@@ -62,5 +61,6 @@
     <p class="text-center">&copy; 2015 : Reminisense Corp.</p>
   </div>
 </footer>
+@yield('scripts'){{-- ARA scripts at the bottom so html can load before js --}}
 </body>
 </html>
