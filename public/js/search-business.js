@@ -53,25 +53,5 @@
         $scope.industryFilter = (function(industry) {
             $scope.industry_filter = industry;
         });
-
-        $('#btnTimeOpen').on('click', function (e){
-            if ($('#time_open-filter').is(':hidden')) {
-                $('#time_open-filter').show();
-                $('#time_open-filter').timeEntry({
-                    ampmPrefix: ' ',
-                    spinnerImage: ''
-                });
-                e.preventDefault();
-                $('#time_open-filter').focus();
-                $(this).hide();
-            }
-        });
-
-        $('#time_open-filter').focusout(function () {
-            if ($(this).val() == ''){
-                $(this).hide();
-                $('#btnTimeOpen').show();
-            }
-        });
     });
 })();
