@@ -64,8 +64,8 @@ var eb = {
         },
 
         broadcast: {
+            broadcast_json_url : $('#broadcast-json-url').val() + '/',
             broadcast_set_theme_url : $('#broadcast-set-theme-url').val(),
-            broadcast_json_url : $('#broadcast-json-url').val(),
             ads_embed_video_url : $('#ads-embed-video-url').val(),
             ads_tv_select_url : $('#ads-tv-select-url').val(),
             ads_tv_on_url : $('#ads-tv-on-url').val(),
@@ -83,6 +83,7 @@ var eb = {
             var scope = angular.element($("#editBusiness")).scope();
             scope.$apply(function(){
                 scope.getBusinessDetails();
+                scope.currentActiveTheme(scope.business_id);
             });
         },
 
@@ -453,7 +454,7 @@ var eb = {
         });
 
         $scope.adVideoEmbed = (function(business_id) {
-            $http.post(eb.urls.ads.ads_embed_video_url, {
+            $http.post(eb.urls.broadcast.ads_embed_video_url, {
                 business_id : business_id,
                 ad_video : $scope.ad_video
             }).success(function(response) {
@@ -467,7 +468,7 @@ var eb = {
         });
 
         $scope.selectTV = (function(business_id) {
-            $http.post(eb.urls.ads.ads_tv_select_url, {
+            $http.post(eb.urls.broadcast.ads_tv_select_url, {
                 business_id : business_id,
                 tv_channel : $scope.tv_channel
             }).success(function() {
@@ -480,7 +481,7 @@ var eb = {
         });
 
         $scope.turnOnTV = (function(business_id) {
-            $http.post(eb.urls.ads.ads_tv_on_url, {
+            $http.post(eb.urls.broadcast.ads_tv_on_url, {
                 business_id : business_id,
                 status : $scope.tv_status
             }).success(function() {
@@ -490,7 +491,7 @@ var eb = {
         });
 
         $scope.adType = (function(ad_type, business_id) {
-            $http.post(eb.urls.ads.ads_type_url, {
+            $http.post(eb.urls.broadcast.ads_type_url, {
                 ad_type : ad_type,
                 business_id : business_id
             }).success(function() {

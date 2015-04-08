@@ -65,7 +65,7 @@ My Business
                 <li class=""><a href="#settings" id="settings-tab" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
                 <li class=""><a href="#analytics" id="analytics-tab" data-toggle="tab"><span class="glyphicon glyphicon-stats"></span> Analytics</a></li>
             </ul>
-            <div id="bizTabContent" class="tab-content">
+            <div id="bizTabContent" class="tab-content" style="min-height: 500px;">
                 <div role="tabpanel" class="tab-pane fade active in" id="details" aria-labelledby="details-tab">
                     <p>@include('business.my-business-tabs.details-tab')</p>
                 </div>
