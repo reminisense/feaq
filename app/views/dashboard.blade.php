@@ -10,7 +10,7 @@
   <link rel="shortcut icon" id="favicon" href="favicon.png">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <link rel='stylesheet' type='text/css' href='/css/global.css'>
-  <link rel='stylesheet' type='text/css' href='/css/responsive.css'>
+  <link rel='stylesheet' type='text/css' href='/css/dashboard/responsive.css'>
 
       @yield('styles')
 
