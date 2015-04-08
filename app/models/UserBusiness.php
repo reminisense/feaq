@@ -12,15 +12,13 @@ class UserBusiness extends Eloquent{
     public $timestamps = false;
 
     public static function getBusinessIdByOwner($user_id) {
-      /* recoded by Paul
         $row = UserBusiness::where('user_id', '=', $user_id)->get()->first();
         if (count($row) > 0){
             return $row->business_id;
         } else {
-            return false;
+            return 0;
         }
-      */
-      return UserBusiness::where('user_id', '=', $user_id)->select(array('business_id'))->first()->business_id;
+        /* return UserBusiness::where('user_id', '=', $user_id)->select(array('business_id'))->first()->business_id; */
     }
 
     public static function getAllBusinessIdByOwner($user_id){
