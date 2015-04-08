@@ -113,7 +113,7 @@ class UserController extends BaseController{
                 }
             }
 
-            return View::make('user.dashboard')
+            return View::make('user.dashboardnew')
                 //->with('search_businesses', $search_businesses) ARA No more popular businesses. only active businesses
                 ->with('active_businesses', $active_businesses)
                 ->with('my_businesses', $my_businesses)
