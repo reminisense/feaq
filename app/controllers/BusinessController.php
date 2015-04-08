@@ -235,6 +235,8 @@ class BusinessController extends BaseController{
                 'business_id' => $data->business_id,
                 'business_name' => $data->name,
                 'local_address' => $data->local_address,
+                'time_open' => $data->open_hour . ':' . Helper::doubleZero($data->open_minute) . ' ' . strtoupper($data->open_ampm),
+                'time_close' => $data->close_hour . ':' . Helper::doubleZero($data->close_minute) . ' ' . strtoupper($data->close_ampm),
             );
         }
         return json_encode($arr);
