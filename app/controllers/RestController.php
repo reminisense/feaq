@@ -117,6 +117,12 @@ class RestController extends BaseController {
         unset($numbers['get_num']);
         unset($numbers['display']);
         unset($numbers['date']);
+        unset($numbers['show_issued']);
+        unset($numbers['turn_on_tv']);
+        unset($numbers['ad_video']);
+        unset($numbers['tv_channel']);
+        unset($numbers['ad_type']);
+        unset($numbers['ad_image']);
 
         foreach($numbers as $key => $box_data) {
             // generate object attribute
