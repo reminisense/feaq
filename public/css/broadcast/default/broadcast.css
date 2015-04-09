@@ -1,0 +1,258 @@
+body {
+  background-color: #e9e9e8;
+  font-family: 'ralewayregular';
+}
+@font-face {
+  font-family: 'ralewayregular';
+  src: url('/fonts/broadcast/default/raleway-regular-webfont.eot');
+  src: url('/fonts/broadcast/default/raleway-regular-webfont.eot?#iefix') format('embedded-opentype'),
+  url('/fonts/broadcast/default/raleway-regular-webfont.woff2') format('woff2'),
+  url('/fonts/broadcast/default/raleway-regular-webfont.woff') format('woff'),
+  url('/fonts/broadcast/default/raleway-regular-webfont.ttf') format('truetype'),
+  url('/fonts/broadcast/default/raleway-regular-webfont.svg#ralewayregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ralewaybold';
+  src: url('/fonts/broadcast/default/raleway-bold-webfont.eot');
+  src: url('/fonts/broadcast/default/raleway-bold-webfont.eot?#iefix') format('embedded-opentype'),
+  url('/fonts/broadcast/default/raleway-bold-webfont.woff2') format('woff2'),
+  url('/fonts/broadcast/default/raleway-bold-webfont.woff') format('woff'),
+  url('/fonts/broadcast/default/raleway-bold-webfont.ttf') format('truetype'),
+  url('/fonts/broadcast/default/raleway-bold-webfont.svg#ralewaybold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ralewaysemibold';
+  src: url('/fonts/broadcast/default/raleway-semibold-webfont.eot');
+  src: url('/fonts/broadcast/default/raleway-semibold-webfont.eot?#iefix') format('embedded-opentype'),
+  url('/fonts/broadcast/default/raleway-semibold-webfont.woff2') format('woff2'),
+  url('/fonts/broadcast/default/raleway-semibold-webfont.woff') format('woff'),
+  url('/fonts/broadcast/default/raleway-semibold-webfont.ttf') format('truetype'),
+  url('/fonts/broadcast/default/raleway-semibold-webfont.svg#ralewaysemibold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ralewaymedium';
+  src: url('/fonts/broadcast/default/raleway-medium-webfont.eot');
+  src: url('/fonts/broadcast/default/raleway-medium-webfont.eot?#iefix') format('embedded-opentype'),
+  url('/fonts/broadcast/default/raleway-medium-webfont.woff2') format('woff2'),
+  url('/fonts/broadcast/default/raleway-medium-webfont.woff') format('woff'),
+  url('/fonts/broadcast/default/raleway-medium-webfont.ttf') format('truetype'),
+  url('/fonts/broadcast/default/raleway-medium-webfont.svg#ralewaymedium') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+  font-family: 'ralewaybold';
+}
+h2 {
+  color: #00ba8b;
+  font-size: 18px;
+}
+h3,
+.h3 {
+  font-size: 16px;
+  color: #356ab1;
+}
+h5,
+.h5,
+a.h5 {
+  font-size: 13px;
+  color: #00ba8b;
+}
+h2.heading,
+h5.heading {
+  margin: 20px 0;
+}
+.bold {
+  font-family: 'ralewaybold';
+}
+#broadcast .top {
+  background-color: #262a31;
+  text-align: center;
+  margin: auto;
+  padding: 15px 0;
+}
+#broadcast .footer {
+  background-color: #262a31;
+  padding: 18px 0;
+  color: #fff;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 0px;
+}
+#broadcast .broadcast .numbers.t1 {
+  background-color: #44a9aa;
+  color: #fff;
+  -webkit-box-shadow:inset 0 0 80px 0 rgba(0,0,0,0.3);
+  box-shadow:inset 0 0 80px 0 rgba(0,0,0,0.3);
+}
+#broadcast .broadcast .numbers.t2 {
+  background-color: #657fb3;
+  color: #fff;
+}
+#broadcast .broadcast .numbers.t3 {
+  background-color: #746ca8;
+  color: #fff;
+}
+#broadcast .broadcast .numbers {
+  background-color: #e7e7e7;
+  padding: 35px 15px;
+  font-size: 200px;
+  font-family: 'ralewaybold';
+  text-align: center;
+  margin: 1px;
+}
+#broadcast .qrwrap {
+  background-color: #e7e7e7;
+  padding: 25px 15px 10px;
+  min-height: 338px;
+}
+#broadcast .qrwrap p {
+  font-size: 20px;
+}
+.col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, 
+.col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, 
+.col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, 
+.col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, 
+.col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, 
+.col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+#broadcast .qrwrap .orange {
+  font-family: 'ralewaybold';
+  font-size: 50px;
+}
+#broadcast .bcast-big .head h4 {
+  font-size: 30px;
+}
+.container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}
+.six-nums img {
+  background-color: #ff925b;
+}
+.six-nums .qrwrap p.nomg {
+  font-size: 16px!important;
+  line-height: 26px!important;
+  margin-bottom: 10px;
+}
+.six-nums .qrwrap p.orange {
+  font-size: 30px!important;
+  line-height: 40px!important;
+}
+.three-nums .numbers {
+  font-size: 400px!important;
+}
+.three-nums p.terminal {
+  font-size: 50px!important;
+}
+.qrcode {
+  background-color: #e7e7e7;
+  padding: 10px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  background-color: #ff925b;
+  margin-top: 12px;
+}
+.three-nums .qrcode {
+  margin-top: 60px!important;
+}
+.three-nums p.orange {
+  margin-bottom: 30px!important;
+  margin-top: 40px!important;
+}
+.three-nums .qrwrap,
+.three-nums .numbers  {
+  padding-top: 70px!important;
+  min-height: 70px!important;
+}
+.three-nums .qrwrap p.orange {
+  font-size: 60px!important;
+}
+.three-nums .qrwrap p {
+  font-size: 30px!important;
+}
+.boxed .broadcast .numbers .terminal {
+  font-size: 13px;
+  font-family: 'ralewaysemibold';
+  color: #fff;
+  margin-bottom: 0;
+}
+.boxed .broadcast .numbers .terminal.none,
+.boxed .broadcast .numbers .terminal {
+  height: 18px;
+}
+
+.boxed .body.broadcast {
+  position: relative;
+  overflow: hidden;
+}
+.bcast-details {
+  display: none;
+  position: absolute;
+  top: 0px;
+  left: 0;
+  background-color: #2f3131;
+  color: #fff;
+  width: 100%;
+  height: 100%;
+}
+.bcast-details .wrap {
+  padding: 15px;
+}
+
+.bcast-big .terminal {
+  font-size: 22px!important;
+}
+.boxed .head {
+  background-color: #fff;
+  padding: 18px 20px;
+}
+.boxed .head,
+.modal-header,
+#pmore-window .nav-tabs>li.active>a {
+  -webkit-border-top-left-radius: 4px;
+  -webkit-border-top-right-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+  -moz-border-radius-topright: 4px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+.cyan {
+  color: #00ba8b!important;
+}
+.sep {
+  background: url('/images/broadcast/default/bg-sep.jpg') repeat-x;
+  height: 9px;
+  margin: 25px 0;
+}
+.orange {
+  color: #ff8649!important;
+}
+.nomg {
+  margin: 0!important;
+}
+.spaceht {
+  padding-top: 60px!important;
+  padding-bottom: 60px!important;
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -39,9 +39,13 @@ class BroadcastController extends BaseController{
      */
     public function getBusiness($business_id = 0)
     {
-        $tv_mode = false;
-        $tv_channel = '';
-        $broadcast_type = 1;
+        $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
+        $arr = explode("-", $data->display);
+        if ($arr[0]) $template_type = 'ads-' . $arr[1];
+        else $template_type = 'noads-' . $arr[1];
+        if ($data->ad_type == 'image') $ad_src = $data->ad_image;
+        else $ad_src = $data->ad_video;
+
         $business_name = Business::name($business_id);
         $open_time = str_pad(Business::openHour($business_id), 2, 0, STR_PAD_LEFT) . ':' . str_pad(Business::openMinute($business_id), 2, 0, STR_PAD_LEFT) . ' ' . Business::openAMPM($business_id);
         $close_time = str_pad(Business::closeHour($business_id), 2, 0, STR_PAD_LEFT) . ':' . str_pad(Business::closeMinute($business_id), 2, 0, STR_PAD_LEFT) . ' ' . Business::closeAMPM($business_id);
@@ -50,27 +54,23 @@ class BroadcastController extends BaseController{
 
           // business owners have different broadcast screens for display
           if (UserBusiness::getBusinessIdByOwner(Auth::user()->user_id) == $business_id) {
-            $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
-            $arr = explode("-", $data->display);
-            if ($arr[0] == 2) {
-              $tv_channel = $data->tv_channel;
-              $tv_mode = true;
-              $broadcast_type = 2;
-            }
-            $broadcast_template = 'business-broadcast';
+            if ($arr[0] == 2) $ad_src = $data->tv_channel; // check if TV is on
+            $broadcast_template = 'broadcast.default.business-master';
           }
 
           else {
-            $broadcast_template = 'broadcast';
+            $broadcast_template = 'broadcast.default.public-master';
           }
         }
         else {
-          $broadcast_template = 'broadcast';
+          $broadcast_template = 'broadcast.default.public-master';
         }
         return View::make($broadcast_template)
-            ->with('tv_channel', $tv_channel)
-            ->with('broadcast_type', $broadcast_type)
-            ->with('tv_mode', $tv_mode)
+            ->with('ad_type', $data->ad_type)
+            ->with('ad_src', $ad_src)
+            ->with('box_num', $arr[1])
+            ->with('template_type', $template_type)
+            ->with('broadcast_type', $data->display)
             ->with('open_time', $open_time)
             ->with('close_time', $close_time)
             ->with('local_address', Business::localAddress($business_id))

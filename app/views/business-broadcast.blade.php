@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <link rel="shortcut icon" href="/images/favicon.png">
-  <title>{{ $business_name }} | FeatherQ</title>
-  <!-- Bootstrap core CSS -->
-  <link href="/css/broadcast/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
-  <link href="/css/broadcast/dashboard.css" rel="stylesheet" type="text/css" media="all">
-  <link href="/css/broadcast/responsive.css" rel="stylesheet" type="text/css" media="all">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="images/favicon.png">
+    <title>{{ $business_name }} | FeatherQ</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/css/broadcast/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/css/broadcast/broadcast.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/css/broadcast/responsive.css" rel="stylesheet" type="text/css" media="all">
 
     <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script> {{-- RDH Using CDN for Angular JS File --}}
@@ -23,164 +23,95 @@
 
     <script src="/js/google-analytics/googleAnalytics.js"></script>
     <script src="/js/google-analytics/ga-broadcast.js"></script>
-
-  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 <!-- NAVBAR
   ================================================== -->
-<body cz-shortcut-listen="true" id="biz-broadcast" ng-app="BusinessBroadcast">
+<body cz-shortcut-listen="true" id="broadcast" ng-app="BusinessBroadcast">
 <div id="business-id" business_id="{{ $business_id }}"></div>
-<!-- Static navbar -->
-<nav class="navbar navbar-default navbar-static-top">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="{{URL::to('/')}}"><img src="/images/featherq-home-logo.png"></a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
 
-    </div><!--/.nav-collapse -->
-  </div>
-</nav>
+<div class="top">
+    <a class="" href="#"><img src="/images/featherq-home-logo.png"></a>
+</div>
 
-
-<div class="container main-wrap" id="nowServingCtrl" ng-controller="nowServingCtrl">
+<div class="row-fluid" id="nowServingCtrl" ng-controller="nowServingCtrl">
     <div id="broadcast-type" broadcast_type="{{ $broadcast_type }}"></div>
     <audio id="call-number-sound" src="/audio/doorbell_x.wav" controls preload="auto" autobuffer style="display: none;"></audio>
-  <div class="row mt20">
-    <div class="col-md-3 mobileme" style="@{{ qry }}">
-      <div class="boxed mb20">
-        <div class="head clearfix">
-          <h4 class="mt20 orange">On the go?</h4>
-          <p class="cyan mt20"><strong>Scan ths QR Code on your mobile phone</strong></p>
-          <p class="mt30 mb30">You can monitor numbers what number is currently served  natis in. Maecenas id dui diam. Sed lacinia tincidunt sem id rutrum. </p>
-          <div class="sep"></div>
-          <div class="text-center">
-            <img class="qrcode mt20" style="width:100%;" src="/images/qrcode.jpg" />
-          </div>
+    <div class="container-fluid">
+        <div class="col-md-6">
+            <img class="img-responsive" src="/images/ads1.jpg" />
         </div>
-      </div>
-    </div>
-      @if ($tv_mode)
-          <div class="col-md-6 ads">
-              {{ $tv_channel }}
-          </div>
-      @else
-      <div class="col-md-6 ads" style="@{{ ad_display }}">
-        <div id="ad-image-container">
-          {{--<img class="img-responsive mb30" src="@{{ ad_image }}" id="image-ad" style="@{{ ad_display_upload }}"/>--}}
-            <div id="fqCarousel" class="carousel slide" data-ride="carousel" style="@{{ ad_display_default }}">
-              <!-- Wrapper for slides -->
-              <div class="carousel-inner" role="listbox">
-                <div class="item active">
-                    <img class="img-responsive mb30" src="@{{ ad_image }}" id="image-ad" style="@{{ ad_display_upload }}" alt="Ad1" />
+        <div class="col-md-6">
+            <div class="boxed mb20 bcast-big">
+                <div class="head">
+                    <h4 class="text-center">Now Serving</h4>
                 </div>
-                <div class="item">
-                  <img src="/images/broadcast1.jpg" alt="Ad2">
-                </div>
-                <div class="item">
-                  <img src="/images/broadcast2.jpg" alt="Ad3">
-                </div>
-                <div class="item">
-                  <img src="/images/broadcast3.jpg" alt="Ad4">
-                </div>
-                <div class="item">
-                  <img src="/images/broadcast4.jpg" alt="Ad5">
-                </div>
-              </div>
-            </div>
-            <iframe src="@{{ ad_video }}" id="video-ad" width="100%" height="400"></iframe>
-          </div>
-      </div>
-      @endif
-    <div class="col-md-@{{ colsize }}">
-      <div class="boxed mb20 bcast-big">
-        <div class="head head-wbtn">
-          <h4 class="text-center">Now Serving</h4>
-        </div>
-        <div class="body broadcast body-gradient">
+                <div class="body broadcast">
+                    <div class="row-fluid six-nums">
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="text-center qrwrap">
+                                <p class="orange nomg">On the go?</p>
+                                <p class="nomg">Scan this QR Code on your mobile phone</p>
+                                <div class="text-center">
+                                    <img class="qrcode" src="/images/broadcast/qrcode.jpg" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="numbers t3">
+                                <p class="terminal">Terminal 3</p>
+                                90
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="numbers t1">
+                                <p class="terminal">Terminal 1</p>
+                                91
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="numbers t3">
+                                <p class="terminal">Terminal 3</p>
+                                90
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="numbers t1">
+                                <p class="terminal">Terminal 1</p>
+                                91
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="numbers t2">
+                                <p class="terminal">Terminal 2</p>
+                                92
+                            </div>
+                        </div>
 
-          <div class="row">
-            <div class="col-md-@{{ boxsize }} col-sm-12 col-xs-12" style="@{{ boxdisplay1 }}">
-              <div class="numbers t@{{ rank1 }} @{{ spaceht }}">
-                <p class="terminal">@{{ name1 }}</p>
-                  @{{ box1 }}
-              </div>
-            </div>
-            <div class="col-md-@{{ boxsize }} col-sm-6 col-xs-12" style="@{{ boxdisplay2 }}">
-                <div class="numbers t@{{ rank2 }}">
-                    <p class="terminal">@{{ name2 }}</p>
-                    @{{ box2 }}
-                </div>
-            </div>
-            <div class="col-md-@{{ boxsize }} col-sm-6 col-xs-12" style="@{{ boxdisplay3 }}">
-                <div class="numbers t@{{ rank3 }}">
-                    <p class="terminal">@{{ name3 }}</p>
-                    @{{ box3 }}
-                </div>
-            </div>
-            <div class="col-md-@{{ boxsize }} col-sm-6 col-xs-12" style="@{{ boxdisplay4 }}">
-                <div class="numbers t@{{ rank4 }}">
-                    <p class="terminal">@{{ name4 }}</p>
-                    @{{ box4 }}
-                </div>
-            </div>
-            <div class="col-md-@{{ boxsize }} col-sm-6 col-xs-12" style="@{{ boxdisplay5 }}">
-                <div class="numbers t@{{ rank5 }}">
-                    <p class="terminal">@{{ name5 }}</p>
-                    @{{ box5 }}
-                </div>
-            </div>
-            <div class="col-md-@{{ boxsize }} col-sm-6 col-xs-12" style="@{{ boxdisplay6 }}">
-              <div class="numbers t@{{ rank6 }}">
-                <p class="terminal none">@{{ name6 }}</p>
-                  @{{ box6 }}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-        <div class="boxed mb20" style="@{{ qrx }}">
-            <div class="head clearfix">
-                <div class="row">
-                    <div class="col-md-8 col-sm-8">
-                        <h4 class="orange">On the go?</h4>
-                        <p class="cyan"><strong>Scan ths QR Code on your mobile phone</strong></p>
-                        <p>You can monitor numbers what number is currently served  natis in. Maecenas id dui diam. Sed lacinia tincidunt sem id rutrum. </p>
-                    </div>
-                    <div class="col-md-4 col-sm-4">
-                        <img class="pull-right qrcode img-responsive" src="/images/qrcode.jpg" />
                     </div>
                 </div>
             </div>
         </div>
     </div>
-  </div>
-
-
-
-
 </div>
+
 <div class="footer">
-  <div class="container">
-    <div class="col-md-12">
-      © 2014 : Reminisense Corp.
-    </div>
-  </div>
+    © 2014 : Reminisense Corp.
 </div>
+
+
+
 
 
 <script src="/js/broadcast/bootstrap.min.js"></script>
 <script src="/js/broadcast/custom.js"></script>
+
+
+
 
 
 </body>
