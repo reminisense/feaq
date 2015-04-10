@@ -40,8 +40,24 @@ $(document).ready(function(){
         $('#vid-submit-btn').removeClass('btn-disabled');
     });
 
+    $(document).on('click', '#process-queue', function(e){
+        if ($('.biz-terminals').is(':hidden')) {
+            $('.biz-terminals').slideDown('fast');
+        }
+        return false;
+    });
+
+    $('html').click(function () {
+        $('.biz-terminals').slideUp('fast');
+    });
+
+    $('.biz-terminals').on('click', 'a', function(e){
+        e.stopPropagation();
+    });
+
     //eb.jquery_functions.load_users();
     eb.jquery_functions.setBusinessId($('#business_id').val());
+    eb.jquery_functions.setUserId($('#user_id').val());
     eb.jquery_functions.getBusinessDetails();
     eb.jquery_functions.my_business_link_active();
 });
@@ -95,6 +111,13 @@ var eb = {
             });
         },
 
+        setUserId : function(user_id){
+            var scope = angular.element($("#editBusiness")).scope();
+            scope.$apply(function(){
+                scope.user_id = user_id;
+            });
+        },
+
 //        load_users : function(){
 //            var scope = angular.element($("#editBusiness")).scope();
 //            scope.$apply(function(){
@@ -118,6 +141,7 @@ var eb = {
 (function(){
 
     app.controller('editBusinessController', function($scope, $http){
+        $scope.user_id = null;
         $scope.business_id = null;
         $scope.business_name = null;
         $scope.business_address = null;
@@ -197,6 +221,23 @@ var eb = {
                 });
         }
 
+        $scope.isAssignedUser = function(user_id, terminal_id){
+            terminals = $scope.terminals
+            assigned = false;
+            for(terminal in terminals){
+                if(terminals[terminal].terminal_id == terminal_id){
+                    for(user in terminals[terminal].users){
+                        console.log(terminals[terminal].users[user]);
+                        console.log(user_id);
+                        if(terminals[terminal].users[user].user_id == user_id){
+                            assigned = true;
+                        }
+                    }
+
+                }
+            }
+            return assigned;
+        }
 
         $scope.deleteTerminal = function(terminal_id){
             $http.get(eb.urls.terminals.terminal_delete_url + terminal_id)

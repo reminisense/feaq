@@ -48,7 +48,23 @@ My Business
                     </div>
                     <div class="col-md-3 col-xs-6 ">
                         <a id="view-broadcast" href="{{ url('broadcast/business/' . $business_id) }}" target="_blank">View Broadcast Screen</a>
-                        <a id="process-queue" href="{{ url('processqueue/terminal/' . $first_terminal) }}" target="_blank">Process <br>Queue</a>
+                        <div id="process-queue" href="#" class="boxed edit-biz">
+                            <a href="#" style="color: #ffffff">Process <br>Queue</a>
+                            <div class="biz-terminals">
+                                <div class="clearfix">
+                                    <div ng-repeat="terminal in terminals" >
+                                        <a ng-if="isAssignedUser(user_id, terminal.terminal_id)" href="{{ url('/processqueue/terminal') }}/@{{ terminal.terminal_id }}" target="_blank" style="padding: 8px;">
+                                            <span class=" glyphicon glyphicon-ok "></span>
+                                            <small>@{{ terminal.name }}</small>
+                                        </a>
+                                        <a ng-if="!isAssignedUser(user_id, terminal.terminal_id)" href="#" class="not-active" style="padding: 8px;">
+                                            <span class=" glyphicon glyphicon-ban-circle"></span>
+                                            <small>@{{ terminal.name }}</small>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -99,6 +115,7 @@ My Business
 
 {{-- js variables used --}}
 <!-- business -->
+<input type="hidden" id="user_id" value="{{ $user_id }}">
 <input type="hidden" id="business_id" value="{{ $business_id }}">
 <input type="hidden" id="business-details-url" value="{{ url('/business/businessdetails/') }}">
 <input type="hidden" id="business-edit-url" value="{{ url('/business/edit-business/') }}">

@@ -23,6 +23,7 @@ class BusinessController extends BaseController{
             $first_service = Service::getFirstServiceOfBusiness($business_id);
             $terminals = Terminal::getTerminalsByServiceId($first_service->service_id);
             return View::make('business.my-business')
+                ->with('user_id', Helper::userId())
                 ->with('business_id', $business_id)
                 ->with('first_terminal', $terminals[0]['terminal_id']);
         }
