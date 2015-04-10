@@ -15,9 +15,8 @@ class BusinessController extends BaseController{
 
     public function getMyBusiness(){
         $businesses = UserBusiness::getAllBusinessIdByOwner(Helper::userId());
-        if(count($businesses) === 0){
-            return Redirect::to('/');
-        }else{
+
+        if (count($businesses) > 0){
             $business = $businesses[0];
             $business_id = $business->business_id;
             $first_service = Service::getFirstServiceOfBusiness($business_id);
@@ -26,6 +25,8 @@ class BusinessController extends BaseController{
                 ->with('user_id', Helper::userId())
                 ->with('business_id', $business_id)
                 ->with('first_terminal', $terminals[0]['terminal_id']);
+        } else {
+            return View::make('business.my-business');
         }
     }
 
