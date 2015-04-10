@@ -22,7 +22,8 @@
 .modal-header button.close {
     line-height: 19px;
     font-size: 30px;
-    opacity: 0.3;
+    opacity: 1;
+    color: #fff;
 }
 .modal-header h3 {
     color: #fff;
@@ -38,7 +39,7 @@
     border: none;
     border-bottom: 1px solid #c7c7c7;
     margin-bottom: 30px;
-    padding-left: 2px;
+    background-color: #f0f0f0;
 }
 .form-control {
     font-size: 13px;
@@ -71,12 +72,20 @@
 .modal .form-group .btn-group .btn .caret {
     text-align: right;
 }
-
-#setupBusiness .modal-footer {
+.modal .alert {
+    margin-bottom: 0px;
+    font-size: 11px;
+}
+ .modal-footer {
     border: none;
     position: relative;
-    padding-bottom: 20px;
+     padding: 20px;
 }
-#setupBusiness .alert {
-    margin-bottom: 35px;
+.modal-footer button,
+.modal-footer .btn {
+    color: #fff;
+    font-family: 'ralewaybold';
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
+
