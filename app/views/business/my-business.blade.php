@@ -6,6 +6,7 @@ My Business
 
 @section('styles')
     <link rel='stylesheet' type='text/css' href='/css/business/business.css'>
+    <link rel='stylesheet' type='text/css' href='/css/dashboard.css'>
     <link rel='stylesheet' type='text/css' href='/css/modal.css'>
     <link media="all" type="text/css" rel="stylesheet" href="/css/jquery.timepicker.min.css">
 @stop
