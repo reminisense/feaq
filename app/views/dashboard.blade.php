@@ -7,12 +7,12 @@
   <meta name="description" content="FeatherQ online Queueing software" />
   <meta name="author" content="">
   <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=no">
-  <link rel="shortcut icon" id="favicon" href="favicon.png">
+  <link rel="shortcut icon" id="favicon" href="{{URL::to('/images/favicon.png')}}">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <link rel='stylesheet' type='text/css' href='/css/global.css'>
   <link rel='stylesheet' type='text/css' href='/css/dashboard/responsive.css'>
 
-      @yield('styles')
+  @yield('styles')
 
   <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
