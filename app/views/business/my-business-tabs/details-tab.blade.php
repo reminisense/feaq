@@ -1,4 +1,4 @@
-<div class="row">
+
     <div class="col-md-12">
         <h5>BUSINESS DETAILS</h5>
         <small>Business Name</small>
@@ -86,4 +86,5 @@
             <button type="button" id="edit_business" class="btn btn-orange btn-lg" ng-click="saveBusinessDetails()"><span class="glyphicon glyphicon-check"></span> SUBMIT</button>
         </div>
     </div>
-</div>
+
+
