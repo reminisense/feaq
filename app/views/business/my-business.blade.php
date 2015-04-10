@@ -48,7 +48,7 @@ My Business
                         <p class="contact"><span class="glyphicon glyphicon-phone-alt"></span> +032 259 8611 / +038 259 8622 </p><br>
                         <a class="btn btn-sm btn-primary" href="{{ url('business/pdf-download/' . $business_id) }}" target="_blank">Download QR Code</a>
                     </div>
-                    <div class="col-md-3 col-xs-6 ">
+                    <div class="col-md-3 col-xs-8 ">
                         <a id="view-broadcast" href="{{ url('broadcast/business/' . $business_id) }}" target="_blank">View Broadcast Screen</a>
                         <div id="process-queue" href="#" class="boxed edit-biz">
                             <a href="#" style="color: #ffffff">Process <br>Queue</a>
@@ -91,7 +91,7 @@ My Business
                             </div>
                         </div>
                         <div role="tabpanel" class="tab-pane fade active in" id="details" aria-labelledby="details-tab">
-                            <p>@include('business.my-business-tabs.details-tab')</p>
+                            <div class="clearfix">@include('business.my-business-tabs.details-tab')</div>
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="terminals" aria-labelledby="terminals-tab">
                             <p>@include('business.my-business-tabs.terminals-tab')</p>
