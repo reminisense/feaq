@@ -6,7 +6,7 @@ My Business
 
 @section('styles')
     <link rel='stylesheet' type='text/css' href='/css/business/business.css'>
-    <link rel='stylesheet' type='text/css' href='/css/dashboard.css'>
+    <link rel='stylesheet' type='text/css' href='/css/modal.css'>
     <link media="all" type="text/css" rel="stylesheet" href="/css/jquery.timepicker.min.css">
 @stop
 
@@ -35,6 +35,7 @@ My Business
 </div>
 
 <div class="container" ng-controller="editBusinessController" id="editBusiness">
+    @if(isset($business_id))
     <div class="row">
         <div class="biz-details-wrap">
             <div class="col-md-12">
@@ -95,11 +96,24 @@ My Business
             </form>
         </div>
     </div>
+    @else
+        <div class="row">
+            <div class="biz-details-wrap">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-3 col-xs-6 " data-toggle="modal" id="add_business">
+                            <a id="add-business" target="_blank">Create Your <br/>First Business</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 </div>
 
 {{-- js variables used --}}
 <!-- business -->
-<input type="hidden" id="business_id" value="{{ $business_id }}">
+<input type="hidden" id="business_id" value="@if(isset($business_id)) {{ $business_id }}; @else {{ '0' }} @endif">
 <input type="hidden" id="business-details-url" value="{{ url('/business/businessdetails/') }}">
 <input type="hidden" id="business-edit-url" value="{{ url('/business/edit-business/') }}">
 <input type="hidden" id="business-remove-url" value="{{ url('/business/remove/') }}">
@@ -123,4 +137,5 @@ My Business
 <!-- queue settings-->
 <input type="hidden" id="queue-settings-get-url" value="{{ url('/queuesettings/allvalues/') }}">
 <input type="hidden" id="queue-settings-update-url" value="{{ url('/queuesettings/update/') }}">
+@include('modals.business.setup-business-modal')
 @stop

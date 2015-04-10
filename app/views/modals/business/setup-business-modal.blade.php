@@ -6,9 +6,10 @@
                 <h3 class="modal-title" id="add_business_header">Setup your Business</h3>
             </div>
             <div class="modal-body">
-                <form id="add_business_form" class="mb30" action="business/setup-business" method="post">
+                <form id="add_business_form" class="mb30" action="/business/setup-business" method="post">
                     <input type="hidden" class="user_id" name="user_id" value="" />
-                    <div class="form-group row">
+                    <div class="form-group">
+                        <div class="col-md-12">
                         <div class="col-md-6">
                             <label>Business Name</label>
                             <input type="text" class=" form-control" placeholder="ex: ABC Company" id="business_name" name="business_name">
@@ -66,24 +67,21 @@
                                 </select>
                             </div>
                         </div>
+                        </div>
                         <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Time Open</label>
-                                    <input type="text" id="time_open" name="time_open" placeholder="ex: 8:00am" class="timepicker form-control" />
-                                </div>
-                                <div class="col-md-6">
-                                    <label>Time Close</label>
-                                    <input type="text" id="time_close" name="time_close" placeholder="ex: 10:00pm" class="timepicker form-control" />
-                                </div>
+                            <div class="col-md-6">
+                                <label>Time Open</label>
+                                <input type="text" id="time_open" name="time_open" placeholder="ex: 8:00am" class="timepicker form-control" />
+                            </div>
+                            <div class="col-md-6">
+                                <label>Time Close</label>
+                                <input type="text" id="time_close" name="time_close" placeholder="ex: 10:00pm" class="timepicker form-control" />
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label>Business Address</label>
-                                    <input type="text" class=" form-control" placeholder="ex: Cebu City" id="business_location" name="business_address">
-                                </div>
+                            <div class="col-md-12">
+                                <label>Business Address</label>
+                                <input type="text" class=" form-control" placeholder="ex: Cebu City" id="business_location" name="business_address">
                             </div>
                         </div>
                         <div class="col-md-12">

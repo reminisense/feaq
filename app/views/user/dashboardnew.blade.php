@@ -1,5 +1,9 @@
 @extends('dashboard')
 
+@section('subtitle')
+    Dashboard
+@stop
+
 @section('styles')
     <link rel='stylesheet' type='text/css' href='css/dashboard/dashboard.css'>
 @stop
