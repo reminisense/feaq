@@ -9,7 +9,6 @@
   <link rel="shortcut icon" href="images/favicon.png">
 
   <title>FeatherQ</title>
-
   <link rel="shortcut icon" id="favicon" href="favicon.png">
   <link rel='stylesheet' type='text/css' href='css/bootstrap.min.css'>
   <link rel='stylesheet' type='text/css' href='css/homepage/style.css'>
@@ -476,11 +475,19 @@
 <a name="getting-started"></a>
   <section class="page4">
     <div class="container">
-      <div class="col-md-12">
+      <div class="col-md-8">
+        <div class="wrap">
+        <h3 class="wow fadeInUp">Turn the wait of your customers<br>
+            into a <span>better experience</span><br>
+            and increase your <span>business opportunity</span>
+        </h3>
+        <h3 class="nomg wow fadeInUp">Start using <span>FeatherQ</span> for your business today</h3>
+        <h3 class="cyan nomg wow fadeInUp">It's Fast, Easy and Free</h3>
+      </div>
+      </div>
+      <div class="col-md-4">
         <div class="wrap text-center" ng-controller="fbController">
-          <h1 class=" wow fadeInUp">Sign-up Today!</h1>
-          <p class=" wow fadeInUp">Its Fast, Its Easy, Its Free</p>
-          <a class="btn btn-lg btn-blue" ng-click="login()">Sign-up with Facebook </a>
+          <a class="h1 btn btn-lg btn-blue" ng-click="login()">Sign-Up Today! </a>
         </div>
       </div>
     </div>
