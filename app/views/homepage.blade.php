@@ -47,7 +47,7 @@
         <ul class="nav navbar-nav navbar-right">
           <li><a class="feats" href="">FeatherQ Features</a></li>
           <li><a class="start" href="">Getting Started</a></li>
-          <li style="margin-left:10px;"><a href="" class="btn btn-blue btn-fb" ng-click="login()" role="button"><img src="img/icon-fb.png"> Signup</a></li>
+          <li style="margin-left:10px;"><a href="" class="btn btn-blue btn-fb" ng-click="login()" role="button"><img src="img/icon-fb.png"> Sign In</a></li>
         </ul>
       </div><!--/.nav-collapse -->
     </div>
