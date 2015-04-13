@@ -45,7 +45,7 @@ My Business
                     <div class="biz-details col-md-7 col-xs-12">
                         <h2>@{{ business_name }}</h2>
                         <p class="address"><span class="glyphicon glyphicon-map-marker"></span> @{{ business_address }}</p>
-                        <p class="contact"><span class="glyphicon glyphicon-phone-alt"></span> +032 259 8611 / +038 259 8622 </p><br>
+                        {{--<p class="contact"><span class="glyphicon glyphicon-phone-alt"></span> +032 259 8611 / +038 259 8622 </p><br>--}}
                         <a class="btn btn-sm btn-primary" href="{{ url('business/pdf-download/' . $business_id) }}" target="_blank">Download QR Code</a>
                     </div>
                     <div class="col-md-3 col-xs-8 ">
@@ -84,7 +84,7 @@ My Business
                         <li class=""><a href="#settings" id="settings-tab" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
                         <li class=""><a href="#analytics" id="analytics-tab" data-toggle="tab"><span class="glyphicon glyphicon-stats"></span> Analytics</a></li>
                     </ul>
-                    <div id="bizTabContent" class="tab-content" style="min-height: 600px;">
+                    <div id="bizTabContent" class="tab-content" style="">
                         <div class="col-md-12">
                             <div class="alert" id="edit_message" style="display: none;">
                                 <p style="text-align: center;"></p>
