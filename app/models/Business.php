@@ -407,28 +407,7 @@ class Business extends Eloquent{
         foreach($all_businesses as $index => $business){
             $open_time_string = $business['open_hour'] . ':' . Helper::doubleZero($business['open_minute']) . ' ' . $business['open_ampm'];
             $closing_time_string = $business['close_hour'] . ':' . Helper::doubleZero($business['close_minute']) . ' ' . $business['close_ampm'];
-            $time_icon_color = '';
-
-            //check for opening and closing time to change time icon color
-            if( (strtotime($closing_time_string) - time()) < 1800 ){
-                $time_icon_color = 'text-danger';
-            }else if( strtotime($open_time_string) < time() && strtotime($closing_time_string) > time() ){
-                $time_icon_color = 'text-success';
-            }
-
-            //determine how many user icons will show at the bottom
-            $time_before_called = Analytics::getWaitingTime($business['business_id']); //get time before the next available number is called. should be in minutes
-            $time_before_called = $time_before_called / 60;
-
-            $queue_population = 0;
-            if($time_before_called > 15){
-                $queue_population = 3;
-            }else if($time_before_called <= 15 && $time_before_called > 5){
-                $queue_population = 2;
-            }else if($time_before_called <= 5 && $time_before_called > 0){
-                $queue_population = 1;
-            }
-
+            $waiting_time = Analytics::getWaitingTimeString($business['business_id']); //get time before the next available number is called. should be in minutes
 
             $business_details = array(
                 'business_id' => $business['business_id'],
@@ -436,8 +415,7 @@ class Business extends Eloquent{
                 'local_address' => $business['local_address'],
                 'open_time' => $open_time_string,
                 'close_time' => $closing_time_string,
-                'time_icon_color' => $time_icon_color,
-                'queue_population' => $queue_population
+                'waiting_time' => $waiting_time
             );
 
             //Add active business to top of list

@@ -184,4 +184,29 @@ class Analytics extends Eloquent{
         return $average_waiting_time * $numbers_in_queue;
     }
 
+    public static function getWaitingTimeString($business_id){
+        $waiting_time = Analytics::getWaitingTime($business_id);
+        $waiting_time = floor($waiting_time / 60);
+
+        if($waiting_time > 60){
+            $waiting_time_string = 'Approx. more than 1 hr';
+        }else if($waiting_time <= 60 && $waiting_time > 45){
+            $waiting_time_string = '45-60 mins';
+        }else if($waiting_time <= 45 && $waiting_time > 30){
+            $waiting_time_string = '30-45 mins';
+        }else if($waiting_time <= 30 && $waiting_time > 15){
+            $waiting_time_string = '15-30 mins';
+        }else if($waiting_time <= 15 && $waiting_time > 10){
+            $waiting_time_string = '10-15 mins';
+        }else if($waiting_time <= 10 && $waiting_time > 5){
+            $waiting_time_string = '5-10 mins';
+        }else if($waiting_time <= 5 && $waiting_time > 0){
+            $waiting_time_string = '1-5 mins';
+        }else{
+            $waiting_time_string = 'No line.';
+        }
+
+        return $waiting_time_string;
+    }
+
 }

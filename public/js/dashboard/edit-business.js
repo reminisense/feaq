@@ -227,8 +227,6 @@ var eb = {
             for(terminal in terminals){
                 if(terminals[terminal].terminal_id == terminal_id){
                     for(user in terminals[terminal].users){
-                        console.log(terminals[terminal].users[user]);
-                        console.log(user_id);
                         if(terminals[terminal].users[user].user_id == user_id){
                             assigned = true;
                         }

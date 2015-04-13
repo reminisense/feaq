@@ -261,6 +261,7 @@ class BusinessController extends BaseController{
                 'local_address' => $data->local_address,
                 'time_open' => $data->open_hour . ':' . Helper::doubleZero($data->open_minute) . ' ' . strtoupper($data->open_ampm),
                 'time_close' => $data->close_hour . ':' . Helper::doubleZero($data->close_minute) . ' ' . strtoupper($data->close_ampm),
+                'waiting_time' => Analytics::getWaitingTimeString($data->business_id)
             );
         }
         return json_encode($arr);
