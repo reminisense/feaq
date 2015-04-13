@@ -219,9 +219,11 @@ class BroadcastController extends BaseController{
     $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
     if (!isset($data->show_issued)) $data->show_issued = true;
     if (!isset($data->ad_image)) $data->ad_image = "";
+    if (!isset($data->ad_video)) $data->ad_video = "";
     if (!isset($data->ad_type)) $data->ad_type = "";
     if (!isset($data->turn_on_tv)) $data->turn_on_tv = false;
     if (!isset($data->tv_channel)) $data->tv_channel = "";
+    $data->display = "1-6";
     $encode = json_encode($data);
     file_put_contents(public_path() . '/json/' . $business_id . '.json', $encode);
     echo 'JSON file is now fixed.';
