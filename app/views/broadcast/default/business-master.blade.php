@@ -47,7 +47,7 @@
 </div>
 
 <div class="footer">
-    © 2014 : Reminisense Corp.
+    &copy; 2014 : Reminisense Corp.
 </div>
 
 <script src="/js/broadcast/bootstrap.min.js"></script>

@@ -113,7 +113,7 @@
 <div class="footer">
     <div class="container">
         <div class="col-md-12">
-            © 2014 : Reminisense Corp.
+            Copyright 2014 : Reminisense Corp.
         </div>
     </div>
 </div>
