@@ -106,6 +106,12 @@ class BusinessController extends BaseController{
                   },
                   "get_num": " ",
                   "display": "1-6",
+                  "show_issued": true,
+                  "ad_image": "",
+                  "ad_video": "",
+                  "ad_type": "image",
+                  "turn_on_tv": false,
+                  "tv_channel": "",
                   "date": "' . date("mdy") . '"
                 }
             ';

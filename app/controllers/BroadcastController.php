@@ -215,4 +215,16 @@ class BroadcastController extends BaseController{
     return json_encode(array('status' => 1));
   }
 
+  public function getJsonFixer($business_id = 0) {
+    $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
+    if (!isset($data->show_issued)) $data->show_issued = true;
+    if (!isset($data->ad_image)) $data->ad_image = "";
+    if (!isset($data->ad_type)) $data->ad_type = "";
+    if (!isset($data->turn_on_tv)) $data->turn_on_tv = false;
+    if (!isset($data->tv_channel)) $data->tv_channel = "";
+    $encode = json_encode($data);
+    file_put_contents(public_path() . '/json/' . $business_id . '.json', $encode);
+    echo 'JSON file is now fixed.';
+  }
+
 }
