@@ -100,7 +100,7 @@
 </div>
 
 <div class="footer">
-    © 2014 : Reminisense Corp.
+    &copy; 2015 : Reminisense Corp.
 </div>
 
 
