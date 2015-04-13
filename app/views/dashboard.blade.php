@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>FeatherQ 4.5</title>
+  <title>FeatherQ - Online Queuing Software</title>
   <meta name="title" content="FeatherQ Online Queueing software" />
   <meta name="description" content="FeatherQ online Queueing software" />
   <meta name="author" content="">
