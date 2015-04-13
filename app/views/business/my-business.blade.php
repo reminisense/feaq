@@ -131,7 +131,7 @@ My Business
 {{-- js variables used --}}
 <!-- business -->
 <input type="hidden" id="user_id" value="@if(isset($user_id)){{ $user_id }} @endif">
-<input type="hidden" id="business_id" value="@if(isset($business_id)) {{ $business_id }} @endif">
+<input type="hidden" id="business_id" value="@if(isset($business_id)){{ $business_id }}@endif">
 <input type="hidden" id="business-details-url" value="{{ url('/business/businessdetails/') }}">
 <input type="hidden" id="business-edit-url" value="{{ url('/business/edit-business/') }}">
 <input type="hidden" id="business-remove-url" value="{{ url('/business/remove/') }}">
