@@ -18,6 +18,7 @@ class ProcessQueueController extends BaseController{
             return Redirect::back();
         }
         return View::make('process-queue.process-queue')
+            ->with('body', 'processq')
             ->with('terminal_id', $terminal_id)
             ->with('service_id', Terminal::serviceId($terminal_id))
             ->with('terminal_name', Terminal::name($terminal_id))
