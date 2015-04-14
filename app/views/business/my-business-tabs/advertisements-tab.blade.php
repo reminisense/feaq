@@ -3,25 +3,22 @@
         <h5>INTERNET TV</h5>
         <div role="alert" class="alert alert-info" style="padding: 0px 10px; font-size: 11px;">Internet TV can be viewed in the broadcast screen.</div>
     </div>
-    <div class="col-md-12">
-        <div class="row">
-            <div class="col-md-12">
-                <form ng-submit="selectTV(business_id)" id="tv-channel-select">
-                    <div class="form-group">
-                        <label for="exampleInputFile">Choose channel:</label>
-                        <select ng-model="tv_channel" id="tv-channel">
-                            <option value="<iframe SRC='http://www.newtvworld.com/livetv/india/AnimalPlanet.html' width='100%' height='400' id=www.Newtvworld.com marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling='no'></iframe>">Animal Planet</option>
-                        </select>
-                        <div class="alert alert-success" id="tvchannel-success" style="display: none;">Success! <strong><a href="/broadcast/business/@{{ business_id }}" target="_blank">View Broadcast Page</a></strong></div>
-                        <div class="alert alert-danger" id="tvchannel-danger" style="display: none;">Oops! Something went wrong.</div>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" class="btn btn-orange"  id="tv-script-submit-btn" value="SELECT" style="color: #ffffff;"/>
-                        <button id="loading-img-3" style="display:none;" class="btn btn-orange btn-disabled"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
-                    </div>
-                </form>
+    <div class="col-md-6">
+        <form ng-submit="selectTV(business_id)" id="tv-channel-select">
+            <div class="form-group">
+                <small>Choose channel:</small>
+                <select ng-model="tv_channel" ng-init="tv_channel" id="tv-channel" class="form-control" style="width: 40%;">
+                    <option value="">- Select A Channel -</option>
+                    <option value="<iframe SRC='http://www.newtvworld.com/livetv/india/AnimalPlanet.html' width='100%' height='400' id=www.Newtvworld.com marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling='no'></iframe>">Animal Planet</option>
+                </select>
+                <div class="alert alert-success" id="tvchannel-success" style="display: none;">Success! <strong><a href="/broadcast/business/@{{ business_id }}" target="_blank">View Broadcast Page</a></strong></div>
+                <div class="alert alert-danger" id="tvchannel-danger" style="display: none;">Oops! Something went wrong.</div>
             </div>
-        </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-orange"  id="tv-script-submit-btn" value="SELECT" style="color: #ffffff;"/>
+                <button id="loading-img-3" style="display:none;" class="btn btn-orange btn-disabled"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
+            </div>
+        </form>
     </div>
     <div class="col-md-12">
         <h5></h5><br>

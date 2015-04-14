@@ -12,6 +12,7 @@ My Business
 @stop
 
 @section('scripts')
+    <script src="/js/jquery.form.js"></script>
     <script src="/js/dashboard/dashboard.js"></script>
     <script src="/js/dashboard/edit-business.js"></script>
     <script src="/js/jquery.timepicker.min.js"></script>

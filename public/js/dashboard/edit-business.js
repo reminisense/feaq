@@ -431,6 +431,9 @@ var eb = {
                 //ARA Added for toggling to show only called numbers in broadcast page
                 $scope.theme_type = response.display;
                 $scope.show_called_only = response.show_issued != undefined ? !response.show_issued : false;
+
+                // default internet TV channel
+                $scope.tv_channel = response.tv_channel;
             });
         });
 
