@@ -28,7 +28,7 @@
   <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 </head>
 
-<body ng-app="FeatherQ">
+<body ng-app="FeatherQ" @if(isset($body)) {{ 'id="' . $body . '"'  }}@endif >
   <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">
     <div class="container">
       <div class="navbar-header">

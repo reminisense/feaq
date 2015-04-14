@@ -17,7 +17,7 @@
                     <div class="tab-pane fade active in" id="insertq">
                         <form class="navbar-form navbar-left" name="issue_specific_form">
                             <div class="form-group row">
-                                <div class="alert alert-warning">
+                                <div class="alert alert-info">
                                     <p>An empty value in the <strong>Specific #</strong> field will automatically give you the next available number.</p>
                                 </div>
                                 <div class="col-md-4">
