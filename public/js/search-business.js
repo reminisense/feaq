@@ -15,16 +15,14 @@
         $scope.industry_filter = 'Industry';
 
         $scope.searchBusiness = (function(location, industry) {
-
-            var keyword = document.getElementById('search-keyword').value;
             var time_open = document.getElementById('time_open-filter').value;
             $http.post('/business/filter-search', {
-                "keyword": keyword,
+                "keyword": $scope.search_keyword,
                 "country": location,
                 "industry": industry,
                 "time_open": time_open
             }).success(function(response) {
-                $('#biz-grid').hide();
+                $('#active-businesses').hide();
                 $scope.businesses = new Array();
                 var length_limit = 7;
                 for (var i = 0; i < response.length; i++) {
@@ -43,7 +41,7 @@
                     length_limit = response.length;
                 }
                 $scope.searchLabel= 'Showing Top '+ length_limit +' Result(s)';
-                $('#search-grid').show();
+                $('#business-search').show();
             });
         });
 
