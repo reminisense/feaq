@@ -14,6 +14,7 @@ html {
 .navbar {
   margin-bottom: 0;
   border: none;
+  border: none;
   padding-top: 12px;
   padding-bottom: 12px;
   top: 0;
@@ -271,7 +272,7 @@ section.page1 {
   background-size: cover;
 }
 section.page2 {
-  background: #222128 ;
+    background: #0e0e0e url(../../img/bg-feats.jpg) no-repeat top center;
   color: #fff;
 }
 section.page2 .col-md-3 p {
@@ -283,6 +284,7 @@ section.page2 .col-md-3 p {
 .page2 h4 {
   color: #00BA8B;
     font-size: 19px;
+    line-height: 26px;
 }
 .intro {
     padding-top: 300px;
@@ -320,6 +322,8 @@ section.page2 .col-md-3 p {
 }
 .filterwrap {
   margin-bottom: 25px;
+    position: relative;
+    z-index: 9999;
 }
 .orange {
     color: #ff925b;
@@ -588,7 +592,10 @@ body.disabled-onepage-scroll .main section.page3 .page_container {
 }
 .dropdown-toggle {
   background: none;
-
+}
+.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
+    background-color: #00BA8B;
+    color: #fff;
 }
 
 /* @author: CSD */

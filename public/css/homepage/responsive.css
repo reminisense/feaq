@@ -6,11 +6,6 @@
     margin-top: 40px;
   }
 }
-@media (max-width: 1300px) { 
-  .intro {
-    margin-top: 100px;
-  }
-}
 @media (max-width: 1199px) {
 	.filters .btn {
 		padding-left: 10px!important;
@@ -22,15 +17,9 @@
   #diy-carousel {
     margin-top: 210px;
   }
-  .intro {
-    margin-top: 100px;
-  }
 
 }
 @media (max-width: 1024px) {
-  .intro {
-    margin-top: 100px;
-  }
   .filters {
     margin-top: 10px;
   }
@@ -46,9 +35,6 @@
 }
 
 @media (min-width: 768px) and (max-width: 979px) {
-  .intro {
-    margin-top: 100px;
-  }
   .navbar img {
     width: inherit;
   }
@@ -62,8 +48,9 @@
     display: none;
   }
   .page2 h4 {
-    color: #fff!important;
+    color: #00BA8B!important;
     margin-bottom: 50px;
+      text-align: center;
   }
   #diy-carousel {
     margin-top: 210px;
@@ -95,9 +82,17 @@
 }
 
 @media (max-width: 480px) {
-  .navbar img {
+
+    .intro {
+        margin-top: 0;
+        padding-top: 150px;
+    }
+    .navbar img {
     width: inherit!important;
   }
+    .filterwrap .btn-group .btn {
+        width: 100%;
+    }
   .intro h1 {
   	font-size: 28px;
   }
@@ -109,7 +104,7 @@
   	margin-left: 0!important;
   }
   .filterwrap .btn-group {
-  	margin-bottom: 5px;
+  	margin-bottom: 8px;
   }
   .filters .btn {
   	padding-left: 0!important;
@@ -127,9 +122,23 @@
   	background: none;
     padding-bottom: 0;
     margin-top: 20px;
+      height: 160px;
+  }
+  #search-keyword {
+      text-align: center;
+      background: rgba(255,255,255,0.2);
+  }
+  .filterwrap .btn-group {
+      display: block;
+      width: 100%;
+      text-align: center;
+      background: rgba(255,255,255,0.2);
   }
   .navs {
   	margin-top: 10px;
+  }
+  .filterwrap .dropdown-menu {
+      width: 100%;
   }
   .intro .col-md-6>p {
     font-size: 14px;
@@ -151,6 +160,42 @@
   }
   .page2 h4 {
     color: #fff!important;
-    margin-bottom: 40px;
+    margin-bottom: 55px;
+      text-align: center;
   }
+    section.page1 {
+        background: #060409 url(../../img/bg-mobile.jpg) no-repeat top center;
+    }
+    .page2  {
+        background: #201f26 url(../../img/bg-mobile-feats.jpg) no-repeat top center!important;
+    }
+    .page4  {
+        background: #0a0909 url(../../img/bg-mobile-contact.jpg) no-repeat top center;
+    }
+    .page4 .wrap {
+        padding-top: 140px;
+    }
+}
+@media (max-width: 320px) {
+    .page2 h4 {
+        font-size: 14px;
+    }
+    .intro h1 {
+        margin-bottom: 75px;
+    }
+    .page4 {
+        text-align: center;
+        padding-bottom: 120px;
+    }
+    .page4 h3 {
+        font-size: 22px;
+        line-height: 30px;
+    }
+    .page4 .col-md-8,
+    .page4 .col-md-4 {
+        padding: 0;
+    }
+    .page4 .col-md-4 .wrap {
+        padding-top: 60px;
+    }
 }
