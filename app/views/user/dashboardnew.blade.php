@@ -41,12 +41,12 @@
                       <li ng-repeat="industry in industries" ng-click="industryFilter(industry.code);"><a href="#">@{{ industry.code }}</a></li>
                     </ul>
                   </div>
-                  <div class="col-md-2 col-sm-2 col-xs-4 btn-group">
+                  <div class="col-md-2 col-sm-8 col-xs-4 btn-group">
                     <input type="text" id="time_open-filter" name="time_open" placeholder="Time Open" class="timepicker form-control">
                   </div>
                   <form class="ng-pristine ng-valid">
-                    <input class="col-md-4 col-sm-4 col-xs-6 timepicker" type="text" placeholder="ie: Ng Khai Devt Corp" id="search-keyword">
-                    <div class="col-md-2 col-sm-2 col-xs-6">
+                    <input class="col-md-4 col-sm-4 col-xs-12 timepicker" type="text" placeholder="ie: Ng Khai Devt Corp" id="search-keyword">
+                    <div class="col-md-2 col-sm-2 col-xs-12">
                       <button type="button" class=" btn btn-orange btn-md" ng-click="searchBusiness(location_filter, industry_filter);">SEARCH</button>
                     </div>
                   </form>
