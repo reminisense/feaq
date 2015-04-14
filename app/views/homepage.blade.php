@@ -68,12 +68,12 @@
         </div>
 
         <div class="row wow fadeIn" ng-controller="searchBusinessCtrl">
-          <div class="filters">
-            <div class="col-md-8 col-md-offset-2 col-sm-12">
+          <div class="filters clearfix">
+            <div class="col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
               <div class="filterwrap  wow fadeInUp">
                 <div class="btn-group" role="group">
                   <div class="btn-group" role="group">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <button id="btnGroupLoc" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                       @{{ location_filter }}
                       <span class="caret"></span>
                     </button>
@@ -282,7 +282,7 @@
                     </ul>
                   </div>
                   <div class="btn-group" role="group">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <button id="btnGroupDropInd" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                       @{{ industry_filter }}
                       <span class="caret"></span>
                     </button>
@@ -342,7 +342,7 @@
                 </div>
               </div>
               <span class="searchblock">
-                <input type="text" placeholder="Search a Business" id="search-keyword">
+                <input type="text" placeholder="ie. Ng Khai Devt Corp" id="search-keyword">
                 <a href="" class="btn btn-cyan btn-md" ng-click="searchBusiness(location_filter, industry_filter);">SEARCH</a>
               </span>
             </div>
