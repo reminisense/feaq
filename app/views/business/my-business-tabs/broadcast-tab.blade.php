@@ -1,7 +1,7 @@
 
 <div class="col-md-12">
     <h5>BROADCAST LAYOUT
-        <small>Customize the look of your broadcast screen.</small>
+        <small>Choose and customize the look of your broadcast screen.</small>
     </h5>
 </div>
 
@@ -9,7 +9,8 @@
     <div class="well">
         <div class="row">
             <div class="col-md-3 col-xs-6 mb20">
-                <h4>Image Advertisement Options: </h4>
+                <h4>Image Advertisement Options:</h4>
+                <small>Put a sliding images on your broadcast screen</small>
             </div>
             <div class="col-md-3 col-xs-6">
                 <img src="/images/icon-b1.jpg" class="mb10 img-responsive broadcast-preview">
@@ -42,6 +43,7 @@
         <div class="row">
             <div class="col-md-3 col-xs-6">
                 <h4>Internet TV Options: </h4>
+                <small>Choose a pre-defined TV channel on your broadcast screen</small>
             </div>
             <div class="col-md-3 col-xs-6">
                 <img src="/images/icon-b1.jpg" class="mb10 img-responsive broadcast-preview">
@@ -75,6 +77,7 @@
         <div class="row">
             <div class="col-md-3 col-xs-6">
                 <h4>Numbers Only Options: </h4>
+                <small>Just show only what matters, queue numbers!</small>
             </div>
             <div class="col-md-3 col-xs-6">
                 <img src="/images/icon-b4.jpg" class="mb10 img-responsive broadcast-preview">
