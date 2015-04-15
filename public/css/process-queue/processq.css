@@ -43,6 +43,8 @@
     -webkit-border-radius: 5px;
     border-radius: 5px;
     min-height: 400px;
+    max-height: 480px; /*ARA prevents page stretching when too many numbers are called*/
+    overflow: auto; /*ARA prevents page stretching when too many numbers are called*/
     margin-bottom: 40px;
 }
 .processq-box table td:nth-child(2),
@@ -139,8 +141,12 @@
 
 .processq .dropdown-menu {
     left: 8px;
-    width: 78%!important;
+    width: 78%;
+    background-color: #f7f7f7; /*ARA white background*/
+    max-height: 100px; /*ARA prevents page stretching when too many numbers are called*/
+    overflow: auto; /*ARA prevents page stretching when too many numbers are called*/
 }
+
 .processq .btn-group .dropdown-menu {
     left: 0;
     width: inherit!important;
@@ -160,3 +166,4 @@
 .dd-select li:hover {
     background-color: #ddd;
 }
+
