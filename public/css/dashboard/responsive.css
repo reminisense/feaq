@@ -136,6 +136,9 @@
     .filterwrap {
         background: none!important;
     }
+    .feat h1 {
+        margin-top: 120px;
+    }
     .filterwrap .btn-group {
         width: 100%;
     }
@@ -170,5 +173,11 @@
     .btn-group>.btn:first-child,
     .filterwrap .btn-group:first-child{
         border-top-right-radius: 4px!important;
+    }
+    .dropdown-menu {
+        width: 100%;
+    }
+    .dropdown-menu li {
+        text-align: center;
     }
 }

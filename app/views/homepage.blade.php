@@ -723,7 +723,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row wow fadeInUp">
             <div class="col-md-3 col-sm-3 col-xs-6">
                 <div class="text-center">
                     <img src="img/minimal.png">
@@ -761,6 +761,7 @@
                 </div>
             </div>
         </div>
+    </div>
 </section>
 <a name="getting-started"></a>
 <section class="page4">

@@ -95,19 +95,19 @@ My Business
                             <div class="clearfix">@include('business.my-business-tabs.details-tab')</div>
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="terminals" aria-labelledby="terminals-tab">
-                            <p>@include('business.my-business-tabs.terminals-tab')</p>
+                            <div class="clearfix">@include('business.my-business-tabs.terminals-tab')</div>
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="broadcast" aria-labelledby="broadcast-tab">
-                            <p>@include('business.my-business-tabs.broadcast-tab')</p>
+                            <div class="clearfix">@include('business.my-business-tabs.broadcast-tab')</div>
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="ads" aria-labelledby="ads-tab">
-                            <p>@include('business.my-business-tabs.advertisements-tab')</p>
+                            <div class="clearfix">@include('business.my-business-tabs.advertisements-tab')</div>
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="settings" aria-labelledby="settings-tab">
-                            <p>@include('business.my-business-tabs.settings-tab')</p>
+                            <div class="clearfix">@include('business.my-business-tabs.settings-tab')</div>
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="analytics" aria-labelledby="analytics-tab">
-                            <p>@include('business.my-business-tabs.analytics-tab')</p>
+                            <div class="clearfix">@include('business.my-business-tabs.analytics-tab')</div>
                         </div>
                     </div>
                 </div>

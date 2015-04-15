@@ -1,4 +1,4 @@
-<div class="row">
+
     <div class="col-md-12">
         <h5>INTERNET TV</h5>
         <div role="alert" class="alert alert-info" style="padding: 0px 10px; font-size: 11px;">Internet TV can be viewed in the broadcast screen.</div>
@@ -84,4 +84,3 @@
     <div class="col-md-12" style="float: left; width: 100%;">
         <h5></h5><br>
     </div>
-</div>
