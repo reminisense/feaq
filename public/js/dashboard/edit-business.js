@@ -2,14 +2,14 @@
  * Created by USER on 2/3/15.
  */
 $(document).ready(function(){
-    $('.edit-business-cog').on('click', function(){
-        eb.jquery_functions.setBusinessId($(this).attr('data-business-id'));
-    });
+//    $('.edit-business-cog').on('click', function(){
+//        eb.jquery_functions.setBusinessId($(this).attr('data-business-id'));
+//    });
 
-    $('#editBusiness').on('show.bs.modal', function(){
-        eb.jquery_functions.getBusinessDetails();
-        $('#editbiz-tabs li.active a').trigger('click'); //ARA Added to execute functions triggered by clicking tabs
-    });
+//    $('#editBusiness').on('show.bs.modal', function(){
+//        eb.jquery_functions.getBusinessDetails();
+//        $('#editbiz-tabs li.active a').trigger('click'); //ARA Added to execute functions triggered by clicking tabs
+//    });
 
     $('body').on('click', '#btn-addterminal',function () {
         $('#inputterminal').show();
@@ -22,6 +22,16 @@ $(document).ready(function(){
         $(this).hide();
     });
 
+    $('body').on('click', '.cancel-adduser', function(e){
+        e.preventDefault();
+        $(this).parents('.inputuser').hide();
+        $(this).parents('.inputuser').siblings('.btn-adduser').show();
+    });
+
+    $('body').on('click', '.cancel-add-terminal', function(){
+        eb.jquery_functions.hide_add_terminal_form();
+    });
+
     $(document).on('change', '#ad-image', function(){
         $('#image-submit-btn').removeClass('btn-disabled');
     });
@@ -30,14 +40,53 @@ $(document).ready(function(){
         $('#vid-submit-btn').removeClass('btn-disabled');
     });
 
+    $(document).on('click', '.process-queue', function(e){
+        if ($(this).find('.biz-terminals').is(':hidden')) {
+            $(this).find('.biz-terminals').slideDown('fast');
+        }
+        return false;
+    });
+
+    $('html').click(function () {
+        $('.biz-terminals').slideUp('fast');
+    });
+
+    $('.biz-terminals').on('click', 'a', function(e){
+        e.stopPropagation();
+    });
+
     //eb.jquery_functions.load_users();
+    eb.jquery_functions.setBusinessId($('#business_id').val());
+    eb.jquery_functions.setUserId($('#user_id').val());
+    eb.jquery_functions.getBusinessDetails();
+    eb.jquery_functions.my_business_link_active();
 });
 
 var eb = {
 
     urls : {
         business: {
-            business_details_url : $('#business-details-url').val() + '/'
+            business_details_url : $('#business-details-url').val() + '/',
+            business_edit_url : $('#business-edit-url').val() + '/',
+            business_remove_url : $('#business-remove-url').val() + '/'
+        },
+
+        terminals: {
+            terminal_create_url : $('#terminal-create-url').val() + '/',
+            terminal_edit_url : $('#terminal-edit-url').val() + '/',
+            terminal_delete_url : $('#terminal-delete-url').val() + '/',
+            terminal_assign_url : $('#terminal-assign-url').val() + '/',
+            terminal_unassign_url : $('#terminal-unassign-url').val() + '/',
+            user_emailsearch_url : $('#user-emailsearch-url').val() + '/'
+        },
+
+        broadcast: {
+            broadcast_json_url : $('#broadcast-json-url').val() + '/',
+            broadcast_set_theme_url : $('#broadcast-set-theme-url').val(),
+            ads_embed_video_url : $('#ads-embed-video-url').val(),
+            ads_tv_select_url : $('#ads-tv-select-url').val(),
+            ads_tv_on_url : $('#ads-tv-on-url').val(),
+            ads_type_url : $('#ads-type-url').val()
         },
 
         queue_settings : {
@@ -51,6 +100,7 @@ var eb = {
             var scope = angular.element($("#editBusiness")).scope();
             scope.$apply(function(){
                 scope.getBusinessDetails();
+                scope.currentActiveTheme(scope.business_id);
             });
         },
 
@@ -58,6 +108,13 @@ var eb = {
             var scope = angular.element($("#editBusiness")).scope();
             scope.$apply(function(){
                 scope.business_id = business_id;
+            });
+        },
+
+        setUserId : function(user_id){
+            var scope = angular.element($("#editBusiness")).scope();
+            scope.$apply(function(){
+                scope.user_id = user_id;
             });
         },
 
@@ -71,6 +128,11 @@ var eb = {
         hide_add_terminal_form : function(){
             $('#inputterminal').hide();
             $('#btn-addterminal').show();
+        },
+
+        my_business_link_active : function(){
+            $('#my-business').addClass('active');
+            $('#search-business').removeClass('active');
         }
     }
 };
@@ -79,6 +141,7 @@ var eb = {
 (function(){
 
     app.controller('editBusinessController', function($scope, $http){
+        $scope.user_id = null;
         $scope.business_id = null;
         $scope.business_name = null;
         $scope.business_address = null;
@@ -133,21 +196,21 @@ var eb = {
        }
 
         $scope.unassignFromTerminal = function(user_id, terminal_id){
-            $http.get('terminal/unassign/' + user_id + '/' + terminal_id)
+            $http.get(eb.urls.terminals.terminal_unassign_url + user_id + '/' + terminal_id)
                 .success(function(response){
                     setBusinessFields(response.business);
                 });
         }
 
         $scope.assignToTerminal = function(user_id, terminal_id){
-            $http.get('terminal/assign/' + user_id + '/' + terminal_id)
+            $http.get(eb.urls.terminals.terminal_assign_url + user_id + '/' + terminal_id)
                 .success(function(response){
                     setBusinessFields(response.business);
                 });
         }
 
         $scope.emailSearch = function(email, terminal_id){
-            $http.get('user/emailsearch/' + email)
+            $http.get(eb.urls.terminals.user_emailsearch_url + email)
                 .success(function(response){
                     if(response.user){
                         $scope.user_found = true;
@@ -158,9 +221,23 @@ var eb = {
                 });
         }
 
+        $scope.isAssignedUser = function(user_id, terminal_id){
+            terminals = $scope.terminals
+            assigned = false;
+            for(terminal in terminals){
+                if(terminals[terminal].terminal_id == terminal_id){
+                    for(user in terminals[terminal].users){
+                        if(terminals[terminal].users[user].user_id == user_id){
+                            assigned = true;
+                        }
+                    }
+                }
+            }
+            return assigned;
+        }
 
         $scope.deleteTerminal = function(terminal_id){
-            $http.get('terminal/delete/' + terminal_id)
+            $http.get(eb.urls.terminals.terminal_delete_url + terminal_id)
                 .success(function(response){
                     setBusinessFields(response.business);
                 });
@@ -176,7 +253,7 @@ var eb = {
         $scope.updateTerminal = (function(terminal_id) {
             var new_name = $('.terminal-name-update[terminal_id='+terminal_id+']').val();
             $('.terminal-name-display[terminal_id='+terminal_id+']').text(new_name);
-            $http.post('/terminal/edit', {
+            $http.post(eb.urls.terminals.terminal_edit_url, {
                 terminal_id : terminal_id,
                 name : new_name
             }).success(function(response) {
@@ -196,7 +273,7 @@ var eb = {
 
         $scope.createTerminal = function(terminal_name){
             data = { name : terminal_name };
-            $http.post('terminal/create/' + $scope.business_id, data)
+            $http.post(eb.urls.terminals.terminal_create_url + $scope.business_id, data)
                 .success(function(response){
                     if(response.status == 0){
                         $('.terminal-error-msg').show();
@@ -279,7 +356,7 @@ var eb = {
                     input_sms_field: $scope.input_sms_field
                 }
 
-                $http.post('/business/edit-business', data)
+                $http.post(eb.urls.business.business_edit_url, data)
                     .success(function(response){
                         if(response.success == 1){
                             setBusinessFields(response.business);
@@ -301,17 +378,17 @@ var eb = {
 
         $scope.deleteBusiness = (function(business_id) {
             if (confirm('Are you sure you want to remove this business?')) {
-                $http.post('/business/remove', {
+                $http.post(eb.urls.business.business_remove_url, {
                     business_id : business_id
                 }).success(function(response) {
                     $('.col-md-3[business_id='+business_id+']').remove();
-                    $('#editBusiness').hide();
+                    $('#editBusiness').modal('hide');
                 });
             }
         });
 
         $scope.activateTheme = (function(theme_type, business_id, show_called_only) {
-            $http.post('/broadcast/set-theme', {
+            $http.post(eb.urls.broadcast.broadcast_set_theme_url, {
                 'business_id' : business_id,
                 'theme_type' : theme_type,
                 'show_issued' : !show_called_only //ARA Added for toggling to show only called numbers in broadcast page
@@ -325,20 +402,37 @@ var eb = {
         });
 
         $scope.currentActiveTheme = (function(business_id) {
-            $http.get('/json/'+business_id+'.json').success(function(response) {
+            $http.get(eb.urls.broadcast.broadcast_json_url + business_id + '.json?nocache='+Math.floor((Math.random() * 10000) + 1)).success(function(response) {
                 $('.activated').hide();
                 $('.theme-btn').show();
                 $('.'+response.display+'.theme-btn').hide();
                 $('.'+response.display+'.activated').show();
+
+                // default ad video / image
                 if (!response.ad_image) {
                     response.ad_image = '/images/ads.jpg'
                 }
-                $('#ad-preview').attr('src', response.ad_image); // default ad image
-                $('#vid-preview').attr('src', response.ad_video); // default ad video
+                $('#ad-preview').attr('src', response.ad_image);
+                $('#advideo-preview').attr('src', response.ad_video);
+
+                // ad type
+                if (response.ad_type == 'video') {
+                    $('input:radio[name=ad_type]').filter('[value=video]').prop('checked', true);
+                    $('#image-adtype').hide();
+                    $('#video-adtype').show();
+                }
+                else {
+                    $('input:radio[name=ad_type]').filter('[value=image]').prop('checked', true);
+                    $('#video-adtype').hide();
+                    $('#image-adtype').show();
+                }
 
                 //ARA Added for toggling to show only called numbers in broadcast page
                 $scope.theme_type = response.display;
                 $scope.show_called_only = response.show_issued != undefined ? !response.show_issued : false;
+
+                // default internet TV channel
+                $scope.tv_channel = response.tv_channel;
             });
         });
 
@@ -376,7 +470,7 @@ var eb = {
                                 return false
                             }
 
-                            $('#submit-btn').hide(); //hide submit button
+                            $('#image-submit-btn').hide(); //hide submit button
                             $('#loading-img').show(); //hide submit button
                         }
                         else
@@ -392,6 +486,13 @@ var eb = {
                         $('#ad-preview').attr('src', result.src);
                         $('#loading-img').hide();
                         $('#submit-btn').show();
+                        $('#adimage-danger').hide();
+                        $('#adimage-success').fadeIn();
+                        $('#image-submit-btn').show();
+                    },
+                    error: function(response) {
+                        $('#adimage-success').hide();
+                        $('#adimage-danger').fadeIn();
                     }
                 });  //Ajax Submit form
                 // return false to prevent standard browser submit and page navigation
@@ -400,30 +501,57 @@ var eb = {
         });
 
         $scope.adVideoEmbed = (function(business_id) {
-            $('#vid-submit-btn').addClass('btn-disabled');
-            $('#ad-video-uploader').submit(function() {
-                var regYoutube = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+            $http.post(eb.urls.broadcast.ads_embed_video_url, {
+                business_id : business_id,
+                ad_video : $scope.ad_video
+            }).success(function(response) {
+                $('#advideo-preview').attr('src', response.ad_video);
+                $('#advideo-danger').hide();
+                $('#advideo-success').fadeIn();
+            }).error(function() {
+                $('#advideo-danger').hide();
+                $('#advideo-success').fadeIn();
+            });
+        });
 
-                if(regYoutube.test($('#ad-video').val())){
-                    $(this).ajaxSubmit({
-                        data : {
-                            business_id : business_id
-                        },
-                        resetForm: true,        // reset the form after successful submit
-                        success : function(response) {
-                            console.log(response);
-                            var result = jQuery.parseJSON(response);
-                            $('#vid-preview').attr('src', result.vid_url);
-                            $('#loading-img-2').hide();
-                            $('#submit-btn').show();
-                        }
-                    });  //Ajax Submit form
-                } else {
-                    $('#embed-alert').fadeIn();
-                    setTimeout(function(){ $('#embed-alert').fadeOut(); }, 3000);
+        $scope.selectTV = (function(business_id) {
+            $http.post(eb.urls.broadcast.ads_tv_select_url, {
+                business_id : business_id,
+                tv_channel : $scope.tv_channel
+            }).success(function() {
+                $('#tvchannel-danger').hide();
+                $('#tvchannel-success').fadeIn();
+            }).error(function() {
+                $('#tvchannel-danger').hide();
+                $('#tvchannel-success').fadeIn();
+            });
+        });
+
+        $scope.turnOnTV = (function(business_id) {
+            $http.post(eb.urls.broadcast.ads_tv_on_url, {
+                business_id : business_id,
+                status : $scope.tv_status
+            }).success(function() {
+                $('#turnon-danger').hide();
+                $('#turnon-success').fadeIn();
+            });
+        });
+
+        $scope.adType = (function(ad_type, business_id) {
+            $http.post(eb.urls.broadcast.ads_type_url, {
+                ad_type : ad_type,
+                business_id : business_id
+            }).success(function() {
+                if (ad_type == 'video') {
+                    $('#image-adtype').fadeOut(300, function() {
+                        $('#video-adtype').show();
+                    });
                 }
-                // return false to prevent standard browser submit and page navigation
-                return false;
+                else {
+                    $('#video-adtype').fadeOut(300, function() {
+                        $('#image-adtype').show();
+                    });
+                }
             });
         });
     });

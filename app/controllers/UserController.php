@@ -78,10 +78,10 @@ class UserController extends BaseController{
      * @description: render dashboard, fetch all businesses for default search view, and businesses created by logged in user
      */
     public function getUserDashboard(){
-        $active_businesses = Business::getProcessingBusinesses();
+        $active_businesses = Business::getDashboardBusinesses();
         if (Auth::check())
         {
-            $search_businesses = Business::getPopularBusinesses();
+            //$search_businesses = Business::getPopularBusinesses(); ARA No more popular businesses. only active businesses
             $business_ids = UserBusiness::getAllBusinessIdByOwner(Helper::userId());
             $my_businesses = [];
             if (count($business_ids) > 0){
@@ -91,6 +91,14 @@ class UserController extends BaseController{
                     $temp_array->owner = 1;
                     array_push($my_businesses, $temp_array);
                 }
+            }
+            /* @author: CSD
+             * @desc: check if user already has own business
+             */
+            if(count($my_businesses) > 0){
+                $has_business = true;
+            } else {
+                $has_business = false;
             }
 
             $my_terminals = TerminalUser::getTerminalAssignement(Auth::user()->user_id);
@@ -105,10 +113,11 @@ class UserController extends BaseController{
                 }
             }
 
-            return View::make('user.dashboard')
+            return View::make('user.dashboardnew')
+                //->with('search_businesses', $search_businesses) ARA No more popular businesses. only active businesses
                 ->with('active_businesses', $active_businesses)
-                ->with('search_businesses', $search_businesses)
-                ->with('my_businesses', $my_businesses);
+                ->with('my_businesses', $my_businesses)
+                ->with('has_business', $has_business);
         }
         else
         {

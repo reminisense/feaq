@@ -5,22 +5,46 @@
 @stop
 
 @section('scripts')
-    {{ HTML::script('js/dashboard/dashboard.js') }}
-    {{ HTML::script('js/jquery.form.js') }}
-    {{ HTML::script('js/dashboard/edit-business.js') }}
-    {{ HTML::script('js/jquery.timepicker.min.js') }}
-    {{ HTML::script('js/intlTelInput.js') }}
-    {{ HTML::script('js/dashboard/jquery.validate.js') }}
-    {{ HTML::script('js/dashboard/search-business.js') }}
+    {{--{{ HTML::script('js/dashboard/dashboard.js') }}--}}
+    <script src="/js/dashboard/dashboard.js"></script>
+
+    {{--{{ HTML::script('js/jquery.form.js') }}--}}
+    <script src="/js/jquery.form.js"></script>
+
+    {{--{{ HTML::script('js/dashboard/edit-business.js') }}--}}
+    <script src="/js/dashboard/edit-business.js"></script>
+
+    {{--{{ HTML::script('js/jquery.timepicker.min.js') }}--}}
+    <script src="/js/jquery.timepicker.min.js"></script>
+
+    {{--{{ HTML::script('js/intlTelInput.js') }}--}}
+    <script src="/js/intlTelInput.js"></script>
+
+    {{--{{ HTML::script('js/dashboard/jquery.validate.js') }}--}}
+    <script src="/js/dashboard/jquery.validate.js"></script>
+
+    {{--{{ HTML::script('js/dashboard/search-business.js') }}--}}
+    <script src="/js/dashboard/search-business.js"></script>
+
     <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
-    {{ HTML::script('js/jquery.geocomplete.js') }}
-    {{ HTML::script('js/google-analytics/googleAnalytics.js') }}
-    {{ HTML::script('js/google-analytics/ga-dashboard.js') }}
+
+    {{--{{ HTML::script('js/jquery.geocomplete.js') }}--}}
+    <script src="/js/jquery.geocomplete.js"></script>
+
+    {{--{{ HTML::script('js/google-analytics/googleAnalytics.js') }}--}}
+    <script src="/js/google-analytics/googleAnalytics.js"></script>
+
+    {{--{{ HTML::script('js/google-analytics/ga-dashboard.js') }}--}}
+    <script src="/js/google-analytics/ga-dashboard.js"></script>
+
 @stop
 
 @section('styles')
-    {{ HTML::style('css/jquery.timepicker.min.css') }}
-    {{ HTML::style('css/intlTelInput.css') }}
+    {{--{{ HTML::style('css/jquery.timepicker.min.css') }}--}}
+    <link media="all" type="text/css" rel="stylesheet" href="/css/jquery.timepicker.min.css">
+
+    {{--{{ HTML::style('css/intlTelInput.css') }}--}}
+    <link media="all" type="text/css" rel="stylesheet" href="/css/intlTelInput.css">
 @stop
 
 @section('content')
@@ -58,6 +82,7 @@
             @endforeach
         @endif
 
+        @if(!$has_business)
         <div class="col-md-3">
           <div class="boxed boxed-single to-modal" data-toggle="modal" id="add_business">
             <div class="wrap">
@@ -65,51 +90,46 @@
             </div>
           </div>
         </div>
+        @endif
     </div>
 
     <div id="search_business" style="display: block;">
         <div class="col-md-12">
-            <h5 class="mb30">ACTIVE BUSINESSES</h5>
+            <h5 class="mb30">BUSINESSES</h5>
             @if(count($active_businesses) > 0)
                 <div id="active-businesses">
                     <div class="row">
-                    @foreach($active_businesses as $ac_business_id => $actives)
+                        @foreach($active_businesses as $actives)
+                            <div class="col-md-3">
+                                <div class="boxed boxed-single clickable">
+                                    <a href="{{ URL::to( '/broadcast/business/' . $actives['business_id'] ) }}" target="_blank" title="View Broadcast Page."> {{--RDH Links for Business' broadcast page--}}
+                                        <div class="wrap" style="position: relative">
+                                            <h3> {{ $actives['name'] }}
+                                                <span class="glyphicon glyphicon-time pull-right {{ $actives['time_icon_color'] }}" title="{{ $actives['open_time'] . ' - ' . $actives['close_time'] }}"></span>
+                                            </h3>
+                                            <small>{{ $actives['local_address'] }}</small>
 
-                        <div class="col-md-3">
-                            <div class="boxed boxed-single clickable">
-                                <a href="{{ URL::to( '/broadcast/business/' . $ac_business_id ) }}" target="_blank" title="View Broadcast Page."> {{--RDH Links for Business' broadcast page--}}
-                                    <div class="wrap">
-                                        <h3>{{ $actives['name'] }}</h3>
-                                        <small>{{ $actives['local_address'] }}</small>
-                                    </div>
-                                </a>
+                                            <small class="pull-right" style="position: absolute; bottom: 5px; right: 18px; margin: 0; padding: 5px 3px;">
+                                                @if($actives['queue_population'])
+                                                    @for($counter = 1; $counter <= $actives['queue_population']; $counter++)
+                                                    <span class="glyphicon glyphicon-user text-success"></span>
+                                                    @endfor
+                                                @else
+                                                    <span class="glyphicon glyphicon-user"></span>
+                                                @endif
+                                            </small>
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                    @endforeach
-                </div>
+                        @endforeach
+                    </div>
                 </div>
             @endif
         </div>
 
-        <div class="col-md-12">
-            <h5 class="mb30">@{{ searchLabel }}</h5>
-            @if(count($search_businesses) > 0)
-            <div id="popular-businesses">
-                <div class="row">
-                @foreach($search_businesses as $business)
-                    <div class="col-md-3">
-                      <div class="boxed boxed-single clickable">
-                          <a href="{{ URL::to( '/broadcast/business/' . $business->business_id ) }}" target="_blank" title="View Broadcast Page."> {{--RDH Links for Business' broadcast page--}}
-                              <div class="wrap">
-                                  <h3>{{ $business->name }}</h3>
-                                  <small>{{ $business->local_address }}</small>
-                              </div>
-                          </a>
-                      </div>
-                    </div>
-                @endforeach
-                </div>
-            </div>
+        <div class="col-md-12" ng-if="businesses.length !== 0">
+            <h5 class="mb30" ng-if="businesses.length !== 0">@{{ searchLabel }}</h5>
             <div class="col-md-3" ng-repeat="business in businesses">
                 <div class="boxed boxed-single clickable">
                     <a href="/broadcast/business/@{{ business.business_id }}">
@@ -119,17 +139,15 @@
                         </div>
                     </a>
                 </div>
-            </div>
-            @else
-            <div class="col-md-3">
-              <div class="boxed boxed-single clickable">
-                <div class="wrap">
-                  <h3>No Available Businesses</h3>
-                  <small></small>
+                <div class="col-md-3" ng-if="businesses.length === 0">
+                    <div class="boxed boxed-single clickable">
+                        <div class="wrap">
+                            <h3>No Available Businesses</h3>
+                            <small></small>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-            @endif
         </div>
     </div>
 

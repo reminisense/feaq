@@ -39,11 +39,38 @@ class BroadcastController extends BaseController{
      */
     public function getBusiness($business_id = 0)
     {
+        $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
+        $arr = explode("-", $data->display);
+        if ($arr[0]) $template_type = 'ads-' . $arr[1];
+        else $template_type = 'noads-' . $arr[1];
+        if ($data->ad_type == 'image') $ad_src = $data->ad_image;
+        else $ad_src = $data->ad_video;
+
         $business_name = Business::name($business_id);
         $open_time = str_pad(Business::openHour($business_id), 2, 0, STR_PAD_LEFT) . ':' . str_pad(Business::openMinute($business_id), 2, 0, STR_PAD_LEFT) . ' ' . Business::openAMPM($business_id);
         $close_time = str_pad(Business::closeHour($business_id), 2, 0, STR_PAD_LEFT) . ':' . str_pad(Business::closeMinute($business_id), 2, 0, STR_PAD_LEFT) . ' ' . Business::closeAMPM($business_id);
 
-        return View::make('broadcast')
+        if (Auth::check()) {
+
+          // business owners have different broadcast screens for display
+          if (UserBusiness::getBusinessIdByOwner(Auth::user()->user_id) == $business_id) {
+            if ($arr[0] == 2) $ad_src = $data->tv_channel; // check if TV is on
+            $broadcast_template = 'broadcast.default.business-master';
+          }
+
+          else {
+            $broadcast_template = 'broadcast.default.public-master';
+          }
+        }
+        else {
+          $broadcast_template = 'broadcast.default.public-master';
+        }
+        return View::make($broadcast_template)
+            ->with('ad_type', $data->ad_type)
+            ->with('ad_src', $ad_src)
+            ->with('box_num', $arr[1])
+            ->with('template_type', $template_type)
+            ->with('broadcast_type', $data->display)
             ->with('open_time', $open_time)
             ->with('close_time', $close_time)
             ->with('local_address', Business::localAddress($business_id))
@@ -186,6 +213,20 @@ class BroadcastController extends BaseController{
     $encode = json_encode($data);
     file_put_contents(public_path() . '/json/' . $post->business_id . '.json', $encode);
     return json_encode(array('status' => 1));
+  }
+
+  public function getJsonFixer($business_id = 0) {
+    $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
+    if (!isset($data->show_issued)) $data->show_issued = true;
+    if (!isset($data->ad_image)) $data->ad_image = "";
+    if (!isset($data->ad_video)) $data->ad_video = "";
+    if (!isset($data->ad_type)) $data->ad_type = "";
+    if (!isset($data->turn_on_tv)) $data->turn_on_tv = false;
+    if (!isset($data->tv_channel)) $data->tv_channel = "";
+    $data->display = "1-6";
+    $encode = json_encode($data);
+    file_put_contents(public_path() . '/json/' . $business_id . '.json', $encode);
+    echo 'JSON file is now fixed.';
   }
 
 }

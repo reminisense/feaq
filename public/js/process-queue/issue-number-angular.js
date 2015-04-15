@@ -12,19 +12,22 @@
         $scope.phone = null;
         $scope.email = null;
 
+        $scope.number_start = null;
+        $scope.number_end = null;
         $scope.range = null;
 
-        $scope.issueMultiple = function(range, date){
+        $scope.issueMultiple = function(range, number_start, date){
             $scope.isIssuing = true;
-            url = pq.urls.issue_numbers.issue_multiple_url + pq.ids.service_id + '/' + range + '/' + pq.ids.terminal_id;
+            url = pq.urls.issue_numbers.issue_multiple_url + pq.ids.service_id + '/' + range + '/' + pq.ids.terminal_id + '/' + number_start;
             url = date == undefined ? url : url + '/' + date;
-
             $http.get( url )
                 .success(function(response){
                     message = 'Issue number successful! <br> First number : ' + response.first_number + ' <br> Last number : ' + response.last_number;
                     pq.jquery_functions.issue_number_success(message);
 
-                    $scope.range = '';
+                    $scope.number_start = '';
+                    $scope.number_end = '';
+                    $scope.range = null;
                 }).finally(function(){
                     $scope.isIssuing = false;
                 });
@@ -120,15 +123,42 @@
         $scope.checkIssueMultipleErrors = function(){
             error = false;
             error_message = '';
-            if($scope.issue_multiple_form.range.$error.required){
+            $scope.range = ($scope.number_end - $scope.number_start) + 1;
+
+            //check first number
+            if($scope.issue_multiple_form.number_start.$error.required){
                 error = true;
-                error_message += 'Quantity is required. ';
-            }else if($scope.issue_multiple_form.range.$error.number){
+                error_message += 'First number is required. ';
+            }else if($scope.issue_multiple_form.number_start.$error.number){
                 error = true;
-                error_message += 'Quantity should be a number. ';
-            }else if($scope.issue_multiple_form.range.$viewValue <= 0){
+                error_message += 'First number must not contain letters or symbols. ';
+            }else if($scope.issue_multiple_form.number_start.$viewValue <= 0){
                 error = true;
-                error_message += 'Quantity should be greater than zero. ';
+                error_message += 'First number must be greater than zero. ';
+            }
+
+            //check last number
+            if($scope.issue_multiple_form.number_end.$error.required){
+                error = true;
+                error_message += 'Last number is required. ';
+            }else if($scope.issue_multiple_form.number_end.$error.number){
+                error = true;
+                error_message += 'Last number must not contain letters or symbols. ';
+            }else if($scope.issue_multiple_form.number_end.$viewValue <= 0){
+                error = true;
+                error_message += 'Last number must be greater than zero. ';
+            }else if($scope.issue_multiple_form.number_end.$viewValue > $scope.number_limit){
+                error = true;
+                error_message += 'Cannot issue numbers greater than ' + $scope.number_limit + '. ';
+            }
+
+            //check the range
+            if($scope.range <= 0){
+                error = true;
+                error_message += 'First number must not be greater than the last number. ';
+            }else if($scope.range > 100){
+                error = true;
+                error_message += 'Cannot issue more than 100 numbers at the same time. ';
             }
 
             $scope.issue_multiple_error = error_message;

@@ -1,0 +1,181 @@
+.feat-business {
+    background: #03121a url('/img/feat-business.jpg') center no-repeat;
+    height: 195px;
+}
+.biz-details-wrap {
+    margin: 50px 0 40px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.biz-navs {
+    margin-top: 50px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.biz-navs .nav>li>a .glyphicon {
+    font-size: 11px;
+}
+
+#view-broadcast,
+#process-queue {
+    font-family: 'ralewaybold';
+    display: block;
+    padding: 9px 20px 6px 98px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    height: 56px;
+    margin-top: 8px;
+    line-height: 18px;
+    vertical-align: middle;
+}
+#add-business {
+    font-family: 'ralewaybold';
+    display: block;
+    padding: 9px 20px 6px 98px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    height: 56px;
+    margin-top: 8px;
+    line-height: 18px;
+    vertical-align: middle;
+}
+#view-broadcast {
+    margin-top: 30px;
+    color: #fff;
+    background: #00ba8b url('/img/bg-view-broadcast.png') left no-repeat;
+}
+#process-queue {
+    color: #fff;
+    background: #ff925b url('/img/bg-processqueue.png') left no-repeat;
+}
+#add-business {
+    color: #fff;
+    background: #ff925b url('/img/bg-processqueue.png') left no-repeat;
+}
+#view-broadcast:hover {
+    background-color: #009b74;
+}
+#process-queue:hover {
+    background-color: #d36e3c;
+}
+#view-broadcast:hover,
+#process-queue:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+#add-business:hover {
+    background-color: #d36e3c;
+}
+#view-broadcast:hover,
+#add-business:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    background-color: #00ba8b;
+    color: #fff;
+    border-bottom: 1px solid #00ba8b;
+}
+
+#bizTabContent {
+    background-color: #fff;
+    padding: 22px 20px 14px;
+    -webkit-box-shadow: 0 2px 8px 0 rgba(0,0,0,.2);
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,.2);
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    margin-bottom: 40px;
+    min-height: 300px;
+}
+#bizTabContent p {
+    margin-bottom: 20px;
+}
+.biz-details h2 {
+    text-shadow: 0 1px 0 #ffffff;
+    font-family: 'ralewaybold';
+    font-size: 24px;
+    color: #00ba8b;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+.biz-details p {
+    margin-bottom: 5px;
+}
+
+/*ARA 04082015*/
+.biz-navs .form-control {
+    margin-bottom: 20px;
+    border: none;
+    border-bottom: 1px solid #c7c7c7;
+    background-color: #f0f0f0;
+}
+.form-control {
+    font-size: 13px;
+}
+.biz-navs .form-control:focus {
+    background-color: #fff9e3;
+}
+.biz-navs .form-group button.dropdown-toggle,
+.biz-navs .form-group .btn-group,
+.biz-navs .form-group .dropdown-menu {
+    color: #555;
+    width: 100%;
+}
+.biz-navs .form-group .btn-group .btn {
+    background: none;
+    padding-left: 2px;
+    padding-right: 2px;
+    text-align: left;
+    font-weight: normal;
+    border-bottom: 1px solid #c7c7c7;
+    font-family: 'ralewayregular'!important;
+    font-size: 14px;
+    color: #555;
+}
+.biz-navs .form-group .btn-group .btn .caret {
+    text-align: right;
+}
+.address {
+    margin-bottom: 15px!important;
+}
+#bizTabContent .tab-pane small {
+    margin-bottom: 4px;
+    font-size: 14px;
+    display: inline-block;
+}
+#bizTabContent .tab-pane h5 {
+    margin-bottom: 30px;
+    font-size: 16px;
+}
+#edit_business {
+    margin-bottom: 20px;
+}
+#bizTabContent table td {
+    border-bottom: 1px solid #e7e7e7;
+}
+h5>small {
+    color: #333;
+    font-size: 10px;
+    font-family: ralewayregular;
+    display: block!important;
+    margin-top: 5px;
+}
+.settings input[type=checkbox] {
+    font-size: 50px;
+    float: left;
+    margin-right: 12px;
+    display: block;
+    height: 30px;
+}
+.title {
+    font-family: 'ralewaybold';
+    margin-bottom: 6px;
+}
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 14px 8px;
+}
+.biz-navs .nav-tabs li a {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}

@@ -10,22 +10,49 @@
 
     <title>@yield('subtitle') | FeatherQ</title>
 
-    {{ HTML::style('css/bootstrap.min.css') }}
-    {{ HTML::style('css/animate.css') }}
-    {{ HTML::style('css/dashboard.css') }}
-    {{ HTML::style('css/responsive.css') }}
+    <link rel="stylesheet" type="text/css" href="/css/ngCloak.css">
+
+    {{--{{ HTML::style('css/bootstrap.min.css') }}--}}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+    {{--{{ HTML::style('css/animate.css') }}--}}
+    <link media="all" type="text/css" rel="stylesheet" href="/css/animate.css">
+
+    {{--{{ HTML::style('css/dashboard.css') }}--}}
+    <link media="all" type="text/css" rel="stylesheet" href="/css/dashboard.css">
+
+    {{--{{ HTML::style('css/responsive.css') }}--}}
+    <link media="all" type="text/css" rel="stylesheet" href="/css/responsive.css">
+
     @yield('styles')
 
-    {{ HTML::script('js/jquery1.11.0.js') }}
-    {{ HTML::script('js/bootstrap.min.js') }}
-    {{ HTML::script('js/wow.min.js') }}
-    {{ HTML::script('js/custom.js') }}
+    {{--{{ HTML::script('js/jquery1.11.0.js') }}--}}
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+
+    {{--{{ HTML::script('js/bootstrap.min.js') }}--}}
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+    {{--{{ HTML::script('js/wow.min.js') }}--}}
+    <script src="/js/wow.min.js"></script>
+
+    {{--{{ HTML::script('js/custom.js') }}--}}
+    <script src="/js/custom.js"></script>
+
     {{--{{ HTML::script('js/angular.js') }}--}}
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script> {{-- RDH Using CDN for Angular JS File --}}
-    {{ HTML::script('js/ngFeatherQ.js') }}
-    {{ HTML::script('js/ngFacebook.js') }}
-    {{ HTML::script('js/ngAutocomplete.js') }}
-    {{ HTML::script('js/dashboard/search-business.js') }}
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+
+    {{--{{ HTML::script('js/ngFeatherQ.js') }}--}}
+    <script src="/js/ngFeatherQ.js"></script>
+
+    {{--{{ HTML::script('js/ngFacebook.js') }}--}}
+    <script src="/js/ngFacebook.js"></script>
+
+    {{--{{ HTML::script('js/ngAutocomplete.js') }}--}}
+    <script src="/js/ngAutocomplete.js"></script>
+
+    {{--{{ HTML::script('js/dashboard/search-business.js') }}--}}
+    <script src="/js/dashboard/search-business.js"></script>
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -34,7 +61,7 @@
 </head>
 <!-- NAVBAR
   ================================================== -->
-<body cz-shortcut-listen="true" ng-app="FeatherQ">
+<body cz-shortcut-listen="true" ng-app="FeatherQ" ng-cloak>
 <!-- Static navbar -->
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container">

@@ -179,9 +179,15 @@
                                                                             <a href="#" class="btn-boxy btn-adduser btn-primary"><span class="glyphicon glyphicon-plus"></span> Add User</a>
                                                                             <div class="mb10 mt10 inputuser" style="display: none">
                                                                                 <form ng-submit="emailSearch(search_user, terminal.terminal_id)">
-                                                                                    <input type="text" class="form-control" ng-model="search_user">
+                                                                                    <div class="">
+                                                                                        <input type="text" class="form-control" ng-model="search_user" placeholder="Facebook Email">
+                                                                                    </div>
+                                                                                    <div class="">
+                                                                                        <button type="submit" class="btn-boxy btn-cyan"><span class="glyphicon glyphicon-plus"></span> Add</button>
+                                                                                        <button class="btn-boxy btn-danger cancel-adduser"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                                                                                    </div>
                                                                                 </form>
-                                                                                <div class="alert alert-danger" ng-show="user_found == false"> User does not exist. </div>
+                                                                                <div class="alert alert-danger" ng-show="user_found == false"> User does not exist in FeatherQ. </div>
                                                                             </div>
                                                                         </span>
                                                                     </span>
@@ -199,9 +205,15 @@
                                                                     <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary"><span class="glyphicon glyphicon-plus"></span> Add User</a>
                                                                     <div class="mb10 mt10 inputuser" style="display: none">
                                                                         <form ng-submit="emailSearch(search_user, terminal.terminal_id)">
-                                                                            <input type="text" class="form-control" ng-model="search_user">
+                                                                            <div class="">
+                                                                                <input type="text" class="form-control" ng-model="search_user" placeholder="Facebook Email">
+                                                                            </div>
+                                                                            <div class="">
+                                                                                <button type="submit" class="btn-boxy btn-cyan"><span class="glyphicon glyphicon-plus"></span> Add</button>
+                                                                                <button class="btn-boxy btn-danger cancel-adduser"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                                                                            </div>
                                                                         </form>
-                                                                        <div class="alert alert-danger" ng-show="user_found == false"> User does not exist. </div>
+                                                                        <div class="alert alert-danger" ng-show="user_found == false"> User does not exist in FeatherQ. </div>
                                                                     </div>
                                                                 </span>
                                                              </div>
@@ -215,9 +227,17 @@
                                                     </td>
                                                     <td>
                                                         <div class="block mb10">
-                                                            <a href="#" id="btn-addterminal" class="btn-boxy btn-xs btn-adduser btn-primary"><span class="glyphicon glyphicon-add"></span> Add Terminal</a>
+                                                            <a href="#" id="btn-addterminal" class="btn-boxy btn-xs btn-primary"><span class="glyphicon glyphicon-add"></span> Add Terminal</a>
                                                             <form id="inputterminal-form" ng-submit="createTerminal(terminal_name)">
-                                                                <input id="inputterminal" type="text" class="form-control" ng-model="terminal_name">
+                                                                <div id="inputterminal" class="row">
+                                                                    <div class="">
+                                                                        <input type="text" class="form-control" ng-model="terminal_name" placeholder="Terminal Name">
+                                                                    </div>
+                                                                    <div class="">
+                                                                        <button class="btn-boxy btn-xs btn-cyan" type="submit"><span class="glyphicon glyphicon-plus"></span> Add</button>
+                                                                        <button type="button" class="btn-boxy btn-xs btn-danger cancel-add-terminal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                                                                    </div>
+                                                                </div>
                                                             </form>
                                                             <div style="display: none;" class="alert alert-danger terminal-error-msg"> Terminal name already exists.</div>
                                                         </div>
@@ -381,7 +401,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" id="delete_business" class="btn btn-danger btn-lg" ng-click="deleteBusiness(business_id)"><span class="glyphicon glyphicon-trash"></span> DELETE BUSINESS</button>
+                {{--<button type="button" id="delete_business" class="btn btn-danger btn-lg" ng-click="deleteBusiness(business_id)"><span class="glyphicon glyphicon-trash"></span> DELETE BUSINESS</button>--}}
                 <button type="button" id="edit_business" class="btn btn-orange btn-lg" ng-click="saveBusinessDetails()"><span class="glyphicon glyphicon-check"></span> SUBMIT</button>
             </div>
         </div>

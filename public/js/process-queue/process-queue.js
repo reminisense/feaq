@@ -69,13 +69,13 @@ var pq = {
                 pq.jquery_functions.set_next_priority_number();
                 issue_number_modal.$apply(function(){
                     issue_number_modal.number_limit = process_queue.number_limit;
-                    console.log(issue_number_modal.number_limit);
                 });
             });
 
             $('#moreq').on('hide.bs.modal', function(){
                 issue_number_modal.$apply(function(){
                     issue_number_modal.priority_number = process_queue.next_number;
+                    issue_number_modal.number_start = process_queue.next_number;
                 });
             });
 
@@ -160,11 +160,17 @@ var pq = {
 
         set_next_priority_number : function(){
             process_queue = angular.element($("#process-queue-wrapper")).scope();
-            $('#moreq form input[name=priority_number]').val(process_queue.next_number);
+            issue_number = angular.element($("#moreq")).scope();
+            issue_number.$apply(function(){
+                issue_number.priority_number = process_queue.next_number;
+                issue_number.number_start = process_queue.next_number;
+                issue_number.number_end = process_queue.next_number;
+            });
         },
 
         set_next_number_placeholder : function(next_number){
             $('#moreq form input[name=priority_number]').attr('placeholder', next_number);
+            $('#moreq form input[name=number_start]').attr('placeholder', next_number);
             $('#issue-call-number').attr('placeholder', next_number);
         }
     }

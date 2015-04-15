@@ -12,6 +12,51 @@
 
 class BusinessController extends BaseController{
 
+
+    public function getMyBusiness(){
+        $businesses = UserBusiness::getAllBusinessIdByOwner(Helper::userId());
+        $my_terminals = TerminalUser::getTerminalAssignement(Helper::userId());
+        $assigned_businesses = [];
+        if (count($my_terminals) > 0){
+            foreach($my_terminals as $terminal){
+                $bid = Business::getBusinessIdByTerminalId($terminal['terminal_id']);
+                if(!isset($assigned_businesses[$bid])){
+                    $assigned_businesses[$bid] = [
+                        'business_id' => $bid,
+                        'name' => Business::name($bid),
+                        'terminals' => [
+                            [
+                                'terminal_id' => $terminal['terminal_id'],
+                                'name' => Terminal::name($terminal['terminal_id'])
+                            ]
+                        ]
+                    ];
+                }else{
+                    array_push($assigned_businesses[$bid]['terminals'], [
+                        'terminal_id' => $terminal['terminal_id'],
+                        'name' => Terminal::name($terminal['terminal_id'])
+                    ]);
+                }
+            }
+        }
+
+        //dd($assigned_businesses);
+        if (count($businesses) > 0){
+            $business = $businesses[0];
+            $business_id = $business->business_id;
+            $first_service = Service::getFirstServiceOfBusiness($business_id);
+            $terminals = Terminal::getTerminalsByServiceId($first_service->service_id);
+            return View::make('business.my-business')
+                ->with('user_id', Helper::userId())
+                ->with('business_id', $business_id)
+                ->with('assigned_businesses', $assigned_businesses)
+                ->with('first_terminal', $terminals[0]['terminal_id']);
+        } else {
+            return View::make('business.my-business')
+                ->with('assigned_businesses', $assigned_businesses);
+        }
+    }
+
     /*
      * @author: CSD
      * @description: post business data from initial setup modal form
@@ -45,7 +90,7 @@ class BusinessController extends BaseController{
              * set default queue limit to 9999 max
              */
             $business->queue_limit = 9999;
-            $business->num_terminals = 3;
+            $business->num_terminals = 1;
             $business->save();
 
             $business_user = new UserBusiness();
@@ -88,6 +133,12 @@ class BusinessController extends BaseController{
                   },
                   "get_num": " ",
                   "display": "1-6",
+                  "show_issued": true,
+                  "ad_image": "",
+                  "ad_video": "",
+                  "ad_type": "image",
+                  "turn_on_tv": false,
+                  "tv_channel": "",
                   "date": "' . date("mdy") . '"
                 }
             ';
@@ -235,6 +286,9 @@ class BusinessController extends BaseController{
                 'business_id' => $data->business_id,
                 'business_name' => $data->name,
                 'local_address' => $data->local_address,
+                'time_open' => $data->open_hour . ':' . Helper::doubleZero($data->open_minute) . ' ' . strtoupper($data->open_ampm),
+                'time_close' => $data->close_hour . ':' . Helper::doubleZero($data->close_minute) . ' ' . strtoupper($data->close_ampm),
+                'waiting_time' => Analytics::getWaitingTimeString($data->business_id)
             );
         }
         return json_encode($arr);

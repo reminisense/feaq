@@ -5,6 +5,7 @@
         $scope.location_filter = 'Location';
         $scope.industry_filter = 'Industry';
         $scope.searchLabel = 'POPULAR BUSINESSES';
+        $scope.businesses = [];
 
         $scope.searchBusiness = (function(location, industry) {
             var keyword = document.getElementById('search-keyword').value;

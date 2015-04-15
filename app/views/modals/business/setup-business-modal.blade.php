@@ -6,9 +6,9 @@
                 <h3 class="modal-title" id="add_business_header">Setup your Business</h3>
             </div>
             <div class="modal-body">
-                <form id="add_business_form" class="mb30" action="business/setup-business" method="post">
+                <form id="add_business_form" class="mb30 clearfix" action="/business/setup-business" method="post">
                     <input type="hidden" class="user_id" name="user_id" value="" />
-                    <div class="form-group row">
+                    <div class="form-group">
                         <div class="col-md-6">
                             <label>Business Name</label>
                             <input type="text" class=" form-control" placeholder="ex: ABC Company" id="business_name" name="business_name">
@@ -66,28 +66,26 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Time Open</label>
-                                    <input type="text" id="time_open" name="time_open" placeholder="ex: 8:00am" class="timepicker form-control" />
-                                </div>
-                                <div class="col-md-6">
-                                    <label>Time Close</label>
-                                    <input type="text" id="time_close" name="time_close" placeholder="ex: 10:00pm" class="timepicker form-control" />
-                                </div>
+
+
+                            <div class="col-md-6">
+                                <label>Time Open</label>
+                                <input type="text" id="time_open" name="time_open" placeholder="ex: 8:00am" class="timepicker form-control" />
                             </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label>Business Address</label>
-                                    <input type="text" class=" form-control" placeholder="ex: Cebu City" id="business_location" name="business_address">
-                                </div>
+                            <div class="col-md-6">
+                                <label>Time Close</label>
+                                <input type="text" id="time_close" name="time_close" placeholder="ex: 10:00pm" class="timepicker form-control" />
                             </div>
-                        </div>
+
+
+                            <div class="col-md-12">
+                                <label>Business Address</label>
+                                <input type="text" class=" form-control" placeholder="ex: Cebu City" id="business_location" name="business_address">
+                            </div>
                         <div class="col-md-12">
-                            <span><i class="glyphicon glyphicon-info-sign"></i>&nbsp;&nbsp;You are provided with 3 default terminals to manage your business queue.</span>
+                            <div class="alert alert-info" role="alert">
+                                <i class="glyphicon glyphicon-info-sign"></i>&nbsp;&nbsp;You are provided with 1 default terminal to manage your business queue. To create more terminals, just go to Business Settings and select Terminal.
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -95,7 +93,7 @@
             </div>
             <div class="modal-footer">
                 <a id="skip_step_link" href="/" class="btn btn-cyan btn-lg">Setup Business Later</a>
-                <button id="submit_business" style="width:175px;" type="button" class="btn btn-orange btn-lg">SUBMIT</button>
+                <button id="submit_business" style="width:175px;" type="button" class="btn btn-orange btn-md">SUBMIT</button>
             </div>
         </div>
     </div>
