@@ -49,23 +49,25 @@ Processs Queue > {{ $business_name }}
             <div class="boxed processq-box processq">
                 <div class="row">
                     <div class="q-actions clearfix">
-                        <div class="col-md-9">
-                            <input id="selected-tnumber" type="hidden" ng-value="called_number" value=0>
-                            <div class="dropdown-wrapper" ng-show="timebound_numbers.length != 0 || uncalled_numbers.length != 0">
-                                <button class="btn-select btn-md dropdown-toggle" type="button" data-toggle="dropdown">
-                                    <span id="selected-pnumber">Please select a number</span><span class="caret"></span> <!-- @todo replace this with selected number-->
-                                </button>
-                                <ul class="dropdown-menu dd-select" id="uncalled-numbers">
-                                    <li ng-repeat="number in timebound_numbers" data-tnumber="@{{ number.transaction_number }}" data-pnumber="@{{ number.priority_number }}">@{{ number.priority_number }}</li>
-                                    <li ng-repeat="number in uncalled_numbers" data-tnumber="@{{ number.transaction_number }}" data-pnumber="@{{ number.priority_number }}">@{{ number.priority_number }}</li>
-                                </ul>
+                        <form>
+                            <div class="col-md-9">
+                                <input id="selected-tnumber" type="hidden" ng-value="called_number" value=0>
+                                <div class="dropdown-wrapper" ng-show="timebound_numbers.length != 0 || uncalled_numbers.length != 0">
+                                    <button class="btn-select btn-md dropdown-toggle" type="button" data-toggle="dropdown">
+                                        <span id="selected-pnumber">Please select a number</span><span class="caret"></span> <!-- @todo replace this with selected number-->
+                                    </button>
+                                    <ul class="dropdown-menu dd-select" id="uncalled-numbers">
+                                        <li ng-repeat="number in timebound_numbers" data-tnumber="@{{ number.transaction_number }}" data-pnumber="@{{ number.priority_number }}">@{{ number.priority_number }}</li>
+                                        <li ng-repeat="number in uncalled_numbers" data-tnumber="@{{ number.transaction_number }}" data-pnumber="@{{ number.priority_number }}">@{{ number.priority_number }}</li>
+                                    </ul>
+                                </div>
+                                <input id="issue-call-number" type="number" class="form-control" min="1" max="@{{ number_limit }}"  ng-model="issue_call_number" ng-show="timebound_numbers.length == 0 && uncalled_numbers.length == 0">
+                                <a href="#" id="btn-pmore" class="btn btn-md btn-primary" data-toggle="modal" data-target="#moreq" title="Issue a number.">+</a>
                             </div>
-                            <input id="issue-call-number" type="number" class="form-control" min="1" max="@{{ number_limit }}"  ng-model="issue_call_number" ng-show="timebound_numbers.length == 0 && uncalled_numbers.length == 0">
-                            <a href="#" id="btn-pmore" class="btn btn-md btn-primary" data-toggle="modal" data-target="#moreq" title="Issue a number.">+</a>
-                        </div>
-                        <div class="col-md-3 text-right">
-                            <button class="btn btn-orange btn-md" id="btn-call" ng-click="issueOrCall()" ng-disabled="isCalling">CALL NUMBER</button>
-                        </div>
+                            <div class="col-md-3 text-right">
+                                <button class="btn btn-orange btn-md" id="btn-call" ng-click="issueOrCall()" ng-disabled="isCalling">CALL NUMBER</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <table class="table table-striped">
