@@ -40,9 +40,9 @@ $(document).ready(function(){
         $('#vid-submit-btn').removeClass('btn-disabled');
     });
 
-    $(document).on('click', '#process-queue', function(e){
-        if ($('.biz-terminals').is(':hidden')) {
-            $('.biz-terminals').slideDown('fast');
+    $(document).on('click', '.process-queue', function(e){
+        if ($(this).find('.biz-terminals').is(':hidden')) {
+            $(this).find('.biz-terminals').slideDown('fast');
         }
         return false;
     });
@@ -231,7 +231,6 @@ var eb = {
                             assigned = true;
                         }
                     }
-
                 }
             }
             return assigned;
