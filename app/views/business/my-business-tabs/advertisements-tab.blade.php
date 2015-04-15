@@ -47,7 +47,7 @@
                         <div class="form-group">
                             <label for="exampleInputFile"><strong>Choose Image to Upload:</strong></label>
                             <input name="ad_image" type="file" id="ad-image">
-                            <em class="help-block">Upload images with .jpg, .png file format</em>
+                            <em class="help-block">Upload images with .jpg, .png file format. Best resolution is 800 x 803 pixels.</em>
                             <div class="alert alert-success" id="adimage-success" style="display: none;">Success! <strong><a href="/broadcast/business/@{{ business_id }}" target="_blank">View Broadcast Page</a></strong></div>
                             <div class="alert alert-danger" id="adimage-danger" style="display: none;">Oops! Something went wrong.</div>
                         </div>

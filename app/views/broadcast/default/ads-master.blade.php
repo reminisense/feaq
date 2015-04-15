@@ -5,20 +5,26 @@
         <div id="fqCarousel" class="carousel slide" data-ride="carousel">
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
-                <div class="item active">
-                    <img src="{{ $ad_src }}" alt="Ad1">
+                @if ($ad_src != '')
+                    <div class="item active">
+                        <img id="ad1" src="{{ $ad_src }}" alt="Ad1">
+                    </div>
+                    <div class="item">
+                        <img id="ad2" src="/images/broadcast1.jpg" alt="Ad2">
+                    </div>
+                @else
+                    <div class="item active">
+                        <img id="ad2" src="/images/broadcast1.jpg" alt="Ad2">
+                    </div>
+                @endif
+                <div class="item">
+                    <img id="ad3" src="/images/broadcast2.jpg" alt="Ad3">
                 </div>
                 <div class="item">
-                    <img src="/images/broadcast1.jpg" alt="Ad2">
+                    <img id="ad4" src="/images/broadcast3.jpg" alt="Ad4">
                 </div>
                 <div class="item">
-                    <img src="/images/broadcast2.jpg" alt="Ad3">
-                </div>
-                <div class="item">
-                    <img src="/images/broadcast3.jpg" alt="Ad4">
-                </div>
-                <div class="item">
-                    <img src="/images/broadcast4.jpg" alt="Ad5">
+                    <img id="ad5" src="/images/broadcast4.jpg" alt="Ad5">
                 </div>
             </div>
         </div>
