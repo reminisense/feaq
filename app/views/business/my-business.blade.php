@@ -7,7 +7,6 @@ My Business
 @section('styles')
     <link rel='stylesheet' type='text/css' href='/css/business/business.css'>
     <link rel='stylesheet' type='text/css' href='/css/dashboard.css'>
-    <link rel='stylesheet' type='text/css' href='/css/modal.css'>
     <link media="all" type="text/css" rel="stylesheet" href="/css/jquery.timepicker.min.css">
 @stop
 
@@ -15,11 +14,6 @@ My Business
     <script src="/js/jquery.form.js"></script>
     <script src="/js/dashboard/dashboard.js"></script>
     <script src="/js/dashboard/edit-business.js"></script>
-    <script src="/js/jquery.timepicker.min.js"></script>
-    <script src="/js/intlTelInput.js"></script>
-    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
-    <script src="/js/jquery.geocomplete.js"></script>
-
     {{--<script src="/js/google-analytics/googleAnalytics.js"></script>--}}
     {{--<script src="/js/google-analytics/ga-dashboard.js"></script>--}}
 @stop

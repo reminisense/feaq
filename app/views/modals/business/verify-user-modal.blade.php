@@ -6,20 +6,16 @@
                 <h3 class="modal-title" id="myModalLabel">Please confirm your data</h3>
             </div>
             <div class="modal-body">
-                <form id="verification_form" action="/user/verify-user" method="post">
+                <form id="verification_form" class="clearfix" action="/user/verify-user" method="post">
                     <input type="hidden" class="user_id" name="user_id" value="" />
-                    <div class="form-group row">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-6 has-warning">
-                                    <label>First Name</label>
-                                    <input type="text" class=" form-control" id="first_name" name="first_name" required />
-                                </div>
-                                <div class="col-md-6">
-                                    <label>Last Name</label>
-                                    <input type="text" class=" form-control" id="last_name" name="last_name" required />
-                                </div>
-                            </div>
+                    <div class="form-group">
+                        <div class="col-md-6 has-warning">
+                            <label>First Name</label>
+                            <input type="text" class=" form-control" id="first_name" name="first_name" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label>Last Name</label>
+                            <input type="text" class=" form-control" id="last_name" name="last_name" required />
                         </div>
                         <div class="col-md-12">
                             <label>Email</label>
@@ -35,7 +31,7 @@
                         </div>
                     </div>
                 </form>
-                <div class="alert alert-danger" id="verifyError" style="display: none;"></div>
+                <div class="alert alert-danger modal-message" id="verifyError" style="display: none;"></div>
             </div>
             <div class="modal-footer">
                 <button id="start_queuing" type="submit" class="btn btn-orange btn-lg">START QUEUING</button>

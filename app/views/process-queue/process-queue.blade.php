@@ -12,7 +12,6 @@ Processs Queue > {{ $business_name }}
 @stop
 
 @section('scripts')
-<script src="/js/jquery.timepicker.min.js"></script>
 <script src="/js/process-queue/process-queue.js"></script>
 <script src="/js/process-queue/process-queue-angular.js"></script>
 <script src="/js/process-queue/issue-number-angular.js"></script>

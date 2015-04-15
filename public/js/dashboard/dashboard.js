@@ -2,11 +2,7 @@
  * Created by carlo on 1/29/15.
  */
 $(document).ready(function(){
-    $('input.timepicker').timepicker({});
-
     $("#user_location").geocomplete();
-    $("#business_location").geocomplete();
-    $("#edit_user_location").geocomplete();
 
     $.get('/user/user-status', function(){
 
@@ -41,7 +37,7 @@ $(document).ready(function(){
             errorMessage = errorMessage + "Email field is required. ";
         }
 
-        if (!isValidPhone($('#mobile').val()) && ($('#mobile').val() != 0 || $('#mobile').val() == '')){
+        if (!isValidPhone($('#mobile').val()) && ($('#mobile').val() == '0' || $('#mobile').val() == '')){
             errorMessage = errorMessage + "Mobile field is required. ";
         }
 
