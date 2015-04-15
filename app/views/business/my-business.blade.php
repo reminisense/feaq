@@ -7,6 +7,7 @@ My Business
 @section('styles')
     <link rel='stylesheet' type='text/css' href='/css/business/business.css'>
     <link rel='stylesheet' type='text/css' href='/css/dashboard.css'>
+    <link rel='stylesheet' type='text/css' href='/css/dashboard/dashboard.css'>
     <link media="all" type="text/css" rel="stylesheet" href="/css/jquery.timepicker.min.css">
 @stop
 
@@ -45,7 +46,7 @@ My Business
                     </div>
                     <div class="col-md-3 col-xs-10 ">
                         <a id="view-broadcast" href="{{ url('broadcast/business/' . $business_id) }}" target="_blank">View Broadcast Screen</a>
-                        <div id="process-queue" href="#" class="boxed edit-biz">
+                        <div id="process-queue" href="#" class="boxed edit-biz process-queue">
                             <a href="#" style="color: #ffffff">Process <br>Queue</a>
                             <div class="biz-terminals">
                                 <div class="clearfix">
@@ -109,17 +110,44 @@ My Business
         </div>
     </div>
     @else
-        <div class="row">
-            <div class="biz-details-wrap">
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-3 col-xs-6 " data-toggle="modal" id="add_business">
-                            <a id="add-business" target="_blank">Create Your <br/>First Business</a>
-                        </div>
+    <div class="row">
+        <div class="biz-details-wrap">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-3 col-xs-6 " data-toggle="modal" id="add_business">
+                        <a id="add-business" target="_blank">Create Your <br/>First Business</a>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    @endif
+    <!-- assigned business -->
+    @if($assigned_businesses)
+    <h5>ASSIGNED BUSINESSES</h5>
+    <div class="well well-lg">
+        <div id="biz-grid" class="row">
+            @foreach($assigned_businesses as $business)
+            <div class="col-md-3">
+                <div class="boxed edit-biz process-queue">
+                    <p class="title">{{ $business['name'] }}</p>
+                    <div class="biz-terminals">
+                        <div class="clearfix">
+                            @foreach($business['terminals'] as $terminal)
+                            <div>
+                                <a href="{{ url('/processqueue/terminal/' . $terminal['terminal_id'] ) }}" target="_blank" style="padding: 8px;">
+                                    <span class=" glyphicon glyphicon-ok "></span>
+                                    <small>{{ $terminal['name'] }}</small>
+                                </a>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
     @endif
 </div>
 

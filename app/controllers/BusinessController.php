@@ -15,7 +15,32 @@ class BusinessController extends BaseController{
 
     public function getMyBusiness(){
         $businesses = UserBusiness::getAllBusinessIdByOwner(Helper::userId());
+        $my_terminals = TerminalUser::getTerminalAssignement(Helper::userId());
+        $assigned_businesses = [];
+        if (count($my_terminals) > 0){
+            foreach($my_terminals as $terminal){
+                $bid = Business::getBusinessIdByTerminalId($terminal['terminal_id']);
+                if(!isset($assigned_businesses[$bid])){
+                    $assigned_businesses[$bid] = [
+                        'business_id' => $bid,
+                        'name' => Business::name($bid),
+                        'terminals' => [
+                            [
+                                'terminal_id' => $terminal['terminal_id'],
+                                'name' => Terminal::name($terminal['terminal_id'])
+                            ]
+                        ]
+                    ];
+                }else{
+                    array_push($assigned_businesses[$bid]['terminals'], [
+                        'terminal_id' => $terminal['terminal_id'],
+                        'name' => Terminal::name($terminal['terminal_id'])
+                    ]);
+                }
+            }
+        }
 
+        //dd($assigned_businesses);
         if (count($businesses) > 0){
             $business = $businesses[0];
             $business_id = $business->business_id;
@@ -24,9 +49,11 @@ class BusinessController extends BaseController{
             return View::make('business.my-business')
                 ->with('user_id', Helper::userId())
                 ->with('business_id', $business_id)
+                ->with('assigned_businesses', $assigned_businesses)
                 ->with('first_terminal', $terminals[0]['terminal_id']);
         } else {
-            return View::make('business.my-business');
+            return View::make('business.my-business')
+                ->with('assigned_businesses', $assigned_businesses);
         }
     }
 
