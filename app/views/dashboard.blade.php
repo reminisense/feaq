@@ -48,7 +48,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> My Account <b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><a href="#">Edit my Profile</a></li>
-              <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+              {{--<li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>--}} <!-- RDH Removed since this does nothing -->
             </ul>
           </li>
         </ul>
