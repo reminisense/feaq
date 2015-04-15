@@ -193,14 +193,18 @@ a {
   margin-top: 9px;
   margin-bottom: 9px;
 }
+.navbar-default .navbar-nav>li>a {
+    color: #fff;
+}
 .navbar-nav>li>a {
   padding-top: 8px;
   padding-bottom: 8px;
-  color: #fff!important;
+  color: #fff;
 }
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover,
 .nav>li>a:hover {
   background: none;
-  color: #ff925b!important;
+  color: #ff925b;
 }
 
 .credit {
@@ -546,6 +550,7 @@ body.disabled-onepage-scroll .main section.page3 .page_container {
   font-weight: normal;
   color: #fff;
 }
+
 .btn-fb,
 .btn-outline { 
   -webkit-border-radius: 5px;
@@ -635,4 +640,7 @@ footer {
 footer p {
     margin-bottom: 0;
     font-size: 13px;
+}
+.btn-fb:hover {
+    color: #fff!important;
 }

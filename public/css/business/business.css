@@ -145,3 +145,11 @@
 .biz-navs .form-group .btn-group .btn .caret {
     text-align: right;
 }
+.biz-navs .nav-tabs>li.active>a:hover,
+.biz-navs .nav>li>a:hover {
+    border: 1px solid #00ba8b;
+
+}
+.address {
+    margin-bottom: 15px!important;
+}
