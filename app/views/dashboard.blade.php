@@ -12,10 +12,16 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <link rel='stylesheet' type='text/css' href='/css/global.css'>
   <link rel='stylesheet' type='text/css' href='/css/dashboard/responsive.css'>
+  <link media="all" type="text/css" rel="stylesheet" href="/css/intlTelInput.css">
+  <link rel='stylesheet' type='text/css' href='/css/modal.css'>
 
   @yield('styles')
 
   <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+  <script src="/js/jquery.geocomplete.js"></script>
+  <script src="/js/jquery.timepicker.min.js"></script>
+  <script src="/js/intlTelInput.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
   <script src="/js/ngFeatherQ.js"></script>
@@ -48,7 +54,7 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> My Account <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="#">Edit my Profile</a></li>
+              <li><a id="edit_profile" href="#">Edit My Profile</a></li>
               {{--<li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>--}} <!-- RDH Removed since this does nothing -->
             </ul>
           </li>
@@ -62,6 +68,8 @@
     <p class="text-center">&copy; 2015 : Reminisense Corp.</p>
   </div>
 </footer>
+@include('modals.user.edit-user-modal')
+@include('modals.business.verify-user-modal')
 @yield('scripts'){{-- ARA scripts at the bottom so html can load before js --}}
 </body>
 </html>

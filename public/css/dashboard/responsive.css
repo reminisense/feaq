@@ -131,6 +131,9 @@
     .navbar-inverse .navbar-nav>.open>a {
         background: none;
     }
+    #add-business {
+        width: 285px;
+    }
 }
 @media (max-width: 320px) {
     .filterwrap {
@@ -160,15 +163,8 @@
     #search-keyword {
         text-align: center!important;
     }
-    #time_open-filter,
-    .filterwrap .btn-group:nth-child(n+1){
-        border-top-right-radius: 0px!important;
-    }
+
     .cancel-adduser, .cancel-add-terminal {
         margin-top: 2px;
-    }
-    .btn-group>.btn:first-child,
-    .filterwrap .btn-group:first-child{
-        border-top-right-radius: 4px!important;
     }
 }

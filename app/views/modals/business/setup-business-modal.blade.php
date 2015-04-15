@@ -9,7 +9,6 @@
                 <form id="add_business_form" class="mb30 clearfix" action="/business/setup-business" method="post">
                     <input type="hidden" class="user_id" name="user_id" value="" />
                     <div class="form-group">
-
                         <div class="col-md-6">
                             <label>Business Name</label>
                             <input type="text" class=" form-control" placeholder="ex: ABC Company" id="business_name" name="business_name">

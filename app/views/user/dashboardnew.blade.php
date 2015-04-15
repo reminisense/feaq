@@ -10,6 +10,7 @@
 
 @section('scripts')
     <script src="/js/search-business.js"></script>
+    <script type="text/javascript" src="js/dashboard/dashboard.js"></script>
 @stop
 
 @section('container')
