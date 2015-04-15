@@ -9,7 +9,7 @@
     <link rel="shortcut icon" href="images/favicon.png">
 
     <title>FeatherQ</title>
-    <link rel="stylesheet" type="text/css" href="css/ngCloak.css">
+    <link rel="stylesheet" type="text/css" href="/css/ngCloak.css">
     <link rel="shortcut icon" id="favicon" href="favicon.png">
     <link rel='stylesheet' type='text/css' href='css/bootstrap.min.css'>
     <link rel='stylesheet' type='text/css' href='css/homepage/style.css'>
