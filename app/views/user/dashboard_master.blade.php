@@ -10,6 +10,8 @@
 
     <title>@yield('subtitle') | FeatherQ</title>
 
+    <link rel="stylesheet" type="text/css" href="/css/ngCloak.css">
+
     {{--{{ HTML::style('css/bootstrap.min.css') }}--}}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
@@ -59,7 +61,7 @@
 </head>
 <!-- NAVBAR
   ================================================== -->
-<body cz-shortcut-listen="true" ng-app="FeatherQ">
+<body cz-shortcut-listen="true" ng-app="FeatherQ" ng-cloak>
 <!-- Static navbar -->
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container">

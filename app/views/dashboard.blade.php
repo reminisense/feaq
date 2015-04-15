@@ -7,6 +7,7 @@
   <meta name="description" content="FeatherQ online Queueing software" />
   <meta name="author" content="">
   <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel='stylesheet' type='text/css' href='/css/ngCloak.css'>
   <link rel="shortcut icon" id="favicon" href="{{URL::to('/images/favicon.png')}}">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <link rel='stylesheet' type='text/css' href='/css/global.css'>
@@ -28,7 +29,7 @@
   <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 </head>
 
-<body ng-app="FeatherQ" @if(isset($body)) {{ 'id="' . $body . '"'  }}@endif >
+<body ng-app="FeatherQ" ng-cloak @if(isset($body)) {{ 'id="' . $body . '"'  }}@endif >
   <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">
     <div class="container">
       <div class="navbar-header">
