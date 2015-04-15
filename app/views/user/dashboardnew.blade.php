@@ -23,32 +23,32 @@
           <div class="clearfix">
               <div class="filterwrap col-md-offset-2 col-md-8">
                 <div class="row">
-                  <div class="col-md-2 col-sm-2 col-xs-4 btn-group">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle ng-binding" data-toggle="dropdown">
-                      @{{ location_filter }}
-                      <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupDrop1" id="location-filter">
-                      <li ng-repeat="location in locations" ng-click="locationFilter(location.code);"><a href="#">@{{ location.code }}</a></li>
-
-                  </div>
-                  <div class="col-md-2 col-sm-2 col-xs-4 btn-group">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle ng-binding" data-toggle="dropdown">
-                      @{{ industry_filter }}
-                      <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupDrop1">
-                      <li ng-repeat="industry in industries" ng-click="industryFilter(industry.code);"><a href="#">@{{ industry.code }}</a></li>
-                    </ul>
-                  </div>
-                  <div class="col-md-2 col-sm-8 col-xs-4 btn-group">
-                    <input type="text" id="time_open-filter" name="time_open" placeholder="Time Open" class="timepicker form-control">
-                  </div>
-                  <form class="ng-pristine ng-valid">
-                    <input class="col-md-4 col-sm-4 col-xs-12 timepicker" type="text" placeholder="ie: Ng Khai Devt Corp" id="search-keyword">
-                    <div class="col-md-2 col-sm-2 col-xs-12">
-                      <button type="button" class=" btn btn-orange btn-md" ng-click="searchBusiness(location_filter, industry_filter);">SEARCH</button>
-                    </div>
+                    <form ng-submit="searchBusiness(location_filter, industry_filter)">
+                      <div class="col-md-2 col-sm-2 col-xs-4 btn-group">
+                        <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle ng-binding" data-toggle="dropdown">
+                          @{{ location_filter }}
+                          <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupDrop1" id="location-filter">
+                          <li ng-repeat="location in locations" ng-click="locationFilter(location.code);"><a href="#">@{{ location.code }}</a></li>
+                            </ul>
+                      </div>
+                      <div class="col-md-2 col-sm-2 col-xs-4 btn-group">
+                        <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle ng-binding" data-toggle="dropdown">
+                          @{{ industry_filter }}
+                          <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupDrop1">
+                          <li ng-repeat="industry in industries" ng-click="industryFilter(industry.code);"><a href="#">@{{ industry.code }}</a></li>
+                        </ul>
+                      </div>
+                      <div class="col-md-2 col-sm-8 col-xs-4 btn-group">
+                        <input type="text" id="time_open-filter" name="time_open" placeholder="Time Open" class="timepicker form-control">
+                      </div>
+                        <input class="col-md-4 col-sm-4 col-xs-12 timepicker" type="text" placeholder="ie: Ng Khai Devt Corp" id="search-keyword" ng-model="search_keyword">
+                        <div class="col-md-2 col-sm-2 col-xs-12">
+                          <input type="submit" class=" btn btn-orange btn-md" value="SEARCH">
+                        </div>
                   </form>
                 </div>
               </div>

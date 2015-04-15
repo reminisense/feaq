@@ -22,7 +22,7 @@
                 "industry": industry,
                 "time_open": time_open
             }).success(function(response) {
-                $('#active-businesses').hide();
+                $('#biz-grid').hide();
                 $scope.businesses = new Array();
                 var length_limit = 7;
                 for (var i = 0; i < response.length; i++) {
@@ -41,7 +41,7 @@
                     length_limit = response.length;
                 }
                 $scope.searchLabel= 'Showing Top '+ length_limit +' Result(s)';
-                $('#business-search').show();
+                $('#search-grid').show();
             });
         });
 

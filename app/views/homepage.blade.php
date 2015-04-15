@@ -638,7 +638,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="active-businesses" style="display: block;">
+                <div id="biz-grid" style="display: block;">
                     @if(count($active_businesses) > 0)
                         @foreach($active_businesses as $business)
                             <div class="col-md-3 col-xs-12 col-sm-6">
@@ -654,7 +654,7 @@
                         @endforeach
                     @endif
                 </div>
-                <div id="business-search" style="display: none;">
+                <div id="search-grid" style="display: none;">
                     <p id="search-label" class="heading">@{{ searchLabel }}</p>
                     <div class="col-md-3 col-xs-12 col-sm-6" ng-repeat="business in businesses">
                         <div class="boxed boxed-single clickable">
