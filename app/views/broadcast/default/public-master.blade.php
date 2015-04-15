@@ -10,6 +10,7 @@
 
     <title>{{ $business_name }} | FeatherQ</title>
 
+    <link rel="stylesheet" type="text/css" href="/css/ngCloak.css">
     <link href="/css/broadcast/default/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
     <link href="/css/broadcast/default/dashboard.css" rel="stylesheet" type="text/css" media="all">
     <link href="/css/broadcast/default/responsive.css" rel="stylesheet" type="text/css" media="all">
@@ -36,7 +37,7 @@
 </head>
 <!-- NAVBAR
   ================================================== -->
-<body cz-shortcut-listen="true" id="biz-broadcast" ng-app="PublicBroadcast">
+<body cz-shortcut-listen="true" id="biz-broadcast" ng-app="PublicBroadcast" ng-cloak>
 <div id="business-id" business_id="{{ $business_id }}"></div>
 <!-- Static navbar -->
 <nav class="navbar navbar-default navbar-static-top">

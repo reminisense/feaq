@@ -9,6 +9,7 @@
     <link rel="shortcut icon" href="/images/favicon.png">
     <title>{{ $business_name }} | FeatherQ</title>
     <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" type="text/css" href="/css/ngCloak.css">
     <link href="/css/broadcast/default/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
     <link href="/css/broadcast/default/broadcast.css" rel="stylesheet" type="text/css" media="all">
     <link href="/css/broadcast/default/responsive.css" rel="stylesheet" type="text/css" media="all">
@@ -28,7 +29,7 @@
 </head>
 <!-- NAVBAR
   ================================================== -->
-<body cz-shortcut-listen="true" id="broadcast" ng-app="BusinessBroadcast">
+<body cz-shortcut-listen="true" id="broadcast" ng-app="BusinessBroadcast" ng-cloak>
 <div id="business-id" business_id="{{ $business_id }}"></div>
 
 <div class="top">

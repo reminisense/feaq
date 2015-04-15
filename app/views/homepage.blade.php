@@ -9,6 +9,7 @@
     <link rel="shortcut icon" href="images/favicon.png">
 
     <title>FeatherQ</title>
+    <link rel="stylesheet" type="text/css" href="/css/ngCloak.css">
     <link rel="shortcut icon" id="favicon" href="favicon.png">
     <link rel='stylesheet' type='text/css' href='css/bootstrap.min.css'>
     <link rel='stylesheet' type='text/css' href='css/homepage/style.css'>
@@ -29,7 +30,7 @@
     {{ HTML::script('js/search-business.js') }}
 </head>
 
-<body ng-app="FeatherQ">
+<body ng-app="FeatherQ" ng-cloak>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
