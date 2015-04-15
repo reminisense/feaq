@@ -19,7 +19,7 @@
     <script type="text/javascript" src="js/jquery1.11.2.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
 
-    <script type="text/javascript" src="js/homepage/custom.js"></script>
+    <script type="text/javascript" src="js/custom.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script> {{-- RDH Using CDN for Angular JS File --}}
     {{ HTML::script('js/ngFeatherQ.js') }}
     {{ HTML::script('js/ngFacebook.js') }}
