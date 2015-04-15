@@ -1,14 +1,13 @@
-
-    <div class="col-md-12">
-        <h5>BUSINESS DETAILS</h5>
+    <h5 class="col-md-12">BUSINESS DETAILS</h5>
+    <div class="col-md-6">
         <small>Business Name</small>
         <input type="text" class=" form-control" value="@{{ business_name }}" ng-model="business_name">
     </div>
-    <div class="col-md-12">
+    <div class="col-md-6">
         <small>Business Address</small>
         <input type="text" class="form-control" value="@{{ business_address }}" ng-model="business_address" ng-autocomplete options="options" details="details">
     </div>
-    <div class="col-md-12">
+    <div class="col-md-6">
         <small>Facebook URL</small>
         <input type="text" class=" form-control" value="@{{ facebook_url }}" placeholder="Add Your Facebook Page!" ng-model="facebook_url">
     </div>
