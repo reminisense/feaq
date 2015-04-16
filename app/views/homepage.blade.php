@@ -628,7 +628,7 @@
                                                ng-model="time_open"
                                                placeholder="8:00 AM"
                                                class="timepicker form-control"
-                                               style="width: 145px; display: none;"/>
+                                               style="display: none;"/>
                                     </div>
                                 </div>
                                 <span class="searchblock">
