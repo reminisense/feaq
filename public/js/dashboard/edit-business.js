@@ -74,7 +74,7 @@ var eb = {
 
         terminals: {
             terminal_create_url : $('#terminal-create-url').val() + '/',
-            terminal_edit_url : $('#terminal-edit-url').val() + '/',
+            terminal_edit_url : $('#terminal-edit-url').val(),
             terminal_delete_url : $('#terminal-delete-url').val() + '/',
             terminal_assign_url : $('#terminal-assign-url').val() + '/',
             terminal_unassign_url : $('#terminal-unassign-url').val() + '/',
