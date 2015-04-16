@@ -45,23 +45,23 @@
                 <p class="title">SMS Notification Settings
                 <span class="glyphicon glyphicon-info-sign" style="color:#337ab7;" title="When to notify users via SMS."></span></p>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 col-xs-12">
                 <input type="checkbox" ng-model="sms_current_number">
                 Priority Number is called
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 col-xs-12">
                 <input type="checkbox"  ng-model="sms_1_ahead">
                 Priority Number is next in queue
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 col-xs-12">
                 <input type="checkbox"  ng-model="sms_5_ahead">
                  5 Numbers ahead in queue
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 col-xs-12">
                  <input type="checkbox"  ng-model="sms_10_ahead">
                              10 Numbers ahead in queue
                         </div>
-            <div class="col-md-2">
+            <div class="col-md-2 col-xs-12">
                   <input id="input_sms_field" type="text" ng-model="input_sms_field">
                   <input type="checkbox"  ng-model="sms_blank_ahead">
                   Numbers ahead in queue.

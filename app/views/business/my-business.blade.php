@@ -51,11 +51,11 @@ My Business
                             <div class="biz-terminals">
                                 <div class="clearfix">
                                     <div ng-repeat="terminal in terminals" >
-                                        <a ng-if="isAssignedUser(user_id, terminal.terminal_id)" href="{{ url('/processqueue/terminal') }}/@{{ terminal.terminal_id }}" target="_blank" style="padding: 8px;">
+                                        <a ng-if="isAssignedUser(user_id, terminal.terminal_id)" href="{{ url('/processqueue/terminal') }}/@{{ terminal.terminal_id }}" target="_blank">
                                             <span class=" glyphicon glyphicon-ok "></span>
                                             <small>@{{ terminal.name }}</small>
                                         </a>
-                                        <a ng-if="!isAssignedUser(user_id, terminal.terminal_id)" href="#" class="not-active" style="padding: 8px;">
+                                        <a ng-if="!isAssignedUser(user_id, terminal.terminal_id)" href="#" class="not-active">
                                             <span class=" glyphicon glyphicon-ban-circle"></span>
                                             <small>@{{ terminal.name }}</small>
                                         </a>

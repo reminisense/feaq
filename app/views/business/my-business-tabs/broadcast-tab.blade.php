@@ -8,29 +8,29 @@
 <div class="col-md-12">
     <div class="well">
         <div class="row">
-            <div class="col-md-3 col-xs-6 mb20">
+            <div class="col-md-3 col-xs-12 mb20">
                 <h4>Image Advertisement Options:</h4>
                 <small>Put a sliding images on your broadcast screen</small>
             </div>
-            <div class="col-md-3 col-xs-6">
+            <div class="col-md-3 col-xs-12">
                 <img src="/images/icon-b1.jpg" class="mb10 img-responsive broadcast-preview">
                 <span class="inline-btns">
                     <p class="orange h5 nomg 1-1 activated" style="display: none;">Active</p>
-                    <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 1-1 theme-btn" ng-click="activateTheme('1-1', business_id, show_called_only)">Activate</a>
+                    <a href="#" class="mb20 btn-boxy btn-xs btn-adduser btn-primary 1-1 theme-btn" ng-click="activateTheme('1-1', business_id, show_called_only)">Activate</a>
                 </span>
             </div>
-            <div class="col-md-3 col-xs-6">
+            <div class="col-md-3 col-xs-12">
                 <img src="/images/icon-b2.jpg" class="mb10 img-responsive broadcast-preview">
                 <span class="inline-btns">
                     <p class="orange h5 nomg 1-4 activated" style="display: none;">Active</p>
-                    <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 1-4 theme-btn" ng-click="activateTheme('1-4', business_id, show_called_only)">Activate</a>
+                    <a href="#" class="mb20 btn-boxy btn-xs btn-adduser btn-primary 1-4 theme-btn" ng-click="activateTheme('1-4', business_id, show_called_only)">Activate</a>
                 </span>
             </div>
-            <div class="col-md-3 col-xs-6">
+            <div class="col-md-3 col-xs-12">
                 <img src="/images/icon-b3.jpg" class="mb10 img-responsive broadcast-preview">
                 <span class="inline-btns">
                     <p class="orange h5 nomg 1-6 activated" style="display: none;">Active</p>
-                    <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 1-6 theme-btn" ng-click="activateTheme('1-6', business_id, show_called_only)">Activate</a>
+                    <a href="#" class="mb20 btn-boxy btn-xs btn-adduser btn-primary 1-6 theme-btn" ng-click="activateTheme('1-6', business_id, show_called_only)">Activate</a>
                 </span>
             </div>
         </div>
@@ -41,25 +41,25 @@
 <div class="col-md-12">
     <div class="well">
         <div class="row">
-            <div class="col-md-3 col-xs-6">
+            <div class="col-md-3 col-xs-12">
                 <h4>Internet TV Options: </h4>
                 <small>Choose a pre-defined TV channel on your broadcast screen</small>
             </div>
-            <div class="col-md-3 col-xs-6">
+            <div class="col-md-3 col-xs-12">
                 <img src="/images/icon-b1.jpg" class="mb10 img-responsive broadcast-preview">
                 <span class="inline-btns">
                     <p class="orange h5 nomg 2-1 activated" style="display: none;">Active</p>
                     <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 2-1 theme-btn" ng-click="activateTheme('2-1', business_id, show_called_only)">Activate</a>
                 </span>
             </div>
-            <div class="col-md-3 col-xs-6">
+            <div class="col-md-3 col-xs-12">
                 <img src="/images/icon-b2.jpg" class="mb10 img-responsive broadcast-preview">
                 <span class="inline-btns">
                     <p class="orange h5 nomg 2-4 activated" style="display: none;">Active</p>
                     <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 2-4 theme-btn" ng-click="activateTheme('2-4', business_id, show_called_only)">Activate</a>
                 </span>
             </div>
-            <div class="col-md-3 col-xs-6">
+            <div class="col-md-3 col-xs-12">
                 <img src="/images/icon-b3.jpg" class="mb10 img-responsive broadcast-preview">
                 <span class="inline-btns">
                     <p class="orange h5 nomg 2-6 activated" style="display: none;">Active</p>
@@ -75,25 +75,25 @@
     <div class="well">
 
         <div class="row">
-            <div class="col-md-3 col-xs-6">
+            <div class="col-md-3 col-xs-12">
                 <h4>Numbers Only Options: </h4>
                 <small>Just show only what matters, queue numbers!</small>
             </div>
-            <div class="col-md-3 col-xs-6">
+            <div class="col-md-3 col-xs-12">
                 <img src="/images/icon-b4.jpg" class="mb10 img-responsive broadcast-preview">
                 <span class="inline-btns">
                     <p class="orange h5 nomg 0-1 activated" style="display: none;">Active</p>
                     <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 0-1 theme-btn" ng-click="activateTheme('0-1', business_id, show_called_only)">Activate</a>
                 </span>
             </div>
-            <div class="col-md-3 col-xs-6">
+            <div class="col-md-3 col-xs-12">
                 <img src="/images/icon-b5.jpg" class="mb10 img-responsive broadcast-preview">
                 <span class="inline-btns">
                     <p class="orange h5 nomg 0-4 activated" style="display: none;">Active</p>
                     <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 0-4 theme-btn" ng-click="activateTheme('0-4', business_id, show_called_only)">Activate</a>
                 </span>
             </div>
-            <div class="col-md-3 col-xs-6">
+            <div class="col-md-3 col-xs-12">
                 <img src="/images/icon-b6.jpg" class="mb10 img-responsive broadcast-preview">
                 <span class="inline-btns">
                     <p class="orange h5 nomg 0-6 activated" style="display: none;">Active</p>
