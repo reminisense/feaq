@@ -111,8 +111,8 @@
         height: inherit!important;
         padding-bottom: 40px;
     }
-    .edit-terminal-button, .delete-terminal-button {
-        display: block!important;
+    .edit-terminal-button, .delete-terminal-button, .update-terminal-button {
+        display: block;
         margin-top: 2px!important;
         width: 90px;
     }
@@ -137,6 +137,19 @@
     .navbar-brand {
         padding-left: 0!important;
     }
+    /* @CSD 04162015 */
+    .processq .dropdown-wrapper {
+        margin-right: 4px!important;
+    }
+
+    .processq-box .q-actions .btn-orange {
+        margin-top: 5px!important;
+    }
+
+    .inline-btns a {
+        margin-top: 2px!important;
+    }
+    /* @CSD End */
 }
 @media (max-width: 320px) {
     .filterwrap {
@@ -186,5 +199,9 @@
     .dropdown-menu li {
         text-align: center;
     }
+
+
+
+
 
 }

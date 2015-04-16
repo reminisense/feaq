@@ -6,6 +6,8 @@ $(document).ready(function(){
     $("#edit_user_location").geocomplete();
     $("#business_location").geocomplete();
 
+    $('.timepicker').timepicker({});
+
     $.get('/user/user-status', function(){
 
     }).success(function(data){
