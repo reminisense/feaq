@@ -3,6 +3,8 @@
  */
 $(document).ready(function(){
     $("#user_location").geocomplete();
+    $("#edit_user_location").geocomplete();
+    $("#business_location").geocomplete();
 
     $.get('/user/user-status', function(){
 
