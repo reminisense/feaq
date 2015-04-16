@@ -79,9 +79,9 @@ h5.heading {
   padding: 15px 0;
 }
 #broadcast .footer {
-  background-color: #262a31;
+  background-color: #d6d7d7;
   padding: 18px 0;
-  color: #fff;
+  color: #333;
   font-size: 12px;
   text-align: center;
   margin-top: 0px;
@@ -100,19 +100,35 @@ h5.heading {
   background-color: #746ca8;
   color: #fff;
 }
+
 #broadcast .broadcast .numbers {
   background-color: #e7e7e7;
-  padding: 35px 15px;
-  font-size: 200px;
+  /*padding: 35px 15px;
+  font-size: 200px;*/
   font-family: 'ralewaybold';
   text-align: center;
   margin: 1px;
+    padding: 25px 0px;
+    height: 320px;
+    overflow: hidden;
 }
 #broadcast .qrwrap {
-  background-color: #e7e7e7;
-  padding: 25px 15px 10px;
-  min-height: 338px;
+    background-color: #e7e7e7;
+    height: 320px;
 }
+.boxed .broadcast .numbers h1 {
+    font-size: 14vmin;
+    font-family: 'ralewaysemibold';
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    margin-top: -7vmin;
+    width: 100%;
+}
+.bcast-big .terminal {
+    font-size: 3vmin;
+}
+
 #broadcast .qrwrap p {
   font-size: 20px;
 }
@@ -126,6 +142,7 @@ h5.heading {
   padding-right: 0px;
 }
 #broadcast .qrwrap .orange {
+    padding-top: 15px;
   font-family: 'ralewaybold';
   font-size: 50px;
 }
@@ -181,16 +198,7 @@ h5.heading {
 .three-nums .qrwrap p {
   font-size: 30px!important;
 }
-.boxed .broadcast .numbers .terminal {
-  font-size: 13px;
-  font-family: 'ralewaysemibold';
-  color: #fff;
-  margin-bottom: 0;
-}
-.boxed .broadcast .numbers .terminal.none,
-.boxed .broadcast .numbers .terminal {
-  height: 18px;
-}
+
 
 .boxed .body.broadcast {
   position: relative;
@@ -210,9 +218,7 @@ h5.heading {
   padding: 15px;
 }
 
-.bcast-big .terminal {
-  font-size: 22px!important;
-}
+
 .boxed .head {
   background-color: #fff;
   padding: 18px 20px;

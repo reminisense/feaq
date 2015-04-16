@@ -11,38 +11,38 @@
                         <p class="orange nomg">On the go?</p>
                         <p class="nomg">Scan this QR Code on your mobile phone</p>
                         <div class="text-center">
-                            <img class="qrcode" src="/images/broadcast/default/qrcode.jpg" />
+                            <img width="180" class="qrcode" src="/images/broadcast/default/qrcode.jpg" />
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="numbers t@{{ rank1 }}">
                         <p class="terminal">@{{ name1 }}</p>
-                        @{{ box1 }}
+                        <h1>@{{ box1 }}</h1>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="numbers t@{{ rank2 }}">
                         <p class="terminal">@{{ name2 }}</p>
-                        @{{ box2 }}
+                        <h1>@{{ box2 }}</h1>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="numbers t@{{ rank3 }}">
                         <p class="terminal">@{{ name3 }}</p>
-                        @{{ box3 }}
+                        <h1>@{{ box3 }}</h1>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="numbers t@{{ rank4 }}">
                         <p class="terminal">@{{ name4 }}</p>
-                        @{{ box4 }}
+                        <h1>@{{ box4 }}</h1>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="numbers t@{{ rank5 }}">
                         <p class="terminal">@{{ name5 }}</p>
-                        @{{ box5 }}
+                        <h1>@{{ box5 }}</h1>
                     </div>
                 </div>
 
