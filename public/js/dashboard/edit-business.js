@@ -11,9 +11,10 @@ $(document).ready(function(){
 //        $('#editbiz-tabs li.active a').trigger('click'); //ARA Added to execute functions triggered by clicking tabs
 //    });
 
-    $('body').on('click', '#btn-addterminal',function () {
+    $('body').on('click', '#btn-addterminal',function (e) {
         $('#inputterminal').show();
         $('#btn-addterminal').hide();
+        e.preventDefault();
     });
 
     $('body').on('click', '.btn-adduser', function(e){
@@ -236,21 +237,23 @@ var eb = {
             return assigned;
         }
 
-        $scope.deleteTerminal = function(terminal_id){
+        $scope.deleteTerminal = function($event, terminal_id){
             $http.get(eb.urls.terminals.terminal_delete_url + terminal_id)
                 .success(function(response){
                     setBusinessFields(response.business);
                 });
+            $event.preventDefault();
         }
 
-        $scope.editTerminal = function(terminal_id){
+        $scope.editTerminal = function($event, terminal_id){
             $('.terminal-name-display[terminal_id='+terminal_id+']').hide();
             $('.edit-terminal-button[terminal_id='+terminal_id+']').hide();
             $('.terminal-name-update[terminal_id='+terminal_id+']').show();
             $('.update-terminal-button[terminal_id='+terminal_id+']').show();
+            $event.preventDefault();
         }
 
-        $scope.updateTerminal = (function(terminal_id) {
+        $scope.updateTerminal = (function($event, terminal_id) {
             var new_name = $('.terminal-name-update[terminal_id='+terminal_id+']').val();
             $('.terminal-name-display[terminal_id='+terminal_id+']').text(new_name);
             $http.post(eb.urls.terminals.terminal_edit_url, {
@@ -269,6 +272,7 @@ var eb = {
             }).error(function(response) {
                 alert('Something went wrong..');
             });
+            $event.preventDefault();
         });
 
         $scope.createTerminal = function(terminal_name){
