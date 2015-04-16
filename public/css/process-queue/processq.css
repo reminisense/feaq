@@ -74,6 +74,7 @@
 .processq-box .btn-default {
     padding-left: 20px;
     padding-right: 20px;
+    margin-bottom: 5px; /*ARA Process Queue - Buttons (MOBILE)*/
 }
 .processq-box .btn-default:hover {
     background-color: #1081a8;

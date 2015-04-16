@@ -8,6 +8,7 @@ Processs Queue > {{ $business_name }}
 @section('styles')
 <link media="all" type="text/css" rel="stylesheet" href="/css/process-queue/processq.css">
 <link media="all" type="text/css" rel="stylesheet" href="/css/modal.css">
+<link media="all" type="text/css" rel="stylesheet" href="/css/dashboard/dashboard.css">
 <link media="all" type="text/css" rel="stylesheet" href="/css/jquery.timepicker.min.css">
 @stop
 
@@ -15,6 +16,7 @@ Processs Queue > {{ $business_name }}
 <script src="/js/process-queue/process-queue.js"></script>
 <script src="/js/process-queue/process-queue-angular.js"></script>
 <script src="/js/process-queue/issue-number-angular.js"></script>
+<script src="/js/dashboard/dashboard.js"></script>
 
 {{--<script src="/js/google-analytics/googleAnalytics.js"></script>--}}
 {{--<script src="/js/google-analytics/ga-process_queue.js"></script>--}}
@@ -37,7 +39,7 @@ Processs Queue > {{ $business_name }}
     <div class="row page-header">
         <div class="col-md-offset-1 col-md-7">
             <p>Processing Queues for:</p>
-            <h2>{{ $business_name }}</h2>
+            <h2>{{ $business_name }} - {{ $terminal_name }}</h2>
         </div>
         <div class="col-md-3">
             <a id="view-broadcast" target="_blank" href="{{ url('/broadcast/business/' . $business_id) }}">View Broadcast <br>Screen</a>

@@ -4,7 +4,6 @@
 
 //load functions
 $(document).ready(function(){
-    $('#edit_profile').remove();
     pq.jquery_functions.load_switch_tabs();
     pq.jquery_functions.load_select_number();
     pq.jquery_functions.load_default_navbar_link();
