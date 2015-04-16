@@ -134,6 +134,18 @@ var eb = {
         my_business_link_active : function(){
             $('#my-business').addClass('active');
             $('#search-business').removeClass('active');
+        },
+
+        clear_terminal_delete_msg : function(){
+            setTimeout(function(){
+                $("#terminal-delete-error").fadeOut('slow', function(){
+                    var scope = angular.element($("#editBusiness")).scope();
+                    scope.$apply(function(){
+                        scope.terminal_delete_error = null;
+                    });
+                    $("#terminal-delete-error").show();
+                });
+            }, 3000);
         }
     }
 };
@@ -193,7 +205,6 @@ var eb = {
             $scope.terminals = business.terminals;
             $scope.analytics = business.analytics;
             $scope.terminal_delete_error = business.error ? business.error : null;
-
        }
 
         $scope.unassignFromTerminal = function(user_id, terminal_id){
@@ -241,6 +252,7 @@ var eb = {
             $http.get(eb.urls.terminals.terminal_delete_url + terminal_id)
                 .success(function(response){
                     setBusinessFields(response.business);
+                    eb.jquery_functions.clear_terminal_delete_msg();
                 });
             $event.preventDefault();
         }
@@ -268,6 +280,7 @@ var eb = {
                     $('.terminal-error-message[terminal_id=' + terminal_id + ']').hide();
                 }else{
                     $('.terminal-error-message[terminal_id=' + terminal_id + ']').show();
+                    setTimeout(function(){$('.terminal-error-message[terminal_id=' + terminal_id + ']').fadeOut('slow')}, 3000);
                 }
             }).error(function(response) {
                 alert('Something went wrong..');
@@ -281,6 +294,7 @@ var eb = {
                 .success(function(response){
                     if(response.status == 0){
                         $('.terminal-error-msg').show();
+                        setTimeout(function(){$('.terminal-error-msg').fadeOut('slow')}, 3000);
                     }else{
                         setBusinessFields(response.business);
                         $scope.terminal_name = '';
