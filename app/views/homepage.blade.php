@@ -625,6 +625,7 @@
                                         </button>
                                         <input type="text" id="time_open-filter"
                                                name="time_open"
+                                               ng-model="time_open"
                                                placeholder="8:00 AM"
                                                class="timepicker form-control"
                                                style="width: 145px; display: none;"/>
