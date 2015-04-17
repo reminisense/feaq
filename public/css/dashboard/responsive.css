@@ -223,8 +223,8 @@
         height: inherit;
     }
 
-
-
-
-
+    /* @CSD 04172015 */
+    .processq .dropdown-wrapper {
+        margin-right: 3px!important;
+    }
 }

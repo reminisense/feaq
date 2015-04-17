@@ -795,6 +795,7 @@
 
 <script src="js/wow.min.js"></script>
 <script>
+    $('#time_open-filter').timeEntry({ampmPrefix: ' ', spinnerImage: ''});
     new WOW().init();
 </script>
 </body>

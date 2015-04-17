@@ -22,6 +22,8 @@
   <script src="/js/jquery.geocomplete.js"></script>
   <script src="/js/jquery.timepicker.min.js"></script>
   <script src="/js/intlTelInput.js"></script>
+  <script src="/js/jquery.plugin.js"></script>
+  <script src="/js/jquery.timeentry.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
   <script src="/js/ngFeatherQ.js"></script>
