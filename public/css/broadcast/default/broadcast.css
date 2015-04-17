@@ -1,50 +1,54 @@
+@font-face {
+    font-family: 'ralewayregular';
+    src: url('/fonts/broadcast/default/raleway-regular-webfont.eot');
+    src: url('/fonts/broadcast/default/raleway-regular-webfont.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/broadcast/default/raleway-regular-webfont.woff2') format('woff2'),
+    url('/fonts/broadcast/default/raleway-regular-webfont.woff') format('woff'),
+    url('/fonts/broadcast/default/raleway-regular-webfont.ttf') format('truetype'),
+    url('/fonts/broadcast/default/raleway-regular-webfont.svg#ralewayregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'ralewaybold';
+    src: url('/fonts/broadcast/default/raleway-bold-webfont.eot');
+    src: url('/fonts/broadcast/default/raleway-bold-webfont.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/broadcast/default/raleway-bold-webfont.woff2') format('woff2'),
+    url('/fonts/broadcast/default/raleway-bold-webfont.woff') format('woff'),
+    url('/fonts/broadcast/default/raleway-bold-webfont.ttf') format('truetype'),
+    url('/fonts/broadcast/default/raleway-bold-webfont.svg#ralewaybold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'ralewaysemibold';
+    src: url('/fonts/broadcast/default/raleway-semibold-webfont.eot');
+    src: url('/fonts/broadcast/default/raleway-semibold-webfont.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/broadcast/default/raleway-semibold-webfont.woff2') format('woff2'),
+    url('/fonts/broadcast/default/raleway-semibold-webfont.woff') format('woff'),
+    url('/fonts/broadcast/default/raleway-semibold-webfont.ttf') format('truetype'),
+    url('/fonts/broadcast/default/raleway-semibold-webfont.svg#ralewaysemibold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'ralewaymedium';
+    src: url('/fonts/broadcast/default/raleway-medium-webfont.eot');
+    src: url('/fonts/broadcast/default/raleway-medium-webfont.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/broadcast/default/raleway-medium-webfont.woff2') format('woff2'),
+    url('/fonts/broadcast/default/raleway-medium-webfont.woff') format('woff'),
+    url('/fonts/broadcast/default/raleway-medium-webfont.ttf') format('truetype'),
+    url('/fonts/broadcast/default/raleway-medium-webfont.svg#ralewaymedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html,body {
+    height: 100%!important;
+}
 body {
   background-color: #e9e9e8;
   font-family: 'ralewayregular';
-}
-@font-face {
-  font-family: 'ralewayregular';
-  src: url('/fonts/broadcast/default/raleway-regular-webfont.eot');
-  src: url('/fonts/broadcast/default/raleway-regular-webfont.eot?#iefix') format('embedded-opentype'),
-  url('/fonts/broadcast/default/raleway-regular-webfont.woff2') format('woff2'),
-  url('/fonts/broadcast/default/raleway-regular-webfont.woff') format('woff'),
-  url('/fonts/broadcast/default/raleway-regular-webfont.ttf') format('truetype'),
-  url('/fonts/broadcast/default/raleway-regular-webfont.svg#ralewayregular') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'ralewaybold';
-  src: url('/fonts/broadcast/default/raleway-bold-webfont.eot');
-  src: url('/fonts/broadcast/default/raleway-bold-webfont.eot?#iefix') format('embedded-opentype'),
-  url('/fonts/broadcast/default/raleway-bold-webfont.woff2') format('woff2'),
-  url('/fonts/broadcast/default/raleway-bold-webfont.woff') format('woff'),
-  url('/fonts/broadcast/default/raleway-bold-webfont.ttf') format('truetype'),
-  url('/fonts/broadcast/default/raleway-bold-webfont.svg#ralewaybold') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'ralewaysemibold';
-  src: url('/fonts/broadcast/default/raleway-semibold-webfont.eot');
-  src: url('/fonts/broadcast/default/raleway-semibold-webfont.eot?#iefix') format('embedded-opentype'),
-  url('/fonts/broadcast/default/raleway-semibold-webfont.woff2') format('woff2'),
-  url('/fonts/broadcast/default/raleway-semibold-webfont.woff') format('woff'),
-  url('/fonts/broadcast/default/raleway-semibold-webfont.ttf') format('truetype'),
-  url('/fonts/broadcast/default/raleway-semibold-webfont.svg#ralewaysemibold') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'ralewaymedium';
-  src: url('/fonts/broadcast/default/raleway-medium-webfont.eot');
-  src: url('/fonts/broadcast/default/raleway-medium-webfont.eot?#iefix') format('embedded-opentype'),
-  url('/fonts/broadcast/default/raleway-medium-webfont.woff2') format('woff2'),
-  url('/fonts/broadcast/default/raleway-medium-webfont.woff') format('woff'),
-  url('/fonts/broadcast/default/raleway-medium-webfont.ttf') format('truetype'),
-  url('/fonts/broadcast/default/raleway-medium-webfont.svg#ralewaymedium') format('svg');
-  font-weight: normal;
-  font-style: normal;
 }
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   font-weight: normal;
@@ -79,9 +83,9 @@ h5.heading {
   padding: 15px 0;
 }
 #broadcast .footer {
-  background-color: #262a31;
+  background-color: #d6d7d7;
   padding: 18px 0;
-  color: #fff;
+  color: #333;
   font-size: 12px;
   text-align: center;
   margin-top: 0px;
@@ -100,19 +104,24 @@ h5.heading {
   background-color: #746ca8;
   color: #fff;
 }
-#broadcast .broadcast .numbers {
-  background-color: #e7e7e7;
-  padding: 35px 15px;
-  font-size: 200px;
-  font-family: 'ralewaybold';
-  text-align: center;
-  margin: 1px;
-}
+
+
 #broadcast .qrwrap {
-  background-color: #e7e7e7;
-  padding: 25px 15px 10px;
-  min-height: 338px;
+    background-color: #e7e7e7;
 }
+/*.boxed .broadcast .numbers h1 {
+    font-size: 14vmin;
+    font-family: 'ralewaysemibold';
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    margin-top: -7vmin;
+    width: 100%;
+}*/
+/*.bcast-big .terminal {
+    font-size: 3vmin;
+}*/
+
 #broadcast .qrwrap p {
   font-size: 20px;
 }
@@ -127,10 +136,9 @@ h5.heading {
 }
 #broadcast .qrwrap .orange {
   font-family: 'ralewaybold';
-  font-size: 50px;
 }
-#broadcast .bcast-big .head h4 {
-  font-size: 30px;
+#broadcast .head h4 {
+  font-size: 45px;
 }
 .container-fluid {
   padding-left: 0;
@@ -148,12 +156,9 @@ h5.heading {
   font-size: 30px!important;
   line-height: 40px!important;
 }
-.three-nums .numbers {
-  font-size: 400px!important;
-}
-.three-nums p.terminal {
+/*.three-nums p.terminal {
   font-size: 50px!important;
-}
+}*/
 .qrcode {
   background-color: #e7e7e7;
   padding: 10px;
@@ -170,27 +175,13 @@ h5.heading {
   margin-bottom: 30px!important;
   margin-top: 40px!important;
 }
-.three-nums .qrwrap,
-.three-nums .numbers  {
-  padding-top: 70px!important;
-  min-height: 70px!important;
-}
 .three-nums .qrwrap p.orange {
   font-size: 60px!important;
 }
 .three-nums .qrwrap p {
   font-size: 30px!important;
 }
-.boxed .broadcast .numbers .terminal {
-  font-size: 13px;
-  font-family: 'ralewaysemibold';
-  color: #fff;
-  margin-bottom: 0;
-}
-.boxed .broadcast .numbers .terminal.none,
-.boxed .broadcast .numbers .terminal {
-  height: 18px;
-}
+
 
 .boxed .body.broadcast {
   position: relative;
@@ -210,9 +201,7 @@ h5.heading {
   padding: 15px;
 }
 
-.bcast-big .terminal {
-  font-size: 22px!important;
-}
+
 .boxed .head {
   background-color: #fff;
   padding: 18px 20px;
@@ -254,7 +243,58 @@ h5.heading {
 }
 
 
+.terminal {font-family: 'ralewayregular';}
 
+
+/*maintain padding on boxes*/
+#broadcast .broadcast .numbers {
+    background-color: #e7e7e7;
+    font-family: 'ralewaybold';
+    text-align: center;
+    margin: 1px;
+    padding: 65px 15px;
+    overflow: hidden;
+}
+
+/*RBM broadcast screens font sizes*/
+body#broadcast .container-fluid { height: 100%; }
+body#broadcast .numbers { width:99.2%; height:100%; min-height:100%;}
+body#broadcast .terminal { line-height:90px; margin-bottom:0; }
+.numbers h1 { font-family:'ralewaysemibold'; color:#fff; width:100%; margin-top:60px; letter-spacing:-4px; }
+
+/*heights on each screen*/
+.onenum .numbers { height:90vh!important; }
+.fournums .numbers { height:42vh!important; padding: 35px 15px!important; }
+.sixnums .numbers { height:42vh!important; padding: 35px 15px!important; }
+.ads-onenum .numbers { height:90vh!important; }
+.ads-fournums .numbers { height:41vh!important; padding: 35px 15px!important; }
+.ads-sixnums .numbers { height:41vh!important; padding: 30px 15px!important;}
+
+/*terminal names*/
+.onenum .terminal { font-size:9vmin; }
+.fournums .terminal { font-size:5.5vmin; }
+.sixnums .terminal { font-size:5.5vmin; }
+.ads-onenum .terminal { font-size:6vmin; }
+.ads-fournums .terminal { font-size:4.5vmin; }
+.ads-sixnums .terminal { font-size:3vmin; }
+
+/*font sizes*/
+.onenum h1 { font-size: 44vmin; }
+.fournums h1 { font-size: 22vmin; margin-top: -10px!important; }
+.sixnums h1 { font-size: 22vmin; margin-top: -10px!important; }
+.ads-onenum h1 { font-size: 28vmin; }
+.ads-fournums h1 { font-size: 21vmin; margin-top: 0px!important; }
+.ads-sixnums h1 { font-size: 15vmin; margin-top: 15px!important; }
+
+/*qr code title fontsize*/
+.onenum .qrwrap p { font-size: 30px!important; margin-bottom: 40px!important; }
+.onenum .qrwrap img {width: 300px;}
+.onenum p.orange { padding-top:65px; font-size:8.5vmin!important; }
+.fournums p.orange { padding-top:35px; font-size:4vmin!important; }
+.sixnums p.orange { padding-top:35px; font-size:4vmin!important; }
+.ads-onenum p.orange { padding-top:65px; font-size:4vmin!important; }
+.ads-fournums p.orange { padding-top:47px; font-size:3.5vmin!important; }
+.ads-sixnums p.orange { padding-top:30px; font-size:3vmin!important; }
 
 
 

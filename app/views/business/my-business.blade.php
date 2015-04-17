@@ -47,15 +47,15 @@ My Business
                     <div class="col-md-3 col-xs-10 ">
                         <a id="view-broadcast" href="{{ url('broadcast/business/' . $business_id) }}" target="_blank">View Broadcast Screen</a>
                         <div id="process-queue" href="#" class="boxed edit-biz process-queue">
-                            <a href="#" style="color: #ffffff">Process <br>Queue</a>
+                            <a href="#" style="">Process <br>Queue</a>
                             <div class="biz-terminals">
                                 <div class="clearfix">
                                     <div ng-repeat="terminal in terminals" >
-                                        <a ng-if="isAssignedUser(user_id, terminal.terminal_id)" href="{{ url('/processqueue/terminal') }}/@{{ terminal.terminal_id }}" target="_blank" style="padding: 8px;">
+                                        <a ng-if="isAssignedUser(user_id, terminal.terminal_id)" href="{{ url('/processqueue/terminal') }}/@{{ terminal.terminal_id }}" target="_blank">
                                             <span class=" glyphicon glyphicon-ok "></span>
                                             <small>@{{ terminal.name }}</small>
                                         </a>
-                                        <a ng-if="!isAssignedUser(user_id, terminal.terminal_id)" href="#" class="not-active" style="padding: 8px;">
+                                        <a ng-if="!isAssignedUser(user_id, terminal.terminal_id)" href="#" class="not-active">
                                             <span class=" glyphicon glyphicon-ban-circle"></span>
                                             <small>@{{ terminal.name }}</small>
                                         </a>

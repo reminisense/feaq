@@ -1,39 +1,39 @@
 <div class="col-md-12">
-    <div class="boxed mb20 bcast-big">
+    <div class="boxed mb20">
         <div class="head">
             <h4 class="text-center">Now Serving</h4>
         </div>
         <div class="body broadcast">
 
-            <div class="row-fluid">
+            <div class="row-fluid sixnums">
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="numbers t@{{ rank1 }}">
                         <p class="terminal">@{{ name1 }}</p>
-                        @{{ box1 }}
+                        <h1>@{{ box1 }}</h1>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="numbers t@{{ rank2 }}">
                         <p class="terminal">@{{ name2 }}</p>
-                        @{{ box2 }}
+                        <h1>@{{ box2 }}</h1>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="numbers t@{{ rank3 }}">
                         <p class="terminal">@{{ name3 }}</p>
-                        @{{ box3 }}
+                        <h1>@{{ box3 }}</h1>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="numbers t@{{ rank4 }}">
                         <p class="terminal">@{{ name4 }}</p>
-                        @{{ box4 }}
+                        <h1>@{{ box4 }}</h1>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="numbers t@{{ rank5 }}">
                         <p class="terminal">@{{ name5 }}</p>
-                        @{{ box5 }}
+                        <h1>@{{ box5 }}</h1>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6 col-xs-12">

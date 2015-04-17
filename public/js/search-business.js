@@ -15,12 +15,13 @@
         $scope.industry_filter = 'Industry';
 
         $scope.searchBusiness = (function(location, industry) {
-            var time_open = document.getElementById('time_open-filter').value;
+            if (typeof $scope.search_keyword == 'undefined') $scope.search_keyword = '';
+            if (typeof $scope.time_open == 'undefined') $scope.time_open = '';
             $http.post('/business/filter-search', {
                 "keyword": $scope.search_keyword,
                 "country": location,
                 "industry": industry,
-                "time_open": time_open
+                "time_open": $scope.time_open
             }).success(function(response) {
                 $('#biz-grid').hide();
                 $scope.businesses = new Array();

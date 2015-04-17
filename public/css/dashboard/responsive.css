@@ -5,6 +5,9 @@
     .filterwrap {
         background: none!important;
     }
+    #search-keyword {
+        background-color: #fff;
+    }
 }
 @media (min-width: 480px) and (max-width: 768px) {
     .filterwrap .row {
@@ -57,6 +60,15 @@
         height: inherit!important;
         padding-bottom: 40px;
     }
+    #bizTab li {
+        width: 33.33%;
+    }
+    .biz-navs .nav-tabs li a {
+        border-top-right-radius: 0!important;
+        border-top-left-radius: 0!important;
+        padding-top: 9px;
+        padding-bottom: 9px;
+    }
 }
 @media (max-width: 480px) {
     .feat-business {
@@ -86,11 +98,6 @@
         border-top-right-radius: 4px;
         border-bottom-right-radius: 4px;
     }
-    /*
-    .btn-orange {
-        border-top-right-radius: 0px!important;
-    }
-    */
     #search-keyword {
         background: #fff;
         border-top-left-radius: 0px;
@@ -111,8 +118,8 @@
         height: inherit!important;
         padding-bottom: 40px;
     }
-    .edit-terminal-button, .delete-terminal-button {
-        display: block!important;
+    .edit-terminal-button, .delete-terminal-button, .update-terminal-button {
+        display: block;
         margin-top: 2px!important;
         width: 90px;
     }
@@ -136,6 +143,32 @@
     }
     .navbar-brand {
         padding-left: 0!important;
+    }
+    /* @CSD 04162015 */
+    .processq .dropdown-wrapper {
+        margin-right: 4px!important;
+    }
+
+    .processq-box .q-actions .btn-orange {
+        margin-top: 5px!important;
+    }
+
+    .inline-btns a {
+        margin-top: 2px!important;
+    }
+    /* @CSD End */
+    .biz-navs .nav-tabs li a {
+        border-top-right-radius: 0!important;
+        border-top-left-radius: 0!important;
+        padding-top: 9px;
+        padding-bottom: 9px;
+    }
+    #bizTab li {
+        width: 49.6%;
+        float: left;
+    }
+    .biz-navs .nav-tabs li a {
+        font-size: 12px;
     }
 }
 @media (max-width: 320px) {
@@ -170,21 +203,28 @@
         text-align: center!important;
     }
     #time_open-filter,
-    .filterwrap .btn-group:nth-child(n+1),
     .btn-group>.btn:first-child {
         border-top-right-radius: 0px!important;
     }
     .cancel-adduser, .cancel-add-terminal {
         margin-top: 2px;
     }
-    .btn-group>.btn:first-child {
-        border-top-right-radius: 4px!important;
-    }
-    .dropdown-menu {
-        width: 100%;
+    .filterwrap .btn-group:nth-child(n+2) {
+        border-top-right-radius: 0px!important;
     }
     .dropdown-menu li {
         text-align: center;
     }
+    #bizTabContent .inline-btns {
+        margin-bottom: 40px;
+        display: block;
+    }
+    .settings input[type=checkbox] {
+        height: inherit;
+    }
 
+    /* @CSD 04172015 */
+    .processq .dropdown-wrapper {
+        margin-right: 3px!important;
+    }
 }

@@ -64,6 +64,10 @@
     text-decoration: none;
     cursor: pointer;
 }
+#process-queue a{
+    color: #fff;
+    text-decoration: none; /*ARA FEAQ-262 removes underline in process queue button*/
+}
 #add-business:hover {
     background-color: #d36e3c;
 }

@@ -18,7 +18,7 @@
     color: #fff;
     background: #00ba8b url('/img/bg-view-broadcast.png') left no-repeat;
 }
-#view-broadcast:hover {
+#processq #view-broadcast:hover {
     background-color: #009b74;
 }
 #view-broadcast:hover{
@@ -74,6 +74,7 @@
 .processq-box .btn-default {
     padding-left: 20px;
     padding-right: 20px;
+    margin-bottom: 5px; /*ARA Process Queue - Buttons (MOBILE)*/
 }
 .processq-box .btn-default:hover {
     background-color: #1081a8;
