@@ -1,11 +1,11 @@
 <div class="col-md-12">
-    <div class="boxed mb20 bcast-big">
+    <div class="boxed mb20">
         <div class="head">
             <h4 class="text-center">Now Serving</h4>
         </div>
         <div class="body broadcast">
 
-            <div class="row-fluid three-nums">
+            <div class="row-fluid onenum">
                 <div class="col-md-6 col-sm-6 col-xs-12">
                     <div class="text-center qrwrap">
                         <p class="orange nomg">On the go?</p>
@@ -18,7 +18,7 @@
                 <div class="col-md-6 col-sm-6 col-xs-12">
                     <div class="numbers t@{{ rank1 }}">
                         <p class="terminal">@{{ name1 }}</p>
-                        @{{ box1 }}
+                        <h1>@{{ box1 }}</h1>
                     </div>
                 </div>
             </div>

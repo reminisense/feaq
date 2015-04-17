@@ -47,9 +47,9 @@
 
 </div>
 
-<div class="footer">
+{{--<div class="footer">
     &copy; 2015 : Reminisense Corp.
-</div>
+</div>--}}
 
 <script src="/js/broadcast/bootstrap.min.js"></script>
 <script src="/js/broadcast/custom.js"></script>
