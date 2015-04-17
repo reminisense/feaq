@@ -1,11 +1,11 @@
 @include('broadcast.default.ads-master')
 <div class="col-md-6">
-    <div class="boxed mb20 bcast-big">
+    <div class="boxed mb20">
         <div class="head">
             <h4 class="text-center">Now Serving</h4>
         </div>
         <div class="body broadcast">
-            <div class="row-fluid six-nums">
+            <div class="row-fluid ads-sixnums">
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="text-center qrwrap">
                         <p class="orange nomg">On the go?</p>
