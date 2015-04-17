@@ -4,10 +4,6 @@
 
 //load functions
 $(document).ready(function(){
-    $('#search-business').removeClass('active');
-    $('#my-business').addClass('active');
-
-    $('#edit_profile').remove();
     pq.jquery_functions.load_switch_tabs();
     pq.jquery_functions.load_select_number();
     pq.jquery_functions.load_default_navbar_link();
@@ -58,10 +54,8 @@ var pq = {
         },
 
         load_default_navbar_link : function(){
-//            $('.nav-tabs li.search').removeClass('active').removeClass('search');
-//            $('.nav-tabs li.biz').removeClass('active').removeClass('biz');
-            $('.subnav').remove();
-            $('.filters').remove();
+            $('#search-business').removeClass('active');
+            $('#my-business').addClass('active');
         },
 
         load_show_modal : function(){
