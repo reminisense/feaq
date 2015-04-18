@@ -627,7 +627,7 @@
                                                name="time_open"
                                                ng-model="time_open"
                                                placeholder="8:00 AM"
-                                               class="timepicker form-control"
+                                               class="form-control"
                                                style="display: none;"/>
                                     </div>
                                 </div>
