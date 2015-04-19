@@ -44,9 +44,9 @@
                         </ul>
                       </div>
                       <div class="col-md-2 col-sm-2 col-xs-4 btn-group">
-                        <input type="text" id="time_open-filter" name="time_open" placeholder="Time Open" class="timepicker form-control" ng-model="time_open">
+                        <input type="text" id="time_open-filter" name="time_open" placeholder="Time Open" class="form-control" ng-model="time_open">
                       </div>
-                        <input class="col-md-4 col-sm-4 col-xs-12 timepicker" type="text" placeholder="ie: Ng Khai Devt Corp" id="search-keyword" ng-model="search_keyword">
+                        <input class="col-md-4 col-sm-4 col-xs-12" type="text" placeholder="ie: Ng Khai Devt Corp" id="search-keyword" ng-model="search_keyword">
                         <div class="col-md-2 col-sm-2 col-xs-12">
                           <input type="submit" class=" btn btn-orange btn-md" value="SEARCH">
                         </div>
