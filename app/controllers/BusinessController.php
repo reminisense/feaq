@@ -72,6 +72,8 @@ class BusinessController extends BaseController{
             $business->name = $business_data['business_name'];
             $business->local_address = $business_data['business_address'];
             $business->industry = $business_data['industry'];
+            $business->longitude = $business_data['longitude'];
+            $business->latitude = $business_data['latitude'];
 
             $time_open_arr = Helper::parseTime($business_data['time_open']);
             $business->open_hour = $time_open_arr['hour'];

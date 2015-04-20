@@ -82,6 +82,8 @@
                                 <label>Business Address</label>
                                 <input type="text" class=" form-control" placeholder="ex: Cebu City" id="business_location" name="business_address">
                             </div>
+                            <input type="hidden" id="longitude" name="longitude" value="0">
+                            <input type="hidden" id="latitude" name="latitude" value="0">
                         <div class="col-md-12">
                             <div class="alert alert-info" role="alert">
                                 <i class="glyphicon glyphicon-info-sign"></i>&nbsp;&nbsp;You are provided with 1 default terminal to manage your business queue. To create more terminals, just go to Business Settings and select Terminal.
