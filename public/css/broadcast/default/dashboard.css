@@ -509,10 +509,9 @@ h5.heading {
   padding: 20px;
 }
 .boxed .broadcast .numbers {
-  background-color: #e7e7e7;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
   padding: 25px 15px;
   font-size: 58px;
   font-family: 'ralewaybold';
@@ -521,9 +520,13 @@ h5.heading {
 }
 .boxed .broadcast .numbers .terminal {
   font-size: 13px;
-  font-family: 'ralewaysemibold';
+  font-family: 'ralewayregular';
   color: #fff;
   margin-bottom: 0;
+}
+.boxed .broadcast .numbers h3 {
+    color: #fff;
+    font-size: 36px;
 }
 .boxed .broadcast .numbers .terminal.none,
 .boxed .broadcast .numbers .terminal {
@@ -1020,4 +1023,13 @@ strong {
 .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
   padding-left: 15px;
   padding-right: 15px;
+}
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }

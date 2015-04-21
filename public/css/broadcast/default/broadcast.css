@@ -238,10 +238,11 @@ h5.heading {
 /* JCA - to center images */
 
 #ad1, #ad2, #ad3, #ad4, #ad5 {
-    block:display;
+    display:block;
     margin: auto auto;
+    width: 100%;
+    height: 100%;
 }
-
 
 .terminal {font-family: 'ralewayregular';}
 
@@ -268,7 +269,7 @@ body#broadcast .terminal { line-height:90px; margin-bottom:0; }
 .sixnums .numbers { height:42vh!important; padding: 35px 15px!important; }
 .ads-onenum .numbers { height:90vh!important; }
 .ads-fournums .numbers { height:41vh!important; padding: 35px 15px!important; }
-.ads-sixnums .numbers { height:41vh!important; padding: 30px 15px!important;}
+.ads-sixnums .numbers, .ads-sixnums .qrwrap { height:39vh!important; padding: 25px 15px!important;}
 
 /*terminal names*/
 .onenum .terminal { font-size:9vmin; }
@@ -279,12 +280,12 @@ body#broadcast .terminal { line-height:90px; margin-bottom:0; }
 .ads-sixnums .terminal { font-size:3vmin; }
 
 /*font sizes*/
-.onenum h1 { font-size: 44vmin; }
+.onenum h1 { font-size: 35vmin; }
 .fournums h1 { font-size: 22vmin; margin-top: -10px!important; }
 .sixnums h1 { font-size: 22vmin; margin-top: -10px!important; }
-.ads-onenum h1 { font-size: 28vmin; }
-.ads-fournums h1 { font-size: 21vmin; margin-top: 0px!important; }
-.ads-sixnums h1 { font-size: 15vmin; margin-top: 15px!important; }
+.ads-onenum h1 { font-size: 20vmin; }
+.ads-fournums h1 { font-size: 17vmin; margin-top: 0px!important; }
+.ads-sixnums h1 { font-size: 12vmin; margin-top: 0px!important; }
 
 /*qr code title fontsize*/
 .onenum .qrwrap p { font-size: 30px!important; margin-bottom: 40px!important; }
@@ -299,7 +300,15 @@ body#broadcast .terminal { line-height:90px; margin-bottom:0; }
 
 
 
-
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
 
 
 
