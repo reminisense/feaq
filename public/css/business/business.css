@@ -152,7 +152,7 @@
     margin-bottom: 30px;
     font-size: 16px;
 }
-#edit_business {
+#edit_business, #delete_business {
     margin-bottom: 20px;
 }
 #bizTabContent table td {

@@ -82,7 +82,11 @@
 }
 
 @media (max-width: 480px) {
-
+    #time_open-filter {
+        width: 100%!important;
+        text-align: center;
+        border: 0px!important;
+    }
     .intro {
         margin-top: 0;
         padding-top: 150px;

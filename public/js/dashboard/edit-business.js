@@ -399,8 +399,9 @@ var eb = {
                 $http.post(eb.urls.business.business_remove_url, {
                     business_id : business_id
                 }).success(function(response) {
+                    //console.log(response);
                     $('.col-md-3[business_id='+business_id+']').remove();
-                    $('#editBusiness').modal('hide');
+                    location.reload();
                 });
             }
         });

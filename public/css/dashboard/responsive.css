@@ -71,6 +71,10 @@
     }
 }
 @media (max-width: 480px) {
+    #bizTabContent .inline-btns {
+        margin-bottom: 40px;
+        display: block;
+    }
     .feat-business {
         height: 143px;
     }

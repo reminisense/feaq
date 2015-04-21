@@ -332,10 +332,11 @@ section.page2 .col-md-3 p {
 .orange {
     color: #ff925b;
 }
+.gray {color: #eee;}
 .searchblock input {
   background: #555;
   border: none;
-  margin-left: 25px;
+  margin-left: 10px;
   font-size: 13px;
   padding: 5px 12px 6px;
   margin-right: 2px;
@@ -376,7 +377,9 @@ section.page2 .col-md-3 p {
   color: #fff!important;
   text-decoration: none;
 }
-
+.boxed h3 span.gray {
+    font-size: 11px;
+}
 .boxed-single h3 {
   margin: 0;
   font-size: 14px;
@@ -611,11 +614,13 @@ body.disabled-onepage-scroll .main section.page3 .page_container {
 
 #search-keyword {
     color: #fff;
+    display: inline-block;
 }
 
 #time_open-filter {
     height: 30px;
     margin-top: 2px;
+    width: 104px;
 }
 
 #business-search p {
@@ -643,4 +648,13 @@ footer p {
 }
 .btn-fb:hover {
     color: #fff!important;
+}
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }

@@ -70,7 +70,7 @@
 
             <div class="row wow fadeIn" ng-controller="searchBusinessCtrl">
                 <div class="filters clearfix">
-                    <div class="col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
+                    <div class="col-md-10 col-md-offset-2 col-sm-12 col-xs-12">
                         <div class="filterwrap  wow fadeInUp">
                             <form ng-submit="searchBusiness(location_filter, industry_filter)">
                                 <div class="btn-group" role="group">
@@ -671,7 +671,7 @@
                 <div class="col-md-3 col-xs-12 col-sm-6" ng-controller="fbController">
                     <div class="boxed boxed-single clickable" ng-click="login()">
                         <div class="wrap">
-                            <h3 style="color: #ff925b;">More Businesses</h3>
+                            <h3 style="color: #ff925b;"><span class="gray glyphicon glyphicon-plus"></span> More Businesses</h3>
                             <small>Sign up now to view more businesses</small>
                         </div>
                     </div>
