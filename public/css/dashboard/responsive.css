@@ -69,6 +69,16 @@
         padding-top: 9px;
         padding-bottom: 9px;
     }
+
+    /* @CSD 04212015 */
+    .processq-box .form-control {
+        margin-right: 2px!important;
+    }
+
+    .processq-box .q-actions .btn-primary {
+        float: right!important;
+    }
+    /* @CSD END */
 }
 @media (max-width: 480px) {
     #bizTabContent .inline-btns {
@@ -174,6 +184,16 @@
     .biz-navs .nav-tabs li a {
         font-size: 12px;
     }
+
+    /* @CSD 04212015 */
+    .processq-box .form-control {
+        margin-right: 2px!important;
+    }
+
+    .processq-box .q-actions .btn-primary {
+        float: right!important;
+    }
+    /* @CSD END */
 }
 @media (max-width: 320px) {
     .filterwrap {
@@ -225,10 +245,5 @@
     }
     .settings input[type=checkbox] {
         height: inherit;
-    }
-
-    /* @CSD 04172015 */
-    .processq .dropdown-wrapper {
-        margin-right: 3px!important;
     }
 }
