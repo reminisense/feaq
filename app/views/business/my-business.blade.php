@@ -135,7 +135,7 @@ My Business
                         <div class="clearfix">
                             @foreach($business['terminals'] as $terminal)
                             <div>
-                                <a href="{{ url('/processqueue/terminal/' . $terminal['terminal_id'] ) }}" target="_blank" style="padding: 8px;">
+                                <a href="{{ url('/processqueue/terminal/' . $terminal['terminal_id'] ) }}" target="_blank" style="padding: 12px;">
                                     <span class=" glyphicon glyphicon-ok "></span>
                                     <small>{{ $terminal['name'] }}</small>
                                 </a>
