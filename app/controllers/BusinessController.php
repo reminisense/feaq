@@ -284,13 +284,21 @@ class BusinessController extends BaseController{
         $res = Business::getBusinessByNameCountryIndustryTimeopen($post->keyword, $post->country, $post->industry, $post->time_open);
         $arr = array();
         foreach ($res as $count => $data) {
+            $first_service = Service::getFirstServiceOfBusiness($data->business_id);
+            $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
             $arr[] = array(
                 'business_id' => $data->business_id,
                 'business_name' => $data->name,
                 'local_address' => $data->local_address,
                 'time_open' => $data->open_hour . ':' . Helper::doubleZero($data->open_minute) . ' ' . strtoupper($data->open_ampm),
                 'time_close' => $data->close_hour . ':' . Helper::doubleZero($data->close_minute) . ' ' . strtoupper($data->close_ampm),
-                'waiting_time' => Analytics::getWaitingTimeString($data->business_id)
+                'waiting_time' => Analytics::getWaitingTimeString($data->business_id),
+
+                //ARA more info for business cards
+                'last_number_called' => count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'None', //ok
+                'next_available_number' => $all_numbers->next_number, //ok
+                'is_calling' => (count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) + count($all_numbers->called_numbers)) > 0 ? 'Yes' : 'No', //ok
+                //'is_issuing' => true ? 'Open' : 'Closed' //nope
             );
         }
         return json_encode($arr);
