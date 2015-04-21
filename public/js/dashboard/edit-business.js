@@ -225,10 +225,10 @@ var eb = {
             $http.get(eb.urls.terminals.user_emailsearch_url + email)
                 .success(function(response){
                     if(response.user){
-                        $scope.user_found = true;
                         $scope.assignToTerminal(response.user.user_id, terminal_id);
                     }else{
-                        $scope.user_found = false;
+                        $('.add-user-error[terminal_id=' + terminal_id + ']').show();
+                        setTimeout(function(){$('.add-user-error[terminal_id=' + terminal_id + ']').fadeOut('slow')}, 3000);
                     }
                 });
         }
