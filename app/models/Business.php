@@ -414,8 +414,8 @@ class Business extends Eloquent{
             $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
             $last_number_called = count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'None';
             $next_number = $all_numbers->next_number;
-            $is_calling = (count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers)) > 0 ? 'Yes' : 'No';
-            $is_issuing = true ? 'Open' : 'Closed';
+            $is_calling = (count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) + count($all_numbers->called_numbers)) > 0 ? 'Yes' : 'No';
+            //$is_issuing = true ? 'Open' : 'Closed';
 
             $business_details = array(
                 'business_id' => $business['business_id'],
@@ -429,7 +429,7 @@ class Business extends Eloquent{
                 'last_number_called' => $last_number_called, //ok
                 'next_available_number' => $next_number, //ok
                 'is_calling' => $is_calling, //ok
-                'is_issuing' => $is_issuing //nope
+                //'is_issuing' => $is_issuing //nope
             );
 
             //Add active business to top of list
