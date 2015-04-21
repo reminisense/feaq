@@ -415,7 +415,7 @@ class Business extends Eloquent{
             $last_number_called = count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'None';
             $next_number = $all_numbers->next_number;
             $is_calling = (count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers)) > 0 ? 'Yes' : 'No';
-            $is_issuing = true ? 'Yes' : 'No';
+            $is_issuing = true ? 'Open' : 'Closed';
 
             $business_details = array(
                 'business_id' => $business['business_id'],

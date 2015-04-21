@@ -69,18 +69,18 @@
             @foreach($active_businesses as $business)
                 <div class="col-md-3">
                   <a class="broadcast_link" href="{{ URL::to( '/broadcast/business/' . $business['business_id'] ) }}" target="_blank" title="View Broadcast Page.">
-                  <div class="boxed">
-                    <p class="title">{{ $business['name'] }}</p>
-                    <p class="address">{{ $business['local_address'] }}</p>
-                    <div class="statuses">
-                      <p><span class="icon-lineq"></span> Business Hours: <span class="pull-right">{{ $business['open_time'] }} - {{ $business['close_time'] }}</span> <span class="icon-busy"></span> </p>
-                      <p><span class="icon-waittime"></span> Waiting Time: <span class="pull-right">{{ $business['waiting_time'] }}</span> </p>
-                      <p> Last Number Called: <span class="pull-right">{{ $business['last_number_called'] }}</span> </p>
-                      <p> Next Available Number: <span class="pull-right">{{ $business['next_available_number'] }}</span> </p>
-                      <p> Calling: <span class="pull-right">{{ $business['is_calling'] }}</span> </p>
-                      <p> Issuing: <span class="pull-right">{{ $business['is_issuing'] }}</span> </p>
-                    </div>
-                  </div>
+                      <div class="boxed">
+                        <p class="title">{{ $business['name'] }}</p>
+                        <p class="address">{{ $business['local_address'] }}</p>
+                        <div class="statuses">
+                            <p><span class="icon-lineq"></span> Business Hours: <span class="pull-right">{{ $business['open_time'] }} - {{ $business['close_time'] }}</span> <span class="icon-busy"></span> </p>
+                            <p><span class="icon-waittime"></span> Waiting Time: <span class="pull-right">{{ $business['waiting_time'] }}</span> </p>
+                            <p> Last Number Called: <span class="pull-right">{{ $business['last_number_called'] }}</span> </p>
+                            <p> Next Available Number: <span class="pull-right">{{ $business['next_available_number'] }}</span> </p>
+                            <p> Calling: <span class="pull-right">{{ $business['is_calling'] }}</span> </p>
+                            <p> Issuing: <span class="pull-right">{{ $business['is_issuing'] }}</span> </p>
+                        </div>
+                      </div>
                   </a>
                 </div>
             @endforeach

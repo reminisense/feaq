@@ -298,7 +298,7 @@ class BusinessController extends BaseController{
                 'last_number_called' => count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'None', //ok
                 'next_available_number' => $all_numbers->next_number, //ok
                 'is_calling' => (count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers)) > 0 ? 'Yes' : 'No', //ok
-                'is_issuing' => true ? 'Yes' : 'No' //nope
+                'is_issuing' => true ? 'Open' : 'Closed' //nope
             );
         }
         return json_encode($arr);
