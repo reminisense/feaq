@@ -220,8 +220,12 @@ class Analytics extends Eloquent{
 
     public static function getLastActive($business_id){
         $last = Analytics::orderBy('transaction_number', 'desc')->where('business_id', '=', $business_id)->first();
-        $last_active = mktime(0, 0, 0, date('m'), date('d'), date('Y')) - $last->date;
-        $last_active = $last_active / 86400; //convert seconds to days
+        if($last){
+            $last_active = mktime(0, 0, 0, date('m'), date('d'), date('Y')) - $last->date;
+            $last_active = $last_active / 86400; //convert seconds to days
+        }else{
+            $last_active = null;
+        }
         return $last_active;
     }
 
