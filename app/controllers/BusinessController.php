@@ -295,10 +295,11 @@ class BusinessController extends BaseController{
                 'waiting_time' => Analytics::getWaitingTimeString($data->business_id),
 
                 //ARA more info for business cards
-                'last_number_called' => count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'None', //ok
+                'last_number_called' => count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'none', //ok
                 'next_available_number' => $all_numbers->next_number, //ok
-                'is_calling' => (count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) + count($all_numbers->called_numbers)) > 0 ? 'Yes' : 'No', //ok
-                //'is_issuing' => true ? 'Open' : 'Closed' //nope
+                'is_calling' => count($all_numbers->called_numbers) > 0 ? true : false, //ok
+                'is_issuing' => count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? true : false, //ok
+                'last_active' => Analytics::getLastActive($data->business_id)
             );
         }
         return json_encode($arr);
