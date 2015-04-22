@@ -409,13 +409,29 @@ class Business extends Eloquent{
             $closing_time_string = $business['close_hour'] . ':' . Helper::doubleZero($business['close_minute']) . ' ' . $business['close_ampm'];
             $waiting_time = Analytics::getWaitingTimeString($business['business_id']); //get time before the next available number is called. should be in minutes
 
+            //ARA more info for business cards
+            $first_service = Service::getFirstServiceOfBusiness($business['business_id']);
+            $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
+            $last_number_called = count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'none';
+            $next_number = $all_numbers->next_number;
+            $is_calling = count($all_numbers->called_numbers) > 0 ? true : false;
+            $is_issuing = count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? true : false;
+            $last_active = Analytics::getLastActive($business['business_id']);
+
             $business_details = array(
                 'business_id' => $business['business_id'],
                 'name' => $business['name'],
                 'local_address' => $business['local_address'],
                 'open_time' => $open_time_string,
                 'close_time' => $closing_time_string,
-                'waiting_time' => $waiting_time
+                'waiting_time' => $waiting_time,
+
+                //ARA more info for business cards
+                'last_number_called' => $last_number_called, //ok
+                'next_available_number' => $next_number, //ok
+                'is_calling' => $is_calling, //ok
+                'is_issuing' => $is_issuing, //ok
+                'last_active' => $last_active
             );
 
             //Add active business to top of list

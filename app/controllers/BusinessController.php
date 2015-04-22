@@ -72,6 +72,8 @@ class BusinessController extends BaseController{
             $business->name = $business_data['business_name'];
             $business->local_address = $business_data['business_address'];
             $business->industry = $business_data['industry'];
+            $business->longitude = $business_data['longitude'];
+            $business->latitude = $business_data['latitude'];
 
             $time_open_arr = Helper::parseTime($business_data['time_open']);
             $business->open_hour = $time_open_arr['hour'];
@@ -282,13 +284,22 @@ class BusinessController extends BaseController{
         $res = Business::getBusinessByNameCountryIndustryTimeopen($post->keyword, $post->country, $post->industry, $post->time_open);
         $arr = array();
         foreach ($res as $count => $data) {
+            $first_service = Service::getFirstServiceOfBusiness($data->business_id);
+            $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
             $arr[] = array(
                 'business_id' => $data->business_id,
                 'business_name' => $data->name,
                 'local_address' => $data->local_address,
                 'time_open' => $data->open_hour . ':' . Helper::doubleZero($data->open_minute) . ' ' . strtoupper($data->open_ampm),
                 'time_close' => $data->close_hour . ':' . Helper::doubleZero($data->close_minute) . ' ' . strtoupper($data->close_ampm),
-                'waiting_time' => Analytics::getWaitingTimeString($data->business_id)
+                'waiting_time' => Analytics::getWaitingTimeString($data->business_id),
+
+                //ARA more info for business cards
+                'last_number_called' => count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'none', //ok
+                'next_available_number' => $all_numbers->next_number, //ok
+                'is_calling' => count($all_numbers->called_numbers) > 0 ? true : false, //ok
+                'is_issuing' => count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? true : false, //ok
+                'last_active' => Analytics::getLastActive($data->business_id)
             );
         }
         return json_encode($arr);

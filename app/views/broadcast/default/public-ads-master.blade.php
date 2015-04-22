@@ -1,6 +1,6 @@
 <div class="col-md-6">
     @if ($ad_type == 'image')
-        <div id="fqCarousel" class="carousel slide" data-ride="carousel">
+        <div id="fqCarousel" class="carousel slide" data-ride="carousel" style="min-height: 550px;">
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
                 @if ($ad_src != '')

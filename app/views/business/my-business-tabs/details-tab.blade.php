@@ -1,4 +1,4 @@
-    <h5 class="col-md-12">BUSINESS DETAILS</h5>
+                  <h5 class="col-md-12">BUSINESS DETAILS</h5>
     <div class="col-md-6">
         <small>Business Name</small>
         <input type="text" class=" form-control" value="@{{ business_name }}" ng-model="business_name">
@@ -74,6 +74,7 @@
     </div>
     <div class="col-md-12">
         <div class="pull-right">
+            <button type="button" id="delete_business" class="btn btn-danger btn-lg" ng-click="deleteBusiness(business_id)"><span class="glyphicon glyphicon-trash"></span> DELETE BUSINESS</button>
             <button type="button" id="edit_business" class="btn btn-orange btn-lg" ng-click="saveBusinessDetails()"><span class="glyphicon glyphicon-check"></span> SUBMIT</button>
         </div>
     </div>

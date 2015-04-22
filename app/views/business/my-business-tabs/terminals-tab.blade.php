@@ -44,7 +44,7 @@
                                         <button class="btn-boxy btn-danger cancel-adduser"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
                                     </div>
                                 </form>
-                                <div class="alert alert-danger" ng-show="user_found == false"> User does not exist in FeatherQ. </div>
+                                <div style="display: none;" class="alert alert-danger add-user-error" terminal_id="@{{ terminal.terminal_id }}"> User does not exist in FeatherQ. </div>
                             </div>
                         </span>
                     </span>
@@ -70,7 +70,7 @@
                                 <button class="btn-boxy btn-danger cancel-adduser"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
                             </div>
                         </form>
-                        <div class="alert alert-danger" ng-show="user_found == false"> User does not exist in FeatherQ. </div>
+                        <div style="display: none;" class="alert alert-danger add-user-error" terminal_id="@{{ terminal.terminal_id }}"> User does not exist in FeatherQ. </div>
                     </div>
                 </span>
             </div>

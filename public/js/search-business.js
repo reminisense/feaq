@@ -33,7 +33,13 @@
                         "local_address": response[i].local_address,
                         "time_open" : response[i].time_open,
                         "time_close": response[i].time_close,
-                        "waiting_time": response[i].waiting_time
+                        "waiting_time": response[i].waiting_time,
+                        //ARA more info for business cards
+                        "last_number_called": response[i].last_number_called,
+                        "next_available_number": response[i].next_available_number,
+                        "is_calling": response[i].is_calling,
+                        "is_issuing": response[i].is_issuing,
+                        "last_active": response[i].last_active
                     });
                     if(i == length_limit - 1) break;
                 }

@@ -69,29 +69,72 @@
             @foreach($active_businesses as $business)
                 <div class="col-md-3">
                   <a class="broadcast_link" href="{{ URL::to( '/broadcast/business/' . $business['business_id'] ) }}" target="_blank" title="View Broadcast Page.">
-                  <div class="boxed">
-                    <p class="title">{{ $business['name'] }}</p>
-                    <p class="address">{{ $business['local_address'] }}</p>
-                    <div class="statuses">
-                      <p><span class="icon-lineq"></span> Business Hours: {{ $business['open_time'] }} - {{ $business['close_time'] }} <span class="icon-busy"></span></p>
-                      <p><span class="icon-waittime"></span> Waiting Time: {{ $business['waiting_time'] }} </p>
-                    </div>
-                  </div>
+                      <div class="boxed">
+                        <p class="title">{{ $business['name'] }}</p>
+                        <p class="address">{{ $business['local_address'] }}</p>
+                        @if(!$business['is_calling'] && !$business['is_issuing'])
+                        <div class="statuses">
+                            <p><span class="icon-lineq"></span> Business Hours: <span class="pull-right">{{ $business['open_time'] }} - {{ $business['close_time'] }}</span> <span class="icon-busy"></span> </p>
+                            <p><span class="icon-waittime"></span> Last Active:
+                                @if($business['last_active'] > 1)
+                                <span class="pull-right">{{ $business['last_active'] . ' days ago' }}</span>
+                                @elseif($business['last_active'] == 1)
+                                <span class="pull-right">{{ 'Yesterday' }}</span>
+                                @elseif($business['last_active'] == 0)
+                                <span class="pull-right">{{ 'Today' }}</span>
+                                @endif
+                            </p>
+                        </div>
+                        @else
+                        <div class="statuses row">
+                            <div class="col-md-6 col-xs-6 text-center">
+                                <h5>Calling</h5>
+                                <h4><strong>{{ $business['last_number_called'] }}</strong></h4>
+                            </div>
+                            <div class="col-md-6 col-xs-6 text-center">
+                                <h5>Next Available</h5>
+                                <h4><strong>{{ $business['next_available_number'] }}</strong></h4>
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <p class="line">Line Status: <span class="{{ $business['waiting_time'] }}">&middot</span> {{ $business['waiting_time'] }}</p>
+                            </div>
+                        </div>
+                        @endif
+                      </div>
                   </a>
                 </div>
             @endforeach
           @endif
         </div>
         <div class="row" id="search-grid" style="display: none;">
-            <h5 class="mb30 searchresults">@{{ searchLabel }}</h5>
+            <div class="col-md-12 col-xs-12 col-sm-12">
+                <h5 class="mb30 searchresults">@{{ searchLabel }}</h5>
+            </div>
             <div class="col-md-3" ng-repeat="business in businesses">
                 <a class="broadcast_link" href="/broadcast/business/@{{ business.business_id }}">
                     <div class="boxed">
                         <p class="title">@{{ business.business_name }}</p>
                         <p class="address">@{{ business.local_address }}</p>
-                        <div class="statuses">
-                          <p><span class="icon-lineq"></span> Business Hours: @{{ business.time_open }} - @{{ business.time_close }} <span class="icon-busy"></span></p>
-                          <p><span class="icon-waittime"></span> Waiting Time: @{{ business.waiting_time }} </p>
+                        <div class="statuses" ng-if="!business.is_calling && !business.is_issuing">
+                          <p><span class="icon-lineq"></span> Business Hours: <span class="pull-right">@{{ business.time_open }} - @{{ business.time_close }}</span> <span class="icon-busy"></span> </p>
+                          <p><span class="icon-waittime"></span> Last Active:
+                              <span class="pull-right" ng-if="business.last_active > 1">@{{ business.last_active }} days ago</span>
+                              <span class="pull-right" ng-if="business.last_active == 1">Yesterday</span>
+                              <span class="pull-right" ng-if="business.last_active == 0">Today</span>
+                          </p>
+                        </div>
+                        <div class="statuses row" ng-if="business.is_calling || business.is_issuing">
+                            <div class="col-md-6 col-xs-6 text-center">
+                                <h5>Calling</h5>
+                                <h4><strong>@{{ business.last_number_called }}</strong></h4>
+                            </div>
+                            <div class="col-md-6 col-xs-6 text-center">
+                                <h5>Next Available</h5>
+                                <h4><strong>@{{ business.next_available_number }}</strong></h4>
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <p class="line">Line Status: <span class="@{{ business.waiting_time }}">&middot</span> @{{ business.waiting_time }}</p>
+                            </div>
                         </div>
                     </div>
                 </a>
