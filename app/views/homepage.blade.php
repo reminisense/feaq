@@ -656,7 +656,7 @@
                     @endif
                 </div>
                 <div id="search-grid" style="display: none;">
-                    <p id="search-label" class="heading">@{{ searchLabel }}</p>
+                    <p id="search-label" class="col-md-12 heading">@{{ searchLabel }}</p>
                     <div class="col-md-3 col-xs-12 col-sm-6" ng-repeat="business in businesses">
                         <div class="boxed boxed-single clickable">
                             <a class="business_link" href="/broadcast/business/@{{ business.business_id }}" target="_blank">

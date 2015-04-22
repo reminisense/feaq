@@ -383,6 +383,8 @@ section.page2 .col-md-3 p {
 .boxed-single h3 {
   margin: 0;
   font-size: 14px;
+    height: 15px;
+    overflow: hidden;
     font-family: 'ralewaymedium';
 }
 /*rounded*/

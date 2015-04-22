@@ -87,7 +87,9 @@
           @endif
         </div>
         <div class="row" id="search-grid" style="display: none;">
-            <h5 class="mb30 searchresults">@{{ searchLabel }}</h5>
+            <div class="col-md-12 col-xs-12 col-sm-12">
+                <h5 class="mb30 searchresults">@{{ searchLabel }}</h5>
+            </div>
             <div class="col-md-3" ng-repeat="business in businesses">
                 <a class="broadcast_link" href="/broadcast/business/@{{ business.business_id }}">
                     <div class="boxed">
