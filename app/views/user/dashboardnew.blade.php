@@ -96,7 +96,7 @@
                                 <h4><strong>{{ $business['next_available_number'] }}</strong></h4>
                             </div>
                             <div class="col-md-12 text-center">
-                                <p class="line">Line Status: <span class="heavy">&middot</span> {{ $business['waiting_time'] }}</p>
+                                <p class="line">Line Status: <span class="{{ $business['waiting_time'] }}">&middot</span> {{ $business['waiting_time'] }}</p>
                             </div>
                         </div>
                         @endif
@@ -133,7 +133,7 @@
                                 <h4><strong>@{{ business.next_available_number }}</strong></h4>
                             </div>
                             <div class="col-md-12 text-center">
-                                <p class="medium">Line Status: <span class="heavy">&middot</span> @{{ business.waiting_time }}</p>
+                                <p class="line">Line Status: <span class="@{{ business.waiting_time }}">&middot</span> @{{ business.waiting_time }}</p>
                             </div>
                         </div>
                     </div>

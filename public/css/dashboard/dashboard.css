@@ -149,6 +149,7 @@
 }
 #biz-grid .statuses p {
   margin-bottom: 2px;
+  text-transform: capitalize;
 }
 #biz-grid .boxed:hover .statuses {
   background: url('../../img/bg-statuseshover-sep.jpg') top left no-repeat;
@@ -165,6 +166,7 @@
     padding: 15px;
     overflow: hidden;
     margin-bottom: 15px;
+    min-height:177px;
 }
 #search-grid .boxed:hover {
     background-color: #008160;
@@ -195,6 +197,7 @@
 }
 #search-grid .statuses p {
     margin-bottom: 2px;
+    text-transform: capitalize;
 }
 #search-grid .boxed:hover .statuses {
     background: url('../../img/bg-statuseshover-sep.jpg') top left no-repeat;
@@ -224,11 +227,15 @@
     overflow: hidden;
 }
 .light,
-.medium,
-.heavy { font-size: 50px;
+.moderate,
+.heavy {
+    font-size: 50px;
     font-family: trebuchet;
-    vertical-align: -webkit-baseline-middle; }
+    vertical-align: -webkit-baseline-middle;
+    line-height: 1px;
+    vertical-align: middle;
+}
 
 .light { color: #00ba8b;}
-.medium { color: #ff925b;}
+.moderate { color: #ff925b;}
 .heavy {color: #cd3f34; }
