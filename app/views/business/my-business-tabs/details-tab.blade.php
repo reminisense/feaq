@@ -1,4 +1,4 @@
-    <h5 class="col-md-12">BUSINESS DETAILS</h5>
+                  <h5 class="col-md-12">BUSINESS DETAILS</h5>
     <div class="col-md-6">
         <small>Business Name</small>
         <input type="text" class=" form-control" value="@{{ business_name }}" ng-model="business_name">

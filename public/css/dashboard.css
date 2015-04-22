@@ -487,9 +487,7 @@ h5.heading {
 .orange {
   color: #ff8649!important;
 }
-.nav {
-  font-size: 13px;
-}
+
 .navbar {
   margin-bottom: 0;
   border: none;
@@ -518,10 +516,6 @@ h5.heading {
   height: inherit;
   padding: 12px 0;
     padding-left: 15px;
-}
-.navbar-nav>li>a {
-  padding-top: 18px;
-  padding-bottom: 18px;
 }
 .sep {
   background: url('../images/bg-sep.jpg') repeat-x;
