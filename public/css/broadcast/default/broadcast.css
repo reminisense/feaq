@@ -249,7 +249,7 @@ h5.heading {
 
 /*maintain padding on boxes*/
 #broadcast .broadcast .numbers {
-    background-color: #e7e7e7;
+    background-color: #e7e7e7; /* @CSD 04222015 */
     font-family: 'ralewaybold';
     text-align: center;
     margin: 1px;
@@ -260,8 +260,10 @@ h5.heading {
 /*RBM broadcast screens font sizes*/
 body#broadcast .container-fluid { height: 100%; }
 body#broadcast .numbers { width:99.2%; height:100%; min-height:100%;}
-body#broadcast .terminal { line-height:90px; margin-bottom:0; }
-.numbers h1 { font-family:'ralewaysemibold'; color:#fff; width:100%; margin-top:60px; letter-spacing:-4px; }
+body#broadcast .terminal { line-height:90px; margin-bottom:0; color: #fff; }
+.numbers p { color: #333; }
+.numbers h1 { font-family:'ralewaysemibold'; color: #fff; width:100%; margin-top:60px; letter-spacing:-4px; }
+#broadcast .broadcast .numbers.t h1 { padding-top: 95px; color: #333; }
 
 /*heights on each screen*/
 .onenum .numbers { height:90vh!important; }

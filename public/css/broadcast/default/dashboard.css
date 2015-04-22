@@ -528,6 +528,9 @@ h5.heading {
     color: #fff;
     font-size: 36px;
 }
+.boxed .broadcast .numbers.t h3 {
+    color: #333;
+}
 .boxed .broadcast .numbers .terminal.none,
 .boxed .broadcast .numbers .terminal {
   height: 18px;
