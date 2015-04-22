@@ -118,6 +118,7 @@
   padding: 15px;
   overflow: hidden;
   margin-bottom: 15px;
+    min-height:177px;
 }
 #biz-grid .boxed:hover {
   background-color: #008160;
@@ -217,3 +218,17 @@
 .pac-container {
     z-index: 9999;
 }
+.line {
+    height: 17px;
+    line-height: 21px;
+    overflow: hidden;
+}
+.light,
+.medium,
+.heavy { font-size: 50px;
+    font-family: trebuchet;
+    vertical-align: -webkit-baseline-middle; }
+
+.light { color: #00ba8b;}
+.medium { color: #ff925b;}
+.heavy {color: #cd3f34; }

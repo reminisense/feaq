@@ -81,6 +81,9 @@
     /* @CSD END */
 }
 @media (max-width: 480px) {
+    .line {
+        overflow: visible!important;
+    }
     #bizTabContent .inline-btns {
         margin-bottom: 40px;
         display: block;

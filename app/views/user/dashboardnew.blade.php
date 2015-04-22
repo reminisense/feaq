@@ -87,16 +87,16 @@
                         </div>
                         @else
                         <div class="statuses row">
-                            <div class="col-md-6 text-center">
+                            <div class="col-md-6 col-xs-6 text-center">
                                 <h5>Calling</h5>
                                 <h4><strong>{{ $business['last_number_called'] }}</strong></h4>
                             </div>
-                            <div class="col-md-6 text-center">
+                            <div class="col-md-6 col-xs-6 text-center">
                                 <h5>Next Available</h5>
                                 <h4><strong>{{ $business['next_available_number'] }}</strong></h4>
                             </div>
                             <div class="col-md-12 text-center">
-                                <p>Line Status: <span>O</span> {{ $business['waiting_time'] }}</p>
+                                <p class="line">Line Status: <span class="heavy">&middot</span> {{ $business['waiting_time'] }}</p>
                             </div>
                         </div>
                         @endif
@@ -124,16 +124,16 @@
                           </p>
                         </div>
                         <div class="statuses row" ng-if="business.is_calling || business.is_issuing">
-                            <div class="col-md-6 text-center">
+                            <div class="col-md-6 col-xs-6 text-center">
                                 <h5>Calling</h5>
                                 <h4><strong>@{{ business.last_number_called }}</strong></h4>
                             </div>
-                            <div class="col-md-6 text-center">
+                            <div class="col-md-6 col-xs-6 text-center">
                                 <h5>Next Available</h5>
                                 <h4><strong>@{{ business.next_available_number }}</strong></h4>
                             </div>
                             <div class="col-md-12 text-center">
-                                <p>Line Status: <span>O</span> @{{ business.waiting_time }}</p>
+                                <p class="medium">Line Status: <span class="heavy">&middot</span> @{{ business.waiting_time }}</p>
                             </div>
                         </div>
                     </div>
