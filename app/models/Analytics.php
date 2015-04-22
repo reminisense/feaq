@@ -208,11 +208,11 @@ class Analytics extends Eloquent{
 
         //Reduced to 3 different line statuses
         if($waiting_time > 30){
-            $waiting_time_string = 'Heavy';
+            $waiting_time_string = 'heavy';
         }else if($waiting_time <= 30 && $waiting_time > 15){
-            $waiting_time_string = 'Moderate';
+            $waiting_time_string = 'moderate';
         }else{
-            $waiting_time_string = 'Light';
+            $waiting_time_string = 'light';
         }
 
         return $waiting_time_string;
