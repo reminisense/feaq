@@ -46,7 +46,7 @@ My Business
                     </div>
                     <div class="col-md-3 col-xs-10 ">
                         <a id="view-broadcast" href="{{ url('broadcast/business/' . $business_id) }}" target="_blank">View Broadcast Screen</a>
-                        <div id="process-queue" href="#" class="boxed edit-biz process-queue">
+                        <div id="process-queue" href="#" class="edit-biz process-queue">
                             <a href="#" style="">Process <br>Queue</a>
                             <div class="biz-terminals">
                                 <div class="clearfix">
@@ -122,30 +122,32 @@ My Business
         </div>
     </div>
     @endif
+    <div class="row assigned-business">
     <!-- assigned business -->
     @if($assigned_businesses)
     <h5>ASSIGNED BUSINESSES</h5>
-    <div class="well well-lg">
-        <div id="biz-grid" class="row">
-            @foreach($assigned_businesses as $business)
-            <div class="col-md-3">
-                <div class="boxed edit-biz process-queue">
-                    <p class="title">{{ $business['name'] }}</p>
-                    <div class="biz-terminals">
-                        <div class="clearfix">
-                            @foreach($business['terminals'] as $terminal)
-                            <div>
-                                <a href="{{ url('/processqueue/terminal/' . $terminal['terminal_id'] ) }}" target="_blank" style="padding: 12px;">
-                                    <span class=" glyphicon glyphicon-ok "></span>
-                                    <small>{{ $terminal['name'] }}</small>
-                                </a>
+        <div class="" id="box-wrapper">
+            <div id="biz-grid" class="row">
+                @foreach($assigned_businesses as $business)
+                <div class="col-md-3">
+                    <div class="boxed edit-biz process-queue">
+                        <p class="title"><span class="glyphicon glyphicon-home"></span> {{ $business['name'] }}</p>
+                        <div class="biz-terminals">
+                            <div class="clearfix">
+                                @foreach($business['terminals'] as $terminal)
+                                <div>
+                                    <a href="{{ url('/processqueue/terminal/' . $terminal['terminal_id'] ) }}" target="_blank" style="padding: 12px;">
+                                        <span class=" glyphicon glyphicon-ok "></span>
+                                        <small>{{ $terminal['name'] }}</small>
+                                    </a>
+                                </div>
+                                @endforeach
                             </div>
-                            @endforeach
                         </div>
                     </div>
                 </div>
+                @endforeach
             </div>
-            @endforeach
         </div>
     </div>
     @endif

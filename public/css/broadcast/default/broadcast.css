@@ -259,7 +259,7 @@ h5.heading {
 
 /*RBM broadcast screens font sizes*/
 body#broadcast .container-fluid { height: 100%; }
-body#broadcast .numbers { width:99.2%; height:100%; min-height:100%;}
+body#broadcast .numbers { width:99.4%; height:100%; min-height:100%;}
 body#broadcast .terminal { line-height:90px; margin-bottom:0; color: #fff; }
 .numbers p { color: #333; }
 .numbers h1 { font-family:'ralewaysemibold'; color: #fff; width:100%; margin-top:60px; letter-spacing:-4px; }
@@ -296,10 +296,8 @@ body#broadcast .terminal { line-height:90px; margin-bottom:0; color: #fff; }
 .fournums p.orange { padding-top:35px; font-size:4vmin!important; }
 .sixnums p.orange { padding-top:35px; font-size:4vmin!important; }
 .ads-onenum p.orange { padding-top:65px; font-size:4vmin!important; }
-.ads-fournums p.orange { padding-top:47px; font-size:3.5vmin!important; }
-.ads-sixnums p.orange { padding-top:30px; font-size:3vmin!important; }
-
-
+.ads-fournums p.orange { padding-top:38px; font-size:3.5vmin!important; }
+.ads-sixnums p.orange { padding-top:10px; font-size:3vmin!important; }
 
 
 ::-webkit-scrollbar {

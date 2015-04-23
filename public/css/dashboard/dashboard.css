@@ -239,3 +239,12 @@
 .light { color: #00ba8b;}
 .moderate { color: #ff925b;}
 .heavy {color: #cd3f34; }
+
+.assigned-business .boxed {min-height: 60px!important;}
+.assigned-business p.title span {color: #bbb; font-size: 12px; margin-right:5px;}
+.assigned-business .boxed {
+    -webkit-box-shadow: none!important;
+    -moz-box-shadow: none!important;
+    box-shadow: none!important;
+    border: none!important;
+}
