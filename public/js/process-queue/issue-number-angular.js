@@ -98,7 +98,7 @@
             }
 
             try{
-               if(angular.module('Broadcast')){
+               if(angular.module('PublicBroadcast')){
                    if($scope.issue_specific_form.name.$error.required){
                        error = true;
                        error_message += 'Your name is required. ';
@@ -167,7 +167,7 @@
 
         $scope.initializePriorityNumber = function(){
             var broadcast = false;
-            try{ if(angular.module('Broadcast'))
+            try{ if(angular.module('PublicBroadcast'))
                 broadcast = true;
                 $scope.queue_platform = 'remote';
             }
@@ -175,7 +175,8 @@
 
             if(broadcast){
                 setInterval(function(){
-                    $scope.get_num = angular.element('#get_num').html();
+                    scope = angular.element('#nowServingCtrl').scope();
+                    $scope.get_num = scope.get_num;
                 }, 1000)
             }
         }
