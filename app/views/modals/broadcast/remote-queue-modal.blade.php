@@ -27,14 +27,16 @@
                                     <label>Number</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <label>@{{ get_num }}</label>
+                                    <input type="text" class="form-control" ng-model="get_num" name="number" required>
                                 </div>
+
                                 <div class="col-md-4">
                                     <label>Name</label>
                                 </div>
                                 <div class="col-md-8">
                                     <input type="text" class="form-control" ng-model="name" name="name" required>
                                 </div>
+
                                 <div class="col-md-4">
                                     <label>Cellphone</label>
                                 </div>
@@ -59,7 +61,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-orange btn-lg" data-dismiss="modal" aria-label="Close">CLOSE</button>
+                {{--<button type="button" class="btn btn-orange btn-lg" data-dismiss="modal" aria-label="Close">CLOSE</button>--}}
                 <button id="issue-specific-submit" type="button" class="btn btn-orange btn-lg" ng-disabled="isIssuing || checkIssueSpecificErrors()" ng-click="issueSpecific(priority_number, name, phone, email, time_assigned)">SUBMIT</button>
             </div>
         </div>

@@ -85,7 +85,8 @@
     border-bottom: 1px solid #00ba8b;
 }
 
-#bizTabContent {
+#bizTabContent,
+#box-wrapper {
     background-color: #fff;
     padding: 22px 20px 14px;
     -webkit-box-shadow: 0 2px 8px 0 rgba(0,0,0,.2);
@@ -95,6 +96,7 @@
     margin-bottom: 40px;
     min-height: 300px;
 }
+#box-wrapper {min-height: 80px;}
 #bizTabContent p {
     margin-bottom: 20px;
 }

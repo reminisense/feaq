@@ -669,10 +669,12 @@ h5.heading {
   padding-bottom: 30px;
 }
 .modal .form-control {
-  border: none;
-  border-bottom: 1px solid #c7c7c7;
-  margin-bottom: 20px;
-  padding-left: 2px;
+    margin-bottom: 20px;
+    border: none;
+    border-bottom: 1px solid #c7c7c7;
+    background-color: #f0f0f0;
+    border-radius: 4px!important;
+    width: 100%;
 }
 .form-control {
   font-size: 13px;
@@ -962,7 +964,8 @@ strong {
   color: #333;
   margin-bottom: 5px;
 }
-.btn-getnum {
+.btn-getnum,
+.btn-getnum:focus {
   padding: 14px 30px;
   font-size: 14px;
   background-color: #ff925b;
@@ -971,6 +974,7 @@ strong {
   -webkit-border-radius: 24px;
   -moz-border-radius: 24px;
   border-radius: 24px;
+    outline: none;
 }
 .btn-getnum:hover {
   background-color: #ed701c;
