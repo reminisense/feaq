@@ -220,6 +220,7 @@ class BusinessController extends BaseController{
             $queue_settings->getUpdate($business['business_id'], 'sms_10_ahead', $business_data['sms_10_ahead']);
             $queue_settings->getUpdate($business['business_id'], 'sms_blank_ahead', $business_data['sms_blank_ahead']);
             $queue_settings->getUpdate($business['business_id'], 'input_sms_field', $business_data['input_sms_field']);
+            $queue_settings->getUpdate($business['business_id'], 'allow_remote', $business_data['allow_remote']);
             $business = Business::getBusinessDetails($business->business_id);
             return json_encode([
                 'success' => 1,

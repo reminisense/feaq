@@ -167,4 +167,6 @@
 .dd-select li:hover {
     background-color: #ddd;
 }
-
+#btn-pmore:focus {
+    outline: none;
+}

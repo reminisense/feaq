@@ -83,9 +83,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-orange btn-lg" data-dismiss="modal" aria-label="Close">CLOSE</button>
-                <button id="issue-specific-submit" type="button" class="issue-submit-btn btn btn-orange btn-lg" ng-disabled="isIssuing || checkIssueSpecificErrors(priority_number, number_limit)" ng-click="issueSpecific(priority_number, name, phone, email, time_assigned)">SUBMIT</button>
-                <button id="issue-multiple-submit" type="button" class="issue-submit-btn btn btn-orange btn-lg" ng-disabled="isIssuing || checkIssueMultipleErrors()" ng-click="issueMultiple(range, number_start)" style="display: none">SUBMIT</button>
+                <button type="button" class="btn btn-primary btn-md" data-dismiss="modal" aria-label="Close">CLOSE</button>
+                <button id="issue-specific-submit" type="button" class="issue-submit-btn btn btn-orange btn-md" ng-disabled="isIssuing || checkIssueSpecificErrors(priority_number, number_limit)" ng-click="issueSpecific(priority_number, name, phone, email, time_assigned)">SUBMIT</button>
+                <button id="issue-multiple-submit" type="button" class="issue-submit-btn btn btn-orange btn-md" ng-disabled="isIssuing || checkIssueMultipleErrors()" ng-click="issueMultiple(range, number_start)" style="display: none">SUBMIT</button>
             </div>
         </div>
     </div>

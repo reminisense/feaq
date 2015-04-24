@@ -61,6 +61,10 @@ class QueueSettings extends Eloquent{
         return QueueSettings::queueSetting('input_sms_field', 0, $service_id, $date);
     }
 
+    public static function allowRemote($service_id, $date = null){
+        return QueueSettings::queueSetting('allow_remote', 0, $service_id, $date);
+    }
+
 
     /**
      * Bsic functions

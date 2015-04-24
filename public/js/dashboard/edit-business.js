@@ -176,6 +176,7 @@ var eb = {
         $scope.sms_10_ahead  = 0;
         $scope.sms_blank_ahead = 0;
         $scope.input_sms_field = 0;
+        $scope.allow_remote = 0;
 
         $scope.getBusinessDetails = function(){
             $http.get(eb.urls.business.business_details_url + $scope.business_id)
@@ -202,6 +203,7 @@ var eb = {
             $scope.sms_10_ahead  = business.sms_10_ahead ? true : false;
             $scope.sms_blank_ahead = business.sms_blank_ahead ? true : false;
             $scope.input_sms_field = business.input_sms_field;
+            $scope.sms_blank_ahead = business.allow_remote ? true : false;
             $scope.terminals = business.terminals;
             $scope.analytics = business.analytics;
             $scope.terminal_delete_error = business.error ? business.error : null;
@@ -371,7 +373,8 @@ var eb = {
                     sms_5_ahead : $scope.sms_5_ahead ? 1 : 0,
                     sms_10_ahead : $scope.sms_10_ahead ? 1 : 0,
                     sms_blank_ahead : $scope.sms_blank_ahead ? 1 : 0,
-                    input_sms_field: $scope.input_sms_field
+                    input_sms_field: $scope.input_sms_field,
+                    allow_remote: $scope.allow_remote ? 1 : 0
                 }
 
                 $http.post(eb.urls.business.business_edit_url, data)

@@ -40,7 +40,8 @@
 .modal .form-control {
     border: none;
     border-bottom: 1px solid #c7c7c7;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    width: 100%;
     background-color: #f0f0f0;
 }
 .form-control {
@@ -75,7 +76,6 @@
     text-align: right;
 }
 .modal .alert {
-    margin-bottom: 0px;
     font-size: 11px;
 }
  .modal-footer {
@@ -90,8 +90,17 @@
     padding-top: 10px;
     padding-bottom: 10px;
 }
-
 .modal-message {
     font-size: 14px!important;
+}
+#pmore-tab li a {
+    font-family: 'ralewaybold';
+}
+#pmore-tab {
+    margin-bottom: 15px;
+}
+#pmore-tab li.active a {
+    background-color: #00BA8B;
+    color: #fff;
 }
 

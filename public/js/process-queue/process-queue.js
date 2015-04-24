@@ -136,7 +136,10 @@ var pq = {
 
             $('#issue-number-success .message').html(message);
             $('#issue-number-success').fadeIn('fast');
-            setTimeout(function(){$('#issue-number-success').fadeOut('slow')}, 3000);
+            setTimeout(function(){
+                $('#issue-number-success').fadeOut('slow');
+                $('#moreq').modal('hide');
+            }, 3000);
         },
 
         issue_number_success : function(message){

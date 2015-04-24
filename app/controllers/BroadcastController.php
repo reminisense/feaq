@@ -50,6 +50,9 @@ class BroadcastController extends BaseController{
         $open_time = str_pad(Business::openHour($business_id), 2, 0, STR_PAD_LEFT) . ':' . str_pad(Business::openMinute($business_id), 2, 0, STR_PAD_LEFT) . ' ' . Business::openAMPM($business_id);
         $close_time = str_pad(Business::closeHour($business_id), 2, 0, STR_PAD_LEFT) . ':' . str_pad(Business::closeMinute($business_id), 2, 0, STR_PAD_LEFT) . ' ' . Business::closeAMPM($business_id);
 
+        $first_service = Service::getFirstServiceOfBusiness($business_id);
+        $allow_remote = QueueSettings::allowRemote($first_service->service_id);
+
         if (Auth::check()) {
 
           // business owners have different broadcast screens for display
@@ -78,7 +81,8 @@ class BroadcastController extends BaseController{
             ->with('business_name', $business_name)
             ->with('lines_in_queue', Analytics::getBusinessRemainingCount($business_id))
             ->with('estimate_serving_time', Analytics::getAverageTimeServedByBusinessId($business_id))
-            ->with('first_service', Service::getFirstServiceOfBusiness($business_id));
+            ->with('first_service', Service::getFirstServiceOfBusiness($business_id))
+            ->with('allow_remote', $allow_remote);
     }
 
     public function getNumbers($branch_id = 0) {
