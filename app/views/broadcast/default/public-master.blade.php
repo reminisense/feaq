@@ -88,7 +88,7 @@
 
         @include('broadcast.default.public-' . $template_type)
 
-        <div class="col-md-6">
+        <div class="col-md-6" ng-if="get_num > 0">
             <div class="boxed boxed-single">
                 <div class="wrap">
                     <div class="row">
@@ -105,7 +105,7 @@
                             <div class="ng-binding">
                                 <h1 class="nomg">@{{ get_num }}</h1>
                                 @if($allow_remote)
-                                <a href="" class="btn-getnum" data-toggle="modal" data-target="#remote-queue-modal">
+                                <a href="" class="btn-getnum" data-toggle="modal" data-target="#remote-queue-modal"  ng-if="get_num > 0">
                                     Get this number <span class="glyphicon glyphicon-save"></span>
                                 </a>
                                 @endif
