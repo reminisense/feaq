@@ -105,7 +105,7 @@
                             <div class="ng-binding">
                                 <h1 class="nomg">@{{ get_num }}</h1>
                                 @if($allow_remote)
-                                <a href="" class="btn-getnum" data-toggle="modal" data-target="#remote-queue-modal"  ng-if="get_num > 0">
+                                <a href="" class="btn-getnum @if(!Auth::check()) {{ 'disabled' }} @endif" data-toggle="modal" data-target="#remote-queue-modal"  ng-if="get_num > 0">
                                     Get this number <span class="glyphicon glyphicon-save"></span>
                                 </a>
                                 @endif
