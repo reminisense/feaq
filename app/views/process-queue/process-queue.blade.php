@@ -7,7 +7,6 @@ Processs Queue > {{ $business_name }}
 
 @section('styles')
 <link media="all" type="text/css" rel="stylesheet" href="/css/process-queue/processq.css">
-<link media="all" type="text/css" rel="stylesheet" href="/css/modal.css">
 <link media="all" type="text/css" rel="stylesheet" href="/css/dashboard/dashboard.css">
 <link media="all" type="text/css" rel="stylesheet" href="/css/jquery.timepicker.min.css">
 @stop

@@ -35,6 +35,8 @@
     background: #00ba8b url('/img/bg-view-broadcast.png') left no-repeat;
 }
 #process-queue {
+    position: relative;
+    overflow: hidden;
     color: #fff;
     background: #ff925b url('/img/bg-processqueue.png') left no-repeat;
 }
