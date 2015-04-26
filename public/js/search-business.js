@@ -2,6 +2,7 @@
  * Created by JONAS on 3/4/2015.
  */
 (function() {
+
     app.controller('searchBusinessCtrl', function($scope, $http) {
         jQuery.ajax({
             url: '//freegeoip.net/json/',
@@ -11,6 +12,53 @@
                 $scope.location_filter = location.country_name;
             }
         });
+
+        var startPos;
+        var geoSuccess = function(position) {
+            startPos = position;
+            $http.post('/business/near-me', {
+                latitude : startPos.coords.latitude,
+                longitude : startPos.coords.longitude
+            }).success(function(response) {
+                $('#biz-grid').hide();
+                $scope.businesses = new Array();
+                var length_limit = 7;
+                for (var i = 0; i < response.length; i++) {
+                    $scope.businesses.push({
+                        "business_id": response[i].business_id,
+                        "business_name": response[i].business_name,
+                        "local_address": response[i].local_address,
+                        "time_open" : response[i].time_open,
+                        "time_close": response[i].time_close,
+                        "waiting_time": response[i].waiting_time,
+                        //ARA more info for business cards
+                        "last_number_called": response[i].last_number_called,
+                        "next_available_number": response[i].next_available_number,
+                        "is_calling": response[i].is_calling,
+                        "is_issuing": response[i].is_issuing,
+                        "last_active": response[i].last_active
+                    });
+                    if(i == length_limit - 1) break;
+                }
+
+                if(response.length <= length_limit){
+                    length_limit = response.length;
+                }
+                $scope.searchLabel= 'Businesses Near You:';
+                $('#search-grid').show();
+            }).error(function() {
+                alert('Something went wrong..');
+            });
+        };
+        var geoError = function(position) {
+            console.log('Error occurred. Error code: ' + error.code);
+            // error.code can be:
+            //   0: unknown error
+            //   1: permission denied
+            //   2: position unavailable (error response from location provider)
+            //   3: timed out
+        };
+        navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
 
         $scope.industry_filter = 'Industry';
 

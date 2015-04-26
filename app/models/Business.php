@@ -444,4 +444,13 @@ class Business extends Eloquent{
         return $businesses;
     }
 
+  public static function getBusinessByLatitudeLongitude($latitude, $longitude) {
+    $max_lat = $latitude + 0.06;
+    $max_long = $longitude + 0.06;
+    $min_lat = $latitude - 0.06;
+    $min_long = $longitude - 0.06;
+    return Business::where('latitude', '>=', $min_lat)->where('latitude', '<=', $max_lat)
+      ->where('longitude', '>=', $min_long)->where('longitude', '<=', $max_long)->get();
+  }
+
 }
