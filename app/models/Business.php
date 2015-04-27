@@ -96,6 +96,7 @@ class Business extends Eloquent{
             'sms_10_ahead' => QueueSettings::smsTenAhead($first_service->service_id),
             'sms_blank_ahead' => QueueSettings::smsBlankAhead($first_service->service_id),
             'input_sms_field' => QueueSettings::inputSmsField($first_service->service_id),
+            'allow_remote' => QueueSettings::allowRemote($first_service->service_id),
             'terminals' => $terminals,
             'analytics' => $analytics
         ];
