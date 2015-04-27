@@ -31,7 +31,7 @@
                           <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupDrop1" id="location-filter">
-                          <li ng-repeat="location in locations" ng-click="locationFilter(location.code);"><a href="#">@{{ location.code }}</a></li>
+                          <li ng-repeat="location in locations" ng-click="locationFilter(location.code);"><a href="">@{{ location.code }}</a></li>
                             </ul>
                       </div>
                       <div class="col-md-2 col-sm-2 col-xs-4 btn-group">
@@ -40,7 +40,7 @@
                           <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupDrop1">
-                          <li ng-repeat="industry in industries" ng-click="industryFilter(industry.code);"><a href="#">@{{ industry.code }}</a></li>
+                          <li ng-repeat="industry in industries" ng-click="industryFilter(industry.code);"><a href="">@{{ industry.code }}</a></li>
                         </ul>
                       </div>
                       <div class="col-md-2 col-sm-2 col-xs-4 btn-group">
