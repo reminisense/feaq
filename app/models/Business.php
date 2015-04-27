@@ -454,4 +454,41 @@ class Business extends Eloquent{
       ->where('longitude', '>=', $min_long)->where('longitude', '<=', $max_long)->get();
   }
 
+  public static function processingBusinessBool($business_id) {
+    $filepath = public_path() . '/json/' . $business_id . '.json';
+    $data = json_decode(file_get_contents($filepath));
+    if ($data->box1->number != '') {
+      return TRUE;
+    }
+    elseif (isset($data->box2)) {
+      if ($data->box2->number != '') {
+        return TRUE;
+      }
+    }
+    elseif (isset($data->box3)) {
+      if ($data->box3->number != '') {
+        return TRUE;
+      }
+    }
+    elseif (isset($data->box4)) {
+      if ($data->box4->number != '') {
+        return TRUE;
+      }
+    }
+    elseif (isset($data->box5)) {
+      if ($data->box5->number != '') {
+        return TRUE;
+      }
+    }
+    elseif (isset($data->box6)) {
+      if ($data->box6->number != '') {
+        return TRUE;
+      }
+    }
+    elseif ($data->get_num != '') {
+      return TRUE;
+    }
+    return FALSE;
+  }
+
 }

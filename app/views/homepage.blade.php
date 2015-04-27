@@ -639,24 +639,8 @@
                         </div>
                     </div>
                 </div>
-                <div id="biz-grid" style="display: block;">
-                    @if(count($active_businesses) > 0)
-                        @foreach($active_businesses as $business)
-                            <div class="col-md-3 col-xs-12 col-sm-6">
-                                <div class=" wow fadeInUp boxed boxed-single clickable">
-                                    <a class="business_link" href="/broadcast/business/{{ $business['business_id'] }}" target="_blank">
-                                        <div class="wrap">
-                                            <h3>{{ $business['name'] }}</h3>
-                                            <small>{{ $business['local_address'] }}</small>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        @endforeach
-                    @endif
-                </div>
+                <div id="biz-grid" style="display: block;"></div>
                 <div id="search-grid" style="display: none;">
-                    <p id="search-label" class="col-md-12 heading">@{{ searchLabel }}</p>
                     <div class="col-md-3 col-xs-12 col-sm-6" ng-repeat="business in businesses">
                         <div class="boxed boxed-single clickable">
                             <a class="business_link" href="/broadcast/business/@{{ business.business_id }}" target="_blank">
