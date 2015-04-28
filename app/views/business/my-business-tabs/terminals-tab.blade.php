@@ -23,7 +23,7 @@
                 <a href="" ng-click="deleteTerminal($event, terminal.terminal_id)" class="delete-terminal-button btn-boxy btn-primary"><span class="glyphicon glyphicon-trash"></span> Delete</a>
             </span>
             </div>
-            <div style="display: none;" class="alert alert-danger terminal-error-message" terminal_id="@{{ terminal.terminal_id }}"> Terminal name already exists.</div>
+            <div style="display: none; margin-top: 10px;" class="alert alert-danger terminal-error-message" terminal_id="@{{ terminal.terminal_id }}"> Terminal name already exists.</div>
         </td>
         <td>
         <span ng-if="terminal.users.length != 0">
@@ -44,7 +44,7 @@
                                         <button class="btn-boxy btn-danger cancel-adduser"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
                                     </div>
                                 </form>
-                                <div style="display: none;" class="alert alert-danger add-user-error" terminal_id="@{{ terminal.terminal_id }}"> User does not exist in FeatherQ. </div>
+                                <div style="display: none; margin-top: 10px;" class="alert alert-danger add-user-error" terminal_id="@{{ terminal.terminal_id }}"> User does not exist in FeatherQ. </div>
                             </div>
                         </span>
                     </span>
@@ -70,7 +70,7 @@
                                 <button class="btn-boxy btn-danger cancel-adduser"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
                             </div>
                         </form>
-                        <div style="display: none;" class="alert alert-danger add-user-error" terminal_id="@{{ terminal.terminal_id }}"> User does not exist in FeatherQ. </div>
+                        <div style="display: none; margin-top: 10px;" class="alert alert-danger add-user-error" terminal_id="@{{ terminal.terminal_id }}"> User does not exist in FeatherQ. </div>
                     </div>
                 </span>
             </div>
@@ -94,9 +94,9 @@
                             <button class="btn-boxy btn-xs btn-cyan" type="submit"><span class="glyphicon glyphicon-plus"></span> Add</button>
                             <button type="button" class="btn-boxy btn-xs btn-danger cancel-add-terminal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
                         </div>
+                        <div style="display: none; margin-top: 10px;" class="alert alert-danger terminal-error-msg"> Terminal name already exists.</div>
                     </div>
                 </form>
-                <div style="display: none;" class="alert alert-danger terminal-error-msg"> Terminal name already exists.</div>
             </div>
         </td>
         <td>

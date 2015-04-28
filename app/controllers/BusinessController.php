@@ -44,6 +44,7 @@ class BusinessController extends BaseController{
         if (count($businesses) > 0){
             $business = $businesses[0];
             $business_id = $business->business_id;
+            unset($assigned_businesses[$business->business_id]);
             $first_service = Service::getFirstServiceOfBusiness($business_id);
             $terminals = Terminal::getTerminalsByServiceId($first_service->service_id);
             return View::make('business.my-business')
