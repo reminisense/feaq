@@ -129,6 +129,7 @@ My Business
         <div class="" id="box-wrapper">
             <div id="biz-grid" class="row">
                 @foreach($assigned_businesses as $business)
+                @if($business['business_id'] != $business_id)
                 <div class="col-md-3">
                     <div class="boxed edit-biz process-queue">
                         <p class="title"><span class="glyphicon glyphicon-home"></span> {{ $business['name'] }}</p>
@@ -146,6 +147,7 @@ My Business
                         </div>
                     </div>
                 </div>
+                @endif
                 @endforeach
             </div>
         </div>
