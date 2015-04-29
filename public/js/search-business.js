@@ -14,7 +14,6 @@
         });
 
         var listBusinesses = (function(response) {
-            $('#biz-grid').hide();
             $scope.businesses = new Array();
             var length_limit = 7;
             for (var i = 0; i < response.length; i++) {
@@ -38,10 +37,14 @@
             if(response.length <= length_limit){
                 length_limit = response.length;
             }
-            $('#search-grid').show();
+            $('#search-grid').fadeIn(400, function() {
+                $('#search-loader').hide();
+                $('#search-grid').css({'opacity' : 1})
+            });
         });
 
         var personalizedBusinesses = (function(data) {
+            $('#search-loader').show();
             $http.post('/business/personalized-businesses', data).success(listBusinesses).error(function() {
                 alert('Something went wrong..');
             });
@@ -53,6 +56,7 @@
         });
 
         navigator.geolocation.getCurrentPosition(function(position) {
+            $('#search-grid').css({'opacity' : 0.4});
             personalizedBusinesses({
                 latitude : position.coords.latitude,
                 longitude : position.coords.longitude
@@ -64,12 +68,14 @@
         $scope.searchBusiness = (function(location, industry) {
             if (typeof $scope.search_keyword == 'undefined') $scope.search_keyword = '';
             if (typeof $scope.time_open == 'undefined') $scope.time_open = '';
-            $http.post('/business/filter-search', {
+            var data = {
                 "keyword": $scope.search_keyword,
                 "country": location,
                 "industry": industry,
                 "time_open": $scope.time_open
-            }).success(function(response) {
+            };
+            $http.post('/watchdog/watch', data);
+            $http.post('/business/filter-search', data).success(function(response) {
                 $('#biz-grid').hide();
                 $scope.businesses = new Array();
                 var length_limit = 7;
