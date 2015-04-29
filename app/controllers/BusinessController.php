@@ -361,7 +361,7 @@ class BusinessController extends BaseController{
       foreach ($res as $count => $data) {
 
         // check if business is currently processing numbers
-        if (Business::processingBusinessBool($data->business_id)) {
+        //if (Business::processingBusinessBool($data->business_id)) {
 
           $first_service = Service::getFirstServiceOfBusiness($data->business_id);
           $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
@@ -391,7 +391,7 @@ class BusinessController extends BaseController{
             );
           }
 
-        }
+        //}
 
       }
       return json_encode($arr);
