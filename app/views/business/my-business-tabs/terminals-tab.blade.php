@@ -10,10 +10,10 @@
     </thead>
     <tbody>
     <tr ng-repeat="terminal in terminals">
-        <td>
+        <td width="10%">
             <div class="bold">@{{ $index + 1 }}</div>
         </td>
-        <td>
+        <td width="45%">
             <span class="terminal-name-display" terminal_id="@{{ terminal.terminal_id }}" style="font-size: 14px; ">@{{ terminal.name }}</span>
             <input type="text" class="form-control terminal-name-update terminal-update-field" terminal_id="@{{ terminal.terminal_id }}" value="@{{ terminal.name }}" style="display: none;">
             <div class="mt10 mb10">
@@ -25,7 +25,7 @@
             </div>
             <div style="display: none; margin-top: 10px;" class="alert alert-danger terminal-error-message" terminal_id="@{{ terminal.terminal_id }}"> Terminal name already exists.</div>
         </td>
-        <td>
+        <td width="45%">
         <span ng-if="terminal.users.length != 0">
             <span ng-repeat="user in terminal.users">
                 <span class="terminal_user">@{{ user.first_name + ' ' + user.last_name }}</span>
@@ -57,10 +57,10 @@
             </span>
         </span>
         <span ng-if="terminal.users.length == 0">
-            <div class="mt30">
+            <div class="" style="margi-top: 5px;">
                 <span ng-if="user.user_id == terminal.users[terminal.users.length - 1].user_id">
                     <a href="" class="btn-boxy btn-xs btn-adduser btn-primary"><span class="glyphicon glyphicon-plus"></span> Add User</a>
-                    <div class="mb10 mt10 inputuser" style="display: none">
+                    <div class="mb10 inputuser" style="display: none">
                         <form ng-submit="emailSearch(search_user, terminal.terminal_id)">
                             <div class="">
                                 <input type="text" class="form-control" ng-model="search_user" placeholder="Facebook Email">
