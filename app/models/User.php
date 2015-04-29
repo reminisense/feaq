@@ -105,4 +105,32 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $user ? $user->toArray() : null;
     }
 
+
+    //ARA Used for user demographics tracking
+    public static function gender($user_id){
+        return User::where('user_id', '=', $user_id)->first()->gender;
+    }
+
+    public static function nationality($user_id){
+        return User::where('user_id', '=', $user_id)->first()->nationality;
+    }
+
+    public static function civil_status($user_id){
+        return User::where('user_id', '=', $user_id)->first()->civil_status;
+    }
+
+    public static function birthdate($user_id){
+        return User::where('user_id', '=', $user_id)->first()->birthdate;
+    }
+
+    public static function age($user_id){
+        $birthdate = User::birthdate($user_id);
+        if($birthdate){
+            return (date('Y') - date('Y', $birthdate));
+        }else{
+            return 0;
+        }
+
+    }
+
 }
