@@ -352,7 +352,10 @@ class BusinessController extends BaseController{
     $arr = array();
     $post = json_decode(file_get_contents("php://input"));
     if ($post) {
-      if ($post->latitude && $post->longitude) $res = Business::getBusinessByLatitudeLongitude($post->latitude, $post->longitude); // get location first
+      if ($post->latitude && $post->longitude) {
+        $res = Business::getBusinessByLatitudeLongitude($post->latitude, $post->longitude); // get location first
+        if (!count($res)) $res = Business::all();
+      }
       else $res = Business::all();
       foreach ($res as $count => $data) {
 
