@@ -20,11 +20,7 @@ var tracker = {
             operating_system:   this.getOs(navigator.userAgent, navigator.appVersion),
             screen_size:        this.getScreenSize(screen.width, screen.height)
         }
-        $http.post('/history/log-visit/', data
-            ).success(function(response){
-                console.log('id = ' + response.log_id);
-                console.log(data);
-            });
+        $http.post('/history/log-visit/', data);
     },
 
     saveData : function($http){
