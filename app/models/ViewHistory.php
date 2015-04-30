@@ -7,8 +7,8 @@
  */
 
 class ViewHistory extends Eloquent{
-    protected $table = 'view_history';
-    protected $primaryKey = 'view_history_id';
+    protected $table = 'watchdog';
+    protected $primaryKey = 'log_id';
 
     public static function addViewHistory($data){
         return ViewHistory::insertGetId($data);
