@@ -126,9 +126,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     public static function age($user_id){
         $birthdate = User::birthdate($user_id);
         if($birthdate){
-            return (date('Y') - date('Y', $birthdate));
+            Helper::getAge($birthdate);
         }else{
-            return 0;
+            return null;
         }
 
     }

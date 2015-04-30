@@ -136,4 +136,11 @@ class Helper extends Eloquent {
 
         return("unknown");
     }
+
+    /**
+     * @param $birthdate must be int ex. strtotime(1/1/1990)
+     */
+    public static function getAge($birthdate){
+        return floor( (time() - $birthdate) / 31556926);
+    }
 }
