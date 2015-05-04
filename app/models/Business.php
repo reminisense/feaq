@@ -96,6 +96,7 @@ class Business extends Eloquent{
             'sms_10_ahead' => QueueSettings::smsTenAhead($first_service->service_id),
             'sms_blank_ahead' => QueueSettings::smsBlankAhead($first_service->service_id),
             'input_sms_field' => QueueSettings::inputSmsField($first_service->service_id),
+            'allow_remote' => QueueSettings::allowRemote($first_service->service_id),
             'terminals' => $terminals,
             'analytics' => $analytics
         ];
@@ -443,5 +444,51 @@ class Business extends Eloquent{
         }
         return $businesses;
     }
+
+  public static function getBusinessByLatitudeLongitude($latitude, $longitude) {
+    $max_lat = $latitude + 0.06;
+    $max_long = $longitude + 0.06;
+    $min_lat = $latitude - 0.06;
+    $min_long = $longitude - 0.06;
+    return Business::where('latitude', '>=', $min_lat)->where('latitude', '<=', $max_lat)
+      ->where('longitude', '>=', $min_long)->where('longitude', '<=', $max_long)->get();
+  }
+
+  public static function processingBusinessBool($business_id) {
+    $filepath = public_path() . '/json/' . $business_id . '.json';
+    $data = json_decode(file_get_contents($filepath));
+    if ($data->box1->number != '') {
+      return TRUE;
+    }
+    elseif (isset($data->box2)) {
+      if ($data->box2->number != '') {
+        return TRUE;
+      }
+    }
+    elseif (isset($data->box3)) {
+      if ($data->box3->number != '') {
+        return TRUE;
+      }
+    }
+    elseif (isset($data->box4)) {
+      if ($data->box4->number != '') {
+        return TRUE;
+      }
+    }
+    elseif (isset($data->box5)) {
+      if ($data->box5->number != '') {
+        return TRUE;
+      }
+    }
+    elseif (isset($data->box6)) {
+      if ($data->box6->number != '') {
+        return TRUE;
+      }
+    }
+    elseif ($data->get_num != '') {
+      return TRUE;
+    }
+    return FALSE;
+  }
 
 }

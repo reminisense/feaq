@@ -2,6 +2,7 @@
  * Created by JONAS on 3/4/2015.
  */
 (function() {
+
     app.controller('searchBusinessCtrl', function($scope, $http) {
         jQuery.ajax({
             url: '//freegeoip.net/json/',
@@ -10,6 +11,52 @@
             success: function(location) {
                 $scope.location_filter = location.country_name;
             }
+        });
+
+        var listBusinesses = (function(response) {
+            $('#biz-grid').hide();
+            $scope.businesses = new Array();
+            var length_limit = 7;
+            for (var i = 0; i < response.length; i++) {
+                $scope.businesses.push({
+                    "business_id": response[i].business_id,
+                    "business_name": response[i].business_name,
+                    "local_address": response[i].local_address,
+                    "time_open" : response[i].time_open,
+                    "time_close": response[i].time_close,
+                    "waiting_time": response[i].waiting_time,
+                    //ARA more info for business cards
+                    "last_number_called": response[i].last_number_called,
+                    "next_available_number": response[i].next_available_number,
+                    "is_calling": response[i].is_calling,
+                    "is_issuing": response[i].is_issuing,
+                    "last_active": response[i].last_active
+                });
+                if(i == length_limit - 1) break;
+            }
+
+            if(response.length <= length_limit){
+                length_limit = response.length;
+            }
+            $('#search-grid').show();
+        });
+
+        var personalizedBusinesses = (function(data) {
+            $http.post('/business/personalized-businesses', data).success(listBusinesses).error(function() {
+                alert('Something went wrong..');
+            });
+        });
+
+        personalizedBusinesses({
+            latitude : 0,
+            longitude : 0
+        });
+
+        navigator.geolocation.getCurrentPosition(function(position) {
+            personalizedBusinesses({
+                latitude : position.coords.latitude,
+                longitude : position.coords.longitude
+            });
         });
 
         $scope.industry_filter = 'Industry';

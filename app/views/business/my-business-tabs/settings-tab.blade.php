@@ -49,7 +49,7 @@
     <tr>
         <td colspan="2">
             <div class="col-md-12">
-                <p class="title">SMS Notification Settings
+                <p class="title">SMS and Email Notification Settings
                 <span class="glyphicon glyphicon-info-sign" style="color:#337ab7; cursor: pointer" title="When to notify users via SMS."></span>
                 </p>
             </div>

@@ -44,6 +44,7 @@ class BusinessController extends BaseController{
         if (count($businesses) > 0){
             $business = $businesses[0];
             $business_id = $business->business_id;
+            unset($assigned_businesses[$business->business_id]);
             $first_service = Service::getFirstServiceOfBusiness($business_id);
             $terminals = Terminal::getTerminalsByServiceId($first_service->service_id);
             return View::make('business.my-business')
@@ -335,7 +336,7 @@ class BusinessController extends BaseController{
      * if different validate if it exists or not
      *
      */
-    private function validateBusinessNameBusinessAddress($dbBusiness, $inputBusiness){
+    private function validateBusinessNameBusinessAddress($dbBusiness, $inputBusiness) {
         if ($dbBusiness->name != $inputBusiness['business_name'] || $dbBusiness->local_address != $inputBusiness['business_address']){
             $row = Business::businessExistsByNameByAddress($inputBusiness['business_name'], $inputBusiness['business_address']);
             if(count($row) == 0){
@@ -347,5 +348,62 @@ class BusinessController extends BaseController{
             return true;
         }
     }
+
+  public function postPersonalizedBusinesses() {
+    $arr = array();
+    $post = json_decode(file_get_contents("php://input"));
+    if ($post) {
+      if ($post->latitude && $post->longitude) {
+        $res = Business::getBusinessByLatitudeLongitude($post->latitude, $post->longitude); // get location first
+        if (!count($res)) $res = Business::all();
+      }
+      else $res = Business::all();
+      foreach ($res as $count => $data) {
+
+        // check if business is currently processing numbers
+        //if (Business::processingBusinessBool($data->business_id)) {
+
+          $first_service = Service::getFirstServiceOfBusiness($data->business_id);
+          $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
+
+          if (Auth::check()) {
+            $arr[] = array(
+              'business_id' => $data->business_id,
+              'business_name' => $data->name,
+              'local_address' => $data->local_address,
+              'time_open' => $data->open_hour . ':' . Helper::doubleZero($data->open_minute) . ' ' . strtoupper($data->open_ampm),
+              'time_close' => $data->close_hour . ':' . Helper::doubleZero($data->close_minute) . ' ' . strtoupper($data->close_ampm),
+              'waiting_time' => Analytics::getWaitingTimeString($data->business_id),
+
+              //ARA more info for business cards
+              'last_number_called' => count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'none', //ok
+              'next_available_number' => $all_numbers->next_number, //ok
+              'is_calling' => count($all_numbers->called_numbers) > 0 ? true : false, //ok
+              'is_issuing' => count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? true : false, //ok
+              'last_active' => Analytics::getLastActive($data->business_id)
+            );
+          }
+          else {
+            $arr[] = array(
+              'business_id' => $data->business_id,
+              'business_name' => $data->name,
+              'local_address' => $data->local_address,
+            );
+          }
+
+        //}
+
+      }
+      return json_encode($arr);
+    }
+  }
+
+  public function getGeolocationFixer($business_id) {
+    $parsed_location = str_replace(" ", "+", Business::localAddress($business_id));
+    $data = json_decode(file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.$parsed_location));
+    Business::where('business_id', '=', $business_id)->update(array('longitude' => $data->results[0]->geometry->location->lng, 'latitude' => $data->results[0]->geometry->location->lat));
+    echo 'Coordinates set.';
+  }
+
 
 }

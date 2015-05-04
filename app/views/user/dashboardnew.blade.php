@@ -31,7 +31,7 @@
                           <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupDrop1" id="location-filter">
-                          <li ng-repeat="location in locations" ng-click="locationFilter(location.code);"><a href="#">@{{ location.code }}</a></li>
+                          <li ng-repeat="location in locations" ng-click="locationFilter(location.code);"><a href="">@{{ location.code }}</a></li>
                             </ul>
                       </div>
                       <div class="col-md-2 col-sm-2 col-xs-4 btn-group">
@@ -40,7 +40,7 @@
                           <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupDrop1">
-                          <li ng-repeat="industry in industries" ng-click="industryFilter(industry.code);"><a href="#">@{{ industry.code }}</a></li>
+                          <li ng-repeat="industry in industries" ng-click="industryFilter(industry.code);"><a href="">@{{ industry.code }}</a></li>
                         </ul>
                       </div>
                       <div class="col-md-2 col-sm-2 col-xs-4 btn-group">
@@ -64,51 +64,10 @@
         <h2 class="text-center">Or browse from these businesses currrently queuing</h2>
       </div>
       <div class="container">
-        <div class="row" id="biz-grid">
-          @if(count($active_businesses) > 0)
-            @foreach($active_businesses as $business)
-                <div class="col-md-3">
-                  <a class="broadcast_link" href="{{ URL::to( '/broadcast/business/' . $business['business_id'] ) }}" target="_blank" title="View Broadcast Page.">
-                      <div class="boxed">
-                        <p class="title">{{ $business['name'] }}</p>
-                        <p class="address">{{ $business['local_address'] }}</p>
-                        @if(!$business['is_calling'] && !$business['is_issuing'])
-                        <div class="statuses">
-                            <p><span class="icon-lineq"></span> Business Hours: <span class="pull-right">{{ $business['open_time'] }} - {{ $business['close_time'] }}</span> <span class="icon-busy"></span> </p>
-                            <p><span class="icon-waittime"></span> Last Active:
-                                @if($business['last_active'] > 1)
-                                <span class="pull-right">{{ $business['last_active'] . ' days ago' }}</span>
-                                @elseif($business['last_active'] == 1)
-                                <span class="pull-right">{{ 'Yesterday' }}</span>
-                                @elseif($business['last_active'] == 0)
-                                <span class="pull-right">{{ 'Today' }}</span>
-                                @endif
-                            </p>
-                        </div>
-                        @else
-                        <div class="statuses row">
-                            <div class="col-md-6 col-xs-6 text-center">
-                                <h5>Calling</h5>
-                                <h4><strong>{{ $business['last_number_called'] }}</strong></h4>
-                            </div>
-                            <div class="col-md-6 col-xs-6 text-center">
-                                <h5>Next Available</h5>
-                                <h4><strong>{{ $business['next_available_number'] }}</strong></h4>
-                            </div>
-                            <div class="col-md-12 text-center">
-                                <p class="line">Line Status: <span class="{{ $business['waiting_time'] }}">&middot</span> {{ $business['waiting_time'] }}</p>
-                            </div>
-                        </div>
-                        @endif
-                      </div>
-                  </a>
-                </div>
-            @endforeach
-          @endif
-        </div>
+        <div class="row" id="biz-grid"></div>
         <div class="row" id="search-grid" style="display: none;">
             <div class="col-md-12 col-xs-12 col-sm-12">
-                <h5 class="mb30 searchresults">@{{ searchLabel }}</h5>
+                <h5 class="searchresults">@{{ searchLabel }}</h5>
             </div>
             <div class="col-md-3" ng-repeat="business in businesses">
                 <a class="broadcast_link" href="/broadcast/business/@{{ business.business_id }}">

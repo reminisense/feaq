@@ -149,8 +149,8 @@ My Business
                 @endforeach
             </div>
         </div>
-    </div>
     @endif
+    </div>
 </div>
 
 {{-- js variables used --}}
