@@ -78,9 +78,10 @@ class UserController extends BaseController{
      * @description: render dashboard, fetch all businesses for default search view, and businesses created by logged in user
      */
     public function getUserDashboard(){
-        $active_businesses = Business::getDashboardBusinesses();
+        //$active_businesses = Business::getDashboardBusinesses();
         if (Auth::check())
         {
+            /*
             //$search_businesses = Business::getPopularBusinesses(); ARA No more popular businesses. only active businesses
             $business_ids = UserBusiness::getAllBusinessIdByOwner(Helper::userId());
             $my_businesses = [];
@@ -94,7 +95,7 @@ class UserController extends BaseController{
             }
             /* @author: CSD
              * @desc: check if user already has own business
-             */
+
             if(count($my_businesses) > 0){
                 $has_business = true;
             } else {
@@ -112,18 +113,19 @@ class UserController extends BaseController{
                     }
                 }
             }
+            */
 
-            return View::make('user.dashboardnew')
+            return View::make('user.dashboardnew');
                 //->with('search_businesses', $search_businesses) ARA No more popular businesses. only active businesses
-                ->with('active_businesses', $active_businesses)
-                ->with('my_businesses', $my_businesses)
-                ->with('has_business', $has_business);
+                //->with('active_businesses', $active_businesses)
+                //->with('my_businesses', $my_businesses)
+                //->with('has_business', $has_business);
         }
         else
         {
-            return View::make('homepage')
-                ->with('active_businesses', $active_businesses)
-                ->with('search_businesses', Business::getNewBusinesses()); // RDH Active and New Businesses on Front Use Different Results
+            return View::make('homepage');
+                //->with('active_businesses', $active_businesses)
+                //->with('search_businesses', Business::getNewBusinesses()); // RDH Active and New Businesses on Front Use Different Results
         }
     }
 

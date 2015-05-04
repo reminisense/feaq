@@ -118,5 +118,8 @@ footer p {margin: 0;}
     -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
 
+#main_dashboard_container {
+    min-height: 850px;
+}
 
 

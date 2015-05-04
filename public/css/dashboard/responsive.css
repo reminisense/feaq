@@ -196,6 +196,17 @@
     .processq-box .q-actions .btn-primary {
         float: right!important;
     }
+
+    .btn-boxy.btn-primary {
+        width: 100px;
+    }
+    .btn-boxy.btn-cyan {
+        width: 100px;
+    }
+    .cancel-adduser, .cancel-add-terminal {
+        width: 100px;
+        margin-top: 5px;
+    }
     /* @CSD END */
 }
 @media (max-width: 320px) {
@@ -248,5 +259,15 @@
     }
     .settings input[type=checkbox] {
         height: inherit;
+    }
+    .btn-boxy.btn-primary {
+        width: 100px;
+    }
+    .btn-boxy.btn-cyan {
+        width: 100px;
+    }
+    .cancel-adduser, .cancel-add-terminal {
+        width: 100px;
+        margin-top: 2px;
     }
 }

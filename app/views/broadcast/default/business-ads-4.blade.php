@@ -31,7 +31,7 @@
                         <p class="orange nomg">On the go?</p>
                         <p class="nomg">Scan this QR Code on your mobile phone</p>
                         <div class="text-center">
-                            <img class="qrcode" src='https://api.qrserver.com/v1/create-qr-code/?data={{ URL::to('/broadcast/business/' . $business_id) }}&size=150x150' />
+                            <img class="qrcode" src='https://api.qrserver.com/v1/create-qr-code/?data={{ URL::to('/broadcast/business/' . $business_id) }}&size=120x120' />
                         </div>
                     </div>
                 </div>

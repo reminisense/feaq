@@ -1,7 +1,7 @@
 @media (max-width: 2500px) {
-  .boxed .broadcast .spaceht {
-    font-size: 170px!important;
-  }
+    .boxed .broadcast .spaceht {
+        font-size: 170px !important;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 979px) {
@@ -20,6 +20,10 @@
   .navbar-nav {
     margin: 0;
   }
+    #fqCarousel {
+        min-height: inherit!important;
+        margin-bottom: 20px!important;
+    }
 }
 
 @media (max-width: 991px) {
@@ -59,6 +63,10 @@
 }
 
 @media (max-width: 480px) {
+    #fqCarousel {
+        min-height: inherit!important;
+        margin-bottom: 20px!important;
+    }
   .navbar-brand {
     margin-left: 10px;
   }
@@ -139,5 +147,26 @@
   }
   .boxed .broadcast .numbers {
     font-size: 90px!important;
+  }
+  #broadcast .qrwrap {
+    height: 250px!important;
+  }
+  .boxed .head {
+      padding: 5px 20px;
+  }
+  /* @CSD 05042015 */
+  .ads-sixnums h1 {
+      font-size: 24vmin;
+  }
+  body#broadcast .terminal {
+      font-size: 24px;
+      line-height: 70px;
+  }
+  .ads-sixnums p.orange {
+      font-size: 16px!important;
+      padding-top: 0px!important;
+  }
+  #broadcast .head h4 {
+      font-size: 30px;
   }
 }

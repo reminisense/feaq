@@ -27,9 +27,8 @@
                                     <label>Number</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="get_num" name="number" required>
+                                    <input type="text" disabled class="form-control" ng-model="get_num" name="number" required>
                                 </div>
-
                                 <div class="col-md-4">
                                     <label>Name</label>
                                 </div>
