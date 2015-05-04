@@ -16,11 +16,12 @@
     <link rel='stylesheet' type='text/css' href='css/homepage/responsive.css'>
     <link rel='stylesheet' type='text/css' href="css/homepage/animate.css" >
     <link rel="stylesheet" type="text/css" href="css/jquery.timeentry.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.0/slick.css"/>
     <script type="text/javascript" src="js/jquery1.11.2.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
-
     <script type="text/javascript" src="js/custom.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script> {{-- RDH Using CDN for Angular JS File --}}
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.0/slick.min.js"></script>
     {{ HTML::script('js/ngFeatherQ.js') }}
     {{ HTML::script('js/ngFacebook.js') }}
     {{ HTML::script('js/ngAutocomplete.js') }}
@@ -748,6 +749,19 @@
         </div>
     </div>
 </section>
+<a name="diy"></a>
+<section name="diy">
+    <div class="container">
+        <div class="slick-slider" data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
+            <div><img src="img/diy/slide1.jpg" /></div>
+            <div><img src="img/diy/slide2.jpg" /></div>
+            <div><img src="img/diy/slide3.jpg" /></div>
+            <div><img src="img/diy/slide1.jpg" /></div>
+            <div><img src="img/diy/slide2.jpg" /></div>
+            <div><img src="img/diy/slide3.jpg" /></div>
+        </div>
+    </div>
+</section>
 <a name="getting-started"></a>
 <section class="page4">
     <div class="container">
@@ -768,7 +782,6 @@
         </div>
     </div>
 </section>
-
 <footer>
     <div class="container">
         <div class="">
@@ -779,6 +792,32 @@
 
 <script src="js/wow.min.js"></script>
 <script>
+    $('.slick-slider').slick({
+      centerMode: true,
+      centerPadding: '60px',
+      slidesToShow: 3,
+      responsive: [
+        {
+          breakpoint: 768,
+          settings: {
+            arrows: false,
+            centerMode: true,
+            centerPadding: '40px',
+            slidesToShow: 3
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            arrows: false,
+            centerMode: true,
+            centerPadding: '40px',
+            slidesToShow: 1
+          }
+        }
+      ]
+    });
+
     $('#time_open-filter').timeEntry({ampmPrefix: ' ', spinnerImage: ''});
     new WOW().init();
 </script>
