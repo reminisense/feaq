@@ -16,4 +16,8 @@ class Watchdog extends Eloquent {
     Watchdog::insert($val);
   }
 
+  public static function addViewHistory($data){
+    return Watchdog::insertGetId($data);
+  }
+
 }

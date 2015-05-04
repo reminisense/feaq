@@ -74,7 +74,7 @@
                 "industry": industry,
                 "time_open": $scope.time_open
             };
-            $http.post('/watchdog/watch', data);
+            $http.post('/watchdog/log-search', data);
             $http.post('/business/filter-search', data).success(function(response) {
                 $('#biz-grid').hide();
                 $scope.businesses = new Array();
