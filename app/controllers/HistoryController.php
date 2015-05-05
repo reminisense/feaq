@@ -11,6 +11,8 @@ class HistoryController extends Controller{
     public function postLogVisit(){
         $input = Input::all();
         $user_id = Helper::userId();
+
+        //get user environment information
         $data = [
             'ip_address'        => Helper::getIP(),
             'referrer_url'      => $input['referrer_url'],
@@ -22,6 +24,7 @@ class HistoryController extends Controller{
             'screen_size'       => $input['screen_size'],
         ];
 
+        //get user data
         if($user_id){
             $birthdate              = User::birthdate($user_id);
             $data['gender']         = User::gender($user_id);
@@ -33,6 +36,12 @@ class HistoryController extends Controller{
             $data['age']            = User::age($user_id);
         }
 
+        //get page information
+        $url_data = explode('/', $input['page_url']);
+        if($url_data[3] == 'broadcast' && $url_data[4] == 'business'){
+            $data['business_id']    = $url_data[5];
+        }
+
         $log_data = [
             'user_id'           => Helper::userId(),
             'action_type'       => 'page view',
@@ -41,5 +50,9 @@ class HistoryController extends Controller{
 
         $id = ViewHistory::addViewHistory($log_data);
         return json_encode(['success' => 1, 'log_id' => $id]);
+    }
+
+    public function getUserdata($keyword, $user_id = null){
+        return ViewHistory::queryUserParameters($keyword, $user_id);
     }
 }
