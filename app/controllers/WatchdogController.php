@@ -61,7 +61,7 @@ class WatchdogController extends BaseController{
 
         $log_data = [
             'user_id'           => Helper::userId(),
-            'action_type'       => 'page view',
+            'action_type'       => 'page_view',
             'value'             => serialize($data),
         ];
 

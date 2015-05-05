@@ -36,7 +36,7 @@ class Watchdog extends Eloquent {
         $user_data = Watchdog::getUserRecords($user_id);
         $values = [];
         foreach($user_data as $data){
-            $values[] = $data[$keyword];
+            if(isset($data[$keyword])) $values[] = $data[$keyword];
         }
         $numbers = array_count_values($values);
         return $numbers;
