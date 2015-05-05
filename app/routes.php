@@ -35,6 +35,6 @@ Route::controller('terminal', 'TerminalController');
 
 Route::controller('advertisement', 'AdvertisementController');
 
-Route::controller('rest', 'RestController'); /* RDH For Android Webservices*/
+Route::controller('watchdog', 'WatchdogController');
 
-Route::controller('history', 'HistoryController');
+Route::controller('rest', 'RestController'); /* RDH For Android Webservices*/
