@@ -94,7 +94,7 @@
                     <div class="row">
                         <div class="col-md-5 getnum-info">
                             @if($allow_remote)
-                            <h2 class="">Remote Queue Available Number:</h2>
+                            <h2 class="">Remote Queue Number:</h2>
                             <p>Remote queuing allows you to get this number before being at the location.</p>
                             @else
                             <h2 class="">Next Available Number:</h2>
@@ -126,6 +126,7 @@
     </div>
 </div>
 @include('modals.broadcast.remote-queue-modal')
+@include('modals.broadcast.contact-business-modal');
 
 {{--{{ HTML::script('js/bootstrap.min.js') }}--}}
 <script src="/js/broadcast/bootstrap.min.js"></script>

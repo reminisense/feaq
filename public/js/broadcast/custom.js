@@ -1,3 +1,27 @@
+$(document).on('click', '#btn-message-business', function(){
+    $('#contactBusinessModal').html("Contact " + $('#business-name').html());
+});
+
+$(document).on('click', '#send-business-message', function(){
+    var business_id = $('#business-id').attr('business_id');
+    var contname = $('#contactname').val();
+    var contemail = $('#contactemail').val();
+    var contmessage = $('#contactmessage').val();
+
+    $.post( '/broadcast/business-message', { business_id: business_id, contname: contname, contemail: contemail, contmessage: contmessage })
+        .done(function( data ) {
+            var resp = jQuery.parseJSON(data);
+            if (resp.message_id > 0){
+                $('#message-notif').fadeIn();
+                $('#message-notif').html('Message sent! The business will personally contact you through your email.');
+                $('#contactname').val('');
+                $('#contactemail').val('');
+                $('#contactmessage').val('');
+                $('#contactmessage').attr('placeholder', 'Write your message here...');
+            }
+        });
+});
+
 /*broadcast - more details*/
 $('#btn-bcast-details').click(function () {
   if ( $( '.bcast-details' ).is( ':hidden' ) ) {
@@ -46,4 +70,14 @@ $('#btn-addterminal').click(function () {
 $('#editbiz-tabs a').click(function (e) {
   e.preventDefault()
   $(this).tab('show')
-})
+});
+
+(function(){
+    app.controller('messagesController', function($scope, $http){
+        $scope.username = "";
+        $scope.useremail = "";
+        $scope.usermessage = "";
+
+
+    });
+})();
