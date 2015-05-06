@@ -161,15 +161,16 @@ class Business extends Eloquent{
             $time_open_arr['min'] = '';
             $time_open_arr['ampm'] = '';
         }
-        if ($country == 'Location') {
-            $country = '';
-        }
         if ($industry == 'Industry') {
             $industry = '';
         }
         if ($time_open_arr['ampm'] == 'PM' && $time_open_arr['min'] == '00') {
             return Business::where('name', 'LIKE', '%' . $name . '%')
-              ->where('local_address', 'LIKE', '%' . $country . '%')
+              //->where('local_address', 'LIKE', '%' . $country . '%')
+              ->where('latitude', '<=', $country['ne_lat'])
+              ->where('latitude', '>=', $country['sw_lat'])
+              ->where('longitude', '<=', $country['ne_lng'])
+              ->where('longitude', '>=', $country['sw_lng'])
               ->where('industry', 'LIKE', '%' . $industry . '%')
               ->where('open_ampm', '=', 'PM')
               ->where('open_hour', '>=', $time_open_arr['hour'])
@@ -177,7 +178,11 @@ class Business extends Eloquent{
         }
         elseif ($time_open_arr['ampm'] == 'PM' && $time_open_arr['min'] == '30') {
             return Business::where('name', 'LIKE', '%' . $name . '%')
-              ->where('local_address', 'LIKE', '%' . $country . '%')
+              //->where('local_address', 'LIKE', '%' . $country . '%')
+              ->where('latitude', '<=', $country['ne_lat'])
+              ->where('latitude', '>=', $country['sw_lat'])
+              ->where('longitude', '<=', $country['ne_lng'])
+              ->where('longitude', '>=', $country['sw_lng'])
               ->where('industry', 'LIKE', '%' . $industry . '%')
               ->where('open_ampm', '=', 'PM')
               ->whereRaw('open_hour > ? OR (open_hour = ? AND open_minute = ?)',
@@ -186,7 +191,11 @@ class Business extends Eloquent{
         }
         elseif ($time_open_arr['ampm'] == 'AM' && $time_open_arr['min'] == '00') {
             return Business::where('name', 'LIKE', '%' . $name . '%')
-              ->where('local_address', 'LIKE', '%' . $country . '%')
+              //->where('local_address', 'LIKE', '%' . $country . '%')
+              ->where('latitude', '<=', $country['ne_lat'])
+              ->where('latitude', '>=', $country['sw_lat'])
+              ->where('longitude', '<=', $country['ne_lng'])
+              ->where('longitude', '>=', $country['sw_lng'])
               ->where('industry', 'LIKE', '%' . $industry . '%')
               ->whereRaw('(open_hour >= ? AND open_ampm = ?) OR (open_hour < ? AND open_ampm = ?)',
                   array($time_open_arr['hour'], 'AM', $time_open_arr['hour'], 'PM'))
@@ -194,7 +203,11 @@ class Business extends Eloquent{
         }
         elseif ($time_open_arr['ampm'] == 'AM' && $time_open_arr['min'] == '30') {
             return Business::where('name', 'LIKE', '%' . $name . '%')
-              ->where('local_address', 'LIKE', '%' . $country . '%')
+              //->where('local_address', 'LIKE', '%' . $country . '%')
+              ->where('latitude', '<=', $country['ne_lat'])
+              ->where('latitude', '>=', $country['sw_lat'])
+              ->where('longitude', '<=', $country['ne_lng'])
+              ->where('longitude', '>=', $country['sw_lng'])
               ->where('industry', 'LIKE', '%' . $industry . '%')
               ->whereRaw('(open_hour > ? AND open_ampm = ?) OR (open_hour < ? AND open_ampm = ?) OR (open_hour = ? AND open_minute = ? AND open_ampm = ?)',
                 array($time_open_arr['hour'], 'AM', $time_open_arr['hour'], 'PM', $time_open_arr['hour'], '30', 'AM'))
@@ -202,7 +215,11 @@ class Business extends Eloquent{
         }
         else {
             return Business::where('name', 'LIKE', '%' . $name . '%')
-              ->where('local_address', 'LIKE', '%' . $country . '%')
+              //->where('local_address', 'LIKE', '%' . $country . '%')
+              ->where('latitude', '<=', $country['ne_lat'])
+              ->where('latitude', '>=', $country['sw_lat'])
+              ->where('longitude', '<=', $country['ne_lng'])
+              ->where('longitude', '>=', $country['sw_lng'])
               ->where('industry', 'LIKE', '%' . $industry . '%')
               ->get();
         }
