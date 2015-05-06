@@ -71,6 +71,11 @@ class WatchdogController extends BaseController{
 
     //temporary function to display user tracking data
     public function getUserdata($keyword, $user_id = null){
-        return Watchdog::queryUserInfo($keyword, $user_id);
+        return json_encode(['data' => Watchdog::queryUserInfo($keyword, $user_id)]);
+    }
+
+    public function getStats($user_id = null){
+        return View::make('analytics.user_analytics')
+                ->with('user_id', $user_id);
     }
 }
