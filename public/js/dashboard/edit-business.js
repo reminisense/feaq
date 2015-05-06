@@ -1,4 +1,4 @@
-/**
+ /**
  * Created by USER on 2/3/15.
  */
 $(document).ready(function(){
@@ -61,6 +61,8 @@ $(document).ready(function(){
     eb.jquery_functions.setUserId($('#user_id').val());
     eb.jquery_functions.getBusinessDetails();
     eb.jquery_functions.my_business_link_active();
+
+
 });
 
 var eb = {
@@ -167,6 +169,7 @@ var eb = {
         $scope.terminals = [];
         $scope.users = [];
         $scope.analytics = [];
+        $scope.messages = [];
 
         $scope.number_start = 1;
         $scope.terminal_specific_issue = 0;
@@ -207,7 +210,24 @@ var eb = {
             $scope.terminals = business.terminals;
             $scope.analytics = business.analytics;
             $scope.terminal_delete_error = business.error ? business.error : null;
+            $scope.messages = business.messages;
        }
+
+        /* @CSD 05062015 */
+        $scope.setPreviewMessage = function(message_id){
+            var length = $scope.messages.length;
+            $('.message-preview').fadeOut().promise().done(function(){
+                for(var i = 0; i < length; i++){
+                    if ($scope.messages[i].message_id == message_id){
+                        $('#contactfrom').html($scope.messages[i].contactname);
+                        $('#contactemail').html($scope.messages[i].contactemail);
+                        $('#contactmobile').html($scope.messages[i].contactmobile);
+                        $('#contactmessage').html($scope.messages[i].contactmessage);
+                        $('.message-preview').fadeIn();
+                    }
+                }
+            });
+        }
 
         $scope.unassignFromTerminal = function(user_id, terminal_id){
             $http.get(eb.urls.terminals.terminal_unassign_url + user_id + '/' + terminal_id)

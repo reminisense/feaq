@@ -111,6 +111,7 @@ class BroadcastController extends BaseController{
         $message->contactname = Input::get('contname');
         $message->contactemail = Input::get('contemail');
         $message->contactmessage = Input::get('contmessage');
+        $message->contactmobile = Input::get('contmobile');
         $message->save();
 
         return json_encode($message);

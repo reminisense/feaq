@@ -25,6 +25,12 @@
                                 <input type="email" class="form-control" id="contactemail" required />
                             </div>
                             <div class="col-md-3">
+                                <label>Mobile Number</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="mobile" class="form-control" id="contactmobile" required />
+                            </div>
+                            <div class="col-md-3">
                                 <label>Message</label>
                             </div>
                             <div class="col-md-9">

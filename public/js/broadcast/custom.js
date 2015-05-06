@@ -6,17 +6,19 @@ $(document).on('click', '#send-business-message', function(){
     var business_id = $('#business-id').attr('business_id');
     var contname = $('#contactname').val();
     var contemail = $('#contactemail').val();
+    var contmobile = $('#contactmobile').val();
     var contmessage = $('#contactmessage').val();
 
-    $.post( '/broadcast/business-message', { business_id: business_id, contname: contname, contemail: contemail, contmessage: contmessage })
+    $.post( '/broadcast/business-message', { business_id: business_id, contname: contname, contemail: contemail, contmobile: contmobile, contmessage: contmessage })
         .done(function( data ) {
             var resp = jQuery.parseJSON(data);
             if (resp.message_id > 0){
                 $('#message-notif').fadeIn();
-                $('#message-notif').html('Message sent! The business will personally contact you through your email.');
+                $('#message-notif').html('Message sent! The business will personally contact you through your email or mobile number.');
                 $('#contactname').val('');
                 $('#contactemail').val('');
                 $('#contactmessage').val('');
+                $('#contactmobile').val('');
                 $('#contactmessage').attr('placeholder', 'Write your message here...');
             }
         });
