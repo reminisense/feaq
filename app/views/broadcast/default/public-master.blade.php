@@ -15,14 +15,6 @@
     <link href="/css/broadcast/default/dashboard.css" rel="stylesheet" type="text/css" media="all">
     <link href="/css/broadcast/default/responsive.css" rel="stylesheet" type="text/css" media="all">
 
-    <style>
-        .broadcast-signup {
-            color: #fff !important;
-        }
-        .broadcast-signup:hover {
-            background-color: #5880de !important;
-        }
-    </style>
 
     {{--{{ HTML::script('js/jquery1.11.0.js') }}--}}
     <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
@@ -75,7 +67,7 @@
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         @if (Auth::check()) <li><a href="{{URL::to('/')}}">Dashboard</a></li>
-                        @else <li ng-controller="fbController"><a href="" class="btn btn-blue btn-fb broadcast-signup" role="button" ng-click="login()"><img src="/img/icon-fb.png">&nbsp;&nbsp;Sign Up</a></li>
+                        @else <li ng-controller="fbController"><a href="" class="btn broadcast-signup" role="button" ng-click="login()"><img src="/img/fb-broadcast.png">&nbsp;&nbsp;Sign Up</a></li>
                         @endif
                         <li class="divider"></li>
                         <li class="dropdown-header">Connect with us!</li>
