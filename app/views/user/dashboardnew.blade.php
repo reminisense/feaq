@@ -64,7 +64,9 @@
         <h2 class="text-center">Or browse from these businesses currrently queuing</h2>
       </div>
       <div class="container">
-        <div class="row" id="biz-grid"></div>
+        <div class="row" id="search-loader" style="display: none; text-align: center;">
+            <img src="/images/ajax-loader.gif" />
+        </div>
         <div class="row" id="search-grid" style="display: none;">
             <div class="col-md-12 col-xs-12 col-sm-12">
                 <h5 class="searchresults">@{{ searchLabel }}</h5>

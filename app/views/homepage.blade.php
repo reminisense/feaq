@@ -28,6 +28,7 @@
     {{ HTML::script('js/jquery.plugin.js') }}
     {{ HTML::script('js/jquery.timeentry.js') }}
     {{ HTML::script('js/search-business.js') }}
+    {{ HTML::script('js/user/Usertracker.js') }} {{-- ARA For user tracking --}}
 </head>
 
 <body ng-app="FeatherQ" ng-cloak>
