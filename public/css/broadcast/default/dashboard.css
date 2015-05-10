@@ -462,7 +462,9 @@ h5.heading {
 #accordion a.h5 {
   text-decoration: none;
 }
-
+#btn-bcast-details {
+    margin-top: -17px;
+}
 /****BOXES******/
 .boxed {
   border: 1px solid #c6c6c6;
@@ -481,7 +483,7 @@ h5.heading {
 }
 .boxed .head.head-wbtn .btn-half {
   float: right;
-  margin-top: -14px;
+  margin-top: -28px;
 }
 .boxed .head.head-wbtn .btn span {
   font-size: 10px;
@@ -966,9 +968,18 @@ strong {
   color: #356ab1;
   margin-top: 20px;
 }
+.message-business {
+    color: #fff;
+    background-color: #5b75b3;
+}
 .getnum-info h1 {
   color: #333;
   margin-bottom: 5px;
+}
+.getnum-info h2 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 16px;
 }
 .btn-getnum,
 .btn-getnum:focus {

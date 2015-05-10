@@ -169,4 +169,10 @@
   #broadcast .head h4 {
       font-size: 30px;
   }
+  .boxed .head.head-wbtn .btn-half {
+      margin-top: -18px;
+  }
+  #btn-bcast-details {
+      margin-top: -26px;
+  }
 }
