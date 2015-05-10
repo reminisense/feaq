@@ -40,7 +40,7 @@
             $('#search-grid').fadeIn(400, function() {
                 $('#search-loader').hide();
                 $('#search-grid').css({'opacity' : 1})
-            });
+        });
         });
 
         var personalizedBusinesses = (function(data) {

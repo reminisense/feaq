@@ -283,13 +283,6 @@ class BusinessController extends BaseController{
 
     public function postFilterSearch() {
         $post = json_decode(file_get_contents("php://input"));
-        $geolocation = json_decode(file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.$post->country));
-        $post->country = array(
-          'ne_lat' => $geolocation->results[0]->geometry->bounds->northeast->lat,
-          'ne_lng' => $geolocation->results[0]->geometry->bounds->northeast->lng,
-          'sw_lat' => $geolocation->results[0]->geometry->bounds->southwest->lat,
-          'sw_lng' => $geolocation->results[0]->geometry->bounds->southwest->lng,
-        );
         $res = Business::getBusinessByNameCountryIndustryTimeopen($post->keyword, $post->country, $post->industry, $post->time_open);
         $arr = array();
         foreach ($res as $count => $data) {
@@ -361,17 +354,14 @@ class BusinessController extends BaseController{
     $not_processing = array();
     $post = json_decode(file_get_contents("php://input"));
     if ($post) {
-      /*
       if ($post->latitude && $post->longitude) {
         $res = Business::getBusinessByLatitudeLongitude($post->latitude, $post->longitude); // get location first
         if (!count($res)) $res = Business::all();
       }
       else $res = Business::all();
-      */
-      $res = Business::all();
       foreach ($res as $count => $data) {
-        $first_service = Service::getFirstServiceOfBusiness($data->business_id);
-        $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
+          $first_service = Service::getFirstServiceOfBusiness($data->business_id);
+          $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
 
         // check if business is currently processing numbers
         if (Business::processingBusinessBool($data->business_id)) {
@@ -418,7 +408,7 @@ class BusinessController extends BaseController{
               'is_issuing' => count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? true : false, //ok
               'last_active' => Analytics::getLastActive($data->business_id)
             );
-          }
+      }
           else {
             $not_processing[] = array(
               'business_id' => $data->business_id,
