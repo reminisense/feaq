@@ -1,4 +1,4 @@
-var app = angular.module('PublicBroadcast', []);
+var app = angular.module('PublicBroadcast', ['Facebook']);
 
 app.controller('nowServingCtrl', function($scope, $http) {
 

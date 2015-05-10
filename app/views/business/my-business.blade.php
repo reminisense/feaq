@@ -113,7 +113,7 @@ My Business
     <div class="row">
         <div class="biz-details-wrap">
             <div class="col-md-12">
-                <div class="row" style="min-height:550px;">
+                <div class="row">
                     <div class="col-md-4 col-md-offset-4 col-xs-12" data-toggle="modal" id="add_business">
                         <a id="add-business" target="_blank"><span class="glyphicon glyphicon-plus"></span> Create Your First Business</a>
                     </div>
