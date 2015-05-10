@@ -70,7 +70,7 @@
                 <h5 class="searchresults">@{{ searchLabel }}</h5>
             </div>
             <div class="col-md-3" ng-repeat="business in businesses">
-                <a class="broadcast_link" href="/broadcast/business/@{{ business.business_id }}">
+                <a class="broadcast_link" href="/broadcast/business/@{{ business.business_id }}" target="_blank">
                     <div class="boxed">
                         <p class="title">@{{ business.business_name }}</p>
                         <p class="address">@{{ business.local_address }}</p>
