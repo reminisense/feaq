@@ -188,24 +188,6 @@ class Analytics extends Eloquent{
         $waiting_time = Analytics::getWaitingTime($business_id);
         $waiting_time = floor($waiting_time / 60);
 
-//        if($waiting_time > 60){
-//            $waiting_time_string = 'Approx. more than 1 hr';
-//        }else if($waiting_time <= 60 && $waiting_time > 45){
-//            $waiting_time_string = '45-60 mins';
-//        }else if($waiting_time <= 45 && $waiting_time > 30){
-//            $waiting_time_string = '30-45 mins';
-//        }else if($waiting_time <= 30 && $waiting_time > 15){
-//            $waiting_time_string = '15-30 mins';
-//        }else if($waiting_time <= 15 && $waiting_time > 10){
-//            $waiting_time_string = '10-15 mins';
-//        }else if($waiting_time <= 10 && $waiting_time > 5){
-//            $waiting_time_string = '5-10 mins';
-//        }else if($waiting_time <= 5 && $waiting_time > 0){
-//            $waiting_time_string = '1-5 mins';
-//        }else{
-//            $waiting_time_string = 'No line.';
-//        }
-
         //Reduced to 3 different line statuses
         if($waiting_time > 30){
             $waiting_time_string = 'heavy';
@@ -227,6 +209,31 @@ class Analytics extends Eloquent{
             $last_active = null;
         }
         return $last_active;
+    }
+
+    public static function getUserQueues($user_id = null){
+        if($user_id){
+            $results = Analytics::where('user_id', '=', $user_id)->get();
+        }else{
+            $results = Analytics::all();
+        }
+
+        foreach($results as $index => $data){
+            $action = 'issued';
+            if($data->action == 1 ) { $action = 'called'; }
+            else if($data->action == 2 ) { $action = 'served'; }
+            else if($data->action == 3 ) { $action = 'dropped'; }
+
+            try{
+                $business_name = Business::name($data->business_id);
+            }catch(Exception $e){
+                $business_name = $data->business_id;
+            }
+
+            $user_data[$index]['user_id'] = $data->user_id;
+            $user_data[$index][$action] = $business_name;
+        }
+        return $user_data;
     }
 
 }
