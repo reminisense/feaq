@@ -945,6 +945,10 @@ strong {
     -webkit-border-radius: 0px!important;
 }
 
+.req {
+    color: #ff0000;
+}
+
 /*3-24-2015*/
 .cyan {
   color: #00ba8b!important;
