@@ -1,3 +1,10 @@
+/* advertisement video players mobile view fix*/
+@media (max-width: 768px) {
+    iframe, embed {
+        height: 170px;
+    }
+}
+
 @media (max-width: 2500px) {
     .boxed .broadcast .spaceht {
         font-size: 170px !important;
