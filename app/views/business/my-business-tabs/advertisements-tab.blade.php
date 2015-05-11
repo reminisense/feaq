@@ -9,10 +9,7 @@
                 <small>Choose channel:</small>
                 <select ng-model="tv_channel" ng-init="tv_channel" id="tv-channel" class="form-control" style="width: 40%;">
                     <option value="">- Select A Channel -</option>
-                    <!-- <option value="<iframe SRC='http://www.newtvworld.com/livetv/india/AnimalPlanet.html' width='100%' height='400' id=www.Newtvworld.com marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling='no'></iframe>">Animal Planet</option> -->
-                    <option value='<embed flashvars="vid=12163886&amp;autoplay=false" width="100%" height="400" allowfullscreen="true" allowscriptaccess="always" src="http://www.ustream.tv/flash/viewer.swf" type="application/x-shockwave-flash">'>TechCrunch TV</option>
-                    <option value="<iframe width='100%' height='400' src='http://www.ustream.tv/embed/14067349?v=3&amp;wmode=direct' scrolling='no' frameborder='0' style='border: 0px none transparent;'></iframe>">Arirang TV</option>
-                    <option value="<iframe width='100%' height='400' src='http://www.ustream.tv/embed/8429259?v=3&amp;wmode=direct' scrolling='no' frameborder='0' style='border: 0px none transparent;'></iframe>">EnergyFM Manila</option>
+                    @include('business.my-business-tabs.channels')
                 </select>
                 <div class="alert alert-success" id="tvchannel-success" style="display: none;">Success! <strong><a href="/broadcast/business/@{{ business_id }}" target="_blank">View Broadcast Page</a></strong></div>
                 <div class="alert alert-danger" id="tvchannel-danger" style="display: none;">Oops! Something went wrong.</div>
