@@ -55,9 +55,9 @@ return array(
         'mysql' => array(
             'driver'    => 'mysql',
             'host'      => 'localhost',
-            'database'  => 'featherq',
-            'username'  => 'root',
-            'password'  => 'root',
+            'database'  => 'feaq',
+            'username'  => 'forge',
+            'password'  => 'TkLKr5ysCF9DQfJuVzx7',
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
