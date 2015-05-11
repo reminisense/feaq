@@ -7,7 +7,7 @@
 <div class="feat feat-business">
     <div class="container">
         <div class="text-center">
-            <h1><span class="glyphicon glyphicon-stats"></span>FeatherQ Statistics</h1>
+            <h1><span class="glyphicon glyphicon-stats"></span>My Statistics</h1>
         </div>
     </div>
     <div class="arrow">
@@ -21,18 +21,7 @@
                 <div class="col-md-11">
                     <input type="hidden" id="user_id" value="{{ $user_id }}">
                     <select class="form-control" id="keyword" ng-model="keyword">
-                        <option value="gender">             gender</option>
-                        <option value="age">                age</option>
-                        <option value="nationality">        nationality</option>
-                        <option value="civil_status">       civil status</option>
-                        <option value="birth_month">        birth month</option>
-                        <option value="birth_year">         birth year</option>
-                        <option value="browser">            browser</option>
-                        <option value="operating_system">   os</option>
-                        <option value="page_url">           page url</option>
-                        <option value="ip_address">         ip address</option>
-                        <option value="referrer_url">       referrer url</option>
-                        <option value="screen_size">        screen size</option>
+                        <option ng-repeat="keyword in keywords" value="@{{ keyword.keyword }}">@{{ keyword.name }}</option>
                     </select>
                 </div>
                 <div class="col-md-1">
