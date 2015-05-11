@@ -283,6 +283,13 @@ class BusinessController extends BaseController{
 
     public function postFilterSearch() {
         $post = json_decode(file_get_contents("php://input"));
+        $geolocation = json_decode(file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.$post->country));
+        $post->country = array(
+          'ne_lat' => $geolocation->results[0]->geometry->bounds->northeast->lat,
+          'ne_lng' => $geolocation->results[0]->geometry->bounds->northeast->lng,
+          'sw_lat' => $geolocation->results[0]->geometry->bounds->southwest->lat,
+          'sw_lng' => $geolocation->results[0]->geometry->bounds->southwest->lng,
+        );
         $res = Business::getBusinessByNameCountryIndustryTimeopen($post->keyword, $post->country, $post->industry, $post->time_open);
         $arr = array();
         foreach ($res as $count => $data) {
