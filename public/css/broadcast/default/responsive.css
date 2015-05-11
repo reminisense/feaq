@@ -106,6 +106,9 @@
   .processq .dropdown-menu {
     width: 90%!important;
   }
+  .dropdown-menu>li>a {
+      color: #fff!important;
+  }
   #moreq .nav-tabs>li.active>a:focus, 
   #moreq .nav-tabs>li>a:hover, 
   #moreq .nav-tabs>li.active>a, 
