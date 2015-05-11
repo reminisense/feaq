@@ -138,7 +138,7 @@ class BusinessController extends BaseController{
                   "display": "1-6",
                   "show_issued": true,
                   "ad_image": "",
-                  "ad_video": "",
+                  "ad_video": "\/\/www.youtube.com\/embed\/EMnDdH8fdEc",
                   "ad_type": "image",
                   "turn_on_tv": false,
                   "tv_channel": "",

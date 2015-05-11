@@ -67,7 +67,7 @@
                     <form ng-submit="adVideoEmbed(business_id)" id="ad-video-uploader">
                         <div class="form-group">
                             <label for="exampleInputFile"><strong>Paste YouTube URL:</strong></label>
-                            <input ng-model="ad_video" type="text" id="ad-video">
+                            <input ng-model="ad_video" type="text" id="ad-video" required>
                             <div class="alert alert-success" id="advideo-success" style="display: none;">Success! <strong><a href="/broadcast/business/@{{ business_id }}" target="_blank">View Broadcast Page</a></strong></div>
                             <div class="alert alert-danger" id="advideo-danger" style="display: none;">Oops! Something went wrong.</div>
                         </div>
