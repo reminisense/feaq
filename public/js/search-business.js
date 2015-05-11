@@ -66,6 +66,9 @@
         $scope.industry_filter = 'Industry';
 
         $scope.searchBusiness = (function(location, industry) {
+            $('#search-filter').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>SEARCHING');
+            $('#browse-label').hide();
+            $('#search-loader').show();
             if (typeof $scope.search_keyword == 'undefined') $scope.search_keyword = '';
             if (typeof $scope.time_open == 'undefined') $scope.time_open = '';
             var data = {
@@ -102,6 +105,14 @@
                 }
                 $scope.searchLabel= 'Showing Top '+ length_limit +' Result(s)';
                 $('#search-grid').show();
+
+                $('#search-filter').html('SEARCH');
+                $('#browse-label').show();
+                $('#search-loader').hide();
+            }).error(function() {
+                $('#search-filter').html('SEARCH');
+                $('#browse-label').show();
+                $('#search-loader').hide();
             });
         });
 

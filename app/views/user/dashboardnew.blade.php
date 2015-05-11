@@ -48,7 +48,8 @@
                       </div>
                         <input class="col-md-4 col-sm-4 col-xs-12" type="text" placeholder="ie: Ng Khai Devt Corp" id="search-keyword" ng-model="search_keyword">
                         <div class="col-md-2 col-sm-2 col-xs-12">
-                          <input type="submit" class=" btn btn-orange btn-md" value="SEARCH">
+                          <!-- <input type="submit" class=" btn btn-orange btn-md" value="SEARCH"> -->
+                            <button id="search-filter" type="submit" class=" btn btn-orange btn-md">SEARCH</button>
                         </div>
                   </form>
                 </div>
@@ -60,13 +61,13 @@
           <img src="img/arrow.png">
         </div>
       </div>
-      <div class="col-md-12 page-header">
+    <div class="row" id="search-loader" style="display: none; text-align: center;">
+        <img src="/images/magnify.gif" />
+    </div>
+      <div id="browse-label" class="col-md-12 page-header">
         <h2 class="text-center">Or browse from these businesses currrently queuing</h2>
       </div>
       <div class="container">
-        <div class="row" id="search-loader" style="display: none; text-align: center;">
-            <img src="/images/ajax-loader.gif" />
-        </div>
         <div class="row" id="search-grid" style="display: none;">
             <div class="col-md-12 col-xs-12 col-sm-12">
                 <h5 class="mb30 searchresults">@{{ searchLabel }}</h5>
