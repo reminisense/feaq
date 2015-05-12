@@ -18,8 +18,8 @@
                             <input type="text" class=" form-control" id="last_name" name="last_name" required />
                         </div>
                         <div class="col-md-12">
-                            <label>Email</label>
-                            <input type="email" class=" form-control" id="email" name="email" required />
+                            <label>Email <small>(We will only make use of your Facebook email)</small></label>
+                            <input type="email" class=" form-control" id="email" name="email" readonly style="color: #bbb;" />
                         </div>
                         <div class="col-md-12">
                             <label>Mobile</label>
