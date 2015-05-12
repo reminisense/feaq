@@ -28,7 +28,7 @@
                     <button class="btn btn-primary" ng-click="loadChart()">Load Chart</button>
                 </div>
                 <div class="col-md-12">
-                    <div id="statChart" style="height: 618px;"></div>
+                    <div id="statChart" style="min-height: 583px;"></div>
                 </div>
             </div>
         </div>

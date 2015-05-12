@@ -56,7 +56,14 @@ class WatchdogController extends BaseController{
         //get page information
         $url_data = explode('/', $input['page_url']);
         if($url_data[3] == 'broadcast' && $url_data[4] == 'business'){
-            $data['business_id']    = $url_data[5];
+            $business_id            = $url_data[5];
+            $data['business_id']    = $business_id;
+
+            try{
+                $data['industry']       = Business::industry($business_id);
+                $data['local_address']  = Business::localAddress($business_id);
+            }catch(Exception $e){}
+
         }
 
         $log_data = [
@@ -74,9 +81,22 @@ class WatchdogController extends BaseController{
         return json_encode(['data' => Watchdog::queryUserInfo($keyword, $user_id)]);
     }
 
-    public function getStats(){
-        if(Auth::check()){
-            $user_id = Helper::userId();
+    public function getStats($user_id){
+        $emails = [
+            'neowonderboi@yahoo.com',
+            'ruffy.heredia@live.com',
+            'jonasalmocera@gmail.com',
+            'paulgutib@outlook.com',
+            'yannieromanos@gmail.com',
+            'carlodalid@yahoo.com',
+            'rodel.maranon@gmail.com'
+        ];
+        $in_array = false;
+        try{
+            $in_array = in_array(User::email(Helper::userId()), $emails);
+        }catch(Exception $e){}
+
+        if($in_array){
             return View::make('analytics.user_analytics')
                 ->with('user_id', $user_id);
         }else{

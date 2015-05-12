@@ -58,7 +58,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> My Account <b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><a id="edit_profile" href="#">Edit My Profile</a></li>
-              <li><a href="{{ url('/watchdog/stats') }}">My Stats</a></li>
+              {{--<li><a href="{{ url('/watchdog/stats') }}">My Stats</a></li>--}} {{--ARA User stats for reminisense only--}}
               {{--<li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>--}} <!-- RDH Removed since this does nothing -->
             </ul>
           </li>
