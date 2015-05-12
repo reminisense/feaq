@@ -640,7 +640,9 @@
                         </div>
                     </div>
                 </div>
-                <div id="biz-grid" style="display: block;"></div>
+                <div class="col-md-12 col-xs-12 col-sm-12">
+                    <h5 class="mb30 searchresults">@{{ searchLabel }}</h5>
+                </div>
                 <div id="search-grid" style="display: none;">
                     <div class="col-md-3 col-xs-12 col-sm-6" ng-repeat="business in businesses">
                         <div class="boxed boxed-single clickable">
