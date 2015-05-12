@@ -61,11 +61,11 @@
           <img src="img/arrow.png">
         </div>
       </div>
-    <div class="row" id="search-loader" style="display: none; text-align: center;">
-        <img src="/images/magnify.gif" />
-    </div>
-      <div id="browse-label" class="col-md-12 page-header">
-        <h2 class="text-center">Or browse from these businesses currrently queuing</h2>
+      <div class="col-md-12 page-header">
+        <h2 id="browse-label" class="text-center">Or browse from these businesses currrently queuing</h2>
+          <div class="row" id="search-loader" style="display: none; text-align: center;">
+              <img src="/images/reload_dash.gif" />
+          </div>
       </div>
       <div class="container">
         <div class="row" id="search-grid" style="display: none;">
