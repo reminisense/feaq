@@ -547,6 +547,7 @@ var eb = {
         });
 
         $scope.adVideoEmbed = (function(business_id) {
+            $('#image-submit-btn').addClass('btn-disabled');
             $http.post(eb.urls.broadcast.ads_embed_video_url, {
                 business_id : business_id,
                 ad_video : $scope.ad_video
@@ -554,9 +555,11 @@ var eb = {
                 $('#advideo-preview').attr('src', response.ad_video);
                 $('#advideo-danger').hide();
                 $('#advideo-success').fadeIn();
+                $('#image-submit-btn').removeClass('btn-disabled');
             }).error(function() {
                 $('#advideo-danger').hide();
                 $('#advideo-success').fadeIn();
+                $('#image-submit-btn').removeClass('btn-disabled');
             });
         });
 
