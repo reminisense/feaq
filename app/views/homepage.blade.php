@@ -16,9 +16,10 @@
     <link rel='stylesheet' type='text/css' href='css/homepage/responsive.css'>
     <link rel='stylesheet' type='text/css' href="css/homepage/animate.css" >
     <link rel="stylesheet" type="text/css" href="css/jquery.timeentry.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.0/slick.css"/>
+
     <script type="text/javascript" src="js/jquery1.11.2.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
-
     <script type="text/javascript" src="js/custom.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script> {{-- RDH Using CDN for Angular JS File --}}
     <script src="/js/ngFeatherQ.js"></script>
@@ -29,6 +30,7 @@
     <script src="/js/jquery.timeentry.js"></script>
     <script src="/js/search-business.js"></script>
     <script src="/js/user/Usertracker.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.0/slick.min.js"></script>
 </head>
 
 <body ng-app="FeatherQ" ng-cloak>
@@ -754,6 +756,35 @@
         </div>
     </div>
 </section>
+<a name="diy"></a>
+<section class="page3" name="diy">
+    <div class="">
+        <div class="">
+            <h2 class="orange wow fadeInUp">FeatherQ Process</h2>
+        </div>
+    </div>
+
+    <div class="">
+        <div class="slider center slick-slider" data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
+            <div>
+                <img src="img/diy/1.jpg" />
+                <p>Sign up using Facebook login to begin creating an account!</p>
+            </div>
+            <div>
+                <img src="img/diy/2.jpg" />
+                <p>Add your Business details</p>
+            </div>
+            <div>
+                <img src="img/diy/3.jpg" />
+                <p>Customize your Broadcast Screen</p>
+            </div>
+            <div>
+                <img src="img/diy/4.jpg" />
+                <p>Start calling your customers!</p>
+            </div>
+        </div>
+    </div>
+</section>
 <a name="getting-started"></a>
 <section class="page4">
     <div class="container">
@@ -785,6 +816,38 @@
 
 <script src="js/wow.min.js"></script>
 <script>
+    $('.slick-slider').slick({
+      centerMode: true,
+      centerPadding: '60px',
+      dots: true,
+      infinite: true,
+      pauseOnHover: false,
+      slidesToShow: 3,
+      arrows: false,
+      autoplay: true,
+      autoplaySpeed: 7000,
+      responsive: [
+        {
+          breakpoint: 768,
+          settings: {
+            arrows: false,
+            centerMode: true,
+            centerPadding: '40px',
+            slidesToShow: 1
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            arrows: false,
+            centerMode: true,
+            centerPadding: '40px',
+            slidesToShow: 1
+          }
+        }
+      ]
+    });
+
     $('#time_open-filter').timeEntry({ampmPrefix: ' ', spinnerImage: ''});
     new WOW().init();
 </script>
