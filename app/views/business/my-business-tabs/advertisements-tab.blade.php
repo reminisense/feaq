@@ -15,7 +15,7 @@
                 <div class="alert alert-danger" id="tvchannel-danger" style="display: none;">Oops! Something went wrong.</div>
             </div>
             <div class="form-group">
-                <input type="submit" class="btn btn-orange"  id="tv-script-submit-btn" value="SELECT" style="color: #ffffff;"/>
+                <button type="submit" class="btn btn-orange"  id="tv-script-submit-btn"><span class="glyphicon glyphicon-check"></span> SELECT</button>
                 <button id="loading-img-3" style="display:none;" class="btn btn-orange btn-disabled"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
             </div>
         </form>
@@ -48,7 +48,7 @@
                             <div class="alert alert-danger" id="adimage-danger" style="display: none;">Oops! Something went wrong.</div>
                         </div>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-orange"  id="image-submit-btn" value="UPLOAD" ng-click="adImageUpload(business_id)" style="color: #ffffff;"/>
+                            <button type="submit" class="btn btn-orange" id="image-submit-btn" ng-click="adImageUpload(business_id)" style="color: #ffffff;"><span class="glyphicon glyphicon-check"></span> UPLOAD</button>
                             <button id="loading-img" style="display:none;" class="btn btn-orange btn-disabled"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
                         </div>
                     </form>
@@ -69,7 +69,7 @@
                             <div class="alert alert-danger" id="advideo-danger" style="display: none;">Oops! Something went wrong.</div>
                         </div>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-orange"  id="image-submit-btn" value="EMBED" style="color: #ffffff;"/>
+                            <button type="submit" class="btn btn-orange" id="image-submit-btn" style="color: #ffffff;"><span class="glyphicon glyphicon-check"></span> EMBED</button>
                             <button id="loading-img-2" style="display:none;" class="btn btn-orange btn-disabled"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
                         </div>
                     </form>
