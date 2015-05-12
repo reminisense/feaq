@@ -634,16 +634,19 @@
                                 </div>
                                 <span class="searchblock">
                                     <input type="text" placeholder="ie. Ng Khai Devt Corp" id="search-keyword" ng-model="search_keyword">
-                                    <input type="submit" class="btn btn-cyan btn-md" value="SEARCH">
+                                    <button id="search-filter" type="submit" class="btn btn-cyan btn-md">SEARCH</button>
                                   </span>
                             </form>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12 col-xs-12 col-sm-12">
-                    <h5 class="mb30 searchresults">@{{ searchLabel }}</h5>
+                <div class="row" id="search-loader" style="display: none; text-align: center;">
+                    <img src="/images/reload_home.gif" />
                 </div>
                 <div id="search-grid" style="display: none;">
+                    <div class="col-md-12 col-xs-12 col-sm-12">
+                        <h5 class="mb30 searchresults">@{{ searchLabel }}</h5>
+                    </div>
                     <div class="col-md-3 col-xs-12 col-sm-6" ng-repeat="business in businesses">
                         <div class="boxed boxed-single clickable">
                             <a class="business_link" href="/broadcast/business/@{{ business.business_id }}" target="_blank">
@@ -654,12 +657,12 @@
                             </a>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-3 col-xs-12 col-sm-6" ng-controller="fbController">
-                    <div class="boxed boxed-single clickable" ng-click="login()">
-                        <div class="wrap">
-                            <h3 style="color: #ff925b;"><span class="gray glyphicon glyphicon-plus"></span> More Businesses</h3>
-                            <small>Sign up now to view more businesses</small>
+                    <div class="col-md-3 col-xs-12 col-sm-6" ng-controller="fbController">
+                        <div class="boxed boxed-single clickable" ng-click="login()">
+                            <div class="wrap">
+                                <h3 style="color: #ff925b;"><span class="gray glyphicon glyphicon-plus"></span> More Businesses</h3>
+                                <small>Sign up now to view more businesses</small>
+                            </div>
                         </div>
                     </div>
                 </div>
