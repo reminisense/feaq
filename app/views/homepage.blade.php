@@ -21,13 +21,13 @@
 
     <script type="text/javascript" src="js/custom.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script> {{-- RDH Using CDN for Angular JS File --}}
-    {{ HTML::script('js/ngFeatherQ.js') }}
-    {{ HTML::script('js/ngFacebook.js') }}
-    {{ HTML::script('js/ngAutocomplete.js') }}
-    {{ HTML::script('js/google-analytics/googleAnalytics.js') }}
-    {{ HTML::script('js/jquery.plugin.js') }}
-    {{ HTML::script('js/jquery.timeentry.js') }}
-    {{ HTML::script('js/search-business.js') }}
+    <script src="/js/ngFeatherQ.js"></script>
+    <script src="/js/ngFacebook.js"></script>
+    <script src="/js/ngAutocomplete.js"></script>
+    <script src="/js/google-analytics/googleAnalytics.js"></script>
+    <script src="/js/jquery.plugin.js"></script>
+    <script src="/js/jquery.timeentry.js"></script>
+    <script src="/js/search-business.js"></script>
     <script src="/js/user/Usertracker.js"></script>
 </head>
 
