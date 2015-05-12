@@ -79,6 +79,7 @@ My Business
                         <li class=""><a href="#ads" id="ads-tab" data-toggle="tab"><span class="glyphicon glyphicon-blackboard"></span> Advertisements</a></li>
                         <li class=""><a href="#settings" id="settings-tab" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
                         <li class=""><a href="#analytics" id="analytics-tab" data-toggle="tab"><span class="glyphicon glyphicon-stats"></span> Analytics</a></li>
+                        <li class=""><a href="#messages" id="messages-tab" data-toggle="tab"><span class="glyphicon glyphicon-envelope"></span> Messages</a></li>
                     </ul>
                     <div id="bizTabContent" class="tab-content" style="">
                         <div class="col-md-12">
@@ -104,6 +105,9 @@ My Business
                         <div role="tabpanel" class="tab-pane fade" id="analytics" aria-labelledby="analytics-tab">
                             <div class="clearfix">@include('business.my-business-tabs.analytics-tab')</div>
                         </div>
+                        <div role="tabpanel" class="tab-pane fade" id="messages" aria-labelledby="messages-tab">
+                            <div class="clearfix">@include('business.my-business-tabs.messages-tab')</div>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -113,7 +117,7 @@ My Business
     <div class="row">
         <div class="biz-details-wrap">
             <div class="col-md-12">
-                <div class="row" style="min-height:550px;">
+                <div class="row">
                     <div class="col-md-4 col-md-offset-4 col-xs-12" data-toggle="modal" id="add_business">
                         <a id="add-business" target="_blank"><span class="glyphicon glyphicon-plus"></span> Create Your First Business</a>
                     </div>

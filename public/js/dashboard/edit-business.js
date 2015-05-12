@@ -1,4 +1,4 @@
-/**
+ /**
  * Created by USER on 2/3/15.
  */
 $(document).ready(function(){
@@ -61,6 +61,8 @@ $(document).ready(function(){
     eb.jquery_functions.setUserId($('#user_id').val());
     eb.jquery_functions.getBusinessDetails();
     eb.jquery_functions.my_business_link_active();
+
+
 });
 
 var eb = {
@@ -167,6 +169,7 @@ var eb = {
         $scope.terminals = [];
         $scope.users = [];
         $scope.analytics = [];
+        $scope.messages = [];
 
         $scope.number_start = 1;
         $scope.terminal_specific_issue = 0;
@@ -179,10 +182,12 @@ var eb = {
         $scope.allow_remote = 0;
 
         $scope.getBusinessDetails = function(){
-            $http.get(eb.urls.business.business_details_url + $scope.business_id)
-                .success(function(response){
-                    setBusinessFields(response.business);
-                });
+            if ( $scope.business_id > 0 ) {
+                $http.get(eb.urls.business.business_details_url + $scope.business_id)
+                    .success(function(response){
+                        setBusinessFields(response.business);
+                    });
+            }
         }
 
         setBusinessFields = function(business){
@@ -207,7 +212,24 @@ var eb = {
             $scope.terminals = business.terminals;
             $scope.analytics = business.analytics;
             $scope.terminal_delete_error = business.error ? business.error : null;
+            $scope.messages = business.messages;
        }
+
+        /* @CSD 05062015 */
+        $scope.setPreviewMessage = function(message_id){
+            var length = $scope.messages.length;
+            $('.message-preview').fadeOut().promise().done(function(){
+                for(var i = 0; i < length; i++){
+                    if ($scope.messages[i].message_id == message_id){
+                        $('#contactfrom').html($scope.messages[i].contactname);
+                        $('#contactemail').html($scope.messages[i].contactemail);
+                        $('#contactmobile').html($scope.messages[i].contactmobile);
+                        $('#contactmessage').html($scope.messages[i].contactmessage);
+                        $('.message-preview').fadeIn();
+                    }
+                }
+            });
+        }
 
         $scope.unassignFromTerminal = function(user_id, terminal_id){
             $http.get(eb.urls.terminals.terminal_unassign_url + user_id + '/' + terminal_id)
@@ -424,38 +446,40 @@ var eb = {
         });
 
         $scope.currentActiveTheme = (function(business_id) {
-            $http.get(eb.urls.broadcast.broadcast_json_url + business_id + '.json?nocache='+Math.floor((Math.random() * 10000) + 1)).success(function(response) {
-                $('.activated').hide();
-                $('.theme-btn').show();
-                $('.'+response.display+'.theme-btn').hide();
-                $('.'+response.display+'.activated').show();
+            if (business_id > 0){
+                $http.get(eb.urls.broadcast.broadcast_json_url + business_id + '.json?nocache='+Math.floor((Math.random() * 10000) + 1)).success(function(response) {
+                    $('.activated').hide();
+                    $('.theme-btn').show();
+                    $('.'+response.display+'.theme-btn').hide();
+                    $('.'+response.display+'.activated').show();
 
-                // default ad video / image
-                if (!response.ad_image) {
-                    response.ad_image = '/images/ads.jpg'
-                }
-                $('#ad-preview').attr('src', response.ad_image);
-                $('#advideo-preview').attr('src', response.ad_video);
+                    // default ad video / image
+                    if (!response.ad_image) {
+                        response.ad_image = '/images/ads.jpg'
+                    }
+                    $('#ad-preview').attr('src', response.ad_image);
+                    $('#advideo-preview').attr('src', response.ad_video);
 
-                // ad type
-                if (response.ad_type == 'video') {
-                    $('input:radio[name=ad_type]').filter('[value=video]').prop('checked', true);
-                    $('#image-adtype').hide();
-                    $('#video-adtype').show();
-                }
-                else {
-                    $('input:radio[name=ad_type]').filter('[value=image]').prop('checked', true);
-                    $('#video-adtype').hide();
-                    $('#image-adtype').show();
-                }
+                    // ad type
+                    if (response.ad_type == 'video') {
+                        $('input:radio[name=ad_type]').filter('[value=video]').prop('checked', true);
+                        $('#image-adtype').hide();
+                        $('#video-adtype').show();
+                    }
+                    else {
+                        $('input:radio[name=ad_type]').filter('[value=image]').prop('checked', true);
+                        $('#video-adtype').hide();
+                        $('#image-adtype').show();
+                    }
+    
+                    //ARA Added for toggling to show only called numbers in broadcast page
+                    $scope.theme_type = response.display;
+                    $scope.show_called_only = response.show_issued != undefined ? !response.show_issued : false;
 
-                //ARA Added for toggling to show only called numbers in broadcast page
-                $scope.theme_type = response.display;
-                $scope.show_called_only = response.show_issued != undefined ? !response.show_issued : false;
-
-                // default internet TV channel
-                $scope.tv_channel = response.tv_channel;
-            });
+                    // default internet TV channel
+                    $scope.tv_channel = response.tv_channel;
+                });
+            }
         });
 
         $scope.adImageUpload = (function(business_id) {
@@ -523,6 +547,7 @@ var eb = {
         });
 
         $scope.adVideoEmbed = (function(business_id) {
+            $('#image-submit-btn').addClass('btn-disabled');
             $http.post(eb.urls.broadcast.ads_embed_video_url, {
                 business_id : business_id,
                 ad_video : $scope.ad_video
@@ -530,9 +555,11 @@ var eb = {
                 $('#advideo-preview').attr('src', response.ad_video);
                 $('#advideo-danger').hide();
                 $('#advideo-success').fadeIn();
+                $('#image-submit-btn').removeClass('btn-disabled');
             }).error(function() {
                 $('#advideo-danger').hide();
                 $('#advideo-success').fadeIn();
+                $('#image-submit-btn').removeClass('btn-disabled');
             });
         });
 

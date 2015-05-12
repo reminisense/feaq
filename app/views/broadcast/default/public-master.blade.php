@@ -15,6 +15,7 @@
     <link href="/css/broadcast/default/dashboard.css" rel="stylesheet" type="text/css" media="all">
     <link href="/css/broadcast/default/responsive.css" rel="stylesheet" type="text/css" media="all">
 
+
     {{--{{ HTML::script('js/jquery1.11.0.js') }}--}}
     <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
 
@@ -24,11 +25,15 @@
     {{--{{ HTML::script('js/ngPublicBroadcast.js') }}--}}
     <script src="/js/broadcast/default/public-{{ $box_num }}.js"></script>
 
+    <script src="/js/ngFacebook.js"></script>
+
     {{--{{ HTML::script('js/google-analytics/googleAnalytics.js') }}--}}
     <script src="/js/google-analytics/googleAnalytics.js"></script>
 
     {{--{{ HTML::script('js/google-analytics/ga-broadcast.js') }}--}}
     <script src="/js/google-analytics/ga-broadcast.js"></script>
+
+    <script src="/js/user/Usertracker.js"></script>
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -57,15 +62,15 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        @if (Auth::check())
-                        Hello {{Auth::user()->first_name}}!
-                        @else
-                        Sign up now!
+                        @if (Auth::check()) Hello {{Auth::user()->first_name}}!
+                        @else Sign Up Now!
                         @endif
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="{{URL::to('/')}}">Dashboard</a></li>
+                        @if (Auth::check()) <li><a href="{{URL::to('/')}}">Dashboard</a></li>
+                        @else <li ng-controller="fbController"><a href="" class="btn broadcast-signup" role="button" ng-click="login()"><img src="/img/fb-broadcast.png">&nbsp;&nbsp;Sign Up</a></li>
+                        @endif
                         <li class="divider"></li>
                         <li class="dropdown-header">Connect with us!</li>
                         <li><a href="{{URL::to('https://www.facebook.com/theFeatherQ')}}">Facebook</a></li>
@@ -94,7 +99,7 @@
                     <div class="row">
                         <div class="col-md-5 getnum-info">
                             @if($allow_remote)
-                            <h2 class="">Remote Queue Available Number:</h2>
+                            <h2 class="">Remote Queue Number:</h2>
                             <p>Remote queuing allows you to get this number before being at the location.</p>
                             @else
                             <h2 class="">Next Available Number:</h2>
@@ -126,6 +131,7 @@
     </div>
 </div>
 @include('modals.broadcast.remote-queue-modal')
+@include('modals.broadcast.contact-business-modal');
 
 {{--{{ HTML::script('js/bootstrap.min.js') }}--}}
 <script src="/js/broadcast/bootstrap.min.js"></script>

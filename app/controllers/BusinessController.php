@@ -138,7 +138,7 @@ class BusinessController extends BaseController{
                   "display": "1-6",
                   "show_issued": true,
                   "ad_image": "",
-                  "ad_video": "",
+                  "ad_video": "\/\/www.youtube.com\/embed\/EMnDdH8fdEc",
                   "ad_type": "image",
                   "turn_on_tv": false,
                   "tv_channel": "",
@@ -283,6 +283,13 @@ class BusinessController extends BaseController{
 
     public function postFilterSearch() {
         $post = json_decode(file_get_contents("php://input"));
+        $geolocation = json_decode(file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.$post->country));
+        $post->country = array(
+          'ne_lat' => $geolocation->results[0]->geometry->bounds->northeast->lat,
+          'ne_lng' => $geolocation->results[0]->geometry->bounds->northeast->lng,
+          'sw_lat' => $geolocation->results[0]->geometry->bounds->southwest->lat,
+          'sw_lng' => $geolocation->results[0]->geometry->bounds->southwest->lng,
+        );
         $res = Business::getBusinessByNameCountryIndustryTimeopen($post->keyword, $post->country, $post->industry, $post->time_open);
         $arr = array();
         foreach ($res as $count => $data) {
@@ -350,27 +357,23 @@ class BusinessController extends BaseController{
     }
 
   public function postPersonalizedBusinesses() {
-    $arr = array();
+    $processing = array();
+    $not_processing = array();
     $post = json_decode(file_get_contents("php://input"));
     if ($post) {
-      /*
       if ($post->latitude && $post->longitude) {
         $res = Business::getBusinessByLatitudeLongitude($post->latitude, $post->longitude); // get location first
         if (!count($res)) $res = Business::all();
       }
       else $res = Business::all();
-      */
-      $res = Business::all();
       foreach ($res as $count => $data) {
-
-        // check if business is currently processing numbers
-        //if (Business::processingBusinessBool($data->business_id)) {
-
           $first_service = Service::getFirstServiceOfBusiness($data->business_id);
           $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
 
+        // check if business is currently processing numbers
+        if (Business::processingBusinessBool($data->business_id)) {
           if (Auth::check()) {
-            $arr[] = array(
+            $processing[] = array(
               'business_id' => $data->business_id,
               'business_name' => $data->name,
               'local_address' => $data->local_address,
@@ -387,17 +390,43 @@ class BusinessController extends BaseController{
             );
           }
           else {
-            $arr[] = array(
+            $processing[] = array(
               'business_id' => $data->business_id,
               'business_name' => $data->name,
               'local_address' => $data->local_address,
             );
           }
 
-        //}
+        }
+        else {
+          if (Auth::check()) {
+            $not_processing[] = array(
+              'business_id' => $data->business_id,
+              'business_name' => $data->name,
+              'local_address' => $data->local_address,
+              'time_open' => $data->open_hour . ':' . Helper::doubleZero($data->open_minute) . ' ' . strtoupper($data->open_ampm),
+              'time_close' => $data->close_hour . ':' . Helper::doubleZero($data->close_minute) . ' ' . strtoupper($data->close_ampm),
+              'waiting_time' => Analytics::getWaitingTimeString($data->business_id),
+
+              //ARA more info for business cards
+              'last_number_called' => count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'none', //ok
+              'next_available_number' => $all_numbers->next_number, //ok
+              'is_calling' => count($all_numbers->called_numbers) > 0 ? true : false, //ok
+              'is_issuing' => count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? true : false, //ok
+              'last_active' => Analytics::getLastActive($data->business_id)
+            );
+      }
+          else {
+            $not_processing[] = array(
+              'business_id' => $data->business_id,
+              'business_name' => $data->name,
+              'local_address' => $data->local_address,
+            );
+          }
+        }
 
       }
-      return json_encode($arr);
+      return json_encode(array_merge($processing, $not_processing));
     }
   }
 

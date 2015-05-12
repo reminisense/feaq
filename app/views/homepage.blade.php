@@ -16,19 +16,19 @@
     <link rel='stylesheet' type='text/css' href='css/homepage/responsive.css'>
     <link rel='stylesheet' type='text/css' href="css/homepage/animate.css" >
     <link rel="stylesheet" type="text/css" href="css/jquery.timeentry.css">
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.0/slick.css"/>
     <script type="text/javascript" src="js/jquery1.11.2.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
     <script type="text/javascript" src="js/custom.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script> {{-- RDH Using CDN for Angular JS File --}}
-    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.0/slick.min.js"></script>
-    {{ HTML::script('js/ngFeatherQ.js') }}
-    {{ HTML::script('js/ngFacebook.js') }}
-    {{ HTML::script('js/ngAutocomplete.js') }}
-    {{ HTML::script('js/google-analytics/googleAnalytics.js') }}
-    {{ HTML::script('js/jquery.plugin.js') }}
-    {{ HTML::script('js/jquery.timeentry.js') }}
-    {{ HTML::script('js/search-business.js') }}
+    <script src="/js/ngFeatherQ.js"></script>
+    <script src="/js/ngFacebook.js"></script>
+    <script src="/js/ngAutocomplete.js"></script>
+    <script src="/js/google-analytics/googleAnalytics.js"></script>
+    <script src="/js/jquery.plugin.js"></script>
+    <script src="/js/jquery.timeentry.js"></script>
+    <script src="/js/search-business.js"></script>
+    <script src="/js/user/Usertracker.js"></script>
 </head>
 
 <body ng-app="FeatherQ" ng-cloak>
@@ -634,14 +634,19 @@
                                 </div>
                                 <span class="searchblock">
                                     <input type="text" placeholder="ie. Ng Khai Devt Corp" id="search-keyword" ng-model="search_keyword">
-                                    <input type="submit" class="btn btn-cyan btn-md" value="SEARCH">
+                                    <button id="search-filter" type="submit" class="btn btn-cyan btn-md">SEARCH</button>
                                   </span>
                             </form>
                         </div>
                     </div>
                 </div>
-                <div id="biz-grid" style="display: block;"></div>
+                <div class="row" id="search-loader" style="display: none; text-align: center;">
+                    <img src="/images/reload_home.gif" />
+                </div>
                 <div id="search-grid" style="display: none;">
+                    <div class="col-md-12 col-xs-12 col-sm-12">
+                        <h5 class="mb30 searchresults">@{{ searchLabel }}</h5>
+                    </div>
                     <div class="col-md-3 col-xs-12 col-sm-6" ng-repeat="business in businesses">
                         <div class="boxed boxed-single clickable">
                             <a class="business_link" href="/broadcast/business/@{{ business.business_id }}" target="_blank">
@@ -652,12 +657,12 @@
                             </a>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-3 col-xs-12 col-sm-6" ng-controller="fbController">
-                    <div class="boxed boxed-single clickable" ng-click="login()">
-                        <div class="wrap">
-                            <h3 style="color: #ff925b;"><span class="gray glyphicon glyphicon-plus"></span> More Businesses</h3>
-                            <small>Sign up now to view more businesses</small>
+                    <div class="col-md-3 col-xs-12 col-sm-6" ng-controller="fbController">
+                        <div class="boxed boxed-single clickable" ng-click="login()">
+                            <div class="wrap">
+                                <h3 style="color: #ff925b;"><span class="gray glyphicon glyphicon-plus"></span> More Businesses</h3>
+                                <small>Sign up now to view more businesses</small>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -749,19 +754,6 @@
         </div>
     </div>
 </section>
-<a name="diy"></a>
-<section name="diy">
-    <div class="container">
-        <div class="slick-slider" data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
-            <div><img src="img/diy/slide1.jpg" /></div>
-            <div><img src="img/diy/slide2.jpg" /></div>
-            <div><img src="img/diy/slide3.jpg" /></div>
-            <div><img src="img/diy/slide1.jpg" /></div>
-            <div><img src="img/diy/slide2.jpg" /></div>
-            <div><img src="img/diy/slide3.jpg" /></div>
-        </div>
-    </div>
-</section>
 <a name="getting-started"></a>
 <section class="page4">
     <div class="container">
@@ -782,6 +774,7 @@
         </div>
     </div>
 </section>
+
 <footer>
     <div class="container">
         <div class="">
@@ -792,32 +785,6 @@
 
 <script src="js/wow.min.js"></script>
 <script>
-    $('.slick-slider').slick({
-      centerMode: true,
-      centerPadding: '60px',
-      slidesToShow: 3,
-      responsive: [
-        {
-          breakpoint: 768,
-          settings: {
-            arrows: false,
-            centerMode: true,
-            centerPadding: '40px',
-            slidesToShow: 3
-          }
-        },
-        {
-          breakpoint: 480,
-          settings: {
-            arrows: false,
-            centerMode: true,
-            centerPadding: '40px',
-            slidesToShow: 1
-          }
-        }
-      ]
-    });
-
     $('#time_open-filter').timeEntry({ampmPrefix: ' ', spinnerImage: ''});
     new WOW().init();
 </script>

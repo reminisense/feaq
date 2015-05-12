@@ -1,3 +1,10 @@
+/* advertisement video players mobile view fix*/
+@media (max-width: 768px) {
+    iframe, embed {
+        height: 170px;
+    }
+}
+
 @media (max-width: 2500px) {
     .boxed .broadcast .spaceht {
         font-size: 170px !important;
@@ -106,6 +113,9 @@
   .processq .dropdown-menu {
     width: 90%!important;
   }
+  .dropdown-menu>li>a {
+      color: #fff!important;
+  }
   #moreq .nav-tabs>li.active>a:focus, 
   #moreq .nav-tabs>li>a:hover, 
   #moreq .nav-tabs>li.active>a, 
@@ -168,5 +178,11 @@
   }
   #broadcast .head h4 {
       font-size: 30px;
+  }
+  .boxed .head.head-wbtn .btn-half {
+      margin-top: -18px;
+  }
+  #btn-bcast-details {
+      margin-top: -26px;
   }
 }

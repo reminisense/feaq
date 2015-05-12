@@ -48,7 +48,8 @@
                       </div>
                         <input class="col-md-4 col-sm-4 col-xs-12" type="text" placeholder="ie: Ng Khai Devt Corp" id="search-keyword" ng-model="search_keyword">
                         <div class="col-md-2 col-sm-2 col-xs-12">
-                          <input type="submit" class=" btn btn-orange btn-md" value="SEARCH">
+                          <!-- <input type="submit" class=" btn btn-orange btn-md" value="SEARCH"> -->
+                            <button id="search-filter" type="submit" class=" btn btn-orange btn-md">SEARCH</button>
                         </div>
                   </form>
                 </div>
@@ -61,16 +62,18 @@
         </div>
       </div>
       <div class="col-md-12 page-header">
-        <h2 class="text-center">Or browse from these businesses currrently queuing</h2>
+        <h2 id="browse-label" class="text-center">Or browse from these businesses currrently queuing</h2>
+          <div class="row" id="search-loader" style="display: none; text-align: center;">
+              <img src="/images/reload_dash.gif" />
+          </div>
       </div>
       <div class="container">
-        <div class="row" id="biz-grid"></div>
         <div class="row" id="search-grid" style="display: none;">
             <div class="col-md-12 col-xs-12 col-sm-12">
-                <h5 class="searchresults">@{{ searchLabel }}</h5>
+                <h5 class="mb30 searchresults">@{{ searchLabel }}</h5>
             </div>
             <div class="col-md-3" ng-repeat="business in businesses">
-                <a class="broadcast_link" href="/broadcast/business/@{{ business.business_id }}">
+                <a class="broadcast_link" href="/broadcast/business/@{{ business.business_id }}" target="_blank">
                     <div class="boxed">
                         <p class="title">@{{ business.business_name }}</p>
                         <p class="address">@{{ business.local_address }}</p>

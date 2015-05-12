@@ -105,6 +105,18 @@ class BroadcastController extends BaseController{
         return $service;
     }
 
+    public function postBusinessMessage(){
+        $message = new Message();
+        $message->business_id = Input::get('business_id');
+        $message->contactname = Input::get('contname');
+        $message->contactemail = Input::get('contemail');
+        $message->contactmessage = Input::get('contmessage');
+        $message->contactmobile = Input::get('contmobile');
+        $message->save();
+
+        return json_encode($message);
+    }
+
   public function getResetNumbers($business_id) {
     date_default_timezone_set("Asia/Manila"); // Manila Timezone for now but this depends on business location
     $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
