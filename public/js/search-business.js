@@ -1,6 +1,3 @@
-/**
- * Created by JONAS on 3/4/2015.
- */
 (function() {
 
     app.controller('searchBusinessCtrl', function($scope, $http) {
@@ -24,7 +21,6 @@
                     "time_open" : response[i].time_open,
                     "time_close": response[i].time_close,
                     "waiting_time": response[i].waiting_time,
-                    //ARA more info for business cards
                     "last_number_called": response[i].last_number_called,
                     "next_available_number": response[i].next_available_number,
                     "is_calling": response[i].is_calling,
@@ -40,35 +36,25 @@
             $('#search-grid').fadeIn(400, function() {
                 $('#search-loader').hide();
                 $('#search-grid').css({'opacity' : 1})
-        });
+            });
         });
 
         var personalizedBusinesses = (function(data) {
             $('#search-loader').show();
-            $http.post('/business/personalized-businesses', data).success(listBusinesses).error(function() {
-                alert('Something went wrong..');
-            });
+            $http.post('/business/personalized-businesses', data).success(listBusinesses);
         });
 
         personalizedBusinesses({
-            latitude : 0,
-            longitude : 0
-        });
-
-        navigator.geolocation.getCurrentPosition(function(position) {
-            $('#search-grid').css({'opacity' : 0.4});
-            personalizedBusinesses({
-                latitude : position.coords.latitude,
-                longitude : position.coords.longitude
-            });
+            latitude : USER_LATITUDE,
+            longitude : USER_LONGITUDE
         });
 
         $scope.industry_filter = 'Industry';
 
         $scope.searchBusiness = (function(location, industry) {
-            $('#search-filter').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> SEARCHING');
-            $('#search-grid').hide();
+            $('#search-filter').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>SEARCHING');
             $('#browse-label').hide();
+            $('#search-grid').hide();
             $('#search-loader').show();
             if (typeof $scope.search_keyword == 'undefined') $scope.search_keyword = '';
             if (typeof $scope.time_open == 'undefined') $scope.time_open = '';
@@ -76,7 +62,9 @@
                 "keyword": $scope.search_keyword,
                 "country": location,
                 "industry": industry,
-                "time_open": $scope.time_open
+                "time_open": $scope.time_open,
+                "latitude" : USER_LATITUDE,
+                "longitude" : USER_LONGITUDE
             };
             $http.post('/watchdog/log-search', data);
             $http.post('/business/filter-search', data).success(function(response) {
@@ -106,11 +94,11 @@
                 }
                 $scope.searchLabel= 'Showing Top '+ length_limit +' Result(s)';
                 $('#search-grid').show();
-
                 $('#search-filter').html('SEARCH');
                 $('#browse-label').show();
                 $('#search-loader').hide();
             }).error(function() {
+                $('#search-grid').show();
                 $('#search-filter').html('SEARCH');
                 $('#browse-label').show();
                 $('#search-loader').hide();
@@ -126,7 +114,6 @@
             $scope.industry_filter = industry;
         });
 
-        //added the industry filters here so that they can be displayed using ng-repeat
         $scope.industries = [
             {code :'Accounting'},               {code :'Advertising'},                  {code :'Agriculture'},              {code :'Air Services'},
             {code :'Airlines'},                 {code :'Apparel'},                      {code :'Appliances'},               {code :'Auto Dealership'},
@@ -142,7 +129,6 @@
             {code :'Wholesale'},
         ];
 
-        //added the location filters here so that they can be displayed using ng-repeat
         $scope.locations = [
             {code : 'Afghanistan'},             {code : 'Albania'},                     {code : 'Algeria'},                 {code : 'Andorra'},
             {code : 'Angola'},                  {code : 'Antigua and Barbuda'},         {code : 'Argentina'},               {code : 'Armenia'},
