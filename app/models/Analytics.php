@@ -225,13 +225,12 @@ class Analytics extends Eloquent{
             else if($data->action == 3 ) { $action = 'dropped'; }
 
             try{
-                $business_name = Business::name($data->business_id);
+                $user_data[$index][$action] = Business::name($data->business_id);
+                $user_data[$index]['user_id'] = $data->user_id;
             }catch(Exception $e){
-                $business_name = $data->business_id;
+                $user_data[$index][$action] = 'Deleted Businesses';
+                $user_data[$index]['user_id'] = $data->user_id;
             }
-
-            $user_data[$index]['user_id'] = $data->user_id;
-            $user_data[$index][$action] = $business_name;
         }
         return $user_data;
     }

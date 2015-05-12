@@ -41,6 +41,12 @@ class Watchdog extends Eloquent {
         foreach($user_data as $data){
             if($keyword === 'geolocation' && isset($data['latitude'])){
                 $values[] = ($data['latitude'] . ', '. $data['longitude']);
+            }else if($keyword === 'broadcast' && isset($data['business_id'])){
+                try{
+                    $values[] = Business::name($data['business_id']);
+                }catch(Exception $e){
+                    $values[] = 'Deleted Businesses';
+                }
             }else if(isset($data[$keyword])){
                 $values[] = $data[$keyword];
             }
