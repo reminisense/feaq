@@ -52,7 +52,7 @@
         $scope.industry_filter = 'Industry';
 
         $scope.searchBusiness = (function(location, industry) {
-            $('#search-filter').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>SEARCHING');
+            $('#search-filter').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> SEARCHING');
             $('#browse-label').hide();
             $('#search-grid').hide();
             $('#search-loader').show();

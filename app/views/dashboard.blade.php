@@ -14,6 +14,7 @@
   <link rel='stylesheet' type='text/css' href='/css/dashboard/responsive.css'>
   <link media="all" type="text/css" rel="stylesheet" href="/css/intlTelInput.css">
   <link rel='stylesheet' type='text/css' href='/css/modal.css'>
+  <link rel='stylesheet' type='text/css' href='/css/refresh-animate.css'>
 
   @yield('styles')
 

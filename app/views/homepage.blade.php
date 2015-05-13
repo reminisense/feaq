@@ -11,11 +11,12 @@
     <title>FeatherQ</title>
     <link rel="stylesheet" type="text/css" href="/css/ngCloak.css">
     <link rel="shortcut icon" id="favicon" href="favicon.png">
-    <link rel='stylesheet' type='text/css' href='css/bootstrap.min.css'>
-    <link rel='stylesheet' type='text/css' href='css/homepage/style.css'>
-    <link rel='stylesheet' type='text/css' href='css/homepage/responsive.css'>
-    <link rel='stylesheet' type='text/css' href="css/homepage/animate.css" >
-    <link rel="stylesheet" type="text/css" href="css/jquery.timeentry.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel='stylesheet' type='text/css' href='/css/homepage/style.css'>
+    <link rel='stylesheet' type='text/css' href='/css/homepage/responsive.css'>
+    <link rel='stylesheet' type='text/css' href="/css/homepage/animate.css" >
+    <link rel="stylesheet" type="text/css" href="/css/jquery.timeentry.css">
+    <link rel='stylesheet' type='text/css' href='/css/refresh-animate.css'>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.0/slick.css"/>
 
     <script type="text/javascript" src="js/jquery1.11.2.js"></script>
