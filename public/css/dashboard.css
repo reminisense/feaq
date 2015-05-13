@@ -773,6 +773,9 @@ h5.heading {
     margin-bottom: 30px;
     padding-left: 2px;
   }
+  .modal-input {
+      border-radius: 4px!important;
+  }
   .form-control {
     font-size: 13px;
   }
@@ -1114,7 +1117,13 @@ strong {
 /* CSD Animate */
 .glyphicon-refresh-animate {
     -animation: spin .7s infinite linear;
+    -moz-animation: spin .7s infinite linear;
     -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg);}
+    to { -moz-transform: rotate(360deg);}
 }
 
 @-webkit-keyframes spin2 {

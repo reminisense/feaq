@@ -12,23 +12,23 @@
                     <div class="form-group">
                         <div class="col-md-6 has-warning">
                             <label>First Name</label>
-                            <input type="text" class=" form-control" id="edit_first_name" name="edit_first_name" required />
+                            <input type="text" class=" form-control modal-input" id="edit_first_name" name="edit_first_name" required />
                         </div>
                         <div class="col-md-6">
                             <label>Last Name</label>
-                            <input type="text" class=" form-control" id="edit_last_name" name="edit_last_name" required />
+                            <input type="text" class=" form-control modal-input" id="edit_last_name" name="edit_last_name" required />
                         </div>
                         <div class="col-md-6 mb30">
                             <label>Mobile</label><br/>
-                            <input style="padding-left: 45px;" type="" min="9" maxlength="15" class=" form-control" id="edit_mobile" name="edit_mobile" required/>
+                            <input style="padding-left: 45px;" type="" min="9" maxlength="15" class=" form-control modal-input" id="edit_mobile" name="edit_mobile" required/>
                         </div>
                         <div class="col-md-6">
                             <label>Email</label>
-                            <span class=" form-control" id="edit_email"></span>
+                            <span class=" form-control modal-input" id="edit_email"></span>
                         </div>
                         <div class="col-md-12">
                             <label>Location</label>
-                            <input type="text" class=" form-control" id="edit_user_location" name="edit_user_location" autocomplete="off" required=""/>
+                            <input type="text" class=" form-control modal-input" id="edit_user_location" name="edit_user_location" autocomplete="off" required=""/>
                         </div>
                     </div>
                 </form>
