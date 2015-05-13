@@ -51,15 +51,15 @@
 
         $scope.industry_filter = 'Industry';
 
-        $scope.searchBusiness = (function(location, industry) {
+        $scope.searchBusiness = (function(location, industry, search_keyword) {
             $('#search-filter').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> SEARCHING');
             $('#browse-label').hide();
             $('#search-grid').hide();
             $('#search-loader').show();
-            if (typeof $scope.search_keyword == 'undefined') $scope.search_keyword = '';
+            if (typeof search_keyword == 'undefined') search_keyword = '';
             if (typeof $scope.time_open == 'undefined') $scope.time_open = '';
             var data = {
-                "keyword": $scope.search_keyword,
+                "keyword": search_keyword,
                 "country": location,
                 "industry": industry,
                 "time_open": $scope.time_open,
@@ -97,22 +97,38 @@
                 $('#search-filter').html('SEARCH');
                 $('#browse-label').show();
                 $('#search-loader').hide();
+                $scope.search_keyword = '';
+                $scope.dropdown_businesses = [];
             }).error(function() {
                 $('#search-grid').show();
                 $('#search-filter').html('SEARCH');
                 $('#browse-label').show();
                 $('#search-loader').hide();
+                $scope.search_keyword = '';
+                $scope.dropdown_businesses = [];
             });
         });
 
         $scope.locationFilter = (function(location) {
             $scope.location_filter = location;
-            console.log(location);
         });
 
         $scope.industryFilter = (function(industry) {
             $scope.industry_filter = industry;
         });
+
+        //ARA get list of businesses for search dropdown
+        $scope.dropdown_businesses = [];
+        $scope.$watch('search_keyword', function(search_keyword){
+            if(!search_keyword || search_keyword == undefined){
+                $scope.dropdown_businesses = [];
+            }else{
+                $http.get('/business/name-search/' + search_keyword).success(function(response){
+                    $scope.dropdown_businesses = response.keywords;
+                });
+            }
+        });
+
 
         $scope.industries = [
             {code :'Accounting'},               {code :'Advertising'},                  {code :'Agriculture'},              {code :'Air Services'},
@@ -182,4 +198,26 @@
             {code : 'Vietnam'},                 {code : 'Yemen'},                       {code : 'Zambia'},                  {code : 'Zimbabwe'}
         ];
     });
+
+    //ARA app directive to trigger outside clicks
+    app.directive("outsideClick", ['$document','$parse', function( $document, $parse ){
+        return {
+            link: function( $scope, $element, $attributes ){
+                var scopeExpression = $attributes.outsideClick,
+                    onDocumentClick = function(event){
+                        var isChild = $element.find(event.target).length > 0;
+
+                        if(!isChild) {
+                            $scope.$apply(scopeExpression);
+                        }
+                    };
+
+                $document.on("click", onDocumentClick);
+
+                $element.on('$destroy', function() {
+                    $document.off("click", onDocumentClick);
+                });
+            }
+        }
+    }]);
 })();

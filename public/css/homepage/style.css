@@ -824,3 +824,21 @@ footer p {
     display: inline-block;
     list-style-type: none;
 }
+
+/**ARA for search suggestion**/
+#search-suggest{
+    display: inline-block;
+    width: 300px;
+    overflow: auto;
+    background: none repeat scroll 0 0 #555;
+}
+
+#search-suggest .business-name{
+    color: #ffffff;
+}
+
+#search-suggest .address{
+    font-size: 11px;
+    color: #999999;
+}
+

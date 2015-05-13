@@ -635,10 +635,20 @@
                                                style="display: none;"/>
                                     </div>
                                 </div>
-                                <span class="searchblock">
-                                    <input type="text" placeholder="ie. Ng Khai Devt Corp" id="search-keyword" ng-model="search_keyword">
-                                    <button id="search-filter" type="submit" class="btn btn-cyan btn-md">SEARCH</button>
-                                  </span>
+                                <div class="btn-group">
+                                    <span class="searchblock">
+                                        <input type="text" placeholder="ie. Ng Khai Devt Corp" id="search-keyword" ng-model="search_keyword" ng-model-options="{debounce: 1000}" autocomplete="off">
+                                        <ul class="dropdown-menu" role="menu" id="search-suggest" ng-hide="dropdown_businesses.length == 0" outside-click="dropdown_businesses = []">
+                                            <li ng-repeat="business in dropdown_businesses">
+                                                <a href="#" ng-click="searchBusiness(location_filter, industry_filter, business.name)">
+                                                    <strong class="business-name">@{{ business.name }}</strong><br>
+                                                    <small class="address">@{{ business.local_address }}</small>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <button id="search-filter" type="submit" class="btn btn-cyan btn-md">SEARCH</button>
+                                    </span>
+                                </div>
                             </form>
                         </div>
                     </div>
