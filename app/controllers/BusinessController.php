@@ -314,6 +314,16 @@ class BusinessController extends BaseController{
         return json_encode($arr);
     }
 
+    //ARA Added name search while user is typing in searchbar
+    public function getNameSearch($keyword){
+        $businesses = Business::where('name', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('local_address', 'LIKE', '%' . $keyword . '%')
+            ->select(array('name', 'local_address'))
+            ->get()
+            ->toArray();
+        return json_encode(array('keywords' => $businesses));
+    }
+
     public function postRemove() {
         $post = json_decode(file_get_contents("php://input"));
             Business::deleteBusinessByBusinessId($post->business_id);
