@@ -815,7 +815,26 @@
         <div class="col-md-5 col-xs-12" style="margin-top:140px;">
             <div class="text-center" ng-controller="fbController">
                 <a class="h1 btn btn-lg btn-blue" ng-click="login()">Continue with Facebook</a>
-                <small style="display: block;"><a id="yfb" href="">Why we use Facebook?</a></small>
+                <small style="display: block;"><a id="yfb" href="" data-toggle="modal" data-target="#modal-yfacebook" >Why we use Facebook?</a></small>
+                <div class="modal fade" id="modal-yfacebook" role="dialog" aria-hidden="true">
+                  <div class="modal-dialog" style="z-index: 9999;">
+                    <div class="modal-content">
+                      <div class="modal-body">
+                        <h2 class="cyan">Why Facebook?</h2>
+                            <div id="icons">
+                                <span class="glyphicon glyphicon-user"></span>
+                                <span class="glyphicon glyphicon-thumbs-up"></span>
+                                <span class="glyphicon glyphicon-lock"></span>
+                            </div>
+                        <p>It makes sign in super duper fast, one less password to remember. And you can instantly share many wonderful things with your friends.</p>
+                        <small>Your privacy is highly respected. nothing will be posted without your permission</small>
+                      </div>
+                      <div class="modal-footer text-center">
+                        <button type="button" class="mb20 btn btn-lg btn-primary" data-dismiss="modal">OK</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
             </div>
         </div>
     </div>

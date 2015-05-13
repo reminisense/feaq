@@ -848,4 +848,44 @@ footer p {
     font-size: 11px;
     color: #999999;
 }
+#modal-yfacebook h2 {
+    font-size: 32px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+#modal-yfacebook .modal-body {
+    color: #333;
+    font-size: 14px;
+    padding-left: 100px;
+    padding-right: 100px;
+
+}
+#modal-yfacebook .modal-body p {
+    margin-bottom: 14px;
+    font-size: 16px;
+}
+#modal-yfacebook small {
+    text-transform: uppercase;
+    font-size: 14px;
+}
+#modal-yfacebook .modal-header,
+#modal-yfacebook .modal-footer {
+    border: none;
+    text-align: center;
+}
+#modal-yfacebook .modal-footer {
+    padding-bottom: 40px;
+}
+#modal-yfacebook .modal-footer button {
+    padding: 14px 50px;
+}
+#modal-yfacebook #icons {
+    font-size: 30px;
+    margin-bottom: 30px;
+    color: #555;
+}
+#modal-yfacebook #icons span {
+    margin: 0 8px;
+    display: inline-block;
+}
 
