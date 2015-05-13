@@ -463,7 +463,10 @@ h5.heading {
   text-decoration: none;
 }
 #btn-bcast-details {
-    margin-top: -17px;
+    margin-top: 2px;
+}
+#btn-message-business {
+    margin-top: -30px;
 }
 /****BOXES******/
 .boxed {
@@ -482,8 +485,7 @@ h5.heading {
   padding-right: 0;
 }
 .boxed .head.head-wbtn .btn-half {
-  float: right;
-  margin-top: -28px;
+    float: right;
 }
 .boxed .head.head-wbtn .btn span {
   font-size: 10px;
