@@ -79,6 +79,9 @@
   .hmobile {
     display: none;
   }
+    .page4 .col-md-7 {
+        text-align: center;
+    }
 }
 
 @media (max-width: 480px) {
@@ -159,14 +162,17 @@
   #diy-carousel {
     margin-top: 110px;
   }
-  .page3 {
-    height: 80px!important;
-  }
   .page2 h4 {
     color: #fff!important;
     margin-bottom: 55px;
       text-align: center;
   }
+    .page4 {
+        padding-bottom: 80px;
+    }
+    .page4 .col-md-7 {
+        text-align: center;
+    }
     section.page1 {
         background: #060409 url(../../img/bg-mobile.jpg) no-repeat top center;
     }
@@ -179,8 +185,15 @@
     .page4 .wrap {
         padding-top: 140px;
     }
+    #search-filter {
+        width: 100%;
+    }
+
 }
 @media (max-width: 320px) {
+    #search-filter {
+        width: 100%;
+    }
     .page2 h4 {
         font-size: 14px;
     }

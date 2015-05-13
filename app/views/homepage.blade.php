@@ -759,13 +759,13 @@
 </section>
 <a name="diy"></a>
 <section class="page3" name="diy">
-    <div class="">
+    <div class="clearfix">
         <div class="">
             <h2 class="orange wow fadeInUp">FeatherQ Process</h2>
         </div>
     </div>
 
-    <div class="">
+    <div class="clearfix">
         <div class="slider center slick-slider" data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
             <div>
                 <img src="img/diy/1.jpg" />
@@ -789,19 +789,23 @@
 <a name="getting-started"></a>
 <section class="page4">
     <div class="container">
-        <div class="col-md-8">
+        <div class="col-md-12 col-xs-12">
             <div class="wrap">
-                <h3 class="wow fadeInUp">Turn the wait of your customers<br>
-                    into a <span>better experience</span><br>
-                    and increase your <span>business opportunity</span>
-                </h3>
-                <h3 class="nomg wow fadeInUp">Start using <span>FeatherQ</span> for your business today</h3>
-                <h3 class="cyan nomg wow fadeInUp">It's Fast, Easy and Free</h3>
+            <h3 class="wow fadeInUp text-center">Turn the wait of your customers into a better experience<br>
+                and <span>increase your business opportunity</span>
+            </h3>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="wrap text-center" ng-controller="fbController">
-                <a class="h1 btn btn-lg btn-blue" ng-click="login()">Sign-Up Today! </a>
+        <div class="col-md-7 col-xs-12" style="margin-top:140px;">
+                <h4 class="nomg wow fadeInUp">Start using FeatherQ for your business today</h4>
+                <h4 class="nomg wow fadeInUp">It's Fast, Easy and Free</h4>
+                <br>
+                <h4 class="nomg wow fadeInUp">Call us at: <span class="cyan">(032) 345-4658</span></h4>
+        </div>
+        <div class="col-md-5 col-xs-12" style="margin-top:140px;">
+            <div class="text-center" ng-controller="fbController">
+                <a class="h1 btn btn-lg btn-blue" ng-click="login()">Continue with Facebook</a>
+                <small style="display: block;"><a id="yfb" href="">Why we use Facebook?</a></small>
             </div>
         </div>
     </div>

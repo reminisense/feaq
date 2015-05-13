@@ -451,27 +451,34 @@ section.page3 h2 {
     padding-bottom: 300px;
 }
 .page4 .wrap {
-  padding-top: 260px;
+  padding-top: 160px;
 }
 .page4 .wrap p {
   font-size: 20px;
 }
 .page4 h3  {
-    font-size: 30px;
+    font-size: 32px;
     margin-bottom: 40px;
-    line-height: 45px;
+    line-height: 53px;
 }
 .page4 h3 span {
     color: #ff925b;
 }
 .page4 h4 {
-    font-size: 22px;
+    font-size: 24px;
+    line-height: 42px;
 }
 .page4 a.h1 {
-    margin-top: 110px;
     padding-left: 50px;
     padding-right: 50px;
     font-size: 24px!important;
+    margin-bottom: 23px;
+}
+#yfb {
+    color: #fff;
+    font-size: 15px;
+    font-family: 'ralewaysemibold';
+    display: inline-block;
 }
 .cyan {
     color: #00BA8B;
@@ -489,7 +496,7 @@ section.page2 .text-center p {
   color: #FFF;
 }
 section.page3 {
-  background: #161617;
+  background: #111;
 }
 .page4 {
   background-color: #222128;
@@ -664,7 +671,7 @@ footer p {
 }
 /* Arrows slick*/
 .page3 {
-    padding: 80px 0;
+    padding: 80px 0 120px;
     background-color: #1f1e24;
 }
 .slick-slider {
