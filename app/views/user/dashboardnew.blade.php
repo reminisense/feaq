@@ -64,6 +64,17 @@ Dashboard
                             </form>
                         </div>
                     </div>
+                    <ul><!-- start point of interest-->
+                        <li class="cd-single-point">
+                            <a class="cd-img-replace" href="#0">More</a>
+                            <div class="cd-more-info cd-bottom"> <!-- 4 classes available: cd-top, cd-bottom, cd-left, cd-right  -->
+                                <h2>Search Businesses</h2>
+                                <p>Search for the businesses you want to be shown below. You can type in the name of the business or its address. <br><a href="#" class="cd-hide-tooltips btn btn-danger">Don't show this again</a></p>
+                                <a href="#0" class="cd-close-info cd-img-replace">Close</a>
+                            </div>
+                        </li> <!-- .cd-single-point -->
+                        <!-- other points of interest here -->
+                    </ul><!-- end of point of interest-->
                 </div>
             </div>
         </div>
@@ -73,6 +84,17 @@ Dashboard
     </div>
     <div class="col-md-12 page-header">
         <h2 id="browse-label" class="text-center">Or browse from these businesses currrently queuing</h2>
+        <ul><!-- start point of interest-->
+            <li class="cd-single-point">
+                <a class="cd-img-replace" href="#0">More</a>
+                <div class="cd-more-info cd-bottom"> <!-- 4 classes available: cd-top, cd-bottom, cd-left, cd-right  -->
+                    <h2>Queueing Businesses</h2>
+                    <p>Click on any of the businesses below to see what's happening in their broadcast screen. <br><a href="#" class="cd-hide-tooltips btn btn-danger">Don't show this again</a></p>
+                    <a href="#0" class="cd-close-info cd-img-replace">Close</a>
+                </div>
+            </li> <!-- .cd-single-point -->
+            <!-- other points of interest here -->
+        </ul><!-- end of point of interest-->
         <div class="row" id="search-loader" style="display: none; text-align: center;">
             <img src="/images/reload_dash.gif" />
         </div>
