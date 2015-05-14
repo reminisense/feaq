@@ -31,6 +31,11 @@ var pq = {
         issue_numbers : {
             issue_multiple_url : $('#issue-multiple-url').val() + '/',
             issue_specific_url : $('#issue-specific-url').val() + '/'
+        },
+
+        rating : {
+            ratings_url : $('#ratings-url').val() + '/',
+            verify_email_url : $('#verify-email-url').val() + '/'
         }
 
     },

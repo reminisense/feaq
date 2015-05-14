@@ -21,6 +21,8 @@ Route::controller('processqueue', 'ProcessQueueController');
 
 Route::controller('user', 'UserController');
 
+Route::controller('rating', 'RatingController');
+
 Route::controller('broadcast', 'BroadcastController');
 
 Route::controller('processqueue', 'ProcessQueueController');
