@@ -9,7 +9,7 @@
   <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <link rel='stylesheet' type='text/css' href='/css/ngCloak.css'>
   <link rel="shortcut icon" id="favicon" href="{{URL::to('/images/favicon.png')}}">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" type='text/css' href="/css/bootstrap.min.css">
   <link rel='stylesheet' type='text/css' href='/css/global.css'>
   <link rel='stylesheet' type='text/css' href='/css/dashboard/responsive.css'>
   <link media="all" type="text/css" rel="stylesheet" href="/css/intlTelInput.css">
@@ -18,15 +18,15 @@
 
   @yield('styles')
 
-  <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-1.11.2.min.js"></script>
+    <script src="/js/angular.min.js"></script>
   <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
   <script src="/js/jquery.geocomplete.js"></script>
   <script src="/js/jquery.timepicker.min.js"></script>
   <script src="/js/intlTelInput.js"></script>
   <script src="/js/jquery.plugin.js"></script>
   <script src="/js/jquery.timeentry.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
   <script src="/js/ngFeatherQ.js"></script>
   <script src="/js/ngFacebook.js"></script>
   <script src="/js/ngAutocomplete.js"></script>

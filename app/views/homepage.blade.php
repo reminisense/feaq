@@ -11,7 +11,7 @@
     <title>FeatherQ</title>
     <link rel="stylesheet" type="text/css" href="/css/ngCloak.css">
     <link rel="shortcut icon" id="favicon" href="favicon.png">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" type='text/css' href="/css/bootstrap.min.css">
     <link rel='stylesheet' type='text/css' href='/css/homepage/style.css'>
     <link rel='stylesheet' type='text/css' href='/css/homepage/responsive.css'>
     <link rel='stylesheet' type='text/css' href="/css/homepage/animate.css" >
@@ -19,10 +19,10 @@
     <link rel='stylesheet' type='text/css' href='/css/refresh-animate.css'>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.0/slick.css"/>
 
-    <script type="text/javascript" src="js/jquery1.11.2.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/custom.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script> {{-- RDH Using CDN for Angular JS File --}}
+    <script type="text/javascript" src="/js/jquery-1.11.2.min.js"></script>
+    <script src="/js/angular.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/custom.js"></script>
     <script src="/js/ngFeatherQ.js"></script>
     <script src="/js/ngFacebook.js"></script>
     <script src="/js/ngAutocomplete.js"></script>
