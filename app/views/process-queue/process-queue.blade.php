@@ -79,6 +79,15 @@ Processs Queue > {{ $business_name }}
                             </a>
                         </th>
                         <td>
+                            <form ng-show="temp_called_numbers[$index].email_checker">
+                                <span class="star-rating" ng-init="temp_called_numbers[$index].rating">
+                                    <input type="radio" name="rating" ng-model="temp_called_numbers[$index].rating" value="1"><i></i>
+                                    <input type="radio" name="rating" ng-model="temp_called_numbers[$index].rating" value="2"><i></i>
+                                    <input type="radio" name="rating" ng-model="temp_called_numbers[$index].rating" value="3"><i></i>
+                                    <input type="radio" name="rating" ng-model="temp_called_numbers[$index].rating" value="4"><i></i>
+                                    <input type="radio" name="rating" ng-model="temp_called_numbers[$index].rating" value="5"><i></i>
+                                </span>
+                            </form>
                             <a href="#" class="delete" ng-click="dropNumber(number.transaction_number)" ng-disabled="isProcessing"><span class="glyphicon glyphicon-trash"></span></a>
                             <a href="#" class="btn btn-sm btn-default" ng-click="serveAndCallNext(number.transaction_number)" ng-disabled="isProcessing">Next <span class="glyphicon glyphicon-arrow-right"></span></a>
                             <a href="#" class="btn btn-sm btn-default" ng-click="serveNumber(number.transaction_number)" ng-disabled="isProcessing">Serve <span class="glyphicon glyphicon-ok"></span></a>
@@ -106,6 +115,10 @@ Processs Queue > {{ $business_name }}
 
 <input type="hidden" id="issue-multiple-url" value="{{ url('/issuenumber/multiple/') }}">
 <input type="hidden" id="issue-specific-url" value="{{ url('/issuenumber/insertspecific/') }}">
+
+<input type="hidden" id="ratings-url" value="{{ url('/rating/userratings/') }}">
+<input type="hidden" id="verify-email-url" value="{{ url('/rating/verifyemail/') }}">
+
 <!-- end urls -->
 <!-- end process queue main -->
 @include('modals.process-queue.issue-number-modal')
