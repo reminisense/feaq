@@ -77,7 +77,7 @@
                     <div class="col-md-10 col-md-offset-2 col-sm-12 col-xs-12">
                         <div class="filterwrap  wow fadeInUp">
                             <form ng-submit="searchBusiness(location_filter, industry_filter)">
-                                <div class="btn-group" role="group">
+                                <div class="btn-group" role="group" style="margin-bottom: 0px;">
                                     <div class="btn-group" role="group">
                                         <button id="btnGroupLoc" type="button"
                                                 class="btn btn-default dropdown-toggle"
