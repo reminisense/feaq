@@ -33,10 +33,10 @@ $(document).on('click', '#send-business-message', function(){
     }
 
     if (errorMessage == ''){
-        $.post( '/broadcast/business-message', { business_id: business_id, contname: contname, contemail: contemail, contmobile: contmobile, contmessage: contmessage })
+        $.post( '/message/sendto-business', { business_id: business_id, contname: contname, contemail: contemail, contmobile: contmobile, contmessage: contmessage })
             .done(function( data ) {
                 var resp = jQuery.parseJSON(data);
-                if (resp.message_id > 0){
+                if (resp.status > 0){
                     $('#message-notif').removeClass('alert-danger');
                     $('#message-notif').addClass('alert-success');
                     $('#message-notif').html('Message sent! The business will personally contact you through your email or mobile number.');
