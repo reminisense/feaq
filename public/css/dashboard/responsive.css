@@ -79,6 +79,10 @@
         float: right!important;
     }
     /* @CSD END */
+    .processq-box .q-actions .btn-orange {
+        margin-top: 11px!important;
+        width: 100%;
+    }
 }
 @media (max-width: 480px) {
     .line {
@@ -167,7 +171,8 @@
     }
 
     .processq-box .q-actions .btn-orange {
-        margin-top: 5px!important;
+        margin-top: 11px!important;
+        width: 100%;
     }
 
     .inline-btns a {
@@ -210,6 +215,10 @@
     /* @CSD END */
 }
 @media (max-width: 320px) {
+    .processq-box .q-actions .btn-orange {
+        margin-top: 11px!important;
+        width: 100%;
+    }
     .filterwrap {
         background: none!important;
     }

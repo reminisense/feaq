@@ -84,6 +84,8 @@ Dashboard
     </div>
     <div class="col-md-12 page-header">
         <h2 id="browse-label" class="text-center">Or browse from these businesses currrently queuing</h2>
+        <div class="" id="search-loader" style="display: none; text-align: center;">
+            <img style="width:30px;" src="/images/reload_dash.gif" />
         <ul><!-- start point of interest-->
             <li class="cd-single-point">
                 <a class="cd-img-replace" href="#0">More</a>

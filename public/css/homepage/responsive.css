@@ -136,7 +136,7 @@
       background: rgba(255,255,255,0.2);
   }
   .filterwrap .btn-group {
-      display: block;
+      /*display: block;*/
       width: 100%;
       text-align: center;
       background: rgba(255,255,255,0.2);
@@ -183,10 +183,25 @@
         background: #0a0909 url(../../img/bg-mobile-contact.jpg) no-repeat top center;
     }
     .page4 .wrap {
-        padding-top: 140px;
+        padding-top: 80px;
     }
     #search-filter {
         width: 100%;
+    }
+    .page4 a.h1 {
+        padding-left: 20px;
+        padding-right: 20px;
+        font-size: 18px!important;
+    }
+    /*please add this*/
+    section.page2 h1, section.page2 h2 {
+        margin-top: 80px;
+        font-size: 27px;
+    }
+    section.page3 h2 {
+        font-size: 27px;
+        margin-top: 20px;
+        margin-bottom: 25px;
     }
 
 }
@@ -199,6 +214,19 @@
     }
     .intro h1 {
         margin-bottom: 75px;
+    }
+    .page4 .col-md-7,
+    .page4 .col-md-5 {
+        margin-top: 80px!important;
+    }
+    .page4 h4 {
+        line-height: 30px;
+        font-size: 18px!important;
+    }
+    .page4 a.h1 {
+        padding-left: 20px;
+        padding-right: 20px;
+        font-size: 18px!important;
     }
     .page4 {
         text-align: center;

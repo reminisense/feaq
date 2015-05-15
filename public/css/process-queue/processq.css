@@ -91,7 +91,7 @@
 }
 .processq-box .form-control {
     display: inline-block;
-    width: 80%;
+    /*width: 80%; rodel */
     margin-right: 10px;
     font-size: 20px;
     font-family: 'ralewaybold';
@@ -224,23 +224,3 @@
     width: 100%;
 }
 
-::after,
-::before {
-    height: 100%;
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    text-align: center;
-    vertical-align: middle;
-}
-body {
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-}
-body::before {
-    height: 100%;
-    content: '';
-    width: 0;
-    background: red;
-    vertical-align: middle;
-    display: inline-block;
-}
