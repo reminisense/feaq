@@ -36,11 +36,11 @@ Processs Queue > {{ $business_name }}
 
 <div class="container" id="process-queue-wrapper" ng-controller="processqueueController">
     <div class="row page-header">
-        <div class="col-md-offset-1 col-md-7">
+        <div class="col-md-offset-1 col-md-7 col-sm-8">
             <p>Processing Queues for:</p>
             <h2>{{ $business_name }} - {{ $terminal_name }}</h2>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-4 ">
             <a id="view-broadcast" target="_blank" href="{{ url('/broadcast/business/' . $business_id) }}">View Broadcast <br>Screen</a>
         </div>
     </div>
@@ -50,7 +50,7 @@ Processs Queue > {{ $business_name }}
                 <div class="row">
                     <div class="q-actions clearfix">
                         <form>
-                            <div class="col-md-9">
+                            <div class="col-md-8 col-sm-8 col-xs-10">
                                 <input id="selected-tnumber" type="hidden" ng-value="called_number" value=0>
                                 <div class="dropdown-wrapper" ng-show="timebound_numbers.length != 0 || uncalled_numbers.length != 0">
                                     <button class="btn-select btn-md dropdown-toggle" type="button" data-toggle="dropdown">
@@ -62,9 +62,11 @@ Processs Queue > {{ $business_name }}
                                     </ul>
                                 </div>
                                 <input id="issue-call-number" type="number" class="form-control" min="1" max="@{{ number_limit }}"  ng-model="issue_call_number" ng-show="timebound_numbers.length == 0 && uncalled_numbers.length == 0">
+                            </div>
+                            <div class="col-md-1 col-sm-1 col-xs-2">
                                 <a href="#" id="btn-pmore" class="btn btn-md btn-primary" data-toggle="modal" data-target="#moreq" title="Issue a number.">+</a>
                             </div>
-                            <div class="col-md-3 text-right">
+                            <div class="col-md-3 col-sm-3 col-xs-12 text-right">
                                 <button class="btn btn-orange btn-md" id="btn-call" ng-click="issueOrCall()" ng-disabled="isCalling">CALL NUMBER</button>
                             </div>
                         </form>
