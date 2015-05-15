@@ -131,7 +131,7 @@
     </div>
 </div>
 @include('modals.broadcast.remote-queue-modal')
-@include('modals.broadcast.contact-business-modal');
+@include('modals.broadcast.contact-business-modal')
 
 {{--{{ HTML::script('js/bootstrap.min.js') }}--}}
 <script src="/js/broadcast/bootstrap.min.js"></script>
