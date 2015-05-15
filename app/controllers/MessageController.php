@@ -38,6 +38,32 @@ class MessageController extends BaseController {
     return json_encode(array('status' => 1));
   }
 
+  public function postMessageList() {
+    $messages = array();
+    $list = Message::getMessagesByBusinessId(Input::get('business_id'));
+    foreach ($list as $count => $thread) {
+      $messages[] = array(
+        'email' => $thread->email,
+        'phone' => unserialize($thread->phone),
+        'contactname' => $thread->contactname,
+        'message_id' => $thread->message_id,
+      );
+    }
+    return json_encode(array('messages' => $messages));
+  }
+
+  public function postMessageThread() {
+    $message_content = array();
+    $data = json_decode(file_get_contents(public_path() . '/json/messages/' . Message::getThreadKeyByMessageId(Input::get('message_id')) . '.json'));
+    foreach ($data as $timestamp => $content) {
+      $message_content[] = array(
+        'timestamp' => date("Y-m-d", $timestamp),
+        'content' => $content,
+      );
+    }
+    return json_encode(array('contactmessage' => $message_content));
+  }
+
   private function threadKeyGenerator($business_id, $email) {
     return md5($business_id . 'fq' . $email);
   }

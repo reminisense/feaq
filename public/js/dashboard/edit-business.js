@@ -212,22 +212,25 @@ var eb = {
             $scope.terminals = business.terminals;
             $scope.analytics = business.analytics;
             $scope.terminal_delete_error = business.error ? business.error : null;
-            $scope.messages = business.messages;
        }
 
+        $scope.displayMessageList = function(business_id) {
+            $http.post('/message/message-list', {
+                business_id : business_id
+            }).success(function(response) {
+                $scope.messages = response.messages;
+            });
+        }
+
         /* @CSD 05062015 */
-        $scope.setPreviewMessage = function(message_id){
-            var length = $scope.messages.length;
-            $('.message-preview').fadeOut().promise().done(function(){
-                for(var i = 0; i < length; i++){
-                    if ($scope.messages[i].message_id == message_id){
-                        $('#contactfrom').html($scope.messages[i].contactname);
-                        $('#contactemail').html($scope.messages[i].contactemail);
-                        $('#contactmobile').html($scope.messages[i].contactmobile);
-                        $('#contactmessage').html($scope.messages[i].contactmessage);
-                        $('.message-preview').fadeIn();
-                    }
-                }
+        $scope.setPreviewMessage = function(sender, message_id){
+            $('.message-preview').hide();
+            $http.post('/message/message-thread', {
+                message_id : message_id
+            }).success(function(response) {
+                $('#contactfrom').html(sender);
+                $scope.message_content = response.contactmessage;
+                $('.message-preview').fadeIn();
             });
         }
 

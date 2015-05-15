@@ -83,7 +83,6 @@ class Business extends Eloquent{
         $terminals = Terminal::getAssignedTerminalWithUsers($terminals);
         $analytics = Analytics::getBusinessAnalytics($business_id);
         $first_service = Service::getFirstServiceOfBusiness($business_id);
-        $messages = Message::where('business_id', '=', $business_id)->orderBy('date_created', 'desc')->get();
         $business_details = [
             'business_id' => $business_id,
             'business_name' => $business->name,
@@ -104,8 +103,7 @@ class Business extends Eloquent{
             'input_sms_field' => QueueSettings::inputSmsField($first_service->service_id),
             'allow_remote' => QueueSettings::allowRemote($first_service->service_id),
             'terminals' => $terminals,
-            'analytics' => $analytics,
-            'messages' => $messages
+            'analytics' => $analytics
         ];
 
 

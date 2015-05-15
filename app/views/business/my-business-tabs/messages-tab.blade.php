@@ -2,9 +2,8 @@
     <div class="col-md-5">
         <h5>Messages</h5>
         <div class="list-group">
-            <a ng-repeat="message in messages" href="" class="list-group-item" ng-click="setPreviewMessage(message.message_id)">
-                <p><strong>@{{ message.contactname }}</strong> <@{{ message.contactemail }}></p>
-                <p class="messagedates">@{{ message.date_created }}</p>
+            <a ng-repeat="message in messages" href="" class="list-group-item" ng-click="setPreviewMessage(message.contactname, message.message_id)">
+                <p><strong>@{{ message.email }} </strong> <@{{ message.contactname }}></p>
             </a>
         </div>
     </div>
@@ -13,10 +12,10 @@
             <h5>Preview</h5>
             <div class="message-preview" style="display: none;">
                 <p><label class="preview-label">From:</label> <span id="contactfrom"></span></p>
-                <p><label class="preview-label">Email:</label> <span id="contactemail"></span></p>
-                <p><label class="preview-label">Mobile:</label> <span id="contactmobile"></span></p>
-                <p><label class="preview-label">Message:</label> </p>
-                <p id="contactmessage"></p>
+                <p id="contactmessage" ng-repeat="thread in message_content">
+                    @{{ thread.content }}<br>
+                    @{{ thread.timestamp }}
+                </p>
             </div>
         </div>
     </div>
