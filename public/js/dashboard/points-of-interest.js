@@ -11,7 +11,7 @@ app.directive('pointOfInterest', function(){
     return {
         template: function(elem, attr){
             return '<ul><!-- start point of interest-->' +
-                '<li class="cd-single-point my-business">' +
+                '<li class="cd-single-point ' + attr.class + '">' +
                     '<a class="cd-img-replace" href="#">More</a>' +
                     '<div class="cd-more-info cd-' + attr.position + '"> <!-- 4 classes available: cd-top, cd-bottom, cd-left, cd-right  -->' +
                         '<h2>' + attr.title  + '</h2>' +
@@ -63,8 +63,10 @@ var cookies_functions = {
 
     getPage: function(){
         var page = '';
-        if(window.location.href.indexOf('my-business') > -1){
+        if(window.location.href.indexOf('my-business') > -1 && $('#business_id').val() == ''){
             page = 'my_business';
+        }else if(window.location.href.indexOf('my-business') > -1 && $('#business_id').val() != ''){
+            page = 'my_business2';
         }else if(window.location.href.indexOf('processqueue') > -1){
             page = 'process_queue';
         }else if(window.location.href.substring(0, window.location.href.length - 1) == window.location.origin){

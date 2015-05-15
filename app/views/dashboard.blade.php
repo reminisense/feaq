@@ -57,7 +57,7 @@
                 <li id="search-business" class="active"><a href="{{ url('/') }}"><span class="glyphicon glyphicon-search"></span> Business Search</a></li>
                 <li id="my-business">
                     <a href="{{ url('/business/my-business') }}" ><span class="glyphicon glyphicon-home"></span> My Business</a>
-                    <point-of-interest position='bottom' title="My Business" description="Click here to create your own business or to edit the details of your existing business."></point-of-interest>
+                    <point-of-interest class="my-business" position='bottom' title="My Business" description="Click here to create your own business or to edit the details of your existing business."></point-of-interest>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> My Account <b class="caret"></b></a>

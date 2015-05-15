@@ -44,6 +44,7 @@ My Business
                         {{--<p class="contact"><span class="glyphicon glyphicon-phone-alt"></span> +032 259 8611 / +038 259 8622 </p><br>--}}
                         <a class="btn btn-sm btn-primary" href="{{ url('business/pdf-download/' . $business_id) }}" target="_blank">Download QR Code</a>
                     </div>
+                    <point-of-interest position="bottom" title="Download QR Code" description="Download this QR Code so you can print it out and post it for your customers to view your broadcast screen from their mobile phones."></point-of-interest>
                     <div class="col-md-3 col-xs-10 ">
                         <a id="view-broadcast" href="{{ url('broadcast/business/' . $business_id) }}" target="_blank">View Broadcast Screen</a>
                         <div id="process-queue" href="#" class="edit-biz process-queue">
@@ -63,6 +64,9 @@ My Business
                                 </div>
                             </div>
                         </div>
+
+                        {{--<point-of-interest position="right" title="View Broadcast Page" description="This link directs you to the broadcast page which you can display through your monitors in your business."></point-of-interest>--}}
+                        <point-of-interest position="right" title="Process Queue" description="Click on this link to choose which terminal of your business you can start processing the queue."></point-of-interest>
                     </div>
                 </div>
             </div>
@@ -122,12 +126,12 @@ My Business
                         <a id="add-business" target="_blank"><span class="glyphicon glyphicon-plus"></span> Create Your First Business</a>
                     </div>
                 </div>
+                <point-of-interest position="bottom" title="Create A Business" description="Click the link to create your very own business."></point-of-interest>
             </div>
         </div>
     </div>
     @endif
-    <div class="row assigned-business">
-    <!-- assigned business -->
+    <div class="row assigned-business"> <!-- assigned business -->
     @if($assigned_businesses)
     <h5>ASSIGNED BUSINESSES</h5>
         <div class="" id="box-wrapper">
