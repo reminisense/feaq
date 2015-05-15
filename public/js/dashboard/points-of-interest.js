@@ -2,35 +2,65 @@
  * Created by USER on 5/14/15.
  */
 jQuery(document).ready(function($){
-    //open interest point description
-    $('.cd-single-point').children('a').on('click', function(event){
-        event.preventDefault();
-        var selectedPoint = $(this).parent('li');
-        if( selectedPoint.hasClass('is-open') ) {
-            selectedPoint.removeClass('is-open').addClass('visited');
-        } else {
-            selectedPoint.addClass('is-open').siblings('.cd-single-point.is-open').removeClass('is-open').addClass('visited');
-        }
-        cookies_functions.checkAllTooltipsVisited();
-    });
-    //close interest point description
-    $('.cd-close-info').on('click', function(event){
-        event.preventDefault();
-        $(this).parents('.cd-single-point').eq(0).removeClass('is-open').addClass('visited');
-    });
-
-    $('.cd-hide-tooltips').on('click', function(event){
-        event.preventDefault();
-        $('.cd-single-point').hide();
-        cookies_functions.savePageCookie(cookies_functions.getPage());
-    });
-
-    //cookies_functions.deleteCookie(cookies_functions.getPage());
+    cookies_functions.deleteCookie(cookies_functions.getPage());
+    cookies_functions.loadOnClickCommands();
     cookies_functions.checkPage();
 });
 
+app.directive('pointOfInterest', function(){
+    return {
+        template: function(elem, attr){
+            return '<ul><!-- start point of interest-->' +
+                '<li class="cd-single-point my-business">' +
+                    '<a class="cd-img-replace" href="#">More</a>' +
+                    '<div class="cd-more-info cd-' + attr.position + '"> <!-- 4 classes available: cd-top, cd-bottom, cd-left, cd-right  -->' +
+                        '<h2>' + attr.title  + '</h2>' +
+                        '<p>' + attr.description + ' <br><a href="#" class="cd-hide-tooltips btn btn-danger">Hide all tooltips</a></p>' +
+                        '<a href="#" class="cd-close-info cd-img-replace">Close</a>' +
+                    '</div>' +
+                '</li> <!-- .cd-single-point -->' +
+            '</ul><!-- end of point of interest-->'
+        }
+    }
+});
 
 var cookies_functions = {
+    loadOnClickCommands: function(){
+        cookies_functions.onClickSinglePoint();
+        cookies_functions.onClickCloseInfo();
+        cookies_functions.onClickHideTooltips();
+    },
+
+    onClickSinglePoint: function(){
+        //open interest point description
+        $('.cd-single-point').children('a').on('click', function(event){
+            event.preventDefault();
+            var selectedPoint = $(this).parent('li');
+            if( selectedPoint.hasClass('is-open') ) {
+                selectedPoint.removeClass('is-open').addClass('visited');
+            } else {
+                selectedPoint.addClass('is-open').siblings('.cd-single-point.is-open').removeClass('is-open').addClass('visited');
+            }
+            cookies_functions.checkAllTooltipsVisited();
+        });
+    },
+
+    onClickCloseInfo: function(){
+        //close interest point description
+        $('.cd-close-info').on('click', function(event){
+            event.preventDefault();
+            $(this).parents('.cd-single-point').eq(0).removeClass('is-open').addClass('visited');
+        });
+    },
+
+    onClickHideTooltips: function(){
+        $('.cd-hide-tooltips').on('click', function(event){
+            event.preventDefault();
+            $('.cd-single-point').hide();
+            cookies_functions.savePageCookie(cookies_functions.getPage());
+        });
+    },
+
     getPage: function(){
         var page = '';
         if(window.location.href.indexOf('my-business') > -1){
@@ -44,7 +74,6 @@ var cookies_functions = {
     },
 
     checkPage: function(){
-        console.log(document.cookie);
         var page_tooltips = cookies_functions.checkTooltips();
         var page = cookies_functions.getPage();
         if(page != 'dashboard')$('.cd-single-point.my-business').hide();

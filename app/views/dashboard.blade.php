@@ -15,6 +15,7 @@
     <link media="all" type="text/css" rel="stylesheet" href="/css/intlTelInput.css">
     <link rel='stylesheet' type='text/css' href='/css/modal.css'>
     <link rel='stylesheet' type='text/css' href='/css/refresh-animate.css'>
+    <link rel='stylesheet' type='text/css' href='/css/dashboard/points-of-interest.css'> {{--ARA points of interest--}}
 
     @yield('styles')
 
@@ -31,11 +32,7 @@
     <script src="/js/ngFacebook.js"></script>
     <script src="/js/ngAutocomplete.js"></script>
     <script src="/js/user/Usertracker.js"></script> {{-- ARA For user tracking --}}
-
-    <!--ARA test points of interest-->
-    <link rel='stylesheet' type='text/css' href='/css/dashboard/points-of-interest.css'>
-    <script src="/js/dashboard/points-of-interest.js"></script>
-
+    <script src="/js/dashboard/points-of-interest.js"></script> {{--ARA points of interest--}}
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]-->
@@ -60,17 +57,7 @@
                 <li id="search-business" class="active"><a href="{{ url('/') }}"><span class="glyphicon glyphicon-search"></span> Business Search</a></li>
                 <li id="my-business">
                     <a href="{{ url('/business/my-business') }}" ><span class="glyphicon glyphicon-home"></span> My Business</a>
-                    <ul><!-- start point of interest-->
-                        <li class="cd-single-point my-business">
-                            <a class="cd-img-replace" href="#0">More</a>
-                            <div class="cd-more-info cd-bottom"> <!-- 4 classes available: cd-top, cd-bottom, cd-left, cd-right  -->
-                                <h2>My Business</h2>
-                                <p>Click here to create your own business or to edit the details of your existing business. <br><a href="#" class="cd-hide-tooltips btn btn-danger">Don't show this again</a></p>
-                                <a href="#0" class="cd-close-info cd-img-replace">Close</a>
-                            </div>
-                        </li> <!-- .cd-single-point -->
-                        <!-- other points of interest here -->
-                    </ul><!-- end of point of interest-->
+                    <point-of-interest position='bottom' title="My Business" description="Click here to create your own business or to edit the details of your existing business."></point-of-interest>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> My Account <b class="caret"></b></a>
