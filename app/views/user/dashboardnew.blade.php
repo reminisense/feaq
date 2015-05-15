@@ -73,8 +73,8 @@ Dashboard
     </div>
     <div class="col-md-12 page-header">
         <h2 id="browse-label" class="text-center">Or browse from these businesses currrently queuing</h2>
-        <div class="row" id="search-loader" style="display: none; text-align: center;">
-            <img src="/images/reload_dash.gif" />
+        <div class="" id="search-loader" style="display: none; text-align: center;">
+            <img style="width:30px;" src="/images/reload_dash.gif" />
         </div>
     </div>
     <div class="container">
