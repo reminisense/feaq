@@ -1197,3 +1197,8 @@ input#input_sms_field:focus{
 #embed-alert {
     padding: 10px!important;
 }
+
+/* CSD 05162015 */
+.timestamp {
+    font-size: 12px;
+}

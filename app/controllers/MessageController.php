@@ -57,7 +57,7 @@ class MessageController extends BaseController {
     $data = json_decode(file_get_contents(public_path() . '/json/messages/' . Message::getThreadKeyByMessageId(Input::get('message_id')) . '.json'));
     foreach ($data as $timestamp => $content) {
       $message_content[] = array(
-        'timestamp' => date("Y-m-d", $timestamp),
+        'timestamp' => date("Y-m-d h:i A", $timestamp),
         'content' => $content,
       );
     }

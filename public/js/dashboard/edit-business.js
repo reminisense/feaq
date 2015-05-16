@@ -228,7 +228,6 @@ var eb = {
             $http.post('/message/message-thread', {
                 message_id : message_id
             }).success(function(response) {
-                $('#contactfrom').html(sender);
                 $scope.message_content = response.contactmessage;
                 $('.message-preview').fadeIn();
             });
