@@ -826,8 +826,8 @@
                                 <span class="glyphicon glyphicon-thumbs-up"></span>
                                 <span class="glyphicon glyphicon-lock"></span>
                             </div>
-                        <p>It makes sign in super duper fast, one less password to remember. And you can instantly share many wonderful things with your friends.</p>
-                        <small>Your privacy is highly respected. nothing will be posted without your permission</small>
+                        <p>It makes signing into FeatherQ super fast and secure. Instantly share your experiences with your friends.</p>
+                        <small>YOUR PRIVACY IS HIGHLY RESPECTED. NOTHING WILL BE POSTED WITHOUT YOUR PERMISSION</small>
                       </div>
                       <div class="modal-footer text-center">
                         <button type="button" class="mb20 btn btn-lg btn-primary" data-dismiss="modal">OK</button>
