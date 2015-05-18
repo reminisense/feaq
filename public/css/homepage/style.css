@@ -626,6 +626,9 @@ body.disabled-onepage-scroll .main section.page3 .page_container {
     color: #fff;
     display: inline-block;
 }
+#search-keyword:focus {
+    outline: none;
+}
 
 #time_open-filter {
     height: 30px;
@@ -845,6 +848,10 @@ footer p {
     overflow: auto;
     background: none repeat scroll 0 0 #555;
 }
+#search-suggest li a {
+    word-wrap: break-word;
+    white-space: normal;
+}
 
 #search-suggest .business-name{
     color: #ffffff;
@@ -905,8 +912,6 @@ footer p {
     padding: 11px 15px;
 }
 #search-suggest li small {
-
-    margin-top: -1px;
     display: block;
 
 }

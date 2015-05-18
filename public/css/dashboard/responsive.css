@@ -85,6 +85,9 @@
     }
 }
 @media (max-width: 480px) {
+    .filterwrap .dropdown-menu {
+        width: 100%;
+    }
     .line {
         overflow: visible!important;
     }
@@ -219,6 +222,9 @@
 
 }
 @media (max-width: 320px) {
+    .filterwrap .dropdown-menu {
+        width: 100%;
+    }
     #search-suggest {
         width: 100%!important;
     }

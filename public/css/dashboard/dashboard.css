@@ -76,7 +76,6 @@
   border-top-right-radius: 0;
     border-bottom-left-radius: 4px;
   background-color: #f7f7f7;
-    width: 100%;
 }
 .filterwrap .btn-group.open .dropdown-toggle {
   color: #00ba8b;
@@ -100,6 +99,9 @@
   padding: 14px 20px;
   vertical-align: middle;
     width: 100%;
+}
+#search-keyword:focus {
+    outline: none;
 }
 
 .filterwrap .btn-orange {
@@ -262,6 +264,10 @@
 }
 #search-suggest li {
     border-top: 1px solid #ccc;
+}
+#search-suggest li a {
+    word-wrap: break-word;
+    white-space: normal;
 }
 #search-suggest .address{
     font-size: 11px;

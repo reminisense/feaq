@@ -209,11 +209,17 @@
     .open>.dropdown-toggle.btn-default {
         background: rgba(255,255,255,0.3);
     }
+    .searchblock .dropdown-menu {
+        top: 0;
+    }
 
 }
 @media (max-width: 320px) {
     .open>.dropdown-toggle.btn-default {
         background: rgba(255,255,255,0.3);
+    }
+    .searchblock .dropdown-menu {
+        top: 0;
     }
     #search-filter {
         width: 100%;
