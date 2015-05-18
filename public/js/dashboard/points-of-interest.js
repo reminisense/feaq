@@ -7,28 +7,13 @@ jQuery(document).ready(function($){
     cookies_functions.checkPage();
 });
 
-app.directive('pointOfInterest', function(){
-    return {
-        template: function(elem, attr){
-            return '<ul><!-- start point of interest-->' +
-                '<li class="cd-single-point ' + attr.class + '">' +
-                    '<a class="cd-img-replace" href="#">More</a>' +
-                    '<div class="cd-more-info cd-' + attr.position + '"> <!-- 4 classes available: cd-top, cd-bottom, cd-left, cd-right  -->' +
-                        '<h2>' + attr.title  + '</h2>' +
-                        '<p>' + attr.description + ' <br><a href="#" class="cd-hide-tooltips btn btn-danger">Hide all tooltips</a></p>' +
-                        '<a href="#" class="cd-close-info cd-img-replace">Close</a>' +
-                    '</div>' +
-                '</li> <!-- .cd-single-point -->' +
-            '</ul><!-- end of point of interest-->'
-        }
-    }
-});
 
 var cookies_functions = {
     loadOnClickCommands: function(){
         cookies_functions.onClickSinglePoint();
         cookies_functions.onClickCloseInfo();
         cookies_functions.onClickHideTooltips();
+        cookies_functions.onOutsideClick();
     },
 
     onClickSinglePoint: function(){
@@ -58,6 +43,14 @@ var cookies_functions = {
             event.preventDefault();
             $('.cd-single-point').hide();
             cookies_functions.savePageCookie(cookies_functions.getPage());
+        });
+    },
+
+    onOutsideClick: function(){
+        $(document).on('click', 'body', function(event){
+            if($(event.target).parents('point-of-interest').length == 0){
+                $('.cd-single-point.is-open .cd-close-info').trigger('click');
+            }
         });
     },
 
