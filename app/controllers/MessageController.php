@@ -44,6 +44,10 @@ class MessageController extends BaseController {
     return json_encode(array('status' => 1));
   }
 
+    public function postSendtoUser(){
+
+    }
+
   public function postMessageList() {
     $messages = array();
     $list = Message::getMessagesByBusinessId(Input::get('business_id'));

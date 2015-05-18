@@ -181,6 +181,13 @@ var eb = {
         $scope.input_sms_field = 0;
         $scope.allow_remote = 0;
 
+        $scope.sendbyemail = 1;
+        $scope.sendbyphone = 1;
+        $scope.pick_number = 0;
+
+        $scope.active_sender_email = "";
+        $scope.message_reply = "";
+
         $scope.getBusinessDetails = function(){
             if ( $scope.business_id > 0 ) {
                 $http.get(eb.urls.business.business_details_url + $scope.business_id)
@@ -212,7 +219,7 @@ var eb = {
             $scope.terminals = business.terminals;
             $scope.analytics = business.analytics;
             $scope.terminal_delete_error = business.error ? business.error : null;
-       }
+        }
 
         $scope.displayMessageList = function(business_id) {
             $http.post('/message/message-list', {
@@ -223,10 +230,9 @@ var eb = {
         }
 
         /* @CSD 05062015 */
-        $scope.setPreviewMessage = function(sender, message_id){
+        $scope.setPreviewMessage = function(sender, message_id, active_email){
             $('.message-preview').hide();
-            $scope.sendby = 'email';
-            $scope.pick_number = 0;
+            $scope.active_sender_email = active_email;
             $http.post('/message/phone-list', {
                 message_id : message_id
             }).success(function(response) {
@@ -235,9 +241,52 @@ var eb = {
             $http.post('/message/message-thread', {
                 message_id : message_id
             }).success(function(response) {
-                $scope.message_content = response.contactmessage;
+                $('.messagefrom').remove();
+                $('.messageto').remove();
+                for(var i = 0; i < response.contactmessage.length; i++){
+                    var newMessage = response.contactmessage[i].content.replace(/\n/g, '<br>');
+                    if (response.contactmessage[i].sender == 'user'){
+                        finalMessage = "" +
+                            "<div class='messagefrom'>" +
+                                "<p>" + newMessage + "</p>" +
+                                "<p class='timestamp pull-right'>Posted by <strong class='sender'>" + sender + "</strong> on <strong>" + response.contactmessage[i].timestamp +
+                            "</strong></div>" +
+                            "";
+                            $('.message-reply').before(finalMessage);
+                    } else {
+                        finalMessage = "" +
+                            "<div class='messageto'>" +
+                            "<p>" + newMessage + "</p>" +
+                            "<p class='timestamp pull-right'>Posted by <strong class='sender'>You</strong> on <strong>" + response.contactmessage[i].timestamp +
+                            "</strong></div>" +
+                            "";
+                        $('.message-reply').before(finalMessage);
+                    }
+                }
                 $('.message-preview').fadeIn();
             });
+        }
+
+        $scope.sendBusinessReply = function(){
+            console.log($scope.sendbyemail);
+            console.log($scope.sendbyphone);
+            /*var message = $('#message-reply').val();
+            var finalMessage = "" +
+                "<div class='messageto'>" +
+                "<p>" + message + "</p>" +
+                "<p class='timestamp pull-right'>Posted by <strong class='sender'>You</strong> on <strong>" + getCurrentTimestamp() +
+                "</strong></div>" +
+                "";
+            $('.message-reply').before(finalMessage);*/
+            /*
+            $http.post('/message/sendto-user', {
+                business_id: $scope.business_id,
+                contactemail: $scope.active_sender_email,
+                messageContent: $scope.message_reply
+            }).success(function(response){
+
+            });
+            */
         }
 
         $scope.unassignFromTerminal = function(user_id, terminal_id){

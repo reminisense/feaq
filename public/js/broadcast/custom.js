@@ -39,7 +39,7 @@ $(document).on('click', '#send-business-message', function(){
                 if (resp.status > 0){
                     $('#message-notif').removeClass('alert-danger');
                     $('#message-notif').addClass('alert-success');
-                    $('#message-notif').html('Message sent! The business will personally contact you through your email or mobile number.');
+                    $('#message-notif').html('Message sent! The business will contact you through email or mobile.');
                     $('#message-notif').fadeIn();
                     $('#contactname').val('');
                     $('#contactemail').val('');
