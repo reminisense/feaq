@@ -26,7 +26,6 @@ var cookies_functions = {
             } else {
                 selectedPoint.addClass('is-open').siblings('.cd-single-point.is-open').removeClass('is-open').addClass('visited');
             }
-            cookies_functions.checkAllTooltipsVisited();
         });
     },
 
@@ -35,6 +34,7 @@ var cookies_functions = {
         $('.cd-close-info').on('click', function(event){
             event.preventDefault();
             $(this).parents('.cd-single-point').eq(0).removeClass('is-open').addClass('visited');
+            cookies_functions.checkAllTooltipsVisited();
         });
     },
 
@@ -71,7 +71,7 @@ var cookies_functions = {
     checkPage: function(){
         var page_tooltips = cookies_functions.checkTooltips();
         var page = cookies_functions.getPage();
-        if(page != 'dashboard')$('.cd-single-point.my-business').hide();
+        if(page != 'dashboard')$('.cd-single-point.my-business').addClass('visited').hide();
         if(page_tooltips == 'done')$('.cd-single-point').hide();
     },
 
