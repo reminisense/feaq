@@ -2,7 +2,7 @@
  * Created by USER on 5/14/15.
  */
 jQuery(document).ready(function($){
-    cookies_functions.deleteCookie(cookies_functions.getPage());
+    //cookies_functions.deleteCookie(cookies_functions.getPage());
     cookies_functions.loadOnClickCommands();
     cookies_functions.checkPage();
 });
