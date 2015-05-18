@@ -128,9 +128,8 @@
     .filterwrap .btn-group:first-child {
         border-bottom-left-radius: 0px;
     }
-    .feat {
-        background: none;
-        background-color: #0a1820;
+    .feat-dashboard {
+        background-size: cover!important;
     }
     .feat h1 {
         margin-top: 70px;
@@ -213,8 +212,22 @@
         margin-top: 5px;
     }
     /* @CSD END */
+    #search-suggest {
+        width: 100%!important;
+    }
+
+
 }
 @media (max-width: 320px) {
+    #search-suggest {
+        width: 100%!important;
+    }
+    #search-suggest li a {
+        text-align: left;
+    }
+    #search-suggest li a:hover small {
+        color: #fff!important;
+    }
     .processq-box .q-actions .btn-orange {
         margin-top: 11px!important;
         width: 100%;
@@ -223,7 +236,7 @@
         background: none!important;
     }
     .feat h1 {
-        margin-top: 120px;
+        margin-top: 90px;
     }
     .filterwrap .btn-group {
         width: 100%;
@@ -238,6 +251,7 @@
     .feat-dashboard {
         height: inherit!important;
         padding-bottom: 40px;
+        background-image: none!important;
     }
     #search-keyword,
     .filterwrap .btn-orange {
@@ -252,6 +266,7 @@
     #time_open-filter,
     .btn-group>.btn:first-child {
         border-top-right-radius: 0px!important;
+        border:none!important;
     }
     .cancel-adduser, .cancel-add-terminal {
         margin-top: 2px;

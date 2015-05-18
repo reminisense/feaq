@@ -245,7 +245,7 @@ a {
   background: rgba(255, 255, 255, 0.5);
 }
 .open>.dropdown-toggle.btn-default {
-  background: none;
+   background: none;
   color: #fff;
 }
 header {
@@ -335,7 +335,6 @@ section.page2 .col-md-3 p {
 .searchblock input {
   background: #555;
   border: none;
-  margin-left: 10px;
   font-size: 13px;
   padding: 5px 12px 6px;
   margin-right: 2px;
@@ -664,6 +663,13 @@ footer p {
     -webkit-appearance: none;
     width: 7px;
 }
+::-webkit-scrollbar:horizontal {
+    height: 7px;
+}
+::-webkit-scrollbar-corner {
+    -webkit-appearance: none;
+    width: 7px;
+}
 ::-webkit-scrollbar-thumb {
     border-radius: 4px;
     background-color: rgba(0,0,0,.5);
@@ -846,7 +852,7 @@ footer p {
 
 #search-suggest .address{
     font-size: 11px;
-    color: #999999;
+    color: #ccc;
 }
 #modal-yfacebook h2 {
     font-size: 32px;
@@ -888,4 +894,25 @@ footer p {
     margin: 0 8px;
     display: inline-block;
 }
+#search-loader img {
+    width: 30px;
+}
+#search-suggest {
+    height: 280px;
+    width: 100%;
+}
+#search-suggest li a {
+    padding: 11px 15px;
+}
+#search-suggest li small {
 
+    margin-top: -1px;
+    display: block;
+
+}
+#search-suggest li {
+    border-bottom: 1px solid #666;
+}
+#search-suggest li a:hover small {
+    color: #fff;
+}

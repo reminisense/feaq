@@ -139,8 +139,11 @@
       /*display: block;*/
       width: 100%;
       text-align: center;
-      background: rgba(255,255,255,0.2);
+      background: none;
   }
+    .filterwrap .btn-group button {
+    background: rgba(255,255,255,0.2);
+    }
   .navs {
   	margin-top: 10px;
   }
@@ -203,9 +206,15 @@
         margin-top: 20px;
         margin-bottom: 25px;
     }
+    .open>.dropdown-toggle.btn-default {
+        background: rgba(255,255,255,0.3);
+    }
 
 }
 @media (max-width: 320px) {
+    .open>.dropdown-toggle.btn-default {
+        background: rgba(255,255,255,0.3);
+    }
     #search-filter {
         width: 100%;
     }
