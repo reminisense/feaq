@@ -225,6 +225,13 @@ var eb = {
         /* @CSD 05062015 */
         $scope.setPreviewMessage = function(sender, message_id){
             $('.message-preview').hide();
+            $scope.sendby = 'email';
+            $scope.pick_number = 0;
+            $http.post('/message/phone-list', {
+                message_id : message_id
+            }).success(function(response) {
+                $scope.number_list = response.numbers;
+            });
             $http.post('/message/message-thread', {
                 message_id : message_id
             }).success(function(response) {

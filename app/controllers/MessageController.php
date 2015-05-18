@@ -71,6 +71,10 @@ class MessageController extends BaseController {
     return json_encode(array('contactmessage' => $message_content));
   }
 
+  public function postPhoneList() {
+    return json_encode(array('numbers' => unserialize(Message::getPhoneByMessageId(Input::get('message_id')))));
+  }
+
   private function threadKeyGenerator($business_id, $email) {
     return md5($business_id . 'fq' . $email);
   }

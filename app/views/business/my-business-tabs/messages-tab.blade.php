@@ -17,6 +17,13 @@
                     </p>
                     <div class="message-reply">
                         <textarea class="form-control" placeholder="Write a reply..." name="message-reply"></textarea>
+                        <h4>Send to:</h4>
+                        <label><input type="radio" value="email" ng-model="sendby" ng-init="sendby">Email</label>
+                        <label><input type="radio" value="phone" ng-model="sendby">Phone</label>
+                        <select ng-model="pick_number" ng-init="pick_number">
+                            <option value="0">- Select A Number -</option>
+                            <option ng-repeat="number in number_list" value="@{{ number }}">@{{ number }}</option>
+                        </select><br>
                         <button class="btn btn-default btn-orange">Send Reply</button>
                     </div>
                 </div>
