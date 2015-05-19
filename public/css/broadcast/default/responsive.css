@@ -74,6 +74,7 @@
         min-height: inherit!important;
         margin-bottom: 20px!important;
     }
+
   .navbar-brand {
     margin-left: 10px;
   }
@@ -162,7 +163,7 @@
     height: 250px!important;
   }
   .boxed .head {
-      padding: 5px 20px;
+      padding: 26px 20px;
   }
   /* @CSD 05042015 */
   .ads-sixnums h1 {
@@ -181,8 +182,5 @@
   }
   .boxed .head.head-wbtn .btn-half {
       margin-top: -18px;
-  }
-  #btn-bcast-details {
-      margin-top: -26px;
   }
 }

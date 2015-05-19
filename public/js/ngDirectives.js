@@ -16,8 +16,8 @@ app.directive('pointOfInterest', function(){
                 '<a class="cd-img-replace" href="#">More</a>' +
                 '<div class="cd-more-info cd-' + attr.position + '"> <!-- 4 classes available: cd-top, cd-bottom, cd-left, cd-right  -->' +
                 '<h2>' + attr.title  + '</h2>' +
-                '<p>' + attr.description + ' <br><a href="#" class="cd-hide-tooltips btn btn-danger">Hide all tooltips</a></p>' +
-                '<a href="#" class="cd-close-info cd-img-replace">Close</a>' +
+                '<p>' + attr.description + ' <br><a href="#" class="cd-hide-tooltips btn btn-danger" title="Hide all tooltips">Hide tooltips for this page</a></p>' +
+                '<a href="#" class="cd-close-info cd-img-replace" title="Hide this tooltip">Close</a>' +
                 '</div>' +
                 '</li> <!-- .cd-single-point -->' +
                 '</ul><!-- end of point of interest-->'

@@ -12,11 +12,11 @@
             <div class="preview-container">
                 <div class="message-preview" style="display: none;">
                     <div class="message-reply">
-                        <div class="col-md-2 mt20"><label>Send to:</label></div>
+                        <div class="col-md-2 mt20"><label>Send via:</label></div>
                         <div class="col-md-2 mt20"><input type="checkbox" ng-model="sendby.email" ng-true-value="'email'" ng-false-value="'0'" ng-init="sendby.email='email'" required><label class="optionlabel">Email</label></div>
                         <div class="col-md-2 mt20"><input type="checkbox" ng-model="sendby.phone" ng-true-value="'phone'" ng-false-value="'0'" ng-init="sendby.phone='0'"><label class="optionlabel">Phone</label></div>
-                        <div class="col-md-4">
-                            <select class="form-control" ng-model="business_reply_form.pick_number" ng-init="business_reply_form.pick_number">
+                        <div class="col-md-4" id="select-phone-div">
+                            <select class="form-control phone-select" ng-model="business_reply_form.pick_number" ng-init="business_reply_form.pick_number">
                                 <option value="0">- Select A Number -</option>
                                 <option ng-repeat="number in number_list" value="@{{ number }}">@{{ number }}</option>
                             </select><br>

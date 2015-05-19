@@ -141,7 +141,7 @@ Main components
     /* pulse effect no more active on visited elements */
     display: none;
 }
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 991px) {
     .cd-single-point.is-open .cd-more-info.cd-left {
         right: 140%;
     }
@@ -239,7 +239,7 @@ Main components
     display: none;
     border: 8px solid transparent;
 }
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 991px) {
     .cd-single-point .cd-more-info {
         position: absolute;
         width: 220px;
@@ -324,7 +324,7 @@ Main components
 /* close the interest point description - only on mobile */
 .cd-close-info {
     position: fixed;
-    top: 0;
+    top: 6%;
     right: 0;
     height: 25px;
     width: 25px;
@@ -357,9 +357,10 @@ Main components
     height: 16px;
     width: 2px;
 }
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 991px) {
     .cd-close-info {
-        display: none;
+        top: 0;
+        /*display: none;*/
     }
 }
 
@@ -369,6 +370,7 @@ Main components
     font-weight: bold;
     color: #000000;
     /*font-size: 1.25rem;*/
+    margin-top: 12%;
     margin-bottom: 10px;
 }
 .cd-single-point .cd-more-info p {
@@ -390,17 +392,9 @@ Main components
     padding-right: 24px;
 }
 
-/*
-.cd-single-point:nth-of-type(2) {
-    bottom: 24%;
-    right: 46%;
+/*ARA Disable tooltips in mobile view*/
+@media only screen and (max-width: 991px) {
+    .cd-single-point{
+        display: none;
+    }
 }
-.cd-single-point:nth-of-type(3) {
-    top: 28%;
-    left: 20%;
-}
-.cd-single-point:nth-of-type(4) {
-    top: 20%;
-    right: 22%;
-}
-*/
