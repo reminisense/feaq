@@ -48,7 +48,8 @@ class MessageController extends BaseController {
       $timestamp = time();
       $thread_key = $this->threadKeyGenerator(Input::get('business_id'), Input::get('contactemail'));
       if (Input::get('sendbyphone')) {
-        // TO DO
+        $text_message = 'From: FeatherQ No-Reply' .  "\n" . 'To: ' . Input::get('phonenumber') . "\n" . Input::get('messageContent');
+        Notifier::sendFrontlineSMS($text_message, Input::get('phonenumber'), FRONTLINE_SMS_URL, FRONTLINE_SMS_SECRET);
       }
       $data = json_decode(file_get_contents(public_path() . '/json/messages/' . $thread_key . '.json'));
       $data[] = array(
@@ -58,15 +59,7 @@ class MessageController extends BaseController {
       );
       $data = json_encode($data);
       file_put_contents(public_path() . '/json/messages/' . $thread_key . '.json', $data);
-      /*
-      Mail::send('emails.contact', array(
-        'messageContent' => Input::get('message')
-      ), function($message)
-      {
-        $message->subject('Inquiry at FeatherQ');
-        $message->to(Input::get('email'));
-      });
-      */
+      Notifier::sendEmail(Input::get('email'), 'emails.messaging', 'FeatherQ Messaging No-Reply', array('messageContent' => Input::get('messageContent')));
       return json_encode(array('timestamp' => date("Y-m-d h:i A", $timestamp)));
     }
 
