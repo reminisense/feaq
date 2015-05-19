@@ -113,7 +113,7 @@
         }
 
         checkTextfieldErrors = function(priority_number){
-            return angular.element(document.querySelector('#moreq')).scope().checkIssueSpecificErrors(priority_number, $scope.number_limit);
+            return angular.element(document.querySelector('#moreq')).scope().checkIssueSpecificErrors(priority_number, $scope.number_limit, false);
         }
 
         //non scope functions

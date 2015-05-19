@@ -55,7 +55,7 @@ Processs Queue > {{ $business_name }}
                                 <input id="selected-tnumber" type="hidden" ng-value="called_number" value=0>
                                 <div class="dropdown-wrapper" ng-show="timebound_numbers.length != 0 || uncalled_numbers.length != 0">
                                     <button class="btn-select btn-md dropdown-toggle" type="button" data-toggle="dropdown">
-                                        <span id="selected-pnumber">Please select a number</span><span class="caret"></span> <!-- @todo replace this with selected number-->
+                                        <span id="selected-pnumber">Please select a number</span><span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu dd-select" id="uncalled-numbers">
                                         <li ng-repeat="number in timebound_numbers" data-tnumber="@{{ number.transaction_number }}" data-pnumber="@{{ number.priority_number }}">@{{ number.priority_number }}</li>
