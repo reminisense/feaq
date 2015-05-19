@@ -1226,3 +1226,11 @@ input#input_sms_field:focus{
 .optionlabel {
     padding-left: 10px;
 }
+
+.phone-select {
+    margin-bottom: 0px!important;
+}
+
+#select-phone-div {
+    padding-top: 15px;
+}
