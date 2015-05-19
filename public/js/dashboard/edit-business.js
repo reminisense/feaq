@@ -56,6 +56,10 @@ $(document).ready(function(){
         e.stopPropagation();
     });
 
+    $('#sendbyphone').on('click', function(){
+       alert("HELLO");
+    });
+
     //eb.jquery_functions.load_users();
     eb.jquery_functions.setBusinessId($('#business_id').val());
     eb.jquery_functions.setUserId($('#user_id').val());
