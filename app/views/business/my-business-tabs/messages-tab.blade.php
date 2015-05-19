@@ -28,8 +28,8 @@
                              <div role="alert" class="alert alert-info" style="margin-top: 10px; padding: 0px 10px; font-size: 11px;">Sending through SMS is a work in progress and will be implemented soon.</div>
                         </div>
                         <form ng-submit="sendBusinessReply()">
-                            <textarea class="form-control" rows="5" placeholder="Write a reply..." ng-model="business_reply_form.message_reply" required></textarea>
-                            <button type="submit" class="btn btn-default btn-orange">Send Reply</button>
+                            <textarea id="sendreplytext" class="form-control" rows="5" placeholder="Write a reply..." ng-model="business_reply_form.message_reply" required></textarea>
+                            <button id="sendreply" type="submit" class="btn btn-default btn-orange">Send Reply</button>
                         </form>
                     </div>
                 </div>

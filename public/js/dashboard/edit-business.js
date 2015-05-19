@@ -56,10 +56,6 @@ $(document).ready(function(){
         e.stopPropagation();
     });
 
-    $('#sendbyphone').on('click', function(){
-       alert("HELLO");
-    });
-
     //eb.jquery_functions.load_users();
     eb.jquery_functions.setBusinessId($('#business_id').val());
     eb.jquery_functions.setUserId($('#user_id').val());
@@ -275,6 +271,8 @@ var eb = {
         }
 
         $scope.sendBusinessReply = function(){
+            $('#sendreply').html('Sending... &nbsp;<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
+            $('#sendreply').attr('disabled', '');
             $http.post('/message/sendto-user', {
                 business_id: $scope.business_id,
                 contactemail: $scope.business_reply_form.active_sender_email,
@@ -289,6 +287,9 @@ var eb = {
                     "</strong></div>" +
                     "";
                 $('.message-reply').before(finalMessage);
+                $('#sendreplytext').val('');
+                $('#sendreply').html('Send Reply');
+                $('#sendreply').removeAttr('disabled');
             });
         }
 
