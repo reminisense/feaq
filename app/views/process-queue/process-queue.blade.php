@@ -36,12 +36,13 @@ Processs Queue > {{ $business_name }}
 
 <div class="container" id="process-queue-wrapper" ng-controller="processqueueController">
     <div class="row page-header">
-        <div class="col-md-offset-1 col-md-7">
+        <div class="col-md-offset-1 col-md-7 col-sm-8">
             <p>Processing Queues for:</p>
             <h2>{{ $business_name }} - {{ $terminal_name }}</h2>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-4 ">
             <a id="view-broadcast" target="_blank" href="{{ url('/broadcast/business/' . $business_id) }}">View Broadcast <br>Screen</a>
+            <point-of-interest position="left" bottom="35" right="100" title="Broadcast Page" description="Click on the <strong>View Broadcast Page</strong> link to view the numbers being called."></point-of-interest>
         </div>
     </div>
     <div class="row">
@@ -50,7 +51,7 @@ Processs Queue > {{ $business_name }}
                 <div class="row">
                     <div class="q-actions clearfix">
                         <form>
-                            <div class="col-md-9">
+                            <div class="col-md-8 col-sm-8 col-xs-10">
                                 <input id="selected-tnumber" type="hidden" ng-value="called_number" value=0>
                                 <div class="dropdown-wrapper" ng-show="timebound_numbers.length != 0 || uncalled_numbers.length != 0">
                                     <button class="btn-select btn-md dropdown-toggle" type="button" data-toggle="dropdown">
@@ -62,13 +63,24 @@ Processs Queue > {{ $business_name }}
                                     </ul>
                                 </div>
                                 <input id="issue-call-number" type="number" class="form-control" min="1" max="@{{ number_limit }}"  ng-model="issue_call_number" ng-show="timebound_numbers.length == 0 && uncalled_numbers.length == 0">
+                            </div>
+                            <point-of-interest position="left" bottom="85" right="100"  title="Issued Numbers" description="Look for the numbers you want to call in this drop-down list or type the number you want call when the list is empty."></point-of-interest>
+                            <div class="col-md-1 col-sm-1 col-xs-2">
                                 <a href="#" id="btn-pmore" class="btn btn-md btn-primary" data-toggle="modal" data-target="#moreq" title="Issue a number.">+</a>
                             </div>
-                            <div class="col-md-3 text-right">
+                            <point-of-interest position="right" bottom="85" right="25"  title="Issue Numbers" description="Click on the blue '+' (plus) button to issue more numbers."></point-of-interest>
+                            <div class="col-md-3 col-sm-3 col-xs-12 text-right">
                                 <button class="btn btn-orange btn-md" id="btn-call" ng-click="issueOrCall()" ng-disabled="isCalling">CALL NUMBER</button>
                             </div>
+                            <point-of-interest position="right" bottom="85" right="-1"  title="Call Numbers" description="Click on the <strong>CALL NUMBER</strong> button to call the number selected on the drop-down list."></point-of-interest>
                         </form>
                     </div>
+                </div>
+                <div ng-show="called_numbers.length != 0">
+                    <point-of-interest position="left" bottom="68" right="96" title="Called Number" description="Click on the number to view the information about the user assigned to this number."></point-of-interest>
+                    <point-of-interest position="left" bottom="68" right="27" title="Drop Number" description="The <strong>Drop</strong> button (trashcan icon) indicates that the person assigned to the number did not show thus removes the number from the list."></point-of-interest>
+                    <point-of-interest position="left" bottom="68" right="21" title="Next Number" description="The <strong>Next</strong> button indicates that the number has been served and calls the next number on the list."></point-of-interest>
+                    <point-of-interest position="right" bottom="68" right="0" title="Serve Number" description="The <strong>Serve</strong> button indicates that the person assigned to the number has been served."></point-of-interest>
                 </div>
                 <table class="table table-striped">
                     <tbody>

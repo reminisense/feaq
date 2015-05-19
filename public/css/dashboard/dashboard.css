@@ -1,6 +1,7 @@
 .feat-dashboard {
   background: #03121a url('../../img/feat-dashboard.jpg') center no-repeat;
   height: 280px;
+    background-size: cover;
 }
 .feat form {display: inline;}
 .filterwrap button, 
@@ -73,6 +74,7 @@
   overflow-y: visible;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+    border-bottom-left-radius: 4px;
   background-color: #f7f7f7;
 }
 .filterwrap .btn-group.open .dropdown-toggle {
@@ -96,6 +98,10 @@
   font-size: 13px;
   padding: 14px 20px;
   vertical-align: middle;
+    width: 100%;
+}
+#search-keyword:focus {
+    outline: none;
 }
 
 .filterwrap .btn-orange {
@@ -256,7 +262,13 @@
     width: 300px;
     overflow: auto;
 }
-
+#search-suggest li {
+    border-top: 1px solid #ccc;
+}
+#search-suggest li a {
+    word-wrap: break-word;
+    white-space: normal;
+}
 #search-suggest .address{
     font-size: 11px;
     color: #646464;

@@ -1,5 +1,7 @@
 <!-- modal -->
 <div class="modal fade" id="moreq" tabindex="-1" ng-controller="issuenumberController">
+    <point-of-interest position="left" bottom="83" right="62" title="Issue Specific Number" description="This tab allows you to issue one specific number and input information about the person assigned to the number."></point-of-interest>
+    <point-of-interest position="right" bottom="83" right="37" title="Issue Multiple Numbers" description="This tab allows you to issue multiple numbers depending on the range that you provide."></point-of-interest>
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -16,10 +18,7 @@
                 <div class="clearfix tab-content">
                     <div class="tab-pane fade active in" id="insertq">
                         <form class="navbar-form navbar-left" name="issue_specific_form">
-                            <div class="form-group row">
-                                <div class="alert alert-info">
-                                    <p>An empty value in the <strong>Specific #</strong> field will automatically give you the next available number.</p>
-                                </div>
+                            <div class="form-group">
                                 <div class="col-md-4">
                                     <label><strong>Specific #</strong></label>
                                 </div>
@@ -51,14 +50,19 @@
                                     <input type="email" class="form-control" ng-model="email" name="email">
                                 </div>
                             </div>
-                            <div class="alert alert-danger" role="alert" ng-show="checkIssueSpecificErrors(priority_number, number_limit)">
+                            <div class="clearfix" style="margin:0 8px;">
+                                <div class="alert alert-info col-md-12">
+                                    <p>An empty value in the <strong>Specific #</strong> field will automatically give you the next available number.</p>
+                                </div>
+                            </div>
+                            <div class="alert alert-danger col-md-12" role="alert" ng-show="checkIssueSpecificErrors(priority_number, number_limit)">
                                 <div><strong class="message">@{{ issue_specific_error }}</strong></div>
                             </div>
                         </form>
                     </div>
                     <div class="tab-pane fade" id="multipleq" aria-labelledby="profile-tab">
                         <form class="navbar-form navbar-left" name="issue_multiple_form">
-                            <div class="form-group row">
+                            <div class="form-group">
                                 <div class="col-md-4">
                                     <label><strong>First Number</strong></label>
                                 </div>
@@ -83,7 +87,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary btn-md" data-dismiss="modal" aria-label="Close">CLOSE</button>
+                <button type="button" class="btn btn-primary btn-md btn-close" data-dismiss="modal" aria-label="Close">CLOSE</button>
                 <button id="issue-specific-submit" type="button" class="issue-submit-btn btn btn-orange btn-md" ng-disabled="isIssuing || checkIssueSpecificErrors(priority_number, number_limit)" ng-click="issueSpecific(priority_number, name, phone, email, time_assigned)">SUBMIT</button>
                 <button id="issue-multiple-submit" type="button" class="issue-submit-btn btn btn-orange btn-md" ng-disabled="isIssuing || checkIssueMultipleErrors()" ng-click="issueMultiple(range, number_start)" style="display: none">SUBMIT</button>
             </div>

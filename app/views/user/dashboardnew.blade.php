@@ -64,6 +64,7 @@ Dashboard
                             </form>
                         </div>
                     </div>
+                    <point-of-interest position="right" bottom="23" right="70" title="Search Businesses" description="Search for the businesses you want to be shown below. You can type in the name of the business or its address."></point-of-interest>
                 </div>
             </div>
         </div>
@@ -72,7 +73,11 @@ Dashboard
         </div>
     </div>
     <div class="col-md-12 page-header">
+        <point-of-interest position="right" right="65" title="Queueing Businesses" description="Click on any of the businesses below to see what's happening in their broadcast screen."></point-of-interest>
         <h2 id="browse-label" class="text-center">Or browse from these businesses currrently queuing</h2>
+        <div class="" id="search-loader" style="display: none; text-align: center;">
+            <img style="width:30px;" src="/images/reload_dash.gif" />
+        </div>
         <div class="row" id="search-loader" style="display: none; text-align: center;">
             <img src="/images/reload_dash.gif" />
         </div>
