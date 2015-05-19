@@ -181,12 +181,15 @@ var eb = {
         $scope.input_sms_field = 0;
         $scope.allow_remote = 0;
 
-        $scope.sendbyemail = 1;
-        $scope.sendbyphone = 1;
-        $scope.pick_number = 0;
-
-        $scope.active_sender_email = "";
-        $scope.message_reply = "";
+        $scope.business_reply_form = {
+            message_reply : "",
+            active_sender_email : "",
+            pick_number : 0
+        };
+        $scope.sendby = {
+            email : 'email',
+            phone : 'phone'
+        }
 
         $scope.getBusinessDetails = function(){
             if ( $scope.business_id > 0 ) {
@@ -232,7 +235,7 @@ var eb = {
         /* @CSD 05062015 */
         $scope.setPreviewMessage = function(sender, message_id, active_email){
             $('.message-preview').hide();
-            $scope.active_sender_email = active_email;
+            $scope.business_reply_form.active_sender_email = active_email;
             $http.post('/message/phone-list', {
                 message_id : message_id
             }).success(function(response) {
@@ -268,25 +271,21 @@ var eb = {
         }
 
         $scope.sendBusinessReply = function(){
-            console.log($scope.sendbyemail);
-            console.log($scope.sendbyphone);
-            /*var message = $('#message-reply').val();
-            var finalMessage = "" +
-                "<div class='messageto'>" +
-                "<p>" + message + "</p>" +
-                "<p class='timestamp pull-right'>Posted by <strong class='sender'>You</strong> on <strong>" + getCurrentTimestamp() +
-                "</strong></div>" +
-                "";
-            $('.message-reply').before(finalMessage);*/
-            /*
             $http.post('/message/sendto-user', {
                 business_id: $scope.business_id,
-                contactemail: $scope.active_sender_email,
-                messageContent: $scope.message_reply
+                contactemail: $scope.business_reply_form.active_sender_email,
+                messageContent: $scope.business_reply_form.message_reply,
+                phonenumber : $scope.business_reply_form.pick_number,
+                sendbyphone : $scope.sendby.phone
             }).success(function(response){
-
+                var finalMessage = "" +
+                    "<div class='messageto'>" +
+                    "<p>" + $scope.business_reply_form.message_reply + "</p>" +
+                    "<p class='timestamp pull-right'>Posted by <strong class='sender'>You</strong> on <strong>" + response.timestamp +
+                    "</strong></div>" +
+                    "";
+                $('.message-reply').before(finalMessage);
             });
-            */
         }
 
         $scope.unassignFromTerminal = function(user_id, terminal_id){
