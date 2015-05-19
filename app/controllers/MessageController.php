@@ -59,7 +59,12 @@ class MessageController extends BaseController {
       );
       $data = json_encode($data);
       file_put_contents(public_path() . '/json/messages/' . $thread_key . '.json', $data);
-      Notifier::sendEmail(Input::get('email'), 'emails.messaging', 'FeatherQ Messaging No-Reply', array('messageContent' => Input::get('messageContent')));
+      $business_name = Business::name(Input::get('business_id'));
+      $subject = 'Message From ' . $business_name;
+      Notifier::sendEmail(Input::get('contactemail'), 'emails.messaging', $subject, array(
+        'messageContent' => Input::get('messageContent'),
+        'businessName' => $business_name,
+      ));
       return json_encode(array('timestamp' => date("Y-m-d h:i A", $timestamp)));
     }
 

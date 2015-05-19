@@ -4,7 +4,7 @@
     <table style="text-align:center; font-size:13px;">
         <tr>
             <td>
-                <h2>FeatherQ just sent you a message</h2>
+                <h2>{{ $businessName . ' just sent you a message!' }}</h2>
             </td>
         </tr>
         <tr>
