@@ -1,6 +1,3 @@
-/**
- * Created by JONAS on 3/4/2015.
- */
 (function() {
 
     app.controller('searchBusinessCtrl', function($scope, $http) {
@@ -14,7 +11,6 @@
         });
 
         var listBusinesses = (function(response) {
-            $('#biz-grid').hide();
             $scope.businesses = new Array();
             var length_limit = 7;
             for (var i = 0; i < response.length; i++) {
@@ -25,7 +21,6 @@
                     "time_open" : response[i].time_open,
                     "time_close": response[i].time_close,
                     "waiting_time": response[i].waiting_time,
-                    //ARA more info for business cards
                     "last_number_called": response[i].last_number_called,
                     "next_available_number": response[i].next_available_number,
                     "is_calling": response[i].is_calling,
@@ -38,38 +33,41 @@
             if(response.length <= length_limit){
                 length_limit = response.length;
             }
-            $('#search-grid').show();
+            $('#search-grid').fadeIn(400, function() {
+                $('#search-loader').hide();
+                $('#search-grid').css({'opacity' : 1})
+            });
         });
 
         var personalizedBusinesses = (function(data) {
-            $http.post('/business/personalized-businesses', data).success(listBusinesses).error(function() {
-                alert('Something went wrong..');
-            });
+            $('#search-loader').show();
+            $http.post('/business/personalized-businesses', data).success(listBusinesses);
         });
 
         personalizedBusinesses({
-            latitude : 0,
-            longitude : 0
-        });
-
-        navigator.geolocation.getCurrentPosition(function(position) {
-            personalizedBusinesses({
-                latitude : position.coords.latitude,
-                longitude : position.coords.longitude
-            });
+            latitude : USER_LATITUDE,
+            longitude : USER_LONGITUDE
         });
 
         $scope.industry_filter = 'Industry';
 
-        $scope.searchBusiness = (function(location, industry) {
-            if (typeof $scope.search_keyword == 'undefined') $scope.search_keyword = '';
+        $scope.searchBusiness = (function(location, industry, search_keyword) {
+            $('#search-filter').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> SEARCHING');
+            $('#browse-label').hide();
+            $('#search-grid').hide();
+            $('#search-loader').show();
+            if (typeof search_keyword == 'undefined') search_keyword = '';
             if (typeof $scope.time_open == 'undefined') $scope.time_open = '';
-            $http.post('/business/filter-search', {
-                "keyword": $scope.search_keyword,
+            var data = {
+                "keyword": search_keyword,
                 "country": location,
                 "industry": industry,
-                "time_open": $scope.time_open
-            }).success(function(response) {
+                "time_open": $scope.time_open,
+                "latitude" : USER_LATITUDE,
+                "longitude" : USER_LONGITUDE
+            };
+            $http.post('/watchdog/log-search', data);
+            $http.post('/business/filter-search', data).success(function(response) {
                 $('#biz-grid').hide();
                 $scope.businesses = new Array();
                 var length_limit = 7;
@@ -96,19 +94,42 @@
                 }
                 $scope.searchLabel= 'Showing Top '+ length_limit +' Result(s)';
                 $('#search-grid').show();
+                $('#search-filter').html('SEARCH');
+                $('#browse-label').show();
+                $('#search-loader').hide();
+                $scope.search_keyword = '';
+                $scope.dropdown_businesses = [];
+            }).error(function() {
+                $('#search-grid').show();
+                $('#search-filter').html('SEARCH');
+                $('#browse-label').show();
+                $('#search-loader').hide();
+                $scope.search_keyword = '';
+                $scope.dropdown_businesses = [];
             });
         });
 
         $scope.locationFilter = (function(location) {
             $scope.location_filter = location;
-            console.log(location);
         });
 
         $scope.industryFilter = (function(industry) {
             $scope.industry_filter = industry;
         });
 
-        //added the industry filters here so that they can be displayed using ng-repeat
+        //ARA get list of businesses for search dropdown
+        $scope.dropdown_businesses = [];
+        $scope.$watch('search_keyword', function(search_keyword){
+            if(!search_keyword || search_keyword == undefined){
+                $scope.dropdown_businesses = [];
+            }else{
+                $http.get('/business/name-search/' + search_keyword).success(function(response){
+                    $scope.dropdown_businesses = response.keywords;
+                });
+            }
+        });
+
+
         $scope.industries = [
             {code :'Accounting'},               {code :'Advertising'},                  {code :'Agriculture'},              {code :'Air Services'},
             {code :'Airlines'},                 {code :'Apparel'},                      {code :'Appliances'},               {code :'Auto Dealership'},
@@ -124,7 +145,6 @@
             {code :'Wholesale'},
         ];
 
-        //added the location filters here so that they can be displayed using ng-repeat
         $scope.locations = [
             {code : 'Afghanistan'},             {code : 'Albania'},                     {code : 'Algeria'},                 {code : 'Andorra'},
             {code : 'Angola'},                  {code : 'Antigua and Barbuda'},         {code : 'Argentina'},               {code : 'Armenia'},

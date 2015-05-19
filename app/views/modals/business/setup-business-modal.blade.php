@@ -11,12 +11,12 @@
                     <div class="form-group">
                         <div class="col-md-6">
                             <label>Business Name</label>
-                            <input type="text" class=" form-control" placeholder="ex: ABC Company" id="business_name" name="business_name">
+                            <input type="text" class=" form-control modal-input" placeholder="ex: ABC Company" id="business_name" name="business_name">
                         </div>
                         <div class="col-md-6">
                             <label>Industry</label>
                             <div class="btn-group">
-                                <select class="form-control" name="industry" id="industry">
+                                <select class="form-control modal-input" name="industry" id="industry">
                                     <option value="0">-Select Industry-</option>
                                     <option value="Accounting">Accounting</option>
                                     <option value="Advertising">Advertising</option>
@@ -70,17 +70,17 @@
 
                             <div class="col-md-6">
                                 <label>Time Open</label>
-                                <input type="text" id="time_open" name="time_open" placeholder="ex: 8:00am" class="timepicker form-control" />
+                                <input type="text" id="time_open" name="time_open" placeholder="ex: 8:00am" class="timepicker form-control modal-input" />
                             </div>
                             <div class="col-md-6">
                                 <label>Time Close</label>
-                                <input type="text" id="time_close" name="time_close" placeholder="ex: 10:00pm" class="timepicker form-control" />
+                                <input type="text" id="time_close" name="time_close" placeholder="ex: 10:00pm" class="timepicker form-control modal-input" />
                             </div>
 
 
                             <div class="col-md-12">
                                 <label>Business Address</label>
-                                <input type="text" class=" form-control" placeholder="ex: Cebu City" id="business_location" name="business_address">
+                                <input type="text" class=" form-control modal-input" placeholder="ex: Cebu City" id="business_location" name="business_address">
                             </div>
                             <input type="hidden" id="longitude" name="longitude" value="0">
                             <input type="hidden" id="latitude" name="latitude" value="0">

@@ -21,6 +21,8 @@ Route::controller('processqueue', 'ProcessQueueController');
 
 Route::controller('user', 'UserController');
 
+Route::controller('rating', 'RatingController');
+
 Route::controller('broadcast', 'BroadcastController');
 
 Route::controller('processqueue', 'ProcessQueueController');
@@ -35,4 +37,8 @@ Route::controller('terminal', 'TerminalController');
 
 Route::controller('advertisement', 'AdvertisementController');
 
+Route::controller('watchdog', 'WatchdogController');
+
 Route::controller('rest', 'RestController'); /* RDH For Android Webservices*/
+
+Route::controller('message', 'MessageController');

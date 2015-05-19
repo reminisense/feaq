@@ -49,7 +49,7 @@
                                     <input type="email" class="form-control" ng-model="email" name="email" required>
                                 </div>
                             </div>
-                            <div class="alert alert-danger" role="alert" ng-show="checkIssueSpecificErrors(priority_number)">
+                            <div class="alert alert-danger" role="alert" ng-show="issue_specific_error.length > 0">
                                 <div><strong class="message">@{{ issue_specific_error }}</strong></div>
                             </div>
                         </form>
@@ -61,7 +61,7 @@
             </div>
             <div class="modal-footer">
                 {{--<button type="button" class="btn btn-orange btn-lg" data-dismiss="modal" aria-label="Close">CLOSE</button>--}}
-                <button id="issue-specific-submit" type="button" class="btn btn-orange btn-lg" ng-disabled="isIssuing || checkIssueSpecificErrors()" ng-click="issueSpecific(priority_number, name, phone, email, time_assigned)">SUBMIT</button>
+                <button id="issue-specific-submit" type="button" class="btn btn-orange btn-lg" ng-disabled="isIssuing" ng-click="checkIssueSpecificErrors()">SUBMIT</button>
             </div>
         </div>
     </div>
