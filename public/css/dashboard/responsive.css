@@ -8,6 +8,11 @@
     #search-keyword {
         background-color: #fff;
     }
+    #search-suggest{
+        display: inline-block;
+        width: 235px;
+        overflow: auto;
+    }
 }
 @media (min-width: 480px) and (max-width: 768px) {
     .filterwrap .row {

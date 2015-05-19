@@ -135,14 +135,14 @@
 }
 
 .processq .dropdown-wrapper{
-    width:80%;
+    width: 100%; /*ARA dropdown menu to full length*/
     display:inline-block;
     margin-right: 10px;
 }
 
 .processq .dropdown-menu {
     left: 8px;
-    width: 78%;
+    width: 97%; /*ARA dropdown menu to full length*/
     background-color: #f7f7f7; /*ARA white background*/
     max-height: 100px; /*ARA prevents page stretching when too many numbers are called*/
     overflow: auto; /*ARA prevents page stretching when too many numbers are called*/
