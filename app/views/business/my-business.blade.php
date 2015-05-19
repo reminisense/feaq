@@ -44,8 +44,10 @@ My Business
                         {{--<p class="contact"><span class="glyphicon glyphicon-phone-alt"></span> +032 259 8611 / +038 259 8622 </p><br>--}}
                         <a class="btn btn-sm btn-primary" href="{{ url('business/pdf-download/' . $business_id) }}" target="_blank">Download QR Code</a>
                     </div>
+                    <point-of-interest position="bottom" bottom="37" right="83" title="Download QR Code" description="Download this QR Code so you can print it out and post it for your customers to view your broadcast screen from their mobile phones."></point-of-interest>
                     <div class="col-md-3 col-xs-10 ">
                         <a id="view-broadcast" href="{{ url('broadcast/business/' . $business_id) }}" target="_blank">View Broadcast Screen</a>
+                        <point-of-interest position="left" bottom="55" right="100" title="Broadcast Page" description="Click on the <strong>View Broadcast Page</strong> link to view the numbers being called."></point-of-interest>
                         <div id="process-queue" href="#" class="edit-biz process-queue">
                             <a href="#" style="">Process <br>Queue</a>
                             <div class="biz-terminals">
@@ -63,6 +65,7 @@ My Business
                                 </div>
                             </div>
                         </div>
+                        <point-of-interest position="left" bottom="15" right="100" title="Process Queue" description="Click on the <strong>Process Queue</strong> link to choose the terminal you would like to process numbers."></point-of-interest>
                     </div>
                 </div>
             </div>
@@ -79,6 +82,7 @@ My Business
                         <li class=""><a href="#ads" id="ads-tab" data-toggle="tab"><span class="glyphicon glyphicon-blackboard"></span> Advertisements</a></li>
                         <li class=""><a href="#settings" id="settings-tab" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
                         <li class=""><a href="#analytics" id="analytics-tab" data-toggle="tab"><span class="glyphicon glyphicon-stats"></span> Analytics</a></li>
+                        <li class=""><a href="#messages" id="messages-tab" data-toggle="tab" ng-click="displayMessageList(business_id)"><span class="glyphicon glyphicon-envelope"></span> Messages</a></li>
                     </ul>
                     <div id="bizTabContent" class="tab-content" style="">
                         <div class="col-md-12">
@@ -104,6 +108,9 @@ My Business
                         <div role="tabpanel" class="tab-pane fade" id="analytics" aria-labelledby="analytics-tab">
                             <div class="clearfix">@include('business.my-business-tabs.analytics-tab')</div>
                         </div>
+                        <div role="tabpanel" class="tab-pane fade" id="messages" aria-labelledby="messages-tab">
+                            <div class="clearfix">@include('business.my-business-tabs.messages-tab')</div>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -118,12 +125,12 @@ My Business
                         <a id="add-business" target="_blank"><span class="glyphicon glyphicon-plus"></span> Create Your First Business</a>
                     </div>
                 </div>
+                <point-of-interest position="left" bottom="35" right="67" title="Create A Business" description="Click the link to create your very own business."></point-of-interest>
             </div>
         </div>
     </div>
     @endif
-    <div class="row assigned-business">
-    <!-- assigned business -->
+    <div class="row assigned-business"> <!-- assigned business -->
     @if($assigned_businesses)
     <h5>ASSIGNED BUSINESSES</h5>
         <div class="" id="box-wrapper">

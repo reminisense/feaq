@@ -14,47 +14,50 @@ class BusinessController extends BaseController{
 
 
     public function getMyBusiness(){
-        $businesses = UserBusiness::getAllBusinessIdByOwner(Helper::userId());
-        $my_terminals = TerminalUser::getTerminalAssignement(Helper::userId());
-        $assigned_businesses = [];
-        if (count($my_terminals) > 0){
-            foreach($my_terminals as $terminal){
-                $bid = Business::getBusinessIdByTerminalId($terminal['terminal_id']);
-                if(!isset($assigned_businesses[$bid])){
-                    $assigned_businesses[$bid] = [
-                        'business_id' => $bid,
-                        'name' => Business::name($bid),
-                        'terminals' => [
-                            [
-                                'terminal_id' => $terminal['terminal_id'],
-                                'name' => Terminal::name($terminal['terminal_id'])
+        if(Auth::check()){
+            $businesses = UserBusiness::getAllBusinessIdByOwner(Helper::userId());
+            $my_terminals = TerminalUser::getTerminalAssignement(Helper::userId());
+            $assigned_businesses = [];
+            if (count($my_terminals) > 0){
+                foreach($my_terminals as $terminal){
+                    $bid = Business::getBusinessIdByTerminalId($terminal['terminal_id']);
+                    if(!isset($assigned_businesses[$bid])){
+                        $assigned_businesses[$bid] = [
+                            'business_id' => $bid,
+                            'name' => Business::name($bid),
+                            'terminals' => [
+                                [
+                                    'terminal_id' => $terminal['terminal_id'],
+                                    'name' => Terminal::name($terminal['terminal_id'])
+                                ]
                             ]
-                        ]
-                    ];
-                }else{
-                    array_push($assigned_businesses[$bid]['terminals'], [
-                        'terminal_id' => $terminal['terminal_id'],
-                        'name' => Terminal::name($terminal['terminal_id'])
-                    ]);
+                        ];
+                    }else{
+                        array_push($assigned_businesses[$bid]['terminals'], [
+                            'terminal_id' => $terminal['terminal_id'],
+                            'name' => Terminal::name($terminal['terminal_id'])
+                        ]);
+                    }
                 }
             }
-        }
 
-        //dd($assigned_businesses);
-        if (count($businesses) > 0){
-            $business = $businesses[0];
-            $business_id = $business->business_id;
-            unset($assigned_businesses[$business->business_id]);
-            $first_service = Service::getFirstServiceOfBusiness($business_id);
-            $terminals = Terminal::getTerminalsByServiceId($first_service->service_id);
-            return View::make('business.my-business')
-                ->with('user_id', Helper::userId())
-                ->with('business_id', $business_id)
-                ->with('assigned_businesses', $assigned_businesses)
-                ->with('first_terminal', $terminals[0]['terminal_id']);
+            if (count($businesses) > 0){
+                $business = $businesses[0];
+                $business_id = $business->business_id;
+                unset($assigned_businesses[$business->business_id]);
+                $first_service = Service::getFirstServiceOfBusiness($business_id);
+                $terminals = Terminal::getTerminalsByServiceId($first_service->service_id);
+                return View::make('business.my-business')
+                    ->with('user_id', Helper::userId())
+                    ->with('business_id', $business_id)
+                    ->with('assigned_businesses', $assigned_businesses)
+                    ->with('first_terminal', $terminals[0]['terminal_id']);
+            } else {
+                return View::make('business.my-business')
+                    ->with('assigned_businesses', $assigned_businesses);
+            }
         } else {
-            return View::make('business.my-business')
-                ->with('assigned_businesses', $assigned_businesses);
+            return Redirect::to('/');
         }
     }
 
@@ -138,7 +141,7 @@ class BusinessController extends BaseController{
                   "display": "1-6",
                   "show_issued": true,
                   "ad_image": "",
-                  "ad_video": "",
+                  "ad_video": "\/\/www.youtube.com\/embed\/EMnDdH8fdEc",
                   "ad_type": "image",
                   "turn_on_tv": false,
                   "tv_channel": "",
@@ -314,6 +317,16 @@ class BusinessController extends BaseController{
         return json_encode($arr);
     }
 
+    //ARA Added name search while user is typing in searchbar
+    public function getNameSearch($keyword){
+        $businesses = Business::where('name', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('local_address', 'LIKE', '%' . $keyword . '%')
+            ->select(array('name', 'local_address'))
+            ->get()
+            ->toArray();
+        return json_encode(array('keywords' => $businesses));
+    }
+
     public function postRemove() {
         $post = json_decode(file_get_contents("php://input"));
             Business::deleteBusinessByBusinessId($post->business_id);
@@ -357,27 +370,23 @@ class BusinessController extends BaseController{
     }
 
   public function postPersonalizedBusinesses() {
-    $arr = array();
+    $processing = array();
+    $not_processing = array();
     $post = json_decode(file_get_contents("php://input"));
     if ($post) {
-      /*
       if ($post->latitude && $post->longitude) {
         $res = Business::getBusinessByLatitudeLongitude($post->latitude, $post->longitude); // get location first
         if (!count($res)) $res = Business::all();
       }
       else $res = Business::all();
-      */
-      $res = Business::all();
       foreach ($res as $count => $data) {
-
-        // check if business is currently processing numbers
-        //if (Business::processingBusinessBool($data->business_id)) {
-
           $first_service = Service::getFirstServiceOfBusiness($data->business_id);
           $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
 
+        // check if business is currently processing numbers
+        if (Business::processingBusinessBool($data->business_id)) {
           if (Auth::check()) {
-            $arr[] = array(
+            $processing[] = array(
               'business_id' => $data->business_id,
               'business_name' => $data->name,
               'local_address' => $data->local_address,
@@ -394,17 +403,43 @@ class BusinessController extends BaseController{
             );
           }
           else {
-            $arr[] = array(
+            $processing[] = array(
               'business_id' => $data->business_id,
               'business_name' => $data->name,
               'local_address' => $data->local_address,
             );
           }
 
-        //}
+        }
+        else {
+          if (Auth::check()) {
+            $not_processing[] = array(
+              'business_id' => $data->business_id,
+              'business_name' => $data->name,
+              'local_address' => $data->local_address,
+              'time_open' => $data->open_hour . ':' . Helper::doubleZero($data->open_minute) . ' ' . strtoupper($data->open_ampm),
+              'time_close' => $data->close_hour . ':' . Helper::doubleZero($data->close_minute) . ' ' . strtoupper($data->close_ampm),
+              'waiting_time' => Analytics::getWaitingTimeString($data->business_id),
+
+              //ARA more info for business cards
+              'last_number_called' => count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'none', //ok
+              'next_available_number' => $all_numbers->next_number, //ok
+              'is_calling' => count($all_numbers->called_numbers) > 0 ? true : false, //ok
+              'is_issuing' => count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? true : false, //ok
+              'last_active' => Analytics::getLastActive($data->business_id)
+            );
+      }
+          else {
+            $not_processing[] = array(
+              'business_id' => $data->business_id,
+              'business_name' => $data->name,
+              'local_address' => $data->local_address,
+            );
+          }
+        }
 
       }
-      return json_encode($arr);
+      return json_encode(array_merge($processing, $not_processing));
     }
   }
 

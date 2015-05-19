@@ -60,8 +60,9 @@
                 });
         }
 
-        $scope.checkIssueSpecificErrors = function(priority_number, number_limit){
+        $scope.checkIssueSpecificErrors = function(priority_number, number_limit, issue){
             time_format = /^([0-9]{2})\:([0-9]{2})([ ][aApP][mM])$/g;
+            issue = issue != undefined ? issue : true;
             error = false
             error_message = '';
 
@@ -116,7 +117,13 @@
                }
             }catch(err){}
 
-            $scope.issue_specific_error = error_message;
+            if(!error && issue){
+                $scope.issue_specific_error = '';
+                $scope.issueSpecific($scope.priority_number, $scope.name, $scope.phone, $scope.email, $scope.time_assigned)
+            }else{
+                $scope.issue_specific_error = error_message;
+                setTimeout(function(){ $scope.issue_specific_error = '';}, 3000);
+            }
             return error;
         }
 
@@ -161,7 +168,13 @@
                 error_message += 'Cannot issue more than 100 numbers at the same time. ';
             }
 
-            $scope.issue_multiple_error = error_message;
+            if(!error){
+                $scope.issue_multiple_error = '';
+                $scope.issueMultiple($scope.range, $scope.number_start);
+            }else{
+                $scope.issue_multiple_error = error_message;
+                setTimeout(function(){ $scope.issue_multiple_error = '';}, 3000);
+            }
             return error;
         }
 

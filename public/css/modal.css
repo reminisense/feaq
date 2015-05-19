@@ -95,12 +95,33 @@
 }
 #pmore-tab li a {
     font-family: 'ralewaybold';
+    background-color: #f7f7f7;
+    border: none;
+    border-bottom: 1px solid #ccc;
 }
 #pmore-tab {
     margin-bottom: 15px;
 }
 #pmore-tab li.active a {
-    background-color: #00BA8B;
+    background-color: #ff925b;
     color: #fff;
+    border: none;
+    border-bottom: 1px solid #e9824e;
 }
-
+.issue-submit-btn {
+    padding-left: 35px;
+    padding-right: 35px;
+}
+.btn-close,
+.btn-close:hover {
+    background: none;
+    border: none;
+    color: #333!important;
+}
+.navbar-form {
+    margin-bottom: 0;
+    padding: 0;
+}
+.btn[disabled] {
+    background-color: #ccc!important;
+}

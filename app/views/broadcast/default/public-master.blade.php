@@ -15,14 +15,6 @@
     <link href="/css/broadcast/default/dashboard.css" rel="stylesheet" type="text/css" media="all">
     <link href="/css/broadcast/default/responsive.css" rel="stylesheet" type="text/css" media="all">
 
-    <style>
-        .broadcast-signup {
-            color: #fff !important;
-        }
-        .broadcast-signup:hover {
-            background-color: #5880de !important;
-        }
-    </style>
 
     {{--{{ HTML::script('js/jquery1.11.0.js') }}--}}
     <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
@@ -40,6 +32,8 @@
 
     {{--{{ HTML::script('js/google-analytics/ga-broadcast.js') }}--}}
     <script src="/js/google-analytics/ga-broadcast.js"></script>
+
+    <script src="/js/user/Usertracker.js"></script>
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -75,7 +69,7 @@
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         @if (Auth::check()) <li><a href="{{URL::to('/')}}">Dashboard</a></li>
-                        @else <li ng-controller="fbController"><a href="" class="btn btn-blue btn-fb broadcast-signup" role="button" ng-click="login()"><img src="/img/icon-fb.png">&nbsp;&nbsp;Sign Up</a></li>
+                        @else <li ng-controller="fbController"><a href="" class="btn broadcast-signup" role="button" ng-click="login()"><img src="/img/fb-broadcast.png">&nbsp;&nbsp;Sign Up</a></li>
                         @endif
                         <li class="divider"></li>
                         <li class="dropdown-header">Connect with us!</li>
@@ -105,7 +99,7 @@
                     <div class="row">
                         <div class="col-md-5 getnum-info">
                             @if($allow_remote)
-                            <h2 class="">Remote Queue Available Number:</h2>
+                            <h2 class="">Remote Queue Number:</h2>
                             <p>Remote queuing allows you to get this number before being at the location.</p>
                             @else
                             <h2 class="">Next Available Number:</h2>
@@ -137,6 +131,7 @@
     </div>
 </div>
 @include('modals.broadcast.remote-queue-modal')
+@include('modals.broadcast.contact-business-modal')
 
 {{--{{ HTML::script('js/bootstrap.min.js') }}--}}
 <script src="/js/broadcast/bootstrap.min.js"></script>

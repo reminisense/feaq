@@ -9,17 +9,13 @@
                 <small>Choose channel:</small>
                 <select ng-model="tv_channel" ng-init="tv_channel" id="tv-channel" class="form-control" style="width: 40%;">
                     <option value="">- Select A Channel -</option>
-                    <option value="<iframe SRC='http://www.newtvworld.com/livetv/india/AnimalPlanet.html' width='100%' height='400' id=www.Newtvworld.com marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling='no'></iframe>">Animal Planet</option>
-                    <option value="<iframe SRC='http://www.newtvworld.com/livetv/india/HBOTv.html' width='100%' height='400' id=www.Newtvworld.com marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling='no'></iframe>">HBO</option>
-                    <option value="<iframe width='100%' height='400' src='http://cdn.livestream.com/embed/ptvphilippines?layout=4&amp;height=340&amp;width=560&amp;autoplay=false' style='border:0;outline:0' frameborder='0' scrolling='no'></iframe>">People's TV Philippines</option>
-                    <option value="<iframe width='100%' height='400' src='http://www.ustream.tv/embed/14067349?v=3&amp;wmode=direct' scrolling='no' frameborder='0' style='border: 0px none transparent;'></iframe>">Arirang TV</option>
-                    <option value="<iframe width='100%' height='400' src='http://www.ustream.tv/embed/8429259?v=3&amp;wmode=direct' scrolling='no' frameborder='0' style='border: 0px none transparent;'></iframe>">EnergyFM Manila</option>
+                    @include('business.my-business-tabs.channels')
                 </select>
                 <div class="alert alert-success" id="tvchannel-success" style="display: none;">Success! <strong><a href="/broadcast/business/@{{ business_id }}" target="_blank">View Broadcast Page</a></strong></div>
                 <div class="alert alert-danger" id="tvchannel-danger" style="display: none;">Oops! Something went wrong.</div>
             </div>
             <div class="form-group">
-                <input type="submit" class="btn btn-orange"  id="tv-script-submit-btn" value="SELECT" style="color: #ffffff;"/>
+                <button type="submit" class="btn btn-orange"  id="tv-script-submit-btn"><span class="glyphicon glyphicon-check"></span> SELECT</button>
                 <button id="loading-img-3" style="display:none;" class="btn btn-orange btn-disabled"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
             </div>
         </form>
@@ -46,13 +42,13 @@
                     <form action="/advertisement/upload-image" method="POST" enctype="multipart/form-data" id="ad-image-uploader">
                         <div class="form-group">
                             <label for="exampleInputFile"><strong>Choose Image to Upload:</strong></label>
-                            <input name="ad_image" type="file" id="ad-image">
+                            <input name="ad_image" type="file" id="ad-image" required>
                             <em class="help-block">Upload images with .jpg, .png file format. Best resolution is 800 x 803 pixels.</em>
                             <div class="alert alert-success" id="adimage-success" style="display: none;">Success! <strong><a href="/broadcast/business/@{{ business_id }}" target="_blank">View Broadcast Page</a></strong></div>
                             <div class="alert alert-danger" id="adimage-danger" style="display: none;">Oops! Something went wrong.</div>
                         </div>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-orange"  id="image-submit-btn" value="UPLOAD" ng-click="adImageUpload(business_id)" style="color: #ffffff;"/>
+                            <button type="submit" class="btn btn-orange" id="image-submit-btn" ng-click="adImageUpload(business_id)" style="color: #ffffff;"><span class="glyphicon glyphicon-check"></span> UPLOAD</button>
                             <button id="loading-img" style="display:none;" class="btn btn-orange btn-disabled"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
                         </div>
                     </form>
@@ -68,12 +64,12 @@
                     <form ng-submit="adVideoEmbed(business_id)" id="ad-video-uploader">
                         <div class="form-group">
                             <label for="exampleInputFile"><strong>Paste YouTube URL:</strong></label>
-                            <input ng-model="ad_video" type="text" id="ad-video">
+                            <input ng-model="ad_video" type="text" id="ad-video" required>
                             <div class="alert alert-success" id="advideo-success" style="display: none;">Success! <strong><a href="/broadcast/business/@{{ business_id }}" target="_blank">View Broadcast Page</a></strong></div>
                             <div class="alert alert-danger" id="advideo-danger" style="display: none;">Oops! Something went wrong.</div>
                         </div>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-orange"  id="image-submit-btn" value="EMBED" style="color: #ffffff;"/>
+                            <button type="submit" class="btn btn-orange" id="image-submit-btn" style="color: #ffffff;"><span class="glyphicon glyphicon-check"></span> EMBED</button>
                             <button id="loading-img-2" style="display:none;" class="btn btn-orange btn-disabled"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
                         </div>
                     </form>

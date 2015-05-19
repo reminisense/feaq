@@ -773,6 +773,9 @@ h5.heading {
     margin-bottom: 30px;
     padding-left: 2px;
   }
+  .modal-input {
+      border-radius: 4px!important;
+  }
   .form-control {
     font-size: 13px;
   }
@@ -1114,7 +1117,13 @@ strong {
 /* CSD Animate */
 .glyphicon-refresh-animate {
     -animation: spin .7s infinite linear;
+    -moz-animation: spin .7s infinite linear;
     -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg);}
+    to { -moz-transform: rotate(360deg);}
 }
 
 @-webkit-keyframes spin2 {
@@ -1187,4 +1196,41 @@ input#input_sms_field:focus{
 
 #embed-alert {
     padding: 10px!important;
+}
+
+/* CSD 05162015 */
+.timestamp {
+    font-size: 12px;
+    color: #000;
+    margin-bottom: 0px!important;
+}
+
+.sender {
+    color: #000;
+}
+
+.messagefrom, .messageto {
+    padding: 20px;
+    color: #000;
+}
+.messagefrom {
+    border-top: 1px solid rgb(0, 186, 139);
+    background-color: rgba(0, 186, 139, 0.2);
+}
+
+.messageto {
+    border-top: 1px solid rgb(255, 146, 91);
+    background-color: rgba(255, 146, 91, 0.2);
+}
+
+.optionlabel {
+    padding-left: 10px;
+}
+
+.phone-select {
+    margin-bottom: 0px!important;
+}
+
+#select-phone-div {
+    padding-top: 15px;
 }

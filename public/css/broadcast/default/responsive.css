@@ -1,3 +1,10 @@
+/* advertisement video players mobile view fix*/
+@media (max-width: 768px) {
+    iframe, embed {
+        height: 170px;
+    }
+}
+
 @media (max-width: 2500px) {
     .boxed .broadcast .spaceht {
         font-size: 170px !important;
@@ -67,6 +74,7 @@
         min-height: inherit!important;
         margin-bottom: 20px!important;
     }
+
   .navbar-brand {
     margin-left: 10px;
   }
@@ -105,6 +113,9 @@
   }
   .processq .dropdown-menu {
     width: 90%!important;
+  }
+  .dropdown-menu>li>a {
+      color: #fff!important;
   }
   #moreq .nav-tabs>li.active>a:focus, 
   #moreq .nav-tabs>li>a:hover, 
@@ -152,7 +163,7 @@
     height: 250px!important;
   }
   .boxed .head {
-      padding: 5px 20px;
+      padding: 26px 20px;
   }
   /* @CSD 05042015 */
   .ads-sixnums h1 {
@@ -168,5 +179,8 @@
   }
   #broadcast .head h4 {
       font-size: 30px;
+  }
+  .boxed .head.head-wbtn .btn-half {
+      margin-top: -18px;
   }
 }

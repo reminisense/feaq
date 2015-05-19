@@ -11,6 +11,16 @@
         $scope.processed_numbers = [];
         $scope.timebound_numbers = [];
 
+        $scope.create_temporary_array = 0;
+        $scope.temp_called_numbers = [];
+        $scope.rating_stars = {
+            value:0,
+            tran_number: 0,
+            email: "",
+            email_checker : false,
+            terminal_id : 0
+        };
+
         $scope.called_number = 0;
         $scope.next_number = 0;
         $scope.number_limit = null;
@@ -31,6 +41,7 @@
                 pq.jquery_functions.remove_and_update_dropdown(transaction_number);
                 $scope.issue_call_number = null;
                 $scope.isCalling = false;
+                checkEmailAndAdd($scope.called_numbers[0].email, transaction_number);
             });
         };
 
@@ -42,6 +53,16 @@
             }, null, function(){
                 $scope.isProcessing = false;
             });
+            angular.forEach($scope.temp_called_numbers, function(temp,i){
+                if(temp.tran_number == transaction_number){
+                    if( temp.email_checker == true){
+                        $http.get(pq.urls.rating.ratings_url + temp.rating + "/" + temp.email + "/" + temp.terminal_id + '/' + 2)
+                            .success(function(response){
+                            });
+                    }
+                    addOrRemoveRating(i,1);
+                }
+            });
         };
 
         $scope.dropNumber = function(transaction_number){
@@ -50,6 +71,16 @@
                 pq.jquery_functions.remove_from_called(transaction_number);
             }, null, function(){
                 $scope.isProcessing = false;
+            });
+            angular.forEach($scope.temp_called_numbers, function(temp,i){
+                if(temp.tran_number == transaction_number){
+                    if( temp.email_checker == true){
+                        $http.get(pq.urls.rating.ratings_url + temp.rating + "/" + temp.email + "/" + temp.terminal_id + '/' + 3)
+                            .success(function(response){
+                            });
+                    }
+                    addOrRemoveRating(i,1);
+                }
             });
         };
 
@@ -82,7 +113,7 @@
         }
 
         checkTextfieldErrors = function(priority_number){
-            return angular.element(document.querySelector('#moreq')).scope().checkIssueSpecificErrors(priority_number, $scope.number_limit);
+            return angular.element(document.querySelector('#moreq')).scope().checkIssueSpecificErrors(priority_number, $scope.number_limit, false);
         }
 
         //non scope functions
@@ -109,6 +140,12 @@
             $scope.number_limit = numbers.number_limit;
 
             pq.jquery_functions.set_next_number_placeholder($scope.next_number);
+
+            if($scope.create_temporary_array == 0){
+                createTemporaryRatingsArray();
+                $scope.create_temporary_array = 1;
+
+            }
         };
 
         select_next_number = function(){
@@ -131,6 +168,41 @@
                 pq.jquery_functions.select_number($scope.timebound_numbers[0].transaction_number, $scope.timebound_numbers[0].priority_number);
             }
         }
+
+        checkEmailAndAdd = function(email, transaction_number){
+            if(email){
+                $http.get(pq.urls.rating.verify_email_url + email)
+                    .success(function(response){
+                        addOrRemoveRating(0,0,{rating : 0, tran_number : transaction_number, email : $scope.called_numbers[0].email, email_checker : response.result, terminal_id : $scope.called_numbers[0].terminal_id });
+                    });
+            }else{
+                addOrRemoveRating(0,0,{rating : 0, tran_number : transaction_number, email : $scope.called_numbers[0].email, email_checker : false, terminal_id : $scope.called_numbers[0].terminal_id});
+            }
+        }
+
+        createTemporaryRatingsArray = function(){
+            angular.forEach($scope.called_numbers, function(called_number, i) {
+                if(called_number.email){
+                    $http.get(pq.urls.rating.verify_email_url + called_number.email)
+                        .success(function(response){
+                            $scope.temp_called_numbers[i] = ({rating : 0, tran_number :called_number.transaction_number,
+                                email : called_number.email, email_checker : response.result, terminal_id : called_number.terminal_id});
+                        });
+                }else{
+                    $scope.temp_called_numbers[i] = ({rating : 0, tran_number :called_number.transaction_number,
+                        email : called_number.email, email_checker : false, terminal_id : called_number.terminal_id});
+                }
+            });
+        }
+
+        addOrRemoveRating = function(index, item, object){
+            if(object){
+                $scope.temp_called_numbers.splice(index, item, object);
+            }else{
+                $scope.temp_called_numbers.splice(index, item);
+            }
+        }
+
 
         //****************************** refreshing
             $scope.getAllNumbers();

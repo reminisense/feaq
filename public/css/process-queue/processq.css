@@ -91,7 +91,7 @@
 }
 .processq-box .form-control {
     display: inline-block;
-    width: 80%;
+    /*width: 80%; rodel */
     margin-right: 10px;
     font-size: 20px;
     font-family: 'ralewaybold';
@@ -135,14 +135,14 @@
 }
 
 .processq .dropdown-wrapper{
-    width:80%;
+    width: 100%; /*ARA dropdown menu to full length*/
     display:inline-block;
     margin-right: 10px;
 }
 
 .processq .dropdown-menu {
     left: 8px;
-    width: 78%;
+    width: 97%; /*ARA dropdown menu to full length*/
     background-color: #f7f7f7; /*ARA white background*/
     max-height: 100px; /*ARA prevents page stretching when too many numbers are called*/
     overflow: auto; /*ARA prevents page stretching when too many numbers are called*/
@@ -170,3 +170,57 @@
 #btn-pmore:focus {
     outline: none;
 }
+
+.star-rating {
+    font-size: 0;
+    white-space: nowrap;
+    display: inline-block;
+    width: 105px;
+    height: 20px;
+    overflow: hidden;
+    position: relative;
+    background: url('/images/stars_unfilled.jpg');
+    background-size: contain;
+}
+
+.star-rating i {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 20%;
+    z-index: 1;
+    background: url('/images/stars_filled.jpg');
+    background-size: contain;
+}
+
+.star-rating input {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    opacity: 0;
+    display: inline-block;
+    width: 20%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    z-index: 2;
+    position: relative;
+}
+.star-rating input:hover + i,
+.star-rating input:checked + i {
+    opacity: 1;
+}
+.star-rating i ~ i {
+    width: 40%;
+}
+.star-rating i ~ i ~ i {
+    width: 60%;
+}
+.star-rating i ~ i ~ i ~ i {
+    width: 80%;
+}
+.star-rating i ~ i ~ i ~ i ~ i {
+    width: 100%;
+}
+
