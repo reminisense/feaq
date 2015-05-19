@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="col-md-7">
-            <div class="preview-container" style="padding-left: 30px;">
+            <div class="preview-container">
                 <div class="message-preview" style="display: none;">
                     <div class="message-reply">
                         <div class="col-md-2 mt20"><label>Send to:</label></div>

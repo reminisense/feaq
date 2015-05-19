@@ -1202,6 +1202,7 @@ input#input_sms_field:focus{
 .timestamp {
     font-size: 12px;
     color: #000;
+    margin-bottom: 0px!important;
 }
 
 .sender {
@@ -1210,9 +1211,16 @@ input#input_sms_field:focus{
 
 .messagefrom, .messageto {
     padding: 20px;
-    border-top: 1px solid #eeeeee;
-    background-color: #fcfcfc;
     color: #000;
+}
+.messagefrom {
+    border-top: 1px solid rgb(0, 186, 139);
+    background-color: rgba(0, 186, 139, 0.2);
+}
+
+.messageto {
+    border-top: 1px solid rgb(255, 146, 91);
+    background-color: rgba(255, 146, 91, 0.2);
 }
 
 .optionlabel {

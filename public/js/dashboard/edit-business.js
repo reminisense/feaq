@@ -250,7 +250,7 @@ var eb = {
                     var newMessage = response.contactmessage[i].content.replace(/\n/g, '<br>');
                     if (response.contactmessage[i].sender == 'user'){
                         finalMessage = "" +
-                            "<div class='messagefrom'>" +
+                            "<div class='messagefrom clearfix'>" +
                                 "<p>" + newMessage + "</p>" +
                                 "<p class='timestamp pull-right'>Posted by <strong class='sender'>" + sender + "</strong> on <strong>" + response.contactmessage[i].timestamp +
                             "</strong></div>" +
@@ -258,7 +258,7 @@ var eb = {
                             $('.message-reply').before(finalMessage);
                     } else {
                         finalMessage = "" +
-                            "<div class='messageto'>" +
+                            "<div class='messageto clearfix'>" +
                             "<p>" + newMessage + "</p>" +
                             "<p class='timestamp pull-right'>Posted by <strong class='sender'>You</strong> on <strong>" + response.contactmessage[i].timestamp +
                             "</strong></div>" +
@@ -280,7 +280,7 @@ var eb = {
             }).success(function(response){
                 var finalMessage = "" +
                     "<div class='messageto'>" +
-                    "<p>" + $scope.business_reply_form.message_reply + "</p>" +
+                    "<p>" + $scope.business_reply_form.message_reply.replace(/\n/g, '<br>'); + "</p>" +
                     "<p class='timestamp pull-right'>Posted by <strong class='sender'>You</strong> on <strong>" + response.timestamp +
                     "</strong></div>" +
                     "";
