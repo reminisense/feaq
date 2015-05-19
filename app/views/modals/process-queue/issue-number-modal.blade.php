@@ -55,7 +55,7 @@
                                     <p>An empty value in the <strong>Specific #</strong> field will automatically give you the next available number.</p>
                                 </div>
                             </div>
-                            <div class="alert alert-danger col-md-12" role="alert" ng-show="checkIssueSpecificErrors(priority_number, number_limit)">
+                            <div class="alert alert-danger col-md-12" role="alert" ng-show="issue_specific_error.length > 0">
                                 <div><strong class="message">@{{ issue_specific_error }}</strong></div>
                             </div>
                         </form>
@@ -76,7 +76,7 @@
                                     <input type="number" class="form-control" ng-model="number_end" name="number_end" required>
                                 </div>
                             </div>
-                            <div class="alert alert-danger" role="alert" ng-show="checkIssueMultipleErrors()">
+                            <div class="alert alert-danger" role="alert" ng-show="issue_multiple_error.length > 0">
                                 <div><strong class="message">@{{ issue_multiple_error }}</strong></div>
                             </div>
                         </form>
@@ -88,8 +88,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary btn-md btn-close" data-dismiss="modal" aria-label="Close">CLOSE</button>
-                <button id="issue-specific-submit" type="button" class="issue-submit-btn btn btn-orange btn-md" ng-disabled="isIssuing || checkIssueSpecificErrors(priority_number, number_limit)" ng-click="issueSpecific(priority_number, name, phone, email, time_assigned)">SUBMIT</button>
-                <button id="issue-multiple-submit" type="button" class="issue-submit-btn btn btn-orange btn-md" ng-disabled="isIssuing || checkIssueMultipleErrors()" ng-click="issueMultiple(range, number_start)" style="display: none">SUBMIT</button>
+                <button id="issue-specific-submit" type="button" class="issue-submit-btn btn btn-orange btn-md" ng-disabled="isIssuing" ng-click="checkIssueSpecificErrors(priority_number, number_limit)">SUBMIT</button>
+                <button id="issue-multiple-submit" type="button" class="issue-submit-btn btn btn-orange btn-md" ng-disabled="isIssuing" ng-click="checkIssueMultipleErrors()" style="display: none">SUBMIT</button>
             </div>
         </div>
     </div>
