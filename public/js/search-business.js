@@ -97,14 +97,12 @@
                 $('#search-filter').html('SEARCH');
                 $('#browse-label').show();
                 $('#search-loader').hide();
-                $scope.search_keyword = '';
                 $scope.dropdown_businesses = [];
             }).error(function() {
                 $('#search-grid').show();
                 $('#search-filter').html('SEARCH');
                 $('#browse-label').show();
                 $('#search-loader').hide();
-                $scope.search_keyword = '';
                 $scope.dropdown_businesses = [];
             });
         });
