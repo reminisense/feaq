@@ -10,11 +10,12 @@ class MessageController extends BaseController {
     $thread_key = $this->threadKeyGenerator($business_id, $email);
 
     if (!Message::checkThreadByKey($thread_key)) {
+        $phones[] = Input::get('contmobile');
       Message::createThread(array(
         'contactname' => $name,
         'business_id' => $business_id,
         'email' => $email,
-        'phone' => serialize(Input::get('contmobile')),
+        'phone' => serialize($phones),
         'thread_key' => $thread_key,
       ));
       $data = json_encode(array(array(
@@ -48,7 +49,8 @@ class MessageController extends BaseController {
       $timestamp = time();
       $thread_key = $this->threadKeyGenerator(Input::get('business_id'), Input::get('contactemail'));
       if (Input::get('sendbyphone')) {
-        $text_message = 'From: FeatherQ No-Reply' .  "\n" . 'To: ' . Input::get('phonenumber') . "\n" . Input::get('messageContent');
+        $business_name = Business::name(Input::get('business_id'));
+        $text_message = 'From: ' . $business_name  .  "\n" . 'To: ' . Input::get('phonenumber') . "\n" . Input::get('messageContent') . "\n\nThanks for using FeatherQ";
         Notifier::sendFrontlineSMS($text_message, Input::get('phonenumber'), FRONTLINE_SMS_URL, FRONTLINE_SMS_SECRET);
       }
       $data = json_decode(file_get_contents(public_path() . '/json/messages/' . $thread_key . '.json'));
