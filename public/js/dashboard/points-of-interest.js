@@ -95,11 +95,11 @@ var cookies_functions = {
     },
 
     savePageCookie: function(page){
-        cookies_functions.setCookie(page, 'done');
+        cookies_functions.setCookie(page, 'done', 'expires=Fri, 31 Dec 9999 23:59:59 GMT');
     },
 
-    setCookie: function(cname, cvalue) {
-        document.cookie = cname + "=" + cvalue + "; ";
+    setCookie: function(cname, cvalue, expire) {
+        document.cookie = cname + "=" + cvalue + "; " + expire;
     },
 
     getCookie: function (cname) {
