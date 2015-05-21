@@ -617,6 +617,7 @@ var eb = {
                 $('#advideo-preview').attr('src', response.ad_video);
                 $('#advideo-danger').hide();
                 $('#advideo-success').fadeIn();
+                $('#advideo-success').fadeOut(7000);
                 $('#image-submit-btn').removeClass('btn-disabled');
             }).error(function() {
                 $('#advideo-danger').hide();
@@ -632,6 +633,7 @@ var eb = {
             }).success(function() {
                 $('#tvchannel-danger').hide();
                 $('#tvchannel-success').fadeIn();
+                $('#tvchannel-success').fadeOut(7000);
             }).error(function() {
                 $('#tvchannel-danger').hide();
                 $('#tvchannel-success').fadeIn();
