@@ -91,7 +91,7 @@ Processs Queue > {{ $business_name }}
                             </a>
                         </th>
                         <td>
-                            <form ng-show="temp_called_numbers[$index].email_checker">
+                            <form class="star-rating-form" ng-show="temp_called_numbers[$index].email_checker">
                                 <span class="star-rating" ng-init="temp_called_numbers[$index].rating">
                                     <input type="radio" name="rating" ng-model="temp_called_numbers[$index].rating" value="1"><i></i>
                                     <input type="radio" name="rating" ng-model="temp_called_numbers[$index].rating" value="2"><i></i>

@@ -175,12 +175,16 @@
     font-size: 0;
     white-space: nowrap;
     display: inline-block;
-    width: 105px;
-    height: 20px;
+    width: 80px;
+    height: 15px;
     overflow: hidden;
     position: relative;
     background: url('/images/stars_unfilled.jpg');
     background-size: contain;
+}
+
+.star-rating-form {
+    padding-right: 11px;
 }
 
 .star-rating i {
