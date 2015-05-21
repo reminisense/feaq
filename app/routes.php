@@ -42,3 +42,5 @@ Route::controller('watchdog', 'WatchdogController');
 Route::controller('rest', 'RestController'); /* RDH For Android Webservices*/
 
 Route::controller('message', 'MessageController');
+
+Route::controller('admin', 'AdminController');

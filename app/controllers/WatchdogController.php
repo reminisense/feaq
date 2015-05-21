@@ -83,27 +83,4 @@ class WatchdogController extends BaseController{
   public function getUserdata($keyword, $user_id = null){
     return json_encode(['data' => Watchdog::queryUserInfo($keyword, $user_id)]);
   }
-
-    public function getStats($user_id){
-        $emails = [
-            'neowonderboi@yahoo.com',
-            'ruffy.heredia@live.com',
-            'jonasalmocera@gmail.com',
-            'paulgutib@outlook.com',
-            'yannieromanos@gmail.com',
-            'carlodalid@yahoo.com',
-            'rodel.maranon@gmail.com'
-        ];
-        $in_array = false;
-        try{
-            $in_array = in_array(User::email(Helper::userId()), $emails);
-        }catch(Exception $e){}
-
-        if($in_array){
-            return View::make('analytics.user_analytics')
-                ->with('user_id', $user_id);
-        }else{
-            return Redirect::to('/');
-        }
-    }
-  }
+}
