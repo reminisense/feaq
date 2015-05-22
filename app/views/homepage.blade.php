@@ -76,7 +76,7 @@
                 <div class="filters clearfix">
                     <div class="col-md-10 col-md-offset-2 col-sm-12 col-xs-12">
                         <div class="filterwrap  wow fadeInUp">
-                            <form ng-submit="searchBusiness(location_filter, industry_filter)">
+                            <form ng-submit="searchBusiness(location_filter, industry_filter, search_keyword)">
                                 <div class="btn-group" role="group" style="margin-bottom: 0px;">
                                     <div class="btn-group" role="group">
                                         <button id="btnGroupLoc" type="button"
