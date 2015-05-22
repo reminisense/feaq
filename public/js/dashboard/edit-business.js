@@ -99,6 +99,11 @@ var eb = {
     },
 
     jquery_functions : {
+        validYouTubeURL : function(url) {
+            var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+            return (url.match(p)) ? RegExp.$1 : false;
+        },
+
         getBusinessDetails : function(){
             var scope = angular.element($("#editBusiness")).scope();
             scope.$apply(function(){
@@ -610,20 +615,26 @@ var eb = {
 
         $scope.adVideoEmbed = (function(business_id) {
             $('#image-submit-btn').addClass('btn-disabled');
-            $http.post(eb.urls.broadcast.ads_embed_video_url, {
-                business_id : business_id,
-                ad_video : $scope.ad_video
-            }).success(function(response) {
-                $('#advideo-preview').attr('src', response.ad_video);
-                $('#advideo-danger').hide();
-                $('#advideo-success').fadeIn();
-                $('#advideo-success').fadeOut(7000);
+            if (eb.jquery_functions.validYouTubeURL($scope.ad_video)) {
+                $http.post(eb.urls.broadcast.ads_embed_video_url, {
+                    business_id : business_id,
+                    ad_video : $scope.ad_video
+                }).success(function(response) {
+                    $('#advideo-preview').attr('src', response.ad_video);
+                    $('#advideo-danger').hide();
+                    $('#advideo-success').fadeIn();
+                    $('#advideo-success').fadeOut(7000);
+                    $('#image-submit-btn').removeClass('btn-disabled');
+                }).error(function() {
+                    $('#advideo-danger').hide();
+                    $('#advideo-success').fadeIn();
+                    $('#image-submit-btn').removeClass('btn-disabled');
+                });
+            }
+            else {
+                alert('The Video URL is not a valid YouTube link.')
                 $('#image-submit-btn').removeClass('btn-disabled');
-            }).error(function() {
-                $('#advideo-danger').hide();
-                $('#advideo-success').fadeIn();
-                $('#image-submit-btn').removeClass('btn-disabled');
-            });
+            }
         });
 
         $scope.selectTV = (function(business_id) {
