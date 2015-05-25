@@ -111,9 +111,6 @@
     min-height: 300px;
 }
 #box-wrapper {min-height: 80px;}
-#bizTabContent p {
-    margin-bottom: 20px;
-}
 .biz-details h2 {
     text-shadow: 0 1px 0 #ffffff;
     font-family: 'ralewaybold';
@@ -411,4 +408,22 @@ h5>small {
     display: block;
     color: #fff;
     height: 100%;
+}
+
+#input_sms_field {
+    border: none;
+    border-bottom: 1px solid #c7c7c7;
+    width: 30px;
+    padding-bottom: 4px;
+    text-align: center;
+}
+
+input#input_sms_field:focus{
+    outline-width: 0;
+    background-color: #fff9e3;
+
+}
+
+.orange {
+    color: #ff8649!important;
 }

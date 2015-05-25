@@ -1,9 +1,11 @@
 
     <div class="col-md-12">
         <h5>INTERNET TV</h5>
-        <div role="alert" class="alert alert-info" style="padding: 0px 10px; font-size: 11px;">Internet TV can be viewed in the broadcast screen.</div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6 col-sm-12">
+        <div role="alert" class="alert alert-info" style="padding: 10px 10px; font-size: 12px;">Internet TV can be viewed in the broadcast screen.</div>
+    </div>
+    <div class="col-md-12">
         <form ng-submit="selectTV(business_id)" id="tv-channel-select">
             <div class="form-group">
                 <small>Choose channel:</small>
@@ -27,8 +29,10 @@
         <h5>ADVERTISEMENT IMAGE & VIDEO</h5>
     </div>
     <div class="col-md-12">
-        <label><input type="radio" name="ad_type" value="image" ng-model="ad_type" ng-change="adType(ad_type, business_id)"> <strong>Image</strong></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label><input type="radio" name="ad_type" value="video" ng-model="ad_type" ng-change="adType(ad_type, business_id)"> <strong>Video</strong></label>
-        <div role="alert" class="alert alert-info" style="padding: 0px 10px; font-size: 11px;">Choose whether to put an image or video in your broadcast screen.</div>
+        <label><input type="radio" name="ad_type" value="image" ng-model="ad_type" ng-change="adType(ad_type, business_id)"> <strong>Image</strong></label><label><input style="margin-left: 10px;" type="radio" name="ad_type" value="video" ng-model="ad_type" ng-change="adType(ad_type, business_id)"> <strong>Video</strong></label>
+    </div>
+    <div class="col-md-6 col-sm-12">
+         <div role="alert" class="alert alert-info" style="padding: 10px 10px; font-size: 12px;">Choose whether to put an image or video in your broadcast screen.</div>
     </div>
     <div class="col-md-12" style="float: left; width: 100%;">
         <div class="row">

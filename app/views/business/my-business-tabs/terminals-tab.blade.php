@@ -86,7 +86,7 @@
             <div class="block mb10">
                 <a href="" id="btn-addterminal" class="btn-boxy btn-xs btn-primary"><span class="glyphicon glyphicon-add"></span> Add Terminal</a>
                 <form id="inputterminal-form" ng-submit="createTerminal(terminal_name)">
-                    <div id="inputterminal" class="row">
+                    <div id="inputterminal">
                         <div class="">
                             <input type="text" class="form-control" ng-model="terminal_name" placeholder="Terminal Name">
                         </div>
