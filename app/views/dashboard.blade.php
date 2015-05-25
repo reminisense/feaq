@@ -15,6 +15,7 @@
     <link rel='stylesheet' type='text/css' href='/css/modal.css'>
     <link rel='stylesheet' type='text/css' href='/css/refresh-animate.css'>
     <link rel='stylesheet' type='text/css' href='/css/dashboard/points-of-interest.css'> {{--ARA points of interest--}}
+    <link media="all" type="text/css" rel="stylesheet" href="/css/jquery.timepicker.min.css">
 
     @yield('styles')
 
