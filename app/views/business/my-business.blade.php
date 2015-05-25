@@ -84,6 +84,7 @@ My Business
                         <li class=""><a href="#settings" id="settings-tab" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
                         <li class=""><a href="#analytics" id="analytics-tab" data-toggle="tab"><span class="glyphicon glyphicon-stats"></span> Analytics</a></li>
                         <li class=""><a href="#messages" id="messages-tab" data-toggle="tab" ng-click="displayMessageList(business_id)"><span class="glyphicon glyphicon-envelope"></span> Messages</a></li>
+                        <li class=""><a href="#forms" id="forms-tab" data-toggle="tab"><span class="glyphicon glyphicon-list"></span> Forms</a></li>
                         <li class="dndesktop"><a href="" id="" data-toggle="tab"></a></li>
                     </ul>
                     <div id="bizTabContent" class="tab-content" style="">
@@ -112,6 +113,9 @@ My Business
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="messages" aria-labelledby="messages-tab">
                             <div class="clearfix">@include('business.my-business-tabs.messages-tab')</div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="forms" aria-labelledby="forms-tab">
+                            <div class="clearfix">@include('business.my-business-tabs.forms-tab')</div>
                         </div>
                     </div>
                 </div>
