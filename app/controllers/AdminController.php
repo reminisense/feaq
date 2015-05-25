@@ -9,9 +9,9 @@
 class AdminController extends BaseController{
 
     //temporary function to display user tracking data
-    public function getStats($user_id){
+    public function getStats(){
         if(Admin::isAdmin()){
-            return View::make('analytics.user_analytics')->with('user_id', $user_id);
+            return View::make('analytics.user_analytics');
         }else{
             return Redirect::to('/');
         }
