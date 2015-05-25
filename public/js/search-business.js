@@ -51,11 +51,12 @@
 
         $scope.industry_filter = 'Industry';
 
-        $scope.searchBusiness = (function(location, industry, search_keyword) {
+        $scope.searchBusiness = (function(location, industry, search_keyword, $event) {
             $('#search-filter').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> SEARCHING');
             $('#browse-label').hide();
             $('#search-grid').hide();
             $('#search-loader').show();
+            if (typeof $event != 'undefined') $event.preventDefault();
             if (typeof search_keyword == 'undefined') search_keyword = '';
             if (typeof $scope.time_open == 'undefined') $scope.time_open = '';
             var data = {
