@@ -6,6 +6,7 @@ My Business
 
 @section('styles')
     <link rel='stylesheet' type='text/css' href='/css/business/business.css'>
+    <link rel='stylesheet' type='text/css' href='/css/business/responsive.css'>
     <link rel='stylesheet' type='text/css' href='/css/dashboard.css'>
     <link rel='stylesheet' type='text/css' href='/css/dashboard/dashboard.css'>
     <link media="all" type="text/css" rel="stylesheet" href="/css/jquery.timepicker.min.css">
@@ -37,19 +38,19 @@ My Business
         <div class="biz-details-wrap">
             <div class="col-md-12">
                 <div class="row">
-                    <img class="col-md-2 col-xs-4" src="/img/biz-qrcode.jpg">
-                    <div class="biz-details col-md-7 col-xs-12">
+                    <img class="col-md-2 col-sm-2 dnmobile" src="/img/biz-qrcode.jpg">
+                    <div class="biz-details col-md-6 col-sm-6 col-xs-12">
                         <h2>@{{ business_name }}</h2>
                         <p class="address"><span class="glyphicon glyphicon-map-marker"></span> @{{ business_address }}</p>
                         {{--<p class="contact"><span class="glyphicon glyphicon-phone-alt"></span> +032 259 8611 / +038 259 8622 </p><br>--}}
                         <a class="btn btn-sm btn-primary" href="{{ url('business/pdf-download/' . $business_id) }}" target="_blank">Download QR Code</a>
                     </div>
                     <point-of-interest position="bottom" bottom="37" right="83" title="Download QR Code" description="Download this QR Code so you can print it out and post it for your customers to view your broadcast screen from their mobile phones."></point-of-interest>
-                    <div class="col-md-3 col-xs-10 ">
-                        <a id="view-broadcast" href="{{ url('broadcast/business/' . $business_id) }}" target="_blank">View Broadcast Screen</a>
+                    <div class="col-md-4 col-sm-6 col-xs-12 ">
+                        <a id="view-broadcast" href="{{ url('broadcast/business/' . $business_id) }}" target="_blank"><span class="glyphicon glyphicon-th-large"></span> View Broadcast Screen</a>
                         <point-of-interest position="left" bottom="55" right="100" title="Broadcast Page" description="Click on the <strong>View Broadcast Page</strong> link to view the numbers being called."></point-of-interest>
                         <div id="process-queue" href="#" class="edit-biz process-queue">
-                            <a href="#" style="">Process <br>Queue</a>
+                            <a href="#" style=""><span class="glyphicon glyphicon-share-alt"></span>Process Queue</a>
                             <div class="biz-terminals">
                                 <div class="clearfix">
                                     <div ng-repeat="terminal in terminals" >
@@ -83,6 +84,7 @@ My Business
                         <li class=""><a href="#settings" id="settings-tab" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
                         <li class=""><a href="#analytics" id="analytics-tab" data-toggle="tab"><span class="glyphicon glyphicon-stats"></span> Analytics</a></li>
                         <li class=""><a href="#messages" id="messages-tab" data-toggle="tab" ng-click="displayMessageList(business_id)"><span class="glyphicon glyphicon-envelope"></span> Messages</a></li>
+                        <li class="dndesktop"><a href="" id="" data-toggle="tab"></a></li>
                     </ul>
                     <div id="bizTabContent" class="tab-content" style="">
                         <div class="col-md-12">

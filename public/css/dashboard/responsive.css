@@ -65,9 +65,6 @@
         height: inherit!important;
         padding-bottom: 40px;
     }
-    #bizTab li {
-        width: 33.33%;
-    }
     .biz-navs .nav-tabs li a {
         border-top-right-radius: 0!important;
         border-top-left-radius: 0!important;

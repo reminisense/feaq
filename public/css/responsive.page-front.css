@@ -123,6 +123,7 @@
 }
 
 @media (max-width: 480px) {
+
     .navbar-brand {
         margin-left: 20px;
     }

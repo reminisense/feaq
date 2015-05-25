@@ -215,6 +215,10 @@
     #search-suggest {
         top: 50%;
     }
+    #modal-yfacebook .modal-body {
+        padding-left: 20px!important;
+        padding-right: 20px!important;
+    }
 }
 @media (max-width: 320px) {
     .open>.dropdown-toggle.btn-default {

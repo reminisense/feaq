@@ -20,25 +20,32 @@
 #view-broadcast,
 #process-queue {
     font-family: 'ralewaybold';
+    font-size: 16px;
     display: block;
-    padding: 9px 20px 6px 98px;
-    -webkit-border-radius: 5px;
+    padding: 19px 20px;
+    -webkit-border-radius: 8px;
     border-radius: 5px;
-    height: 56px;
     margin-top: 8px;
     line-height: 18px;
     vertical-align: middle;
 }
+
 #view-broadcast {
     margin-top: 30px;
     color: #fff;
-    background: #00ba8b url('/img/bg-view-broadcast.png') left no-repeat;
+    /*background: #00ba8b url('/img/bg-view-broadcast.png') left no-repeat;*/
+    background: #00ba8b;
 }
 #process-queue {
     position: relative;
     overflow: hidden;
     color: #fff;
-    background: #ff925b url('/img/bg-processqueue.png') left no-repeat;
+    /*background: #ff925b url('/img/bg-processqueue.png') left no-repeat;*/
+    background: #ff925b;
+}
+#process-queue a > span,
+#view-broadcast > span {
+    margin-right: 8px;
 }
 #view-broadcast:hover {
     background-color: #009b74;
@@ -189,4 +196,11 @@ h5>small {
 .biz-navs .nav-tabs li a {
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
+}
+.dndesktop {
+    display: none!important;
+}
+
+.dndesktop a:hover {
+    background: none!important;
 }
