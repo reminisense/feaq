@@ -5,7 +5,8 @@ Dashboard
 @stop
 
 @section('styles')
-<link rel='stylesheet' type='text/css' href='css/dashboard/dashboard.css'>
+<link rel='stylesheet' type='text/css' href='/css/dashboard/dashboard.css'>
+<link rel='stylesheet' type='text/css' href='/css/dashboard/responsive.css'>
 @stop
 
 @section('scripts')
