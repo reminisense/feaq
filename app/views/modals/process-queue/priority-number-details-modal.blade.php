@@ -38,23 +38,30 @@
                     </div>
                     <div class="tab-pane fade in" id="messages">
                         <div class="row">
-                            <div class="col-md-12 text-center"><h5>Messages from <span>Name</span></h5></div>
-                            <div class="col-md-12">
+                            <div class="col-md-12 text-center"><h5>Conversation History</h5></div>
+                            <div class="col-md-12" style="max-height: 300px; overflow: auto;">
                                 <div ng-repeat="message in messages">
                                     <div ng-if="message.sender == 'user'" class="alert alert-success">
-                                        <strong>User: </strong>
-                                        @{{ message.content }}
+                                        <p>
+                                            <strong>User: </strong>
+                                            @{{ message.content }}
+                                            <span class="pull-right">Sent @{{ message.timestamp }}</span>
+                                        </p>
                                     </div>
                                     <div ng-if="message.sender == 'business'" class="alert alert-info">
-                                        <strong>You: </strong>
-                                        @{{ message.content }}
+                                        <p>
+                                            <strong>You: </strong>
+                                            @{{ message.content }}
+                                            <span class="pull-right">Sent @{{ message.timestamp }}</span>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <h5>Send A Message to <span>Phone number</span></h5>
-                                <textarea class="form-control" rows="5" placeholder="Write a message..." style="resize: none;"></textarea>
-                                <button class="btn btn-primary btn-md pull-right">SEND</button>
+                                <h5>Send A Message</h5>
+                                Send to Phone: <input type="checkbox" ng-model="send_to_phone">
+                                <textarea class="form-control" rows="5" placeholder="Write a message..." style="resize: none;" ng-model="message_reply"></textarea>
+                                <button class="btn btn-primary btn-md pull-right" ng-click="sendBusinessReply()">SEND</button>
                             </div>
                         </div>
                     </div>

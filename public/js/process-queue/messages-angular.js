@@ -4,15 +4,24 @@
 app.controller('messageController', function($scope, $http){
     $scope.messages = [];
     $scope.getMessages = function(){
-        console.log(pq.ids.business_id);
-        console.log($('#priority-number-email').html());
-        data = {
+        $http.post('/message/business-user-thread', {
             business_id : pq.ids.business_id,
             email: $('#priority-number-email').html()
-        }
-        $http.post('/message/business-user-thread', data).success(function(response) {
+        }).success(function(response) {
             $scope.messages = response.contactmessage;
-            console.log(response);
+        });
+    }
+
+    $scope.sendBusinessReply = function(){
+        $http.post('/message/sendto-user', {
+            business_id: pq.ids.business_id,
+            contactemail: $('#priority-number-email').html(),
+            phonenumber : $('#priority-number-phone').html(),
+            messageContent: $scope.message_reply,
+            sendbyphone : $scope.send_to_phone
+        }).success(function(response){
+            $scope.message_reply = '';
+            $scope.getMessages();
         });
     }
 });
