@@ -1,5 +1,5 @@
 <!-- modal -->
-<div class="modal fade" id="priority-number-modal" tabindex="-1">
+<div class="modal fade" id="priority-number-modal" tabindex="-1" ng-controller="messageController">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,7 +11,7 @@
             <div class="modal-body">
                 <ul id="pmore-tab" class="nav nav-tabs nav-justified">
                     <li class="active"><a href="#details" data-toggle="tab">DETAILS</a></li>
-                    <li><a href="#messages" data-toggle="tab" >MESSAGES</a></li>
+                    <li><a href="#messages" data-toggle="tab" ng-click="getMessages()">MESSAGES</a></li>
                 </ul>
                 <div class="clearfix tab-content">
                     <div class="tab-pane fade active in" id="details">
@@ -39,11 +39,22 @@
                     <div class="tab-pane fade in" id="messages">
                         <div class="row">
                             <div class="col-md-12 text-center"><h5>Messages from <span>Name</span></h5></div>
-                            <div class="col-md-12"></div>
+                            <div class="col-md-12">
+                                <div ng-repeat="message in messages">
+                                    <div ng-if="message.sender == 'user'" class="alert alert-success">
+                                        <strong>User: </strong>
+                                        @{{ message.content }}
+                                    </div>
+                                    <div ng-if="message.sender == 'business'" class="alert alert-info">
+                                        <strong>You: </strong>
+                                        @{{ message.content }}
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-md-12">
                                 <h5>Send A Message to <span>Phone number</span></h5>
                                 <textarea class="form-control" rows="5" placeholder="Write a message..." style="resize: none;"></textarea>
-                                <button>Send</button>
+                                <button class="btn btn-primary btn-md pull-right">SEND</button>
                             </div>
                         </div>
                     </div>

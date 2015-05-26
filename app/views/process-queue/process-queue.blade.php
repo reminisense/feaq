@@ -15,6 +15,7 @@ Processs Queue > {{ $business_name }}
 <script src="/js/process-queue/process-queue.js"></script>
 <script src="/js/process-queue/process-queue-angular.js"></script>
 <script src="/js/process-queue/issue-number-angular.js"></script>
+<script src="/js/process-queue/messages-angular.js"></script>
 <script src="/js/dashboard/dashboard.js"></script>
 
 {{--<script src="/js/google-analytics/googleAnalytics.js"></script>--}}
@@ -121,6 +122,7 @@ Processs Queue > {{ $business_name }}
 <!-- urls -->
 <input type="hidden" id="service-id" value="{{ $service_id }}">
 <input type="hidden" id="terminal-id" value="{{ $terminal_id }}">
+<input type="hidden" id="business-id" value="{{ $business_id }}">
 <input type="hidden" id="all-numbers-url" value="{{ url('/processqueue/allnumbers/') }}">
 <input type="hidden" id="call-number-url" value="{{ url('/processqueue/callnumber/') }}">
 <input type="hidden" id="serve-number-url" value="{{ url('/processqueue/servenumber/') }}">
