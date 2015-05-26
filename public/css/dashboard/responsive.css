@@ -34,7 +34,7 @@
     .filterwrap .btn-orange {
         border-bottom-left-radius: 4px!important;
         border-top-left-radius: 4px!important;
-        margin-top: 10px;
+        /*margin-top: 10px;*/
     }
     #time_open-filter {
         border: none!important;
@@ -84,6 +84,14 @@
     .processq-box .q-actions .btn-orange {
         margin-top: 11px!important;
         width: 100%;
+    }
+    nav.pull-right {
+        float: none!important;
+    }
+}
+@media (max-width: 767px) {
+    .filterwrap .btn-orange {
+        margin-top: 12px;
     }
 }
 @media (max-width: 480px) {
@@ -220,6 +228,9 @@
     #search-suggest {
         width: 100%!important;
     }
+    nav.pull-right {
+        float: none!important;
+    }
 
 
 }
@@ -301,5 +312,8 @@
     .cancel-adduser, .cancel-add-terminal {
         width: 100px;
         margin-top: 2px;
+    }
+    nav.pull-right {
+        float: none!important;
     }
 }

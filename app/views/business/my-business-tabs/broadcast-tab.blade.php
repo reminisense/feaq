@@ -105,7 +105,7 @@
 </div>
 
 
-<div class="col-md-12">
+<div class="col-md-6 col-sm-12">
     <strong><input type="checkbox" ng-model="show_called_only" ng-click="activateTheme(theme_type, business_id, show_called_only)"> Show only called numbers in broadcast page</strong>
-    <div role="alert" class="alert alert-info" style="padding: 0px 10px; font-size: 11px;">Check this box if there is a need to show only the numbers called by the counters.</div>
+    <div role="alert" class="alert alert-info" style="padding: 10px 10px; font-size: 12px; margin-top:12px;">Check this box if there is a need to show only the numbers called by the counters.</div>
 </div>

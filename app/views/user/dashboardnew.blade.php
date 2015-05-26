@@ -5,7 +5,8 @@ Dashboard
 @stop
 
 @section('styles')
-<link rel='stylesheet' type='text/css' href='css/dashboard/dashboard.css'>
+<link rel='stylesheet' type='text/css' href='/css/dashboard/dashboard.css'>
+<link rel='stylesheet' type='text/css' href='/css/dashboard/responsive.css'>
 @stop
 
 @section('scripts')
@@ -87,7 +88,7 @@ Dashboard
             <div class="col-md-12 col-xs-12 col-sm-12">
                 <h5 class="mb30 searchresults" ng-hide="searchLabel == '' || searchLabel == undefined">@{{ searchLabel }}</h5>
             </div>
-            <div class="col-md-3" ng-repeat="business in businesses">
+            <div class="col-md-3 col-sm-4 col-xs-12" ng-repeat="business in businesses">
                 <a class="broadcast_link" href="/broadcast/business/@{{ business.business_id }}" target="_blank">
                     <div class="boxed">
                         <p class="title">@{{ business.business_name }}</p>

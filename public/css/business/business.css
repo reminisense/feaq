@@ -4,8 +4,6 @@
 }
 .biz-details-wrap {
     margin: 50px 0 40px;
-    padding-left: 15px;
-    padding-right: 15px;
 }
 .biz-navs {
     margin-top: 50px;
@@ -31,7 +29,7 @@
 }
 
 #view-broadcast {
-    margin-top: 30px;
+    /*margin-top: 30px;*/
     color: #fff;
     /*background: #00ba8b url('/img/bg-view-broadcast.png') left no-repeat;*/
     background: #00ba8b;
@@ -88,12 +86,17 @@
     text-decoration: none;
     cursor: pointer;
 }
-.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li>a:hover,.nav-tabs>li.active>a:hover {
     background-color: #00ba8b;
     color: #fff;
-    border-bottom: 1px solid #00ba8b;
+    border: none;
 }
-
+.nav-tabs>li>a {
+    padding: 15px 20px;
+    border: none;
+    color: #fff;
+    background-color: #333a44;
+}
 #bizTabContent,
 #box-wrapper {
     background-color: #fff;
@@ -106,9 +109,6 @@
     min-height: 300px;
 }
 #box-wrapper {min-height: 80px;}
-#bizTabContent p {
-    margin-bottom: 20px;
-}
 .biz-details h2 {
     text-shadow: 0 1px 0 #ffffff;
     font-family: 'ralewaybold';
@@ -119,6 +119,9 @@
 }
 .biz-details p {
     margin-bottom: 5px;
+}
+.biz-details a {
+    margin-bottom: 20px;
 }
 
 /*ARA 04082015*/
@@ -165,6 +168,7 @@
 #bizTabContent .tab-pane h5 {
     margin-bottom: 30px;
     font-size: 16px;
+    color: #00ba8b;
 }
 #edit_business, #delete_business {
     margin-bottom: 20px;
@@ -204,3 +208,225 @@ h5>small {
 .dndesktop a:hover {
     background: none!important;
 }
+
+/* CSD 05252015 From css/dashboard.css */
+.btn {
+    border: none;
+    -webkit-border-radius: 23px;
+    -moz-border-radius: 23px;
+    border-radius: 23px;
+    padding-left: 24px;
+    padding-right: 24px;
+    font-family: 'ralewaybold';
+    font-size: 12px;
+    font-weight: normal;
+    color: #fff;
+}
+.btn:hover,
+.btn.focus, .btn:focus {
+    color: #fff;
+    outline: 0;
+}
+.btn-orange {
+    background-color: #ff925b;
+}
+.btn-orange:hover {
+    background-color: #ed701c;
+}
+.btn-blue {
+    background-color: #5b75b3;
+}
+.btn-blue:hover {
+    background-color: #5880de;
+}
+.btn-half {
+    -webkit-border-radius: 23px;
+    -webkit-border-top-right-radius: 1px;
+    -webkit-border-bottom-right-radius: 1px;
+    -moz-border-radius: 23px;
+    -moz-border-radius-topright: 1px;
+    -moz-border-radius-bottomright: 1px;
+    border-radius: 23px;
+    border-top-right-radius: 1px;
+    border-bottom-right-radius: 1px;
+}
+.button span {
+    padding-right: 15px;
+}
+.btn-getnum {
+    padding: 14px 30px;
+    font-size: 14px;
+    width: 100%;
+    /*margin-top: 14px;*/
+}
+.btn-getnum span {
+    padding-left: 4px;
+    font-size: 13px;
+    vertical-align: middle;
+    margin-top: -3px;
+}
+
+.btn-select {
+    background: none;
+    outline: none;
+    border: none;
+    padding: 8px 20px;
+    border: 1px solid #777;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.btn-cyan {
+    background-color: #00ba8b;
+}
+.btn-gray {
+    background-color: #858689;
+}
+.btn-group.open .dropdown-toggle {
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .4);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .4);
+}
+
+#editbiz-tabs {
+    padding-left: 13px;
+    padding-right: 13px;
+    margin-bottom: 20px;
+}
+#editbiz-tabs a {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    margin-right: 1px;
+}
+.btn-boxy {
+    border: none;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-family: 'ralewayregular';
+    font-size: 12px;
+    font-weight: normal;
+    color: #fff;
+}
+.inline-btns a {
+    margin: 4px 0px 4px 0px;
+}
+#bizbroadcast .inline-btns p {
+    height: 22px;
+}
+.btn-boxy:hover {
+    text-decoration: none;
+}
+.nomg {
+    margin: 0;
+}
+#inputterminal {
+    display: none;
+}
+.mb10 {
+    margin-bottom: 10px;
+}
+.mt10 {
+    margin-top: 10px;
+}
+
+.mt20 {
+    margin-top: 20px;
+}
+
+.table .block a {
+    display: inline-block;
+}
+
+.table>tbody>tr>td {
+    border-top: none;
+}
+
+.timestamp {
+    font-size: 12px;
+    color: #000;
+    margin-bottom: 0px!important;
+}
+
+.sender {
+    color: #000;
+}
+
+.messagefrom, .messageto {
+    padding: 20px;
+    color: #000;
+}
+.messagefrom {
+    border-top: 1px solid rgb(0, 186, 139);
+    background-color: rgba(0, 186, 139, 0.2);
+}
+
+.messageto {
+    border-top: 1px solid rgb(255, 146, 91);
+    background-color: rgba(255, 146, 91, 0.2);
+}
+
+.optionlabel {
+    padding-left: 10px;
+}
+
+.phone-select {
+    margin-bottom: 0px!important;
+}
+
+#select-phone-div {
+    padding-top: 15px;
+}
+
+.biz-terminals {
+    display: none;
+    background-color: #1f5297;
+    width: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+}
+.biz-terminals a {
+    float: left;
+    width: 33.3333%;
+    text-align: center;
+    display: block;
+    height: 100%;
+    padding: 11px 0;
+}
+.biz-terminals a:hover {
+    background-color: #3c93e4;
+    text-decoration: none;
+}
+.biz-terminals a.not-active {
+    opacity: 0.3;
+}
+.biz-terminals a.not-active:hover {
+    cursor: text;
+    background: none;
+}
+.biz-terminals a small {
+    display: block;
+    color: #fff;
+    height: 100%;
+}
+
+#input_sms_field {
+    border: none;
+    border-bottom: 1px solid #c7c7c7;
+    width: 30px;
+    padding-bottom: 4px;
+    text-align: center;
+}
+
+input#input_sms_field:focus{
+    outline-width: 0;
+    background-color: #fff9e3;
+
+}
+
+.orange {
+    color: #ff8649!important;
+}
+
+
