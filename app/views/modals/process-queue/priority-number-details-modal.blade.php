@@ -9,43 +9,43 @@
                 <h3 class="modal-title" id=""></h3>
             </div>
             <div class="modal-body">
-                <table>
+                <table class="table table-striped clearfix" style="margin-bottom: 0;">
                     <tr>
-                        <td class="row">
-                            <div class="col-lg-1"><h5>Priority Number: </h5></div>
+                        <td class="col-md-5">
+                            <h5>Priority Number: </h5>
                         </td>
-                        <td class="row">
-                            <div class="col-lg-11" id="priority-number-number"></div>
+                        <td class="col-md-7">
+                            <div id="priority-number-number"></div>
                         </td>
                     </tr>
                     <tr>
-                        <td class="row">
-                            <div class="col-lg-1"><h5>Name: </h5></div>
-                        </td>
-                        <td class="row">
-                            <div class="col-lg-11" id="priority-number-name"></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="row">
-                            <div class="col-lg-1"><h5>Phone: </h5></div>
-                        </td>
-                        <td class="row">
-                            <div class="col-lg-11" id="priority-number-phone"></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="row">
-                            <div class="col-lg-1"><h5>Email: </h5></div>
+                        <td>
+                            <h5>Name: </h5>
                         </td>
                         <td>
-                            <div class="col-lg-11" id="priority-number-email"></div>
+                            <div id="priority-number-name"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h5>Phone: </h5>
+                        </td>
+                        <td>
+                            <div id="priority-number-phone">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h5>Email: </h5>
+                        </td>
+                        <td>
+                            <div id="priority-number-email"></div>
                         </td>
                     </tr>
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-orange btn-lg" data-dismiss="modal" aria-label="Close">CLOSE</button>
+                <button type="button" class="btn btn-orange btn-md" data-dismiss="modal" aria-label="Close">CLOSE</button>
             </div>
         </div>
     </div>
