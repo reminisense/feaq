@@ -17,6 +17,9 @@
     .biz-navs .nav-tabs li a {
         border-radius: 0!important;
     }
+    .well a.btn-boxy {
+        margin-bottom: 20px;
+    }
 }
 @media (min-width: 480px) and (max-width: 768px) {
     .dnmobile {
@@ -49,6 +52,12 @@
     }
     nav.pull-right {
         float: none!important;
+    }
+    .delete-terminal-button {
+        margin-top: 8px;
+    }
+    .well a.btn-boxy {
+        margin-bottom: 20px;
     }
 }
 @media (max-width: 480px) {
@@ -85,6 +94,12 @@
     nav.pull-right {
         float: none!important;
     }
+    .delete-terminal-button {
+        margin-top: 8px;
+    }
+    .well a.btn-boxy {
+        margin-bottom: 20px;
+    }
 }
 @media (max-width: 320px) {
     .dnmobile {
@@ -119,5 +134,11 @@
     }
     nav.pull-right {
         float: none!important;
+    }
+    .delete-terminal-button {
+        margin-top: 8px;
+    }
+    .well a.btn-boxy {
+        margin-bottom: 20px;
     }
 }

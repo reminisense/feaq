@@ -8,6 +8,9 @@
     .q-actions #btn-pmore {
         width: 100%;
     }
+    nav.pull-right {
+        float: none!important;
+    }
 }
 @media (max-width: 480px) {
     .q-actions .btn-orange {
@@ -16,6 +19,9 @@
     }
     .q-actions #btn-pmore {
         width: 100%;
+    }
+    nav.pull-right {
+        float: none!important;
     }
 
 }
@@ -26,5 +32,8 @@
     .q-actions .btn-orange {
         margin-top: 20px;
         width: 100%;
+    }
+    nav.pull-right {
+        float: none!important;
     }
 }

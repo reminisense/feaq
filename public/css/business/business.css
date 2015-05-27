@@ -428,5 +428,8 @@ input#input_sms_field:focus{
 .orange {
     color: #ff8649!important;
 }
+.well a.btn-boxy {
+    display: inline-block;
+}
 
 
