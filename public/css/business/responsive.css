@@ -100,6 +100,10 @@
     .well a.btn-boxy {
         margin-bottom: 20px;
     }
+    .activated {
+        line-height: 32px;
+        margin-bottom: 20px;
+    }
 }
 @media (max-width: 320px) {
     .dnmobile {
@@ -139,6 +143,10 @@
         margin-top: 8px;
     }
     .well a.btn-boxy {
+        margin-bottom: 20px;
+    }
+    .activated {
+        line-height: 32px;
         margin-bottom: 20px;
     }
 }
