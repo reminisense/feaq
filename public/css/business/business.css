@@ -4,8 +4,6 @@
 }
 .biz-details-wrap {
     margin: 50px 0 40px;
-    padding-left: 15px;
-    padding-right: 15px;
 }
 .biz-navs {
     margin-top: 50px;
@@ -31,7 +29,7 @@
 }
 
 #view-broadcast {
-    margin-top: 30px;
+    /*margin-top: 30px;*/
     color: #fff;
     /*background: #00ba8b url('/img/bg-view-broadcast.png') left no-repeat;*/
     background: #00ba8b;
@@ -121,6 +119,9 @@
 }
 .biz-details p {
     margin-bottom: 5px;
+}
+.biz-details a {
+    margin-bottom: 20px;
 }
 
 /*ARA 04082015*/
@@ -427,3 +428,8 @@ input#input_sms_field:focus{
 .orange {
     color: #ff8649!important;
 }
+.well a.btn-boxy {
+    display: inline-block;
+}
+
+

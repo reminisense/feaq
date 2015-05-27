@@ -102,6 +102,9 @@
 #pmore-tab {
     margin-bottom: 15px;
 }
+.nav>li>a {
+    padding: 15px 20px;
+}
 #pmore-tab li.active a {
     background-color: #ff925b;
     color: #fff;
