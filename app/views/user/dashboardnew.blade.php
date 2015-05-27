@@ -5,7 +5,8 @@ Dashboard
 @stop
 
 @section('styles')
-<link rel='stylesheet' type='text/css' href='css/dashboard/dashboard.css'>
+<link rel='stylesheet' type='text/css' href='/css/dashboard/dashboard.css'>
+<link rel='stylesheet' type='text/css' href='/css/dashboard/responsive.css'>
 @stop
 
 @section('scripts')
@@ -50,7 +51,7 @@ Dashboard
                                     <input class="" type="text" placeholder="ie: Ng Khai Devt Corp" id="search-keyword" ng-model="search_keyword" ng-model-options="{debounce: 1000}" autocomplete="off">
                                     <ul class="dropdown-menu" role="menu" id="search-suggest" ng-hide="dropdown_businesses.length == 0"  outside-click="dropdown_businesses = []">
                                         <li ng-repeat="business in dropdown_businesses">
-                                            <a href="#" ng-click="searchBusiness(location_filter, industry_filter, business.name)">
+                                            <a href="#" ng-click="searchBusiness(location_filter, industry_filter, business.name, $event)">
                                                 <strong class="business-name">@{{ business.name }}</strong><br>
                                                 <small class="address">@{{ business.local_address }}</small>
                                             </a>
@@ -85,9 +86,9 @@ Dashboard
     <div class="container">
         <div class="row" id="search-grid" style="display: none;">
             <div class="col-md-12 col-xs-12 col-sm-12">
-                <h5 class="mb30 searchresults">@{{ searchLabel }}</h5>
+                <h5 class="mb30 searchresults" ng-hide="searchLabel == '' || searchLabel == undefined">@{{ searchLabel }}</h5>
             </div>
-            <div class="col-md-3" ng-repeat="business in businesses">
+            <div class="col-md-3 col-sm-4 col-xs-12" ng-repeat="business in businesses">
                 <a class="broadcast_link" href="/broadcast/business/@{{ business.business_id }}" target="_blank">
                     <div class="boxed">
                         <p class="title">@{{ business.business_name }}</p>

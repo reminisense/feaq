@@ -85,24 +85,35 @@ class MessageController extends BaseController {
   }
 
   public function postMessageThread() {
-    $message_content = array();
-    $data = json_decode(file_get_contents(public_path() . '/json/messages/' . Message::getThreadKeyByMessageId(Input::get('message_id')) . '.json'));
-    foreach ($data as $count => $content) {
-      $message_content[] = array(
-        'timestamp' => date("Y-m-d h:i A", $content->timestamp),
-        'content' => $content->contmessage,
-        'sender' => $content->sender,
-      );
-    }
-    return json_encode(array('contactmessage' => $message_content));
+    return $this->getMessageThread(Message::getThreadKeyByMessageId(Input::get('message_id')));
   }
 
   public function postPhoneList() {
     return json_encode(array('numbers' => unserialize(Message::getPhoneByMessageId(Input::get('message_id')))));
   }
 
-  private function threadKeyGenerator($business_id, $email) {
-    return md5($business_id . 'fq' . $email);
-  }
+    public function postBusinessUserThread(){
+        $business_id = Input::get('business_id');
+        $email = Input::get('email');
+        $thread_key = Message::getThreadKeyByBusinessIdAndEmail($business_id, $email);
+        return $this->getMessageThread($thread_key);
+    }
+
+    private function threadKeyGenerator($business_id, $email) {
+        return md5($business_id . 'fq' . $email);
+    }
+
+    private function getMessageThread($thread_key){
+        $message_content = array();
+        $data = json_decode(file_get_contents(public_path() . '/json/messages/' . $thread_key . '.json'));
+        foreach ($data as $count => $content) {
+            $message_content[] = array(
+                'timestamp' => date("Y-m-d h:i A", $content->timestamp),
+                'content' => $content->contmessage,
+                'sender' => $content->sender,
+            );
+        }
+        return json_encode(array('contactmessage' => $message_content));
+    }
 
 }

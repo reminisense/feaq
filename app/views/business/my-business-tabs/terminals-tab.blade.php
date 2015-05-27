@@ -20,7 +20,7 @@
             <span class="">
                 <a href="" ng-click="editTerminal($event, terminal.terminal_id)" class="edit-terminal-button btn-boxy btn-primary" terminal_id="@{{ terminal.terminal_id }}" ><span class="glyphicon glyphicon-pencil"></span> Edit</a>
                 <a href="" ng-click="updateTerminal($event, terminal.terminal_id)" class="update-terminal-button btn-boxy btn-primary" terminal_id="@{{ terminal.terminal_id }}" style="display: none;"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
-                <a href="" ng-click="deleteTerminal($event, terminal.terminal_id)" class="delete-terminal-button btn-boxy btn-primary"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+                <a href="" ng-click="deleteTerminal($event, terminal.terminal_id)" class="delete-terminal-button btn-boxy btn-primary" style="display:inline-block;"><span class="glyphicon glyphicon-trash"></span> Delete</a>
             </span>
             </div>
             <div style="display: none; margin-top: 10px;" class="alert alert-danger terminal-error-message" terminal_id="@{{ terminal.terminal_id }}"> Terminal name already exists.</div>
@@ -29,7 +29,7 @@
         <span ng-if="terminal.users.length != 0">
             <span ng-repeat="user in terminal.users">
                 <span class="terminal_user">@{{ user.first_name + ' ' + user.last_name }}</span>
-                <div class="block terminal-buttons">
+                <div class="mt10 mb10 block terminal-buttons">
                     <a href="" class="btn-boxy btn-primary" ng-click="unassignFromTerminal(user.user_id, user.terminal_id)"><span class="glyphicon glyphicon-remove"></span> Remove</a>
                     <span class="inline-btns" ng-if="terminal.users.length < 3">
                         <span ng-if="user.user_id == terminal.users[terminal.users.length - 1].user_id">
@@ -83,10 +83,10 @@
             <div></div>
         </td>
         <td>
-            <div class="block mb10">
+            <div class="block mt10 mb10">
                 <a href="" id="btn-addterminal" class="btn-boxy btn-xs btn-primary"><span class="glyphicon glyphicon-add"></span> Add Terminal</a>
                 <form id="inputterminal-form" ng-submit="createTerminal(terminal_name)">
-                    <div id="inputterminal" class="row">
+                    <div id="inputterminal">
                         <div class="">
                             <input type="text" class="form-control" ng-model="terminal_name" placeholder="Terminal Name">
                         </div>

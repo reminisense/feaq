@@ -11,11 +11,11 @@
     <link rel="shortcut icon" id="favicon" href="{{URL::to('/images/favicon.png')}}">
     <link rel="stylesheet" type='text/css' href="/css/bootstrap.min.css">
     <link rel='stylesheet' type='text/css' href='/css/global.css'>
-    <link rel='stylesheet' type='text/css' href='/css/dashboard/responsive.css'>
     <link media="all" type="text/css" rel="stylesheet" href="/css/intlTelInput.css">
     <link rel='stylesheet' type='text/css' href='/css/modal.css'>
     <link rel='stylesheet' type='text/css' href='/css/refresh-animate.css'>
     <link rel='stylesheet' type='text/css' href='/css/dashboard/points-of-interest.css'> {{--ARA points of interest--}}
+    <link media="all" type="text/css" rel="stylesheet" href="/css/jquery.timepicker.min.css">
 
     @yield('styles')
 

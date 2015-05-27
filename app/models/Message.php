@@ -32,4 +32,8 @@ class Message extends Eloquent {
     return Message::where('business_id', '=', $business_id)->get();
   }
 
+  public static function getThreadKeyByBusinessIdAndEmail($business_id, $email) {
+    return Message::where('business_id', '=', $business_id)->where('email', '=', $email)->select(array('thread_key'))->first()->thread_key;
+  }
+
 }
