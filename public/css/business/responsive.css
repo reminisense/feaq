@@ -54,10 +54,23 @@
         float: none!important;
     }
     .delete-terminal-button {
-        margin-top: 8px;
+        margin-top: 4px;
     }
     .well a.btn-boxy {
         margin-bottom: 20px;
+    }
+    .activated {
+        line-height: 32px;
+        margin-bottom: 20px;
+    }
+    .btn-removeuser, .btn-adduser {
+        width: 90px;
+    }
+    .delete-terminal-button, .edit-terminal-button, .update-terminal-button {
+        width: 90px;
+    }
+    .cancel-adduser, .cancel-add-terminal  {
+        margin-top: 4px;
     }
 }
 @media (max-width: 480px) {
@@ -95,7 +108,7 @@
         float: none!important;
     }
     .delete-terminal-button {
-        margin-top: 8px;
+        margin-top: 4px;
     }
     .well a.btn-boxy {
         margin-bottom: 20px;
@@ -103,6 +116,15 @@
     .activated {
         line-height: 32px;
         margin-bottom: 20px;
+    }
+    .btn-removeuser, .btn-adduser {
+        width: 90px;
+    }
+    .delete-terminal-button, .edit-terminal-button, .update-terminal-button {
+        width: 90px;
+    }
+    .cancel-adduser, .cancel-add-terminal  {
+        margin-top: 4px;
     }
 }
 @media (max-width: 320px) {
@@ -140,7 +162,7 @@
         float: none!important;
     }
     .delete-terminal-button {
-        margin-top: 8px;
+        margin-top: 4px;
     }
     .well a.btn-boxy {
         margin-bottom: 20px;
@@ -148,5 +170,14 @@
     .activated {
         line-height: 32px;
         margin-bottom: 20px;
+    }
+    .btn-removeuser, .btn-adduser {
+        width: 90px;
+    }
+    .delete-terminal-button, .edit-terminal-button, .update-terminal-button {
+        width: 90px;
+    }
+    .cancel-adduser, .cancel-add-terminal {
+        margin-top: 4px;
     }
 }
