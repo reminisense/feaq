@@ -1,7 +1,6 @@
-<div class="col-md-12">
-    <h5>ADVERTISEMENT
-        <small>Display advertisements on your broadcast screen. Choose either Internet TV or Image/Video</small>
-    </h5>
+<div class="clearfix header">
+    <h5>ADVERTISEMENT</h5>
+    <small>Display advertisements on your broadcast screen. Choose either Internet TV or Image/Video</small>
 </div>
 
     <div class="col-md-6 col-xs-12 col-sm-12">
@@ -13,7 +12,7 @@
             <form ng-submit="selectTV(business_id)" id="tv-channel-select">
                         <div class="form-group">
                             <small>Choose channel:</small>
-                            <select ng-model="tv_channel" ng-init="tv_channel" id="tv-channel" class="form-control" style="width: 40%;">
+                            <select ng-model="tv_channel" ng-init="tv_channel" id="tv-channel" class="form-control">
                                 <option value="">- Select A Channel -</option>
                                 @include('business.my-business-tabs.channels')
                             </select>

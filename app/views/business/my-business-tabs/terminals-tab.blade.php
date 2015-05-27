@@ -1,4 +1,6 @@
-<h5>TERMINALS</h5>
+<div class="clearfix header">
+    <h5>TERMINALS</h5>
+</div>
 <form></form> <!-- ARA I just placed this because if not placed other form elements below will not be rendered -->
 <table class="table table-hover table-spaces table-responsive" ng-init="terminal_index = 0">
     <thead>

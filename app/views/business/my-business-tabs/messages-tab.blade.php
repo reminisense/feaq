@@ -1,4 +1,6 @@
-<h5>MESSAGES</h5>
+<div class="clearfix header">
+    <h5>MESSAGES</h5>
+</div>
 <div class="messages">
     <div ng-if="messages.length > 0">
         <div class="col-md-5">
