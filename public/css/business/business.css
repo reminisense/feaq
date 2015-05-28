@@ -516,6 +516,14 @@ input#input_sms_field:focus{
     display: inline-block;
 }
 
+.btn-disabled {
+    background-color: #ccc;
+}
+
+.btn-disabled:hover {
+    color: #fff;
+}
+
 #ad-video {
     display: block;
     width: 100%;
