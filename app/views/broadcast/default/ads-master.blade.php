@@ -35,4 +35,5 @@
 
 <script>
     $('iframe').css({'height' : $(window).height()});
+    $('embed').css({'height' : $(window).height()});
 </script>
