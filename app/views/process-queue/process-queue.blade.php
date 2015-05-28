@@ -18,8 +18,8 @@ Processs Queue > {{ $business_name }}
 <script src="/js/process-queue/messages-angular.js"></script>
 <script src="/js/dashboard/dashboard.js"></script>
 
-{{--<script src="/js/google-analytics/googleAnalytics.js"></script>--}}
-{{--<script src="/js/google-analytics/ga-process_queue.js"></script>--}}
+<script src="/js/google-analytics/googleAnalytics.js"></script>
+<script src="/js/google-analytics/ga-process_queue.js"></script>
 
 @stop
 

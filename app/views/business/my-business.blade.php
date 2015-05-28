@@ -13,8 +13,8 @@ My Business
     <script src="/js/jquery.form.js"></script>
     <script src="/js/dashboard/dashboard.js"></script>
     <script src="/js/dashboard/edit-business.js"></script>
-    {{--<script src="/js/google-analytics/googleAnalytics.js"></script>--}}
-    {{--<script src="/js/google-analytics/ga-dashboard.js"></script>--}}
+    <script src="/js/google-analytics/googleAnalytics.js"></script>
+    <script src="/js/google-analytics/ga-dashboard.js"></script>
 @stop
 
 @section('container')
