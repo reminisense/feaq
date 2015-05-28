@@ -20,12 +20,13 @@
     font-family: 'ralewayregular';
     font-size: 16px;
     display: block;
-    padding: 15px 20px;
+    padding: 20px 20px;
     -webkit-border-radius: 8px;
     border-radius: 5px;
     margin-top: 8px;
     line-height: 18px;
     vertical-align: middle;
+    height: 60px;
 }
 
 #view-broadcast {
@@ -409,10 +410,11 @@ table .title {
 .biz-terminals {
     display: none;
     background-color: #1f5297;
-    width: 100%;
-    left: 0;
-    top: 0;
+    width: 275px;
+    left: 8px;
+    top: 0px;
     position: absolute;
+    -webkit-border-radius: 5px;
 }
 .biz-terminals a {
     float: left;
@@ -466,7 +468,7 @@ table .title {
     padding: 15px;
     overflow: hidden;
     margin-bottom: 15px;
-    min-height:177px;
+    min-height: 65px;
 }
 #biz-grid .boxed:hover {
     background-color: #008160;
