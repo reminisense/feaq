@@ -138,7 +138,7 @@ My Business
                 <div class="col-md-3">
                     <div class="boxed edit-biz process-queue">
                         <p class="title"><span class="glyphicon glyphicon-home"></span> {{ $business['name'] }}</p>
-                        <div class="biz-terminals">
+                        <div class="biz-terminals assigned-terminals">
                             <div class="clearfix">
                                 @foreach($business['terminals'] as $terminal)
                                 <div>
