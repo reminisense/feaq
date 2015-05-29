@@ -95,6 +95,14 @@ var eb = {
         queue_settings : {
             queue_settings_get_url : $('#queue-settings-get-url').val() + '/',
             queue_settings_update_url : $('#queue-settings-update-url').val() + '/'
+        },
+
+        forms : {
+            add_textfield_url : '/forms/add-textfield',
+            add_radiobutton_url : '/forms/add-radiobutton',
+            add_checkbox_url : '/forms/add-checkbox',
+            add_dropdown_url : '/forms/add-dropdown',
+            display_fields_url : '/forms/display-fields'
         }
     },
 
@@ -175,6 +183,7 @@ var eb = {
         $scope.users = [];
         $scope.analytics = [];
         $scope.messages = [];
+        $scope.form_fields = [];
 
         $scope.number_start = 1;
         $scope.terminal_specific_issue = 0;
@@ -678,6 +687,64 @@ var eb = {
                 }
             });
         });
+
+        $scope.addTextField = function(business_id) {
+            $http.post(eb.urls.forms.add_textfield_url, {
+                business_id : business_id,
+                text_field_label : $scope.text_field_label
+            }).success(function(response) {
+                $scope.displayFormFields(business_id);
+                $('#add-text-field').modal('hide');
+                $('#text-field-label').val('');
+            });
+        };
+
+        $scope.addRadioButton = function(business_id) {
+            $http.post(eb.urls.forms.add_radiobutton_url, {
+                business_id : business_id,
+                radio_button_label : $scope.radio_button_label,
+                radio_value_a : $scope.radio_value_a,
+                radio_value_b : $scope.radio_value_b
+            }).success(function(response) {
+                $scope.displayFormFields(business_id);
+                $('#add-radio-button').modal('hide');
+                $('#radio-button-label').val('');
+                $('#radio-value-a').val('');
+                $('#radio-value-b').val('');
+            });
+        };
+
+        $scope.addCheckbox = function(business_id) {
+            $http.post(eb.urls.forms.add_checkbox_url, {
+                business_id : business_id,
+                checkbox_label : $scope.checkbox_label
+            }).success(function(response) {
+                $scope.displayFormFields(business_id);
+                $('#add-check-box').modal('hide');
+                $('#check-box-label').val('');
+            });
+        };
+
+        $scope.addDropdown = function(business_id) {
+            $http.post(eb.urls.forms.add_dropdown_url, {
+                business_id : business_id,
+                dropdown_label : $scope.dropdown_label,
+                dropdown_options : $scope.dropdown_options
+            }).success(function(response) {
+                $scope.displayFormFields(business_id);
+                $('#add-dropdown').modal('hide');
+                $('#dropdown-label').val('');
+                $('#dropdown-options').val('');
+            });
+        };
+
+        $scope.displayFormFields = function(business_id) {
+            $http.post(eb.urls.forms.display_fields_url, {
+                business_id : business_id
+            }).success(function(response) {
+               $scope.form_fields = response.form_fields;
+            });
+        };
     });
 
 })();

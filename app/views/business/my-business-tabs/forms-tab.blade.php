@@ -1,6 +1,53 @@
 <h5 class="col-md-12">
     FORM CUSTOMIZATION
+    <small>Customize the contact form to suit your business needs.</small>
 </h5>
 <div class="col-md-12">
-    <div role="alert" class="alert alert-info" style="padding: 0px 10px; font-size: 11px;">Customize the contact form to suit your business needs.</div>
+    <div class="well">
+        <div class="row">
+            <div class="col-md-3">
+                <button type="button" id="add_textfield" class="btn btn-orange btn-lg" data-target="#add-text-field" data-toggle="modal" style="width: 100%; margin-bottom: 5px;"><span class="glyphicon glyphicon-text-size"></span> Add Text Field</button>
+            </div>
+            <div class="col-md-3">
+                <button type="button" id="add_radio" class="btn btn-orange btn-lg" data-target="#add-radio-button" data-toggle="modal" style="width: 100%; margin-bottom: 5px;"><span class="glyphicon glyphicon-record"></span> Add Radio</button>
+            </div>
+            <div class="col-md-3">
+                <button type="button" id="add_checkbox" class="btn btn-orange btn-lg" data-target="#add-check-box" data-toggle="modal" style="width: 100%; margin-bottom: 5px;"><span class="glyphicon glyphicon-check"></span> Add Checkbox</button>
+            </div>
+            <div class="col-md-3">
+                <button type="button" id="add_dropdown" class="btn btn-orange btn-lg" data-target="#add-dropdown" data-toggle="modal" style="width: 100%; margin-bottom: 5px;"><span class="glyphicon glyphicon-collapse-down"></span> Add Dropdown</button>
+            </div>
+        </div>
+    </div>
 </div>
+<div class="col-md-2">
+    <div class="well">
+        <div class="row">
+            <a href="" class="btn-boxy btn-primary" ng-click="" style="width: 100%"><span class="glyphicon glyphicon-eye-open"></span> Preview Form</a>
+        </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Label</th>
+            <th>Field Type</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="field in form_fields">
+            <td>@{{ field.label }}</td>
+            <td>@{{ field.field_type }}</td>
+            <td>X</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+@include('modals.forms.add-text-modal')
+@include('modals.forms.add-radio-modal')
+@include('modals.forms.add-checkbox-modal')
+@include('modals.forms.add-dropdown-modal')
