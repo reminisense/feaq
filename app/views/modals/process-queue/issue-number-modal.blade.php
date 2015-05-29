@@ -11,7 +11,7 @@
                 <h3 class="modal-title" id="myModalLabel">Insert Queue</h3>
             </div>
             <div class="modal-body">
-                <ul id="pmore-tab" class="nav nav-tabs nav-justified">
+                <ul id="pmore-tab" class="nav nav-tabs">
                     <li class="active"><a data-submit="#issue-specific-submit" href="#insertq" data-toggle="tab">INSERT TO QUEUE</a></li>
                     <li><a data-submit="#issue-multiple-submit" href="#multipleq" data-toggle="tab" >ISSUE MULTIPLE</a></li>
                 </ul>

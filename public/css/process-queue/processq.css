@@ -3,7 +3,7 @@
     height: 195px;
 }
 #view-broadcast {
-    font-family: 'ralewaybold';
+    font-family: 'ralewayregular';
     display: block;
     padding: 19px 20px;
     -webkit-border-radius: 5px;
@@ -12,6 +12,10 @@
     margin-top: 8px;
     line-height: 18px;
     vertical-align: middle;
+}
+#process-queue a > span,
+#view-broadcast > span {
+    margin-right: 8px;
 }
 span.glyphicon-zoom-in {
     font-size: 11px;
@@ -53,6 +57,7 @@ span.glyphicon-zoom-in {
 }
 #processq .page-header {
     margin-bottom: 30px;
+    padding-bottom: 0;
 }
 #processq .page-header h2 {
     margin-top: 6px;

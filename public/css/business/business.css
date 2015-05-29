@@ -410,16 +410,17 @@ table .title {
 .biz-terminals {
     display: none;
     background-color: #1f5297;
-    width: 280px;
+    /*width: 280px;*/
+    width: 100%;
     left: 0px;
     top: 0px;
     position: absolute;
     -webkit-border-radius: 5px;
     height: 60px;
 }
-.assigned-terminals {
+/*.assigned-terminals {
     left: 8px;
-}
+}*/
 .biz-terminals a {
     float: left;
     width: 33.3333%;
@@ -427,6 +428,7 @@ table .title {
     display: block;
     height: 100%;
     padding: 11px 0;
+    color: #fff;
 }
 .biz-terminals a:hover {
     background-color: #3c93e4;
@@ -473,6 +475,7 @@ table .title {
     overflow: hidden;
     margin-bottom: 15px;
     height: 60px;
+    position: relative;
 }
 #biz-grid .boxed:hover {
     background-color: #008160;

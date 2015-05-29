@@ -11,6 +11,15 @@
     nav.pull-right {
         float: none!important;
     }
+    .navbar-collapse.collapse {
+        background-color: #080808;
+    }
+    .navbar-nav .open .dropdown-menu>li>a {
+        padding: 20px 15px;
+    }
+    .navbar-inverse {
+        background-color: rgba(7, 10, 3, 1);
+    }
 }
 @media (max-width: 480px) {
     .q-actions .btn-orange {
@@ -22,6 +31,15 @@
     }
     nav.pull-right {
         float: none!important;
+    }
+    .navbar-collapse.collapse {
+        background-color: #080808;
+    }
+    .navbar-nav .open .dropdown-menu>li>a {
+        padding: 20px 15px;
+    }
+    .navbar-inverse {
+        background-color: rgba(7, 10, 3, 1);
     }
 
 }
@@ -35,5 +53,14 @@
     }
     nav.pull-right {
         float: none!important;
+    }
+    .navbar-collapse.collapse {
+        background-color: #080808;
+    }
+    .navbar-nav .open .dropdown-menu>li>a {
+        padding: 20px 15px;
+    }
+    .navbar-inverse {
+        background-color: rgba(7, 10, 3, 1);
     }
 }

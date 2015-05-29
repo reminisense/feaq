@@ -131,11 +131,12 @@ My Business
     @endif
     <div class="row assigned-business"> <!-- assigned business -->
     @if($assigned_businesses)
-    <h5>ASSIGNED BUSINESSES</h5>
+
         <div class="" id="box-wrapper">
-            <div id="biz-grid" class="row">
+            <div id="biz-grid" class="clearfix">
+                <h5 class="col-md-12 col-xs-12 mb20">ASSIGNED BUSINESSES</h5>
                 @foreach($assigned_businesses as $business)
-                <div class="col-md-3">
+                <div class="col-md-3 col-sm-4 col-xs-12">
                     <div class="boxed edit-biz process-queue">
                         <p class="title"><span class="glyphicon glyphicon-home"></span> {{ $business['name'] }}</p>
                         <div class="biz-terminals assigned-terminals">
