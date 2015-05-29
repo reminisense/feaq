@@ -20,6 +20,12 @@
     .navbar-inverse {
         background-color: rgba(7, 10, 3, 1);
     }
+    .page-header > div {
+        text-align: center;
+    }
+    #view-broadcast {
+        margin-top: 15px!important;
+    }
 }
 @media (max-width: 480px) {
     .q-actions .btn-orange {
@@ -41,7 +47,20 @@
     .navbar-inverse {
         background-color: rgba(7, 10, 3, 1);
     }
-
+    #pmore-tab li {
+        width: 50%;
+    }
+    .page-header > div {
+        text-align: center;
+    }
+    #view-broadcast {
+        margin-top: 15px!important;
+    }
+}
+@media (max-width: 372px) {
+    #pmore-tab li {
+        width: 100%;
+    }
 }
 @media (max-width: 320px) {
     .q-actions #btn-pmore {
@@ -62,5 +81,14 @@
     }
     .navbar-inverse {
         background-color: rgba(7, 10, 3, 1);
+    }
+    #pmore-tab li {
+        width: 100%;
+    }
+    .page-header > div {
+        text-align: center;
+    }
+    #view-broadcast {
+        margin-top: 15px!important;
     }
 }
