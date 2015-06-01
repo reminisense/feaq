@@ -8,6 +8,14 @@
 
 class AdminController extends BaseController{
 
+    public function getDashboard(){
+        if(Admin::isAdmin()){
+            return View::make('admin.admin-dashboard');
+        }else{
+            return Redirect::to('/');
+        }
+    }
+
     //temporary function to display user tracking data
     public function getStats(){
         if(Admin::isAdmin()){

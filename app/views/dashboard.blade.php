@@ -65,7 +65,7 @@
                     <ul class="dropdown-menu">
                         <li><a id="edit_profile" href="#">Edit My Profile</a></li>
                         @if($is_admin)
-                        <li><a href="{{ url('/admin/stats') }}">FeatberQ Stats</a></li> {{--ARA User stats for reminisense only--}}
+                        <li><a href="{{ url('/admin/dashboard') }}">Admin Dashboard</a></li> {{--ARA Admin dashboard for reminisense only--}}
                         @endif
                         {{--<li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>--}} <!-- RDH Removed since this does nothing -->
                     </ul>
