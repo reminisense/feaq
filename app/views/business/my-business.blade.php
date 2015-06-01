@@ -32,7 +32,7 @@ My Business
 <div class="container" ng-controller="editBusinessController" id="editBusiness">
     @if(isset($business_id))
     <div class="row">
-        <div class="biz-details-wrap">
+        <div class="biz-details-wrap clearfix">
             <div class="col-md-12">
                 <div class="row">
                     <img class="col-md-2 col-sm-2 dnmobile" src="/img/biz-qrcode.jpg">

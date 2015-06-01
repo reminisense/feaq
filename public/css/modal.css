@@ -137,4 +137,7 @@ body#processq .tab-pane .navbar-form {
     margin-left: 0!important;
     margin-right: 0!important;
 }
+.modal-backdrop.in {
+    opacity: 0.8!important;
+}
 

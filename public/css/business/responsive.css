@@ -1,3 +1,13 @@
+@media (min-width: 992px) and (max-width: 1199px) {
+    a#view-broadcast {
+        font-size: 15px;
+    }
+}
+@media (min-width: 980px) and (max-width: 991px) {
+    #bizTab li a {
+        padding: 11px;
+    }
+}
 @media (min-width: 768px) and (max-width: 979px) {
     .dnmobile {
         display: none;
