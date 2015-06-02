@@ -73,7 +73,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		if (!User::checkFBUser($data['fb_id']))
 		{
 			User::insert($data);
-		}
+            Notifier::sendSignupEmail($data['email'], $data['first_name'] . ' ' . $data['last_name']);
+        }
 	}
 
 	public static function checkFBUser($fb_id)
