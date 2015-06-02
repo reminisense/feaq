@@ -53,6 +53,35 @@ class BroadcastController extends BaseController{
         $first_service = Service::getFirstServiceOfBusiness($business_id);
         $allow_remote = QueueSettings::allowRemote($first_service->service_id);
 
+        // Update Contact Form with Custom Fields if applicable
+        $custom_fields = '';
+        $forms = new FormsController();
+        $fields = $forms->getFields($business_id);
+        foreach ($fields as $form_id => $field_data) {
+          if ($field_data['field_type'] == 'Text Field') {
+            $custom_fields .= '<div class="col-md-3"><label>'. $field_data['label'] . '</label></div>
+              <div class="col-md-9"><input type="text" class="form-control" id="forms_' . $form_id . '" /></div>';
+          }
+          elseif ($field_data['field_type'] == 'Radio') {
+            $custom_fields .= '<div class="col-md-3"><label>'. $field_data['label'] . '</label></div>
+              <div class="col-md-9"><label><input type="radio" name="forms_' . $form_id . '" value="' . $field_data['value_a'] . '" ><strong>' . $field_data['value_a'] . '</strong></label><label><input type="radio" name="forms_' . $form_id . '" value="' . $field_data['value_b'] . '"> <strong>' . $field_data['value_b'] . '</strong></label></div>';
+          }
+          elseif ($field_data['field_type'] == 'Checkbox') {
+            $custom_fields .= '<div class="col-md-3"><label>'. $field_data['label'] . '</label></div>
+              <div class="col-md-9"><input type="checkbox" class="form-control" id="forms_' . $form_id . '" value="1"/></div>';
+          }
+          elseif ($field_data['field_type'] == 'Dropdown') {
+            $select_options = '';
+            $select_options .= '<option value="0">- select -</option>';
+            foreach($field_data['options'] as $count => $val) {
+              $select_options .= '<option value="' . $val . '">' . $val . '</option>';
+            }
+            $custom_fields .= '<div class="col-md-3"><label>'. $field_data['label'] . '</label></div>
+              <div class="col-md-9"><select class="form-control" id="forms_' . $form_id . '"/>' . $select_options . '</select></div>';
+          }
+        }
+
+
         if (Auth::check()) {
 
           // business owners have different broadcast screens for display
@@ -69,6 +98,7 @@ class BroadcastController extends BaseController{
           $broadcast_template = 'broadcast.default.public-master';
         }
         return View::make($broadcast_template)
+            ->with('custom_fields', $custom_fields)
             ->with('ad_type', $data->ad_type)
             ->with('ad_src', $ad_src)
             ->with('box_num', $arr[1])

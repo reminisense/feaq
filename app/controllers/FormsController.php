@@ -51,21 +51,32 @@ class FormsController extends BaseController{
   }
 
   public function postDisplayFields() {
-    return json_encode(array('form_fields' => $this->getFields(Input::get('business_id'))));
+    $fields = $this->getFields(Input::get('business_id'));
+    if (!count($fields)) {
+      $fields = 0;
+    }
+    return json_encode(array('form_fields' => $fields));
   }
 
-  private function getFields($business_id) {
+  public function getFields($business_id) {
     $fields = array();
     $res = Forms::getFieldsByBusinessId($business_id);
     foreach ($res as $count => $data) {
-      $label = unserialize($data->field_data);
-      $label = $label['label'];
+      $field_data = unserialize($data->field_data);
       $fields[$data->form_id] = array(
         'field_type' => $data->field_type,
-        'label' => $label,
+        'label' => $field_data['label'],
+        'options' => array_key_exists('options', $field_data) ? unserialize($field_data['options']) : array(),
+        'value_a' => array_key_exists('value_a', $field_data) ? $field_data['value_a'] : '',
+        'value_b' => array_key_exists('value_b', $field_data) ? $field_data['value_b'] : '',
       );
     }
     return $fields;
+  }
+
+  public function postDeleteField() {
+    Forms::deleteField(Input::get('form_id'));
+    return json_encode(array('status' => 1));
   }
 
 }

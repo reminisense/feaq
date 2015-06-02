@@ -14,4 +14,8 @@ class Forms extends Eloquent {
     return Forms::where('business_id', '=', $business_id)->get();
   }
 
+  public static function deleteField($form_id) {
+    Forms::where('form_id', '=', $form_id)->delete();
+  }
+
 }

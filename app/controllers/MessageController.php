@@ -8,10 +8,11 @@ class MessageController extends BaseController {
     $name = Input::get('contname');
     $timestamp = time();
     $thread_key = $this->threadKeyGenerator($business_id, $email);
+    $custom_fields_bool = Input::get('custom_fields_bool');
 
     if (!Message::checkThreadByKey($thread_key)) {
-        $phones[] = Input::get('contmobile');
-      Message::createThread(array(
+      $phones[] = Input::get('contmobile');
+      $message_id = Message::createThread(array(
         'contactname' => $name,
         'business_id' => $business_id,
         'email' => $email,
@@ -26,6 +27,7 @@ class MessageController extends BaseController {
       file_put_contents(public_path() . '/json/messages/' . $thread_key . '.json', $data);
     }
     else {
+      $message_id = Message::getMessageIdByThreadKey($thread_key);
       $phone = Input::get('contmobile');
       $phones = unserialize(Message::getPhoneByKey($thread_key));
       if (!is_array($phones)) $phones = array($phones);
@@ -42,6 +44,20 @@ class MessageController extends BaseController {
       $data = json_encode($data);
       file_put_contents(public_path() . '/json/messages/' . $thread_key . '.json', $data);
     }
+
+    // save if there are custom fields available
+    if ($custom_fields_bool) {
+      $custom_fields = Input::get('custom_fields');
+      $res = Forms::getFieldsByBusinessId($business_id);
+      foreach ($res as $count => $data) {
+        MessageForms::createRecord(array(
+          'message_id' => $message_id,
+          'form_id' => $data->form_id,
+          'value' => $custom_fields[$data->form_id],
+        ));
+      }
+    }
+
     return json_encode(array('status' => 1));
   }
 

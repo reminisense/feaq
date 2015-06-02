@@ -102,11 +102,45 @@ var eb = {
             add_radiobutton_url : '/forms/add-radiobutton',
             add_checkbox_url : '/forms/add-checkbox',
             add_dropdown_url : '/forms/add-dropdown',
-            display_fields_url : '/forms/display-fields'
+            display_fields_url : '/forms/display-fields',
+            delete_field_url : '/forms/delete-field'
         }
     },
 
     jquery_functions : {
+        /*
+        createTextField : function(form_id, field_data) {
+            return '<div class="col-md-3"><label>'+ field_data.label+'</label></div><div class="col-md-9"><input type="text" class="form-control"></div>';
+        },
+
+        createCheckbox : function(form_id, field_data) {
+            return '<div class="col-md-3"><label>'+ field_data.label+'</label></div><div class="col-md-9"><input type="checkbox" class="form-control" value="1"></div>';
+        },
+
+        createRadio : function(form_id, field_data) {
+            return '<div class="col-md-3"><label>'+ field_data.label+'</label></div><div class="col-md-9"><label><input type="radio" name="forms_'+form_id+'" value="'+field_data.value_a+'" > <strong>'+field_data.value_a+'</strong></label><label><input type="radio" name="forms_'+form_id+'" value="'+field_data.value_b+'"> <strong>'+field_data.value_b+'</strong></label></div>';
+        },
+
+        createDropdown : function(form_id, field_data) {
+            var select_options = '';
+            $.each(field_data.options, function(count, val) {
+                select_options += '<option value="'+val+'">'+val+'</option>';
+            });
+            return '<div class="col-md-3"><label>'+ field_data.label+'</label></div><div class="col-md-9"><select class="form-control">'+select_options+'</select></div>';
+        },
+
+        generateCustomFields : function(response) {
+            var form_fields = '';
+            $.each(response.form_fields, function(form_id, field_data) {
+                if (field_data.field_type == 'Text Field') form_fields += eb.jquery_functions.createTextField(form_id, field_data);
+                else if (field_data.field_type == 'Checkbox') form_fields += eb.jquery_functions.createCheckbox(form_id, field_data);
+                else if (field_data.field_type == 'Radio') form_fields += eb.jquery_functions.createRadio(form_id, field_data);
+                else if (field_data.field_type == 'Dropdown') form_fields += eb.jquery_functions.createDropdown(form_id, field_data);
+            });
+            return form_fields;
+        },
+        */
+
         validYouTubeURL : function(url) {
             var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
             return (url.match(p)) ? RegExp.$1 : false;
@@ -183,6 +217,7 @@ var eb = {
         $scope.users = [];
         $scope.analytics = [];
         $scope.messages = [];
+
         $scope.form_fields = [];
 
         $scope.number_start = 1;
@@ -744,6 +779,26 @@ var eb = {
             }).success(function(response) {
                $scope.form_fields = response.form_fields;
             });
+        };
+
+        /*
+        $scope.showPreviewForm = function(business_id) {
+            $http.post(eb.urls.forms.display_fields_url, {
+                business_id : business_id
+            }).success(function(response) {
+                $('#custom-fields-display').html(eb.jquery_functions.generateCustomFields(response));
+            });
+        };
+        */
+
+        $scope.deleteFormField = function(form_id) {
+            if (confirm('Are you sure you want to delete this field?')) {
+                $http.post(eb.urls.forms.delete_field_url, {
+                    form_id : form_id
+                }).success(function(response) {
+                    $('.field-'+form_id).remove();
+                });
+            }
         };
     });
 

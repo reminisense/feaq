@@ -20,14 +20,8 @@
         </div>
     </div>
 </div>
-<div class="col-md-2">
-    <div class="well">
-        <div class="row">
-            <a href="" class="btn-boxy btn-primary" ng-click="" style="width: 100%"><span class="glyphicon glyphicon-eye-open"></span> Preview Form</a>
-        </div>
-    </div>
-</div>
-<div class="col-md-12">
+<a href="" class="btn-boxy btn-primary" ng-click="showPreviewForm(business_id)" data-target="#preview-form-modal" data-toggle="modal" style="width: 100%"><span class="glyphicon glyphicon-eye-open"></span> Preview Form</a>
+<div class="table table-responsive">
     <table class="table table-striped">
         <thead>
         <tr>
@@ -37,16 +31,16 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="field in form_fields">
-            <td>@{{ field.label }}</td>
+        <tr ng-repeat="(form_id, field) in form_fields" class="field-@{{ form_id }}">
+            <td><strong>@{{ field.label }}</strong></td>
             <td>@{{ field.field_type }}</td>
-            <td>X</td>
+            <td><a href="" ng-click="deleteFormField(form_id)" class="btn-boxy btn-danger" style="display:inline-block;"><span class="glyphicon glyphicon-trash"></span></a></td>
         </tr>
         </tbody>
     </table>
 </div>
 
-
+@include('modals.forms.preview-form-modal')
 @include('modals.forms.add-text-modal')
 @include('modals.forms.add-radio-modal')
 @include('modals.forms.add-checkbox-modal')
