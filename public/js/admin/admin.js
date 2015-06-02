@@ -1,8 +1,12 @@
 /**
+ * Created by USER on 6/2/15.
+ */
+/**
  * Created by USER on 5/6/15.
  */
-app.controller('statsController', function($scope, $http){
+app.controller('adminController', function($scope, $http){
     $scope.user_id = $('#user_id').val();
+    $scope.admins = [];
     $scope.keyword = 'page_url';
     $scope.keywords = [
         {keyword: 'page_url',           name: 'Page Views'},
@@ -33,7 +37,6 @@ app.controller('statsController', function($scope, $http){
     };
 
     $scope.createChart = function(data){
-        console.log(data);
         new Morris.Bar({
             // ID of the element in which to draw the chart.
             element: 'statChart',
@@ -52,5 +55,32 @@ app.controller('statsController', function($scope, $http){
         });
     };
 
-    $scope.loadChart();
+    $scope.getAdmins = function($event){
+        if($event){
+            $event.preventDefault();
+            $($event.target).addClass('glyphicon-refresh-animate');
+        }
+        $http.get('/admin/admins').success(function(response){
+            $scope.admins = response.admins;
+            $($event.target).removeClass('glyphicon-refresh-animate');
+        });
+    }
+
+    $scope.addAdmin = function(email){
+        $http.get('/admin/add-admin/' + email).success(function(){
+           $scope.admin_email = '';
+           $scope.getAdmins();
+        });
+    }
+
+    $scope.removeAdmin = function(email, $event){
+        $event.preventDefault();
+        if(confirm("Are you sure you want to remove this email?")){
+            $http.get('/admin/delete-admin/' + email).success(function(){
+                $scope.getAdmins();
+            });
+        }
+    }
+
+    $scope.getAdmins();
 });
