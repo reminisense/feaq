@@ -101,7 +101,8 @@
 #bizTabContent h2,
 #bizTabContent h3,
 #bizTabContent h4,
-#bizTabContent h5{
+#bizTabContent h5,
+#biz-grid h5 {
     font-family: 'ralewaybold';
 }
 #bizTabContent .tab-pane h5 small {
@@ -180,6 +181,10 @@
 }
 #bizTabContent .tab-pane h5 {
     margin-bottom: 2px;
+    font-size: 16px;
+    color: #00ba8b;
+}
+#biz-grid h5 {
     font-size: 16px;
     color: #00ba8b;
 }
