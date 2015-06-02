@@ -56,6 +56,11 @@ $(document).ready(function(){
         e.stopPropagation();
     });
 
+    $(document).on('click', '#mobile-back-button', function(){
+        $(this).fadeOut();
+        $('.message-collection').fadeIn();
+    });
+
     //eb.jquery_functions.load_users();
     eb.jquery_functions.setBusinessId($('#business_id').val());
     eb.jquery_functions.setUserId($('#user_id').val());
@@ -240,6 +245,10 @@ var eb = {
         /* @CSD 05062015 */
         $scope.setPreviewMessage = function(sender, message_id, active_email){
             $('.message-preview').hide();
+            if (isMobile.any() != null){
+                $('#mobile-back-button').removeClass('hidden').fadeIn();
+                $('.message-collection').fadeOut();
+            }
             $scope.business_reply_form.active_sender_email = active_email;
             $http.post('/message/phone-list', {
                 message_id : message_id
@@ -678,6 +687,27 @@ var eb = {
                 }
             });
         });
+
+        var isMobile = {
+            Android: function() {
+                return navigator.userAgent.match(/Android/i);
+            },
+            BlackBerry: function() {
+                return navigator.userAgent.match(/BlackBerry/i);
+            },
+            iOS: function() {
+                return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+            },
+            Opera: function() {
+                return navigator.userAgent.match(/Opera Mini/i);
+            },
+            Windows: function() {
+                return navigator.userAgent.match(/IEMobile/i);
+            },
+            any: function() {
+                return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+            }
+        };
     });
 
 })();

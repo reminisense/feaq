@@ -91,6 +91,9 @@
     .navbar-inverse {
         background-color: rgba(7, 10, 3, 1);
     }
+    .mobile-hidden {
+        display: none;
+    }
 }
 @media (max-width: 480px) {
     .dnmobile {
