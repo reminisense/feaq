@@ -54,19 +54,18 @@ class BroadcastController extends BaseController{
         $allow_remote = QueueSettings::allowRemote($first_service->service_id);
 
         if (Auth::check()) {
+            $user = User::getUserByUserId(Auth::user()->user_id);
+            // business owners have different broadcast screens for display
+            if (UserBusiness::getBusinessIdByOwner(Auth::user()->user_id) == $business_id) {
+              if ($arr[0] == 2) $ad_src = $data->tv_channel; // check if TV is on
+              $broadcast_template = 'broadcast.default.business-master';
+            } else {
+              $broadcast_template = 'broadcast.default.public-master';
+            }
 
-          // business owners have different broadcast screens for display
-          if (UserBusiness::getBusinessIdByOwner(Auth::user()->user_id) == $business_id) {
-            if ($arr[0] == 2) $ad_src = $data->tv_channel; // check if TV is on
-            $broadcast_template = 'broadcast.default.business-master';
-          }
-
-          else {
+        } else {
+            $user = [];
             $broadcast_template = 'broadcast.default.public-master';
-          }
-        }
-        else {
-          $broadcast_template = 'broadcast.default.public-master';
         }
         return View::make($broadcast_template)
             ->with('ad_type', $data->ad_type)
@@ -82,7 +81,8 @@ class BroadcastController extends BaseController{
             ->with('lines_in_queue', Analytics::getBusinessRemainingCount($business_id))
             ->with('estimate_serving_time', Analytics::getAverageTimeServedByBusinessId($business_id))
             ->with('first_service', Service::getFirstServiceOfBusiness($business_id))
-            ->with('allow_remote', $allow_remote);
+            ->with('allow_remote', $allow_remote)
+            ->with('user', $user);
     }
 
     public function getNumbers($branch_id = 0) {
