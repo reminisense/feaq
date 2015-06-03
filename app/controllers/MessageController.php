@@ -10,9 +10,19 @@ class MessageController extends BaseController {
     $thread_key = $this->threadKeyGenerator($business_id, $email);
     $custom_fields_bool = Input::get('custom_fields_bool');
 
+    // save if there are custom fields available
+    $custom_fields_data = '';
+    if ($custom_fields_bool) {
+      $custom_fields = Input::get('custom_fields');
+      $res = Forms::getFieldsByBusinessId($business_id);
+      foreach ($res as $count => $data) {
+        $custom_fields_data .= '<strong>' . Forms::getLabelByFormId($data->form_id) . ':</strong> ' . $custom_fields[$data->form_id] . "\n";
+      }
+    }
+
     if (!Message::checkThreadByKey($thread_key)) {
       $phones[] = Input::get('contmobile');
-      $message_id = Message::createThread(array(
+      Message::createThread(array(
         'contactname' => $name,
         'business_id' => $business_id,
         'email' => $email,
@@ -21,13 +31,12 @@ class MessageController extends BaseController {
       ));
       $data = json_encode(array(array(
         'timestamp' => $timestamp,
-        'contmessage' => Input::get('contmessage'),
+        'contmessage' => Input::get('contmessage') . "\n\n" . $custom_fields_data,
         'sender' => 'user',
       )));
       file_put_contents(public_path() . '/json/messages/' . $thread_key . '.json', $data);
     }
     else {
-      $message_id = Message::getMessageIdByThreadKey($thread_key);
       $phone = Input::get('contmobile');
       $phones = unserialize(Message::getPhoneByKey($thread_key));
       if (!is_array($phones)) $phones = array($phones);
@@ -38,24 +47,11 @@ class MessageController extends BaseController {
       $data = json_decode(file_get_contents(public_path() . '/json/messages/' . $thread_key . '.json'));
       $data[] = array(
         'timestamp' => $timestamp,
-        'contmessage' => Input::get('contmessage'),
+        'contmessage' => Input::get('contmessage') . "\n\n" . $custom_fields_data,
         'sender' => 'user',
       );
       $data = json_encode($data);
       file_put_contents(public_path() . '/json/messages/' . $thread_key . '.json', $data);
-    }
-
-    // save if there are custom fields available
-    if ($custom_fields_bool) {
-      $custom_fields = Input::get('custom_fields');
-      $res = Forms::getFieldsByBusinessId($business_id);
-      foreach ($res as $count => $data) {
-        MessageForms::createRecord(array(
-          'message_id' => $message_id,
-          'form_id' => $data->form_id,
-          'value' => $custom_fields[$data->form_id],
-        ));
-      }
     }
 
     return json_encode(array('status' => 1));

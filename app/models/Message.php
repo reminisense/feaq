@@ -10,7 +10,7 @@ class Message extends Eloquent {
   }
 
   public static function createThread($val = array()) {
-    return Message::insertGetId($val);
+    Message::insert($val);
   }
   public static function updateThread($val = array(), $thread_key) {
     Message::where('thread_key', '=', $thread_key)->update($val);
@@ -34,10 +34,6 @@ class Message extends Eloquent {
 
   public static function getThreadKeyByBusinessIdAndEmail($business_id, $email) {
     return Message::where('business_id', '=', $business_id)->where('email', '=', $email)->select(array('thread_key'))->first()->thread_key;
-  }
-
-  public static function getMessageIdByThreadKey($thread_key) {
-    return Message::where('thread_key', '=', $thread_key)->select(array('message_id'))->first()->message_id;
   }
 
 }

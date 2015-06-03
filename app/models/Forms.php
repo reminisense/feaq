@@ -18,4 +18,10 @@ class Forms extends Eloquent {
     Forms::where('form_id', '=', $form_id)->delete();
   }
 
+  public static function getLabelByFormId($form_id) {
+    $field_data = Forms::where('form_id', '=', $form_id)->select(array('field_data'))->first()->field_data;
+    $arr = unserialize($field_data);
+    return $arr['label'];
+  }
+
 }
