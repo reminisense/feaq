@@ -13,7 +13,9 @@
 
 App::before(function($request)
 {
-	//
+	//ARA - Add user_id in all pages
+    View::share('user_id', Helper::userId());
+    View::share('is_admin', Admin::isAdmin());
 });
 
 

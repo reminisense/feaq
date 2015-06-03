@@ -1,4 +1,6 @@
-<h5>QUEUE SETTINGS</h5>
+<div class="clearfix header">
+    <h5>QUEUE SETTINGS</h5>
+</div>
 <table class="table settings">
     <tbody>
     {{--RDH Removed Other Queue Settings Since These Do Not Apply To This Release--}}

@@ -29,6 +29,11 @@
             </div>
         </div>
     @elseif ($ad_type == 'video')
-        <iframe src="{{ $ad_src }}" id="video-ad" width="100%" height="700px"></iframe>
+        <iframe src="{{ $ad_src }}" id="video-ad" width="100%"></iframe>
     @endif
 </div>
+
+<script>
+    $('iframe').css({'height' : $(window).height()});
+    $('embed').css({'height' : $(window).height()});
+</script>

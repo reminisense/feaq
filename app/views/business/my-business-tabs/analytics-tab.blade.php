@@ -1,32 +1,57 @@
-<h5>BUSINESS ANALYTICS</h5>
+<div class="clearfix header">
+    <h5>BUSINESS ANALYTICS</h5>
+</div>
 <table class="table">
     <tbody>
     <tr>
-        <td style="padding-top: 20px;">Queued Numbers Remaining: </td>
-        <td style="padding-top: 20px;">@{{ analytics.remaining_count ? analytics.remaining_count : 0 }}</td>
+        <td style="padding-top: 18px;">
+            <p class="title">
+                Queued Numbers Remaining:
+            </p>
+        </td>
+        <td style="padding-top: 18px;">@{{ analytics.remaining_count ? analytics.remaining_count : 0 }}</td>
     </tr>
     <tr>
-        <td>Total Numbers Issued: </td>
+        <td>
+            <p class="title">
+                Total Numbers Issued:
+            </p>
+        </td>
         <td>@{{ analytics.total_numbers_issued ? analytics.total_numbers_issued : 0 }}</td>
     </tr>
     <tr>
-        <td>Total Numbers Called: </td>
+        <td>
+            <p class="title">
+                Total Numbers Called:
+            </p>
+        </td>
         <td>@{{ analytics.total_numbers_called ? analytics.total_numbers_called : 0 }}</td>
     </tr>
     <tr>
-        <td>Total Numbers Served: </td>
+        <td>
+            <p class="title">
+                Total Numbers Served: </p>
+        </td>
         <td>@{{ analytics.total_numbers_served ? analytics.total_numbers_served : 0 }}</td>
     </tr>
     <tr>
-        <td>Total Numbers Dropped: </td>
+        <td>
+            <p class="title">Total Numbers Dropped:</p>
+            </td>
         <td>@{{ analytics.total_numbers_dropped ? analytics.total_numbers_dropped : 0 }}</td>
     </tr>
     <tr>
-        <td>Average Waiting Time: </td> <!-- from number issued to calling -->
+        <td>
+            <p class="title">Average Waiting Time: </p>
+            </td> <!-- from number issued to calling -->
+
         <td>@{{ analytics.average_time_called ? analytics.average_time_called : 0 }}</td>
     </tr>
     <tr>
-        <td>Average Serving Time: </td> <!-- from number called to served -->
+        <td>
+            <p class="title">Average Serving Time:
+            </p>
+        </td> <!-- from number called to served -->
         <td>@{{ analytics.average_time_served ? analytics.average_time_served : 0 }}</td>
     </tr>
     </tbody>

@@ -67,6 +67,9 @@
   #biz-broadcast .footer {
     display: none!important;
   }
+    #fqCarousel {
+        min-height: 470px!important;
+    }
 }
 
 @media (max-width: 480px) {
@@ -157,7 +160,7 @@
     margin-top: 20px;
   }
   .boxed .broadcast .numbers {
-    font-size: 90px!important;
+    font-size: 40px!important;
   }
   #broadcast .qrwrap {
     height: 250px!important;
@@ -183,4 +186,9 @@
   .boxed .head.head-wbtn .btn-half {
       margin-top: -18px;
   }
+}
+@media (max-width: 480px) {
+    .boxed .broadcast .numbers {
+        font-size: 38px;
+    }
 }
