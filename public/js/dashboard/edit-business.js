@@ -59,6 +59,7 @@ $(document).ready(function(){
     $(document).on('click', '#mobile-back-button', function(){
         $(this).fadeOut();
         $('.message-collection').fadeIn();
+        $('.preview-container').fadeOut();
     });
 
     //eb.jquery_functions.load_users();
@@ -245,6 +246,7 @@ var eb = {
         /* @CSD 05062015 */
         $scope.setPreviewMessage = function(sender, message_id, active_email){
             $('.message-preview').hide();
+            $('.preview-container').fadeIn();
             if (isMobile.any() != null){
                 $('#mobile-back-button').removeClass('hidden').fadeIn();
                 $('.message-collection').fadeOut();
