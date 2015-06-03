@@ -249,7 +249,9 @@
     .navbar-inverse {
         background-color: rgba(7, 10, 3, 1);
     }
-
+    .navbar-nav .open .dropdown-menu>li>a {
+        padding: 10px 36px!important;
+    }
 
 }
 @media (max-width: 320px) {
@@ -313,6 +315,12 @@
     }
     .dropdown-menu li {
         text-align: center;
+    }
+    .nav .dropdown-menu li {
+        text-align: left;
+    }
+    .navbar-nav .open .dropdown-menu>li>a {
+        padding: 10px 36px!important;
     }
     #bizTabContent .inline-btns {
         margin-bottom: 40px;
