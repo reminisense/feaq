@@ -15,11 +15,6 @@ class ContentController extends BaseController {
     |
     */
 
-    public function showWelcome()
-    {
-        return View::make('hello');
-    }
-
     public function getMain()
     {
         return View::make('content.main');
@@ -30,44 +25,9 @@ class ContentController extends BaseController {
         return View::make('content.main-guides');
     }
 
-    public function getContent($title)
-    {
-        $post_content = null;
-        if ($title === 'customer-time-perception') {
-            $post_content = '@section("evergreen01")';
-        } else if ($title === 'just-in-time') {
-            $post_content = '@section("evergreen02")';
-        } else if ($title === 'serpentine-queue') {
-            $post_content = '@section("evergreen03")';
-        } else if ($title === 'what-makes-you-anxious') {
-            $post_content = '@section("evergreen04")';
-        } else if ($title === 'why-queue-management-important') {
-            $post_content = '@section("evergreen05")';
-        }
-
-        return View::make('content.evergreen-template')
-            ->with('post_content', $post_content);
-    }
-
-    public function getHowTo($title)
-    {
-        $post_content = null;
-        if ($title === 'customer-time-perception') {
-            $post_content = '@section("evergreen01")';
-        } else if ($title === 'just-in-time') {
-            $post_content = '@section("evergreen02")';
-        } else if ($title === 'serpentine-queue') {
-            $post_content = '@section("evergreen03")';
-        } else if ($title === 'what-makes-you-anxious') {
-            $post_content = '@section("evergreen04")';
-        } else if ($title === 'why-queue-management-important') {
-            $post_content = '@section("evergreen05")';
-        }
-
-        return View::make('content.guides-template')
-            ->with('post_content', $post_content);
-    }
-
+    /*
+     * BEGIN: Evergreen Articles
+     */
 
     public function getCustomerTimePerception()
     {
@@ -93,6 +53,15 @@ class ContentController extends BaseController {
     {
         return View::make('content.evergreen05');
     }
+
+    public function getManagingLines()
+    {
+        return View::make('content.managing-lines');
+    }
+
+    /*
+     * BEGIN: How-To Articles
+     */
 
     public function getSmallRestaurants()
     {
