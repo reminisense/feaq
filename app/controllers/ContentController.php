@@ -59,6 +59,11 @@ class ContentController extends BaseController {
         return View::make('content.managing-lines');
     }
 
+    public function getWhatIsQueuing()
+    {
+        return View::make('content.what-is-queuing');
+    }
+
     /*
      * BEGIN: How-To Articles
      */

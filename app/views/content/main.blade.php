@@ -78,6 +78,32 @@
 <section class="page2">
     <div class="container">
         <h1 class="orange wow fadeInUp">What We Know About Lining Up</h1>
+        <!-- Start of excerpt -01-->
+        <div class="col-md-10 col-xs-10">
+            <div class="wrap">
+                <h2 class="wow fadeInUp text-left">What is Queuing and Other Terms</h2>
+            </div>
+        </div>
+        <div class="col-md-2 col-xs-2">
+            <div class="wrap">
+                <h6 class="wow fadeInUp text-left"></h6>
+            </div>
+        </div>
+        <div class="col-md-8 col-xs-8">
+            <div class="wrap"><hr /></div>
+        </div>
+        <div class="col-md-8 col-xs-8">
+            <div class="wrap">
+                If you're reading this article, it can only mean one thing: you are a business owner looking for a solution.
+                <br /><br />
+                It could be that your retail outlet is frequently understaffed in relation to the amount of people coming in, costing you thousands of dollars in efficiency losses. Maybe you're a successful restaurant owner who has noticed that your otherwise loyal customers have begun patronizing other establishment rather than deal with the lunch time crowd at your place.
+            </div>
+        </div>
+        <div class="col-md-8 col-xs-8" style="text-align: right; padding-bottom: 30px;">
+            <div class="wrap"><a href="/articles/what-is-queuing">Read more &raquo;</a></div>
+        </div>
+        <!-- End of excerpt -01-->
+
         <!-- Start of excerpt 00-->
         <div class="col-md-10 col-xs-10">
             <div class="wrap">
