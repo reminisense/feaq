@@ -22,9 +22,6 @@ My Business
     <div class="container">
         <div class="text-center">
             <h1><span class="glyphicon glyphicon-home"></span>My Business
-                @if($assigned_businesses)
-                    ({{ count($assigned_business) }})
-                @endif
             </h1>
         </div>
     </div>
