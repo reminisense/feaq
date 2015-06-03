@@ -69,6 +69,11 @@ class Notifier extends Eloquent{
         }
     }
 
+    public static function sendSignupEmail($email, $name){
+        Notifier::sendEmail($email, 'emails.auth.signup', 'Welcome to FeatherQ', ['name' => $name]);
+    }
+
+
     /**
      * Sms sending templates
      */

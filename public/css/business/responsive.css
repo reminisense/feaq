@@ -1,3 +1,13 @@
+@media (min-width: 992px) and (max-width: 1199px) {
+    a#view-broadcast {
+        font-size: 15px;
+    }
+}
+@media (min-width: 980px) and (max-width: 991px) {
+    #bizTab li a {
+        padding: 11px;
+    }
+}
 @media (min-width: 768px) and (max-width: 979px) {
     .dnmobile {
         display: none;
@@ -22,6 +32,10 @@
     }
 }
 @media (min-width: 480px) and (max-width: 768px) {
+    .row.assigned-business #box-wrapper {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
     .dnmobile {
         display: none;
     }
@@ -54,13 +68,42 @@
         float: none!important;
     }
     .delete-terminal-button {
-        margin-top: 8px;
+        margin-top: 4px;
     }
     .well a.btn-boxy {
         margin-bottom: 20px;
+    }
+    .activated {
+        line-height: 32px;
+        margin-bottom: 20px;
+    }
+    .btn-removeuser, .btn-adduser {
+        width: 90px;
+    }
+    .delete-terminal-button, .edit-terminal-button, .update-terminal-button {
+        width: 90px;
+    }
+    .cancel-adduser, .cancel-add-terminal  {
+        margin-top: 4px;
+    }
+    .navbar-collapse.collapse {
+        background-color: #080808;
+    }
+    .navbar-nav .open .dropdown-menu>li>a {
+        padding: 20px 15px;
+    }
+    .navbar-inverse {
+        background-color: rgba(7, 10, 3, 1);
+    }
+    .mobile-hidden {
+        display: none;
     }
 }
 @media (max-width: 480px) {
+    .row.assigned-business #box-wrapper {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
     .dnmobile {
         display: none;
     }
@@ -95,13 +138,39 @@
         float: none!important;
     }
     .delete-terminal-button {
-        margin-top: 8px;
+        margin-top: 4px;
     }
     .well a.btn-boxy {
         margin-bottom: 20px;
+    }
+    .activated {
+        line-height: 32px;
+        margin-bottom: 20px;
+    }
+    .btn-removeuser, .btn-adduser {
+        width: 90px;
+    }
+    .delete-terminal-button, .edit-terminal-button, .update-terminal-button {
+        width: 90px;
+    }
+    .cancel-adduser, .cancel-add-terminal  {
+        margin-top: 4px;
+    }
+    .navbar-collapse.collapse {
+        background-color: #080808;
+    }
+    .navbar-nav .open .dropdown-menu>li>a {
+        padding: 20px 15px;
+    }
+    .navbar-inverse {
+        background-color: rgba(7, 10, 3, 1);
     }
 }
 @media (max-width: 320px) {
+    .row.assigned-business #box-wrapper {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
     .dnmobile {
         display: none;
     }
@@ -136,9 +205,31 @@
         float: none!important;
     }
     .delete-terminal-button {
-        margin-top: 8px;
+        margin-top: 4px;
     }
     .well a.btn-boxy {
         margin-bottom: 20px;
+    }
+    .activated {
+        line-height: 32px;
+        margin-bottom: 20px;
+    }
+    .btn-removeuser, .btn-adduser {
+        width: 90px;
+    }
+    .delete-terminal-button, .edit-terminal-button, .update-terminal-button {
+        width: 90px;
+    }
+    .cancel-adduser, .cancel-add-terminal {
+        margin-top: 4px;
+    }
+    .navbar-collapse.collapse {
+        background-color: #080808;
+    }
+    .navbar-nav .open .dropdown-menu>li>a {
+        padding: 20px 15px;
+    }
+    .navbar-inverse {
+        background-color: rgba(7, 10, 3, 1);
     }
 }

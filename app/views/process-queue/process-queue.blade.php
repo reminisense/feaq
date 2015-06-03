@@ -18,8 +18,8 @@ Processs Queue > {{ $business_name }}
 <script src="/js/process-queue/messages-angular.js"></script>
 <script src="/js/dashboard/dashboard.js"></script>
 
-{{--<script src="/js/google-analytics/googleAnalytics.js"></script>--}}
-{{--<script src="/js/google-analytics/ga-process_queue.js"></script>--}}
+<script src="/js/google-analytics/googleAnalytics.js"></script>
+<script src="/js/google-analytics/ga-process_queue.js"></script>
 
 @stop
 
@@ -36,15 +36,17 @@ Processs Queue > {{ $business_name }}
 </div>
 
 <div class="container" id="process-queue-wrapper" ng-controller="processqueueController">
-    <div class="row page-header">
-        <div class="col-md-offset-1 col-md-7 col-sm-8">
-            <p>Processing Queues for:</p>
-            <h2>{{ $business_name }} - {{ $terminal_name }}</h2>
-        </div>
-        <div class="col-md-3 col-sm-4 ">
-            {{--<a id="view-broadcast" target="_blank" href="{{ url('/broadcast/business/' . $business_id) }}">View Broadcast <br>Screen</a>--}}
-            <a id="view-broadcast" target="_blank" href="{{ url('/broadcast/business/' . $business_id) }}"><span class="glyphicon glyphicon-th-large"></span> View Broadcast Screen</a>
-            <point-of-interest position="left" bottom="35" right="100" title="Broadcast Page" description="Click on the <strong>View Broadcast Page</strong> link to view the numbers being called."></point-of-interest>
+    <div class="row">
+        <div class="page-header clearfix">
+            <div class="col-md-offset-1 col-md-7 col-sm-8">
+                <p>Processing Queues for:</p>
+                <h2>{{ $business_name }} - {{ $terminal_name }}</h2>
+            </div>
+            <div class="col-md-3 col-sm-4 ">
+                {{--<a id="view-broadcast" target="_blank" href="{{ url('/broadcast/business/' . $business_id) }}">View Broadcast <br>Screen</a>--}}
+                <a id="view-broadcast" target="_blank" href="{{ url('/broadcast/business/' . $business_id) }}"><span class="glyphicon glyphicon-th-large"></span> View Broadcast Screen</a>
+                <point-of-interest position="left" bottom="35" right="100" title="Broadcast Page" description="Click on the <strong>View Broadcast Page</strong> link to view the numbers being called."></point-of-interest>
+            </div>
         </div>
     </div>
     <div class="row">

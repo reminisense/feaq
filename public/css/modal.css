@@ -16,7 +16,7 @@
 
 /*****modals*****/
 .modal-header {
-    background-color: #00ba8b;
+    background-color: #232931;
     border: none;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
@@ -29,7 +29,7 @@
 }
 .modal-header h3 {
     color: #fff;
-    font-size: 22px;
+    font-size: 18px;
     font-family: 'ralewaybold';
 }
 .modal-body {
@@ -90,26 +90,31 @@
     padding-top: 10px;
     padding-bottom: 10px;
 }
+ .modal-footer .btn {
+     font-size: 14px!important;
+ }
 .modal-message {
     font-size: 14px!important;
 }
 #pmore-tab li a {
     font-family: 'ralewaybold';
-    background-color: #f7f7f7;
+    background-color: #333a44;
     border: none;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #333a44;
+    padding: 13px 20px;
+    color: #fff;
 }
 #pmore-tab {
     margin-bottom: 15px;
 }
-.nav>li>a {
+#pmore-tab .nav>li>a {
     padding: 15px 20px;
 }
 #pmore-tab li.active a {
-    background-color: #ff925b;
+    background-color: #00ba8b;
     color: #fff;
     border: none;
-    border-bottom: 1px solid #e9824e;
+    border-bottom: 1px solid #00ba8b;
 }
 .issue-submit-btn {
     padding-left: 35px;
@@ -128,3 +133,11 @@
 .btn[disabled] {
     background-color: #ccc!important;
 }
+body#processq .tab-pane .navbar-form {
+    margin-left: 0!important;
+    margin-right: 0!important;
+}
+.modal-backdrop.in {
+    opacity: 0.8!important;
+}
+

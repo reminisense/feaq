@@ -16,19 +16,19 @@
                                 <label>Name <span class="req">*</span></label>
                             </div>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="contactname" required />
+                                <input type="text" class="form-control" id="contactname" value="@if(isset($user['first_name'])) {{ $user['first_name'] }} @endif @if(isset($user['last_name'])) {{ $user['last_name'] }} @endif" required />
                             </div>
                             <div class="col-md-3">
                                 <label>Email <span class="req">*</span></label>
                             </div>
                             <div class="col-md-9">
-                                <input type="email" class="form-control" id="contactemail" required />
+                                <input type="email" class="form-control" id="contactemail" value="@if(isset($user['email'])) {{ $user['email'] }} @endif" required />
                             </div>
                             <div class="col-md-3">
                                 <label>Mobile Number <span class="req">*</span></label>
                             </div>
                             <div class="col-md-9">
-                                <input type="mobile" class="form-control" id="contactmobile" required />
+                                <input type="mobile" class="form-control" id="contactmobile" value="@if(isset($user['phone'])) {{ $user['phone'] }} @endif" required />
                             </div>
                             <div class="col-md-3">
                                 <label>Message <span class="req">*</span></label>

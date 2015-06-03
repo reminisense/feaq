@@ -1,9 +1,14 @@
-<h5>MESSAGES</h5>
+<div class="clearfix header">
+    <h5>MESSAGES</h5>
+</div>
 <div class="messages">
     <div ng-if="messages.length > 0">
-        <div class="col-md-5">
+        <div class="col-md-12">
+            <button class="btn btn-orange form-control hidden" id="mobile-back-button">Back to Messages</button>
+        </div>
+        <div class="col-md-5 message-collection">
             <div class="list-group">
-                <a ng-repeat="message in messages" href="" class="list-group-item" ng-click="setPreviewMessage(message.contactname, message.message_id, message.email)">
+                <a ng-repeat="message in messages" href="" class="list-group-item message-item" ng-click="setPreviewMessage(message.contactname, message.message_id, message.email)">
                     <p><strong>@{{ message.contactname }}</strong> <@{{ message.email }}></p>
                 </a>
             </div>

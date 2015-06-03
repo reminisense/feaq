@@ -73,7 +73,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		if (!User::checkFBUser($data['fb_id']))
 		{
 			User::insert($data);
-		}
+            Notifier::sendSignupEmail($data['email'], $data['first_name'] . ' ' . $data['last_name']);
+        }
 	}
 
 	public static function checkFBUser($fb_id)
@@ -105,6 +106,20 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $user ? $user->toArray() : null;
     }
 
+    /* @author: CSD
+     * @description: get details needed for broadcast contact auto populate on modal form
+     * @date: 06/02/2015
+     */
+    public static function getUserByUserId($user_id){
+        $user = User::where('user_id', '=', $user_id)->get()->first();
+        $broadcastuser['user_id'] = $user->user_id;
+        $broadcastuser['email'] = $user->email;
+        $broadcastuser['first_name'] = $user->first_name;
+        $broadcastuser['last_name'] = $user->last_name;
+        $broadcastuser['phone'] = $user->phone;
+
+        return $broadcastuser;
+    }
 
     //ARA Used for user demographics tracking
     public static function email($user_id){

@@ -13,15 +13,16 @@ My Business
     <script src="/js/jquery.form.js"></script>
     <script src="/js/dashboard/dashboard.js"></script>
     <script src="/js/dashboard/edit-business.js"></script>
-    {{--<script src="/js/google-analytics/googleAnalytics.js"></script>--}}
-    {{--<script src="/js/google-analytics/ga-dashboard.js"></script>--}}
+    <script src="/js/google-analytics/googleAnalytics.js"></script>
+    <script src="/js/google-analytics/ga-dashboard.js"></script>
 @stop
 
 @section('container')
 <div class="feat feat-business">
     <div class="container">
         <div class="text-center">
-            <h1><span class="glyphicon glyphicon-home"></span>My Business</h1>
+            <h1><span class="glyphicon glyphicon-home"></span>My Business
+            </h1>
         </div>
     </div>
     <div class="arrow">
@@ -32,7 +33,7 @@ My Business
 <div class="container" ng-controller="editBusinessController" id="editBusiness">
     @if(isset($business_id))
     <div class="row">
-        <div class="biz-details-wrap">
+        <div class="biz-details-wrap clearfix">
             <div class="col-md-12">
                 <div class="row">
                     <img class="col-md-2 col-sm-2 dnmobile" src="/img/biz-qrcode.jpg">
@@ -134,14 +135,15 @@ My Business
     @endif
     <div class="row assigned-business"> <!-- assigned business -->
     @if($assigned_businesses)
-    <h5>ASSIGNED BUSINESSES</h5>
+
         <div class="" id="box-wrapper">
-            <div id="biz-grid" class="row">
+            <div id="biz-grid" class="clearfix">
+                <h5 class="col-md-12 col-xs-12 mb20">ASSIGNED BUSINESSES</h5>
                 @foreach($assigned_businesses as $business)
-                <div class="col-md-3">
+                <div class="col-md-3 col-sm-4 col-xs-12">
                     <div class="boxed edit-biz process-queue">
                         <p class="title"><span class="glyphicon glyphicon-home"></span> {{ $business['name'] }}</p>
-                        <div class="biz-terminals">
+                        <div class="biz-terminals assigned-terminals">
                             <div class="clearfix">
                                 @foreach($business['terminals'] as $terminal)
                                 <div>
