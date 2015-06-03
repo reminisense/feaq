@@ -78,6 +78,32 @@
 <section class="page2">
     <div class="container">
         <h1 class="orange wow fadeInUp">What We Know About Lining Up</h1>
+        <!-- Start of excerpt 00-->
+        <div class="col-md-10 col-xs-10">
+            <div class="wrap">
+                <h2 class="wow fadeInUp text-left">Managing Lines: Gaining Competitive Advantage by Efficient Queue Management</h2>
+            </div>
+        </div>
+        <div class="col-md-2 col-xs-2">
+            <div class="wrap">
+                <h6 class="wow fadeInUp text-left"></h6>
+            </div>
+        </div>
+        <div class="col-md-8 col-xs-8">
+            <div class="wrap"><hr /></div>
+        </div>
+        <div class="col-md-8 col-xs-8">
+            <div class="wrap">
+                Waiting in line can be an enjoyable experience, but most of the time, it can be extremely frustrating and agonizing for both customer and store manager.
+                <br /><br />
+                In today's market, the competition is very intense. One business may potentially lose a customer just by making them wait.  Since queues are basic to both internal and external business processes, understanding the nature of it would lead to an increase in competitive advantage.
+            </div>
+        </div>
+        <div class="col-md-8 col-xs-8" style="text-align: right; padding-bottom: 30px;">
+            <div class="wrap"><a href="/articles/managing-lines">Read more &raquo;</a></div>
+        </div>
+        <!-- End of excerpt 00-->
+
         <!-- Start of excerpt 01-->
         <div class="col-md-10 col-xs-10">
             <div class="wrap">
