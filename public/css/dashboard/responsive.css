@@ -34,7 +34,7 @@
     .filterwrap .btn-orange {
         border-bottom-left-radius: 4px!important;
         border-top-left-radius: 4px!important;
-        margin-top: 10px;
+        /*margin-top: 10px;*/
     }
     #time_open-filter {
         border: none!important;
@@ -65,9 +65,6 @@
         height: inherit!important;
         padding-bottom: 40px;
     }
-    #bizTab li {
-        width: 33.33%;
-    }
     .biz-navs .nav-tabs li a {
         border-top-right-radius: 0!important;
         border-top-left-radius: 0!important;
@@ -87,6 +84,23 @@
     .processq-box .q-actions .btn-orange {
         margin-top: 11px!important;
         width: 100%;
+    }
+    nav.pull-right {
+        float: none!important;
+    }
+    .navbar-collapse.collapse {
+        background-color: #080808;
+    }
+    .navbar-nav .open .dropdown-menu>li>a {
+        padding: 20px 15px;
+    }
+    .navbar-inverse {
+        background-color: rgba(7, 10, 3, 1);
+    }
+}
+@media (max-width: 767px) {
+    .filterwrap .btn-orange {
+        margin-top: 12px;
     }
 }
 @media (max-width: 480px) {
@@ -223,7 +237,21 @@
     #search-suggest {
         width: 100%!important;
     }
-
+    nav.pull-right {
+        float: none!important;
+    }
+    .navbar-collapse.collapse {
+        background-color: #080808;
+    }
+    .navbar-nav .open .dropdown-menu>li>a {
+        padding: 20px 15px;
+    }
+    .navbar-inverse {
+        background-color: rgba(7, 10, 3, 1);
+    }
+    .navbar-nav .open .dropdown-menu>li>a {
+        padding: 10px 36px!important;
+    }
 
 }
 @media (max-width: 320px) {
@@ -288,6 +316,12 @@
     .dropdown-menu li {
         text-align: center;
     }
+    .nav .dropdown-menu li {
+        text-align: left;
+    }
+    .navbar-nav .open .dropdown-menu>li>a {
+        padding: 10px 36px!important;
+    }
     #bizTabContent .inline-btns {
         margin-bottom: 40px;
         display: block;
@@ -304,5 +338,17 @@
     .cancel-adduser, .cancel-add-terminal {
         width: 100px;
         margin-top: 2px;
+    }
+    nav.pull-right {
+        float: none!important;
+    }
+    .navbar-collapse.collapse {
+        background-color: #080808;
+    }
+    .navbar-nav .open .dropdown-menu>li>a {
+        padding: 20px 15px;
+    }
+    .navbar-inverse {
+        background-color: rgba(7, 10, 3, 1);
     }
 }

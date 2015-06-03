@@ -17,7 +17,8 @@ $(document).ready(function(){
 var pq = {
     ids : {
         service_id : $('#service-id').val(),
-        terminal_id :$('#terminal-id').val()
+        terminal_id: $('#terminal-id').val(),
+        business_id: $('#business-id').val()
     },
 
     urls : {

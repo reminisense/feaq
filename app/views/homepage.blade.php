@@ -32,6 +32,9 @@
     <script src="/js/search-business.js"></script>
     <script src="/js/user/Usertracker.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.0/slick.min.js"></script>
+
+    <script src="/js/google-analytics/googleAnalytics.js"></script>
+    <script src="/js/google-analytics/ga-page_front.js"></script>
 </head>
 
 <body ng-app="FeatherQ" ng-cloak>
@@ -48,7 +51,10 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse" ng-controller="fbController">
             <ul class="nav navbar-nav navbar-right">
-                <li><a class="feats" href="#features">FeatherQ Features</a></li>
+                <li><a class="feats" href="{{ URL::to('/about') }}">About</a></li>
+                <li><a class="feats" href="{{ URL::to('/guides') }}">Set-up Guide</a></li>
+                <li> <a class="feats">|</a></li> <!-- Placeholder only, please remove prior to deployment -->
+                <li><a class="feats" href="#features">Features</a></li>
                 <li><a class="start" href="#getting-started">Getting Started</a></li>
                 <li style="margin-left:10px;"><a href="" class="btn btn-blue btn-fb" ng-click="login()" role="button"><img src="img/icon-fb.png">Log In</a></li>
             </ul>
@@ -76,7 +82,7 @@
                 <div class="filters clearfix">
                     <div class="col-md-10 col-md-offset-2 col-sm-12 col-xs-12">
                         <div class="filterwrap  wow fadeInUp">
-                            <form ng-submit="searchBusiness(location_filter, industry_filter)">
+                            <form ng-submit="searchBusiness(location_filter, industry_filter, search_keyword)">
                                 <div class="btn-group" role="group" style="margin-bottom: 0px;">
                                     <div class="btn-group" role="group">
                                         <button id="btnGroupLoc" type="button"
@@ -100,8 +106,7 @@
                                             <li ng-click="locationFilter('Angola');">
                                                 <a href="">Angola</a></li>
                                             <li ng-click="locationFilter('Antigua and Barbuda');">
-                                                <a href="">Antigua and Barbuda</a>
-                                            </li>
+                                                <a href="">Antigua and Barbuda</a></li>
                                             <li ng-click="locationFilter('Argentina');">
                                                 <a href="">Argentina</a></li>
                                             <li ng-click="locationFilter('Armenia');">
@@ -135,8 +140,7 @@
                                             <li ng-click="locationFilter('Bolivia');">
                                                 <a href="">Bolivia</a></li>
                                             <li ng-click="locationFilter('Bosnia and Herzegovina');">
-                                                <a href="">Bosnia and
-                                                    Herzegovina</a></li>
+                                                <a href="">Bosnia and Herzegovina</a></li>
                                             <li ng-click="locationFilter('Botswana');">
                                                 <a href="">Botswana</a></li>
                                             <li ng-click="locationFilter('Brazil');">
@@ -153,7 +157,6 @@
                                                 <a href="">Burundi</a></li>
                                             <li ng-click="locationFilter('Cambodia');">
                                                 <a href="">Cambodia</a></li>
-                                            </a></li>
                                             <li ng-click="locationFilter('Cameroon');">
                                                 <a href="">Cameroon</a></li>
                                             <li ng-click="locationFilter('Canada');">
@@ -161,8 +164,7 @@
                                             <li ng-click="locationFilter('Cape Verde');">
                                                 <a href="">Cape Verde</a></li>
                                             <li ng-click="locationFilter('Central African Republic');">
-                                                <a href="">Central African
-                                                    Republic</a></li>
+                                                <a href="">Central African Republic</a></li>
                                             <li ng-click="locationFilter('Chad');">
                                                 <a href="">Chad</a></li>
                                             <li ng-click="locationFilter('Chile');">
@@ -174,8 +176,7 @@
                                             <li ng-click="locationFilter('Comoros');">
                                                 <a href="">Comoros</a></li>
                                             <li ng-click="locationFilter('Congo');">
-                                                <a href="">Congo, Republic of
-                                                    the</a></li>
+                                                <a href="">Congo, Republic of</a></li>
                                             <li ng-click="locationFilter('Costa Rica');">
                                                 <a href="">Costa Rica</a></li>
                                             <li ng-click="locationFilter('Cote dIvoire');">
@@ -197,11 +198,9 @@
                                             <li ng-click="locationFilter('Dominica');">
                                                 <a href="">Dominica</a></li>
                                             <li ng-click="locationFilter('Dominican Republic');">
-                                                <a href="">Dominican Republic</a>
-                                            </li>
+                                                <a href="">Dominican Republic</a></li>
                                             <li ng-click="locationFilter('East Timor');">
-                                                <a href="">East Timor (see
-                                                    Timor-Leste)</a></li>
+                                                <a href="">East Timor</a></li>
                                             <li ng-click="locationFilter('Ecuador');">
                                                 <a href="">Ecuador</a></li>
                                             <li ng-click="locationFilter('Egypt');">
@@ -209,8 +208,7 @@
                                             <li ng-click="locationFilter('El Salvador');">
                                                 <a href="">El Salvador</a></li>
                                             <li ng-click="locationFilter('Equatorial Guinea');">
-                                                <a href="">Equatorial Guinea</a>
-                                            </li>
+                                                <a href="">Equatorial Guinea</a></li>
                                             <li ng-click="locationFilter('Eritrea');">
                                                 <a href="">Eritrea</a></li>
                                             <li ng-click="locationFilter('Estonia');">
@@ -324,8 +322,7 @@
                                             <li ng-click="locationFilter('Malta');">
                                                 <a href="">Malta</a></li>
                                             <li ng-click="locationFilter('Marshall Islands');">
-                                                <a href="">Marshall Islands</a>
-                                            </li>
+                                                <a href="">Marshall Islands</a></li>
                                             <li ng-click="locationFilter('Mauritania');">
                                                 <a href="">Mauritania</a></li>
                                             <li ng-click="locationFilter('Mauritius');">
@@ -355,8 +352,7 @@
                                             <li ng-click="locationFilter('Netherlands');">
                                                 <a href="">Netherlands</a></li>
                                             <li ng-click="locationFilter('Netherlands Antilles');">
-                                                <a href="">Netherlands Antilles</a>
-                                            </li>
+                                                <a href="">Netherlands Antilles</a></li>
                                             <li ng-click="locationFilter('New Zealand');">
                                                 <a href="">New Zealand</a></li>
                                             <li ng-click="locationFilter('Nicaragua');">
@@ -378,8 +374,7 @@
                                             <li ng-click="locationFilter('Panama');">
                                                 <a href="">Panama</a></li>
                                             <li ng-click="locationFilter('Papua New Guinea');">
-                                                <a href="">Papua New Guinea</a>
-                                            </li>
+                                                <a href="">Papua New Guinea</a></li>
                                             <li ng-click="locationFilter('Paraguay');">
                                                 <a href="">Paraguay</a></li>
                                             <li ng-click="locationFilter('Peru');">
@@ -399,20 +394,17 @@
                                             <li ng-click="locationFilter('Rwanda');">
                                                 <a href="">Rwanda</a></li>
                                             <li ng-click="locationFilter('Saint Kitts and Nevis');">
-                                                <a href="">Saint Kitts and
-                                                    Nevis</a></li>
+                                                <a href="">Saint Kitts and Nevis</a></li>
                                             <li ng-click="locationFilter('Saint Lucia');">
                                                 <a href="">Saint Lucia</a></li>
                                             <li ng-click="locationFilter('Saint Vincent and the Grenadines');">
-                                                <a href="">Saint Vincent and the
-                                                    Grenadines</a></li>
+                                                <a href="">Saint Vincent and the Grenadines</a></li>
                                             <li ng-click="locationFilter('Samoa');">
                                                 <a href="">Samoa</a></li>
                                             <li ng-click="locationFilter('San Marino');">
                                                 <a href="">San Marino</a></li>
                                             <li ng-click="locationFilter('Sao Tome and Principe');">
-                                                <a href="">Sao Tome and
-                                                    Principe</a></li>
+                                                <a href="">Sao Tome and Principe</a></li>
                                             <li ng-click="locationFilter('Saudi Arabia');">
                                                 <a href="">Saudi Arabia</a></li>
                                             <li ng-click="locationFilter('Senegal');">
@@ -472,8 +464,7 @@
                                             <li ng-click="locationFilter('Tonga');">
                                                 <a href="">Tonga</a></li>
                                             <li ng-click="locationFilter('Tunisia and Tobago');">
-                                                <a href="">Trinidad and Tobago</a>
-                                            </li>
+                                                <a href="">Trinidad and Tobago</a></li>
                                             <li ng-click="locationFilter('Tunisia');">
                                                 <a href="">Tunisia</a></li>
                                             <li ng-click="locationFilter('Turkey');">
@@ -487,8 +478,7 @@
                                             <li ng-click="locationFilter('Ukraine');">
                                                 <a href="">Ukraine</a></li>
                                             <li ng-click="locationFilter('United Arab Emirates');">
-                                                <a href="">United Arab Emirates</a>
-                                            </li>
+                                                <a href="">United Arab Emirates</a></li>
                                             <li ng-click="locationFilter('United Kingdom');">
                                                 <a href="">United Kingdom</a></li>
                                             <li ng-click="locationFilter('Uruguay');">
@@ -640,7 +630,7 @@
                                         <input type="text" placeholder="ie. Ng Khai Devt Corp" id="search-keyword" ng-model="search_keyword" ng-model-options="{debounce: 1000}" autocomplete="off">
                                         <ul class="dropdown-menu" role="menu" id="search-suggest" ng-hide="dropdown_businesses.length == 0" outside-click="dropdown_businesses = []">
                                             <li ng-repeat="business in dropdown_businesses">
-                                                <a href="#" ng-click="searchBusiness(location_filter, industry_filter, business.name)">
+                                                <a href="#" ng-click="searchBusiness(location_filter, industry_filter, business.name, $event)">
                                                     <strong class="business-name">@{{ business.name }}</strong><br>
                                                     <small class="address">@{{ business.local_address }}</small>
                                                 </a>

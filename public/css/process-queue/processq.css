@@ -3,20 +3,48 @@
     height: 195px;
 }
 #view-broadcast {
-    font-family: 'ralewaybold';
+    font-family: 'ralewayregular';
     display: block;
-    padding: 9px 20px 6px 90px;
+    padding: 19px 20px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
-    height: 56px;
+    /*height: 56px;*/
     margin-top: 8px;
     line-height: 18px;
     vertical-align: middle;
 }
+#process-queue a > span,
+#view-broadcast > span {
+    margin-right: 8px;
+}
+span.glyphicon-zoom-in {
+    font-size: 11px;
+    vertical-align: middle;
+    margin-left: 6px;
+    color: #aaa;
+}
+.priority-number {
+    display: inline-block;
+}
+.priority-number:hover {
+    text-decoration: none;
+}
+#priority-number-modal .glyphicon-zoom-in {
+    display: none;
+}
+#priority-number-modal table td {
+    vertical-align: middle;
+}
+#priority-number-modal #priority-number-number {
+    color: #286090;
+    font-family: 'ralewaybold';
+    font-size: 18px;
+}
 #processq #view-broadcast {
     margin-top: 0px;
     color: #fff;
-    background: #00ba8b url('/img/bg-view-broadcast.png') left no-repeat;
+    background-color: #00ba8b;
+    /*background: #00ba8b url('/img/bg-view-broadcast.png') left no-repeat;*/
 }
 #processq #view-broadcast:hover {
     background-color: #009b74;
@@ -28,7 +56,8 @@
     margin-bottom: 0;
 }
 #processq .page-header {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    padding-bottom: 0;
 }
 #processq .page-header h2 {
     margin-top: 6px;
@@ -89,6 +118,11 @@
     padding-right: 10px;
     margin-bottom: 20px;
 }
+.btn-select,
+.processq-box .btn-select,
+.processq-box .form-control {
+    color: #23527c!important;
+}
 .processq-box .form-control {
     display: inline-block;
     /*width: 80%; rodel */
@@ -96,7 +130,7 @@
     font-size: 20px;
     font-family: 'ralewaybold';
     border: 1px solid #777;
-    color: #777;
+    color: #23527c;
     height: 40px;
 }
 .processq-box .q-actions .btn-primary {
@@ -142,6 +176,7 @@
 
 .processq .dropdown-menu {
     left: 8px;
+    border: 1px solid #999;
     width: 97%; /*ARA dropdown menu to full length*/
     background-color: #f7f7f7; /*ARA white background*/
     max-height: 100px; /*ARA prevents page stretching when too many numbers are called*/
@@ -175,12 +210,16 @@
     font-size: 0;
     white-space: nowrap;
     display: inline-block;
-    width: 105px;
-    height: 20px;
+    width: 80px;
+    height: 15px;
     overflow: hidden;
     position: relative;
     background: url('/images/stars_unfilled.jpg');
     background-size: contain;
+}
+
+.star-rating-form {
+    padding-right: 11px;
 }
 
 .star-rating i {
@@ -223,4 +262,24 @@
 .star-rating i ~ i ~ i ~ i ~ i {
     width: 100%;
 }
+.mb0 {
+    margin-bottom: 0!important;
+}
+.mb10 {
+    margin-bottom: 10px;
+}
+.mb20 {
+    margin-bottom: 20px;
+}
+.mb30 {
+    margin-bottom: 30px;
+}
+.mt10 {
+    margin-top: 10px;
+}
+
+.mt20 {
+    margin-top: 20px;
+}
+
 

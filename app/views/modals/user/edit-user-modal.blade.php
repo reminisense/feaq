@@ -18,7 +18,7 @@
                             <label>Last Name</label>
                             <input type="text" class=" form-control modal-input" id="edit_last_name" name="edit_last_name" required />
                         </div>
-                        <div class="col-md-6 mb30">
+                        <div class="col-md-6 mb20">
                             <label>Mobile</label><br/>
                             <input style="padding-left: 45px;" type="" min="9" maxlength="15" class=" form-control modal-input" id="edit_mobile" name="edit_mobile" required/>
                         </div>
@@ -35,7 +35,7 @@
                  <div class="alert alert-success modal-message" id="profile_update_message" style="display: none;"></div>
             </div>
             <div class="modal-footer">
-                <button id="update_profile_button" type="submit" class="btn btn-orange btn-lg">Update Profile</button>
+                <button id="update_profile_button" type="submit" class="btn btn-orange btn-md">Update Profile</button>
             </div>
         </div>
     </div>

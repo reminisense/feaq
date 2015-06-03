@@ -56,6 +56,12 @@ $(document).ready(function(){
         e.stopPropagation();
     });
 
+    $(document).on('click', '#mobile-back-button', function(){
+        $(this).fadeOut();
+        $('.message-collection').fadeIn();
+        $('.preview-container').fadeOut();
+    });
+
     //eb.jquery_functions.load_users();
     eb.jquery_functions.setBusinessId($('#business_id').val());
     eb.jquery_functions.setUserId($('#user_id').val());
@@ -99,6 +105,11 @@ var eb = {
     },
 
     jquery_functions : {
+        validYouTubeURL : function(url) {
+            var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+            return (url.match(p)) ? RegExp.$1 : false;
+        },
+
         getBusinessDetails : function(){
             var scope = angular.element($("#editBusiness")).scope();
             scope.$apply(function(){
@@ -235,6 +246,11 @@ var eb = {
         /* @CSD 05062015 */
         $scope.setPreviewMessage = function(sender, message_id, active_email){
             $('.message-preview').hide();
+            $('.preview-container').fadeIn();
+            if (isMobile.any() != null){
+                $('#mobile-back-button').removeClass('hidden').fadeIn();
+                $('.message-collection').fadeOut();
+            }
             $scope.business_reply_form.active_sender_email = active_email;
             $http.post('/message/phone-list', {
                 message_id : message_id
@@ -610,19 +626,26 @@ var eb = {
 
         $scope.adVideoEmbed = (function(business_id) {
             $('#image-submit-btn').addClass('btn-disabled');
-            $http.post(eb.urls.broadcast.ads_embed_video_url, {
-                business_id : business_id,
-                ad_video : $scope.ad_video
-            }).success(function(response) {
-                $('#advideo-preview').attr('src', response.ad_video);
-                $('#advideo-danger').hide();
-                $('#advideo-success').fadeIn();
+            if (eb.jquery_functions.validYouTubeURL($scope.ad_video)) {
+                $http.post(eb.urls.broadcast.ads_embed_video_url, {
+                    business_id : business_id,
+                    ad_video : $scope.ad_video
+                }).success(function(response) {
+                    $('#advideo-preview').attr('src', response.ad_video);
+                    $('#advideo-danger').hide();
+                    $('#advideo-success').fadeIn();
+                    $('#advideo-success').fadeOut(7000);
+                    $('#image-submit-btn').removeClass('btn-disabled');
+                }).error(function() {
+                    $('#advideo-danger').hide();
+                    $('#advideo-success').fadeIn();
+                    $('#image-submit-btn').removeClass('btn-disabled');
+                });
+            }
+            else {
+                alert('The Video URL is not a valid YouTube link.')
                 $('#image-submit-btn').removeClass('btn-disabled');
-            }).error(function() {
-                $('#advideo-danger').hide();
-                $('#advideo-success').fadeIn();
-                $('#image-submit-btn').removeClass('btn-disabled');
-            });
+            }
         });
 
         $scope.selectTV = (function(business_id) {
@@ -632,6 +655,7 @@ var eb = {
             }).success(function() {
                 $('#tvchannel-danger').hide();
                 $('#tvchannel-success').fadeIn();
+                $('#tvchannel-success').fadeOut(7000);
             }).error(function() {
                 $('#tvchannel-danger').hide();
                 $('#tvchannel-success').fadeIn();
@@ -665,6 +689,27 @@ var eb = {
                 }
             });
         });
+
+        var isMobile = {
+            Android: function() {
+                return navigator.userAgent.match(/Android/i);
+            },
+            BlackBerry: function() {
+                return navigator.userAgent.match(/BlackBerry/i);
+            },
+            iOS: function() {
+                return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+            },
+            Opera: function() {
+                return navigator.userAgent.match(/Opera Mini/i);
+            },
+            Windows: function() {
+                return navigator.userAgent.match(/IEMobile/i);
+            },
+            any: function() {
+                return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+            }
+        };
     });
 
 })();

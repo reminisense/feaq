@@ -172,7 +172,7 @@
     padding: 15px;
     overflow: hidden;
     margin-bottom: 15px;
-    min-height:177px;
+    min-height:180px;
 }
 #search-grid .boxed:hover {
     background-color: #008160;
@@ -215,8 +215,24 @@
 .broadcast_link:hover {
     text-decoration: none;
 }
+.mb0 {
+    margin-bottom: 0!important;
+}
+.mb10 {
+    margin-bottom: 10px;
+}
+.mb20 {
+    margin-bottom: 20px;
+}
 .mb30 {
     margin-bottom: 30px;
+}
+.mt10 {
+    margin-top: 10px;
+}
+
+.mt20 {
+    margin-top: 20px;
 }
 .searchresults {
     font-family: 'ralewaymedium';

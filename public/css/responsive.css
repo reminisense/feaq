@@ -59,6 +59,12 @@
     .btn-getnum {
         margin-top: 10px;
     }
+    .navbar-collapse.collapse {
+        background-color: #080808;
+    }
+    .navbar-nav .open .dropdown-menu>li>a {
+        padding: 20px 15px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -177,5 +183,10 @@
     .terminal-buttons {
         margin-top: 10px;
     }
-
+    .navbar-collapse.collapse {
+        background-color: #080808;
+    }
+    .navbar-nav .open .dropdown-menu>li>a {
+        padding: 20px 15px;
+    }
 }
