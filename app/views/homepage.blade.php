@@ -833,7 +833,7 @@
 <footer>
     <div class="container">
         <div class="">
-            <p class="text-center">&copy; 2015: Reminisense Corp.</p>
+            <p class="text-center"><a href="http://reminisense.com/" target="_blank">&copy; 2015: Reminisense Corp.</a></p>
         </div>
     </div>
 </footer>
