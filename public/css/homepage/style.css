@@ -412,6 +412,13 @@ section.page2 .col-md-3 p {
   cursor: pointer;
   border: 1px solid #00ba8b;
 }
+p > a{
+  color: #eee;
+}
+p > a:hover {
+  text-decoration: none;
+  color: #ff925b;
+}
 section.page2 {
     padding-bottom: 80px;
 }
