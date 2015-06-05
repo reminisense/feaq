@@ -56,13 +56,15 @@ app.controller('adminController', function($scope, $http){
     };
 
     $scope.getAdmins = function($event){
-        if($event){
+        if(typeof $event != 'undefined'){
             $event.preventDefault();
             $($event.target).addClass('glyphicon-refresh-animate');
         }
         $http.get('/admin/admins').success(function(response){
             $scope.admins = response.admins;
-            $($event.target).removeClass('glyphicon-refresh-animate');
+            if(typeof $event != 'undefined'){
+                $($event.target).removeClass('glyphicon-refresh-animate');
+            }
         });
     }
 
@@ -92,9 +94,22 @@ app.controller('adminController', function($scope, $http){
         });
     }
 
-    $scope.getFeatherQashAccount = function(user_id){
-        $http.get('featherqash/account/' + user_id).success(function(response){
+    $scope.userSearch = function(keyword){
+        $http.get('/user/search-user/' + keyword).success(function(response){
+            $scope.users = response.users;
+        });
+    }
 
+    $scope.setUserId = function(user_id, first_name, last_name){
+        $scope.featherqash_user = first_name + ' ' + last_name;
+        $scope.featherqash_user_id = user_id;
+        $scope.users = [];
+        $scope.getFeatherQashAccount(user_id);
+    }
+
+    $scope.getFeatherQashAccount = function(user_id){
+        $http.get('/featherqash/account/' + user_id).success(function(response){
+            $scope.account = response.account;
         });
     }
 

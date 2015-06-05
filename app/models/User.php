@@ -106,6 +106,17 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $user ? $user->toArray() : null;
     }
 
+    public static function searchByKeyword($keyword){
+        $users = User::where('user_id', '=', $keyword)
+            ->orwhere('first_name', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('last_name', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('email', 'LIKE', '%' . $keyword . '%')
+            ->orWhere(DB::raw('CONCAT_WS(" ", `first_name`, `last_name`)'), 'LIKE', $keyword)
+            ->select('user_id', 'first_name', 'last_name', 'email')
+            ->get();
+        return $users;
+    }
+
     /* @author: CSD
      * @description: get details needed for broadcast contact auto populate on modal form
      * @date: 06/02/2015

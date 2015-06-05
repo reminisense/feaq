@@ -52,7 +52,7 @@
                 <div class="tab-pane fade in" id="usage-stats"> <!--usage stats tab-->
                     <div class="form-group">
                         <div class="col-md-11">
-                            <input type="hidden" id="user_id" value="{{ $user_id }}">
+                            <input type="hidden" id="user_id" value="{{ $user_id }}"><br>
                             <select class="form-control" id="keyword" ng-model="keyword">
                                 <option ng-repeat="keyword in keywords" value="@{{ keyword.keyword }}">@{{ keyword.name }}</option>
                             </select>
@@ -69,10 +69,23 @@
                 <div class="tab-pane fade in" id="featherqash">
                     <div class="form-group">
                         <form ng-submit="addFeatherQash(featherqash_user_id, featherqash_amount, featherqash_description)">
-                            User ID <input type="text" ng-model="featherqash_user_id"><br>
-                            Amount <input type="text" ng-model="featherqash_amount"><br>
-                            Description <input type="text" ng-model="featherqash_description"><br>
-                            <button type="submit">Send</button>
+                            <div class="col-md-12">
+                                User: <input type="text" ng-model="featherqash_user" ng-change="userSearch(featherqash_user)" ng-model="featherqash_user" ng-model-options="{debounce: 1000}" autocomplete="off" outside-click="users = []">
+                                <ul class="dropdown-menu" role="menu" ng-show="users.length != 0" id="search-suggest" style="display: block">
+                                    <li ng-repeat="user in users">
+                                        <a href="#" ng-click="setUserId(user.user_id, user.first_name, user.last_name)">@{{ user.first_name + ' ' + user.last_name }}</a>
+                                    </li>
+                                </ul>
+                                <div ng-show="account.length != 0">
+                                    <span>Current Amount: </span>
+                                    <span>@{{ account.current_amount }}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                Amount <input type="text" ng-model="featherqash_amount"><br>
+                                Description <input type="text" ng-model="featherqash_description"><br>
+                                <button type="submit">Send</button>
+                            </div>
                         </form>
                     </div>
                 </div>
