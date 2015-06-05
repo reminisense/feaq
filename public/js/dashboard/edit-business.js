@@ -59,6 +59,7 @@ $(document).ready(function(){
     $(document).on('click', '#mobile-back-button', function(){
         $(this).fadeOut();
         $('.message-collection').fadeIn();
+        $('.preview-container').fadeOut();
     });
 
     //eb.jquery_functions.load_users();
@@ -100,10 +101,52 @@ var eb = {
         queue_settings : {
             queue_settings_get_url : $('#queue-settings-get-url').val() + '/',
             queue_settings_update_url : $('#queue-settings-update-url').val() + '/'
+        },
+
+        forms : {
+            add_textfield_url : '/forms/add-textfield',
+            add_radiobutton_url : '/forms/add-radiobutton',
+            add_checkbox_url : '/forms/add-checkbox',
+            add_dropdown_url : '/forms/add-dropdown',
+            display_fields_url : '/forms/display-fields',
+            delete_field_url : '/forms/delete-field'
         }
     },
 
     jquery_functions : {
+        /*
+        createTextField : function(form_id, field_data) {
+            return '<div class="col-md-3"><label>'+ field_data.label+'</label></div><div class="col-md-9"><input type="text" class="form-control"></div>';
+        },
+
+        createCheckbox : function(form_id, field_data) {
+            return '<div class="col-md-3"><label>'+ field_data.label+'</label></div><div class="col-md-9"><input type="checkbox" class="form-control" value="1"></div>';
+        },
+
+        createRadio : function(form_id, field_data) {
+            return '<div class="col-md-3"><label>'+ field_data.label+'</label></div><div class="col-md-9"><label><input type="radio" name="forms_'+form_id+'" value="'+field_data.value_a+'" > <strong>'+field_data.value_a+'</strong></label><label><input type="radio" name="forms_'+form_id+'" value="'+field_data.value_b+'"> <strong>'+field_data.value_b+'</strong></label></div>';
+        },
+
+        createDropdown : function(form_id, field_data) {
+            var select_options = '';
+            $.each(field_data.options, function(count, val) {
+                select_options += '<option value="'+val+'">'+val+'</option>';
+            });
+            return '<div class="col-md-3"><label>'+ field_data.label+'</label></div><div class="col-md-9"><select class="form-control">'+select_options+'</select></div>';
+        },
+
+        generateCustomFields : function(response) {
+            var form_fields = '';
+            $.each(response.form_fields, function(form_id, field_data) {
+                if (field_data.field_type == 'Text Field') form_fields += eb.jquery_functions.createTextField(form_id, field_data);
+                else if (field_data.field_type == 'Checkbox') form_fields += eb.jquery_functions.createCheckbox(form_id, field_data);
+                else if (field_data.field_type == 'Radio') form_fields += eb.jquery_functions.createRadio(form_id, field_data);
+                else if (field_data.field_type == 'Dropdown') form_fields += eb.jquery_functions.createDropdown(form_id, field_data);
+            });
+            return form_fields;
+        },
+        */
+
         validYouTubeURL : function(url) {
             var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
             return (url.match(p)) ? RegExp.$1 : false;
@@ -181,6 +224,8 @@ var eb = {
         $scope.analytics = [];
         $scope.messages = [];
 
+        $scope.form_fields = [];
+
         $scope.number_start = 1;
         $scope.terminal_specific_issue = 0;
         $scope.sms_current_number = 0;
@@ -245,6 +290,7 @@ var eb = {
         /* @CSD 05062015 */
         $scope.setPreviewMessage = function(sender, message_id, active_email){
             $('.message-preview').hide();
+            $('.preview-container').fadeIn();
             if (isMobile.any() != null){
                 $('#mobile-back-button').removeClass('hidden').fadeIn();
                 $('.message-collection').fadeOut();
@@ -706,6 +752,84 @@ var eb = {
             },
             any: function() {
                 return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+            }
+        };
+
+        $scope.addTextField = function(business_id) {
+            $http.post(eb.urls.forms.add_textfield_url, {
+                business_id : business_id,
+                text_field_label : $scope.text_field_label
+            }).success(function(response) {
+                $scope.displayFormFields(business_id);
+                $('#add-text-field').modal('hide');
+                $('#text-field-label').val('');
+            });
+        };
+
+        $scope.addRadioButton = function(business_id) {
+            $http.post(eb.urls.forms.add_radiobutton_url, {
+                business_id : business_id,
+                radio_button_label : $scope.radio_button_label,
+                radio_value_a : $scope.radio_value_a,
+                radio_value_b : $scope.radio_value_b
+            }).success(function(response) {
+                $scope.displayFormFields(business_id);
+                $('#add-radio-button').modal('hide');
+                $('#radio-button-label').val('');
+                $('#radio-value-a').val('');
+                $('#radio-value-b').val('');
+            });
+        };
+
+        $scope.addCheckbox = function(business_id) {
+            $http.post(eb.urls.forms.add_checkbox_url, {
+                business_id : business_id,
+                checkbox_label : $scope.checkbox_label
+            }).success(function(response) {
+                $scope.displayFormFields(business_id);
+                $('#add-check-box').modal('hide');
+                $('#check-box-label').val('');
+            });
+        };
+
+        $scope.addDropdown = function(business_id) {
+            $http.post(eb.urls.forms.add_dropdown_url, {
+                business_id : business_id,
+                dropdown_label : $scope.dropdown_label,
+                dropdown_options : $scope.dropdown_options
+            }).success(function(response) {
+                $scope.displayFormFields(business_id);
+                $('#add-dropdown').modal('hide');
+                $('#dropdown-label').val('');
+                $('#dropdown-options').val('');
+            });
+        };
+
+        $scope.displayFormFields = function(business_id) {
+            $http.post(eb.urls.forms.display_fields_url, {
+                business_id : business_id
+            }).success(function(response) {
+               $scope.form_fields = response.form_fields;
+            });
+        };
+
+        /*
+        $scope.showPreviewForm = function(business_id) {
+            $http.post(eb.urls.forms.display_fields_url, {
+                business_id : business_id
+            }).success(function(response) {
+                $('#custom-fields-display').html(eb.jquery_functions.generateCustomFields(response));
+            });
+        };
+        */
+
+        $scope.deleteFormField = function(form_id) {
+            if (confirm('Are you sure you want to delete this field?')) {
+                $http.post(eb.urls.forms.delete_field_url, {
+                    form_id : form_id
+                }).success(function(response) {
+                    $('.field-'+form_id).remove();
+                });
             }
         };
     });
