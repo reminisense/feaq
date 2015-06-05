@@ -150,4 +150,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
             return null;
         }
     }
+
+
+    public static function countUsersByRange($start_date, $end_date)
+    {
+        $temp_start_date = date("Y/m/d", $start_date);
+        $temp_end_date = date("Y/m/d", $end_date);
+        return User::where('registration_date', '>=', $temp_start_date)->where('registration_date', '<', $temp_end_date)->count();
+    }
+
 }

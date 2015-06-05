@@ -1,9 +1,6 @@
 /**
  * Created by USER on 6/2/15.
  */
-/**
- * Created by USER on 5/6/15.
- */
 app.controller('adminController', function($scope, $http){
     $scope.user_id = $('#user_id').val();
     $scope.admins = [];
@@ -82,5 +79,8 @@ app.controller('adminController', function($scope, $http){
         }
     }
 
+    $scope.loadBusinessNumbers = function(){
+        window.open('/admin/business/');
+    }
     $scope.getAdmins();
 });
