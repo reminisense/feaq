@@ -20,7 +20,6 @@
         </div>
     </div>
 </div>
-<a href="" class="btn-boxy btn-primary" ng-click="showPreviewForm(business_id)" data-target="#preview-form-modal" data-toggle="modal" style="width: 100%"><span class="glyphicon glyphicon-eye-open"></span> Preview Form</a>
 <div class="table table-responsive">
     <table class="table table-striped">
         <thead>
@@ -40,7 +39,6 @@
     </table>
 </div>
 
-@include('modals.forms.preview-form-modal')
 @include('modals.forms.add-text-modal')
 @include('modals.forms.add-radio-modal')
 @include('modals.forms.add-checkbox-modal')
