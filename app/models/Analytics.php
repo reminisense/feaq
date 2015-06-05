@@ -235,4 +235,46 @@ class Analytics extends Eloquent{
         return $user_data;
     }
 
+    public static function countBusinessNumbers( $start_date, $end_date, $action){
+
+        $temp_start_date = mktime(0, 0, 0, date('m', $start_date), date('d', $start_date), date('Y', $start_date));
+        $temp_end_date = mktime(0, 0, 0, date('m', $end_date), date('d', $end_date), date('Y', $end_date));
+
+        return Analytics::where('date', '>=', $temp_start_date)->where('date','<=', $temp_end_date)->where('action','=',$action)->count();
+    }
+
+    public static function countNumbersByBusiness($business_id, $temp_start_date, $temp_end_date, $action){
+        return Analytics::where('business_id','=',$business_id)->where('date', '>=', $temp_start_date)
+            ->where('date','<=', $temp_end_date)->where('action','=',$action)->count();
+
+    }
+    public static function countNumbersByIndustry($industry, $temp_start_date, $temp_end_date, $action){
+
+        $business_id = Business::getBusinessIdsByIndustry($industry);
+        $count= [];
+
+        for($i=0; $i < count($business_id); $i++){
+            $temp_count = Analytics::where('business_id','=',$business_id[$i]->business_id)->where('date', '>=', $temp_start_date)
+                ->where('date','<=', $temp_end_date)->where('action','=',$action)->count();
+            array_push($count, $temp_count);
+        }
+
+        return array_sum($count);
+    }
+
+    public static function countNumbersByCountry($country, $temp_start_date, $temp_end_date, $action){
+
+        $business_id = Business::getBusinessIdsByCountry($country);
+        $count = [];
+
+        for($i=0; $i < count($business_id); $i++){
+
+            $temp_count = Analytics::where('business_id','=',$business_id[$i]->business_id)->where('date', '>=', $temp_start_date)
+                ->where('date','<=', $temp_end_date)->where('action','=',$action)->count();
+            array_push($count, $temp_count);
+        }
+
+        return array_sum($count);
+    }
+
 }
