@@ -11,26 +11,38 @@ class FeatherQash extends Eloquent{
 
     public static function addFeatherQashTransaction($user_id, $amount, $action, $details = array()){
         $account_data = FeatherQash::getUserFeatherQashAccount($user_id);
-        $details['previous_amount'] = $account_data->current_amount;
-        $details['new_amount'] = $action == 0 ? $account_data->current_amount - $amount : $account_data->current_amount + $amount;
+        $details['previous_amount'] = isset($account_data->current_amount) ?  $account_data->current_amount : 0;
+        $details['new_amount'] = $action == 0 ? $details['previous_amount'] - $amount : $details['previous_amount'] + $amount;
 
-        $values = [
-            'user_id' => $user_id,
-            'amount' => $amount,
-            'action' => $action,
-            'details' => serialize($details)
-        ];
+        if($details['new_amount'] > 0){
+            $values = [
+                'user_id' => $user_id,
+                'amount' => $amount,
+                'action' => $action,
+                'details' => serialize($details)
+            ];
 
-        $transaction_id = DB::table('featherqash_tracker')->insertGetId($values);
-        FeatherQash::updateUserFeatherQash($user_id, $details['new_amount'], $transaction_id);
+            $transaction_id = DB::table('featherqash_tracker')->insertGetId($values);
+            FeatherQash::updateUserFeatherQash($user_id, $details['new_amount'], $transaction_id);
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public static function updateUserFeatherQash($user_id, $current_amount, $last_transaction_id){
-        DB::table('featherqash')->where('user_id', '=', $user_id)->update(['current_amount' => $current_amount, 'latest_transaction_id' => $last_transaction_id]);
+        if(DB::table('featherqash_user')->where('user_id', '=', $user_id)->first()){
+            DB::table('featherqash_user')->where('user_id', '=', $user_id)->update(['current_amount' => $current_amount, 'latest_transaction_id' => $last_transaction_id]);
+        }else{
+            DB::table('featherqash_user')->insert(['user_id' => $user_id, 'current_amount' => $current_amount, 'latest_transaction_id' => $last_transaction_id]);
+        }
     }
 
     public static function getUserFeatherQashAccount($user_id){
         return DB::table('featherqash_user')->where('user_id', '=', $user_id)->first();
     }
 
+    public static function getUserFeatherQashTransactions($user_id, $limit = 99){
+        return DB::table('featherqash_tracker')->orderBy('transaction_id', 'desc')->where('user_id', '=', $user_id)->take($limit);
+    }
 }

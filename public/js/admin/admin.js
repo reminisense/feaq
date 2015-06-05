@@ -82,5 +82,22 @@ app.controller('adminController', function($scope, $http){
         }
     }
 
+    $scope.addFeatherQash = function(user_id, amount, description){
+        $http.post('/featherqash/add', {
+            user_id: user_id,
+            amount: amount,
+            description: description
+        }).success(function(response){
+            $scope.getFeatherQashAccount(user_id);
+        });
+    }
+
+    $scope.getFeatherQashAccount = function(user_id){
+        $http.get('featherqash/account/' + user_id).success(function(response){
+
+        });
+    }
+
+    //functions triggered on load
     $scope.getAdmins();
 });

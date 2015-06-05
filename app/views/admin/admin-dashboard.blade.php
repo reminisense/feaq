@@ -21,6 +21,7 @@
                 <li class="active"><a href="#all-admins" data-toggle="tab">Admins</a></li>
                 <li><a href="#usage-stats" data-toggle="tab">Usage Stats</a></li>
                 <li><a href="#business-stats" data-toggle="tab">Business Stats</a></li>
+                <li><a href="#featherqash" data-toggle="tab">FeatherQash</a></li>
             </ul>
             <div class="clearfix tab-content">
                 <div class="tab-pane fade active in" id="all-admins">
@@ -65,6 +66,16 @@
                     </div>
                 </div><!-- eo usage stats tab-->
                 <div class="tab-pane fade in" id="business-stats"></div>
+                <div class="tab-pane fade in" id="featherqash">
+                    <div class="form-group">
+                        <form ng-submit="addFeatherQash(featherqash_user_id, featherqash_amount, featherqash_description)">
+                            User ID <input type="text" ng-model="featherqash_user_id"><br>
+                            Amount <input type="text" ng-model="featherqash_amount"><br>
+                            Description <input type="text" ng-model="featherqash_description"><br>
+                            <button type="submit">Send</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
