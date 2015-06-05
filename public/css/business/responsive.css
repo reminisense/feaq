@@ -165,6 +165,15 @@
     .navbar-inverse {
         background-color: rgba(7, 10, 3, 1);
     }
+    .edit-biz.process-queue {
+        height: 70px;
+    }
+    .biz-terminals {
+        height: 70px;
+    }
+    #biz-grid .boxed .title {
+        margin-top: 10px;
+    }
 }
 @media (max-width: 320px) {
     .row.assigned-business #box-wrapper {
@@ -231,5 +240,14 @@
     }
     .navbar-inverse {
         background-color: rgba(7, 10, 3, 1);
+    }
+    .edit-biz.process-queue {
+        height: 70px;
+    }
+    .biz-terminals {
+        height: 70px;
+    }
+    #biz-grid .boxed .title {
+        margin-top: 10px;
     }
 }
