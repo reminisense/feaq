@@ -18,6 +18,8 @@ $(document).on('click', '#send-business-message', function(){
     var contemail = $('#contactemail').val();
     var contmobile = $('#contactmobile').val();
     var contmessage = $('#contactmessage').val();
+    var custom_fields = [];
+    var custom_fields_bool = false;
 
     var errorMessage = '';
     if (!isEmail(contemail)){
@@ -33,8 +35,34 @@ $(document).on('click', '#send-business-message', function(){
     }
 
     if (errorMessage == ''){
-        $.post( '/message/sendto-business', { business_id: business_id, contname: contname, contemail: contemail, contmobile: contmobile, contmessage: contmessage })
-            .done(function( data ) {
+        // Get the Values of the Custom Fields
+        $.post('/forms/display-fields', {
+            business_id : business_id
+        }).done(function(response) {
+            var result = jQuery.parseJSON(response);
+            if (result.form_fields) {
+                custom_fields_bool = true;
+                $.each(result.form_fields, function(form_id, field_data) {
+                    if (field_data.field_type == 'Radio') {
+                        custom_fields[form_id] = $('input:radio[name=forms_'+form_id+']:checked').val();
+                    }
+                    else if (field_data.field_type == 'Checkbox') {
+                        custom_fields[form_id] = $('#forms_'+form_id).prop('checked') ? '1' : '0';
+                    }
+                    else {
+                        custom_fields[form_id] = $('#forms_' + form_id).val();
+                    }
+                });
+            }
+            $.post( '/message/sendto-business', {
+                business_id: business_id,
+                contname: contname,
+                contemail: contemail,
+                contmobile: contmobile,
+                contmessage: contmessage,
+                custom_fields_bool : custom_fields_bool,
+                custom_fields : custom_fields
+            }).done(function( data ) {
                 var resp = jQuery.parseJSON(data);
                 if (resp.status > 0){
                     $('#message-notif').removeClass('alert-danger');
@@ -48,6 +76,7 @@ $(document).on('click', '#send-business-message', function(){
                     $('#contactmessage').attr('placeholder', 'Write your message here...');
                 }
             });
+        });
     } else {
         $('#message-notif').removeClass('alert-success');
         $('#message-notif').addClass('alert-danger');

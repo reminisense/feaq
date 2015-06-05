@@ -43,6 +43,8 @@ Route::controller('rest', 'RestController'); /* RDH For Android Webservices*/
 
 Route::controller('message', 'MessageController');
 
+Route::controller('forms', 'FormsController');
+
 Route::controller('admin', 'AdminController');
 
 Route::get('about', 'ContentController@getMain');
