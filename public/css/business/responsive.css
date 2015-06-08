@@ -166,10 +166,10 @@
         background-color: rgba(7, 10, 3, 1);
     }
     .edit-biz.process-queue {
-        height: 70px;
+        height: 70px!important;
     }
     .biz-terminals {
-        height: 70px;
+        height: 70px!important;
     }
     #biz-grid .boxed .title {
         margin-top: 10px;
@@ -242,10 +242,10 @@
         background-color: rgba(7, 10, 3, 1);
     }
     .edit-biz.process-queue {
-        height: 70px;
+        height: 70px!important;
     }
     .biz-terminals {
-        height: 70px;
+        height: 70px!important;
     }
     #biz-grid .boxed .title {
         margin-top: 10px;
