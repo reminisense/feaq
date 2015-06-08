@@ -171,6 +171,9 @@
     .biz-terminals {
         height: 70px;
     }
+    .biz-terminals a:hover {
+        height: 70px;
+    }
     #biz-grid .boxed .title {
         margin-top: 10px;
     }
@@ -245,6 +248,9 @@
         height: 70px;
     }
     .biz-terminals {
+        height: 70px;
+    }
+    .biz-terminals a:hover {
         height: 70px;
     }
     #biz-grid .boxed .title {
