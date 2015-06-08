@@ -84,6 +84,9 @@ app.controller('adminController', function($scope, $http){
         }
     }
 
+    $scope.loadBusinessNumbers = function(){
+        window.open('/admin/business/');
+    }
     $scope.addFeatherQash = function(user_id, amount, description){
         $http.post('/featherqash/add', {
             user_id: user_id,
