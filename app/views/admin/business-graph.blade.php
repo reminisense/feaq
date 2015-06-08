@@ -14,9 +14,13 @@
             <img src="/img/arrow.png">
         </div>
     </div>
-
     <div ng-controller="graphsController">
-
+        <div id="time-label-container" class="container">
+            <div id="time-label" class="col-md-12 text-center">
+              <input type="text" id="converted-start-date" name="start-date" value="@{{ converted_start_date }}" disabled/>
+                <b>-</b><input type="text" id="converted-end-date" name="end-date" value="@{{ converted_end_date }}" disabled/>
+            </div>
+        </div>
         <div class ="container" id="graphs-container">
             <ul id="graph-nav" class="nav nav-tabs">
                 <li class="active"><a href="#issued-container">Issued</a></li>
