@@ -88,7 +88,16 @@ app.controller('adminController', function($scope, $http){
         window.open('/admin/business/');
     }
     $scope.addFeatherQash = function(user_id, amount, description){
-        $http.post('/featherqash/add', {
+        $scope.updateFeatherQash(user_id, amount, description, 1);
+    }
+
+    $scope.subtractFeatherQash = function(user_id, amount, description){
+        $scope.updateFeatherQash(user_id, amount, description, 0);
+    }
+
+    $scope.updateFeatherQash = function(user_id, amount, description, action){
+        url = action == 0 ? '/featherqash/use' : '/featherqash/add';
+        $http.post(url, {
             user_id: user_id,
             amount: amount,
             description: description

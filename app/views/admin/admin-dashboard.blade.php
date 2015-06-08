@@ -20,78 +20,18 @@
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#all-admins" data-toggle="tab">Admins</a></li>
                 <li><a href="#usage-stats" data-toggle="tab">Usage Stats</a></li>
-                <li><a href="#business-stats" data-toggle="tab">Business Stats</a></li>
                 <li><a href="#featherqash" data-toggle="tab">FeatherQash</a></li>
             </ul>
             <div class="clearfix tab-content">
                 <div class="tab-pane fade active in" id="all-admins">
-                    <div class="form-group">
-                        <form ng-submit="addAdmin(admin_email)">
-                            <div class="col-md-11">
-                                <input class="form-control" type="email" required ng-model="admin_email">
-                            </div>
-                            <div class="col-md-1">
-                                <button type="submit" class="btn btn-lg btn-blue">Add</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-11">
-                            <h5><span class="glyphicon glyphicon-refresh" ng-click="getAdmins($event)" style="cursor: pointer"></span> List of Admin Emails: </h5>
-                            <div class="row">
-                                <div class="col-lg-3" ng-repeat="email in admins">
-                                    <p>
-                                        <a class="label label-danger" href="#" ng-click="removeAdmin(email, $event)">X</a>
-                                        <span class="title">@{{ email }}</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @include('admin.admin-tabs.admins-list-tab')
                 </div>
                 <div class="tab-pane fade in" id="usage-stats"> <!--usage stats tab-->
-                    <div class="form-group">
-                        <div class="col-md-11">
-                            <input type="hidden" id="user_id" value="{{ $user_id }}"><br>
-                            <select class="form-control" id="keyword" ng-model="keyword">
-                                <option ng-repeat="keyword in keywords" value="@{{ keyword.keyword }}">@{{ keyword.name }}</option>
-                            </select>
-                        </div>
-                        <div class="col-md-1">
-                            <button class="btn btn-primary" ng-click="loadChart()">Load Chart</button>
-                        </div>
-                        <div class="col-md-1 div-view-business">
-                            <button class="btn btn-primary" ng-click="loadBusinessNumbers()">View Business Numbers</button>
-                        </div>
-                        <div class="col-md-12">
-                            <div id="statChart" style="min-height: 477px;"></div>
-                        </div>
-                    </div>
+                    @include('admin.admin-tabs.usage-stats-tab')
                 </div><!-- eo usage stats tab-->
-                <div class="tab-pane fade in" id="business-stats"></div>
-                <div class="tab-pane fade in" id="featherqash">
-                    <div class="form-group">
-                        <form ng-submit="addFeatherQash(featherqash_user_id, featherqash_amount, featherqash_description)">
-                            <div class="col-md-12">
-                                User: <input type="text" ng-model="featherqash_user" ng-change="userSearch(featherqash_user)" ng-model="featherqash_user" ng-model-options="{debounce: 1000}" autocomplete="off" outside-click="users = []">
-                                <ul class="dropdown-menu" role="menu" ng-show="users.length != 0" id="search-suggest" style="display: block">
-                                    <li ng-repeat="user in users">
-                                        <a href="#" ng-click="setUserId(user.user_id, user.first_name, user.last_name)">@{{ user.first_name + ' ' + user.last_name }}</a>
-                                    </li>
-                                </ul>
-                                <div ng-show="account.length != 0">
-                                    <span>Current Amount: </span>
-                                    <span>@{{ account.current_amount }}</span>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                Amount <input type="text" ng-model="featherqash_amount"><br>
-                                Description <input type="text" ng-model="featherqash_description"><br>
-                                <button type="submit">Send</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                <div class="tab-pane fade in" id="featherqash"> <!--featherqash tab-->
+                    @include('admin.admin-tabs.featherqash-tab')
+                </div> <!--eo featherqash tab-->
             </div>
         </div>
     </div>

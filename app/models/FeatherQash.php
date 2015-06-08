@@ -39,7 +39,11 @@ class FeatherQash extends Eloquent{
     }
 
     public static function getUserFeatherQashAccount($user_id){
-        return DB::table('featherqash_user')->where('user_id', '=', $user_id)->first();
+        return DB::table('featherqash_user')
+            ->where('featherqash_user.user_id', '=', $user_id)
+            ->join('user', 'user.user_id', '=', 'featherqash_user.user_id')
+            ->select('user.user_id', 'user.first_name', 'user.last_name', 'user.email', 'featherqash_user.current_amount')
+            ->first();
     }
 
     public static function getUserFeatherQashTransactions($user_id, $limit = 99){
