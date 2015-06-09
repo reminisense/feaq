@@ -73,6 +73,10 @@ $(document).on('click', '#send-business-message', function(){
                     $('#contactemail').val('');
                     $('#contactmessage').val('');
                     $('#contactmobile').val('');
+                    $('.custom-field').val('');
+                    $('[name="contact_business_form"] input:checkbox').removeAttr('checked');
+                    $('[name="contact_business_form"] input:radio').removeAttr('checked');
+                    $('.custom-dropdown').val('0');
                     $('#contactmessage').attr('placeholder', 'Write your message here...');
                 }
             });
