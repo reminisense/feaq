@@ -8,9 +8,10 @@ app.controller('graphsController', function($scope, $http){
     $scope.mode = $('#mode').val();
     $scope.value = $('#value').val();
 
+    $scope.converted_start_date = "";
+    $scope.converted_end_date = "";
 
     $scope.loadIssuedNumbersChart = function (){
-        console.log("test");
         $http.get('/admin/numbersissued/' + $scope.start_date + '/' + $scope.end_date + '/' + $scope.mode + '/' + $scope.value)
             .success(function(response){
 
@@ -76,6 +77,22 @@ app.controller('graphsController', function($scope, $http){
 
     }
 
+    $scope.convertTime = function(){
+
+        var temp_start_time = new Date($scope.start_date *1000);
+        var temp_end_time = new Date($scope.end_date *1000);
+
+        var month_s = ('0' + (temp_start_time.getMonth()+ 1)).slice(-2);
+        var day_s = ('0' + temp_start_time.getDate()).slice(-2);
+        var year_s = temp_start_time.getFullYear();
+
+        var month_e = ('0' + (temp_end_time.getMonth()+ 1)).slice(-2);
+        var day_e = ('0' + temp_end_time.getDate()).slice(-2);
+        var year_e  = temp_end_time.getFullYear();
+
+        $scope.converted_start_date = year_s + "/" + month_s + "/"+ day_s;
+        $scope.converted_end_date = year_e + "/" + month_e + "/"+ day_e;
+    }
 
     $scope.createIssuedChart = function(issued){
         console.log(issued);
@@ -126,8 +143,7 @@ app.controller('graphsController', function($scope, $http){
     };
 
     $scope.loadIssuedNumbersChart();
-
-
+    $scope.convertTime();
 
     $('a[href="#issued-container"]').on('click',function(){
         $("#issued-container").show();
