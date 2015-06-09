@@ -88,21 +88,36 @@ app.controller('adminController', function($scope, $http){
         window.open('/admin/business/');
     }
     $scope.addFeatherQash = function(user_id, amount, description){
-        $scope.updateFeatherQash(user_id, amount, description, 1);
+        $scope.getTransactionKey(user_id, amount, description, 1);
     }
 
     $scope.subtractFeatherQash = function(user_id, amount, description){
-        $scope.updateFeatherQash(user_id, amount, description, 0);
+        $scope.getTransactionKey(user_id, amount, description, 0);
     }
 
-    $scope.updateFeatherQash = function(user_id, amount, description, action){
-        url = action == 0 ? '/featherqash/use' : '/featherqash/add';
+    $scope.getTransactionKey = function(user_id, amount, description, action){
+        var url ='';
+        switch (action){
+            case 0:
+                url = '/featherqash/use';
+                break;
+            case 1:
+                url = '/featherqash/add';
+                break;
+        }
+
         $http.post(url, {
             user_id: user_id,
             amount: amount,
             description: description
         }).success(function(response){
-            $scope.getFeatherQashAccount(user_id);
+            $scope.updateFeatherQash(response.key);
+        });
+    }
+
+    $scope.updateFeatherQash = function(transaction_key){
+        $http.get('/featherqash/update-account/' + transaction_key).success(function(response){
+            $scope.getFeatherQashAccount(response.user_id);
         });
     }
 
@@ -121,7 +136,15 @@ app.controller('adminController', function($scope, $http){
 
     $scope.getFeatherQashAccount = function(user_id){
         $http.get('/featherqash/account/' + user_id).success(function(response){
-            $scope.account = response.account;
+            account = {
+                user_id: response.user.user_id,
+                first_name: response.user.first_name,
+                last_name: response.user.last_name,
+                email: response.user.email,
+                current_amount: response.account.current_amount
+            }
+
+            $scope.account = account;
         });
     }
 

@@ -9,12 +9,12 @@
 class FeatherQash extends Eloquent{
     public $timestamps = false;
 
-    public static function addFeatherQashTransaction($user_id, $amount, $action, $details = array()){
+    public static function createFeatherQashTransaction($user_id, $amount, $action, $details = array()){
         $account_data = FeatherQash::getUserFeatherQashAccount($user_id);
         $details['previous_amount'] = isset($account_data->current_amount) ?  $account_data->current_amount : 0;
         $details['new_amount'] = $action == 0 ? $details['previous_amount'] - $amount : $details['previous_amount'] + $amount;
 
-        if($details['new_amount'] > 0){
+        if($details['new_amount'] >= 0){
             $values = [
                 'user_id' => $user_id,
                 'amount' => $amount,
@@ -23,8 +23,7 @@ class FeatherQash extends Eloquent{
             ];
 
             $transaction_id = DB::table('featherqash_tracker')->insertGetId($values);
-            FeatherQash::updateUserFeatherQash($user_id, $details['new_amount'], $transaction_id);
-            return true;
+            return $transaction_id;
         }else{
             return false;
         }
@@ -39,14 +38,45 @@ class FeatherQash extends Eloquent{
     }
 
     public static function getUserFeatherQashAccount($user_id){
-        return DB::table('featherqash_user')
+        $computed_amount = FeatherQash::getFeatherQashTransactionsComputedAmount($user_id);
+        $account = DB::table('featherqash_user')
             ->where('featherqash_user.user_id', '=', $user_id)
-            ->join('user', 'user.user_id', '=', 'featherqash_user.user_id')
-            ->select('user.user_id', 'user.first_name', 'user.last_name', 'user.email', 'featherqash_user.current_amount')
+            ->select('featherqash_user.current_amount')
             ->first();
+
+        if($account && $account->current_amount == $computed_amount){
+            return $account;
+        }else{
+            $account = new stdClass();
+            $account->user_id = $user_id;
+            $account->current_amount = $computed_amount;
+            return $account;
+        }
     }
 
     public static function getUserFeatherQashTransactions($user_id, $limit = 99){
         return DB::table('featherqash_tracker')->orderBy('transaction_id', 'desc')->where('user_id', '=', $user_id)->take($limit);
+    }
+
+    public static function getAddTransactionsTotal($user_id){
+        return DB::table('featherqash_tracker')
+            ->where('user_id', '=', $user_id)
+            ->where('action', '=', 1)
+            ->select(DB::raw('SUM(amount) as positive_amount'))
+            ->first()
+            ->positive_amount;
+    }
+
+    public static function getSubtractTransactionsTotal($user_id){
+        return DB::table('featherqash_tracker')
+            ->where('user_id', '=', $user_id)
+            ->where('action', '=', 0)
+            ->select(DB::raw('SUM(amount) as negative_amount'))
+            ->first()
+            ->negative_amount;
+    }
+
+    public static function getFeatherQashTransactionsComputedAmount($user_id){
+        return FeatherQash::getAddTransactionsTotal($user_id) - FeatherQash::getSubtractTransactionsTotal($user_id);
     }
 }
