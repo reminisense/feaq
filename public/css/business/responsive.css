@@ -165,7 +165,7 @@
     .navbar-inverse {
         background-color: rgba(7, 10, 3, 1);
     }
-    .edit-biz.process-queue {
+    #biz-grid .boxed {
         height: 70px!important;
     }
     .biz-terminals {
@@ -244,7 +244,7 @@
     .navbar-inverse {
         background-color: rgba(7, 10, 3, 1);
     }
-    .edit-biz.process-queue {
+    #biz-grid .boxed {
         height: 70px!important;
     }
     .biz-terminals {
