@@ -47,7 +47,7 @@ $(document).on('click', '#send-business-message', function(){
                         custom_fields[form_id] = $('input:radio[name=forms_'+form_id+']:checked').val();
                     }
                     else if (field_data.field_type == 'Checkbox') {
-                        custom_fields[form_id] = $('#forms_'+form_id).prop('checked') ? '1' : '0';
+                        custom_fields[form_id] = $('#forms_'+form_id).prop('checked') ? 'Yes' : 'No';
                     }
                     else {
                         custom_fields[form_id] = $('#forms_' + form_id).val();
@@ -73,6 +73,10 @@ $(document).on('click', '#send-business-message', function(){
                     $('#contactemail').val('');
                     $('#contactmessage').val('');
                     $('#contactmobile').val('');
+                    $('.custom-field').val('');
+                    $('[name="contact_business_form"] input:checkbox').removeAttr('checked');
+                    $('[name="contact_business_form"] input:radio').removeAttr('checked');
+                    $('.custom-dropdown').val('0');
                     $('#contactmessage').attr('placeholder', 'Write your message here...');
                 }
             });

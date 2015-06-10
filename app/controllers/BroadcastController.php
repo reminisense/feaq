@@ -60,24 +60,23 @@ class BroadcastController extends BaseController{
         foreach ($fields as $form_id => $field_data) {
           if ($field_data['field_type'] == 'Text Field') {
             $custom_fields .= '<div class="col-md-3"><label>'. $field_data['label'] . '</label></div>
-              <div class="col-md-9"><input type="text" class="form-control" id="forms_' . $form_id . '" /></div>';
+              <div class="col-md-9"><input type="text" class="form-control custom-field" id="forms_' . $form_id . '" /></div>';
           }
           elseif ($field_data['field_type'] == 'Radio') {
             $custom_fields .= '<div class="col-md-3"><label>'. $field_data['label'] . '</label></div>
-              <div class="col-md-9"><label><input type="radio" name="forms_' . $form_id . '" value="' . $field_data['value_a'] . '" ><strong>' . $field_data['value_a'] . '</strong></label><label><input type="radio" name="forms_' . $form_id . '" value="' . $field_data['value_b'] . '"> <strong>' . $field_data['value_b'] . '</strong></label></div>';
+              <div class="col-md-9"><label class="radio-inline"><input type="radio" name="forms_' . $form_id . '" value="' . $field_data['value_a'] . '" >' . $field_data['value_a'] . '</label><label class="radio-inline"><input type="radio" name="forms_' . $form_id . '" value="' . $field_data['value_b'] . '">' . $field_data['value_b'] . '</label></div>';
           }
           elseif ($field_data['field_type'] == 'Checkbox') {
-            $custom_fields .= '<div class="col-md-3"><label>'. $field_data['label'] . '</label></div>
-              <div class="col-md-9"><input type="checkbox" class="form-control" id="forms_' . $form_id . '" value="1"/></div>';
+            $custom_fields .= '<div class="col-md-offset-3 col-md-9 mb10 mt10"><label class="checkbox-inline"><input type="checkbox" id="forms_' . $form_id . '" value="1"/>' . $field_data['label'] . '</label></div>';
           }
           elseif ($field_data['field_type'] == 'Dropdown') {
             $select_options = '';
-            $select_options .= '<option value="0">- select -</option>';
+            $select_options .= '<option value="0">- Select -</option>';
             foreach($field_data['options'] as $count => $val) {
               $select_options .= '<option value="' . $val . '">' . $val . '</option>';
             }
             $custom_fields .= '<div class="col-md-3"><label>'. $field_data['label'] . '</label></div>
-              <div class="col-md-9"><select class="form-control" id="forms_' . $form_id . '"/>' . $select_options . '</select></div>';
+              <div class="col-md-9"><select class="form-control custom-dropdown" id="forms_' . $form_id . '"/>' . $select_options . '</select></div>';
           }
         }
 

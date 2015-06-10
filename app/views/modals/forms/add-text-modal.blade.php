@@ -1,5 +1,5 @@
 <div class="modal fade" id="add-text-field" tabindex="-1">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -7,29 +7,24 @@
                 </button>
                 <h3 class="modal-title" id="addTextFieldModal">ADD TEXT FIELD</h3>
             </div>
-            <form ng-submit="addTextField(business_id)">
-                <div class="modal-body">
+            <div class="modal-body">
+                <form ng-submit="addTextField(business_id)">
                     <div class="clearfix">
                         <div id="message-notif" class="alert alert-success" style="display: none; text-align: center;" role="alert"></div>
-                        <div class="form-group row">
-                            <div class="col-md-3">
-                                <label>Label <span class="req">*</span></label>
-                            </div>
-                            <div class="col-md-9">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <small>Text Label</small>
                                 <input type="text" class="form-control" id="text-field-label" ng-model="text_field_label" required/>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button id="create-field" type="submit" class="btn btn-orange btn-lg">
-                        <span class="glyphicon glyphicon-ok"></span> CREATE
-                    </button>
-                    <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal" aria-label="Close">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </button>
-                </div>
-            </form>
+                    <div class="modal-footer">
+                        <button id="create-field" type="submit" class="btn btn-orange btn-lg">
+                            <span class="glyphicon glyphicon-ok"></span> CREATE
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

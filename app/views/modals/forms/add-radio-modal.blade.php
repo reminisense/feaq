@@ -1,5 +1,5 @@
 <div class="modal fade" id="add-radio-button" tabindex="-1">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -7,41 +7,32 @@
                 </button>
                 <h3 class="modal-title" id="addRadioButtonModal">ADD RADIO BUTTON</h3>
             </div>
-            <form ng-submit="addRadioButton(business_id)">
-                <div class="modal-body">
+            <div class="modal-body">
+                <form ng-submit="addRadioButton(business_id)">
                     <div class="clearfix">
                         <div id="message-notif" class="alert alert-success" style="display: none; text-align: center;" role="alert"></div>
-                        <div class="form-group row">
-                            <div class="col-md-3">
-                                <label>Label <span class="req">*</span></label>
-                            </div>
-                            <div class="col-md-9">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <small>Radio Label</small>
                                 <input type="text" class="form-control" id="radio-button-label" ng-model="radio_button_label" required />
                             </div>
-                            <div class="col-md-3">
-                                <label>Option A <span class="req">*</span></label>
-                            </div>
-                            <div class="col-md-9">
+                            <div class="col-md-12">
+                                <small>Option A</small>
                                 <input type="text" class="form-control" id="radio-value-a" ng-model="radio_value_a" required />
                             </div>
-                            <div class="col-md-3">
-                                <label>Option B <span class="req">*</span></label>
-                            </div>
-                            <div class="col-md-9">
+                            <div class="col-md-12">
+                                <small>Option B</small>
                                 <input type="text" class="form-control" id="radio-value-b" ng-model="radio_value_b" required />
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button id="create-field" type="submit" class="btn btn-orange btn-lg">
-                        <span class="glyphicon glyphicon-ok"></span> CREATE
-                    </button>
-                    <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal" aria-label="Close">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </button>
-                </div>
-            </form>
+                    <div class="modal-footer">
+                        <button id="create-field" type="submit" class="btn btn-orange btn-lg">
+                            <span class="glyphicon glyphicon-ok"></span> CREATE
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
