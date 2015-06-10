@@ -928,3 +928,8 @@ footer p {
 #search-suggest li a:hover small {
     color: #fff;
 }
+#subscribe-button{
+    font-family: 'ralewayregular';
+    font-size: 20px;
+    color: #000000;
+}
