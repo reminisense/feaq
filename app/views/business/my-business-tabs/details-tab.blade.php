@@ -14,14 +14,6 @@
         <input type="text" class=" form-control" value="@{{ facebook_url }}" placeholder="Add Your Facebook Page!" ng-model="facebook_url">
     </div>
     <div class="col-md-6">
-        <small>Time Open</small>
-        <input type="text" class="form-control" value="@{{ time_open }}" ng-model="time_open"> <!-- RDH  Added timepicker -->
-    </div>
-    <div class="col-md-6">
-        <small>Time Close</small>
-        <input type="text" class="form-control" value="@{{ time_closed }}" ng-model="time_closed"> <!-- RDH  Added timepicker -->
-    </div>
-    <div class="col-md-6">
         <small>Industry</small>
         <div class="btn-group">
             <select class="form-control" name="industry" id="industry">
@@ -73,6 +65,22 @@
                 <option value="Wholesale">Wholesale</option>
             </select>
         </div>
+    </div>
+    <div class="col-md-6">
+        <small>Time Open</small>
+        <input type="text" class="form-control" value="@{{ time_open }}" ng-model="time_open"> <!-- RDH  Added timepicker -->
+    </div>
+    <div class="col-md-6">
+        <small>Time Close</small>
+        <input type="text" class="form-control" value="@{{ time_closed }}" ng-model="time_closed"> <!-- RDH  Added timepicker -->
+    </div>
+    <div class="col-md-6">
+        <small>Timezone</small>
+        <select class="form-control" name="timezone" id="timezone" ng-model="timezone"> <!-- ARA Added timezone picker -->
+            @foreach(Helper::getTimezoneList() as $index => $timezone)
+            <option value="{{ $timezone }}">{{ $timezone }}</option>
+            @endforeach
+        </select>
     </div>
     <div class="col-md-12">
         <div class="pull-right">

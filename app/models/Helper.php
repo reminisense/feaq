@@ -143,4 +143,9 @@ class Helper extends Eloquent {
     public static function getAge($birthdate){
         return floor( (time() - $birthdate) / 31556926);
     }
+
+    public static function getTimezoneList(){
+        $timezones = DateTimeZone::listIdentifiers(DateTimeZone::ALL);
+        return $timezones;
+    }
 }

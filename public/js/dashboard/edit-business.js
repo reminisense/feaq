@@ -263,6 +263,7 @@ var eb = {
             $scope.industry = business.industry;
             $scope.time_open = business.time_open;
             $scope.time_closed = business.time_closed;
+            $scope.timezone = business.timezone; //ARA Added Timezone
             $scope.queue_limit = business.queue_limit; /* RDH Added queue_limit to Edit Business Page */
             $scope.terminal_specific_issue = business.terminal_specific_issue ? true : false;
             $scope.frontline_secret = business.frontline_sms_secret;
@@ -508,6 +509,7 @@ var eb = {
                     industry: $scope.industry,
                     time_open: $scope.time_open,
                     time_close: $scope.time_closed,
+                    timezone: $scope.timezone, //ARA Added timezone
                     queue_limit: $scope.queue_limit, /* RDH Added queue_limit to Edit Business Page */
                     terminal_specific_issue : $scope.terminal_specific_issue ? 1 : 0,
                     frontline_sms_secret : $scope.frontline_secret,
