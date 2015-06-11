@@ -799,16 +799,16 @@
         <div class="container">
             <div class="col-md-2 col-xs-2"></div>
             <div class="col-md-6 col-xs-6">
-                <input id="subscriber-field" class="form-control input-lg text-center" placeholder="Get updated by putting in your email here: john@yahoo.com" type="text">
+                <input id="subscriber-field" class="form-control input-lg text-center" placeholder="Get updated. Place your email here: john@yahoo.com" type="text">
             </div>
             <div class="col-md-4 col-xs-4"><button id="subscribe-button" type="button" class="btn-warning btn-lg">Subscribe</button></div>
         </div>
         <div class="container">
             <div class="col-md-3 col-xs-3"></div>
             <div class="col-md-4 col-xs-4">
-                <div id="subscribe-error" class="alert alert-danger text-center" style="display:none;">Please enter a valid email address!</div>
-                <div id="subscribe-duplicate" class="alert alert-danger text-center" style="display:none;">This email address has already subscribed!</div>
-                <div id="subscribe-success" class="alert alert-success text-center" style="display:none;">Thank you for subscribing!</div>
+                <div id="subscribe-error" class="alert alert-danger text-center" style="display:none;">Please enter a valid email address.</div>
+                <div id="subscribe-duplicate" class="alert alert-danger text-center" style="display:none;">User has already subscribed. Please register with a different email.</div>
+                <div id="subscribe-success" class="alert alert-success text-center" style="display:none;">Thank you for subscribing.</div>
             </div>
             <div class="col-md-5 col-xs-5"></div>
         </div>

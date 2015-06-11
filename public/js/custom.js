@@ -86,7 +86,7 @@ $(document).ready(function() {
                         $('#subscribe-button').html('Subscribe');
                         $('#subscribe-button').prop('disabled', false);
                     }else {
-                        $('#subscribe-duplicate').fadeIn().delay(1000).fadeOut();
+                        $('#subscribe-duplicate').fadeIn().delay(2000).fadeOut();
                         $('#subscriber-field').val("");
                         $('#subscribe-button').html('Subscribe');
                         $('#subscribe-button').prop('disabled', false);
