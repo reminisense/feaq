@@ -67,5 +67,35 @@ $(document).ready(function() {
 
     });
 
+    $('#subscribe-button').click(function() {
 
+        $('#subscribe-button').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading');
+        $("#subscribe-button").prop('disabled', true);
+
+        var email = $('#subscriber-field').val();
+        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+        if(regex.test(email)) {
+            $.get('/newsletter/subscribe/' + email)
+                .success(function (response) {
+                    var values = $.parseJSON(response);
+                    console.log(values.success);
+                    if(values.success) {
+                        $('#subscribe-success').fadeIn().delay(1000).fadeOut();
+                        $('#subscriber-field').val("");
+                        $('#subscribe-button').html('Subscribe');
+                        $('#subscribe-button').prop('disabled', false);
+                    }else {
+                        $('#subscribe-duplicate').fadeIn().delay(1000).fadeOut();
+                        $('#subscriber-field').val("");
+                        $('#subscribe-button').html('Subscribe');
+                        $('#subscribe-button').prop('disabled', false);
+                    }
+                });
+        }else{
+            $('#subscribe-error').fadeIn().delay(1000).fadeOut();
+            $('#subscribe-button').html('Subscribe');
+            $('#subscribe-button').prop('disabled', false);
+        }
+    });
 });
