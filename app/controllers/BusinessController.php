@@ -103,7 +103,11 @@ class BusinessController extends BaseController{
             $business_user->user_id = $business_data['user_id'];
             $business_user->business_id = $business->business_id;
 
+            $business->timezone = $business_data['timezone'];
+
+            /* Timezone is already set in config/app.php
             date_default_timezone_set("Asia/Manila"); // Manila Timezone for now but this depends on business location
+            */
 
             $contents = '
                 {
