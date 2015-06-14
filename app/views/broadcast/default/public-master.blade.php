@@ -120,6 +120,9 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-12" style="background-color: #fff; color: #000; font-size: 36px; font-weight: bold;">
+            <marquee behavior>@{{ ticker_message }}</marquee>
+        </div>
     </div>
 
 </div>

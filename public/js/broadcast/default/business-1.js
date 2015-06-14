@@ -51,6 +51,8 @@ app.controller('nowServingCtrl', function($scope, $http) {
         $scope.announceNumberFromBlank(response, 'box1', 'rank1');
 
         $scope.writeNumber(response, 'box1');
+
+        $scope.ticker_message = response.ticker_message;
     });
 
     $scope.resetNumbers = (function(response) {

@@ -95,7 +95,8 @@ var eb = {
             ads_embed_video_url : $('#ads-embed-video-url').val(),
             ads_tv_select_url : $('#ads-tv-select-url').val(),
             ads_tv_on_url : $('#ads-tv-on-url').val(),
-            ads_type_url : $('#ads-type-url').val()
+            ads_type_url : $('#ads-type-url').val(),
+            save_ticker_url : '/advertisement/save-ticker'
         },
 
         queue_settings : {
@@ -156,7 +157,7 @@ var eb = {
             var scope = angular.element($("#editBusiness")).scope();
             scope.$apply(function(){
                 scope.getBusinessDetails();
-                scope.currentActiveTheme(scope.business_id);
+                scope.currentActiveBroadcastDetails(scope.business_id);
             });
         },
 
@@ -567,7 +568,7 @@ var eb = {
             });
         });
 
-        $scope.currentActiveTheme = (function(business_id) {
+        $scope.currentActiveBroadcastDetails = (function(business_id) {
             if (business_id > 0){
                 $http.get(eb.urls.broadcast.broadcast_json_url + business_id + '.json?nocache='+Math.floor((Math.random() * 10000) + 1)).success(function(response) {
                     $('.activated').hide();
@@ -600,6 +601,9 @@ var eb = {
 
                     // default internet TV channel
                     $scope.tv_channel = response.tv_channel;
+
+                    // current active ticker message
+                    $scope.ticker_message = response.ticker_message;
                 });
             }
         });
@@ -703,6 +707,20 @@ var eb = {
             }).error(function() {
                 $('#tvchannel-danger').hide();
                 $('#tvchannel-success').fadeIn();
+            });
+        });
+
+        $scope.setTicker = (function(business_id) {
+            $http.post(eb.urls.broadcast.save_ticker_url, {
+                business_id : business_id,
+                ticker_message : $scope.ticker_message
+            }).success(function() {
+                $('#ticker-danger').hide();
+                $('#ticker-success').fadeIn();
+                $('#ticker-success').fadeOut(7000);
+            }).error(function() {
+                $('#ticker-danger').hide();
+                $('#ticker-success').fadeIn();
             });
         });
 
