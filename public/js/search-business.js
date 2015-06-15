@@ -53,7 +53,7 @@
         $scope.industry_filter = 'Industry';
 
         $scope.searchBusiness = (function(location, industry, search_keyword, $event) {
-            $('#search-filter').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> SEARCHING');
+            $('#search-filter').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate" style="margin-right: 0px;"></span> SEARCHING');
             $('#browse-label').hide();
             $('#search-grid').hide();
             $('#search-loader').show();

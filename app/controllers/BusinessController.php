@@ -149,7 +149,8 @@ class BusinessController extends BaseController{
                   "ad_type": "image",
                   "turn_on_tv": false,
                   "tv_channel": "",
-                  "date": "' . date("mdy") . '"
+                  "date": "' . date("mdy") . '",
+                  "ticker_message" : " "
                 }
             ';
 

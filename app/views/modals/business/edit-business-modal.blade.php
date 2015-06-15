@@ -16,7 +16,7 @@
                         <ul class="nav nav-tabs nav-justified" id="editbiz-tabs">
                             <li class="active"><a href="#bizdetails" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Details</a></li>
                             <li> <a href="#bizterminals" data-toggle="tab"><span class="glyphicon glyphicon-th"></span> Terminals</a></li>
-                            <li> <a href="#bizbroadcast" data-toggle="tab" ng-click="currentActiveTheme(business_id)"><span class="glyphicon glyphicon-blackboard"></span> Broadcast</a></li>
+                            <li> <a href="#bizbroadcast" data-toggle="tab" ng-click="currentActiveBroadcastDetails(business_id)"><span class="glyphicon glyphicon-blackboard"></span> Broadcast</a></li>
                             <li> <a href="#bizqueuesettings" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
                             <li> <a href="#bizanalytics" data-toggle="tab"><span class="glyphicon glyphicon-stats"></span> Analytics</a></li>
                         </ul>
