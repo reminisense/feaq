@@ -293,12 +293,14 @@ class BusinessController extends BaseController{
         $post = json_decode(file_get_contents("php://input"));
         $geolocation = json_decode(file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.$post->country));
         $post->country = array(
-          'ne_lat' => $geolocation->results[0]->geometry->bounds->northeast->lat,
-          'ne_lng' => $geolocation->results[0]->geometry->bounds->northeast->lng,
-          'sw_lat' => $geolocation->results[0]->geometry->bounds->southwest->lat,
-          'sw_lng' => $geolocation->results[0]->geometry->bounds->southwest->lng,
+            'ne_lat' => $geolocation->results[0]->geometry->bounds->northeast->lat,
+            'ne_lng' => $geolocation->results[0]->geometry->bounds->northeast->lng,
+            'sw_lat' => $geolocation->results[0]->geometry->bounds->southwest->lat,
+            'sw_lng' => $geolocation->results[0]->geometry->bounds->southwest->lng,
         );
         $res = Business::getBusinessByNameCountryIndustryTimeopen($post->keyword, $post->country, $post->industry, $post->time_open);
+        $user_timezone = isset($post->user_timezone) ? $post->user_timezone : 'Asia/Manila'; //ARA set user timezone if any
+
         $arr = array();
         foreach ($res as $count => $data) {
             $first_service = Service::getFirstServiceOfBusiness($data->business_id);
@@ -307,8 +309,8 @@ class BusinessController extends BaseController{
                 'business_id' => $data->business_id,
                 'business_name' => $data->name,
                 'local_address' => $data->local_address,
-                'time_open' => $data->open_hour . ':' . Helper::doubleZero($data->open_minute) . ' ' . strtoupper($data->open_ampm),
-                'time_close' => $data->close_hour . ':' . Helper::doubleZero($data->close_minute) . ' ' . strtoupper($data->close_ampm),
+                'time_open' => Helper::changeBusinessTimeTimezone($data->open_hour . ':' . Helper::doubleZero($data->open_minute) . ' ' . strtoupper($data->open_ampm), $data->timezone, $user_timezone),
+                'time_close' => Helper::changeBusinessTimeTimezone($data->close_hour . ':' . Helper::doubleZero($data->close_minute) . ' ' . strtoupper($data->close_ampm), $data->timezone, $user_timezone),
                 'waiting_time' => Analytics::getWaitingTimeString($data->business_id),
 
                 //ARA more info for business cards
@@ -334,17 +336,17 @@ class BusinessController extends BaseController{
 
     public function postRemove() {
         $post = json_decode(file_get_contents("php://input"));
-            Business::deleteBusinessByBusinessId($post->business_id);
-            $branches = Branch::getBranchesByBusinessId($post->business_id);
-            foreach ($branches as $count => $data) {
-                $services = Service::getServicesByBranchId($data->branch_id);
-                foreach ($services as $count2 => $data2) {
-                    $terminals = Terminal::getTerminalsByServiceId($data2->service_id);
-                    foreach ($terminals as $count3 => $data3) {
-                        TerminalUser::deleteUserByTerminalId($data3['terminal_id']);
-                    }
-                    Terminal::deleteTerminalsByServiceId($data2->service_id);
+        Business::deleteBusinessByBusinessId($post->business_id);
+        $branches = Branch::getBranchesByBusinessId($post->business_id);
+        foreach ($branches as $count => $data) {
+            $services = Service::getServicesByBranchId($data->branch_id);
+            foreach ($services as $count2 => $data2) {
+                $terminals = Terminal::getTerminalsByServiceId($data2->service_id);
+                foreach ($terminals as $count3 => $data3) {
+                    TerminalUser::deleteUserByTerminalId($data3['terminal_id']);
                 }
+                Terminal::deleteTerminalsByServiceId($data2->service_id);
+            }
             Service::deleteServicesByBranchId($data->branch_id);
         }
 
@@ -374,86 +376,88 @@ class BusinessController extends BaseController{
         }
     }
 
-  public function postPersonalizedBusinesses() {
-    $processing = array();
-    $not_processing = array();
-    $post = json_decode(file_get_contents("php://input"));
-    if ($post) {
-      if ($post->latitude && $post->longitude) {
-        $res = Business::getBusinessByLatitudeLongitude($post->latitude, $post->longitude); // get location first
-        if (!count($res)) $res = Business::all();
-      }
-      else $res = Business::all();
-      foreach ($res as $count => $data) {
-          $first_service = Service::getFirstServiceOfBusiness($data->business_id);
-          $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
+    public function postPersonalizedBusinesses() {
+        $processing = array();
+        $not_processing = array();
+        $post = json_decode(file_get_contents("php://input"));
+        if ($post) {
+            if ($post->latitude && $post->longitude) {
+                $res = Business::getBusinessByLatitudeLongitude($post->latitude, $post->longitude); // get location first
+                if (!count($res)) $res = Business::all();
+            }
+            else $res = Business::all();
+            $user_timezone = isset($post->user_timezone) ? $post->user_timezone : 'Asia/Manila'; //ARA set user timezone if any
 
-        // check if business is currently processing numbers
-        if (Business::processingBusinessBool($data->business_id)) {
-          if (Auth::check()) {
-            $processing[] = array(
-              'business_id' => $data->business_id,
-              'business_name' => $data->name,
-              'local_address' => $data->local_address,
-              'time_open' => $data->open_hour . ':' . Helper::doubleZero($data->open_minute) . ' ' . strtoupper($data->open_ampm),
-              'time_close' => $data->close_hour . ':' . Helper::doubleZero($data->close_minute) . ' ' . strtoupper($data->close_ampm),
-              'waiting_time' => Analytics::getWaitingTimeString($data->business_id),
+            foreach ($res as $count => $data) {
+                $first_service = Service::getFirstServiceOfBusiness($data->business_id);
+                $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
 
-              //ARA more info for business cards
-              'last_number_called' => count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'none', //ok
-              'next_available_number' => $all_numbers->next_number, //ok
-              'is_calling' => count($all_numbers->called_numbers) > 0 ? true : false, //ok
-              'is_issuing' => count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? true : false, //ok
-              'last_active' => Analytics::getLastActive($data->business_id)
-            );
-          }
-          else {
-            $processing[] = array(
-              'business_id' => $data->business_id,
-              'business_name' => $data->name,
-              'local_address' => $data->local_address,
-            );
-          }
+                // check if business is currently processing numbers
+                if (Business::processingBusinessBool($data->business_id)) {
+                    if (Auth::check()) {
+                        $processing[] = array(
+                            'business_id' => $data->business_id,
+                            'business_name' => $data->name,
+                            'local_address' => $data->local_address,
+                            'time_open' => Helper::changeBusinessTimeTimezone($data->open_hour . ':' . Helper::doubleZero($data->open_minute) . ' ' . strtoupper($data->open_ampm), $data->timezone, $user_timezone),
+                            'time_close' => Helper::changeBusinessTimeTimezone($data->close_hour . ':' . Helper::doubleZero($data->close_minute) . ' ' . strtoupper($data->close_ampm), $data->timezone, $user_timezone),
+                            'waiting_time' => Analytics::getWaitingTimeString($data->business_id),
 
+                            //ARA more info for business cards
+                            'last_number_called' => count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'none', //ok
+                            'next_available_number' => $all_numbers->next_number, //ok
+                            'is_calling' => count($all_numbers->called_numbers) > 0 ? true : false, //ok
+                            'is_issuing' => count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? true : false, //ok
+                            'last_active' => Analytics::getLastActive($data->business_id)
+                        );
+                    }
+                    else {
+                        $processing[] = array(
+                            'business_id' => $data->business_id,
+                            'business_name' => $data->name,
+                            'local_address' => $data->local_address,
+                        );
+                    }
+
+                }
+                else {
+                    if (Auth::check()) {
+                        $not_processing[] = array(
+                            'business_id' => $data->business_id,
+                            'business_name' => $data->name,
+                            'local_address' => $data->local_address,
+                            'time_open' => Helper::changeBusinessTimeTimezone($data->open_hour . ':' . Helper::doubleZero($data->open_minute) . ' ' . strtoupper($data->open_ampm), $data->timezone, $user_timezone),
+                            'time_close' => Helper::changeBusinessTimeTimezone($data->close_hour . ':' . Helper::doubleZero($data->close_minute) . ' ' . strtoupper($data->close_ampm), $data->timezone, $user_timezone),
+                            'waiting_time' => Analytics::getWaitingTimeString($data->business_id),
+
+                            //ARA more info for business cards
+                            'last_number_called' => count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'none', //ok
+                            'next_available_number' => $all_numbers->next_number, //ok
+                            'is_calling' => count($all_numbers->called_numbers) > 0 ? true : false, //ok
+                            'is_issuing' => count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? true : false, //ok
+                            'last_active' => Analytics::getLastActive($data->business_id)
+                        );
+                    }
+                    else {
+                        $not_processing[] = array(
+                            'business_id' => $data->business_id,
+                            'business_name' => $data->name,
+                            'local_address' => $data->local_address,
+                        );
+                    }
+                }
+
+            }
+            return json_encode(array_merge($processing, $not_processing));
         }
-        else {
-          if (Auth::check()) {
-            $not_processing[] = array(
-              'business_id' => $data->business_id,
-              'business_name' => $data->name,
-              'local_address' => $data->local_address,
-              'time_open' => $data->open_hour . ':' . Helper::doubleZero($data->open_minute) . ' ' . strtoupper($data->open_ampm),
-              'time_close' => $data->close_hour . ':' . Helper::doubleZero($data->close_minute) . ' ' . strtoupper($data->close_ampm),
-              'waiting_time' => Analytics::getWaitingTimeString($data->business_id),
-
-              //ARA more info for business cards
-              'last_number_called' => count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'none', //ok
-              'next_available_number' => $all_numbers->next_number, //ok
-              'is_calling' => count($all_numbers->called_numbers) > 0 ? true : false, //ok
-              'is_issuing' => count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? true : false, //ok
-              'last_active' => Analytics::getLastActive($data->business_id)
-            );
-      }
-          else {
-            $not_processing[] = array(
-              'business_id' => $data->business_id,
-              'business_name' => $data->name,
-              'local_address' => $data->local_address,
-            );
-          }
-        }
-
-      }
-      return json_encode(array_merge($processing, $not_processing));
     }
-  }
 
-  public function getGeolocationFixer($business_id) {
-    $parsed_location = str_replace(" ", "+", Business::localAddress($business_id));
-    $data = json_decode(file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.$parsed_location));
-    Business::where('business_id', '=', $business_id)->update(array('longitude' => $data->results[0]->geometry->location->lng, 'latitude' => $data->results[0]->geometry->location->lat));
-    echo 'Coordinates set.';
-  }
+    public function getGeolocationFixer($business_id) {
+        $parsed_location = str_replace(" ", "+", Business::localAddress($business_id));
+        $data = json_decode(file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.$parsed_location));
+        Business::where('business_id', '=', $business_id)->update(array('longitude' => $data->results[0]->geometry->location->lng, 'latitude' => $data->results[0]->geometry->location->lat));
+        echo 'Coordinates set.';
+    }
 
 
 }
