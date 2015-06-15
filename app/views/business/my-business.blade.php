@@ -82,7 +82,7 @@ My Business
                         <li class=""><a href="#settings" id="settings-tab" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
                         <li class=""><a href="#analytics" id="analytics-tab" data-toggle="tab"><span class="glyphicon glyphicon-stats"></span> Analytics</a></li>
                         <li class=""><a href="#messages" id="messages-tab" data-toggle="tab" ng-click="displayMessageList(business_id)"><span class="glyphicon glyphicon-envelope"></span> Messages</a></li>
-                        <li class=""><a href="#forms" id="forms-tab" data-toggle="tab" ng-click="displayFormFields(business_id)"><span class="glyphicon glyphicon-list"></span> Forms</a></li>
+                        <li class=""><a href="#forms" id="forms-tab" data-toggle="tab" ng-click="displayFormFields(business_id)"><span class="glyphicon glyphicon-list"></span>Contact Form</a></li>
                     </ul>
                     <div id="bizTabContent" class="tab-content" style="">
                         <div class="col-md-12">

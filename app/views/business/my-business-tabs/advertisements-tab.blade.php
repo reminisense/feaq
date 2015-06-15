@@ -4,7 +4,7 @@
 </div>
 
     <div class="col-md-6 col-xs-12 col-sm-12">
-        <div class="well">
+        <div class="well" style="min-height:244px;">
             <h5>INTERNET TV
                 {{--<small>Internet TV can be viewed in the broadcast screen.</small>--}}
             </h5>

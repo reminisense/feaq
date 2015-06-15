@@ -1,8 +1,9 @@
-<h5 class="col-md-12">
-    FORM CUSTOMIZATION
+<div class="header">
+    <h5>FORM CUSTOMIZATION</h5>
     <small>Customize the contact form to suit your business needs.</small>
-</h5>
-<div class="col-md-12">
+</div>
+
+<div class="clearfix">
     <div class="well">
         <div class="row">
             <div class="col-md-3">
