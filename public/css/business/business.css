@@ -56,6 +56,9 @@
     text-decoration: none;
     cursor: pointer;
 }
+#process-queue {
+    border-bottom: 4px solid #d36e3c;
+}
 #process-queue a{
     color: #fff;
     text-decoration: none; /*ARA FEAQ-262 removes underline in process queue button*/
@@ -80,6 +83,9 @@
 }
 #add-business:hover {
     background-color: #d36e3c;
+}
+#view-broadcast {
+    border-bottom: 4px solid #009b74;
 }
 #view-broadcast:hover,
 #add-business:hover {

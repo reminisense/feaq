@@ -16,19 +16,20 @@
 
 /*****modals*****/
 .modal-header {
-    background-color: #232931;
+    background-color: #f8f8f8;
     border: none;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
+    border-bottom: 1px dotted #ccc;
 }
 .modal-header button.close {
     line-height: 19px;
     font-size: 30px;
     opacity: 1;
-    color: #fff;
+    color: #333;
 }
 .modal-header h3 {
-    color: #fff;
+    color: #286090;
     font-size: 18px;
     font-family: 'ralewaybold';
 }
@@ -39,7 +40,7 @@
 }
 .modal .form-control {
     border: none;
-    border-bottom: 1px solid #c7c7c7;
+    border-top: 1px solid #ddd;
     margin-bottom: 20px;
     width: 100%;
     background-color: #f0f0f0;
@@ -95,6 +96,9 @@
  }
 .modal-message {
     font-size: 14px!important;
+}
+.modal .tab-content .alert {
+    margin-bottom: 0;
 }
 #pmore-tab li a {
     font-family: 'ralewaybold';
