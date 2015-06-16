@@ -77,7 +77,7 @@ var eb = {
     urls : {
         business: {
             business_details_url : $('#business-details-url').val() + '/',
-            business_edit_url : $('#business-edit-url').val() + '/',
+            business_edit_url : $('#business-edit-url').val(),
             business_remove_url : $('#business-remove-url').val() + '/'
         },
 
