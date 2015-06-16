@@ -106,6 +106,18 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $user ? $user->toArray() : null;
     }
 
+    /**
+     * @author Ruffy Heredia
+     * @description: Get User by Facebook ID
+     */
+    public static function searchByFacebookId($fb_id) {
+        $user = User::where('verified', '=', 1)
+            ->where('fb_id', '=', $fb_id)
+            ->select('user_id', 'first_name', 'last_name', 'email')
+            ->first();
+        return $user ? $user->toArray() : null;
+    }
+
     /* @author: CSD
      * @description: get details needed for broadcast contact auto populate on modal form
      * @date: 06/02/2015

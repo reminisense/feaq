@@ -171,4 +171,13 @@ class UserController extends BaseController{
         $user = User::searchByEmail($email);
         return json_encode(['success' => 1, 'user' => $user]);
     }
+
+    /**
+     * @author Ruffy Heredia
+     * @description Get User by Facebook ID
+     */
+    public function getFacebookIdSearch($fb_id) {
+        $user = User::searchByFacebookId($fb_id);
+        return json_encode(['success' => 1, 'user' => $user]);
+    }
 }
