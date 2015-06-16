@@ -18,7 +18,7 @@
                     <div class="alert alert-danger" id="tvchannel-danger" style="display: none;">Oops! Something went wrong.</div>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-orange"  id="tv-script-submit-btn"><span class="glyphicon glyphicon-check"></span> SELECT</button>
+                    <button type="submit" class="btn btn-orange"  id="tv-script-submit-btn" disabled><span class="glyphicon glyphicon-check"></span> SELECT</button>
                     <button id="loading-img-3" style="display:none;" class="btn btn-orange btn-disabled"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
                 </div>
             </form>
@@ -31,7 +31,7 @@
             <form ng-submit="setTicker(business_id)" id="set-ticker">
                 <div class="form-group">
                     <small>Message:</small>
-                    <input type="text" ng-model="ticker_message" id="ticker-message" class="form-control"/>
+                    <input type="text" ng-model="ticker_message" id="ticker-message" class="form-control" required/>
                     <div class="alert alert-success" id="ticker-success" style="display: none;">Success! <strong><a href="/broadcast/business/@{{ business_id }}" target="_blank">View Broadcast Page</a></strong></div>
                     <div class="alert alert-danger" id="ticker-danger" style="display: none;">Oops! Something went wrong.</div>
                 </div>

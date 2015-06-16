@@ -33,6 +33,10 @@ $(document).ready(function(){
         eb.jquery_functions.hide_add_terminal_form();
     });
 
+    $('#tv-channel').on('change', function(){
+        $('#tv-script-submit-btn').removeAttr('disabled');
+    });
+
     $(document).on('change', '#ad-image', function(){
         $('#image-submit-btn').removeClass('btn-disabled');
     });
