@@ -120,8 +120,12 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12" style="background-color: #fff; color: #000; font-size: 36px; font-weight: bold;">
-            <marquee behavior>@{{ ticker_message }}</marquee>
+        <div class="col-md-12 ticker mt20">
+            <div class="" style="background-color: rgba(255,255,255,0.95); color: #000; font-size: 36px; font-weight: bold;">
+                    <div class="scroll-left">
+                        <p>@{{ ticker_message }}</p>
+                    </div>
+            </div>
         </div>
     </div>
 

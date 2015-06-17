@@ -45,8 +45,13 @@
     <div class="container-fluid">
         @include('broadcast.default.business-' . $template_type)
     </div>
-    <div class="col-md-12" style="background-color: #fff; color: #000; font-size: 36px; font-weight: bold;">
-        <marquee behavior>@{{ ticker_message }}</marquee>
+</div>
+
+<div class="ticker">
+    <div class="col-md-12" style="background-color: rgba(255,255,255,0.95); color: #000; font-size: 36px; font-weight: bold;">
+            <div class="scroll-left">
+                <p>@{{ ticker_message }} The quick sly brown fox jumped over the lazy dog.</p>
+            </div>
     </div>
 </div>
 

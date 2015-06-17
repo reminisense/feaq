@@ -147,6 +147,10 @@
     border: none;
     border-bottom: 1px solid #c7c7c7;
     background-color: #f0f0f0;
+    border-radius: 0;
+}
+.table-hover>tbody>tr:hover {
+    background: none;
 }
 .form-control {
     font-size: 13px;
@@ -190,9 +194,22 @@
     font-size: 16px;
     color: #00ba8b;
 }
+#bizTabContent .btn-default {
+    color: #337ab7;
+    border: 1px solid #ccc;
+}
+#bizTabContent .btn-default:hover {
+    background-color: #eee;
+}
 #biz-grid h5 {
     font-size: 16px;
     color: #00ba8b;
+}
+.well .biz-navs .form-control {
+    background-color: #fff!important;
+}
+.well input {
+    background-color: #fff;
 }
 .header {
     margin-bottom: 30px;
@@ -258,7 +275,8 @@ h5>small {
     background-color: #ff925b;
 }
 .btn-orange:hover {
-    background-color: #ed701c;
+    background-color: #ed701c!important;
+    color: #fff;
 }
 .btn-blue {
     background-color: #5b75b3;
