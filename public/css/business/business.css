@@ -554,18 +554,28 @@ input#input_sms_field:focus{
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
 .div-view-business{
-padding-left: 35px;
+    padding-left: 15px;
 }
 #date-container{
-    padding-top: 50px;
+    padding-top: 20px;
     padding-bottom: 50px;
 }
 #graphs-container{
-    padding-top: 30px;
-    padding-bottom: 70px;
+    padding-bottom: 20px;
+}
+#label-container{
+    font-size: 18px;
+    padding-left: 15px;
+    padding-bottom: 5px;
+}
+#advanced-container{
+    padding-left: 10px;
+}
+#start-date{
+    margin-right: 25px;
 }
 #end-date{
-    margin-left: 35px;
+    margin-left: 25px;
 }
 #end-date, #start-date{
     text-align: center;
@@ -580,14 +590,14 @@ padding-left: 35px;
     margin-left: 15px;
 }
 #business-label{
-    font-size: 30px;
+    font-size: 15px;
 }
-#filter-container{
+#filter-container, #industry-filter-container{
     border: 1px solid;
-    padding: 15px;
+    padding: 5px;
 }
 #filter-labels{
-    font-size: 18px;
+    font-size: 14px;
 }
 #filter-buttons{
     text-align: right;
@@ -602,21 +612,21 @@ padding-left: 35px;
 #business-numbers-label, #user-numbers-label,
 #issued-numbers-label, #called-numbers-label,
 #served-numbers-label, #dropped-numbers-label{
-    font-size: 20px;
+    font-size: 18px;
     text-align: center;
 }
 #lineIssuedChart, #lineCalledChart,
 #lineServedChart, #lineDroppedChart{
-    min-height: 300px;
+    min-height: 325px;
 }
-#issued-container,#called-container,
-#served-container, #dropped-container{
-    padding: 25px 50px;
-}
-#called-container, #served-container,
-#dropped-container {
-    visibility: hidden;
-}
+/*#issued-container,#called-container,*/
+/*#served-container, #dropped-container{*/
+    /*padding: 25px 50px;*/
+/*}*/
+/*#called-container, #served-container,*/
+/*#dropped-container {*/
+    /*visibility: hidden;*/
+/*}*/
 #time-label-container{
     padding-top: 35px;
 }
