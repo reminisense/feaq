@@ -644,3 +644,7 @@ padding-left: 35px;
 #time-label-container{
     padding-top: 35px;
 }
+
+#assigned_business {
+    text-decoration: none;
+}

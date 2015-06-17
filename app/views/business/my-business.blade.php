@@ -21,8 +21,7 @@ My Business
 <div class="feat feat-business">
     <div class="container">
         <div class="text-center">
-            <h1><span class="glyphicon glyphicon-home"></span>My Business
-            </h1>
+            <h1><span class="glyphicon glyphicon-home"></span>My Business</h1>
         </div>
     </div>
     <div class="arrow">
@@ -41,7 +40,10 @@ My Business
                         <h2>@{{ business_name }}</h2>
                         <p class="address"><span class="glyphicon glyphicon-map-marker"></span> @{{ business_address }}</p>
                         {{--<p class="contact"><span class="glyphicon glyphicon-phone-alt"></span> +032 259 8611 / +038 259 8622 </p><br>--}}
-                        <a class="btn btn-sm btn-primary" href="{{ url('business/pdf-download/' . $business_id) }}" target="_blank">Download QR Code</a>
+                        <a class="btn btn-sm btn-primary" href="{{ url('business/pdf-download/' . $business_id) }}" target="_blank">Download QR Code</a><br>
+                        @if($assigned_businesses)
+                            <a href="#assigned" id="assigned_business"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;My Assigned Businesses</a>
+                        @endif
                     </div>
                     <point-of-interest position="bottom" bottom="37" right="83" title="Download QR Code" description="Download this QR Code so you can print it out and post it for your customers to view your broadcast screen from their mobile phones."></point-of-interest>
                     <div class="col-md-3 col-sm-5 col-xs-12 ">
@@ -135,7 +137,7 @@ My Business
     @endif
     <div class="row assigned-business"> <!-- assigned business -->
     @if($assigned_businesses)
-
+        <a name="assigned"></a>
         <div class="" id="box-wrapper">
             <div id="biz-grid" class="clearfix">
                 <h5 class="col-md-12 col-xs-12 mb20">ASSIGNED BUSINESSES</h5>
