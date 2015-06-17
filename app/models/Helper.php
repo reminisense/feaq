@@ -160,7 +160,7 @@ class Helper extends Eloquent {
         if(is_numeric($browser_timezone)) $browser_timezone = Helper::timezoneOffsetToName($browser_timezone);
         $datetime = new DateTime($date, new DateTimeZone($business_timezone));
         $datetime->setTimezone(new DateTimeZone($browser_timezone));
-        return $datetime->format('h:i A');
+        return $datetime->format('g:i A');
     }
 
     /**

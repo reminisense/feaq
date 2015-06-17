@@ -306,12 +306,16 @@ class BusinessController extends BaseController{
         foreach ($res as $count => $data) {
             $first_service = Service::getFirstServiceOfBusiness($data->business_id);
             $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
+            $time_open = $data->open_hour . ':' . Helper::doubleZero($data->open_minute) . ' ' . strtoupper($data->open_ampm);
+            $time_close = $data->close_hour . ':' . Helper::doubleZero($data->close_minute) . ' ' . strtoupper($data->close_ampm);
             $arr[] = array(
                 'business_id' => $data->business_id,
                 'business_name' => $data->name,
                 'local_address' => $data->local_address,
-                'time_open' => Helper::changeBusinessTimeTimezone($data->open_hour . ':' . Helper::doubleZero($data->open_minute) . ' ' . strtoupper($data->open_ampm), $data->timezone, $user_timezone),
-                'time_close' => Helper::changeBusinessTimeTimezone($data->close_hour . ':' . Helper::doubleZero($data->close_minute) . ' ' . strtoupper($data->close_ampm), $data->timezone, $user_timezone),
+                'time_open' => $time_open,
+                'time_close' => $time_close,
+                'user_time_open' => Helper::changeBusinessTimeTimezone($time_open, $data->timezone, $user_timezone),
+                'user_time_close' => Helper::changeBusinessTimeTimezone($time_close, $data->timezone, $user_timezone),
                 'waiting_time' => Analytics::getWaitingTimeString($data->business_id),
 
                 //ARA more info for business cards
@@ -393,6 +397,9 @@ class BusinessController extends BaseController{
                 $first_service = Service::getFirstServiceOfBusiness($data->business_id);
                 $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
 
+                $time_open = $data->open_hour . ':' . Helper::doubleZero($data->open_minute) . ' ' . strtoupper($data->open_ampm);
+                $time_close = $data->close_hour . ':' . Helper::doubleZero($data->close_minute) . ' ' . strtoupper($data->close_ampm);
+
                 // check if business is currently processing numbers
                 if (Business::processingBusinessBool($data->business_id)) {
                     if (Auth::check()) {
@@ -400,8 +407,10 @@ class BusinessController extends BaseController{
                             'business_id' => $data->business_id,
                             'business_name' => $data->name,
                             'local_address' => $data->local_address,
-                            'time_open' => Helper::changeBusinessTimeTimezone($data->open_hour . ':' . Helper::doubleZero($data->open_minute) . ' ' . strtoupper($data->open_ampm), $data->timezone, $user_timezone),
-                            'time_close' => Helper::changeBusinessTimeTimezone($data->close_hour . ':' . Helper::doubleZero($data->close_minute) . ' ' . strtoupper($data->close_ampm), $data->timezone, $user_timezone),
+                            'time_open' => $time_open,
+                            'time_close' => $time_close,
+                            'user_time_open' => Helper::changeBusinessTimeTimezone($time_open, $data->timezone, $user_timezone),
+                            'user_time_close' => Helper::changeBusinessTimeTimezone($time_close, $data->timezone, $user_timezone),
                             'waiting_time' => Analytics::getWaitingTimeString($data->business_id),
 
                             //ARA more info for business cards
@@ -427,8 +436,10 @@ class BusinessController extends BaseController{
                             'business_id' => $data->business_id,
                             'business_name' => $data->name,
                             'local_address' => $data->local_address,
-                            'time_open' => Helper::changeBusinessTimeTimezone($data->open_hour . ':' . Helper::doubleZero($data->open_minute) . ' ' . strtoupper($data->open_ampm), $data->timezone, $user_timezone),
-                            'time_close' => Helper::changeBusinessTimeTimezone($data->close_hour . ':' . Helper::doubleZero($data->close_minute) . ' ' . strtoupper($data->close_ampm), $data->timezone, $user_timezone),
+                            'time_open' => $time_open,
+                            'time_close' => $time_close,
+                            'user_time_open' => Helper::changeBusinessTimeTimezone($time_open, $data->timezone, $user_timezone),
+                            'user_time_close' => Helper::changeBusinessTimeTimezone($time_close, $data->timezone, $user_timezone),
                             'waiting_time' => Analytics::getWaitingTimeString($data->business_id),
 
                             //ARA more info for business cards
