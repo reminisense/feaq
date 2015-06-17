@@ -37,21 +37,23 @@
     <a class="" href="/"><img src="/images/featherq-home-logo.png"></a>
 </div>
 
-<div class="row-fluid" id="nowServingCtrl" ng-controller="nowServingCtrl">
-    <div id="broadcast-type" broadcast_type="{{ $broadcast_type }}"></div>
-    <div id="ad-type" ad_type="{{ $ad_type }}"></div>
-    <audio id="call-number-sound" src="/audio/doorbell_x.wav" controls preload="auto" autobuffer style="display: none;"></audio>
+<div ng-controller="nowServingCtrl">
+    <div class="row-fluid" id="nowServingCtrl">
+        <div id="broadcast-type" broadcast_type="{{ $broadcast_type }}"></div>
+        <div id="ad-type" ad_type="{{ $ad_type }}"></div>
+        <audio id="call-number-sound" src="/audio/doorbell_x.wav" controls preload="auto" autobuffer style="display: none;"></audio>
 
-    <div class="container-fluid">
-        @include('broadcast.default.business-' . $template_type)
+        <div class="container-fluid">
+            @include('broadcast.default.business-' . $template_type)
+        </div>
     </div>
-</div>
 
-<div class="ticker">
-    <div class="col-md-12" style="background-color: rgba(255,255,255,0.95); color: #000; font-size: 36px; font-weight: bold;">
-            <div class="scroll-left">
-                <p>@{{ ticker_message }} The quick sly brown fox jumped over the lazy dog.</p>
-            </div>
+    <div class="ticker">
+        <div class="col-md-12" style="background-color: rgba(255,255,255,0.95); color: #000; font-size: 36px; font-family: ArialMTStd-ExtraBold;">
+                <div class="scroll-left">
+                    <p>@{{ ticker_message }}</p>
+                </div>
+        </div>
     </div>
 </div>
 
