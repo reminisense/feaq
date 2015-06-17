@@ -95,6 +95,7 @@ Dashboard
                         <p class="address">@{{ business.local_address }}</p>
                         <div class="statuses" ng-if="!business.is_calling && !business.is_issuing">
                             <p><span class="icon-lineq"></span> Business Hours: <span class="pull-right">@{{ business.time_open }} - @{{ business.time_close }}</span> <span class="icon-busy"></span> </p>
+                            <p><span class="icon-lineq"></span> In Your Timezone: <span class="pull-right">@{{ business.user_time_open }} - @{{ business.user_time_close }}</span> <span class="icon-busy"></span> </p>
                             <p><span class="icon-waittime"></span> Last Active:
                                 <span class="pull-right" ng-if="business.last_active > 1">@{{ business.last_active }} days ago</span>
                                 <span class="pull-right" ng-if="business.last_active == 1">Yesterday</span>
