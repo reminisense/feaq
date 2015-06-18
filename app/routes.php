@@ -15,6 +15,8 @@ Route::get('/', 'UserController@getUserDashboard');
 
 Route::post('/', 'UserController@processContactForm');
 
+Route::get('rest/register-user/{fb_id}/{first_name}/{last_name}/{email}/{gender}/{phone}/{country}', 'RestController@getRegisterUser');
+
 Route::controller('fb', 'FBController');
 
 Route::controller('processqueue', 'ProcessQueueController');

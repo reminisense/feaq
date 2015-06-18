@@ -139,19 +139,18 @@ class RestController extends BaseController {
         return Response::json($output, 200, array(), JSON_PRETTY_PRINT);
     }
 
-    public function getRegisterUser($fb_id, $first_name, $last_name,
-                                        $email, $gender, $phone, $country)
+    public function getRegisterUser()
     {
-//        $post = json_decode(file_get_contents("php://input"));
+        $params = func_get_args();
         $data = array(
-            'fb_id' => $fb_id,
-            'fb_url' => 'https://www.facebook.com/app_scoped_user_id/' . $fb_id . '/', // https://www.facebook.com/app_scoped_user_id/1438888283100110/
-            'first_name' => $first_name,
-            'last_name' => $last_name,
-            'email' => $email,
-            'gender' => $gender,
-            'phone' => $phone,
-            'country' => $country,
+            'fb_id' => $params->fb_id,
+            'fb_url' => 'https://www.facebook.com/app_scoped_user_id/' . $params->fb_id . '/', // https://www.facebook.com/app_scoped_user_id/1438888283100110/
+            'first_name' => $params->first_name,
+            'last_name' => $params->last_name,
+            'email' => $params->email,
+            'gender' => $params->gender,
+            'phone' => $params->phone,
+            'country' => $params->country,
         );
         User::saveFBDetails($data);
 //        Auth::loginUsingId(User::getUserIdByFbId($data['fb_id']));
