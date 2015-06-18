@@ -299,8 +299,8 @@ class BusinessController extends BaseController{
             'sw_lat' => $geolocation->results[0]->geometry->bounds->southwest->lat,
             'sw_lng' => $geolocation->results[0]->geometry->bounds->southwest->lng,
         );
-        $res = Business::getBusinessByNameCountryIndustryTimeopen($post->keyword, $post->country, $post->industry, $post->time_open);
         $user_timezone = isset($post->user_timezone) ? $post->user_timezone : 'Asia/Manila'; //ARA set user timezone if any
+        $res = Business::getBusinessByNameCountryIndustryTimeopen($post->keyword, $post->country, $post->industry, $post->time_open, $user_timezone);
 
         $arr = array();
         foreach ($res as $count => $data) {
@@ -312,10 +312,8 @@ class BusinessController extends BaseController{
                 'business_id' => $data->business_id,
                 'business_name' => $data->name,
                 'local_address' => $data->local_address,
-                'time_open' => $time_open,
-                'time_close' => $time_close,
-                'user_time_open' => Helper::changeBusinessTimeTimezone($time_open, $data->timezone, $user_timezone),
-                'user_time_close' => Helper::changeBusinessTimeTimezone($time_close, $data->timezone, $user_timezone),
+                'time_open' => Helper::changeBusinessTimeTimezone($time_open, $data->timezone, $user_timezone),
+                'time_close' => Helper::changeBusinessTimeTimezone($time_close, $data->timezone, $user_timezone),
                 'waiting_time' => Analytics::getWaitingTimeString($data->business_id),
 
                 //ARA more info for business cards
@@ -386,12 +384,13 @@ class BusinessController extends BaseController{
         $not_processing = array();
         $post = json_decode(file_get_contents("php://input"));
         if ($post) {
+            $user_timezone = isset($post->user_timezone) ? $post->user_timezone : 'Asia/Manila'; //ARA set user timezone if any
             if ($post->latitude && $post->longitude) {
-                $res = Business::getBusinessByLatitudeLongitude($post->latitude, $post->longitude); // get location first
+                $res = Business::getBusinessByLatitudeLongitude($post->latitude, $post->longitude, $user_timezone); // get location first
+                dd($res);
                 if (!count($res)) $res = Business::all();
             }
             else $res = Business::all();
-            $user_timezone = isset($post->user_timezone) ? $post->user_timezone : 'Asia/Manila'; //ARA set user timezone if any
 
             foreach ($res as $count => $data) {
                 $first_service = Service::getFirstServiceOfBusiness($data->business_id);
@@ -407,10 +406,8 @@ class BusinessController extends BaseController{
                             'business_id' => $data->business_id,
                             'business_name' => $data->name,
                             'local_address' => $data->local_address,
-                            'time_open' => $time_open,
-                            'time_close' => $time_close,
-                            'user_time_open' => Helper::changeBusinessTimeTimezone($time_open, $data->timezone, $user_timezone),
-                            'user_time_close' => Helper::changeBusinessTimeTimezone($time_close, $data->timezone, $user_timezone),
+                            'time_open' => Helper::changeBusinessTimeTimezone($time_open, $data->timezone, $user_timezone),
+                            'time_close' => Helper::changeBusinessTimeTimezone($time_close, $data->timezone, $user_timezone),
                             'waiting_time' => Analytics::getWaitingTimeString($data->business_id),
 
                             //ARA more info for business cards
@@ -436,10 +433,8 @@ class BusinessController extends BaseController{
                             'business_id' => $data->business_id,
                             'business_name' => $data->name,
                             'local_address' => $data->local_address,
-                            'time_open' => $time_open,
-                            'time_close' => $time_close,
-                            'user_time_open' => Helper::changeBusinessTimeTimezone($time_open, $data->timezone, $user_timezone),
-                            'user_time_close' => Helper::changeBusinessTimeTimezone($time_close, $data->timezone, $user_timezone),
+                            'time_open' => Helper::changeBusinessTimeTimezone($time_open, $data->timezone, $user_timezone),
+                            'time_close' => Helper::changeBusinessTimeTimezone($time_close, $data->timezone, $user_timezone),
                             'waiting_time' => Analytics::getWaitingTimeString($data->business_id),
 
                             //ARA more info for business cards

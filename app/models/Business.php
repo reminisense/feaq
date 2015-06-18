@@ -168,7 +168,7 @@ class Business extends Eloquent
         return $business;
     }
 
-    public static function getBusinessByNameCountryIndustryTimeopen($name, $country, $industry, $time_open = NULL)
+    public static function getBusinessByNameCountryIndustryTimeopen($name, $country, $industry, $time_open = null, $timezone = null)
     {
         if ($time_open) {
             $time_open_arr = Helper::parseTime($time_open);
@@ -177,64 +177,45 @@ class Business extends Eloquent
             $time_open_arr['min'] = '';
             $time_open_arr['ampm'] = '';
         }
+
         if ($industry == 'Industry') {
             $industry = '';
         }
-        if ($time_open_arr['ampm'] == 'PM' && $time_open_arr['min'] == '00') {
-            return Business::where('name', 'LIKE', '%' . $name . '%')
-                //->where('local_address', 'LIKE', '%' . $country . '%')
-                ->where('latitude', '<=', $country['ne_lat'])
-                ->where('latitude', '>=', $country['sw_lat'])
-                ->where('longitude', '<=', $country['ne_lng'])
-                ->where('longitude', '>=', $country['sw_lng'])
-                ->where('industry', 'LIKE', '%' . $industry . '%')
-                ->where('open_ampm', '=', 'PM')
-                ->where('open_hour', '>=', $time_open_arr['hour'])
-                ->get();
-        } elseif ($time_open_arr['ampm'] == 'PM' && $time_open_arr['min'] == '30') {
-            return Business::where('name', 'LIKE', '%' . $name . '%')
-                //->where('local_address', 'LIKE', '%' . $country . '%')
-                ->where('latitude', '<=', $country['ne_lat'])
-                ->where('latitude', '>=', $country['sw_lat'])
-                ->where('longitude', '<=', $country['ne_lng'])
-                ->where('longitude', '>=', $country['sw_lng'])
-                ->where('industry', 'LIKE', '%' . $industry . '%')
-                ->where('open_ampm', '=', 'PM')
-                ->whereRaw('open_hour > ? OR (open_hour = ? AND open_minute = ?)',
-                    array($time_open_arr['hour'], $time_open_arr['hour'], '30'))
-                ->get();
-        } elseif ($time_open_arr['ampm'] == 'AM' && $time_open_arr['min'] == '00') {
-            return Business::where('name', 'LIKE', '%' . $name . '%')
-                //->where('local_address', 'LIKE', '%' . $country . '%')
-                ->where('latitude', '<=', $country['ne_lat'])
-                ->where('latitude', '>=', $country['sw_lat'])
-                ->where('longitude', '<=', $country['ne_lng'])
-                ->where('longitude', '>=', $country['sw_lng'])
-                ->where('industry', 'LIKE', '%' . $industry . '%')
-                ->whereRaw('(open_hour >= ? AND open_ampm = ?) OR (open_hour < ? AND open_ampm = ?)',
-                    array($time_open_arr['hour'], 'AM', $time_open_arr['hour'], 'PM'))
-                ->get();
-        } elseif ($time_open_arr['ampm'] == 'AM' && $time_open_arr['min'] == '30') {
-            return Business::where('name', 'LIKE', '%' . $name . '%')
-                //->where('local_address', 'LIKE', '%' . $country . '%')
-                ->where('latitude', '<=', $country['ne_lat'])
-                ->where('latitude', '>=', $country['sw_lat'])
-                ->where('longitude', '<=', $country['ne_lng'])
-                ->where('longitude', '>=', $country['sw_lng'])
-                ->where('industry', 'LIKE', '%' . $industry . '%')
-                ->whereRaw('(open_hour > ? AND open_ampm = ?) OR (open_hour < ? AND open_ampm = ?) OR (open_hour = ? AND open_minute = ? AND open_ampm = ?)',
-                    array($time_open_arr['hour'], 'AM', $time_open_arr['hour'], 'PM', $time_open_arr['hour'], '30', 'AM'))
-                ->get();
-        } else {
-            return Business::where('name', 'LIKE', '%' . $name . '%')
-                //->where('local_address', 'LIKE', '%' . $country . '%')
-                ->where('latitude', '<=', $country['ne_lat'])
-                ->where('latitude', '>=', $country['sw_lat'])
-                ->where('longitude', '<=', $country['ne_lng'])
-                ->where('longitude', '>=', $country['sw_lng'])
-                ->where('industry', 'LIKE', '%' . $industry . '%')
-                ->get();
+
+        if(is_numeric($timezone)){
+            $timezones = Helper::timezoneOffsetToNameArray($timezone);
+        }else{
+            $timezones = [$timezone];
         }
+
+        //ARA this makes editing queries easier
+        $query = Business::where('name', 'LIKE', '%' . $name . '%')
+            //->where('local_address', 'LIKE', '%' . $country . '%')
+            ->where('latitude', '<=', $country['ne_lat'])
+            ->where('latitude', '>=', $country['sw_lat'])
+            ->where('longitude', '<=', $country['ne_lng'])
+            ->where('longitude', '>=', $country['sw_lng'])
+            ->where('industry', 'LIKE', '%' . $industry . '%');
+
+        if($name == ''){
+            $query->whereIn('timezone', $timezones);
+        }
+
+        if ($time_open_arr['ampm'] == 'PM' && $time_open_arr['min'] == '00') {
+           $query->where('open_ampm', '=', 'PM')
+                ->where('open_hour', '>=', $time_open_arr['hour']);
+        } elseif ($time_open_arr['ampm'] == 'PM' && $time_open_arr['min'] == '30') {
+            $query->where('open_ampm', '=', 'PM')
+                ->whereRaw('open_hour > ? OR (open_hour = ? AND open_minute = ?)',
+                    array($time_open_arr['hour'], $time_open_arr['hour'], '30'));
+        } elseif ($time_open_arr['ampm'] == 'AM' && $time_open_arr['min'] == '00') {
+            $query->whereRaw('(open_hour >= ? AND open_ampm = ?) OR (open_hour < ? AND open_ampm = ?)',
+                    array($time_open_arr['hour'], 'AM', $time_open_arr['hour'], 'PM'));
+        } elseif ($time_open_arr['ampm'] == 'AM' && $time_open_arr['min'] == '30') {
+            $query->whereRaw('(open_hour > ? AND open_ampm = ?) OR (open_hour < ? AND open_ampm = ?) OR (open_hour = ? AND open_minute = ? AND open_ampm = ?)',
+                    array($time_open_arr['hour'], 'AM', $time_open_arr['hour'], 'PM', $time_open_arr['hour'], '30', 'AM'));
+        }
+        return $query->get();
     }
 
     public static function businessExistsByNameByAddress($business_name, $business_address)
@@ -476,14 +457,19 @@ class Business extends Eloquent
         return $businesses;
     }
 
-    public static function getBusinessByLatitudeLongitude($latitude, $longitude)
+    public static function getBusinessByLatitudeLongitude($latitude, $longitude, $timezone)
     {
         $max_lat = $latitude + 0.06;
         $max_long = $longitude + 0.06;
         $min_lat = $latitude - 0.06;
         $min_long = $longitude - 0.06;
-        return Business::where('latitude', '>=', $min_lat)->where('latitude', '<=', $max_lat)
-            ->where('longitude', '>=', $min_long)->where('longitude', '<=', $max_long)->get();
+        $timezones = Helper::timezoneOffsetToNameArray($timezone);
+        return Business::where('latitude', '>=', $min_lat)
+            ->where('latitude', '<=', $max_lat)
+            ->where('longitude', '>=', $min_long)
+            ->where('longitude', '<=', $max_long)
+            ->whereIn('timezone', $timezones)
+            ->get();
     }
 
     public static function processingBusinessBool($business_id)
@@ -537,7 +523,6 @@ class Business extends Eloquent
     }
 
     public static function getBusinessIdsByCountry($country){
-
         return Business::select('business_id')->where('local_address', 'LIKE', '%' . $country . '%')->get();
     }
 

@@ -20,8 +20,6 @@
                     "local_address": response[i].local_address,
                     "time_open" : response[i].time_open,
                     "time_close": response[i].time_close,
-                    "user_time_open": response[i].user_time_open,
-                    "user_time_close": response[i].user_time_close,
                     "waiting_time": response[i].waiting_time,
                     "last_number_called": response[i].last_number_called,
                     "next_available_number": response[i].next_available_number,
@@ -83,8 +81,6 @@
                         "local_address": response[i].local_address,
                         "time_open" : response[i].time_open,
                         "time_close": response[i].time_close,
-                        "user_time_open": response[i].user_time_open,
-                        "user_time_close": response[i].user_time_close,
                         "waiting_time": response[i].waiting_time,
                         //ARA more info for business cards
                         "last_number_called": response[i].last_number_called,
