@@ -139,4 +139,22 @@ class RestController extends BaseController {
         return Response::json($output, 200, array(), JSON_PRETTY_PRINT);
     }
 
+    public function postRegisterUser()
+    {
+        $post = json_decode(file_get_contents("php://input"));
+        $data = array(
+            'fb_id' => $post->fb_id,
+            'fb_url' => $post->fb_url,
+            'first_name' => $post->first_name,
+            'last_name' => $post->last_name,
+            'email' => $post->email,
+            'gender' => $post->gender,
+            'phone' => $post->phone,
+            'country' => $post->country,
+        );
+        User::saveFBDetails($data);
+//        Auth::loginUsingId(User::getUserIdByFbId($data['fb_id']));
+        return json_encode(array('success' => $data['fb_id']));
+    }
+
 }
