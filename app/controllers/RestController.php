@@ -142,15 +142,16 @@ class RestController extends BaseController {
     public function getRegisterUser()
     {
         $params = func_get_args();
+
         $data = array(
-            'fb_id' => $params->fb_id,
-            'fb_url' => 'https://www.facebook.com/app_scoped_user_id/' . $params->fb_id . '/', // https://www.facebook.com/app_scoped_user_id/1438888283100110/
-            'first_name' => $params->first_name,
-            'last_name' => $params->last_name,
-            'email' => $params->email,
-            'gender' => $params->gender,
-            'phone' => $params->phone,
-            'country' => $params->country,
+            'fb_id' => $params[0],
+            'fb_url' => 'https://www.facebook.com/app_scoped_user_id/' . $params[0] . '/', // https://www.facebook.com/app_scoped_user_id/1438888283100110/
+            'first_name' => $params[1],
+            'last_name' => $params[2],
+            'email' => $params[3],
+            'gender' => $params[4],
+            'phone' => $params[5],
+            'country' => $params[6],
         );
         User::saveFBDetails($data);
 //        Auth::loginUsingId(User::getUserIdByFbId($data['fb_id']));
