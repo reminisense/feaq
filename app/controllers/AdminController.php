@@ -97,7 +97,7 @@ class AdminController extends BaseController{
         return json_encode(['success' => 1, 'businesses' => $businesses]);
     }
 
-    public function getNumbersissued($start_date, $end_date, $mode, $value){
+    public function getProcessnumbers($start_date, $end_date, $mode, $value){
 
         $temp_start_date = $start_date;
         $temp_end_date = $end_date + 86400;
@@ -108,83 +108,99 @@ class AdminController extends BaseController{
             $called_numbers = [];
             $served_numbers = [];
             $dropped_numbers = [];
-            $business= Business::getBusinessIdByName($value);
+            $issued_data_numbers = [];
 
-            while($temp_start_date  < $temp_end_date){
+            $business= Business::getBusinessIdByName($value);
+            while($temp_start_date  < $temp_end_date) {
 
                 $next_day = $temp_start_date + 86400;
 
-                for($i = 0; $i < count($business); $i++ ) {
+                for ($i = 0; $i < count($business); $i++) {
 
-                    $issued_count = Analytics::countNumbersByBusiness($business[$i]->business_id, $temp_start_date, $next_day, 0);
-                    $called_count = Analytics::countNumbersByBusiness($business[$i]->business_id, $temp_start_date, $next_day, 1);
-                    $served_count = Analytics::countNumbersByBusiness($business[$i]->business_id, $temp_start_date, $next_day, 2);
-                    $dropped_count = Analytics::countNumbersByBusiness($business[$i]->business_id, $temp_start_date, $next_day, 3);
+
+                    $issued_count = Analytics::countNumbersByBusiness($business[$i]->business_id, $temp_start_date, 0);
+                    $called_count = Analytics::countNumbersByBusiness($business[$i]->business_id, $temp_start_date, 1);
+                    $served_count = Analytics::countNumbersByBusiness($business[$i]->business_id, $temp_start_date, 2);
+                    $dropped_count = Analytics::countNumbersByBusiness($business[$i]->business_id, $temp_start_date, 3);
+                    $issued_data_count = Analytics::countNumbersWithData($business[$i]->business_id, $temp_start_date);
 
                     array_push($issued_numbers, $issued_count);
                     array_push($called_numbers, $called_count);
                     array_push($served_numbers, $served_count);
                     array_push($dropped_numbers, $dropped_count);
+                    array_push($issued_data_numbers, $issued_data_count);
+
                 }
+
                 $temp_start_date = $next_day;
             }
 
             return json_encode(['success' => 1, 'issued_numbers' => $issued_numbers, 'called_numbers' => $called_numbers,
-                'served_numbers' => $served_numbers, 'dropped_numbers' => $dropped_numbers]);
+                'served_numbers' => $served_numbers, 'dropped_numbers' => $dropped_numbers, 'issued_numbers_data' => $issued_data_numbers]);
 
         }else if($mode == "industry"){
 
+            $business_id = Business::getBusinessIdsByIndustry($value);
+
             $issued_numbers = [];
             $called_numbers = [];
             $served_numbers = [];
             $dropped_numbers = [];
+            $issued_data_numbers = [];
 
             while($temp_start_date < $temp_end_date){
 
                 $next_day = $temp_start_date + 86400;
 
-                $issued_count = Analytics::countNumbersByIndustry($value,$temp_start_date,$next_day,0);
-                $called_count = Analytics::countNumbersByIndustry($value,$temp_start_date,$next_day,1);
-                $served_count = Analytics::countNumbersByIndustry($value,$temp_start_date,$next_day,2);
-                $dropped_count = Analytics::countNumbersByIndustry($value,$temp_start_date,$next_day,3);
+                $issued_count = Analytics::countNumbersByIndustry($business_id,$temp_start_date,0);
+                $called_count = Analytics::countNumbersByIndustry($business_id,$temp_start_date,1);
+                $served_count = Analytics::countNumbersByIndustry($business_id,$temp_start_date,2);
+                $dropped_count = Analytics::countNumbersByIndustry($business_id,$temp_start_date,3);
+                $issued_data_count = Analytics::countIndustryNumbersWithData($business_id, $temp_start_date);
 
                 array_push($issued_numbers,  $issued_count);
                 array_push($called_numbers,  $called_count);
                 array_push($served_numbers,  $served_count);
                 array_push($dropped_numbers,  $dropped_count);
+                array_push($issued_data_numbers, $issued_data_count);
 
                 $temp_start_date = $next_day;
             }
 
             return json_encode(['success' => 1, 'issued_numbers' => $issued_numbers, 'called_numbers' => $called_numbers,
-                'served_numbers' => $served_numbers, 'dropped_numbers' => $dropped_numbers]);
+                'served_numbers' => $served_numbers, 'dropped_numbers' => $dropped_numbers, 'issued_numbers_data' => $issued_data_numbers]);
 
         }else if($mode == "country"){
 
+            $business_id = Business::getBusinessIdsByCountry($value);
+
             $issued_numbers = [];
             $called_numbers = [];
             $served_numbers = [];
             $dropped_numbers = [];
+            $issued_data_numbers = [];
 
             while($temp_start_date < $temp_end_date){
 
                 $next_day = $temp_start_date + 86400;
 
-                $issued_count = Analytics::countNumbersByCountry($value,$temp_start_date,$next_day,0);
-                $called_count = Analytics::countNumbersByCountry($value,$temp_start_date,$next_day,1);
-                $served_count = Analytics::countNumbersByCountry($value,$temp_start_date,$next_day,2);
-                $dropped_count = Analytics::countNumbersByCountry($value,$temp_start_date,$next_day,3);
+                $issued_count = Analytics::countNumbersByCountry($business_id,$temp_start_date,0);
+                $called_count = Analytics::countNumbersByCountry($business_id,$temp_start_date,1);
+                $served_count = Analytics::countNumbersByCountry($business_id,$temp_start_date,2);
+                $dropped_count = Analytics::countNumbersByCountry($business_id,$temp_start_date,3);
+                $issued_data_count = Analytics::countCountryNumbersWithData($business_id, $temp_start_date);
 
                 array_push($issued_numbers,  $issued_count);
                 array_push($called_numbers,  $called_count);
                 array_push($served_numbers,  $served_count);
                 array_push($dropped_numbers,  $dropped_count);
+                array_push($issued_data_numbers, $issued_data_count);
 
                 $temp_start_date = $next_day;
             }
 
             return json_encode(['success' => 1, 'issued_numbers' => $issued_numbers, 'called_numbers' => $called_numbers,
-                'served_numbers' => $served_numbers, 'dropped_numbers' => $dropped_numbers]);
+                'served_numbers' => $served_numbers, 'dropped_numbers' => $dropped_numbers, 'issued_numbers_data' => $issued_data_numbers]);
         }
     }
 
