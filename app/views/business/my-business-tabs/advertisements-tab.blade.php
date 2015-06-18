@@ -4,9 +4,9 @@
     </div>
     <div class="col-md-6 col-xs-12 col-sm-12">
         <div class="well" style="min-height:244px;">
-            <h5>INTERNET TV
+            <h4>Internet TV
                 {{--<small>Internet TV can be viewed in the broadcast screen.</small>--}}
-            </h5>
+            </h4>
             <form ng-submit="selectTV(business_id)" id="tv-channel-select">
                 <div class="form-group">
                     <small>Choose channel:</small>
@@ -24,9 +24,9 @@
             </form>
         </div>
         <div class="well">
-            <h5>ANNOUNCEMENT TICKER
+            <h4>Announcement Ticker
                 {{--<small>Internet TV can be viewed in the broadcast screen.</small>--}}
-            </h5>
+            </h4>
 
             <form ng-submit="setTicker(business_id)" id="set-ticker">
                 <div class="form-group">
@@ -45,9 +45,9 @@
 
     <div class="col-md-6 col-xs-12 col-sm-12">
         <div class="well">
-        <h5>IMAGE OR VIDEO
+        <h4>Image or Video
             {{--<small>Choose whether to put an image or video in your broadcast screen.</small>--}}
-        </h5>
+        </h4>
             <div class="clearfix">
                     <label><input type="radio" name="ad_type" value="image" ng-model="ad_type" ng-change="adType(ad_type, business_id)"> <strong>Image</strong></label><label><input style="margin-left: 10px;" type="radio" name="ad_type" value="video" ng-model="ad_type" ng-change="adType(ad_type, business_id)"> <strong>Video</strong></label>
             </div>

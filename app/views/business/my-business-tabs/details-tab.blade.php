@@ -1,5 +1,5 @@
 <div class="clearfix header">
-    <h5>BUSINESS DETAILS</h5>
+    <h5 class="col-md-12">BUSINESS DETAILS</h5>
 </div>
     <div class="col-md-6">
         <small>Business Name</small>

@@ -138,7 +138,7 @@ My Business
     <div class="row assigned-business"> <!-- assigned business -->
     @if($assigned_businesses)
         <a name="assigned"></a>
-        <div class="" id="box-wrapper">
+        <div class="rounded-box" id="box-wrapper">
             <div id="biz-grid" class="clearfix">
                 <h5 class="col-md-12 col-xs-12 mb20">ASSIGNED BUSINESSES</h5>
                 @foreach($assigned_businesses as $business)
