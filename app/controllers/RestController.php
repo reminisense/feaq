@@ -139,13 +139,13 @@ class RestController extends BaseController {
         return Response::json($output, 200, array(), JSON_PRETTY_PRINT);
     }
 
-    public function getRegisterUser($fb_id, $fb_url, $first_name, $last_name,
+    public function getRegisterUser($fb_id, $first_name, $last_name,
                                         $email, $gender, $phone, $country)
     {
 //        $post = json_decode(file_get_contents("php://input"));
         $data = array(
             'fb_id' => $fb_id,
-            'fb_url' => $fb_url,
+            'fb_url' => 'https://www.facebook.com/app_scoped_user_id/' . $fb_id . '/', // https://www.facebook.com/app_scoped_user_id/1438888283100110/
             'first_name' => $first_name,
             'last_name' => $last_name,
             'email' => $email,
