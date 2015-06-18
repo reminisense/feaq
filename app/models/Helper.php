@@ -179,4 +179,17 @@ class Helper extends Eloquent {
         }
         return false;
     }
+
+    public static function timezoneOffsetToNameArray($offset){
+        $timezones = [];
+        $abbrarray = timezone_abbreviations_list();
+        foreach ($abbrarray as $abbr) {
+            foreach ($abbr as $city) {
+                if ($city['offset'] == $offset) {
+                    $timezones[] = $city['timezone_id'];
+                }
+            }
+        }
+        return $timezones;
+    }
 }
