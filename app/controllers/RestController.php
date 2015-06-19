@@ -165,13 +165,59 @@ class RestController extends BaseController {
      * @return JSON containing the industries view/searched by user
      */
     public function getUserIndustryInfo($facebook_id, $limit = 10){
-        $user_id = User::getUserIdByFbId($facebook_id);
-        $industry_data = Watchdog::queryUserInfo('industry', $user_id);
-        unset($industry_data['Industry']); //remove industry index since this is useless data caused by searching without industry parameter
-        arsort($industry_data);
-        $industry_data = array_slice($industry_data, 0, $limit);
-        return json_encode(['industries' => $industry_data]);
+        try{
+            $user_id = User::getUserIdByFbId($facebook_id);
+        }catch(Exception $e){
+            $user_id = null;
+        }
+
+        if($user_id){
+            $industry_data = Watchdog::queryUserInfo('industry', $user_id);
+            unset($industry_data['Industry']); //remove industry index since this is useless data caused by searching without industry parameter
+            arsort($industry_data);
+            $industry_data = array_slice($industry_data, 0, $limit);
+            return json_encode(['industries' => $industry_data]);
+        }else{
+            return json_encode(['error' => 'You are not registered to FeatherQ.']);
+        }
+
     }
 
+    public function getQueueBusiness($facebook_id, $business_id){
+        try{
+            $user_id = User::getUserIdByFbId($facebook_id);
+        }catch(Exception $e){
+            $user_id = null;
+        }
+
+        if($user_id){
+            $service = Service::getFirstServiceOfBusiness($business_id);
+            $service_id = $service->service_id;
+
+            $name = User::full_name($user_id);
+            $phone = User::phone($user_id);
+            $email = User::email($user_id);
+
+            $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
+            $priority_number = $next_number;
+            $queue_platform = 'Android';
+
+            $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform);
+            PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
+
+            $details = [
+                'number_assigned' => $priority_number,
+                'business_id' => $business_id,
+                'business_name' => Business::name($business_id),
+                'current_number_called' => ProcessQueue::currentNumber($service_id),
+                'estimated_time_until_called' => Analytics::getWaitingTime($business_id),
+            ];
+
+            return json_encode($details);
+        }else{
+            return json_encode(['error' => 'You are not registered to FeatherQ.']);
+        }
+
+    }
 
 }
