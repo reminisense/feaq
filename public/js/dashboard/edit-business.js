@@ -704,17 +704,22 @@ var eb = {
         });
 
         $scope.selectTV = (function(business_id) {
-            $http.post(eb.urls.broadcast.ads_tv_select_url, {
-                business_id : business_id,
-                tv_channel : $scope.tv_channel
-            }).success(function() {
-                $('#tvchannel-danger').hide();
-                $('#tvchannel-success').fadeIn();
-                $('#tvchannel-success').fadeOut(7000);
-            }).error(function() {
-                $('#tvchannel-danger').hide();
-                $('#tvchannel-success').fadeIn();
-            });
+            if ($scope.tv_channel) {
+                $http.post(eb.urls.broadcast.ads_tv_select_url, {
+                    business_id : business_id,
+                    tv_channel : $scope.tv_channel
+                }).success(function() {
+                    $('#tvchannel-danger').hide();
+                    $('#tvchannel-success').fadeIn();
+                    $('#tvchannel-success').fadeOut(7000);
+                }).error(function() {
+                    $('#tvchannel-danger').hide();
+                    $('#tvchannel-success').fadeIn();
+                });
+            }
+            else {
+                alert('Please select a channel.')
+            }
         });
 
         $scope.setTicker = (function(business_id) {
