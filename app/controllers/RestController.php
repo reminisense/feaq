@@ -158,4 +158,20 @@ class RestController extends BaseController {
         return json_encode(array('success' => $data['fb_id']));
     }
 
+    /**
+     * @author Aunne
+     * @param $facebook_id
+     * @param int $limit
+     * @return JSON containing the industries view/searched by user
+     */
+    public function getUserIndustryInfo($facebook_id, $limit = 10){
+        $user_id = User::getUserIdByFbId($facebook_id);
+        $industry_data = Watchdog::queryUserInfo('industry', $user_id);
+        unset($industry_data['Industry']); //remove industry index since this is useless data caused by searching without industry parameter
+        arsort($industry_data);
+        $industry_data = array_slice($industry_data, 0, $limit);
+        return json_encode(['industries' => $industry_data]);
+    }
+
+
 }
