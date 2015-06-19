@@ -183,6 +183,42 @@ class RestController extends BaseController {
 
     }
 
+    public function getQueueInfo($facebook_id){
+        try{
+            $user_id = User::getUserIdByFbId($facebook_id);
+        }catch(Exception $e){
+            $user_id = null;
+        }
+
+        if($user_id){
+            $transaction_number = PriorityQueue::getLatestTransactionNumberOfUser($user_id);
+            $priority_number = PriorityQueue::priorityNumber($transaction_number);
+            $track_id = PriorityQueue::trackId($transaction_number);
+            $service_id = PriorityNumber::serviceId($track_id);
+            $business_id = Branch::businessId(Service::branchId($service_id));
+
+            $details = [
+                'number_assigned' => $priority_number,
+                'business_id' => $business_id,
+                'business_name' => Business::name($business_id),
+                'current_number_called' => ProcessQueue::currentNumber($service_id),
+                'estimated_time_until_called' => Analytics::getWaitingTime($business_id),
+            ];
+
+            return json_encode($details);
+        }else{
+            return json_encode(['error' => 'You are not registered to FeatherQ.']);
+        }
+
+    }
+
+    /**
+     * Queue To Business
+     * @param $facebook_id
+     * @param $business_id
+     * @return string
+     */
+    /*
     public function getQueueBusiness($facebook_id, $business_id){
         try{
             $user_id = User::getUserIdByFbId($facebook_id);
@@ -219,5 +255,6 @@ class RestController extends BaseController {
         }
 
     }
+    */
 
 }
