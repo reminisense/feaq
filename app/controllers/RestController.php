@@ -203,6 +203,7 @@ class RestController extends BaseController {
                 'business_name' => Business::name($business_id),
                 'current_number_called' => ProcessQueue::currentNumber($service_id),
                 'estimated_time_until_called' => Analytics::getWaitingTime($business_id),
+                'status' => TerminalTransaction::queueStatus($transaction_number),
             ];
 
             return json_encode($details);
