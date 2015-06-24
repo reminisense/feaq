@@ -288,11 +288,11 @@ app.controller('adminController', function($scope, $http){
         }
     });
 
-    $scope.addFeatherQash = function(user_id, amount, description){
+    $scope.addFeatherCash = function(user_id, amount, description){
         $scope.getTransactionKey(user_id, amount, description, 1);
     }
 
-    $scope.subtractFeatherQash = function(user_id, amount, description){
+    $scope.subtractFeatherCash = function(user_id, amount, description){
         $scope.getTransactionKey(user_id, amount, description, 0);
     }
 
@@ -300,10 +300,10 @@ app.controller('adminController', function($scope, $http){
         var url ='';
         switch (action){
             case 0:
-                url = '/featherqash/use';
+                url = '/feathercash/use';
                 break;
             case 1:
-                url = '/featherqash/add';
+                url = '/feathercash/add';
                 break;
         }
 
@@ -312,13 +312,13 @@ app.controller('adminController', function($scope, $http){
             amount: amount,
             description: description
         }).success(function(response){
-            $scope.updateFeatherQash(response.key);
+            $scope.updateFeatherCash(response.key);
         });
     }
 
-    $scope.updateFeatherQash = function(transaction_key){
-        $http.get('/featherqash/update-account/' + transaction_key).success(function(response){
-            $scope.getFeatherQashAccount(response.user_id);
+    $scope.updateFeatherCash = function(transaction_key){
+        $http.get('/feathercash/update-account/' + transaction_key).success(function(response){
+            $scope.getFeatherCashAccount(response.user_id);
         });
     }
 
@@ -329,14 +329,14 @@ app.controller('adminController', function($scope, $http){
     }
 
     $scope.setUserId = function(user_id, first_name, last_name){
-        $scope.featherqash_user = first_name + ' ' + last_name;
-        $scope.featherqash_user_id = user_id;
+        $scope.feathercash_user = first_name + ' ' + last_name;
+        $scope.feathercash_user_id = user_id;
         $scope.users = [];
-        $scope.getFeatherQashAccount(user_id);
+        $scope.getFeatherCashAccount(user_id);
     }
 
-    $scope.getFeatherQashAccount = function(user_id){
-        $http.get('/featherqash/account/' + user_id).success(function(response){
+    $scope.getFeatherCashAccount = function(user_id){
+        $http.get('/feathercash/account/' + user_id).success(function(response){
             account = {
                 user_id: response.user.user_id,
                 first_name: response.user.first_name,

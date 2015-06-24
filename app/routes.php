@@ -59,4 +59,4 @@ Route::controller('articles', 'ContentController');
 
 Route::controller('how-to', 'ContentController');Route::controller('admin', 'AdminController');
 
-Route::controller('featherqash', 'FeatherQashController');
+Route::controller('feathercash', 'FeatherCashController');
