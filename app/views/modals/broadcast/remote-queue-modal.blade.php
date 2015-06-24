@@ -33,20 +33,20 @@
                                     <label>Name</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="name" name="name" required>
+                                    <input type="text" class="form-control" ng-model="name" value="@{{ contactname }}" readonly name="name" required>
                                 </div>
 
                                 <div class="col-md-4">
                                     <label>Cellphone</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="phone" name="phone" required>
+                                    <input type="text" class="form-control" ng-model="phone" value="@{{ contactmobile }}" name="phone" required>
                                 </div>
                                 <div class="col-md-4">
                                     <label>Email</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="email" class="form-control" ng-model="email" name="email" required>
+                                    <input type="email" class="form-control" ng-model="email" value="@{{ contactemail }}" readonly name="email" required>
                                 </div>
                             </div>
                             <div class="alert alert-danger" role="alert" ng-show="issue_specific_error.length > 0">

@@ -180,4 +180,12 @@ class UserController extends BaseController{
         $user = User::searchByFacebookId($fb_id);
         return json_encode(['success' => 1, 'user' => $user]);
     }
+
+    /**
+     * @author: Carl Dalid
+     * @description: Get User by User ID for remote queue
+     */
+    public function getRemoteuser($user_id){
+        return json_encode(array('status' => '1', 'first_name' => User::first_name($user_id), 'last_name' => User::last_name($user_id), 'phone' => User::phone($user_id), 'email' => User::email($user_id)));
+    }
 }
