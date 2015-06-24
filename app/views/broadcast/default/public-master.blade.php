@@ -44,6 +44,7 @@
   ================================================== -->
 <body cz-shortcut-listen="true" id="biz-broadcast" ng-app="PublicBroadcast" ng-cloak>
 <div id="business-id" business_id="{{ $business_id }}"></div>
+<div id="user-id" user_id="@if($user) {{ $user['user_id'] }} @endif"></div>
 <!-- Static navbar -->
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container">
@@ -118,6 +119,13 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="col-md-12 ticker mt20">
+            <div class="" style="background-color: rgba(255,255,255,0.95); color: #000; font-size: 36px; font-family: ArialMTStd-ExtraBold;">
+                    <div class="scroll-left">
+                        <p>@{{ ticker_message }}</p>
+                    </div>
             </div>
         </div>
     </div>

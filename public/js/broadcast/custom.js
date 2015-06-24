@@ -4,7 +4,7 @@ function isEmail(email) {
 }
 
 function isValidPhone (txtPhone) {
-    var filter = /^(\+\d{1,3}[- ]?)?\d{11}$/;
+    var filter = /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/i;
     if (filter.test(txtPhone)) {
         return true;
     } else {

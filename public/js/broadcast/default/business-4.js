@@ -57,6 +57,8 @@ app.controller('nowServingCtrl', function($scope, $http) {
         $scope.writeNumber(response, 'box1');
         $scope.writeNumber(response, 'box2');
         $scope.writeNumber(response, 'box3');
+
+        $scope.ticker_message = response.ticker_message;
     });
 
     $scope.resetNumbers = (function(response) {

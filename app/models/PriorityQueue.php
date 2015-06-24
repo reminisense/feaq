@@ -28,6 +28,10 @@ class PriorityQueue extends Eloquent {
         return PriorityQueue::where('transaction_number', '=', $transaction_number)->first()->phone;
     }
 
+    public static function trackId($transaction_number){
+        return PriorityQueue::where('transaction_number', '=', $transaction_number)->first()->track_id;
+    }
+
     public static function createPriorityQueue($track_id, $priority_number, $confirmation_code, $user_id, $queue_platform){
         $values = [
             'priority_number' => $priority_number,
@@ -51,5 +55,9 @@ class PriorityQueue extends Eloquent {
   public static function getTransactionNumberByTrackId($track_id) {
     return PriorityQueue::where('track_id', '=', $track_id)->select(array('transaction_number'))->get();
   }
+
+    public static function getLatestTransactionNumberOfUser($user_id){
+        return PriorityQueue::where('user_id', '=', $user_id)->orderBy('transaction_number', 'desc')->first()->transaction_number;
+    }
 
 }

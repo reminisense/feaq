@@ -32,7 +32,7 @@ class RestController extends BaseController {
     public function getSearchBusiness($query) {
         $search_results = DB::table('business')
             ->where('name', 'LIKE', '%' . $query . '%')
-            ->select(array('business_id', 'name', 'local_address'))
+            ->select(array('business_id', 'name', 'local_address', 'latitude', 'longitude'))
             ->get();
 
         $found_business = array('search-result' => $search_results);
@@ -138,5 +138,154 @@ class RestController extends BaseController {
 
         return Response::json($output, 200, array(), JSON_PRETTY_PRINT);
     }
+
+    public function getRegisterUser()
+    {
+        $params = func_get_args();
+
+        $data = array(
+            'fb_id' => $params[0],
+            'fb_url' => 'https://www.facebook.com/app_scoped_user_id/' . $params[0] . '/', // https://www.facebook.com/app_scoped_user_id/1438888283100110/
+            'first_name' => $params[1],
+            'last_name' => $params[2],
+            'email' => $params[3],
+            'gender' => $params[4],
+            'phone' => $params[5],
+            'country' => $params[6],
+        );
+        User::saveFBDetails($data);
+//        Auth::loginUsingId(User::getUserIdByFbId($data['fb_id']));
+        return json_encode(array('success' => $data['fb_id']));
+    }
+
+    /**
+     * @author Aunne
+     * @param $facebook_id
+     * @param int $limit
+     * @return JSON containing the industries view/searched by user
+     */
+    public function getUserIndustryInfo($facebook_id, $limit = 10){
+        try{
+            $user_id = User::getUserIdByFbId($facebook_id);
+        }catch(Exception $e){
+            $user_id = null;
+        }
+
+        if($user_id){
+            $industry_data = Watchdog::queryUserInfo('industry', $user_id);
+            unset($industry_data['Industry']); //remove industry index since this is useless data caused by searching without industry parameter
+            arsort($industry_data);
+            $industry_data = array_slice($industry_data, 0, $limit);
+            return json_encode(['industries' => $industry_data]);
+        }else{
+            return json_encode(['error' => 'You are not registered to FeatherQ.']);
+        }
+
+    }
+
+    /**
+     * @author Aunne Rouie Arzadon
+     * @param $facebook_id
+     * @return string
+     */
+    public function getQueueInfo($facebook_id){
+        try{
+            $user_id = User::getUserIdByFbId($facebook_id);
+        }catch(Exception $e){
+            $user_id = null;
+        }
+
+        if($user_id){
+            $transaction_number = PriorityQueue::getLatestTransactionNumberOfUser($user_id);
+            $priority_number = PriorityQueue::priorityNumber($transaction_number);
+            $track_id = PriorityQueue::trackId($transaction_number);
+            $service_id = PriorityNumber::serviceId($track_id);
+            $business_id = Branch::businessId(Service::branchId($service_id));
+
+            $details = [
+                'number_assigned' => $priority_number,
+                'business_id' => $business_id,
+                'business_name' => Business::name($business_id),
+                'current_number_called' => ProcessQueue::currentNumber($service_id),
+                'estimated_time_until_called' => Analytics::getWaitingTime($business_id),
+                'status' => TerminalTransaction::queueStatus($transaction_number),
+            ];
+
+            return json_encode($details);
+        }else{
+            return json_encode(['error' => 'You are not registered to FeatherQ.']);
+        }
+
+    }
+
+    /**
+     * @author Ruffy
+     * @param $query Query string input for searching for a businesses under an industry
+     * @return JSON response containing businesses that qualified with the search query
+     */
+    public function getSearchIndustry($query) {
+        $search_results = DB::table('business')
+            ->where('industry', '=', $query)
+            ->select(array('business_id', 'name', 'local_address', 'latitude', 'longitude'))
+            ->get();
+
+            //ARA added info for businesses
+            foreach($search_results as $index => $business){
+                $first_service = Service::getFirstServiceOfBusiness($business->business_id);
+                $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
+
+                $search_results[$index]->last_number_called = count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'none';
+                $search_results[$index]->next_available_number = $all_numbers->next_number;
+                $search_results[$index]->active = count($all_numbers->called_numbers) + count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? 1: 0;
+            }
+
+        $found_business = array('search-result' => $search_results);
+        return Response::json($found_business, 200, array(), JSON_PRETTY_PRINT);
+    }
+
+    /**
+     * Queue To Business
+     * @param $facebook_id
+     * @param $business_id
+     * @return string
+     */
+    /*
+    public function getQueueBusiness($facebook_id, $business_id){
+        try{
+            $user_id = User::getUserIdByFbId($facebook_id);
+        }catch(Exception $e){
+            $user_id = null;
+        }
+
+        if($user_id){
+            $service = Service::getFirstServiceOfBusiness($business_id);
+            $service_id = $service->service_id;
+
+            $name = User::full_name($user_id);
+            $phone = User::phone($user_id);
+            $email = User::email($user_id);
+
+            $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
+            $priority_number = $next_number;
+            $queue_platform = 'Android';
+
+            $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform);
+            PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
+
+            $details = [
+                'number_assigned' => $priority_number,
+                'business_id' => $business_id,
+                'business_name' => Business::name($business_id),
+                'current_number_called' => ProcessQueue::currentNumber($service_id),
+                'estimated_time_until_called' => Analytics::getWaitingTime($business_id),
+            ];
+
+            return json_encode($details);
+        }else{
+            return json_encode(['error' => 'You are not registered to FeatherQ.']);
+        }
+
+    }
+    */
 
 }

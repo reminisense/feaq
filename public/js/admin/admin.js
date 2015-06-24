@@ -1,10 +1,11 @@
 /**
  * Created by USER on 6/2/15.
  */
-/**
- * Created by USER on 5/6/15.
- */
 app.controller('adminController', function($scope, $http){
+
+    $(".datepicker").datepicker();
+    $(".datepicker").datepicker('setDate', new Date());
+
     $scope.user_id = $('#user_id').val();
     $scope.admins = [];
     $scope.keyword = 'page_url';
@@ -23,6 +24,172 @@ app.controller('adminController', function($scope, $http){
         {keyword: 'ip_address',         name: 'IP Address'},
         {keyword: 'screen_size',        name: 'Screen Size'}
     ]
+
+
+    $scope.temp_start_date = "";
+    $scope.temp_end_date = "";
+    $scope.start_date = 0;
+    $scope.end_date = 0;
+
+    $scope.new_business = 0;
+    $scope.new_users = 0;
+    $scope.issued_numbers = 0;
+    $scope.called_numbers = 0;
+    $scope.served_numbers = 0;
+    $scope.dropped_numbers = 0;
+
+    $scope.checked = false;
+
+    $scope.issued_data = [];
+    $scope.issued = [];
+    $scope.called = [];
+    $scope.served = [];
+    $scope.dropped = [];
+
+
+    $scope.loadBusinessNumbers = function() {
+        $scope.getDate();
+        $http.get('/admin/businessnumbers/' +  $scope.start_date + '/' +  $scope.end_date).success(function(response){
+            $scope.new_business = response.businesses;
+            $scope.new_users = response.users;
+            $scope.issued_numbers = response.issued_numbers;
+            $scope.called_numbers = response.called_numbers;
+            $scope.served_numbers = response.served_numbers;
+            $scope.dropped_numbers = response.dropped_numbers;
+        });
+    }
+
+    $scope.loadBusinesses = function() {
+        $http.get('/admin/allbusinesses').success(function(response){
+            for (var i = 0; i < response.businesses.length; i++) {
+                $("#business-dropdown").append("<option value="+i+">"+response.businesses[i].name+"</option>")
+            }
+        });
+    }
+
+    $scope.loadGraph = function(mode){
+
+        $scope.issued_data = [];
+        $scope.issued = [];
+        $scope.called = [];
+        $scope.served = [];
+        $scope.dropped = [];
+
+        $scope.getDate();
+        var value = $scope.getValue(mode);
+        $http.get('/admin/processnumbers/' + $scope.start_date + '/' + $scope.end_date + '/' + mode + '/' + value)
+            .success(function(response){
+                console.log(response);
+                var temp_time_i = new Date($scope.start_date *1000);
+
+                for(a in response.issued_numbers){
+
+                    var month = ('0' + (temp_time_i.getMonth()+ 1)).slice(-2);
+                    var day = ('0' + temp_time_i.getDate()).slice(-2);
+                    var year = temp_time_i.getFullYear();
+
+                    $scope.issued.push({ Date: year+"-"+month+"-"+day, Value: response.issued_numbers[a]});
+                    $scope.issued_data.push({ Date: year+"-"+month+"-"+day, Value: response.issued_numbers[a], Value2: response.issued_numbers_data[a]});
+                    $scope.called.push({ Date: year+"-"+month+"-"+day, Value: response.called_numbers[a]});
+                    $scope.served.push({ Date: year+"-"+month+"-"+day, Value: response.served_numbers[a]});
+                    $scope.dropped.push({ Date: year+"-"+month+"-"+day, Value: response.dropped_numbers[a]});
+                    temp_time_i.setDate( temp_time_i.getDate() + 1);
+                }
+
+                if($('#issued-container').hasClass("active")){
+                    $scope.generateChart(1);
+                }else if($('#called-container').hasClass("active")){
+                    $scope.generateChart(2);
+                }else if($('#served-container').hasClass("active")){
+                    $scope.generateChart(3);
+                }else if($('#dropped-container').hasClass("active")){
+                    $scope.generateChart(4);
+                }
+            });
+    }
+
+    $scope.issuedData = function(){
+
+        if($scope.issued.length != 0){
+            if($scope.checked){
+                $scope.generateChart(5)
+            }else{
+                $scope.generateChart(1)
+            }
+        }
+    }
+
+    $scope.generateChart = function(option){
+
+        angular.element('#lineIssuedChart').empty();
+        angular.element('#lineCalledChart').empty();
+        angular.element('#lineServedChart').empty();
+        angular.element('#lineDroppedChart').empty();
+
+        if(option == 1 && $scope.issued.length != 0){
+            $scope.issuedChart($scope.issued);
+        }else if(option == 2 && $scope.called.length != 0){
+            $scope.calledChart($scope.called);
+        }else if(option == 3 && $scope.served.length != 0){
+            $scope.servedChart($scope.served);
+        }else if(option == 4 && $scope.dropped.length != 0){
+            $scope.droppedChart($scope.dropped);
+        }else if(option == 5){
+            $scope.issuedChartData($scope.issued_data);
+        }
+    }
+
+    $scope.issuedChart = function(issued){
+        new Morris.Line({
+            element: 'lineIssuedChart',
+            data: issued,
+            xkey: 'Date',
+            ykeys: ['Value'],
+            labels: ['Issued Numbers']
+        });
+    }
+
+    $scope.issuedChartData = function(issueddata){
+        new Morris.Line({
+            element: 'lineIssuedChart',
+            data: issueddata,
+            xkey: 'Date',
+            ykeys: ['Value', 'Value2'],
+            labels: ['Issued Numbers', 'Issued Numbers w/ Data']
+        });
+    }
+
+    $scope.calledChart = function(called){
+        new Morris.Line({
+            element: 'lineCalledChart',
+            data: called,
+            xkey: 'Date',
+            ykeys: ['Value'],
+            labels: ['Called Numbers']
+        });
+
+    };
+
+    $scope.servedChart = function(served){
+        new Morris.Line({
+            element: 'lineServedChart',
+            data: served,
+            xkey: 'Date',
+            ykeys: ['Value'],
+            labels: ['Served Numbers']
+        });
+
+    };
+
+    $scope.droppedChart = function(dropped){
+        new Morris.Line({
+            element: 'lineDroppedChart',
+            data: dropped,
+            xkey: 'Date',
+            ykeys: ['Value'],
+            labels: ['Dropped Numbers']
+        });
+    };
 
     $scope.loadChart = function(){
         angular.element('#statChart').empty();
@@ -84,9 +251,43 @@ app.controller('adminController', function($scope, $http){
         }
     }
 
-    $scope.loadBusinessNumbers = function(){
-        window.open('/admin/business/');
+    $scope.getDate = function(){
+        $scope.temp_start_date = $("#start-date").datepicker({dateFormat: 'dd-mm-yy'}).val();
+        $scope.temp_end_date = $("#end-date").datepicker({dateFormat: 'dd-mm-yy'}).val();
+        $scope.start_date = new Date($scope.temp_start_date).getTime() / 1000;
+        $scope.end_date = new Date($scope.temp_end_date).getTime() / 1000;
     }
+
+    $scope.getValue = function(mode){
+
+        if(mode == "business"){
+            return  $("#business-dropdown option:selected").text();
+        }else if(mode == "industry"){
+            return  $("#industry-dropdown option:selected").text();
+        }else if(mode == "country"){
+            return  $("#country-dropdown option:selected").text();
+        }
+    }
+
+    $("#graph-nav a").click(function(){
+        $(this).tab("show");
+    });
+    $('#graph-nav a').on('shown.bs.tab', function(event){
+        if($('#issued-container').hasClass("active")){
+            if($scope.checked){
+                $scope.generateChart(5)
+            }else{
+                $scope.generateChart(1)
+            }
+        }else if($('#called-container').hasClass("active")){
+            $scope.generateChart(2);
+        }else if($('#served-container').hasClass("active")){
+            $scope.generateChart(3);
+        }else if($('#dropped-container').hasClass("active")){
+            $scope.generateChart(4);
+        }
+    });
+
     $scope.addFeatherQash = function(user_id, amount, description){
         $scope.getTransactionKey(user_id, amount, description, 1);
     }
@@ -150,4 +351,6 @@ app.controller('adminController', function($scope, $http){
 
     //functions triggered on load
     $scope.getAdmins();
+    $scope.loadBusinessNumbers();
+    $scope.loadBusinesses();
 });

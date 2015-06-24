@@ -28,7 +28,7 @@
                                 <label>Mobile Number <span class="req">*</span></label>
                             </div>
                             <div class="col-md-9">
-                                <input type="mobile" class="form-control" id="contactmobile" @if(isset($user['phone'])) {{ "value='" . $user['phone'] . "' readonly" }} @endif required />
+                                <input type="mobile" class="form-control" id="contactmobile" @if(isset($user['phone'])) {{ "value='" . $user['phone'] . "'" }} @endif required />
                             </div>
                             <div class="col-md-3">
                                 <label>Message <span class="req">*</span></label>

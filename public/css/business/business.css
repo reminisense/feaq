@@ -56,6 +56,9 @@
     text-decoration: none;
     cursor: pointer;
 }
+#process-queue {
+    border-bottom: 4px solid #d36e3c;
+}
 #process-queue a{
     color: #fff;
     text-decoration: none; /*ARA FEAQ-262 removes underline in process queue button*/
@@ -80,6 +83,9 @@
 }
 #add-business:hover {
     background-color: #d36e3c;
+}
+#view-broadcast {
+    border-bottom: 4px solid #009b74;
 }
 #view-broadcast:hover,
 #add-business:hover {
@@ -119,6 +125,12 @@
     margin-bottom: 40px;
     min-height: 300px;
 }
+#bizTabContent {
+    margin-bottom: 20px!important;
+}
+.rounded-box {
+    border-radius: 4px!important;
+}
 #box-wrapper {min-height: 80px;}
 .biz-details h2 {
     text-shadow: 0 1px 0 #ffffff;
@@ -139,14 +151,30 @@
 .biz-navs .form-control {
     margin-bottom: 20px;
     border: none;
-    border-bottom: 1px solid #c7c7c7;
+    border-bottom: 1px solid #ddd;
     background-color: #f0f0f0;
+    border-radius: 0;
+}
+.table-hover>tbody>tr:hover {
+    background: none;
+}
+.table.settings td {
+    border: none;
+
+    padding-left: 0;
+    padding-right: 0;
 }
 .form-control {
     font-size: 13px;
+    color: #333;
+}
+.form-control:focus {
+    box-shadow: none;
+    border: 1px solid #00ba8b;
+    color: #000;
 }
 .biz-navs .form-control:focus {
-    background-color: #fff9e3;
+    background-color: #fff;
 }
 .biz-navs .form-group button.dropdown-toggle,
 .biz-navs .form-group .btn-group,
@@ -175,6 +203,7 @@
     margin-bottom: 6px;
     font-size: 14px;
     display: inline-block;
+    color: #000;
 }
 #tv-channel-select select {
     background-color: #fff;
@@ -184,9 +213,35 @@
     font-size: 16px;
     color: #00ba8b;
 }
+#bizTabContent .btn-default {
+    color: #337ab7;
+    border: 1px solid #ccc;
+}
+#bizTabContent .btn-default:hover {
+    background-color: #eee;
+}
+#bizTabContent .table thead th {
+    background-color: #f2f2f2;
+}
+#bizTabContent .table>thead>tr>th {
+    border-bottom: 1px solid #ddd;
+}
+#bizTabContent .well h5 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+#bizTabContent .well .form-control {
+    background-color: #fff;
+}
 #biz-grid h5 {
     font-size: 16px;
     color: #00ba8b;
+}
+.well .biz-navs .form-control {
+    background-color: #fff!important;
+}
+.well input {
+    background-color: #fff;
 }
 .header {
     margin-bottom: 30px;
@@ -209,10 +264,9 @@ h5>small {
     float: left;
     margin-right: 12px;
     display: block;
-    height: 30px;
 }
 .title {
-    font-family: 'ralewaybold';
+    font-family: 'ralewaysemibold';
     margin-bottom: 6px;
 }
 .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
@@ -252,7 +306,8 @@ h5>small {
     background-color: #ff925b;
 }
 .btn-orange:hover {
-    background-color: #ed701c;
+    background-color: #ed701c!important;
+    color: #fff;
 }
 .btn-blue {
     background-color: #5b75b3;
@@ -354,7 +409,7 @@ table .title {
     margin-bottom: 10px;
 }
 .mb20 {
-    margin-bottom: 20px;
+    margin-bottom: 20px!important;
 }
 .mb30 {
     margin-bottom: 30px;
@@ -449,6 +504,7 @@ table .title {
     display: block;
     color: #fff;
     height: 100%;
+    font-size: 10px;
 }
 
 #input_sms_field {
@@ -554,18 +610,28 @@ input#input_sms_field:focus{
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
 .div-view-business{
-padding-left: 35px;
+    padding-left: 15px;
 }
 #date-container{
-    padding-top: 50px;
+    padding-top: 20px;
     padding-bottom: 50px;
 }
 #graphs-container{
-    padding-top: 30px;
-    padding-bottom: 70px;
+    padding-bottom: 20px;
+}
+#label-container{
+    font-size: 18px;
+    padding-left: 15px;
+    padding-bottom: 5px;
+}
+#advanced-container{
+    padding-left: 10px;
+}
+#start-date{
+    margin-right: 25px;
 }
 #end-date{
-    margin-left: 35px;
+    margin-left: 25px;
 }
 #end-date, #start-date{
     text-align: center;
@@ -580,14 +646,14 @@ padding-left: 35px;
     margin-left: 15px;
 }
 #business-label{
-    font-size: 30px;
+    font-size: 15px;
 }
-#filter-container{
+#filter-container, #industry-filter-container{
     border: 1px solid;
-    padding: 15px;
+    padding: 5px;
 }
 #filter-labels{
-    font-size: 18px;
+    font-size: 14px;
 }
 #filter-buttons{
     text-align: right;
@@ -602,21 +668,25 @@ padding-left: 35px;
 #business-numbers-label, #user-numbers-label,
 #issued-numbers-label, #called-numbers-label,
 #served-numbers-label, #dropped-numbers-label{
-    font-size: 20px;
+    font-size: 18px;
     text-align: center;
 }
 #lineIssuedChart, #lineCalledChart,
 #lineServedChart, #lineDroppedChart{
-    min-height: 300px;
+    min-height: 325px;
 }
-#issued-container,#called-container,
-#served-container, #dropped-container{
-    padding: 25px 50px;
-}
-#called-container, #served-container,
-#dropped-container {
-    visibility: hidden;
-}
+/*#issued-container,#called-container,*/
+/*#served-container, #dropped-container{*/
+    /*padding: 25px 50px;*/
+/*}*/
+/*#called-container, #served-container,*/
+/*#dropped-container {*/
+    /*visibility: hidden;*/
+/*}*/
 #time-label-container{
     padding-top: 35px;
+}
+
+#assigned_business {
+    text-decoration: none;
 }

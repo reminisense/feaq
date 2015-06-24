@@ -33,6 +33,10 @@ $(document).ready(function(){
         eb.jquery_functions.hide_add_terminal_form();
     });
 
+    $('#tv-channel').on('change', function(){
+        $('#tv-script-submit-btn').removeAttr('disabled');
+    });
+
     $(document).on('change', '#ad-image', function(){
         $('#image-submit-btn').removeClass('btn-disabled');
     });
@@ -44,6 +48,7 @@ $(document).ready(function(){
     $(document).on('click', '.process-queue', function(e){
         if ($(this).find('.biz-terminals').is(':hidden')) {
             $(this).find('.biz-terminals').slideDown('fast');
+            $(this).find('#process-queue').css("border","none");
         }
         return false;
     });
@@ -76,7 +81,7 @@ var eb = {
     urls : {
         business: {
             business_details_url : $('#business-details-url').val() + '/',
-            business_edit_url : $('#business-edit-url').val() + '/',
+            business_edit_url : $('#business-edit-url').val(),
             business_remove_url : $('#business-remove-url').val() + '/'
         },
 
@@ -95,7 +100,8 @@ var eb = {
             ads_embed_video_url : $('#ads-embed-video-url').val(),
             ads_tv_select_url : $('#ads-tv-select-url').val(),
             ads_tv_on_url : $('#ads-tv-on-url').val(),
-            ads_type_url : $('#ads-type-url').val()
+            ads_type_url : $('#ads-type-url').val(),
+            save_ticker_url : '/advertisement/save-ticker'
         },
 
         queue_settings : {
@@ -156,7 +162,7 @@ var eb = {
             var scope = angular.element($("#editBusiness")).scope();
             scope.$apply(function(){
                 scope.getBusinessDetails();
-                scope.currentActiveTheme(scope.business_id);
+                scope.currentActiveBroadcastDetails(scope.business_id);
             });
         },
 
@@ -263,6 +269,7 @@ var eb = {
             $scope.industry = business.industry;
             $scope.time_open = business.time_open;
             $scope.time_closed = business.time_closed;
+            $scope.timezone = business.timezone; //ARA Added Timezone
             $scope.queue_limit = business.queue_limit; /* RDH Added queue_limit to Edit Business Page */
             $scope.terminal_specific_issue = business.terminal_specific_issue ? true : false;
             $scope.frontline_secret = business.frontline_sms_secret;
@@ -508,6 +515,7 @@ var eb = {
                     industry: $scope.industry,
                     time_open: $scope.time_open,
                     time_close: $scope.time_closed,
+                    timezone: $scope.timezone, //ARA Added timezone
                     queue_limit: $scope.queue_limit, /* RDH Added queue_limit to Edit Business Page */
                     terminal_specific_issue : $scope.terminal_specific_issue ? 1 : 0,
                     frontline_sms_secret : $scope.frontline_secret,
@@ -567,7 +575,7 @@ var eb = {
             });
         });
 
-        $scope.currentActiveTheme = (function(business_id) {
+        $scope.currentActiveBroadcastDetails = (function(business_id) {
             if (business_id > 0){
                 $http.get(eb.urls.broadcast.broadcast_json_url + business_id + '.json?nocache='+Math.floor((Math.random() * 10000) + 1)).success(function(response) {
                     $('.activated').hide();
@@ -600,6 +608,9 @@ var eb = {
 
                     // default internet TV channel
                     $scope.tv_channel = response.tv_channel;
+
+                    // current active ticker message
+                    $scope.ticker_message = response.ticker_message;
                 });
             }
         });
@@ -693,16 +704,35 @@ var eb = {
         });
 
         $scope.selectTV = (function(business_id) {
-            $http.post(eb.urls.broadcast.ads_tv_select_url, {
+            if ($scope.tv_channel) {
+                $http.post(eb.urls.broadcast.ads_tv_select_url, {
+                    business_id : business_id,
+                    tv_channel : $scope.tv_channel
+                }).success(function() {
+                    $('#tvchannel-danger').hide();
+                    $('#tvchannel-success').fadeIn();
+                    $('#tvchannel-success').fadeOut(7000);
+                }).error(function() {
+                    $('#tvchannel-danger').hide();
+                    $('#tvchannel-success').fadeIn();
+                });
+            }
+            else {
+                alert('Please select a channel.')
+            }
+        });
+
+        $scope.setTicker = (function(business_id) {
+            $http.post(eb.urls.broadcast.save_ticker_url, {
                 business_id : business_id,
-                tv_channel : $scope.tv_channel
+                ticker_message : $scope.ticker_message
             }).success(function() {
-                $('#tvchannel-danger').hide();
-                $('#tvchannel-success').fadeIn();
-                $('#tvchannel-success').fadeOut(7000);
+                $('#ticker-danger').hide();
+                $('#ticker-success').fadeIn();
+                $('#ticker-success').fadeOut(7000);
             }).error(function() {
-                $('#tvchannel-danger').hide();
-                $('#tvchannel-success').fadeIn();
+                $('#ticker-danger').hide();
+                $('#ticker-success').fadeIn();
             });
         });
 
