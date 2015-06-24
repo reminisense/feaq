@@ -229,6 +229,16 @@ class RestController extends BaseController {
             ->select(array('business_id', 'name', 'local_address', 'latitude', 'longitude'))
             ->get();
 
+            //ARA added info for businesses
+            foreach($search_results as $index => $business){
+                $first_service = Service::getFirstServiceOfBusiness($business->business_id);
+                $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
+
+                $search_results[$index]->last_number_called = count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'none';
+                $search_results[$index]->next_available_number = $all_numbers->next_number;
+                $search_results[$index]->active = count($all_numbers->called_numbers) + count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? 1: 0;
+            }
+
         $found_business = array('search-result' => $search_results);
         return Response::json($found_business, 200, array(), JSON_PRETTY_PRINT);
     }
