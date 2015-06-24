@@ -249,7 +249,6 @@ class RestController extends BaseController {
      * @param $business_id
      * @return string
      */
-    /*
     public function getQueueBusiness($facebook_id, $business_id){
         try{
             $user_id = User::getUserIdByFbId($facebook_id);
@@ -257,7 +256,7 @@ class RestController extends BaseController {
             $user_id = null;
         }
 
-        if($user_id){
+        if ($user_id) {
             $service = Service::getFirstServiceOfBusiness($business_id);
             $service_id = $service->service_id;
 
@@ -267,25 +266,21 @@ class RestController extends BaseController {
 
             $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
             $priority_number = $next_number;
-            $queue_platform = 'Android';
+            $queue_platform = 'android';
 
             $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform);
             PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
 
             $details = [
                 'number_assigned' => $priority_number,
-                'business_id' => $business_id,
-                'business_name' => Business::name($business_id),
-                'current_number_called' => ProcessQueue::currentNumber($service_id),
-                'estimated_time_until_called' => Analytics::getWaitingTime($business_id),
             ];
 
             return json_encode($details);
-        }else{
+        } else {
             return json_encode(['error' => 'You are not registered to FeatherQ.']);
         }
 
     }
-    */
+
 
 }
