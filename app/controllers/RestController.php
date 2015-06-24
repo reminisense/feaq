@@ -123,6 +123,7 @@ class RestController extends BaseController {
         unset($numbers['tv_channel']);
         unset($numbers['ad_type']);
         unset($numbers['ad_image']);
+        unset($numbers['ticker_message']);
 
         foreach($numbers as $key => $box_data) {
             // generate object attribute
