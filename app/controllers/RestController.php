@@ -32,7 +32,7 @@ class RestController extends BaseController {
     public function getSearchBusiness($query) {
         $search_results = DB::table('business')
             ->where('name', 'LIKE', '%' . $query . '%')
-            ->select(array('business_id', 'name', 'local_address'))
+            ->select(array('business_id', 'name', 'local_address', 'latitude', 'longitude'))
             ->get();
 
         $found_business = array('search-result' => $search_results);
@@ -183,6 +183,11 @@ class RestController extends BaseController {
 
     }
 
+    /**
+     * @author Aunne Rouie Arzadon
+     * @param $facebook_id
+     * @return string
+     */
     public function getQueueInfo($facebook_id){
         try{
             $user_id = User::getUserIdByFbId($facebook_id);
@@ -211,6 +216,21 @@ class RestController extends BaseController {
             return json_encode(['error' => 'You are not registered to FeatherQ.']);
         }
 
+    }
+
+    /**
+     * @author Ruffy
+     * @param $query Query string input for searching for a businesses under an industry
+     * @return JSON response containing businesses that qualified with the search query
+     */
+    public function getSearchIndustry($query) {
+        $search_results = DB::table('business')
+            ->where('industry', '=', $query)
+            ->select(array('business_id', 'name', 'local_address', 'latitude', 'longitude'))
+            ->get();
+
+        $found_business = array('search-result' => $search_results);
+        return Response::json($found_business, 200, array(), JSON_PRETTY_PRINT);
     }
 
     /**
