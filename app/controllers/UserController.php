@@ -186,7 +186,12 @@ class UserController extends BaseController{
      * @description: Get User by User ID for remote queue
      */
     public function getRemoteuser($user_id){
-        return json_encode(array('status' => '1', 'first_name' => User::first_name($user_id), 'last_name' => User::last_name($user_id), 'phone' => User::phone($user_id), 'email' => User::email($user_id)));
+        if($user_id != 0){
+            return json_encode(array('status' => '1', 'first_name' => User::first_name($user_id), 'last_name' => User::last_name($user_id), 'phone' => User::phone($user_id), 'email' => User::email($user_id)));
+        } else {
+            return json_encode(array('status' => '0'));
+        }
+
     }
 
     public function getSearchUser($keyword){
