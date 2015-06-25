@@ -193,4 +193,9 @@ class UserController extends BaseController{
         }
 
     }
+
+    public function getSearchUser($keyword){
+        $users = User::searchByKeyword($keyword);
+        return json_encode(['success' => 1, 'users' => $users]);
+    }
 }

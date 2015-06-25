@@ -106,6 +106,17 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $user ? $user->toArray() : null;
     }
 
+    public static function searchByKeyword($keyword){
+        $users = User::where('user_id', '=', $keyword)
+            ->orwhere('first_name', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('last_name', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('email', 'LIKE', '%' . $keyword . '%')
+            ->orWhere(DB::raw('CONCAT_WS(" ", `first_name`, `last_name`)'), 'LIKE', $keyword)
+            ->select('user_id', 'first_name', 'last_name', 'email')
+            ->get();
+        return $users;
+    }
+
     /**
      * @author Ruffy Heredia
      * @description: Get User by Facebook ID

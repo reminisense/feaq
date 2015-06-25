@@ -37,12 +37,20 @@
                             <a href="" class="btn-boxy btn-adduser btn-primary"><span class="glyphicon glyphicon-plus"></span> Add User</a>
                             <div class="mb10 mt10 inputuser" style="display: none">
                                 <form ng-submit="emailSearch(search_user, terminal.terminal_id)">
-                                    <div class="">
-                                        <input type="text" class="form-control" ng-model="search_user" placeholder="Facebook Email">
+                                    <div class="col-md-12">
+                                        <input type="text" class="form-control" ng-model="search_user" placeholder="Facebook Email" ng-change="userSearch(search_user)" ng-model-options="{debounce: 1000}">
+                                        <ul class="dropdown-menu" role="menu" ng-show="user_results.users.length > 0"  style="display: block;" outside-click="clearUserResults()">
+                                            <li ng-repeat="user in user_results.users" ng-click="emailSearch(user.email, terminal.terminal_id)">
+                                                <a href="#">
+                                                    <strong>@{{ user.first_name + ' ' + user.last_name }}</strong><br>
+                                                    <span>@{{ user.email }}</span>
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </div>
                                     <div class="">
-                                        <button type="submit" class="btn-boxy btn-cyan"><span class="glyphicon glyphicon-plus"></span> Add</button>
                                         <button class="btn-boxy btn-danger cancel-adduser"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                                        <button type="submit" class="btn-boxy btn-cyan"><span class="glyphicon glyphicon-plus"></span> Add</button>
                                     </div>
                                 </form>
                                 <div style="display: none; margin-top: 10px;" class="alert alert-danger add-user-error" terminal_id="@{{ terminal.terminal_id }}"> User does not exist in FeatherQ. </div>
@@ -63,8 +71,16 @@
                     <a href="" class="btn-boxy btn-xs btn-adduser btn-primary"><span class="glyphicon glyphicon-plus"></span> Add User</a>
                     <div class="mb10 inputuser" style="display: none">
                         <form ng-submit="emailSearch(search_user, terminal.terminal_id)">
-                            <div class="">
-                                <input type="text" class="form-control" ng-model="search_user" placeholder="Facebook Email">
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" ng-model="search_user" placeholder="Facebook Email" ng-change="userSearch(search_user)" ng-model-options="{debounce: 1000}">
+                                <ul class="dropdown-menu" role="menu" ng-show="user_results.users.length > 0"  style="display: block" outside-click="clearUserResults()">
+                                    <li ng-repeat="user in user_results.users" ng-click="emailSearch(user.email, terminal.terminal_id)">
+                                        <a href="#">
+                                            <strong>@{{ user.first_name + ' ' + user.last_name }}</strong><br>
+                                            <span>@{{ user.email }}</span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
                             <div class="">
                                 <button class="btn-boxy btn-danger cancel-adduser"><span class="glyphicon glyphicon-remove"></span> Cancel</button>

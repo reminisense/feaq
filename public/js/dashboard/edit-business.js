@@ -379,11 +379,25 @@ var eb = {
                 .success(function(response){
                     if(response.user){
                         $scope.assignToTerminal(response.user.user_id, terminal_id);
+                        $scope.clearUserResults();
                     }else{
                         $('.add-user-error[terminal_id=' + terminal_id + ']').show();
                         setTimeout(function(){$('.add-user-error[terminal_id=' + terminal_id + ']').fadeOut('slow')}, 3000);
                     }
                 });
+        }
+
+        $scope.user_results = {users : []};
+        $scope.userSearch = function(keyword){
+            $http.get('/user/search-user/' + keyword).success(function(response){
+                $scope.user_results.users = response.users;
+            }).error(function(response){
+                $scope.user_results.users = [];
+            });
+        }
+
+        $scope.clearUserResults = function(){
+            $scope.user_results.users = [];
         }
 
         $scope.isAssignedUser = function(user_id, terminal_id){

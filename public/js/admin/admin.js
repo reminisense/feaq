@@ -224,13 +224,15 @@ app.controller('adminController', function($scope, $http){
     };
 
     $scope.getAdmins = function($event){
-        if($event){
+        if(typeof $event != 'undefined'){
             $event.preventDefault();
             $($event.target).addClass('glyphicon-refresh-animate');
         }
         $http.get('/admin/admins').success(function(response){
             $scope.admins = response.admins;
+            if(typeof $event != 'undefined'){
             $($event.target).removeClass('glyphicon-refresh-animate');
+            }
         });
     }
 
