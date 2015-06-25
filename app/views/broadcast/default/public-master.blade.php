@@ -44,7 +44,7 @@
   ================================================== -->
 <body cz-shortcut-listen="true" id="biz-broadcast" ng-app="PublicBroadcast" ng-cloak>
 <div id="business-id" business_id="{{ $business_id }}"></div>
-<div id="user-id" user_id="@if($user) {{ $user['user_id'] }} @endif"></div>
+<div id="user-id" user_id="@if($user) {{$user['user_id']}} @else {{'0'}} @endif"></div>
 <!-- Static navbar -->
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container">
