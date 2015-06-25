@@ -1,6 +1,7 @@
 /**
  * Created by USER on 6/2/15.
  */
+
 app.controller('adminController', function($scope, $http){
 
     $(".datepicker").datepicker();
