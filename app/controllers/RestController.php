@@ -283,7 +283,7 @@ class RestController extends BaseController {
 
     }
 
-    public function sendMessage($device_token = null, $message = null) {
+    public function getSendMessage($device_token = null, $message = null) {
         PushNotification::app('featherqAndroid')
             ->to($device_token)
             ->send($message);
