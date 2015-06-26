@@ -18,13 +18,13 @@
                         </div>
                     </div>
                 </div>
-            </form>
-            </div>
             <div class="modal-footer">
                                 <button id="create-field" type="submit" class="btn btn-orange btn-lg">
                                     <span class="glyphicon glyphicon-ok"></span> CREATE
                                 </button>
                             </div>
+            </form>
+            </div>
         </div>
     </div>
 </div>
