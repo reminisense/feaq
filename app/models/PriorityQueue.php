@@ -32,6 +32,11 @@ class PriorityQueue extends Eloquent {
         return PriorityQueue::where('transaction_number', '=', $transaction_number)->first()->track_id;
     }
 
+    public static function userId($transaction_number){
+        return PriorityQueue::where('transaction_number', '=', $transaction_number)->first()->user_id;
+    }
+
+
     public static function createPriorityQueue($track_id, $priority_number, $confirmation_code, $user_id, $queue_platform){
         $values = [
             'priority_number' => $priority_number,

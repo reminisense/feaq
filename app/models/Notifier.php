@@ -24,6 +24,7 @@ class Notifier extends Eloquent{
     public static function sendNumberCalledToAllChannels($transaction_number){
         Notifier::sendNumberCalledEmail($transaction_number);
         Notifier::sendNumberCalledSms($transaction_number);
+        Notifier::sendNumberCalledAndroid($transaction_number);
     }
 
     public static function sendNumberNextToAllChannels($transaction_number){
@@ -113,6 +114,34 @@ class Notifier extends Eloquent{
     }
 
     /**
+     * Android sending functions
+     */
+
+    public static function sendNumberCalledAndroid($transaction_number){
+        $priority_queue = PriorityQueue::find($transaction_number);
+        if($priority_queue){
+            $user_id = $priority_queue->user_id;
+            $priority_number = $priority_queue->priority_number;
+            $queue_platform = $priority_queue->queue_platform;
+            $email = $priority_queue->email;
+
+            $terminal_id = TerminalTransaction::terminalId($transaction_number);
+            $terminal_name = $terminal_id != 0 ? Terminal::name($terminal_id) : '';
+            $business_name = $terminal_id != 0 ? Business::name(Business::getBusinessIdByTerminalId($terminal_id)) : '';
+            $message = "Your number (# $priority_number ) has been called by $terminal_name in $business_name.";
+
+            if($queue_platform != 'web' && $queue_platform != 'specific'){
+                $gcm_token = User::gcmToken($user_id);
+                if($gcm_token) Notifier::sendAndroid($gcm_token, $message);
+            }else if(($queue_platform == 'web' || $queue_platform == 'specific') && $email != null){
+                $user = User::searchByEmail($email);
+                $gcm_token = $user ? User::gcmToken($user['user_id']) : null;
+                if($gcm_token) Notifier::sendAndroid($gcm_token, $message);
+            }
+        }
+    }
+
+    /**
      * Core sending functions
      */
 
@@ -144,6 +173,48 @@ class Notifier extends Eloquent{
 
         $result = curl_exec($ch);
         curl_close($ch);
+
+        return $result;
+    }
+
+    public static function sendAndroid($device_token, $message, $title = "FeatherQ", $subtitle = null){
+        // API access key from Google API's Console
+        define( 'API_ACCESS_KEY', 'AIzaSyCj0EfjXkZe-USRLOlTXxywayUXSIYg1wA' );
+
+        $registrationIds = array($device_token);
+
+        // prep the bundle
+        $msg = array
+        (
+            'message'       => $message,
+            'title'         => $title,
+            'subtitle'      => $subtitle,
+            'tickerText'    => $message,
+            'vibrate'   => 1,
+            'sound'     => 1
+        );
+
+        $fields = array
+        (
+            'registration_ids'  => $registrationIds,
+            'data'              => $msg
+        );
+
+        $headers = array
+        (
+            'Authorization: key=' . API_ACCESS_KEY,
+            'Content-Type: application/json'
+        );
+
+        $ch = curl_init();
+        curl_setopt( $ch,CURLOPT_URL, 'https://android.googleapis.com/gcm/send' );
+        curl_setopt( $ch,CURLOPT_POST, true );
+        curl_setopt( $ch,CURLOPT_HTTPHEADER, $headers );
+        curl_setopt( $ch,CURLOPT_RETURNTRANSFER, true );
+        curl_setopt( $ch,CURLOPT_SSL_VERIFYPEER, false );
+        curl_setopt( $ch,CURLOPT_POSTFIELDS, json_encode( $fields ) );
+        $result = curl_exec($ch );
+        curl_close( $ch );
 
         return $result;
     }
