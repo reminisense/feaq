@@ -182,6 +182,15 @@ class UserController extends BaseController{
     }
 
     /**
+     * @author Ruffy Heredia
+     * @description Get GCM token of user based on Facebook ID
+     */
+    public function getGcmToken($fb_id) {
+        $user = User::getGcmByFacebookId($fb_id);
+        return json_encode(['success' => 1, 'user' => $user]);
+    }
+
+    /**
      * @author: Carl Dalid
      * @description: Get User by User ID for remote queue
      */
