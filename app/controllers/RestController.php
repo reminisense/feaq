@@ -269,7 +269,7 @@ class RestController extends BaseController {
             $priority_number = $next_number;
             $queue_platform = 'android';
 
-            $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform);
+            $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, null, $user_id);
             PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
 
             $details = [
