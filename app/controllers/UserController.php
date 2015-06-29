@@ -191,6 +191,20 @@ class UserController extends BaseController{
     }
 
     /**
+     * @author Carl Dalid
+     * @description Check if FB ID exist, if true update GCM Token
+     */
+    public function getUpdateGcmToken($fb_id, $gcm){
+        $user = User::checkFBUser($fb_id);
+        if($user){
+            User::updateGCMToken($fb_id, $gcm);
+            return json_encode(['success' => 1, 'user' => $user]);
+        } else {
+            return json_encode(['success' => 0]);
+        }
+    }
+
+    /**
      * @author: Carl Dalid
      * @description: Get User by User ID for remote queue
      */

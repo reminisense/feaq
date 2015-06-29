@@ -145,6 +145,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $broadcastuser;
     }
 
+    /**
+     * @author Carl Dalid
+     * @description Update GCM Token
+     */
+    public static function updateGCMToken($fb_id, $gcm){
+        return User::where('fb_id', '=', $fb_id)->update(array('gcm_token' => $gcm));
+    }
+
     //ARA Used for user demographics tracking
     public static function first_name($user_id){
         return User::where('user_id', '=', $user_id)->first()->first_name;
