@@ -178,9 +178,6 @@ class Notifier extends Eloquent{
     }
 
     public static function sendAndroid($device_token, $message, $title = "FeatherQ", $subtitle = null){
-        // API access key from Google API's Console
-        define( 'API_ACCESS_KEY', 'AIzaSyCj0EfjXkZe-USRLOlTXxywayUXSIYg1wA' );
-
         $registrationIds = array($device_token);
 
         // prep the bundle
