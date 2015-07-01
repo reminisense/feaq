@@ -53,7 +53,13 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a class="feats" href="{{ URL::to('/about') }}">About</a></li>
                 <li><a class="feats" href="{{ URL::to('/guides') }}">Set-up Guide</a></li>
-                <li> <a class="feats">|</a></li> <!-- Placeholder only, please remove prior to deployment -->
+                <li class="hidden-xs hidden-sm">
+                    <span style="border-right: 1px solid #ccc;
+                                 margin-top: 14px;
+                                 position: relative;
+                                 top: 8px;">
+                    </span>
+                </li>
                 <li><a class="feats" href="#features">Features</a></li>
                 <li><a class="start" href="#getting-started">Getting Started</a></li>
                 <li style="margin-left:10px;"><a href="" class="btn btn-blue btn-fb" ng-click="login()" role="button"><img src="img/icon-fb.png">Log In</a></li>
@@ -799,7 +805,7 @@
         <div class="container">
             <div class="col-md-2 col-xs-2"></div>
             <div class="col-md-6 col-xs-6">
-                <input id="subscriber-field" class="form-control input-lg text-center" placeholder="Get updated. Place your email here: john@yahoo.com" type="text">
+                <input style="border: none;" id="subscriber-field" class="form-control input-lg text-center" placeholder="Get updated. Place your email here: john@yahoo.com" type="text">
             </div>
             <div class="col-md-4 col-xs-4"><button id="subscribe-button" type="button" class="btn-warning btn-lg">Subscribe</button></div>
         </div>

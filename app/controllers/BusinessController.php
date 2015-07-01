@@ -387,7 +387,6 @@ class BusinessController extends BaseController{
             $user_timezone = isset($post->user_timezone) ? $post->user_timezone : 'Asia/Manila'; //ARA set user timezone if any
             if ($post->latitude && $post->longitude) {
                 $res = Business::getBusinessByLatitudeLongitude($post->latitude, $post->longitude, $user_timezone); // get location first
-                dd($res);
                 if (!count($res)) $res = Business::all();
             }
             else $res = Business::all();

@@ -199,6 +199,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         }
     }
 
+    public static function gcmToken($user_id){
+        return User::where('user_id', '=', $user_id)->first()->gcm_token;
+    }
+
 
     public static function countUsersByRange($start_date, $end_date)
     {

@@ -488,6 +488,7 @@ table .title {
     height: 100%;
     padding: 11px 0;
     color: #fff;
+    min-height: 59px;
 }
 .biz-terminals a:hover {
     background-color: #3c93e4;

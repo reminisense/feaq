@@ -48,13 +48,14 @@ $(document).ready(function(){
     $(document).on('click', '.process-queue', function(e){
         if ($(this).find('.biz-terminals').is(':hidden')) {
             $(this).find('.biz-terminals').slideDown('fast');
-            $(this).find('#process-queue').css("border","none");
+            $('#process-queue').css("border","none");
         }
         return false;
     });
 
     $('html').click(function () {
         $('.biz-terminals').slideUp('fast');
+        $('#process-queue').css({"border-bottom":"4px solid #d36e3c"});
     });
 
     $('.biz-terminals').on('click', 'a', function(e){

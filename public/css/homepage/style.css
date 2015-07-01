@@ -471,8 +471,8 @@ section.page3 h2 {
     color: #ff925b;
 }
 .page4 h4 {
-    font-size: 24px;
-    line-height: 42px;
+    font-size: 20px;
+    line-height: 33px;
 }
 .page4 a.h1 {
     padding-left: 50px;
@@ -932,4 +932,5 @@ footer p {
     font-family: 'ralewayregular';
     font-size: 20px;
     color: #000000;
+    border: none;
 }
