@@ -25,6 +25,34 @@ class RestController extends BaseController {
     }
 
     /**
+     * @param null $latitude Latitude
+     * @param null $longitude Longitude
+     * @return JSON response containing all businesses sorted by distance
+     */
+    public function getAllBusiness($latitude = null, $longitude = null, $quantity = null) {
+        $search_results = DB::table('business')
+            ->select(array('business_id', 'name', 'local_address', 'latitude', 'longitude'))
+            ->get();
+
+        // calculate near-ness of business
+        foreach ( $search_results as $index => $result ) {
+            // calculate distance
+            $dist = $this->getDistanceFromLatLonInKm($latitude, $longitude, $result->latitude, $result->longitude);
+            // assign gotten distance to
+            $search_results[$index]->distance = $dist; //
+        }
+
+        // sort by distance
+        usort($search_results, array('RestController', "compare"));
+
+        // limit results to defined quantity
+        array_slice($search_results, 0, $quantity, true);
+
+        $found_business = array('search-result' => $search_results);
+        return Response::json($found_business, 200, array(), JSON_PRETTY_PRINT);
+    }
+
+    /**
      * @author Ruffy
      * @param $query Query string input for searching for a business
      * @return JSON response containing businesses that qualified with the search query
