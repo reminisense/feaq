@@ -55,7 +55,7 @@ class FeatherCash extends Eloquent{
     }
 
     public static function getUserFeatherCashTransactions($user_id, $limit = 99){
-        return DB::table('feathercash_tracker')->orderBy('transaction_id', 'desc')->where('user_id', '=', $user_id)->take($limit);
+        return DB::table('feathercash_tracker')->orderBy('transaction_id', 'desc')->where('user_id', '=', $user_id)->take($limit)->get();
     }
 
     public static function getAddTransactionsTotal($user_id){
