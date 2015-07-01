@@ -46,7 +46,7 @@ class RestController extends BaseController {
         usort($search_results, array('RestController', "compare"));
 
         // limit results to defined quantity
-        array_slice($search_results, 0, $quantity, true);
+        $search_results = array_slice($search_results, 0, $quantity, true);
 
         $found_business = array('search-result' => $search_results);
         return Response::json($found_business, 200, array(), JSON_PRETTY_PRINT);
