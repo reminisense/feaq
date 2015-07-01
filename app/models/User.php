@@ -119,12 +119,24 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     /**
      * @author Ruffy Heredia
-     * @description: Get User by Facebook ID
+     * @description Get User by Facebook ID
      */
     public static function searchByFacebookId($fb_id) {
         $user = User::where('verified', '=', 1)
             ->where('fb_id', '=', $fb_id)
             ->select('user_id', 'first_name', 'last_name', 'email')
+            ->first();
+        return $user ? $user->toArray() : null;
+    }
+
+    /**
+     * @author Ruffy Heredia
+     * @param $fb_id
+     * @return GCM token of user
+     */
+    public static function getGcmByFacebookId($fb_id) {
+        $user = User::where('fb_id', '=', $fb_id)
+            ->select('gcm_token')
             ->first();
         return $user ? $user->toArray() : null;
     }
@@ -142,6 +154,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         $broadcastuser['phone'] = $user->phone;
 
         return $broadcastuser;
+    }
+
+    /**
+     * @author Carl Dalid
+     * @description Update GCM Token
+     */
+    public static function updateGCMToken($fb_id, $gcm){
+        return User::where('fb_id', '=', $fb_id)->update(array('gcm_token' => $gcm));
     }
 
     //ARA Used for user demographics tracking
@@ -188,6 +208,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         }else{
             return null;
         }
+    }
+
+    public static function gcmToken($user_id){
+        return User::where('user_id', '=', $user_id)->first()->gcm_token;
     }
 
 

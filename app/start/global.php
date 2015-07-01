@@ -83,8 +83,8 @@ App::down(function()
 require app_path().'/filters.php';
 
 // Declare featherq constants
-FeatherqConstants::roles();
-FeatherqConstants::frontlineSms();
+FeatherqConstants::init();
+
 
 /**
  * This is for the custom validation purposes of FeatherQ.

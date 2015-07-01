@@ -1,3 +1,8 @@
+@media (min-width: 980px) and (max-width: 1200px) {
+    ul#bizTab li a span.glyphicon {
+        display: none!important;
+    }
+}
 @media (min-width: 992px) and (max-width: 1199px) {
     a#view-broadcast {
         font-size: 15px;

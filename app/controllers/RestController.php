@@ -25,18 +25,81 @@ class RestController extends BaseController {
     }
 
     /**
+     * @param null $latitude Latitude
+     * @param null $longitude Longitude
+     * @return JSON response containing all businesses sorted by distance
+     */
+    public function getAllBusiness($latitude = null, $longitude = null, $quantity = null) {
+        $search_results = DB::table('business')
+            ->select(array('business_id', 'name', 'local_address', 'latitude', 'longitude'))
+            ->get();
+
+        // calculate near-ness of business
+        foreach ( $search_results as $index => $result ) {
+            // calculate distance
+            $dist = $this->getDistanceFromLatLonInKm($latitude, $longitude, $result->latitude, $result->longitude);
+            // assign gotten distance to
+            $search_results[$index]->distance = $dist; //
+        }
+
+        // sort by distance
+        usort($search_results, array('RestController', "compare"));
+
+        // limit results to defined quantity
+        $search_results = array_slice($search_results, 0, $quantity, true);
+
+        $found_business = array('search-result' => $search_results);
+        return Response::json($found_business, 200, array(), JSON_PRETTY_PRINT);
+    }
+
+    /**
      * @author Ruffy
      * @param $query Query string input for searching for a business
      * @return JSON response containing businesses that qualified with the search query
      */
-    public function getSearchBusiness($query) {
+    public function getSearchBusiness($query, $latitude = null, $longitude = null) {
         $search_results = DB::table('business')
             ->where('name', 'LIKE', '%' . $query . '%')
             ->select(array('business_id', 'name', 'local_address', 'latitude', 'longitude'))
             ->get();
 
+        // calculate near-ness of business
+        foreach ( $search_results as $index => $result ) {
+            // calculate distance
+            $dist = $this->getDistanceFromLatLonInKm($latitude, $longitude, $result->latitude, $result->longitude);
+            // assign gotten distance to
+            $search_results[$index]->distance = $dist; //
+        }
+
+        // sort by distance
+        usort($search_results, array('RestController', "compare"));
+
         $found_business = array('search-result' => $search_results);
         return Response::json($found_business, 200, array(), JSON_PRETTY_PRINT);
+    }
+
+    public function getDistanceFromLatLonInKm($lat1,$lon1,$lat2,$lon2) {
+        $R = 6371; // Radius of the earth in km
+        $dLat = deg2rad($lat2-$lat1);  // deg2rad below
+        $dLon = deg2rad($lon2-$lon1);
+        $a =
+            sin($dLat/2) * sin($dLat/2) +
+            cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
+            sin($dLon/2) * sin($dLon/2);
+        $c = 2 * atan2(sqrt($a), sqrt(1-$a));
+        $d = $R * $c; // Distance in km
+        return $d;
+    }
+
+    function deg2rad($deg) {
+        return $deg * (Math.PI/180);
+    }
+
+    public static function compare($a, $b) {
+        if ($a->distance == $b->distance) {
+            return 0;
+        }
+        return ($a->distance < $b->distance) ? -1 : 1;
     }
 
     /**
@@ -269,7 +332,7 @@ class RestController extends BaseController {
             $priority_number = $next_number;
             $queue_platform = 'android';
 
-            $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform);
+            $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, 0, $user_id);
             PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
 
             $details = [
@@ -281,6 +344,54 @@ class RestController extends BaseController {
             return json_encode(['error' => 'You are not registered to FeatherQ.']);
         }
 
+    }
+
+    public function getSendMessage($device_token = null, $message = null) {
+        PushNotification::app('featherqAndroid')
+            ->to($device_token)
+            ->send($message);
+    }
+
+    public function getSendManual($device_token, $message, $title = "FeatherQ", $subtitle = null) {
+        // API access key from Google API's Console
+        define( 'API_ACCESS_KEY', 'AIzaSyCj0EfjXkZe-USRLOlTXxywayUXSIYg1wA' );
+
+        $registrationIds = array($device_token);
+
+        // prep the bundle
+        $msg = array
+        (
+            'message'       => $message,
+            'title'         => $title,
+            'subtitle'      => $subtitle,
+            'tickerText'    => $message,
+            'vibrate'   => 1,
+            'sound'     => 1
+        );
+
+        $fields = array
+        (
+            'registration_ids'  => $registrationIds,
+            'data'              => $msg
+        );
+
+        $headers = array
+        (
+            'Authorization: key=' . API_ACCESS_KEY,
+            'Content-Type: application/json'
+        );
+
+        $ch = curl_init();
+        curl_setopt( $ch,CURLOPT_URL, 'https://android.googleapis.com/gcm/send' );
+        curl_setopt( $ch,CURLOPT_POST, true );
+        curl_setopt( $ch,CURLOPT_HTTPHEADER, $headers );
+        curl_setopt( $ch,CURLOPT_RETURNTRANSFER, true );
+        curl_setopt( $ch,CURLOPT_SSL_VERIFYPEER, false );
+        curl_setopt( $ch,CURLOPT_POSTFIELDS, json_encode( $fields ) );
+        $result = curl_exec($ch );
+        curl_close( $ch );
+
+        echo $result;
     }
 
 
