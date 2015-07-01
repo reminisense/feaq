@@ -29,14 +29,49 @@ class RestController extends BaseController {
      * @param $query Query string input for searching for a business
      * @return JSON response containing businesses that qualified with the search query
      */
-    public function getSearchBusiness($query) {
+    public function getSearchBusiness($query, $latitude = null, $longitude = null) {
         $search_results = DB::table('business')
             ->where('name', 'LIKE', '%' . $query . '%')
             ->select(array('business_id', 'name', 'local_address', 'latitude', 'longitude'))
             ->get();
 
+        // calculate near-ness of business
+        foreach ( $search_results as $index => $result ) {
+            // calculate distance
+            $dist = $this->getDistanceFromLatLonInKm($latitude, $longitude, $result->latitude, $result->longitude);
+            // assign gotten distance to
+            $search_results[$index]->distance = $dist; //
+        }
+
+        // sort by distance
+        usort($search_results, array('RestController', "compare"));
+
         $found_business = array('search-result' => $search_results);
         return Response::json($found_business, 200, array(), JSON_PRETTY_PRINT);
+    }
+
+    public function getDistanceFromLatLonInKm($lat1,$lon1,$lat2,$lon2) {
+        $R = 6371; // Radius of the earth in km
+        $dLat = deg2rad($lat2-$lat1);  // deg2rad below
+        $dLon = deg2rad($lon2-$lon1);
+        $a =
+            sin($dLat/2) * sin($dLat/2) +
+            cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
+            sin($dLon/2) * sin($dLon/2);
+        $c = 2 * atan2(sqrt($a), sqrt(1-$a));
+        $d = $R * $c; // Distance in km
+        return $d;
+    }
+
+    function deg2rad($deg) {
+        return $deg * (Math.PI/180);
+    }
+
+    public static function compare($a, $b) {
+        if ($a->distance == $b->distance) {
+            return 0;
+        }
+        return ($a->distance < $b->distance) ? -1 : 1;
     }
 
     /**
