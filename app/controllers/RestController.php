@@ -405,6 +405,7 @@ class RestController extends BaseController {
             else if($data['action'] == 3 ) { $action = 'dropped'; }
 
             $spliced_queues[$index]['status'] = $action;
+            $spliced_queues[$index]['date'] = date('Y-m-d', $data['date']);
         }
 
         return json_encode(['history' => $spliced_queues]);
