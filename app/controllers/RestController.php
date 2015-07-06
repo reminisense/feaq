@@ -394,5 +394,21 @@ class RestController extends BaseController {
         echo $result;
     }
 
+    public function getMyHistory($facebook_id, $limit = 5, $offset = 0){
+        $user = User::searchByFacebookId($facebook_id);
+        $user_queues = Analytics::getUserHistory($user['user_id']);
+        $spliced_queues = array_splice($user_queues, $offset, $limit);
+        foreach($spliced_queues as $index => $data){
+            $action = 'issued';
+            if($data['action'] == 1 ) { $action = 'called'; }
+            else if($data['action'] == 2 ) { $action = 'served'; }
+            else if($data['action'] == 3 ) { $action = 'dropped'; }
+
+            $spliced_queues[$index]['status'] = $action;
+        }
+
+        return json_encode(['history' => $spliced_queues]);
+    }
+
 
 }

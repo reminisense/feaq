@@ -235,6 +235,27 @@ class Analytics extends Eloquent{
         return $user_data;
     }
 
+    public static function getUserHistory($user_id){
+        $results = Analytics::where('queue_analytics.user_id', '=', $user_id)
+            ->join('business', 'business.business_id', '=', 'queue_analytics.business_id')
+            ->join('priority_queue', 'priority_queue.transaction_number', '=', 'queue_analytics.transaction_number')
+            ->selectRaw('
+                queue_analytics.transaction_number,
+                priority_queue.priority_number,
+                business.business_id as business_id,
+                business.name as business_name,
+                business.local_address as business_address,
+                queue_analytics.date as date,
+                MAX(queue_analytics.action) as action
+            ')
+            ->orderBy('queue_analytics.transaction_number', 'desc')
+            ->groupBy('queue_analytics.transaction_number')
+            ->get()
+            ->toArray();
+
+        return $results;
+    }
+
     public static function countBusinessNumbers( $start_date, $end_date, $action){
 
         $temp_start_date = mktime(0, 0, 0, date('m', $start_date), date('d', $start_date), date('Y', $start_date));
