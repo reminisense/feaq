@@ -235,7 +235,7 @@ class Analytics extends Eloquent{
         return $user_data;
     }
 
-    public static function getUserHistory($user_id){
+    public static function getUserHistory($user_id, $limit, $offset){
         $results = Analytics::where('queue_analytics.user_id', '=', $user_id)
             ->join('business', 'business.business_id', '=', 'queue_analytics.business_id')
             ->join('priority_queue', 'priority_queue.transaction_number', '=', 'queue_analytics.transaction_number')
@@ -246,10 +246,12 @@ class Analytics extends Eloquent{
                 business.name as business_name,
                 business.local_address as business_address,
                 queue_analytics.date as date,
-                MAX(queue_analytics.action) as action
+                MAX(queue_analytics.action) as status
             ')
             ->orderBy('queue_analytics.transaction_number', 'desc')
             ->groupBy('queue_analytics.transaction_number')
+            ->skip($offset)
+            ->take($limit)
             ->get()
             ->toArray();
 
