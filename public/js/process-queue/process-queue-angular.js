@@ -134,9 +134,7 @@
         };
 
         resetValues = function(numbers){
-            resetCalledNumbers(numbers.called_numbers);
-
-            //$scope.called_numbers = numbers.called_numbers;
+            $scope.called_numbers = numbers.called_numbers;
             $scope.uncalled_numbers = numbers.uncalled_numbers;
             $scope.processed_numbers = numbers.processed_numbers;
             $scope.timebound_numbers = numbers.timebound_numbers;
@@ -151,42 +149,6 @@
 
             }
         };
-
-        resetCalledNumbers = function(called_numbers){
-            if($scope.called_numbers.length == 0 ){
-                $scope.called_numbers = called_numbers;
-            }else{
-                var indexes = [];
-                for(var i = 0; i < ($scope.called_numbers.length - 1); i++){
-                    for(var j = 0; j < (called_numbers.length - 1); j++){
-                        if($scope.called_numbers[i].transaction_number == called_numbers[j].transaction_number){
-                            indexes.push(i);
-                            break;
-                        }
-                    }
-                }
-
-                //removing indexes
-                for(var i = 0; i < (indexes.length -1); i++){
-                    $scope.called_numbers.splice(indexes[i], 1);
-                }
-
-                for(var i = 0; i < (called_numbers.length - 1); i++){
-                    for(var j = 0; j < ($scope.called_numbers.length - 1); j++){
-                        found = false
-                        if(called_numbers[i].transaction_number == $scope.called_numbers[j].transaction_number){
-                            found = true;
-                        }
-                    }
-
-                    if(!found){
-                        $scope.called_numbers.push(called_numbers[i]);
-                    }
-                }
-
-                console.log($scope.called_numbers);
-            }
-        }
 
         select_next_number = function(){
             next_number = angular.element(document.querySelector('#selected-tnumber')).val();
@@ -225,8 +187,13 @@
                 if(called_number.email){
                     $http.get(pq.urls.rating.verify_email_url + called_number.email)
                         .success(function(response){
-                            $scope.temp_called_numbers[i] = ({rating : 0, tran_number :called_number.transaction_number,
-                                email : called_number.email, email_checker : response.result, terminal_id : called_number.terminal_id});
+                            $scope.temp_called_numbers[i] = ({
+                                rating : 0,
+                                tran_number : called_number.transaction_number,
+                                email : called_number.email,
+                                email_checker : response.result,
+                                terminal_id : called_number.terminal_id
+                            });
                         });
                 }else{
                     $scope.temp_called_numbers[i] = ({rating : 0, tran_number :called_number.transaction_number,
