@@ -219,6 +219,7 @@
         }
 
         $scope.getMessages = function(email){
+            $scope.messages = [];
             $http.post('/message/business-user-thread', {
                 business_id : pq.ids.business_id,
                 email: email
