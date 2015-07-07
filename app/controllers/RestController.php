@@ -410,5 +410,8 @@ class RestController extends BaseController {
         return json_encode(['history' => $user_queues]);
     }
 
+    public function getIndustries(){
+        return json_encode(['industries' => Business::getAvailableIndustries()]);
+    }
 
 }
