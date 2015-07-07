@@ -41,6 +41,7 @@ Processs Queue > {{ $business_name }}
             <div class="col-md-offset-1 col-md-7 col-sm-8">
                 <p>Processing Queues for:</p>
                 <h2>{{ $business_name }} - {{ $terminal_name }}</h2>
+                <button class="btn btn-danger" ng-click="stopProcessQueue()">STOP</button>
             </div>
             <div class="col-md-3 col-sm-4 ">
                 {{--<a id="view-broadcast" target="_blank" href="{{ url('/broadcast/business/' . $business_id) }}">View Broadcast <br>Screen</a>--}}

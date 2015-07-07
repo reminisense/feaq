@@ -93,6 +93,14 @@
             });
         };
 
+        $scope.stopProcessQueue = function(){
+            if($scope.called_numbers.length > 0){
+                $scope.serveNumber($scope.called_numbers[0].transaction_number, function(){
+                    $scope.stopProcessQueue();
+                });
+            }
+        }
+
         $scope.issueAndCall = function(priority_number){
             $http.post(pq.urls.issue_numbers.issue_specific_url + pq.ids.service_id + '/' + pq.ids.terminal_id, {priority_number : priority_number})
                 .success(function(response){
