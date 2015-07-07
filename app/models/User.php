@@ -211,4 +211,28 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return User::where('registration_date', '>=', $temp_start_date)->where('registration_date', '<', $temp_end_date)->count();
     }
 
+    public static function getUserHistory($user_id, $limit, $offset){
+        $results = User::where('user.user_id', '=', $user_id)
+            ->join('priority_queue', 'priority_queue.email', '=', 'user.email')
+            ->join('queue_analytics', 'queue_analytics.transaction_number', '=', 'priority_queue.transaction_number')
+            ->join('business', 'business.business_id', '=', 'queue_analytics.business_id')
+            ->selectRaw('
+                queue_analytics.transaction_number,
+                queue_analytics.date as date,
+                priority_queue.priority_number,
+                priority_queue.email,
+                business.business_id as business_id,
+                business.name as business_name,
+                business.local_address as business_address,
+                MAX(queue_analytics.action) as status
+            ')
+            ->orderBy('queue_analytics.transaction_number', 'desc')
+            ->groupBy('queue_analytics.transaction_number')
+            ->skip($offset)
+            ->take($limit)
+            ->get()
+            ->toArray();
+
+        return $results;
+    }
 }

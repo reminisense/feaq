@@ -55,7 +55,7 @@ My Business
                                 <div class="clearfix">
                                     <div ng-repeat="terminal in terminals" >
                                         <a ng-if="isAssignedUser(user_id, terminal.terminal_id)" href="{{ url('/processqueue/terminal') }}/@{{ terminal.terminal_id }}" target="_blank">
-
+                                            <span class=" glyphicon glyphicon-check"></span>
                                             <small>@{{ terminal.name }}</small>
                                         </a>
                                         <a ng-if="!isAssignedUser(user_id, terminal.terminal_id)" href="#" class="not-active">
@@ -150,7 +150,7 @@ My Business
                                 @foreach($business['terminals'] as $terminal)
                                 <div>
                                     <a href="{{ url('/processqueue/terminal/' . $terminal['terminal_id'] ) }}" target="_blank" style="padding: 12px;">
-
+                                        <span class=" glyphicon glyphicon-check"></span>
                                         <small>{{ $terminal['name'] }}</small>
                                     </a>
                                 </div>
