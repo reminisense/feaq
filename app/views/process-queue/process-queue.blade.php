@@ -95,6 +95,35 @@ Processs Queue > {{ $business_name }}
                             </a>
                         </th>
                         <td>
+                            <div>
+                                <span ng-if="number.name">@{{ number.name }} |</span>
+                                <span ng-if="number.phone">@{{ number.phone }} | </span>
+                                <span ng-if="number.email">@{{ number.email }} | </span>
+                                <a href="#messages-@{{ number.transaction_number }}" data-toggle="collapse" ng-click="getMessages(number.email)"><span class="glyphicon glyphicon-inbox"></span></a>
+                            </div>
+                            <div class="collapse" id="messages-@{{ number.transaction_number }}">
+                                <div class="col-md-12 text-center"><h5>Conversation History</h5></div>
+                                <div class="col-md-12" style="max-height: 300px; overflow: auto;">
+                                    <div ng-repeat="message in messages">
+                                        <div ng-if="message.sender == 'user'" class="alert alert-success">
+                                            <p>
+                                                <strong>User: </strong>
+                                                @{{ message.content }}
+                                                <span class="pull-right">Sent @{{ message.timestamp }}</span>
+                                            </p>
+                                        </div>
+                                        <div ng-if="message.sender == 'business'" class="alert alert-info">
+                                            <p>
+                                                <strong>You: </strong>
+                                                @{{ message.content }}
+                                                <span class="pull-right">Sent @{{ message.timestamp }}</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
                             <form class="star-rating-form" ng-show="temp_called_numbers[$index].email_checker">
                                 <span class="star-rating" ng-init="temp_called_numbers[$index].rating">
                                     <input type="radio" name="rating" ng-model="temp_called_numbers[$index].rating" value="1"><i></i>

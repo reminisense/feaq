@@ -26,6 +26,8 @@
         $scope.number_limit = null;
         $scope.issue_call_number = null;
 
+        $scope.messages = [];
+
         $scope.getAllNumbers = function(){
             getResponseResetValues(pq.urls.process_queue.all_numbers_url + pq.ids.service_id + '/' + pq.ids.terminal_id, null, null, function(){
                 setTimeout(function(){
@@ -132,7 +134,9 @@
         };
 
         resetValues = function(numbers){
-            $scope.called_numbers = numbers.called_numbers;
+            resetCalledNumbers(numbers.called_numbers);
+
+            //$scope.called_numbers = numbers.called_numbers;
             $scope.uncalled_numbers = numbers.uncalled_numbers;
             $scope.processed_numbers = numbers.processed_numbers;
             $scope.timebound_numbers = numbers.timebound_numbers;
@@ -147,6 +151,42 @@
 
             }
         };
+
+        resetCalledNumbers = function(called_numbers){
+            if($scope.called_numbers.length == 0 ){
+                $scope.called_numbers = called_numbers;
+            }else{
+                var indexes = [];
+                for(var i = 0; i < ($scope.called_numbers.length - 1); i++){
+                    for(var j = 0; j < (called_numbers.length - 1); j++){
+                        if($scope.called_numbers[i].transaction_number == called_numbers[j].transaction_number){
+                            indexes.push(i);
+                            break;
+                        }
+                    }
+                }
+
+                //removing indexes
+                for(var i = 0; i < (indexes.length -1); i++){
+                    $scope.called_numbers.splice(indexes[i], 1);
+                }
+
+                for(var i = 0; i < (called_numbers.length - 1); i++){
+                    for(var j = 0; j < ($scope.called_numbers.length - 1); j++){
+                        found = false
+                        if(called_numbers[i].transaction_number == $scope.called_numbers[j].transaction_number){
+                            found = true;
+                        }
+                    }
+
+                    if(!found){
+                        $scope.called_numbers.push(called_numbers[i]);
+                    }
+                }
+
+                console.log($scope.called_numbers);
+            }
+        }
 
         select_next_number = function(){
             next_number = angular.element(document.querySelector('#selected-tnumber')).val();
@@ -201,6 +241,15 @@
             }else{
                 $scope.temp_called_numbers.splice(index, item);
             }
+        }
+
+        $scope.getMessages = function(email){
+            $http.post('/message/business-user-thread', {
+                business_id : pq.ids.business_id,
+                email: email
+            }).success(function(response) {
+                $scope.messages = response.contactmessage;
+            });
         }
 
 

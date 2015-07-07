@@ -80,11 +80,17 @@ span.glyphicon-zoom-in {
     overflow: auto; /*ARA prevents page stretching when too many numbers are called*/
     margin-bottom: 40px;
 }
-.processq-box table td:nth-child(2),
-.processq-box table th:nth-child(2){
+.processq-box table td:nth-child(3){ /* ARA added new second column style for 3rd column should be retained*/
     text-align: right;
     padding-top: 12px;
     padding-bottom: 12px;
+}
+.processq-box table tbody td:nth-child(2){ /*ARA added styles for new 2nd column*/
+    font-size: 20px;
+    text-align: right;
+    padding-top: 30px;
+    padding-bottom: 12px;
+
 }
 .processq-box table tbody th:nth-child(1){
     font-size: 16px;
