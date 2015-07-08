@@ -39,7 +39,7 @@ Processs Queue > {{ $business_name }}
     <div class="row">
         <div class="page-header clearfix">
             <div class="col-md-12 text-center">
-                <button class="btn btn-danger" style="border-radius: 50%; height: 50px; width: 50px" ng-click="stopProcessQueue()">STOP</button>
+                <button class="btn btn-danger stopbutton"ng-click="stopProcessQueue()">STOP</button>
             </div>
             <div class="col-md-offset-1 col-md-7 col-sm-8">
                 <p>Processing Queues for:</p>
@@ -62,11 +62,25 @@ Processs Queue > {{ $business_name }}
                                 <input id="selected-tnumber" type="hidden" ng-value="called_number" value=0>
                                 <div class="dropdown-wrapper" ng-show="timebound_numbers.length != 0 || uncalled_numbers.length != 0">
                                     <button class="btn-select btn-md dropdown-toggle" type="button" data-toggle="dropdown">
-                                        <span id="selected-pnumber">Please select a number</span><span class="caret"></span>
+                                        <span id="selected-pnumber">@{{ called_number }}</span><span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu dd-select" id="uncalled-numbers">
-                                        <li ng-repeat="number in timebound_numbers" data-tnumber="@{{ number.transaction_number }}" data-pnumber="@{{ number.priority_number }}">@{{ number.priority_number }}</li>
-                                        <li ng-repeat="number in uncalled_numbers" data-tnumber="@{{ number.transaction_number }}" data-pnumber="@{{ number.priority_number }}">@{{ number.priority_number }}</li>
+                                        <li ng-repeat="number in timebound_numbers" data-tnumber="@{{ number.transaction_number }}" data-pnumber="@{{ number.priority_number }}">
+                                            @{{ number.priority_number }}
+                                            <span class="pull-right userinfo">
+                                                <span ng-if="number.name">@{{ number.name }} | </span>
+                                                <span ng-if="number.phone">@{{ number.phone}} | </span>
+                                                <span ng-if="number.email">@{{ number.email }} | </span>
+                                            </span>
+                                        </li>
+                                        <li ng-repeat="number in uncalled_numbers" data-tnumber="@{{ number.transaction_number }}" data-pnumber="@{{ number.priority_number }}">
+                                            @{{ number.priority_number }}
+                                            <span class="pull-right userinfo">
+                                                <span ng-if="number.name">@{{ number.name }} | </span>
+                                                <span ng-if="number.phone">@{{ number.phone}} | </span>
+                                                <span ng-if="number.email">@{{ number.email }} | </span>
+                                            </span>
+                                        </li>
                                     </ul>
                                 </div>
                                 <input id="issue-call-number" type="number" class="form-control" min="1" max="@{{ number_limit }}"  ng-model="issue_call_number" ng-show="timebound_numbers.length == 0 && uncalled_numbers.length == 0">
@@ -99,28 +113,32 @@ Processs Queue > {{ $business_name }}
                         </th>
                         <td>
                             <div>
-                                <span ng-if="number.name">@{{ number.name }} |</span>
-                                <span ng-if="number.phone">@{{ number.phone }} | </span>
-                                <span ng-if="number.email">@{{ number.email }} | </span>
-                                <a href="#messages-@{{ number.transaction_number }}" data-toggle="collapse" ng-click="getMessages(number.email)"><span class="glyphicon glyphicon-inbox"></span></a>
-                            </div>
-                            <div class="collapse" id="messages-@{{ number.transaction_number }}">
-                                <div class="col-md-12 text-center"><h5>Conversation History</h5></div>
-                                <div class="col-md-12" style="max-height: 300px; overflow: auto;">
-                                    <div ng-repeat="message in messages">
-                                        <div ng-if="message.sender == 'user'" class="alert alert-success">
-                                            <p>
-                                                <strong>User: </strong>
-                                                @{{ message.content }}
-                                                <span class="pull-right">Sent @{{ message.timestamp }}</span>
-                                            </p>
-                                        </div>
-                                        <div ng-if="message.sender == 'business'" class="alert alert-info">
-                                            <p>
-                                                <strong>You: </strong>
-                                                @{{ message.content }}
-                                                <span class="pull-right">Sent @{{ message.timestamp }}</span>
-                                            </p>
+                                <div>
+                                    <span ng-if="number.name">@{{ number.name }} | </span>
+                                    <span ng-if="number.phone">@{{ number.phone }} | </span>
+                                    <span ng-if="number.email">@{{ number.email }} | </span>
+                                    <a ng-if="number.email" href="#messages-@{{ number.transaction_number }}" data-toggle="collapse" ng-click="getMessages(number.email)">
+                                        <span class="glyphicon glyphicon-inbox"></span>
+                                    </a>
+                                </div>
+                                <div class="collapse" id="messages-@{{ number.transaction_number }}">
+                                    <div class="col-md-12 text-center"><h5>Conversation History</h5></div>
+                                    <div class="col-md-12" style="max-height: 300px; overflow: auto;">
+                                        <div ng-repeat="message in messages">
+                                            <div ng-if="message.sender == 'user'" class="alert alert-success">
+                                                <p>
+                                                    <strong>User: </strong>
+                                                    @{{ message.content }}
+                                                    <span class="pull-right">Sent @{{ message.timestamp }}</span>
+                                                </p>
+                                            </div>
+                                            <div ng-if="message.sender == 'business'" class="alert alert-info">
+                                                <p>
+                                                    <strong>You: </strong>
+                                                    @{{ message.content }}
+                                                    <span class="pull-right">Sent @{{ message.timestamp }}</span>
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

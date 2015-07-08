@@ -292,4 +292,8 @@ span.glyphicon-zoom-in {
     margin-top: 20px;
 }
 
-
+.stopbutton {
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+}
