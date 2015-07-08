@@ -183,10 +183,20 @@
             if(email){
                 $http.get(pq.urls.rating.verify_email_url + email)
                     .success(function(response){
-                        addOrRemoveRating(0,0,{rating : 0, tran_number : transaction_number, email : $scope.called_numbers[0].email, email_checker : response.result, terminal_id : $scope.called_numbers[0].terminal_id });
+                        addOrRemoveRating(0,0,{
+                            rating : 0,
+                            tran_number : transaction_number,
+                            email : $scope.called_numbers[0].email,
+                            email_checker : response.result,
+                            terminal_id : $scope.called_numbers[0].terminal_id
+                        });
                     });
             }else{
-                addOrRemoveRating(0,0,{rating : 0, tran_number : transaction_number, email : $scope.called_numbers[0].email, email_checker : false, terminal_id : $scope.called_numbers[0].terminal_id});
+                addOrRemoveRating(0,0,{
+                    rating : 0, tran_number : transaction_number,
+                    email : $scope.called_numbers[0].email,
+                    email_checker : false,
+                    terminal_id : $scope.called_numbers[0].terminal_id});
             }
         }
 
@@ -204,8 +214,13 @@
                             });
                         });
                 }else{
-                    $scope.temp_called_numbers[i] = ({rating : 0, tran_number :called_number.transaction_number,
-                        email : called_number.email, email_checker : false, terminal_id : called_number.terminal_id});
+                    $scope.temp_called_numbers[i] = ({
+                        rating : 0,
+                        tran_number :called_number.transaction_number,
+                        email : called_number.email,
+                        email_checker : false,
+                        terminal_id : called_number.terminal_id
+                    });
                 }
             });
         }
