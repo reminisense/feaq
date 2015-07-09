@@ -354,7 +354,7 @@ class RestController extends BaseController {
 
     public function getSendManual($device_token, $message, $title = "FeatherQ", $subtitle = null) {
         // API access key from Google API's Console
-        define( 'API_ACCESS_KEY', 'AIzaSyCj0EfjXkZe-USRLOlTXxywayUXSIYg1wA' );
+//        define( 'API_ACCESS_KEY', 'AIzaSyCj0EfjXkZe-USRLOlTXxywayUXSIYg1wA' );
 
         $registrationIds = array($device_token);
 
