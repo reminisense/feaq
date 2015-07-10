@@ -55,7 +55,7 @@
                 @if(Auth::check())
                     <li style="margin-left:10px;"><a href="/about">Back to About</a></li>
                 @else
-                    <li style="margin-left:10px;"><a href="" class="btn btn-blue btn-fb" ng-click="login()" role="button"><img src="img/icon-fb.png">Log In</a></li>
+                    <li style="margin-left:10px;"><a href="" class="btn btn-blue btn-fb" ng-click="login()" role="button"><img src="/img/icon-fb.png">Log In</a></li>
                 @endif
             </ul>
         </div><!--/.nav-collapse -->

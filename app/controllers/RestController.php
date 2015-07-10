@@ -252,11 +252,16 @@ class RestController extends BaseController {
      * @param $facebook_id
      * @return string
      */
-    public function getQueueInfo($facebook_id){
+    public function getQueueInfo($facebook_id, $business_id = null){
         try{
             $user_id = User::getUserIdByFbId($facebook_id);
         }catch(Exception $e){
             $user_id = null;
+        }
+
+        if($business_id){
+            $service = Service::getFirstServiceOfBusiness($business_id);
+            $allow_remote = QueueSettings::allowRemote($service->service_id);
         }
 
         if($user_id){
@@ -273,6 +278,7 @@ class RestController extends BaseController {
                 'current_number_called' => ProcessQueue::currentNumber($service_id),
                 'estimated_time_until_called' => Analytics::getWaitingTime($business_id),
                 'status' => TerminalTransaction::queueStatus($transaction_number),
+                'allow_remote' => isset($allow_remote) ? $allow_remote : null,
             ];
 
             return json_encode($details);
@@ -354,7 +360,7 @@ class RestController extends BaseController {
 
     public function getSendManual($device_token, $message, $title = "FeatherQ", $subtitle = null) {
         // API access key from Google API's Console
-        define( 'API_ACCESS_KEY', 'AIzaSyCj0EfjXkZe-USRLOlTXxywayUXSIYg1wA' );
+//        define( 'API_ACCESS_KEY', 'AIzaSyCj0EfjXkZe-USRLOlTXxywayUXSIYg1wA' );
 
         $registrationIds = array($device_token);
 
@@ -412,6 +418,34 @@ class RestController extends BaseController {
 
     public function getIndustries(){
         return json_encode(['industries' => Business::getAvailableIndustries()]);
+    }
+
+    /**
+     * @param $facebook_id
+     * @return JSON-formatted data of user
+     */
+    public function getUserInfo($facebook_id){
+        try{
+            $user_id = User::getUserIdByFbId($facebook_id);
+        }catch(Exception $e){
+            $user_id = null;
+        }
+
+        if( $user_id ){
+            $full_name = User::full_name($user_id);
+            $email = User::email($user_id);
+            $phone = User::phone($user_id);
+            $local_address = User::local_address($user_id);
+            $details = [
+                'name' => $full_name,
+                'email' => $email,
+                'phone' => $phone,
+                'address' => $local_address,
+            ];
+            return Response::json($details, 200, array(), JSON_PRETTY_PRINT);
+        } else {
+            return json_encode(['error' => 'You are not registered to FeatherQ.']);
+        }
     }
 
 }

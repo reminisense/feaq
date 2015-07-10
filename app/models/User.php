@@ -174,6 +174,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return User::where('user_id', '=', $user_id)->first()->email;
     }
 
+    public static function local_address($user_id){
+        return User::where('user_id', '=', $user_id)->first()->local_address;
+    }
+
     public static function gender($user_id){
         return User::where('user_id', '=', $user_id)->first()->gender;
     }
