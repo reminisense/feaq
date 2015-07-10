@@ -33,6 +33,10 @@ $(document).ready(function(){
         eb.jquery_functions.hide_add_terminal_form();
     });
 
+    $('#tv-channel').on('change', function(){
+        $('#tv-script-submit-btn').removeAttr('disabled');
+    });
+
     $(document).on('change', '#ad-image', function(){
         $('#image-submit-btn').removeClass('btn-disabled');
     });
@@ -44,12 +48,14 @@ $(document).ready(function(){
     $(document).on('click', '.process-queue', function(e){
         if ($(this).find('.biz-terminals').is(':hidden')) {
             $(this).find('.biz-terminals').slideDown('fast');
+            $('#process-queue').css("border","none");
         }
         return false;
     });
 
     $('html').click(function () {
         $('.biz-terminals').slideUp('fast');
+        $('#process-queue').css({"border-bottom":"4px solid #d36e3c"});
     });
 
     $('.biz-terminals').on('click', 'a', function(e){
@@ -76,7 +82,7 @@ var eb = {
     urls : {
         business: {
             business_details_url : $('#business-details-url').val() + '/',
-            business_edit_url : $('#business-edit-url').val() + '/',
+            business_edit_url : $('#business-edit-url').val(),
             business_remove_url : $('#business-remove-url').val() + '/'
         },
 
@@ -95,16 +101,59 @@ var eb = {
             ads_embed_video_url : $('#ads-embed-video-url').val(),
             ads_tv_select_url : $('#ads-tv-select-url').val(),
             ads_tv_on_url : $('#ads-tv-on-url').val(),
-            ads_type_url : $('#ads-type-url').val()
+            ads_type_url : $('#ads-type-url').val(),
+            save_ticker_url : '/advertisement/save-ticker'
         },
 
         queue_settings : {
             queue_settings_get_url : $('#queue-settings-get-url').val() + '/',
             queue_settings_update_url : $('#queue-settings-update-url').val() + '/'
+        },
+
+        forms : {
+            add_textfield_url : '/forms/add-textfield',
+            add_radiobutton_url : '/forms/add-radiobutton',
+            add_checkbox_url : '/forms/add-checkbox',
+            add_dropdown_url : '/forms/add-dropdown',
+            display_fields_url : '/forms/display-fields',
+            delete_field_url : '/forms/delete-field'
         }
     },
 
     jquery_functions : {
+        /*
+        createTextField : function(form_id, field_data) {
+            return '<div class="col-md-3"><label>'+ field_data.label+'</label></div><div class="col-md-9"><input type="text" class="form-control"></div>';
+        },
+
+        createCheckbox : function(form_id, field_data) {
+            return '<div class="col-md-3"><label>'+ field_data.label+'</label></div><div class="col-md-9"><input type="checkbox" class="form-control" value="1"></div>';
+        },
+
+        createRadio : function(form_id, field_data) {
+            return '<div class="col-md-3"><label>'+ field_data.label+'</label></div><div class="col-md-9"><label><input type="radio" name="forms_'+form_id+'" value="'+field_data.value_a+'" > <strong>'+field_data.value_a+'</strong></label><label><input type="radio" name="forms_'+form_id+'" value="'+field_data.value_b+'"> <strong>'+field_data.value_b+'</strong></label></div>';
+        },
+
+        createDropdown : function(form_id, field_data) {
+            var select_options = '';
+            $.each(field_data.options, function(count, val) {
+                select_options += '<option value="'+val+'">'+val+'</option>';
+            });
+            return '<div class="col-md-3"><label>'+ field_data.label+'</label></div><div class="col-md-9"><select class="form-control">'+select_options+'</select></div>';
+        },
+
+        generateCustomFields : function(response) {
+            var form_fields = '';
+            $.each(response.form_fields, function(form_id, field_data) {
+                if (field_data.field_type == 'Text Field') form_fields += eb.jquery_functions.createTextField(form_id, field_data);
+                else if (field_data.field_type == 'Checkbox') form_fields += eb.jquery_functions.createCheckbox(form_id, field_data);
+                else if (field_data.field_type == 'Radio') form_fields += eb.jquery_functions.createRadio(form_id, field_data);
+                else if (field_data.field_type == 'Dropdown') form_fields += eb.jquery_functions.createDropdown(form_id, field_data);
+            });
+            return form_fields;
+        },
+        */
+
         validYouTubeURL : function(url) {
             var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
             return (url.match(p)) ? RegExp.$1 : false;
@@ -114,7 +163,7 @@ var eb = {
             var scope = angular.element($("#editBusiness")).scope();
             scope.$apply(function(){
                 scope.getBusinessDetails();
-                scope.currentActiveTheme(scope.business_id);
+                scope.currentActiveBroadcastDetails(scope.business_id);
             });
         },
 
@@ -182,6 +231,8 @@ var eb = {
         $scope.analytics = [];
         $scope.messages = [];
 
+        $scope.form_fields = [];
+
         $scope.number_start = 1;
         $scope.terminal_specific_issue = 0;
         $scope.sms_current_number = 0;
@@ -219,6 +270,7 @@ var eb = {
             $scope.industry = business.industry;
             $scope.time_open = business.time_open;
             $scope.time_closed = business.time_closed;
+            $scope.timezone = business.timezone; //ARA Added Timezone
             $scope.queue_limit = business.queue_limit; /* RDH Added queue_limit to Edit Business Page */
             $scope.terminal_specific_issue = business.terminal_specific_issue ? true : false;
             $scope.frontline_secret = business.frontline_sms_secret;
@@ -464,6 +516,7 @@ var eb = {
                     industry: $scope.industry,
                     time_open: $scope.time_open,
                     time_close: $scope.time_closed,
+                    timezone: $scope.timezone, //ARA Added timezone
                     queue_limit: $scope.queue_limit, /* RDH Added queue_limit to Edit Business Page */
                     terminal_specific_issue : $scope.terminal_specific_issue ? 1 : 0,
                     frontline_sms_secret : $scope.frontline_secret,
@@ -523,7 +576,7 @@ var eb = {
             });
         });
 
-        $scope.currentActiveTheme = (function(business_id) {
+        $scope.currentActiveBroadcastDetails = (function(business_id) {
             if (business_id > 0){
                 $http.get(eb.urls.broadcast.broadcast_json_url + business_id + '.json?nocache='+Math.floor((Math.random() * 10000) + 1)).success(function(response) {
                     $('.activated').hide();
@@ -556,6 +609,9 @@ var eb = {
 
                     // default internet TV channel
                     $scope.tv_channel = response.tv_channel;
+
+                    // current active ticker message
+                    $scope.ticker_message = response.ticker_message;
                 });
             }
         });
@@ -649,16 +705,35 @@ var eb = {
         });
 
         $scope.selectTV = (function(business_id) {
-            $http.post(eb.urls.broadcast.ads_tv_select_url, {
+            if ($scope.tv_channel) {
+                $http.post(eb.urls.broadcast.ads_tv_select_url, {
+                    business_id : business_id,
+                    tv_channel : $scope.tv_channel
+                }).success(function() {
+                    $('#tvchannel-danger').hide();
+                    $('#tvchannel-success').fadeIn();
+                    $('#tvchannel-success').fadeOut(7000);
+                }).error(function() {
+                    $('#tvchannel-danger').hide();
+                    $('#tvchannel-success').fadeIn();
+                });
+            }
+            else {
+                alert('Please select a channel.')
+            }
+        });
+
+        $scope.setTicker = (function(business_id) {
+            $http.post(eb.urls.broadcast.save_ticker_url, {
                 business_id : business_id,
-                tv_channel : $scope.tv_channel
+                ticker_message : $scope.ticker_message
             }).success(function() {
-                $('#tvchannel-danger').hide();
-                $('#tvchannel-success').fadeIn();
-                $('#tvchannel-success').fadeOut(7000);
+                $('#ticker-danger').hide();
+                $('#ticker-success').fadeIn();
+                $('#ticker-success').fadeOut(7000);
             }).error(function() {
-                $('#tvchannel-danger').hide();
-                $('#tvchannel-success').fadeIn();
+                $('#ticker-danger').hide();
+                $('#ticker-success').fadeIn();
             });
         });
 
@@ -708,6 +783,84 @@ var eb = {
             },
             any: function() {
                 return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+            }
+        };
+
+        $scope.addTextField = function(business_id) {
+            $http.post(eb.urls.forms.add_textfield_url, {
+                business_id : business_id,
+                text_field_label : $scope.text_field_label
+            }).success(function(response) {
+                $scope.displayFormFields(business_id);
+                $('#add-text-field').modal('hide');
+                $('#text-field-label').val('');
+            });
+        };
+
+        $scope.addRadioButton = function(business_id) {
+            $http.post(eb.urls.forms.add_radiobutton_url, {
+                business_id : business_id,
+                radio_button_label : $scope.radio_button_label,
+                radio_value_a : $scope.radio_value_a,
+                radio_value_b : $scope.radio_value_b
+            }).success(function(response) {
+                $scope.displayFormFields(business_id);
+                $('#add-radio-button').modal('hide');
+                $('#radio-button-label').val('');
+                $('#radio-value-a').val('');
+                $('#radio-value-b').val('');
+            });
+        };
+
+        $scope.addCheckbox = function(business_id) {
+            $http.post(eb.urls.forms.add_checkbox_url, {
+                business_id : business_id,
+                checkbox_label : $scope.checkbox_label
+            }).success(function(response) {
+                $scope.displayFormFields(business_id);
+                $('#add-check-box').modal('hide');
+                $('#check-box-label').val('');
+            });
+        };
+
+        $scope.addDropdown = function(business_id) {
+            $http.post(eb.urls.forms.add_dropdown_url, {
+                business_id : business_id,
+                dropdown_label : $scope.dropdown_label,
+                dropdown_options : $scope.dropdown_options
+            }).success(function(response) {
+                $scope.displayFormFields(business_id);
+                $('#add-dropdown').modal('hide');
+                $('#dropdown-label').val('');
+                $('#dropdown-options').val('');
+            });
+        };
+
+        $scope.displayFormFields = function(business_id) {
+            $http.post(eb.urls.forms.display_fields_url, {
+                business_id : business_id
+            }).success(function(response) {
+               $scope.form_fields = response.form_fields;
+            });
+        };
+
+        /*
+        $scope.showPreviewForm = function(business_id) {
+            $http.post(eb.urls.forms.display_fields_url, {
+                business_id : business_id
+            }).success(function(response) {
+                $('#custom-fields-display').html(eb.jquery_functions.generateCustomFields(response));
+            });
+        };
+        */
+
+        $scope.deleteFormField = function(form_id) {
+            if (confirm('Are you sure you want to delete this field?')) {
+                $http.post(eb.urls.forms.delete_field_url, {
+                    form_id : form_id
+                }).success(function(response) {
+                    $('.field-'+form_id).remove();
+                });
             }
         };
     });

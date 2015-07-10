@@ -1,3 +1,8 @@
+@media (min-width: 980px) and (max-width: 1200px) {
+    ul#bizTab li a span.glyphicon {
+        display: none!important;
+    }
+}
 @media (min-width: 992px) and (max-width: 1199px) {
     a#view-broadcast {
         font-size: 15px;
@@ -165,6 +170,16 @@
     .navbar-inverse {
         background-color: rgba(7, 10, 3, 1);
     }
+    #biz-grid .boxed {
+        height: 80px!important;
+        padding: 25px;
+    }
+    .biz-terminals {
+        height: 80px!important;
+    }
+    .biz-terminals a:hover {
+        height: 80px;
+    }
 }
 @media (max-width: 320px) {
     .row.assigned-business #box-wrapper {
@@ -231,5 +246,15 @@
     }
     .navbar-inverse {
         background-color: rgba(7, 10, 3, 1);
+    }
+    #biz-grid .boxed {
+        height: 80px!important;
+        padding: 25px;
+    }
+    .biz-terminals {
+        height: 80px!important;
+    }
+    .biz-terminals a:hover {
+        height: 80px;
     }
 }

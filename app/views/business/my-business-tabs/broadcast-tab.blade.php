@@ -5,7 +5,7 @@
         <small>Choose and customize the look of your broadcast screen.</small>
     </div>
     <div class="col-md-4 col-sm-6 col-xs-12 mt20">
-        <strong><input style="font-size: 30px;" type="checkbox" ng-model="show_called_only" ng-click="activateTheme(theme_type, business_id, show_called_only)"> Show only called numbers in broadcast page</strong>
+        <strong class="blue"><input style="font-size: 30px;" type="checkbox" ng-model="show_called_only" ng-click="activateTheme(theme_type, business_id, show_called_only)"> &nbsp; Show only called numbers in broadcast page</strong>
         {{--<div role="alert" class="alert alert-info" style="padding: 10px 10px; font-size: 12px; margin-top:12px;">Check this box if there is a need to show only the numbers called by the counters.</div>--}}
     </div>
 </div>

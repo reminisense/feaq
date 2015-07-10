@@ -106,6 +106,30 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $user ? $user->toArray() : null;
     }
 
+    /**
+     * @author Ruffy Heredia
+     * @description Get User by Facebook ID
+     */
+    public static function searchByFacebookId($fb_id) {
+        $user = User::where('verified', '=', 1)
+            ->where('fb_id', '=', $fb_id)
+            ->select('user_id', 'first_name', 'last_name', 'email')
+            ->first();
+        return $user ? $user->toArray() : null;
+    }
+
+    /**
+     * @author Ruffy Heredia
+     * @param $fb_id
+     * @return GCM token of user
+     */
+    public static function getGcmByFacebookId($fb_id) {
+        $user = User::where('fb_id', '=', $fb_id)
+            ->select('gcm_token')
+            ->first();
+        return $user ? $user->toArray() : null;
+    }
+
     /* @author: CSD
      * @description: get details needed for broadcast contact auto populate on modal form
      * @date: 06/02/2015
@@ -121,9 +145,37 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $broadcastuser;
     }
 
+    /**
+     * @author Carl Dalid
+     * @description Update GCM Token
+     */
+    public static function updateGCMToken($fb_id, $gcm){
+        return User::where('fb_id', '=', $fb_id)->update(array('gcm_token' => $gcm));
+    }
+
     //ARA Used for user demographics tracking
+    public static function first_name($user_id){
+        return User::where('user_id', '=', $user_id)->first()->first_name;
+    }
+
+    public static function last_name($user_id){
+        return User::where('user_id', '=', $user_id)->first()->last_name;
+    }
+
+    public static function full_name($user_id){
+        return User::first_name($user_id) . ' ' . User::last_name($user_id);
+    }
+
+    public static function phone($user_id){
+        return User::where('user_id', '=', $user_id)->first()->phone;
+    }
+
     public static function email($user_id){
         return User::where('user_id', '=', $user_id)->first()->email;
+    }
+
+    public static function local_address($user_id){
+        return User::where('user_id', '=', $user_id)->first()->local_address;
     }
 
     public static function gender($user_id){
@@ -149,5 +201,42 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         }else{
             return null;
         }
+    }
+
+    public static function gcmToken($user_id){
+        return User::where('user_id', '=', $user_id)->first()->gcm_token;
+    }
+
+
+    public static function countUsersByRange($start_date, $end_date)
+    {
+        $temp_start_date = date("Y/m/d", $start_date);
+        $temp_end_date = date("Y/m/d", $end_date);
+        return User::where('registration_date', '>=', $temp_start_date)->where('registration_date', '<', $temp_end_date)->count();
+    }
+
+    public static function getUserHistory($user_id, $limit, $offset){
+        $results = User::where('user.user_id', '=', $user_id)
+            ->join('priority_queue', 'priority_queue.email', '=', 'user.email')
+            ->join('queue_analytics', 'queue_analytics.transaction_number', '=', 'priority_queue.transaction_number')
+            ->join('business', 'business.business_id', '=', 'queue_analytics.business_id')
+            ->selectRaw('
+                queue_analytics.transaction_number,
+                queue_analytics.date as date,
+                priority_queue.priority_number,
+                priority_queue.email,
+                business.business_id as business_id,
+                business.name as business_name,
+                business.local_address as business_address,
+                MAX(queue_analytics.action) as status
+            ')
+            ->orderBy('queue_analytics.transaction_number', 'desc')
+            ->groupBy('queue_analytics.transaction_number')
+            ->skip($offset)
+            ->take($limit)
+            ->get()
+            ->toArray();
+
+        return $results;
     }
 }

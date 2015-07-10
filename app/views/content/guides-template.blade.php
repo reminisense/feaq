@@ -52,7 +52,11 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a class="feats" href="{{ URL::to('/about') }}">About</a></li>
                 <li><a class="feats" href="{{ URL::to('/guides') }}">Set-up Guide</a></li>
-                <li style="margin-left:10px;"><a href="" class="btn btn-blue btn-fb" ng-click="login()" role="button"><img src="{{URL::to('img/icon-fb.png')}}">Log In</a></li>
+                @if(Auth::check())
+                    <li style="margin-left:10px;"><a href="/guides">Back to Guides</a></li>
+                @else
+                    <li style="margin-left:10px;"><a href="" class="btn btn-blue btn-fb" ng-click="login()" role="button"><img src="/img/icon-fb.png">Log In</a></li>
+                @endif
             </ul>
         </div><!--/.nav-collapse -->
     </div>

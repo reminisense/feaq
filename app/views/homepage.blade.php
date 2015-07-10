@@ -53,10 +53,16 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a class="feats" href="{{ URL::to('/about') }}">About</a></li>
                 <li><a class="feats" href="{{ URL::to('/guides') }}">Set-up Guide</a></li>
-                <li> <a class="feats">|</a></li> <!-- Placeholder only, please remove prior to deployment -->
+                <li class="hidden-xs hidden-sm">
+                    <span style="border-right: 1px solid #ccc;
+                                 margin-top: 14px;
+                                 position: relative;
+                                 top: 8px;">
+                    </span>
+                </li>
                 <li><a class="feats" href="#features">Features</a></li>
                 <li><a class="start" href="#getting-started">Getting Started</a></li>
-                <li style="margin-left:10px;"><a href="" class="btn btn-blue btn-fb" ng-click="login()" role="button"><img src="img/icon-fb.png">Log In</a></li>
+                <li style="margin-left:10px;"><a href="" class="btn btn-blue btn-fb" ng-click="login()" role="button"><img src="/img/icon-fb.png">Log In</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
@@ -796,6 +802,22 @@
             </h3>
             </div>
         </div>
+        <div class="container">
+            <div class="col-md-2 col-xs-2"></div>
+            <div class="col-md-6 col-xs-6">
+                <input style="border: none;" id="subscriber-field" class="form-control input-lg text-center" placeholder="Get updated. Place your email here: john@yahoo.com" type="text">
+            </div>
+            <div class="col-md-4 col-xs-4"><button id="subscribe-button" type="button" class="btn-warning btn-lg">Subscribe</button></div>
+        </div>
+        <div class="container">
+            <div class="col-md-3 col-xs-3"></div>
+            <div class="col-md-4 col-xs-4">
+                <div id="subscribe-error" class="alert alert-danger text-center" style="display:none;">Please enter a valid email address.</div>
+                <div id="subscribe-duplicate" class="alert alert-danger text-center" style="display:none;">User has already subscribed. Please register with a different email.</div>
+                <div id="subscribe-success" class="alert alert-success text-center" style="display:none;">Thank you for subscribing.</div>
+            </div>
+            <div class="col-md-5 col-xs-5"></div>
+        </div>
         <div class="col-md-7 col-xs-12" style="margin-top:140px;">
                 <h4 class="nomg wow fadeInUp">Start using FeatherQ for your business today</h4>
                 <h4 class="nomg wow fadeInUp">It's Fast, Easy and Free</h4>
@@ -818,7 +840,6 @@
                             </div>
                         <p>It makes signing into FeatherQ super fast and secure. Instantly share your experiences with your friends.</p>
                         <small>YOUR PRIVACY IS HIGHLY RESPECTED. NOTHING WILL BE POSTED WITHOUT YOUR PERMISSION</small>
-                      </div>
                       <div class="modal-footer text-center">
                         <button type="button" class="mb20 btn btn-lg btn-primary" data-dismiss="modal">OK</button>
                       </div>
@@ -833,7 +854,7 @@
 <footer>
     <div class="container">
         <div class="">
-            <p class="text-center">&copy; 2015: Reminisense Corp.</p>
+            <p class="text-center"><a href="http://reminisense.com/" target="_blank">&copy; 2015: Reminisense Corp.</a></p>
         </div>
     </div>
 </footer>

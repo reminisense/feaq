@@ -46,13 +46,14 @@
 
         personalizedBusinesses({
             latitude : USER_LATITUDE,
-            longitude : USER_LONGITUDE
+            longitude : USER_LONGITUDE,
+            user_timezone: - (new Date().getTimezoneOffset() * 60) //ARA for converting business time to client time negative because getTimezoneOffset only gets the difference from UTC
         });
 
         $scope.industry_filter = 'Industry';
 
         $scope.searchBusiness = (function(location, industry, search_keyword, $event) {
-            $('#search-filter').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> SEARCHING');
+            $('#search-filter').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate" style="margin-right: 0px;"></span> SEARCHING');
             $('#browse-label').hide();
             $('#search-grid').hide();
             $('#search-loader').show();
@@ -65,7 +66,8 @@
                 "industry": industry,
                 "time_open": $scope.time_open,
                 "latitude" : USER_LATITUDE,
-                "longitude" : USER_LONGITUDE
+                "longitude" : USER_LONGITUDE,
+                "user_timezone" : - (new Date().getTimezoneOffset() * 60) //ARA for converting business time to client time
             };
             $http.post('/watchdog/log-search', data);
             $http.post('/business/filter-search', data).success(function(response) {

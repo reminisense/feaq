@@ -15,6 +15,8 @@ Route::get('/', 'UserController@getUserDashboard');
 
 Route::post('/', 'UserController@processContactForm');
 
+Route::get('rest/register-user/{fb_id}/{first_name}/{last_name}/{email}/{gender}/{phone}/{country}', 'RestController@getRegisterUser');
+
 Route::controller('fb', 'FBController');
 
 Route::controller('processqueue', 'ProcessQueueController');
@@ -22,6 +24,8 @@ Route::controller('processqueue', 'ProcessQueueController');
 Route::controller('user', 'UserController');
 
 Route::controller('rating', 'RatingController');
+
+Route::controller('newsletter', 'NewsletterController');
 
 Route::controller('broadcast', 'BroadcastController');
 
@@ -42,6 +46,8 @@ Route::controller('watchdog', 'WatchdogController');
 Route::controller('rest', 'RestController'); /* RDH For Android Webservices*/
 
 Route::controller('message', 'MessageController');
+
+Route::controller('forms', 'FormsController');
 
 Route::controller('admin', 'AdminController');
 

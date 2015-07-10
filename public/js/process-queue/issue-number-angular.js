@@ -16,6 +16,8 @@
         $scope.number_end = null;
         $scope.range = null;
 
+        var user_id = $('#user-id').attr('user_id');
+
         $scope.issueMultiple = function(range, number_start, date){
             $scope.isIssuing = true;
             url = pq.urls.issue_numbers.issue_multiple_url + pq.ids.service_id + '/' + range + '/' + pq.ids.terminal_id + '/' + number_start;
@@ -194,7 +196,15 @@
             }
         }
 
-        $scope.initializePriorityNumber();
+        $scope.populateRemoteQueueModal = (function(response){
+            if (response.status == '1') {
+                $scope.name = response.first_name + ' ' + response.last_name;
+                $scope.phone = response.phone;
+                $scope.email = response.email;
+            }
+        });
 
+        $http.get('/user/remoteuser/'+user_id).success($scope.populateRemoteQueueModal);
+        $scope.initializePriorityNumber();
     });
 })();

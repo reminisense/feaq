@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'debug' => false,
+	'debug' => true,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -123,7 +123,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 
         'Barryvdh\DomPDF\ServiceProvider',
-
+		'Davibennun\LaravelPushNotification\LaravelPushNotificationServiceProvider',
 
 	),
 
@@ -193,6 +193,7 @@ return array(
 		'View'              => 'Illuminate\Support\Facades\View',
 
         'PDF' => 'Barryvdh\DomPDF\Facade',
+        'PushNotification' => 'Davibennun\LaravelPushNotification\Facades\PushNotification',
 	),
 
 );
