@@ -47,11 +47,12 @@ class BusinessController extends BaseController{
                 unset($assigned_businesses[$business->business_id]);
                 $first_service = Service::getFirstServiceOfBusiness($business_id);
                 $terminals = Terminal::getTerminalsByServiceId($first_service->service_id);
+                $first_terminal = count($terminals) > 0 ? $terminals[0]['terminal_id'] : null;
                 return View::make('business.my-business')
                     //->with('user_id', Helper::userId()) //ARA - moved assignment to filters.php
                     ->with('business_id', $business_id)
                     ->with('assigned_businesses', $assigned_businesses)
-                    ->with('first_terminal', $terminals[0]['terminal_id']);
+                    ->with('first_terminal', $first_terminal);
             } else {
                 return View::make('business.my-business')
                     ->with('assigned_businesses', $assigned_businesses);
