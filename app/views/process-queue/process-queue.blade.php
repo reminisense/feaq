@@ -108,40 +108,15 @@ Processs Queue > {{ $business_name }}
                     <tr ng-repeat="number in called_numbers" data-tnumber="@{{ number.transaction_number }}">
                         <th scope="row">
                             <a href="#" class="priority-number" title="Number: @{{ number.priority_number }}" data-name="@{{ number.name }}" data-phone="@{{ number.phone }}" data-email="@{{ number.email }}" data-toggle="modal" data-target="#priority-number-modal">
-                                @{{ number.priority_number }}<span class="glyphicon glyphicon-zoom-in"></span>
+                                @{{ number.priority_number }} <span class="glyphicon glyphicon-zoom-in"></span>
                             </a>
                         </th>
                         <td>
                             <div>
-                                <div>
-                                    <span ng-if="number.name">@{{ number.name }} | </span>
-                                    <span ng-if="number.phone">@{{ number.phone }} | </span>
-                                    <span ng-if="number.email">@{{ number.email }} | </span>
-                                    <a ng-if="number.email" href="#messages-@{{ number.transaction_number }}" data-toggle="collapse" ng-click="getMessages(number.email)">
-                                        <span class="glyphicon glyphicon-inbox"></span>
-                                    </a>
-                                </div>
-                                <div class="collapse" id="messages-@{{ number.transaction_number }}">
-                                    <div class="col-md-12 text-center"><h5>Conversation History</h5></div>
-                                    <div class="col-md-12" style="max-height: 300px; overflow: auto;">
-                                        <div ng-repeat="message in messages">
-                                            <div ng-if="message.sender == 'user'" class="alert alert-success">
-                                                <p>
-                                                    <strong>User: </strong>
-                                                    @{{ message.content }}
-                                                    <span class="pull-right">Sent @{{ message.timestamp }}</span>
-                                                </p>
-                                            </div>
-                                            <div ng-if="message.sender == 'business'" class="alert alert-info">
-                                                <p>
-                                                    <strong>You: </strong>
-                                                    @{{ message.content }}
-                                                    <span class="pull-right">Sent @{{ message.timestamp }}</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <span ng-if="number.name">@{{ number.name }} | </span>
+                                <a ng-if="number.email" href="#">
+                                    <span class="glyphicon glyphicon-envelope"></span>
+                                </a>
                             </div>
                         </td>
                         <td>

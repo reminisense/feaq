@@ -26,8 +26,6 @@
         $scope.number_limit = null;
         $scope.issue_call_number = null;
 
-        $scope.messages = [];
-
         $scope.getAllNumbers = function(){
             getResponseResetValues(pq.urls.process_queue.all_numbers_url + pq.ids.service_id + '/' + pq.ids.terminal_id, null, null, function(){
                 setTimeout(function(){
@@ -238,17 +236,6 @@
                 $scope.temp_called_numbers.splice(index, item);
             }
         }
-
-        $scope.getMessages = function(email){
-            $scope.messages = [];
-            $http.post('/message/business-user-thread', {
-                business_id : pq.ids.business_id,
-                email: email
-            }).success(function(response) {
-                $scope.messages = response.contactmessage;
-            });
-        }
-
 
         //****************************** refreshing
             $scope.getAllNumbers();

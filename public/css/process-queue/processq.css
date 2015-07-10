@@ -85,13 +85,6 @@ span.glyphicon-zoom-in {
     padding-top: 12px;
     padding-bottom: 12px;
 }
-.processq-box table tbody td:nth-child(2){ /*ARA added styles for new 2nd column*/
-    font-size: 20px;
-    text-align: right;
-    padding-top: 30px;
-    padding-bottom: 12px;
-
-}
 .processq-box table tbody th:nth-child(1){
     font-size: 16px;
     vertical-align: middle;
@@ -296,4 +289,25 @@ span.glyphicon-zoom-in {
     border-radius: 50%;
     height: 50px;
     width: 50px;
+}
+
+/*ARA added styles for new 2nd column (user info)*/
+@media only screen and (min-width: 991px) {
+    .processq-box table td:nth-child(2){
+        font-size: 16px;
+        text-align: right;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        width: 600px;
+    }
+
+    .processq-box table td:nth-child(2) div{
+        padding-top: 26px;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .processq-box table td:nth-child(2){
+        display: none;
+    }
 }
