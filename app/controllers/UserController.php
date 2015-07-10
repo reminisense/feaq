@@ -171,4 +171,49 @@ class UserController extends BaseController{
         $user = User::searchByEmail($email);
         return json_encode(['success' => 1, 'user' => $user]);
     }
+
+    /**
+     * @author Ruffy Heredia
+     * @description Get User by Facebook ID
+     */
+    public function getFacebookIdSearch($fb_id) {
+        $user = User::searchByFacebookId($fb_id);
+        return json_encode(['success' => 1, 'user' => $user]);
+    }
+
+    /**
+     * @author Ruffy Heredia
+     * @description Get GCM token of user based on Facebook ID
+     */
+    public function getGcmToken($fb_id) {
+        $user = User::getGcmByFacebookId($fb_id);
+        return json_encode(['success' => 1, 'user' => $user]);
+    }
+
+    /**
+     * @author Carl Dalid
+     * @description Check if FB ID exist, if true update GCM Token
+     */
+    public function getUpdateGcmToken($fb_id, $gcm){
+        $user = User::checkFBUser($fb_id);
+        if($user){
+            User::updateGCMToken($fb_id, $gcm);
+            return json_encode(['success' => 1, 'user' => $user]);
+        } else {
+            return json_encode(['success' => 0]);
+        }
+    }
+
+    /**
+     * @author: Carl Dalid
+     * @description: Get User by User ID for remote queue
+     */
+    public function getRemoteuser($user_id){
+        if($user_id != 0){
+            return json_encode(array('status' => '1', 'first_name' => User::first_name($user_id), 'last_name' => User::last_name($user_id), 'phone' => User::phone($user_id), 'email' => User::email($user_id)));
+        } else {
+            return json_encode(array('status' => '0'));
+        }
+
+    }
 }

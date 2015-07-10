@@ -43,8 +43,12 @@ span.glyphicon-zoom-in {
 #processq #view-broadcast {
     margin-top: 0px;
     color: #fff;
+    border-bottom: 4px solid #009b74;
     background-color: #00ba8b;
     /*background: #00ba8b url('/img/bg-view-broadcast.png') left no-repeat;*/
+}
+#processq #view-broadcast:focus {
+    text-decoration: none;
 }
 #processq #view-broadcast:hover {
     background-color: #009b74;

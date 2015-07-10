@@ -8,6 +8,13 @@
 
 class FeatherqConstants {
 
+    //ARA declare all constants
+    public static function init(){
+        FeatherqConstants::roles();
+        FeatherqConstants::frontlineSms();
+        FeatherqConstants::android();
+    }
+
     // Define global variables for users roles
     public static function roles()
     {
@@ -19,6 +26,7 @@ class FeatherqConstants {
         define('IT_ADMIN', 6);
     }
 
+    //Define frontlinesms constants
     public static function frontlineSms()
     {
         //Frontline SMS constants
@@ -31,6 +39,12 @@ class FeatherqConstants {
         //dev environment constants
         define('FRONTLINE_SMS_HOST', 'http://dev-env.featherq.com');
         define('FRONTLINE_SMS_URL', 'https://cloud.frontlinesms.com/api/1/webconnection/3225');
+    }
+
+    //Define Android constants
+    public static function android(){
+        // API access key from Google API's Console
+        define( 'API_ACCESS_KEY', 'AIzaSyCj0EfjXkZe-USRLOlTXxywayUXSIYg1wA' );
     }
 
 }

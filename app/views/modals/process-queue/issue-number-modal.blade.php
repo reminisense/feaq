@@ -1,7 +1,7 @@
 <!-- modal -->
 <div class="modal fade" id="moreq" tabindex="-1" ng-controller="issuenumberController">
-    <point-of-interest position="left" bottom="83" right="62" title="Issue Specific Number" description="This tab allows you to issue one specific number and input information about the person assigned to the number."></point-of-interest>
-    <point-of-interest position="right" bottom="83" right="37" title="Issue Multiple Numbers" description="This tab allows you to issue multiple numbers depending on the range that you provide."></point-of-interest>
+    <point-of-interest position="left" bottom="84" right="64" title="Issue Specific Number" description="This tab allows you to issue one specific number and input information about the person assigned to the number."></point-of-interest>
+    <point-of-interest position="right" bottom="84" right="56" title="Issue Multiple Numbers" description="This tab allows you to issue multiple numbers depending on the range that you provide."></point-of-interest>
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

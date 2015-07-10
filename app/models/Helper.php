@@ -143,4 +143,53 @@ class Helper extends Eloquent {
     public static function getAge($birthdate){
         return floor( (time() - $birthdate) / 31556926);
     }
+
+    public static function getTimezoneList(){
+        $timezones = DateTimeZone::listIdentifiers(DateTimeZone::ALL);
+        return $timezones;
+    }
+
+    /**
+     * gets the date and timezone of business and converts it to user/browser timezone
+     * @param $date
+     * @param $business_timezone
+     * @param $user_timezone
+     * @return string
+     */
+    public static function changeBusinessTimeTimezone($date, $business_timezone, $browser_timezone){
+        if(is_numeric($browser_timezone)) $browser_timezone = Helper::timezoneOffsetToName($browser_timezone);
+        $datetime = new DateTime($date, new DateTimeZone($business_timezone));
+        $datetime->setTimezone(new DateTimeZone($browser_timezone));
+        return $datetime->format('g:i A');
+    }
+
+    /**
+     * gets timezone offset and converts it to php timezone string
+     * @param $offset
+     * @return bool
+     */
+    public static function timezoneOffsetToName($offset){
+        $abbrarray = timezone_abbreviations_list();
+        foreach ($abbrarray as $abbr) {
+            foreach ($abbr as $city) {
+                if ($city['offset'] == $offset) {
+                    return $city['timezone_id'];
+                }
+            }
+        }
+        return false;
+    }
+
+    public static function timezoneOffsetToNameArray($offset){
+        $timezones = [];
+        $abbrarray = timezone_abbreviations_list();
+        foreach ($abbrarray as $abbr) {
+            foreach ($abbr as $city) {
+                if ($city['offset'] == $offset) {
+                    $timezones[] = $city['timezone_id'];
+                }
+            }
+        }
+        return $timezones;
+    }
 }

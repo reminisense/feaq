@@ -67,23 +67,29 @@
                             </div>
                         </div>
 
+                        <div class="col-md-12">
+                            <label>Business Address</label>
+                            <input type="text" class=" form-control modal-input" placeholder="ex: Cebu City" id="business_location" name="business_address">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Time Open</label>
+                            <input type="text" id="time_open" name="time_open" placeholder="ex: 8:00am" class="timepicker form-control modal-input" />
+                        </div>
+                        <div class="col-md-6">
+                            <label>Time Close</label>
+                            <input type="text" id="time_close" name="time_close" placeholder="ex: 10:00pm" class="timepicker form-control modal-input" />
+                        </div>
+                        <div class="col-md-12">
+                            <label>Timezone</label>
+                            <select id="timezone" name="timezone" class="form-control modal-input" >
+                                @foreach(Helper::getTimezoneList() as $index => $timezone)
+                                <option value="{{ $timezone }}">{{ $timezone }}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
-                            <div class="col-md-6">
-                                <label>Time Open</label>
-                                <input type="text" id="time_open" name="time_open" placeholder="ex: 8:00am" class="timepicker form-control modal-input" />
-                            </div>
-                            <div class="col-md-6">
-                                <label>Time Close</label>
-                                <input type="text" id="time_close" name="time_close" placeholder="ex: 10:00pm" class="timepicker form-control modal-input" />
-                            </div>
-
-
-                            <div class="col-md-12">
-                                <label>Business Address</label>
-                                <input type="text" class=" form-control modal-input" placeholder="ex: Cebu City" id="business_location" name="business_address">
-                            </div>
-                            <input type="hidden" id="longitude" name="longitude" value="0">
-                            <input type="hidden" id="latitude" name="latitude" value="0">
+                        <input type="hidden" id="longitude" name="longitude" value="0">
+                        <input type="hidden" id="latitude" name="latitude" value="0">
                         <div class="col-md-12">
                             <div class="alert alert-info" role="alert">
                                 <i class="glyphicon glyphicon-info-sign"></i>&nbsp;&nbsp;You are provided with 1 default terminal to manage your business queue. To create more terminals, just go to Business Settings and select Terminal.

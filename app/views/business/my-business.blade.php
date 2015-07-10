@@ -21,8 +21,7 @@ My Business
 <div class="feat feat-business">
     <div class="container">
         <div class="text-center">
-            <h1><span class="glyphicon glyphicon-home"></span>My Business
-            </h1>
+            <h1><span class="glyphicon glyphicon-home"></span>My Business</h1>
         </div>
     </div>
     <div class="arrow">
@@ -41,7 +40,10 @@ My Business
                         <h2>@{{ business_name }}</h2>
                         <p class="address"><span class="glyphicon glyphicon-map-marker"></span> @{{ business_address }}</p>
                         {{--<p class="contact"><span class="glyphicon glyphicon-phone-alt"></span> +032 259 8611 / +038 259 8622 </p><br>--}}
-                        <a class="btn btn-sm btn-primary" href="{{ url('business/pdf-download/' . $business_id) }}" target="_blank">Download QR Code</a>
+                        <a class="btn btn-sm btn-primary" href="{{ url('business/pdf-download/' . $business_id) }}" target="_blank">Download QR Code</a><br>
+                        @if($assigned_businesses)
+                            <a href="#assigned" id="assigned_business"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;My Assigned Businesses</a>
+                        @endif
                     </div>
                     <point-of-interest position="bottom" bottom="37" right="83" title="Download QR Code" description="Download this QR Code so you can print it out and post it for your customers to view your broadcast screen from their mobile phones."></point-of-interest>
                     <div class="col-md-3 col-sm-5 col-xs-12 ">
@@ -53,7 +55,7 @@ My Business
                                 <div class="clearfix">
                                     <div ng-repeat="terminal in terminals" >
                                         <a ng-if="isAssignedUser(user_id, terminal.terminal_id)" href="{{ url('/processqueue/terminal') }}/@{{ terminal.terminal_id }}" target="_blank">
-                                            <span class=" glyphicon glyphicon-ok "></span>
+                                            <span class=" glyphicon glyphicon-check"></span>
                                             <small>@{{ terminal.name }}</small>
                                         </a>
                                         <a ng-if="!isAssignedUser(user_id, terminal.terminal_id)" href="#" class="not-active">
@@ -82,7 +84,7 @@ My Business
                         <li class=""><a href="#settings" id="settings-tab" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
                         <li class=""><a href="#analytics" id="analytics-tab" data-toggle="tab"><span class="glyphicon glyphicon-stats"></span> Analytics</a></li>
                         <li class=""><a href="#messages" id="messages-tab" data-toggle="tab" ng-click="displayMessageList(business_id)"><span class="glyphicon glyphicon-envelope"></span> Messages</a></li>
-                        <li class="dndesktop"><a href="" id="" data-toggle="tab"></a></li>
+                        <li class=""><a href="#forms" id="forms-tab" data-toggle="tab" ng-click="displayFormFields(business_id)"><span class="glyphicon glyphicon-list"></span>Contact Form</a></li>
                     </ul>
                     <div id="bizTabContent" class="tab-content" style="">
                         <div class="col-md-12">
@@ -111,6 +113,9 @@ My Business
                         <div role="tabpanel" class="tab-pane fade" id="messages" aria-labelledby="messages-tab">
                             <div class="clearfix">@include('business.my-business-tabs.messages-tab')</div>
                         </div>
+                        <div role="tabpanel" class="tab-pane fade" id="forms" aria-labelledby="forms-tab">
+                            <div class="clearfix">@include('business.my-business-tabs.forms-tab')</div>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -132,8 +137,8 @@ My Business
     @endif
     <div class="row assigned-business"> <!-- assigned business -->
     @if($assigned_businesses)
-
-        <div class="" id="box-wrapper">
+        <a name="assigned"></a>
+        <div class="rounded-box" id="box-wrapper">
             <div id="biz-grid" class="clearfix">
                 <h5 class="col-md-12 col-xs-12 mb20">ASSIGNED BUSINESSES</h5>
                 @foreach($assigned_businesses as $business)
@@ -145,7 +150,7 @@ My Business
                                 @foreach($business['terminals'] as $terminal)
                                 <div>
                                     <a href="{{ url('/processqueue/terminal/' . $terminal['terminal_id'] ) }}" target="_blank" style="padding: 12px;">
-                                        <span class=" glyphicon glyphicon-ok "></span>
+                                        <span class=" glyphicon glyphicon-check"></span>
                                         <small>{{ $terminal['name'] }}</small>
                                     </a>
                                 </div>

@@ -64,6 +64,8 @@ h3,.h3 {font-size: 16px;}
 h4 {font-size: 16px;}
 a {text-decoration: none;}
 p {margin-bottom: 30px;}
+p>a {color:#333;}
+p>a:hover {text-decoration: none;}
 .feat {position: relative; }
 .feat h1 {margin-top: 103px; color: #fff; margin-bottom:29px;font-size: 22px;font-family: 'ralewaymedium';}
 .feat .glyphicon {font-size: 16px; margin-right: 12px; font-weight: normal;}

@@ -89,4 +89,26 @@ class TerminalTransaction extends Eloquent{
             ->toArray();
         return $results ? count($results) : 0;
     }
+
+    public static function queueStatus($transaction_number){
+        $number = TerminalTransaction::where('transaction_number', '=', $transaction_number)->first();
+
+        $called = $number->time_called != 0 ? TRUE : FALSE;
+        $served = $number->time_completed != 0 ? TRUE : FALSE;
+        $removed = $number->time_removed != 0 ? TRUE : FALSE;
+
+        if(!$called && !$removed){
+            return 'Queueing';
+        }else if($called && !$served && !$removed){
+            return 'Called';
+        }else if($called && !$served && $removed){
+            return 'Dropped';
+        }else if(!$called && $removed){
+            return 'Removed';
+        }else if($called && $served){
+            return 'Served';
+        }else{
+            return 'Error';
+        }
+    }
 }

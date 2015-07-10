@@ -1,36 +1,53 @@
-<div class="clearfix header">
-    <h5>ADVERTISEMENT</h5>
-    <small>Display advertisements on your broadcast screen. Choose either Internet TV or Image/Video</small>
-</div>
-
+    <div class="clearfix header">
+        <h5>ADVERTISEMENT</h5>
+        <small>Display advertisements on your broadcast screen. Choose either Internet TV or Image/Video</small>
+    </div>
     <div class="col-md-6 col-xs-12 col-sm-12">
-        <div class="well">
-            <h5>INTERNET TV
+        <div class="well" style="min-height:244px;">
+            <h4>Internet TV
                 {{--<small>Internet TV can be viewed in the broadcast screen.</small>--}}
-            </h5>
-
+            </h4>
             <form ng-submit="selectTV(business_id)" id="tv-channel-select">
-                        <div class="form-group">
-                            <small>Choose channel:</small>
-                            <select ng-model="tv_channel" ng-init="tv_channel" id="tv-channel" class="form-control">
-                                <option value="">- Select A Channel -</option>
-                                @include('business.my-business-tabs.channels')
-                            </select>
-                            <div class="alert alert-success" id="tvchannel-success" style="display: none;">Success! <strong><a href="/broadcast/business/@{{ business_id }}" target="_blank">View Broadcast Page</a></strong></div>
-                            <div class="alert alert-danger" id="tvchannel-danger" style="display: none;">Oops! Something went wrong.</div>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-orange"  id="tv-script-submit-btn"><span class="glyphicon glyphicon-check"></span> SELECT</button>
-                            <button id="loading-img-3" style="display:none;" class="btn btn-orange btn-disabled"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
-                        </div>
+                <div class="form-group">
+                    <small>Choose channel:</small>
+                    <select ng-model="tv_channel" ng-init="tv_channel" id="tv-channel" class="form-control">
+                        <option value="">- Select A Channel -</option>
+                        @include('business.my-business-tabs.channels')
+                    </select>
+                    <div class="alert alert-success" id="tvchannel-success" style="display: none;">Success! <strong><a href="/broadcast/business/@{{ business_id }}" target="_blank">View Broadcast Page</a></strong></div>
+                    <div class="alert alert-danger" id="tvchannel-danger" style="display: none;">Oops! Something went wrong.</div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-orange"  id="tv-script-submit-btn" disabled><span class="glyphicon glyphicon-check"></span> SELECT</button>
+                    <button id="loading-img-3" style="display:none;" class="btn btn-orange btn-disabled"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
+                </div>
+            </form>
+        </div>
+        <div class="well">
+            <h4>Announcement Ticker
+                {{--<small>Internet TV can be viewed in the broadcast screen.</small>--}}
+            </h4>
+
+            <form ng-submit="setTicker(business_id)" id="set-ticker">
+                <div class="form-group">
+                    <small>Message:</small>
+                    <input type="text" ng-model="ticker_message" id="ticker-message" class="form-control" required/>
+                    <div class="alert alert-success" id="ticker-success" style="display: none;">Success! <strong><a href="/broadcast/business/@{{ business_id }}" target="_blank">View Broadcast Page</a></strong></div>
+                    <div class="alert alert-danger" id="ticker-danger" style="display: none;">Oops! Something went wrong.</div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-orange"  id="ticker-message-submit-btn"><span class="glyphicon glyphicon-check"></span> SAVE</button>
+                    <button id="loading-img-3" style="display:none;" class="btn btn-orange btn-disabled"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
+                </div>
             </form>
         </div>
     </div>
+
     <div class="col-md-6 col-xs-12 col-sm-12">
         <div class="well">
-        <h5>IMAGE OR VIDEO
+        <h4>Image or Video
             {{--<small>Choose whether to put an image or video in your broadcast screen.</small>--}}
-        </h5>
+        </h4>
             <div class="clearfix">
                     <label><input type="radio" name="ad_type" value="image" ng-model="ad_type" ng-change="adType(ad_type, business_id)"> <strong>Image</strong></label><label><input style="margin-left: 10px;" type="radio" name="ad_type" value="video" ng-model="ad_type" ng-change="adType(ad_type, business_id)"> <strong>Video</strong></label>
             </div>
@@ -79,6 +96,8 @@
             </div>
         </div>
     </div>
+
+
 
 
 

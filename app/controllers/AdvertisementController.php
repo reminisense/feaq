@@ -80,4 +80,12 @@ class AdvertisementController extends BaseController{
     }
   }
 
+  public function postSaveTicker() {
+    $business_id = Input::get('business_id');
+    $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
+    $data->ticker_message = Input::get('ticker_message');
+    $encode = json_encode($data);
+    file_put_contents(public_path() . '/json/' . $business_id . '.json', $encode);
+  }
+
 }
