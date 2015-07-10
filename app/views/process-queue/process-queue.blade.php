@@ -62,23 +62,23 @@ Processs Queue > {{ $business_name }}
                                 <input id="selected-tnumber" type="hidden" ng-value="called_number" value=0>
                                 <div class="dropdown-wrapper" ng-show="timebound_numbers.length != 0 || uncalled_numbers.length != 0">
                                     <button class="btn-select btn-md dropdown-toggle" type="button" data-toggle="dropdown">
-                                        <span id="selected-pnumber">@{{ called_number }}</span><span class="caret"></span>
+                                        <span id="selected-pnumber">@{{ called_number }}</span>
+                                        <span class="caret"></span>
+                                        <span id="selected-userinfo"></span>
                                     </button>
                                     <ul class="dropdown-menu dd-select" id="uncalled-numbers">
                                         <li ng-repeat="number in timebound_numbers" data-tnumber="@{{ number.transaction_number }}" data-pnumber="@{{ number.priority_number }}">
                                             @{{ number.priority_number }}
                                             <span class="pull-right userinfo">
-                                                <span ng-if="number.name">@{{ number.name }} | </span>
-                                                <span ng-if="number.phone">@{{ number.phone}} | </span>
-                                                <span ng-if="number.email">@{{ number.email }} | </span>
+                                                <span ng-if="number.name">@{{ number.name }}</span>
+                                                <span ng-if="number.email" class="glyphicon glyphicon-envelope"></span>
                                             </span>
                                         </li>
                                         <li ng-repeat="number in uncalled_numbers" data-tnumber="@{{ number.transaction_number }}" data-pnumber="@{{ number.priority_number }}">
                                             @{{ number.priority_number }}
                                             <span class="pull-right userinfo">
-                                                <span ng-if="number.name">@{{ number.name }} | </span>
-                                                <span ng-if="number.phone">@{{ number.phone}} | </span>
-                                                <span ng-if="number.email">@{{ number.email }} | </span>
+                                                <span ng-if="number.name">@{{ number.name }}</span>
+                                                <span ng-if="number.email" class="glyphicon glyphicon-envelope"></span>
                                             </span>
                                         </li>
                                     </ul>

@@ -140,8 +140,7 @@
         };
 
         resetValues = function(numbers){
-            setCalledNumbers(numbers.called_numbers);
-            //$scope.called_numbers = numbers.called_numbers;
+            $scope.called_numbers = numbers.called_numbers;
             $scope.uncalled_numbers = numbers.uncalled_numbers;
             $scope.processed_numbers = numbers.processed_numbers;
             $scope.timebound_numbers = numbers.timebound_numbers;
@@ -155,11 +154,6 @@
                 $scope.create_temporary_array = 1;
 
             }
-        };
-
-        setCalledNumbers = function(called_numbers){
-            $scope.called_numbers = called_numbers;
-
         };
 
         select_next_number = function(){

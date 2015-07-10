@@ -135,9 +135,17 @@ var pq = {
             });
         },
 
-        select_number : function(tnumber, pnumber){
+        select_number : function(tnumber, pnumber, username){
+            //ARA add priority number and
+            var userinfo = '<a class="pull-right user-info" style="margin-right: 20px;">' +
+                    '<span>' + username + '</span>' +
+                    '<span class="glyphicon glyphicon-envelope"></span>' +
+                '</a>';
+
+
             $('#selected-tnumber').val(tnumber);
             $('#selected-pnumber').html(pnumber);
+            $('#selected-userinfo').html(userinfo);
         },
 
         select_next_number : function(){
