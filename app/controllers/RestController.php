@@ -252,11 +252,16 @@ class RestController extends BaseController {
      * @param $facebook_id
      * @return string
      */
-    public function getQueueInfo($facebook_id){
+    public function getQueueInfo($facebook_id, $business_id = null){
         try{
             $user_id = User::getUserIdByFbId($facebook_id);
         }catch(Exception $e){
             $user_id = null;
+        }
+
+        if($business_id){
+            $service = Service::getFirstServiceOfBusiness($business_id);
+            $allow_remote = QueueSettings::allowRemote($service->service_id);
         }
 
         if($user_id){
@@ -273,6 +278,7 @@ class RestController extends BaseController {
                 'current_number_called' => ProcessQueue::currentNumber($service_id),
                 'estimated_time_until_called' => Analytics::getWaitingTime($business_id),
                 'status' => TerminalTransaction::queueStatus($transaction_number),
+                'allow_remote' => isset($allow_remote) ? $allow_remote : null,
             ];
 
             return json_encode($details);
