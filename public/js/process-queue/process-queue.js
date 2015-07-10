@@ -90,13 +90,32 @@ var pq = {
                 name = $(this).attr('data-name') ? $(this).attr('data-name') : 'Not specified';
                 phone = $(this).attr('data-phone') ? $(this).attr('data-phone') : 'Not specified';
                 email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
-                priority_number = $(this).html();
+                priority_number = $(this).attr('data-priority-number');
 
                 $('#priority-number-modal .modal-title').html('#' + priority_number);
                 $('#priority-number-number').html(priority_number);
                 $('#priority-number-name').html(name);
                 $('#priority-number-phone').html(phone);
                 $('#priority-number-email').html(email);
+            });
+
+            $('body').on('click', '.show-messages', function(e){
+                e.preventDefault();
+                name = $(this).attr('data-name') ? $(this).attr('data-name') : 'Not specified';
+                phone = $(this).attr('data-phone') ? $(this).attr('data-phone') : 'Not specified';
+                email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
+                priority_number = $(this).attr('data-priority-number');
+
+                console.log(priority_number);
+                console.log($(this));
+
+                $('#priority-number-modal .modal-title').html('#' + priority_number);
+                $('#priority-number-number').html(priority_number);
+                $('#priority-number-name').html(name);
+                $('#priority-number-phone').html(phone);
+                $('#priority-number-email').html(email);
+
+                $('#priority-number-modal .modal-body #pmore-tab .messages a').trigger('click');
             });
         },
 
