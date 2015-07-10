@@ -414,4 +414,32 @@ class RestController extends BaseController {
         return json_encode(['industries' => Business::getAvailableIndustries()]);
     }
 
+    /**
+     * @param $facebook_id
+     * @return JSON-formatted data of user
+     */
+    public function getUserInfo($facebook_id){
+        try{
+            $user_id = User::getUserIdByFbId($facebook_id);
+        }catch(Exception $e){
+            $user_id = null;
+        }
+
+        if( $user_id ){
+            $full_name = User::full_name($user_id);
+            $email = User::email($user_id);
+            $phone = User::phone($user_id);
+            $local_address = User::local_address($user_id);
+            $details = [
+                'name' => $full_name,
+                'email' => $email,
+                'phone' => $phone,
+                'address' => $local_address,
+            ];
+            return Response::json($details, 200, array(), JSON_PRETTY_PRINT);
+        } else {
+            return json_encode(['error' => 'You are not registered to FeatherQ.']);
+        }
+    }
+
 }
