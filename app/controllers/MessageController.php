@@ -6,8 +6,9 @@ class MessageController extends BaseController {
     $business_id = Input::get('business_id');
     $email = Input::get('contemail');
     $name = Input::get('contname');
-    $timestamp = time();
-    $thread_key = $this->threadKeyGenerator($business_id, $email);
+    $attachment = Input::get('contfile');
+    //$timestamp = time();
+    //$thread_key = $this->threadKeyGenerator($business_id, $email);
     $custom_fields_bool = Input::get('custom_fields_bool');
 
     // save if there are custom fields available
@@ -20,6 +21,7 @@ class MessageController extends BaseController {
       }
     }
 
+    /*
     if (!Message::checkThreadByKey($thread_key)) {
       $phones[] = Input::get('contmobile');
       Message::createThread(array(
@@ -31,7 +33,7 @@ class MessageController extends BaseController {
       ));
       $data = json_encode(array(array(
         'timestamp' => $timestamp,
-        'contmessage' => Input::get('contmessage') . "\n\n" . $custom_fields_data,
+        'contmessage' => Input::get('contmessage') . "\n\nAttachment: " . $attachment . "\n\n" . $custom_fields_data,
         'sender' => 'user',
       )));
       file_put_contents(public_path() . '/json/messages/' . $thread_key . '.json', $data);
@@ -47,12 +49,23 @@ class MessageController extends BaseController {
       $data = json_decode(file_get_contents(public_path() . '/json/messages/' . $thread_key . '.json'));
       $data[] = array(
         'timestamp' => $timestamp,
-        'contmessage' => Input::get('contmessage') . "\n\n" . $custom_fields_data,
+        'contmessage' => Input::get('contmessage') . "\n\nAttachment: " . $attachment . "\n\n" . $custom_fields_data,
         'sender' => 'user',
       );
       $data = json_encode($data);
       file_put_contents(public_path() . '/json/messages/' . $thread_key . '.json', $data);
     }
+    */
+
+    Mail::send('emails.contact', array(
+      'name' => $name,
+      'email' => $email,
+      'messageContent' => Input::get('contmessage') . "\n\nAttachment: " . $attachment . "\n\n" . $custom_fields_data,
+    ), function($message, $email, $name)
+    {
+      $message->subject('Message from '. $name . ' ' . $email);
+      $message->to('paul@reminisense.com');
+    });
 
     return json_encode(array('status' => 1));
   }
