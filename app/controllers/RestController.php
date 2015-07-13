@@ -265,6 +265,7 @@ class RestController extends BaseController {
         }
 
         if($user_id){
+            try{
             $transaction_number = PriorityQueue::getLatestTransactionNumberOfUser($user_id);
             $priority_number = PriorityQueue::priorityNumber($transaction_number);
             $track_id = PriorityQueue::trackId($transaction_number);
@@ -280,6 +281,17 @@ class RestController extends BaseController {
                 'status' => TerminalTransaction::queueStatus($transaction_number),
                 'allow_remote' => isset($allow_remote) ? $allow_remote : null,
             ];
+            }catch(Exception $e){
+                $details = [
+                    'number_assigned' => 0,
+                    'business_id' => 0,
+                    'business_name' => '',
+                    'current_number_called' => 0,
+                    'estimated_time_until_called' => 0,
+                    'status' => 'Error',
+                    'allow_remote' => null,
+                ];
+            }
 
             return json_encode($details);
         }else{
