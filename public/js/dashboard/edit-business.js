@@ -233,6 +233,8 @@ var eb = {
 
         $scope.form_fields = [];
 
+        $scope.remaining_character  = 95;
+        
         $scope.number_start = 1;
         $scope.terminal_specific_issue = 0;
         $scope.sms_current_number = 0;
@@ -735,6 +737,17 @@ var eb = {
                 $('#ticker-danger').hide();
                 $('#ticker-success').fadeIn();
             });
+        });
+
+        $scope.setRemainingCharacter = (function() {
+            var bla = $('#ticker-message').val();
+            var accepted_char = 95;
+            $scope.remaining_character = accepted_char - bla.length;
+            if($scope.remaining_character < 0){
+                $('#ticker-message-submit-btn').attr('disabled','disabled');
+            }else{
+                $('#ticker-message-submit-btn').removeAttr('disabled');
+            }
         });
 
         $scope.turnOnTV = (function(business_id) {
