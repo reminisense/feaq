@@ -54,7 +54,13 @@ var pq = {
         load_select_number : function(){
             $('#uncalled-numbers').on('click', 'li', function(e){
                 e.preventDefault();
-                pq.jquery_functions.select_number($(this).attr('data-tnumber'), $(this).attr('data-pnumber'));
+                pq.jquery_functions.select_number(
+                    $(this).attr('data-tnumber'),
+                    $(this).attr('data-pnumber'),
+                    $(this).attr('data-name'),
+                    $(this).attr('data-email'),
+                    $(this).attr('data-phone')
+                );
                 $('#btn-call').removeAttr('disabled');
             });
         },
@@ -106,9 +112,6 @@ var pq = {
                 email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
                 priority_number = $(this).attr('data-priority-number');
 
-                console.log(priority_number);
-                console.log($(this));
-
                 $('#priority-number-modal .modal-title').html('#' + priority_number);
                 $('#priority-number-number').html(priority_number);
                 $('#priority-number-name').html(name);
@@ -135,13 +138,26 @@ var pq = {
             });
         },
 
-        select_number : function(tnumber, pnumber, username){
-            //ARA add priority number and
-            var userinfo = '<a class="pull-right user-info" style="margin-right: 20px;">' +
-                    '<span>' + username + '</span>' +
-                    '<span class="glyphicon glyphicon-envelope"></span>' +
-                '</a>';
+        select_number : function(tnumber, pnumber, username, email, phone){
+            username = username != undefined ? username : '';
 
+            //ARA add priority number and
+            var userinfo = '<span ' +
+                'class="pull-right user-info show-messages" ' +
+                'style="margin-right: 20px; z-index: 99999" ' +
+                'title="Number: ' + pnumber + '" ' +
+                'data-priority-number="' + pnumber + '" ' +
+                'data-name="' + username + '" ' +
+                'data-phone="' + phone + '" ' +
+                'data-email="' + email + '" ' +
+                'data-toggle="modal" ' +
+                'data-target="#priority-number-modal"' +
+                '>';
+            userinfo += '<a href="#">';
+            userinfo += username != undefined? '<span>' + username + ' </span>' : '';
+            userinfo += email != undefined && email != '' ? '<span class="glyphicon glyphicon-envelope"></span>' : '';
+            userinfo += '</a>';
+            userinfo += '</span>';
 
             $('#selected-tnumber').val(tnumber);
             $('#selected-pnumber').html(pnumber);

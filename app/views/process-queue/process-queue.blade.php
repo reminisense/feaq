@@ -67,18 +67,53 @@ Processs Queue > {{ $business_name }}
                                         <span id="selected-userinfo"></span>
                                     </button>
                                     <ul class="dropdown-menu dd-select" id="uncalled-numbers">
-                                        <li ng-repeat="number in timebound_numbers" data-tnumber="@{{ number.transaction_number }}" data-pnumber="@{{ number.priority_number }}">
+                                        <li ng-repeat="number in timebound_numbers"
+                                            data-tnumber="@{{ number.transaction_number }}"
+                                            data-pnumber="@{{ number.priority_number }}"
+                                            data-name="@{{ number.name }}"
+                                            data-email="@{{ number.email }}"
+                                            data-phone="@{{ number.phone }}"
+                                            >
                                             @{{ number.priority_number }}
-                                            <span class="pull-right userinfo">
-                                                <span ng-if="number.name">@{{ number.name }}</span>
-                                                <span ng-if="number.email" class="glyphicon glyphicon-envelope"></span>
+                                            <span
+                                               class="pull-right userinfo show-messages"
+                                               title="Number: @{{ number.priority_number }}"
+                                               data-toggle="modal"
+                                               data-target="#priority-number-modal"
+                                               data-priority-number="@{{ number.priority_number }}"
+                                               data-name="@{{ number.name }}"
+                                               data-email="@{{ number.email }}"
+                                               data-phone="@{{ number.phone }}"
+                                            >
+                                                <a href="#">
+                                                    <span ng-if="number.name">@{{ number.name }}</span>
+                                                    <span ng-if="number.email" class="glyphicon glyphicon-envelope"></span>
+                                                </a>
                                             </span>
                                         </li>
-                                        <li ng-repeat="number in uncalled_numbers" data-tnumber="@{{ number.transaction_number }}" data-pnumber="@{{ number.priority_number }}">
+                                        <li ng-repeat="number in uncalled_numbers"
+                                            data-tnumber="@{{ number.transaction_number }}"
+                                            data-pnumber="@{{ number.priority_number }}"
+                                            data-priority_number="@{{ number.priority_number }}"
+                                            data-name="@{{ number.name }}"
+                                            data-email="@{{ number.email }}"
+                                            data-phone="@{{ number.phone }}"
+                                            >
                                             @{{ number.priority_number }}
-                                            <span class="pull-right userinfo">
-                                                <span ng-if="number.name">@{{ number.name }}</span>
-                                                <span ng-if="number.email" class="glyphicon glyphicon-envelope"></span>
+                                            <span
+                                               class="pull-right userinfo show-messages"
+                                               title="Number: @{{ number.priority_number }}"
+                                               data-toggle="modal"
+                                               data-target="#priority-number-modal"
+                                               data-priority-number="@{{ number.priority_number }}"
+                                               data-name="@{{ number.name }}"
+                                               data-email="@{{ number.email }}"
+                                               data-phone="@{{ number.phone }}"
+                                            >
+                                                <a href="#">
+                                                    <span ng-if="number.name">@{{ number.name }}</span>
+                                                    <span ng-if="number.email" class="glyphicon glyphicon-envelope"></span>
+                                                </a>
                                             </span>
                                         </li>
                                     </ul>
