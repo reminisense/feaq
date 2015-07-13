@@ -243,6 +243,8 @@ var eb = {
         $scope.input_sms_field = 0;
         $scope.allow_remote = 0;
 
+        $scope.remaining_character  = 95;
+
         $scope.business_reply_form = {
             message_reply : "",
             active_sender_email : "",
@@ -735,6 +737,17 @@ var eb = {
                 $('#ticker-danger').hide();
                 $('#ticker-success').fadeIn();
             });
+        });
+
+        $scope.setRemainingCharacter = (function() {
+            var bla = $('#ticker-message').val();
+            var accepted_char = 95;
+            $scope.remaining_character = accepted_char - bla.length;
+            if($scope.remaining_character < 0){
+                $('#ticker-message-submit-btn').attr('disabled','disabled');
+            }else{
+                $('#ticker-message-submit-btn').removeAttr('disabled');
+            }
         });
 
         $scope.turnOnTV = (function(business_id) {
