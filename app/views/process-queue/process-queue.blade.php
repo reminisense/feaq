@@ -38,6 +38,9 @@ Processs Queue > {{ $business_name }}
 <div class="container" id="process-queue-wrapper" ng-controller="processqueueController">
     <div class="row">
         <div class="page-header clearfix">
+            <div class="col-md-12 text-center">
+                <button class="btn btn-danger stopbutton"ng-click="stopProcessQueue()">STOP</button>
+            </div>
             <div class="col-md-offset-1 col-md-7 col-sm-8">
                 <p>Processing Queues for:</p>
                 <h2>{{ $business_name }} - {{ $terminal_name }}</h2>
@@ -59,11 +62,60 @@ Processs Queue > {{ $business_name }}
                                 <input id="selected-tnumber" type="hidden" ng-value="called_number" value=0>
                                 <div class="dropdown-wrapper" ng-show="timebound_numbers.length != 0 || uncalled_numbers.length != 0">
                                     <button class="btn-select btn-md dropdown-toggle" type="button" data-toggle="dropdown">
-                                        <span id="selected-pnumber">Please select a number</span><span class="caret"></span>
+                                        <span id="selected-pnumber">@{{ called_number }}</span>
+                                        <span class="caret"></span>
+                                        <span id="selected-userinfo"></span>
                                     </button>
                                     <ul class="dropdown-menu dd-select" id="uncalled-numbers">
-                                        <li ng-repeat="number in timebound_numbers" data-tnumber="@{{ number.transaction_number }}" data-pnumber="@{{ number.priority_number }}">@{{ number.priority_number }}</li>
-                                        <li ng-repeat="number in uncalled_numbers" data-tnumber="@{{ number.transaction_number }}" data-pnumber="@{{ number.priority_number }}">@{{ number.priority_number }}</li>
+                                        <li ng-repeat="number in timebound_numbers"
+                                            data-tnumber="@{{ number.transaction_number }}"
+                                            data-pnumber="@{{ number.priority_number }}"
+                                            data-name="@{{ number.name }}"
+                                            data-email="@{{ number.email }}"
+                                            data-phone="@{{ number.phone }}"
+                                            >
+                                            @{{ number.priority_number }}
+                                            <span
+                                               class="pull-right userinfo show-messages"
+                                               title="Number: @{{ number.priority_number }}"
+                                               data-toggle="modal"
+                                               data-target="#priority-number-modal"
+                                               data-priority-number="@{{ number.priority_number }}"
+                                               data-name="@{{ number.name }}"
+                                               data-email="@{{ number.email }}"
+                                               data-phone="@{{ number.phone }}"
+                                            >
+                                                <a href="#">
+                                                    <span ng-if="number.name">@{{ number.name }}</span>
+                                                    <span ng-if="number.email" class="glyphicon glyphicon-envelope"></span>
+                                                </a>
+                                            </span>
+                                        </li>
+                                        <li ng-repeat="number in uncalled_numbers"
+                                            data-tnumber="@{{ number.transaction_number }}"
+                                            data-pnumber="@{{ number.priority_number }}"
+                                            data-priority_number="@{{ number.priority_number }}"
+                                            data-name="@{{ number.name }}"
+                                            data-email="@{{ number.email }}"
+                                            data-phone="@{{ number.phone }}"
+                                            >
+                                            @{{ number.priority_number }}
+                                            <span
+                                               class="pull-right userinfo show-messages"
+                                               title="Number: @{{ number.priority_number }}"
+                                               data-toggle="modal"
+                                               data-target="#priority-number-modal"
+                                               data-priority-number="@{{ number.priority_number }}"
+                                               data-name="@{{ number.name }}"
+                                               data-email="@{{ number.email }}"
+                                               data-phone="@{{ number.phone }}"
+                                            >
+                                                <a href="#">
+                                                    <span ng-if="number.name">@{{ number.name }}</span>
+                                                    <span ng-if="number.email" class="glyphicon glyphicon-envelope"></span>
+                                                </a>
+                                            </span>
+                                        </li>
                                     </ul>
                                 </div>
                                 <input id="issue-call-number" type="number" class="form-control" min="1" max="@{{ number_limit }}"  ng-model="issue_call_number" ng-show="timebound_numbers.length == 0 && uncalled_numbers.length == 0">
@@ -90,10 +142,18 @@ Processs Queue > {{ $business_name }}
                     <tbody>
                     <tr ng-repeat="number in called_numbers" data-tnumber="@{{ number.transaction_number }}">
                         <th scope="row">
-                            <a href="#" class="priority-number" title="Number: @{{ number.priority_number }}" data-name="@{{ number.name }}" data-phone="@{{ number.phone }}" data-email="@{{ number.email }}" data-toggle="modal" data-target="#priority-number-modal">
-                                @{{ number.priority_number }}<span class="glyphicon glyphicon-zoom-in"></span>
+                            <a href="#" class="priority-number" title="Number: @{{ number.priority_number }}" data-priority-number="@{{ number.priority_number }}" data-name="@{{ number.name }}" data-phone="@{{ number.phone }}" data-email="@{{ number.email }}" data-toggle="modal" data-target="#priority-number-modal">
+                                @{{ number.priority_number }} <span class="glyphicon glyphicon-zoom-in"></span>
                             </a>
                         </th>
+                        <td>
+                            <div>
+                                <span ng-if="number.name">@{{ number.name }} | </span>
+                                <a ng-if="number.email" href="#" class="show-messages" title="Number: @{{ number.priority_number }}" data-pnumber="@{{ number.priority_number }}" data-name="@{{ number.name }}" data-phone="@{{ number.phone }}" data-email="@{{ number.email }}" data-toggle="modal" data-target="#priority-number-modal">
+                                    <span class="glyphicon glyphicon-envelope"></span>
+                                </a>
+                            </div>
+                        </td>
                         <td>
                             <form class="star-rating-form" ng-show="temp_called_numbers[$index].email_checker">
                                 <span class="star-rating" ng-init="temp_called_numbers[$index].rating">

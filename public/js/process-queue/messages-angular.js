@@ -4,6 +4,7 @@
 app.controller('messageController', function($scope, $http){
     $scope.messages = [];
     $scope.getMessages = function(){
+        $scope.messages = [];
         $http.post('/message/business-user-thread', {
             business_id : pq.ids.business_id,
             email: $('#priority-number-email').html()
