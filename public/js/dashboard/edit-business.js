@@ -233,6 +233,8 @@ var eb = {
 
         $scope.form_fields = [];
 
+        $scope.remaining_character  = 95;
+        
         $scope.number_start = 1;
         $scope.terminal_specific_issue = 0;
         $scope.sms_current_number = 0;
@@ -242,8 +244,6 @@ var eb = {
         $scope.sms_blank_ahead = 0;
         $scope.input_sms_field = 0;
         $scope.allow_remote = 0;
-
-        $scope.remaining_character  = 95;
 
         $scope.business_reply_form = {
             message_reply : "",
