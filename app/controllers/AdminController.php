@@ -204,4 +204,12 @@ class AdminController extends BaseController{
         }
     }
 
+    public function postSaveFeatures($business_id){
+        $data = Input::all();
+        Business::saveBusinessFeatures($business_id, $data);
+    }
+
+    public function getBusinessFeatures($business_id){
+        return json_encode(['features' => Business::getBusinessFeatures($business_id)]);
+    }
 }

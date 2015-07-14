@@ -15,7 +15,7 @@
         <img src="/img/arrow.png">
     </div>
 </div>
-<div class="container" ng-controller="adminController">
+<div class="container" ng-controller="adminController" id="adminController">
     <div class="row">
         <div class="biz-details-wrap">
             <div id="tabs">
@@ -23,6 +23,7 @@
                     <li class="active"><a href="#all-admins" data-toggle="tab">Admins</a></li>
                     <li><a href="#usage-stats" data-toggle="tab">Usage Stats</a></li>
                     <li><a href="#business-stats" data-toggle="tab">Business Stats</a></li>
+                    <li><a href="#business-features" data-toggle="tab">Business Features</a></li>
                 </ul>
             </div>
             <div class="clearfix tab-content">
@@ -34,6 +35,9 @@
                 </div><!-- eo usage stats tab-->
                 <div class="tab-pane fade in" id="business-stats"> <!--business numbers-->
                     @include('admin.admin-tabs.business-stats-tab')
+                </div>
+                <div class="tab-pane fade in" id="business-features">
+                    @include('admin.admin-tabs.business-features-tab')
                 </div>
             </div>
         </div>

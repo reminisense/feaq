@@ -47,6 +47,8 @@ app.controller('adminController', function($scope, $http){
     $scope.served = [];
     $scope.dropped = [];
 
+    $scope.all_businesses = [];
+    $scope.business_features = {};
 
     $scope.loadBusinessNumbers = function() {
         $scope.getDate();
@@ -62,6 +64,7 @@ app.controller('adminController', function($scope, $http){
 
     $scope.loadBusinesses = function() {
         $http.get('/admin/allbusinesses').success(function(response){
+            $scope.all_businesses = response.businesses; //ARA add all businesses to scope
             for (var i = 0; i < response.businesses.length; i++) {
                 $("#business-dropdown").append("<option value="+i+">"+response.businesses[i].name+"</option>")
             }
@@ -270,6 +273,19 @@ app.controller('adminController', function($scope, $http){
         }
     }
 
+    $scope.saveBusinessFeatures = function(business_id){
+        $http.post('/admin/save-features/' + business_id, $scope.business_features).success(function(respose){
+            $scope.getBusinessFeatures(business_id);
+        });
+    }
+
+    $scope.getBusinessFeatures = function(business_id){
+        $http.get('/admin/business-features/' + business_id).success(function(response){
+            $scope.business_features = response.features;
+        });
+    }
+
+    //
     $("#graph-nav a").click(function(){
         $(this).tab("show");
     });

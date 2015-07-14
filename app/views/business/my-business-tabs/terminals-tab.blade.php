@@ -32,7 +32,7 @@
                 <span class="terminal_user">@{{ user.first_name + ' ' + user.last_name }}</span>
                 <div class="mt10 mb10 block terminal-buttons">
                     <a href="" class="btn-boxy btn-removeuser btn-default" ng-click="unassignFromTerminal(user.user_id, user.terminal_id)"><span class="glyphicon glyphicon-remove"></span> Remove</a>
-                    <span class="inline-btns" ng-if="terminal.users.length < 3">
+                    <span class="inline-btns" ng-if="terminal.users.length < business_features.terminal_users">
                         <span ng-if="user.user_id == terminal.users[terminal.users.length - 1].user_id">
                             <a href="" class="btn-boxy btn-adduser btn-primary"><span class="glyphicon glyphicon-plus"></span> Add User</a>
                             <div class="mb10 mt10 inputuser" style="display: none">
@@ -57,7 +57,7 @@
                             </div>
                         </span>
                     </span>
-                    <span class="inline-btns" ng-if="terminal.users.length == 3">
+                    <span class="inline-btns" ng-if="terminal.users.length == business_features.terminal_users">
                         <span ng-if="user.user_id == terminal.users[terminal.users.length - 1].user_id">
                             <a class="btn-boxy btn-xs btn-disabled"><span class="glyphicon glyphicon-plus"></span> Add User</a>
                         </span>

@@ -255,11 +255,14 @@ var eb = {
             phone : 'phone'
         }
 
+        $scope.business_features = {};
+
         $scope.getBusinessDetails = function(){
             if ( $scope.business_id > 0 ) {
                 $http.get(eb.urls.business.business_details_url + $scope.business_id)
                     .success(function(response){
                         setBusinessFields(response.business);
+                        setBusinessFeatures(response.business.features);
                     });
             }
         }
@@ -287,6 +290,12 @@ var eb = {
             $scope.terminals = business.terminals;
             $scope.analytics = business.analytics;
             $scope.terminal_delete_error = business.error ? business.error : null;
+        }
+
+        setBusinessFeatures = function(features){
+            if(features.terminal_users == undefined) features.terminal_users = 3;
+
+            $scope.business_features = features;
         }
 
         $scope.displayMessageList = function(business_id) {

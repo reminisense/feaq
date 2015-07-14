@@ -112,7 +112,8 @@ class Business extends Eloquent
             'input_sms_field' => QueueSettings::inputSmsField($first_service->service_id),
             'allow_remote' => QueueSettings::allowRemote($first_service->service_id),
             'terminals' => $terminals,
-            'analytics' => $analytics
+            'analytics' => $analytics,
+            'features' => Business::getBusinessFeatures($business_id),
         ];
 
 
@@ -515,7 +516,7 @@ class Business extends Eloquent
     }
 
     public static function getAllBusinessNames(){
-       return Business::select('name')->get();
+       return Business::select('business_id', 'name')->get();
     }
 
     public static function getBusinessIdsByIndustry($industry){
@@ -528,6 +529,15 @@ class Business extends Eloquent
 
     public static function getAvailableIndustries(){
         return Business::select('industry')->groupBy('industry')->get();
+    }
+
+    public static function saveBusinessFeatures($business_id, $features = array()){
+        Business::where('business_id', '=', $business_id)->update(['business_features' => serialize($features)]);
+    }
+
+    public static function getBusinessFeatures($business_id){
+        $serialized = Business::where('business_id', '=', $business_id)->select('business_features')->first()->business_features;
+        return unserialize($serialized);
     }
 
 }
