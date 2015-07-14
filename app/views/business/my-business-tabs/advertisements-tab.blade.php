@@ -31,8 +31,8 @@
             <form ng-submit="setTicker(business_id)" id="set-ticker">
                 <div class="form-group">
                     <small>Message:</small>
-                    <input type="text" ng-model="ticker_message" id="ticker-message" ng-keyup="setRemainingCharacter()"  class="form-control" required/>
-                    <div id="lbl-ticker"> @{{ remaining_character }} remaining characters left</div>
+                    <input type="text" ng-model="ticker_message" id="ticker-message" ng-keyup="setRemainingCharacter()"  class="form-control"/>
+                    <div  id="lbl-ticker" style="visibility: hidden;"> @{{ remaining_character }} remaining characters left</div>
                     <div class="alert alert-success" id="ticker-success" style="display: none;">Success! <strong><a href="/broadcast/business/@{{ business_id }}" target="_blank">View Broadcast Page</a></strong></div>
                     <div class="alert alert-danger" id="ticker-danger" style="display: none;">Oops! Something went wrong.</div>
                 </div>

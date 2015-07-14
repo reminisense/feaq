@@ -234,7 +234,7 @@ var eb = {
         $scope.form_fields = [];
 
         $scope.remaining_character  = 95;
-        
+
         $scope.number_start = 1;
         $scope.terminal_specific_issue = 0;
         $scope.sms_current_number = 0;
@@ -604,7 +604,7 @@ var eb = {
                         $('#video-adtype').hide();
                         $('#image-adtype').show();
                     }
-    
+
                     //ARA Added for toggling to show only called numbers in broadcast page
                     $scope.theme_type = response.display;
                     $scope.show_called_only = response.show_issued != undefined ? !response.show_issued : false;
@@ -742,6 +742,11 @@ var eb = {
         $scope.setRemainingCharacter = (function() {
             var bla = $('#ticker-message').val();
             var accepted_char = 95;
+
+            if($('#lbl-ticker').css('visibility') == 'hidden')
+            {
+                $('#lbl-ticker').css('visibility', 'visible');
+            }
             $scope.remaining_character = accepted_char - bla.length;
             if($scope.remaining_character < 0){
                 $('#ticker-message-submit-btn').attr('disabled','disabled');
