@@ -10,8 +10,8 @@
             </div>
             <div class="modal-body">
                 <ul id="pmore-tab" class="nav nav-tabs">
-                    <li class="active"><a href="#details" data-toggle="tab">DETAILS</a></li>
-                    <li><a href="#messages" data-toggle="tab" ng-click="getMessages()">MESSAGES</a></li>
+                    <li class="details active"><a href="#details" data-toggle="tab">DETAILS</a></li>
+                    <li class="messages"><a href="#messages" data-toggle="tab" ng-click="getMessages()">MESSAGES</a></li>
                 </ul>
                 <div class="clearfix tab-content">
                     <div class="tab-pane fade active in" id="details">

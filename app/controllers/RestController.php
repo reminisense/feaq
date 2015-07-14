@@ -252,14 +252,20 @@ class RestController extends BaseController {
      * @param $facebook_id
      * @return string
      */
-    public function getQueueInfo($facebook_id){
+    public function getQueueInfo($facebook_id, $business_id = null){
         try{
             $user_id = User::getUserIdByFbId($facebook_id);
         }catch(Exception $e){
             $user_id = null;
         }
 
+        if($business_id){
+            $service = Service::getFirstServiceOfBusiness($business_id);
+            $allow_remote = QueueSettings::allowRemote($service->service_id);
+        }
+
         if($user_id){
+            try{
             $transaction_number = PriorityQueue::getLatestTransactionNumberOfUser($user_id);
             $priority_number = PriorityQueue::priorityNumber($transaction_number);
             $track_id = PriorityQueue::trackId($transaction_number);
@@ -273,7 +279,19 @@ class RestController extends BaseController {
                 'current_number_called' => ProcessQueue::currentNumber($service_id),
                 'estimated_time_until_called' => Analytics::getWaitingTime($business_id),
                 'status' => TerminalTransaction::queueStatus($transaction_number),
+                'allow_remote' => isset($allow_remote) ? $allow_remote : null,
             ];
+            }catch(Exception $e){
+                $details = [
+                    'number_assigned' => 0,
+                    'business_id' => 0,
+                    'business_name' => '',
+                    'current_number_called' => 0,
+                    'estimated_time_until_called' => 0,
+                    'status' => 'Error',
+                    'allow_remote' => null,
+                ];
+            }
 
             return json_encode($details);
         }else{
@@ -354,7 +372,7 @@ class RestController extends BaseController {
 
     public function getSendManual($device_token, $message, $title = "FeatherQ", $subtitle = null) {
         // API access key from Google API's Console
-        define( 'API_ACCESS_KEY', 'AIzaSyCj0EfjXkZe-USRLOlTXxywayUXSIYg1wA' );
+//        define( 'API_ACCESS_KEY', 'AIzaSyCj0EfjXkZe-USRLOlTXxywayUXSIYg1wA' );
 
         $registrationIds = array($device_token);
 
@@ -394,5 +412,52 @@ class RestController extends BaseController {
         echo $result;
     }
 
+    public function getMyHistory($facebook_id, $limit = 5, $offset = 0){
+        $user = User::searchByFacebookId($facebook_id);
+        $user_queues = User::getUserHistory($user['user_id'], $limit, $offset);
+        foreach($user_queues as $index => $data){
+            $action = 'issued';
+            if($data['status'] == 1 ) { $action = 'called'; }
+            else if($data['status'] == 2 ) { $action = 'served'; }
+            else if($data['status'] == 3 ) { $action = 'dropped'; }
+
+            $user_queues[$index]['status'] = $action;
+            $user_queues[$index]['date'] = date('Y-m-d', $data['date']);
+        }
+
+        return json_encode(['history' => $user_queues]);
+    }
+
+    public function getIndustries(){
+        return json_encode(['industries' => Business::getAvailableIndustries()]);
+    }
+
+    /**
+     * @param $facebook_id
+     * @return JSON-formatted data of user
+     */
+    public function getUserInfo($facebook_id){
+        try{
+            $user_id = User::getUserIdByFbId($facebook_id);
+        }catch(Exception $e){
+            $user_id = null;
+        }
+
+        if( $user_id ){
+            $full_name = User::full_name($user_id);
+            $email = User::email($user_id);
+            $phone = User::phone($user_id);
+            $local_address = User::local_address($user_id);
+            $details = [
+                'name' => $full_name,
+                'email' => $email,
+                'phone' => $phone,
+                'address' => $local_address,
+            ];
+            return Response::json($details, 200, array(), JSON_PRETTY_PRINT);
+        } else {
+            return json_encode(['error' => 'You are not registered to FeatherQ.']);
+        }
+    }
 
 }

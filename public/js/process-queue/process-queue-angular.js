@@ -91,6 +91,14 @@
             });
         };
 
+        $scope.stopProcessQueue = function(){
+            if($scope.called_numbers.length > 0){
+                $scope.serveNumber($scope.called_numbers[0].transaction_number, function(){
+                    $scope.stopProcessQueue();
+                });
+            }
+        }
+
         $scope.issueAndCall = function(priority_number){
             $http.post(pq.urls.issue_numbers.issue_specific_url + pq.ids.service_id + '/' + pq.ids.terminal_id, {priority_number : priority_number})
                 .success(function(response){
@@ -158,14 +166,32 @@
                 pq.jquery_functions.remove_and_update_dropdown();
             }else if(next_number == 0){
                 if($scope.timebound_numbers.length > 0){
-                    pq.jquery_functions.select_number($scope.timebound_numbers[0].transaction_number, $scope.timebound_numbers[0].priority_number);
+                    pq.jquery_functions.select_number(
+                        $scope.timebound_numbers[0].transaction_number,
+                        $scope.timebound_numbers[0].priority_number,
+                        $scope.timebound_numbers[0].name,
+                        $scope.timebound_numbers[0].email,
+                        $scope.timebound_numbers[0].phone
+                    );
                 }else if($scope.uncalled_numbers.length > 0){
-                    pq.jquery_functions.select_number($scope.uncalled_numbers[0].transaction_number, $scope.uncalled_numbers[0].priority_number);
+                    pq.jquery_functions.select_number(
+                        $scope.uncalled_numbers[0].transaction_number,
+                        $scope.uncalled_numbers[0].priority_number,
+                        $scope.uncalled_numbers[0].name,
+                        $scope.uncalled_numbers[0].email,
+                        $scope.uncalled_numbers[0].phone
+                    );
                 }
             }else if(is_uncalled.length == 0 && is_timebound.length == 0){
                 pq.jquery_functions.remove_and_update_dropdown();
             }else if($scope.timebound_numbers.length > 0 && is_timebound.length == 0){
-                pq.jquery_functions.select_number($scope.timebound_numbers[0].transaction_number, $scope.timebound_numbers[0].priority_number);
+                pq.jquery_functions.select_number(
+                    $scope.timebound_numbers[0].transaction_number,
+                    $scope.timebound_numbers[0].priority_number,
+                    $scope.timebound_numbers[0].name,
+                    $scope.timebound_numbers[0].email,
+                    $scope.timebound_numbers[0].phone
+                );
             }
         }
 
@@ -173,10 +199,20 @@
             if(email){
                 $http.get(pq.urls.rating.verify_email_url + email)
                     .success(function(response){
-                        addOrRemoveRating(0,0,{rating : 0, tran_number : transaction_number, email : $scope.called_numbers[0].email, email_checker : response.result, terminal_id : $scope.called_numbers[0].terminal_id });
+                        addOrRemoveRating(0,0,{
+                            rating : 0,
+                            tran_number : transaction_number,
+                            email : $scope.called_numbers[0].email,
+                            email_checker : response.result,
+                            terminal_id : $scope.called_numbers[0].terminal_id
+                        });
                     });
             }else{
-                addOrRemoveRating(0,0,{rating : 0, tran_number : transaction_number, email : $scope.called_numbers[0].email, email_checker : false, terminal_id : $scope.called_numbers[0].terminal_id});
+                addOrRemoveRating(0,0,{
+                    rating : 0, tran_number : transaction_number,
+                    email : $scope.called_numbers[0].email,
+                    email_checker : false,
+                    terminal_id : $scope.called_numbers[0].terminal_id});
             }
         }
 
@@ -185,12 +221,22 @@
                 if(called_number.email){
                     $http.get(pq.urls.rating.verify_email_url + called_number.email)
                         .success(function(response){
-                            $scope.temp_called_numbers[i] = ({rating : 0, tran_number :called_number.transaction_number,
-                                email : called_number.email, email_checker : response.result, terminal_id : called_number.terminal_id});
+                            $scope.temp_called_numbers[i] = ({
+                                rating : 0,
+                                tran_number : called_number.transaction_number,
+                                email : called_number.email,
+                                email_checker : response.result,
+                                terminal_id : called_number.terminal_id
+                            });
                         });
                 }else{
-                    $scope.temp_called_numbers[i] = ({rating : 0, tran_number :called_number.transaction_number,
-                        email : called_number.email, email_checker : false, terminal_id : called_number.terminal_id});
+                    $scope.temp_called_numbers[i] = ({
+                        rating : 0,
+                        tran_number :called_number.transaction_number,
+                        email : called_number.email,
+                        email_checker : false,
+                        terminal_id : called_number.terminal_id
+                    });
                 }
             });
         }
@@ -202,7 +248,6 @@
                 $scope.temp_called_numbers.splice(index, item);
             }
         }
-
 
         //****************************** refreshing
             $scope.getAllNumbers();

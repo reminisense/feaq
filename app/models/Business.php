@@ -526,5 +526,8 @@ class Business extends Eloquent
         return Business::select('business_id')->where('local_address', 'LIKE', '%' . $country . '%')->get();
     }
 
+    public static function getAvailableIndustries(){
+        return Business::select('industry')->groupBy('industry')->get();
+    }
 
 }

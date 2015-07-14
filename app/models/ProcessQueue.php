@@ -142,16 +142,25 @@ class ProcessQueue extends Eloquent{
                     $timebound_numbers[] = array(
                         'transaction_number' => $number->transaction_number,
                         'priority_number' => $number->priority_number,
+                        'name' => $number->name,
+                        'phone' => $number->phone,
+                        'email' => $number->email,
                     );
                 }else if(!$called && !$removed && $terminal_specific_calling && ($number->terminal_id == $terminal_id || $number->terminal_id == 0)){
                     $uncalled_numbers[] = array(
                         'transaction_number' => $number->transaction_number,
                         'priority_number' => $number->priority_number,
+                        'name' => $number->name,
+                        'phone' => $number->phone,
+                        'email' => $number->email,
                     );
                 }else if(!$called && !$removed && (!$terminal_specific_calling || $terminal_id == null)){
                     $uncalled_numbers[] = array(
                         'transaction_number' => $number->transaction_number,
                         'priority_number' => $number->priority_number,
+                        'name' => $number->name,
+                        'phone' => $number->phone,
+                        'email' => $number->email,
                     );
                 }else if($called && !$served && !$removed){
                     $called_numbers[] = array(

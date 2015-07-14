@@ -171,16 +171,14 @@
         background-color: rgba(7, 10, 3, 1);
     }
     #biz-grid .boxed {
-        height: 70px!important;
+        height: 80px!important;
+        padding: 25px;
     }
     .biz-terminals {
-        height: 70px!important;
+        height: 80px!important;
     }
     .biz-terminals a:hover {
-        height: 70px;
-    }
-    #biz-grid .boxed .title {
-        margin-top: 10px;
+        height: 80px;
     }
 }
 @media (max-width: 320px) {
@@ -250,15 +248,13 @@
         background-color: rgba(7, 10, 3, 1);
     }
     #biz-grid .boxed {
-        height: 70px!important;
+        height: 80px!important;
+        padding: 25px;
     }
     .biz-terminals {
-        height: 70px!important;
+        height: 80px!important;
     }
     .biz-terminals a:hover {
-        height: 70px;
-    }
-    #biz-grid .boxed .title {
-        margin-top: 10px;
+        height: 80px;
     }
 }
