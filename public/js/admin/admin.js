@@ -224,20 +224,22 @@ app.controller('adminController', function($scope, $http){
     };
 
     $scope.getAdmins = function($event){
-        if($event){
+        if(typeof $event != 'undefined'){
             $event.preventDefault();
             $($event.target).addClass('glyphicon-refresh-animate');
         }
         $http.get('/admin/admins').success(function(response){
             $scope.admins = response.admins;
-            $($event.target).removeClass('glyphicon-refresh-animate');
+            if(typeof $event != 'undefined'){
+                $($event.target).removeClass('glyphicon-refresh-animate');
+            }
         });
     }
 
     $scope.addAdmin = function(email){
         $http.get('/admin/add-admin/' + email).success(function(){
-           $scope.admin_email = '';
-           $scope.getAdmins();
+            $scope.admin_email = '';
+            $scope.getAdmins();
         });
     }
 

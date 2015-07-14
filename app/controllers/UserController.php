@@ -116,16 +116,16 @@ class UserController extends BaseController{
             */
 
             return View::make('user.dashboardnew');
-                //->with('search_businesses', $search_businesses) ARA No more popular businesses. only active businesses
-                //->with('active_businesses', $active_businesses)
-                //->with('my_businesses', $my_businesses)
-                //->with('has_business', $has_business);
+            //->with('search_businesses', $search_businesses) ARA No more popular businesses. only active businesses
+            //->with('active_businesses', $active_businesses)
+            //->with('my_businesses', $my_businesses)
+            //->with('has_business', $has_business);
         }
         else
         {
             return View::make('homepage');
-                //->with('active_businesses', $active_businesses)
-                //->with('search_businesses', Business::getNewBusinesses()); // RDH Active and New Businesses on Front Use Different Results
+            //->with('active_businesses', $active_businesses)
+            //->with('search_businesses', Business::getNewBusinesses()); // RDH Active and New Businesses on Front Use Different Results
         }
     }
 
@@ -215,5 +215,10 @@ class UserController extends BaseController{
             return json_encode(array('status' => '0'));
         }
 
+    }
+
+    public function getSearchUser($keyword){
+        $users = User::searchByKeyword($keyword);
+        return json_encode(['success' => 1, 'users' => $users]);
     }
 }
