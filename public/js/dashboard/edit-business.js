@@ -255,7 +255,9 @@ var eb = {
             phone : 'phone'
         }
 
-        $scope.business_features = {};
+        $scope.business_features = {
+            terminal_users: 3
+        };
 
         $scope.getBusinessDetails = function(){
             if ( $scope.business_id > 0 ) {
@@ -293,9 +295,11 @@ var eb = {
         }
 
         setBusinessFeatures = function(features){
-            if(features.terminal_users == undefined) features.terminal_users = 3;
+            if(features){
+                $scope.business_features = features;
+                if(features.terminal_users == undefined) features.terminal_users = 3;
+            }
 
-            $scope.business_features = features;
         }
 
         $scope.displayMessageList = function(business_id) {
