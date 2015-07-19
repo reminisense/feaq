@@ -223,6 +223,18 @@ class RestController extends BaseController {
     }
 
     /**
+     * @author Ruffy Heredia
+     * @desc Quick turnaround fix for instant registration and update later
+     * @return string
+     */
+    public function getUpdateContactCountry()
+    {
+        $params = func_get_args();
+        User::updateContactCountry($params[0], $params[1], $params[2]);
+        return json_encode(array('success' => $params[0]));
+    }
+
+    /**
      * @author Aunne
      * @param $facebook_id
      * @param int $limit
