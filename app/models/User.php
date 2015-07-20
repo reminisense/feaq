@@ -82,7 +82,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return User::where('fb_id', '=', $fb_id)
             ->update(array(
                 'phone' => $contact,
-                'country' => $country
+                'country' => $country,
+                'verified' => '1'
             ));
     }
 
