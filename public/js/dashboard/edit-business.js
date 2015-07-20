@@ -248,6 +248,7 @@ var eb = {
         $scope.business_reply_form = {
             message_reply : "",
             active_sender_email : "",
+            attachment : "",
             pick_number : 0
         };
         $scope.sendby = {
@@ -331,10 +332,14 @@ var eb = {
                 $('.messageto').remove();
                 for(var i = 0; i < response.contactmessage.length; i++){
                     var newMessage = response.contactmessage[i].content.replace(/\n/g, '<br>');
+                    var attachmentLink = response.contactmessage[i].attachment;
+                    if ($.trim(attachmentLink)) {
+                        attachmentLink = "<p><a style=\"font-weight: bold; color: #d36e3c;\" href=\"" + attachmentLink + "\" target=\"_blank\">Download Attachment</a></p>";
+                    }
                     if (response.contactmessage[i].sender == 'user'){
                         finalMessage = "" +
                             "<div class='messagefrom clearfix'>" +
-                            "<p>" + newMessage + "</p>" +
+                            "<p>" + newMessage + "</p>" + attachmentLink +
                             "<p class='timestamp pull-right'>Posted by <strong class='sender'>" + sender + "</strong> on <strong>" + response.contactmessage[i].timestamp +
                             "</strong></div>" +
                             "";
@@ -342,7 +347,7 @@ var eb = {
                     } else {
                         finalMessage = "" +
                             "<div class='messageto clearfix'>" +
-                            "<p>" + newMessage + "</p>" +
+                            "<p>" + newMessage + "</p>" + attachmentLink +
                             "<p class='timestamp pull-right'>Posted by <strong class='sender'>You</strong> on <strong>" + response.contactmessage[i].timestamp +
                             "</strong></div>" +
                             "";
@@ -361,11 +366,16 @@ var eb = {
                 contactemail: $scope.business_reply_form.active_sender_email,
                 messageContent: $scope.business_reply_form.message_reply,
                 phonenumber : $scope.business_reply_form.pick_number,
+                attachment : $('#business-attachment').val(),
                 sendbyphone : $scope.sendby.phone
             }).success(function(response){
+                var attachmentLink = $('#business-attachment').val();
+                if ($.trim(attachmentLink)) {
+                    attachmentLink = "<p><a style=\"font-weight: bold; color: #d36e3c;\" href=\"" + attachmentLink + "\" target=\"_blank\">Download Attachment</a></p>";
+                }
                 var finalMessage = "" +
                     "<div class='messageto'>" +
-                    "<p>" + $scope.business_reply_form.message_reply.replace(/\n/g, '<br>'); + "</p>" +
+                    "<p>" + $scope.business_reply_form.message_reply.replace(/\n/g, '<br>') + "</p>" + attachmentLink +
                     "<p class='timestamp pull-right'>Posted by <strong class='sender'>You</strong> on <strong>" + response.timestamp +
                     "</strong></div>" +
                 "";
