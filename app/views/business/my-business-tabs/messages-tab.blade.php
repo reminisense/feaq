@@ -1,3 +1,11 @@
+
+<script>
+    UPLOADCARE_LOCALE = "en";
+    UPLOADCARE_TABS = "file";
+    UPLOADCARE_PUBLIC_KEY = "844c2b9e554c2ee5cc0a";
+</script>
+<script charset="utf-8" src="//ucarecdn.com/widget/2.3.4/uploadcare/uploadcare.full.min.js"></script>
+
 <div class="clearfix header">
     <h5>MESSAGES</h5>
 </div>
@@ -34,6 +42,8 @@
                             <div class="col-md-12">
                                 <form ng-submit="sendBusinessReply()">
                                     <textarea id="sendreplytext" class="form-control" rows="5" placeholder="Write a reply..." ng-model="business_reply_form.message_reply" required></textarea>
+                                    <input type="hidden" role="uploadcare-uploader" data-crop="disabled" id="business-attachment" />
+                                    <em class="help-block">Upload is limited to documents and images up to 5MB.</em>
                                     <button id="sendreply" type="submit" class="btn btn-default btn-orange">Send Reply</button>
                                 </form>
                             </div>
