@@ -24,6 +24,9 @@
         <div class="col-md-7">
             <div class="preview-container">
                 <div class="message-preview" style="display: none;">
+                    <div style="height: 450px; overflow: scroll;">
+                        <div class="thread-boundary"></div>
+                    </div>
                     <div class="message-reply">
                             <div class="col-md-2 mt20"><label>Send via:</label></div>
                             <div class="col-md-2 mt20"><input id="sendbyphone" type="checkbox" ng-model="sendby.phone" ng-true-value="'phone'" ng-false-value="'0'" ng-init="sendby.phone='0'"><label class="optionlabel">Phone</label></div>

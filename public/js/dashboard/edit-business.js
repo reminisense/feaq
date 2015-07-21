@@ -343,7 +343,7 @@ var eb = {
                             "<p class='timestamp pull-right'>Posted by <strong class='sender'>" + sender + "</strong> on <strong>" + response.contactmessage[i].timestamp +
                             "</strong></div>" +
                             "";
-                        $('.message-reply').before(finalMessage);
+                        $('.thread-boundary').before(finalMessage);
                     } else {
                         finalMessage = "" +
                             "<div class='messageto clearfix'>" +
@@ -351,7 +351,7 @@ var eb = {
                             "<p class='timestamp pull-right'>Posted by <strong class='sender'>You</strong> on <strong>" + response.contactmessage[i].timestamp +
                             "</strong></div>" +
                             "";
-                        $('.message-reply').before(finalMessage);
+                        $('.thread-boundary').before(finalMessage);
                     }
                 }
                 $('.message-preview').fadeIn();
@@ -379,7 +379,7 @@ var eb = {
                     "<p class='timestamp pull-right'>Posted by <strong class='sender'>You</strong> on <strong>" + response.timestamp +
                     "</strong></div>" +
                 "";
-                $('.message-reply').before(finalMessage);
+                $('.thread-boundary').before(finalMessage);
                 $('#sendreplytext').val('');
                 $('#sendreply').html('Send Reply');
                 $('#sendreply').removeAttr('disabled');
