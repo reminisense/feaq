@@ -273,9 +273,24 @@ app.controller('adminController', function($scope, $http){
         }
     }
 
+    $scope.messages = {
+        success_message: '',
+        error_message: ''
+    };
+
     $scope.saveBusinessFeatures = function(business_id){
         $http.post('/admin/save-features/' + business_id, $scope.business_features).success(function(respose){
             $scope.getBusinessFeatures(business_id);
+            $scope.messages.success_message = 'Business features have been saved.';
+        }).error(function(response){
+            $scope.messages.error_message = 'Something went wrong while submitting your request.';
+        }).finally(function(){
+            setTimeout(function(){
+                $scope.$apply(function(){
+                    $scope.messages.success_message = '';
+                    $scope.messages.error_message = '';
+                });
+            }, 5000);
         });
     }
 

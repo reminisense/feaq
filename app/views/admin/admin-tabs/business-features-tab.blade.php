@@ -1,6 +1,10 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
+            <div class="alert alert-danger" ng-if="messages.error_message != '' && messages.error_message != undefined">@{{ messages.error_message }}</div>
+            <div class="alert alert-success" ng-if="messages.success_message != '' && messages.success_message != undefined">@{{ messages.success_message }}</div>
+        </div>
+        <div class="col-md-12">
             <div>
                 <h4>Business:</h4>
             </div>
