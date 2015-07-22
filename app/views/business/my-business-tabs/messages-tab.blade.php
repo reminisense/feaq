@@ -47,7 +47,7 @@
                                     <textarea id="sendreplytext" class="form-control" rows="5" placeholder="Write a reply..." ng-model="business_reply_form.message_reply" required></textarea>
                                     <input type="hidden" role="uploadcare-uploader" data-crop="disabled" id="business-attachment" />
                                     <em class="help-block">Upload is limited to documents and images up to 5MB.</em>
-                                    <button id="sendreply" type="submit" class="btn btn-default btn-orange">Send Reply</button>
+                                    <button id="sendreply" type="submit" class="btn btn-orange">Send Reply</button>
                                 </form>
                             </div>
                     </div>
