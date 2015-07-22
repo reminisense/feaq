@@ -389,6 +389,7 @@ h5>small {
 .inline-btns a {
     margin: 4px 0px 4px 0px;
 }
+
 #bizbroadcast .inline-btns p {
     height: 22px;
 }
@@ -502,6 +503,9 @@ table .title {
 .biz-terminals a.not-active:hover {
     cursor: text;
     background: none;
+}
+#sendreply {
+    color: #FFF;
 }
 .biz-terminals a small {
     display: block;
