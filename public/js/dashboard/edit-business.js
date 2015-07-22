@@ -334,7 +334,7 @@ var eb = {
                     var newMessage = response.contactmessage[i].content.replace(/\n/g, '<br>');
                     var attachmentLink = response.contactmessage[i].attachment;
                     if ($.trim(attachmentLink)) {
-                        attachmentLink = "<p><a style=\"font-weight: bold; color: #d36e3c;\" href=\"" + attachmentLink + "\" target=\"_blank\">Download Attachment</a></p>";
+                        attachmentLink = "<p><a style=\"font-weight: bold; color: #d36e3c;\" href=\"" + attachmentLink + "\" download>Download Attachment</a></p>";
                     }
                     if (response.contactmessage[i].sender == 'user'){
                         finalMessage = "" +
@@ -371,7 +371,7 @@ var eb = {
             }).success(function(response){
                 var attachmentLink = $('#business-attachment').val();
                 if ($.trim(attachmentLink)) {
-                    attachmentLink = "<p><a style=\"font-weight: bold; color: #d36e3c;\" href=\"" + attachmentLink + "\" target=\"_blank\">Download Attachment</a></p>";
+                    attachmentLink = "<p><a style=\"font-weight: bold; color: #d36e3c;\" href=\"" + attachmentLink + "\" download>Download Attachment</a></p>";
                 }
                 var finalMessage = "" +
                     "<div class='messageto'>" +
