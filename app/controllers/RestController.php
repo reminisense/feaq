@@ -102,59 +102,33 @@ class RestController extends BaseController {
         return ($a->distance < $b->distance) ? -1 : 1;
     }
 
+    /**
+     * @author Aunne
+     * @param null $latitude
+     * @param null $longitude
+     * @return JSON response that gets the active businesses that are near the user
+     */
     public function getActivebusinessDetails($latitude = null, $longitude = null){
-        $active_businesses = [];
-        $businesses = DB::table('business')
-            ->select(array('business_id', 'name', 'local_address', 'latitude', 'longitude'))
+        $businesses = DB::table('terminal_transaction')
+            ->where('terminal_transaction.time_queued', '!=', 0)
+            ->where('terminal_transaction.time_completed', '=', 0)
+            ->where('terminal_transaction.time_removed', '=', 0)
+            ->where('terminal_transaction.time_queued', '>', time() - 86400)
+            ->join('priority_queue', 'priority_queue.transaction_number', '=', 'terminal_transaction.transaction_number')
+            ->join('priority_number', 'priority_number.track_id', '=', 'priority_queue.track_id')
+            ->join('service', 'service.service_id', '=', 'priority_number.service_id')
+            ->join('branch', 'branch.branch_id', '=', 'service.branch_id')
+            ->join('business', 'business.business_id', '=', 'branch.business_id')
+            ->groupBy('business_id')
+            ->select(array('business.business_id', 'business.name', 'business.local_address', 'business.latitude', 'business.longitude'))
             ->get();
 
-        foreach ($businesses as $count => $business) {
-            $branches = Branch::getBranchesByBusinessId($business->business_id);
-            foreach ($branches as $count2 => $branch) {
-                $services = Service::getServicesByBranchId($branch->branch_id);
-                foreach ($services as $count3 => $service) {
-                    $priority_numbers = PriorityNumber::getTrackIdByServiceId($service->service_id);
-                    foreach ($priority_numbers as $count4 => $priority_number) {
-                        $priority_queues = PriorityQueue::getTransactionNumberByTrackId($priority_number->track_id);
-                        foreach ($priority_queues as $count5 => $priority_queue) {
-                            $terminal_transactions = TerminalTransaction::getTimesByTransactionNumber($priority_queue->transaction_number);
-                            foreach ($terminal_transactions as $count6 => $terminal_transaction) {
-                                $grace_period = time() - $terminal_transaction->time_queued; // issued time must be on the current day to count as active
-                                if ($terminal_transaction->time_queued != 0
-                                    && $terminal_transaction->time_completed == 0
-                                    && $terminal_transaction->time_removed == 0
-                                    && $grace_period < 86400 ) { // 1 day; 60secs * 60 min * 24 hours
-                                    $active_businesses[] = array(
-                                        'business_id' => $business->business_id,
-                                        'name' => $business->name,
-                                        'local_address' => $business->local_address,
-                                        'latitude' => $business->latitude,
-                                        'longitude' => $business->longitude,
-                                        'distance' => $this->getDistanceFromLatLonInKm($latitude, $longitude, $business->latitude, $business->longitude),
-                                    );
-                                    break;
-                                }
-                            }
-                            if (array_key_exists($business->business_id, $active_businesses)) {
-                                break;
-                            }
-                        }
-                        if (array_key_exists($business->business_id, $active_businesses)) {
-                            break;
-                        }
-                    }
-                    if (array_key_exists($business->business_id, $active_businesses)) {
-                        break;
-                    }
-                }
-                if (array_key_exists($business->business_id, $active_businesses)) {
-                    break;
-                }
-            }
+        foreach($businesses as $index => $business){
+            $businesses[$index]->distance = $this->getDistanceFromLatLonInKm($latitude, $longitude, $business->latitude, $business->longitude);
         }
 
-        usort($active_businesses, array('RestController', "compare"));
-        $actives = array('active-business' => $active_businesses);
+        usort($businesses, array('RestController', "compare"));
+        $actives = array('active-business' => $businesses);
         return Response::json($actives, 200, array(), JSON_PRETTY_PRINT);
     }
 
