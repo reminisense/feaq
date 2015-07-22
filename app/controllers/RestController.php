@@ -133,6 +133,28 @@ class RestController extends BaseController {
     }
 
     /**
+     * @author Aunne
+     * @param null $latitude
+     * @param null $longitude
+     * @return JSON response of a random business
+     */
+    public function getRandomBusiness($latitude = null, $longitude = null){
+        $businesses = DB::table('business')
+            ->select(array('business.business_id', 'business.name', 'business.local_address', 'business.latitude', 'business.longitude'))
+            ->get();
+
+        foreach($businesses as $index => $business){
+            $businesses[$index]->distance = $this->getDistanceFromLatLonInKm($latitude, $longitude, $business->latitude, $business->longitude);
+        }
+
+        usort($businesses, array('RestController', "compare"));
+        array_splice($businesses, 9);
+        $lucky_number = rand(0, count($businesses) - 1);
+        $random_business = array('random_business' => $businesses[$lucky_number]);
+        return Response::json($random_business, 200, array(), JSON_PRETTY_PRINT);
+    }
+
+    /**
      * @author Ruffy
      * @param $id BusinessI ID of the selected business
      * @return JSON object generated through businessId according to the database
