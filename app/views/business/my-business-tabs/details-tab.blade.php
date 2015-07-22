@@ -19,7 +19,7 @@
             <div class="col-md-12">
                 <small>Industry</small>
                         <div class="btn-group">
-                            <select class="form-control" name="industry" id="industry">
+                            <select class="form-control" ng-model="industry" name="industry" id="industry">
                                 <option value="@{{ industry }}">@{{ industry }}</option>
                                 <option value="Accounting">Accounting</option>
                                 <option value="Advertising">Advertising</option>
