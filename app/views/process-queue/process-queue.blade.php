@@ -149,7 +149,7 @@ Processs Queue > {{ $business_name }}
                         <td>
                             <div>
                                 <span ng-if="number.name">@{{ number.name }} | </span>
-                                <a ng-if="number.email" href="#" class="show-messages" title="Number: @{{ number.priority_number }}" data-pnumber="@{{ number.priority_number }}" data-name="@{{ number.name }}" data-phone="@{{ number.phone }}" data-email="@{{ number.email }}" data-toggle="modal" data-target="#priority-number-modal">
+                                <a ng-if="number.email" href="#" class="show-messages" title="Number: @{{ number.priority_number }}" data-priority-number="@{{ number.priority_number }}" data-name="@{{ number.name }}" data-phone="@{{ number.phone }}" data-email="@{{ number.email }}" data-toggle="modal" data-target="#priority-number-modal">
                                     <span class="glyphicon glyphicon-envelope"></span>
                                 </a>
                             </div>
