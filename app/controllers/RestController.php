@@ -527,5 +527,56 @@ class RestController extends BaseController {
             return json_encode(['error' => 'You are not registered to FeatherQ.']);
         }
     }
+    /**
+     * @param $facebook_id
+     * @return JSON-formatted data of the service id of the business.
+     */
+
+    public function getServiceId($facebook_id) {
+        try{
+            $user_id = User::getUserIdByFbId($facebook_id);
+        }catch (Exception $e) {
+            $user_id = null;
+        }
+
+        if($user_id){
+
+            $business_id = UserBusiness::getBusinessIdByOwner($user_id);
+            $service_id  = Service::getFirstServiceOfBusiness($business_id);
+
+            $details = [
+                'service_id' => $service_id->service_id
+            ];
+
+            return Response::json($details, 200, array(), JSON_PRETTY_PRINT);
+
+        }else{
+            return json_encode(['error' => 'Something went wrong!']);
+        }
+    }
+
+    /**
+     * @param $service_id
+     * @return JSON-formatted data of numbers of people ahead, served number and waiting number.
+     */
+
+    public function getNumbersData($service_id) {
+
+        $business_id = Business::getBusinessIdByServiceId($service_id);
+        $waiting_time = Analytics::getWaitingTime($business_id);
+
+        $last_number = ProcessQueue::lastNumberGiven($service_id);
+        $current_number = ProcessQueue::currentNumber($service_id);
+
+        $numbers_ahead =  $last_number - $current_number;
+
+        $details = [
+            'numbers_ahead' => $numbers_ahead,
+            'current_number' => $current_number,
+            'waiting_time' => $waiting_time
+        ];
+
+        return Response::json($details, 200, array(), JSON_PRETTY_PRINT);
+    }
 
 }
