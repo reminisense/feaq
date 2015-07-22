@@ -93,7 +93,7 @@ class MessageController extends BaseController {
       $business_name = Business::name(Input::get('business_id'));
       $subject = 'Message From ' . $business_name;
       if (Input::get('attachment')) {
-        $attachment = '<br><br><a href="' . Input::get('attachment') . '">Download Attachment</a>';
+        $attachment = '<br><br><a href="' . Input::get('attachment') . '" download>Download Attachment</a>';
       }
       Notifier::sendEmail(Input::get('contactemail'), 'emails.messaging', $subject, array(
         'messageContent' => Input::get('messageContent') . $attachment,
