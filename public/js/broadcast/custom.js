@@ -18,6 +18,7 @@ $(document).on('click', '#send-business-message', function(){
     var contemail = $('#contactemail').val();
     var contmobile = $('#contactmobile').val();
     var contmessage = $('#contactmessage').val();
+    var contfile = $('#contactfile').val();
     var custom_fields = [];
     var custom_fields_bool = false;
 
@@ -60,6 +61,7 @@ $(document).on('click', '#send-business-message', function(){
                 contemail: contemail,
                 contmobile: contmobile,
                 contmessage: contmessage,
+                contfile : contfile,
                 custom_fields_bool : custom_fields_bool,
                 custom_fields : custom_fields
             }).done(function( data ) {

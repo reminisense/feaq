@@ -1,3 +1,11 @@
+
+<script>
+    UPLOADCARE_LOCALE = "en";
+    UPLOADCARE_TABS = "file";
+    UPLOADCARE_PUBLIC_KEY = "844c2b9e554c2ee5cc0a";
+</script>
+<script charset="utf-8" src="//ucarecdn.com/widget/2.3.4/uploadcare/uploadcare.full.min.js"></script>
+
 <div class="clearfix header">
     <h5>MESSAGES</h5>
 </div>
@@ -16,6 +24,9 @@
         <div class="col-md-7">
             <div class="preview-container">
                 <div class="message-preview" style="display: none;">
+                    <div style="height: 450px; overflow: scroll;">
+                        <div class="thread-boundary"></div>
+                    </div>
                     <div class="message-reply">
                             <div class="col-md-2 mt20"><label>Send via:</label></div>
                             <div class="col-md-2 mt20"><input id="sendbyphone" type="checkbox" ng-model="sendby.phone" ng-true-value="'phone'" ng-false-value="'0'" ng-init="sendby.phone='0'"><label class="optionlabel">Phone</label></div>
@@ -34,7 +45,9 @@
                             <div class="col-md-12">
                                 <form ng-submit="sendBusinessReply()">
                                     <textarea id="sendreplytext" class="form-control" rows="5" placeholder="Write a reply..." ng-model="business_reply_form.message_reply" required></textarea>
-                                    <button id="sendreply" type="submit" class="btn btn-default btn-orange">Send Reply</button>
+                                    <input type="hidden" role="uploadcare-uploader" data-crop="disabled" id="business-attachment" />
+                                    <em class="help-block">Upload is limited to documents and images up to 5MB.</em>
+                                    <button id="sendreply" type="submit" class="btn btn-orange">Send Reply</button>
                                 </form>
                             </div>
                     </div>

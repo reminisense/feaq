@@ -36,6 +36,15 @@
                             <div class="col-md-9">
                                 <textarea class="form-control" rows="5" id="contactmessage" placeholder="Write your message here..." required ></textarea>
                             </div>
+                            <div class="col-md-3">
+                                <label>File Attachment </label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="col-md-12">
+                                    <input type="hidden" role="uploadcare-uploader" data-crop="disabled" id="contactfile" />
+                                    <em class="help-block">Upload is limited to documents and images up to 5MB.</em>
+                                </div>
+                            </div>
                             {{ $custom_fields }}
                         </div>
                     </form>

@@ -1,4 +1,4 @@
- /**
+/**
  * Created by USER on 2/3/15.
  */
 $(document).ready(function(){
@@ -122,37 +122,37 @@ var eb = {
 
     jquery_functions : {
         /*
-        createTextField : function(form_id, field_data) {
-            return '<div class="col-md-3"><label>'+ field_data.label+'</label></div><div class="col-md-9"><input type="text" class="form-control"></div>';
-        },
+         createTextField : function(form_id, field_data) {
+         return '<div class="col-md-3"><label>'+ field_data.label+'</label></div><div class="col-md-9"><input type="text" class="form-control"></div>';
+         },
 
-        createCheckbox : function(form_id, field_data) {
-            return '<div class="col-md-3"><label>'+ field_data.label+'</label></div><div class="col-md-9"><input type="checkbox" class="form-control" value="1"></div>';
-        },
+         createCheckbox : function(form_id, field_data) {
+         return '<div class="col-md-3"><label>'+ field_data.label+'</label></div><div class="col-md-9"><input type="checkbox" class="form-control" value="1"></div>';
+         },
 
-        createRadio : function(form_id, field_data) {
-            return '<div class="col-md-3"><label>'+ field_data.label+'</label></div><div class="col-md-9"><label><input type="radio" name="forms_'+form_id+'" value="'+field_data.value_a+'" > <strong>'+field_data.value_a+'</strong></label><label><input type="radio" name="forms_'+form_id+'" value="'+field_data.value_b+'"> <strong>'+field_data.value_b+'</strong></label></div>';
-        },
+         createRadio : function(form_id, field_data) {
+         return '<div class="col-md-3"><label>'+ field_data.label+'</label></div><div class="col-md-9"><label><input type="radio" name="forms_'+form_id+'" value="'+field_data.value_a+'" > <strong>'+field_data.value_a+'</strong></label><label><input type="radio" name="forms_'+form_id+'" value="'+field_data.value_b+'"> <strong>'+field_data.value_b+'</strong></label></div>';
+         },
 
-        createDropdown : function(form_id, field_data) {
-            var select_options = '';
-            $.each(field_data.options, function(count, val) {
-                select_options += '<option value="'+val+'">'+val+'</option>';
-            });
-            return '<div class="col-md-3"><label>'+ field_data.label+'</label></div><div class="col-md-9"><select class="form-control">'+select_options+'</select></div>';
-        },
+         createDropdown : function(form_id, field_data) {
+         var select_options = '';
+         $.each(field_data.options, function(count, val) {
+         select_options += '<option value="'+val+'">'+val+'</option>';
+         });
+         return '<div class="col-md-3"><label>'+ field_data.label+'</label></div><div class="col-md-9"><select class="form-control">'+select_options+'</select></div>';
+         },
 
-        generateCustomFields : function(response) {
-            var form_fields = '';
-            $.each(response.form_fields, function(form_id, field_data) {
-                if (field_data.field_type == 'Text Field') form_fields += eb.jquery_functions.createTextField(form_id, field_data);
-                else if (field_data.field_type == 'Checkbox') form_fields += eb.jquery_functions.createCheckbox(form_id, field_data);
-                else if (field_data.field_type == 'Radio') form_fields += eb.jquery_functions.createRadio(form_id, field_data);
-                else if (field_data.field_type == 'Dropdown') form_fields += eb.jquery_functions.createDropdown(form_id, field_data);
-            });
-            return form_fields;
-        },
-        */
+         generateCustomFields : function(response) {
+         var form_fields = '';
+         $.each(response.form_fields, function(form_id, field_data) {
+         if (field_data.field_type == 'Text Field') form_fields += eb.jquery_functions.createTextField(form_id, field_data);
+         else if (field_data.field_type == 'Checkbox') form_fields += eb.jquery_functions.createCheckbox(form_id, field_data);
+         else if (field_data.field_type == 'Radio') form_fields += eb.jquery_functions.createRadio(form_id, field_data);
+         else if (field_data.field_type == 'Dropdown') form_fields += eb.jquery_functions.createDropdown(form_id, field_data);
+         });
+         return form_fields;
+         },
+         */
 
         validYouTubeURL : function(url) {
             var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
@@ -233,6 +233,8 @@ var eb = {
 
         $scope.form_fields = [];
 
+        $scope.remaining_character  = 95;
+
         $scope.number_start = 1;
         $scope.terminal_specific_issue = 0;
         $scope.sms_current_number = 0;
@@ -246,6 +248,7 @@ var eb = {
         $scope.business_reply_form = {
             message_reply : "",
             active_sender_email : "",
+            attachment : "",
             pick_number : 0
         };
         $scope.sendby = {
@@ -253,11 +256,16 @@ var eb = {
             phone : 'phone'
         }
 
+        $scope.business_features = {
+            terminal_users: 3
+        };
+
         $scope.getBusinessDetails = function(){
             if ( $scope.business_id > 0 ) {
                 $http.get(eb.urls.business.business_details_url + $scope.business_id)
                     .success(function(response){
                         setBusinessFields(response.business);
+                        setBusinessFeatures(response.business.features);
                     });
             }
         }
@@ -285,6 +293,14 @@ var eb = {
             $scope.terminals = business.terminals;
             $scope.analytics = business.analytics;
             $scope.terminal_delete_error = business.error ? business.error : null;
+        }
+
+        setBusinessFeatures = function(features){
+            if(features){
+                $scope.business_features = features;
+                if(features.terminal_users == undefined) features.terminal_users = 3;
+            }
+
         }
 
         $scope.displayMessageList = function(business_id) {
@@ -316,22 +332,26 @@ var eb = {
                 $('.messageto').remove();
                 for(var i = 0; i < response.contactmessage.length; i++){
                     var newMessage = response.contactmessage[i].content.replace(/\n/g, '<br>');
+                    var attachmentLink = response.contactmessage[i].attachment;
+                    if ($.trim(attachmentLink)) {
+                        attachmentLink = "<p><a style=\"font-weight: bold; color: #d36e3c;\" href=\"" + attachmentLink + "\" download>Download Attachment</a></p>";
+                    }
                     if (response.contactmessage[i].sender == 'user'){
                         finalMessage = "" +
                             "<div class='messagefrom clearfix'>" +
-                                "<p>" + newMessage + "</p>" +
-                                "<p class='timestamp pull-right'>Posted by <strong class='sender'>" + sender + "</strong> on <strong>" + response.contactmessage[i].timestamp +
+                            "<p>" + newMessage + "</p>" + attachmentLink +
+                            "<p class='timestamp pull-right'>Posted by <strong class='sender'>" + sender + "</strong> on <strong>" + response.contactmessage[i].timestamp +
                             "</strong></div>" +
                             "";
-                            $('.message-reply').before(finalMessage);
+                        $('.thread-boundary').before(finalMessage);
                     } else {
                         finalMessage = "" +
                             "<div class='messageto clearfix'>" +
-                            "<p>" + newMessage + "</p>" +
+                            "<p>" + newMessage + "</p>" + attachmentLink +
                             "<p class='timestamp pull-right'>Posted by <strong class='sender'>You</strong> on <strong>" + response.contactmessage[i].timestamp +
                             "</strong></div>" +
                             "";
-                        $('.message-reply').before(finalMessage);
+                        $('.thread-boundary').before(finalMessage);
                     }
                 }
                 $('.message-preview').fadeIn();
@@ -346,15 +366,20 @@ var eb = {
                 contactemail: $scope.business_reply_form.active_sender_email,
                 messageContent: $scope.business_reply_form.message_reply,
                 phonenumber : $scope.business_reply_form.pick_number,
+                attachment : $('#business-attachment').val(),
                 sendbyphone : $scope.sendby.phone
             }).success(function(response){
+                var attachmentLink = $('#business-attachment').val();
+                if ($.trim(attachmentLink)) {
+                    attachmentLink = "<p><a style=\"font-weight: bold; color: #d36e3c;\" href=\"" + attachmentLink + "\" download>Download Attachment</a></p>";
+                }
                 var finalMessage = "" +
                     "<div class='messageto'>" +
-                    "<p>" + $scope.business_reply_form.message_reply.replace(/\n/g, '<br>'); + "</p>" +
+                    "<p>" + $scope.business_reply_form.message_reply.replace(/\n/g, '<br>') + "</p>" + attachmentLink +
                     "<p class='timestamp pull-right'>Posted by <strong class='sender'>You</strong> on <strong>" + response.timestamp +
                     "</strong></div>" +
-                    "";
-                $('.message-reply').before(finalMessage);
+                "";
+                $('.thread-boundary').before(finalMessage);
                 $('#sendreplytext').val('');
                 $('#sendreply').html('Send Reply');
                 $('#sendreply').removeAttr('disabled');
@@ -380,11 +405,25 @@ var eb = {
                 .success(function(response){
                     if(response.user){
                         $scope.assignToTerminal(response.user.user_id, terminal_id);
+                        $scope.clearUserResults();
                     }else{
                         $('.add-user-error[terminal_id=' + terminal_id + ']').show();
                         setTimeout(function(){$('.add-user-error[terminal_id=' + terminal_id + ']').fadeOut('slow')}, 3000);
                     }
                 });
+        }
+
+        $scope.user_results = {users : []};
+        $scope.userSearch = function(keyword){
+            $http.get('/user/search-user/' + keyword).success(function(response){
+                $scope.user_results.users = response.users;
+            }).error(function(response){
+                $scope.user_results.users = [];
+            });
+        }
+
+        $scope.clearUserResults = function(){
+            $scope.user_results.users = [];
         }
 
         $scope.isAssignedUser = function(user_id, terminal_id){
@@ -494,9 +533,9 @@ var eb = {
             }else{
 
                 if(($scope.input_sms_field % 1) != 0){
-                errorMessage = errorMessage + "Please input a whole number on the SMS notification field. ";
+                    errorMessage = errorMessage + "Please input a whole number on the SMS notification field. ";
                 }else if($scope.input_sms_field <= 0 && $scope.input_sms_field !=""){
-                errorMessage = errorMessage + "Please input a positive number on the SMS notification field. ";
+                    errorMessage = errorMessage + "Please input a positive number on the SMS notification field. ";
                 }
 
             }
@@ -602,7 +641,7 @@ var eb = {
                         $('#video-adtype').hide();
                         $('#image-adtype').show();
                     }
-    
+
                     //ARA Added for toggling to show only called numbers in broadcast page
                     $scope.theme_type = response.display;
                     $scope.show_called_only = response.show_issued != undefined ? !response.show_issued : false;
@@ -737,6 +776,22 @@ var eb = {
             });
         });
 
+        $scope.setRemainingCharacter = (function() {
+            var bla = $('#ticker-message').val();
+            var accepted_char = 95;
+
+            if($('#lbl-ticker').css('visibility') == 'hidden')
+            {
+                $('#lbl-ticker').css('visibility', 'visible');
+            }
+            $scope.remaining_character = accepted_char - bla.length;
+            if($scope.remaining_character < 0){
+                $('#ticker-message-submit-btn').attr('disabled','disabled');
+            }else{
+                $('#ticker-message-submit-btn').removeAttr('disabled');
+            }
+        });
+
         $scope.turnOnTV = (function(business_id) {
             $http.post(eb.urls.broadcast.ads_tv_on_url, {
                 business_id : business_id,
@@ -840,19 +895,19 @@ var eb = {
             $http.post(eb.urls.forms.display_fields_url, {
                 business_id : business_id
             }).success(function(response) {
-               $scope.form_fields = response.form_fields;
+                $scope.form_fields = response.form_fields;
             });
         };
 
         /*
-        $scope.showPreviewForm = function(business_id) {
-            $http.post(eb.urls.forms.display_fields_url, {
-                business_id : business_id
-            }).success(function(response) {
-                $('#custom-fields-display').html(eb.jquery_functions.generateCustomFields(response));
-            });
-        };
-        */
+         $scope.showPreviewForm = function(business_id) {
+         $http.post(eb.urls.forms.display_fields_url, {
+         business_id : business_id
+         }).success(function(response) {
+         $('#custom-fields-display').html(eb.jquery_functions.generateCustomFields(response));
+         });
+         };
+         */
 
         $scope.deleteFormField = function(form_id) {
             if (confirm('Are you sure you want to delete this field?')) {

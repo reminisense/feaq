@@ -6,6 +6,7 @@ class MessageController extends BaseController {
     $business_id = Input::get('business_id');
     $email = Input::get('contemail');
     $name = Input::get('contname');
+    $attachment = Input::get('contfile');
     $timestamp = time();
     $thread_key = $this->threadKeyGenerator($business_id, $email);
     $custom_fields_bool = Input::get('custom_fields_bool');
@@ -32,6 +33,7 @@ class MessageController extends BaseController {
       $data = json_encode(array(array(
         'timestamp' => $timestamp,
         'contmessage' => Input::get('contmessage') . "\n\n" . $custom_fields_data,
+        'attachment' => $attachment,
         'sender' => 'user',
       )));
       file_put_contents(public_path() . '/json/messages/' . $thread_key . '.json', $data);
@@ -48,17 +50,31 @@ class MessageController extends BaseController {
       $data[] = array(
         'timestamp' => $timestamp,
         'contmessage' => Input::get('contmessage') . "\n\n" . $custom_fields_data,
+        'attachment' => $attachment,
         'sender' => 'user',
       );
       $data = json_encode($data);
       file_put_contents(public_path() . '/json/messages/' . $thread_key . '.json', $data);
     }
 
+    /*
+    Mail::send('emails.contact', array(
+      'name' => $name,
+      'email' => $email,
+      'messageContent' => Input::get('contmessage') . "\n\nAttachment: " . $attachment . "\n\n" . $custom_fields_data,
+    ), function($message, $email, $name)
+    {
+      $message->subject('Message from '. $name . ' ' . $email);
+      $message->to('paul@reminisense.com');
+    });
+    */
+
     return json_encode(array('status' => 1));
   }
 
     public function postSendtoUser(){
       $timestamp = time();
+      $attachment = "";
       $thread_key = $this->threadKeyGenerator(Input::get('business_id'), Input::get('contactemail'));
       if (Input::get('sendbyphone')) {
         $business_name = Business::name(Input::get('business_id'));
@@ -69,14 +85,18 @@ class MessageController extends BaseController {
       $data[] = array(
         'timestamp' => $timestamp,
         'contmessage' => Input::get('messageContent'),
+        'attachment' => $attachment,
         'sender' => 'business',
       );
       $data = json_encode($data);
       file_put_contents(public_path() . '/json/messages/' . $thread_key . '.json', $data);
       $business_name = Business::name(Input::get('business_id'));
       $subject = 'Message From ' . $business_name;
+      if (Input::get('attachment')) {
+        $attachment = '<br><br><a href="' . Input::get('attachment') . '" download>Download Attachment</a>';
+      }
       Notifier::sendEmail(Input::get('contactemail'), 'emails.messaging', $subject, array(
-        'messageContent' => Input::get('messageContent'),
+        'messageContent' => Input::get('messageContent') . $attachment,
         'businessName' => $business_name,
       ));
       return json_encode(array('timestamp' => date("Y-m-d h:i A", $timestamp)));
@@ -122,6 +142,7 @@ class MessageController extends BaseController {
             $message_content[] = array(
                 'timestamp' => date("Y-m-d h:i A", $content->timestamp),
                 'content' => $content->contmessage,
+                'attachment' => isset($content->attachment) ? $content->attachment : '',
                 'sender' => $content->sender,
             );
         }

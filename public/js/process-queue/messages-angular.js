@@ -2,13 +2,20 @@
  * Created by USER on 5/26/15.
  */
 app.controller('messageController', function($scope, $http){
+    $scope.allow_send = false;
     $scope.messages = [];
     $scope.getMessages = function(){
+        $scope.messages = [];
         $http.post('/message/business-user-thread', {
             business_id : pq.ids.business_id,
             email: $('#priority-number-email').html()
         }).success(function(response) {
             $scope.messages = response.contactmessage;
+            $scope.allow_send = true;
+        }).error(function(response){
+            $scope.allow_send = false;
+        }).finally(function(){
+            console.log($scope.allow_send);
         });
     }
 
