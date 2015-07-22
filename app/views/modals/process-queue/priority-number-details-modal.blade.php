@@ -58,8 +58,10 @@
                             <div class="col-md-12">
                                 <h5>Send A Message</h5>
                                 Send to Phone: <input type="checkbox" ng-model="send_to_phone">
-                                <textarea class="form-control" rows="5" placeholder="Write a message..." style="resize: none;" ng-model="message_reply"></textarea>
-                                <button class="btn btn-primary btn-md pull-right" ng-click="sendBusinessReply()">Send Message</button>
+                                <textarea class="form-control" rows="5" placeholder="Write a message..." style="resize: none;" ng-model="message_reply" ng-if="allow_send"></textarea>
+                                <button class="btn btn-primary btn-md pull-right" ng-click="sendBusinessReply()" ng-if="allow_send">Send Message</button>
+                                <textarea class="form-control disabled" disabled="disabled" rows="5" placeholder="Cannot send a reply unless the customer sends an initial message." style="resize: none;" ng-model="message_reply" ng-if="!allow_send"></textarea>
+                                <button class="btn btn-primary btn-md pull-right disabled" ng-if="!allow_send" title="">Send Message</button>
                             </div>
                         </div>
                     </div>
