@@ -12,10 +12,8 @@ app.controller('messageController', function($scope, $http){
         }).success(function(response) {
             $scope.messages = response.contactmessage;
             $scope.allow_send = true;
-            $scope.message_reply = '';
         }).error(function(response){
             $scope.allow_send = false;
-            $scope.message_reply = 'Cannot send a reply unless the customer sends an initial message.'
         }).finally(function(){
             console.log($scope.allow_send);
         });
