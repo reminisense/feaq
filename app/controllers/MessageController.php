@@ -73,63 +73,88 @@ class MessageController extends BaseController {
   }
 
     public function postSendtoUser(){
-      $timestamp = time();
-      $attachment = "";
-      $thread_key = $this->threadKeyGenerator(Input::get('business_id'), Input::get('contactemail'));
-      if (Input::get('sendbyphone')) {
+      if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId())) { // PAG added permission checking
+        $timestamp = time();
+        $attachment = "";
+        $thread_key = $this->threadKeyGenerator(Input::get('business_id'), Input::get('contactemail'));
+        if (Input::get('sendbyphone')) {
+          $business_name = Business::name(Input::get('business_id'));
+          $text_message = 'From: ' . $business_name . "\n" . 'To: ' . Input::get('phonenumber') . "\n" . Input::get('messageContent') . "\n\nThanks for using FeatherQ";
+          Notifier::sendFrontlineSMS($text_message, Input::get('phonenumber'), FRONTLINE_SMS_URL, FRONTLINE_SMS_SECRET);
+        }
+        $data = json_decode(file_get_contents(public_path() . '/json/messages/' . $thread_key . '.json'));
+        $data[] = array(
+          'timestamp' => $timestamp,
+          'contmessage' => Input::get('messageContent'),
+          'attachment' => $attachment,
+          'sender' => 'business',
+        );
+        $data = json_encode($data);
+        file_put_contents(public_path() . '/json/messages/' . $thread_key . '.json', $data);
         $business_name = Business::name(Input::get('business_id'));
-        $text_message = 'From: ' . $business_name  .  "\n" . 'To: ' . Input::get('phonenumber') . "\n" . Input::get('messageContent') . "\n\nThanks for using FeatherQ";
-        Notifier::sendFrontlineSMS($text_message, Input::get('phonenumber'), FRONTLINE_SMS_URL, FRONTLINE_SMS_SECRET);
+        $subject = 'Message From ' . $business_name;
+        if (Input::get('attachment')) {
+          $attachment = '<br><br><a href="' . Input::get('attachment') . '">Download Attachment</a>';
+        }
+        Notifier::sendEmail(Input::get('contactemail'), 'emails.messaging', $subject, array(
+          'messageContent' => Input::get('messageContent') . $attachment,
+          'businessName' => $business_name,
+        ));
+        return json_encode(array('timestamp' => date("Y-m-d h:i A", $timestamp)));
       }
-      $data = json_decode(file_get_contents(public_path() . '/json/messages/' . $thread_key . '.json'));
-      $data[] = array(
-        'timestamp' => $timestamp,
-        'contmessage' => Input::get('messageContent'),
-        'attachment' => $attachment,
-        'sender' => 'business',
-      );
-      $data = json_encode($data);
-      file_put_contents(public_path() . '/json/messages/' . $thread_key . '.json', $data);
-      $business_name = Business::name(Input::get('business_id'));
-      $subject = 'Message From ' . $business_name;
-      if (Input::get('attachment')) {
-        $attachment = '<br><br><a href="' . Input::get('attachment') . '">Download Attachment</a>';
+      else {
+        return json_encode(array('message' => 'You are not allowed to access this function.'));
       }
-      Notifier::sendEmail(Input::get('contactemail'), 'emails.messaging', $subject, array(
-        'messageContent' => Input::get('messageContent') . $attachment,
-        'businessName' => $business_name,
-      ));
-      return json_encode(array('timestamp' => date("Y-m-d h:i A", $timestamp)));
     }
 
   public function postMessageList() {
-    $messages = array();
-    $list = Message::getMessagesByBusinessId(Input::get('business_id'));
-    foreach ($list as $count => $thread) {
-      $messages[] = array(
-        'email' => $thread->email,
-        'phone' => unserialize($thread->phone),
-        'contactname' => $thread->contactname,
-        'message_id' => $thread->message_id,
-      );
+    if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId())) { // PAG added permission checking
+      $messages = array();
+      $list = Message::getMessagesByBusinessId(Input::get('business_id'));
+      foreach ($list as $count => $thread) {
+        $messages[] = array(
+          'email' => $thread->email,
+          'phone' => unserialize($thread->phone),
+          'contactname' => $thread->contactname,
+          'message_id' => $thread->message_id,
+        );
+      }
+      return json_encode(array('messages' => $messages));
     }
-    return json_encode(array('messages' => $messages));
+    else {
+      return json_encode(array('message' => 'You are not allowed to access this function.'));
+    }
   }
 
   public function postMessageThread() {
-    return $this->getMessageThread(Message::getThreadKeyByMessageId(Input::get('message_id')));
+    if (Helper::isBusinessOwner(Message::getBusinessIdByMessageId(Input::get('message_id')), Helper::userId())) { // PAG added permission checking
+      return $this->getMessageThread(Message::getThreadKeyByMessageId(Input::get('message_id')));
+    }
+    else {
+      return json_encode(array('message' => 'You are not allowed to access this function.'));
+    }
   }
 
   public function postPhoneList() {
-    return json_encode(array('numbers' => unserialize(Message::getPhoneByMessageId(Input::get('message_id')))));
+    if (Helper::isBusinessOwner(Message::getBusinessIdByMessageId(Input::get('message_id')), Helper::userId())) { // PAG added permission checking
+      return json_encode(array('numbers' => unserialize(Message::getPhoneByMessageId(Input::get('message_id')))));
+    }
+    else {
+      return json_encode(array('message' => 'You are not allowed to access this function.'));
+    }
   }
 
-    public function postBusinessUserThread(){
-        $business_id = Input::get('business_id');
-        $email = Input::get('email');
-        $thread_key = Message::getThreadKeyByBusinessIdAndEmail($business_id, $email);
-        return $this->getMessageThread($thread_key);
+  public function postBusinessUserThread() {
+    if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId())) { // PAG added permission checking
+      $business_id = Input::get('business_id');
+      $email = Input::get('email');
+      $thread_key = Message::getThreadKeyByBusinessIdAndEmail($business_id, $email);
+      return $this->getMessageThread($thread_key);
     }
+    else {
+      return json_encode(array('message' => 'You are not allowed to access this function.'));
+    }
+  }
 
     private function threadKeyGenerator($business_id, $email) {
         return md5($business_id . 'fq' . $email);

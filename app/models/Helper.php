@@ -192,4 +192,13 @@ class Helper extends Eloquent {
         }
         return $timezones;
     }
+
+  public static function isBusinessOwner($business_id, $user_id) {
+    return $business_id == UserBusiness::getBusinessIdByOwner($user_id);
+  }
+
+  public static function isNotAnOwner($user_id) {
+    return !UserBusiness::getBusinessIdByOwner($user_id);
+  }
+
 }

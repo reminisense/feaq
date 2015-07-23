@@ -387,15 +387,19 @@ var eb = {
         }
 
         $scope.unassignFromTerminal = function(user_id, terminal_id){
-            $http.get(eb.urls.terminals.terminal_unassign_url + user_id + '/' + terminal_id)
-                .success(function(response){
+            $http.post(eb.urls.terminals.terminal_unassign_url, {
+                user_id : user_id,
+                terminal_id : terminal_id
+            }).success(function(response){
                     setBusinessFields(response.business);
                 });
         }
 
         $scope.assignToTerminal = function(user_id, terminal_id){
-            $http.get(eb.urls.terminals.terminal_assign_url + user_id + '/' + terminal_id)
-                .success(function(response){
+            $http.post(eb.urls.terminals.terminal_assign_url, {
+                user_id : user_id,
+                terminal_id : terminal_id
+            }).success(function(response){
                     setBusinessFields(response.business);
                 });
         }
@@ -441,12 +445,13 @@ var eb = {
             return assigned;
         }
 
-        $scope.deleteTerminal = function($event, terminal_id){
-            $http.get(eb.urls.terminals.terminal_delete_url + terminal_id)
-                .success(function(response){
-                    setBusinessFields(response.business);
-                    eb.jquery_functions.clear_terminal_delete_msg();
-                });
+        $scope.deleteTerminal = function($event, terminal_id) {
+            $http.post(eb.urls.terminals.terminal_delete_url, {
+                terminal_id : terminal_id
+            }).success(function(response) {
+                setBusinessFields(response.business);
+                eb.jquery_functions.clear_terminal_delete_msg();
+            });
             $event.preventDefault();
         }
 
@@ -482,9 +487,10 @@ var eb = {
         });
 
         $scope.createTerminal = function(terminal_name){
-            data = { name : terminal_name };
-            $http.post(eb.urls.terminals.terminal_create_url + $scope.business_id, data)
-                .success(function(response){
+            $http.post(eb.urls.terminals.terminal_create_url, {
+                business_id : business_id,
+                name : terminal_name
+            }).success(function(response){
                     if(response.status == 0){
                         $('.terminal-error-msg').show();
                         setTimeout(function(){$('.terminal-error-msg').fadeOut('slow')}, 3000);

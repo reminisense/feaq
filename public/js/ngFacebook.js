@@ -38,18 +38,19 @@ fbapp.controller('fbController', function($scope, $http) {
     $scope.login = (function(e) {
         FB.login(function(response) {
             if (response.authResponse) {
-                $scope.saveFbDetails();
+                $scope.saveFbDetails(response.authResponse.accessToken);
             }
         }, {'scope': 'public_profile,email,user_friends'});
     });
 
-    $scope.saveFbDetails = (function() {
+    $scope.saveFbDetails = function(accessToken) {
         FB.api('/me', function(response) {
             if (!response.email) {
                 response.email = '';
             }
 
             fbData = {
+                "accessToken" : accessToken,
                 "fb_id": response.id,
                 "fb_url": response.link,
                 "first_name": response.first_name,
@@ -61,6 +62,6 @@ fbapp.controller('fbController', function($scope, $http) {
                 window.location.replace('/');
             });
         });
-    });
+    };
 
 });
