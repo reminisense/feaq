@@ -542,17 +542,20 @@ class RestController extends BaseController {
         if($user_id){
 
             $business_id = UserBusiness::getBusinessIdByOwner($user_id);
-            $branch_ids = Branch::getBranchesByBusinessId($business_id);
-            $service_ids = [];
-            foreach($branch_ids as $value){
-                array_push($service_ids,$value->branch_id);
+            $branch_id = Branch::getFirstBranchOfBusiness($business_id)->branch_id;
+            $service = Service::getServicesByBranchId($branch_id);
+            $services = [];
+            foreach($service as $value){
+                $details = [
+                    'service_id' => $value->service_id,
+                    'service_name' => $value->name
+                ];
+                array_push($services, $details);
             }
 
-            $details = [
-                'service_ids' => $service_ids
-            ];
 
-            return Response::json($details, 200, array(), JSON_PRETTY_PRINT);
+
+            return Response::json($services, 200, array(), JSON_PRETTY_PRINT);
 
         }else{
             return json_encode(['error' => 'Something went wrong!']);
