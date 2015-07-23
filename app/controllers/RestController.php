@@ -542,10 +542,14 @@ class RestController extends BaseController {
         if($user_id){
 
             $business_id = UserBusiness::getBusinessIdByOwner($user_id);
-            $service_id  = Service::getFirstServiceOfBusiness($business_id);
+            $branch_ids = Branch::getBranchesByBusinessId($business_id);
+            $service_ids = [];
+            foreach($branch_ids as $value){
+                array_push($service_ids,$value->branch_id);
+            }
 
             $details = [
-                'service_id' => $service_id->service_id
+                'service_ids' => $service_ids
             ];
 
             return Response::json($details, 200, array(), JSON_PRETTY_PRINT);
@@ -577,6 +581,35 @@ class RestController extends BaseController {
         ];
 
         return Response::json($details, 200, array(), JSON_PRETTY_PRINT);
+    }
+
+    /**
+     * @param $service_id
+     * @param $name
+     * @param $phone
+     * @param $email
+     * @return JSON-formatted queued number
+     */
+
+    public function getQueueNumber($service_id, $name, $phone, $email) {
+
+        try{
+            $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
+            $priority_number = $next_number;
+            $queue_platform = 'kiosk';
+
+            $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform);
+            PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
+
+            $details = [
+                'number_assigned' => $priority_number,
+            ];
+
+            return Response::json($details, 200, array(), JSON_PRETTY_PRINT);
+
+        }catch(Exception $e){
+            return json_encode(['error' => 'Something went wrong!']);
+        }
     }
 
 }
