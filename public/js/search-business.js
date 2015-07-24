@@ -1,6 +1,8 @@
 (function() {
 
     app.controller('searchBusinessCtrl', function($scope, $http) {
+        $('#time_open-filter').timeEntry({ampmPrefix: ' ', spinnerImage: ''});
+
         jQuery.ajax({
             url: '//freegeoip.net/json/',
             type: 'POST',
@@ -69,8 +71,10 @@
                 "longitude" : USER_LONGITUDE,
                 "user_timezone" : - (new Date().getTimezoneOffset() * 60) //ARA for converting business time to client time
             };
+
             $http.post('/watchdog/log-search', data);
             $http.post('/business/filter-search', data).success(function(response) {
+
                 $('#biz-grid').hide();
                 $scope.businesses = new Array();
                 var length_limit = 7;

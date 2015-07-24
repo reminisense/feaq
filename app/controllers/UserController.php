@@ -123,7 +123,7 @@ class UserController extends BaseController{
         }
         else
         {
-            return View::make('homepage');
+            return View::make('homepagev2');
             //->with('active_businesses', $active_businesses)
             //->with('search_businesses', Business::getNewBusinesses()); // RDH Active and New Businesses on Front Use Different Results
         }
