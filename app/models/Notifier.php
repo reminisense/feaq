@@ -153,11 +153,22 @@ class Notifier extends Eloquent{
     }
 
     public static function sendFrontlineSMS($message, $phone, $url, $secret){
+//        $request = [
+//            'secret' => $secret,
+//            'message' => $message,
+//            'recipients' => [
+//                    ['type' => 'address', 'value' => "$phone"]
+//            ]
+//        ];
+
+        //new request
         $request = [
-            'secret' => $secret,
-            'message' => $message,
-            'recipients' => [
-                    ['type' => 'address', 'value' => "$phone"]
+            'apiKey' => FRONTLINE_API_KEY,
+            'payload' => [
+                'message' => $message,
+                'recipients' => [
+                    ['type' => 'mobile', 'value' => "$phone"]
+                ]
             ]
         ];
 

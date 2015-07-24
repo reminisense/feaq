@@ -37,8 +37,13 @@ class FeatherqConstants {
         //define('FRONTLINE_SMS_URL', FRONTLINE_SMS_HOST . '/api/1/webconnection/1');
 
         //dev environment constants
-        define('FRONTLINE_SMS_HOST', 'http://dev-env.featherq.com');
-        define('FRONTLINE_SMS_URL', 'https://cloud.frontlinesms.com/api/1/webconnection/3225');
+        //define('FRONTLINE_SMS_HOST', 'http://dev-env.featherq.com');
+        //define('FRONTLINE_SMS_URL', 'https://cloud.frontlinesms.com/api/1/webconnection/3225');
+
+        //new frontlinesms web connection
+        define('FRONTLINE_API_KEY', '7de4cf19-4380-4f89-a4b8-fbcd38044f6a');
+        define('FRONTLINE_SMS_URL', 'https://cloud.frontlinesms.com/api/1/webhook');
+
     }
 
     //Define Android constants
