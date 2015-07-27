@@ -2,7 +2,6 @@
  * Created by carlo on 1/29/15.
  */
 $(document).ready(function(){
-    $('#time_open-filter').timeEntry({ampmPrefix: ' ', spinnerImage: ''});
     $("#user_location").geocomplete();
     $("#edit_user_location").geocomplete();
     $("#business_location").geocomplete().bind("geocode:result", function (event, result) {
