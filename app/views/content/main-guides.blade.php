@@ -52,11 +52,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a class="feats" href="{{ URL::to('/about') }}">About</a></li>
                 <li><a class="feats" href="{{ URL::to('/guides') }}">Set-up Guide</a></li>
-                @if(Auth::check())
-                    <li style="margin-left:10px;"><a href="/">Back to Homepage</a></li>
-                @else
-                    <li style="margin-left:10px;"><a href="" class="btn btn-blue btn-fb" ng-click="login()" role="button"><img src="/img/icon-fb.png">Log In</a></li>
-                @endif
+                <li style="margin-left:10px;"><a href="/">Back to Homepage</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
@@ -155,31 +151,6 @@
             <h4 class="nomg wow fadeInUp">It's Fast, Easy and Free</h4>
             <br>
             <h4 class="nomg wow fadeInUp">Call us at: <span class="cyan">(032) 345-4658</span></h4>
-        </div>
-        <div class="col-md-5 col-xs-12" style="margin-top:140px;">
-            <div class="text-center" ng-controller="fbController">
-                <a class="h1 btn btn-lg btn-blue" ng-click="login()">Continue with Facebook</a>
-                <small style="display: block;"><a id="yfb" href="" data-toggle="modal" data-target="#modal-yfacebook" >Why we use Facebook?</a></small>
-                <div class="modal fade" id="modal-yfacebook" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog" style="z-index: 9999;">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <h2 class="cyan">Why Facebook?</h2>
-                                <div id="icons">
-                                    <span class="glyphicon glyphicon-user"></span>
-                                    <span class="glyphicon glyphicon-thumbs-up"></span>
-                                    <span class="glyphicon glyphicon-lock"></span>
-                                </div>
-                                <p>It makes signing into FeatherQ super fast and secure. Instantly share your experiences with your friends.</p>
-                                <small>YOUR PRIVACY IS HIGHLY RESPECTED. NOTHING WILL BE POSTED WITHOUT YOUR PERMISSION</small>
-                            </div>
-                            <div class="modal-footer text-center">
-                                <button type="button" class="mb20 btn btn-lg btn-primary" data-dismiss="modal">OK</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </section>

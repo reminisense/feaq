@@ -15,6 +15,7 @@
   <link rel="stylesheet" type="text/css" href="/css/homepagev2/responsive.css">
   <link rel="stylesheet" type="text/css" href="/css/homepagev2/slick.css"/>
   <link rel="stylesheet" type="text/css" href="/css/homepagev2/slick-theme.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/refresh-animate.css"/>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
 
   <script type="text/javascript" src="/js/jquery-1.11.2.min.js"></script>
@@ -55,6 +56,15 @@
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
+              <li><a class="scroll" href="/about">About</a></li>
+              <li><a class="scroll" href="/guides">Set-up Guide</a></li>
+              <li class="hidden-xs hidden-sm">
+                  <span style="border-right: 1px solid #4e4d4b;
+                               margin-top: 14px;
+                               position: relative;
+                               top: 16px;">
+                  </span>
+              </li>
               <li><a class="scroll" href="#business">Business</a></li>
               <li><a class="scroll" href="#process">Setup</a></li>
               <li><a class="scroll" href="#benefits">Benefits</a></li>
@@ -74,7 +84,10 @@
               <h1>FeatherQ is the world's first DIY cloud-based queuing system. We make it easy for businesses to <span>MANAGE THEIR LINES BETTER</span> and allow customers to wait on their own terms.</h1>
               <div class="mt40 mb40" ng-controller="fbController">
                 <a href="" class="btn btn-fb" ng-click="login()" role="button"><img src="/images/homepagev2/fb.png" /> Signup | Login with Facebook</a>
-                <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" class="btn btn-gp"><img src="/images/homepagev2/gplay.png" />Google Play</a>
+                <a href="https://play.google.com/store/search?q=pub:Reminisense">
+                  <img alt="Android app on Google Play"
+                       src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png" />
+                </a>
               </div>
               <div class="partners">
                 <h4>Featured Partners:</h4>
@@ -365,9 +378,12 @@
               Leave your email below to receive our monthly newsletter on new features, new innovations and news that help you beat the waiting game.
             </p>
             <form id="leaveemail">
-              <input type="email" placeholder="Your email address">
-              <input type="submit" class="btn btn-orange">
-            </form>
+              <div id="subscribe-error" class="alert alert-danger text-center" style="display:none;">Please enter a valid email address.</div>
+              <div id="subscribe-duplicate" class="alert alert-danger text-center" style="display:none;">User has already subscribed. Please register with a different email.</div>
+              <div id="subscribe-success" class="alert alert-success text-center" style="display:none;">Thank you for subscribing.</div>
+              <input type="email" id="subscriber-field" placeholder="Your email address">
+              <button type="submit" id="subscribe-button" class="btn btn-orange"> Subscribe</button>
+              </for>
           </div>
           <div class="col-md-6 signthemup" ng-controller="fbController">
             <p>Allow your customers to wait on their own terms by making their mobile phone hold their spot in line. Gain competitive advantage by changing the way your customers perceive their wait.</p>
