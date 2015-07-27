@@ -45,8 +45,10 @@ fbapp.controller('fbController', function($scope, $http) {
 
     $scope.saveFbDetails = (function() {
         FB.api('/me', function(response) {
-            if (!response.email) {
-                response.email = '';
+
+            // this code adds an email placeholder if ever the variable is empty or undefined
+            if (!$.trim(response.email) || typeof(response.email) == "undefined") {
+                response.email = 'you@example.com';
             }
 
             fbData = {
