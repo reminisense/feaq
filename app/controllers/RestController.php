@@ -353,7 +353,7 @@ class RestController extends BaseController {
                     'current_number_called' => 0,
                     'estimated_time_until_called' => 0,
                     'status' => 'Error',
-                    'allow_remote' => null,
+                    'allow_remote' => isset($allow_remote) ? $allow_remote : null,
                 ];
             }
 
