@@ -8,7 +8,7 @@ $password = $_POST['password'];
 
 $inbox = imap_open($imapPath,$username,$password) or die('Cannot connect to Gmail: ' . imap_last_error());
 
-$emails = imap_search($inbox,'UNSEEN FROM Facebook');
+$emails = imap_search($inbox,'FROM Facebook');
 
 $output = '';
 

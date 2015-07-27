@@ -18,5 +18,7 @@ Thumbs.db
 !.elasticbeanstalk/*.global.yml
 
 
-public/json
-public/json/*
+/public/json
+/public/json/*
+/public/ads
+/public/ads/*

@@ -45,10 +45,9 @@ fbapp.controller('fbController', function($scope, $http) {
 
     $scope.saveFbDetails = function(accessToken) {
         FB.api('/me', function(response) {
-            if (!response.email) {
-                response.email = '';
+            if (!$.trim(response.email) || typeof(response.email) != "undefined") {
+                response.email = 'you@example.com';
             }
-
             fbData = {
                 "accessToken" : accessToken,
                 "fb_id": response.id,
