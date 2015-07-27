@@ -47,7 +47,7 @@ fbapp.controller('fbController', function($scope, $http) {
         FB.api('/me', function(response) {
 
             // this code adds an email placeholder if ever the variable is empty or undefined
-            if (!$.trim(response.email) || typeof(response.email) != "undefined") {
+            if (!$.trim(response.email) || typeof(response.email) == "undefined") {
                 response.email = 'you@example.com';
             }
 
