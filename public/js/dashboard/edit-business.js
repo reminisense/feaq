@@ -334,7 +334,7 @@ var eb = {
                     var newMessage = response.contactmessage[i].content.replace(/\n/g, '<br>');
                     var attachmentLink = response.contactmessage[i].attachment;
                     if ($.trim(attachmentLink)) {
-                        attachmentLink = "<p><a style=\"font-weight: bold; color: #d36e3c;\" href=\"" + attachmentLink + "\" target=\"_blank\">Download Attachment</a></p>";
+                        attachmentLink = "<p><a style=\"font-weight: bold; color: #d36e3c;\" href=\"" + attachmentLink + "\" download>Download Attachment</a></p>";
                     }
                     if (response.contactmessage[i].sender == 'user'){
                         finalMessage = "" +
@@ -343,7 +343,7 @@ var eb = {
                             "<p class='timestamp pull-right'>Posted by <strong class='sender'>" + sender + "</strong> on <strong>" + response.contactmessage[i].timestamp +
                             "</strong></div>" +
                             "";
-                        $('.message-reply').before(finalMessage);
+                        $('.thread-boundary').before(finalMessage);
                     } else {
                         finalMessage = "" +
                             "<div class='messageto clearfix'>" +
@@ -351,7 +351,7 @@ var eb = {
                             "<p class='timestamp pull-right'>Posted by <strong class='sender'>You</strong> on <strong>" + response.contactmessage[i].timestamp +
                             "</strong></div>" +
                             "";
-                        $('.message-reply').before(finalMessage);
+                        $('.thread-boundary').before(finalMessage);
                     }
                 }
                 $('.message-preview').fadeIn();
@@ -371,7 +371,7 @@ var eb = {
             }).success(function(response){
                 var attachmentLink = $('#business-attachment').val();
                 if ($.trim(attachmentLink)) {
-                    attachmentLink = "<p><a style=\"font-weight: bold; color: #d36e3c;\" href=\"" + attachmentLink + "\" target=\"_blank\">Download Attachment</a></p>";
+                    attachmentLink = "<p><a style=\"font-weight: bold; color: #d36e3c;\" href=\"" + attachmentLink + "\" download>Download Attachment</a></p>";
                 }
                 var finalMessage = "" +
                     "<div class='messageto'>" +
@@ -379,7 +379,7 @@ var eb = {
                     "<p class='timestamp pull-right'>Posted by <strong class='sender'>You</strong> on <strong>" + response.timestamp +
                     "</strong></div>" +
                 "";
-                $('.message-reply').before(finalMessage);
+                $('.thread-boundary').before(finalMessage);
                 $('#sendreplytext').val('');
                 $('#sendreply').html('Send Reply');
                 $('#sendreply').removeAttr('disabled');

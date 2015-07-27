@@ -103,6 +103,58 @@ class RestController extends BaseController {
     }
 
     /**
+     * @author Aunne
+     * @param null $latitude
+     * @param null $longitude
+     * @return JSON response that gets the active businesses that are near the user
+     */
+    public function getActivebusinessDetails($latitude = null, $longitude = null){
+        $businesses = DB::table('terminal_transaction')
+            ->where('terminal_transaction.time_queued', '!=', 0)
+            ->where('terminal_transaction.time_completed', '=', 0)
+            ->where('terminal_transaction.time_removed', '=', 0)
+            ->where('terminal_transaction.time_queued', '>', time() - 86400)
+            ->join('priority_queue', 'priority_queue.transaction_number', '=', 'terminal_transaction.transaction_number')
+            ->join('priority_number', 'priority_number.track_id', '=', 'priority_queue.track_id')
+            ->join('service', 'service.service_id', '=', 'priority_number.service_id')
+            ->join('branch', 'branch.branch_id', '=', 'service.branch_id')
+            ->join('business', 'business.business_id', '=', 'branch.business_id')
+            ->groupBy('business_id')
+            ->select(array('business.business_id', 'business.name', 'business.local_address', 'business.latitude', 'business.longitude'))
+            ->get();
+
+        foreach($businesses as $index => $business){
+            $businesses[$index]->distance = $this->getDistanceFromLatLonInKm($latitude, $longitude, $business->latitude, $business->longitude);
+        }
+
+        usort($businesses, array('RestController', "compare"));
+        $actives = array('active-business' => $businesses);
+        return Response::json($actives, 200, array(), JSON_PRETTY_PRINT);
+    }
+
+    /**
+     * @author Aunne
+     * @param null $latitude
+     * @param null $longitude
+     * @return JSON response of a random business
+     */
+    public function getRandomBusiness($latitude = null, $longitude = null){
+        $businesses = DB::table('business')
+            ->select(array('business.business_id', 'business.name', 'business.local_address', 'business.latitude', 'business.longitude'))
+            ->get();
+
+        foreach($businesses as $index => $business){
+            $businesses[$index]->distance = $this->getDistanceFromLatLonInKm($latitude, $longitude, $business->latitude, $business->longitude);
+        }
+
+        usort($businesses, array('RestController', "compare"));
+        array_splice($businesses, 9);
+        $lucky_number = rand(0, count($businesses) - 1);
+        $random_business = array('random_business' => $businesses[$lucky_number]);
+        return Response::json($random_business, 200, array(), JSON_PRETTY_PRINT);
+    }
+
+    /**
      * @author Ruffy
      * @param $id BusinessI ID of the selected business
      * @return JSON object generated through businessId according to the database
@@ -470,6 +522,57 @@ class RestController extends BaseController {
         } else {
             return json_encode(['error' => 'You are not registered to FeatherQ.']);
         }
+    }
+    /**
+     * @param $facebook_id
+     * @return JSON-formatted data of the service id of the business.
+     */
+
+    public function getServiceId($facebook_id) {
+        try{
+            $user_id = User::getUserIdByFbId($facebook_id);
+        }catch (Exception $e) {
+            $user_id = null;
+        }
+
+        if($user_id){
+
+            $business_id = UserBusiness::getBusinessIdByOwner($user_id);
+            $service_id  = Service::getFirstServiceOfBusiness($business_id);
+
+            $details = [
+                'service_id' => $service_id->service_id
+            ];
+
+            return Response::json($details, 200, array(), JSON_PRETTY_PRINT);
+
+        }else{
+            return json_encode(['error' => 'Something went wrong!']);
+        }
+    }
+
+    /**
+     * @param $service_id
+     * @return JSON-formatted data of numbers of people ahead, served number and waiting number.
+     */
+
+    public function getNumbersData($service_id) {
+
+        $business_id = Business::getBusinessIdByServiceId($service_id);
+        $waiting_time = Analytics::getWaitingTime($business_id);
+
+        $last_number = ProcessQueue::lastNumberGiven($service_id);
+        $current_number = ProcessQueue::currentNumber($service_id);
+
+        $numbers_ahead =  $last_number - $current_number;
+
+        $details = [
+            'numbers_ahead' => $numbers_ahead,
+            'current_number' => $current_number,
+            'waiting_time' => $waiting_time
+        ];
+
+        return Response::json($details, 200, array(), JSON_PRETTY_PRINT);
     }
 
 }

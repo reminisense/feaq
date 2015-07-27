@@ -167,7 +167,7 @@ class MessageController extends BaseController {
             $message_content[] = array(
                 'timestamp' => date("Y-m-d h:i A", $content->timestamp),
                 'content' => $content->contmessage,
-                'attachment' => $content->attachment,
+                'attachment' => isset($content->attachment) ? $content->attachment : '',
                 'sender' => $content->sender,
             );
         }
