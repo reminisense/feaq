@@ -56,6 +56,7 @@
             angular.forEach($scope.temp_called_numbers, function(temp,i){
                 if(temp.tran_number == transaction_number){
                     if( temp.email_checker == true){
+                        temp.rating = (temp.rating ? temp.rating : 3) ;
                         $http.get(pq.urls.rating.ratings_url + temp.rating + "/" + temp.email + "/" + temp.terminal_id + '/' + 2)
                             .success(function(response){
                             });
@@ -75,7 +76,7 @@
             angular.forEach($scope.temp_called_numbers, function(temp,i){
                 if(temp.tran_number == transaction_number){
                     if( temp.email_checker == true){
-                        $http.get(pq.urls.rating.ratings_url + temp.rating + "/" + temp.email + "/" + temp.terminal_id + '/' + 3)
+                        $http.get(pq.urls.rating.ratings_url + 0 + "/" + temp.email + "/" + temp.terminal_id + '/' + 3)
                             .success(function(response){
                             });
                     }
@@ -87,7 +88,7 @@
         $scope.serveAndCallNext = function(transaction_number){
             $scope.serveNumber(transaction_number, function(){
                 $scope.issue_call_number = null;
-                $scope.callNumber();
+                $scope.issueOrCall();
             });
         };
 
