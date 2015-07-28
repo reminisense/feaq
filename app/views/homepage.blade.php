@@ -374,6 +374,7 @@
               Free, <br>
               Online Queue Management System
             </h1>
+            <h1>Call us at: <span class="orange">(032) 345-4658</span></h1>
             <p class="mt50 leave">
               Leave your email below to receive our monthly newsletter on new features, new innovations and news that help you beat the waiting game.
             </p>
