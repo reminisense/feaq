@@ -47,4 +47,10 @@ class UserRating extends Eloquent{
     public static function saveRatingUser($data){
         DB::table('user_rating')->insert($data);
     }
+
+    public static function getUserRating($transaction_number) {
+        return $user_rating = DB::table('user_rating')
+            ->where('transaction_number', '=', $transaction_number)
+            ->first();
+    }
 }
