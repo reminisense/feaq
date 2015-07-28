@@ -492,6 +492,25 @@ class RestController extends BaseController {
         return json_encode(['history' => $user_queues]);
     }
 
+    /**
+     * @author Ruffy Heredia
+     * @desc Webservice to rate a business from the user perspective
+     * @param $rating
+     * @param $facebookId
+     * @param $business_id
+     * @param int $action
+     * @return string
+     */
+    public function getRateBusiness($rating, $facebookId, $business_id, $transaction_number, $action = 4) {
+        $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+        $user = User::searchByFacebookId($facebookId);
+        $user_id = $user["user_id"];
+
+        UserRating::rateBusiness($date, $business_id, $rating, $user_id, '0', $action, $transaction_number);
+
+        return json_encode(['success' => 1]);
+    }
+
     public function getIndustries(){
         return json_encode(['industries' => Business::getAvailableIndustries()]);
     }

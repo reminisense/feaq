@@ -28,6 +28,22 @@ class UserRating extends Eloquent{
 
     }
 
+    public static function rateBusiness($date, $business_id, $rating, $user_id, $terminal_user_id, $action, $transaction_number){
+
+        $data= [
+            'business_id' => $business_id,
+            'rating' => $rating,
+            'user_id' => $user_id,
+            'terminal_user_id' => $terminal_user_id,
+            'action' => $action,
+            'date' => $date,
+            'transaction_number' => $transaction_number,
+        ];
+
+        UserRating::saveRatingUser($data);
+
+    }
+
     public static function saveRatingUser($data){
         DB::table('user_rating')->insert($data);
     }
