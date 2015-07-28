@@ -136,17 +136,17 @@
                   <div class="col-md-2 col-sm-2 col-xs-4 btn-group">
                     <input type="text" id="time_open-filter" name="time_open" ng-model="time_open" placeholder="Time Open" class="form-control">
                   </div>
-                  <span class="searchblock">
-                    <input class="col-md-4 col-sm-4 col-xs-6" type="text" placeholder="ie: Ng Khai Devt Corp" id="search-keyword" ng-model="search_keyword" ng-model-options="{debounce: 1000}" autocomplete="off">
-                    <ul class="dropdown-menu" role="menu" id="search-suggest" ng-hide="dropdown_businesses.length == 0"  outside-click="dropdown_businesses = []">
-                        <li ng-repeat="business in dropdown_businesses">
-                            <a href="#" ng-click="searchBusiness(location_filter, industry_filter, business.name, $event)">
-                                <strong class="business-name">@{{ business.name }}</strong><br>
-                                <small class="address">@{{ business.local_address }}</small>
-                            </a>
-                        </li>
-                    </ul>
-                  </span>
+                  <div class="col-md-4 col-sm-4 col-xs-12">
+                  <input type="text" placeholder="ie: Ng Khai Devt Corp" id="search-keyword" ng-model="search_keyword" ng-model-options="{debounce: 1000}" autocomplete="off">
+                  <ul class="dropdown-menu" role="menu" id="search-suggest" ng-hide="dropdown_businesses.length == 0"  outside-click="dropdown_businesses = []">
+                      <li ng-repeat="business in dropdown_businesses">
+                          <a href="#" ng-click="searchBusiness(location_filter, industry_filter, business.name, $event)">
+                              <strong class="business-name">@{{ business.name }}</strong><br>
+                              <small class="address">@{{ business.local_address }}</small>
+                          </a>
+                      </li>
+                  </ul>
+                  </div>
                   <div class="col-md-2 col-sm-2 col-xs-6">
                     <button type="button" class=" btn btn-orange btn-md" ng-click="searchBusiness(location_filter, industry_filter, search_keyword);">SEARCH</button>
                   </div>

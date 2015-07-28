@@ -522,3 +522,14 @@ span.box {padding: 2px 4px; margin-right: 10px; display: inline-blo; font-size: 
     text-decoration: none;
 }
 
+#search-suggest {
+    display: inline-block;
+    overflow: auto;
+}
+
+#search-keyword {
+    font-size: 13px;
+    padding: 14px 20px;
+    vertical-align: middle;
+    width: 100%;
+}
