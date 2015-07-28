@@ -89,6 +89,7 @@
     height: 46px;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+    text-align: center;
 }
 #time_open-filter::-webkit-input-placeholder {color: #333;}
 #time_open-filter::-moz-placeholder {color: #333;}
