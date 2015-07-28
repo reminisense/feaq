@@ -56,8 +56,8 @@
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-              <li><a class="scroll" href="/about">About</a></li>
-              <li><a class="scroll" href="/guides">Set-up Guide</a></li>
+              <li><a class="scroll" href="/about" target="_blank">About</a></li>
+              <li><a class="scroll" href="/guides" target="_blank">Set-up Guide</a></li>
               <li class="hidden-xs hidden-sm">
                   <span style="border-right: 1px solid #4e4d4b;
                                margin-top: 14px;
@@ -84,7 +84,7 @@
               <h1>FeatherQ is the world's first DIY cloud-based queuing system. We make it easy for businesses to <span>MANAGE THEIR LINES BETTER</span> and allow customers to wait on their own terms.</h1>
               <div class="mt40 mb40" ng-controller="fbController">
                 <a href="" class="btn btn-fb" ng-click="login()" role="button"><img src="/images/homepage/fb.png" /> Signup | Login with Facebook</a>
-                <a href="https://play.google.com/store/search?q=pub:Reminisense">
+                <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
                   <img alt="Android app on Google Play"
                        src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png" />
                 </a>
@@ -372,7 +372,7 @@
             <img src="/images/homepage/featherq-footer.png" alt="FeatherQ" />
             <h1>A Powerful, <br>
               Free, <br>
-              Online Line Management System
+              Online Queue Management System
             </h1>
             <p class="mt50 leave">
               Leave your email below to receive our monthly newsletter on new features, new innovations and news that help you beat the waiting game.
@@ -394,7 +394,7 @@
 
             <br>
              <small class="block mt50">
-              Business Users receive a *FREE 2-Month SMS Notification Package *Applies to Philippine territories, offer good from.
+              Business Users receive a *FREE 2-Month SMS Notification Package *Applies to Philippine territories.
             </small>
           </div>
           </div>

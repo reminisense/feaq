@@ -575,4 +575,117 @@ class RestController extends BaseController {
         return Response::json($details, 200, array(), JSON_PRETTY_PRINT);
     }
 
+
+    //Messaging to business
+
+    /**
+     * @author ARA
+     * @param $facebook_id
+     * @return mixed
+     * get last Message of user to/from each business
+     */
+    public function getAllMessages($facebook_id){
+        $messages = [];
+        $email = User::where('fb_id', '=', $facebook_id)->select('email')->first();
+        if($email){
+            $threadKeys = Message::getMessagesByEmail($email->email);
+            foreach($threadKeys as $threadKey){
+                $data = json_decode(file_get_contents(public_path() . '/json/messages/' . $threadKey->thread_key . '.json'));
+                $message = $data[count($data) - 1];
+                $message->business_id = $threadKey->business_id;
+                $messages[] = $message;
+            }
+        }else{
+            return Response::json(['error' => 'User is not registered'], 200, array(), JSON_PRETTY_PRINT);
+        }
+
+        return Response::json(['messages' => $messages], 200, array(), JSON_PRETTY_PRINT);
+
+    }
+
+    /**
+     * @author ARA
+     * @param $facebook_id
+     * @param $business_id
+     * @return mixed
+     * get Messages between user and business
+     */
+    public function getBusinessMessages($facebook_id, $business_id){
+        $email = User::where('fb_id', '=', $facebook_id)->select('email')->first();
+        if($email){
+            try{
+                $threadKey = Message::getThreadKeyByBusinessIdAndEmail($business_id, $email->email);
+                $messages = json_decode(file_get_contents(public_path() . '/json/messages/' . $threadKey . '.json'));
+            }catch(Exception $e){
+                $messages = [];
+            }
+        }else{
+            return Response::json(['error' => 'User is not registered'], 200, array(), JSON_PRETTY_PRINT);
+        }
+
+        return Response::json(['messages' => $messages], 200, array(), JSON_PRETTY_PRINT);
+    }
+
+    /**
+     * @author ARA
+     * @param $facebook_id
+     * @param $business_id
+     * @param $message
+     * @param null $phone
+     * @return mixed
+     * send message to business
+     */
+    public function getSendtoBusiness($facebook_id, $business_id, $message, $phone = null){
+        $user = User::where('fb_id', '=', $facebook_id)->select('email', 'first_name', 'last_name')->first();
+        if($user){
+            $name = $user->first_name . ' ' . $user->last_name;
+            $email = $user->email;
+            $timestamp = time();
+            $attachment = '';
+            $business = Business::where('business_id', '=', $business_id)->first();
+            if($business){
+                $thread_key = Message::threadKeyGenerator($business_id, $email);
+                if (!Message::checkThreadByKey($thread_key)) {
+                    $phones[] = $phone;
+                    Message::createThread(array(
+                        'contactname' => $name,
+                        'business_id' => $business_id,
+                        'email' => $email,
+                        'phone' => serialize($phones),
+                        'thread_key' => $thread_key,
+                    ));
+                    $data = json_encode(array(array(
+                        'timestamp' => $timestamp,
+                        'contmessage' => $message,
+                        'attachment' => $attachment,
+                        'sender' => 'user',
+                    )));
+                }
+                else {
+                    $phones = unserialize(Message::getPhoneByKey($thread_key));
+                    if (!is_array($phones)) $phones = array($phones);
+                    if (!in_array($phone, $phones)) $phones[] = $phone;
+                    Message::updateThread(array(
+                        'phone' => serialize($phones),
+                    ), $thread_key);
+                    $data = json_decode(file_get_contents(public_path() . '/json/messages/' . $thread_key . '.json'));
+                    $data[] = array(
+                        'timestamp' => $timestamp,
+                        'contmessage' =>  $message,
+                        'attachment' => $attachment,
+                        'sender' => 'user',
+                    );
+                    $data = json_encode($data);
+                }
+
+                file_put_contents(public_path() . '/json/messages/' . $thread_key . '.json', $data);
+            }else{
+                return Response::json(['error' => 'Business does not exist'], 200, array(), JSON_PRETTY_PRINT);
+            }
+        }else{
+            return Response::json(['error' => 'User is not registered'], 200, array(), JSON_PRETTY_PRINT);
+        }
+        return Response::json(['success' => 1], 200, array(), JSON_PRETTY_PRINT);
+    }
+
 }
