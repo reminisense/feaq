@@ -511,6 +511,23 @@ class RestController extends BaseController {
         return json_encode(['success' => 1]);
     }
 
+    /**
+     * @author Ruffy Heredia
+     * @desc
+     * @param $transaction_number
+     * @param int $timestamp
+     * @return mixed
+     */
+    public function getTransactionRatingInfo($transaction_number, $timestamp = 0) {
+        try {
+            $rating = UserRating::getUserRating($transaction_number);
+            $rating->allowed = $rating->date == $timestamp ?  '1' : '0';
+        } catch (Exception $e) {
+            $rating = null;
+        }
+        return Response::json($rating ? $rating : ['success' => '0'], 200, array(), JSON_PRETTY_PRINT);
+    }
+
     public function getIndustries(){
         return json_encode(['industries' => Business::getAvailableIndustries()]);
     }
