@@ -166,7 +166,6 @@ Processs Queue > {{ $business_name }}
                             </form>
                             <a href="#" class="delete" ng-click="dropNumber(number.transaction_number)" ng-disabled="isProcessing"><span class="glyphicon glyphicon-trash"></span></a>
                             <a href="#" class="btn btn-sm btn-default" ng-click="serveAndCallNext(number.transaction_number)" ng-disabled="isProcessing">Next <span class="glyphicon glyphicon-arrow-right"></span></a>
-                            <a href="#" class="btn btn-sm btn-default" ng-click="serveNumber(number.transaction_number)" ng-disabled="isProcessing">Serve <span class="glyphicon glyphicon-ok"></span></a>
                         </td>
                     </tr>
                     </tbody>
