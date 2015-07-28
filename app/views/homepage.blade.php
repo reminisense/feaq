@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>FeatherQ v6</title>
+  <title>FeatherQ</title>
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
   <link rel="icon" href="images/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
@@ -374,6 +374,7 @@
               Free, <br>
               Online Queue Management System
             </h1>
+            <h1>Call us at: <span class="orange">(032) 345-4658</span></h1>
             <p class="mt50 leave">
               Leave your email below to receive our monthly newsletter on new features, new innovations and news that help you beat the waiting game.
             </p>
