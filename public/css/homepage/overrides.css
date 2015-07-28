@@ -210,6 +210,13 @@ h3 {
       padding-top: 93px;
     padding-left: 59px;
 }
+p > a{
+    color: #eee;
+}
+p > a:hover {
+    text-decoration: none;
+    color: #ff925b;
+}
 #myTabs {
     width: 251px;
     border: none;
