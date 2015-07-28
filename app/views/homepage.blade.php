@@ -374,7 +374,8 @@
               Free, <br>
               Online Queue Management System
             </h1>
-            <h1>Call us at: <span class="orange">(032) 345-4658</span></h1>
+            <h1>Call us at: <span class="orange">(032) 345-4658</span><br>
+            Email us at: <span class="orange">contact@featherq.com</span></h1>
             <p class="mt50 leave">
               Leave your email below to receive our monthly newsletter on new features, new innovations and news that help you beat the waiting game.
             </p>
@@ -384,7 +385,7 @@
               <div id="subscribe-success" class="alert alert-success text-center" style="display:none;">Thank you for subscribing.</div>
               <input type="email" id="subscriber-field" placeholder="Your email address">
               <button type="submit" id="subscribe-button" class="btn btn-orange"> Subscribe</button>
-              </for>
+              </form>
           </div>
           <div class="col-md-6 signthemup" ng-controller="fbController">
             <p>Allow your customers to wait on their own terms by making their mobile phone hold their spot in line. Gain competitive advantage by changing the way your customers perceive their wait.</p>
