@@ -201,8 +201,23 @@ var pq = {
             }, 3000);
         },
 
+        issue_number_error_alert : function(message){
+            pq.jquery_functions.hide_tab_content();
+
+            $('#issue-number-error .message').html(message);
+            $('#issue-number-error').fadeIn('fast');
+            setTimeout(function(){
+                $('#issue-number-error').fadeOut('slow');
+                $('#moreq').modal('hide');
+            }, 3000);
+        },
+
         issue_number_success : function(message){
             pq.jquery_functions.issue_number_success_alert(message);
+        },
+
+        issue_number_error : function(message){
+            pq.jquery_functions.issue_number_error_alert(message);
         },
 
         hide_tab_content : function(){

@@ -7,6 +7,7 @@ My Business
 @section('styles')
     <link rel='stylesheet' type='text/css' href='/css/business/business.css'>
     <link rel='stylesheet' type='text/css' href='/css/business/responsive.css'>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 @stop
 
 @section('scripts')
@@ -15,6 +16,7 @@ My Business
     <script src="/js/dashboard/edit-business.js"></script>
     <script src="/js/google-analytics/googleAnalytics.js"></script>
     <script src="/js/google-analytics/ga-dashboard.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 @stop
 
 @section('container')

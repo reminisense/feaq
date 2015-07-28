@@ -85,6 +85,9 @@
                 <div class="alert alert-success" style="display: none" role="alert" id="issue-number-success">
                     <div><strong class="message"></strong></div>
                 </div>
+                <div class="alert alert-danger" style="display: none" role="alert" id="issue-number-error">
+                    <div><strong class="message"></strong></div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary btn-md btn-close" data-dismiss="modal" aria-label="Close">CLOSE</button>
