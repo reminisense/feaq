@@ -519,13 +519,18 @@ class RestController extends BaseController {
      * @return mixed
      */
     public function getTransactionRatingInfo($transaction_number, $timestamp = 0) {
+        $current_date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
         try {
             $rating = UserRating::getUserRating($transaction_number);
-            $rating->allowed = $rating->date == $timestamp ?  '1' : '0';
+            $rating->is_rated = '1';
+            $rating->can_be_rated = '0';
         } catch (Exception $e) {
             $rating = null;
         }
-        return Response::json($rating ? $rating : ['success' => '0'], 200, array(), JSON_PRETTY_PRINT);
+        return Response::json($rating ? $rating : ['can_be_rated' => $current_date == $timestamp ? '1' : '0']
+                            , 200
+                            , array()
+                            , JSON_PRETTY_PRINT);
     }
 
     public function getIndustries(){
