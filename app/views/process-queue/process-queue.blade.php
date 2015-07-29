@@ -134,9 +134,8 @@ Processs Queue > {{ $business_name }}
                 </div>
                 <div ng-show="called_numbers.length != 0">
                     <point-of-interest position="left" bottom="68" right="96" title="Called Number" description="Click on the number to view the information about the user assigned to this number."></point-of-interest>
-                    <point-of-interest position="left" bottom="68" right="27" title="Drop Number" description="The <strong>Drop</strong> button (trashcan icon) indicates that the person assigned to the number did not show thus removes the number from the list."></point-of-interest>
-                    <point-of-interest position="left" bottom="68" right="21" title="Next Number" description="The <strong>Next</strong> button indicates that the number has been served and calls the next number on the list."></point-of-interest>
-                    <point-of-interest position="right" bottom="68" right="0" title="Serve Number" description="The <strong>Serve</strong> button indicates that the person assigned to the number has been served."></point-of-interest>
+                    <point-of-interest position="left" bottom="68" right="16.5" title="Drop Number" description="The <strong>Drop</strong> button (trashcan icon) indicates that the person assigned to the number did not show thus removes the number from the list."></point-of-interest>
+                    <point-of-interest position="left" bottom="68" right="1.5" title="Next Number" description="The <strong>Next</strong> button indicates that the number has been served and calls the next number on the list."></point-of-interest>
                 </div>
                 <table class="table table-striped">
                     <tbody>
