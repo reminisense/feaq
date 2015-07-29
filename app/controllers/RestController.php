@@ -529,10 +529,10 @@ class RestController extends BaseController {
     }
     /**
      * @param $facebook_id
-     * @return JSON-formatted data of the service id of the business.
+     * @return JSON-formatted response of the business name, estimated time, people-in-queue and next number available .
      */
 
-    public function getServiceId($facebook_id) {
+    public function getBusinessServiceDetails($facebook_id) {
         try{
             $user_id = User::getUserIdByFbId($facebook_id);
         }catch (Exception $e) {
@@ -542,48 +542,23 @@ class RestController extends BaseController {
         if($user_id){
 
             $business_id = UserBusiness::getBusinessIdByOwner($user_id);
-            $branch_id = Branch::getFirstBranchOfBusiness($business_id)->branch_id;
-            $service = Service::getServicesByBranchId($branch_id);
-            $services = [];
-            foreach($service as $value){
-                $details = [
-                    'service_id' => $value->service_id,
-                    'service_name' => $value->name
-                ];
-                array_push($services, $details);
-            }
+            $business_name = Business::name($business_id);
+            $estimated_time = Analytics::getWaitingTime($business_id);
+            $service= Service::getFirstServiceOfBusiness($business_id);
+            $remaining_queue_count = Analytics::getServiceRemainingCount($service->service_id);
+            $next_available_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service->service_id), QueueSettings::numberStart($service->service_id), QueueSettings::numberLimit($service->service_id));
 
+            $details = [
+                'business_name' => $business_name,
+                'estimated_time' => $estimated_time,
+                'people_in_queue' => $remaining_queue_count,
+                'next_available_number' => $next_available_number
+            ];
 
-
-            return Response::json($services, 200, array(), JSON_PRETTY_PRINT);
-
+            return Response::json($details, 200, array(), JSON_PRETTY_PRINT);
         }else{
             return json_encode(['error' => 'Something went wrong!']);
         }
-    }
-
-    /**
-     * @param $service_id
-     * @return JSON-formatted data of numbers of people ahead, served number and waiting number.
-     */
-
-    public function getNumbersData($service_id) {
-
-        $business_id = Business::getBusinessIdByServiceId($service_id);
-        $waiting_time = Analytics::getWaitingTime($business_id);
-
-        $last_number = ProcessQueue::lastNumberGiven($service_id);
-        $current_number = ProcessQueue::currentNumber($service_id);
-
-        $numbers_ahead =  $last_number - $current_number;
-
-        $details = [
-            'numbers_ahead' => $numbers_ahead,
-            'current_number' => $current_number,
-            'waiting_time' => $waiting_time
-        ];
-
-        return Response::json($details, 200, array(), JSON_PRETTY_PRINT);
     }
 
     /**
