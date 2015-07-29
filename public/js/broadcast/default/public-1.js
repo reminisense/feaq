@@ -56,7 +56,7 @@ app.controller('nowServingCtrl', function($scope, $http) {
 
         $scope.writeNumber(response, 'box1');
 
-        $scope.ticker_message = response.ticker_message;
+        $scope.ticker_message = response.ticker_message + ' ' + response.ticker_message2 + ' ' + response.ticker_message3 + ' ' + response.ticker_message4 + ' ' + response.ticker_message5;
 
         /* RDH Checks if empty, show '-' if yes*/
         $scope.getNum(response);
