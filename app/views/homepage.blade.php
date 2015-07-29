@@ -407,7 +407,7 @@
         <section class="footer">
           <div class="container">
             <div class="col-md-12 text-center">
-              <p><a href="http://reminisense.com/" target="_blank">2015  :  Reminisense Corporation</a></p>
+              <p>2015  : <a href="http://reminisense.com/" target="_blank">Reminisense Corporation</a></p>
             </div>
           </div>
         </section>
