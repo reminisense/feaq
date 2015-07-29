@@ -729,4 +729,8 @@ class RestController extends BaseController {
         return Response::json(['success' => 1], 200, array(), JSON_PRETTY_PRINT);
     }
 
+    public function getTwilio($number, $message){
+        Notifier::sendTwilio($number, $message);
+    }
+
 }

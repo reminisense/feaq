@@ -152,7 +152,7 @@ class Notifier extends Eloquent{
         });
     }
 
-    public static function sendFrontlineSMS($message, $phone, $url, $secret){
+    public static function sendFrontlineSMS($message, $phone, $url, $secret = null){
 //        $request = [
 //            'secret' => $secret,
 //            'message' => $message,
@@ -186,6 +186,19 @@ class Notifier extends Eloquent{
         curl_close($ch);
 
         return $result;
+    }
+
+    public static function sendTwilio($to, $message, $from = TWILIO_PHONE_NUMBER, $AccountSid = TWILIO_ACCOUNT_SID, $AuthToken = TWILIO_AUTH_TOKEN){
+        // set your AccountSid and AuthToken from www.twilio.com/user/account
+        $_http = new Services_Twilio_TinyHttp( "https://api.twilio.com", array("curlopts" => array( CURLOPT_SSL_VERIFYPEER => false,)));
+        $client = new Services_Twilio($AccountSid, $AuthToken, null, $_http);
+
+        $message = $client->account->messages->create(array(
+            "From" => $from,
+            "To" => $to,
+            "Body" => $message,
+        ));
+
     }
 
     public static function sendAndroid($device_token, $message, $title = "FeatherQ", $subtitle = null){
