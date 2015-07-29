@@ -1098,6 +1098,12 @@ strong {
   font-size: 10px;
   margin-right: 4px;
 }
+
+.btn-fb {
+    background-color: #4666b6;
+    color: #fff;
+}
+
 .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, 
 .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, 
 .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, 

@@ -2,11 +2,73 @@
 
 class MessageController extends BaseController {
 
+  public function getDisplay() {
+    if (Auth::check()) {
+      return View::make('messages.inbox');
+    }
+    else {
+      return Redirect::to('/');
+    }
+  }
+
+  public function postAssignedBusinesses() {
+    if (Auth::check()) {
+      $res = UserBusiness::getAllBusinessIdByOwner(Auth::user()->user_id);
+      foreach ($res as $count => $data) {
+        $businesses[] = array(
+          'business_id' => $data->business_id,
+          'business_name' => Business::name($data->business_id),
+        );
+      }
+      return json_encode(array('businesses' => $businesses));
+    }
+    else {
+      return json_encode(array('messages' => 'You are not allowed to access this function.'));
+    }
+  }
+
+  public function postBusinessInbox() {
+    if (Auth::check()) {
+      $business_id = UserBusiness::getBusinessIdByOwner(Auth::user()->user_id);
+      $messages = array();
+      $list = Message::getMessagesByBusinessId($business_id);
+      foreach ($list as $count => $thread) {
+        $messages[] = array(
+          'contactname' => $thread->contactname,
+          'message_id' => $thread->message_id,
+        );
+      }
+      return json_encode(array('messages' => $messages));
+    }
+    else {
+      return json_encode(array('messages' => 'You are not allowed to access this function.'));
+    }
+  }
+
+  public function postOtherInbox() {
+    if (Auth::check()) {
+      $messages = array();
+      $res = Message::getThreadKeysByEmail(User::email(Auth::user()->user_id));
+      foreach ($res as $count => $data) {
+        $list = Message::getMessagesByThreadKey($data->thread_key);
+        foreach ($list as $count => $thread) {
+          $messages[] = array(
+            'contactname' => Business::name(Message::getBusinessIdByMessageId($thread->message_id)),
+            'message_id' => $thread->message_id,
+          );
+        }
+      }
+      return json_encode(array('messages' => $messages));
+    }
+    else {
+      return json_encode(array('messages' => 'You are not allowed to access this function.'));
+    }
+  }
+
   public function postSendtoBusiness() {
     $business_id = Input::get('business_id');
-    $email = Input::get('contemail');
-    $name = Input::get('contname');
     $attachment = Input::get('contfile');
+    $email = User::email(Auth::user()->user_id);
     $timestamp = time();
     $thread_key = $this->threadKeyGenerator($business_id, $email);
     $custom_fields_bool = Input::get('custom_fields_bool');
@@ -24,7 +86,7 @@ class MessageController extends BaseController {
     if (!Message::checkThreadByKey($thread_key)) {
       $phones[] = Input::get('contmobile');
       Message::createThread(array(
-        'contactname' => $name,
+        'contactname' => User::first_name(Auth::user()->user_id) . ' ' . User::last_name(Auth::user()->user_id),
         'business_id' => $business_id,
         'email' => $email,
         'phone' => serialize($phones),
@@ -39,13 +101,6 @@ class MessageController extends BaseController {
       file_put_contents(public_path() . '/json/messages/' . $thread_key . '.json', $data);
     }
     else {
-      $phone = Input::get('contmobile');
-      $phones = unserialize(Message::getPhoneByKey($thread_key));
-      if (!is_array($phones)) $phones = array($phones);
-      if (!in_array($phone, $phones)) $phones[] = $phone;
-      Message::updateThread(array(
-        'phone' => serialize($phones),
-      ), $thread_key);
       $data = json_decode(file_get_contents(public_path() . '/json/messages/' . $thread_key . '.json'));
       $data[] = array(
         'timestamp' => $timestamp,
@@ -72,10 +127,24 @@ class MessageController extends BaseController {
     return json_encode(array('status' => 1));
   }
 
-    public function postSendtoUser(){
-      $timestamp = time();
+  public function postSendtoUser(){
+    $timestamp = time();
+    if (Input::get('preview_type') == 'other') {
+      $thread_key = Message::getThreadKeyByMessageId(Input::get('message_id'));
+      $data = json_decode(file_get_contents(public_path() . '/json/messages/' . $thread_key . '.json'));
+      $data[] = array(
+        'timestamp' => $timestamp,
+        'contmessage' => Input::get('messageContent'),
+        'attachment' => Input::get('attachment'),
+        'sender' => 'user',
+      );
+      $data = json_encode($data);
+      file_put_contents(public_path() . '/json/messages/' . $thread_key . '.json', $data);
+      return json_encode(array('timestamp' => date("Y-m-d h:i A", $timestamp)));
+    }
+    else {
       $attachment = "";
-      $thread_key = $this->threadKeyGenerator(Input::get('business_id'), Input::get('contactemail'));
+      $thread_key = Message::getThreadKeyByMessageId(Input::get('message_id'));
       if (Input::get('sendbyphone')) {
         $business_name = Business::name(Input::get('business_id'));
         $text_message = 'From: ' . $business_name  .  "\n" . 'To: ' . Input::get('phonenumber') . "\n" . Input::get('messageContent') . "\n\nThanks for using FeatherQ";
@@ -90,7 +159,8 @@ class MessageController extends BaseController {
       );
       $data = json_encode($data);
       file_put_contents(public_path() . '/json/messages/' . $thread_key . '.json', $data);
-      $business_name = Business::name(Input::get('business_id'));
+      /*
+      $business_name = Business::name(Message::getBusinessIdByMessageId(Input::get('message_id')));
       $subject = 'Message From ' . $business_name;
       if (Input::get('attachment')) {
         $attachment = '<br><br><a href="' . Input::get('attachment') . '" download>Download Attachment</a>';
@@ -99,8 +169,10 @@ class MessageController extends BaseController {
         'messageContent' => Input::get('messageContent') . $attachment,
         'businessName' => $business_name,
       ));
+      */
       return json_encode(array('timestamp' => date("Y-m-d h:i A", $timestamp)));
     }
+  }
 
   public function postMessageList() {
     $messages = array();
@@ -117,7 +189,7 @@ class MessageController extends BaseController {
   }
 
   public function postMessageThread() {
-    return $this->getMessageThread(Message::getThreadKeyByMessageId(Input::get('message_id')));
+    return $this->getMessageThread(Input::get('preview_type'), Message::getThreadKeyByMessageId(Input::get('message_id')));
   }
 
   public function postPhoneList() {
@@ -135,10 +207,16 @@ class MessageController extends BaseController {
         return md5($business_id . 'fq' . $email);
     }
 
-    private function getMessageThread($thread_key){
+    private function getMessageThread($preview_type = 'business', $thread_key){
         $message_content = array();
         $data = json_decode(file_get_contents(public_path() . '/json/messages/' . $thread_key . '.json'));
         foreach ($data as $count => $content) {
+          if ($preview_type == 'other' && $content->sender == 'user') {
+            $content->sender = 'business';
+          }
+          elseif ($preview_type == 'other' && $content->sender == 'business') {
+            $content->sender = 'user';
+          }
             $message_content[] = array(
                 'timestamp' => date("Y-m-d h:i A", $content->timestamp),
                 'content' => $content->contmessage,
