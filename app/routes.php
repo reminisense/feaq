@@ -58,3 +58,5 @@ Route::get('guides', 'ContentController@getGuides');
 Route::controller('articles', 'ContentController');
 
 Route::controller('how-to', 'ContentController');
+
+Route::controller('test', 'TestController');

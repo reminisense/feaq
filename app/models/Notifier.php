@@ -199,6 +199,7 @@ class Notifier extends Eloquent{
             "Body" => $message,
         ));
 
+        return $message;
     }
 
     public static function sendAndroid($device_token, $message, $title = "FeatherQ", $subtitle = null){
