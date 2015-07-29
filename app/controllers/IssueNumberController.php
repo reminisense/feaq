@@ -36,9 +36,13 @@ class IssueNumberController extends BaseController{
         $queue_platform = $priority_number == $next_number || $priority_number == null ? $queue_platform : 'specific';
 
         //save
-        $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, $terminal_id);
-        PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
-        TerminalTransaction::where('transaction_number', '=', $number['transaction_number'])->update(['time_assigned' => $time_assigned]);
-        return json_encode(['success' => 1, 'number' => $number]);
+        if(($queue_platform == 'android' || $queue_platform == 'remote') && !QueueSettings::checkRemoteQueue($service_id)){
+            return json_encode(['error' => 'Remote queue option is not allowed at this time']);
+        }else{
+            $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, $terminal_id);
+            PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
+            TerminalTransaction::where('transaction_number', '=', $number['transaction_number'])->update(['time_assigned' => $time_assigned]);
+            return json_encode(['success' => 1, 'number' => $number]);
+        }
     }
 }

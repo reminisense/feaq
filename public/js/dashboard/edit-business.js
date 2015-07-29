@@ -68,12 +68,14 @@ $(document).ready(function(){
         $('.preview-container').fadeOut();
     });
 
+
+
     //eb.jquery_functions.load_users();
     eb.jquery_functions.setBusinessId($('#business_id').val());
     eb.jquery_functions.setUserId($('#user_id').val());
     eb.jquery_functions.getBusinessDetails();
     eb.jquery_functions.my_business_link_active();
-
+    eb.jquery_functions.load_remote_limit_slider();
 
 });
 
@@ -208,6 +210,23 @@ var eb = {
                     $("#terminal-delete-error").show();
                 });
             }, 3000);
+        },
+
+        load_remote_limit_slider : function(){
+            var scope = angular.element($("#editBusiness")).scope();
+            var value = scope.remote_limit;
+
+            $( "#remote-slider" ).slider({
+                range: "max",
+                min: 0,
+                max: 20,
+                value: value,
+                slide: function( event, ui ) {
+                    scope.$apply(function(){
+                        scope.remote_limit = ui.value;
+                    });
+                }
+            });
         }
     }
 };
@@ -244,6 +263,7 @@ var eb = {
         $scope.sms_blank_ahead = 0;
         $scope.input_sms_field = 0;
         $scope.allow_remote = 0;
+        $scope.remote_limit = 0;
 
         $scope.business_reply_form = {
             message_reply : "",
@@ -290,9 +310,12 @@ var eb = {
             $scope.sms_blank_ahead = business.sms_blank_ahead ? true : false;
             $scope.input_sms_field = business.input_sms_field;
             $scope.allow_remote = business.allow_remote ? true : false;
+            $scope.remote_limit = business.remote_limit;
             $scope.terminals = business.terminals;
             $scope.analytics = business.analytics;
             $scope.terminal_delete_error = business.error ? business.error : null;
+
+            eb.jquery_functions.load_remote_limit_slider();
         }
 
         setBusinessFeatures = function(features){
@@ -566,7 +589,8 @@ var eb = {
                     sms_10_ahead : $scope.sms_10_ahead ? 1 : 0,
                     sms_blank_ahead : $scope.sms_blank_ahead ? 1 : 0,
                     input_sms_field: $scope.input_sms_field,
-                    allow_remote: $scope.allow_remote ? 1 : 0
+                    allow_remote: $scope.allow_remote ? 1 : 0,
+                    remote_limit: $scope.remote_limit
                 }
 
                 $http.post(eb.urls.business.business_edit_url, data)

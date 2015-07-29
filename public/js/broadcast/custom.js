@@ -1,39 +1,11 @@
-function isEmail(email) {
-    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    return regex.test(email);
-}
-
-function isValidPhone (txtPhone) {
-    var filter = /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/i;
-    if (filter.test(txtPhone)) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
 $(document).on('click', '#send-business-message', function(){
     var business_id = $('#business-id').attr('business_id');
-    var contname = $('#contactname').val();
-    var contemail = $('#contactemail').val();
-    var contmobile = $('#contactmobile').val();
     var contmessage = $('#contactmessage').val();
     var contfile = $('#contactfile').val();
     var custom_fields = [];
     var custom_fields_bool = false;
 
     var errorMessage = '';
-    if (!isEmail(contemail)){
-        errorMessage += "Invalid user Email input. ";
-    }
-
-    if (!isValidPhone(contmobile)){
-        errorMessage += "Invalid user Mobile Number input. ";
-    }
-
-    if (contname == '' || contemail == '' || contmobile == '' || contmessage == ''){
-        errorMessage = "Please input all required fields in the form.";
-    }
 
     if (errorMessage == ''){
         // Get the Values of the Custom Fields
@@ -57,9 +29,6 @@ $(document).on('click', '#send-business-message', function(){
             }
             $.post( '/message/sendto-business', {
                 business_id: business_id,
-                contname: contname,
-                contemail: contemail,
-                contmobile: contmobile,
                 contmessage: contmessage,
                 contfile : contfile,
                 custom_fields_bool : custom_fields_bool,
@@ -71,10 +40,7 @@ $(document).on('click', '#send-business-message', function(){
                     $('#message-notif').addClass('alert-success');
                     $('#message-notif').html('Message sent! The business will contact you through email or mobile.');
                     $('#message-notif').fadeIn();
-                    $('#contactname').val('');
-                    $('#contactemail').val('');
                     $('#contactmessage').val('');
-                    $('#contactmobile').val('');
                     $('.custom-field').val('');
                     $('[name="contact_business_form"] input:checkbox').removeAttr('checked');
                     $('[name="contact_business_form"] input:radio').removeAttr('checked');
