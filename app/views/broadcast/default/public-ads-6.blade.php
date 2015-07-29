@@ -7,7 +7,7 @@
             @if (Auth::check())
                 <a class="btn btn-half btn-blue" id="btn-message-business" data-toggle="modal" data-target="#contact-business-modal"> <span class="glyphicon glyphicon-envelope"></span></a>
             @else
-                <a class="btn btn-half btn-warning" id="btn-message-business"> <span class="glyphicon glyphicon-envelope"></span> Please login to send this business a message.</a>
+                <a class="btn btn-half btn-warning" id="btn-message-business" data-toggle="modal" data-target="#contact-error-modal"> <span class="glyphicon glyphicon-envelope"></span></a>
             @endif
                        <a class="btn btn-half btn-blue" id="btn-bcast-details"> <span class="glyphicon glyphicon-plus"></span></a>
         </div>
