@@ -31,6 +31,15 @@
         </div>
         <div class="clearfix">
             <div class="col-md-6 mb20">
+                <p class="title">Remote Queue Limit</p>
+            </div>
+            <div class="col-md-6 mb20">
+                <input type="text" id="remote-limit" readonly style="border:0; font-weight:bold; width: 28px;" ng-model="remote_limit"> %
+                <div id="remote-slider"></div>
+            </div>
+        </div>
+        <div class="clearfix">
+            <div class="col-md-6 mb20">
                 <p class="title">SMS and Email Notification Settings
                     <span class="glyphicon glyphicon-info-sign" style="color:#337ab7; cursor: pointer;margin-bottom:20px;" title="When to notify users via SMS."></span>
                 </p>
