@@ -122,13 +122,23 @@ class Business extends Eloquent
             $business_details['frontline_sms_url'] = $sms_gateway_api['frontline_sms_url'];
             $business_details['frontline_sms_api_key'] = $sms_gateway_api['frontline_sms_api_key'];
         }elseif($business_details['sms_gateway'] == 'twilio' && $sms_gateway_api){
-            $business_details['twilio_account_sid'] = $sms_gateway_api['twilio_account_sid'];
-            $business_details['twilio_auth_token'] = $sms_gateway_api['twilio_auth_token'];
-            $business_details['twilio_phone_number'] = $sms_gateway_api['twilio_phone_number'];
+            if($sms_gateway_api['twilio_account_sid'] == TWILIO_ACCOUNT_SID &&
+                $sms_gateway_api['twilio_auth_token'] == TWILIO_AUTH_TOKEN &&
+                $sms_gateway_api['twilio_phone_number'] == TWILIO_PHONE_NUMBER){
+                $business_details['sms_gateway'] = NULL;
+                $business_details['twilio_account_sid'] = NULL;
+                $business_details['twilio_auth_token'] = NULL;
+                $business_details['twilio_phone_number'] = NULL;
+            }else{
+                $business_details['twilio_account_sid'] = $sms_gateway_api['twilio_account_sid'];
+                $business_details['twilio_auth_token'] = $sms_gateway_api['twilio_auth_token'];
+                $business_details['twilio_phone_number'] = $sms_gateway_api['twilio_phone_number'];
+            }
         }else{
-            $business_details['sms_gateway'] = 'frontline_sms';
-            $business_details['frontline_sms_url'] = null;
-            $business_details['frontline_sms_api_key'] = null;
+            $business_details['sms_gateway'] = NULL;
+            $business_details['twilio_account_sid'] = NULL;
+            $business_details['twilio_auth_token'] = NULL;
+            $business_details['twilio_phone_number'] = NULL;
         }
 
 
