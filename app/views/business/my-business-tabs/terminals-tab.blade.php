@@ -52,7 +52,6 @@
                                                 <li ng-repeat="user in user_results.users" ng-click="emailSearch(user.email, terminal.terminal_id)">
                                                     <a href="#">
                                                         <strong>@{{ user.first_name + ' ' + user.last_name }}</strong><br>
-                                                        <span>@{{ user.email }}</span>
                                                     </a>
                                                 </li>
                                             </ul>

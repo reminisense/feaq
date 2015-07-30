@@ -70,11 +70,11 @@ class QueueSettings extends Eloquent{
     }
 
     public static function smsGateway($service_id, $date = null){
-        return QueueSettings::queueSetting('sms_gateway', 'frontline_sms', $service_id, $date);
+        return QueueSettings::queueSetting('sms_gateway', 'twilio', $service_id, $date);
     }
 
     public static function smsGatewayApi($service_id, $date = null){
-        return QueueSettings::queueSetting('sms_gateway_api', serialize(QueueSettings::$sms_gateway_api['frontline_sms']), $service_id, $date);
+        return QueueSettings::queueSetting('sms_gateway_api', serialize(QueueSettings::$sms_gateway_api['twilio']), $service_id, $date);
     }
 
 

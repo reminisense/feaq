@@ -301,8 +301,6 @@ var eb = {
             $scope.timezone = business.timezone; //ARA Added Timezone
             $scope.queue_limit = business.queue_limit; /* RDH Added queue_limit to Edit Business Page */
             $scope.terminal_specific_issue = business.terminal_specific_issue ? true : false;
-            $scope.frontline_secret = business.frontline_sms_secret;
-            $scope.frontline_url = business.frontline_sms_url;
             $scope.sms_current_number = business.sms_current_number ? true : false;
             $scope.sms_1_ahead  = business.sms_1_ahead ? true : false;
             $scope.sms_5_ahead  = business.sms_5_ahead ? true : false;
@@ -314,6 +312,17 @@ var eb = {
             $scope.terminals = business.terminals;
             $scope.analytics = business.analytics;
             $scope.terminal_delete_error = business.error ? business.error : null;
+
+            //sms settings
+            $scope.sms_gateway = business.sms_gateway;
+            if(business.sms_gateway == 'frontline_sms'){
+                $scope.frontline_api_key = business.frontline_api_key;
+                $scope.frontline_url = business.frontline_sms_url;
+            }else if(business.sms_gateway == 'twilio'){
+                $scope.twilio_account_sid = business.twilio_account_sid;
+                $scope.twilio_auth_token = business.twilio_auth_token;
+                $scope.twilio_phone_number = business.twilio_phone_number;
+            }
 
             eb.jquery_functions.load_remote_limit_slider();
         }
@@ -581,8 +590,6 @@ var eb = {
                     timezone: $scope.timezone, //ARA Added timezone
                     queue_limit: $scope.queue_limit, /* RDH Added queue_limit to Edit Business Page */
                     terminal_specific_issue : $scope.terminal_specific_issue ? 1 : 0,
-                    frontline_sms_secret : $scope.frontline_secret,
-                    frontline_sms_url : $scope.frontline_url,
                     sms_current_number : $scope.sms_current_number ? 1 : 0,
                     sms_1_ahead : $scope.sms_1_ahead ? 1 : 0,
                     sms_5_ahead : $scope.sms_5_ahead ? 1 : 0,
@@ -590,7 +597,17 @@ var eb = {
                     sms_blank_ahead : $scope.sms_blank_ahead ? 1 : 0,
                     input_sms_field: $scope.input_sms_field,
                     allow_remote: $scope.allow_remote ? 1 : 0,
-                    remote_limit: $scope.remote_limit
+                    remote_limit: $scope.remote_limit,
+                    sms_gateway : $scope.sms_gateway
+                }
+
+                if($scope.sms_gateway == 'frontline_sms'){
+                    data.frontline_api_key = $scope.frontline_api_key;
+                    data.frontline_url = $scope.frontline_url;
+                }else if($scope.sms_gateway == 'twilio'){
+                    data.twilio_account_sid = $scope.twilio_account_sid;
+                    data.twilio_auth_token = $scope.twilio_auth_token;
+                    data.twilio_phone_number = $scope.twilio_phone_number;
                 }
 
                 $http.post(eb.urls.business.business_edit_url, data)
