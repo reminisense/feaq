@@ -68,14 +68,14 @@ $(document).ready(function(){
         $('.preview-container').fadeOut();
     });
 
-
-
     //eb.jquery_functions.load_users();
     eb.jquery_functions.setBusinessId($('#business_id').val());
     eb.jquery_functions.setUserId($('#user_id').val());
     eb.jquery_functions.getBusinessDetails();
     eb.jquery_functions.my_business_link_active();
+    eb.jquery_functions.activate_plupload();
     eb.jquery_functions.load_remote_limit_slider();
+
 
 });
 
@@ -119,6 +119,11 @@ var eb = {
             add_dropdown_url : '/forms/add-dropdown',
             display_fields_url : '/forms/display-fields',
             delete_field_url : '/forms/delete-field'
+        },
+
+        advertisement : {
+            get_slider_image : '/advertisement/slider-images',
+            delete_slider_image : '/advertisement/delete-image'
         }
     },
 
@@ -227,6 +232,26 @@ var eb = {
                     });
                 }
             });
+        },
+
+        activate_plupload : function() {
+            $("#html5_uploader").pluploadQueue({
+                // General settings
+                runtimes : 'html5',
+                url : '/advertisement/upload-image',
+                chunk_size : '1mb',
+                unique_names : true,
+
+                filters : {
+                    max_file_size : '5mb',
+                    mime_types: [
+                        {title : "Image files", extensions : "jpg,gif,png"}
+                    ]
+                },
+
+                // Resize images on clientside if we can
+                resize : {width : 800, height : 800, quality : 90}
+            });
         }
     }
 };
@@ -252,7 +277,11 @@ var eb = {
 
         $scope.form_fields = [];
 
-        $scope.remaining_character  = 95;
+        $scope.remaining_character1  = 95;
+        $scope.remaining_character2  = 95;
+        $scope.remaining_character3  = 95;
+        $scope.remaining_character4  = 95;
+        $scope.remaining_character5  = 95;
 
         $scope.number_start = 1;
         $scope.terminal_specific_issue = 0;
@@ -692,73 +721,28 @@ var eb = {
 
                     // current active ticker message
                     $scope.ticker_message = response.ticker_message;
+                    $scope.ticker_message2 = response.ticker_message2;
+                    $scope.ticker_message3 = response.ticker_message3;
+                    $scope.ticker_message4 = response.ticker_message4;
+                    $scope.ticker_message5 = response.ticker_message5;
+                });
+                $http.post(eb.urls.advertisement.get_slider_image, {
+                    'business_id' : business_id
+                }).success(function(response) {
+                    $scope.slider_images = response.slider_images;
                 });
             }
         });
 
-        $scope.adImageUpload = (function(business_id) {
-            $('#image-submit-btn').addClass('btn-disabled');
-            $('#ad-image-uploader').submit(function() {
-                $(this).ajaxSubmit({
-                    data : {
-                        business_id : business_id
-                    },
-                    //target:   '#ad-preview',   // target element(s) to be updated with server response
-                    beforeSubmit:  (function() {
-                        //check whether browser fully supports all File API
-                        if (window.File && window.FileReader && window.FileList && window.Blob)
-                        {
-
-                            var fsize = $('#ad-image')[0].files[0].size; //get file size
-                            var ftype = $('#ad-image')[0].files[0].type; // get file type
-
-
-                            //allow only valid image file types
-                            switch(ftype)
-                            {
-                                case 'image/png': case 'image/jpeg': case 'image/jpg':
-                                break;
-                                default:
-                                    $("#ad-preview").html("<b>"+ftype+"</b> Unsupported file type!");
-                                    return false
-                            }
-
-                            //Allowed file size is less than 10 MB (1048576)
-                            if(fsize>10485760)
-                            {
-                                $("#ad-preview").html("<b>"+fsize +"</b> Too big Image file! <br />Please reduce the size of your photo using an image editor.");
-                                return false
-                            }
-
-                            $('#image-submit-btn').hide(); //hide submit button
-                            $('#loading-img').show(); //hide submit button
-                        }
-                        else
-                        {
-                            //Output error to older browsers that do not support HTML5 File API
-                            $("#ad-preview").html("Please upgrade your browser, because your current browser lacks some new features we need!");
-                            return false;
-                        }
-                    }),  // pre-submit callback
-                    resetForm: true,        // reset the form after successful submit
-                    success : function(response) {
-                        var result = jQuery.parseJSON(response);
-                        $('#ad-preview').attr('src', result.src);
-                        $('#loading-img').hide();
-                        $('#submit-btn').show();
-                        $('#adimage-danger').hide();
-                        $('#adimage-success').fadeIn();
-                        $('#image-submit-btn').show();
-                    },
-                    error: function(response) {
-                        $('#adimage-success').hide();
-                        $('#adimage-danger').fadeIn();
-                    }
-                });  //Ajax Submit form
-                // return false to prevent standard browser submit and page navigation
-                return false;
-            });
-        });
+        $scope.deleteImageSlide = function(count, img_path) {
+            if (confirm('Are you sure you want to delete this image?')) {
+                $http.post(eb.urls.advertisement.delete_slider_image, {
+                    path : img_path
+                }).success(function(response) {
+                    $('#slide'+count).remove();
+                });
+            }
+        };
 
         $scope.adVideoEmbed = (function(business_id) {
             $('#image-submit-btn').addClass('btn-disabled');
@@ -806,7 +790,11 @@ var eb = {
         $scope.setTicker = (function(business_id) {
             $http.post(eb.urls.broadcast.save_ticker_url, {
                 business_id : business_id,
-                ticker_message : $scope.ticker_message
+                ticker_message : $scope.ticker_message,
+                ticker_message2 : $scope.ticker_message2,
+                ticker_message3 : $scope.ticker_message3,
+                ticker_message4 : $scope.ticker_message4,
+                ticker_message5 : $scope.ticker_message5
             }).success(function() {
                 $('#ticker-danger').hide();
                 $('#ticker-success').fadeIn();
@@ -819,14 +807,26 @@ var eb = {
 
         $scope.setRemainingCharacter = (function() {
             var bla = $('#ticker-message').val();
+            var bla2 = $('#ticker-message2').val();
+            var bla3 = $('#ticker-message3').val();
+            var bla4 = $('#ticker-message4').val();
+            var bla5 = $('#ticker-message5').val();
             var accepted_char = 95;
-
-            if($('#lbl-ticker').css('visibility') == 'hidden')
-            {
-                $('#lbl-ticker').css('visibility', 'visible');
-            }
+            if($('#lbl-ticker').css('visibility') == 'hidden') $('#lbl-ticker').css('visibility', 'visible');
+            if($('#lbl-ticker2').css('visibility') == 'hidden') $('#lbl-ticker2').css('visibility', 'visible');
+            if($('#lbl-ticker3').css('visibility') == 'hidden') $('#lbl-ticker3').css('visibility', 'visible');
+            if($('#lbl-ticker4').css('visibility') == 'hidden') $('#lbl-ticker4').css('visibility', 'visible');
+            if($('#lbl-ticker5').css('visibility') == 'hidden') $('#lbl-ticker5').css('visibility', 'visible');
             $scope.remaining_character = accepted_char - bla.length;
-            if($scope.remaining_character < 0){
+            $scope.remaining_character2 = accepted_char - bla2.length;
+            $scope.remaining_character3 = accepted_char - bla3.length;
+            $scope.remaining_character4 = accepted_char - bla4.length;
+            $scope.remaining_character5 = accepted_char - bla5.length;
+            if($scope.remaining_character < 0 ||
+                $scope.remaining_character2 < 0 ||
+                $scope.remaining_character3 < 0 ||
+                $scope.remaining_character4 < 0 ||
+                $scope.remaining_character5 < 0){
                 $('#ticker-message-submit-btn').attr('disabled','disabled');
             }else{
                 $('#ticker-message-submit-btn').removeAttr('disabled');

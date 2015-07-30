@@ -290,3 +290,11 @@
     font-size: 11px;
     color: #646464;
 }
+
+/*---------7/30/2015 JCA---------*/
+#btnGroupDrop1{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+

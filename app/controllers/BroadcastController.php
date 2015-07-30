@@ -43,7 +43,15 @@ class BroadcastController extends BaseController{
         $arr = explode("-", $data->display);
         if ($arr[0]) $template_type = 'ads-' . $arr[1];
         else $template_type = 'noads-' . $arr[1];
-        if ($data->ad_type == 'image') $ad_src = $data->ad_image;
+        if ($data->ad_type == 'image') {
+          $ad_src = array();
+          $ad_directory = public_path() . '/ads/' . $business_id;
+          if (file_exists($ad_directory)) {
+            foreach(glob($ad_directory . '/*.*') as $filename){
+              $ad_src[] = 'ads/' . $business_id . '/' . basename($filename);
+            }
+          }
+        }
         else $ad_src = $data->ad_video;
 
         $business_name = Business::name($business_id);
