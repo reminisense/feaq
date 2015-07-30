@@ -19,6 +19,7 @@ My Business
     <script src="/js/jquery.form.js"></script>
     <script src="/js/dashboard/dashboard.js"></script>
     <script src="/js/dashboard/edit-business.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 @stop
 
 @section('container')
