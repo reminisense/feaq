@@ -5,18 +5,20 @@ My Business
 @stop
 
 @section('styles')
+    <link rel="stylesheet" href="/plupload/js/jquery.plupload.queue/css/jquery.plupload.queue.css" type="text/css" media="screen" />
     <link rel='stylesheet' type='text/css' href='/css/business/business.css'>
     <link rel='stylesheet' type='text/css' href='/css/business/responsive.css'>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 @stop
 
 @section('scripts')
+    <script type="text/javascript" src="/plupload/js/plupload.full.min.js"></script>
+    <script type="text/javascript" src="/plupload/js/jquery.plupload.queue/jquery.plupload.queue.js"></script>
+    <script src="/js/google-analytics/googleAnalytics.js"></script>
+    <script src="/js/google-analytics/ga-dashboard.js"></script>
     <script src="/js/jquery.form.js"></script>
     <script src="/js/dashboard/dashboard.js"></script>
     <script src="/js/dashboard/edit-business.js"></script>
-    <script src="/js/google-analytics/googleAnalytics.js"></script>
-    <script src="/js/google-analytics/ga-dashboard.js"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 @stop
 
 @section('container')

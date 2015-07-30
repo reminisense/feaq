@@ -11,22 +11,141 @@
 
 class AdvertisementController extends BaseController{
 
+  public function postSliderImages() {
+    $count = 0;
+    foreach(glob(public_path() . '/ads/' . Input::get('business_id') . '/*.*') as $filename){
+      $ad_src[] = array(
+        'count' => $count,
+        'path' => 'ads/' . Input::get('business_id') . '/' . basename($filename),
+      );
+      $count++;
+    }
+    return json_encode(array('slider_images' => $ad_src));
+  }
+
+  public function postDeleteImage() {
+    unlink(Input::get('path'));
+    return json_encode(array('status' => 1));
+  }
+
   public function postUploadImage() {
 
     if(isset($_POST)) {
 
-      $target_dir = public_path() . '/ads/';
-      $target_file = $target_dir . basename($_FILES["ad_image"]["name"]);
+      $business_id = UserBusiness::getBusinessIdByOwner(Auth::user()->user_id);
 
-      if (move_uploaded_file($_FILES["ad_image"]["tmp_name"], $target_file)) {
-        $data = json_decode(file_get_contents(public_path() . '/json/' . $_POST['business_id'] . '.json'));
-        $data->ad_image = '/ads/' . basename($_FILES["ad_image"]["name"]);
-        $encode = json_encode($data);
-        file_put_contents(public_path() . '/json/' . $_POST['business_id'] . '.json', $encode);
-        return json_encode(array('src' => '/ads/' . basename($_FILES["ad_image"]["name"])));
-      } else {
-        return json_encode(array('status' => 'Something went wrong..'));
+      header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+      header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+      header("Cache-Control: no-store, no-cache, must-revalidate");
+      header("Cache-Control: post-check=0, pre-check=0", false);
+      header("Pragma: no-cache");
+
+      @set_time_limit(5 * 60);
+
+      $targetDir = public_path() . '/ads/' . $business_id;
+      $cleanupTargetDir = true; // Remove old files
+      //$maxFileAge = 5 * 3600; // Temp file age in seconds
+
+      if (!file_exists($targetDir)) {
+        @mkdir($targetDir);
       }
+
+      if (isset($_REQUEST["name"])) {
+        $fileName = $_REQUEST["name"];
+      } elseif (!empty($_FILES)) {
+        $fileName = $_FILES["file"]["name"];
+      } else {
+        $fileName = uniqid("file_");
+      }
+
+      $chunk = isset($_REQUEST["chunk"]) ? intval($_REQUEST["chunk"]) : 0;
+      $chunks = isset($_REQUEST["chunks"]) ? intval($_REQUEST["chunks"]) : 0;
+      $fileName = isset($_REQUEST["name"]) ? $_REQUEST["name"] : '';
+
+      // Clean the fileName for security reasons
+      $fileName = preg_replace('/[^\w\._]+/', '_', $fileName);
+
+      // Make sure the fileName is unique but only if chunking is disabled
+      if ($chunks < 2 && file_exists($targetDir . DIRECTORY_SEPARATOR . $fileName)) {
+        $ext = strrpos($fileName, '.');
+        $fileName_a = substr($fileName, 0, $ext);
+        $fileName_b = substr($fileName, $ext);
+
+        $count = 1;
+        while (file_exists($targetDir . DIRECTORY_SEPARATOR . $fileName_a . '_' . $count . $fileName_b))
+          $count++;
+
+        $fileName = $fileName_a . '_' . $count . $fileName_b;
+      }
+
+      $filePath = $targetDir . DIRECTORY_SEPARATOR . $fileName;
+
+      // Remove old temp files
+      if ($cleanupTargetDir) {
+        if (!is_dir($targetDir) || !$dir = opendir($targetDir)) {
+          die('{"jsonrpc" : "2.0", "error" : {"code": 100, "message": "Failed to open temp directory."}, "id" : "id"}');
+        }
+
+        while (($file = readdir($dir)) !== false) {
+          $tmpfilePath = $targetDir . DIRECTORY_SEPARATOR . $file;
+
+          // If temp file is current file proceed to the next
+          if ($tmpfilePath == "{$filePath}.part") {
+            continue;
+          }
+
+          // Remove temp file if it is older than the max age and is not the current file
+          //if (preg_match('/\.part$/', $file) && (filemtime($tmpfilePath) < time() - $maxFileAge)) {
+          //  @unlink($tmpfilePath);
+          //}
+        }
+        closedir($dir);
+      }
+
+
+      // Open temp file
+      if (!$out = @fopen("{$filePath}.part", $chunks ? "ab" : "wb")) {
+        die('{"jsonrpc" : "2.0", "error" : {"code": 102, "message": "Failed to open output stream."}, "id" : "id"}');
+      }
+
+      if (!empty($_FILES)) {
+        if ($_FILES["file"]["error"] || !is_uploaded_file($_FILES["file"]["tmp_name"])) {
+          die('{"jsonrpc" : "2.0", "error" : {"code": 103, "message": "Failed to move uploaded file."}, "id" : "id"}');
+        }
+
+        // Read binary input stream and append it to temp file
+        if (!$in = @fopen($_FILES["file"]["tmp_name"], "rb")) {
+          die('{"jsonrpc" : "2.0", "error" : {"code": 101, "message": "Failed to open input stream."}, "id" : "id"}');
+        }
+      } else {
+        if (!$in = @fopen("php://input", "rb")) {
+          die('{"jsonrpc" : "2.0", "error" : {"code": 101, "message": "Failed to open input stream."}, "id" : "id"}');
+        }
+      }
+
+      while ($buff = fread($in, 4096)) {
+        fwrite($out, $buff);
+      }
+
+      @fclose($out);
+      @fclose($in);
+
+      // Check if file has been uploaded
+      if (!$chunks || $chunk == $chunks - 1) {
+        // Strip the temp .part suffix off
+        rename("{$filePath}.part", $filePath);
+      }
+
+      // save to json file
+      /*
+      $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
+      $data->ad_image = $data->ad_image . '|ads/' . $business_id . '/' . basename($filePath);
+      $encode = json_encode($data);
+      file_put_contents(public_path() . '/json/' . $business_id . '.json', $encode);
+      */
+
+      // Return Success JSON-RPC response
+      die('{"jsonrpc" : "2.0", "result" : null, "id" : "id"}');
 
     }
     else {
@@ -84,6 +203,10 @@ class AdvertisementController extends BaseController{
     $business_id = Input::get('business_id');
     $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
     $data->ticker_message = Input::get('ticker_message');
+    $data->ticker_message2 = Input::get('ticker_message2');
+    $data->ticker_message3 = Input::get('ticker_message3');
+    $data->ticker_message4 = Input::get('ticker_message4');
+    $data->ticker_message5 = Input::get('ticker_message5');
     $encode = json_encode($data);
     file_put_contents(public_path() . '/json/' . $business_id . '.json', $encode);
   }
