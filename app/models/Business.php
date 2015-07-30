@@ -102,8 +102,6 @@ class Business extends Eloquent
             'timezone' => $business->timezone, //ARA Added timezone
             'queue_limit' => $business->queue_limit, /* RDH Added queue_limit to Edit Business Page */
             'terminal_specific_issue' => QueueSettings::terminalSpecificIssue($first_service->service_id),
-            'frontline_sms_secret' => QueueSettings::queueSetting('frontline_sms_secret', null, $first_service->service_id),
-            'frontline_sms_url' => QueueSettings::queueSetting('frontline_sms_url', null, $first_service->service_id),
             'sms_current_number' => QueueSettings::smsCurrentNumber($first_service->service_id),
             'sms_1_ahead' => QueueSettings::smsOneAhead($first_service->service_id),
             'sms_5_ahead' => QueueSettings::smsFiveAhead($first_service->service_id),
@@ -115,7 +113,23 @@ class Business extends Eloquent
             'terminals' => $terminals,
             'analytics' => $analytics,
             'features' => Business::getBusinessFeatures($business_id),
+            'sms_gateway' => QueueSettings::smsGateway($first_service->service_id),
         ];
+
+
+        $sms_gateway_api = unserialize(QueueSettings::smsGatewayApi($first_service->service_id));
+        if($business_details['sms_gateway'] == 'frontline_sms' && $sms_gateway_api){
+            $business_details['frontline_sms_url'] = $sms_gateway_api['frontline_sms_url'];
+            $business_details['frontline_sms_api_key'] = $sms_gateway_api['frontline_sms_api_key'];
+        }elseif($business_details['sms_gateway'] == 'twilio' && $sms_gateway_api){
+            $business_details['twilio_account_sid'] = $sms_gateway_api['twilio_account_sid'];
+            $business_details['twilio_auth_token'] = $sms_gateway_api['twilio_auth_token'];
+            $business_details['twilio_phone_number'] = $sms_gateway_api['twilio_phone_number'];
+        }else{
+            $business_details['sms_gateway'] = 'frontline_sms';
+            $business_details['frontline_sms_url'] = null;
+            $business_details['frontline_sms_api_key'] = null;
+        }
 
 
         return $business_details;
@@ -204,7 +218,7 @@ class Business extends Eloquent
         }
 
         if ($time_open_arr['ampm'] == 'PM' && $time_open_arr['min'] == '00') {
-           $query->where('open_ampm', '=', 'PM')
+            $query->where('open_ampm', '=', 'PM')
                 ->where('open_hour', '>=', $time_open_arr['hour']);
         } elseif ($time_open_arr['ampm'] == 'PM' && $time_open_arr['min'] == '30') {
             $query->where('open_ampm', '=', 'PM')
@@ -212,10 +226,10 @@ class Business extends Eloquent
                     array($time_open_arr['hour'], $time_open_arr['hour'], '30'));
         } elseif ($time_open_arr['ampm'] == 'AM' && $time_open_arr['min'] == '00') {
             $query->whereRaw('(open_hour >= ? AND open_ampm = ?) OR (open_hour < ? AND open_ampm = ?)',
-                    array($time_open_arr['hour'], 'AM', $time_open_arr['hour'], 'PM'));
+                array($time_open_arr['hour'], 'AM', $time_open_arr['hour'], 'PM'));
         } elseif ($time_open_arr['ampm'] == 'AM' && $time_open_arr['min'] == '30') {
             $query->whereRaw('(open_hour > ? AND open_ampm = ?) OR (open_hour < ? AND open_ampm = ?) OR (open_hour = ? AND open_minute = ? AND open_ampm = ?)',
-                    array($time_open_arr['hour'], 'AM', $time_open_arr['hour'], 'PM', $time_open_arr['hour'], '30', 'AM'));
+                array($time_open_arr['hour'], 'AM', $time_open_arr['hour'], 'PM', $time_open_arr['hour'], '30', 'AM'));
         }
         return $query->get();
     }
@@ -517,7 +531,7 @@ class Business extends Eloquent
     }
 
     public static function getAllBusinessNames(){
-       return Business::select('business_id', 'name')->get();
+        return Business::select('business_id', 'name')->get();
     }
 
     public static function getBusinessIdsByIndustry($industry){

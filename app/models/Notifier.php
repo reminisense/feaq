@@ -108,9 +108,7 @@ class Notifier extends Eloquent{
     }
 
     public static function sendServiceSms($message, $phone, $service_id){
-        $url = QueueSettings::frontlineUrl($service_id);
-        $secret = QueueSettings::frontlineSecret($service_id);
-        Notifier::sendFrontlineSMS($message, $phone, $url, $secret);
+        Notifier::sendSMS($message, $phone, $service_id);
     }
 
     /**
@@ -152,7 +150,29 @@ class Notifier extends Eloquent{
         });
     }
 
-    public static function sendFrontlineSMS($message, $phone, $url, $secret){
+    public static function sendSMS($message, $phone, $service_id){
+        $gateway = QueueSettings::smsGateway($service_id);
+        $api_variables = unserialize(QueueSettings::smsGatewayApi($service_id));
+        if($gateway == 'frontline_sms'){
+            $url = QueueSettings::frontlineUrl($service_id);
+            $secret = QueueSettings::frontlineSecret($service_id);
+            $api_key = null;
+            if($url == FRONTLINE_SMS_URL && $secret == FRONTLINE_SMS_SECRET){
+                $url = $api_variables['frontline_sms_url'];
+                $api_key = $api_variables['frontline_sms_api_key'];
+            }
+
+            Notifier::sendFrontlineSMS($message, $phone, $url, $secret, $api_key);
+        }else if($gateway == 'twilio'){
+            $from = $api_variables['twilio_phone_number'];
+            $account_sid = $api_variables['twilio_account_sid'];
+            $auth_token = $api_variables['twilio_auth_token'];
+
+            Notifier::sendTwilio($phone, $message, $from, $account_sid, $auth_token);
+        }
+    }
+
+    public static function sendFrontlineSMS($message, $phone, $url, $secret = null, $api_key = FRONTLINE_API_KEY){
 //        $request = [
 //            'secret' => $secret,
 //            'message' => $message,
@@ -163,7 +183,7 @@ class Notifier extends Eloquent{
 
         //new request
         $request = [
-            'apiKey' => FRONTLINE_API_KEY,
+            'apiKey' => $api_key,
             'payload' => [
                 'message' => $message,
                 'recipients' => [
@@ -186,6 +206,20 @@ class Notifier extends Eloquent{
         curl_close($ch);
 
         return $result;
+    }
+
+    public static function sendTwilio($to, $message, $from = TWILIO_PHONE_NUMBER, $AccountSid = TWILIO_ACCOUNT_SID, $AuthToken = TWILIO_AUTH_TOKEN){
+        // set your AccountSid and AuthToken from www.twilio.com/user/account
+        $_http = new Services_Twilio_TinyHttp( "https://api.twilio.com", array("curlopts" => array( CURLOPT_SSL_VERIFYPEER => false,)));
+        $client = new Services_Twilio($AccountSid, $AuthToken, null, $_http);
+
+        $message = $client->account->messages->create(array(
+            "From" => $from,
+            "To" => $to,
+            "Body" => $message,
+        ));
+
+        return $message;
     }
 
     public static function sendAndroid($device_token, $message, $title = "FeatherQ", $subtitle = null){

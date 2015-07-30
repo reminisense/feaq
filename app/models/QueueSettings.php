@@ -69,9 +69,35 @@ class QueueSettings extends Eloquent{
         return QueueSettings::queueSetting('remote_limit', 0, $service_id, $date);
     }
 
+    public static function smsGateway($service_id, $date = null){
+        return QueueSettings::queueSetting('sms_gateway', 'twilio', $service_id, $date);
+    }
+
+    public static function smsGatewayApi($service_id, $date = null){
+        return QueueSettings::queueSetting('sms_gateway_api', serialize(QueueSettings::$sms_gateway_api['twilio']), $service_id, $date);
+    }
+
 
     /**
-     * Bsic functions
+     * SMS Gateway variables
+     */
+
+    private static $sms_gateway_api = [
+        'frontline_sms' => [
+            'frontline_sms_url' => FRONTLINE_SMS_URL,
+            'frontline_sms_api_key' => FRONTLINE_API_KEY,
+        ],
+
+        'twilio' => [
+            'twilio_account_sid' => TWILIO_ACCOUNT_SID,
+            'twilio_auth_token' => TWILIO_AUTH_TOKEN,
+            'twilio_phone_number' => TWILIO_PHONE_NUMBER,
+        ],
+    ];
+
+
+    /**
+     * Basic functions
      */
 
     public static function updateQueueSetting($service_id, $field, $value){

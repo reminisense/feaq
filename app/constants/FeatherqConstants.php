@@ -12,6 +12,7 @@ class FeatherqConstants {
     public static function init(){
         FeatherqConstants::roles();
         FeatherqConstants::frontlineSms();
+        FeatherqConstants::twilio();
         FeatherqConstants::android();
     }
 
@@ -43,6 +44,13 @@ class FeatherqConstants {
         //new frontlinesms web connection
         define('FRONTLINE_API_KEY', '7de4cf19-4380-4f89-a4b8-fbcd38044f6a');
         define('FRONTLINE_SMS_URL', 'https://cloud.frontlinesms.com/api/1/webhook');
+
+    }
+
+    public static function twilio(){
+        define('TWILIO_ACCOUNT_SID', 'AC92ee14fb111afb188f1b2e485262ac8d');
+        define('TWILIO_AUTH_TOKEN', '881ae32d9c3d8096e488138ed82b266d');
+        define('TWILIO_PHONE_NUMBER', '+14028350080');
 
     }
 

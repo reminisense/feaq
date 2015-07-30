@@ -70,30 +70,62 @@
     </div>
     <div class="col-md-6">
         <div class=" header">
-            <h5>SMS SETTINGS</h5>
+            <h5>* SMS SETTINGS</h5>
         </div>
         <div class="clearfix">
-            <div class="col-md-6 mb20">
-                <p class="title">* Frontline SMS Secret
-                    <a href="https://frontlinecloud.zendesk.com/entries/28395408-Using-the-WebConnection-API-to-send-messages" target="_blank">
-                    <span class="glyphicon glyphicon-question-sign" title="How to create a Web Connection in Frontlinesms"></span>
-                    </a>
-                </p>
+            <span><label>Frontline SMS</label> <input type="radio" value="frontline_sms" ng-model="sms_gateway"/></span>
+            <span><label>Twilio</label> <input type="radio" value="twilio" ng-model="sms_gateway"/></span>
+        </div>
+        <div ng-show="sms_gateway == 'frontline_sms'">
+            <div class="clearfix">
+                <div class="col-md-6 mb20">
+                    <p class="title">Frontline SMS API Key
+                        <a href="https://frontlinecloud.zendesk.com/entries/28395408-Using-the-WebConnection-API-to-send-messages" target="_blank">
+                        <span class="glyphicon glyphicon-question-sign" title="How to create a Web Connection in Frontlinesms"></span>
+                        </a>
+                    </p>
+                </div>
+                <div class="col-md-6 mb20">
+                    <input class="mb0 form-control" type="text" value="@{{ frontline_api_key }}" ng-model="frontline_api_key" >
+                </div>
             </div>
-            <div class="col-md-6 mb20">
-                <input class="mb0 form-control" type="password" value="@{{ frontline_secret }}" ng-model="frontline_secret" >
+            <div class="clearfix">
+                <div class="col-md-6 mb20">
+                    <p class="title">Frontline SMS URL
+                        <a href="https://frontlinecloud.zendesk.com/entries/28395408-Using-the-WebConnection-API-to-send-messages" target="_blank">
+                        <span class="glyphicon glyphicon-question-sign" title="How to create a Web Connection in Frontlinesms"></span>
+                        </a>
+                    </p>
+                </div>
+                <div class="col-md-6 mb20">
+                    <input class="mb0 form-control" type="text" value="@{{ frontline_url }}" ng-model="frontline_url" >
+                </div>
             </div>
         </div>
-        <div class="clearfix">
-            <div class="col-md-6 mb20">
-                <p class="title">* Frontline SMS URL
-                    <a href="https://frontlinecloud.zendesk.com/entries/28395408-Using-the-WebConnection-API-to-send-messages" target="_blank">
-                    <span class="glyphicon glyphicon-question-sign" title="How to create a Web Connection in Frontlinesms"></span>
-                    </a>
-                </p>
+        <div ng-show="sms_gateway == 'twilio'">
+            <div class="clearfix">
+                <div class="col-md-6 mb20">
+                    <p class="title">Twilio Account SID</p>
+                </div>
+                <div class="col-md-6 mb20">
+                    <input class="mb0 form-control" type="text" value="@{{ twilio_account_sid }}" ng-model="twilio_account_sid" >
+                </div>
             </div>
-            <div class="col-md-6 mb20">
-                <input class="mb0 form-control" type="text" value="@{{ frontline_url }}" ng-model="frontline_url" >
+            <div class="clearfix">
+                <div class="col-md-6 mb20">
+                    <p class="title">Twilio Auth Token</p>
+                </div>
+                <div class="col-md-6 mb20">
+                    <input class="mb0 form-control" type="text" value="@{{ twilio_auth_token }}" ng-model="twilio_auth_token" >
+                </div>
+            </div>
+            <div class="clearfix">
+                <div class="col-md-6 mb20">
+                    <p class="title">Twilio phone number</p>
+                </div>
+                <div class="col-md-6 mb20">
+                    <input class="mb0 form-control" type="text" value="@{{ twilio_phone_number }}" ng-model="twilio_phone_number" >
+                </div>
             </div>
         </div>
         <div class="clearfix">
