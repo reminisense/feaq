@@ -14,9 +14,10 @@ body {
   transition: all 0.6s ease;
   height: 130px;
   background: none;
+
 }
 .navbar.shrink {
-    background: rgba(245,237,225,0.95);
+    background: rgba(255,255,255,0.95);
     height: 60px;
 }
 .navbar.shrink #navbar,
@@ -28,13 +29,21 @@ body {
     width: 142px;
 }
 .navbar img {
-      -webkit-transition: all 0.3s ease;
-  transition: all 0.3s ease;
+      -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
     width: inherit;
 }
 .navbar.shrink .nav li a {
-    padding-top: 19px;
+    padding-top: 20px;
     padding-bottom: 19px;
+}
+.navbar .dropdown-menu {
+    padding: 0;
+    border-radius: 0;
+}
+.dropdown-menu>li>a,
+.navbar.shrink .dropdown-menu>li>a{
+    padding: 12px 20px!important;
 }
 #navbar, .navbar-header {
     margin-top: 40px;
@@ -116,12 +125,17 @@ h3 {
 }
 .contactus span {
     color: #fd874d;
-    font-weight: 700;
 }
 .contactus h1 {
     color: #fff;
-    font-size: 28px;
-    line-height: 45px;
+    font-size: 20px;
+    line-height: 30px;
+}
+.contactus h2 {
+    margin-top: 14px;
+    font-size: 24px;
+    color: #fff;
+    line-height: 38px;
 }
 .contactus small {
     color:#bbbbbb;
@@ -142,11 +156,15 @@ h3 {
 }
 .benefits h3 {
     font-size: 30px;
-    margin-top: 110px;
+    margin-top: 60px;
     margin-bottom: 30px;
 }
 .benefits .row {
     margin: 80px 0;
+}
+.benefits img.visible-xs {
+    margin: auto;
+    width: 350px;
 }
 .features {
     background-color: #fdfdfc;
@@ -273,12 +291,13 @@ p > a:hover {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  padding: 80px 0 150px;
+  padding: 50px 0 150px;
   margin-bottom: 0;
 }
 .lead h2 {
-    margin-top: 55px;
+    margin-top: 20px;
     color: #fff;
+    margin-bottom: 50px;
 }
 .filterwrap button, 
 .filterwrap .btn,
@@ -540,4 +559,42 @@ span.box {padding: 2px 4px; margin-right: 10px; display: inline-blo; font-size: 
     padding: 14px 20px;
     vertical-align: middle;
     width: 100%;
+}
+/*allow on hover submenu */
+.dropdown-menu .sub-menu {
+    left: 100%;
+    position: absolute;
+    top: 0;
+    visibility: hidden;
+    margin-top: -1px;
+}
+
+.dropdown-menu li:hover .sub-menu {
+    visibility: visible;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.nav-tabs .dropdown-menu, .nav-pills .dropdown-menu, .navbar .dropdown-menu {
+    margin-top: 0;
+}
+
+.navbar .sub-menu:before {
+    border-bottom: 7px solid transparent;
+    border-left: none;
+    border-right: 7px solid rgba(0, 0, 0, 0.2);
+    border-top: 7px solid transparent;
+    left: -7px;
+    top: 10px;
+}
+.navbar .sub-menu:after {
+    border-top: 6px solid transparent;
+    border-left: none;
+    border-right: 6px solid #fff;
+    border-bottom: 6px solid transparent;
+    left: 10px;
+    top: 11px;
+    left: -6px;
 }
