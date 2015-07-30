@@ -89,10 +89,11 @@ h3 {
     font-weight: 400;
 }
 .banner .btn {
-    border-radius: 3px;
+    border-radius: 9px;
     font-weight: 400;
     height: 56px;
     padding: 18px 22px;
+    margin-right: 2px;
 }
 .banner .btn img {
     margin-right: 10px;
@@ -103,6 +104,9 @@ h3 {
 }
 .banner  .partners {
     margin-top: 90px;
+}
+.banner .partners img {
+    margin-right: 16px;
 }
 .banner .col-md-5 .partners img {
     margin: 5px 25px 4px 0;
@@ -174,7 +178,7 @@ h3 {
     margin-top: 50px;
 }
 .features img {
-    margin-top: 40px;
+    margin: 40px auto 0px auto;
 }
 .features p {
     margin-bottom: 30px;
@@ -335,6 +339,7 @@ p > a:hover {
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
   border-radius: 0px;
+    font-weight: 400;
 }
 .filterwrap .form-control {
   font-size: 13px;
@@ -597,4 +602,11 @@ span.box {padding: 2px 4px; margin-right: 10px; display: inline-blo; font-size: 
     left: 10px;
     top: 11px;
     left: -6px;
+}
+.visible-md .tab-content {
+    padding-top: 0;
+}
+.visible-md #myTabs {
+    width: 100%;
+    margin-top: 80px;
 }

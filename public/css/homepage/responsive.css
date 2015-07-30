@@ -9,6 +9,28 @@
     .banner .partners {
         margin-top: 50px;
     }
+    .process h2 {
+        text-align: center;
+    }
+    .process {
+        margin-bottom: 0px!important;
+        padding: 50px 0 80px;
+        background: #fdfdfc;
+    }
+    .lead {
+        padding-bottom: 50px;
+    }
+    .benefits .row:first-child {
+        margin-top: 0!important;
+    }
+    .things {
+        background: none;
+    }
+}
+@media (min-width: 768px) and (max-width: 979px) {
+    .filterwrap .btn-orange {
+        margin-left: -15px;
+    }
 }
 
 @media only screen and (max-width : 992px) {
@@ -68,6 +90,53 @@
     }
     .banner .partners {
         margin-top: 50px;
+    }
+    .lead {
+        padding-bottom: 50px;
+    }
+    .process {
+        margin-bottom: 0px!important;
+        padding: 50px;
+    }
+    .things {
+        background: url('../../images/homepage/bg-featherq-app.png') bottom right no-repeat;
+    }
+    .banner h1 {
+        margin-top: 50px;
+    }
+    .partners {
+        padding-bottom: 50px;
+    }
+}
+@media (min-width: 480px) and (max-width: 768px) {
+    .filterwrap .row {
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+    .btn-orange {
+        border-top-right-radius: 0px!important;
+    }
+    #time_open-filter {
+        border: none!important;
+    }
+    #search-keyword {
+        background: #fff;
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 4px;
+    }
+    .filterwrap .btn-group:first-child {
+        border-bottom-left-radius: 0px;
+    }
+    .filterwrap .btn-group:nth-child(n+1) {
+        border-top-right-radius: 4px;
+        border:none;
+    }
+    .feat {
+        background: none;
+        background-color: #0a1820;
+    }
+    .feat h1 {
+        margin-top: 70px;
     }
 }
 
@@ -140,6 +209,41 @@
         margin-top: 20px;
         margin: auto;
     }
+    .feat-business {
+        height: 143px;
+    }
+    .biz-navs .nav-tabs > li {
+        float:none;
+    }
+    .biz-navs {
+        margin-top: 0;
+    }
+    .biz-details-wrap img {
+        margin-bottom: 20px;
+    }
+    #time_open-filter {
+        border: none!important;
+        border-top-right-radius: 4px!important;
+    }
+    .filterwrap .btn-group:nth-child(n+1) {
+        border-top-right-radius: 4px;
+        border:none;
+    }
+    .filterwrap .row {
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+    .btn-orange {
+        border-top-right-radius: 0px!important;
+    }
+    #search-keyword {
+        background: #fff;
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 4px;
+    }
+    .filterwrap .btn-group:first-child {
+        border-bottom-left-radius: 0px;
+    }
 }
 
 @media only screen and (max-width : 320px) {
@@ -150,4 +254,6 @@
 		padding-left: 15px;
 	}
 }
+
+
 
