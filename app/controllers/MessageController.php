@@ -13,11 +13,12 @@ class MessageController extends BaseController {
 
   public function postAssignedBusinesses() {
     if (Auth::check()) {
-      $res = UserBusiness::getAllBusinessIdByOwner(Auth::user()->user_id);
+      $res = TerminalUser::getTerminalAssignement(Auth::user()->user_id);
       foreach ($res as $count => $data) {
+        $business_id = Business::getBusinessIdByTerminalId($data['terminal_id']);
         $businesses[] = array(
-          'business_id' => $data->business_id,
-          'business_name' => Business::name($data->business_id),
+          'business_id' => $business_id,
+          'business_name' => Business::name($business_id),
         );
       }
       return json_encode(array('businesses' => $businesses));
@@ -29,14 +30,16 @@ class MessageController extends BaseController {
 
   public function postBusinessInbox() {
     if (Auth::check()) {
-      $business_id = UserBusiness::getBusinessIdByOwner(Auth::user()->user_id);
-      $messages = array();
-      $list = Message::getMessagesByBusinessId($business_id);
-      foreach ($list as $count => $thread) {
-        $messages[] = array(
-          'contactname' => $thread->contactname,
-          'message_id' => $thread->message_id,
-        );
+      $res = TerminalUser::getTerminalAssignement(Auth::user()->user_id);
+      foreach ($res as $count => $data) {
+        $list = Message::getMessagesByBusinessId(Business::getBusinessIdByTerminalId($data['terminal_id']));
+        foreach ($list as $count => $thread) {
+          $messages[] = array(
+            'contactname' => $thread->contactname,
+            'message_id' => $thread->message_id,
+            'business_id' => $thread->business_id,
+          );
+        }
       }
       return json_encode(array('messages' => $messages));
     }
@@ -55,6 +58,7 @@ class MessageController extends BaseController {
           $messages[] = array(
             'contactname' => Business::name(Message::getBusinessIdByMessageId($thread->message_id)),
             'message_id' => $thread->message_id,
+            'business_id' => $thread->business_id,
           );
         }
       }

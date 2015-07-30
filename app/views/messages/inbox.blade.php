@@ -43,7 +43,7 @@
                         <div class="messages">
                             <div class="col-md-12">
                                 <div aria-label="Large button group" role="group" class="btn-group btn-group-lg" id="assigned-businesses">
-                                    <button class="btn btn-default" type="button" ng-repeat="assigned_business in assigned_businesses">@{{ assigned_business.business_name }}</button>
+                                    <button class="btn btn-default" type="button" ng-repeat="assigned_business in assigned_businesses" ng-click="filterMessages(assigned_business.business_id);">@{{ assigned_business.business_name }}</button>
                                 </div>
                             </div>
                             <div class="clearfix">
@@ -53,7 +53,9 @@
                                     </div>
                                     <div class="col-md-5 message-collection">
                                         <div class="list-group">
-                                            <a ng-repeat="message in messages" href="" class="list-group-item message-item" ng-click="setPreviewMessage(business_reply_form.preview_type, message.contactname, message.message_id, message.email)">
+                                            <a ng-repeat="message in messages" href="" class="list-group-item message-item"
+                                               ng-click="setPreviewMessage(business_reply_form.preview_type, message.contactname, message.message_id, message.email)"
+                                               business_id="@{{ message.business_id }}">
                                                 Between You and <strong>@{{ message.contactname }}</strong>
                                             </a>
                                         </div>

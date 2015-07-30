@@ -19,6 +19,7 @@
 
         $scope.displayBusinessInbox = function() {
             $('#assigned-businesses').show();
+            $('.message-preview').hide();
             $scope.business_reply_form.preview_type = 'business';
             $http.post('/message/assigned-businesses').success(function(response) {
                 $scope.assigned_businesses = response.businesses;
@@ -30,10 +31,17 @@
 
         $scope.displayOtherInbox = function() {
             $('#assigned-businesses').hide();
+            $('.message-preview').hide();
             $scope.business_reply_form.preview_type = 'other';
             $http.post('/message/other-inbox').success(function(response) {
                 $scope.messages = response.messages;
             });
+        };
+
+        $scope.filterMessages = function(business_id) {
+            $('.message-preview').hide();
+            $('.message-item').hide();
+            $('.message-item[business_id="'+business_id+'"]').show();
         };
 
         $scope.setPreviewMessage = function(preview_type, sender, message_id, active_email){
