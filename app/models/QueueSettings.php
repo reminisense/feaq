@@ -119,8 +119,10 @@ class QueueSettings extends Eloquent{
             ->total_numbers_today;
         $total_remote_today = PriorityNumber::where('date', '=', $date)
             ->join('priority_queue', 'priority_queue.track_id' , '=', 'priority_number.track_id')
-            ->where('priority_queue.queue_platform' , '=', 'remote')
-            ->orWhere('priority_queue.queue_platform' , '=', 'android')
+            ->where(function($query){
+                $query->where('priority_queue.queue_platform' , '=', 'remote')
+                    ->orWhere('priority_queue.queue_platform' , '=', 'android');
+            })
             ->select(DB::raw('COUNT(priority_number.track_id) as total_remote_today'))
             ->first()
             ->total_remote_today;
