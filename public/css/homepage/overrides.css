@@ -466,8 +466,12 @@ p > a:hover {
     background: url('../../images/homepage/bg-phone.png') top left no-repeat;
     margin-top: -95px;
 }
-
-
+/*---------7/30/2015 JCA---------*/
+#btnGroupDrop1{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 /*---------colors---------*/
 footer p,
