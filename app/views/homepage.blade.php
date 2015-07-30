@@ -56,21 +56,20 @@
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-              <li><a class="scroll" href="/about" target="_blank">About</a></li>
-              <li><a class="scroll" href="/guides" target="_blank">Set-up Guide</a></li>
-              <li class="hidden-xs hidden-sm">
-                  <span style="border-right: 1px solid #4e4d4b;
-                               margin-top: 14px;
-                               position: relative;
-                               top: 16px;">
-                  </span>
-              </li>
-              <li><a class="scroll" href="#business">Business</a></li>
-              <li><a class="scroll" href="#process">Setup</a></li>
+              {{--<li><a class="scroll" href="/about" target="_blank">About</a></li>--}}
+              <li><a class="scroll" href="#business">Businesses</a></li>
+
+              <li class="dropdown scroll">
+                                             <a class="dropdown-toggle" data-toggle="dropdown" href="#process" aria-haspopup="true">Setup <span class="caret"></span></a>
+                                             <ul class="dropdown-menu">
+                                                <li><a class="scroll" href="/guides" target="_blank">Set-up Guide</a></li>
+                                             </ul>
+                                          </li>
               <li><a class="scroll" href="#benefits">Benefits</a></li>
               <li><a class="scroll" href="#features">Features</a></li>
               <li><a class="scroll" href="#uses">Uses</a></li>
               <li><a class="scroll" href="#contact">Contact us</a></li>
+
             </ul>
           </div>
         </div>
@@ -96,7 +95,7 @@
                 <img src="/images/homepage/honda.png">
               </div>
             </div>
-            <div class="col-md-offset-1 col-md-6">
+            <div class="col-md-offset-1 col-md-6 hidden-sm hidden-xs">
               <div class="holdphone">
                 <img src="/images/homepage/featherq-app.png">
               </div>
@@ -155,7 +154,7 @@
               </div>
             </div>
             <div class="row" id="search-loader" style="display: none; text-align: center;">
-                <img src="/images/reload_home.gif" />
+                <img style="width: 41px;" src="/images/reload_home.gif" />
             </div>
             <div id="search-grid" style="display: none;" class="clearfix businesses">
               <div class="col-md-12 col-xs-12 col-sm-12">
@@ -239,31 +238,34 @@
               <h2><span>Benefits</span> of using FeatherQ</h2>
             </div>
           </div>
-          <div class="row" style="margin-top: 0;">
-            <div class="col-md-6 col-md-offset-1">
+          <div class="row" style="margin-top: 20px;">
+            <div class="col-md-7 col-md-offset-1 col-sm-8 col-xs-12">
+              <img class="img-responsive hidden-lg hidden-sm visible-xs" src="/images/homepage/step1.png" alt="Reduce Opportunity Loss" >
               <h3>Reduce Opportunity Loss</h3>
               <p>Your Customers can line up for your business using their cellphones, reducing ugly lines that turn customers away.</p>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3 col-sm-4 hidden-xs">
               <img class="img-responsive" src="/images/homepage/step1.png" alt="Reduce Opportunity Loss" >
             </div>
           </div>
           <div class="row">
-            <div class="col-md-4 col-md-offset-1">
+            <div class="col-md-3 col-md-offset-1  col-sm-4 hidden-xs">
               <img class="img-responsive" src="/images/homepage/step2.png" alt="Retain Clientele" >
             </div>
-            <div class="col-md-6">
+            <div class="col-md-7">
+              <img class="img-responsive hidden-lg hidden-sm visible-xs" src="/images/homepage/step2.png" alt="Retain Clientele" >
               <h3>Retain Clientele</h3>
               <p>Build goodwill and transparency by communicating quickly and effectively with waiting clients.</p>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-6 col-md-offset-1">
+            <div class="col-md-7 col-md-offset-1 col-sm-8 col-xs-12">
+              <img class="img-responsive hidden-lg hidden-sm visible-xs" src="/images/homepage/step3.png" alt="Manage from Anywhere" >
               <h3>Manage from Anywhere</h3>
               <p>Your Customers can line up for your business using their cellphones, reducing ugly lines that turn customers away.</p>
             </div>
-            <div class="col-md-4">
-              <img class="img-responsive" src="/images/homepage/step3.png" alt="Manage from Anywhere" >
+            <div class="col-md-3 col-sm-4 hidden-xs">
+              <img class="img-responsive hidden-xs" src="/images/homepage/step3.png" alt="Manage from Anywhere" >
             </div>
           </div>
         </div>
@@ -278,36 +280,36 @@
             </div>
           </div>
           <div class="clearfix">
-            <div class="col-md-3">
-              <img src="/images/homepage/feat-30.png" alt="" />
+            <div class="col-md-3 col-xs-6">
+              <img  class="img-responsive" src="/images/homepage/feat-30.png" alt="" />
               <p>30-second <br>Business Setup</p>
             </div>
-            <div class="col-md-3">
-              <img src="/images/homepage/feat-flexible.png" alt="" />
+            <div class="col-md-3 col-xs-6">
+              <img class="img-responsive" src="/images/homepage/feat-flexible.png" alt="" />
               <p>Flexible <br>line management</p>
             </div>
-            <div class="col-md-3">
-              <img src="/images/homepage/feat-customize.png" alt="" />
+            <div class="col-md-3 col-xs-6">
+              <img class="img-responsive" src="/images/homepage/feat-customize.png" alt="" />
               <p>Customizable <br>Features</p>
             </div>
-            <div class="col-md-3">
-              <img src="/images/homepage/feat-business.png" alt="" />
+            <div class="col-md-3 col-xs-6">
+              <img class="img-responsive" src="/images/homepage/feat-business.png" alt="" />
               <p>Business <br>Analytics</p>
             </div>
-            <div class="col-md-3">
-              <img src="/images/homepage/feat-minimal.png" alt="" />
+            <div class="col-md-3 col-xs-6">
+              <img class="img-responsive" src="/images/homepage/feat-minimal.png" alt="" />
               <p>Minimal <br>Setup</p>
             </div>
-            <div class="col-md-3">
-              <img src="/images/homepage/feat-easy.png" alt="" />
+            <div class="col-md-3 col-xs-6">
+              <img class="img-responsive" src="/images/homepage/feat-easy.png" alt="" />
               <p>Easy Customer <br>Notifications</p>
             </div>
-            <div class="col-md-3">
-              <img src="/images/homepage/feat-simple.png" alt="" />
+            <div class="col-md-3 col-xs-6">
+              <img class="img-responsive" src="/images/homepage/feat-simple.png" alt="" />
               <p>Simple <br>Interface</p>
             </div>
-            <div class="col-md-3">
-              <img src="/images/homepage/feat-free.png" alt="" />
+            <div class="col-md-3 col-xs-6">
+              <img class="img-responsive" src="/images/homepage/feat-free.png" alt="" />
               <p>It's Free</p>
             </div>
           </div>
@@ -318,30 +320,30 @@
       <section class="whocan">
         <div class="container">
           <div class="row">
-            <div class="col-md-12 text-center">
+            <div class="col-md-12text-center">
               <h2><span>Who can use</span> FeatherQ</h2>
             </div>
           </div>
           <div class="row imgs">
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-3 col-xs-6">
               <div class="block text-center hos">
                 <img src="/images/homepage/hospitals.png" alt="Hospitals" />
                 <p>Hospitals</p>
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-3 col-xs-6">
               <div class="block text-center ban">
                 <img src="/images/homepage/banks.png" alt="Banks" />
                 <p>Banks</p>
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-3 col-xs-6">
               <div class="block text-center sch">
                 <img src="/images/homepage/schools.png" alt="Schools" />
                 <p>Schools</p>
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-3 col-xs-6">
               <div class="block text-center res">
                 <img src="/images/homepage/restaurants.png" alt="Restaurants" />
                 <p>Restaurants</p>
@@ -349,12 +351,12 @@
             </div>
           </div>
           <div class="clearfix mt50">
-              <div class="col-md-5">
+              <div class="col-md-5 col-sm-12">
                 <div class="block plus">
                   <h2 class="ml20"><img class="pull-left mr20" src="/images/homepage/plus.png" alt="plus" />Or any service oriented <br>business process!</h2>
                 </div>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-7 col-sm-12">
                 <div class="block text-left mt20">
                   <p>FeatherQ's DIY line-management platform lets you customize features to fit your business needs. If you have a line that needs managing, we can help.</p>
                 </div>
@@ -374,8 +376,8 @@
               Free, <br>
               Online Queue Management System
             </h1>
-            <h1>Call us at: <span class="orange">(032) 345-4658</span><br>
-            Email us at: <span class="orange">contact@featherq.com</span></h1>
+            <h2>Call us at: <span class="orange">(032) 345-4658</span><br>
+            Email us at: <span class="orange">contact@featherq.com</span></h2>
             <p class="mt50 leave">
               Leave your email below to receive our monthly newsletter on new features, new innovations and news that help you beat the waiting game.
             </p>
