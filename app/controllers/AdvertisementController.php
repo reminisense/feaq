@@ -12,13 +12,18 @@
 class AdvertisementController extends BaseController{
 
   public function postSliderImages() {
+    $business_id = Input::get('business_id');
     $count = 0;
-    foreach(glob(public_path() . '/ads/' . Input::get('business_id') . '/*.*') as $filename){
-      $ad_src[] = array(
-        'count' => $count,
-        'path' => 'ads/' . Input::get('business_id') . '/' . basename($filename),
-      );
-      $count++;
+    $ad_src = array();
+    $ad_directory = public_path() . '/ads/' . $business_id;
+    if (file_exists($ad_directory)) {
+      foreach (glob($ad_directory . '/*.*') as $filename) {
+        $ad_src[] = array(
+          'count' => $count,
+          'path' => 'ads/' . Input::get('business_id') . '/' . basename($filename),
+        );
+        $count++;
+      }
     }
     return json_encode(array('slider_images' => $ad_src));
   }
