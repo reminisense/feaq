@@ -43,7 +43,7 @@
     <body ng-app="FeatherQ" ng-cloak>
       <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
-          <div class="navbar-header">
+          <div class="navbar-header clearfix">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
               <span class="sr-only">Toggle navigation</span>
               <span class="icon-bar"></span>
@@ -211,7 +211,7 @@
             </ul>
           </div>
         </div>
-        <div class="hidden-lg visible-md visible-xs">
+        <div class="hidden-lg visible-md visible-xs visible-sm">
           <div class="clearfix">
             <div class="col-md-6">
               <ul id="myTabs" class="clearfix nav nav-tabs">

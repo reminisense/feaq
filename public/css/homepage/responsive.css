@@ -26,6 +26,15 @@
     .things {
         background: none;
     }
+    #myTabs #signup-tab {
+        width: 80%;
+    }
+    #myTabs #setup-tab {
+        width: 60%;
+    }
+    #myTabs #serve-tab {
+        width: 40%;
+    }
 }
 @media (min-width: 768px) and (max-width: 979px) {
     .filterwrap .btn-orange {
@@ -70,9 +79,9 @@
         overflow: hidden!important;
     }
 	/*display stackmenu*/
-	.navbar-header {
+	/*.navbar-header {
 		height: 64px;
-	}
+	}*/
 	section.banner .slider-nav {
 		margin-top: -140px;
 	}
@@ -96,7 +105,7 @@
     }
     .process {
         margin-bottom: 0px!important;
-        padding: 50px;
+        padding: 50px 0;
     }
     .things {
         background: url('../../images/homepage/bg-featherq-app.png') bottom right no-repeat;
@@ -106,6 +115,29 @@
     }
     .partners {
         padding-bottom: 50px;
+    }
+    #myTabs {
+        margin-top: 0px!important;
+    }
+    #myTabs li {
+        float: left;
+        width: 33.3%!important;
+    }
+    #myTabs li a {
+        width: 100%!important;
+    }
+    .tab-content {
+        margin: auto;
+        text-align: center;
+        padding: 0;
+        margin-top: 20px;
+    }
+    #navbar {
+        background-color: #fff;
+    }
+    #navbar ul.nav li a {
+        padding-left: 40px;
+        padding-right: 40px;
     }
 }
 @media (min-width: 480px) and (max-width: 768px) {
@@ -154,9 +186,9 @@
 	.do-mobile a {
 		display: none;
 	}
-	.navbar-header {
+	/*.navbar-header {
 		height: 64px;
-	}
+	}*/
 	.navbar-brand img {
 		padding-left: 15px;
 	}
@@ -165,12 +197,6 @@
 	}
     .things {
         background: none;
-    }
-    .navbar-collapse.collapse,
-    #navbar {
-        background: #fff;
-        -webkit-transition: all 0.4s ease;
-        transition: all 0.4s ease;
     }
     body section,
     body section h2 {
@@ -186,6 +212,11 @@
         padding-bottom: 50px;
     }
 }
+@media (min-width: 480px) and (max-width: 513px) {
+    #myTabs li a {
+        height: 96px;
+    }
+}
 @media only screen and (max-width : 480px) {
 	.banner .slider-nav,
 	.eyebrow,
@@ -196,9 +227,9 @@
 	.navbar-brand img {
 		padding-left: 15px;
 	}
-	.navbar-header {
+	/*.navbar-header {
 		height: 64px;
-	}
+	}*/
 	.abouts .text-center.mb30 img {
 		width: 320px;
 	}
@@ -244,6 +275,50 @@
     .filterwrap .btn-group:first-child {
         border-bottom-left-radius: 0px;
     }
+    .banner .btn {
+        margin: 12px 4px;
+    }
+    .banner h1 {
+        font-size: 23px;
+        line-height: 45px;
+    }
+    #myTabs li {
+        float: none;
+        width: 100%!important;
+        margin: 6px 0!important;
+    }
+    #myTabs li a {
+        width: 100%!important;
+        height: inherit!important;
+    }
+    form#leaveemail {
+        margin-bottom: 30px;
+    }
+    .features, .whocan, .contactus, .benefits {
+        padding: 50px 0;
+    }
+    .features h2, .benefits h2, .process h2 {
+        margin-top: 10px;
+        margin-bottom: 40px;
+    }
+    .benefits .row:last-child {
+        margin-bottom: 0px;
+    }
+    .features p {
+        font-size: 18px;
+        margin-top: 5px;
+    }
+    .features img {
+        margin-top: 20px;
+    }
+    #navbar ul.nav li a {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .navbar.shrink .nav li a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
 }
 
 @media only screen and (max-width : 320px) {
@@ -253,6 +328,51 @@
 	.navbar-brand img {
 		padding-left: 15px;
 	}
+    .banner .btn {
+        margin: 4px;
+    }
+    .whocan .imgs .block p {
+        width: 100%;
+    }
+    .features p {
+        font-size: 18px;
+        margin-top: 5px;
+    }
+    .features img {
+        margin-top: 20px;
+    }
+    .features, .whocan, .contactus, .benefits {
+        padding: 50px 0;
+    }
+    .features h2, .benefits h2, .process h2 {
+        margin-top: 10px;
+        margin-bottom: 40px;
+    }
+    .benefits .row:last-child {
+        margin-bottom: 0px;
+    }
+    .banner h1 {
+        line-height: 38px;
+    }
+    .banner .partners img {
+        display: block;
+        margin: 20px auto 15px;
+        text-align: center;
+    }
+    .partners {
+        padding-bottom: 0;
+    }
+    .navbar-brand img {
+        width: 220px;
+    }
+    #navbar ul.nav li a {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .navbar.shrink .nav li a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
 }
 
 

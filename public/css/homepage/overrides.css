@@ -9,9 +9,14 @@ body {
     -o-background-size: cover;
     background-size: cover;
 }
+#navbar {
+    margin-top: 40px;
+    -webkit-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
 .navbar {
-    -webkit-transition: all 0.6s ease;
-  transition: all 0.6s ease;
+    -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
   height: 130px;
   background: none;
 
@@ -20,22 +25,28 @@ body {
     background: rgba(255,255,255,0.95);
     height: 60px;
 }
-.navbar.shrink #navbar,
-.navbar.shrink .navbar-header {
+.navbar.shrink #navbar {
     margin-top: 0;
 }
 .navbar.shrink img {
     margin-top: 10px;
-    width: 142px;
+    width: 178px;
 }
 .navbar img {
-      -webkit-transition: all 0.4s ease;
-  transition: all 0.4s ease;
+    -webkit-transition: height 0.4s;
+    -moz-transition: height 0.4s;
+    -ms-transition: height 0.4s;
+    -o-transition: height 0.4s;
+    transition: height 0.4s;
+
     width: inherit;
 }
 .navbar.shrink .nav li a {
     padding-top: 20px;
     padding-bottom: 19px;
+}
+.navbar.shrink .navbar-toggle {
+    margin-top: 8px;
 }
 .navbar .dropdown-menu {
     padding: 0;
@@ -45,10 +56,28 @@ body {
 .navbar.shrink .dropdown-menu>li>a{
     padding: 12px 20px!important;
 }
-#navbar, .navbar-header {
+.navbar-header {
+  /*-webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;*/
+}
+.navbar-brand img {
     margin-top: 40px;
-  -webkit-transition: all 0.4s ease;
-  transition: all 0.4s ease;
+    -webkit-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+.navbar.shrink #navbar ul.nav {
+    margin-top: 0;
+}
+/*.navbar.shrink ul.nav {
+    margin-top: 0!important;
+}*/
+.navbar-toggle {
+    margin-top: 53px;
+    -webkit-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+.navbar.shrink .navbar-toggle {
+    margin-top: 8px;
 }
 .nav li a {
     color: #4e4d4b!important;
@@ -57,7 +86,12 @@ body {
 .nav li a:hover {
     color: #ff8c48!important;    
 }
-
+.navbar-header {
+    height: 91px;
+}
+.navbar.shrink .navbar-header {
+    height: 60px!important;
+}
 .navbar-default {
     background: none;
     border: none;
@@ -66,6 +100,19 @@ body {
 .navbar-brand {
     padding: 0;
     margin: 0!important;
+}
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #64503c;
+}
+.navbar-default .navbar-toggle {
+    border: none;
+}
+.navbar-toggle .icon-bar {
+    height: 4px;
+    width: 28px;
+}
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+    background: transparent!important;
 }
 h2 {
     font-size: 40px;
@@ -106,7 +153,7 @@ h3 {
     margin-top: 90px;
 }
 .banner .partners img {
-    margin-right: 16px;
+    margin-right: 20px;
 }
 .banner .col-md-5 .partners img {
     margin: 5px 25px 4px 0;
@@ -168,7 +215,7 @@ h3 {
 }
 .benefits img.visible-xs {
     margin: auto;
-    width: 350px;
+    width: 180px;
 }
 .features {
     background-color: #fdfdfc;
