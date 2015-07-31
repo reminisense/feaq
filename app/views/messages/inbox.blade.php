@@ -34,16 +34,16 @@
         <div class="row"><p></p></div>
         <div class="row">
             <div class="biz-navs">
-                <div class="form-group row">
+                <div id="messages-wrap" class="form-group row">
                     <ul role="tablist" class="nav nav-tabs" id="bizTab">
-                        <li class="active"><a data-toggle="tab" ng-click="displayBusinessInbox()"><span class="glyphicon glyphicon-list-alt"></span> Business Inbox</a></li>
-                        <li class=""><a data-toggle="tab" ng-click="displayOtherInbox()"><span class="glyphicon glyphicon-tasks"></span> Other Inbox</a></li>
+                        <li class="active"><a data-toggle="tab" ng-click="displayBusinessInbox()"><span class="glyphicon glyphicon-inbox"></span> My Inbox</a></li>
+                        <li class=""><a data-toggle="tab" ng-click="displayOtherInbox()"><span class="glyphicon glyphicon-share-alt"></span> Sent Messages</a></li>
                     </ul>
                     <div id="bizTabContent" class="tab-content" style="">
                         <div class="messages">
-                            <div class="col-md-12">
+                            <div class="col-md-12" style="margin-bottom:20px;">
                                 <div aria-label="Large button group" role="group" class="btn-group btn-group-lg" id="assigned-businesses">
-                                    <button class="btn btn-default" type="button" ng-repeat="assigned_business in assigned_businesses" ng-click="filterMessages(assigned_business.business_id);">@{{ assigned_business.business_name }}</button>
+                                    <button class="btn btn-biz" type="button" ng-repeat="assigned_business in assigned_businesses" ng-click="filterMessages(assigned_business.business_id);">@{{ assigned_business.business_name }}</button>
                                 </div>
                             </div>
                             <div class="clearfix">
@@ -66,15 +66,24 @@
                                                 <div style="max-height: 450px; overflow: scroll;">
                                                     <div class="thread-boundary"></div>
                                                 </div>
-                                                <div class="message-reply">
+                                                <div class="message-reply clearfix">
+                                                    <form ng-submit="sendBusinessReply(business_reply_form.preview_type)">
                                                     <div class="col-md-12">
-                                                        <form ng-submit="sendBusinessReply(business_reply_form.preview_type)">
                                                             <textarea id="sendreplytext" class="form-control" rows="5" placeholder="Write a reply..." ng-model="business_reply_form.message_reply" required></textarea>
-                                                            <input type="hidden" role="uploadcare-uploader" data-crop="disabled" id="business-attachment" />
-                                                            <em class="help-block">Upload is limited to documents and images up to 5MB.</em>
-                                                            <button id="sendreply" type="submit" class="btn btn-orange">Send Reply</button>
-                                                        </form>
                                                     </div>
+                                                    <div class="clearfix">
+                                                                <div class="col-md-9 col-xs-12">
+                                                                    <input type="hidden" role="uploadcare-uploader" data-crop="disabled" id="business-attachment" />
+                                                                    <em class="help-block">Upload is limited to documents and images up to 5MB.</em>
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <button id="sendreply" type="submit" class="btn btn-orange">Send Reply</button>
+                                                                </div>
+                                                    </div>
+
+
+                                                    </form>
+
                                                 </div>
                                             </div>
                                         </div>
