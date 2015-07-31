@@ -739,4 +739,19 @@ class RestController extends BaseController {
         }
         return Response::json(['success' => 1], 200, array(), JSON_PRETTY_PRINT);
     }
+
+    public function getTransactionStats($transaction_number){
+        $transaction_stats = [];
+        $transaction_array = DB::table('terminal_transaction')
+            ->where('transaction_number', '=', $transaction_number)
+            ->select('transaction_number', 'time_queued', 'time_called', 'time_completed', 'time_removed')
+            ->first();
+        foreach($transaction_array as $title => $value){
+            $transaction_stats[] = [
+                'title' => $title,
+                'value' => $value
+            ];
+        }
+        return Response::json(['transaction_stats' => $transaction_stats], 200, array(), JSON_PRETTY_PRINT);
+    }
 }
