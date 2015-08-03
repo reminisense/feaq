@@ -118,4 +118,9 @@ $(document).ready(function() {
     scope.$apply(function(){
         scope.displayBusinessInbox();
     });
+
+    $(document).on('click', '.business-tab', function(){
+        $('.business-tab').removeClass('active-btn-biz');
+        $(this).addClass('active-btn-biz');
+    });
 });

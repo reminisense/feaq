@@ -43,7 +43,7 @@
                         <div class="messages">
                             <div class="col-md-12" style="margin-bottom:20px;">
                                 <div aria-label="Large button group" role="group" class="btn-group btn-group-lg" id="assigned-businesses">
-                                    <button class="btn btn-biz" type="button" ng-repeat="assigned_business in assigned_businesses" ng-click="filterMessages(assigned_business.business_id);">@{{ assigned_business.business_name }}</button>
+                                    <button class="btn btn-biz business-tab" type="button" ng-repeat="assigned_business in assigned_businesses" ng-class="{in:$first}" ng-click="filterMessages(assigned_business.business_id);">@{{ assigned_business.business_name }}</button>
                                 </div>
                             </div>
                             <div class="clearfix">
@@ -91,7 +91,7 @@
                                 </div>
                             </div>
                             <div ng-if="messages.length == 0">
-                                <p>You currently have no messages</p>
+                                <p style="margin-left: 10px;">You currently have no messages</p>
                             </div>
                         </div>
                     </div>
