@@ -66,10 +66,10 @@
         };
 
         $scope.setPreviewMessage = function(preview_type, sender, message_id, active_email){
-            $('.business-inbox').hide();
             $('.message-preview').hide();
             $('.preview-container').fadeIn();
             if (isMobile.any() != null){
+                $('.business-inbox').hide();
                 $('#mobile-back-button').parent().removeClass('hidden').fadeIn();
                 $('.message-collection').fadeOut();
             }
