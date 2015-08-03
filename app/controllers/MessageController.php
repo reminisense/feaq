@@ -210,7 +210,11 @@ class MessageController extends BaseController {
         $business_id = Input::get('business_id');
         $email = Input::get('email');
         $thread_key = Message::getThreadKeyByBusinessIdAndEmail($business_id, $email);
-        return $this->getMessageThread($thread_key);
+        $message_id = Message::getMessageIdByThreadKey($thread_key);
+        $message_thread = $this->getMessageThread(null, $thread_key);
+        $message_thread = json_decode($message_thread);
+        $message_thread->message_id = $message_id;
+        return json_encode($message_thread);
     }
 
     private function threadKeyGenerator($business_id, $email) {

@@ -11,21 +11,19 @@ app.controller('messageController', function($scope, $http){
             email: $('#priority-number-email').html()
         }).success(function(response) {
             $scope.messages = response.contactmessage;
+            $scope.message_id = response.message_id;
             $scope.allow_send = true;
         }).error(function(response){
             $scope.allow_send = false;
-        }).finally(function(){
-            console.log($scope.allow_send);
         });
     }
 
     $scope.sendBusinessReply = function(){
         $http.post('/message/sendto-user', {
-            business_id: pq.ids.business_id,
-            contactemail: $('#priority-number-email').html(),
-            phonenumber : $('#priority-number-phone').html(),
+            preview_type: 'other',
+            message_id: $scope.message_id,
             messageContent: $scope.message_reply,
-            sendbyphone : $scope.send_to_phone
+            attachment : $('#business-attachment').val()
         }).success(function(response){
             $scope.message_reply = '';
             $scope.getMessages();
