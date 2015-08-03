@@ -44,9 +44,35 @@
             $('.message-item[business_id="'+business_id+'"]').show();
         };
 
+        var isMobile = {
+            Android: function() {
+                return navigator.userAgent.match(/Android/i);
+            },
+            BlackBerry: function() {
+                return navigator.userAgent.match(/BlackBerry/i);
+            },
+            iOS: function() {
+                return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+            },
+            Opera: function() {
+                return navigator.userAgent.match(/Opera Mini/i);
+            },
+            Windows: function() {
+                return navigator.userAgent.match(/IEMobile/i);
+            },
+            any: function() {
+                return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+            }
+        };
+
         $scope.setPreviewMessage = function(preview_type, sender, message_id, active_email){
+            $('.business-inbox').hide();
             $('.message-preview').hide();
             $('.preview-container').fadeIn();
+            if (isMobile.any() != null){
+                $('#mobile-back-button').parent().removeClass('hidden').fadeIn();
+                $('.message-collection').fadeOut();
+            }
             $scope.business_reply_form.active_sender_email = active_email;
             $scope.business_reply_form.thread_message_id = message_id;
             $http.post('/message/message-thread', {
@@ -122,5 +148,12 @@ $(document).ready(function() {
     $(document).on('click', '.business-tab', function(){
         $('.business-tab').removeClass('active-btn-biz');
         $(this).addClass('active-btn-biz');
+    });
+
+    $(document).on('click', '#mobile-back-button', function(){
+        $(this).parent().fadeOut();
+        $('.message-collection').fadeIn();
+        $('.business-inbox').fadeIn();
+        $('.preview-container').fadeOut();
     });
 });

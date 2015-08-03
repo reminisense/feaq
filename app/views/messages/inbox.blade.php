@@ -41,16 +41,16 @@
                     </ul>
                     <div id="bizTabContent" class="tab-content" style="">
                         <div class="messages">
-                            <div class="col-md-12" style="margin-bottom:20px;">
+                            <div class="col-md-12 business-inbox" style="margin-bottom:20px;">
                                 <div aria-label="Large button group" role="group" class="btn-group btn-group-lg" id="assigned-businesses">
-                                    <button class="btn btn-biz business-tab" type="button" ng-repeat="assigned_business in assigned_businesses" ng-class="{in:$first}" ng-click="filterMessages(assigned_business.business_id);">@{{ assigned_business.business_name }}</button>
+                                    <button class="btn btn-biz business-tab" type="button" ng-repeat="assigned_business in assigned_businesses" ng-click="filterMessages(assigned_business.business_id);">@{{ assigned_business.business_name }}</button>
                                 </div>
+                            </div>
+                            <div class="col-md-12 hidden">
+                                <button class="btn btn-orange form-control" id="mobile-back-button">Back to Messages</button>
                             </div>
                             <div class="clearfix">
                                 <div ng-if="messages.length > 0">
-                                    <div class="col-md-12">
-                                        <button class="btn btn-orange form-control hidden" id="mobile-back-button">Back to Messages</button>
-                                    </div>
                                     <div class="col-md-5 message-collection">
                                         <div class="list-group">
                                             <a ng-repeat="message in messages" href="" class="list-group-item message-item"
@@ -69,19 +69,17 @@
                                                 <div class="message-reply clearfix">
                                                     <form ng-submit="sendBusinessReply(business_reply_form.preview_type)">
                                                     <div class="col-md-12">
-                                                            <textarea id="sendreplytext" class="form-control" rows="5" placeholder="Write a reply..." ng-model="business_reply_form.message_reply" required></textarea>
+                                                        <textarea id="sendreplytext" class="form-control" rows="5" placeholder="Write a reply..." ng-model="business_reply_form.message_reply" required></textarea>
                                                     </div>
                                                     <div class="clearfix">
-                                                                <div class="col-md-9 col-xs-12">
-                                                                    <input type="hidden" role="uploadcare-uploader" data-crop="disabled" id="business-attachment" />
-                                                                    <em class="help-block">Upload is limited to documents and images up to 5MB.</em>
-                                                                </div>
-                                                                <div class="col-md-3 col-xs-12">
-                                                                    <button id="sendreply" type="submit" class="btn btn-orange">Send Reply</button>
-                                                                </div>
+                                                        <div class="col-md-9 col-xs-12">
+                                                            <input type="hidden" role="uploadcare-uploader" data-crop="disabled" id="business-attachment" />
+                                                            <em class="help-block">Upload is limited to documents and images up to 5MB.</em>
+                                                        </div>
+                                                        <div class="col-md-3 col-xs-12">
+                                                            <button id="sendreply" type="submit" class="btn btn-orange">Send Reply</button>
+                                                        </div>
                                                     </div>
-
-
                                                     </form>
 
                                                 </div>
