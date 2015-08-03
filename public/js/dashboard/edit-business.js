@@ -239,12 +239,28 @@ var eb = {
                 filters : {
                     max_file_size : '5mb',
                     mime_types: [
-                        {title : "Image files", extensions : "jpg,gif,png"}
+                        {title : "Image files", extensions : "jpg,jpeg,gif,png"}
                     ]
                 },
 
                 // Resize images on clientside if we can
-                resize : {width : 800, height : 800, quality : 90}
+                resize : {width : 800, height : 800, quality : 90},
+
+                init : {
+                    UploadComplete: function(up, files) {
+                        $.post(eb.urls.advertisement.get_slider_image, {
+                            'business_id' : $('#business_id').val()
+                        }, function(result) {
+                            var response = jQuery.parseJSON(result);
+                            $('#adimage-success').fadeIn();
+                            $('#adimage-success').fadeOut(7000);
+                            var scope = angular.element($("#editBusiness")).scope();
+                            scope.$apply(function(){
+                                scope.slider_images = response.slider_images;
+                            });
+                        });
+                    }
+                }
             });
         }
     }
