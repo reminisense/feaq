@@ -135,6 +135,12 @@
             });
         };
 
+        $scope.loadDefaultNavLink = function(){
+            $('#my-business').removeClass('active');
+            $('#search-business').removeClass('active');
+            $('#message-inbox').addClass('active');
+        };
+
     });
 
 })();
@@ -143,6 +149,7 @@ $(document).ready(function() {
     var scope = angular.element($("#messageInbox")).scope();
     scope.$apply(function(){
         scope.displayBusinessInbox();
+        scope.loadDefaultNavLink();
     });
 
     $(document).on('click', '.business-tab', function(){

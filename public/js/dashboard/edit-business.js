@@ -197,6 +197,7 @@ var eb = {
         my_business_link_active : function(){
             $('#my-business').addClass('active');
             $('#search-business').removeClass('active');
+            $('#message-inbox').removeClass('active');
         },
 
         clear_terminal_delete_msg : function(){
