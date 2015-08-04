@@ -40,8 +40,8 @@
                                 <div class="col-md-4">
                                     <label>Cellphone</label>
                                 </div>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="phone" name="phone">
+                                <div class="col-md-8 mb20">
+                                    <input type="text" class="form-control" ng-model="phone" name="phone" id="issued-number-phone">
                                 </div>
                                 <div class="col-md-4">
                                     <label>Email</label>

@@ -9,6 +9,7 @@ $(document).ready(function(){
     pq.jquery_functions.load_default_navbar_link();
     pq.jquery_functions.load_show_modal();
     pq.jquery_functions.load_priority_number_modal_content();
+    pq.jquery_functions.load_issue_number_intelliput();
 });
 
 //these functions and variables are separated since they are using jquery
@@ -121,6 +122,12 @@ var pq = {
                 $('#priority-number-email').html(email);
 
                 $('#priority-number-modal .modal-body #pmore-tab .messages a').trigger('click');
+            });
+        },
+
+        load_issue_number_intelliput : function(){
+            $("#issued-number-phone").intlTelInput({
+                defaultCountry: "auto"
             });
         },
 
