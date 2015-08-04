@@ -68,6 +68,7 @@ var pq = {
 
         load_default_navbar_link : function(){
             $('#search-business').removeClass('active');
+            $('#message-inbox').removeClass('active');
             $('#my-business').addClass('active');
         },
 
