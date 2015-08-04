@@ -131,7 +131,7 @@
         <div class="col-md-12 ticker mt20">
             <div class="" style="background-color: rgba(255,255,255,0.95); color: #000; font-size: 36px; font-family: ArialMTStd-ExtraBold;">
                     <div class="scroll-left">
-                        <p>@{{ ticker_message }}</p>
+                        <marquee scrollamount="10">@{{ ticker_message }}</marquee>
                     </div>
             </div>
         </div>

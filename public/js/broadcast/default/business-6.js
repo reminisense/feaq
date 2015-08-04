@@ -1,6 +1,6 @@
 var app = angular.module('BusinessBroadcast', []);
 
-app.controller('nowServingCtrl', function($scope, $http) {
+app.controller('nowServingCtrl', function($scope, $http, $compile) {
 
     var business_id = document.getElementById('business-id').getAttribute('business_id');
     var broadcast_type = document.getElementById('broadcast-type').getAttribute('broadcast_type');
@@ -71,7 +71,7 @@ app.controller('nowServingCtrl', function($scope, $http) {
         if (typeof (response.ticker_message3) == "undefined") response.ticker_message3 = '';
         if (typeof (response.ticker_message4) == "undefined") response.ticker_message4 = '';
         if (typeof (response.ticker_message5) == "undefined") response.ticker_message5 = '';
-        $scope.ticker_message = response.ticker_message + ' ' + response.ticker_message2 + ' ' + response.ticker_message3 + ' ' + response.ticker_message4 + ' ' + response.ticker_message5;
+        $scope.ticker_message = response.ticker_message + ' . . . . ' +response.ticker_message2 + ' . . . . ' + response.ticker_message3 + ' . . . . ' + response.ticker_message4 + ' . . . . ' + response.ticker_message5;
     });
 
     $scope.resetNumbers = (function(response) {
