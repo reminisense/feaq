@@ -258,6 +258,7 @@ var eb = {
                             scope.$apply(function(){
                                 scope.slider_images = response.slider_images;
                             });
+                            eb.jquery_functions.activate_plupload();
                         });
                     }
                 }
