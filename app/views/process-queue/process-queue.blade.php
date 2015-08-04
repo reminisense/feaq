@@ -21,6 +21,12 @@ Processs Queue > {{ $business_name }}
 <script src="/js/google-analytics/googleAnalytics.js"></script>
 <script src="/js/google-analytics/ga-process_queue.js"></script>
 
+<script src="https://ucarecdn.com/widget/2.3.5/uploadcare/uploadcare.min.js" charset="utf-8"></script>
+<script>
+    UPLOADCARE_LOCALE = "en";
+    UPLOADCARE_TABS = "file";
+    UPLOADCARE_PUBLIC_KEY = "844c2b9e554c2ee5cc0a";
+</script>
 @stop
 
 @section('container')
