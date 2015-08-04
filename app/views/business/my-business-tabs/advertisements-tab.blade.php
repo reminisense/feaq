@@ -72,6 +72,7 @@
                         <br style="clear: both" />
                         <input type="submit" value="Send" style="display: none;"/>
                     </form>
+                    <div class="alert alert-success" id="adimage-success" style="display: none;">Success! <strong><a href="/broadcast/business/@{{ business_id }}" target="_blank">View Broadcast Page</a></strong></div>
                 </div>
                 <div class="col-md-12" style="text-align: center; max-height: 300px; overflow: scroll;">
                     <div class="table-responsive">

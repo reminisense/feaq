@@ -10,17 +10,20 @@
                         <img id="ad<?php print $count; ?>" src="/<?php print $filename; ?>" alt="Ad<?php print $count; ?>">
                     </div>
                 @endforeach
-                <div class="item">
-                    <img id="add2" src="/images/broadcast1.jpg" alt="Add1">
+                @if (!isset($count))
+                    <?php $count = 0; ?>
+                @endif
+                <div class="item <?php $count == 0 ? print 'active' : print ''; ?>">
+                    <img id="ad<?php print $count+1; ?>" src="/images/broadcast1.jpg" alt="Ad<?php print $count+1; ?>">
                 </div>
                 <div class="item">
-                    <img id="add3" src="/images/broadcast2.jpg" alt="Add2">
+                    <img id="ad<?php print $count+2; ?>" src="/images/broadcast2.jpg" alt="Ad<?php print $count+2; ?>">
                 </div>
                 <div class="item">
-                    <img id="add4" src="/images/broadcast3.jpg" alt="Add3">
+                    <img id="ad<?php print $count+3; ?>" src="/images/broadcast3.jpg" alt="Ad<?php print $count+3; ?>">
                 </div>
                 <div class="item">
-                    <img id="add5" src="/images/broadcast4.jpg" alt="Add4">
+                    <img id="ad<?php print $count+4; ?>" src="/images/broadcast4.jpg" alt="Ad<?php print $count+4; ?>">
                 </div>
             </div>
         </div>

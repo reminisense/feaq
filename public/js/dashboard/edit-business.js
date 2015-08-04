@@ -62,12 +62,6 @@ $(document).ready(function(){
         e.stopPropagation();
     });
 
-    $(document).on('click', '#mobile-back-button', function(){
-        $(this).fadeOut();
-        $('.message-collection').fadeIn();
-        $('.preview-container').fadeOut();
-    });
-
     //eb.jquery_functions.load_users();
     eb.jquery_functions.setBusinessId($('#business_id').val());
     eb.jquery_functions.setUserId($('#user_id').val());
@@ -245,12 +239,28 @@ var eb = {
                 filters : {
                     max_file_size : '5mb',
                     mime_types: [
-                        {title : "Image files", extensions : "jpg,gif,png"}
+                        {title : "Image files", extensions : "jpg,jpeg,gif,png"}
                     ]
                 },
 
                 // Resize images on clientside if we can
-                resize : {width : 800, height : 800, quality : 90}
+                resize : {width : 800, height : 800, quality : 90},
+
+                init : {
+                    UploadComplete: function(up, files) {
+                        $.post(eb.urls.advertisement.get_slider_image, {
+                            'business_id' : $('#business_id').val()
+                        }, function(result) {
+                            var response = jQuery.parseJSON(result);
+                            $('#adimage-success').fadeIn();
+                            $('#adimage-success').fadeOut(7000);
+                            var scope = angular.element($("#editBusiness")).scope();
+                            scope.$apply(function(){
+                                scope.slider_images = response.slider_images;
+                            });
+                        });
+                    }
+                }
             });
         }
     }
@@ -373,6 +383,8 @@ var eb = {
         }
 
         /* @CSD 05062015 */
+        /* @CSD 08032015 Migrated to messages.js by Paul */
+        /*
         $scope.setPreviewMessage = function(sender, message_id, active_email){
             $('.message-preview').hide();
             $('.preview-container').fadeIn();
@@ -446,6 +458,7 @@ var eb = {
                 $('#sendreply').removeAttr('disabled');
             });
         }
+        */
 
         $scope.unassignFromTerminal = function(user_id, terminal_id){
             $http.get(eb.urls.terminals.terminal_unassign_url + user_id + '/' + terminal_id)
@@ -860,27 +873,6 @@ var eb = {
                 }
             });
         });
-
-        var isMobile = {
-            Android: function() {
-                return navigator.userAgent.match(/Android/i);
-            },
-            BlackBerry: function() {
-                return navigator.userAgent.match(/BlackBerry/i);
-            },
-            iOS: function() {
-                return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-            },
-            Opera: function() {
-                return navigator.userAgent.match(/Opera Mini/i);
-            },
-            Windows: function() {
-                return navigator.userAgent.match(/IEMobile/i);
-            },
-            any: function() {
-                return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
-            }
-        };
 
         $scope.addTextField = function(business_id) {
             $http.post(eb.urls.forms.add_textfield_url, {
