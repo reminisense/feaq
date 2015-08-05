@@ -645,6 +645,7 @@ class RestController extends BaseController {
                 $data = json_decode(file_get_contents(public_path() . '/json/messages/' . $threadKey->thread_key . '.json'));
                 $message = $data[count($data) - 1];
                 $message->business_id = $threadKey->business_id;
+                $message->business_name = Business::name($threadKey->business_id);
                 $messages[] = $message;
             }
         }else{
