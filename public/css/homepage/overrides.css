@@ -466,19 +466,27 @@ p > a:hover {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
-    height: 125px;
+    height: 110px;
 }
+
+.box small {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+
 .businesses .col-md-3 {
     padding-left: 10px;
     padding-right: 10px;
 }
 .businesses .box .title {
     color: #111;
-    font-size: 17px;
+    font-size: 14px;
     font-weight: 700;
     margin-top: 10px;
     margin-bottom: 0;
-    height: 30px;
     overflow: hidden;
 }
 .businesses .box small {
