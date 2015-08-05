@@ -27,15 +27,15 @@ class Notifier extends Eloquent{
         Notifier::sendNumberCalledAndroid($transaction_number);
     }
 
-    public static function sendNumberNextToAllChannels($transaction_number){
-        Notifier::sendNumberNextEmail($transaction_number);
-        Notifier::sendNumberNextSms($transaction_number);
+    public static function sendNumberNextToAllChannels($transaction_number, $diff = null){
+        Notifier::sendNumberNextEmail($transaction_number, $diff);
+        Notifier::sendNumberNextSms($transaction_number, $diff);
     }
 
     public static function sendNumberCalledToNextNumber($transaction_number, $diff){
         $number = TerminalTransaction::where('transaction_number', '>=', $transaction_number)->skip($diff)->first();
         if($number){
-            Notifier::sendNumberNextToAllChannels($number->transaction_number);
+            Notifier::sendNumberNextToAllChannels($number->transaction_number, $diff);
         }
     }
 
@@ -58,13 +58,14 @@ class Notifier extends Eloquent{
         }
     }
 
-    public static function sendNumberNextEmail($transaction_number){
+    public static function sendNumberNextEmail($transaction_number, $diff = null){
         $email = PriorityQueue::email($transaction_number);
         $name = PriorityQueue::name($transaction_number);
         if($email){
             $data = [
                 'name' => $name == null ? null : ' ' . $name,
                 'priority_number' => PriorityQueue::priorityNumber($transaction_number),
+                'numbers_ahead' => $diff,
             ];
             Notifier::sendEmail($email, 'emails.process-queue.number-next', 'FeatherQ Message: Your number will be called soon.', $data);
         }
@@ -94,7 +95,7 @@ class Notifier extends Eloquent{
         }
     }
 
-    public static function sendNumberNextSms($transaction_number){
+    public static function sendNumberNextSms($transaction_number, $diff = null){
         $phone = PriorityQueue::phone($transaction_number);
         $name = PriorityQueue::name($transaction_number);
         if($phone){
@@ -102,7 +103,11 @@ class Notifier extends Eloquent{
             $service_id = PriorityNumber::serviceId($pq->track_id);
             $name = $name == null ? null : ' ' . $name;
             $priority_number = PriorityQueue::priorityNumber($transaction_number);
-            $message = "Hello$name! Thank you for using FeatherQ. Your number (# $priority_number ) will be called soon. To know more about the status of your queue, log on to FeatherQ.com.";
+            $message = "Hello$name! Thank you for using FeatherQ. Your number (# $priority_number ) will be called soon. ";
+            if($diff >= 1){
+                $message .= $diff == 1 ? "There is only " . $diff . " person ahead of you. " : "There are only " . $diff . " people ahead of you. ";
+            }
+            $message .= "To know more about the status of your queue, log on to FeatherQ.com.";
             Notifier:: sendServiceSms($message, $phone, $service_id);
         }
     }
