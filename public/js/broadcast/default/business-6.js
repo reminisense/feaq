@@ -67,11 +67,12 @@ app.controller('nowServingCtrl', function($scope, $http, $compile) {
         $scope.writeNumber(response, 'box5');
         //$scope.writeNumber(response, 'box6');
 
-        if (typeof (response.ticker_message2) == "undefined") response.ticker_message2 = '';
-        if (typeof (response.ticker_message3) == "undefined") response.ticker_message3 = '';
-        if (typeof (response.ticker_message4) == "undefined") response.ticker_message4 = '';
-        if (typeof (response.ticker_message5) == "undefined") response.ticker_message5 = '';
-        $scope.ticker_message = response.ticker_message + ' . . . . ' +response.ticker_message2 + ' . . . . ' + response.ticker_message3 + ' . . . . ' + response.ticker_message4 + ' . . . . ' + response.ticker_message5;
+        if (typeof (response.ticker_message2) == "undefined") response.ticker_message2 = ' ';
+        if (typeof (response.ticker_message3) == "undefined") response.ticker_message3 = ' ';
+        if (typeof (response.ticker_message4) == "undefined") response.ticker_message4 = ' ';
+        if (typeof (response.ticker_message5) == "undefined") response.ticker_message5 = ' ';
+        $scope.ticker_message = response.ticker_message  + response.ticker_message2 + response.ticker_message3 + response.ticker_message4 + response.ticker_message5;
+        $('.marquee-text').html($scope.ticker_message);
     });
 
     $scope.resetNumbers = (function(response) {
@@ -84,5 +85,72 @@ app.controller('nowServingCtrl', function($scope, $http, $compile) {
         $http.get('/broadcast/reset-numbers/'+business_id).success($scope.resetNumbers);
         $http.get('/json/'+business_id+'.json?nocache='+Math.floor((Math.random() * 10000) + 1)).success($scope.updateBroadcastPage);
     }, 1000);
+});
 
+$(document).ready(function(){
+    (function($) {
+        $.fn.textWidth = function(){
+            var calc = '<span style="display:none">' + $(this).text() + '</span>';
+            $('body').append(calc);
+            var width = $('body').find('span:last').width();
+            $('body').find('span:last').remove();
+            return width;
+        };
+
+        $.fn.marquee = function(args) {
+            var that = $(this);
+            var textWidth = that.textWidth(),
+                offset = that.width(),
+                width = offset,
+                css = {
+                    'text-indent' : that.css('text-indent'),
+                    'overflow' : that.css('overflow'),
+                    'white-space' : that.css('white-space')
+                },
+                marqueeCss = {
+                    'text-indent' : width,
+                    'overflow' : 'hidden',
+                    'white-space' : 'nowrap'
+                },
+                args = $.extend(true, { count: -1, speed: 1e1, leftToRight: false }, args),
+                i = 0,
+                stop = textWidth*-1,
+                dfd = $.Deferred();
+
+            function go() {
+                if(!that.length) return dfd.reject();
+                if(width == stop) {
+                    i++;
+                    if(i == args.count) {
+                        that.css(css);
+                        return dfd.resolve();
+                    }
+                    if(args.leftToRight) {
+                        width = textWidth*-1;
+                    } else {
+                        width = offset;
+                    }
+                }
+                that.css('text-indent', width + 'px');
+                if(args.leftToRight) {
+                    width++;
+                } else {
+                    width--;
+                }
+                setTimeout(go, args.speed);
+            };
+            if(args.leftToRight) {
+                width = textWidth*-1;
+                width++;
+                stop = offset;
+            } else {
+                width--;
+            }
+            that.css(marqueeCss);
+            go();
+            return dfd.promise();
+        };
+    })(jQuery);
+
+    $('.marquee-text').marquee();
 });
