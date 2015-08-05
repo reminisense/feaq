@@ -4,6 +4,7 @@
 //angularjs implementation
 (function(){
     //var app = angular.module('FeatherQ', []);
+    app.requires.push('ngSanitize');
     app.controller('processqueueController', function($scope, $http){
         $scope.terminal_id = pq.ids.terminal_id;
         $scope.called_numbers = [];

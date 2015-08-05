@@ -38,23 +38,26 @@
                         <div class="">
                             <div class="col-md-12 text-center"><h5>Conversation History</h5></div>
                             <div class="col-md-12" style="max-height: 300px; overflow: auto;">
-                                <div ng-repeat="message in messages">
+                                <div ng-repeat="message in messages" class=" mb10">
                                     <div ng-if="message.sender == 'user'" class="alert alert-success">
                                         <p>
                                             <strong>User: </strong>
-                                            @{{ message.content }}
+                                            <p ng-bind-html="message.content"></p>
+                                            <a href="@{{ message.attachment }}" ng-if="message.attachment" target="_blank">Download Attachment</a>
                                             <span class="pull-right">Sent @{{ message.timestamp }}</span>
                                         </p>
                                     </div>
-                                    <div ng-if="message.sender == 'business'" class="alert alert-info">
+                                    <div ng-if="message.sender == 'business'" class="alert alert-info mb10">
                                         <p>
                                             <strong>You: </strong>
-                                            @{{ message.content }}
+                                            <p ng-bind-html="message.content"></p>
+                                            <a href="@{{ message.attachment }}" ng-if="message.attachment" target="_blank">Download Attachment</a>
                                             <span class="pull-right">Sent @{{ message.timestamp }}</span>
                                         </p>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-12"><a href="#" ng-click="getMessages()"><span class="glyphicon glyphicon-refresh"></span> Refresh Messages</a></div>
                             <div class="col-md-12">
                                 <h5>Send A Message</h5>
                                 <div ng-show="allow_send">

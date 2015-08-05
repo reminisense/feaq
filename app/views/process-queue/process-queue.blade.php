@@ -12,6 +12,7 @@ Processs Queue > {{ $business_name }}
 @stop
 
 @section('scripts')
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-sanitize.min.js"></script>
 <script src="/js/process-queue/process-queue.js"></script>
 <script src="/js/process-queue/process-queue-angular.js"></script>
 <script src="/js/process-queue/issue-number-angular.js"></script>
