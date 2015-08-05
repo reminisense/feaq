@@ -234,6 +234,7 @@ class BusinessController extends BaseController{
 
             //sms settings
             $sms_api_data = [];
+            $sms_gateway_api = NULL;
             if($business_data['sms_gateway'] == 'frontline_sms'){
                 $sms_api_data = [
                     'frontline_sms_url' => $business_data['frontline_sms_url'],
