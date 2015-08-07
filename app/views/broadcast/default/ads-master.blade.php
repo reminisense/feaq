@@ -10,8 +10,10 @@
                         <img id="ad<?php print $count; ?>" src="/<?php print $filename; ?>" alt="Ad<?php print $count; ?>">
                     </div>
                 @endforeach
-                @if (!isset($count))
+                @if (count($ad_src) < 0)
                     <?php $count = 0; ?>
+                @else
+                    <?php $count = count($ad_src); ?>
                 @endif
                 <div class="item <?php $count == 0 ? print 'active' : print ''; ?>">
                     <img id="ad<?php print $count+1; ?>" src="/images/broadcast1.jpg" alt="Ad<?php print $count+1; ?>">
