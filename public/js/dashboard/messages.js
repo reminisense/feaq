@@ -157,6 +157,7 @@
             $('#message-inbox').addClass('active');
         };
 
+        /*
         setInterval(function() {
             if ($scope.business_reply_form.thread_message_id != "") {
                 var curr_length = $('.messagefrom').length + $('.messageto').length;
@@ -193,6 +194,7 @@
                 });
             }
         }, 1000);
+        */
 
         var uploadcareWidget = uploadcare.SingleWidget('#business-attachment');
         uploadcareWidget.onChange(function(file){
