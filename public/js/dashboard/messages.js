@@ -121,7 +121,14 @@
                         $('.thread-boundary').before(finalMessage);
                     }
                 }
-                $('.message-preview').fadeIn();
+                $('.message-preview').fadeIn(function(){
+                    var uploadcareWidget = uploadcare.SingleWidget('#business-attachment');
+                    uploadcareWidget.onChange(function(file){
+                        $('#sendreply').addClass('disabled');
+                    }).onUploadComplete(function(file){
+                        $('#sendreply').removeClass('disabled');
+                    });
+                });
             });
         };
 
@@ -195,14 +202,6 @@
             }
         }, 1000);
         */
-
-        var uploadcareWidget = uploadcare.SingleWidget('#business-attachment');
-        uploadcareWidget.onChange(function(file){
-            $('#sendreply').addClass('disabled');
-        }).onUploadComplete(function(file){
-            $('#sendreply').removeClass('disabled');
-        });
-
     });
 
 })();
