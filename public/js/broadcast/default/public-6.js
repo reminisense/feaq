@@ -75,7 +75,7 @@ app.controller('nowServingCtrl', function($scope, $http) {
         if (typeof (response.ticker_message3) == "undefined") response.ticker_message3 = ' ';
         if (typeof (response.ticker_message4) == "undefined") response.ticker_message4 = ' ';
         if (typeof (response.ticker_message5) == "undefined") response.ticker_message5 = ' ';
-        $scope.ticker_message = response.ticker_message  + response.ticker_message2 + response.ticker_message3 + response.ticker_message4 + response.ticker_message5;
+        $scope.ticker_message = response.ticker_message  + ' ' + response.ticker_message2 + ' ' + response.ticker_message3 + ' ' + response.ticker_message4 + ' ' + response.ticker_message5;
         $('.marquee-text').html($scope.ticker_message);
         /* RDH Checks if empty, show '-' if yes*/
         $scope.getNum(response);
