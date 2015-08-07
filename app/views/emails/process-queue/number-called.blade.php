@@ -12,10 +12,9 @@
         <td style="border-top:1px solid #c7c7c7; height:20px; text-align: left;">
             <p style="font-size:13px;padding: 0 20px;">
                 <strong>
-                    <p>Hello{{ ' ' . $name }}!</p>
-                    <p>Thank you for using FeatherQ!</p>
-                    <p>Your number (# {{ $priority_number }}) has been called by {{ $terminal_name }} in {{ $business_name }}.</p>
-                    <p>To know more about the status of your queue, log on to <a href="http://featherq.com">FeatherQ.com</a></p>
+                    <p>Hello{{ ' ' . $name }},</p>
+                    <p>Your number ({{ $priority_number }}) has been called! Please proceed to {{ $terminal_name }} at {{ $business_name }}.</p>
+                    <p>To know more about the status of your queue, please log on to <a href="http://featherq.com">FeatherQ.com</a></p>
                 </strong>
             </p>
         </td>
