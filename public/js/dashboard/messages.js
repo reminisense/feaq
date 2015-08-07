@@ -158,8 +158,8 @@
         };
 
         setInterval(function() {
-            var curr_length = $('.messagefrom').length + $('.messageto').length;
             if ($scope.business_reply_form.thread_message_id != "") {
+                var curr_length = $('.messagefrom').length + $('.messageto').length;
                 $http.post('/message/message-thread', {
                     message_id : $scope.business_reply_form.thread_message_id,
                     preview_type : $scope.business_reply_form.preview_type
