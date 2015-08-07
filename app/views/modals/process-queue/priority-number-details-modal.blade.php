@@ -63,12 +63,12 @@
                                 <div ng-show="allow_send">
                                     <textarea class="form-control" rows="5" placeholder="Write a message..." style="resize: none;" ng-model="message_reply" ng-show="allow_send"></textarea>
                                     <button class="btn btn-primary btn-md pull-right" ng-click="sendBusinessReply()" >Send Message</button>
-                                    <input type="hidden" name="picture" role="uploadcare-uploader" id="business-attachment" ng-show="allow_send"/>
                                 </div>
                                 <div ng-show="!allow_send">
                                     <textarea class="form-control disabled" disabled="disabled" rows="5" placeholder="Cannot send a reply unless the customer sends an initial message." style="resize: none;" ng-show="!allow_send"></textarea>
-                                    <button class="btn btn-primary btn-md pull-right disabled" ng-show="!allow_send" title="">Send Message</button>
+                                    <button class="btn btn-primary btn-md pull-right disabled" ng-show="!allow_send" title=""><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Send Message</button>
                                 </div>
+                                <input type="hidden" name="picture" role="uploadcare-uploader" id="business-attachment" ng-show="allow_send"/>
                             </div>
                         </div>
                     </div>

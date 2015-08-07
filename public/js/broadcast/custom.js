@@ -1,4 +1,5 @@
 $(document).on('click', '#send-business-message', function(){
+    $('#send-business-message').addClass('disabled');
     var business_id = $('#business-id').attr('business_id');
     var contmessage = $('#contactmessage').val();
     var contfile = $('#contactfile').val();
@@ -47,6 +48,8 @@ $(document).on('click', '#send-business-message', function(){
                     $('.custom-dropdown').val('0');
                     $('#contactmessage').attr('placeholder', 'Write your message here...');
                 }
+            }).always(function(){
+                $('#send-business-message').removeClass('disabled');
             });
         });
     } else {
@@ -107,4 +110,14 @@ $('#btn-addterminal').click(function () {
 $('#editbiz-tabs a').click(function (e) {
   e.preventDefault()
   $(this).tab('show')
+});
+
+//ARA prevent sending while uploading
+$(document).on('show.bs.modal', '#contact-business-modal', function(){
+    var uploadcareWidget = uploadcare.SingleWidget('#contactfile');
+    uploadcareWidget.onChange(function(file){
+        $('#send-business-message').addClass('disabled');
+    }).onUploadComplete(function(file){
+        $('#send-business-message').removeClass('disabled');
+    });
 });
