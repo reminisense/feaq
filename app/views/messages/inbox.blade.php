@@ -37,7 +37,9 @@
             <div class="biz-navs">
                 <div id="messages-wrap" class="form-group row">
                     <ul role="tablist" class="nav nav-tabs" id="bizTab">
-                        <li class="active"><a data-toggle="tab" ng-click="displayBusinessInbox()"><span class="glyphicon glyphicon-inbox"></span> My Inbox</a></li>
+                        <li class="active"><a data-toggle="tab" ng-click="displayBusinessInbox()"><span class="glyphicon glyphicon-inbox"></span> My Inbox <span class="glyphicon glyphicon-asterisk new-thread" style="display: none;"></span></a>
+
+                        </li>
                         <li class=""><a data-toggle="tab" ng-click="displayOtherInbox()"><span class="glyphicon glyphicon-share-alt"></span> Sent Messages</a></li>
                     </ul>
                     <div id="bizTabContent" class="tab-content" style="">
@@ -51,13 +53,14 @@
                                 <button class="btn btn-orange form-control" id="mobile-back-button">Back to Messages</button>
                             </div>
                             <div class="clearfix">
-                                <div ng-if="messages.length > 0">
+                                <div class="yes-messages" style="display: none;">
                                     <div class="col-md-5 message-collection">
                                         <div class="list-group">
                                             <a ng-repeat="message in messages" href="" class="list-group-item message-item"
                                                ng-click="setPreviewMessage(business_reply_form.preview_type, message.contactname, message.message_id, message.email)"
                                                business_id="@{{ message.business_id }}">
                                                 Between You and <strong>@{{ message.contactname }}</strong>
+                                                <span class="label label-success pull-right new-message" style="display: none; font-size: 13px;"><span class="glyphicon glyphicon-asterisk"></span></span>
                                             </a>
                                         </div>
                                     </div>
@@ -89,8 +92,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div ng-if="messages.length == 0">
-                                <p style="margin-left: 10px;">You currently have no messages</p>
+                            <div class="no-messages" style="display: none; font-size: 20px;">
+                                <span class="label label-info">You currently have no messages.</span>
                             </div>
                         </div>
                     </div>
