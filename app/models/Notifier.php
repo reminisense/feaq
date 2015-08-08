@@ -27,9 +27,10 @@ class Notifier extends Eloquent{
         Notifier::sendNumberCalledAndroid($transaction_number);
     }
 
-    public static function sendNumberNextToAllChannels($transaction_number, $diff = null){
+    public static function sendNumberNextToAllChannels($transaction_number, $diff){
         Notifier::sendNumberNextEmail($transaction_number, $diff);
         Notifier::sendNumberNextSms($transaction_number, $diff);
+        Notifier::sendNumberNextAndroid($transaction_number, $diff);
     }
 
     public static function sendNumberCalledToNextNumber($transaction_number, $diff){
@@ -62,10 +63,17 @@ class Notifier extends Eloquent{
         $email = PriorityQueue::email($transaction_number);
         $name = PriorityQueue::name($transaction_number);
         if($email){
+            $terminal_id = TerminalTransaction::terminalId($transaction_number);
+            $business_id = $terminal_id ? Business::getBusinessIdByTerminalId($terminal_id) : 0;
+            $business_name = $business_id ? Business::name($business_id) : '';
+            $waiting_time = Analytics::getWaitingTime($business_id);
+            $estimated_time = Helper::millisecondsToHMSFormat($waiting_time);
             $data = [
                 'name' => $name == null ? null : ' ' . $name,
                 'priority_number' => PriorityQueue::priorityNumber($transaction_number),
                 'numbers_ahead' => $diff,
+                'business_name' => $business_name,
+                'estimated_time' => $estimated_time,
             ];
             Notifier::sendEmail($email, 'emails.process-queue.number-next', 'FeatherQ Message: Your number will be called soon.', $data);
         }
@@ -86,28 +94,33 @@ class Notifier extends Eloquent{
         if($phone){
             $terminal_id = TerminalTransaction::terminalId($transaction_number);
             $service_id = Terminal::serviceId($terminal_id);
-            $name = $name == null ? null : ' ' . $name;
             $priority_number = PriorityQueue::priorityNumber($transaction_number);
             $terminal_name = $terminal_id != 0 ? Terminal::name($terminal_id) : '';
             $business_name = $terminal_id != 0 ? Business::name(Business::getBusinessIdByTerminalId($terminal_id)) : '';
-            $message = "Hello$name! Thank you for using FeatherQ. Your number (# $priority_number ) has been called by $terminal_name in $business_name. To know more about the status of your queue, log on to FeatherQ.com.";
+            $name = $name == null ? null : ' ' . $name;
+            $message = "Hello$name, Your number ($priority_number) has been called! Please proceeed to the $terminal_name at $business_name.";
             Notifier::sendServiceSms($message, $phone, $service_id);
         }
     }
 
-    public static function sendNumberNextSms($transaction_number, $diff = null){
+    public static function sendNumberNextSms($transaction_number, $diff){
         $phone = PriorityQueue::phone($transaction_number);
         $name = PriorityQueue::name($transaction_number);
         if($phone){
             $pq = Helper::firstFromTable('priority_queue', 'transaction_number', $transaction_number);
+            $terminal_id = TerminalTransaction::terminalId($transaction_number);
             $service_id = PriorityNumber::serviceId($pq->track_id);
-            $name = $name == null ? null : ' ' . $name;
             $priority_number = PriorityQueue::priorityNumber($transaction_number);
-            $message = "Hello$name! Thank you for using FeatherQ. Your number (# $priority_number ) will be called soon. ";
+            $current_number = ProcessQueue::currentNumber($service_id);
+            $terminal_name = $terminal_id != 0 ? Terminal::name($terminal_id) : '';
+            $business_name = $terminal_id != 0 ? Business::name(Business::getBusinessIdByTerminalId($terminal_id)) : '';
+            $name = $name == null ? null : ' ' . $name;
+            $message = "Hello$name, Your number, ($priority_number), will be called soon. ";
+            $message .= "Number ($current_number) has been called by $terminal_name. ";
             if($diff >= 1){
-                $message .= $diff == 1 ? "There is only " . $diff . " person ahead of you. " : "There are only " . $diff . " people ahead of you. ";
+                $message .= $diff == 1 ? "There is currently " . $diff . " person ahead of you " : "There are currently " . $diff . " people ahead of you ";
             }
-            $message .= "To know more about the status of your queue, log on to FeatherQ.com.";
+            $message .= "at the $terminal_name at $business_name.";
             Notifier:: sendServiceSms($message, $phone, $service_id);
         }
     }
@@ -131,7 +144,34 @@ class Notifier extends Eloquent{
             $terminal_id = TerminalTransaction::terminalId($transaction_number);
             $terminal_name = $terminal_id != 0 ? Terminal::name($terminal_id) : '';
             $business_name = $terminal_id != 0 ? Business::name(Business::getBusinessIdByTerminalId($terminal_id)) : '';
-            $message = "Your number (# $priority_number ) has been called by $terminal_name in $business_name.";
+            $message = "Please proceed to $terminal_name at $business_name. Your number ($priority_number) has been called.";
+
+            if($queue_platform != 'web' && $queue_platform != 'specific'){
+                $gcm_token = User::gcmToken($user_id);
+                if($gcm_token) Notifier::sendAndroid($gcm_token, $message);
+            }else if(($queue_platform == 'web' || $queue_platform == 'specific') && $email != null){
+                $user = User::searchByEmail($email);
+                $gcm_token = $user ? User::gcmToken($user['user_id']) : null;
+                if($gcm_token) Notifier::sendAndroid($gcm_token, $message);
+            }
+        }
+    }
+
+    public static function sendNumberNextAndroid($transaction_number, $diff){
+        $priority_queue = PriorityQueue::find($transaction_number);
+        if($priority_queue){
+            $user_id = $priority_queue->user_id;
+            $priority_number = $priority_queue->priority_number;
+            $queue_platform = $priority_queue->queue_platform;
+            $email = $priority_queue->email;
+
+            $terminal_id = TerminalTransaction::terminalId($transaction_number);
+            $terminal_name = $terminal_id != 0 ? Terminal::name($terminal_id) : '';
+            $business_id = $terminal_id != 0 ? Business::getBusinessIdByTerminalId($terminal_id) : 0;
+            $business_name = $business_id != 0 ? Business::name($business_id) : '';
+            $waiting_time = Analytics::getWaitingTime($business_id);
+            $estimated_time = Helper::millisecondsToHMSFormat($waiting_time);
+            $message = "Your number ($priority_number) will be called in approximately $estimated_time. There are currently $diff people ahead of you at the $terminal_name at $business_name";
 
             if($queue_platform != 'web' && $queue_platform != 'specific'){
                 $gcm_token = User::gcmToken($user_id);
