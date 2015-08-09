@@ -9,6 +9,7 @@ $(document).ready(function(){
     pq.jquery_functions.load_default_navbar_link();
     pq.jquery_functions.load_show_modal();
     pq.jquery_functions.load_priority_number_modal_content();
+    pq.jquery_functions.load_issue_number_intelliput();
 });
 
 //these functions and variables are separated since they are using jquery
@@ -67,6 +68,7 @@ var pq = {
 
         load_default_navbar_link : function(){
             $('#search-business').removeClass('active');
+            $('#message-inbox').removeClass('active');
             $('#my-business').addClass('active');
         },
 
@@ -121,6 +123,12 @@ var pq = {
                 $('#priority-number-email').html(email);
 
                 $('#priority-number-modal .modal-body #pmore-tab .messages a').trigger('click');
+            });
+        },
+
+        load_issue_number_intelliput : function(){
+            $("#issued-number-phone").intlTelInput({
+                defaultCountry: "auto"
             });
         },
 
@@ -201,8 +209,23 @@ var pq = {
             }, 3000);
         },
 
+        issue_number_error_alert : function(message){
+            pq.jquery_functions.hide_tab_content();
+
+            $('#issue-number-error .message').html(message);
+            $('#issue-number-error').fadeIn('fast');
+            setTimeout(function(){
+                $('#issue-number-error').fadeOut('slow');
+                $('#moreq').modal('hide');
+            }, 3000);
+        },
+
         issue_number_success : function(message){
             pq.jquery_functions.issue_number_success_alert(message);
+        },
+
+        issue_number_error : function(message){
+            pq.jquery_functions.issue_number_error_alert(message);
         },
 
         hide_tab_content : function(){

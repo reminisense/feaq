@@ -49,11 +49,7 @@
     </div>
 
     <div class="ticker">
-        <div class="col-md-12" style="background-color: rgba(255,255,255,0.95); color: #000; font-size: 36px; font-family: ArialMTStd-ExtraBold;">
-                <div class="scroll-left">
-                    <p>@{{ ticker_message }}</p>
-                </div>
-        </div>
+        <p class="marquee-text"></p>
     </div>
 </div>
 

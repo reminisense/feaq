@@ -30,9 +30,17 @@
 
             <form ng-submit="setTicker(business_id)" id="set-ticker">
                 <div class="form-group">
-                    <small>Message:</small>
+                    <small>Message:</small><br>
+                    <span class="label label-info" id="lbl-ticker" style="visibility: hidden;"> @{{ remaining_character }} remaining characters left</span>
                     <input type="text" ng-model="ticker_message" id="ticker-message" ng-keyup="setRemainingCharacter()"  class="form-control"/>
-                    <div  id="lbl-ticker" style="visibility: hidden;"> @{{ remaining_character }} remaining characters left</div>
+                    <span class="label label-info"  id="lbl-ticker2" style="visibility: hidden;"> @{{ remaining_character2 }} remaining characters left</span>
+                    <input type="text" ng-model="ticker_message2" id="ticker-message2" ng-keyup="setRemainingCharacter()"  class="form-control"/>
+                    <span class="label label-info"  id="lbl-ticker3" style="visibility: hidden;"> @{{ remaining_character3 }} remaining characters left</span>
+                    <input type="text" ng-model="ticker_message3" id="ticker-message3" ng-keyup="setRemainingCharacter()"  class="form-control"/>
+                    <span class="label label-info"  id="lbl-ticker4" style="visibility: hidden;"> @{{ remaining_character4 }} remaining characters left</span>
+                    <input type="text" ng-model="ticker_message4" id="ticker-message4" ng-keyup="setRemainingCharacter()"  class="form-control"/>
+                    <span class="label label-info"  id="lbl-ticker5" style="visibility: hidden;"> @{{ remaining_character5 }} remaining characters left</span>
+                    <input type="text" ng-model="ticker_message5" id="ticker-message5" ng-keyup="setRemainingCharacter()"  class="form-control"/>
                     <div class="alert alert-success" id="ticker-success" style="display: none;">Success! <strong><a href="/broadcast/business/@{{ business_id }}" target="_blank">View Broadcast Page</a></strong></div>
                     <div class="alert alert-danger" id="ticker-danger" style="display: none;">Oops! Something went wrong.</div>
                 </div>
@@ -50,7 +58,8 @@
             {{--<small>Choose whether to put an image or video in your broadcast screen.</small>--}}
         </h4>
             <div class="clearfix">
-                    <label><input type="radio" name="ad_type" value="image" ng-model="ad_type" ng-change="adType(ad_type, business_id)"> <strong>Image</strong></label><label><input style="margin-left: 10px;" type="radio" name="ad_type" value="video" ng-model="ad_type" ng-change="adType(ad_type, business_id)"> <strong>Video</strong></label>
+                    <label><input type="radio" name="ad_type" value="image" ng-model="ad_type" ng-change="adType(ad_type, business_id)"> <strong>Image</strong></label>&nbsp;&nbsp;
+                    <label><span class="label label-warning" style="font-size: 13px;"><strong>Upgrade to a premium account to activate video advertisements.</strong></span></label>
             </div>
             <br>
             {{--<div class="col-md-6 col-sm-12">
@@ -58,41 +67,26 @@
             </div>--}}
             <div class="clearfix" id="image-adtype">
                 <div class="col-md-12">
-                    <form action="/advertisement/upload-image" method="POST" enctype="multipart/form-data" id="ad-image-uploader">
-                        <div class="form-group">
-                            <label for="exampleInputFile"><strong>Choose Image to Upload:</strong></label>
-                            <input name="ad_image" type="file" id="ad-image" required>
-                            <em class="help-block">Upload images with .jpg, .png file format. Best resolution is 800 x 803 pixels.</em>
-                            <div class="alert alert-success" id="adimage-success" style="display: none;">Success! <strong><a href="/broadcast/business/@{{ business_id }}" target="_blank">View Broadcast Page</a></strong></div>
-                            <div class="alert alert-danger" id="adimage-danger" style="display: none;">Oops! Something went wrong.</div>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-orange" id="image-submit-btn" ng-click="adImageUpload(business_id)" style="color: #ffffff;"><span class="glyphicon glyphicon-check"></span> UPLOAD</button>
-                            <button id="loading-img" style="display:none;" class="btn btn-orange btn-disabled"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
-                        </div>
+                    <form class="form-group" method="post" action="dump.php">
+                        <div id="html5_uploader" style="width: 100%; height: 330px;">Your browser doesn't support native upload.</div>
+                        <br style="clear: both" />
+                        <input type="submit" value="Send" style="display: none;"/>
                     </form>
+                    <div class="alert alert-success" id="adimage-success" style="display: none;">Success! <strong><a href="/broadcast/business/@{{ business_id }}" target="_blank">View Broadcast Page</a></strong></div>
                 </div>
-                <div class="col-md-12" style="text-align: center;">
-                    <img src="/" id="ad-preview" style="width: 100%;">
-                </div>
-            </div>
-            <div class="clearfix" id="video-adtype">
-                <div class="col-md-12">
-                    <form ng-submit="adVideoEmbed(business_id)" id="ad-video-uploader">
-                        <div class="form-group">
-                            <label for="exampleInputFile"><strong>YouTube URL:</strong></label>
-                            <input ng-model="ad_video" type="text" id="ad-video" required>
-                            <div class="alert alert-success" id="advideo-success" style="display: none;">Success! <strong><a href="/broadcast/business/@{{ business_id }}" target="_blank">View Broadcast Page</a></strong></div>
-                            <div class="alert alert-danger" id="advideo-danger" style="display: none;">Oops! Something went wrong.</div>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-orange" id="image-submit-btn" style="color: #ffffff;"><span class="glyphicon glyphicon-check"></span> EMBED</button>
-                            <button id="loading-img-2" style="display:none;" class="btn btn-orange btn-disabled"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-md-12" style="text-align: center;">
-                    <iframe width="100%" height="315" src="" id="advideo-preview"></iframe>
+                <div class="col-md-12" style="text-align: center; max-height: 300px; overflow: scroll;">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <tbody>
+                            <tr>
+                                <td ng-repeat="slider in slider_images" id="slide@{{ slider.count }}">
+                                    <div class="row"><img ng-src="/@{{ slider.path }}" height="240px" style="padding-left: 20px; margin-bottom: 5px;"></div>
+                                    <div class="row" style="padding-left: 20px;"><button class="btn btn-danger" ng-click="deleteImageSlide(business_id, slider.count, slider.path);">Remove</button></div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

@@ -91,6 +91,7 @@ class UserController extends BaseController{
      * @description: render dashboard, fetch all businesses for default search view, and businesses created by logged in user
      */
     public function getUserDashboard(){
+        $response = Helper::VerifyFB(Session::get('FBaccessToken'));
         //$active_businesses = Business::getDashboardBusinesses();
         if (Auth::check())
         {

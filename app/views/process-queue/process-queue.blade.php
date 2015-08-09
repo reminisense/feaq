@@ -12,6 +12,7 @@ Processs Queue > {{ $business_name }}
 @stop
 
 @section('scripts')
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-sanitize.min.js"></script>
 <script src="/js/process-queue/process-queue.js"></script>
 <script src="/js/process-queue/process-queue-angular.js"></script>
 <script src="/js/process-queue/issue-number-angular.js"></script>
@@ -21,6 +22,12 @@ Processs Queue > {{ $business_name }}
 <script src="/js/google-analytics/googleAnalytics.js"></script>
 <script src="/js/google-analytics/ga-process_queue.js"></script>
 
+<script src="https://ucarecdn.com/widget/2.3.5/uploadcare/uploadcare.min.js" charset="utf-8"></script>
+<script>
+    UPLOADCARE_LOCALE = "en";
+    UPLOADCARE_TABS = "file";
+    UPLOADCARE_PUBLIC_KEY = "844c2b9e554c2ee5cc0a";
+</script>
 @stop
 
 @section('container')
@@ -134,9 +141,8 @@ Processs Queue > {{ $business_name }}
                 </div>
                 <div ng-show="called_numbers.length != 0">
                     <point-of-interest position="left" bottom="68" right="96" title="Called Number" description="Click on the number to view the information about the user assigned to this number."></point-of-interest>
-                    <point-of-interest position="left" bottom="68" right="27" title="Drop Number" description="The <strong>Drop</strong> button (trashcan icon) indicates that the person assigned to the number did not show thus removes the number from the list."></point-of-interest>
-                    <point-of-interest position="left" bottom="68" right="21" title="Next Number" description="The <strong>Next</strong> button indicates that the number has been served and calls the next number on the list."></point-of-interest>
-                    <point-of-interest position="right" bottom="68" right="0" title="Serve Number" description="The <strong>Serve</strong> button indicates that the person assigned to the number has been served."></point-of-interest>
+                    <point-of-interest position="left" bottom="68" right="16.5" title="Drop Number" description="The <strong>Drop</strong> button (trashcan icon) indicates that the person assigned to the number did not show thus removes the number from the list."></point-of-interest>
+                    <point-of-interest position="left" bottom="68" right="1.5" title="Next Number" description="The <strong>Next</strong> button indicates that the number has been served and calls the next number on the list."></point-of-interest>
                 </div>
                 <table class="table table-striped">
                     <tbody>
@@ -166,7 +172,6 @@ Processs Queue > {{ $business_name }}
                             </form>
                             <a href="#" class="delete" ng-click="dropNumber(number.transaction_number)" ng-disabled="isProcessing"><span class="glyphicon glyphicon-trash"></span></a>
                             <a href="#" class="btn btn-sm btn-default" ng-click="serveAndCallNext(number.transaction_number)" ng-disabled="isProcessing">Next <span class="glyphicon glyphicon-arrow-right"></span></a>
-                            <a href="#" class="btn btn-sm btn-default" ng-click="serveNumber(number.transaction_number)" ng-disabled="isProcessing">Serve <span class="glyphicon glyphicon-ok"></span></a>
                         </td>
                     </tr>
                     </tbody>

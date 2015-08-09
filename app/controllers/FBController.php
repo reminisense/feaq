@@ -12,24 +12,8 @@ class FBController extends BaseController {
     public function postSaveDetails()
     {
       $post = json_decode(file_get_contents("php://input"));
-
-      // Call Facebook and let them verify if the information sent by the user
-      // is the same with the ones in their database.
-      // This will save us from the exploit of a post request with bogus details
-      $fb = new Facebook\Facebook([
-        'app_id' => '1577295149183234',
-        'app_secret' => '23a15a243f7ce66a648ec6c48fa6bee9',
-        'default_graph_version' => 'v2.4',
-      ]);
-      try {
-        // Returns a `Facebook\FacebookResponse` object
-        $response = $fb->get('/me', $post->accessToken); // Use the access token retrieved by JS login
-      } catch(Facebook\Exceptions\FacebookResponseException $e) {
-        return json_encode(array('message' => $e->getMessage()));
-      } catch(Facebook\Exceptions\FacebookSDKException $e) {
-        return json_encode(array('message' => $e->getMessage()));
-      }
-
+      Session::put('FBaccessToken', $post->accessToken);
+      $response = Helper::VerifyFB($post->accessToken);
       if ($response->getGraphUser()) {
         $data = array(
           'fb_id' => $post->fb_id,
@@ -74,11 +58,6 @@ class FBController extends BaseController {
     public function postLaravelLogout()
     {
         Auth::logout();
-    }
-
-    public function getSaveDetails()
-    {
-        return 'dasdasa';
     }
 
 }

@@ -38,31 +38,37 @@
                         <div class="">
                             <div class="col-md-12 text-center"><h5>Conversation History</h5></div>
                             <div class="col-md-12" style="max-height: 300px; overflow: auto;">
-                                <div ng-repeat="message in messages">
+                                <div ng-repeat="message in messages" class=" mb10">
                                     <div ng-if="message.sender == 'user'" class="alert alert-success">
                                         <p>
                                             <strong>User: </strong>
-                                            @{{ message.content }}
+                                            <p ng-bind-html="message.content"></p>
+                                            <a href="@{{ message.attachment }}" ng-if="message.attachment" target="_blank">Download Attachment</a>
                                             <span class="pull-right">Sent @{{ message.timestamp }}</span>
                                         </p>
                                     </div>
-                                    <div ng-if="message.sender == 'business'" class="alert alert-info">
+                                    <div ng-if="message.sender == 'business'" class="alert alert-info mb10">
                                         <p>
                                             <strong>You: </strong>
-                                            @{{ message.content }}
+                                            <p ng-bind-html="message.content"></p>
+                                            <a href="@{{ message.attachment }}" ng-if="message.attachment" target="_blank">Download Attachment</a>
                                             <span class="pull-right">Sent @{{ message.timestamp }}</span>
                                         </p>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-12"><a href="#" ng-click="getMessages()"><span class="glyphicon glyphicon-refresh"></span> Refresh Messages</a></div>
                             <div class="col-md-12">
                                 <h5>Send A Message</h5>
-                                Send to Phone: <input type="checkbox" ng-model="send_to_phone">
-                                <textarea class="form-control" rows="5" placeholder="Write a message..." style="resize: none;" ng-model="message_reply" ng-show="allow_send"></textarea>
-                                <button class="btn btn-primary btn-md pull-right" ng-click="sendBusinessReply()" ng-show="allow_send">Send Message</button>
-
-                                <textarea class="form-control disabled" disabled="disabled" rows="5" placeholder="Cannot send a reply unless the customer sends an initial message." style="resize: none;" ng-show="!allow_send"></textarea>
-                                <button class="btn btn-primary btn-md pull-right disabled" ng-show="!allow_send" title="">Send Message</button>
+                                <div ng-show="allow_send">
+                                    <textarea class="form-control" rows="5" placeholder="Write a message..." style="resize: none;" ng-model="message_reply" ng-show="allow_send"></textarea>
+                                    <button class="btn btn-primary btn-md pull-right" ng-click="sendBusinessReply()" >Send Message</button>
+                                </div>
+                                <div ng-show="!allow_send">
+                                    <textarea class="form-control disabled" disabled="disabled" rows="5" placeholder="Cannot send a reply unless the customer sends an initial message." style="resize: none;" ng-show="!allow_send"></textarea>
+                                    <button class="btn btn-primary btn-md pull-right disabled" ng-show="!allow_send" title=""><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Send Message</button>
+                                </div>
+                                <input type="hidden" name="picture" role="uploadcare-uploader" id="business-attachment" ng-show="allow_send"/>
                             </div>
                         </div>
                     </div>

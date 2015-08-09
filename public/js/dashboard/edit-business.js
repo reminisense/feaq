@@ -62,17 +62,13 @@ $(document).ready(function(){
         e.stopPropagation();
     });
 
-    $(document).on('click', '#mobile-back-button', function(){
-        $(this).fadeOut();
-        $('.message-collection').fadeIn();
-        $('.preview-container').fadeOut();
-    });
-
     //eb.jquery_functions.load_users();
     eb.jquery_functions.setBusinessId($('#business_id').val());
     eb.jquery_functions.setUserId($('#user_id').val());
     eb.jquery_functions.getBusinessDetails();
     eb.jquery_functions.my_business_link_active();
+    eb.jquery_functions.activate_plupload();
+    eb.jquery_functions.load_remote_limit_slider();
 
 
 });
@@ -117,6 +113,11 @@ var eb = {
             add_dropdown_url : '/forms/add-dropdown',
             display_fields_url : '/forms/display-fields',
             delete_field_url : '/forms/delete-field'
+        },
+
+        advertisement : {
+            get_slider_image : '/advertisement/slider-images',
+            delete_slider_image : '/advertisement/delete-image'
         }
     },
 
@@ -196,6 +197,7 @@ var eb = {
         my_business_link_active : function(){
             $('#my-business').addClass('active');
             $('#search-business').removeClass('active');
+            $('#message-inbox').removeClass('active');
         },
 
         clear_terminal_delete_msg : function(){
@@ -208,6 +210,64 @@ var eb = {
                     $("#terminal-delete-error").show();
                 });
             }, 3000);
+        },
+
+        load_remote_limit_slider : function(){
+            var scope = angular.element($("#editBusiness")).scope();
+            var value = scope.remote_limit;
+
+            $( "#remote-slider" ).slider({
+                range: "max",
+                min: 0,
+                max: 20,
+                value: value,
+                slide: function( event, ui ) {
+                    scope.$apply(function(){
+                        scope.remote_limit = ui.value;
+                    });
+                }
+            });
+        },
+
+        activate_plupload : function() {
+            $("#html5_uploader").pluploadQueue({
+                // General settings
+                runtimes : 'html5',
+                url : '/advertisement/upload-image',
+                chunk_size : '1mb',
+                unique_names : true,
+
+                filters : {
+                    max_file_size : '5mb',
+                    mime_types: [
+                        {title : "Image files", extensions : "jpg,jpeg,gif,png"}
+                    ]
+                },
+
+                // Resize images on clientside if we can
+                resize : {width : 800, height : 800, quality : 90},
+
+                multipart_params : {
+                    "business_id" : $('#business_id').val()
+                },
+
+                init : {
+                    UploadComplete: function(up, files) {
+                        $.post(eb.urls.advertisement.get_slider_image, {
+                            'business_id' : $('#business_id').val()
+                        }, function(result) {
+                            var response = jQuery.parseJSON(result);
+                            $('#adimage-success').fadeIn();
+                            $('#adimage-success').fadeOut(7000);
+                            var scope = angular.element($("#editBusiness")).scope();
+                            scope.$apply(function(){
+                                scope.slider_images = response.slider_images;
+                            });
+                            eb.jquery_functions.activate_plupload();
+                        });
+                    }
+                }
+            });
         }
     }
 };
@@ -233,7 +293,11 @@ var eb = {
 
         $scope.form_fields = [];
 
-        $scope.remaining_character  = 95;
+        $scope.remaining_character1  = 95;
+        $scope.remaining_character2  = 95;
+        $scope.remaining_character3  = 95;
+        $scope.remaining_character4  = 95;
+        $scope.remaining_character5  = 95;
 
         $scope.number_start = 1;
         $scope.terminal_specific_issue = 0;
@@ -244,6 +308,7 @@ var eb = {
         $scope.sms_blank_ahead = 0;
         $scope.input_sms_field = 0;
         $scope.allow_remote = 0;
+        $scope.remote_limit = 0;
 
         $scope.business_reply_form = {
             message_reply : "",
@@ -281,8 +346,6 @@ var eb = {
             $scope.timezone = business.timezone; //ARA Added Timezone
             $scope.queue_limit = business.queue_limit; /* RDH Added queue_limit to Edit Business Page */
             $scope.terminal_specific_issue = business.terminal_specific_issue ? true : false;
-            $scope.frontline_secret = business.frontline_sms_secret;
-            $scope.frontline_url = business.frontline_sms_url;
             $scope.sms_current_number = business.sms_current_number ? true : false;
             $scope.sms_1_ahead  = business.sms_1_ahead ? true : false;
             $scope.sms_5_ahead  = business.sms_5_ahead ? true : false;
@@ -290,9 +353,23 @@ var eb = {
             $scope.sms_blank_ahead = business.sms_blank_ahead ? true : false;
             $scope.input_sms_field = business.input_sms_field;
             $scope.allow_remote = business.allow_remote ? true : false;
+            $scope.remote_limit = business.remote_limit;
             $scope.terminals = business.terminals;
             $scope.analytics = business.analytics;
             $scope.terminal_delete_error = business.error ? business.error : null;
+
+            //sms settings
+            $scope.sms_gateway = business.sms_gateway;
+            if(business.sms_gateway == 'frontline_sms'){
+                $scope.frontline_api_key = business.frontline_api_key;
+                $scope.frontline_url = business.frontline_sms_url;
+            }else if(business.sms_gateway == 'twilio'){
+                $scope.twilio_account_sid = business.twilio_account_sid;
+                $scope.twilio_auth_token = business.twilio_auth_token;
+                $scope.twilio_phone_number = business.twilio_phone_number;
+            }
+
+            eb.jquery_functions.load_remote_limit_slider();
         }
 
         setBusinessFeatures = function(features){
@@ -303,15 +380,9 @@ var eb = {
 
         }
 
-        $scope.displayMessageList = function(business_id) {
-            $http.post('/message/message-list', {
-                business_id : business_id
-            }).success(function(response) {
-                $scope.messages = response.messages;
-            });
-        }
-
         /* @CSD 05062015 */
+        /* @CSD 08032015 Migrated to messages.js by Paul */
+        /*
         $scope.setPreviewMessage = function(sender, message_id, active_email){
             $('.message-preview').hide();
             $('.preview-container').fadeIn();
@@ -385,6 +456,7 @@ var eb = {
                 $('#sendreply').removeAttr('disabled');
             });
         }
+        */
 
         $scope.unassignFromTerminal = function(user_id, terminal_id){
             $http.post(eb.urls.terminals.terminal_unassign_url, {
@@ -564,15 +636,24 @@ var eb = {
                     timezone: $scope.timezone, //ARA Added timezone
                     queue_limit: $scope.queue_limit, /* RDH Added queue_limit to Edit Business Page */
                     terminal_specific_issue : $scope.terminal_specific_issue ? 1 : 0,
-                    frontline_sms_secret : $scope.frontline_secret,
-                    frontline_sms_url : $scope.frontline_url,
                     sms_current_number : $scope.sms_current_number ? 1 : 0,
                     sms_1_ahead : $scope.sms_1_ahead ? 1 : 0,
                     sms_5_ahead : $scope.sms_5_ahead ? 1 : 0,
                     sms_10_ahead : $scope.sms_10_ahead ? 1 : 0,
                     sms_blank_ahead : $scope.sms_blank_ahead ? 1 : 0,
                     input_sms_field: $scope.input_sms_field,
-                    allow_remote: $scope.allow_remote ? 1 : 0
+                    allow_remote: $scope.allow_remote ? 1 : 0,
+                    remote_limit: $scope.remote_limit,
+                    sms_gateway : $scope.sms_gateway
+                }
+
+                if($scope.sms_gateway == 'frontline_sms'){
+                    data.frontline_api_key = $scope.frontline_api_key;
+                    data.frontline_url = $scope.frontline_url;
+                }else if($scope.sms_gateway == 'twilio'){
+                    data.twilio_account_sid = $scope.twilio_account_sid;
+                    data.twilio_auth_token = $scope.twilio_auth_token;
+                    data.twilio_phone_number = $scope.twilio_phone_number;
                 }
 
                 $http.post(eb.urls.business.business_edit_url, data)
@@ -657,73 +738,29 @@ var eb = {
 
                     // current active ticker message
                     $scope.ticker_message = response.ticker_message;
+                    $scope.ticker_message2 = response.ticker_message2;
+                    $scope.ticker_message3 = response.ticker_message3;
+                    $scope.ticker_message4 = response.ticker_message4;
+                    $scope.ticker_message5 = response.ticker_message5;
+                });
+                $http.post(eb.urls.advertisement.get_slider_image, {
+                    'business_id' : business_id
+                }).success(function(response) {
+                    $scope.slider_images = response.slider_images;
                 });
             }
         });
 
-        $scope.adImageUpload = (function(business_id) {
-            $('#image-submit-btn').addClass('btn-disabled');
-            $('#ad-image-uploader').submit(function() {
-                $(this).ajaxSubmit({
-                    data : {
-                        business_id : business_id
-                    },
-                    //target:   '#ad-preview',   // target element(s) to be updated with server response
-                    beforeSubmit:  (function() {
-                        //check whether browser fully supports all File API
-                        if (window.File && window.FileReader && window.FileList && window.Blob)
-                        {
-
-                            var fsize = $('#ad-image')[0].files[0].size; //get file size
-                            var ftype = $('#ad-image')[0].files[0].type; // get file type
-
-
-                            //allow only valid image file types
-                            switch(ftype)
-                            {
-                                case 'image/png': case 'image/jpeg': case 'image/jpg':
-                                break;
-                                default:
-                                    $("#ad-preview").html("<b>"+ftype+"</b> Unsupported file type!");
-                                    return false
-                            }
-
-                            //Allowed file size is less than 10 MB (1048576)
-                            if(fsize>10485760)
-                            {
-                                $("#ad-preview").html("<b>"+fsize +"</b> Too big Image file! <br />Please reduce the size of your photo using an image editor.");
-                                return false
-                            }
-
-                            $('#image-submit-btn').hide(); //hide submit button
-                            $('#loading-img').show(); //hide submit button
-                        }
-                        else
-                        {
-                            //Output error to older browsers that do not support HTML5 File API
-                            $("#ad-preview").html("Please upgrade your browser, because your current browser lacks some new features we need!");
-                            return false;
-                        }
-                    }),  // pre-submit callback
-                    resetForm: true,        // reset the form after successful submit
-                    success : function(response) {
-                        var result = jQuery.parseJSON(response);
-                        $('#ad-preview').attr('src', result.src);
-                        $('#loading-img').hide();
-                        $('#submit-btn').show();
-                        $('#adimage-danger').hide();
-                        $('#adimage-success').fadeIn();
-                        $('#image-submit-btn').show();
-                    },
-                    error: function(response) {
-                        $('#adimage-success').hide();
-                        $('#adimage-danger').fadeIn();
-                    }
-                });  //Ajax Submit form
-                // return false to prevent standard browser submit and page navigation
-                return false;
-            });
-        });
+        $scope.deleteImageSlide = function(business_id, count, img_path) {
+            if (confirm('Are you sure you want to delete this image?')) {
+                $http.post(eb.urls.advertisement.delete_slider_image, {
+                    business_id : business_id,
+                    path : img_path
+                }).success(function(response) {
+                    $('#slide'+count).remove();
+                });
+            }
+        };
 
         $scope.adVideoEmbed = (function(business_id) {
             $('#image-submit-btn').addClass('btn-disabled');
@@ -771,7 +808,11 @@ var eb = {
         $scope.setTicker = (function(business_id) {
             $http.post(eb.urls.broadcast.save_ticker_url, {
                 business_id : business_id,
-                ticker_message : $scope.ticker_message
+                ticker_message : $scope.ticker_message,
+                ticker_message2 : $scope.ticker_message2,
+                ticker_message3 : $scope.ticker_message3,
+                ticker_message4 : $scope.ticker_message4,
+                ticker_message5 : $scope.ticker_message5
             }).success(function() {
                 $('#ticker-danger').hide();
                 $('#ticker-success').fadeIn();
@@ -784,14 +825,26 @@ var eb = {
 
         $scope.setRemainingCharacter = (function() {
             var bla = $('#ticker-message').val();
+            var bla2 = $('#ticker-message2').val();
+            var bla3 = $('#ticker-message3').val();
+            var bla4 = $('#ticker-message4').val();
+            var bla5 = $('#ticker-message5').val();
             var accepted_char = 95;
-
-            if($('#lbl-ticker').css('visibility') == 'hidden')
-            {
-                $('#lbl-ticker').css('visibility', 'visible');
-            }
+            if($('#lbl-ticker').css('visibility') == 'hidden') $('#lbl-ticker').css('visibility', 'visible');
+            if($('#lbl-ticker2').css('visibility') == 'hidden') $('#lbl-ticker2').css('visibility', 'visible');
+            if($('#lbl-ticker3').css('visibility') == 'hidden') $('#lbl-ticker3').css('visibility', 'visible');
+            if($('#lbl-ticker4').css('visibility') == 'hidden') $('#lbl-ticker4').css('visibility', 'visible');
+            if($('#lbl-ticker5').css('visibility') == 'hidden') $('#lbl-ticker5').css('visibility', 'visible');
             $scope.remaining_character = accepted_char - bla.length;
-            if($scope.remaining_character < 0){
+            $scope.remaining_character2 = accepted_char - bla2.length;
+            $scope.remaining_character3 = accepted_char - bla3.length;
+            $scope.remaining_character4 = accepted_char - bla4.length;
+            $scope.remaining_character5 = accepted_char - bla5.length;
+            if($scope.remaining_character < 0 ||
+                $scope.remaining_character2 < 0 ||
+                $scope.remaining_character3 < 0 ||
+                $scope.remaining_character4 < 0 ||
+                $scope.remaining_character5 < 0){
                 $('#ticker-message-submit-btn').attr('disabled','disabled');
             }else{
                 $('#ticker-message-submit-btn').removeAttr('disabled');
@@ -825,27 +878,6 @@ var eb = {
                 }
             });
         });
-
-        var isMobile = {
-            Android: function() {
-                return navigator.userAgent.match(/Android/i);
-            },
-            BlackBerry: function() {
-                return navigator.userAgent.match(/BlackBerry/i);
-            },
-            iOS: function() {
-                return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-            },
-            Opera: function() {
-                return navigator.userAgent.match(/Opera Mini/i);
-            },
-            Windows: function() {
-                return navigator.userAgent.match(/IEMobile/i);
-            },
-            any: function() {
-                return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
-            }
-        };
 
         $scope.addTextField = function(business_id) {
             $http.post(eb.urls.forms.add_textfield_url, {

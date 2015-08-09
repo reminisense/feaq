@@ -129,11 +129,7 @@
             </div>
         </div>
         <div class="col-md-12 ticker mt20">
-            <div class="" style="background-color: rgba(255,255,255,0.95); color: #000; font-size: 36px; font-family: ArialMTStd-ExtraBold;">
-                    <div class="scroll-left">
-                        <p>@{{ ticker_message }}</p>
-                    </div>
-            </div>
+            <p class="marquee-text"></p>
         </div>
     </div>
 
@@ -146,7 +142,12 @@
     </div>
 </div>
 @include('modals.broadcast.remote-queue-modal')
-@include('modals.broadcast.contact-business-modal')
+
+@if (Auth::check())
+    @include('modals.broadcast.contact-business-modal')
+@else
+    @include('modals.broadcast.error-modal')
+@endif
 
 {{--{{ HTML::script('js/bootstrap.min.js') }}--}}
 <script src="/js/broadcast/bootstrap.min.js"></script>

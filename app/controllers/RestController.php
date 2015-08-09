@@ -492,6 +492,47 @@ class RestController extends BaseController {
         return json_encode(['history' => $user_queues]);
     }
 
+    /**
+     * @author Ruffy Heredia
+     * @desc Webservice to rate a business from the user perspective
+     * @param $rating
+     * @param $facebookId
+     * @param $business_id
+     * @param int $action
+     * @return string
+     */
+    public function getRateBusiness($rating, $facebookId, $business_id, $transaction_number, $action = 4) {
+        $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+        $user = User::searchByFacebookId($facebookId);
+        $user_id = $user["user_id"];
+
+        UserRating::rateBusiness($date, $business_id, $rating, $user_id, '0', $action, $transaction_number);
+
+        return json_encode(['success' => 1]);
+    }
+
+    /**
+     * @author Ruffy Heredia
+     * @desc
+     * @param $transaction_number
+     * @param int $timestamp
+     * @return mixed
+     */
+    public function getTransactionRatingInfo($transaction_number, $timestamp = 0) {
+        $current_date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+        try {
+            $rating = UserRating::getUserRating($transaction_number);
+            $rating->is_rated = '1';
+            $rating->can_be_rated = '0';
+        } catch (Exception $e) {
+            $rating = null;
+        }
+        return Response::json($rating ? $rating : ['can_be_rated' => $current_date == $timestamp ? '1' : '0']
+                            , 200
+                            , array()
+                            , JSON_PRETTY_PRINT);
+    }
+
     public function getIndustries(){
         return json_encode(['industries' => Business::getAvailableIndustries()]);
     }
@@ -525,10 +566,10 @@ class RestController extends BaseController {
     }
     /**
      * @param $facebook_id
-     * @return JSON-formatted data of the service id of the business.
+     * @return JSON-formatted response of the business name, estimated time, people-in-queue and next number available .
      */
 
-    public function getServiceId($facebook_id) {
+    public function getBusinessServiceDetails($facebook_id) {
         try{
             $user_id = User::getUserIdByFbId($facebook_id);
         }catch (Exception $e) {
@@ -538,14 +579,20 @@ class RestController extends BaseController {
         if($user_id){
 
             $business_id = UserBusiness::getBusinessIdByOwner($user_id);
-            $service_id  = Service::getFirstServiceOfBusiness($business_id);
+            $business_name = Business::name($business_id);
+            $estimated_time = Analytics::getWaitingTime($business_id);
+            $service= Service::getFirstServiceOfBusiness($business_id);
+            $remaining_queue_count = Analytics::getServiceRemainingCount($service->service_id);
+            $next_available_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service->service_id), QueueSettings::numberStart($service->service_id), QueueSettings::numberLimit($service->service_id));
 
             $details = [
-                'service_id' => $service_id->service_id
+                'business_name' => $business_name,
+                'estimated_time' => $estimated_time,
+                'people_in_queue' => $remaining_queue_count,
+                'next_available_number' => $next_available_number
             ];
 
             return Response::json($details, 200, array(), JSON_PRETTY_PRINT);
-
         }else{
             return json_encode(['error' => 'Something went wrong!']);
         }
@@ -553,26 +600,159 @@ class RestController extends BaseController {
 
     /**
      * @param $service_id
-     * @return JSON-formatted data of numbers of people ahead, served number and waiting number.
+     * @param $name
+     * @param $phone
+     * @param $email
+     * @return JSON-formatted queued number
      */
 
-    public function getNumbersData($service_id) {
+    public function getQueueNumber($service_id, $name, $phone, $email) {
 
-        $business_id = Business::getBusinessIdByServiceId($service_id);
-        $waiting_time = Analytics::getWaitingTime($business_id);
+        try{
+            $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
+            $priority_number = $next_number;
+            $queue_platform = 'kiosk';
 
-        $last_number = ProcessQueue::lastNumberGiven($service_id);
-        $current_number = ProcessQueue::currentNumber($service_id);
+            $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform);
+            PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
 
-        $numbers_ahead =  $last_number - $current_number;
+            $details = [
+                'number_assigned' => $priority_number,
+            ];
 
-        $details = [
-            'numbers_ahead' => $numbers_ahead,
-            'current_number' => $current_number,
-            'waiting_time' => $waiting_time
-        ];
+            return Response::json($details, 200, array(), JSON_PRETTY_PRINT);
 
-        return Response::json($details, 200, array(), JSON_PRETTY_PRINT);
+        }catch(Exception $e){
+            return json_encode(['error' => 'Something went wrong!']);
+        }
     }
 
+
+    //Messaging to business
+
+    /**
+     * @author ARA
+     * @param $facebook_id
+     * @return mixed
+     * get last Message of user to/from each business
+     */
+    public function getAllMessages($facebook_id){
+        $messages = [];
+        $email = User::where('fb_id', '=', $facebook_id)->select('email')->first();
+        if($email){
+            $threadKeys = Message::getMessagesByEmail($email->email);
+            foreach($threadKeys as $threadKey){
+                $data = json_decode(file_get_contents(public_path() . '/json/messages/' . $threadKey->thread_key . '.json'));
+                $message = $data[count($data) - 1];
+                $message->business_id = $threadKey->business_id;
+                $message->business_name = Business::name($threadKey->business_id);
+                $messages[] = $message;
+            }
+        }else{
+            return Response::json(['error' => 'User is not registered'], 200, array(), JSON_PRETTY_PRINT);
+        }
+
+        return Response::json(['messages' => $messages], 200, array(), JSON_PRETTY_PRINT);
+
+    }
+
+    /**
+     * @author ARA
+     * @param $facebook_id
+     * @param $business_id
+     * @return mixed
+     * get Messages between user and business
+     */
+    public function getBusinessMessages($facebook_id, $business_id){
+        $email = User::where('fb_id', '=', $facebook_id)->select('email')->first();
+        if($email){
+            try{
+                $threadKey = Message::getThreadKeyByBusinessIdAndEmail($business_id, $email->email);
+                $messages = json_decode(file_get_contents(public_path() . '/json/messages/' . $threadKey . '.json'));
+            }catch(Exception $e){
+                $messages = [];
+            }
+        }else{
+            return Response::json(['error' => 'User is not registered'], 200, array(), JSON_PRETTY_PRINT);
+        }
+
+        return Response::json(['messages' => $messages], 200, array(), JSON_PRETTY_PRINT);
+    }
+
+    /**
+     * @author ARA
+     * @param $facebook_id
+     * @param $business_id
+     * @param $message
+     * @param null $phone
+     * @return mixed
+     * send message to business
+     */
+    public function getSendtoBusiness($facebook_id, $business_id, $message, $phone = null){
+        $user = User::where('fb_id', '=', $facebook_id)->select('email', 'first_name', 'last_name')->first();
+        if($user){
+            $name = $user->first_name . ' ' . $user->last_name;
+            $email = $user->email;
+            $timestamp = time();
+            $attachment = '';
+            $business = Business::where('business_id', '=', $business_id)->first();
+            if($business){
+                $thread_key = Message::threadKeyGenerator($business_id, $email);
+                if (!Message::checkThreadByKey($thread_key)) {
+                    $phones[] = $phone;
+                    Message::createThread(array(
+                        'contactname' => $name,
+                        'business_id' => $business_id,
+                        'email' => $email,
+                        'phone' => serialize($phones),
+                        'thread_key' => $thread_key,
+                    ));
+                    $data = json_encode(array(array(
+                        'timestamp' => $timestamp,
+                        'contmessage' => $message,
+                        'attachment' => $attachment,
+                        'sender' => 'user',
+                    )));
+                }
+                else {
+                    $phones = unserialize(Message::getPhoneByKey($thread_key));
+                    if (!is_array($phones)) $phones = array($phones);
+                    if (!in_array($phone, $phones)) $phones[] = $phone;
+                    Message::updateThread(array(
+                        'phone' => serialize($phones),
+                    ), $thread_key);
+                    $data = json_decode(file_get_contents(public_path() . '/json/messages/' . $thread_key . '.json'));
+                    $data[] = array(
+                        'timestamp' => $timestamp,
+                        'contmessage' =>  $message,
+                        'attachment' => $attachment,
+                        'sender' => 'user',
+                    );
+                    $data = json_encode($data);
+                }
+
+                file_put_contents(public_path() . '/json/messages/' . $thread_key . '.json', $data);
+            }else{
+                return Response::json(['error' => 'Business does not exist'], 200, array(), JSON_PRETTY_PRINT);
+            }
+        }else{
+            return Response::json(['error' => 'User is not registered'], 200, array(), JSON_PRETTY_PRINT);
+        }
+        return Response::json(['success' => 1], 200, array(), JSON_PRETTY_PRINT);
+    }
+
+    public function getTransactionStats($transaction_number){
+        $transaction_stats = [];
+        $transaction_array = DB::table('terminal_transaction')
+            ->where('transaction_number', '=', $transaction_number)
+            ->select('transaction_number', 'time_queued', 'time_called', 'time_completed', 'time_removed')
+            ->first();
+        foreach($transaction_array as $title => $value){
+            $transaction_stats[] = [
+                'title' => $title,
+                'value' => $value
+            ];
+        }
+        return Response::json(['transaction_stats' => $transaction_stats], 200, array(), JSON_PRETTY_PRINT);
+    }
 }

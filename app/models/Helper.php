@@ -13,6 +13,28 @@
 
 class Helper extends Eloquent {
 
+  public static function VerifyFB($accessToken) {
+    // Call Facebook and let them verify if the information sent by the user
+    // is the same with the ones in their database.
+    // This will save us from the exploit of a post request with bogus details
+    $fb = new Facebook\Facebook(array(
+      'app_id' => '1577295149183234',
+      'app_secret' => '23a15a243f7ce66a648ec6c48fa6bee9',
+      'default_graph_version' => 'v2.4',
+    ));
+    try {
+      // Returns a `Facebook\FacebookResponse` object
+      $response = $fb->get('/me', $accessToken); // Use the access token retrieved by JS login
+      return $response;
+    } catch(Facebook\Exceptions\FacebookResponseException $e) {
+      //return json_encode(array('message' => $e->getMessage()));
+      Auth::logout();
+    } catch(Facebook\Exceptions\FacebookSDKException $e) {
+      //return json_encode(array('message' => $e->getMessage()));
+      Auth::logout();
+    }
+  }
+
     /**
      * gets the user id of the current user
      * @return mixed
@@ -195,6 +217,18 @@ class Helper extends Eloquent {
 
   public static function isBusinessOwner($business_id, $user_id) {
     return $business_id == UserBusiness::getBusinessIdByOwner($user_id);
+  }
+
+  public static function isPartOfBusiness($business_id, $user_id) {
+    $res = TerminalUser::getTerminalAssignement($user_id);
+    if (isset($res)) {
+      foreach ($res as $count => $data) {
+        if ($business_id == Business::getBusinessIdByTerminalId($data['terminal_id'])) {
+          return TRUE;
+        }
+      }
+    }
+    return FALSE;
   }
 
   public static function isNotAnOwner($user_id) {

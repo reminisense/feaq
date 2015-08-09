@@ -34,7 +34,6 @@ fbapp.run(function($http) {
 });
 
 fbapp.controller('fbController', function($scope, $http) {
-
     $scope.login = (function(e) {
         FB.login(function(response) {
             if (response.authResponse) {
@@ -44,8 +43,11 @@ fbapp.controller('fbController', function($scope, $http) {
     });
 
     $scope.saveFbDetails = function(accessToken) {
+        $('#FBLoaderModal').modal('show');
         FB.api('/me', function(response) {
-            if (!$.trim(response.email) || typeof(response.email) != "undefined") {
+
+            // this code adds an email placeholder if ever the variable is empty or undefined
+            if (!$.trim(response.email) || typeof(response.email) == "undefined") {
                 response.email = 'you@example.com';
             }
             fbData = {

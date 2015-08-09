@@ -36,9 +36,27 @@ class IssueNumberController extends BaseController{
         $queue_platform = $priority_number == $next_number || $priority_number == null ? $queue_platform : 'specific';
 
         //save
-        $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, $terminal_id);
-        PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
-        TerminalTransaction::where('transaction_number', '=', $number['transaction_number'])->update(['time_assigned' => $time_assigned]);
-        return json_encode(['success' => 1, 'number' => $number]);
+        if(($queue_platform == 'android' || $queue_platform == 'remote') && !QueueSettings::checkRemoteQueue($service_id)){
+            return json_encode(['error' => 'Remote queue option is not allowed at this time.']);
+        }elseif(($queue_platform == 'android' || $queue_platform == 'remote') && $this->queueNumberExists($email)){
+            return json_encode(['error' => 'You are only allowed to queue remotely once per day.']);
+        }else{
+            $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, $terminal_id);
+            PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
+            TerminalTransaction::where('transaction_number', '=', $number['transaction_number'])->update(['time_assigned' => $time_assigned]);
+            return json_encode(['success' => 1, 'number' => $number]);
+        }
+    }
+
+    private function queueNumberExists($email){
+        $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+        $count = PriorityNumber::where('priority_number.date', '=', $date)
+            ->join('priority_queue', 'priority_queue.track_id', '=', 'priority_number.track_id')
+            ->where('priority_queue.email', '=', $email)
+            ->select(DB::raw('COUNT(priority_number.track_id) as number_exists'))
+            ->first()
+            ->number_exists;
+
+        return $count > 0 ? TRUE : FALSE;
     }
 }

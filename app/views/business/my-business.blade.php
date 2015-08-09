@@ -5,16 +5,21 @@ My Business
 @stop
 
 @section('styles')
+    <link rel="stylesheet" href="/plupload/js/jquery.plupload.queue/css/jquery.plupload.queue.css" type="text/css" media="screen" />
     <link rel='stylesheet' type='text/css' href='/css/business/business.css'>
     <link rel='stylesheet' type='text/css' href='/css/business/responsive.css'>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 @stop
 
 @section('scripts')
+    <script type="text/javascript" src="/plupload/js/plupload.full.min.js"></script>
+    <script type="text/javascript" src="/plupload/js/jquery.plupload.queue/jquery.plupload.queue.js"></script>
+    <script src="/js/google-analytics/googleAnalytics.js"></script>
+    <script src="/js/google-analytics/ga-dashboard.js"></script>
     <script src="/js/jquery.form.js"></script>
     <script src="/js/dashboard/dashboard.js"></script>
     <script src="/js/dashboard/edit-business.js"></script>
-    <script src="/js/google-analytics/googleAnalytics.js"></script>
-    <script src="/js/google-analytics/ga-dashboard.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 @stop
 
 @section('container')
@@ -83,8 +88,7 @@ My Business
                         <li class=""><a href="#ads" id="ads-tab" data-toggle="tab"><span class="glyphicon glyphicon-blackboard"></span> Advertisements</a></li>
                         <li class=""><a href="#settings" id="settings-tab" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
                         <li class=""><a href="#analytics" id="analytics-tab" data-toggle="tab"><span class="glyphicon glyphicon-stats"></span> Analytics</a></li>
-                        <li class=""><a href="#messages" id="messages-tab" data-toggle="tab" ng-click="displayMessageList(business_id)"><span class="glyphicon glyphicon-envelope"></span> Messages</a></li>
-                        <li class=""><a href="#forms" id="forms-tab" data-toggle="tab" ng-click="displayFormFields(business_id)"><span class="glyphicon glyphicon-list"></span>Contact Form</a></li>
+                        {{--<li class=""><a href="#forms" id="forms-tab" data-toggle="tab" ng-click="displayFormFields(business_id)"><span class="glyphicon glyphicon-list"></span>Contact Form</a></li>--}}
                     </ul>
                     <div id="bizTabContent" class="tab-content" style="">
                         <div class="col-md-12">
@@ -110,12 +114,9 @@ My Business
                         <div role="tabpanel" class="tab-pane fade" id="analytics" aria-labelledby="analytics-tab">
                             <div class="clearfix">@include('business.my-business-tabs.analytics-tab')</div>
                         </div>
-                        <div role="tabpanel" class="tab-pane fade" id="messages" aria-labelledby="messages-tab">
-                            <div class="clearfix">@include('business.my-business-tabs.messages-tab')</div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="forms" aria-labelledby="forms-tab">
+                        {{--<div role="tabpanel" class="tab-pane fade" id="forms" aria-labelledby="forms-tab">
                             <div class="clearfix">@include('business.my-business-tabs.forms-tab')</div>
-                        </div>
+                        </div>--}}
                     </div>
                 </div>
             </form>

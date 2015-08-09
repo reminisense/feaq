@@ -13,24 +13,6 @@
                     <form action="{{ url('/broadcast/business-message') }}" class="navbar-form navbar-left" name="contact_business_form">
                         <div class="form-group row">
                             <div class="col-md-3">
-                                <label>Name <span class="req">*</span></label>
-                            </div>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="contactname" @if(isset($user['first_name'])) {{ "value='" . $user['first_name'] . " " . $user['last_name'] . "' readonly" }} @endif required />
-                            </div>
-                            <div class="col-md-3">
-                                <label>Email <span class="req">*</span></label>
-                            </div>
-                            <div class="col-md-9">
-                                <input type="email" class="form-control" id="contactemail" @if(isset($user['email'])) {{ "value='" . $user['email'] . "' readonly" }} @endif required />
-                            </div>
-                            <div class="col-md-3">
-                                <label>Mobile Number <span class="req">*</span></label>
-                            </div>
-                            <div class="col-md-9">
-                                <input type="mobile" class="form-control" id="contactmobile" @if(isset($user['phone'])) {{ "value='" . $user['phone'] . "'" }} @endif required />
-                            </div>
-                            <div class="col-md-3">
                                 <label>Message <span class="req">*</span></label>
                             </div>
                             <div class="col-md-9">

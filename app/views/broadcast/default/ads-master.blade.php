@@ -5,26 +5,27 @@
         <div id="fqCarousel" class="carousel slide" data-ride="carousel" style="min-height: 550px;">
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
-                @if ($ad_src != '')
-                    <div class="item active">
-                        <img id="ad1" src="{{ $ad_src }}" alt="Ad1">
+                @foreach ($ad_src as $count => $filename)
+                    <div class="item <?php $count == 0 ? print 'active' : print ''; ?>">
+                        <img id="ad<?php print $count; ?>" src="/<?php print $filename; ?>" alt="Ad<?php print $count; ?>">
                     </div>
-                    <div class="item">
-                        <img id="ad2" src="/images/broadcast1.jpg" alt="Ad2">
-                    </div>
+                @endforeach
+                @if (count($ad_src) < 0)
+                    <?php $count = 0; ?>
                 @else
-                    <div class="item active">
-                        <img id="ad2" src="/images/broadcast1.jpg" alt="Ad2">
-                    </div>
+                    <?php $count = count($ad_src); ?>
                 @endif
-                <div class="item">
-                    <img id="ad3" src="/images/broadcast2.jpg" alt="Ad3">
+                <div class="item <?php $count == 0 ? print 'active' : print ''; ?>">
+                    <img id="ad<?php print $count+1; ?>" src="/images/broadcast1.jpg" alt="Ad<?php print $count+1; ?>">
                 </div>
                 <div class="item">
-                    <img id="ad4" src="/images/broadcast3.jpg" alt="Ad4">
+                    <img id="ad<?php print $count+2; ?>" src="/images/broadcast2.jpg" alt="Ad<?php print $count+2; ?>">
                 </div>
                 <div class="item">
-                    <img id="ad5" src="/images/broadcast4.jpg" alt="Ad5">
+                    <img id="ad<?php print $count+3; ?>" src="/images/broadcast3.jpg" alt="Ad<?php print $count+3; ?>">
+                </div>
+                <div class="item">
+                    <img id="ad<?php print $count+4; ?>" src="/images/broadcast4.jpg" alt="Ad<?php print $count+4; ?>">
                 </div>
             </div>
         </div>
