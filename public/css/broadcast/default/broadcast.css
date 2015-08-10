@@ -329,7 +329,7 @@ body#broadcast .terminal { line-height:90px; margin-bottom:0; color: #fff; }
     padding-top: 5px;
 }
 
-.ticker p {
+.ticker div {
     font-size: 36px;
     font-family: ArialMTStd-ExtraBold;
     color: #333338;
