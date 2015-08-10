@@ -22,6 +22,8 @@
     {{--{{ HTML::script('js/angular.js') }}--}}
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
 
+    <script type="text/javascript" src="/js/jquery.marquee.min.js"></script>
+
     {{--{{ HTML::script('js/ngPublicBroadcast.js') }}--}}
     <script src="/js/broadcast/default/public-{{ $box_num }}.js"></script>
 
@@ -129,7 +131,7 @@
             </div>
         </div>
         <div class="col-md-12 ticker mt20">
-            <p class="marquee-text"></p>
+            <div class="marquee-text">{{ $ticker_message }}</div>
         </div>
     </div>
 

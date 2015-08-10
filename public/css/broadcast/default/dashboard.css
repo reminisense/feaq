@@ -1122,6 +1122,7 @@ strong {
     background-color: rgba(0,0,0,.5);
     -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
+
 .ticker {
     z-index: 9999;
     bottom: 0px;
@@ -1130,7 +1131,7 @@ strong {
     padding-top: 5px;
 }
 
-.ticker p {
+.ticker div {
     font-size: 36px;
     font-family: ArialMTStd-ExtraBold;
     color: #333338;

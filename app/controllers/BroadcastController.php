@@ -88,6 +88,7 @@ class BroadcastController extends BaseController{
           }
         }
 
+        $ticker_message = $data->ticker_message . ' ' . $data->ticker_message2 . ' ' . $data->ticker_message3 . ' ' . $data->ticker_message4 . ' ' . $data->ticker_message5;
 
         if (Auth::check()) {
             $user = User::getUserByUserId(Auth::user()->user_id);
@@ -119,6 +120,7 @@ class BroadcastController extends BaseController{
             ->with('estimate_serving_time', Analytics::getAverageTimeServedByBusinessId($business_id))
             ->with('first_service', Service::getFirstServiceOfBusiness($business_id))
             ->with('allow_remote', $allow_remote)
+            ->with('ticker_message', $ticker_message)
             ->with('user', $user);
     }
 

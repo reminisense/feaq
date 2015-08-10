@@ -1,3 +1,9 @@
+$(document).ready(function(){
+    $('.marquee-text').marquee({
+        duration: 10000
+    });
+});
+
 $(document).on('click', '#send-business-message', function(){
     $('#send-business-message').addClass('disabled');
     var business_id = $('#business-id').attr('business_id');
