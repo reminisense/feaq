@@ -69,48 +69,49 @@ class BusinessController extends BaseController{
      */
     public function postSetupBusiness()
     {
+      if (Auth::check() && Helper::isNotAnOwner(Helper::userId())) { // PAG added permission checking
         $business_data = $_POST;
         $business = new Business();
         $business_check = Business::businessExistsByNameByAddress($business_data['business_name'], $business_data['business_address']);
 
-        if (count($business_check) != 1){
-            $business->name = $business_data['business_name'];
-            $business->local_address = $business_data['business_address'];
-            $business->industry = $business_data['industry'];
-            $business->longitude = $business_data['longitude'];
-            $business->latitude = $business_data['latitude'];
+        if (count($business_check) != 1) {
+          $business->name = $business_data['business_name'];
+          $business->local_address = $business_data['business_address'];
+          $business->industry = $business_data['industry'];
+          $business->longitude = $business_data['longitude'];
+          $business->latitude = $business_data['latitude'];
 
-            $time_open_arr = Helper::parseTime($business_data['time_open']);
-            $business->open_hour = $time_open_arr['hour'];
-            $business->open_minute = $time_open_arr['min'];
-            $business->open_ampm = $time_open_arr['ampm'];
+          $time_open_arr = Helper::parseTime($business_data['time_open']);
+          $business->open_hour = $time_open_arr['hour'];
+          $business->open_minute = $time_open_arr['min'];
+          $business->open_ampm = $time_open_arr['ampm'];
 
-            $time_close_arr = Helper::parseTime($business_data['time_close']);
-            $business->close_hour = $time_close_arr['hour'];
-            $business->close_minute = $time_close_arr['min'];
-            $business->close_ampm = $time_close_arr['ampm'];
+          $time_close_arr = Helper::parseTime($business_data['time_close']);
+          $business->close_hour = $time_close_arr['hour'];
+          $business->close_minute = $time_close_arr['min'];
+          $business->close_ampm = $time_close_arr['ampm'];
 
-            /*
-             * @author CSD
-             * @description:
-             * set default num terminals to 3 when creating a business
-             * set default queue limit to 9999 max
-             */
-            $business->queue_limit = 9999;
-            $business->num_terminals = 1;
-            $business->save();
+          /*
+           * @author CSD
+           * @description:
+           * set default num terminals to 3 when creating a business
+           * set default queue limit to 9999 max
+           */
+          $business->queue_limit = 9999;
+          $business->num_terminals = 1;
+          $business->save();
 
-            $business_user = new UserBusiness();
-            $business_user->user_id = $business_data['user_id'];
-            $business_user->business_id = $business->business_id;
+          $business_user = new UserBusiness();
+          $business_user->user_id = $business_data['user_id'];
+          $business_user->business_id = $business->business_id;
 
-            $business->timezone = $business_data['timezone'];
+          $business->timezone = $business_data['timezone'];
 
-            /* Timezone is already set in config/app.php
-            date_default_timezone_set("Asia/Manila"); // Manila Timezone for now but this depends on business location
-            */
+          /* Timezone is already set in config/app.php
+          date_default_timezone_set("Asia/Manila"); // Manila Timezone for now but this depends on business location
+          */
 
-            $contents = '
+          $contents = '
                 {
                   "box1": {
                     "number": "1",
@@ -155,37 +156,42 @@ class BusinessController extends BaseController{
                 }
             ';
 
-            File::put(public_path() . '/json/' . $business->business_id . '.json', $contents);
-            $business_user->save();
+          File::put(public_path() . '/json/' . $business->business_id . '.json', $contents);
+          $business_user->save();
 
-            $branch_id = Branch::createBusinessBranch( $business->business_id, $business->name );
-            $service_id = Service::createBranchService( $branch_id, $business->name );
+          $branch_id = Branch::createBusinessBranch($business->business_id, $business->name);
+          $service_id = Service::createBranchService($branch_id, $business->name);
 
-            /* @CSD Auto issue on business create */
-            $issueController = new IssueNumberController();
-            $issueController->getMultiple($service_id, 10);
-            /* Auto issue end */
+          /* @CSD Auto issue on business create */
+          $issueController = new IssueNumberController();
+          $issueController->getMultiple($service_id, 10);
+          /* Auto issue end */
 
-            $terminals = Terminal::createBranchServiceTerminal(Auth::user()->user_id, $service_id, $business->num_terminals);
-            if ($business->save()){
-                return json_encode([
-                    'success' => 1,
-                    'terminals' => $terminals
-                ]);
-            } else {
-                return json_encode([
-                    'success' => 0,
-                    'error' => 'Something went wrong while saving your business.'
-                ]);
-            }
-        } else {
-            $error = "Business name already exists with the same business address.";
+          $terminals = Terminal::createBranchServiceTerminal(Auth::user()->user_id, $service_id, $business->num_terminals);
+          if ($business->save()) {
             return json_encode([
-                'success' => 0,
-                'error' => $error
+              'success' => 1,
+              'terminals' => $terminals
             ]);
+          }
+          else {
+            return json_encode([
+              'success' => 0,
+              'error' => 'Something went wrong while saving your business.'
+            ]);
+          }
         }
-
+        else {
+          $error = "Business name already exists with the same business address.";
+          return json_encode([
+            'success' => 0,
+            'error' => $error
+          ]);
+        }
+      }
+      else {
+        return json_encode(array('success' => 0, 'error' => 'You are not allowed to access this function or you already have a business account.'));
+      }
 
     }
 
@@ -196,28 +202,29 @@ class BusinessController extends BaseController{
      */
     public function postEditBusiness(){
         $business_data = Input::all();
+      if (Helper::isBusinessOwner($business_data['business_id'], Helper::userId())) { // PAG added permission checking
         $business = Business::find($business_data['business_id']);
 
-        if($this->validateBusinessNameBusinessAddress($business, $business_data)){
-            $business->name = $business_data['business_name'];
-            $business->local_address = $business_data['business_address'];
-            $business->industry = $business_data['industry'];
-            $business->fb_url = $business_data['facebook_url'];
-            $business->timezone = $business_data['timezone']; //ARA Added timezone property
+        if ($this->validateBusinessNameBusinessAddress($business, $business_data)) {
+          $business->name = $business_data['business_name'];
+          $business->local_address = $business_data['business_address'];
+          $business->industry = $business_data['industry'];
+          $business->fb_url = $business_data['facebook_url'];
+          $business->timezone = $business_data['timezone']; //ARA Added timezone property
 
-            $time_open_arr = Helper::parseTime($business_data['time_open']);
-            $business->open_hour = $time_open_arr['hour'];
-            $business->open_minute = $time_open_arr['min'];
-            $business->open_ampm = $time_open_arr['ampm'];
+          $time_open_arr = Helper::parseTime($business_data['time_open']);
+          $business->open_hour = $time_open_arr['hour'];
+          $business->open_minute = $time_open_arr['min'];
+          $business->open_ampm = $time_open_arr['ampm'];
 
-            $time_close_arr = Helper::parseTime($business_data['time_close']);
-            $business->close_hour = $time_close_arr['hour'];
-            $business->close_minute = $time_close_arr['min'];
-            $business->close_ampm = $time_close_arr['ampm'];
+          $time_close_arr = Helper::parseTime($business_data['time_close']);
+          $business->close_hour = $time_close_arr['hour'];
+          $business->close_minute = $time_close_arr['min'];
+          $business->close_ampm = $time_close_arr['ampm'];
 
-            $business->queue_limit = $business_data['queue_limit']; /* RDH Added queue_limit to Edit Business Page */
+          $business->queue_limit = $business_data['queue_limit']; /* RDH Added queue_limit to Edit Business Page */
 
-            $business->save();
+          $business->save();
 
             //ARA For queue settings terminal-specific numbers
             $queue_settings = new QueueSettingsController();
@@ -269,24 +276,36 @@ class BusinessController extends BaseController{
                 'error' => 'Business name already exists with the same business address.'
             ]);
         }
+      }
+      else {
+        return json_encode([
+          'success' => 0,
+          'error' => 'You are not allowed to access this function.',
+        ]);
+      }
     }
 
     public function getPdfDownload($business_id){
+      if (Helper::isBusinessOwner($business_id, Helper::userId())) { // PAG added permission checking
         $business_name = Business::name($business_id);
         $business_address = Business::localAddress($business_id);
 
         $businesslink = $this->make_bitly_url(url('/broadcast/business/' . $business_id), 'reminisense', 'R_553289e06aaf4ca684392d2dbadec0a8', 'json');
-        $qr_link = "https://api.qrserver.com/v1/create-qr-code/?data=" . $businesslink ."&size=302x302"; // CSD Updated QR Link
+        $qr_link = "https://api.qrserver.com/v1/create-qr-code/?data=" . $businesslink . "&size=302x302"; // CSD Updated QR Link
 
         $data = [
-            'business_name' => $business_name,
-            'business_address' => $business_address,
-            'qr_code' => $qr_link,
-            'shortlink' => $businesslink
+          'business_name' => $business_name,
+          'business_address' => $business_address,
+          'qr_code' => $qr_link,
+          'shortlink' => $businesslink
         ];
 
         $pdf = PDF::loadView('pdf.pdftemplate', $data);
         return $pdf->stream($business_name . '.pdf');
+      }
+      else {
+        return json_encode(array('status' => 0, 'message', 'You are not allowed to access this function.'));
+      }
     }
 
     /* make a URL small */
@@ -313,8 +332,13 @@ class BusinessController extends BaseController{
 
 
     public function getBusinessdetails($business_id){
+      if (Helper::isBusinessOwner($business_id, Helper::userId())) { // PAG added permission checking
         $business = Business::getBusinessDetails($business_id);
         return json_encode(['success' => 1, 'business' => $business]);
+      }
+      else {
+        return json_encode(array('status' => 0, 'message', 'You are not allowed to access this function.'));
+      }
     }
 
     public function postFilterSearch() {
@@ -365,25 +389,30 @@ class BusinessController extends BaseController{
     }
 
     public function postRemove() {
-        $post = json_decode(file_get_contents("php://input"));
+      $post = json_decode(file_get_contents("php://input"));
+      if (Helper::isBusinessOwner($post->business_id, Helper::userId())) { // PAG added permission checking
         Business::deleteBusinessByBusinessId($post->business_id);
         $branches = Branch::getBranchesByBusinessId($post->business_id);
         foreach ($branches as $count => $data) {
-            $services = Service::getServicesByBranchId($data->branch_id);
-            foreach ($services as $count2 => $data2) {
-                $terminals = Terminal::getTerminalsByServiceId($data2->service_id);
-                foreach ($terminals as $count3 => $data3) {
-                    TerminalUser::deleteUserByTerminalId($data3['terminal_id']);
-                }
-                Terminal::deleteTerminalsByServiceId($data2->service_id);
+          $services = Service::getServicesByBranchId($data->branch_id);
+          foreach ($services as $count2 => $data2) {
+            $terminals = Terminal::getTerminalsByServiceId($data2->service_id);
+            foreach ($terminals as $count3 => $data3) {
+              TerminalUser::deleteUserByTerminalId($data3['terminal_id']);
             }
-            Service::deleteServicesByBranchId($data->branch_id);
+            Terminal::deleteTerminalsByServiceId($data2->service_id);
+          }
+          Service::deleteServicesByBranchId($data->branch_id);
         }
 
         Branch::deleteBranchesByBusinessId($post->business_id);
         UserBusiness::deleteUserByBusinessId($post->business_id);
 
         return json_encode(array('status' => 1));
+      }
+      else {
+        return json_encode(array('status' => 0, 'message' => 'You are not allowed to access this function.'));
+      }
     }
 
     /*

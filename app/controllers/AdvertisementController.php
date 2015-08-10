@@ -29,26 +29,27 @@ class AdvertisementController extends BaseController{
   }
 
   public function postDeleteImage() {
-    unlink(Input::get('path'));
-    return json_encode(array('status' => 1));
+    if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId())) { // PAG added permission checking
+      unlink(Input::get('path'));
+      return json_encode(array('status' => 1));
+    }
+    else {
+      return json_encode(array('status' => 'You are not allowed to access this function.'));
+    }
   }
 
   public function postUploadImage() {
-
-    if(isset($_POST)) {
-
-      $business_id = UserBusiness::getBusinessIdByOwner(Auth::user()->user_id);
-
+    if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId())) { // PAG added permission checking
       header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
       header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
       header("Cache-Control: no-store, no-cache, must-revalidate");
-      header("Cache-Control: post-check=0, pre-check=0", false);
+      header("Cache-Control: post-check=0, pre-check=0", FALSE);
       header("Pragma: no-cache");
 
       @set_time_limit(5 * 60);
 
-      $targetDir = public_path() . '/ads/' . $business_id;
-      $cleanupTargetDir = true; // Remove old files
+      $targetDir = public_path() . '/ads/' . Input::get('business_id');
+      $cleanupTargetDir = TRUE; // Remove old files
       //$maxFileAge = 5 * 3600; // Temp file age in seconds
 
       if (!file_exists($targetDir)) {
@@ -57,9 +58,11 @@ class AdvertisementController extends BaseController{
 
       if (isset($_REQUEST["name"])) {
         $fileName = $_REQUEST["name"];
-      } elseif (!empty($_FILES)) {
+      }
+      elseif (!empty($_FILES)) {
         $fileName = $_FILES["file"]["name"];
-      } else {
+      }
+      else {
         $fileName = uniqid("file_");
       }
 
@@ -77,8 +80,9 @@ class AdvertisementController extends BaseController{
         $fileName_b = substr($fileName, $ext);
 
         $count = 1;
-        while (file_exists($targetDir . DIRECTORY_SEPARATOR . $fileName_a . '_' . $count . $fileName_b))
+        while (file_exists($targetDir . DIRECTORY_SEPARATOR . $fileName_a . '_' . $count . $fileName_b)) {
           $count++;
+        }
 
         $fileName = $fileName_a . '_' . $count . $fileName_b;
       }
@@ -91,7 +95,7 @@ class AdvertisementController extends BaseController{
           die('{"jsonrpc" : "2.0", "error" : {"code": 100, "message": "Failed to open temp directory."}, "id" : "id"}');
         }
 
-        while (($file = readdir($dir)) !== false) {
+        while (($file = readdir($dir)) !== FALSE) {
           $tmpfilePath = $targetDir . DIRECTORY_SEPARATOR . $file;
 
           // If temp file is current file proceed to the next
@@ -122,7 +126,8 @@ class AdvertisementController extends BaseController{
         if (!$in = @fopen($_FILES["file"]["tmp_name"], "rb")) {
           die('{"jsonrpc" : "2.0", "error" : {"code": 101, "message": "Failed to open input stream."}, "id" : "id"}');
         }
-      } else {
+      }
+      else {
         if (!$in = @fopen("php://input", "rb")) {
           die('{"jsonrpc" : "2.0", "error" : {"code": 101, "message": "Failed to open input stream."}, "id" : "id"}');
         }
@@ -154,7 +159,7 @@ class AdvertisementController extends BaseController{
 
     }
     else {
-      return json_encode(array('status' => 'Something went wrong..'));
+      return json_encode(array('status' => 'You are not allowed to access this function.'));
     }
 
   }
@@ -162,58 +167,95 @@ class AdvertisementController extends BaseController{
   public function postEmbedVideo() {
     $post = json_decode(file_get_contents("php://input"));
     if ($post) {
-      $data = json_decode(file_get_contents(public_path() . '/json/' . $post->business_id . '.json'));
-      $data->ad_video = preg_replace("/\s*[a-zA-Z\/\/:\.]*youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i", "//www.youtube.com/embed/$1", $post->ad_video);
-      $encode = json_encode($data);
-      file_put_contents(public_path() . '/json/' . $post->business_id . '.json', $encode);
-      return json_encode(array('ad_video' => $data->ad_video));
+      if (Helper::isBusinessOwner($post->business_id, Helper::userId())) { // PAG added permission checking
+        $data = json_decode(file_get_contents(public_path() . '/json/' . $post->business_id . '.json'));
+        $data->ad_video = preg_replace("/\s*[a-zA-Z\/\/:\.]*youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i", "//www.youtube.com/embed/$1", $post->ad_video);
+        $encode = json_encode($data);
+        file_put_contents(public_path() . '/json/' . $post->business_id . '.json', $encode);
+        return json_encode(array('ad_video' => $data->ad_video));
+      }
+      else {
+        return json_encode(array('status' => 'You are not allowed to access this function.'));
+      }
+    }
+    else {
+      return json_encode(array('status' => 'Something went wrong..'));
     }
   }
 
   public function postTvSelect() {
     $post = json_decode(file_get_contents("php://input"));
     if ($post) {
-      $data = json_decode(file_get_contents(public_path() . '/json/' . $post->business_id . '.json'));
-      //$data->ad_video = preg_replace("/\s*[a-zA-Z\/\/:\.]*youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i", "//www.youtube.com/embed/$1", $_POST['ad_video']);
-      $data->tv_channel = $post->tv_channel;
-      $encode = json_encode($data);
-      file_put_contents(public_path() . '/json/' . $post->business_id . '.json', $encode);
+      if (Helper::isBusinessOwner($post->business_id, Helper::userId())) { // PAG added permission checking
+        $data = json_decode(file_get_contents(public_path() . '/json/' . $post->business_id . '.json'));
+        //$data->ad_video = preg_replace("/\s*[a-zA-Z\/\/:\.]*youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i", "//www.youtube.com/embed/$1", $_POST['ad_video']);
+        $data->tv_channel = $post->tv_channel;
+        $encode = json_encode($data);
+        file_put_contents(public_path() . '/json/' . $post->business_id . '.json', $encode);
+      }
+      else {
+        return json_encode(array('status' => 'You are not allowed to access this function.'));
+      }
+    }
+    else {
+      return json_encode(array('status' => 'Something went wrong..'));
     }
   }
 
   public function postTurnOnTv() {
     $post = json_decode(file_get_contents("php://input"));
     if ($post) {
-      $data = json_decode(file_get_contents(public_path() . '/json/' . $post->business_id . '.json'));
-      //$data->ad_video = preg_replace("/\s*[a-zA-Z\/\/:\.]*youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i", "//www.youtube.com/embed/$1", $_POST['ad_video']);
-      $data->turn_on_tv = $post->status;
-      $encode = json_encode($data);
-      file_put_contents(public_path() . '/json/' . $post->business_id . '.json', $encode);
-      //return json_encode(array('turn_on_tv' => $data->turn_on_tv));
+      if (Helper::isBusinessOwner($post->business_id, Helper::userId())) { // PAG added permission checking
+        $data = json_decode(file_get_contents(public_path() . '/json/' . $post->business_id . '.json'));
+        //$data->ad_video = preg_replace("/\s*[a-zA-Z\/\/:\.]*youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i", "//www.youtube.com/embed/$1", $_POST['ad_video']);
+        $data->turn_on_tv = $post->status;
+        $encode = json_encode($data);
+        file_put_contents(public_path() . '/json/' . $post->business_id . '.json', $encode);
+        //return json_encode(array('turn_on_tv' => $data->turn_on_tv));
+      }
+      else {
+        return json_encode(array('status' => 'You are not allowed to access this function.'));
+      }
+    }
+    else {
+      return json_encode(array('status' => 'Something went wrong..'));
     }
   }
 
   public function postAdType() {
     $post = json_decode(file_get_contents("php://input"));
     if ($post) {
-      $data = json_decode(file_get_contents(public_path() . '/json/' . $post->business_id . '.json'));
-      $data->ad_type = $post->ad_type;
-      $encode = json_encode($data);
-      file_put_contents(public_path() . '/json/' . $post->business_id . '.json', $encode);
-      //return json_encode(array('ad_type' => $data->ad_type));
+      if (Helper::isBusinessOwner($post->business_id, Helper::userId())) { // PAG added permission checking
+        $data = json_decode(file_get_contents(public_path() . '/json/' . $post->business_id . '.json'));
+        $data->ad_type = $post->ad_type;
+        $encode = json_encode($data);
+        file_put_contents(public_path() . '/json/' . $post->business_id . '.json', $encode);
+        //return json_encode(array('ad_type' => $data->ad_type));
+      }
+      else {
+        return json_encode(array('status' => 'You are not allowed to access this function.'));
+      }
+    }
+    else {
+      return json_encode(array('status' => 'Something went wrong..'));
     }
   }
 
   public function postSaveTicker() {
     $business_id = Input::get('business_id');
-    $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
-    $data->ticker_message = Input::get('ticker_message');
-    $data->ticker_message2 = Input::get('ticker_message2');
-    $data->ticker_message3 = Input::get('ticker_message3');
-    $data->ticker_message4 = Input::get('ticker_message4');
-    $data->ticker_message5 = Input::get('ticker_message5');
-    $encode = json_encode($data);
-    file_put_contents(public_path() . '/json/' . $business_id . '.json', $encode);
+    if (Helper::isBusinessOwner($business_id, Helper::userId())) { // PAG added permission checking
+      $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
+      $data->ticker_message = Input::get('ticker_message');
+      $data->ticker_message2 = Input::get('ticker_message2');
+      $data->ticker_message3 = Input::get('ticker_message3');
+      $data->ticker_message4 = Input::get('ticker_message4');
+      $data->ticker_message5 = Input::get('ticker_message5');
+      $encode = json_encode($data);
+      file_put_contents(public_path() . '/json/' . $business_id . '.json', $encode);
+    }
+    else {
+      return json_encode(array('status' => 'You are not allowed to access this function.'));
+    }
   }
 
 }

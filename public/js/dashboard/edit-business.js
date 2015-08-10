@@ -247,6 +247,10 @@ var eb = {
                 // Resize images on clientside if we can
                 resize : {width : 800, height : 800, quality : 90},
 
+                multipart_params : {
+                    "business_id" : $('#business_id').val()
+                },
+
                 init : {
                     UploadComplete: function(up, files) {
                         $.post(eb.urls.advertisement.get_slider_image, {
@@ -376,14 +380,6 @@ var eb = {
 
         }
 
-        $scope.displayMessageList = function(business_id) {
-            $http.post('/message/message-list', {
-                business_id : business_id
-            }).success(function(response) {
-                $scope.messages = response.messages;
-            });
-        }
-
         /* @CSD 05062015 */
         /* @CSD 08032015 Migrated to messages.js by Paul */
         /*
@@ -463,15 +459,19 @@ var eb = {
         */
 
         $scope.unassignFromTerminal = function(user_id, terminal_id){
-            $http.get(eb.urls.terminals.terminal_unassign_url + user_id + '/' + terminal_id)
-                .success(function(response){
+            $http.post(eb.urls.terminals.terminal_unassign_url, {
+                user_id : user_id,
+                terminal_id : terminal_id
+            }).success(function(response){
                     setBusinessFields(response.business);
                 });
         }
 
         $scope.assignToTerminal = function(user_id, terminal_id){
-            $http.get(eb.urls.terminals.terminal_assign_url + user_id + '/' + terminal_id)
-                .success(function(response){
+            $http.post(eb.urls.terminals.terminal_assign_url, {
+                user_id : user_id,
+                terminal_id : terminal_id
+            }).success(function(response){
                     setBusinessFields(response.business);
                 });
         }
@@ -517,12 +517,13 @@ var eb = {
             return assigned;
         }
 
-        $scope.deleteTerminal = function($event, terminal_id){
-            $http.get(eb.urls.terminals.terminal_delete_url + terminal_id)
-                .success(function(response){
-                    setBusinessFields(response.business);
-                    eb.jquery_functions.clear_terminal_delete_msg();
-                });
+        $scope.deleteTerminal = function($event, terminal_id) {
+            $http.post(eb.urls.terminals.terminal_delete_url, {
+                terminal_id : terminal_id
+            }).success(function(response) {
+                setBusinessFields(response.business);
+                eb.jquery_functions.clear_terminal_delete_msg();
+            });
             $event.preventDefault();
         }
 
@@ -558,9 +559,10 @@ var eb = {
         });
 
         $scope.createTerminal = function(terminal_name){
-            data = { name : terminal_name };
-            $http.post(eb.urls.terminals.terminal_create_url + $scope.business_id, data)
-                .success(function(response){
+            $http.post(eb.urls.terminals.terminal_create_url, {
+                business_id : business_id,
+                name : terminal_name
+            }).success(function(response){
                     if(response.status == 0){
                         $('.terminal-error-msg').show();
                         setTimeout(function(){$('.terminal-error-msg').fadeOut('slow')}, 3000);
@@ -749,9 +751,10 @@ var eb = {
             }
         });
 
-        $scope.deleteImageSlide = function(count, img_path) {
+        $scope.deleteImageSlide = function(business_id, count, img_path) {
             if (confirm('Are you sure you want to delete this image?')) {
                 $http.post(eb.urls.advertisement.delete_slider_image, {
+                    business_id : business_id,
                     path : img_path
                 }).success(function(response) {
                     $('#slide'+count).remove();

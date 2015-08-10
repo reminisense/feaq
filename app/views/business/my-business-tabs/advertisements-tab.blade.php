@@ -81,7 +81,7 @@
                             <tr>
                                 <td ng-repeat="slider in slider_images" id="slide@{{ slider.count }}">
                                     <div class="row"><img ng-src="/@{{ slider.path }}" height="240px" style="padding-left: 20px; margin-bottom: 5px;"></div>
-                                    <div class="row" style="padding-left: 20px;"><button class="btn btn-danger" ng-click="deleteImageSlide(slider.count, slider.path);">Remove</button></div>
+                                    <div class="row" style="padding-left: 20px;"><button class="btn btn-danger" ng-click="deleteImageSlide(business_id, slider.count, slider.path);">Remove</button></div>
                                 </td>
                             </tr>
                             </tbody>

@@ -444,6 +444,8 @@
       </section>
     </footer>
 
+      @include('modals.homepage.fb-loader')
+
     <script type="text/javascript" src="/js/homepage/migrate.min.js"></script>
     <script type="text/javascript" src="/js/homepage/slick.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
