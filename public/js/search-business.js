@@ -4,11 +4,10 @@
         $('#time_open-filter').timeEntry({ampmPrefix: ' ', spinnerImage: ''});
 
         jQuery.ajax({
-            url: '//freegeoip.net/json/',
-            type: 'POST',
-            dataType: 'jsonp',
-            success: function(location) {
-                $scope.location_filter = location.country_name;
+            url: '//freegeoip.net/json',
+            type: 'GET',
+            success: function(response) {
+                $scope.location_filter = response.country_name;
             }
         });
 
