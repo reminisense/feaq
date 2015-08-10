@@ -1,7 +1,21 @@
 $(document).ready(function(){
+    var count = $('.marquee-text').length;
+    var start = 0;
+
     $('.marquee-text').marquee({
         duration: 10000
     });
+
+    setInterval(function() {
+        $('.marquee-text').addClass('hidden');
+        $('.ticker .marquee-text:eq(' + start + ')').removeClass('hidden');
+        if (start < count){
+            start++;
+        } else {
+            start = 0;
+        }
+    }, 3000);
+
 });
 
 $(document).on('click', '#send-business-message', function(){

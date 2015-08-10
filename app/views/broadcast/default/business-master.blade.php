@@ -50,7 +50,9 @@
     </div>
 
     <div class="ticker">
-        <div class="marquee-text">{{ $ticker_message }}</div>
+        @foreach($ticker_message as $message)
+            <div class="marquee-text hidden">{{ $message }}</div>
+        @endforeach
     </div>
 </div>
 

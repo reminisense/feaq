@@ -131,7 +131,11 @@
             </div>
         </div>
         <div class="col-md-12 ticker mt20">
-            <div class="marquee-text">{{ $ticker_message }}</div>
+            <div class="marquee-text-0">{{ $ticker_message[0] }}</div>
+            <div class="marquee-text-1 hidden">{{ $ticker_message[1] }}</div>
+            <div class="marquee-text-2 hidden">{{ $ticker_message[2] }}</div>
+            <div class="marquee-text-3 hidden">{{ $ticker_message[3] }}</div>
+            <div class="marquee-text-4 hidden">{{ $ticker_message[4] }}</div>
         </div>
     </div>
 
