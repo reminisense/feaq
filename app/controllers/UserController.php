@@ -22,7 +22,7 @@ class UserController extends BaseController{
             'user'      => $user,
         ]);
       */
-      return json_encode(array('user' => Auth::user()));
+      return json_encode(array('success'   => 1, 'user' => Auth::user()));
     }
 
     /*
