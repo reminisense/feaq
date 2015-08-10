@@ -171,7 +171,12 @@ class Notifier extends Eloquent{
             $business_name = $business_id != 0 ? Business::name($business_id) : '';
             $waiting_time = Analytics::getWaitingTime($business_id);
             $estimated_time = Helper::millisecondsToHMSFormat($waiting_time);
-            $message = "Your number ($priority_number) will be called in approximately $estimated_time. There are currently $diff people ahead of you at the $terminal_name at $business_name";
+            $message = "Your number ($priority_number) will be called in approximately $estimated_time. ";
+            if($diff == 1){
+                $message .= "There is currently $diff person ahead of you at the $terminal_name at $business_name.";
+            }else{
+                $message .= "There are currently $diff people ahead of you at the $terminal_name at $business_name.";
+            }
 
             if($queue_platform != 'web' && $queue_platform != 'specific'){
                 $gcm_token = User::gcmToken($user_id);
