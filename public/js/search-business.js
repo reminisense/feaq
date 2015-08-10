@@ -3,12 +3,8 @@
     app.controller('searchBusinessCtrl', function($scope, $http) {
         $('#time_open-filter').timeEntry({ampmPrefix: ' ', spinnerImage: ''});
 
-        jQuery.ajax({
-            url: '//freegeoip.net/json',
-            type: 'GET',
-            success: function(response) {
-                $scope.location_filter = response.country_name;
-            }
+        $http.get('//freegeoip.net/json').success(function(response) {
+            $scope.location_filter = response.country_name;
         });
 
         var listBusinesses = (function(response) {
