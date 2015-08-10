@@ -426,9 +426,12 @@
             <button class="btn btn-fb" ng-click="login()">Sign up with facebook</button>
 
             <br>
-            <small class="block mt50">
+            {{-- ARA Removed because of new agreement on sms.
+             <small class="block mt50">
               Business Users receive a *FREE 2-Month SMS Notification Package *Applies to Philippine territories.
             </small>
+             --}}
+
           </div>
         </div>
       </div>
