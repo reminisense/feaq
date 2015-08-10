@@ -73,6 +73,9 @@
 }
 
 @media (max-width: 480px) {
+    .js-marquee {
+        font-size: 23px!important;
+    }
     #fqCarousel {
         min-height: inherit!important;
         margin-bottom: 20px!important;

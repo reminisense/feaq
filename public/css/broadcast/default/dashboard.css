@@ -1137,3 +1137,9 @@ strong {
     color: #333338;
     margin-bottom: 0px;
 }
+#biz-broadcast .ticker {
+    overflow: hidden;
+}
+#biz-broadcast .main-wrap {
+    min-height: inherit!important;
+}
