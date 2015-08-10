@@ -51,7 +51,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="" class="navbar-brand"><img src="/img/featherq-logo.svg"></a>
+            <a href="/" class="navbar-brand"><img src="/img/featherq-logo.svg"></a>
         </div>
         <nav class="pull-right collapse navbar-collapse bs-navbar-collapse" role="navigation">
             <ul class="nav navbar-nav">
