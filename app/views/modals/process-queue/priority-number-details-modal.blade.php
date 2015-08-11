@@ -1,5 +1,6 @@
 <!-- modal -->
-<div class="modal fade" id="priority-number-modal" tabindex="-1" ng-controller="messageController">
+
+<div class="modal fade" id="priority-number-modal" tabindex="-1">{{--<div class="modal fade" id="priority-number-modal" tabindex="-1" ng-controller="messageController">--}}
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,7 +12,7 @@
             <div class="modal-body">
                 <ul id="pmore-tab" class="nav nav-tabs">
                     <li class="details active"><a href="#details" data-toggle="tab">DETAILS</a></li>
-                    <li class="messages"><a href="#messages" data-toggle="tab" ng-click="getMessages()">MESSAGES</a></li>
+                    {{-- ARA Save this for later <li class="messages"><a href="#messages" data-toggle="tab" ng-click="getMessages()">MESSAGES</a></li> --}}
                 </ul>
                 <div class="clearfix tab-content">
                     <div class="tab-pane fade active in" id="details">
@@ -34,6 +35,7 @@
                             <div class="col-md-6 col-xs-6"><h5 id="priority-number-email"></h5></div>
                         </div>
                     </div>
+                    {{-- ARA Save this for later
                     <div class="tab-pane fade in" id="messages">
                         <div class="">
                             <div class="col-md-12 text-center"><h5>Conversation History</h5></div>
@@ -72,6 +74,7 @@
                             </div>
                         </div>
                     </div>
+                    --}}
                 </div>
             </div>
             <div class="modal-footer">
