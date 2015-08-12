@@ -153,12 +153,6 @@
 </div>
 @include('modals.broadcast.remote-queue-modal')
 
-@if (Auth::check())
-    @include('modals.broadcast.contact-business-modal')
-@else
-    @include('modals.broadcast.error-modal')
-@endif
-
 {{--{{ HTML::script('js/bootstrap.min.js') }}--}}
 <script src="/js/broadcast/bootstrap.min.js"></script>
 
