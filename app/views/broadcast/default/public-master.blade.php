@@ -88,7 +88,12 @@
                         <li><a href="{{URL::to('https://plus.google.com/101914769293976664743')}}">Google+</a></li>
                     </ul>
                 </li>
-
+                <li>
+                    <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" style="padding-top: 3px; padding-bottom: 3px;">
+                      <img alt="Android app on Google Play"
+                      src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png" height="50"/>
+                    </a>
+                </li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
