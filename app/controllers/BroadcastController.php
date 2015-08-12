@@ -90,19 +90,29 @@ class BroadcastController extends BaseController{
 
         $ticker_message = array();
         if (isset($data->ticker_message)) {
-          array_push($ticker_message, $data->ticker_message);
+            if ($data->ticker_message != ''){
+                array_push($ticker_message, $data->ticker_message);
+            }
         }
-        if (isset($data->ticker_message2)){
-          array_push($ticker_message, $data->ticker_message2);
+        if (isset($data->ticker_message2)) {
+            if ($data->ticker_message2 != '') {
+                array_push($ticker_message, $data->ticker_message2);
+            }
         }
         if (isset($data->ticker_message3)){
-          array_push($ticker_message, $data->ticker_message3);
+            if ($data->ticker_message3 != ''){
+                array_push($ticker_message, $data->ticker_message3);
+            }
         }
         if (isset($data->ticker_message4)){
-          array_push($ticker_message, $data->ticker_message4);
+            if ($data->ticker_message4 != ''){
+                array_push($ticker_message, $data->ticker_message4);
+            }
         }
         if (isset($data->ticker_message5)){
-          array_push($ticker_message, $data->ticker_message5);
+            if ($data->ticker_message5 != ''){
+                array_push($ticker_message, $data->ticker_message5);
+            }
         }
 
         if (Auth::check()) {
