@@ -88,6 +88,10 @@ class BroadcastController extends BaseController{
           }
         }
 
+      if (!isset($data->ticker_message2)) $data->ticker_message2 = '';
+      if (!isset($data->ticker_message3)) $data->ticker_message3 = '';
+      if (!isset($data->ticker_message4)) $data->ticker_message4 = '';
+      if (!isset($data->ticker_message5)) $data->ticker_message5 = '';
         $ticker_message = $data->ticker_message . ' ' . $data->ticker_message2 . ' ' . $data->ticker_message3 . ' ' . $data->ticker_message4 . ' ' . $data->ticker_message5;
 
         if (Auth::check()) {
