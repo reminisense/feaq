@@ -53,6 +53,7 @@
         @foreach($ticker_message as $message)
             <div class="marquee-text hidden">{{ $message }}</div>
         @endforeach
+        <div class="real-marquee-text"></div>
     </div>
 </div>
 

@@ -131,11 +131,10 @@
             </div>
         </div>
         <div class="col-md-12 ticker mt20">
-            <div class="marquee-text-0">{{ $ticker_message[0] }}</div>
-            <div class="marquee-text-1 hidden">{{ $ticker_message[1] }}</div>
-            <div class="marquee-text-2 hidden">{{ $ticker_message[2] }}</div>
-            <div class="marquee-text-3 hidden">{{ $ticker_message[3] }}</div>
-            <div class="marquee-text-4 hidden">{{ $ticker_message[4] }}</div>
+            @foreach($ticker_message as $message)
+                <div class="marquee-text hidden">{{ $message }}</div>
+            @endforeach
+            <div class="real-marquee-text">The quick brown fox jumps over the lazy dog.</div>
         </div>
     </div>
 

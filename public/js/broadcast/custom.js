@@ -1,21 +1,21 @@
 $(document).ready(function(){
     var count = $('.marquee-text').length;
-    var start = 0;
+    var i = 0;
 
-    $('.marquee-text').marquee({
-        duration: 10000
-    });
-
-    setInterval(function() {
-        $('.marquee-text').addClass('hidden');
-        $('.ticker .marquee-text:eq(' + start + ')').removeClass('hidden');
-        if (start < count){
-            start++;
-        } else {
-            start = 0;
-        }
-    }, 3000);
-
+    function rotateMarquee() {
+        console.log(i);
+        $('.real-marquee-text').bind('finished', function() {
+            $('.real-marquee-text').html($('.ticker .marquee-text:eq(' + i + ')').html());
+            if (i == parseInt(count - 1)){
+                i = 0;
+            } else {
+                i++;
+            }
+            rotateMarquee();
+        }).marquee({
+            duration: 10000
+        });
+    }
 });
 
 $(document).on('click', '#send-business-message', function(){
