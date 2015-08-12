@@ -80,7 +80,7 @@
         <div class="container">
           <div class="clearfix">
             <div class="col-lg-5 col-md-6 col-sm-8">
-              <h1>FeatherQ is the world's first DIY cloud-based queuing system. We make it easy for businesses to <span>MANAGE THEIR LINES BETTER</span> and allow customers to wait on their own terms.</h1>
+              <h1>FeatherQ is a DIY cloud-based queuing system. We make it easy for businesses to <span>MANAGE THEIR LINES BETTER</span> and allow customers to wait on their own terms.</h1>
               <div class="mt40 mb40" ng-controller="fbController">
                 <a href="" class="btn btn-fb" ng-click="login()" role="button"><img src="/images/homepage/fb.png" /> Signup | Login with Facebook</a>
                 <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
