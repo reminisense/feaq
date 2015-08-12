@@ -62,7 +62,7 @@
               <li class="dropdown scroll">
                <a class="dropdown-toggle" data-toggle="dropdown" href="#process" aria-haspopup="true">Setup <span class="caret"></span></a>
                <ul class="dropdown-menu">
-                <li><a class="scroll" href="/guides" target="_blank">Set-up Guide</a></li>
+                <li><a class="scroll" href="http://guides.featherq.com/" target="_blank">Set-up Guide</a></li>
               </ul>
             </li>
             <li><a class="scroll" href="#benefits">Benefits</a></li>
