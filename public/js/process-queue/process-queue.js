@@ -173,7 +173,6 @@ var pq = {
                 '>';
             userinfo += '<a href="#">';
             userinfo += username != undefined? '<span>' + username + ' </span>' : '';
-            userinfo += email != undefined && email != '' ? '<span class="glyphicon glyphicon-envelope"></span>' : '';
             userinfo += '</a>';
             userinfo += '</span>';
 

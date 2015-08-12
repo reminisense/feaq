@@ -96,7 +96,6 @@ Processs Queue > {{ $business_name }}
                                             >
                                                 <a href="#">
                                                     <span ng-if="number.name">@{{ number.name }}</span>
-                                                    <span ng-if="number.email" class="glyphicon glyphicon-envelope"></span>
                                                 </a>
                                             </span>
                                         </li>
@@ -121,7 +120,6 @@ Processs Queue > {{ $business_name }}
                                             >
                                                 <a href="#">
                                                     <span ng-if="number.name">@{{ number.name }}</span>
-                                                    <span ng-if="number.email" class="glyphicon glyphicon-envelope"></span>
                                                 </a>
                                             </span>
                                         </li>
@@ -156,9 +154,8 @@ Processs Queue > {{ $business_name }}
                         </th>
                         <td>
                             <div>
-                                <span ng-if="number.name">@{{ number.name }} | </span>
-                                <a ng-if="number.email" href="#" class="show-messages" title="Number: @{{ number.priority_number }}" data-priority-number="@{{ number.priority_number }}" data-name="@{{ number.name }}" data-phone="@{{ number.phone }}" data-email="@{{ number.email }}" data-toggle="modal" data-target="#priority-number-modal">
-                                    <span class="glyphicon glyphicon-envelope"></span>
+                                <a ng-if="number.name" href="#" class="show-messages" title="Number: @{{ number.priority_number }}" data-priority-number="@{{ number.priority_number }}" data-name="@{{ number.name }}" data-phone="@{{ number.phone }}" data-email="@{{ number.email }}" data-toggle="modal" data-target="#priority-number-modal">
+                                    <span>@{{ number.name }}</span>
                                 </a>
                             </div>
                         </td>
