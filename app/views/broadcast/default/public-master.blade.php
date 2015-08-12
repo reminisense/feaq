@@ -134,7 +134,7 @@
             @foreach($ticker_message as $message)
                 <div class="marquee-text hidden">{{ $message }}</div>
             @endforeach
-            <div class="real-marquee-text">The quick brown fox jumps over the lazy dog.</div>
+            <div class="real-marquee-text"></div>
         </div>
     </div>
 

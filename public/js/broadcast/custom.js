@@ -2,10 +2,11 @@ $(document).ready(function(){
     var count = $('.marquee-text').length;
     var i = 0;
 
+    rotateMarquee();
+
     function rotateMarquee() {
-        console.log(i);
-        $('.real-marquee-text').bind('finished', function() {
-            $('.real-marquee-text').html($('.ticker .marquee-text:eq(' + i + ')').html());
+        $('.real-marquee-text').html($('.ticker .marquee-text:eq(' + i + ')').html());
+        $('.real-marquee-text').one('finished', function() {
             if (i == parseInt(count - 1)){
                 i = 0;
             } else {

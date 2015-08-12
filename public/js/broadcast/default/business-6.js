@@ -66,6 +66,13 @@ app.controller('nowServingCtrl', function($scope, $http, $compile) {
         $scope.writeNumber(response, 'box4');
         $scope.writeNumber(response, 'box5');
         //$scope.writeNumber(response, 'box6');
+
+/*        $('.marquee-text').remove();
+        if(response.ticker_message != ''){ $('.ticker').append("<div class='marquee-text hidden'>" + response.ticker_message + "</div"); }
+        if(response.ticker_message2 != ''){ $('.ticker').append("<div class='marquee-text hidden'>" + response.ticker_message2 + "</div"); }
+        if(response.ticker_message3 != ''){ $('.ticker').append("<div class='marquee-text hidden'>" + response.ticker_message3 + "</div"); }
+        if(response.ticker_message4 != ''){ $('.ticker').append("<div class='marquee-text hidden'>" + response.ticker_message4 + "</div"); }
+        if(response.ticker_message5 != ''){ $('.ticker').append("<div class='marquee-text hidden'>" + response.ticker_message5 + "</div"); }*/
     });
 
     $scope.resetNumbers = (function(response) {
