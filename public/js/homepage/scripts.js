@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	$('#myTabs a').click(function (e) {
-        e.preventDefault()
-        $(this).tab('show')
+        e.preventDefault();
+        $('#serve').tab('show');
     });
   
     $(function() {

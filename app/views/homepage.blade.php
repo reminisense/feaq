@@ -195,6 +195,7 @@
   <section class="process">
     <div class="container">
       <div class="row rel">
+
         <div class="col-lg-5 col-lg-offset-1 col-md-12">
           <h2>The FeatherQ <span>Process</span></h2>
           <div class="pull-right  hidden-md hidden-xs">
@@ -211,6 +212,22 @@
             </ul>
           </div>
         </div>
+        <div class="col-md-6 hidden-md hidden-xs">
+            <div class="phone ">
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active in" id="signup">
+                  <img src="/images/homepage/screen1.jpg">
+                </div>
+                <div role="tabpanel" class="tab-pane fade " id="setup">
+                  <img src="/images/homepage/screen2.jpg">
+                </div>
+                <div role="tabpanel" class="tab-pane fade " id="serve">
+                  <img src="/images/homepage/screen3.jpg">
+                </div>
+              </div>
+            </div>
+        </div>
+
         <div class="hidden-lg visible-md visible-xs visible-sm">
           <div class="clearfix">
             <div class="col-md-6">
@@ -239,25 +256,11 @@
                </div>
              </div>
            </div>
-         </div>
-       </div>
-       <div class="col-md-6 hidden-md hidden-xs">
-        <div class="phone ">
-          <div class="tab-content">
-            <div role="tabpanel" class="tab-pane fade active in" id="signup">
-              <img src="/images/homepage/screen1.jpg">
-            </div>
-            <div role="tabpanel" class="tab-pane fade " id="setup">
-              <img src="/images/homepage/screen2.jpg">
-            </div>
-            <div role="tabpanel" class="tab-pane fade " id="serve">
-              <img src="/images/homepage/screen3.jpg">
-            </div>
           </div>
         </div>
+
       </div>
     </div>
-  </div>
 </section>
 
 <a name="benefits"></a>
