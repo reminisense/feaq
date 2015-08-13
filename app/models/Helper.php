@@ -122,6 +122,7 @@ class Helper extends Eloquent {
     public static function getMultipleQueries($table, $conditions){
         $query = DB::table($table);
         foreach($conditions as $field => $value){
+            $field = strpos($field, '.') > 0 ? substr($field, 0, strpos($field, '.')) : $field;
             if(is_array($value)){
                 $query->where($field, $value[0], $value[1]);
             }else{
