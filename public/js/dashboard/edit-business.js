@@ -310,6 +310,10 @@ var eb = {
         $scope.allow_remote = 0;
         $scope.remote_limit = 0;
 
+        $scope.add_terminal = {
+            terminal_name : ""
+        };
+
         $scope.business_reply_form = {
             message_reply : "",
             active_sender_email : "",
@@ -558,10 +562,10 @@ var eb = {
             $event.preventDefault();
         });
 
-        $scope.createTerminal = function(terminal_name){
+        $scope.createTerminal = function(){
             $http.post(eb.urls.terminals.terminal_create_url, {
-                business_id : business_id,
-                name : terminal_name
+                business_id : $scope.business_id,
+                name : $scope.add_terminal.terminal_name
             }).success(function(response){
                     if(response.status == 0){
                         $('.terminal-error-msg').show();
