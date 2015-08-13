@@ -62,6 +62,8 @@ $(document).ready(function(){
         e.stopPropagation();
     });
 
+    $(".datepicker").datepicker();
+
     //eb.jquery_functions.load_users();
     eb.jquery_functions.setBusinessId($('#business_id').val());
     eb.jquery_functions.setUserId($('#user_id').val());
@@ -276,7 +278,7 @@ var eb = {
 
 (function(){
 
-    app.controller('editBusinessController', function($scope, $http){
+    app.controller('editBusinessController', function($scope, $http, $filter){
         $scope.user_id = null;
         $scope.business_id = null;
         $scope.business_name = null;
@@ -329,6 +331,9 @@ var eb = {
         $scope.business_features = {
             terminal_users: 3
         };
+
+        $scope.startdate = '01/01/2014';
+        $scope.enddate = $filter('date')(new Date(),'MM/dd/yyyy');
 
         $scope.getBusinessDetails = function(){
             if ( $scope.business_id > 0 ) {
@@ -978,6 +983,12 @@ var eb = {
                 });
             }
         };
+
+        $scope.getBusinessAnalytics = function(startdate, enddate){
+            $http.post('/business/business-analytics', { business_id: $scope.business_id, startdate: startdate, enddate: enddate }).success(function(response){
+                $scope.analytics = response.analytics;
+            });
+        }
     });
 
 })();

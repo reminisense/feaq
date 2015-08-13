@@ -1,5 +1,10 @@
 <div class="clearfix header">
     <h5>BUSINESS ANALYTICS</h5>
+    <form ng-submit="getBusinessAnalytics(startdate, enddate)">
+        <input type="text" id="start-date" name="start-date" class="datepicker" ng-model="startdate"/><b>-</b>
+        <input type="text" id="end-date" name="end-date" class="datepicker" ng-model="enddate"/>
+        <button class="btn btn-primary" type="submit">Get Analytics</button>
+    </form>
 </div>
 <table class="table">
     <tbody>
