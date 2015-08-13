@@ -67,7 +67,7 @@
                         @if($is_admin)
                         <li><a href="{{ url('/admin/dashboard') }}">Admin Dashboard</a></li> {{--ARA Admin dashboard for reminisense only--}}
                         @endif
-                        <li><a href="{{ url('/fb/laravel-logout') }}"><span class="glyphicon glyphicon-log-out"></span> Logout from FeatherQ</a></li> <!-- ARA Logout to featherq ONLY -->
+                        <li><a href="{{ url('/fb/laravel-logout') }}"><span class="glyphicon glyphicon-log-out"></span>&nbsp; Logout</a></li> <!-- ARA Logout to featherq ONLY -->
                     </ul>
                 </li>
             </ul>
