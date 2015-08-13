@@ -332,7 +332,7 @@ var eb = {
             terminal_users: 3
         };
 
-        $scope.startdate = '01/01/2014';
+        $scope.startdate = $filter('date')(new Date(),'MM/dd/yyyy');
         $scope.enddate = $filter('date')(new Date(),'MM/dd/yyyy');
 
         $scope.getBusinessDetails = function(){
