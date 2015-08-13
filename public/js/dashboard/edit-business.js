@@ -79,15 +79,15 @@ var eb = {
         business: {
             business_details_url : $('#business-details-url').val() + '/',
             business_edit_url : $('#business-edit-url').val(),
-            business_remove_url : $('#business-remove-url').val() + '/'
+            business_remove_url : $('#business-remove-url').val()
         },
 
         terminals: {
-            terminal_create_url : $('#terminal-create-url').val() + '/',
+            terminal_create_url : $('#terminal-create-url').val(),
             terminal_edit_url : $('#terminal-edit-url').val(),
-            terminal_delete_url : $('#terminal-delete-url').val() + '/',
-            terminal_assign_url : $('#terminal-assign-url').val() + '/',
-            terminal_unassign_url : $('#terminal-unassign-url').val() + '/',
+            terminal_delete_url : $('#terminal-delete-url').val(),
+            terminal_assign_url : $('#terminal-assign-url').val(),
+            terminal_unassign_url : $('#terminal-unassign-url').val(),
             user_emailsearch_url : $('#user-emailsearch-url').val() + '/'
         },
 
