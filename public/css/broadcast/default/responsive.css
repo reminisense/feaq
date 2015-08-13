@@ -1,3 +1,11 @@
+
+@media only screen and (max-width : 1200px) {
+    body#broadcast .terminal {
+        height: 2.8em;
+        line-height: 28px;
+    }
+
+}
 /* advertisement video players mobile view fix*/
 @media (max-width: 768px) {
     iframe, embed {
@@ -174,6 +182,7 @@
   /* @CSD 05042015 */
   .ads-sixnums h1 {
       font-size: 24vmin;
+      line-height: 88px;
   }
   body#broadcast .terminal {
       font-size: 24px;
@@ -194,4 +203,31 @@
     .boxed .broadcast .numbers {
         font-size: 38px;
     }
+    body#broadcast .terminal {
+        height: 1.7em;
+        line-height: 30px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+}
+@media (max-width: 375px) {
+    body#broadcast .terminal {
+        height: 1.7em;
+        line-height: 34px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+}
+@media (max-width: 320px) {
+    body#broadcast .terminal {
+        height: 1.7em;
+        line-height: 30px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin-top: 0px;
+        margin-bottom: 10px;
+    }
+
 }
