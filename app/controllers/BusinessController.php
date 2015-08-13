@@ -521,5 +521,12 @@ class BusinessController extends BaseController{
         echo 'Coordinates set.';
     }
 
+    public function postBusinessAnalytics(){
+        $startdate = Input::get('startdate');
+        $enddate = Input::get('enddate');
+        $business_id = Input::get('business_id');
 
+        $analytics = Analytics::getBusinessAnalytics($business_id, strtotime($startdate), strtotime($enddate));
+        return json_encode(array('analytics' => $analytics));
+    }
 }
