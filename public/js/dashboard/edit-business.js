@@ -83,7 +83,7 @@ var eb = {
         },
 
         terminals: {
-            terminal_create_url : $('#terminal-create-url').val() + '/',
+            terminal_create_url : $('#terminal-create-url').val(),
             terminal_edit_url : $('#terminal-edit-url').val(),
             terminal_delete_url : $('#terminal-delete-url').val() + '/',
             terminal_assign_url : $('#terminal-assign-url').val() + '/',
@@ -309,6 +309,10 @@ var eb = {
         $scope.input_sms_field = 0;
         $scope.allow_remote = 0;
         $scope.remote_limit = 0;
+
+        $scope.add_terminal = {
+            terminal_name : ""
+        };
 
         $scope.business_reply_form = {
             message_reply : "",
@@ -558,10 +562,10 @@ var eb = {
             $event.preventDefault();
         });
 
-        $scope.createTerminal = function(terminal_name){
+        $scope.createTerminal = function(){
             $http.post(eb.urls.terminals.terminal_create_url, {
-                business_id : business_id,
-                name : terminal_name
+                business_id : $scope.business_id,
+                name : $scope.add_terminal.terminal_name
             }).success(function(response){
                     if(response.status == 0){
                         $('.terminal-error-msg').show();

@@ -111,10 +111,10 @@
         <td>
             <div class="block mt10 mb10">
                 <a href="" id="btn-addterminal" class="btn-boxy btn-xs btn-orange"><span class="glyphicon glyphicon-plus"></span> Add Terminal</a>
-                <form id="inputterminal-form" ng-submit="createTerminal(terminal_name)">
+                <form id="inputterminal-form" ng-submit="createTerminal()">
                     <div id="inputterminal">
                         <div class="">
-                            <input type="text" class="form-control" ng-model="terminal_name" placeholder="Terminal Name">
+                            <input type="text" class="form-control" ng-model="add_terminal.terminal_name" placeholder="Terminal Name">
                         </div>
                         <div class="">
                             <button type="button" class="btn-boxy btn-xs btn-primary cancel-add-terminal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
