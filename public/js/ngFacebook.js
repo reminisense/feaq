@@ -12,9 +12,11 @@ fbapp.run(function($http) {
 
         FB.getLoginStatus(function(response) {
             if (response.status === 'connected') {
-                $http.post('/fb/laravel-login', { 'fb_id': response.authResponse.userID }).success(function(response) {
-                    if (response.success == 1) window.location.replace('/');
-                });
+                //Do nothing
+                //ARA changing behavior so that if user logs out of featherq, they will not be logged in again.
+                //$http.post('/fb/laravel-login', { 'fb_id': response.authResponse.userID }).success(function(response) {
+                //    if (response.success == 1) window.location.replace('/');
+                //});
             } else if (response.status === 'not_authorized') {
                 $http.post('/fb/laravel-logout');
             } else {

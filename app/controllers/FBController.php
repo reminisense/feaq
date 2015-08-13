@@ -60,4 +60,10 @@ class FBController extends BaseController {
         Auth::logout();
     }
 
+    public function getLaravelLogout()
+    {
+        Auth::logout();
+        return Redirect::to('/');
+    }
+
 }
