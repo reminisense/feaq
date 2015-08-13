@@ -119,7 +119,8 @@ var eb = {
 
         advertisement : {
             get_slider_image : '/advertisement/slider-images',
-            delete_slider_image : '/advertisement/delete-image'
+            delete_slider_image : '/advertisement/delete-image',
+            carousel_delay : '/advertisement/carousel-delay'
         }
     },
 
@@ -751,6 +752,9 @@ var eb = {
                     $scope.ticker_message3 = response.ticker_message3;
                     $scope.ticker_message4 = response.ticker_message4;
                     $scope.ticker_message5 = response.ticker_message5;
+
+                    // current carousel delay
+                    $scope.carousel_delay = response.carousel_delay/1000;
                 });
                 $http.post(eb.urls.advertisement.get_slider_image, {
                     'business_id' : business_id
@@ -829,6 +833,20 @@ var eb = {
             }).error(function() {
                 $('#ticker-danger').hide();
                 $('#ticker-success').fadeIn();
+            });
+        });
+
+        $scope.setCarouselDelay = (function() {
+            $http.post(eb.urls.advertisement.carousel_delay, {
+                business_id : $scope.business_id,
+                carousel_delay : $scope.carousel_delay
+            }).success(function() {
+                $('#carouseldelay-danger').hide();
+                $('#carouseldelay-success').fadeIn();
+                $('#carouseldelay-success').fadeOut(7000);
+            }).error(function() {
+                $('#carouseldelay-danger').hide();
+                $('#carouseldelay-success').fadeIn();
             });
         });
 

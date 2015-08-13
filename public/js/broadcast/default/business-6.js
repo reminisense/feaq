@@ -5,6 +5,7 @@ app.controller('nowServingCtrl', function($scope, $http, $compile) {
     var business_id = document.getElementById('business-id').getAttribute('business_id');
     var broadcast_type = document.getElementById('broadcast-type').getAttribute('broadcast_type');
     var ad_type = document.getElementById('ad-type').getAttribute('ad_type');
+    var carousel_delay = document.getElementById('fqCarousel').getAttribute('data-interval');
 
     $scope.callNumberSound = (function (soundobj) {
         var thissound = document.getElementById(soundobj);
@@ -38,7 +39,7 @@ app.controller('nowServingCtrl', function($scope, $http, $compile) {
     });
 
     $scope.refreshOnSettingsChange = (function(response) {
-        if (broadcast_type != response.display || ad_type != response.ad_type) {
+        if (broadcast_type != response.display || ad_type != response.ad_type || carousel_delay != response.carousel_delay) {
             window.location.reload(true);
         }
     });

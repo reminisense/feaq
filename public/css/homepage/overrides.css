@@ -669,3 +669,7 @@ span.box {padding: 2px 4px; margin-right: 10px; display: inline-blo; font-size: 
     width: 100%;
     margin-top: 80px;
 }
+.business_link:hover,
+.business_link:focus {
+    text-decoration: none;
+}

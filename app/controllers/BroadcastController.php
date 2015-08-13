@@ -130,6 +130,7 @@ class BroadcastController extends BaseController{
             $broadcast_template = 'broadcast.default.public-master';
         }
         return View::make($broadcast_template)
+            ->with('carousel_interval', isset($data->carousel_delay) ? (int)$data->carousel_delay : 5000)
             ->with('custom_fields', $custom_fields)
             ->with('ad_type', $data->ad_type)
             ->with('ad_src', $ad_src)
