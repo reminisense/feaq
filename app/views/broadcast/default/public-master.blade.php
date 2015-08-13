@@ -70,26 +70,13 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        @if (Auth::check()) Hello {{Auth::user()->first_name}}!
-                        @else Sign Up Now!
-                        @endif
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu" role="menu">
-                        @if (Auth::check()) <li><a href="{{URL::to('/')}}">Dashboard</a></li>
-                        @else <li ng-controller="fbController"><a href="" class="btn broadcast-signup" role="button" ng-click="login()"><img src="/img/fb-broadcast.png">&nbsp;&nbsp;Sign Up</a></li>
-                        @endif
-                        <li class="divider"></li>
-                        <li class="dropdown-header">Connect with us!</li>
-                        <li><a href="{{URL::to('https://www.facebook.com/theFeatherQ')}}">Facebook</a></li>
-                        <li><a href="{{URL::to('https://www.twitter.com/thefeatherq')}}">Twitter</a></li>
-                        <li><a href="{{URL::to('https://plus.google.com/101914769293976664743')}}">Google+</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" style="padding-top: 3px; padding-bottom: 3px;">
+                @if (Auth::check())
+                    <li class="broadcast-logged">Hello {{Auth::user()->first_name}}!</li>
+                @else
+                    <li ng-controller="fbController"><a href="" class="btn btn-fb" role="button" ng-click="login()"><img src="/images/homepage/fb.png" />Sign Up</a></li>
+                @endif
+                <li class="hidden-md hidden-sm hidden-xs btn-gplay">
+                    <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
                       <img alt="Android app on Google Play"
                       src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png" height="50"/>
                     </a>
@@ -135,6 +122,14 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-sm-12 hidden-lg visible-md visible-xs visible-sm" style="text-align: center;">
+            <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" style="padding-top: 3px; padding-bottom: 3px;">
+              <img alt="Android app on Google Play"
+              src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png"/>
+            </a>
+        </div>
+
         <div class="col-md-12 ticker mt20">
             @foreach($ticker_message as $message)
                 <div class="marquee-text hidden">{{ $message }}</div>
