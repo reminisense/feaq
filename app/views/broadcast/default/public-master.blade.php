@@ -75,8 +75,8 @@
                 @else
                     <li ng-controller="fbController"><a href="" class="btn btn-fb" role="button" ng-click="login()"><img src="/images/homepage/fb.png" />Sign Up</a></li>
                 @endif
-                <li class="hidden-md hidden-sm hidden-xs">
-                    <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" style="padding-top: 3px; padding-bottom: 3px;">
+                <li class="hidden-md hidden-sm hidden-xs btn-gplay">
+                    <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
                       <img alt="Android app on Google Play"
                       src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png" height="50"/>
                     </a>
