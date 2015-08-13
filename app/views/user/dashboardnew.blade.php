@@ -6,6 +6,7 @@ Dashboard
 
 @section('styles')
 <link rel='stylesheet' type='text/css' href='/css/dashboard/dashboard.css'>
+<link rel='stylesheet' type='text/css' href='/css/dashboard/biz-statuses.css'>
 <link rel='stylesheet' type='text/css' href='/css/dashboard/responsive.css'>
 @stop
 
@@ -90,7 +91,7 @@ Dashboard
             </div>
             <div class="col-md-3 col-sm-4 col-xs-12" ng-repeat="business in businesses">
                 <a class="broadcast_link" href="/broadcast/business/@{{ business.business_id }}" target="_blank">
-                    <div class="boxed">
+                    <div ng-class="{true: 'boxed biz-open', false: 'boxed biz-closed'}[business.is_calling || business.is_issuing]">
                         <p class="title">@{{ business.business_name }}</p>
                         <p class="address">@{{ business.local_address }}</p>
                         <div class="statuses" ng-if="!business.is_calling && !business.is_issuing">
@@ -113,6 +114,14 @@ Dashboard
                             <div class="col-md-12 text-center">
                                 <p class="line">Line Status: <span class="@{{ business.waiting_time }}">&middot</span> @{{ business.waiting_time }}</p>
                             </div>
+                        </div>
+                        <div class="status open" data-placement="left" title="" ng-if="business.is_calling || business.is_issuing">
+                        	<span class="glyphicon glyphicon-play"></span>
+                        	<div class="bg"></div>
+                        </div>
+                        <div class="status closed" data-placement="left" title="" ng-if="!business.is_calling && !business.is_issuing">
+                        	<span class="glyphicon glyphicon-ban-circle"></span>
+                        	<div class="bg"></div>
                         </div>
                     </div>
                 </a>
