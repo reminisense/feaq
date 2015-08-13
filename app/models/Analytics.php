@@ -182,8 +182,9 @@ class Analytics extends Eloquent{
      * equation : time_to_be_called = average_calling_time x numbers_remaining_in_queue
      */
     public static function getWaitingTime($business_id){
+        $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
         $numbers_in_queue = Analytics::getBusinessRemainingCount($business_id);
-        $average_waiting_time = Analytics::getAverageTimeCalledByBusinessId($business_id, 'numeric');
+        $average_waiting_time = Analytics::getAverageTimeCalledByBusinessId($business_id, 'numeric', $date, $date);
         return $average_waiting_time * $numbers_in_queue;
     }
 
