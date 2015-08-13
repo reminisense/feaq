@@ -59,7 +59,9 @@
         </h4>
             <div class="clearfix">
                     <label><input type="radio" name="ad_type" value="image" ng-model="ad_type" ng-change="adType(ad_type, business_id)"> <strong>Image</strong></label>&nbsp;&nbsp;
-                    <label><span class="label label-warning" style="font-size: 13px;"><strong>Upgrade to a premium account to activate video advertisements.</strong></span></label>
+                <strong>* Video Embedding Feature</strong> will soon be enjoyed by business partners that have been in close contact with us.
+                To be one of these partners, you may contact us at <strong><a href="mailto:contact@featherq.com">contact@featherq.com</a></strong>.
+                You may also call us at <strong>(+63 32) 345-4658</strong> for further inquiries.
             </div>
             <br>
             {{--<div class="col-md-6 col-sm-12">
