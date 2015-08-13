@@ -258,4 +258,17 @@ class AdvertisementController extends BaseController{
     }
   }
 
+  public function postCarouselDelay() {
+    $business_id = Input::get('business_id');
+    if (Helper::isBusinessOwner($business_id, Helper::userId())) { // PAG added permission checking
+      $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
+      $data->carousel_delay = (int)Input::get('carousel_delay') * 1000;
+      $encode = json_encode($data);
+      file_put_contents(public_path() . '/json/' . $business_id . '.json', $encode);
+    }
+    else {
+      return json_encode(array('status' => 'You are not allowed to access this function.'));
+    }
+  }
+
 }
