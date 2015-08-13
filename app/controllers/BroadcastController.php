@@ -129,6 +129,7 @@ class BroadcastController extends BaseController{
             $user = [];
             $broadcast_template = 'broadcast.default.public-master';
         }
+        $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
         return View::make($broadcast_template)
             ->with('carousel_interval', isset($data->carousel_delay) ? (int)$data->carousel_delay : 5000)
             ->with('custom_fields', $custom_fields)
@@ -143,7 +144,7 @@ class BroadcastController extends BaseController{
             ->with('business_id', $business_id) /* RDH Changed error, 'branch_id' to 'business_id' */
             ->with('business_name', $business_name)
             ->with('lines_in_queue', Analytics::getBusinessRemainingCount($business_id))
-            ->with('estimate_serving_time', Analytics::getAverageTimeServedByBusinessId($business_id))
+            ->with('estimate_serving_time', Analytics::getAverageTimeServedByBusinessId($business_id, 'string', $date, $date))
             ->with('first_service', Service::getFirstServiceOfBusiness($business_id))
             ->with('allow_remote', $allow_remote)
             ->with('ticker_message', $ticker_message)
