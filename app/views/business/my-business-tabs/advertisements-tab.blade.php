@@ -80,7 +80,7 @@
                             <small>Transition Time Delay: (seconds)</small>
                         </div>
                         <div class="col-md-4 col-xs-6">
-                            <input type="text" ng-model="carousel_delay" class="form-control" width="30px">
+                            <input type="number" min="0" step="1" ng-model="carousel_delay" class="form-control" width="30px">
                         </div>
                         <div class="col-md-4 col-xs-12">
                             <button type="submit" class="btn btn-orange" style="width: 100%;"><span class="glyphicon glyphicon-check"></span> SAVE</button>
