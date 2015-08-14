@@ -47,7 +47,7 @@
                                 <div class="mb10 mt10 inputuser" style="display: none">
                                     <form ng-submit="emailSearch(search_user, terminal.terminal_id)">
                                         <div class="col-md-12">
-                                            <input type="text" class="form-control" ng-model="search_user" placeholder="Facebook Email" ng-change="userSearch(search_user)" ng-model-options="{debounce: 1000}">
+                                            <input type="text" class="form-control" ng-model="search_user" placeholder="Facebook Email" ng-model-options="{debounce: 1000}">
                                             <ul class="dropdown-menu" role="menu" ng-show="user_results.users.length > 0"  style="display: block;" outside-click="clearUserResults()">
                                                 <li ng-repeat="user in user_results.users" ng-click="emailSearch(user.email, terminal.terminal_id)">
                                                     <a href="#">
@@ -81,7 +81,7 @@
                     <div class="mb10 inputuser" style="display: none">
                         <form ng-submit="emailSearch(search_user, terminal.terminal_id)">
                             <div class="col-md-12">
-                                <input type="text" class="form-control" ng-model="search_user" placeholder="Facebook Email" ng-change="userSearch(search_user)" ng-model-options="{debounce: 1000}">
+                                <input type="text" class="form-control" ng-model="search_user" placeholder="Facebook Email" ng-model-options="{debounce: 1000}">
                                 <ul class="dropdown-menu" role="menu" ng-show="user_results.users.length > 0"  style="display: block" outside-click="clearUserResults()">
                                     <li ng-repeat="user in user_results.users" ng-click="emailSearch(user.email, terminal.terminal_id)">
                                         <a href="#">
