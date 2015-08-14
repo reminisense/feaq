@@ -329,13 +329,18 @@ class ProcessQueue extends Eloquent{
             }
 
             $box_count = 1;
-            for($counter = 1; $counter <= $max_count; $counter++){
+            $existing = array();
+            for($counter = 1; $box_count <= $max_count; $counter++){
                 $index = $counter - 1;
-                $box = 'box'.$box_count;
-                $boxes->$box->number = isset($numbers[$index]['priority_number']) ? $numbers[$index]['priority_number'] : '';
-                $boxes->$box->terminal = isset($numbers[$index]['terminal_name']) ? $numbers[$index]['terminal_name'] : '';
-                $boxes->$box->rank = isset($numbers[$index]['box_rank']) ? $numbers[$index]['box_rank'] : ''; // Added by PAG
-                $box_count++;
+                $number = isset($numbers[$index]['priority_number']) ? $numbers[$index]['priority_number'] : '';
+                if(!in_array($number, $existing) || $number == ''){ //check if same number already exists
+                    $existing[] = $number;
+                    $box = 'box'.$box_count;
+                    $boxes->$box->number = $number;
+                    $boxes->$box->terminal = isset($numbers[$index]['terminal_name']) ? $numbers[$index]['terminal_name'] : '';
+                    $boxes->$box->rank = isset($numbers[$index]['box_rank']) ? $numbers[$index]['box_rank'] : ''; // Added by PAG
+                    $box_count++;
+                }
             }
             $boxes->get_num = $all_numbers->next_number;
 
