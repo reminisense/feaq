@@ -59,9 +59,15 @@
         </h4>
             <div class="clearfix">
                     <label><input type="radio" name="ad_type" value="image" ng-model="ad_type" ng-change="adType(ad_type, business_id)"> <strong>Image</strong></label>&nbsp;&nbsp;
-                <strong>* Video Embedding Feature</strong> will soon be enjoyed by business partners that have been in close contact with us.
-                To be one of these partners, you may contact us at <strong><a href="mailto:contact@featherq.com">contact@featherq.com</a></strong>.
-                You may also call us at <strong>(+63 32) 345-4658</strong> for further inquiries.
+                <div class="clearfix">
+                    <div class="col-md-12">
+                        <div role="alert" class="alert alert-info">
+                            <strong>* Video Embedding Feature</strong> will soon be enjoyed by business partners that have been in close contact with us.
+                            To be one of these partners, you may contact us at <strong><a href="mailto:contact@featherq.com">contact@featherq.com</a></strong>.
+                            You may also call us at <strong>(+63 32) 345-4658</strong> for further inquiries.
+                        </div>
+                    </div>
+                </div>
             </div>
             <br>
             {{--<div class="col-md-6 col-sm-12">
