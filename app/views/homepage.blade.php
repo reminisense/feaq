@@ -79,8 +79,8 @@
       <div class="things">
         <div class="container">
           <div class="clearfix">
-            <div class="col-lg-5 col-md-6 col-sm-8">
-              <h1>FeatherQ is a DIY cloud-based queuing system. We make it easy for businesses to <span>MANAGE THEIR LINES BETTER</span> and allow customers to wait on their own terms.</h1>
+            <div class="col-lg-6 col-md-6 col-sm-8">
+              <h1>FeatherQ is a DIY cloud-based queuing system. We make it easy for businesses to <span>Manage their lines better</span> and allow customers to wait on their own terms.</h1>
               <div class="mt40 mb40" ng-controller="fbController">
                 <a href="" class="btn btn-fb" ng-click="login()" role="button"><img src="/images/homepage/fb.png" /> Signup | Login with Facebook</a>
                 <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
@@ -95,7 +95,7 @@
                 <img src="/images/homepage/honda.png">
               </div>
             </div>
-            <div class="col-lg-offset-1 col-lg-6 col-md-6 hidden-sm hidden-xs">
+            <div class="col-lg-6 col-md-6 hidden-sm hidden-xs">
               <div class="holdphone">
                 <img src="/images/homepage/featherq-app.png">
               </div>
@@ -383,8 +383,8 @@
         </div>
       </div>
     </div>
-    <div class="clearfix mt50">
-      <div class="col-md-5 col-sm-12">
+    <div class="row mt50">
+      <div class="col-md-5 col-sm-12 col-xs-12">
         <div class="block plus">
           <h2 class="ml20"><img class="pull-left mr20" src="/images/homepage/plus.png" alt="plus" />Or any service oriented <br>business process!</h2>
         </div>
@@ -408,8 +408,8 @@
           Free, <br>
           Online Queue Management System
         </h1>
-        <h2>Call us at: <span class="orange">(032) 345-4658</span><br>
-          Email us at: <span class="orange">contact@featherq.com</span></h2>
+        <h2>Call us at: <a class="noline" href="tel:0323454658"><span class="orange">(+6332) 345-4658</span></a><br>
+          Email us at: <a class="noline" href="mailto:contact@featherq.com"><span class="orange">contact@featherq.com</span></a></h2>
           <p class="mt50 leave">
             Leave your email below to receive our monthly newsletter on new features, new innovations and news that help you beat the waiting game.
           </p>
@@ -424,7 +424,7 @@
         <div class="col-md-6 signthemup" ng-controller="fbController">
           <p>Allow your customers to wait on their own terms by making their mobile phone hold their spot in line. Gain competitive advantage by changing the way your customers perceive their wait.</p>
 
-          <p>Signup for a <span>FREE FeatherQ account</span> today. <br>
+          <p>Signup for a <a class="noline" href="" ng-click="login()"><span>FREE FeatherQ account</span></a> today. <br>
             Managing your lines is as simple as 1,2,3.</p>
             <button class="btn btn-fb" ng-click="login()">Sign up with facebook</button>
 

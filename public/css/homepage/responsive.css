@@ -3,6 +3,9 @@
 	/*.nav-tabs>li>a {
 		height: 81.5px;
 	}*/
+    .holdphone img {
+        margin-left: 0px;
+    }
     #myTabs .nav-tabs>li>a {
         height: 67.5px!important;
     }
@@ -322,7 +325,18 @@
 }
 
 @media only screen and (max-width : 320px) {
-	.banner .slider-nav {
+    .banner {
+        padding-top: 70px;
+    }
+    h2.ml20 {
+        margin-left: 0!important;
+        font-size: 18px!important;
+        text-align: left;
+    }
+    h2.ml20 img {
+        width: 40px;
+    }
+    .banner .slider-nav {
 		display: none;
 	}
 	.navbar-brand img {
