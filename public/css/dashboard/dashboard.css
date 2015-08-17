@@ -172,7 +172,6 @@
     border-radius: 4px;
     background: #18323b url('../../img/bg-bizgrid-box.png') top right no-repeat;
     padding: 15px;
-    overflow: hidden;
     margin-bottom: 15px;
     min-height:180px;
 }
@@ -201,7 +200,7 @@
     white-space: nowrap;
 }
 #search-grid .statuses {
-    background: url('../../img/bg-statuses-sep.jpg') top left no-repeat;
+    background: url('../../img/bg-statuses-sep.jpg') top center no-repeat;
     color: #dedede;
     font-size: 11px;
     font-family: 'ralewaymedium';
@@ -212,11 +211,12 @@
     text-transform: capitalize;
 }
 #search-grid .boxed:hover .statuses {
-    background: url('../../img/bg-statuseshover-sep.jpg') top left no-repeat;
-    content: #fff;
+    /*background: url('../../img/bg-statuseshover-sep.jpg') top left no-repeat;*/
+/*    content: #fff;*/
 }
 .broadcast_link {
     text-decoration: none;
+    display: block;
 }
 .broadcast_link:hover {
     text-decoration: none;

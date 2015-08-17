@@ -102,7 +102,7 @@ Dashboard
                                 <span class="pull-right" ng-if="business.last_active == 0">Today</span>
                             </p>
                         </div>
-                        <div class="statuses row" ng-if="business.is_calling || business.is_issuing">
+                        <div class="statuses" ng-if="business.is_calling || business.is_issuing">
                             <div class="col-md-6 col-xs-6 text-center">
                                 <h5>Calling</h5>
                                 <h4><strong>@{{ business.last_number_called }}</strong></h4>
@@ -115,11 +115,11 @@ Dashboard
                                 <p class="line">Line Status: <span class="@{{ business.waiting_time }}">&middot</span> @{{ business.waiting_time }}</p>
                             </div>
                         </div>
-                        <div class="status open" data-placement="left" title="" ng-if="business.is_calling || business.is_issuing">
+                        <div class="status open" data-toggle="tooltip" data-placement="top" title="" data-original-title="Queue on-going" ng-if="business.is_calling || business.is_issuing">
                         	<span class="glyphicon glyphicon-play"></span>
                         	<div class="bg"></div>
                         </div>
-                        <div class="status closed" data-placement="left" title="" ng-if="!business.is_calling && !business.is_issuing">
+                        <div class="status closed" data-toggle="tooltip" data-placement="left" title="Queue Closed" ng-if="!business.is_calling && !business.is_issuing">
                         	<span class="glyphicon glyphicon-ban-circle"></span>
                         	<div class="bg"></div>
                         </div>

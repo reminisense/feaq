@@ -1,6 +1,7 @@
 /**
  * Created by carlo on 1/29/15.
  */
+
 $(document).ready(function(){
     $("#user_location").geocomplete();
     $("#edit_user_location").geocomplete();
