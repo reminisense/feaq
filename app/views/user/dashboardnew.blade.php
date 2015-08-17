@@ -119,7 +119,7 @@ Dashboard
                         	<span class="glyphicon glyphicon-play"></span>
                         	<div class="bg"></div>
                         </div>
-                        <div class="status closed" data-toggle="tooltip" data-placement="left" title="Queue Closed" ng-if="!business.is_calling && !business.is_issuing">
+                        <div class="status closed" data-toggle="tooltip" data-placement="top" title="Queue Closed" ng-if="!business.is_calling && !business.is_issuing">
                         	<span class="glyphicon glyphicon-ban-circle"></span>
                         	<div class="bg"></div>
                         </div>

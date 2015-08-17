@@ -10,6 +10,10 @@ $(document).ready(function(){
         $('#longitude').val(result.geometry.location.lng());
     });
 
+    $(document).on('mouseenter', '.boxed', function(){
+        $(this).find('.status').tooltip();
+    });
+
     $('.timepicker').timepicker({});
 
     $.get('/user/user-status', function(){
