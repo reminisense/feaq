@@ -24,7 +24,7 @@
                 <a href="" ng-click="updateTerminal($event, terminal.terminal_id)" class="update-terminal-button btn-boxy btn-primary" terminal_id="@{{ terminal.terminal_id }}" style="display: none;"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
 
             </div>
-            <div style="display: none; margin-top: 10px;" class="alert alert-danger terminal-error-message" terminal_id="@{{ terminal.terminal_id }}"> Terminal name already exists.</div>
+            <div style="display: none; margin-top: 10px;" class="alert alert-danger terminal-error-message" terminal_id="@{{ terminal.terminal_id }}"></div>
         </td>
         <td width="45%">
         <span ng-if="terminal.users.length != 0">
@@ -120,7 +120,7 @@
                             <button type="button" class="btn-boxy btn-xs btn-primary cancel-add-terminal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
                             <button class="btn-boxy btn-xs btn-cyan" type="submit"><span class="glyphicon glyphicon-plus"></span> Add</button>
                         </div>
-                        <div style="display: none; margin-top: 10px;" class="alert alert-danger terminal-error-msg"> Terminal name already exists.</div>
+                        <div style="display: none; margin-top: 10px;" class="alert alert-danger terminal-error-msg"></div>
                     </div>
                 </form>
             </div>

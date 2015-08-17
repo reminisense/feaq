@@ -547,33 +547,43 @@ var eb = {
 
         $scope.updateTerminal = (function($event, terminal_id) {
             var new_name = $('.terminal-name-update[terminal_id='+terminal_id+']').val();
-            $('.terminal-name-display[terminal_id='+terminal_id+']').text(new_name);
-            $http.post(eb.urls.terminals.terminal_edit_url, {
-                terminal_id : terminal_id,
-                name : new_name
-            }).success(function(response) {
-                if(response.status){
-                    $('.update-terminal-button[terminal_id=' + terminal_id + ']').hide();
-                    $('.terminal-name-update[terminal_id=' + terminal_id + ']').hide();
-                    $('.terminal-name-display[terminal_id=' + terminal_id + ']').show();
-                    $('.edit-terminal-button[terminal_id=' + terminal_id + ']').show();
-                    $('.terminal-error-message[terminal_id=' + terminal_id + ']').hide();
-                }else{
-                    $('.terminal-error-message[terminal_id=' + terminal_id + ']').show();
-                    setTimeout(function(){$('.terminal-error-message[terminal_id=' + terminal_id + ']').fadeOut('slow')}, 3000);
-                }
-            }).error(function(response) {
-                alert('Something went wrong..');
-            });
+            if (new_name.length > 0){
+                $('.terminal-name-display[terminal_id='+terminal_id+']').text(new_name);
+                $http.post(eb.urls.terminals.terminal_edit_url, {
+                    terminal_id : terminal_id,
+                    name : new_name
+                }).success(function(response) {
+                    if(response.status){
+                        $('.update-terminal-button[terminal_id=' + terminal_id + ']').hide();
+                        $('.terminal-name-update[terminal_id=' + terminal_id + ']').hide();
+                        $('.terminal-name-display[terminal_id=' + terminal_id + ']').show();
+                        $('.edit-terminal-button[terminal_id=' + terminal_id + ']').show();
+                        $('.terminal-error-message[terminal_id=' + terminal_id + ']').hide();
+                    }else{
+                        $('.terminal-error-message[terminal_id=' + terminal_id + ']').html('Terminal name already exists.');
+                        $('.terminal-error-message[terminal_id=' + terminal_id + ']').show();
+                        setTimeout(function(){$('.terminal-error-message[terminal_id=' + terminal_id + ']').fadeOut('slow')}, 3000);
+                    }
+                }).error(function(response) {
+                    alert('Something went wrong..');
+                });
+            } else {
+                $('.terminal-error-message[terminal_id=' + terminal_id + ']').html('Terminal name cannot be empty.');
+                $('.terminal-error-message[terminal_id=' + terminal_id + ']').show();
+                setTimeout(function(){$('.terminal-error-message[terminal_id=' + terminal_id + ']').fadeOut('slow')}, 3000);
+            }
+
             $event.preventDefault();
         });
 
         $scope.createTerminal = function(){
-            $http.post(eb.urls.terminals.terminal_create_url, {
-                business_id : $scope.business_id,
-                name : $scope.add_terminal.terminal_name
-            }).success(function(response){
+            if ($scope.add_terminal.terminal_name.length > 0){
+                $http.post(eb.urls.terminals.terminal_create_url, {
+                    business_id : $scope.business_id,
+                    name : $scope.add_terminal.terminal_name
+                }).success(function(response){
                     if(response.status == 0){
+                        $('.terminal-error-msg').html("Terminal name already exists.");
                         $('.terminal-error-msg').show();
                         setTimeout(function(){$('.terminal-error-msg').fadeOut('slow')}, 3000);
                     }else{
@@ -583,6 +593,11 @@ var eb = {
                         $('.terminal-error-msg').hide();
                     }
                 });
+            } else {
+                $('.terminal-error-msg').html("Terminal name cannot be empty.");
+                $('.terminal-error-msg').show();
+                setTimeout(function(){$('.terminal-error-msg').fadeOut('slow')}, 3000);
+            }
         }
 
         $scope.isValidTime = function(time){
