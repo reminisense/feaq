@@ -518,6 +518,10 @@ class BusinessController extends BaseController{
         }
     }
 
+    public function getName($business_id) {
+      return json_encode(array('business_name' => Business::name($business_id)));
+    }
+
     public function getGeolocationFixer($business_id) {
         $parsed_location = str_replace(" ", "+", Business::localAddress($business_id));
         $data = json_decode(file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.$parsed_location));
