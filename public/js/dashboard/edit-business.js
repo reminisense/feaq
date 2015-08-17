@@ -546,14 +546,15 @@ var eb = {
         }
 
         $scope.updateTerminal = (function($event, terminal_id) {
-            var new_name = $('.terminal-name-update[terminal_id='+terminal_id+']').val();
-            if (new_name.trim() !== ""){
+            var new_name = $('.terminal-name-update[terminal_id='+terminal_id+']').val().trim();
+            if (new_name !== ""){
                 $('.terminal-name-display[terminal_id='+terminal_id+']').text(new_name);
                 $http.post(eb.urls.terminals.terminal_edit_url, {
                     terminal_id : terminal_id,
                     name : new_name
                 }).success(function(response) {
                     if(response.status){
+                        $('.terminal-name-update[terminal_id=' + terminal_id + ']').val(new_name);
                         $('.update-terminal-button[terminal_id=' + terminal_id + ']').hide();
                         $('.terminal-name-update[terminal_id=' + terminal_id + ']').hide();
                         $('.terminal-name-display[terminal_id=' + terminal_id + ']').show();
@@ -577,18 +578,19 @@ var eb = {
         });
 
         $scope.createTerminal = function(){
-            if ($scope.add_terminal.terminal_name.trim() !== ""){
+            var terminal_name = $scope.add_terminal.terminal_name.trim();
+            if (terminal_name !== ""){
                 $http.post(eb.urls.terminals.terminal_create_url, {
                     business_id : $scope.business_id,
-                    name : $scope.add_terminal.terminal_name
+                    name : terminal_name
                 }).success(function(response){
                     if(response.status == 0){
                         $('.terminal-error-msg').html("Terminal name already exists.");
                         $('.terminal-error-msg').show();
                         setTimeout(function(){$('.terminal-error-msg').fadeOut('slow')}, 3000);
-                    }else{
+                    } else {
                         setBusinessFields(response.business);
-                        $scope.terminal_name = '';
+                        $scope.add_terminal.terminal_name = '';
                         eb.jquery_functions.hide_add_terminal_form();
                         $('.terminal-error-msg').hide();
                     }
