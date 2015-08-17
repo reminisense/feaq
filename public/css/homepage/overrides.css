@@ -130,7 +130,7 @@ h3 {
       padding-top: 100px;
 }
 .banner h1 {
-    margin-top: 80px;
+    margin-top: 40px;
     font-size: 19px;
     line-height: 36px;
     font-weight: 400;
@@ -158,8 +158,8 @@ h3 {
 .banner .col-md-5 .partners img {
     margin: 5px 25px 4px 0;
 }
-.holdphone {
-    margin-right: -50px;
+.holdphone img {
+    margin-left: -100px;
 }
 .signthemup p {
     font-size: 18px;

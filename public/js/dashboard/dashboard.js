@@ -1,12 +1,17 @@
 /**
  * Created by carlo on 1/29/15.
  */
+
 $(document).ready(function(){
     $("#user_location").geocomplete();
     $("#edit_user_location").geocomplete();
     $("#business_location").geocomplete().bind("geocode:result", function (event, result) {
         $('#latitude').val(result.geometry.location.lat());
         $('#longitude').val(result.geometry.location.lng());
+    });
+
+    $(document).on('mouseenter', '.boxed', function(){
+        $(this).find('.status').tooltip();
     });
 
     $('.timepicker').timepicker({});
