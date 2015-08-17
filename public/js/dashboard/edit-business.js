@@ -469,12 +469,15 @@ var eb = {
         */
 
         $scope.unassignFromTerminal = function(user_id, terminal_id){
-            $http.post(eb.urls.terminals.terminal_unassign_url, {
-                user_id : user_id,
-                terminal_id : terminal_id
-            }).success(function(response){
+            var confirmDel = confirm("Are you sure you want to remove this terminal user?");
+            if (confirmDel){
+                $http.post(eb.urls.terminals.terminal_unassign_url, {
+                    user_id : user_id,
+                    terminal_id : terminal_id
+                }).success(function(response){
                     setBusinessFields(response.business);
                 });
+            }
         }
 
         $scope.assignToTerminal = function(user_id, terminal_id){
@@ -528,12 +531,16 @@ var eb = {
         }
 
         $scope.deleteTerminal = function($event, terminal_id) {
-            $http.post(eb.urls.terminals.terminal_delete_url, {
-                terminal_id : terminal_id
-            }).success(function(response) {
-                setBusinessFields(response.business);
-                eb.jquery_functions.clear_terminal_delete_msg();
-            });
+            var confirmDel = confirm("Are you sure you want to delete this terminal?");
+            if (confirmDel){
+                $http.post(eb.urls.terminals.terminal_delete_url, {
+                    terminal_id : terminal_id
+                }).success(function(response) {
+                    setBusinessFields(response.business);
+                    eb.jquery_functions.clear_terminal_delete_msg();
+                });
+            }
+
             $event.preventDefault();
         }
 
