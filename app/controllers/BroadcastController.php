@@ -299,6 +299,10 @@ class BroadcastController extends BaseController{
     if (!isset($data->turn_on_tv)) $data->turn_on_tv = false;
     if (!isset($data->tv_channel)) $data->tv_channel = "";
     if (!isset($data->ticker_message)) $data->ticker_message = "";
+    if (!isset($data->ticker_message2)) $data->ticker_message2 = "";
+    if (!isset($data->ticker_message3)) $data->ticker_message3 = "";
+    if (!isset($data->ticker_message4)) $data->ticker_message4 = "";
+    if (!isset($data->ticker_message5)) $data->ticker_message5 = "";
     //$data->display = "1-6";
     $encode = json_encode($data);
     file_put_contents(public_path() . '/json/' . $business_id . '.json', $encode);
