@@ -547,7 +547,7 @@ var eb = {
 
         $scope.updateTerminal = (function($event, terminal_id) {
             var new_name = $('.terminal-name-update[terminal_id='+terminal_id+']').val();
-            if (new_name.length > 0){
+            if (new_name.trim() !== ""){
                 $('.terminal-name-display[terminal_id='+terminal_id+']').text(new_name);
                 $http.post(eb.urls.terminals.terminal_edit_url, {
                     terminal_id : terminal_id,
@@ -577,7 +577,7 @@ var eb = {
         });
 
         $scope.createTerminal = function(){
-            if ($scope.add_terminal.terminal_name.length > 0){
+            if ($scope.add_terminal.terminal_name.trim() !== ""){
                 $http.post(eb.urls.terminals.terminal_create_url, {
                     business_id : $scope.business_id,
                     name : $scope.add_terminal.terminal_name
