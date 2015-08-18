@@ -154,6 +154,8 @@
 {{--{{ HTML::script('js/custom.js') }}--}}
 <script src="/js/broadcast/custom.js"></script>
 
+<script src="/js/intlTelInput.js"></script>
+
 {{--{{ HTML::script('js/process-queue/process-queue.js') }}--}}
 <script src="/js/process-queue/process-queue.js"></script>
 
