@@ -13,7 +13,6 @@
   font-size: 10px;
   color: #003d4e;
   text-align: right;
-    z-index: 999999;
 }
 .biz-closed .closed span,
 .biz-open .open span,
