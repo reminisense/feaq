@@ -14,16 +14,16 @@
                         <?php $count = count($ad_src); ?>
                     @endif
                     <div class="item <?php $count == 0 ? print 'active' : print ''; ?>">
-                        <img id="ad<?php print $count+1; ?>" src="/images/broadcast1.jpg" alt="Ad<?php print $count+1; ?>">
+                        <img id="ad<?php print $count+1; ?>" src="/images/broadcast/carousel/car1.jpg" alt="Ad<?php print $count+1; ?>">
                     </div>
                     <div class="item">
-                        <img id="ad<?php print $count+2; ?>" src="/images/broadcast2.jpg" alt="Ad<?php print $count+2; ?>">
+                        <img id="ad<?php print $count+2; ?>" src="/images/broadcast/carousel/car2.jpg" alt="Ad<?php print $count+2; ?>">
                     </div>
                     <div class="item">
-                        <img id="ad<?php print $count+3; ?>" src="/images/broadcast3.jpg" alt="Ad<?php print $count+3; ?>">
+                        <img id="ad<?php print $count+3; ?>" src="/images/broadcast/carousel/car3.jpg" alt="Ad<?php print $count+3; ?>">
                     </div>
                     <div class="item">
-                        <img id="ad<?php print $count+4; ?>" src="/images/broadcast4.jpg" alt="Ad<?php print $count+4; ?>">
+                        <img id="ad<?php print $count+4; ?>" src="/images/broadcast/carousel/car4.jpg" alt="Ad<?php print $count+4; ?>">
                     </div>
             </div>
         </div>
