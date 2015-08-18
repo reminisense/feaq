@@ -40,7 +40,7 @@
                                     <label>Cellphone</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="phone" value="@{{ contactmobile }}" name="phone" required>
+                                    <input id="issued-number-phone" type="text" class="form-control" ng-model="phone" value="@{{ contactmobile }}" name="phone" required>
                                 </div>
                                 <div class="col-md-4">
                                     <label>Email</label>
