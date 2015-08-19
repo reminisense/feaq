@@ -152,10 +152,10 @@ class BusinessController extends BaseController{
                   "turn_on_tv": false,
                   "tv_channel": "",
                   "date": "' . date("mdy") . '",
-                  "ticker_message" : ""
-                  "ticker_message2" : ""
-                  "ticker_message3" : ""
-                  "ticker_message4" : ""
+                  "ticker_message" : "",
+                  "ticker_message2" : "",
+                  "ticker_message3" : "",
+                  "ticker_message4" : "",
                   "ticker_message5" : ""
                 }
             ';
