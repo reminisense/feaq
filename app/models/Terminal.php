@@ -109,7 +109,15 @@ class Terminal extends Eloquent{
 
     // Added by PAG
     private static function generateBoxRank($service_id) {
-        return Terminal::where('service_id', '=', $service_id)->select(DB::raw('COUNT(*) AS rankcount'))->first()->rankcount + 1;
+      $box_rank = array();
+      $res = Terminal::where('service_id', '=', $service_id)->select(array('box_rank'))->get();
+      foreach ($res as $count => $data) {
+        $box_rank[] = $data->box_rank;
+      }
+      if (!in_array('1', $box_rank)) return '1';
+      elseif (!in_array('2', $box_rank)) return '2';
+      elseif (!in_array('3', $box_rank)) return '3';
+      //return Terminal::where('service_id', '=', $service_id)->select(DB::raw('COUNT(*) AS rankcount'))->first()->rankcount + 1;
     }
 
     public static function boxRank($terminal_id) {
