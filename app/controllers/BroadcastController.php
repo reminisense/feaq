@@ -41,8 +41,17 @@ class BroadcastController extends BaseController{
     {
         $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
         $arr = explode("-", $data->display);
-        if ($arr[0]) $template_type = 'ads-' . $arr[1];
-        else $template_type = 'noads-' . $arr[1];
+
+        if ($arr[0]) {
+            if ($arr[0] == 3){
+                $template_type = 'ads-' . $arr[1] . '-2';
+            } else {
+                $template_type = 'ads-' . $arr[1];
+            }
+        } else {
+            $template_type = 'noads-' . $arr[1];
+        }
+
         if ($data->ad_type == 'image') {
           $ad_src = array();
           $ad_directory = public_path() . '/ads/' . $business_id;

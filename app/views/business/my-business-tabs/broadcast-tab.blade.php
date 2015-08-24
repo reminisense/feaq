@@ -51,24 +51,42 @@
                 <small>Choose a pre-defined TV channel on your broadcast screen</small>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-6">
-                <img src="/images/icon-b1.jpg" class="mb10 img-responsive broadcast-preview">
+                <img src="/images/icon-b1.2.jpg" class="mb10 img-responsive broadcast-preview">
                 <span class="inline-btns">
                     <p class="orange h5 nomg 2-1 activated" style="display: none;"><span class="glyphicon glyphicon-ok"></span> Active</p>
                     <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 2-1 theme-btn" ng-click="activateTheme('2-1', business_id, show_called_only)"><span class="glyphicon glyphicon-pushpin"></span> Activate</a>
                 </span>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-6">
-                <img src="/images/icon-b2.jpg" class="mb10 img-responsive broadcast-preview">
+                <img src="/images/icon-b4.2.jpg" class="mb10 img-responsive broadcast-preview">
                 <span class="inline-btns">
                     <p class="orange h5 nomg 2-4 activated" style="display: none;"><span class="glyphicon glyphicon-ok"></span> Active</p>
                     <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 2-4 theme-btn" ng-click="activateTheme('2-4', business_id, show_called_only)"><span class="glyphicon glyphicon-pushpin"></span> Activate</a>
                 </span>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-6">
-                <img src="/images/icon-b3.jpg" class="mb10 img-responsive broadcast-preview">
+                <img src="/images/icon-b6.2.jpg" class="mb10 img-responsive broadcast-preview">
                 <span class="inline-btns">
                     <p class="orange h5 nomg 2-6 activated" style="display: none;"><span class="glyphicon glyphicon-ok"></span> Active</p>
                     <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 2-6 theme-btn" ng-click="activateTheme('2-6', business_id, show_called_only)"><span class="glyphicon glyphicon-pushpin"></span> Activate</a>
+                </span>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-md-3 col-sm-6 col-xs-12"></div>
+            <div class="col-md-3 col-sm-6 col-xs-6">
+                <img src="/images/icon-b2.2.jpg" class="mb10 img-responsive broadcast-preview">
+                <span class="inline-btns">
+                    <p class="orange h5 nomg 3-4 activated" style="display: none;"><span class="glyphicon glyphicon-ok"></span> Active</p>
+                    <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 3-4 theme-btn" ng-click="activateTheme('3-4', business_id, show_called_only)"><span class="glyphicon glyphicon-pushpin"></span> Activate</a>
+                </span>
+            </div>
+
+            <div class="col-md-3 col-sm-6 col-xs-6">
+                <img src="/images/icon-b3.2.jpg" class="mb10 img-responsive broadcast-preview">
+                <span class="inline-btns">
+                    <p class="orange h5 nomg 3-6 activated" style="display: none;"><span class="glyphicon glyphicon-ok"></span> Active</p>
+                    <a href="#" class="btn-boxy btn-xs btn-adduser btn-primary 3-6 theme-btn" ng-click="activateTheme('3-6', business_id, show_called_only)"><span class="glyphicon glyphicon-pushpin"></span> Activate</a>
                 </span>
             </div>
         </div>
