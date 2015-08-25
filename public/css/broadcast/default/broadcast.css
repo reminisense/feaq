@@ -319,7 +319,7 @@ body#broadcast .terminal {
 .ads-fournums p.orange { padding-top:38px; font-size:3.5vmin!important; }
 .ads-sixnums p.orange { padding-top:10px; font-size:3vmin!important; }
 
-
+/*
 ::-webkit-scrollbar {
     -webkit-appearance: none;
     width: 7px;
@@ -328,15 +328,14 @@ body#broadcast .terminal {
     border-radius: 4px;
     background-color: rgba(0,0,0,.5);
     -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
-}
+}*/
 
 .ticker {
     position: fixed;
     z-index: 9999;
     bottom: 0px;
     width: 100%;
-    background: rgba(255, 255, 255, 0.93);
-    padding-top: 5px;
+    background: rgba(255, 255, 255, 0.95);
 }
 
 .ticker div {

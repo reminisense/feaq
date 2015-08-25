@@ -6,7 +6,7 @@
     font-size: 30px;
   }
   .boxed .broadcast .numbers .terminal {
-    height: 45px!important;
+    height: 66px!important;
   }
   .boxed.itv .body {
     height: 94.5%;
@@ -41,15 +41,15 @@
   }
   .boxed .broadcast.itv4 .numbers .terminal {
     height: 50px!important;
-    line-height: 50px;
+    line-height: 50px!important;
   }
 }
 @media (max-width: 1900px) {
   .broadcast.itv .callnum {
-    line-height: 50px!important;
+    line-height: 70px!important;
   }
   .broadcast.itv .numbers .terminal {
-    font-size: 18px;
+    font-size: 20px;
   }
   .broadcast.itv .numbers {
     font-size: 3.5vw!important;
@@ -57,10 +57,11 @@
 }
 @media (max-width: 1800px) {
   .broadcast.itv .callnum {
-    line-height: 50px!important;
+    line-height: 70px!important;
   }
   .broadcast.itv .numbers .terminal {
-    font-size: 18px;
+    font-size: 20px;
+      line-height: 30px!important;
   }
   .broadcast.itv .numbers {
     font-size: 4.5vw!important;
@@ -71,7 +72,8 @@
     line-height: 50px!important;
   }
   .broadcast.itv .numbers .terminal {
-    font-size: 18px;
+    font-size: 20px;
+      margin-top: 20px!important;
   }
   .boxed.itv .body {
     height: 91%;
@@ -84,7 +86,15 @@
     line-height: 50px;
   }
 }
+@media (max-width: 1500px) {
+    .broadcast.itv .numbers .terminal {
+        margin-top: 16px !important;
+    }
+}
 @media (max-width: 1400px) {
+    .broadcast.itv .numbers .terminal {
+        margin-top: 16px!important;
+    }
   .broadcast.itv .callnum {
     line-height: 50px!important;
   }

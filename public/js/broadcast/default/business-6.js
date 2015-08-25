@@ -71,21 +71,21 @@ app.controller('nowServingCtrl', function($scope, $http, $compile) {
         $scope.announceNumber(response, 'rank3', 'box3', 'name3');
         $scope.announceNumber(response, 'rank4', 'box4', 'name4');
         $scope.announceNumber(response, 'rank5', 'box5', 'name5');
-        //$scope.announceNumber(response, 'rank6', 'box6', 'name6');
+        $scope.announceNumber(response, 'rank6', 'box6', 'name6');
 
         $scope.announceNumberFromBlank(response, 'box1', 'rank1');
         $scope.announceNumberFromBlank(response, 'box2', 'rank2');
         $scope.announceNumberFromBlank(response, 'box3', 'rank3');
         $scope.announceNumberFromBlank(response, 'box4', 'rank4');
         $scope.announceNumberFromBlank(response, 'box5', 'rank5');
-        //$scope.announceNumberFromBlank(response, 'box6', 'rank6');
+        $scope.announceNumberFromBlank(response, 'box6', 'rank6');
 
         $scope.writeNumber(response, 'box1');
         $scope.writeNumber(response, 'box2');
         $scope.writeNumber(response, 'box3');
         $scope.writeNumber(response, 'box4');
         $scope.writeNumber(response, 'box5');
-        //$scope.writeNumber(response, 'box6');
+        $scope.writeNumber(response, 'box6');
 
 /*        $('.marquee-text').remove();
         if(response.ticker_message != ''){ $('.ticker').append("<div class='marquee-text hidden'>" + response.ticker_message + "</div"); }

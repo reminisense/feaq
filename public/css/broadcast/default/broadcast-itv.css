@@ -22,7 +22,7 @@ body {
 .boxed.itv .body,
 .boxed.itv4 .body {
   position: absolute;
-  bottom: 0px;
+  bottom: 30px;
   height: 90%;
 }
 
@@ -50,12 +50,20 @@ body {
 .broadcast.itv .callnum {
   line-height: 70px;
   margin-bottom: 0;
+    margin-top: 20px;
+}
+.broadcast.itv .terminal {
+    margin-top: 30px!important;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 0!important;
 }
 .broadcast.itv .col-md-12 {
-  height: 16.6666%;
+  height: 16%;
 }
 .broadcast.itv4 .col-md-12 {
-  height: 25%;
+  height: 24%;
 }
 .broadcast.itv4 .numbers .terminal {
     font-size: 22px;
@@ -69,7 +77,7 @@ body {
   text-align: center;
   min-height: inherit!important;
   padding: 15px!important;
-  background: rgba(255,255,255,0.85)!important;
+  background: white;
 }
 .qrcode.qrwrap .orange {
   font-size: 20px!important;
@@ -97,4 +105,24 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
+}
+.boxed.mb20.itv4 h4,
+.boxed.mb20.itv h4{
+    font-size: 18px!important;
+    margin: 0;
+}
+.boxed.mb20.itv .numbers.t1 .callnum,
+.boxed.mb20.itv .numbers.t2 .callnum,
+.boxed.mb20.itv .numbers.t3 .callnum,
+.boxed.mb20.itv4 .numbers.t1 .callnum,
+.boxed.mb20.itv4 .numbers.t2 .callnum,
+.boxed.mb20.itv4 .numbers.t3 .callnum {
+    color: #fff!important;
+}
+.boxed.mb20.itv4 .terminal {
+    margin-top: 0!important;
+    margin-bottom: 0!important;
+}
+.boxed.mb20.itv4 .numbers {
+    margin-bottom: 2px!important;
 }
