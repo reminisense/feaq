@@ -73,8 +73,8 @@
             <h5>* SMS SETTINGS</h5>
         </div>
         <div class="clearfix">
-            <span><label>Frontline SMS</label> <input class="disabled" ng-disabled="true" type="radio" value="frontline_sms" ng-model="sms_gateway"/></span>
-            <span><label>Twilio</label> <input class="disabled" ng-disabled="true" type="radio" value="twilio" ng-model="sms_gateway"/></span>
+            <span><label>Frontline SMS</label> <input ng-disabled="business_features.allow_sms == 'false'" type="radio" value="frontline_sms" ng-model="sms_gateway"/></span>
+            <span><label>Twilio</label> <input ng-disabled="business_features.allow_sms == 'false'" type="radio" value="twilio" ng-model="sms_gateway"/></span>
         </div>
         <div ng-show="sms_gateway == 'frontline_sms'">
             <div class="clearfix">
@@ -86,7 +86,7 @@
                     </p>
                 </div>
                 <div class="col-md-6 mb20">
-                    <input class="mb0 form-control disabled" type="text" value="@{{ frontline_api_key }}" ng-model="frontline_api_key" ng-disabled="true">
+                    <input class="mb0 form-control" ng-disabled="business_features.allow_sms == 'false'" type="password" value="@{{ frontline_api_key }}" ng-model="frontline_api_key" ng-disabled="true">
                 </div>
             </div>
             <div class="clearfix">
@@ -98,7 +98,7 @@
                     </p>
                 </div>
                 <div class="col-md-6 mb20">
-                    <input class="mb0 form-control disabled" type="text" value="@{{ frontline_url }}" ng-model="frontline_url" ng-disabled="true">
+                    <input class="mb0 form-control" ng-disabled="business_features.allow_sms == 'false'" type="text" value="@{{ frontline_url }}" ng-model="frontline_url" ng-disabled="true">
                 </div>
             </div>
         </div>
@@ -108,7 +108,7 @@
                     <p class="title">Twilio Account SID</p>
                 </div>
                 <div class="col-md-6 mb20">
-                    <input class="mb0 form-control disabled" type="text" value="@{{ twilio_account_sid }}" ng-model="twilio_account_sid" ng-disabled="true">
+                    <input class="mb0 form-control" ng-disabled="business_features.allow_sms == 'false'" type="password" value="@{{ twilio_account_sid }}" ng-model="twilio_account_sid" ng-disabled="true">
                 </div>
             </div>
             <div class="clearfix">
@@ -116,7 +116,7 @@
                     <p class="title">Twilio Auth Token</p>
                 </div>
                 <div class="col-md-6 mb20">
-                    <input class="mb0 form-control disabled" type="text" value="@{{ twilio_auth_token }}" ng-model="twilio_auth_token" ng-disabled="true">
+                    <input class="mb0 form-control" ng-disabled="business_features.allow_sms == 'false'" type="password" value="@{{ twilio_auth_token }}" ng-model="twilio_auth_token" ng-disabled="true">
                 </div>
             </div>
             <div class="clearfix">
@@ -124,7 +124,7 @@
                     <p class="title">Twilio phone number</p>
                 </div>
                 <div class="col-md-6 mb20">
-                    <input class="mb0 form-control disabled" type="text" value="@{{ twilio_phone_number }}" ng-model="twilio_phone_number" ng-disabled="true">
+                    <input class="mb0 form-control" ng-disabled="business_features.allow_sms == 'false'" type="text" value="@{{ twilio_phone_number }}" ng-model="twilio_phone_number" ng-disabled="true">
                 </div>
             </div>
         </div>

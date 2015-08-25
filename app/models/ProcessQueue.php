@@ -344,7 +344,7 @@ class ProcessQueue extends Eloquent{
             }
             $boxes->get_num = $all_numbers->next_number;
 
-            File::put($file_path, json_encode($boxes));
+            File::put($file_path, json_encode($boxes, JSON_PRETTY_PRINT));
         }
     }
 }

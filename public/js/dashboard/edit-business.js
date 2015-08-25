@@ -386,8 +386,15 @@ var eb = {
             if(features){
                 $scope.business_features = features;
                 if(features.terminal_users == undefined) features.terminal_users = 3;
+                if(features.allow_sms == 'false'){
+                    $scope.sms_gateway == null;
+                    $scope.frontline_api_key = null;
+                    $scope.frontline_url = null;
+                    $scope.twilio_account_sid = null;
+                    $scope.twilio_auth_token = null;
+                    $scope.twilio_phone_number = null;
+                }
             }
-
         }
 
         /* @CSD 05062015 */

@@ -201,24 +201,31 @@ class Notifier extends Eloquent{
     }
 
     public static function sendSMS($message, $phone, $service_id){
-        $gateway = QueueSettings::smsGateway($service_id);
-        $api_variables = unserialize(QueueSettings::smsGatewayApi($service_id));
-        if($gateway == 'frontline_sms'){
-            $url = QueueSettings::frontlineUrl($service_id);
-            $secret = QueueSettings::frontlineSecret($service_id);
-            $api_key = null;
-            if($url == FRONTLINE_SMS_URL && $secret == FRONTLINE_SMS_SECRET){
-                $url = $api_variables['frontline_sms_url'];
-                $api_key = $api_variables['frontline_sms_api_key'];
+        //ARA Adding sms as business feature
+        $business_features = Business::getBusinessFeatures(Branch::businessId(Service::branchId($service_id)));
+        if($business_features['allow_sms'] == 'true'){
+            $gateway = QueueSettings::smsGateway($service_id);
+            $api_variables = unserialize(QueueSettings::smsGatewayApi($service_id));
+            if($gateway == 'frontline_sms'){
+                $url = QueueSettings::frontlineUrl($service_id);
+                $secret = QueueSettings::frontlineSecret($service_id);
+                $api_key = null;
+                if($url == FRONTLINE_SMS_URL && $secret == FRONTLINE_SMS_SECRET){
+                    $url = $api_variables['frontline_sms_url'];
+                    $api_key = $api_variables['frontline_sms_api_key'];
+                }
+
+                Notifier::sendFrontlineSMS($message, $phone, $url, $secret, $api_key);
+            }else if($gateway == 'twilio'){
+                if($api_variables['twilio_phone_number'] == TWILIO_PHONE_NUMBER && $api_variables['twilio_account_sid'] == TWILIO_ACCOUNT_SID && $api_variables['twilio_auth_token'] == TWILIO_AUTH_TOKEN){
+                    //@todo do something says that they are using featherq twilio service
+                }
+                $from = $api_variables['twilio_phone_number'];
+                $account_sid = $api_variables['twilio_account_sid'];
+                $auth_token = $api_variables['twilio_auth_token'];
+
+                Notifier::sendTwilio($phone, $message, $from, $account_sid, $auth_token);
             }
-
-            Notifier::sendFrontlineSMS($message, $phone, $url, $secret, $api_key);
-        }else if($gateway == 'twilio'){
-            $from = $api_variables['twilio_phone_number'];
-            $account_sid = $api_variables['twilio_account_sid'];
-            $auth_token = $api_variables['twilio_auth_token'];
-
-            Notifier::sendTwilio($phone, $message, $from, $account_sid, $auth_token);
         }
     }
 
