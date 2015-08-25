@@ -126,3 +126,12 @@ body {
 .boxed.mb20.itv4 .numbers {
     margin-bottom: 2px!important;
 }
+.boxed .body.broadcast {
+    background: #e7e7e7;
+}
+.body.broadcast .ads-fournums .terminal {
+    line-height: 46px!important;
+}
+.body.broadcast .ads-sixnums .terminal {
+    height: 2.6em!important;
+}

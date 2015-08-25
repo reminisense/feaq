@@ -5,7 +5,7 @@
   .broadcast.itv .numbers .terminal {
     font-size: 30px;
   }
-  .boxed .broadcast .numbers .terminal {
+  .boxed .broadcast.itv .numbers .terminal {
     height: 66px!important;
   }
   .boxed.itv .body {
@@ -140,10 +140,10 @@
 }
 
 @media (max-width: 480px) {
-  .boxed .broadcast .numbers {
+  .boxed .broadcast.itv .numbers {
     font-size: 60px!important;
   }
-  #broadcast .broadcast .numbers {
+  #broadcast .broadcast.itv .numbers {
     height: 100px!important;
   }
   .broadcast.itv .col-md-12 {
