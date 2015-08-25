@@ -1,5 +1,13 @@
-@include('broadcast.default.ads-master-2')
+<div class="col-md-9">
 
+	<div class="top">
+  		<a class="" href="#"><img src="/images/featherq-home-logo.png"></a>
+	</div>
+	<div class="vid-container">
+  		<iframe width="100%" height="100%" src="https://www.youtube.com/embed/yWGcemRDn4E" frameborder="0" allowfullscreen></iframe>
+  	</div>
+
+</div>
 <div class="col-md-3">
   <div class="boxed mb20 itv4">
     <div class="head">
@@ -36,3 +44,4 @@
     </div>
   </div>
 </div>
+

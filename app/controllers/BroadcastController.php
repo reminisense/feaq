@@ -131,9 +131,11 @@ class BroadcastController extends BaseController{
             if (UserBusiness::getBusinessIdByOwner(Auth::user()->user_id) == $business_id) {
                 if ($arr[0] == 2 || $arr[0] == 3) {
                     $ad_src = $data->tv_channel; // check if TV is on
+                    $broadcast_template = 'broadcast.default.internet-tv-master';
+                } else {
+                    $broadcast_template = 'broadcast.default.business-master';
                 }
 
-                $broadcast_template = 'broadcast.default.business-master';
             } else {
                 $broadcast_template = 'broadcast.default.public-master';
             }
