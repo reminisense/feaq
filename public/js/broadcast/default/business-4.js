@@ -69,14 +69,17 @@ app.controller('nowServingCtrl', function($scope, $http) {
         $scope.announceNumber(response, 'rank1', 'box1', 'name1');
         $scope.announceNumber(response, 'rank2', 'box2', 'name2');
         $scope.announceNumber(response, 'rank3', 'box3', 'name3');
+        $scope.announceNumber(response, 'rank4', 'box4', 'name4');
 
         $scope.announceNumberFromBlank(response, 'box1', 'rank1');
         $scope.announceNumberFromBlank(response, 'box2', 'rank2');
         $scope.announceNumberFromBlank(response, 'box3', 'rank3');
+        $scope.announceNumberFromBlank(response, 'box4', 'rank4');
 
         $scope.writeNumber(response, 'box1');
         $scope.writeNumber(response, 'box2');
         $scope.writeNumber(response, 'box3');
+        $scope.writeNumber(response, 'box4');
     });
 
     $scope.resetNumbers = (function(response) {

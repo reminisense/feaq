@@ -297,7 +297,7 @@ body#broadcast .terminal {
 .onenum .terminal { font-size:9vmin; }
 .fournums .terminal { font-size:5.5vmin; }
 .sixnums .terminal { font-size:5.5vmin; }
-.ads-onenum .terminal { font-size:6vmin; }
+/*.ads-onenum .terminal { font-size:6vmin; }*/
 .ads-fournums .terminal { font-size:4.5vmin; }
 .ads-sixnums .terminal { font-size:3vmin; }
 
@@ -319,7 +319,7 @@ body#broadcast .terminal {
 .ads-fournums p.orange { padding-top:38px; font-size:3.5vmin!important; }
 .ads-sixnums p.orange { padding-top:10px; font-size:3vmin!important; }
 
-
+/*
 ::-webkit-scrollbar {
     -webkit-appearance: none;
     width: 7px;
@@ -328,15 +328,14 @@ body#broadcast .terminal {
     border-radius: 4px;
     background-color: rgba(0,0,0,.5);
     -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
-}
+}*/
 
 .ticker {
     position: fixed;
     z-index: 9999;
     bottom: 0px;
     width: 100%;
-    background: rgba(255, 255, 255, 0.93);
-    padding-top: 5px;
+    background: rgba(255, 255, 255, 0.95);
 }
 
 .ticker div {
@@ -344,4 +343,24 @@ body#broadcast .terminal {
     font-family: ArialMTStd-ExtraBold;
     color: #333338;
     margin-bottom: 0px;
+}
+
+.ads-sixnums  .numbers.t h1 {
+    padding-top: 0!important;
+}
+#broadcast .boxed .head {
+    border-radius: 0!important;
+}
+#broadcast .body.broadcast .ads-onenum .terminal {
+    line-height: 48px!important;
+    font-size: 4.4vmin;
+}
+
+#broadcast .body.broadcast .ads-onenum .numbers {
+    height: 46vh!important;
+    padding: 20px;
+}
+#broadcast .body.broadcast .ads-onenum h1 {
+    font-size: 24vmin!important;
+    margin-top: 20px!important;
 }

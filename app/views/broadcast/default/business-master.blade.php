@@ -13,8 +13,6 @@
     <link href="/css/broadcast/default/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
     <link href="/css/broadcast/default/broadcast.css" rel="stylesheet" type="text/css" media="all">
     <link href="/css/broadcast/default/responsive.css" rel="stylesheet" type="text/css" media="all">
-    <link href="/css/broadcast/default/broadcast-itv.css" rel="stylesheet" type="text/css" media="all">
-    <link href="/css/broadcast/default/responsive-itv.css" rel="stylesheet" type="text/css" media="all">
 
     <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script> {{-- RDH Using CDN for Angular JS File --}}
