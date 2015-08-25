@@ -99,26 +99,32 @@
                         <div class="alert alert-danger" id="carouseldelay-danger" style="display: none;">Oops! Something went wrong.</div>
                     </div>
                 </div>
-                <div class="col-md-12" style="text-align: center; max-height: 300px; overflow: scroll;">
-                    <div class="table-responsive">
-                        <table class="table table-striped">
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <span class="label label-info pull-left" style="font-size: 14px; word-wrap: break-word;">Reorder Images as they Appear in the Broadcast Screen</span>
+                    </div>
+                    <div class="col-md-12 table-responsive">
+                        <table class="table table-striped" id="ad-images-preview">
                             <tbody>
-                            <tr>
-                                <td ng-repeat="slider in slider_images" id="slide@{{ slider.count }}">
-                                    <div class="row"><img ng-src="/@{{ slider.path }}" height="240px" style="padding-left: 20px; margin-bottom: 5px;"></div>
-                                    <div class="row" style="padding-left: 20px;"><button class="btn btn-danger" ng-click="deleteImageSlide(business_id, slider.count, slider.path);">Remove</button></div>
+                            <tr ng-repeat="slider in slider_images" id="slide@{{ slider.count }}" img_id="@{{ slider.img_id }}" img_weight="@{{ slider.weight }}">
+                                <td>
+                                    <span class="glyphicon glyphicon-move" style="font-size: 20px;"></span>
+                                </td>
+                                <td>
+                                    <img ng-src="/@{{ slider.path }}" style="max-height: 100px; max-width: 300px;">
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger" ng-click="deleteImageSlide(business_id, slider.count, slider.path);">Remove</button>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
+                    <div class="col-md-12">
+                        <span class="label label-default pull-right" style="word-wrap: break-word;">** You might have to refresh the broadcast screen after re-ordering.</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-
-
-
-
 

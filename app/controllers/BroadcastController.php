@@ -45,12 +45,18 @@ class BroadcastController extends BaseController{
         else $template_type = 'noads-' . $arr[1];
         if ($data->ad_type == 'image') {
           $ad_src = array();
+          $res = AdImages::getAllImages();
+          foreach ($res as $count => $img) {
+            $ad_src[] = $img->path;
+          }
+          /*
           $ad_directory = public_path() . '/ads/' . $business_id;
           if (file_exists($ad_directory)) {
             foreach(glob($ad_directory . '/*.*') as $filename){
               $ad_src[] = 'ads/' . $business_id . '/' . basename($filename);
             }
           }
+          */
         }
         else $ad_src = $data->ad_video;
 
