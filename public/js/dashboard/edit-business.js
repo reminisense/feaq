@@ -71,7 +71,7 @@ $(document).ready(function(){
     eb.jquery_functions.my_business_link_active();
     eb.jquery_functions.activate_plupload();
     eb.jquery_functions.load_remote_limit_slider();
-
+    eb.jquery_functions.reorder_ad_image();
 
 });
 
@@ -269,6 +269,21 @@ var eb = {
                             eb.jquery_functions.activate_plupload();
                         });
                     }
+                }
+            });
+        },
+
+        reorder_ad_image : function() {
+            $( "#ad-images-preview tbody" ).sortable({
+                stop: function( event, ui ){
+                    $(this).find('tr').each(function(i){
+                        $(this).attr('img_weight', i+1);
+                        $.post('/advertisement/reorder-images', {
+                            business_id: $('#business_id').val(),
+                            img_id : $(this).attr('img_id'),
+                            weight : $(this).attr('img_weight')
+                        });
+                    });
                 }
             });
         }
@@ -1019,7 +1034,7 @@ var eb = {
             $http.post('/business/business-analytics', { business_id: $scope.business_id, startdate: startdate, enddate: enddate }).success(function(response){
                 $scope.analytics = response.analytics;
             });
-        }
+        };
     });
 
 })();

@@ -12,20 +12,36 @@
 class AdvertisementController extends BaseController{
 
   public function postSliderImages() {
-    $business_id = Input::get('business_id');
-    $count = 0;
-    $ad_src = array();
-    $ad_directory = public_path() . '/ads/' . $business_id;
-    if (file_exists($ad_directory)) {
-      foreach (glob($ad_directory . '/*.*') as $filename) {
+    if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId())) { // PAG added permission checking
+      //$business_id = Input::get('business_id');
+      //$count = 0;
+      $ad_src = array();
+      $res = AdImages::getAllImages();
+      foreach ($res as $count => $data) {
         $ad_src[] = array(
           'count' => $count,
-          'path' => 'ads/' . Input::get('business_id') . '/' . basename($filename),
+          'path' => $data->path,
+          'weight' => $data->weight,
+          'img_id' => $data->img_id,
         );
-        $count++;
       }
+      /*
+      $ad_directory = public_path() . '/ads/' . $business_id;
+      if (file_exists($ad_directory)) {
+        foreach (glob($ad_directory . '/*.*') as $filename) {
+          $ad_src[] = array(
+            'count' => $count,
+            'path' => 'ads/' . Input::get('business_id') . '/' . basename($filename),
+          );
+          $count++;
+        }
+      }
+      */
+      return json_encode(array('slider_images' => $ad_src));
     }
-    return json_encode(array('slider_images' => $ad_src));
+    else {
+      return json_encode(array('status' => 'You are not allowed to access this function.'));
+    }
   }
 
   public function postDeleteImage() {
@@ -154,6 +170,8 @@ class AdvertisementController extends BaseController{
       file_put_contents(public_path() . '/json/' . $business_id . '.json', $encode);
       */
 
+      AdImages::saveImages('ads/' . Input::get('business_id') . '/' . basename($filePath));
+
       // Return Success JSON-RPC response
       die('{"jsonrpc" : "2.0", "result" : null, "id" : "id"}');
 
@@ -265,6 +283,15 @@ class AdvertisementController extends BaseController{
       $data->carousel_delay = (int)Input::get('carousel_delay') * 1000;
       $encode = json_encode($data);
       file_put_contents(public_path() . '/json/' . $business_id . '.json', $encode);
+    }
+    else {
+      return json_encode(array('status' => 'You are not allowed to access this function.'));
+    }
+  }
+
+  public function postReorderImages() {
+    if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId())) { // PAG added permission checking
+      AdImages::setWeight(Input::get('weight'), Input::get('img_id'));
     }
     else {
       return json_encode(array('status' => 'You are not allowed to access this function.'));
