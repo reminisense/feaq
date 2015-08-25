@@ -126,12 +126,16 @@ class BroadcastController extends BaseController{
 
         if (Auth::check()) {
             $user = User::getUserByUserId(Auth::user()->user_id);
+
             // business owners have different broadcast screens for display
             if (UserBusiness::getBusinessIdByOwner(Auth::user()->user_id) == $business_id) {
-              if ($arr[0] == 2) $ad_src = $data->tv_channel; // check if TV is on
-              $broadcast_template = 'broadcast.default.business-master';
+                if ($arr[0] == 2 || $arr[0] == 3) {
+                    $ad_src = $data->tv_channel; // check if TV is on
+                }
+
+                $broadcast_template = 'broadcast.default.business-master';
             } else {
-              $broadcast_template = 'broadcast.default.public-master';
+                $broadcast_template = 'broadcast.default.public-master';
             }
 
         } else {
@@ -139,6 +143,7 @@ class BroadcastController extends BaseController{
             $broadcast_template = 'broadcast.default.public-master';
         }
         $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+
         return View::make($broadcast_template)
             ->with('carousel_interval', isset($data->carousel_delay) ? (int)$data->carousel_delay : 5000)
             ->with('custom_fields', $custom_fields)
