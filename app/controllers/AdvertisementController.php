@@ -47,6 +47,7 @@ class AdvertisementController extends BaseController{
   public function postDeleteImage() {
     if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId())) { // PAG added permission checking
       unlink(Input::get('path'));
+      AdImages::deleteImageByPath(Input::get('path'));
       return json_encode(array('status' => 1));
     }
     else {

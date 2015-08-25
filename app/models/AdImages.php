@@ -18,6 +18,10 @@ class AdImages extends Eloquent{
     AdImages::where('img_id', '=', $img_id)->delete();
   }
 
+  public static function deleteImageByPath($path) {
+    AdImages::where('path', '=', $path)->delete();
+  }
+
   public static function saveImages($path) {
     AdImages::insert(array(
       'path' => $path,
