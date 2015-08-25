@@ -1,0 +1,142 @@
+@media (max-width: 2500px) {
+  .broadcast.itv .callnum {
+    line-height: 120px!important;
+  }
+  .broadcast.itv .numbers .terminal {
+    font-size: 30px;
+  }
+  .boxed .broadcast .numbers .terminal {
+    height: 45px!important;
+  }
+  .boxed.itv .body {
+    height: 94.5%;
+  }
+}
+@media (max-width: 2200px) {
+  .broadcast.itv .callnum {
+    line-height: 80px!important;
+  }
+  .broadcast.itv .numbers .terminal {
+    font-size: 30px;
+  }
+  .boxed.itv .body {
+    height: 93.5%;
+  }
+}
+@media (max-width: 2000px) {
+  .broadcast.itv .callnum {
+    line-height: 80px!important;
+  }
+  .broadcast.itv .numbers .terminal {
+    font-size: 30px;
+  }
+  .broadcast.itv .numbers {
+    font-size: 4.5vw!important;
+  }
+  .boxed.itv .body {
+    height: 92%;
+  }
+  .broadcast.itv4 .numbers {
+    line-height: 90px!important;
+  }
+  .boxed .broadcast.itv4 .numbers .terminal {
+    height: 50px!important;
+    line-height: 50px;
+  }
+}
+@media (max-width: 1900px) {
+  .broadcast.itv .callnum {
+    line-height: 50px!important;
+  }
+  .broadcast.itv .numbers .terminal {
+    font-size: 18px;
+  }
+  .broadcast.itv .numbers {
+    font-size: 3.5vw!important;
+  }
+}
+@media (max-width: 1800px) {
+  .broadcast.itv .callnum {
+    line-height: 50px!important;
+  }
+  .broadcast.itv .numbers .terminal {
+    font-size: 18px;
+  }
+  .broadcast.itv .numbers {
+    font-size: 4.5vw!important;
+  }
+}
+@media (max-width: 1600px) {
+  .broadcast.itv .callnum {
+    line-height: 50px!important;
+  }
+  .broadcast.itv .numbers .terminal {
+    font-size: 18px;
+  }
+  .boxed.itv .body {
+    height: 91%;
+  }
+  .broadcast.itv4 .numbers {
+    line-height: 80px!important;
+  }
+  .boxed .broadcast.itv4 .numbers .terminal {
+    height: 50px!important;
+    line-height: 50px;
+  }
+}
+@media (max-width: 1400px) {
+  .broadcast.itv .callnum {
+    line-height: 50px!important;
+  }
+  .broadcast.itv .numbers .terminal {
+    font-size: 18px;
+  }
+  .boxed.itv .body {
+    height: 91%;
+  }
+}
+@media (max-width: 1200px) {
+  .broadcast.itv .callnum {
+    line-height: 50px!important;
+  }
+  .broadcast.itv .numbers .terminal {
+    font-size: 18px;
+  }
+  .boxed .broadcast .numbers .terminal {
+    height: 30px!important;
+  }
+  .broadcast.itv4 .numbers .terminal {
+    font-size: 22px;
+  }
+  .boxed .broadcast.itv4 .numbers .terminal {
+    height: 50px!important;
+  }
+  .broadcast.itv4 .numbers {
+    line-height: 80px!important;
+    font-size: 6.5vw!important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+  
+}
+
+@media (max-width: 991px) {
+  
+}
+
+@media (max-width: 767px) {
+  
+}
+
+@media (max-width: 480px) {
+  .boxed .broadcast .numbers {
+    font-size: 60px!important;
+  }
+  #broadcast .broadcast .numbers {
+    height: 100px!important;
+  }
+  .broadcast.itv .col-md-12 {
+    height: 15%;
+  }
+}

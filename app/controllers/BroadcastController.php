@@ -41,8 +41,17 @@ class BroadcastController extends BaseController{
     {
         $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
         $arr = explode("-", $data->display);
-        if ($arr[0]) $template_type = 'ads-' . $arr[1];
-        else $template_type = 'noads-' . $arr[1];
+
+        if ($arr[0]) {
+            if ($arr[0] == 3){
+                $template_type = 'ads-' . $arr[1] . '-2';
+            } else {
+                $template_type = 'ads-' . $arr[1];
+            }
+        } else {
+            $template_type = 'noads-' . $arr[1];
+        }
+
         if ($data->ad_type == 'image') {
           $ad_src = array();
           $res = AdImages::getAllImages();
@@ -123,12 +132,18 @@ class BroadcastController extends BaseController{
 
         if (Auth::check()) {
             $user = User::getUserByUserId(Auth::user()->user_id);
+
             // business owners have different broadcast screens for display
             if (UserBusiness::getBusinessIdByOwner(Auth::user()->user_id) == $business_id) {
-              if ($arr[0] == 2) $ad_src = $data->tv_channel; // check if TV is on
-              $broadcast_template = 'broadcast.default.business-master';
+                if ($arr[0] == 2 || $arr[0] == 3) {
+                    $ad_src = $data->tv_channel; // check if TV is on
+                    $broadcast_template = 'broadcast.default.internet-tv-master';
+                } else {
+                    $broadcast_template = 'broadcast.default.business-master';
+                }
+
             } else {
-              $broadcast_template = 'broadcast.default.public-master';
+                $broadcast_template = 'broadcast.default.public-master';
             }
 
         } else {
@@ -136,6 +151,7 @@ class BroadcastController extends BaseController{
             $broadcast_template = 'broadcast.default.public-master';
         }
         $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+
         return View::make($broadcast_template)
             ->with('carousel_interval', isset($data->carousel_delay) ? (int)$data->carousel_delay : 5000)
             ->with('custom_fields', $custom_fields)
