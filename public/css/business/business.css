@@ -741,3 +741,7 @@ button#sendreply {
     margin-right: 10px!important;
 }
 
+.biz-terminals a small {
+    height: 2.4em;
+    overflow: hidden;
+}
