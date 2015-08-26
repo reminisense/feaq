@@ -45,7 +45,11 @@ app.controller('nowServingCtrl', function($scope, $http) {
 
     $scope.refreshOnSettingsChange = (function(response) {
         // check if carousel delay is existing but check if it's for image advertisements first
-        if (broadcast_type.search('1-') != '-1') if (typeof response.carousel_delay == "undefined") response.carousel_delay = "5000";
+        if (broadcast_type.search('1-') != '-1') {
+            if (typeof response.carousel_delay == "undefined") {
+                response.carousel_delay = "5000";
+            }
+        }
         else {
             carousel_delay = '';
             response.carousel_delay = '';
