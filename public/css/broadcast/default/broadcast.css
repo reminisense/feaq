@@ -345,7 +345,9 @@ body#broadcast .terminal {
     margin-bottom: 0px;
 }
 
-.ads-sixnums  .numbers.t h1 {
+.ads-sixnums  .numbers.t h1,
+.ads-fournums  .numbers.t h1,
+.ads-onenum  .numbers.t h1 {
     padding-top: 0!important;
 }
 #broadcast .boxed .head {
