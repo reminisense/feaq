@@ -54,7 +54,7 @@ class BroadcastController extends BaseController{
 
         if ($data->ad_type == 'image') {
           $ad_src = array();
-          $res = AdImages::getAllImages();
+          $res = AdImages::getAllImagesByBusinessId($business_id);
           foreach ($res as $count => $img) {
             $ad_src[] = $img->path;
           }

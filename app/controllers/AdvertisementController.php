@@ -16,7 +16,7 @@ class AdvertisementController extends BaseController{
       //$business_id = Input::get('business_id');
       //$count = 0;
       $ad_src = array();
-      $res = AdImages::getAllImages();
+      $res = AdImages::getAllImagesByBusinessId(Input::get('business_id'));
       foreach ($res as $count => $data) {
         $ad_src[] = array(
           'count' => $count,
@@ -171,7 +171,7 @@ class AdvertisementController extends BaseController{
       file_put_contents(public_path() . '/json/' . $business_id . '.json', $encode);
       */
 
-      AdImages::saveImages('ads/' . Input::get('business_id') . '/' . basename($filePath));
+      AdImages::saveImages('ads/' . Input::get('business_id') . '/' . basename($filePath), Input::get('business_id'));
 
       // Return Success JSON-RPC response
       die('{"jsonrpc" : "2.0", "result" : null, "id" : "id"}');

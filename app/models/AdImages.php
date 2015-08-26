@@ -10,8 +10,8 @@ class AdImages extends Eloquent{
     AdImages::where('img_id', '=', $img_id)->update(array('weight' => $weight));
   }
 
-  public static function getAllImages() {
-    return AdImages::orderBy('weight')->get();
+  public static function getAllImagesByBusinessId($business_id) {
+    return AdImages::where('business_id', '=', $business_id)->orderBy('weight')->get();
   }
 
   public static function deleteImage($img_id) {
@@ -22,8 +22,9 @@ class AdImages extends Eloquent{
     AdImages::where('path', '=', $path)->delete();
   }
 
-  public static function saveImages($path) {
+  public static function saveImages($path, $business_id) {
     AdImages::insert(array(
+      'business_id' => $business_id,
       'path' => $path,
       'weight' => AdImages::max('weight') + 1,
     ));
