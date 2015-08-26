@@ -4,7 +4,7 @@
   		<a class="" href="#"><img src="/images/featherq-home-logo.png"></a>
 	</div>
 	<div class="vid-container">
-  		<iframe width="100%" height="100%" src="https://www.youtube.com/embed/yWGcemRDn4E" frameborder="0" allowfullscreen></iframe>
+  		{{ $ad_src }}
   	</div>
 
 </div>
