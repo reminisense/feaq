@@ -49,19 +49,19 @@
         <audio id="call-number-sound" src="/audio/doorbell_x.wav" controls preload="auto" autobuffer style="display: none;"></audio>
 
         @if ($template_type == 'ads-1')
-            @include('broadcast.default.business-ads-1');
+            @include('broadcast.default.business-ads-1')
 
         @elseif ($template_type == 'ads-4')
-            @include('broadcast.default.business-ads-4');
+            @include('broadcast.default.business-ads-4')
 
         @elseif ($template_type == 'ads-6')
-            @include('broadcast.default.business-ads-6');
+            @include('broadcast.default.business-ads-6')
 
         @elseif ($template_type == 'ads-4-2')
-            @include('broadcast.default.business-ads-4-2');
+            @include('broadcast.default.business-ads-4-2')
 
         @elseif ($template_type == 'ads-6-2')
-            @include('broadcast.default.business-ads-6-2');
+            @include('broadcast.default.business-ads-6-2')
         @endif
 
         <div class="ticker">
