@@ -318,13 +318,13 @@ class ProcessQueue extends Eloquent{
 
             $max_count = 6; //RDH via ARA : gisugo ko ni ruffy (dili ni tinuod) : set default value for $max_count
             // PAG Addition for Broadcast Display Settings
-            if ($boxes->display == '1-1' || $boxes->display == '0-1') {
+            if (strstr($boxes->display, '-1')) {
               $max_count = 1;
             }
-            elseif ($boxes->display == '1-4' || $boxes->display == '0-4') {
+            elseif (strstr($boxes->display, '-4')) {
               $max_count = 4;
             }
-            elseif ($boxes->display == '1-6' || $boxes->display == '0-6') {
+            elseif (strstr($boxes->display, '-6')) {
               $max_count = 6;
             }
 

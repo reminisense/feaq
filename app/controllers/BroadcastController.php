@@ -242,14 +242,14 @@ class BroadcastController extends BaseController{
       $data = json_decode(file_get_contents(public_path() . '/json/' . $post->business_id . '.json'));
       $data->show_issued = $post->show_issued;
       $data->display = $post->theme_type;
-      if ($post->theme_type == '0-1' || $post->theme_type == '1-1') {
+      if (strstr($post->theme_type, '-1')) {
         unset($data->box2);
         unset($data->box3);
         unset($data->box4);
         unset($data->box5);
         unset($data->box6);
       }
-      elseif ($post->theme_type == '0-4' || $post->theme_type == '1-4') {
+      elseif (strstr($post->theme_type, '-4')) {
         if (!isset($data->box2)) {
           $data->box2 = new stdClass();
           $data->box2->number = '';
@@ -271,7 +271,7 @@ class BroadcastController extends BaseController{
         unset($data->box5);
         unset($data->box6);
       }
-      elseif ($post->theme_type == '0-6' || $post->theme_type == '1-6') {
+      elseif (strstr($post->theme_type, '-6')) {
         if (!isset($data->box2)) {
           $data->box2 = new stdClass();
           $data->box2->number = '';
