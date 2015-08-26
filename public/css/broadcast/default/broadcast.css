@@ -352,7 +352,7 @@ body#broadcast .terminal {
     border-radius: 0!important;
 }
 #broadcast .body.broadcast .ads-onenum .terminal {
-    line-height: 48px!important;
+    /*line-height: 48px!important; removed by rodel 825*/
     font-size: 4.4vmin;
 }
 
@@ -361,6 +361,12 @@ body#broadcast .terminal {
     padding: 20px;
 }
 #broadcast .body.broadcast .ads-onenum h1 {
-    font-size: 24vmin!important;
-    margin-top: 20px!important;
+    /*font-size: 24vmin!important;*/
+    /* removed by rodel 825 margin-top: 20px!important;*/
+}
+/*rodels broadcast fix 8-26*/
+.ads-sixnums .terminal {
+    line-height: 33px!important;
+    font-size: 2.6vmin!important;
+    height: 2.8em!important;
 }
