@@ -125,7 +125,7 @@ Processs Queue > {{ $business_name }}
                                         </li>
                                     </ul>
                                 </div>
-                                <input id="issue-call-number" type="number" class="form-control" min="1" max="@{{ number_limit }}"  ng-model="issue_call_number" ng-show="timebound_numbers.length == 0 && uncalled_numbers.length == 0">
+                                <input id="issue-call-number" type="text" class="form-control" min="1" max="@{{ number_limit }}"  ng-model="issue_call_number" ng-show="timebound_numbers.length == 0 && uncalled_numbers.length == 0">
                             </div>
                             <point-of-interest position="left" bottom="85" right="100"  title="Issued Numbers" description="Look for the numbers you want to call in this drop-down list or type the number you want call when the list is empty."></point-of-interest>
                             <div class="col-md-1 col-sm-1 col-xs-3">
