@@ -42,6 +42,7 @@
                 pq.jquery_functions.remove_and_update_dropdown(transaction_number);
                 $scope.issue_call_number = null;
                 $scope.isCalling = false;
+            },null, function(){
                 checkEmailAndAdd($scope.called_numbers[0].email, transaction_number);
             });
         };
