@@ -80,7 +80,7 @@
         <div class="container">
           <div class="clearfix">
             <div class="col-lg-6 col-md-6 col-sm-8">
-              <h1>FeatherQ is a DIY cloud-based queuing system. We make it easy for businesses to <span>Manage their lines better</span> and allow customers to wait on their own terms.</h1>
+              <h1>FeatherQ is a DIY cloud-based queuing platform. We make it easy for businesses to <span>Manage their lines better</span> and allow customers to wait on their own terms.</h1>
               <div class="mt40 mb40" ng-controller="fbController">
                 <a href="" class="btn btn-fb" ng-click="login()" role="button"><img src="/images/homepage/fb.png" /> Signup | Login with Facebook</a>
                 <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
@@ -165,24 +165,7 @@
                   <div class="box">
                     <p class="title">@{{ business.business_name }}</p>
                     <small>@{{ business.local_address }}</small>
-                  <!--
-                  <div class="more">
-                    <div class="row">
-                      <div class="col-md-4">
-                        <small>Calling</small>
-                        <p>28</p>
-                      </div>
-                      <div class="col-md-4">
-                        <small>Calling</small>
-                        <p>28</p>
-                      </div>
-                      <div class="col-md-4 status">
-                        <small>Status</small>
-                        <p>Heavy</p>
-                      </div>
-                    </div>
-                  </div>
-                -->
+
               </div>
             </a>
           </div>
@@ -201,13 +184,13 @@
           <div class="pull-right  hidden-md hidden-xs">
             <ul id="myTabs" class="clearfix nav nav-tabs">
               <li class="clearfix active">
-                <a href="#signup" id="signup-tab" data-toggle="tab" aria-expanded="true">1. Signup</a>
+                <a href="#signup" id="signup-tab" class="tab-flag" data-toggle="tab" aria-expanded="true">1. Signup</a>
               </li>
               <li class="clearfix">
-                <a href="#setup" id="setup-tab" data-toggle="tab">2. Setup</a>
+                <a href="#setup" id="setup-tab" class="tab-flag" data-toggle="tab">2. Setup</a>
               </li>
               <li class="clearfix">
-                <a href="#serve" id="serve-tab" data-toggle="tab">3. Serve</a>
+                <a href="#serve" id="serve-tab" class="tab-flag" data-toggle="tab">3. Serve</a>
               </li>
             </ul>
           </div>
@@ -233,13 +216,13 @@
             <div class="col-md-6">
               <ul id="myTabs" class="clearfix nav nav-tabs">
                 <li class="clearfix active">
-                  <a href="#signup" id="signup-tab" data-toggle="tab" aria-expanded="true">1. Signup</a>
+                  <a href="#signup" id="signup-tab" class="tab-flag" data-toggle="tab" aria-expanded="true">1. Signup</a>
                 </li>
                 <li class="clearfix">
-                  <a href="#setup" id="setup-tab" data-toggle="tab">2. Setup</a>
+                  <a href="#setup" id="setup-tab" class="tab-flag" data-toggle="tab">2. Setup</a>
                 </li>
                 <li class="clearfix">
-                  <a href="#serve" id="serve-tab" data-toggle="tab">3. Serve</a>
+                  <a href="#serve" id="serve-tab" class="tab-flag" data-toggle="tab">3. Serve</a>
                 </li>
               </ul>
             </div>
@@ -406,7 +389,7 @@
         <img src="/images/homepage/featherq-footer.png" alt="FeatherQ" />
         <h1>A Powerful, <br>
           Free, <br>
-          Online Queue Management System
+          Online Queue Management Platform
         </h1>
         <h2>Call us at: <a class="noline" href="tel:0323454658"><span class="orange">(+6332) 345-4658</span></a><br>
           Email us at: <a class="noline" href="mailto:contact@featherq.com"><span class="orange">contact@featherq.com</span></a></h2>

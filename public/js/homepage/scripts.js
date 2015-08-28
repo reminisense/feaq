@@ -52,6 +52,13 @@ $(document).ready(function() {
             $('#subscribe-button').prop('disabled', false);
         }
     });
+
+    $('.tab-flag').on('click', function(){
+        $('#signup-tab').animate({width:252+'px'});
+        $('#setup-tab').animate({width:208+'px'});
+        $('#serve-tab').animate({width:164+'px'});
+        $(this).animate({width:300+'px'});
+    });
 });
 
 $(window).scroll(function() {
