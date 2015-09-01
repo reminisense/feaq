@@ -520,12 +520,15 @@ p > a:hover {
     line-height: 32px;
     margin-bottom: 30px;
 }
-#leaveemail  input[type="email"]{
+#subscriber-field{
     height: 45px;
     padding: 4px 20px;
     color: #333;
     border: none;
     width: 220px;
+}
+.subscribe-error {
+    margin-top: 10px;
 }
 .status p {
     margin-top: 4px;
@@ -698,4 +701,16 @@ ul.nav {
 }
 .holdphone img {
     margin-left: 100px;
+}
+.featurewrapper {
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    width: 90%;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+}
+.featurewrapper p {
+    font-size: 16px;
+    color: #fff;
 }

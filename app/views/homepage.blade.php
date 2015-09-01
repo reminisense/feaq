@@ -80,7 +80,7 @@
         <div class="container">
           <div class="clearfix">
             <div class="col-lg-6 col-md-6 col-sm-8">
-              <h1>FeatherQ is a DIY cloud-based queuing platform. We make it easy for businesses to <span>Manage their lines better</span> and allow customers to wait on their own terms.</h1>
+              <h1>FeatherQ is a DIY cloud-based queuing platform. We make it easy for businesses to <span>manage their lines better</span> and allow customers to wait on their own terms.</h1>
               <div class="mt40 mb40" ng-controller="fbController">
                 <a href="" class="btn btn-fb" ng-click="login()" role="button"><img src="/images/homepage/fb.png" /> Signup | Login with Facebook</a>
                 <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
@@ -165,12 +165,19 @@
                   <div class="box">
                     <p class="title">@{{ business.business_name }}</p>
                     <small>@{{ business.local_address }}</small>
-
+                  </div>
+                </a>
               </div>
-            </a>
-          </div>
+              <div class="col-md-3" ng-if="businesses.length > 0" ng-controller="fbController">
+                <a class="business_link" href="#" ng-click="login()">
+                  <div class="box">
+                    <p class="title"><span class="gray glyphicon glyphicon-plus"></span> More Businesses</p>
+                    <small>Sign up now to view More Businesses</small>
+                  </div>
+                </a>
+              </div>
+            </div>
         </div>
-      </div>
     </section>
   </header>
 
@@ -278,7 +285,7 @@
       <div class="col-md-7 col-md-offset-1 col-sm-8 col-xs-12">
         <img class="img-responsive hidden-lg hidden-sm visible-xs" src="/images/homepage/step3.png" alt="Manage from Anywhere" >
         <h3>Manage from Anywhere</h3>
-        <p>Your Customers can line up for your business using their cellphones, reducing ugly lines that turn customers away.</p>
+        <p>With FeatherQ, all you need to manage your lines is an internet connection and a web browser. You can access FeatherQ's features on a computer, smartphone or tablet.</p>
       </div>
       <div class="col-md-3 col-sm-4 hidden-xs">
         <img class="img-responsive hidden-xs" src="/images/homepage/step3.png" alt="Manage from Anywhere" >
@@ -296,37 +303,65 @@
       </div>
     </div>
     <div class="clearfix">
-      <div class="col-md-3 col-xs-6">
-        <img  class="img-responsive" src="/images/homepage/feat-30.png" alt="" />
-        <p>30-second <br>Business Setup</p>
+      <div class="row">
+        <div class="col-md-3 col-xs-6 featureblock">
+          <img  class="img-responsive" src="/images/homepage/feat-30.png" alt="" />
+          <p>30-second <br>Business Setup</p>
+          <div class="featurewrapper hidden">
+            <p>In as short as 30-seconds, connect to FB and create your business account to begin managing your lines today. Have full control over staff assignments to terminals and business details in a simple registration process.</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-xs-6 featureblock">
+          <img class="img-responsive" src="/images/homepage/feat-flexible.png" alt="" />
+          <p>Flexible <br>line management</p>
+          <div class="featurewrapper hidden">
+            <p>FeatherQ offers functionality no matter your business. Enjoy a flexible line management solution that's able to suit your needs.Whether you have three terminals serving one line, or only one terminal, FeatherQ can be set for these.</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-xs-6 featureblock">
+          <img class="img-responsive" src="/images/homepage/feat-customize.png" alt="" />
+          <p>Customizable <br>Features</p>
+          <div class="featurewrapper hidden">
+            <p>Choose a display layout that fits your business. FeatherQ lets you customize how your customers get informed about their status.</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-xs-6 featureblock">
+          <img class="img-responsive" src="/images/homepage/feat-business.png" alt="" />
+          <p>Business <br>Analytics</p>
+          <div class="featurewrapper hidden">
+            <p>Know what's important to your business directly from customer behavior. FeatherQ offers insights such as: average waiting time per customer or how many customers dropped their priority number.</p>
+          </div>
+        </div>
       </div>
-      <div class="col-md-3 col-xs-6">
-        <img class="img-responsive" src="/images/homepage/feat-flexible.png" alt="" />
-        <p>Flexible <br>line management</p>
-      </div>
-      <div class="col-md-3 col-xs-6">
-        <img class="img-responsive" src="/images/homepage/feat-customize.png" alt="" />
-        <p>Customizable <br>Features</p>
-      </div>
-      <div class="col-md-3 col-xs-6">
-        <img class="img-responsive" src="/images/homepage/feat-business.png" alt="" />
-        <p>Business <br>Analytics</p>
-      </div>
-      <div class="col-md-3 col-xs-6">
-        <img class="img-responsive" src="/images/homepage/feat-minimal.png" alt="" />
-        <p>Minimal <br>Setup</p>
-      </div>
-      <div class="col-md-3 col-xs-6">
-        <img class="img-responsive" src="/images/homepage/feat-easy.png" alt="" />
-        <p>Easy Customer <br>Notifications</p>
-      </div>
-      <div class="col-md-3 col-xs-6">
-        <img class="img-responsive" src="/images/homepage/feat-simple.png" alt="" />
-        <p>Simple <br>Interface</p>
-      </div>
-      <div class="col-md-3 col-xs-6">
-        <img class="img-responsive" src="/images/homepage/feat-free.png" alt="" />
-        <p>It's Free</p>
+      <div class="row">
+        <div class="col-md-3 col-xs-6 featureblock">
+          <img class="img-responsive" src="/images/homepage/feat-minimal.png" alt="" />
+          <p>Minimal <br>Setup</p>
+          <div class="featurewrapper hidden">
+            <p>Do away with expensive overhead costs and installation fees. FeatherQ's browser-based solution works on any smartphone, tablet or computer.</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-xs-6 featureblock">
+          <img class="img-responsive" src="/images/homepage/feat-easy.png" alt="" />
+          <p>Easy Customer <br>Notifications</p>
+          <div class="featurewrapper hidden">
+            <p>Easily reach your customers through SMS or Email. They can also scan a QR code unique to your business to receive live updates of the priority status. Let your customers wait worry-free that their place in line is secured.</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-xs-6 featureblock">
+          <img class="img-responsive" src="/images/homepage/feat-simple.png" alt="" />
+          <p>Simple <br>Interface</p>
+          <div class="featurewrapper hidden">
+            <p>Manage your lines without disrupting your business flow. FeatherQ comes without bulky training manuals, or complicated instructions.</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-xs-6 featureblock">
+          <img class="img-responsive" src="/images/homepage/feat-free.png" alt="" />
+          <p>It's Free</p>
+          <div class="featurewrapper hidden">
+            <p>FeatherQ is a complete line management system that is free to use. It is supported by ads.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -397,11 +432,11 @@
             Leave your email below to receive our monthly newsletter on new features, new innovations and news that help you beat the waiting game.
           </p>
           <form id="leaveemail">
-            <div id="subscribe-error" class="alert alert-danger text-center" style="display:none;">Please enter a valid email address.</div>
-            <div id="subscribe-duplicate" class="alert alert-danger text-center" style="display:none;">User has already subscribed. Please register with a different email.</div>
-            <div id="subscribe-success" class="alert alert-success text-center" style="display:none;">Thank you for subscribing.</div>
-            <input type="email" id="subscriber-field" placeholder="Your email address">
+            <input id="subscriber-field" placeholder="Your email address">
             <button type="submit" id="subscribe-button" class="btn btn-orange"> Subscribe</button>
+            <div id="subscribe-error" class="subscribe-error alert alert-danger text-center" style="display:none;">Please enter a valid email address.</div>
+            <div id="subscribe-duplicate" class="subscribe-error alert alert-danger text-center" style="display:none;">User has already subscribed. Please register with a different email.</div>
+            <div id="subscribe-success" class="subscribe-error alert alert-success text-center" style="display:none;">Thank you for subscribing.</div>
           </form>
         </div>
         <div class="col-md-6 signthemup" ng-controller="fbController">

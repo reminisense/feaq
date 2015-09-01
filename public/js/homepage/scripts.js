@@ -19,6 +19,15 @@ $(document).ready(function() {
       });
     });
 
+    $('.featureblock').on('mouseenter', function(){
+        $('.featurewrapper').addClass('hidden');
+        $(this).find('div').fadeIn().removeClass('hidden');
+    });
+
+    $('.featureblock').on('mouseleave', function(){
+        $('.featurewrapper').addClass('hidden');
+    });
+
     $('#search-loader').hide();
 
     $('#subscribe-button').click(function() {
