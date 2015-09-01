@@ -138,8 +138,46 @@
             </div>
         </div>
     </div>
+    <div class="col-md-6" ng-show="business_features.queue_forwarding == 'true'">
+        <div class=" header">
+            <h5>QUEUE FORWARDING</h5>
+        </div>
+        <div class="clearfix">
+            <div class="col-md-6 mb20">
+                <p class="title">My Access Key</p>
+            </div>
+            <div class="col-md-6 mb20">
+                <p ng-hide="my_accesskey.length > 0">
+                    <a href="" ng-click="getAccesskey()">
+                        <span class="glyphicon glyphicon-chevron-down mr10"></span>&nbsp;
+                        <span class="glyphicon glyphicon-chevron-down mr10"></span>&nbsp;
+                        <span class="glyphicon glyphicon-chevron-down mr10"></span>&nbsp;
+                        <span class="glyphicon glyphicon-chevron-down mr10"></span>&nbsp;
+                        <span class="glyphicon glyphicon-chevron-down mr10"></span>&nbsp;
+                    </a>
+                </p>
+                <input type="text" class="form-control" ng-show="my_accesskey.length > 0" ng-model="my_accesskey">
+            </div>
+            <div class="col-md-6 mb20">
+                <p class="title">Allowed Businesses</p>
+            </div>
+            <div class="col-md-6 mb20">
+                <form ng-submit="saveQueueForwardingBusiness()">
+                    <input type="text" class="form-control" id="queue_forward_accesskey" ng-model="queue_forward_accesskey" placeholder="Input the access key of a business">
+                    <button type="submit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus"></span> Add</button>
+                </form>
+            </div>
+        </div>
+        <div class="clearfix">
+            <div class="col-md-6 mb20" ng-repeat="allowed_business in allowed_businesses">
+                <div class="btn btn-default form-control">
+                    @{{ allowed_business.name }}
+                    <span class="glyphicon glyphicon-trash" ng-click="deletePermission(allowed_business.business_id)"></span>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
 <div class="clearfix">
     <div class="">
         <div class="pull-right">

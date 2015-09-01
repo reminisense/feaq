@@ -21,18 +21,21 @@
                             <div class="col-md-6 col-xs-6"><h5 id="priority-number-number"></h5></div>
                         </div>
                         <div class="">
-
                             <div class="col-md-6 col-xs-6"><h5>Name: </h5></div>
                             <div class="col-md-6 col-xs-6"><h5 id="priority-number-name"></h5></div>
                         </div>
                         <div class="">
-
                             <div class="col-md-6 col-xs-6"><h5>Phone: </h5></div>
                             <div class="col-md-6 col-xs-6"><h5 id="priority-number-phone"></h5></div>
                         </div>
                         <div class="">
                             <div class="col-md-6 col-xs-6"><h5>Email: </h5></div>
                             <div class="col-md-6 col-xs-6"><h5 id="priority-number-email"></h5></div>
+                        </div>
+                        <div class="">
+                            <div class="col-md-6 col-xs-6"><h5>Forward to business: </h5></div>
+                            <div class="col-md-4 col-xs-4"><select></select></div>
+                            <div class="col-md-1 col-xs-1"><button class="btn btn-primary">Forward</button></div>
                         </div>
                     </div>
                     {{-- ARA Save this for later

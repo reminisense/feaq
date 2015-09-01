@@ -32,6 +32,15 @@
                     </div>
                 </div>
                 <div class="col-md-12">
+                    <div class="form-group col-md-2">
+                        Queue Forwarding :
+                    </div>
+                    <div class="form-group col-md-2">
+                        <br/><input type="radio" ng-model="business_features.queue_forwarding" value="false"/> No
+                        <br/><input type="radio" ng-model="business_features.queue_forwarding" value="true"/> Yes
+                    </div>
+                </div>
+                <div class="col-md-12">
                     <button class="btn btn-primary">Submit</button>
                 </div>
             </form>
