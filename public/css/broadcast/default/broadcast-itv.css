@@ -73,7 +73,7 @@ body {
   position: absolute;
   bottom: 0;
   left: 0;
-  z-index: 20;
+  z-index: 99999;
   text-align: center;
   min-height: inherit!important;
   padding: 15px!important;
@@ -128,6 +128,7 @@ body {
 }
 .boxed .body.broadcast {
     background: #e7e7e7;
+    width: 100%;
 }
 .body.broadcast .ads-fournums .terminal {
     line-height: 46px!important;
