@@ -60,8 +60,12 @@ body {
   /*-webkit-transition: all 0.4s ease;
   transition: all 0.4s ease;*/
 }
-.navbar-brand img {
+.navbar-brand {
+    width: 320px;
     margin-top: 40px;
+    height: 80px;
+}
+.navbar-brand img {
     -webkit-transition: all 0.4s ease;
     transition: all 0.4s ease;
 }
@@ -98,8 +102,13 @@ body {
     border-color: transparent;
 }
 .navbar-brand {
+    -webkit-transition: all 0.4s ease;
+    transition: all 0.4s ease;
     padding: 0;
-    margin: 0!important;
+    margin-left: 15px!important;
+}
+.navbar.shrink .navbar-brand {
+    margin-top: 0;
 }
 .navbar-default .navbar-toggle .icon-bar {
     background-color: #64503c;
@@ -130,17 +139,19 @@ h3 {
       padding-top: 100px;
 }
 .banner h1 {
-    margin-top: 40px;
-    font-size: 25px;
+    margin-top:50px;
+    font-size: 28px;
     line-height: 50px;
     font-weight: 400;
+    margin-bottom: 80px;
 }
 .banner .btn {
     border-radius: 9px;
     font-weight: 400;
-    height: 56px;
-    padding: 18px 22px;
+    padding: 16px 42px;
     margin-right: 2px;
+    text-transform: uppercase;
+    font-size: 18px;
 }
 .banner .btn img {
     margin-right: 10px;
@@ -167,7 +178,7 @@ h3 {
     margin-bottom: 30px;
 }
 .things {
-    background: url('../../images/homepage/bg-things.png') 80% 28px no-repeat;
+    background: url('../../images/homepage/bg-things.png') 90% 28px no-repeat;
 }
 .contactus {
 	background-color: #013a49;
@@ -201,8 +212,8 @@ h3 {
     padding: 70px 0;
 }
 .benefits h2 {
-    margin-top: 60px;
-    margin-bottom: 40px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 .benefits p {
     font-size: 20px;
@@ -220,9 +231,16 @@ h3 {
     margin: auto;
     width: 180px;
 }
-.features {
+.features,
+.featured-partners {
     background-color: #fdfdfc;
     padding: 70px 0 110px;
+}
+.featured-partners {
+    padding: 70px 0px;
+}
+.featured-partners-slides img {
+    padding: 20px;
 }
 .features h2 {
     margin-top: 50px;
@@ -242,7 +260,7 @@ h3 {
     background-size: 100%;
 }
 .whocan img {
-    margin: 20px 0 20px;
+    margin: 20px auto;
 }
 .whocan p {
     font-weight: 400;
@@ -265,6 +283,15 @@ h3 {
 }
 .whocan .imgs .block.sch p {
     background-color: #77cb6b;
+}
+.whocan .imgs .block.your-biz p {
+    background-color: #ff832f;
+}
+.whocan .imgs .block.your-biz span {
+    display: inline-block;
+    margin-top: 15px;
+    font-weight: 600;
+    font-size: 16px;
 }
 .whocan .block.plus h2 {
     color: #111;
@@ -340,17 +367,19 @@ p > a:hover {
     margin-top: 40px;
 }
 .lead {
-    background: url('../../images/homepage/bg-search.jpg') center center no-repeat fixed;
-  -webkit-background-size: cover;
+    /*background: url('../../images/homepage/bg-search.jpg') center center no-repeat fixed;*/
+    /*removed bg due to lagging issues*/
+    background-color: #142f3a;
+  /*-webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover;
+  background-size: cover;*/
   padding: 50px 0 150px;
   margin-bottom: 0;
 }
 .lead h2 {
     margin-top: 20px;
-    color: #fff;
+
     margin-bottom: 50px;
 }
 .lead .box p.title {

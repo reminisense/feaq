@@ -69,6 +69,26 @@ $(document).ready(function() {
         $(this).animate({width:300+'px'});
     });
 });
+/*slick slider for partners*/
+$('.featured-partners-slides').slick({
+    arrows: true,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    pauseOnHover: false
+
+});
+$('.featherq-uses-slides').slick({
+    arrows: true,
+    autoplay: true,
+    infinite: true,
+    slidesToShow: 4,
+    pauseOnHover: false
+
+});
+
+/*eo slick*/
 
 $(window).scroll(function() {
   if ($(document).scrollTop() > 50) {
