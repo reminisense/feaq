@@ -573,4 +573,9 @@ class BusinessController extends BaseController{
             return json_encode(['error' => 'Access Denied.']);
         }
     }
+
+    public function getAllowedBusinesses($business_id){
+        $allowed_businesses = Business::getForwarderAllowedBusinesses($business_id);
+        return json_encode(['success' => 1, 'allowed_businesses' => $allowed_businesses]);
+    }
 }

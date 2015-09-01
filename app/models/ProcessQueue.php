@@ -69,6 +69,11 @@ class ProcessQueue extends Eloquent{
             $terminal_name = '';
         }
 
+        //ARA in case the number was not called but served/removed which is unlikely
+        if($transaction->time_called == 0 ){
+            ProcessQueue::callTransactionNumber($transaction_number, Helper::userId(), $terminal_id);
+        }
+
         if($transaction->time_removed == 0 && $transaction->time_completed == 0){
             $time = time();
             if($process == 'serve'){

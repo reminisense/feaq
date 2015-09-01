@@ -570,12 +570,29 @@ class Business extends Eloquent
         return Crypt::encrypt($business_id);
     }
 
+    /**
+     * Gets the businesses that you allow to forward
+     * @param $business_id
+     * @return mixed
+     */
     public static function getForwardingAllowedBusinesses($business_id){
         return DB::table('queue_forward_permissions')
             ->where('queue_forward_permissions.business_id', '=', $business_id)
             ->join('business', 'business.business_id', '=', 'queue_forward_permissions.forwarder_id')
             ->select('business.business_id', 'business.name')
             ->get();
+    }
+
+    public static function getForwarderAllowedBusinesses($business_id){
+        return DB::table('queue_forward_permissions')
+            ->where('queue_forward_permissions.forwarder_id', '=', $business_id)
+            ->join('business', 'business.business_id', '=', 'queue_forward_permissions.business_id')
+            ->select('business.business_id', 'business.name')
+            ->get();
+    }
+
+    public static function getForwarderAllowedInBusiness($business_id, $forwarder_id){
+        return DB::table('queue_forward_permissions')->where('business_id', '=', $business_id)->where('forwarder_id', '=', $forwarder_id)->first();
     }
 
 }
