@@ -100,7 +100,7 @@
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <div class="col-md-12">
+                    <div class="col-md-12 reorder-note" style="display: none;">
                         <span class="label label-info pull-left" style="font-size: 14px; word-wrap: break-word;">Reorder Images as they Appear in the Broadcast Screen</span>
                     </div>
                     <div class="col-md-12 table-responsive">
@@ -120,7 +120,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12 reorder-note" style="display: none;">
                         <span class="label label-default pull-right" style="word-wrap: break-word;">** You might have to refresh the broadcast screen after re-ordering.</span>
                     </div>
                 </div>

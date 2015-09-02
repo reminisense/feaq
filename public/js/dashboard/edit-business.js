@@ -265,6 +265,12 @@ var eb = {
                             var scope = angular.element($("#editBusiness")).scope();
                             scope.$apply(function(){
                                 scope.slider_images = response.slider_images;
+                                if ($.trim(response.slider_images)) {
+                                    $('.reorder-note').show();
+                                }
+                                else {
+                                    $('.reorder-note').hide();
+                                }
                             });
                             eb.jquery_functions.activate_plupload();
                         });
@@ -806,6 +812,12 @@ var eb = {
                     'business_id' : business_id
                 }).success(function(response) {
                     $scope.slider_images = response.slider_images;
+                    if ($.trim(response.slider_images)) {
+                        $('.reorder-note').show();
+                    }
+                    else {
+                        $('.reorder-note').hide();
+                    }
                 });
             }
         });
@@ -817,6 +829,9 @@ var eb = {
                     path : img_path
                 }).success(function(response) {
                     $('#slide'+count).remove();
+                    if (!$('#ad-images-preview tr').length) {
+                        $('.reorder-note').hide();
+                    }
                 });
             }
         };
