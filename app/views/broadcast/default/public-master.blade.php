@@ -71,9 +71,9 @@
         <div class="pull-right hidden-sm hidden-xs">
             <a href="" class="btn btn-fb" role="button" ng-click="login()"><span class="fa fa-facebook"></span> Sign Up</a>
             <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
-                                  <img alt="Android app on Google Play"
-                                  src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png" height="50"/>
-                                </a>
+              <img alt="Android app on Google Play"
+              src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png" height="50"/>
+            </a>
         </div>
         <div id="navbar" class="hidden-xs hidden hidden-sm hidden-md navbar-collapse collapse">
             <ul class="nav hidden navbar-nav navbar-right">
@@ -92,21 +92,6 @@
         </div><!--/.nav-collapse -->
     </div>
 </nav>
-
-<div class="container">
-    <div class="hidden-lg hidden-md visible-sm visible-xs">
-        <div class="clearfix">
-            <div class="col-md-6 col-xs-6">
-                <a href="" class="btn btn-fb" role="button" ng-click="login()"><span class="fa fa-facebook"></span> Sign Up</a>
-            </div>
-            <div class="col-md-6 col-xs-6">
-                <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
-                    <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png" height="50"/>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="container main-wrap">
     <div class="row mt20" id="nowServingCtrl" ng-controller="nowServingCtrl">
