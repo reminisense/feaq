@@ -71,21 +71,54 @@ $(document).ready(function() {
 });
 /*slick slider for partners*/
 $('.featured-partners-slides').slick({
-    arrows: true,
+    arrows: false,
     autoplay: true,
     autoplaySpeed: 2000,
     slidesToShow: 4,
     slidesToScroll: 1,
-    pauseOnHover: false
-
+    pauseOnHover: false,
+    responsive: [
+        {
+            breakpoint: 600,
+            settings: {
+                slidesToShow: 2,
+                slidesToScroll: 1,
+                dots: true
+            }
+        },
+        {
+            breakpoint: 480,
+            settings: {
+                slidesToShow: 2,
+                slidesToScroll: 1,
+                dots: true
+            }
+        }
+    ]
 });
 $('.featherq-uses-slides').slick({
-    arrows: true,
+    arrows: false,
+    dots: true,
     autoplay: true,
     infinite: true,
     slidesToShow: 4,
-    pauseOnHover: false
-
+    pauseOnHover: false,
+    responsive: [
+        {
+            breakpoint: 600,
+            settings: {
+                slidesToShow: 2,
+                slidesToScroll: 1
+            }
+        },
+        {
+            breakpoint: 480,
+            settings: {
+                slidesToShow: 2,
+                slidesToScroll: 1
+            }
+        }
+    ]
 });
 
 /*eo slick*/
