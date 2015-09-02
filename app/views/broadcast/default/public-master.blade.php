@@ -72,6 +72,8 @@
             <ul class="nav navbar-nav navbar-right">
                 @if (Auth::check())
                     <li class="broadcast-logged">Hello {{Auth::user()->first_name}}!</li>
+                @else
+                    <li ng-controller="fbController"><a href="" class="btn btn-fb" role="button" ng-click="login()"><img src="/images/homepage/fb.png" />Sign Up</a></li>
                 @endif
                 <li class="hidden-md hidden-sm hidden-xs btn-gplay">
                     <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
@@ -92,11 +94,13 @@
         <audio id="call-number-sound" src="/audio/doorbell_x.wav" controls preload="auto" autobuffer style="display: none;"></audio>
 
         @include('broadcast.default.public-' . $template_type)
-        <div class="publiclogin ng-scope" ng-controller="fbController">
-            <a style="margin-right:5px;" href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
+        <div class="publiclogin ng-scope hidden-lg hidden-md visible-sm visible-xs" ng-controller="fbController">
+            <a class="btn-play" style="margin-right:5px;" href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
                 <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png">
             </a>
-          <a href="" class="btn btn-fb" ng-click="login()" role="button"><span class="fa fa-facebook"></span> Login with Facebook</a>
+            @if (!Auth::check())
+                <a href="" class="btn btn-fb" role="button" ng-click="login()"><img src="/images/homepage/fb.png" />Sign Up</a>
+            @endif
         </div>
 
         <div class="col-md-6" ng-if="get_num > 0">
