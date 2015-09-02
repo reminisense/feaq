@@ -1,6 +1,8 @@
 (function() {
 
     app.controller('searchBusinessCtrl', function($scope, $http) {
+        $scope.location_filter = "Location";
+
         $('#time_open-filter').timeEntry({ampmPrefix: ' ', spinnerImage: ''});
 
         $http.get('//freegeoip.net/json').success(function(response) {
