@@ -1179,3 +1179,7 @@ strong {
 #biz-broadcast .btn-gplay img {
     height: 41px;
 }
+.publiclogin {
+    padding: 14px;
+    text-align: center;
+}

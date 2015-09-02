@@ -225,6 +225,14 @@
 }
 
 @media (max-width: 480px) {
+    .broadcast-logged {
+        padding-bottom: 10px;
+    }
+
+    #biz-broadcast .btn-fb {
+        font-weight: 500;
+    }
+
     .js-marquee {
         font-size: 23px!important;
     }
