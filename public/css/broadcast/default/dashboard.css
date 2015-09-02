@@ -1161,6 +1161,9 @@ strong {
     padding-right: 20px;
     margin-bottom: 11px;
 }
+#biz-broadcast .btn-fb span {
+    display: inline-block; margin-right: 12px;
+}
 #biz-broadcast .btn-fb:hover {
     background-color: #4d76de;
     color: #fff;

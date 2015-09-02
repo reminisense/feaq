@@ -356,6 +356,11 @@
       margin-top: -18px;
   }
 }
+@media (max-width: 768px) {
+    .navbar-toggle {
+        display: none!important;
+    }
+}
 @media (max-width: 480px) {
     .boxed .broadcast .numbers {
         font-size: 38px;

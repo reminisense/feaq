@@ -14,7 +14,7 @@
     <link href="/css/broadcast/default/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
     <link href="/css/broadcast/default/dashboard.css" rel="stylesheet" type="text/css" media="all">
     <link href="/css/broadcast/default/responsive.css" rel="stylesheet" type="text/css" media="all">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
     {{--{{ HTML::script('js/jquery1.11.0.js') }}--}}
     <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
@@ -68,12 +68,19 @@
                 <img src="/images/featherq-home-logo.png">
             </a>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
+        <div class="pull-right hidden-sm hidden-xs">
+            <a href="" class="btn btn-fb" role="button" ng-click="login()"><span class="fa fa-facebook"></span> Sign Up</a>
+            <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
+                                  <img alt="Android app on Google Play"
+                                  src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png" height="50"/>
+                                </a>
+        </div>
+        <div id="navbar" class="hidden-xs hidden hidden-sm hidden-md navbar-collapse collapse">
+            <ul class="nav hidden navbar-nav navbar-right">
                 @if (Auth::check())
                     <li class="broadcast-logged">Hello {{Auth::user()->first_name}}!</li>
                 @else
-                    <li ng-controller="fbController"><a href="" class="btn btn-fb" role="button" ng-click="login()"><img src="/images/homepage/fb.png" />Sign Up</a></li>
+                    <li ng-controller="fbController"><a href="" class="btn btn-fb" role="button" ng-click="login()"><span class="fa fa-facebook"></span> Sign Up</a></li>
                 @endif
                 <li class="hidden-md hidden-sm hidden-xs btn-gplay">
                     <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
@@ -86,6 +93,20 @@
     </div>
 </nav>
 
+<div class="container">
+    <div class="hidden-lg hidden-md visible-sm visible-xs">
+        <div class="clearfix">
+            <div class="col-md-6 col-xs-6">
+                <a href="" class="btn btn-fb" role="button" ng-click="login()"><span class="fa fa-facebook"></span> Sign Up</a>
+            </div>
+            <div class="col-md-6 col-xs-6">
+                <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
+                    <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png" height="50"/>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="container main-wrap">
     <div class="row mt20" id="nowServingCtrl" ng-controller="nowServingCtrl">
