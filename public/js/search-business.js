@@ -9,7 +9,7 @@
 
         var listBusinesses = (function(response) {
             $scope.businesses = new Array();
-            var length_limit = 7;
+            var length_limit = 8;
             for (var i = 0; i < response.length; i++) {
                 $scope.businesses.push({
                     "business_id": response[i].business_id,
@@ -72,7 +72,7 @@
 
                 $('#biz-grid').hide();
                 $scope.businesses = new Array();
-                var length_limit = 7;
+                var length_limit = 8;
                 for (var i = 0; i < response.length; i++) {
                     $scope.businesses.push({
                         "business_id": response[i].business_id,
