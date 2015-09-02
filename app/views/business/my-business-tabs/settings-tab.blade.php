@@ -31,7 +31,7 @@
         </div>
         <div class="clearfix">
             <div class="col-md-6 mb20">
-                <p class="title">Remote Queue Limit</p>
+                <p class="title">* Remote Queue Limit</p>
             </div>
             <div class="col-md-6 mb20">
                 <input type="text" id="remote-limit" readonly style="border:0; font-weight:bold; width: 28px;" ng-model="remote_limit"> %
@@ -67,10 +67,18 @@
                 </div>
             </div>
         </div>
+        <div class="clearfix">
+            <div class="col-md-12">
+                <div class="alert alert-info" role="alert">
+                    <strong>* Remote Queue Limit</strong> refers to the percentage of people who can queue remotely from the total number of people currently lined up.
+                    This means that if you have a 10% limit, once 10 people have been issued numbers, 1 slot will be open for another person to queue in remotely.
+                </div>
+            </div>
+        </div>
     </div>
     <div class="col-md-6">
         <div class=" header">
-            <h5>* SMS SETTINGS</h5>
+            <h5>** SMS SETTINGS</h5>
         </div>
         <div class="clearfix">
             <span><label>Frontline SMS</label> <input ng-disabled="business_features.allow_sms == 'false'" type="radio" value="frontline_sms" ng-model="sms_gateway"/></span>
@@ -131,7 +139,7 @@
         <div class="clearfix">
             <div class="col-md-12">
                 <div class="alert alert-info" role="alert">
-                    <strong>* FeatherQ SMS Notifications</strong> will soon be enjoyed by business partners that have been in close contact with us.
+                    <strong>** FeatherQ SMS Notifications</strong> will soon be enjoyed by business partners that have been in close contact with us.
                     To be one of these partners, you may contact us at <strong><a href="mailto:contact@featherq.com">contact@featherq.com</a></strong>.
                     You may also call us at <strong>(+63 32) 345-4658</strong> for further inquiries.
                 </div>
