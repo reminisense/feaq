@@ -74,7 +74,7 @@ $('.featured-partners-slides').slick({
     arrows: true,
     autoplay: true,
     autoplaySpeed: 2000,
-    slidesToShow: 3,
+    slidesToShow: 4,
     slidesToScroll: 1,
     pauseOnHover: false
 

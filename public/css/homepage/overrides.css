@@ -129,10 +129,10 @@ h2 {
     margin-bottom: 68px;
 }
 h2 span {
-    font-weight: 700;
+    font-weight: 400;
 }
 h3 {
-    font-weight: 700;
+    font-weight: 600;
 }
 .banner {
     
@@ -147,14 +147,17 @@ h3 {
 }
 .banner .btn {
     border-radius: 9px;
-    font-weight: 400;
-    padding: 16px 42px;
+    font-weight: 700;
+    padding: 16px 32px;
     margin-right: 2px;
-    text-transform: uppercase;
-    font-size: 18px;
+    border: 2px solid #4666b6;
+    font-size: 16px;
+    color: #fff;
 }
-.banner .btn img {
-    margin-right: 10px;
+.banner .btn span,
+.btn-fb span {
+    display: inline-block;
+    margin-right: 12px;
 }
 .banner h1 span {
     font-weight: 700;
@@ -171,6 +174,7 @@ h3 {
 }
 .holdphone img {
     margin-left: -100px;
+    width: 100%;
 }
 .signthemup p {
     font-size: 18px;
@@ -240,7 +244,7 @@ h3 {
     padding: 70px 0px;
 }
 .featured-partners-slides img {
-    padding: 20px;
+    padding: 0 20px;
 }
 .features h2 {
     margin-top: 50px;
@@ -271,6 +275,7 @@ h3 {
     width: 70%;
     padding: 10px 0;
     margin: auto;
+    border-radius: 8px;
 }
 .whocan .imgs .block.hos p {
     background-color: #0bc592;
@@ -330,6 +335,9 @@ p > a:hover {
     padding: 20px;
     float: right;
     font-size: 20px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    font-weight: 400;
 }
 #myTabs #signup-tab {
     background-color: #ff832f;
@@ -555,6 +563,7 @@ p > a:hover {
     color: #333;
     border: none;
     width: 220px;
+    border-radius: 8px;
 }
 .subscribe-error {
     margin-top: 10px;
@@ -596,11 +605,17 @@ section.lead {
 .btn {
     font-weight: 700;
     color: #fff;
+    border-radius: 8px;
 }
 .btn-fb:hover {background-color: #4d76de;
     color: #fff;
 }
-.btn-fb {background-color: #4666b6;
+.btn-fb {
+    background-color: #4666b6;
+    color: #fff;
+    font-weight: 600;
+}
+.btn-fb span {
     color: #fff;
 }
 .rel {position: relative;}
@@ -638,7 +653,7 @@ span.box {padding: 2px 4px; margin-right: 10px; display: inline-blo; font-size: 
 .mb50 {margin-bottom: 50px;}
 .mr20 {margin-right: 20px!important;}
 .ml20 {margin-left: 20px;}
-.btn {padding: 12px 22px; border-radius: 0;}
+.btn {padding: 12px 22px;}
 .line {height: 2px; background-color: #00a1b0; width: 45px;}
 .btn-yellow {background-color: #cfb10a; color: #fff; font-weight: 14px; font-family: 'Open Sans', sans-serif; }
 @font-face {

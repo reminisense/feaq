@@ -17,6 +17,7 @@
   <link rel="stylesheet" type="text/css" href="/css/homepage/slick-theme.css"/>
   <link rel="stylesheet" type="text/css" href="/css/refresh-animate.css"/>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
   <script type="text/javascript" src="/js/jquery-1.11.2.min.js"></script>
   <script type="text/javascript" src="/js/angular.min.js"></script>
@@ -84,7 +85,7 @@
                                                                                                                                             <img alt="Android app on Google Play"
                                                                                                                                             src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png" />
                                                                                     </a>
-                          <a href="" class="btn btn-fb" ng-click="login()" role="button"><img src="/images/homepage/fb.png" /> Login with Facebook</a>
+                          <a href="" class="btn btn-fb" ng-click="login()" role="button"><span class="fa fa-facebook"></span> Login with Facebook</a>
                         </div>
                       </div>
                       <div class="col-lg-6 col-md-6 hidden-sm hidden-xs">
@@ -104,13 +105,13 @@
             <div class="col-md-12 col-xs-12">
                 <h2 class="text-center"><span>Featured Partners</span></h2>
             </div>
-            <div class="col-md-offset-2 col-md-8 col-xs-12">
+            <div class="col-md-12 col-xs-12">
                 <div class="featured-partners-slides">
                     <div class="col-md-4"><img class="img-responsive" src="/images/homepage/isuzu.png"></div>
                     <div class="col-md-4"><img class="img-responsive" src="/images/homepage/honda.png"></div>
                     <div class="col-md-4"><img class="img-responsive" src="/images/homepage/grabtaxi.png"></div>
-                    <div class="col-md-4"><img class="img-responsive" src="/images/homepage/honda.png"></div>
-
+                    <div class="col-md-4"><img class="img-responsive" src="/images/homepage/primarycare.png"></div>
+                    <div class="col-md-4"><img class="img-responsive" src="/images/homepage/upcebu.png"></div>
                 </div>
             </div>
           </div>
@@ -457,7 +458,7 @@
 
                 <p>Signup for a <a class="noline" href="" ng-click="login()"><span>FREE FeatherQ account</span></a> today. <br>
                   Managing your lines is as simple as 1,2,3.</p>
-                  <button class="btn btn-fb" ng-click="login()">Sign up with facebook</button>
+                  <button class="btn btn-fb" ng-click="login()"><span class="fa fa-facebook"></span> Login with facebook</button>
 
                   <br>
                   {{-- ARA Removed because of new agreement on sms.
