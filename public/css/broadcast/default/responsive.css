@@ -225,6 +225,19 @@
 }
 
 @media (max-width: 480px) {
+    .broadcast-logged {
+        padding-bottom: 10px;
+    }
+
+    .publiclogin .btn-play img {
+        height: 41px;
+    }
+
+    #biz-broadcast .btn-fb {
+        font-size: 16px;
+        margin-bottom: 6px;
+    }
+
     .js-marquee {
         font-size: 23px!important;
     }

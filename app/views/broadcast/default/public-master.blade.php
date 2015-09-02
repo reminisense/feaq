@@ -94,6 +94,14 @@
         <audio id="call-number-sound" src="/audio/doorbell_x.wav" controls preload="auto" autobuffer style="display: none;"></audio>
 
         @include('broadcast.default.public-' . $template_type)
+        <div class="publiclogin ng-scope hidden-lg hidden-md visible-sm visible-xs" ng-controller="fbController">
+            <a class="btn-play" style="margin-right:5px;" href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
+                <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png">
+            </a>
+            @if (!Auth::check())
+                <a href="" class="btn btn-fb" role="button" ng-click="login()"><img src="/images/homepage/fb.png" />Sign Up</a>
+            @endif
+        </div>
 
         <div class="col-md-6" ng-if="get_num > 0">
             <div class="boxed boxed-single">
@@ -121,13 +129,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="col-sm-12 hidden-lg visible-md visible-xs visible-sm" style="text-align: center;">
-            <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" style="padding-top: 3px; padding-bottom: 3px;">
-              <img alt="Android app on Google Play"
-              src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png"/>
-            </a>
         </div>
 
         <div class="col-md-12 ticker mt20">
