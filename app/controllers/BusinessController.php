@@ -537,4 +537,45 @@ class BusinessController extends BaseController{
         $analytics = Analytics::getBusinessAnalytics($business_id, strtotime($startdate), strtotime($enddate));
         return json_encode(array('analytics' => $analytics));
     }
+
+    public function getAccessKey($business_id){
+        if(Helper::isBusinessOwner($business_id, Helper::userId())){
+            return json_encode(['access_key' => Crypt::encrypt($business_id)]);
+        }else{
+            return json_encode(['error' => 'Access Denied.']);
+        }
+    }
+
+    public function postForwardingPermission(){
+        $business_id = Input::get('business_id');
+        $access_key = Input::get('access_key');
+        if(Helper::isBusinessOwner($business_id, Helper::userId())){
+            $forwarder_id = Crypt::decrypt($access_key);
+            $existing = DB::table('queue_forward_permissions')->where('business_id', '=', $business_id)->where('forwarder_id', '=', $forwarder_id)->first();
+            if(!$existing){
+                DB::table('queue_forward_permissions')->insert(['business_id' => $business_id, 'forwarder_id' => $forwarder_id]);
+            }
+            $allowed_businesses = Business::getForwardingAllowedBusinesses($business_id);
+            return json_encode(['success' => 1, 'allowed_businesses' => $allowed_businesses]);
+        }else{
+            return json_encode(['error' => 'Access Denied.']);
+        }
+    }
+
+    public function postDeletePermission(){
+        $business_id = Input::get('business_id');
+        $forwarder_id = Input::get('forwarder_id');
+        if(Helper::isBusinessOwner($business_id, Helper::userId())) {
+            DB::table('queue_forward_permissions')->where('business_id', '=', $business_id)->where('forwarder_id', '=', $forwarder_id)->delete();
+            $allowed_businesses = Business::getForwardingAllowedBusinesses($business_id);
+            return json_encode(['success' => 1, 'allowed_businesses' => $allowed_businesses]);
+        }else{
+            return json_encode(['error' => 'Access Denied.']);
+        }
+    }
+
+    public function getAllowedBusinesses($business_id){
+        $allowed_businesses = Business::getForwarderAllowedBusinesses($business_id);
+        return json_encode(['success' => 1, 'allowed_businesses' => $allowed_businesses]);
+    }
 }

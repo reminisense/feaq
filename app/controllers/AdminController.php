@@ -266,4 +266,8 @@ class AdminController extends BaseController{
         return json_encode(array('success' => 0, 'message' => 'You are not allowed to access this function.'));
       }
     }
+
+    public function getTest($business_id){
+        return Business::getBusinessAccessKey($business_id);
+    }
 }

@@ -1,6 +1,6 @@
 <!-- modal -->
 
-<div class="modal fade" id="priority-number-modal" tabindex="-1">{{--<div class="modal fade" id="priority-number-modal" tabindex="-1" ng-controller="messageController">--}}
+<div class="modal fade" id="priority-number-modal" tabindex="-1" data-transaction_number="">{{--<div class="modal fade" id="priority-number-modal" tabindex="-1" ng-controller="messageController">--}}
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -21,18 +21,21 @@
                             <div class="col-md-6 col-xs-6"><h5 id="priority-number-number"></h5></div>
                         </div>
                         <div class="">
-
                             <div class="col-md-6 col-xs-6"><h5>Name: </h5></div>
                             <div class="col-md-6 col-xs-6"><h5 id="priority-number-name"></h5></div>
                         </div>
                         <div class="">
-
                             <div class="col-md-6 col-xs-6"><h5>Phone: </h5></div>
                             <div class="col-md-6 col-xs-6"><h5 id="priority-number-phone"></h5></div>
                         </div>
                         <div class="">
                             <div class="col-md-6 col-xs-6"><h5>Email: </h5></div>
                             <div class="col-md-6 col-xs-6"><h5 id="priority-number-email"></h5></div>
+                        </div>
+                        <div class="" id="allowed-businesses-area">
+                            <div class="col-md-6 col-xs-6"><h5>Forward to business: </h5></div>
+                            <div class="col-md-4 col-xs-4"><select id="allowed-businesses"></select></div>
+                            <div class="col-md-1 col-xs-1"><button class="btn btn-primary" id="forward-btn">Forward</button></div>
                         </div>
                     </div>
                     {{-- ARA Save this for later

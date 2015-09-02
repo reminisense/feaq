@@ -252,9 +252,38 @@
             }
         }
 
+        $scope.getAllowedBusinesses = function(){
+            $http.get('/business/allowed-businesses/' + pq.ids.business_id).success(function(response){
+                if(response.allowed_businesses && response.allowed_businesses.length != 0 ){
+                    var businesses = response.allowed_businesses;
+                    for(var index in businesses){
+                        $('#allowed-businesses').append('<option value="' + businesses[index].business_id +'">' + businesses[index].name + '</option>');
+                    }
+                }else{
+                    $('#allowed-businesses-area').remove();
+                }
+            });
+        }
+
+
+        $scope.issueToOther = function(business_id, transaction_number){
+            var forwarder_id = pq.ids.business_id;
+            data = {
+                business_id : business_id, //the business to forward to
+                forwarder_id : forwarder_id, //your business
+                transaction_number: transaction_number
+            };
+
+            $scope.serveNumber(transaction_number, function(){
+                $http.post('/issuenumber/issue-other/', data).success(function(){
+                    $('#priority-number-modal').modal('hide');
+                });
+            });
+        }
+
         //****************************** refreshing
             $scope.getAllNumbers();
-
+            $scope.getAllowedBusinesses();
     });
 
 })();

@@ -59,4 +59,30 @@ class IssueNumberController extends BaseController{
 
         return $count > 0 ? TRUE : FALSE;
     }
+
+    public function postIssueOther(){
+        $queue_platform = 'web';
+        $terminal_id = 0;
+
+        $business_id = Input::get('business_id');
+        $forwarder_id = Input::get('forwarder_id');
+        $transaction_number = Input::get('transaction_number');
+
+        if(Business::getForwarderAllowedInBusiness($business_id, $forwarder_id)){
+            $name = PriorityQueue::name($transaction_number);
+            $phone = PriorityQueue::phone($transaction_number);
+            $email = PriorityQueue::email($transaction_number);
+
+            $service = Service::getFirstServiceOfBusiness($business_id);
+            $service_id = $service->service_id;
+            $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
+            $priority_number = $next_number;
+
+            $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, $terminal_id);
+            PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
+            return json_encode(['success' => 1, 'number' => $number]);
+        }{
+            return json_encode(['error' => 'You are not allowed to issue a number to this business']);
+        }
+    }
 }

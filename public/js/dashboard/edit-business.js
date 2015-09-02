@@ -356,6 +356,7 @@ var eb = {
         $scope.startdate = $filter('date')(new Date(),'MM/dd/yyyy');
         $scope.enddate = $filter('date')(new Date(),'MM/dd/yyyy');
 
+        $scope.my_accesskey = null;
         $scope.getBusinessDetails = function(){
             if ( $scope.business_id > 0 ) {
                 $http.get(eb.urls.business.business_details_url + $scope.business_id)
@@ -388,6 +389,7 @@ var eb = {
             $scope.terminals = business.terminals;
             $scope.analytics = business.analytics;
             $scope.terminal_delete_error = business.error ? business.error : null;
+            $scope.allowed_businesses = business.allowed_businesses;
 
             //sms settings
             $scope.sms_gateway = business.sms_gateway;
@@ -1050,6 +1052,31 @@ var eb = {
                 $scope.analytics = response.analytics;
             });
         };
+
+        $scope.saveQueueForwardingBusiness = function(){
+            $http.post('/business/forwarding-permission/', {
+                business_id: $scope.business_id,
+                access_key: $scope.queue_forward_accesskey
+            }).success(function(response){
+                $scope.queue_forward_accesskey = '';
+                $scope.allowed_businesses = response.allowed_businesses;
+            });
+        }
+
+        $scope.deletePermission = function(forwarder_id){
+            $http.post('/business/delete-permission/', {
+                business_id: $scope.business_id,
+                forwarder_id: forwarder_id
+            }).success(function(response){
+                $scope.allowed_businesses = response.allowed_businesses;
+            });
+        }
+
+        $scope.getAccesskey = function(){
+            $http.get('/business/access-key/' + $scope.business_id).success(function(response){
+                $scope.my_accesskey = response.access_key;
+            });
+        }
     });
 
 })();
