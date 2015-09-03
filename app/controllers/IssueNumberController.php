@@ -13,15 +13,10 @@ class IssueNumberController extends BaseController{
         $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
         $queue_platform = $number_start == $next_number || $number_start == null ? 'web' : 'specific';
         $number_start = $number_start == null ? $next_number : $number_start;
-        for($i = 1; $i <= $range; $i++){
-            $number = ProcessQueue::issueNumber($service_id, $number_start, $date, $queue_platform, $terminal_id);
-            $number_start++;
-            if($i == 1){
-                $first = $number['priority_number'];
-            }
-        }
-        $last = $number['priority_number'];
-        return json_encode(['success' => 1, 'first_number' => $first, 'last_number' => $last,]);
+
+        $result = ProcessQueue::issueMultiple($service_id, $number_start, $range, $date, $queue_platform, $terminal_id);
+        $result['success'] = 1;
+        return json_encode($result);
     }
 
     public function postInsertspecific($service_id, $terminal_id = 0, $queue_platform = 'web'){

@@ -39,6 +39,57 @@ class ProcessQueue extends Eloquent{
         return $number;
     }
 
+    public static function issueMultiple($service_id, $first_number, $range, $date = null, $queue_platform = 'web', $terminal_id = 0, $user_id = null){
+        $date = $date == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $date;
+
+        $service_properties = ProcessQueue::getServiceProperties($service_id, $date);
+        $number_start = $service_properties->number_start;
+        $number_limit = $service_properties->number_limit;
+        $last_number_given = $service_properties->last_number_given;
+        $current_number = $service_properties->current_number;
+
+        $time_queued = time();
+        $user_id = $user_id == null? Helper::userId() : $user_id;
+        $priority_number = $first_number;
+
+        $priority_queue_data = array();
+        $terminal_transaction_data = array();
+        $analytics_data = array();
+        //@todo insert bulk to priority number table and get track ids
+        for($i = 1; $i <= $range; $i++){
+            $track_id = PriorityNumber::createPriorityNumber($service_id, $number_start, $number_limit, $last_number_given, $current_number, $date);
+            $confirmation_code = strtoupper(substr(md5($track_id), 0, 4));
+            $transaction_number = PriorityQueue::createPriorityQueue($track_id, $priority_number, $confirmation_code, $user_id, $queue_platform);
+
+            $terminal_transaction_data[] = array(
+                'transaction_number' => $transaction_number,
+                'time_queued' => $time_queued,
+            );
+
+            $analytics_data[] = array(
+                'transaction_number' => $transaction_number,
+                'date' => $date,
+                'business_id' => Business::getBusinessIdByServiceId($service_id),
+                'branch_id' => Service::branchId($service_id),
+                'service_id' => $service_id,
+                'terminal_id' => $terminal_id,
+                'queue_platform' => $queue_platform,
+                'user_id' => Helper::userId(),
+                'action' => 0,
+                'action_time' => $time_queued
+            );
+
+            $last_number_given = $priority_number;
+            $priority_number++;
+        }
+
+
+        //@todo insert bulk to priority queue and get transaction numbers
+        TerminalTransaction::insert($terminal_transaction_data); //insert bulk to terminal transaction
+        Analytics::saveQueueAnalytics($analytics_data); //insert bulk to analytics
+        return array('first_number' => $first_number, 'last_number' => $last_number_given);
+    }
+
     //calls a number based on its transaction number
     public static function callTransactionNumber($transaction_number, $user_id, $terminal_id){
         if(is_numeric($terminal_id)){
