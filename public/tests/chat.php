@@ -40,7 +40,7 @@ $user_colour = array_rand($colours);
 <script language="javascript" type="text/javascript">
   $(document).ready(function(){
     //create a new WebSocket object.
-    var wsUri = "ws://four.featherq.com:9000/tests/server.php";
+    var wsUri = "ws://localhost:55346/socket/server.php";
     websocket = new WebSocket(wsUri);
 
     websocket.onopen = function(ev) { // connection is open
@@ -48,23 +48,34 @@ $user_colour = array_rand($colours);
     }
 
     $('#send-btn').click(function(){ //use clicks message send button
-      var mymessage = $('#message').val(); //get message text
-      var myname = $('#name').val(); //get user name
+      var number = $('#number').val(); //get message text
+      var terminal = $('#terminal').val(); //get user name
+      var rank = $('#rank').val(); //get user name
+      var box = $('#box').val(); //get user name
 
-      if(myname == ""){ //empty name?
-        alert("Enter your Name please!");
+      if(number == ""){ //empty name?
+        alert("please call a number");
         return;
       }
-      if(mymessage == ""){ //emtpy message?
-        alert("Enter Some message Please!");
+      if(terminal == ""){ //emtpy message?
+        alert("please put terminal name");
+        return;
+      }
+      if(rank == ""){ //emtpy message?
+        alert("please put terminal id");
+        return;
+      }
+      if(box == ""){ //emtpy message?
+        alert("please put the box number you would like the number to show");
         return;
       }
 
       //prepare json data
       var msg = {
-        message: mymessage,
-        name: myname,
-        color : '<?php echo $colours[$user_colour]; ?>'
+        number: number,
+        terminal: terminal,
+        rank : rank,
+        box : box
       };
       //convert and send data to server
       websocket.send(JSON.stringify(msg));
@@ -74,17 +85,18 @@ $user_colour = array_rand($colours);
     websocket.onmessage = function(ev) {
       var msg = JSON.parse(ev.data); //PHP sends Json data
       var type = msg.type; //message type
-      var umsg = msg.message; //message text
-      var uname = msg.name; //user name
-      var ucolor = msg.color; //color
+      var number = msg.number; //message text
+      var terminal = msg.terminal; //user name
+      var rank = msg.rank; //color
+      var box = msg.box; //color
 
       if(type == 'usermsg')
       {
-        $('#message_box').append("<div><span class=\"user_name\" style=\"color:#"+ucolor+"\">"+uname+"</span> : <span class=\"user_message\">"+umsg+"</span></div>");
+        $('#message_box').append("<div><span class=\"user_name\" style=\"color:#000;\">"+number+"</span> : <span class=\"user_message\">"+rank+" "+terminal+" "+box+"</span></div>");
       }
       if(type == 'system')
       {
-        $('#message_box').append("<div class=\"system_msg\">"+umsg+"</div>");
+        $('#message_box').append("<div class=\"system_msg\">"+terminal+"</div>");
       }
 
       $('#message').val(''); //reset text
@@ -97,8 +109,10 @@ $user_colour = array_rand($colours);
 <div class="chat_wrapper">
   <div class="message_box" id="message_box"></div>
   <div class="panel">
-    <input type="text" name="name" id="name" placeholder="Your Name" maxlength="10" style="width:20%"  />
-    <input type="text" name="message" id="message" placeholder="Message" maxlength="80" style="width:60%" />
+    <input type="text" name="number" id="number" placeholder="Number to call" maxlength="10" style="width:20%"  />
+    <input type="text" name="terminal" id="terminal" placeholder="Terminal Name" maxlength="80" style="width:30%" />
+    <input type="text" name="rank" id="rank" placeholder="Terminal ID" maxlength="80" style="width:20%" />
+    <input type="text" name="box" id="box" placeholder="Box Number" maxlength="80" style="width:20%" />
     <button id="send-btn">Send</button>
   </div>
 </div>
