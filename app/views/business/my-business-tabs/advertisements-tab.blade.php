@@ -82,7 +82,7 @@
                     </form>
                     <div class="alert alert-success" id="adimage-success" style="display: none;">Success! <strong><a href="/broadcast/business/@{{ business_id }}" target="_blank">View Broadcast Page</a></strong></div>
                 </div>
-                <div class="col-md-12" style="margin-top: 20px;">
+                <div class="col-md-12 clearfix" style="margin-top: 20px;">
                     <form ng-submit="setCarouselDelay()">
                         <div class="col-md-4 col-xs-6">
                             <small>Transition Time Delay: (seconds)</small>
@@ -99,9 +99,9 @@
                         <div class="alert alert-danger" id="carouseldelay-danger" style="display: none;">Oops! Something went wrong.</div>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <div class="col-md-12 reorder-note" style="display: none;">
-                        <span class="label label-info pull-left" style="font-size: 14px; word-wrap: break-word;">Reorder Images as they Appear in the Broadcast Screen</span>
+                <div class="col-md-12 mt10">
+                    <div class="col-md-12 reorder-note" style="">
+                        <div class="alert alert-info" style="font-size: 14px;">Reorder Images as they Appear in the Broadcast Screen. You might have to refresh the broadcast screen after re-ordering.</div>
                     </div>
                     <div class="col-md-12 table-responsive">
                         <table class="table table-striped" id="ad-images-preview">
@@ -119,9 +119,6 @@
                             </tr>
                             </tbody>
                         </table>
-                    </div>
-                    <div class="col-md-12 reorder-note" style="display: none;">
-                        <span class="label label-default pull-right" style="word-wrap: break-word;">** You might have to refresh the broadcast screen after re-ordering.</span>
                     </div>
                 </div>
             </div>
