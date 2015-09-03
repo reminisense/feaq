@@ -47,7 +47,7 @@
 }
 
 .plupload_container {
-	padding: 8px;
+	/*padding: 8px;*/
 	background: url('../img/transp50.png');
 	/*-moz-border-radius: 5px;*/
 }
@@ -58,12 +58,15 @@
 	width: 98%;
 }
 
-.plupload_header {background: #2A2C2E url('../img/backgrounds.gif') repeat-x;}
+/*.plupload_header {background: #2A2C2E url('../img/backgrounds.gif') repeat-x;}*/
 .plupload_header_content {
-	background: url('../img/backgrounds.gif') no-repeat 0 -317px;
+	/*background: url('../img/backgrounds.gif') no-repeat 0 -317px;*/
+    background-color: #6b6b6b;
 	min-height: 56px;
-	padding-left: 60px;
+	padding: 10px 20px;
 	color: #FFF;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
 }
 .plupload_header_title {
 	font: normal 18px sans-serif;
@@ -81,7 +84,7 @@
 
 .plupload_scroll .plupload_filelist {
 	height: 185px;
-	background: #F5F5F5;
+	background: #fff;
 	overflow-y: scroll;
 }
 
@@ -177,7 +180,7 @@ li.plupload_done a {
 }
 
 li.plupload_droptext {
-	background: transparent;
+	background: #fff;
 	text-align: center;
 	vertical-align: middle;
 	border: 0;
