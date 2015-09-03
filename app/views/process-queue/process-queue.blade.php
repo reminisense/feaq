@@ -47,9 +47,9 @@ Processs Queue > {{ $business_name }}
 <div class="container" id="process-queue-wrapper" ng-controller="processqueueController">
     <div class="row">
         <div class="page-header clearfix">
-            <div class="col-md-12 text-center">
+            {{--<div class="col-md-12 text-center">
                 <button class="btn btn-danger stopbutton"ng-click="stopProcessQueue()">STOP</button>
-            </div>
+            </div>--}}
             <div class="col-md-offset-1 col-md-7 col-sm-8">
                 <p>Processing Queues for:</p>
                 <h2>{{ $business_name }} - {{ $terminal_name }}</h2>
@@ -146,6 +146,15 @@ Processs Queue > {{ $business_name }}
                 </div>
                 <table class="table table-striped">
                     <tbody>
+                    <tr>
+                        <th></th>
+                        <td></td>
+                        <td>
+                            <button class="pull-right btn btn-sm btn-danger stopbutton" ng-click="stopProcessQueue()">
+                                <span class="glyphicon glyphicon-stop"></span> STOP
+                            </button>
+                        </td>
+                    </tr>
                     <tr ng-repeat="number in called_numbers" data-tnumber="@{{ number.transaction_number }}">
                         <th scope="row">
                             <a href="#" class="priority-number" title="Number: @{{ number.priority_number }}" data-transaction-number="@{{ number.transaction_number }}" data-priority-number="@{{ number.priority_number }}" data-name="@{{ number.name }}" data-phone="@{{ number.phone }}" data-email="@{{ number.email }}" data-toggle="modal" data-target="#priority-number-modal">
