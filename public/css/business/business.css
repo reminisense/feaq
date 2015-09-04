@@ -746,6 +746,10 @@ button#sendreply {
     overflow: hidden;
 }
 
+.reorder-note {
+    margin-top: -20px;
+}
+
 .reorder-images {
     height: 400px;
 }

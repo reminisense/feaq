@@ -80,7 +80,6 @@
                         <br style="clear: both" />
                         <input type="submit" value="Send" style="display: none;"/>
                     </form>
-                    <div class="alert alert-success" id="adimage-success" style="display: none;">Success! <strong><a href="/broadcast/business/@{{ business_id }}" target="_blank">View Broadcast Page</a></strong></div>
                 </div>
 
                 <div class="col-md-12" style="margin-top: 50px;">
@@ -118,6 +117,7 @@
                         </div>
                     </form>
                     <div class="col-md-12 mt10">
+                        <div class="alert alert-success" id="adimage-success" style="display: none;">Success! <strong><a href="/broadcast/business/@{{ business_id }}" target="_blank">View Broadcast Page</a></strong></div>
                         <div class="alert alert-success" id="carouseldelay-success" style="display: none;">Success! <strong><a href="/broadcast/business/@{{ business_id }}" target="_blank">View Broadcast Page</a></strong></div>
                         <div class="alert alert-danger" id="carouseldelay-danger" style="display: none;">Oops! Something went wrong.</div>
                     </div>
