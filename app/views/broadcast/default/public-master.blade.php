@@ -72,7 +72,9 @@
         </div>
         <div class="cta pull-right hidden-sm hidden-xs">
             <span>Start using FeatherQ</span>
+            @if (!Auth::check())
             <a href="" class="btn btn-fb" role="button" ng-click="login()"><span class="fa fa-facebook"></span> Login with Facebook</a>
+            @endif
             <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
               <img alt="Android app on Google Play"
               src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png" height="40"/>
@@ -103,7 +105,7 @@
         <audio id="call-number-sound" src="/audio/doorbell_x.wav" controls preload="auto" autobuffer style="display: none;"></audio>
 
         @include('broadcast.default.public-' . $template_type)
-        <div class="publiclogin ng-scope hidden-lg hidden-md visible-sm visible-xs" ng-controller="fbController">
+        <div class="publiclogin ng-scope hidden-lg hidden-md visible-sm visible-xs text-center" ng-controller="fbController">
             <a class="btn-play" style="margin-right:5px;" href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
                 <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png">
             </a>
