@@ -298,7 +298,10 @@ var eb = {
 
 
 (function(){
-
+    app.requires.push('angular-loading-bar'); //add angular loading bar
+    app.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+        cfpLoadingBarProvider.includeSpinner = false;
+    }]);
     app.controller('editBusinessController', function($scope, $http, $filter){
         $scope.user_id = null;
         $scope.business_id = null;
