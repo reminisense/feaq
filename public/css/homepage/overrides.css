@@ -147,7 +147,7 @@ h3 {
 }
 .banner .btn {
     border-radius: 9px;
-    font-weight: 700;
+    font-weight: 600;
     padding: 16px 32px;
     margin-right: 2px;
     border: 2px solid #4666b6;
@@ -173,8 +173,8 @@ h3 {
     margin: 5px 25px 4px 0;
 }
 .holdphone img {
-    margin-left: -100px;
     width: 100%;
+    margin-left: 80px;
 }
 .signthemup p {
     font-size: 18px;
@@ -656,18 +656,7 @@ span.box {padding: 2px 4px; margin-right: 10px; display: inline-blo; font-size: 
 .btn {padding: 12px 22px;}
 .line {height: 2px; background-color: #00a1b0; width: 45px;}
 .btn-yellow {background-color: #cfb10a; color: #fff; font-weight: 14px; font-family: 'Open Sans', sans-serif; }
-@font-face {
-    font-family: 'league_gothicregular';
-    src: url('../fonts/league_gothic-webfont.eot');
-    src: url('../fonts/league_gothic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/league_gothic-webfont.woff2') format('woff2'),
-         url('../fonts/league_gothic-webfont.woff') format('woff'),
-         url('../fonts/league_gothic-webfont.ttf') format('truetype'),
-         url('../fonts/league_gothic-webfont.svg#league_gothicregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
 
-}
 
 .business_link:hover {
     text-decoration: none;
@@ -743,9 +732,6 @@ ul.nav {
 .business_link:focus {
     text-decoration: none;
 }
-.holdphone img {
-    margin-left: 100px;
-}
 .featurewrapper {
     position: absolute;
     top: 0px;
@@ -757,5 +743,22 @@ ul.nav {
 .featurewrapper p {
     font-size: 16px;
     color: #fff;
+    font-weight: 400;
+}
+#search-keyword::-webkit-input-placeholder {
+    color: #ccc;
+}
+
+#search-keyword:-moz-placeholder { /* Firefox 18- */
+    color: #ccc;
+}
+
+#search-keyword::-moz-placeholder {  /* Firefox 19+ */
+    color: #ccc;
+}
+
+#search-keyword:-ms-input-placeholder {
+    color: #ccc;
+}
     font-weight: 400;
 }

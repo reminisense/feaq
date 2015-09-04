@@ -12,16 +12,18 @@
 
     <link rel="stylesheet" type="text/css" href="/css/ngCloak.css">
     <link href="/css/broadcast/default/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
-    <link href="/css/broadcast/default/dashboard.css" rel="stylesheet" type="text/css" media="all">
+
+
+
+    <link href="/css/app-global.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/css/broadcast/default/public-broadcast.css" rel="stylesheet" type="text/css" media="all">
     <link href="/css/broadcast/default/responsive.css" rel="stylesheet" type="text/css" media="all">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet' type='text/css'>
 
-    {{--{{ HTML::script('js/jquery1.11.0.js') }}--}}
     <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-
-    {{--{{ HTML::script('js/angular.js') }}--}}
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
-
     <script type="text/javascript" src="/js/jquery.marquee.min.js"></script>
 
     {{--{{ HTML::script('js/ngPublicBroadcast.js') }}--}}
@@ -51,7 +53,7 @@
 </head>
 <!-- NAVBAR
   ================================================== -->
-<body cz-shortcut-listen="true" id="biz-broadcast" ng-app="PublicBroadcast" ng-cloak>
+<body cz-shortcut-listen="true" id="public-broadcast" ng-app="PublicBroadcast" ng-cloak>
 <div id="business-id" business_id="{{ $business_id }}"></div>
 <div id="user-id" user_id="@if($user) {{$user['user_id']}} @else {{'0'}} @endif"></div>
 <!-- Static navbar -->
@@ -68,11 +70,12 @@
                 <img src="/images/featherq-home-logo.png">
             </a>
         </div>
-        <div class="pull-right hidden-sm hidden-xs">
-            <a href="" class="btn btn-fb" role="button" ng-click="login()"><span class="fa fa-facebook"></span> Sign Up</a>
+        <div class="cta pull-right hidden-sm hidden-xs">
+            <span>Start using FeatherQ</span>
+            <a href="" class="btn btn-fb" role="button" ng-click="login()"><span class="fa fa-facebook"></span> Login with Facebook</a>
             <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
               <img alt="Android app on Google Play"
-              src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png" height="50"/>
+              src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png" height="40"/>
             </a>
         </div>
         <div id="navbar" class="hidden-xs hidden hidden-sm hidden-md navbar-collapse collapse">
@@ -80,7 +83,7 @@
                 @if (Auth::check())
                     <li class="broadcast-logged">Hello {{Auth::user()->first_name}}!</li>
                 @else
-                    <li ng-controller="fbController"><a href="" class="btn btn-fb" role="button" ng-click="login()"><span class="fa fa-facebook"></span> Sign Up</a></li>
+                    <li ng-controller="fbController"><a href="" class="btn btn-fb" role="button" ng-click="login()"><span class="fa fa-facebook"></span> Login with Facebook</a></li>
                 @endif
                 <li class="hidden-md hidden-sm hidden-xs btn-gplay">
                     <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
@@ -105,7 +108,7 @@
                 <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png">
             </a>
             @if (!Auth::check())
-                <a href="" class="btn btn-fb" role="button" ng-click="login()"><img src="/images/homepage/fb.png" />Sign Up</a>
+                <a href="" class="btn btn-fb" role="button" ng-click="login()"><span class="fa fa-facebook"></span> Login with Facebook</a>
             @endif
         </div>
 
@@ -148,7 +151,7 @@
 </div>
 <div class="footer">
     <div class="container">
-        <div class="col-md-12">
+        <div class="col-md-12 text-center">
             &copy; 2015 : Reminisense Corp.
         </div>
     </div>
