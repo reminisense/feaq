@@ -745,3 +745,7 @@ button#sendreply {
     height: 2.4em;
     overflow: hidden;
 }
+
+.reorder-images {
+    height: 400px;
+}
