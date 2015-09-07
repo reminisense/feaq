@@ -12,7 +12,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="numbers t@{{ rank1 }} spaceht">
                         <p class="terminal">@{{ name1 }}</p>
-                        @{{ box1 }}
+                        <h3>@{{ box1 }}</h3>
                     </div>
                 </div>
             </div>
