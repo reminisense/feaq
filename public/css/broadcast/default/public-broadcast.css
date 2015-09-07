@@ -162,3 +162,13 @@
 #public-broadcast .main-wrap {
     min-height: inherit!important;
 }
+@font-face {
+    font-family: 'ArialMTStd-ExtraBold';
+    src: url('/fonts/broadcast/default/ArialMTStd-ExtraBold.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/broadcast/default/ArialMTStd-ExtraBold.otf')  format('opentype'),
+    url('/fonts/broadcast/default/ArialMTStd-ExtraBold.woff') format('woff'),
+    url('/fonts/broadcast/default/ArialMTStd-ExtraBold.ttf')  format('truetype'),
+    url('/fonts/broadcast/default/ArialMTStd-ExtraBold.svg#ArialMTStd-ExtraBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
