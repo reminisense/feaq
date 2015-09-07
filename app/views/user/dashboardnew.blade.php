@@ -20,7 +20,7 @@ Dashboard
     <div class="feat feat-dashboard">
         <div class="container">
             <div class="text-center">
-                <h1>Search for Businesses</h1>
+                <h1><b>Find</b> a Business</h1>
             </div>
             <div class="container">
                 <div class="clearfix">
@@ -49,7 +49,7 @@ Dashboard
                                     <input type="text" id="time_open-filter" name="time_open" placeholder="Time Open" class="form-control" ng-model="time_open">
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-12">
-                                    <input class="" type="text" placeholder="e.g. ABC Company" id="search-keyword" ng-model="search_keyword" ng-model-options="{debounce: 1000}" autocomplete="off">
+                                    <input class="" type="text" placeholder="e.g. Bills Payment SM Megamall" id="search-keyword" ng-model="search_keyword" ng-model-options="{debounce: 1000}" autocomplete="off">
                                     <ul class="dropdown-menu" role="menu" id="search-suggest" ng-hide="dropdown_businesses.length == 0"  outside-click="dropdown_businesses = []">
                                         <li ng-repeat="business in dropdown_businesses">
                                             <a href="#" ng-click="searchBusiness(location_filter, industry_filter, business.name, $event)">

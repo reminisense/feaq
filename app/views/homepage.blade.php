@@ -148,7 +148,7 @@
                       <input type="text" id="time_open-filter" name="time_open" ng-model="time_open" placeholder="Time Open" class="form-control">
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-6">
-                      <input type="text" placeholder="e.g. ABC Company" id="search-keyword" ng-model="search_keyword" ng-model-options="{debounce: 1000}" autocomplete="off">
+                      <input type="text" placeholder="e.g. Bills Payment SM Megamall" id="search-keyword" ng-model="search_keyword" ng-model-options="{debounce: 1000}" autocomplete="off">
                       <ul class="dropdown-menu" role="menu" id="search-suggest" ng-hide="dropdown_businesses.length == 0"  outside-click="dropdown_businesses = []">
                         <li ng-repeat="business in dropdown_businesses">
                           <a href="#" ng-click="searchBusiness(location_filter, industry_filter, business.name, $event)">
