@@ -1,7 +1,10 @@
 /**
  * Created by USER on 6/2/15.
  */
-
+app.requires.push('angular-loading-bar'); //add angular loading bar
+app.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+    cfpLoadingBarProvider.includeSpinner = false;
+}]);
 app.controller('adminController', function($scope, $http){
 
     $(".datepicker").datepicker();
