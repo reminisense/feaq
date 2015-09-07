@@ -777,6 +777,23 @@ var eb = {
                     $('.'+response.display+'.theme-btn').hide();
                     $('.'+response.display+'.activated').show();
 
+                    // default ad screen size
+                    var total_width = 500;
+                    $('#ad-width').css('width', 250);
+                    $('#ad-num-width').css('width', 250);
+                    $('#ad-width-preview').css('width', 225);
+                    $("#ad-width").resizable({
+                        handles: 'e, w'
+                    }).bind( "resize", function() {
+                        var width = $("#ad-width").width();
+                        if(width > total_width) {
+                            width = total_width;
+                            $('#ad-width').css('width', width);
+                        }
+                        $('#ad-num-width').css('width', (total_width - width));
+                        $('#ad-width-preview').css('width', width - 25);
+                    });
+
                     // default ad video / image
                     if (!response.ad_image) {
                         response.ad_image = '/images/ads.jpg'
@@ -826,6 +843,17 @@ var eb = {
                 });
             }
         });
+
+        $scope.addNumBoxes = function(table_id) {
+            var total_rows = $('#'+table_id+' tr').length + 1;
+            if (total_rows <= 10) {
+                $('#'+table_id).append('<tr><td>'+total_rows+'</td></tr>');
+            }
+        };
+
+        $scope.reduceNumBoxes = function(table_id) {
+            $('#'+table_id+' tr:last').remove();
+        };
 
         $scope.deleteImageSlide = function(business_id, count, img_path) {
             if (confirm('Are you sure you want to delete this image?')) {

@@ -11,12 +11,30 @@
 </div>
 
 <div class="col-md-12">
-    <div class="well">
+    <div class="well" id="ad-well">
         <div class="row">
             <div class="col-md-3 col-xs-12 mb20">
                 <h4>Image Advertisement Options:</h4>
                 <small>Put a sliding images on your broadcast screen</small>
             </div>
+            <div class="col-md-6">
+                <div class="ui-widget ui-widget-content" id="ad-width" style="float: left; height: 300px; border-right: 3px solid;">
+                    <img src="/images/broadcast/carousel/car1.jpg" id="ad-width-preview" class="center-block" style="height: 300px;">
+                </div>
+                <div class="ui-widget ui-widget-content" id="ad-num-width" style="float: left; height: 300px;">
+                    <table id="ad-num-preview">
+
+                    </table>
+                </div>
+                <div class="alert alert-info" style="float: left; font-size: 14px;">Drag line to resize broadcast screen.</div>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-orange" ng-click="addNumBoxes('ad-num-preview')">+</button>
+                <button class="btn btn-orange" ng-click="reduceNumBoxes('ad-num-preview')">-</button>
+                <button class="btn btn-primary btn-lg">Activate</button>
+                <div class="alert alert-info" style="float: left; font-size: 14px;">Only a maximum of 10 broadcast numbers are allowed.</div>
+            </div>
+            <!--
             <div class="col-md-3 col-sm-6 col-xs-6">
                 <img src="/images/icon-b1.jpg" class="mb10 img-responsive broadcast-preview">
                 <span class="inline-btns">
@@ -38,6 +56,7 @@
                     <a href="#" class="mb20 btn-boxy btn-xs btn-adduser btn-primary 1-6 theme-btn" ng-click="activateTheme('1-6', business_id, show_called_only)"><span class="glyphicon glyphicon-pushpin"></span> Activate</a>
                 </span>
             </div>
+            -->
         </div>
     </div>
 </div>
