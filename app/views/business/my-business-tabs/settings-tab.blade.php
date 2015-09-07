@@ -70,8 +70,8 @@
         <div class="clearfix">
             <div class="col-md-12">
                 <div class="alert alert-info" role="alert">
-                    <strong>* Remote Queue Limit</strong> refers to the percentage of people who can queue remotely from the total number of people currently lined up.
-                    This means that if you have a 10% limit, once 10 people have been issued numbers, 1 slot will be open for another person to queue in remotely.
+                    <strong>* Remote Queue Limit</strong> - Set the percentage of people able to join the queue remotely
+                    (E.g.: At 10% Remote queue limit, one person can join remotely after issuing 10 numbers).
                 </div>
             </div>
         </div>
