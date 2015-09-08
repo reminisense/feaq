@@ -746,19 +746,17 @@ ul.nav {
     font-weight: 400;
 }
 #search-keyword::-webkit-input-placeholder {
-    color: #ccc;
+    color: #999;
 }
 
 #search-keyword:-moz-placeholder { /* Firefox 18- */
-    color: #ccc;
+    color: #999;
 }
 
 #search-keyword::-moz-placeholder {  /* Firefox 19+ */
-    color: #ccc;
+    color: #999;
 }
 
 #search-keyword:-ms-input-placeholder {
-    color: #ccc;
-}
-    font-weight: 400;
+    color: #999;
 }

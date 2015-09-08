@@ -92,10 +92,10 @@
   border-bottom-right-radius: 0;
     text-align: center;
 }
-#time_open-filter::-webkit-input-placeholder {color: #333;}
-#time_open-filter::-moz-placeholder {color: #333;}
-#search-keyword::-webkit-input-placeholder {color: #333;}
-#search-keyword::-moz-placeholder {color: #333;}
+#time_open-filter::-webkit-input-placeholder {color: #999;}
+#time_open-filter::-moz-placeholder {color: #999;}
+#search-keyword::-webkit-input-placeholder {color: #999;}
+#search-keyword::-moz-placeholder {color: #999;}
 #search-keyword {
   font-size: 13px;
   padding: 14px 20px;
