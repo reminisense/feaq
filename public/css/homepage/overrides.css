@@ -478,11 +478,11 @@ p > a:hover {
 }
 .filterwrap .btn-group button {width: 100%; border-right: 1px solid #a3a3a3; }
 #time_open-filter {
-  border-right: 1px solid #a3a3a3; 
-  padding: 23px 20px;
+  border-right: 1px solid #a3a3a3;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   text-align: center;
+  height: 46px;
 }
 #time_open-filter::-webkit-input-placeholder {color: #333;}
 #time_open-filter::-moz-placeholder {color: #333;}
