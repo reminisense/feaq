@@ -73,7 +73,7 @@
         <div class="cta pull-right hidden-sm hidden-xs">
             <span>Start using FeatherQ</span>
             @if (!Auth::check())
-            <a href="" class="btn btn-fb" role="button" ng-click="login()"><span class="fa fa-facebook"></span> Login with Facebook</a>
+            <a ng-controller="fbController" href="" class="btn btn-fb" role="button" ng-click="login()"><span class="fa fa-facebook"></span> Login with Facebook</a>
             @endif
             <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
               <img alt="Android app on Google Play"
