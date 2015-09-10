@@ -87,8 +87,9 @@
                         //ARA more info for business cards
                         "last_number_called": response[i].last_number_called,
                         "next_available_number": response[i].next_available_number,
-                        "is_calling": response[i].is_calling,
-                        "is_issuing": response[i].is_issuing,
+                        //"is_calling": response[i].is_calling,
+                        //"is_issuing": response[i].is_issuing,
+                        "card_bool" : response[i].card_bool,
                         "last_active": response[i].last_active
                     });
                     if(i == length_limit - 1) break;
