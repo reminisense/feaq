@@ -225,6 +225,10 @@
 }
 
 @media (max-width: 480px) {
+    .publiclogin {
+        margin-bottom: 10px;
+    }
+
     .broadcast-logged {
         padding-bottom: 10px;
     }

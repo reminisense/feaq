@@ -1,0 +1,72 @@
+/*
+Global variables used in ALL pages of FeatherQ Application
+*/
+body {
+  -webkit-font-smoothing: antialiased;
+  background: #ecf0f1;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 { font-weight: 700; }
+
+h1      { font-size: 42px; line-height: 46px; }
+h2      { font-size: 26px; color: #00BA8B; }
+h3,.h3  { font-size: 24px; }
+h4      { font-size: 22px; }
+h5      { font-size: 20px; }
+h6      { font-size: 18px; }
+
+strong { font-family: 'ralewaybold'; }
+.mr10 { margin-right: 10px;  }
+.mt10 { margin-top: 10px; }
+.mt20 { margin-top: 20px; }
+.mt30 { margin-top: 30px; }
+.mb0  { margin-bottom: 0!important; }
+.mb10 { margin-bottom: 10px; }
+.mb20 { margin-bottom: 20px; }
+.mb30 { margin-bottom: 30px; }
+
+a { text-decoration: none; }
+p { margin-bottom: 30px; }
+p>a { color:#333; }
+p>a:hover { text-decoration: none; }
+
+/*buttons*/
+.btn {
+    border: none;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    padding-left: 24px;
+    padding-right: 24px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #fff; }
+.btn:hover, .btn.focus, .btn:focus { color: #fff; }
+
+.btn-half {
+    -webkit-border-radius: 23px;
+    -webkit-border-top-right-radius: 1px;
+    -webkit-border-bottom-right-radius: 1px;
+    -moz-border-radius: 23px;
+    -moz-border-radius-topright: 1px;
+    -moz-border-radius-bottomright: 1px;
+    border-radius: 23px;
+    border-top-right-radius: 1px;
+    border-bottom-right-radius: 1px;
+}
+.btn-blue       { background-color: #5b75b3; }
+.btn-blue:hover { background-color: #5880de; }
+.btn-fb         { background-color: #4666b6; padding-left: 18px; padding-right: 18px;}
+
+
+
+/**/
+.footer {
+    background-color: #262a31;
+    padding: 14px 0;
+    color: #b3b3b3;
+    font-size: 12px;
+    margin-top: 30px;
+}

@@ -331,6 +331,12 @@
         padding-top: 10px;
         padding-bottom: 10px;
     }
+    .featurewrapper {
+        padding: 10px;
+    }
+    .featurewrapper p {
+        font-size: 13px;
+    }
 }
 
 @media only screen and (max-width : 320px) {
@@ -398,6 +404,12 @@
     }
     .navbar-toggle {
         margin-top: 48px;
+    }
+    .featurewrapper {
+        padding: 10px;
+    }
+    .featurewrapper p {
+        font-size: 12px;
     }
 }
 

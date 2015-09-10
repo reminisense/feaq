@@ -80,30 +80,13 @@
                         <br style="clear: both" />
                         <input type="submit" value="Send" style="display: none;"/>
                     </form>
-                    <div class="alert alert-success" id="adimage-success" style="display: none;">Success! <strong><a href="/broadcast/business/@{{ business_id }}" target="_blank">View Broadcast Page</a></strong></div>
                 </div>
-                <div class="col-md-12 clearfix" style="margin-top: 20px;">
-                    <form ng-submit="setCarouselDelay()">
-                        <div class="col-md-4 col-xs-6">
-                            <small>Transition Time Delay: (seconds)</small>
-                        </div>
-                        <div class="col-md-4 col-xs-6">
-                            <input type="number" min="0" step="1" ng-model="carousel_delay" class="form-control" width="30px">
-                        </div>
-                        <div class="col-md-4 col-xs-12">
-                            <button type="submit" class="btn btn-orange" style="width: 100%;"><span class="glyphicon glyphicon-check"></span> SAVE</button>
-                        </div>
-                    </form>
-                    <div class="col-md-12">
-                        <div class="alert alert-success" id="carouseldelay-success" style="display: none;">Success! <strong><a href="/broadcast/business/@{{ business_id }}" target="_blank">View Broadcast Page</a></strong></div>
-                        <div class="alert alert-danger" id="carouseldelay-danger" style="display: none;">Oops! Something went wrong.</div>
-                    </div>
-                </div>
-                <div class="col-md-12 mt10">
+
+                <div class="col-md-12" style="margin-top: 50px;">
                     <div class="col-md-12 reorder-note" style="">
                         <div class="alert alert-info" style="font-size: 14px;">Reorder Images as they Appear in the Broadcast Screen. You might have to refresh the broadcast screen after re-ordering.</div>
                     </div>
-                    <div class="col-md-12 table-responsive">
+                    <div class="col-md-12 table-responsive reorder-images">
                         <table class="table table-striped" id="ad-images-preview">
                             <tbody>
                             <tr ng-repeat="slider in slider_images" id="slide@{{ slider.count }}" img_id="@{{ slider.img_id }}" img_weight="@{{ slider.weight }}">
@@ -119,6 +102,24 @@
                             </tr>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+                <div class="col-md-12 mt20 clearfix">
+                    <form ng-submit="setCarouselDelay()">
+                        <div class="col-md-4 col-xs-6">
+                            <small>Transition Time Delay: (seconds)</small>
+                        </div>
+                        <div class="col-md-4 col-xs-6">
+                            <input type="number" min="0" step="1" ng-model="carousel_delay" class="form-control" width="30px">
+                        </div>
+                        <div class="col-md-4 col-xs-12">
+                            <button type="submit" class="btn btn-orange" style="width: 100%;"><span class="glyphicon glyphicon-check"></span> SAVE</button>
+                        </div>
+                    </form>
+                    <div class="col-md-12 mt10">
+                        <div class="alert alert-success" id="adimage-success" style="display: none;">Success! <strong><a href="/broadcast/business/@{{ business_id }}" target="_blank">View Broadcast Page</a></strong></div>
+                        <div class="alert alert-success" id="carouseldelay-success" style="display: none;">Success! <strong><a href="/broadcast/business/@{{ business_id }}" target="_blank">View Broadcast Page</a></strong></div>
+                        <div class="alert alert-danger" id="carouseldelay-danger" style="display: none;">Oops! Something went wrong.</div>
                     </div>
                 </div>
             </div>

@@ -62,6 +62,8 @@ $(document).ready(function() {
         }
     });
 
+    $('#signup-tab').animate({width:300+'px'});
+
     $('.tab-flag').on('click', function(){
         $('#signup-tab').animate({width:252+'px'});
         $('#setup-tab').animate({width:208+'px'});

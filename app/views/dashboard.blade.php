@@ -19,6 +19,7 @@
     <link rel='stylesheet' type='text/css' href='/css/refresh-animate.css'>
     <link rel='stylesheet' type='text/css' href='/css/dashboard/points-of-interest.css'> {{--ARA points of interest--}}
     <link media="all" type="text/css" rel="stylesheet" href="/css/jquery.timepicker.min.css">
+    <link media="all" type="text/css" rel="stylesheet" href="/css/loading-bar.css">
 
     @yield('styles')
 
@@ -38,6 +39,7 @@
     <script src="/js/user/Usertracker.js"></script> {{-- ARA For user tracking --}}
     <script src="/js/ngDirectives.js"></script>     {{-- ARA add angularjs directives --}}
     <script src="/js/dashboard/points-of-interest.js"></script> {{-- ARA points of interest --}}
+    <script src="/js/loading-bar.min.js"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]-->
@@ -71,7 +73,7 @@
                         @if($is_admin)
                         <li><a href="{{ url('/admin/dashboard') }}">Admin Dashboard</a></li> {{--ARA Admin dashboard for reminisense only--}}
                         @endif
-                        <li><a href="{{ url('/fb/laravel-logout') }}"><span class="glyphicon glyphicon-log-out"></span>&nbsp; Logout</a></li> <!-- ARA Logout to featherq ONLY -->
+                        <li><a href="{{ url('/fb/laravel-logout') }}">Logout</a></li> <!-- ARA Logout to featherq ONLY -->
                     </ul>
                 </li>
             </ul>
