@@ -380,6 +380,12 @@ class BusinessController extends BaseController{
                 'card_bool' => Business::processingBusinessBool($data->business_id), // for info cards marker
             );
         }
+        if (Auth::check()) { // dashboard business boxes should be 8; known users will be redirected to dashboard
+          $arr = array_slice($arr, 0, 8);
+        }
+        else { // homepage business boxes should be only 7 to give space for (more business) box; anon users will be redirected to homepage
+          $arr = array_slice($arr, 0, 7);
+        }
         return json_encode($arr);
     }
 
