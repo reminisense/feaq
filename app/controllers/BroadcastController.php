@@ -309,23 +309,50 @@ class BroadcastController extends BaseController{
     }
   }
 
-  public function getJsonFixer($business_id = 0) {
-    $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
-    if (!isset($data->show_issued)) $data->show_issued = true;
-    if (!isset($data->ad_image)) $data->ad_image = "";
-    if (!isset($data->ad_video)) $data->ad_video = "";
-    if (!isset($data->ad_type) || $data->ad_type == "") $data->ad_type = "image";
-    if (!isset($data->turn_on_tv)) $data->turn_on_tv = false;
-    if (!isset($data->tv_channel)) $data->tv_channel = "";
-    if (!isset($data->ticker_message)) $data->ticker_message = "";
-    if (!isset($data->ticker_message2)) $data->ticker_message2 = "";
-    if (!isset($data->ticker_message3)) $data->ticker_message3 = "";
-    if (!isset($data->ticker_message4)) $data->ticker_message4 = "";
-    if (!isset($data->ticker_message5)) $data->ticker_message5 = "";
-    //$data->display = "1-6";
-    $encode = json_encode($data);
-    file_put_contents(public_path() . '/json/' . $business_id . '.json', $encode);
-    echo 'JSON file is now fixed.';
+  public function getJsonFixer() {
+    $res = Business::all();
+    foreach ($res as $count => $business) {
+      $business_id = $business->business_id;
+      //$data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
+      $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
+      if (!isset($data->show_issued)) {
+        $data->show_issued = TRUE;
+      }
+      if (!isset($data->ad_image)) {
+        $data->ad_image = "";
+      }
+      if (!isset($data->ad_video)) {
+        $data->ad_video = "";
+      }
+      if (!isset($data->ad_type) || $data->ad_type == "") {
+        $data->ad_type = "image";
+      }
+      if (!isset($data->turn_on_tv)) {
+        $data->turn_on_tv = FALSE;
+      }
+      if (!isset($data->tv_channel)) {
+        $data->tv_channel = "";
+      }
+      if (!isset($data->ticker_message)) {
+        $data->ticker_message = "";
+      }
+      if (!isset($data->ticker_message2)) {
+        $data->ticker_message2 = "";
+      }
+      if (!isset($data->ticker_message3)) {
+        $data->ticker_message3 = "";
+      }
+      if (!isset($data->ticker_message4)) {
+        $data->ticker_message4 = "";
+      }
+      if (!isset($data->ticker_message5)) {
+        $data->ticker_message5 = "";
+      }
+      //$data->display = "1-6";
+      $encode = json_encode($data);
+      file_put_contents(public_path() . '/json/' . $business_id . '.json', $encode);
+    }
+    echo 'JSON files are now fixed.';
   }
 
 }
