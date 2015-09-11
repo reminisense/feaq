@@ -60,8 +60,9 @@
   padding: 6px 15px;
   color: #111;
 }
+/* JCA 07292015 */
 .dropdown-menu>li>a:hover {
-  color: #fff;
+    color: #ffa162;
 }
 .filterwrap .col-md-2,
 .filterwrap .col-md-4 {
@@ -89,11 +90,13 @@
     height: 46px;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+    text-align: center;
+    color: #333338;
 }
 #time_open-filter::-webkit-input-placeholder {color: #333;}
 #time_open-filter::-moz-placeholder {color: #333;}
-#search-keyword::-webkit-input-placeholder {color: #333;}
-#search-keyword::-moz-placeholder {color: #333;}
+#search-keyword::-webkit-input-placeholder {color: #999;}
+#search-keyword::-moz-placeholder {color: #999;}
 #search-keyword {
   font-size: 13px;
   padding: 14px 20px;
@@ -170,7 +173,6 @@
     border-radius: 4px;
     background: #18323b url('../../img/bg-bizgrid-box.png') top right no-repeat;
     padding: 15px;
-    overflow: hidden;
     margin-bottom: 15px;
     min-height:180px;
 }
@@ -186,6 +188,8 @@
     margin-top: 6px;
     margin-bottom: 2px;
     overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 #search-grid .boxed .address {
     font-size: 11px;
@@ -193,9 +197,11 @@
     height: 15px;
     margin-bottom: 14px;
     overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 #search-grid .statuses {
-    background: url('../../img/bg-statuses-sep.jpg') top left no-repeat;
+    background: url('../../img/bg-statuses-sep.jpg') top center no-repeat;
     color: #dedede;
     font-size: 11px;
     font-family: 'ralewaymedium';
@@ -206,11 +212,12 @@
     text-transform: capitalize;
 }
 #search-grid .boxed:hover .statuses {
-    background: url('../../img/bg-statuseshover-sep.jpg') top left no-repeat;
-    content: #fff;
+    /*background: url('../../img/bg-statuseshover-sep.jpg') top left no-repeat;*/
+/*    content: #fff;*/
 }
 .broadcast_link {
     text-decoration: none;
+    display: block;
 }
 .broadcast_link:hover {
     text-decoration: none;
@@ -288,3 +295,11 @@
     font-size: 11px;
     color: #646464;
 }
+
+/*---------7/30/2015 JCA---------*/
+#btnGroupDrop1{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+

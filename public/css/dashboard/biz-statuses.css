@@ -1,0 +1,51 @@
+.biz-closed,
+.biz-open,
+.biz-paused {
+  position: relative;
+  /*overflow: hidden;*/
+}
+.biz-closed .closed,
+.biz-open .open,
+.biz-paused .paused {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 10px;
+  color: #003d4e;
+  text-align: right;
+}
+.biz-closed .closed span,
+.biz-open .open span,
+.biz-paused .paused span {
+  padding-top: 5px;
+  padding-right: 6px;
+}
+.biz-closed .closed span {
+  color: #fff;
+}
+/*.biz-closed {
+  opacity: 0.5;
+}*/
+.biz-closed:hover {
+  background-color: #18323b!important;
+  /*opacity: 0.5;*/
+  /*cursor: default!important;*/
+}
+.biz-closed .bg,
+.biz-open .bg,
+.biz-paused .bg {
+  height: 40px;
+  width: 40px;
+  margin-top: -19px;
+}
+.biz-open .bg {
+  background: url('../../img/bg-play.png') top left no-repeat;
+}
+.biz-closed .bg {
+  background: url('../../img/bg-closed.png') top left no-repeat;
+}
+.biz-paused .bg {
+  background: url('../../img/bg-paused.png') top left no-repeat;
+}
+
+

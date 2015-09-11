@@ -1,13 +1,17 @@
 /**
  * Created by carlo on 1/29/15.
  */
+
 $(document).ready(function(){
-    $('#time_open-filter').timeEntry({ampmPrefix: ' ', spinnerImage: ''});
     $("#user_location").geocomplete();
     $("#edit_user_location").geocomplete();
     $("#business_location").geocomplete().bind("geocode:result", function (event, result) {
         $('#latitude').val(result.geometry.location.lat());
         $('#longitude').val(result.geometry.location.lng());
+    });
+
+    $(document).on('mouseenter', '.boxed', function(){
+        $(this).find('.status').tooltip();
     });
 
     $('.timepicker').timepicker({});
@@ -21,7 +25,11 @@ $(document).ready(function(){
             $('#first_name').val(jsonData.user.first_name);
             $('#last_name').val(jsonData.user.last_name);
             $('#email').val(jsonData.user.email);
-            $('#mobile').val(jsonData.user.phone);
+            if(jsonData.user.phone != 0){
+                $('#mobile').val(jsonData.user.phone);
+            }else{
+                $('#mobile').val("");
+            }
             $('#user_location').val(jsonData.user.local_address);
             $('#verifyUser').modal({
                 backdrop: 'static',

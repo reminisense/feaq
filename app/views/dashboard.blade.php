@@ -8,6 +8,9 @@
     <meta name="author" content="">
     <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <link rel='stylesheet' type='text/css' href='/css/ngCloak.css'>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel='stylesheet' type='text/css' href='/css/jquery-ui.structure.min.css'>
+    <link rel='stylesheet' type='text/css' href='/css/jquery-ui.theme.min.css'>
     <link rel="shortcut icon" id="favicon" href="{{URL::to('/images/favicon.png')}}">
     <link rel="stylesheet" type='text/css' href="/css/bootstrap.min.css">
     <link rel='stylesheet' type='text/css' href='/css/global.css'>
@@ -16,10 +19,12 @@
     <link rel='stylesheet' type='text/css' href='/css/refresh-animate.css'>
     <link rel='stylesheet' type='text/css' href='/css/dashboard/points-of-interest.css'> {{--ARA points of interest--}}
     <link media="all" type="text/css" rel="stylesheet" href="/css/jquery.timepicker.min.css">
+    <link media="all" type="text/css" rel="stylesheet" href="/css/loading-bar.css">
 
     @yield('styles')
 
     <script type="text/javascript" src="/js/jquery-1.11.2.min.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <script src="/js/angular.min.js"></script>
     <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
     <script src="/js/jquery.geocomplete.js"></script>
@@ -34,6 +39,7 @@
     <script src="/js/user/Usertracker.js"></script> {{-- ARA For user tracking --}}
     <script src="/js/ngDirectives.js"></script>     {{-- ARA add angularjs directives --}}
     <script src="/js/dashboard/points-of-interest.js"></script> {{-- ARA points of interest --}}
+    <script src="/js/loading-bar.min.js"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]-->
@@ -51,7 +57,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="" class="navbar-brand"><img src="/img/featherq-logo.svg"></a>
+            <a href="/" class="navbar-brand"><img src="/img/featherq-logo.svg"></a>
         </div>
         <nav class="pull-right collapse navbar-collapse bs-navbar-collapse" role="navigation">
             <ul class="nav navbar-nav">
@@ -67,7 +73,7 @@
                         @if($is_admin)
                         <li><a href="{{ url('/admin/dashboard') }}">Admin Dashboard</a></li> {{--ARA Admin dashboard for reminisense only--}}
                         @endif
-                        {{--<li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>--}} <!-- RDH Removed since this does nothing -->
+                        <li><a href="{{ url('/fb/laravel-logout') }}">Logout</a></li> <!-- ARA Logout to featherq ONLY -->
                     </ul>
                 </li>
             </ul>

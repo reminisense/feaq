@@ -3,59 +3,84 @@
 class FormsController extends BaseController{
 
   public function postAddTextfield() {
-    Forms::createField(array(
-      'business_id' => Input::get('business_id'),
-      'field_type' => 'Text Field',
-      'field_data' => serialize(array(
-        'label' => Input::get('text_field_label'),
-      )),
-    ));
-    return json_encode(array('form_fields' => $this->getFields(Input::get('business_id'))));
+    if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId())) { // PAG added permission checking
+      Forms::createField(array(
+        'business_id' => Input::get('business_id'),
+        'field_type' => 'Text Field',
+        'field_data' => serialize(array(
+          'label' => Input::get('text_field_label'),
+        )),
+      ));
+      return json_encode(array('form_fields' => $this->getFields(Input::get('business_id'))));
+    }
+    else {
+      return json_encode(array('message' => 'You are not allowed to access this function.'));
+    }
   }
 
   public function postAddRadiobutton() {
-    $form_id = Forms::createField(array(
-      'business_id' => Input::get('business_id'),
-      'field_type' => 'Radio',
-      'field_data' => serialize(array(
-        'label' => Input::get('radio_button_label'),
-        'value_a' => Input::get('radio_value_a'),
-        'value_b' => Input::get('radio_value_b'),
-      )),
-    ));
-    return json_encode(array('form_id' => $form_id));
+    if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId())) { // PAG added permission checking
+      $form_id = Forms::createField(array(
+        'business_id' => Input::get('business_id'),
+        'field_type' => 'Radio',
+        'field_data' => serialize(array(
+          'label' => Input::get('radio_button_label'),
+          'value_a' => Input::get('radio_value_a'),
+          'value_b' => Input::get('radio_value_b'),
+        )),
+      ));
+      return json_encode(array('form_id' => $form_id));
+    }
+    else {
+      return json_encode(array('message' => 'You are not allowed to access this function.'));
+    }
   }
 
   public function postAddCheckbox() {
-    $form_id = Forms::createField(array(
-      'business_id' => Input::get('business_id'),
-      'field_type' => 'Checkbox',
-      'field_data' => serialize(array(
-        'label' => Input::get('checkbox_label'),
-      )),
-    ));
-    return json_encode(array('form_id' => $form_id));
+    if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId())) { // PAG added permission checking
+      $form_id = Forms::createField(array(
+        'business_id' => Input::get('business_id'),
+        'field_type' => 'Checkbox',
+        'field_data' => serialize(array(
+          'label' => Input::get('checkbox_label'),
+        )),
+      ));
+      return json_encode(array('form_id' => $form_id));
+    }
+    else {
+      return json_encode(array('message' => 'You are not allowed to access this function.'));
+    }
   }
 
   public function postAddDropdown() {
-    $options = preg_split('/\r\n|[\r\n]/', Input::get('dropdown_options'));
-    $form_id = Forms::createField(array(
-      'business_id' => Input::get('business_id'),
-      'field_type' => 'Dropdown',
-      'field_data' => serialize(array(
-        'label' => Input::get('dropdown_label'),
-        'options' => serialize($options),
-      )),
-    ));
-    return json_encode(array('form_id' => $form_id));
+    if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId())) { // PAG added permission checking
+      $options = preg_split('/\r\n|[\r\n]/', Input::get('dropdown_options'));
+      $form_id = Forms::createField(array(
+        'business_id' => Input::get('business_id'),
+        'field_type' => 'Dropdown',
+        'field_data' => serialize(array(
+          'label' => Input::get('dropdown_label'),
+          'options' => serialize($options),
+        )),
+      ));
+      return json_encode(array('form_id' => $form_id));
+    }
+    else {
+      return json_encode(array('message' => 'You are not allowed to access this function.'));
+    }
   }
 
   public function postDisplayFields() {
-    $fields = $this->getFields(Input::get('business_id'));
-    if (!count($fields)) {
-      $fields = 0;
+    if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId())) { // PAG added permission checking
+      $fields = $this->getFields(Input::get('business_id'));
+      if (!count($fields)) {
+        $fields = 0;
+      }
+      return json_encode(array('form_fields' => $fields));
     }
-    return json_encode(array('form_fields' => $fields));
+    else {
+      return json_encode(array('message' => 'You are not allowed to access this function.'));
+    }
   }
 
   public function getFields($business_id) {
@@ -75,8 +100,13 @@ class FormsController extends BaseController{
   }
 
   public function postDeleteField() {
-    Forms::deleteField(Input::get('form_id'));
-    return json_encode(array('status' => 1));
+    if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId())) { // PAG added permission checking
+      Forms::deleteField(Input::get('form_id'));
+      return json_encode(array('status' => 1));
+    }
+    else {
+      return json_encode(array('message' => 'You are not allowed to access this function.'));
+    }
   }
 
 }

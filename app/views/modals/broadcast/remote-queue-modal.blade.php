@@ -40,7 +40,7 @@
                                     <label>Cellphone</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="phone" value="@{{ contactmobile }}" name="phone" required>
+                                    <input id="issued-number-phone" type="text" class="form-control" ng-model="phone" value="@{{ contactmobile }}" name="phone" required>
                                 </div>
                                 <div class="col-md-4">
                                     <label>Email</label>
@@ -56,6 +56,9 @@
                     </div>
                 </div>
                 <div class="alert alert-success" style="display: none" role="alert" id="issue-number-success">
+                    <div><strong class="message"></strong></div>
+                </div>
+                <div class="alert alert-danger" style="display: none" role="alert" id="issue-number-error">
                     <div><strong class="message"></strong></div>
                 </div>
             </div>

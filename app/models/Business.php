@@ -102,8 +102,6 @@ class Business extends Eloquent
             'timezone' => $business->timezone, //ARA Added timezone
             'queue_limit' => $business->queue_limit, /* RDH Added queue_limit to Edit Business Page */
             'terminal_specific_issue' => QueueSettings::terminalSpecificIssue($first_service->service_id),
-            'frontline_sms_secret' => QueueSettings::queueSetting('frontline_sms_secret', null, $first_service->service_id),
-            'frontline_sms_url' => QueueSettings::queueSetting('frontline_sms_url', null, $first_service->service_id),
             'sms_current_number' => QueueSettings::smsCurrentNumber($first_service->service_id),
             'sms_1_ahead' => QueueSettings::smsOneAhead($first_service->service_id),
             'sms_5_ahead' => QueueSettings::smsFiveAhead($first_service->service_id),
@@ -111,10 +109,38 @@ class Business extends Eloquent
             'sms_blank_ahead' => QueueSettings::smsBlankAhead($first_service->service_id),
             'input_sms_field' => QueueSettings::inputSmsField($first_service->service_id),
             'allow_remote' => QueueSettings::allowRemote($first_service->service_id),
+            'remote_limit' => QueueSettings::remoteLimit($first_service->service_id),
             'terminals' => $terminals,
             'analytics' => $analytics,
             'features' => Business::getBusinessFeatures($business_id),
+            'sms_gateway' => QueueSettings::smsGateway($first_service->service_id),
+            'allowed_businesses' => Business::getForwardingAllowedBusinesses($business_id),
         ];
+
+
+        $sms_gateway_api = unserialize(QueueSettings::smsGatewayApi($first_service->service_id));
+        if($business_details['sms_gateway'] == 'frontline_sms' && $sms_gateway_api){
+            $business_details['frontline_sms_url'] = $sms_gateway_api['frontline_sms_url'];
+            $business_details['frontline_sms_api_key'] = $sms_gateway_api['frontline_sms_api_key'];
+        }elseif($business_details['sms_gateway'] == 'twilio' && $sms_gateway_api){
+            if($sms_gateway_api['twilio_account_sid'] == TWILIO_ACCOUNT_SID &&
+                $sms_gateway_api['twilio_auth_token'] == TWILIO_AUTH_TOKEN &&
+                $sms_gateway_api['twilio_phone_number'] == TWILIO_PHONE_NUMBER){
+                $business_details['sms_gateway'] = NULL;
+                $business_details['twilio_account_sid'] = NULL;
+                $business_details['twilio_auth_token'] = NULL;
+                $business_details['twilio_phone_number'] = NULL;
+            }else{
+                $business_details['twilio_account_sid'] = $sms_gateway_api['twilio_account_sid'];
+                $business_details['twilio_auth_token'] = $sms_gateway_api['twilio_auth_token'];
+                $business_details['twilio_phone_number'] = $sms_gateway_api['twilio_phone_number'];
+            }
+        }else{
+            $business_details['sms_gateway'] = NULL;
+            $business_details['twilio_account_sid'] = NULL;
+            $business_details['twilio_auth_token'] = NULL;
+            $business_details['twilio_phone_number'] = NULL;
+        }
 
 
         return $business_details;
@@ -203,7 +229,7 @@ class Business extends Eloquent
         }
 
         if ($time_open_arr['ampm'] == 'PM' && $time_open_arr['min'] == '00') {
-           $query->where('open_ampm', '=', 'PM')
+            $query->where('open_ampm', '=', 'PM')
                 ->where('open_hour', '>=', $time_open_arr['hour']);
         } elseif ($time_open_arr['ampm'] == 'PM' && $time_open_arr['min'] == '30') {
             $query->where('open_ampm', '=', 'PM')
@@ -211,10 +237,10 @@ class Business extends Eloquent
                     array($time_open_arr['hour'], $time_open_arr['hour'], '30'));
         } elseif ($time_open_arr['ampm'] == 'AM' && $time_open_arr['min'] == '00') {
             $query->whereRaw('(open_hour >= ? AND open_ampm = ?) OR (open_hour < ? AND open_ampm = ?)',
-                    array($time_open_arr['hour'], 'AM', $time_open_arr['hour'], 'PM'));
+                array($time_open_arr['hour'], 'AM', $time_open_arr['hour'], 'PM'));
         } elseif ($time_open_arr['ampm'] == 'AM' && $time_open_arr['min'] == '30') {
             $query->whereRaw('(open_hour > ? AND open_ampm = ?) OR (open_hour < ? AND open_ampm = ?) OR (open_hour = ? AND open_minute = ? AND open_ampm = ?)',
-                    array($time_open_arr['hour'], 'AM', $time_open_arr['hour'], 'PM', $time_open_arr['hour'], '30', 'AM'));
+                array($time_open_arr['hour'], 'AM', $time_open_arr['hour'], 'PM', $time_open_arr['hour'], '30', 'AM'));
         }
         return $query->get();
     }
@@ -516,7 +542,7 @@ class Business extends Eloquent
     }
 
     public static function getAllBusinessNames(){
-       return Business::select('business_id', 'name')->get();
+        return Business::select('business_id', 'name')->get();
     }
 
     public static function getBusinessIdsByIndustry($industry){
@@ -538,6 +564,35 @@ class Business extends Eloquent
     public static function getBusinessFeatures($business_id){
         $serialized = Business::where('business_id', '=', $business_id)->select('business_features')->first()->business_features;
         return unserialize($serialized);
+    }
+
+    public static function getBusinessAccessKey($business_id){
+        return Crypt::encrypt($business_id);
+    }
+
+    /**
+     * Gets the businesses that you allow to forward
+     * @param $business_id
+     * @return mixed
+     */
+    public static function getForwardingAllowedBusinesses($business_id){
+        return DB::table('queue_forward_permissions')
+            ->where('queue_forward_permissions.business_id', '=', $business_id)
+            ->join('business', 'business.business_id', '=', 'queue_forward_permissions.forwarder_id')
+            ->select('business.business_id', 'business.name')
+            ->get();
+    }
+
+    public static function getForwarderAllowedBusinesses($business_id){
+        return DB::table('queue_forward_permissions')
+            ->where('queue_forward_permissions.forwarder_id', '=', $business_id)
+            ->join('business', 'business.business_id', '=', 'queue_forward_permissions.business_id')
+            ->select('business.business_id', 'business.name')
+            ->get();
+    }
+
+    public static function getForwarderAllowedInBusiness($business_id, $forwarder_id){
+        return DB::table('queue_forward_permissions')->where('business_id', '=', $business_id)->where('forwarder_id', '=', $forwarder_id)->first();
     }
 
 }

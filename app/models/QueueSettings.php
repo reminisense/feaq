@@ -65,9 +65,39 @@ class QueueSettings extends Eloquent{
         return QueueSettings::queueSetting('allow_remote', 0, $service_id, $date);
     }
 
+    public static function remoteLimit($service_id, $date = null){
+        return QueueSettings::queueSetting('remote_limit', 0, $service_id, $date);
+    }
+
+    public static function smsGateway($service_id, $date = null){
+        return QueueSettings::queueSetting('sms_gateway', 'twilio', $service_id, $date);
+    }
+
+    public static function smsGatewayApi($service_id, $date = null){
+        return QueueSettings::queueSetting('sms_gateway_api', serialize(QueueSettings::$sms_gateway_api['twilio']), $service_id, $date);
+    }
+
 
     /**
-     * Bsic functions
+     * SMS Gateway variables
+     */
+
+    private static $sms_gateway_api = [
+        'frontline_sms' => [
+            'frontline_sms_url' => FRONTLINE_SMS_URL,
+            'frontline_sms_api_key' => FRONTLINE_API_KEY,
+        ],
+
+        'twilio' => [
+            'twilio_account_sid' => TWILIO_ACCOUNT_SID,
+            'twilio_auth_token' => TWILIO_AUTH_TOKEN,
+            'twilio_phone_number' => TWILIO_PHONE_NUMBER,
+        ],
+    ];
+
+
+    /**
+     * Basic functions
      */
 
     public static function updateQueueSetting($service_id, $field, $value){
@@ -103,5 +133,29 @@ class QueueSettings extends Eloquent{
             ->orderBy('date', 'asc')
             ->first();
         return $queue_setting;
+    }
+
+    public static function checkRemoteQueue($service_id){
+        $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+        $allow_remote = QueueSettings::allowRemote($service_id);
+        $remote_limit = QueueSettings::remoteLimit($service_id);
+        $total_numbers_today = PriorityNumber::where('date', '=', $date)
+            ->select(DB::raw('COUNT(priority_number.track_id) as total_numbers_today'))
+            ->first()
+            ->total_numbers_today;
+        $total_remote_today = PriorityNumber::where('date', '=', $date)
+            ->join('priority_queue', 'priority_queue.track_id' , '=', 'priority_number.track_id')
+            ->where(function($query){
+                $query->where('priority_queue.queue_platform' , '=', 'remote')
+                    ->orWhere('priority_queue.queue_platform' , '=', 'android');
+            })
+            ->select(DB::raw('COUNT(priority_number.track_id) as total_remote_today'))
+            ->first()
+            ->total_remote_today;
+
+        $remote_queue_value = floor($total_numbers_today * ($remote_limit / 100));
+        $result = $allow_remote && ($remote_queue_value > $total_remote_today) ? true : false;
+
+        return $result;
     }
 }

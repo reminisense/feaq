@@ -63,6 +63,12 @@
         margin-left: 15px;
         margin-right: 15px;
     }
+    #bizTabContent {
+        padding: 22px 10px 14px;
+    }
+    .btn-biz.business-tab {
+        width: 100%;
+    }
     .biz-navs .nav-tabs li a {
         border-radius: 0!important;
     }
@@ -129,6 +135,12 @@
     #bizTabContent {
         margin-left: 15px;
         margin-right: 15px;
+    }
+    #bizTabContent {
+        padding: 22px 10px 14px;
+    }
+    .btn-biz.business-tab {
+        width: 100%;
     }
     .biz-navs .nav-tabs li a {
         border-radius: 0;
@@ -206,6 +218,12 @@
     #bizTabContent {
         margin-left: 15px;
         margin-right: 15px;
+    }
+    #bizTabContent {
+        padding: 22px 10px 14px;
+    }
+    .btn-biz.business-tab {
+        width: 100%;
     }
     .biz-navs .nav-tabs li a {
         border-radius: 0;

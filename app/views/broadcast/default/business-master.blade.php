@@ -17,11 +17,12 @@
     <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script> {{-- RDH Using CDN for Angular JS File --}}
 
-    <script src="/js/broadcast/default/business-{{ $box_num }}.js"></script>
+    <script type="text/javascript" src="/js/jquery.marquee.min.js"></script>
+    <script type="text/javascript" src="/js/broadcast/default/business-{{ $box_num }}.js"></script>
 
-    <script src="/js/google-analytics/googleAnalytics.js"></script>
-    <script src="/js/google-analytics/ga-broadcast.js"></script>
-    <script src="/js/user/Usertracker.js"></script> {{-- ARA For user tracking --}}
+    <script type="text/javascript" src="/js/google-analytics/googleAnalytics.js"></script>
+    <script type="text/javascript" src="/js/google-analytics/ga-broadcast.js"></script>
+    <script type="text/javascript" src="/js/user/Usertracker.js"></script> {{-- ARA For user tracking --}}
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -49,11 +50,10 @@
     </div>
 
     <div class="ticker">
-        <div class="col-md-12" style="background-color: rgba(255,255,255,0.95); color: #000; font-size: 36px; font-family: ArialMTStd-ExtraBold;">
-                <div class="scroll-left">
-                    <p>@{{ ticker_message }}</p>
-                </div>
-        </div>
+        @foreach($ticker_message as $message)
+            <div class="marquee-text hidden">{{ $message }}</div>
+        @endforeach
+        <div class="real-marquee-text"></div>
     </div>
 </div>
 

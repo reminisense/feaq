@@ -24,7 +24,7 @@
                 <a href="" ng-click="updateTerminal($event, terminal.terminal_id)" class="update-terminal-button btn-boxy btn-primary" terminal_id="@{{ terminal.terminal_id }}" style="display: none;"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
 
             </div>
-            <div style="display: none; margin-top: 10px;" class="alert alert-danger terminal-error-message" terminal_id="@{{ terminal.terminal_id }}"> Terminal name already exists.</div>
+            <div style="display: none; margin-top: 10px;" class="alert alert-danger terminal-error-message" terminal_id="@{{ terminal.terminal_id }}"></div>
         </td>
         <td width="45%">
         <span ng-if="terminal.users.length != 0">
@@ -47,12 +47,11 @@
                                 <div class="mb10 mt10 inputuser" style="display: none">
                                     <form ng-submit="emailSearch(search_user, terminal.terminal_id)">
                                         <div class="col-md-12">
-                                            <input type="text" class="form-control" ng-model="search_user" placeholder="Facebook Email" ng-change="userSearch(search_user)" ng-model-options="{debounce: 1000}">
+                                            <input type="text" class="form-control" ng-model="search_user" placeholder="Facebook Email" ng-model-options="{debounce: 1000}">
                                             <ul class="dropdown-menu" role="menu" ng-show="user_results.users.length > 0"  style="display: block;" outside-click="clearUserResults()">
                                                 <li ng-repeat="user in user_results.users" ng-click="emailSearch(user.email, terminal.terminal_id)">
                                                     <a href="#">
                                                         <strong>@{{ user.first_name + ' ' + user.last_name }}</strong><br>
-                                                        <span>@{{ user.email }}</span>
                                                     </a>
                                                 </li>
                                             </ul>
@@ -82,7 +81,7 @@
                     <div class="mb10 inputuser" style="display: none">
                         <form ng-submit="emailSearch(search_user, terminal.terminal_id)">
                             <div class="col-md-12">
-                                <input type="text" class="form-control" ng-model="search_user" placeholder="Facebook Email" ng-change="userSearch(search_user)" ng-model-options="{debounce: 1000}">
+                                <input type="text" class="form-control" ng-model="search_user" placeholder="Facebook Email" ng-model-options="{debounce: 1000}">
                                 <ul class="dropdown-menu" role="menu" ng-show="user_results.users.length > 0"  style="display: block" outside-click="clearUserResults()">
                                     <li ng-repeat="user in user_results.users" ng-click="emailSearch(user.email, terminal.terminal_id)">
                                         <a href="#">
@@ -112,16 +111,16 @@
         <td>
             <div class="block mt10 mb10">
                 <a href="" id="btn-addterminal" class="btn-boxy btn-xs btn-orange"><span class="glyphicon glyphicon-plus"></span> Add Terminal</a>
-                <form id="inputterminal-form" ng-submit="createTerminal(terminal_name)">
+                <form id="inputterminal-form" ng-submit="createTerminal()">
                     <div id="inputterminal">
                         <div class="">
-                            <input type="text" class="form-control" ng-model="terminal_name" placeholder="Terminal Name">
+                            <input type="text" class="form-control" ng-model="add_terminal.terminal_name" placeholder="Terminal Name">
                         </div>
                         <div class="">
                             <button type="button" class="btn-boxy btn-xs btn-primary cancel-add-terminal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
                             <button class="btn-boxy btn-xs btn-cyan" type="submit"><span class="glyphicon glyphicon-plus"></span> Add</button>
                         </div>
-                        <div style="display: none; margin-top: 10px;" class="alert alert-danger terminal-error-msg"> Terminal name already exists.</div>
+                        <div style="display: none; margin-top: 10px;" class="alert alert-danger terminal-error-msg"></div>
                     </div>
                 </form>
             </div>

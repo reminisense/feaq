@@ -14,12 +14,15 @@ class UserController extends BaseController{
      */
     public function getUserStatus()
     {
+      /* PAG code re-written due to trivial values
         $user = Auth::user();
 
         return json_encode([
             'success'   => 1,
             'user'      => $user,
         ]);
+      */
+      return json_encode(array('success'   => 1, 'user' => Auth::user()));
     }
 
     /*
@@ -28,23 +31,28 @@ class UserController extends BaseController{
      */
     public function postUpdateUser(){
         $userData = $_POST;
-
+      if (Auth::check() && Helper::userId() == $userData['user_id']) { // PAG added permission checking
         $user = User::find($userData['user_id']);
         $user->first_name = $userData['edit_first_name'];
         $user->last_name = $userData['edit_last_name'];
         $user->phone = $userData['edit_mobile'];
         $user->local_address = $userData['edit_user_location'];
 
-        if ($user->save()){
-            return json_encode([
-                'success' => 1,
-            ]);
-        } else {
-            return json_encode([
-                'success' => 0,
-                'error' => 'Something went wrong while trying to save your profile.'
-            ]);
+        if ($user->save()) {
+          return json_encode([
+            'success' => 1,
+          ]);
         }
+        else {
+          return json_encode([
+            'success' => 0,
+            'error' => 'Something went wrong while trying to save your profile.'
+          ]);
+        }
+      }
+      else {
+        return json_encode(array('message' => 'You are not allowed to access this function.'));
+      }
     }
 
     /*
@@ -53,7 +61,7 @@ class UserController extends BaseController{
      */
     public function postVerifyUser(){
         $userData = $_POST;
-
+      if (Auth::check() && Helper::userId() == $userData['user_id']) { // PAG added permission checking
         $user = User::find($userData['user_id']);
         $user->first_name = $userData['first_name'];
         $user->last_name = $userData['last_name'];
@@ -62,15 +70,20 @@ class UserController extends BaseController{
         $user->local_address = $userData['location'];
         $user->verified = 1;
 
-        if ($user->save()){
-            return json_encode([
-                'success' => 1,
-            ]);
-        } else {
-            return json_encode([
-                'success' => 0,
-            ]);
+        if ($user->save()) {
+          return json_encode([
+            'success' => 1,
+          ]);
         }
+        else {
+          return json_encode([
+            'success' => 0,
+          ]);
+        }
+      }
+      else {
+        return json_encode(array('message' => 'You are not allowed to access this function.'));
+      }
     }
 
     /*
@@ -78,6 +91,7 @@ class UserController extends BaseController{
      * @description: render dashboard, fetch all businesses for default search view, and businesses created by logged in user
      */
     public function getUserDashboard(){
+        $response = Helper::VerifyFB(Session::get('FBaccessToken'));
         //$active_businesses = Business::getDashboardBusinesses();
         if (Auth::check())
         {

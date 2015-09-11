@@ -13,9 +13,11 @@ fbapp.run(function($http) {
 
         FB.getLoginStatus(function(response) {
             if (response.status === 'connected') {
-                $http.post('/fb/laravel-login', { 'fb_id': response.authResponse.userID }).success(function(response) {
-                    if (response.success == 1) window.location.replace('/');
-                });
+                //Do nothing
+                //ARA changing behavior so that if user logs out of featherq, they will not be logged in again.
+                //$http.post('/fb/laravel-login', { 'fb_id': response.authResponse.userID }).success(function(response) {
+                //    if (response.success == 1) window.location.replace('/');
+                //});
             } else if (response.status === 'not_authorized') {
                 $http.post('/fb/laravel-logout');
             } else {
@@ -35,22 +37,23 @@ fbapp.run(function($http) {
 });
 
 fbapp.controller('fbController', function($scope, $http) {
-
     $scope.login = (function(e) {
         FB.login(function(response) {
             if (response.authResponse) {
-                $scope.saveFbDetails();
+                $scope.saveFbDetails(response.authResponse.accessToken);
             }
         }, {'scope': 'public_profile,email,user_friends'});
     });
 
-    $scope.saveFbDetails = (function() {
+    $scope.saveFbDetails = function(accessToken) {
+        $('#FBLoaderModal').modal('show');
         FB.api('/me', function(response) {
-            if (!response.email) {
-                response.email = '';
+            // this code adds an email placeholder if ever the variable is empty or undefined
+            if (!$.trim(response.email) || typeof(response.email) == "undefined") {
+                response.email = 'you@example.com';
             }
-
             fbData = {
+                "accessToken" : accessToken,
                 "fb_id": response.id,
                 "fb_url": response.link,
                 "first_name": response.first_name,
@@ -62,6 +65,6 @@ fbapp.controller('fbController', function($scope, $http) {
                 window.location.replace('/');
             });
         });
-    });
+    };
 
 });

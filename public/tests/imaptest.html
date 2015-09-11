@@ -3,11 +3,20 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>IMAP Test for GMAIL</title>
+    <script src="//cdn.ckeditor.com/4.5.1/standard/ckeditor.js"></script>
 </head>
 <body>
     <form method="POST" action="imaptest.php">
         Email: <input type="text" name="email">
         Password: <input type="password" name="password">
+        <textarea id="test-ckeditor" name="test-ckeditor">
+            This is a test.
+        </textarea>
+        <script>
+            // Replace the <textarea id="editor1"> with a CKEditor
+            // instance, using default configuration.
+            CKEDITOR.replace( 'test-ckeditor' );
+        </script>
         <input type="submit" value="SUBMIT">
     </form>
 </body>

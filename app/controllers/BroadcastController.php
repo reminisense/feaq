@@ -41,9 +41,27 @@ class BroadcastController extends BaseController{
     {
         $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
         $arr = explode("-", $data->display);
-        if ($arr[0]) $template_type = 'ads-' . $arr[1];
-        else $template_type = 'noads-' . $arr[1];
-        if ($data->ad_type == 'image') $ad_src = $data->ad_image;
+        if ($arr[0]) {
+          $template_type = 'ads-' . $arr[1];
+        } else {
+          $template_type = 'noads-' . $arr[1];
+        }
+
+        if ($data->ad_type == 'image') {
+          $ad_src = array();
+          $res = AdImages::getAllImagesByBusinessId($business_id);
+          foreach ($res as $count => $img) {
+            $ad_src[] = $img->path;
+          }
+          /*
+          $ad_directory = public_path() . '/ads/' . $business_id;
+          if (file_exists($ad_directory)) {
+            foreach(glob($ad_directory . '/*.*') as $filename){
+              $ad_src[] = 'ads/' . $business_id . '/' . basename($filename);
+            }
+          }
+          */
+        }
         else $ad_src = $data->ad_video;
 
         $business_name = Business::name($business_id);
@@ -80,22 +98,59 @@ class BroadcastController extends BaseController{
           }
         }
 
+        $ticker_message = array();
+        if (isset($data->ticker_message)) {
+            if ($data->ticker_message != ''){
+                array_push($ticker_message, $data->ticker_message);
+            }
+        }
+        if (isset($data->ticker_message2)) {
+            if ($data->ticker_message2 != '') {
+                array_push($ticker_message, $data->ticker_message2);
+            }
+        }
+        if (isset($data->ticker_message3)){
+            if ($data->ticker_message3 != ''){
+                array_push($ticker_message, $data->ticker_message3);
+            }
+        }
+        if (isset($data->ticker_message4)){
+            if ($data->ticker_message4 != ''){
+                array_push($ticker_message, $data->ticker_message4);
+            }
+        }
+        if (isset($data->ticker_message5)){
+            if ($data->ticker_message5 != ''){
+                array_push($ticker_message, $data->ticker_message5);
+            }
+        }
 
         if (Auth::check()) {
             $user = User::getUserByUserId(Auth::user()->user_id);
             // business owners have different broadcast screens for display
             if (UserBusiness::getBusinessIdByOwner(Auth::user()->user_id) == $business_id) {
-              if ($arr[0] == 2) $ad_src = $data->tv_channel; // check if TV is on
-              $broadcast_template = 'broadcast.default.business-master';
+                if ($arr[0] == 2 || $arr[0] == 3) {
+                    $ad_src = $data->tv_channel; // check if TV is on
+                    if ($arr[0] == 3) {
+                      $template_type = 'ads-' . $arr[1] . '-2';
+                    }
+                    $broadcast_template = 'broadcast.default.internet-tv-master';
+                } else {
+                    $broadcast_template = 'broadcast.default.business-master';
+                }
+
             } else {
-              $broadcast_template = 'broadcast.default.public-master';
+                $broadcast_template = 'broadcast.default.public-master';
             }
 
         } else {
             $user = [];
             $broadcast_template = 'broadcast.default.public-master';
         }
+        $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+
         return View::make($broadcast_template)
+            ->with('carousel_interval', isset($data->carousel_delay) ? (int)$data->carousel_delay : 5000)
             ->with('custom_fields', $custom_fields)
             ->with('ad_type', $data->ad_type)
             ->with('ad_src', $ad_src)
@@ -108,9 +163,10 @@ class BroadcastController extends BaseController{
             ->with('business_id', $business_id) /* RDH Changed error, 'branch_id' to 'business_id' */
             ->with('business_name', $business_name)
             ->with('lines_in_queue', Analytics::getBusinessRemainingCount($business_id))
-            ->with('estimate_serving_time', Analytics::getAverageTimeServedByBusinessId($business_id))
+            ->with('estimate_serving_time', Analytics::getAverageTimeServedByBusinessId($business_id, 'string', $date, $date))
             ->with('first_service', Service::getFirstServiceOfBusiness($business_id))
             ->with('allow_remote', $allow_remote)
+            ->with('ticker_message', $ticker_message)
             ->with('user', $user);
     }
 
@@ -179,87 +235,124 @@ class BroadcastController extends BaseController{
 
   public function postSetTheme() {
     $post = json_decode(file_get_contents("php://input"));
-    $data = json_decode(file_get_contents(public_path() . '/json/' . $post->business_id . '.json'));
-    $data->show_issued = $post->show_issued;
-    $data->display = $post->theme_type;
-    if ($post->theme_type == '0-1' || $post->theme_type == '1-1') {
-      unset($data->box2);
-      unset($data->box3);
-      unset($data->box4);
-      unset($data->box5);
-      unset($data->box6);
+    if (Helper::isBusinessOwner($post->business_id, Helper::userId())) { // PAG added permission checking
+      $data = json_decode(file_get_contents(public_path() . '/json/' . $post->business_id . '.json'));
+      $data->show_issued = $post->show_issued;
+      $data->display = $post->theme_type;
+      if (strstr($post->theme_type, '-1')) {
+        unset($data->box2);
+        unset($data->box3);
+        unset($data->box4);
+        unset($data->box5);
+        unset($data->box6);
+      }
+      elseif (strstr($post->theme_type, '-4')) {
+        if (!isset($data->box2)) {
+          $data->box2 = new stdClass();
+          $data->box2->number = '';
+          $data->box2->terminal = '';
+          $data->box2->rank = '';
+        }
+        if (!isset($data->box3)) {
+          $data->box3 = new stdClass();
+          $data->box3->number = '';
+          $data->box3->terminal = '';
+          $data->box3->rank = '';
+        }
+        if (!isset($data->box4)) {
+          $data->box4 = new stdClass();
+          $data->box4->number = '';
+          $data->box4->terminal = '';
+          $data->box4->rank = '';
+        }
+        unset($data->box5);
+        unset($data->box6);
+      }
+      elseif (strstr($post->theme_type, '-6')) {
+        if (!isset($data->box2)) {
+          $data->box2 = new stdClass();
+          $data->box2->number = '';
+          $data->box2->terminal = '';
+          $data->box2->rank = '';
+        }
+        if (!isset($data->box3)) {
+          $data->box3 = new stdClass();
+          $data->box3->number = '';
+          $data->box3->terminal = '';
+          $data->box3->rank = '';
+        }
+        if (!isset($data->box4)) {
+          $data->box4 = new stdClass();
+          $data->box4->number = '';
+          $data->box4->terminal = '';
+          $data->box4->rank = '';
+        }
+        if (!isset($data->box5)) {
+          $data->box5 = new stdClass();
+          $data->box5->number = '';
+          $data->box5->terminal = '';
+          $data->box5->rank = '';
+        }
+        if (!isset($data->box6)) {
+          $data->box6 = new stdClass();
+          $data->box6->number = '';
+          $data->box6->terminal = '';
+          $data->box6->rank = '';
+        }
+      }
+      $encode = json_encode($data);
+      file_put_contents(public_path() . '/json/' . $post->business_id . '.json', $encode);
+      return json_encode(array('status' => 1));
     }
-    elseif ($post->theme_type == '0-4' || $post->theme_type == '1-4') {
-      if (!isset($data->box2)) {
-        $data->box2 = new stdClass();
-        $data->box2->number = '';
-        $data->box2->terminal = '';
-        $data->box2->rank = '';
-      }
-      if (!isset($data->box3)) {
-        $data->box3 = new stdClass();
-        $data->box3->number = '';
-        $data->box3->terminal = '';
-        $data->box3->rank = '';
-      }
-      if (!isset($data->box4)) {
-        $data->box4 = new stdClass();
-        $data->box4->number = '';
-        $data->box4->terminal = '';
-        $data->box4->rank = '';
-      }
-      unset($data->box5);
-      unset($data->box6);
+    else {
+      return json_encode(array('status' => 0, 'message' => 'You are not allowed to access this function.'));
     }
-    elseif ($post->theme_type == '0-6' || $post->theme_type == '1-6') {
-      if (!isset($data->box2)) {
-        $data->box2 = new stdClass();
-        $data->box2->number = '';
-        $data->box2->terminal = '';
-        $data->box2->rank = '';
-      }
-      if (!isset($data->box3)) {
-        $data->box3 = new stdClass();
-        $data->box3->number = '';
-        $data->box3->terminal = '';
-        $data->box3->rank = '';
-      }
-      if (!isset($data->box4)) {
-        $data->box4 = new stdClass();
-        $data->box4->number = '';
-        $data->box4->terminal = '';
-        $data->box4->rank = '';
-      }
-      if (!isset($data->box5)) {
-        $data->box5 = new stdClass();
-        $data->box5->number = '';
-        $data->box5->terminal = '';
-        $data->box5->rank = '';
-      }
-      if (!isset($data->box6)) {
-        $data->box6 = new stdClass();
-        $data->box6->number = '';
-        $data->box6->terminal = '';
-        $data->box6->rank = '';
-      }
-    }
-    $encode = json_encode($data);
-    file_put_contents(public_path() . '/json/' . $post->business_id . '.json', $encode);
-    return json_encode(array('status' => 1));
   }
 
-  public function getJsonFixer($business_id = 0) {
-    $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
-    if (!isset($data->show_issued)) $data->show_issued = true;
-    if (!isset($data->ad_image)) $data->ad_image = "";
-    if (!isset($data->ad_video)) $data->ad_video = "";
-    if (!isset($data->ad_type)) $data->ad_type = "";
-    if (!isset($data->turn_on_tv)) $data->turn_on_tv = false;
-    if (!isset($data->tv_channel)) $data->tv_channel = "";
-    $data->display = "1-6";
-    $encode = json_encode($data);
-    file_put_contents(public_path() . '/json/' . $business_id . '.json', $encode);
-    echo 'JSON file is now fixed.';
+  public function getJsonFixer() {
+    $res = Business::all();
+    foreach ($res as $count => $business) {
+      $business_id = $business->business_id;
+      //$data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
+      $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
+      if (!isset($data->show_issued)) {
+        $data->show_issued = TRUE;
+      }
+      if (!isset($data->ad_image)) {
+        $data->ad_image = "";
+      }
+      if (!isset($data->ad_video)) {
+        $data->ad_video = "";
+      }
+      if (!isset($data->ad_type) || $data->ad_type == "") {
+        $data->ad_type = "image";
+      }
+      if (!isset($data->turn_on_tv)) {
+        $data->turn_on_tv = FALSE;
+      }
+      if (!isset($data->tv_channel)) {
+        $data->tv_channel = "";
+      }
+      if (!isset($data->ticker_message)) {
+        $data->ticker_message = "";
+      }
+      if (!isset($data->ticker_message2)) {
+        $data->ticker_message2 = "";
+      }
+      if (!isset($data->ticker_message3)) {
+        $data->ticker_message3 = "";
+      }
+      if (!isset($data->ticker_message4)) {
+        $data->ticker_message4 = "";
+      }
+      if (!isset($data->ticker_message5)) {
+        $data->ticker_message5 = "";
+      }
+      //$data->display = "1-6";
+      $encode = json_encode($data);
+      file_put_contents(public_path() . '/json/' . $business_id . '.json', $encode);
+    }
+    echo 'JSON files are now fixed.';
   }
 
 }

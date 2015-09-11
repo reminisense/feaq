@@ -23,7 +23,7 @@
                                     <label><strong>Specific #</strong></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="number" min="1" class="form-control" ng-model="priority_number" name="priority_number">
+                                    <input type="text" min="1" class="form-control" ng-model="priority_number" name="priority_number">
                                 </div>
                                 <div class="col-md-4">
                                     <label>Time to call</label>
@@ -40,8 +40,8 @@
                                 <div class="col-md-4">
                                     <label>Cellphone</label>
                                 </div>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="phone" name="phone">
+                                <div class="col-md-8 mb20">
+                                    <input type="text" class="form-control" ng-model="phone" name="phone" id="issued-number-phone">
                                 </div>
                                 <div class="col-md-4">
                                     <label>Email</label>
@@ -54,6 +54,9 @@
                                 <div class="alert alert-info col-md-12">
                                     <p>An empty value in the <strong>Specific #</strong> field will automatically give you the next available number.</p>
                                 </div>
+                            </div>
+                            <div class="alert alert-warning" role="alert" ng-show="priority_number.length > 3">
+                                <div><strong class="message">Please make sure that the length of your number will fit the boxes of your broadcast screen. <br>Very long numbers might cause the broadcast screen to display incorrectly.</strong></div>
                             </div>
                             <div class="alert alert-danger col-md-12" role="alert" ng-show="issue_specific_error.length > 0">
                                 <div><strong class="message">@{{ issue_specific_error }}</strong></div>
@@ -83,6 +86,9 @@
                     </div>
                 </div>
                 <div class="alert alert-success" style="display: none" role="alert" id="issue-number-success">
+                    <div><strong class="message"></strong></div>
+                </div>
+                <div class="alert alert-danger" style="display: none" role="alert" id="issue-number-error">
                     <div><strong class="message"></strong></div>
                 </div>
             </div>

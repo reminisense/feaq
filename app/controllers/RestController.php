@@ -616,15 +616,15 @@ class RestController extends BaseController {
             $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform);
             PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
 
-        $details = [
+            $details = [
                 'number_assigned' => $priority_number,
-        ];
+            ];
 
-        return Response::json($details, 200, array(), JSON_PRETTY_PRINT);
+            return Response::json($details, 200, array(), JSON_PRETTY_PRINT);
 
         }catch(Exception $e){
             return json_encode(['error' => 'Something went wrong!']);
-    }
+        }
     }
 
 

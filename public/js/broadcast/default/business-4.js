@@ -2,9 +2,11 @@ var app = angular.module('BusinessBroadcast', []);
 
 app.controller('nowServingCtrl', function($scope, $http) {
 
-    var business_id = document.getElementById('business-id').getAttribute('business_id');
-    var broadcast_type = document.getElementById('broadcast-type').getAttribute('broadcast_type');
-    var ad_type = document.getElementById('ad-type').getAttribute('ad_type');
+    var business_id = $('#business-id').attr('business_id');
+    var broadcast_type = $('#broadcast-type').attr('broadcast_type');
+    var ad_type = $('#ad-type').attr('ad_type');
+    var carousel_delay = $('#fqCarousel').attr('data-interval');
+    var live_ticker = $('.marquee-text').text();
 
     $scope.callNumberSound = (function (soundobj) {
         var thissound = document.getElementById(soundobj);
@@ -38,7 +40,29 @@ app.controller('nowServingCtrl', function($scope, $http) {
     });
 
     $scope.refreshOnSettingsChange = (function(response) {
-        if (broadcast_type != response.display || ad_type != response.ad_type) {
+        // check if carousel delay is existing but check if it's for image advertisements first
+        if (broadcast_type.search('1-') != '-1') {
+            if (typeof response.carousel_delay == "undefined") {
+                response.carousel_delay = "5000";
+            }
+        }
+        else {
+            carousel_delay = '';
+            response.carousel_delay = '';
+        }
+
+        // check if ticker messages are existing
+        if (typeof response.ticker_message == "undefined" || response.ticker_message == null) response.ticker_message = '';
+        if (typeof response.ticker_message2 == "undefined" || response.ticker_message2 == null) response.ticker_message2 = '';
+        if (typeof response.ticker_message3 == "undefined" || response.ticker_message3 == null) response.ticker_message3 = '';
+        if (typeof response.ticker_message4 == "undefined" || response.ticker_message4 == null) response.ticker_message4 = '';
+        if (typeof response.ticker_message5 == "undefined" || response.ticker_message5 == null) response.ticker_message5 = '';
+
+        var total_ticker = response.ticker_message + response.ticker_message2 +
+            response.ticker_message3 + response.ticker_message4 + response.ticker_message5;
+
+        if (broadcast_type != response.display || ad_type != response.ad_type
+            || carousel_delay != response.carousel_delay || live_ticker != total_ticker) {
             window.location.reload(true);
         }
     });
@@ -49,16 +73,17 @@ app.controller('nowServingCtrl', function($scope, $http) {
         $scope.announceNumber(response, 'rank1', 'box1', 'name1');
         $scope.announceNumber(response, 'rank2', 'box2', 'name2');
         $scope.announceNumber(response, 'rank3', 'box3', 'name3');
+        $scope.announceNumber(response, 'rank4', 'box4', 'name4');
 
         $scope.announceNumberFromBlank(response, 'box1', 'rank1');
         $scope.announceNumberFromBlank(response, 'box2', 'rank2');
         $scope.announceNumberFromBlank(response, 'box3', 'rank3');
+        $scope.announceNumberFromBlank(response, 'box4', 'rank4');
 
         $scope.writeNumber(response, 'box1');
         $scope.writeNumber(response, 'box2');
         $scope.writeNumber(response, 'box3');
-
-        $scope.ticker_message = response.ticker_message;
+        $scope.writeNumber(response, 'box4');
     });
 
     $scope.resetNumbers = (function(response) {
@@ -71,5 +96,4 @@ app.controller('nowServingCtrl', function($scope, $http) {
         $http.get('/broadcast/reset-numbers/'+business_id).success($scope.resetNumbers);
         $http.get('/json/'+business_id+'.json?nocache='+Math.floor((Math.random() * 10000) + 1)).success($scope.updateBroadcastPage);
     }, 1000);
-
 });
