@@ -11,7 +11,6 @@
 
         var listBusinesses = (function(response) {
             $scope.businesses = new Array();
-            var length_limit = 8;
             for (var i = 0; i < response.length; i++) {
                 $scope.businesses.push({
                     "business_id": response[i].business_id,
@@ -27,11 +26,6 @@
                     "last_active": response[i].last_active,
                     "card_bool" : response[i].card_bool
                 });
-                if(i == length_limit - 1) break;
-            }
-
-            if(response.length <= length_limit){
-                length_limit = response.length;
             }
             $('#search-grid').fadeIn(400, function() {
                 $('#search-loader').hide();

@@ -517,7 +517,14 @@ class BusinessController extends BaseController{
                 }
 
             }
-            return json_encode(array_merge($processing, $not_processing));
+            $merged_businesses = array_merge($processing, $not_processing);
+            if (Auth::check()) { // dashboard business boxes should be 8; known users will be redirected to dashboard
+              $merged_businesses = array_slice($merged_businesses, 0, 8);
+            }
+            else { // homepage business boxes should be only 7 to give space for (more business) box; anon users will be redirected to homepage
+              $merged_businesses = array_slice($merged_businesses, 0, 7);
+            }
+            return json_encode($merged_businesses);
         }
     }
 
