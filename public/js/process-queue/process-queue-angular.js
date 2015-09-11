@@ -3,8 +3,12 @@
  */
 //angularjs implementation
 (function(){
-    //var app = angular.module('FeatherQ', []);
     app.requires.push('ngSanitize');
+    app.requires.push('angular-loading-bar'); //add angular loading bar
+    app.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+        cfpLoadingBarProvider.includeSpinner = false;
+    }]);
+
     app.controller('processqueueController', function($scope, $http){
         $scope.terminal_id = pq.ids.terminal_id;
         $scope.called_numbers = [];
@@ -129,7 +133,7 @@
 
         //non scope functions
         getResponseResetValues = function(url, successFunc, errorFunc, finallyFunc){
-            $http.get(url)
+            $http.get(url, {ignoreLoadingBar: true})
                 .success(function(response){
                     if(response.numbers) resetValues(response.numbers);
                     if(typeof successFunc === 'function') successFunc();

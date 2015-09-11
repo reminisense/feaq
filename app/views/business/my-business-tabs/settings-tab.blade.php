@@ -70,8 +70,8 @@
         <div class="clearfix">
             <div class="col-md-12">
                 <div class="alert alert-info" role="alert">
-                    <strong>* Remote Queue Limit</strong> refers to the percentage of people who can queue remotely from the total number of people currently lined up.
-                    This means that if you have a 10% limit, once 10 people have been issued numbers, 1 slot will be open for another person to queue in remotely.
+                    <strong>* Remote Queue Limit</strong> - Set the percentage of people able to join the queue remotely
+                    (E.g.: At 10% Remote queue limit, one person can join remotely after issuing 10 numbers).
                 </div>
             </div>
         </div>
@@ -178,9 +178,11 @@
         </div>
         <div class="clearfix">
             <div class="col-md-6 mb20" ng-repeat="allowed_business in allowed_businesses">
-                <div class="btn btn-default form-control">
-                    @{{ allowed_business.name }}
-                    <span class="glyphicon glyphicon-trash" ng-click="deletePermission(allowed_business.business_id)"></span>
+                <div class="form-control">
+                    <span class="pull-left">@{{ allowed_business.name }}</span>
+                    <a href="" class="pull-right" ng-click="deletePermission(allowed_business.business_id)">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
                 </div>
             </div>
         </div>

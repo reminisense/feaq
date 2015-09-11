@@ -11,7 +11,6 @@
 
         var listBusinesses = (function(response) {
             $scope.businesses = new Array();
-            var length_limit = 8;
             for (var i = 0; i < response.length; i++) {
                 $scope.businesses.push({
                     "business_id": response[i].business_id,
@@ -22,15 +21,11 @@
                     "waiting_time": response[i].waiting_time,
                     "last_number_called": response[i].last_number_called,
                     "next_available_number": response[i].next_available_number,
-                    "is_calling": response[i].is_calling,
-                    "is_issuing": response[i].is_issuing,
-                    "last_active": response[i].last_active
+                    //"is_calling": response[i].is_calling,
+                    //"is_issuing": response[i].is_issuing,
+                    "last_active": response[i].last_active,
+                    "card_bool" : response[i].card_bool
                 });
-                if(i == length_limit - 1) break;
-            }
-
-            if(response.length <= length_limit){
-                length_limit = response.length;
             }
             $('#search-grid').fadeIn(400, function() {
                 $('#search-loader').hide();
@@ -86,8 +81,9 @@
                         //ARA more info for business cards
                         "last_number_called": response[i].last_number_called,
                         "next_available_number": response[i].next_available_number,
-                        "is_calling": response[i].is_calling,
-                        "is_issuing": response[i].is_issuing,
+                        //"is_calling": response[i].is_calling,
+                        //"is_issuing": response[i].is_issuing,
+                        "card_bool" : response[i].card_bool,
                         "last_active": response[i].last_active
                     });
                     if(i == length_limit - 1) break;

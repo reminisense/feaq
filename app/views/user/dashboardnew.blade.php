@@ -20,7 +20,7 @@ Dashboard
     <div class="feat feat-dashboard">
         <div class="container">
             <div class="text-center">
-                <h1>Search for Businesses</h1>
+                <h1><b>Find</b> a Business</h1>
             </div>
             <div class="container">
                 <div class="clearfix">
@@ -49,7 +49,7 @@ Dashboard
                                     <input type="text" id="time_open-filter" name="time_open" placeholder="Time Open" class="form-control" ng-model="time_open">
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-12">
-                                    <input class="" type="text" placeholder="ie: Ng Khai Devt Corp" id="search-keyword" ng-model="search_keyword" ng-model-options="{debounce: 1000}" autocomplete="off">
+                                    <input class="" type="text" placeholder="e.g. Bills Payment SM Megamall" id="search-keyword" ng-model="search_keyword" ng-model-options="{debounce: 1000}" autocomplete="off">
                                     <ul class="dropdown-menu" role="menu" id="search-suggest" ng-hide="dropdown_businesses.length == 0"  outside-click="dropdown_businesses = []">
                                         <li ng-repeat="business in dropdown_businesses">
                                             <a href="#" ng-click="searchBusiness(location_filter, industry_filter, business.name, $event)">
@@ -91,10 +91,10 @@ Dashboard
             </div>
             <div class="col-md-3 col-sm-4 col-xs-12" ng-repeat="business in businesses">
                 <a class="broadcast_link" href="/broadcast/business/@{{ business.business_id }}" target="_blank">
-                    <div ng-class="{true: 'boxed biz-open', false: 'boxed biz-closed'}[business.is_calling || business.is_issuing]">
+                    <div ng-class="{true: 'boxed biz-open', false: 'boxed biz-closed'}[business.card_bool]">
                         <p class="title">@{{ business.business_name }}</p>
                         <p class="address">@{{ business.local_address }}</p>
-                        <div class="statuses" ng-if="!business.is_calling && !business.is_issuing">
+                        <div class="statuses" ng-if="!business.card_bool">
                             <p><span class="icon-lineq"></span> Business Hours: <span class="pull-right">@{{ business.time_open }} - @{{ business.time_close }}</span> <span class="icon-busy"></span> </p>
                             <p><span class="icon-waittime"></span> Last Active:
                                 <span class="pull-right" ng-if="business.last_active > 1">@{{ business.last_active }} days ago</span>
@@ -102,7 +102,7 @@ Dashboard
                                 <span class="pull-right" ng-if="business.last_active == 0">Today</span>
                             </p>
                         </div>
-                        <div class="statuses" ng-if="business.is_calling || business.is_issuing">
+                        <div class="statuses" ng-if="business.card_bool">
                             <div class="col-md-6 col-xs-6 text-center">
                                 <h5>Calling</h5>
                                 <h4><strong>@{{ business.last_number_called }}</strong></h4>
@@ -115,11 +115,11 @@ Dashboard
                                 <p class="line">Line Status: <span class="@{{ business.waiting_time }}">&middot</span> @{{ business.waiting_time }}</p>
                             </div>
                         </div>
-                        <div class="status open" data-toggle="tooltip" data-placement="top" title="" data-original-title="Queue on-going" ng-if="business.is_calling || business.is_issuing">
+                        <div class="status open" data-toggle="tooltip" data-placement="top" title="" data-original-title="Queue on-going" ng-if="business.card_bool">
                         	<span class="glyphicon glyphicon-play"></span>
                         	<div class="bg"></div>
                         </div>
-                        <div class="status closed" data-toggle="tooltip" data-placement="top" title="Queue Closed" ng-if="!business.is_calling && !business.is_issuing">
+                        <div class="status closed" data-toggle="tooltip" data-placement="top" title="Queue Closed" ng-if="!business.card_bool">
                         	<span class="glyphicon glyphicon-ban-circle"></span>
                         	<div class="bg"></div>
                         </div>

@@ -41,15 +41,10 @@ class BroadcastController extends BaseController{
     {
         $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
         $arr = explode("-", $data->display);
-
         if ($arr[0]) {
-            if ($arr[0] == 3){
-                $template_type = 'ads-' . $arr[1] . '-2';
-            } else {
-                $template_type = 'ads-' . $arr[1];
-            }
+          $template_type = 'ads-' . $arr[1];
         } else {
-            $template_type = 'noads-' . $arr[1];
+          $template_type = 'noads-' . $arr[1];
         }
 
         if ($data->ad_type == 'image') {
@@ -132,11 +127,13 @@ class BroadcastController extends BaseController{
 
         if (Auth::check()) {
             $user = User::getUserByUserId(Auth::user()->user_id);
-
             // business owners have different broadcast screens for display
             if (UserBusiness::getBusinessIdByOwner(Auth::user()->user_id) == $business_id) {
                 if ($arr[0] == 2 || $arr[0] == 3) {
                     $ad_src = $data->tv_channel; // check if TV is on
+                    if ($arr[0] == 3) {
+                      $template_type = 'ads-' . $arr[1] . '-2';
+                    }
                     $broadcast_template = 'broadcast.default.internet-tv-master';
                 } else {
                     $broadcast_template = 'broadcast.default.business-master';
