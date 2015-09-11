@@ -7,13 +7,12 @@ var app = angular.module('BusinessBroadcast', []);
 app.controller('nowServingCtrl', function($scope, $http, $compile) {
 
     //open a web socket connection
-    var wsUri = "ws://localhost:55346/socket/server.php";
-    websocket = new WebSocket(wsUri);
+    websocket = new WebSocket("ws://localhost:55346/socket/server.php");
     websocket.onopen = function(response) { // connection is open
 
     }
-    websocket.onmessage = function(response) {
-        var result = JSON.parse(response.data); //PHP sends Json data
+    websocket.onmessage = function(response) { // what happens when data is received
+        var result = JSON.parse(response.data);
         $scope.writeNumber(result);
     };
     websocket.onerror	= function(response){};

@@ -49,10 +49,10 @@ while (true) {
     {
       $received_text = unmask($buf); //unmask data
       $tst_msg = json_decode($received_text); //json decode
-      $number = $tst_msg->number; //sender name
-      $terminal = $tst_msg->terminal; //message text
-      $rank = $tst_msg->rank; //color
-      $box = $tst_msg->box; //color
+      $number = $tst_msg->number; // the number to be called
+      $terminal = $tst_msg->terminal; // the name of the terminal calling
+      $rank = $tst_msg->rank; // the id of the terminal calling
+      $box = $tst_msg->box; // the box where the number will be displayed
 
       //prepare data to be sent to client
       $response_text = mask(json_encode(array('type'=>'usermsg', 'number'=>$number, 'terminal'=>$terminal, 'rank'=>$rank, 'box'=>$box)));
