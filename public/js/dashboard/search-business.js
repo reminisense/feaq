@@ -19,7 +19,7 @@
                 $('#popular-businesses').hide();
                 $scope.businesses = new Array();
                 $scope.searchLabel = 'SHOWING RESULTS '+response.length+' OF '+response.length;
-                for (var i = 0; i < response.length; i++) {
+                for (var i = 0; i < response.length; i++) { //TODO what if results is more than 7 or 8
                     $scope.businesses.push({
                         "business_id": response[i].business_id,
                         "business_name": response[i].business_name,

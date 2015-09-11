@@ -254,7 +254,7 @@ h5.heading {
     height: 100%;
 }
 
-.terminal {font-family: 'ralewayregular';}
+.terminal {font-family: 'ralewaysemibold';}
 
 
 /*maintain padding on boxes*/
@@ -270,10 +270,20 @@ h5.heading {
 /*RBM broadcast screens font sizes*/
 body#broadcast .container-fluid { height: 100%; }
 body#broadcast .numbers { width:99.4%; height:100%; min-height:100%;}
-body#broadcast .terminal { line-height:90px; margin-bottom:0; color: #fff; }
+/* Fix broadcast lineheight
+body#broadcast .terminal { line-height:90px; margin-bottom:0; color: #fff; }*/
+body#broadcast .terminal {
+    line-height:35px;
+
+    overflow: hidden;
+
+    height: 2.4em;
+    margin-bottom:20px;
+    margin-top: 20px;
+    color: #fff; }
 .numbers p { color: #333; }
 .numbers h1 { font-family:'ralewaysemibold'; color: #fff; width:100%; margin-top:60px; letter-spacing:-4px; }
-#broadcast .broadcast .numbers.t h1 { padding-top: 95px; color: #333; }
+#broadcast .broadcast .numbers.t h1 { color: #333; }
 
 /*heights on each screen*/
 .onenum .numbers { height:90vh!important; }
@@ -284,17 +294,18 @@ body#broadcast .terminal { line-height:90px; margin-bottom:0; color: #fff; }
 .ads-sixnums .numbers, .ads-sixnums .qrwrap { height:39vh!important; padding: 25px 15px!important;}
 
 /*terminal names*/
-.onenum .terminal { font-size:9vmin; }
+.onenum .terminal { font-size: 42px; }
 .fournums .terminal { font-size:5.5vmin; }
-.sixnums .terminal { font-size:5.5vmin; }
-.ads-onenum .terminal { font-size:6vmin; }
+.sixnums .terminal { font-size:4.5vmin; }
+/*.ads-onenum .terminal { font-size:6vmin; }*/
 .ads-fournums .terminal { font-size:4.5vmin; }
 .ads-sixnums .terminal { font-size:3vmin; }
 
 /*font sizes*/
-.onenum h1 { font-size: 35vmin; }
+.onenum h1 { font-size: 280px; line-height: 320px; }
 .fournums h1 { font-size: 22vmin; margin-top: -10px!important; }
-.sixnums h1 { font-size: 22vmin; margin-top: -10px!important; }
+.sixnums h1 { font-size: 18vmin; margin-top: -10px!important; }
+.sixnums .terminal { margin-top:0!important; margin-bottom: 0!important; line-height: 42px!important; height: 2em!important;}
 .ads-onenum h1 { font-size: 20vmin; }
 .ads-fournums h1 { font-size: 17vmin; margin-top: 0px!important; }
 .ads-sixnums h1 { font-size: 12vmin; margin-top: 0px!important; }
@@ -309,7 +320,7 @@ body#broadcast .terminal { line-height:90px; margin-bottom:0; color: #fff; }
 .ads-fournums p.orange { padding-top:38px; font-size:3.5vmin!important; }
 .ads-sixnums p.orange { padding-top:10px; font-size:3vmin!important; }
 
-
+/*
 ::-webkit-scrollbar {
     -webkit-appearance: none;
     width: 7px;
@@ -318,55 +329,47 @@ body#broadcast .terminal { line-height:90px; margin-bottom:0; color: #fff; }
     border-radius: 4px;
     background-color: rgba(0,0,0,.5);
     -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
-}
+}*/
 
 .ticker {
     position: fixed;
     z-index: 9999;
     bottom: 0px;
     width: 100%;
-}
-.scroll-left {
-    height: 50px;
-    overflow: hidden;
-    position: relative;
-    color: #111;
-}
-.scroll-left p {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    line-height: 50px;
-    text-align: center;
-    /* Starting position */
-    -moz-transform:translateX(100%);
-    -webkit-transform:translateX(100%);
-    transform:translateX(100%);
-    /* Apply animation to this element */
-    -moz-animation: scroll-left 25s linear infinite;
-    -webkit-animation: scroll-left 25s linear infinite;
-    animation: scroll-left 25s linear infinite;
-}
-/* Move it (define the animation) */
-@-moz-keyframes scroll-left {
-    0%   { -moz-transform: translateX(100%); }
-    100% { -moz-transform: translateX(-100%); }
-}
-@-webkit-keyframes scroll-left {
-    0%   { -webkit-transform: translateX(100%); }
-    100% { -webkit-transform: translateX(-100%); }
-}
-@keyframes scroll-left {
-    0%   {
-        -moz-transform: translateX(100%); /* Browser bug fix */
-        -webkit-transform: translateX(100%); /* Browser bug fix */
-        transform: translateX(100%);
-    }
-    100% {
-        -moz-transform: translateX(-100%); /* Browser bug fix */
-        -webkit-transform: translateX(-100%); /* Browser bug fix */
-        transform: translateX(-100%);
-    }
+    background: rgba(255, 255, 255, 0.95);
 }
 
+.ticker div {
+    font-size: 36px;
+    font-family: ArialMTStd-ExtraBold;
+    color: #333338;
+    margin-bottom: 0px;
+}
+
+.ads-sixnums  .numbers.t h1,
+.ads-fournums  .numbers.t h1,
+.ads-onenum  .numbers.t h1 {
+    padding-top: 0!important;
+}
+#broadcast .boxed .head {
+    border-radius: 0!important;
+}
+#broadcast .body.broadcast .ads-onenum .terminal {
+    /*line-height: 48px!important; removed by rodel 825*/
+    font-size: 4.4vmin;
+}
+
+#broadcast .body.broadcast .ads-onenum .numbers {
+    height: 46vh!important;
+    padding: 20px;
+}
+#broadcast .body.broadcast .ads-onenum h1 {
+    /*font-size: 24vmin!important;*/
+    /* removed by rodel 825 margin-top: 20px!important;*/
+}
+/*rodels broadcast fix 8-26*/
+.ads-sixnums .terminal {
+    line-height: 33px!important;
+    font-size: 2.6vmin!important;
+    height: 2.8em!important;
+}

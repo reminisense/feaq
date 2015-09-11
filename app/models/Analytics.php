@@ -85,15 +85,18 @@ class Analytics extends Eloquent{
         return Helper::getMultipleQueries('queue_analytics', $conditions);
     }
 
-    public static function getBusinessAnalytics($business_id){
+    public static function getBusinessAnalytics($business_id, $startdate = null, $enddate = null){
+        $startdate = $startdate == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $startdate;
+        $enddate = $enddate == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $enddate;
+
         $analytics = [
             'remaining_count' => Analytics::getBusinessRemainingCount($business_id),
-            'total_numbers_issued' => Analytics::getTotalNumbersIssuedByBusinessId($business_id),
-            'total_numbers_called' => Analytics::getTotalNumbersCalledByBusinessId($business_id),
-            'total_numbers_served' => Analytics::getTotalNumbersServedByBusinessId($business_id),
-            'total_numbers_dropped' => Analytics::getTotalNumbersDroppedByBusinessId($business_id),
-            'average_time_called' => Analytics::getAverageTimeCalledByBusinessId($business_id),
-            'average_time_served' => Analytics::getAverageTimeServedByBusinessId($business_id)
+            'total_numbers_issued' => Analytics::getTotalNumbersIssuedByBusinessId($business_id, $startdate, $enddate),
+            'total_numbers_called' => Analytics::getTotalNumbersCalledByBusinessId($business_id, $startdate, $enddate),
+            'total_numbers_served' => Analytics::getTotalNumbersServedByBusinessId($business_id, $startdate, $enddate),
+            'total_numbers_dropped' => Analytics::getTotalNumbersDroppedByBusinessId($business_id, $startdate, $enddate),
+            'average_time_called' => Analytics::getAverageTimeCalledByBusinessId($business_id, 'string', $startdate, $enddate),
+            'average_time_served' => Analytics::getAverageTimeServedByBusinessId($business_id, 'string', $startdate, $enddate)
         ];
 
         return $analytics;
@@ -106,55 +109,51 @@ class Analytics extends Eloquent{
 
     /*time served*/
 
-    public static function getTotalNumbersIssuedByBusinessId($business_id){
-        return count(Analytics::getQueueAnalyticsRows(['action' => ['=', 0], 'business_id' => ['=', $business_id ]]));
+    public static function getTotalNumbersIssuedByBusinessId($business_id, $startdate, $enddate){
+        return count(Analytics::getQueueAnalyticsRows(['action' => ['=', 0], 'business_id' => ['=', $business_id ], 'date' => ['>=', $startdate], 'date.' => ['<=', $enddate]]));
     }
 
-    public static function getTotalNumbersCalledByBusinessId($business_id){
-        return count(Analytics::getQueueAnalyticsRows(['action' => ['=', 1], 'business_id' => ['=', $business_id ]]));
+    public static function getTotalNumbersCalledByBusinessId($business_id, $startdate, $enddate){
+        return count(Analytics::getQueueAnalyticsRows(['action' => ['=', 1], 'business_id' => ['=', $business_id ], 'date' => ['>=', $startdate], 'date.' => ['<=', $enddate]]));
     }
 
-    public static function getTotalNumbersCalledByBusinessIdWithDate($business_id, $startdate, $enddate){
-        return count(Analytics::getQueueAnalyticsRows(['action' => ['=', 1], 'business_id' => ['=', $business_id ], 'date' => ['>=', $startdate], 'date' => ['<=', $enddate]]));
+    public static function getTotalNumbersServedByBusinessId($business_id, $startdate, $enddate){
+        return count(Analytics::getQueueAnalyticsRows(['action' => ['=', 2], 'business_id' => ['=', $business_id ], 'date' => ['>=', $startdate], 'date.' => ['<=', $enddate]]));
     }
 
-    public static function getTotalNumbersServedByBusinessId($business_id){
-        return count(Analytics::getQueueAnalyticsRows(['action' => ['=', 2], 'business_id' => ['=', $business_id ]]));
+    public static function getTotalNumbersDroppedByBusinessId($business_id, $startdate, $enddate){
+        return count(Analytics::getQueueAnalyticsRows(['action' => ['=', 3], 'business_id' => ['=', $business_id ], 'date' => ['>=', $startdate], 'date.' => ['<=', $enddate]]));
     }
 
-    public static function getTotalNumbersDroppedByBusinessId($business_id){
-        return count(Analytics::getQueueAnalyticsRows(['action' => ['=', 3], 'business_id' => ['=', $business_id ]]));
+    public static function getTotalNumbersProcessedByBusinessId($business_id, $startdate, $enddate){
+        return count(Analytics::getQueueAnalyticsRows(['action' => ['>', 1], 'business_id' => ['=', $business_id ], 'date' => ['>=', $startdate], 'date.' => ['<=', $enddate]]));
     }
 
-    public static function getTotalNumbersProcessedByBusinessId($business_id){
-        return count(Analytics::getQueueAnalyticsRows(['action' => ['>', 1], 'business_id' => ['=', $business_id ]]));
-    }
-
-    public static function getAverageTimeCalledByBusinessId($business_id, $format = 'string'){
+    public static function getAverageTimeCalledByBusinessId($business_id, $format = 'string', $startdate, $enddate){
         if($format === 'string'){
-            return Analytics::getAverageTimeFromActionByBusinessId(0, 1, $business_id);
+            return Analytics::getAverageTimeFromActionByBusinessId(0, 1, $business_id, $startdate, $enddate);
         }else{
-            return Analytics::getAverageTimeValueFromActionByBusinessId(0, 1, $business_id);
+            return Analytics::getAverageTimeValueFromActionByBusinessId(0, 1, $business_id, $startdate, $enddate);
         }
     }
 
-    public static function getAverageTimeServedByBusinessId($business_id, $format = 'string'){
+    public static function getAverageTimeServedByBusinessId($business_id, $format = 'string', $startdate, $enddate){
         if($format === 'string'){
-            return Analytics::getAverageTimeFromActionByBusinessId(1, 2, $business_id);
+            return Analytics::getAverageTimeFromActionByBusinessId(1, 2, $business_id, $startdate, $enddate);
         }else{
-            return Analytics::getAverageTimeValueFromActionByBusinessId(1, 2, $business_id);
+            return Analytics::getAverageTimeValueFromActionByBusinessId(1, 2, $business_id, $startdate, $enddate);
         }
     }
 
     //gets the string representation of the average time
-    public static function getAverageTimeFromActionByBusinessId($action1, $action2, $business_id){
-        return Helper::millisecondsToHMSFormat(Analytics::getAverageTimeValueFromActionByBusinessId($action1, $action2, $business_id));
+    public static function getAverageTimeFromActionByBusinessId($action1, $action2, $business_id, $startdate, $enddate){
+        return Helper::millisecondsToHMSFormat(Analytics::getAverageTimeValueFromActionByBusinessId($action1, $action2, $business_id, $startdate, $enddate));
     }
 
     //gets the numeric representation of the average time
-    public static function getAverageTimeValueFromActionByBusinessId($action1, $action2, $business_id){
-        $action1_numbers = Analytics::getQueueAnalyticsRows(['action' => ['=', $action1], 'business_id' => ['=', $business_id ]]);
-        $action2_numbers = Analytics::getQueueAnalyticsRows(['action' => ['=', $action2], 'business_id' => ['=', $business_id ]]);
+    public static function getAverageTimeValueFromActionByBusinessId($action1, $action2, $business_id, $startdate, $enddate){
+        $action1_numbers = Analytics::getQueueAnalyticsRows(['action' => ['=', $action1], 'business_id' => ['=', $business_id ], 'date' => ['>=', $startdate], 'date.' => ['<=', $enddate]]);
+        $action2_numbers = Analytics::getQueueAnalyticsRows(['action' => ['=', $action2], 'business_id' => ['=', $business_id ], 'date' => ['>=', $startdate], 'date.' => ['<=', $enddate]]);
         return Analytics::getAverageTimeFromActionArray($action1_numbers, $action2_numbers);
     }
 
@@ -174,13 +173,18 @@ class Analytics extends Eloquent{
         return $average;
     }
 
+    public static function getTotalNumbersCalledByBusinessIdWithDate($business_id, $startdate, $enddate){
+        return count(Analytics::getQueueAnalyticsRows(['action' => ['=', 1], 'business_id' => ['=', $business_id ], 'date' => ['>=', $startdate], 'date' => ['<=', $enddate]]));
+    }
+
     /**
      * ARA Computes for the time the next available number has to wait in order to be called
      * equation : time_to_be_called = average_calling_time x numbers_remaining_in_queue
      */
     public static function getWaitingTime($business_id){
+        $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
         $numbers_in_queue = Analytics::getBusinessRemainingCount($business_id);
-        $average_waiting_time = Analytics::getAverageTimeCalledByBusinessId($business_id, 'numeric');
+        $average_waiting_time = Analytics::getAverageTimeCalledByBusinessId($business_id, 'numeric', $date, $date);
         return $average_waiting_time * $numbers_in_queue;
     }
 

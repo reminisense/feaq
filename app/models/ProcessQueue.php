@@ -39,6 +39,57 @@ class ProcessQueue extends Eloquent{
         return $number;
     }
 
+    public static function issueMultiple($service_id, $first_number, $range, $date = null, $queue_platform = 'web', $terminal_id = 0, $user_id = null){
+        $date = $date == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $date;
+
+        $service_properties = ProcessQueue::getServiceProperties($service_id, $date);
+        $number_start = $service_properties->number_start;
+        $number_limit = $service_properties->number_limit;
+        $last_number_given = $service_properties->last_number_given;
+        $current_number = $service_properties->current_number;
+
+        $time_queued = time();
+        $user_id = $user_id == null? Helper::userId() : $user_id;
+        $priority_number = $first_number;
+
+        $priority_queue_data = array();
+        $terminal_transaction_data = array();
+        $analytics_data = array();
+        //@todo insert bulk to priority number table and get track ids
+        for($i = 1; $i <= $range; $i++){
+            $track_id = PriorityNumber::createPriorityNumber($service_id, $number_start, $number_limit, $last_number_given, $current_number, $date);
+            $confirmation_code = strtoupper(substr(md5($track_id), 0, 4));
+            $transaction_number = PriorityQueue::createPriorityQueue($track_id, $priority_number, $confirmation_code, $user_id, $queue_platform);
+
+            $terminal_transaction_data[] = array(
+                'transaction_number' => $transaction_number,
+                'time_queued' => $time_queued,
+            );
+
+            $analytics_data[] = array(
+                'transaction_number' => $transaction_number,
+                'date' => $date,
+                'business_id' => Business::getBusinessIdByServiceId($service_id),
+                'branch_id' => Service::branchId($service_id),
+                'service_id' => $service_id,
+                'terminal_id' => $terminal_id,
+                'queue_platform' => $queue_platform,
+                'user_id' => Helper::userId(),
+                'action' => 0,
+                'action_time' => $time_queued
+            );
+
+            $last_number_given = $priority_number;
+            $priority_number++;
+        }
+
+
+        //@todo insert bulk to priority queue and get transaction numbers
+        TerminalTransaction::insert($terminal_transaction_data); //insert bulk to terminal transaction
+        Analytics::saveQueueAnalytics($analytics_data); //insert bulk to analytics
+        return array('first_number' => $first_number, 'last_number' => $last_number_given);
+    }
+
     //calls a number based on its transaction number
     public static function callTransactionNumber($transaction_number, $user_id, $terminal_id){
         if(is_numeric($terminal_id)){
@@ -67,6 +118,11 @@ class ProcessQueue extends Eloquent{
             $terminal_name = $terminal->name;
         }catch(Exception $e){
             $terminal_name = '';
+        }
+
+        //ARA in case the number was not called but served/removed which is unlikely
+        if($transaction->time_called == 0 ){
+            ProcessQueue::callTransactionNumber($transaction_number, Helper::userId(), $terminal_id);
         }
 
         if($transaction->time_removed == 0 && $transaction->time_completed == 0){
@@ -318,28 +374,33 @@ class ProcessQueue extends Eloquent{
 
             $max_count = 6; //RDH via ARA : gisugo ko ni ruffy (dili ni tinuod) : set default value for $max_count
             // PAG Addition for Broadcast Display Settings
-            if ($boxes->display == '1-1' || $boxes->display == '0-1') {
+            if (strstr($boxes->display, '-1')) {
               $max_count = 1;
             }
-            elseif ($boxes->display == '1-4' || $boxes->display == '0-4') {
+            elseif (strstr($boxes->display, '-4')) {
               $max_count = 4;
             }
-            elseif ($boxes->display == '1-6' || $boxes->display == '0-6') {
+            elseif (strstr($boxes->display, '-6')) {
               $max_count = 6;
             }
 
             $box_count = 1;
-            for($counter = 1; $counter <= $max_count; $counter++){
+            $existing = array();
+            for($counter = 1; $box_count <= $max_count; $counter++){
                 $index = $counter - 1;
-                $box = 'box'.$box_count;
-                $boxes->$box->number = isset($numbers[$index]['priority_number']) ? $numbers[$index]['priority_number'] : '';
-                $boxes->$box->terminal = isset($numbers[$index]['terminal_name']) ? $numbers[$index]['terminal_name'] : '';
-                $boxes->$box->rank = isset($numbers[$index]['box_rank']) ? $numbers[$index]['box_rank'] : ''; // Added by PAG
-                $box_count++;
+                $number = isset($numbers[$index]['priority_number']) ? $numbers[$index]['priority_number'] : '';
+                if(!in_array($number, $existing) || $number == ''){ //check if same number already exists
+                    $existing[] = $number;
+                    $box = 'box'.$box_count;
+                    $boxes->$box->number = $number;
+                    $boxes->$box->terminal = isset($numbers[$index]['terminal_name']) ? $numbers[$index]['terminal_name'] : '';
+                    $boxes->$box->rank = isset($numbers[$index]['box_rank']) ? $numbers[$index]['box_rank'] : ''; // Added by PAG
+                    $box_count++;
+                }
             }
             $boxes->get_num = $all_numbers->next_number;
 
-            File::put($file_path, json_encode($boxes));
+            File::put($file_path, json_encode($boxes, JSON_PRETTY_PRINT));
         }
     }
 }

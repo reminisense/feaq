@@ -78,7 +78,7 @@ class AdminController extends BaseController{
     }
 
     public function getBusinessnumbers($start_date, $end_date){
-
+      if (Admin::isAdmin()) { // PAG added permission checking
         $temp_date = $end_date + 86400;
 
         $businesses = Business::countBusinessByRange($start_date, $temp_date);
@@ -88,57 +88,81 @@ class AdminController extends BaseController{
         $served_numbers = Analytics::countBusinessNumbers($start_date, $end_date, 2);
         $dropped_numbers = Analytics::countBusinessNumbers($start_date, $end_date, 3);
 
-        return json_encode(['success' => 1, 'businesses' => $businesses, 'users' => $users,
-            'issued_numbers' => $issued_numbers, 'called_numbers' => $called_numbers, 'served_numbers' => $served_numbers, 'dropped_numbers' => $dropped_numbers ]);
+        return json_encode(array(
+          'success' => 1,
+          'businesses' => $businesses,
+          'users' => $users,
+          'issued_numbers' => $issued_numbers,
+          'called_numbers' => $called_numbers,
+          'served_numbers' => $served_numbers,
+          'dropped_numbers' => $dropped_numbers,
+        ));
+      }
+      else {
+        return json_encode(array('success' => 0, 'message' => 'You are not allowed to access this function.'));
+      }
     }
 
     public function getAllbusinesses(){
+      if (Admin::isAdmin()) { // PAG added permission checking
         $businesses = Business::getAllBusinessNames();
         return json_encode(['success' => 1, 'businesses' => $businesses]);
+      }
+      else {
+        return json_encode(array('success' => 0, 'message' => 'You are not allowed to access this function.'));
+      }
     }
 
     public function getProcessnumbers($start_date, $end_date, $mode, $value){
-
+      if (Admin::isAdmin()) { // PAG added permission checking
         $temp_start_date = $start_date;
         $temp_end_date = $end_date + 86400;
 
-        if($mode == "business"){
+        if ($mode == "business") {
 
-            $issued_numbers = [];
-            $called_numbers = [];
-            $served_numbers = [];
-            $dropped_numbers = [];
-            $issued_data_numbers = [];
+          $issued_numbers = [];
+          $called_numbers = [];
+          $served_numbers = [];
+          $dropped_numbers = [];
+          $issued_data_numbers = [];
 
-            $business= Business::getBusinessIdByName($value);
-            while($temp_start_date  < $temp_end_date) {
+          $business = Business::getBusinessIdByName($value);
+          while ($temp_start_date < $temp_end_date) {
 
-                $next_day = $temp_start_date + 86400;
+            $next_day = $temp_start_date + 86400;
 
-                for ($i = 0; $i < count($business); $i++) {
+            for ($i = 0; $i < count($business); $i++) {
 
 
-                    $issued_count = Analytics::countNumbersByBusiness($business[$i]->business_id, $temp_start_date, 0);
-                    $called_count = Analytics::countNumbersByBusiness($business[$i]->business_id, $temp_start_date, 1);
-                    $served_count = Analytics::countNumbersByBusiness($business[$i]->business_id, $temp_start_date, 2);
-                    $dropped_count = Analytics::countNumbersByBusiness($business[$i]->business_id, $temp_start_date, 3);
-                    $issued_data_count = Analytics::countNumbersWithData($business[$i]->business_id, $temp_start_date);
+              $issued_count = Analytics::countNumbersByBusiness($business[$i]->business_id, $temp_start_date, 0);
+              $called_count = Analytics::countNumbersByBusiness($business[$i]->business_id, $temp_start_date, 1);
+              $served_count = Analytics::countNumbersByBusiness($business[$i]->business_id, $temp_start_date, 2);
+              $dropped_count = Analytics::countNumbersByBusiness($business[$i]->business_id, $temp_start_date, 3);
+              $issued_data_count = Analytics::countNumbersWithData($business[$i]->business_id, $temp_start_date);
 
-                    array_push($issued_numbers, $issued_count);
-                    array_push($called_numbers, $called_count);
-                    array_push($served_numbers, $served_count);
-                    array_push($dropped_numbers, $dropped_count);
-                    array_push($issued_data_numbers, $issued_data_count);
+              array_push($issued_numbers, $issued_count);
+              array_push($called_numbers, $called_count);
+              array_push($served_numbers, $served_count);
+              array_push($dropped_numbers, $dropped_count);
+              array_push($issued_data_numbers, $issued_data_count);
 
-                }
-
-                $temp_start_date = $next_day;
             }
 
-            return json_encode(['success' => 1, 'issued_numbers' => $issued_numbers, 'called_numbers' => $called_numbers,
-                'served_numbers' => $served_numbers, 'dropped_numbers' => $dropped_numbers, 'issued_numbers_data' => $issued_data_numbers]);
+            $temp_start_date = $next_day;
+          }
 
-        }else if($mode == "industry"){
+          return json_encode([
+            'success' => 1,
+            'issued_numbers' => $issued_numbers,
+            'called_numbers' => $called_numbers,
+            'served_numbers' => $served_numbers,
+            'dropped_numbers' => $dropped_numbers,
+            'issued_numbers_data' => $issued_data_numbers
+          ]);
+
+        }
+        else {
+          if ($mode == "industry") {
 
             $business_id = Business::getBusinessIdsByIndustry($value);
 
@@ -148,68 +172,102 @@ class AdminController extends BaseController{
             $dropped_numbers = [];
             $issued_data_numbers = [];
 
-            while($temp_start_date < $temp_end_date){
+            while ($temp_start_date < $temp_end_date) {
 
-                $next_day = $temp_start_date + 86400;
+              $next_day = $temp_start_date + 86400;
 
-                $issued_count = Analytics::countNumbersByIndustry($business_id,$temp_start_date,0);
-                $called_count = Analytics::countNumbersByIndustry($business_id,$temp_start_date,1);
-                $served_count = Analytics::countNumbersByIndustry($business_id,$temp_start_date,2);
-                $dropped_count = Analytics::countNumbersByIndustry($business_id,$temp_start_date,3);
-                $issued_data_count = Analytics::countIndustryNumbersWithData($business_id, $temp_start_date);
+              $issued_count = Analytics::countNumbersByIndustry($business_id, $temp_start_date, 0);
+              $called_count = Analytics::countNumbersByIndustry($business_id, $temp_start_date, 1);
+              $served_count = Analytics::countNumbersByIndustry($business_id, $temp_start_date, 2);
+              $dropped_count = Analytics::countNumbersByIndustry($business_id, $temp_start_date, 3);
+              $issued_data_count = Analytics::countIndustryNumbersWithData($business_id, $temp_start_date);
 
-                array_push($issued_numbers,  $issued_count);
-                array_push($called_numbers,  $called_count);
-                array_push($served_numbers,  $served_count);
-                array_push($dropped_numbers,  $dropped_count);
-                array_push($issued_data_numbers, $issued_data_count);
+              array_push($issued_numbers, $issued_count);
+              array_push($called_numbers, $called_count);
+              array_push($served_numbers, $served_count);
+              array_push($dropped_numbers, $dropped_count);
+              array_push($issued_data_numbers, $issued_data_count);
 
-                $temp_start_date = $next_day;
+              $temp_start_date = $next_day;
             }
 
-            return json_encode(['success' => 1, 'issued_numbers' => $issued_numbers, 'called_numbers' => $called_numbers,
-                'served_numbers' => $served_numbers, 'dropped_numbers' => $dropped_numbers, 'issued_numbers_data' => $issued_data_numbers]);
+            return json_encode([
+              'success' => 1,
+              'issued_numbers' => $issued_numbers,
+              'called_numbers' => $called_numbers,
+              'served_numbers' => $served_numbers,
+              'dropped_numbers' => $dropped_numbers,
+              'issued_numbers_data' => $issued_data_numbers
+            ]);
 
-        }else if($mode == "country"){
+          }
+          else {
+            if ($mode == "country") {
 
-            $business_id = Business::getBusinessIdsByCountry($value);
+              $business_id = Business::getBusinessIdsByCountry($value);
 
-            $issued_numbers = [];
-            $called_numbers = [];
-            $served_numbers = [];
-            $dropped_numbers = [];
-            $issued_data_numbers = [];
+              $issued_numbers = [];
+              $called_numbers = [];
+              $served_numbers = [];
+              $dropped_numbers = [];
+              $issued_data_numbers = [];
 
-            while($temp_start_date < $temp_end_date){
+              while ($temp_start_date < $temp_end_date) {
 
                 $next_day = $temp_start_date + 86400;
 
-                $issued_count = Analytics::countNumbersByCountry($business_id,$temp_start_date,0);
-                $called_count = Analytics::countNumbersByCountry($business_id,$temp_start_date,1);
-                $served_count = Analytics::countNumbersByCountry($business_id,$temp_start_date,2);
-                $dropped_count = Analytics::countNumbersByCountry($business_id,$temp_start_date,3);
+                $issued_count = Analytics::countNumbersByCountry($business_id, $temp_start_date, 0);
+                $called_count = Analytics::countNumbersByCountry($business_id, $temp_start_date, 1);
+                $served_count = Analytics::countNumbersByCountry($business_id, $temp_start_date, 2);
+                $dropped_count = Analytics::countNumbersByCountry($business_id, $temp_start_date, 3);
                 $issued_data_count = Analytics::countCountryNumbersWithData($business_id, $temp_start_date);
 
-                array_push($issued_numbers,  $issued_count);
-                array_push($called_numbers,  $called_count);
-                array_push($served_numbers,  $served_count);
-                array_push($dropped_numbers,  $dropped_count);
+                array_push($issued_numbers, $issued_count);
+                array_push($called_numbers, $called_count);
+                array_push($served_numbers, $served_count);
+                array_push($dropped_numbers, $dropped_count);
                 array_push($issued_data_numbers, $issued_data_count);
 
                 $temp_start_date = $next_day;
-            }
+              }
 
-            return json_encode(['success' => 1, 'issued_numbers' => $issued_numbers, 'called_numbers' => $called_numbers,
-                'served_numbers' => $served_numbers, 'dropped_numbers' => $dropped_numbers, 'issued_numbers_data' => $issued_data_numbers]);
+              return json_encode([
+                'success' => 1,
+                'issued_numbers' => $issued_numbers,
+                'called_numbers' => $called_numbers,
+                'served_numbers' => $served_numbers,
+                'dropped_numbers' => $dropped_numbers,
+                'issued_numbers_data' => $issued_data_numbers
+              ]);
+            }
+          }
         }
+      }
+      else {
+        return json_encode(array('success' => 0, 'message' => 'You are not allowed to access this function.'));
+      }
     }
 
     public function postSaveFeatures($business_id){
+      if (Admin::isAdmin()) { // PAG added permission checking
         $data = Input::all();
         Business::saveBusinessFeatures($business_id, $data);
+      }
+      else {
+        return json_encode(array('success' => 0, 'message' => 'You are not allowed to access this function.'));
+      }
     }
 
     public function getBusinessFeatures($business_id){
+      if (Admin::isAdmin()) { // PAG added permission checking
         return json_encode(['features' => Business::getBusinessFeatures($business_id)]);
+      }
+      else {
+        return json_encode(array('success' => 0, 'message' => 'You are not allowed to access this function.'));
+      }
+    }
+
+    public function getTest($business_id){
+        return Business::getBusinessAccessKey($business_id);
     }
 }

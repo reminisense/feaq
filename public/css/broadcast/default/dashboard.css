@@ -473,7 +473,9 @@ h5.heading {
   text-decoration: none;
 }
 #btn-bcast-details {
-    margin-top: 2px;
+    margin-top: -16px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 #btn-message-business {
     margin-top: -30px;
@@ -1098,6 +1100,12 @@ strong {
   font-size: 10px;
   margin-right: 4px;
 }
+
+.btn-fb {
+    background-color: #4666b6;
+    color: #fff;
+}
+
 .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, 
 .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, 
 .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, 
@@ -1116,51 +1124,66 @@ strong {
     background-color: rgba(0,0,0,.5);
     -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
+
 .ticker {
-
-
-
-}
-.scroll-left {
-    height: 50px;
-    overflow: hidden;
-    position: relative;
-    color: #111;
-}
-.scroll-left p {
-    position: absolute;
+    z-index: 9999;
+    bottom: 0px;
     width: 100%;
-    height: 100%;
-    margin: 0;
-    line-height: 50px;
+    background: rgba(255, 255, 255, 0.93);
+    /*padding-top: 5px;*/
+}
+
+.ticker div {
+    font-size: 36px;
+    font-family: ArialMTStd-ExtraBold;
+    color: #333338;
+    margin-bottom: 0px;
+}
+
+#biz-broadcast .ticker {
+    overflow: hidden;
+}
+#biz-broadcast .main-wrap {
+    min-height: inherit!important;
+}
+.broadcast-signup {
+    color: #ffffff!important;
+}
+.broadcast-logged {
+    color: #ffffff!important;
+    font-size: 14px;
+    padding-top: 18px;
+}
+#biz-broadcast .btn-fb {
+    padding-top: 10px;
+    margin-top: 7px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 11px;
+}
+#biz-broadcast .btn-fb span {
+    display: inline-block; margin-right: 12px;
+}
+#biz-broadcast .btn-fb:hover {
+    background-color: #4d76de;
+    color: #fff;
+}
+#biz-broadcast .btn-fb img {
+    margin-right: 8px;
+    width: 6px;
+}
+#biz-broadcast .btn-gplay {
+    margin-top: 7px;
+}
+#biz-broadcast .btn-gplay a {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+#biz-broadcast .btn-gplay img {
+    height: 41px;
+}
+.publiclogin {
+    padding: 14px;
     text-align: center;
-    /* Starting position */
-    -moz-transform:translateX(100%);
-    -webkit-transform:translateX(100%);
-    transform:translateX(100%);
-    /* Apply animation to this element */
-    -moz-animation: scroll-left 25s linear infinite;
-    -webkit-animation: scroll-left 25s linear infinite;
-    animation: scroll-left 25s linear infinite;
-}
-/* Move it (define the animation) */
-@-moz-keyframes scroll-left {
-    0%   { -moz-transform: translateX(100%); }
-    100% { -moz-transform: translateX(-100%); }
-}
-@-webkit-keyframes scroll-left {
-    0%   { -webkit-transform: translateX(100%); }
-    100% { -webkit-transform: translateX(-100%); }
-}
-@keyframes scroll-left {
-    0%   {
-        -moz-transform: translateX(100%); /* Browser bug fix */
-        -webkit-transform: translateX(100%); /* Browser bug fix */
-        transform: translateX(100%);
-    }
-    100% {
-        -moz-transform: translateX(-100%); /* Browser bug fix */
-        -webkit-transform: translateX(-100%); /* Browser bug fix */
-        transform: translateX(-100%);
-    }
 }

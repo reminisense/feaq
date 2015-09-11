@@ -20,12 +20,12 @@ class Message extends Eloquent {
     return Message::where('thread_key', '=', $thread_key)->select(array('phone'))->first()->phone;
   }
 
-  public static function getPhoneByMessageId($message_id) {
-    return Message::where('message_id', '=', $message_id)->select(array('phone'))->first()->phone;
-  }
-
   public static function getBusinessIdByMessageId($message_id) {
     return Message::where('message_id', '=', $message_id)->select(array('business_id'))->first()->business_id;
+  }
+
+  public static function getPhoneByMessageId($message_id) {
+    return Message::where('message_id', '=', $message_id)->select(array('phone'))->first()->phone;
   }
 
   public static function getBusinessIdByThreadKey($thread_key) {

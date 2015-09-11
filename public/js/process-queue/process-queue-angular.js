@@ -3,7 +3,12 @@
  */
 //angularjs implementation
 (function(){
-    //var app = angular.module('FeatherQ', []);
+    app.requires.push('ngSanitize');
+    app.requires.push('angular-loading-bar'); //add angular loading bar
+    app.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+        cfpLoadingBarProvider.includeSpinner = false;
+    }]);
+
     app.controller('processqueueController', function($scope, $http){
         $scope.terminal_id = pq.ids.terminal_id;
         $scope.called_numbers = [];
@@ -41,6 +46,7 @@
                 pq.jquery_functions.remove_and_update_dropdown(transaction_number);
                 $scope.issue_call_number = null;
                 $scope.isCalling = false;
+            },null, function(){
                 checkEmailAndAdd($scope.called_numbers[0].email, transaction_number);
             });
         };
@@ -56,6 +62,7 @@
             angular.forEach($scope.temp_called_numbers, function(temp,i){
                 if(temp.tran_number == transaction_number){
                     if( temp.email_checker == true){
+                        temp.rating = (temp.rating ? temp.rating : 3) ;
                         $http.get(pq.urls.rating.ratings_url + temp.rating + "/" + temp.email + "/" + temp.terminal_id + '/' + 2)
                             .success(function(response){
                             });
@@ -75,7 +82,7 @@
             angular.forEach($scope.temp_called_numbers, function(temp,i){
                 if(temp.tran_number == transaction_number){
                     if( temp.email_checker == true){
-                        $http.get(pq.urls.rating.ratings_url + temp.rating + "/" + temp.email + "/" + temp.terminal_id + '/' + 3)
+                        $http.get(pq.urls.rating.ratings_url + 0 + "/" + temp.email + "/" + temp.terminal_id + '/' + 3)
                             .success(function(response){
                             });
                     }
@@ -87,7 +94,7 @@
         $scope.serveAndCallNext = function(transaction_number){
             $scope.serveNumber(transaction_number, function(){
                 $scope.issue_call_number = null;
-                $scope.callNumber();
+                $scope.issueOrCall();
             });
         };
 
@@ -126,7 +133,7 @@
 
         //non scope functions
         getResponseResetValues = function(url, successFunc, errorFunc, finallyFunc){
-            $http.get(url)
+            $http.get(url, {ignoreLoadingBar: true})
                 .success(function(response){
                     if(response.numbers) resetValues(response.numbers);
                     if(typeof successFunc === 'function') successFunc();
@@ -249,9 +256,38 @@
             }
         }
 
+        $scope.getAllowedBusinesses = function(){
+            $http.get('/business/allowed-businesses/' + pq.ids.business_id).success(function(response){
+                if(response.allowed_businesses && response.allowed_businesses.length != 0 ){
+                    var businesses = response.allowed_businesses;
+                    for(var index in businesses){
+                        $('#allowed-businesses').append('<option value="' + businesses[index].business_id +'">' + businesses[index].name + '</option>');
+                    }
+                }else{
+                    $('#allowed-businesses-area').remove();
+                }
+            });
+        }
+
+
+        $scope.issueToOther = function(business_id, transaction_number){
+            var forwarder_id = pq.ids.business_id;
+            data = {
+                business_id : business_id, //the business to forward to
+                forwarder_id : forwarder_id, //your business
+                transaction_number: transaction_number
+            };
+
+            $scope.serveNumber(transaction_number, function(){
+                $http.post('/issuenumber/issue-other/', data).success(function(){
+                    $('#priority-number-modal').modal('hide');
+                });
+            });
+        }
+
         //****************************** refreshing
             $scope.getAllNumbers();
-
+            $scope.getAllowedBusinesses();
     });
 
 })();

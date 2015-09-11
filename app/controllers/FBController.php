@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by IntelliJ IDEA.
  * User: polljii
@@ -10,18 +11,22 @@ class FBController extends BaseController {
 
     public function postSaveDetails()
     {
-        $post = json_decode(file_get_contents("php://input"));
+      $post = json_decode(file_get_contents("php://input"));
+      Session::put('FBaccessToken', $post->accessToken);
+      $response = Helper::VerifyFB($post->accessToken);
+      if ($response->getGraphUser()) {
         $data = array(
-            'fb_id' => $post->fb_id,
-            'fb_url' => $post->fb_url,
-            'first_name' => $post->first_name,
-            'last_name' => $post->last_name,
-            'email' => $post->email,
-            'gender' => $post->gender,
+          'fb_id' => $post->fb_id,
+          'fb_url' => $post->fb_url,
+          'first_name' => $post->first_name,
+          'last_name' => $post->last_name,
+          'email' => $post->email,
+          'gender' => $post->gender,
         );
         User::saveFBDetails($data);
         Auth::loginUsingId(User::getUserIdByFbId($data['fb_id']));
         return json_encode(array('success' => $data['fb_id']));
+      }
     }
 
     /*
@@ -55,9 +60,10 @@ class FBController extends BaseController {
         Auth::logout();
     }
 
-    public function getSaveDetails()
+    public function getLaravelLogout()
     {
-        return 'dasdasa';
+        Auth::logout();
+        return Redirect::to('/');
     }
 
 }

@@ -11,7 +11,7 @@
                     <div class="form-group">
                         <div class="col-md-6">
                             <label>Business Name</label>
-                            <input type="text" class=" form-control modal-input" placeholder="ex: ABC Company" id="business_name" name="business_name">
+                            <input type="text" class=" form-control modal-input" placeholder="ex: Bills Payment SM Megamall" id="business_name" name="business_name">
                         </div>
                         <div class="col-md-6">
                             <label>Industry</label>

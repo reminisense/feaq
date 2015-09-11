@@ -12,15 +12,19 @@
 
     <link rel="stylesheet" type="text/css" href="/css/ngCloak.css">
     <link href="/css/broadcast/default/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
+
     <link href="/css/broadcast/default/dashboard.css" rel="stylesheet" type="text/css" media="all">
+
+    <link href="/css/app-global.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/css/broadcast/default/public-broadcast.css" rel="stylesheet" type="text/css" media="all">
     <link href="/css/broadcast/default/responsive.css" rel="stylesheet" type="text/css" media="all">
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet' type='text/css'>
 
-    {{--{{ HTML::script('js/jquery1.11.0.js') }}--}}
     <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-
-    {{--{{ HTML::script('js/angular.js') }}--}}
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.marquee.min.js"></script>
 
     {{--{{ HTML::script('js/ngPublicBroadcast.js') }}--}}
     <script src="/js/broadcast/default/public-{{ $box_num }}.js"></script>
@@ -49,7 +53,7 @@
 </head>
 <!-- NAVBAR
   ================================================== -->
-<body cz-shortcut-listen="true" id="biz-broadcast" ng-app="PublicBroadcast" ng-cloak>
+<body cz-shortcut-listen="true" id="public-broadcast" ng-app="PublicBroadcast" ng-cloak>
 <div id="business-id" business_id="{{ $business_id }}"></div>
 <div id="user-id" user_id="@if($user) {{$user['user_id']}} @else {{'0'}} @endif"></div>
 <!-- Static navbar -->
@@ -66,32 +70,33 @@
                 <img src="/images/featherq-home-logo.png">
             </a>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        @if (Auth::check()) Hello {{Auth::user()->first_name}}!
-                        @else Sign Up Now!
-                        @endif
-                        <span class="caret"></span>
+        <div class="cta pull-right hidden-sm hidden-xs">
+            <span>Start using FeatherQ</span>
+            @if (!Auth::check())
+            <a ng-controller="fbController" href="" class="btn btn-fb" role="button" ng-click="login()"><span class="fa fa-facebook"></span> Login with Facebook</a>
+            @endif
+            <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
+              <img alt="Android app on Google Play"
+              src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png" height="40"/>
+            </a>
+        </div>
+        <div id="navbar" class="hidden-xs hidden hidden-sm hidden-md navbar-collapse collapse">
+            <ul class="nav hidden navbar-nav navbar-right">
+                @if (Auth::check())
+                    <li class="broadcast-logged">Hello {{Auth::user()->first_name}}!</li>
+                @else
+                    <li ng-controller="fbController"><a href="" class="btn btn-fb" role="button" ng-click="login()"><span class="fa fa-facebook"></span> Login with Facebook</a></li>
+                @endif
+                <li class="hidden-md hidden-sm hidden-xs btn-gplay">
+                    <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
+                      <img alt="Android app on Google Play"
+                      src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png" height="50"/>
                     </a>
-                    <ul class="dropdown-menu" role="menu">
-                        @if (Auth::check()) <li><a href="{{URL::to('/')}}">Dashboard</a></li>
-                        @else <li ng-controller="fbController"><a href="" class="btn broadcast-signup" role="button" ng-click="login()"><img src="/img/fb-broadcast.png">&nbsp;&nbsp;Sign Up</a></li>
-                        @endif
-                        <li class="divider"></li>
-                        <li class="dropdown-header">Connect with us!</li>
-                        <li><a href="{{URL::to('https://www.facebook.com/theFeatherQ')}}">Facebook</a></li>
-                        <li><a href="{{URL::to('https://www.twitter.com/thefeatherq')}}">Twitter</a></li>
-                        <li><a href="{{URL::to('https://plus.google.com/101914769293976664743')}}">Google+</a></li>
-                    </ul>
                 </li>
-
             </ul>
         </div><!--/.nav-collapse -->
     </div>
 </nav>
-
 
 <div class="container main-wrap">
     <div class="row mt20" id="nowServingCtrl" ng-controller="nowServingCtrl">
@@ -100,6 +105,14 @@
         <audio id="call-number-sound" src="/audio/doorbell_x.wav" controls preload="auto" autobuffer style="display: none;"></audio>
 
         @include('broadcast.default.public-' . $template_type)
+        <div class="publiclogin ng-scope hidden-lg hidden-md visible-sm visible-xs text-center" ng-controller="fbController">
+            <a class="btn-play" style="margin-right:5px;" href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
+                <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png">
+            </a>
+            @if (!Auth::check())
+                <a href="" class="btn btn-fb" role="button" ng-click="login()"><span class="fa fa-facebook"></span> Login with Facebook</a>
+            @endif
+        </div>
 
         <div class="col-md-6" ng-if="get_num > 0">
             <div class="boxed boxed-single">
@@ -128,31 +141,32 @@
                 </div>
             </div>
         </div>
+
         <div class="col-md-12 ticker mt20">
-            <div class="" style="background-color: rgba(255,255,255,0.95); color: #000; font-size: 36px; font-family: ArialMTStd-ExtraBold;">
-                    <div class="scroll-left">
-                        <p>@{{ ticker_message }}</p>
-                    </div>
-            </div>
+            @foreach($ticker_message as $message)
+                <div class="marquee-text hidden">{{ $message }}</div>
+            @endforeach
+            <div class="real-marquee-text"></div>
         </div>
     </div>
 
 </div>
 <div class="footer">
     <div class="container">
-        <div class="col-md-12">
+        <div class="col-md-12 text-center">
             &copy; 2015 : Reminisense Corp.
         </div>
     </div>
 </div>
 @include('modals.broadcast.remote-queue-modal')
-@include('modals.broadcast.contact-business-modal')
 
 {{--{{ HTML::script('js/bootstrap.min.js') }}--}}
 <script src="/js/broadcast/bootstrap.min.js"></script>
 
 {{--{{ HTML::script('js/custom.js') }}--}}
 <script src="/js/broadcast/custom.js"></script>
+
+<script src="/js/intlTelInput.js"></script>
 
 {{--{{ HTML::script('js/process-queue/process-queue.js') }}--}}
 <script src="/js/process-queue/process-queue.js"></script>

@@ -12,14 +12,23 @@ Processs Queue > {{ $business_name }}
 @stop
 
 @section('scripts')
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-sanitize.min.js"></script>
 <script src="/js/process-queue/process-queue.js"></script>
 <script src="/js/process-queue/process-queue-angular.js"></script>
 <script src="/js/process-queue/issue-number-angular.js"></script>
-<script src="/js/process-queue/messages-angular.js"></script>
+{{--<script src="/js/process-queue/messages-angular.js"></script>--}}
 <script src="/js/dashboard/dashboard.js"></script>
 
 <script src="/js/google-analytics/googleAnalytics.js"></script>
 <script src="/js/google-analytics/ga-process_queue.js"></script>
+{{-- ARA Removed for later use
+<script src="https://ucarecdn.com/widget/2.3.5/uploadcare/uploadcare.min.js" charset="utf-8"></script>
+<script>
+    UPLOADCARE_LOCALE = "en";
+    UPLOADCARE_TABS = "file";
+    UPLOADCARE_PUBLIC_KEY = "844c2b9e554c2ee5cc0a";
+</script>
+--}}
 
 @stop
 
@@ -38,9 +47,9 @@ Processs Queue > {{ $business_name }}
 <div class="container" id="process-queue-wrapper" ng-controller="processqueueController">
     <div class="row">
         <div class="page-header clearfix">
-            <div class="col-md-12 text-center">
+            {{--<div class="col-md-12 text-center">
                 <button class="btn btn-danger stopbutton"ng-click="stopProcessQueue()">STOP</button>
-            </div>
+            </div>--}}
             <div class="col-md-offset-1 col-md-7 col-sm-8">
                 <p>Processing Queues for:</p>
                 <h2>{{ $business_name }} - {{ $terminal_name }}</h2>
@@ -87,7 +96,6 @@ Processs Queue > {{ $business_name }}
                                             >
                                                 <a href="#">
                                                     <span ng-if="number.name">@{{ number.name }}</span>
-                                                    <span ng-if="number.email" class="glyphicon glyphicon-envelope"></span>
                                                 </a>
                                             </span>
                                         </li>
@@ -112,13 +120,12 @@ Processs Queue > {{ $business_name }}
                                             >
                                                 <a href="#">
                                                     <span ng-if="number.name">@{{ number.name }}</span>
-                                                    <span ng-if="number.email" class="glyphicon glyphicon-envelope"></span>
                                                 </a>
                                             </span>
                                         </li>
                                     </ul>
                                 </div>
-                                <input id="issue-call-number" type="number" class="form-control" min="1" max="@{{ number_limit }}"  ng-model="issue_call_number" ng-show="timebound_numbers.length == 0 && uncalled_numbers.length == 0">
+                                <input id="issue-call-number" type="text" class="form-control" min="1" max="@{{ number_limit }}"  ng-model="issue_call_number" ng-show="timebound_numbers.length == 0 && uncalled_numbers.length == 0">
                             </div>
                             <point-of-interest position="left" bottom="85" right="100"  title="Issued Numbers" description="Look for the numbers you want to call in this drop-down list or type the number you want call when the list is empty."></point-of-interest>
                             <div class="col-md-1 col-sm-1 col-xs-3">
@@ -134,23 +141,30 @@ Processs Queue > {{ $business_name }}
                 </div>
                 <div ng-show="called_numbers.length != 0">
                     <point-of-interest position="left" bottom="68" right="96" title="Called Number" description="Click on the number to view the information about the user assigned to this number."></point-of-interest>
-                    <point-of-interest position="left" bottom="68" right="27" title="Drop Number" description="The <strong>Drop</strong> button (trashcan icon) indicates that the person assigned to the number did not show thus removes the number from the list."></point-of-interest>
-                    <point-of-interest position="left" bottom="68" right="21" title="Next Number" description="The <strong>Next</strong> button indicates that the number has been served and calls the next number on the list."></point-of-interest>
-                    <point-of-interest position="right" bottom="68" right="0" title="Serve Number" description="The <strong>Serve</strong> button indicates that the person assigned to the number has been served."></point-of-interest>
+                    <point-of-interest position="left" bottom="68" right="16.5" title="Drop Number" description="The <strong>Drop</strong> button (trashcan icon) indicates that the person assigned to the number did not show thus removes the number from the list."></point-of-interest>
+                    <point-of-interest position="left" bottom="68" right="1.5" title="Next Number" description="The <strong>Next</strong> button indicates that the number has been served and calls the next number on the list."></point-of-interest>
                 </div>
                 <table class="table table-striped">
                     <tbody>
+                    <tr>
+                        <th></th>
+                        <td></td>
+                        <td>
+                            <button class="pull-right btn btn-sm btn-danger stopbutton" ng-click="stopProcessQueue()">
+                                <span class="glyphicon glyphicon-stop"></span> STOP
+                            </button>
+                        </td>
+                    </tr>
                     <tr ng-repeat="number in called_numbers" data-tnumber="@{{ number.transaction_number }}">
                         <th scope="row">
-                            <a href="#" class="priority-number" title="Number: @{{ number.priority_number }}" data-priority-number="@{{ number.priority_number }}" data-name="@{{ number.name }}" data-phone="@{{ number.phone }}" data-email="@{{ number.email }}" data-toggle="modal" data-target="#priority-number-modal">
+                            <a href="#" class="priority-number" title="Number: @{{ number.priority_number }}" data-transaction-number="@{{ number.transaction_number }}" data-priority-number="@{{ number.priority_number }}" data-name="@{{ number.name }}" data-phone="@{{ number.phone }}" data-email="@{{ number.email }}" data-toggle="modal" data-target="#priority-number-modal">
                                 @{{ number.priority_number }} <span class="glyphicon glyphicon-zoom-in"></span>
                             </a>
                         </th>
                         <td>
                             <div>
-                                <span ng-if="number.name">@{{ number.name }} | </span>
-                                <a ng-if="number.email" href="#" class="show-messages" title="Number: @{{ number.priority_number }}" data-priority-number="@{{ number.priority_number }}" data-name="@{{ number.name }}" data-phone="@{{ number.phone }}" data-email="@{{ number.email }}" data-toggle="modal" data-target="#priority-number-modal">
-                                    <span class="glyphicon glyphicon-envelope"></span>
+                                <a ng-if="number.name" href="#" class="show-messages" title="Number: @{{ number.priority_number }}" data-transaction-number="@{{ number.transaction_number }}" data-priority-number="@{{ number.priority_number }}" data-name="@{{ number.name }}" data-phone="@{{ number.phone }}" data-email="@{{ number.email }}" data-toggle="modal" data-target="#priority-number-modal">
+                                    <span>@{{ number.name }}</span>
                                 </a>
                             </div>
                         </td>
@@ -166,7 +180,6 @@ Processs Queue > {{ $business_name }}
                             </form>
                             <a href="#" class="delete" ng-click="dropNumber(number.transaction_number)" ng-disabled="isProcessing"><span class="glyphicon glyphicon-trash"></span></a>
                             <a href="#" class="btn btn-sm btn-default" ng-click="serveAndCallNext(number.transaction_number)" ng-disabled="isProcessing">Next <span class="glyphicon glyphicon-arrow-right"></span></a>
-                            <a href="#" class="btn btn-sm btn-default" ng-click="serveNumber(number.transaction_number)" ng-disabled="isProcessing">Serve <span class="glyphicon glyphicon-ok"></span></a>
                         </td>
                     </tr>
                     </tbody>

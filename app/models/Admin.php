@@ -55,9 +55,9 @@ class Admin extends Eloquent{
 
     public static function isAdmin($user_id = null){
         try{
-            $user_id = $user_id != null ? $user_id : Helper::userId();
-            $emails = Admin::getAdmins();
-            return in_array(User::email($user_id), $emails);
+          $user_id = $user_id ? $user_id : Helper::userId(); //$user_id = $user_id != NULL ? $user_id : Helper::userId(); // PAG changed because this will be true if $user_id = 0 which is supposed to be false too
+          $emails = Admin::getAdmins();
+          return in_array(User::email($user_id), $emails);
         }catch(Exception $e){
             return false;
         }

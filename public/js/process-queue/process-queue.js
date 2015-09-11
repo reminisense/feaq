@@ -9,6 +9,16 @@ $(document).ready(function(){
     pq.jquery_functions.load_default_navbar_link();
     pq.jquery_functions.load_show_modal();
     pq.jquery_functions.load_priority_number_modal_content();
+    pq.jquery_functions.load_issue_number_intelliput();
+
+    $(document).on('click', '#forward-btn', function(e){
+        e.preventDefault();
+        business_id = $('#allowed-businesses').val();
+        transaction_number = $('#priority-number-modal').attr('data-transaction-number');
+        process_queue_scope = angular.element($("#process-queue-wrapper")).scope();
+        process_queue_scope.issueToOther(business_id, transaction_number);
+    });
+
 });
 
 //these functions and variables are separated since they are using jquery
@@ -67,6 +77,7 @@ var pq = {
 
         load_default_navbar_link : function(){
             $('#search-business').removeClass('active');
+            $('#message-inbox').removeClass('active');
             $('#my-business').addClass('active');
         },
 
@@ -98,12 +109,21 @@ var pq = {
                 phone = $(this).attr('data-phone') ? $(this).attr('data-phone') : 'Not specified';
                 email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
                 priority_number = $(this).attr('data-priority-number');
+                transaction_number = $(this).attr('data-transaction-number');
+
+                if(transaction_number == undefined){
+                    $('#allowed-businesses-area').hide();
+                }else{
+                    $('#allowed-businesses-area').show();
+                }
 
                 $('#priority-number-modal .modal-title').html('#' + priority_number);
                 $('#priority-number-number').html(priority_number);
                 $('#priority-number-name').html(name);
                 $('#priority-number-phone').html(phone);
                 $('#priority-number-email').html(email);
+                $('#priority-number-modal').attr('data-transaction-number', transaction_number);
+
             });
 
             $('body').on('click', '.show-messages', function(e){
@@ -113,14 +133,28 @@ var pq = {
                 phone = $(this).attr('data-phone') ? $(this).attr('data-phone') : 'Not specified';
                 email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
                 priority_number = $(this).attr('data-priority-number');
+                transaction_number = $(this).attr('data-transaction-number');
+
+                if(transaction_number == undefined){
+                    $('#allowed-businesses-area').hide();
+                }else{
+                    $('#allowed-businesses-area').show();
+                }
 
                 $('#priority-number-modal .modal-title').html('#' + priority_number);
                 $('#priority-number-number').html(priority_number);
                 $('#priority-number-name').html(name);
                 $('#priority-number-phone').html(phone);
                 $('#priority-number-email').html(email);
+                $('#priority-number-modal').attr('data-transaction-number', transaction_number);
 
                 $('#priority-number-modal .modal-body #pmore-tab .messages a').trigger('click');
+            });
+        },
+
+        load_issue_number_intelliput : function(){
+            $("#issued-number-phone").intlTelInput({
+                defaultCountry: "auto"
             });
         },
 
@@ -165,7 +199,6 @@ var pq = {
                 '>';
             userinfo += '<a href="#">';
             userinfo += username != undefined? '<span>' + username + ' </span>' : '';
-            userinfo += email != undefined && email != '' ? '<span class="glyphicon glyphicon-envelope"></span>' : '';
             userinfo += '</a>';
             userinfo += '</span>';
 
@@ -201,8 +234,23 @@ var pq = {
             }, 3000);
         },
 
+        issue_number_error_alert : function(message){
+            pq.jquery_functions.hide_tab_content();
+
+            $('#issue-number-error .message').html(message);
+            $('#issue-number-error').fadeIn('fast');
+            setTimeout(function(){
+                $('#issue-number-error').fadeOut('slow');
+                $('#moreq').modal('hide');
+            }, 3000);
+        },
+
         issue_number_success : function(message){
             pq.jquery_functions.issue_number_success_alert(message);
+        },
+
+        issue_number_error : function(message){
+            pq.jquery_functions.issue_number_error_alert(message);
         },
 
         hide_tab_content : function(){

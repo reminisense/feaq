@@ -49,14 +49,18 @@
             };
             $http.post(url + service_id + '/' + terminal_id + '/' + $scope.queue_platform, data)
                 .success(function(response){
-                    message = 'Issue number successful! <br> Number : ' + response.number.priority_number;
-                    pq.jquery_functions.issue_number_success(message);
+                    if(response.number){
+                        message = 'Issue number successful! <br> Number : ' + response.number.priority_number;
+                        pq.jquery_functions.issue_number_success(message);
 
-                    $scope.priority_number = '';
-                    $scope.name = '';
-                    $scope.phone = '';
-                    $scope.email = '';
-                    $scope.time_assigned = '';
+                        $scope.priority_number = '';
+                        $scope.name = '';
+                        $scope.phone = '';
+                        $scope.email = '';
+                        $scope.time_assigned = '';
+                    }else if(response.error){
+                        pq.jquery_functions.issue_number_error(response.error);
+                    }
                 }).finally(function(){
                     $scope.isIssuing = false;
                 });
@@ -72,10 +76,10 @@
             priority_number = priority_number != null ? priority_number : $scope.priority_number;
 
             //check priority number
-            if(isNaN(priority_number) || priority_number % 1 != 0){
-                error = true;
-                error_message += 'Priority number is invalid. ';
-            }
+            //if(isNaN(priority_number) || priority_number % 1 != 0){
+            //    error = true;
+            //    error_message += 'Priority number is invalid. ';
+            //}
 
             if(number_limit != null && (priority_number > number_limit)){
                 error = true;

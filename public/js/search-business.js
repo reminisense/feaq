@@ -1,18 +1,16 @@
 (function() {
 
     app.controller('searchBusinessCtrl', function($scope, $http) {
-        jQuery.ajax({
-            url: '//freegeoip.net/json/',
-            type: 'POST',
-            dataType: 'jsonp',
-            success: function(location) {
-                $scope.location_filter = location.country_name;
-            }
+        $scope.location_filter = "Location";
+
+        $('#time_open-filter').timeEntry({ampmPrefix: ' ', spinnerImage: ''});
+
+        $http.get('//freegeoip.net/json').success(function(response) {
+            $scope.location_filter = response.country_name;
         });
 
         var listBusinesses = (function(response) {
             $scope.businesses = new Array();
-            var length_limit = 7;
             for (var i = 0; i < response.length; i++) {
                 $scope.businesses.push({
                     "business_id": response[i].business_id,
@@ -23,15 +21,11 @@
                     "waiting_time": response[i].waiting_time,
                     "last_number_called": response[i].last_number_called,
                     "next_available_number": response[i].next_available_number,
-                    "is_calling": response[i].is_calling,
-                    "is_issuing": response[i].is_issuing,
-                    "last_active": response[i].last_active
+                    //"is_calling": response[i].is_calling,
+                    //"is_issuing": response[i].is_issuing,
+                    "last_active": response[i].last_active,
+                    "card_bool" : response[i].card_bool
                 });
-                if(i == length_limit - 1) break;
-            }
-
-            if(response.length <= length_limit){
-                length_limit = response.length;
             }
             $('#search-grid').fadeIn(400, function() {
                 $('#search-loader').hide();
@@ -69,11 +63,12 @@
                 "longitude" : USER_LONGITUDE,
                 "user_timezone" : - (new Date().getTimezoneOffset() * 60) //ARA for converting business time to client time
             };
+
             $http.post('/watchdog/log-search', data);
             $http.post('/business/filter-search', data).success(function(response) {
+
                 $('#biz-grid').hide();
                 $scope.businesses = new Array();
-                var length_limit = 7;
                 for (var i = 0; i < response.length; i++) {
                     $scope.businesses.push({
                         "business_id": response[i].business_id,
@@ -85,17 +80,13 @@
                         //ARA more info for business cards
                         "last_number_called": response[i].last_number_called,
                         "next_available_number": response[i].next_available_number,
-                        "is_calling": response[i].is_calling,
-                        "is_issuing": response[i].is_issuing,
+                        //"is_calling": response[i].is_calling,
+                        //"is_issuing": response[i].is_issuing,
+                        "card_bool" : response[i].card_bool,
                         "last_active": response[i].last_active
                     });
-                    if(i == length_limit - 1) break;
                 }
-
-                if(response.length <= length_limit){
-                    length_limit = response.length;
-                }
-                $scope.searchLabel= 'Showing Top '+ length_limit +' Result(s)';
+                $scope.searchLabel= 'Showing Top Result(s)';
                 $('#search-grid').show();
                 $('#search-filter').html('SEARCH');
                 $('#browse-label').show();
