@@ -626,7 +626,6 @@ class RestController extends BaseController {
             return json_encode(['error' => 'Something went wrong!']);
         }
     }
-    }
 
 
     //Messaging to business
