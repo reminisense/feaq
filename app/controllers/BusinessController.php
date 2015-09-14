@@ -374,10 +374,17 @@ class BusinessController extends BaseController{
                 //ARA more info for business cards
                 'last_number_called' => count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'none', //ok
                 'next_available_number' => $all_numbers->next_number, //ok
-                'is_calling' => count($all_numbers->called_numbers) > 0 ? true : false, //ok
-                'is_issuing' => count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? true : false, //ok
-                'last_active' => Analytics::getLastActive($data->business_id)
+                //'is_calling' => count($all_numbers->called_numbers) > 0 ? true : false, //ok
+                //'is_issuing' => count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? true : false, //ok
+                'last_active' => Analytics::getLastActive($data->business_id),
+                'card_bool' => Business::processingBusinessBool($data->business_id), // for info cards marker
             );
+        }
+        if (Auth::check()) { // dashboard business boxes should be 8; known users will be redirected to dashboard
+          $arr = array_slice($arr, 0, 8);
+        }
+        else { // homepage business boxes should be only 7 to give space for (more business) box; anon users will be redirected to homepage
+          $arr = array_slice($arr, 0, 7);
         }
         return json_encode($arr);
     }
@@ -516,7 +523,14 @@ class BusinessController extends BaseController{
                 }
 
             }
-            return json_encode(array_merge($processing, $not_processing));
+            $merged_businesses = array_merge($processing, $not_processing);
+            if (Auth::check()) { // dashboard business boxes should be 8; known users will be redirected to dashboard
+              $merged_businesses = array_slice($merged_businesses, 0, 8);
+            }
+            else { // homepage business boxes should be only 7 to give space for (more business) box; anon users will be redirected to homepage
+              $merged_businesses = array_slice($merged_businesses, 0, 7);
+            }
+            return json_encode($merged_businesses);
         }
     }
 
