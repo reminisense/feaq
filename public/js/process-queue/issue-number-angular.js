@@ -26,6 +26,7 @@
                 .success(function(response){
                     message = 'Issue number successful! <br> First number : ' + response.first_number + ' <br> Last number : ' + response.last_number;
                     pq.jquery_functions.issue_number_success(message);
+                    pq.jquery_functions.send_pq_websocket_data();
 
                     $scope.number_start = '';
                     $scope.number_end = '';
@@ -52,6 +53,7 @@
                     if(response.number){
                         message = 'Issue number successful! <br> Number : ' + response.number.priority_number;
                         pq.jquery_functions.issue_number_success(message);
+                        pq.jquery_functions.send_pq_websocket_data();
 
                         $scope.priority_number = '';
                         $scope.name = '';

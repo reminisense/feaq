@@ -10,6 +10,12 @@
     }]);
 
     app.controller('processqueueController', function($scope, $http){
+        $scope.pqWsUri = "ws://localhost:55347/";
+        $scope.pq_websocket = new WebSocket($scope.pqWsUri);
+
+        $scope.bsWsUri = "ws://localhost:55346/";
+        $scope.bs_websocket = new WebSocket($scope.bsWsUri);
+
         $scope.terminal_id = pq.ids.terminal_id;
         $scope.called_numbers = [];
         $scope.uncalled_numbers = [];
@@ -42,6 +48,7 @@
         $scope.callNumber = function(transaction_number){
             $scope.isCalling = true;
             transaction_number = transaction_number != undefined ? transaction_number : angular.element(document.querySelector('#selected-tnumber')).val();
+
             getResponseResetValues(pq.urls.process_queue.call_number_url + transaction_number + '/' + pq.ids.terminal_id, function(){
                 pq.jquery_functions.remove_and_update_dropdown(transaction_number);
                 $scope.issue_call_number = null;
@@ -135,7 +142,7 @@
         getResponseResetValues = function(url, successFunc, errorFunc, finallyFunc){
             $http.get(url, {ignoreLoadingBar: true})
                 .success(function(response){
-                    if(response.numbers) resetValues(response.numbers);
+                    pq.jquery_functions.send_pq_websocket_data({});
                     if(typeof successFunc === 'function') successFunc();
                 })
                 .error(function(){
@@ -146,13 +153,15 @@
                 });
         };
 
-        resetValues = function(numbers){
-            $scope.called_numbers = numbers.called_numbers;
-            $scope.uncalled_numbers = numbers.uncalled_numbers;
-            $scope.processed_numbers = numbers.processed_numbers;
-            $scope.timebound_numbers = numbers.timebound_numbers;
-            $scope.next_number = numbers.next_number;
-            $scope.number_limit = numbers.number_limit;
+        $scope.resetValues = function(numbers){
+            $scope.$apply(function(){
+                $scope.called_numbers = numbers.called_numbers;
+                $scope.uncalled_numbers = numbers.uncalled_numbers;
+                $scope.processed_numbers = numbers.processed_numbers;
+                $scope.timebound_numbers = numbers.timebound_numbers;
+                $scope.next_number = numbers.next_number;
+                $scope.number_limit = numbers.number_limit;
+            });
 
             pq.jquery_functions.set_next_number_placeholder($scope.next_number);
 
@@ -285,8 +294,28 @@
             });
         }
 
+        $scope.sendCalledNumbersToBroadcast = function(){
+            for(i = 0; i < 6; i++){
+                number = $scope.called_numbers[i];
+                priority_number = number.priority_number ? number.priority_number : '';
+                terminal = number.terminal_name ? number.terminal_name : '';
+                rank = number.box_rank ? number.box_rank : '';
+                $scope.sendNumberToBroadcast(priority_number, terminal, rank, i + 1);
+            }
+        },
+
+        $scope.sendNumberToBroadcast = function(number, terminal, rank, box){
+            var msg = {
+                number: number,
+                terminal: terminal,
+                rank: rank,
+                box: box
+            }
+            $scope.bs_websocket.send(JSON.stringify(msg));
+        }
+
         //****************************** refreshing
-            $scope.getAllNumbers();
+            //$scope.getAllNumbers();
             $scope.getAllowedBusinesses();
     });
 
