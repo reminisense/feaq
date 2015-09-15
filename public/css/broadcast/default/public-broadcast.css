@@ -133,7 +133,7 @@
 }
 .boxed .broadcast .numbers h3 {
     color: #fff;
-    font-size: 32px;
+    font-size: 50px;
     font-weight: 900;
 }
 .getnum-info .pull-right, .getnum-info > div {
@@ -171,4 +171,8 @@
     url('/fonts/broadcast/default/ArialMTStd-ExtraBold.svg#ArialMTStd-ExtraBold') format('svg');
     font-weight: normal;
     font-style: normal;
+}
+
+.onenum {
+    font-size: 130px!important;
 }
