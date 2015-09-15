@@ -279,24 +279,42 @@ app.controller('adminController', function($scope, $http){
     };
 
     $scope.saveBusinessFeatures = function(business_id){
-        $http.post('/admin/save-features/' + business_id, $scope.business_features).success(function(respose){
-            $scope.getBusinessFeatures(business_id);
-            $scope.messages.success_message = 'Business features have been saved.';
-        }).error(function(response){
-            $scope.messages.error_message = 'Something went wrong while submitting your request.';
-        }).finally(function(){
+        if(business_id){
+            $http.post('/admin/save-features/' + business_id, $scope.business_features).success(function(respose){
+                $scope.getBusinessFeatures(business_id);
+                $scope.messages.success_message = 'Business features have been saved.';
+            }).error(function(response){
+                $scope.messages.error_message = 'Something went wrong while submitting your request.';
+            }).finally(function(){
+                setTimeout(function(){
+                    $scope.$apply(function(){
+                        $scope.messages.success_message = '';
+                        $scope.messages.error_message = '';
+                    });
+                }, 2000);
+            });
+        }else{
+            $scope.messages.error_message = 'Please select a valid business.';
             setTimeout(function(){
                 $scope.$apply(function(){
-                    $scope.messages.success_message = '';
                     $scope.messages.error_message = '';
                 });
-            }, 5000);
-        });
+            }, 2000);
+        }
     }
 
     $scope.getBusinessFeatures = function(business_id){
         $http.get('/admin/business-features/' + business_id).success(function(response){
-            $scope.business_features = response.features;
+            if(response.features){
+                $scope.business_features = response.features;
+            }
+            else{
+                $scope.business_features = {
+                    allow_sms : "false",
+                    terminal_users : 3
+                };
+            }
+
         });
     }
 
