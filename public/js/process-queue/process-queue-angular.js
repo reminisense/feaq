@@ -164,6 +164,7 @@
             });
 
             pq.jquery_functions.set_next_number_placeholder($scope.next_number);
+            $scope.sendCalledNumbersToBroadcast();
 
             if($scope.create_temporary_array == 0){
                 createTemporaryRatingsArray();
@@ -297,20 +298,45 @@
         $scope.sendCalledNumbersToBroadcast = function(){
             for(i = 0; i < 6; i++){
                 number = $scope.called_numbers[i];
+
+                if(number == undefined) break;
+
                 priority_number = number.priority_number ? number.priority_number : '';
                 terminal = number.terminal_name ? number.terminal_name : '';
                 rank = number.box_rank ? number.box_rank : '';
-                $scope.sendNumberToBroadcast(priority_number, terminal, rank, i + 1);
+
+                $scope.sendNumberToBroadcast($scope.business_id, priority_number, terminal, rank, i + 1);
+            }
+
+            for(j = 0; i < 6; j++){
+                number = $scope.uncalled_numbers[j];
+
+                if(number == undefined){
+                    number = {
+                        priority_number : '',
+                        terminal_name : '',
+                        rank : '',
+                    };
+                }
+
+                priority_number = number.priority_number ? number.priority_number : '';
+                terminal = number.terminal_name ? number.terminal_name : '';
+                rank = number.box_rank ? number.box_rank : '';
+
+                $scope.sendNumberToBroadcast($scope.business_id, priority_number, terminal, rank, i + 1);
+                i++;
             }
         },
 
-        $scope.sendNumberToBroadcast = function(number, terminal, rank, box){
+        $scope.sendNumberToBroadcast = function(business_id, number, terminal, rank, box){
             var msg = {
+                business_id: business_id,
                 number: number,
                 terminal: terminal,
                 rank: rank,
                 box: box
             }
+            console.log(msg);
             $scope.bs_websocket.send(JSON.stringify(msg));
         }
 

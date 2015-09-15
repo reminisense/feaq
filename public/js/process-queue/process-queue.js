@@ -65,7 +65,6 @@ var pq = {
                 var result = JSON.parse(response.data); //PHP sends Json data
                 if(result != null){
                     pq_scope.resetValues(result.numbers);
-                    pq_scope.sendCalledNumbersToBroadcast();
                 }
             };
 
