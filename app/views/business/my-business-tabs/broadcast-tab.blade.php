@@ -1,7 +1,7 @@
 
 <div class="clearfix header">
     <div class="col-md-8 col-sm-6 col-xs-12">
-        <h5>BROADCAST LAYOUT</h5>
+        <h5>BROADCAST LAYOUT & ADVERTISEMENTS</h5>
         <small>Choose and customize the look of your broadcast screen.</small>
     </div>
     <div class="col-md-4 col-sm-6 col-xs-12 mt20">
