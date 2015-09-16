@@ -190,6 +190,225 @@ class BroadcastController extends BaseController{
         return $service;
     }
 
+  public function postSaveSettings() {
+    $data = json_decode(file_get_contents(public_path() . '/json/' . Input::get('business_id') . '.json'));
+    $data->adspace_size = Input::get('adspace_size');
+    $data->num_boxes = Input::get('num_boxes');
+    $data->ad_type = Input::get('ad_type');
+    if (Input::get('ad_type') == 'internet_tv') {
+      $data->tv_channel = Input::get('tv_channel');
+    }
+    $data->show_issued = Input::get('show_issued');
+    $data->ticker_message = Input::get('ticker_message');
+    $data->ticker_message2 = Input::get('ticker_message2');
+    $data->ticker_message3 = Input::get('ticker_message3');
+    $data->ticker_message4 = Input::get('ticker_message4');
+    $data->ticker_message5 = Input::get('ticker_message5');
+    if (Input::get('num_boxes') == '1') {
+      unset($data->box2);
+      unset($data->box3);
+      unset($data->box4);
+      unset($data->box5);
+      unset($data->box6);
+      unset($data->box7);
+      unset($data->box8);
+      unset($data->box9);
+      unset($data->box10);
+    }
+    elseif (Input::get('num_boxes') == '2') {
+      $data->box2->number = "";
+      $data->box2->terminal = "";
+      $data->box2->rank = "";
+      unset($data->box3);
+      unset($data->box4);
+      unset($data->box5);
+      unset($data->box6);
+      unset($data->box7);
+      unset($data->box8);
+      unset($data->box9);
+      unset($data->box10);
+    }
+    elseif (Input::get('num_boxes') == '3') {
+      $data->box2->number = "";
+      $data->box2->terminal = "";
+      $data->box2->rank = "";
+      $data->box3->number = "";
+      $data->box3->terminal = "";
+      $data->box3->rank = "";
+      unset($data->box4);
+      unset($data->box5);
+      unset($data->box6);
+      unset($data->box7);
+      unset($data->box8);
+      unset($data->box9);
+      unset($data->box10);
+    }
+    elseif (Input::get('num_boxes') == '4') {
+      $data->box2->number = "";
+      $data->box2->terminal = "";
+      $data->box2->rank = "";
+      $data->box3->number = "";
+      $data->box3->terminal = "";
+      $data->box3->rank = "";
+      $data->box4->number = "";
+      $data->box4->terminal = "";
+      $data->box4->rank = "";
+      unset($data->box5);
+      unset($data->box6);
+      unset($data->box7);
+      unset($data->box8);
+      unset($data->box9);
+      unset($data->box10);
+    }
+    elseif (Input::get('num_boxes') == '5') {
+      $data->box2->number = "";
+      $data->box2->terminal = "";
+      $data->box2->rank = "";
+      $data->box3->number = "";
+      $data->box3->terminal = "";
+      $data->box3->rank = "";
+      $data->box4->number = "";
+      $data->box4->terminal = "";
+      $data->box4->rank = "";
+      $data->box5->number = "";
+      $data->box5->terminal = "";
+      $data->box5->rank = "";
+      unset($data->box6);
+      unset($data->box7);
+      unset($data->box8);
+      unset($data->box9);
+      unset($data->box10);
+    }
+    elseif (Input::get('num_boxes') == '6') {
+      $data->box2->number = "";
+      $data->box2->terminal = "";
+      $data->box2->rank = "";
+      $data->box3->number = "";
+      $data->box3->terminal = "";
+      $data->box3->rank = "";
+      $data->box4->number = "";
+      $data->box4->terminal = "";
+      $data->box4->rank = "";
+      $data->box5->number = "";
+      $data->box5->terminal = "";
+      $data->box5->rank = "";
+      $data->box6->number = "";
+      $data->box6->terminal = "";
+      $data->box6->rank = "";
+      unset($data->box7);
+      unset($data->box8);
+      unset($data->box9);
+      unset($data->box10);
+    }
+    elseif (Input::get('num_boxes') == '7') {
+      $data->box2->number = "";
+      $data->box2->terminal = "";
+      $data->box2->rank = "";
+      $data->box3->number = "";
+      $data->box3->terminal = "";
+      $data->box3->rank = "";
+      $data->box4->number = "";
+      $data->box4->terminal = "";
+      $data->box4->rank = "";
+      $data->box5->number = "";
+      $data->box5->terminal = "";
+      $data->box5->rank = "";
+      $data->box6->number = "";
+      $data->box6->terminal = "";
+      $data->box6->rank = "";
+      $data->box7->number = "";
+      $data->box7->terminal = "";
+      $data->box7->rank = "";
+      unset($data->box8);
+      unset($data->box9);
+      unset($data->box10);
+    }
+    elseif (Input::get('num_boxes') == '8') {
+      $data->box2->number = "";
+      $data->box2->terminal = "";
+      $data->box2->rank = "";
+      $data->box3->number = "";
+      $data->box3->terminal = "";
+      $data->box3->rank = "";
+      $data->box4->number = "";
+      $data->box4->terminal = "";
+      $data->box4->rank = "";
+      $data->box5->number = "";
+      $data->box5->terminal = "";
+      $data->box5->rank = "";
+      $data->box6->number = "";
+      $data->box6->terminal = "";
+      $data->box6->rank = "";
+      $data->box7->number = "";
+      $data->box7->terminal = "";
+      $data->box7->rank = "";
+      $data->box8->number = "";
+      $data->box8->terminal = "";
+      $data->box8->rank = "";
+      unset($data->box9);
+      unset($data->box10);
+    }
+    elseif (Input::get('num_boxes') == '9') {
+      $data->box2->number = "";
+      $data->box2->terminal = "";
+      $data->box2->rank = "";
+      $data->box3->number = "";
+      $data->box3->terminal = "";
+      $data->box3->rank = "";
+      $data->box4->number = "";
+      $data->box4->terminal = "";
+      $data->box4->rank = "";
+      $data->box5->number = "";
+      $data->box5->terminal = "";
+      $data->box5->rank = "";
+      $data->box6->number = "";
+      $data->box6->terminal = "";
+      $data->box6->rank = "";
+      $data->box7->number = "";
+      $data->box7->terminal = "";
+      $data->box7->rank = "";
+      $data->box8->number = "";
+      $data->box8->terminal = "";
+      $data->box8->rank = "";
+      $data->box9->number = "";
+      $data->box9->terminal = "";
+      $data->box9->rank = "";
+      unset($data->box10);
+    }
+    elseif (Input::get('num_boxes') == '10') {
+      $data->box2->number = "";
+      $data->box2->terminal = "";
+      $data->box2->rank = "";
+      $data->box3->number = "";
+      $data->box3->terminal = "";
+      $data->box3->rank = "";
+      $data->box4->number = "";
+      $data->box4->terminal = "";
+      $data->box4->rank = "";
+      $data->box5->number = "";
+      $data->box5->terminal = "";
+      $data->box5->rank = "";
+      $data->box6->number = "";
+      $data->box6->terminal = "";
+      $data->box6->rank = "";
+      $data->box7->number = "";
+      $data->box7->terminal = "";
+      $data->box7->rank = "";
+      $data->box8->number = "";
+      $data->box8->terminal = "";
+      $data->box8->rank = "";
+      $data->box9->number = "";
+      $data->box9->terminal = "";
+      $data->box9->rank = "";
+      $data->box10->number = "";
+      $data->box10->terminal = "";
+      $data->box10->rank = "";
+    }
+    $encode = json_encode($data);
+    file_put_contents(public_path() . '/json/' . Input::get('business_id') . '.json', $encode);
+    return json_encode(array('status' => 1));
+  }
+
   public function getResetNumbers($business_id) {
     date_default_timezone_set("Asia/Manila"); // Manila Timezone for now but this depends on business location
     $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
@@ -233,6 +452,7 @@ class BroadcastController extends BaseController{
     }
   }
 
+  /*
   public function postSetTheme() {
     $post = json_decode(file_get_contents("php://input"));
     if (Helper::isBusinessOwner($post->business_id, Helper::userId())) { // PAG added permission checking
@@ -308,6 +528,7 @@ class BroadcastController extends BaseController{
       return json_encode(array('status' => 0, 'message' => 'You are not allowed to access this function.'));
     }
   }
+  */
 
   public function getJsonFixer() {
     $res = Business::all();
