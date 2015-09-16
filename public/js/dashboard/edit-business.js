@@ -66,7 +66,7 @@ $(document).ready(function(){
 
 
     /*select option chooser for how many numbers to display*/
-    $(function () {
+    /*$(function () {
         $('.q-numbers').hide();
         $('.n3').show();
 
@@ -74,7 +74,7 @@ $(document).ready(function(){
             $('.q-numbers').hide();
             $('.n'+$(this).val()).show();
         }).val("3");
-    });
+    });*/
     /*select option chooser for ads type*/
     $(function () {
         $('.ads-type').hide();
@@ -85,6 +85,46 @@ $(document).ready(function(){
             $('.a'+$(this).val()).show();
         }).val("1");
     });
+    /*add new fields for ticker message*/
+    var qmax_fields      = 10;
+    var qdefault         = 1;
+    var qwrapper         = $(".q-nums-wrap");
+    var qadd_button      = $(".q-add");
+    var qx = 1;
+    $(qadd_button).click(function(e){
+        e.preventDefault();
+        if(qx < qmax_fields){
+            qx++;
+            $(qwrapper).append('<div class="qbox"><div class="pull-left half">1</div></div>');
+        }
+        $('.q-nums-wrap .qbox:last-child .half').html(qx);
+    });
+    $('.q-minus').on("click", function(e){ //user click on remove text
+        qx--;
+        if(qx < qdefault){
+            qx = qdefault;
+            $('.q-nums-wrap .qbox:last-child .half').html(qx);
+        }
+        else {
+            e.preventDefault(); $('.q-nums-wrap .qbox:last-child').remove();
+        }
+
+    });
+    /**/
+        var max_fields      = 5;
+        var wrapper         = $(".ticker-field-wrap");
+        var add_button      = $(".add-ticker");//Add button ID
+        var x = 1;
+        $(add_button).click(function(e){
+            e.preventDefault();
+            if(x < max_fields){
+                x++;
+                $(wrapper).append('<div class="rel"><input class="form-control" placeholder="Your Ticker Message Here" type="text"/><a href="#" class="btn btn-md btn-primary abs remove_field"> Remove</a></div>');
+            }
+        });
+        $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+            e.preventDefault(); $(this).parent('div').remove(); x--;
+        });
 
 
     //eb.jquery_functions.load_users();

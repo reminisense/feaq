@@ -61,55 +61,27 @@
                 </div>
                 <div class="mb30 ui-widget ui-widget-content" id="ad-num-width" style="float: left; min-height: 400px;">
                     <h2 class="mb30 text-center">NOW SERVING</h2>
-                    <select id="select-q-numbers" name="cd-dropdown" class="form-control">
-                        <option value="1">1 Number</option>
-                        <option value="2">2 Numbers</option>
-                        <option value="3">4 Numbers</option>
-                        <option value="4">6 Numbers</option>
-                    </select>
-                    <div class="q-numbers n1">
-                        <div class="clearfix">
-                            <div class="pull-left full">1</div>
+                    <div class="q-wrap q-numbers">
+                        <button type="button" id="" class="mb10 btn btn-primary btn-md q-minus">
+                            <span class="glyphicon glyphicon-minus"></span> Numbers
+                        </button>
+                        <button type="button" id="" class="mb10 btn btn-primary btn-md q-add">
+                            <span class="glyphicon glyphicon-plus"></span> Numbers
+                        </button>
+                        <div class="q-nums-wrap clearfix">
+                            <div class="qbox"><div class="pull-left half">1</div></div>
                         </div>
                     </div>
-                    <div class="q-numbers n2">
-                        <div class="clearfix">
-                            <div class="pull-left half">1</div>
-                            <div class="pull-right half">2</div>
-                        </div>
+                    <div class="clearfix">
+                        <span class="blue mt20" style="display: block"><input style="font-size: 30px;" type="checkbox" ng-model="show_called_only" ng-click="activateTheme(theme_type, business_id, show_called_only)"> &nbsp; Show only called numbers in broadcast page</span>
                     </div>
-                    <div class="q-numbers n3">
-                        <div class="clearfix">
-                            <div class="pull-left half">1</div>
-                            <div class="pull-right half">2</div>
-                        </div>
-                        <div class="clearfix">
-                            <div class="pull-left half">3</div>
-                            <div class="pull-right half">4</div>
-                        </div>
-                    </div>
-                    <div class="q-numbers n4">
-                        <div class="clearfix">
-                            <div class="pull-left half">1</div>
-                            <div class="pull-right half">2</div>
-                        </div>
-                        <div class="clearfix">
-                            <div class="pull-left half">3</div>
-                            <div class="pull-right half">4</div>
-                        </div>
-                        <div class="clearfix">
-                            <div class="pull-left half">5</div>
-                            <div class="pull-right half">6</div>
-                        </div>
-                    </div>
-                    <span class="blue mt20" style="display: block"><input style="font-size: 30px;" type="checkbox" ng-model="show_called_only" ng-click="activateTheme(theme_type, business_id, show_called_only)"> &nbsp; Show only called numbers in broadcast page</span>
-                    {{--<table id="ad-num-preview">
-                    </table>--}}
                 </div>
             </div>
             <div class="ticker-wrap">
-                <input class="form-control" placeholder="Your Ticker Message Here" type="text"/>
-                <button type="button" id="" class="btn btn-primary btn-lg">
+                <div class="ticker-field-wrap">
+                    <div><input class="form-control" placeholder="Your Ticker Message Here" type="text"/></div>
+                </div>
+                <button type="button" id="" class="btn btn-primary btn-lg add-ticker">
                     <span class="glyphicon glyphicon-plus"></span> Add New Ticker Message
                 </button>
             </div>

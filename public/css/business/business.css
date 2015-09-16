@@ -784,11 +784,15 @@ button#sendreply {
 }
 .ticker-wrap input {border: 1px solid #337ab7!important; color: #333;background-color: #fff!important;}
 .q-numbers .half {
-    width: 49%;
+    width: 47%;
     margin-bottom: 6px;
 }
-.q-numbers .half,.q-numbers .full {padding: 35px 20px; text-align: center; font-size: 32px; background-color: #fff; font-family: 'ralewaybold'; }
+.q-numbers .half {padding: 20px 20px; text-align: center; font-size: 32px; background-color: #fff; font-family: 'ralewaybold';margin: 3px; }
 .q-numbers .full {width: 100%;}
 .rel {position: relative;} .abs {position: absolute;}
-#ad-well-inner .drag {right: -3px;top:12%;}
+#ad-well-inner .drag {right: -3px;top:15%;}
 #ad-well-inner .drag div {font-size:12px; padding: 5px 10px; color: #fff; font-family: 'ralewayregular'; background-color: #337ab7;}
+.remove_field {
+    right: 0; top: 0;
+}
+.q-minus,.q-add {padding-left: 10px!important;padding-right: 10px!important;}
