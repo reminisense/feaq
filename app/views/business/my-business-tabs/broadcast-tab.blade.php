@@ -4,26 +4,36 @@
         <h5>BROADCAST LAYOUT & ADVERTISEMENTS</h5>
         <small>Choose and customize the look of your broadcast screen.</small>
     </div>
-    <div class="col-md-4 col-sm-6 col-xs-12 mt20">
+    {{--<div class="col-md-4 col-sm-6 col-xs-12 mt20">
         <div class="form-group">
             <button type="submit" class="btn btn-md btn-orange" id=""><span class="glyphicon glyphicon-check"></span> SAVE</button>
             <button id="loading-img-3" style="display:none;" class="btn btn-orange btn-disabled"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
         </div>
-        {{--<div role="alert" class="alert alert-info" style="padding: 10px 10px; font-size: 12px; margin-top:12px;">Check this box if there is a need to show only the numbers called by the counters.</div>--}}
-    </div>
+        --}}{{--<div role="alert" class="alert alert-info" style="padding: 10px 10px; font-size: 12px; margin-top:12px;">Check this box if there is a need to show only the numbers called by the counters.</div>--}}{{--
+    </div>--}}
 </div>
 
 <div class="col-md-12">
     <div class="broadcast-wrap" id="ad-well">
         <div class="clearfix">
+            <div class="col-md-6">
+                <h3 class="mb20">Choose an Advertisement Type:</h3>
+                <select id="select-ads-type" name="cd-dropdown" class="form-control">
+                    <option value="1">Image Slider</option>
+                    <option value="2">Internet TV</option>
+                    <option value="3">Numbers Only</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group pull-right">
+                    <button type="submit" class="btn btn-lg btn-orange" id=""><span class="glyphicon glyphicon-check"></span> SAVE</button>
+                    <button id="loading-img-3" style="display:none;" class="btn btn-orange btn-disabled"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix">
             <div class="clearfix" id="ad-well-inner">
                 <div class="mb30 ui-widget ui-widget-content" id="ad-width" style="float: left; min-height:400px; border-right: 3px dotted #337ab7;">
-                    <h3 class="mb30">Choose an Advertisement Type:</h3>
-                    <select id="select-ads-type" name="cd-dropdown" class="form-control">
-                        <option value="1">Image Slider</option>
-                        <option value="2">Internet TV</option>
-                        <option value="3">Numbers Only</option>
-                    </select>
                     <div class="ads-type a1">
                         <div class="">
                             <div class="clearfix">

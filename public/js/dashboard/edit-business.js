@@ -83,6 +83,15 @@ $(document).ready(function(){
         $('#select-ads-type').on("change",function () {
             $('.ads-type').hide();
             $('.a'+$(this).val()).show();
+
+            if ($(this).val() == '3'){
+                $('#ad-num-width').css('width', '100%');
+                $('#ad-width').hide();
+            } else {
+                $('#ad-width').show();
+                $('#ad-width').css('width', '50%');
+                $('#ad-num-width').css('width', '50%');
+            }
         }).val("1");
     });
     /*add new fields for ticker message*/
@@ -849,20 +858,22 @@ var eb = {
                     $("#ad-width").resizable({
                         handles: 'e'
                     }).bind( "resize", function(e) {
-                        var total_width = $('#ad-well-inner').css('width');
-                        var percent_total = Math.floor(parseInt(total_width) * 0.25);
+                        var total_width = parseInt($('#ad-well-inner').css('width'));
+                        var percent_num = Math.floor(parseInt(total_width) * 0.25);
+                        var percent_ad = Math.floor(parseInt(total_width) * 0.50);
 
-                        total_width = parseInt(total_width);
                         var adwidth = parseInt($("#ad-width").css('width'));
-                        var numwidth = parseInt($('#ad-num-width').css('width'));
+                        var numwidth = total_width - adwidth;
 
-                        numwidth = total_width - adwidth;
-                        if (numwidth >= percent_total){
+                        if (numwidth >= percent_num && adwidth >= percent_ad){
                             $('#ad-width').css('width', adwidth);
                             $('#ad-num-width').css('width', numwidth);
-                        } else {
-                            $('#ad-width').css('width', total_width - percent_total);
-                            $('#ad-num-width').css('width', percent_total);
+                        } else if (numwidth <= percent_num) {
+                            $('#ad-width').css('width', total_width - percent_num);
+                            $('#ad-num-width').css('width', percent_num);
+                        } else if (adwidth <= percent_ad) {
+                            $('#ad-width').css('width', percent_ad);
+                            $('#ad-num-width').css('width', total_width - percent_ad);
                         }
                     });
 
