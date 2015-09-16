@@ -5,35 +5,120 @@
         <small>Choose and customize the look of your broadcast screen.</small>
     </div>
     <div class="col-md-4 col-sm-6 col-xs-12 mt20">
-        <strong class="blue"><input style="font-size: 30px;" type="checkbox" ng-model="show_called_only" ng-click="activateTheme(theme_type, business_id, show_called_only)"> &nbsp; Show only called numbers in broadcast page</strong>
+        <div class="form-group">
+            <button type="submit" class="btn btn-md btn-orange" id=""><span class="glyphicon glyphicon-check"></span> SAVE</button>
+            <button id="loading-img-3" style="display:none;" class="btn btn-orange btn-disabled"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
+        </div>
         {{--<div role="alert" class="alert alert-info" style="padding: 10px 10px; font-size: 12px; margin-top:12px;">Check this box if there is a need to show only the numbers called by the counters.</div>--}}
     </div>
 </div>
 
 <div class="col-md-12">
-    <div class="well" id="ad-well">
-        <div class="row">
-            <div class="col-md-3 col-xs-12 mb20">
-                <h4>Image Advertisement Options:</h4>
-                <small>Put a sliding images on your broadcast screen</small>
-            </div>
-            <div class="col-md-6">
-                <div class="ui-widget ui-widget-content" id="ad-width" style="float: left; height: 300px; border-right: 3px solid;">
-                    <img src="/images/broadcast/carousel/car1.jpg" id="ad-width-preview" class="center-block" style="height: 300px;">
+    <div class="broadcast-wrap" id="ad-well">
+        <div class="clearfix">
+            <div class="clearfix" id="ad-well-inner">
+                <div class="mb30 ui-widget ui-widget-content" id="ad-width" style="float: left; min-height:400px; border-right: 3px dotted #337ab7;">
+                    <h3 class="mb30">Choose an Advertisement Type:</h3>
+                    <select id="select-ads-type" name="cd-dropdown" class="form-control">
+                        <option value="1">Image Slider</option>
+                        <option value="2">Internet TV</option>
+                        <option value="3">Numbers Only</option>
+                    </select>
+                    <div class="ads-type a1">
+                        <div class="">
+                            <div class="clearfix">
+                                <div class="">
+                                    <form class="form-group" method="post" action="dump.php">
+                                        <div id="html5_uploader" style="width: 100%; height: 330px;">Your browser doesn't support native upload.</div>
+                                        <br style="clear: both" />
+                                        <input type="submit" value="Send" style="display: none;"/>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ads-type a2">
+                        <div class="clearfix">
+                            <div class="form-group">
+                            <small>Choose a channel:</small>
+                                <select ng-model="tv_channel" ng-init="tv_channel" id="tv-channel" class="form-control ng-pristine ng-valid ng-touched">
+                                    <option value="">- Select A Channel -</option>
+                                    <option value="<embed flashvars=&quot;vid=12163886&amp;autoplay=true&quot; width=&quot;100%&quot; allowfullscreen=&quot;true&quot; allowscriptaccess=&quot;always&quot; src=&quot;http://www.ustream.tv/flash/viewer.swf&quot; type=&quot;application/x-shockwave-flash&quot;>">TechCrunch TV</option>
+                                    <option value="<iframe width='100%' src='http://www.ustream.tv/embed/14067349?v=3&amp;wmode=direct&amp;autoplay=true' scrolling='no' frameborder='0' style='border: 0px none transparent;'></iframe>">Arirang TV</option>
+                                    <option value="<iframe width='100%' src='http://www.ustream.tv/embed/8429259?v=3&amp;wmode=direct&amp;autoplay=true' scrolling='no' frameborder='0' style='border: 0px none transparent;'></iframe>">EnergyFM Manila</option>
+                                    <option value="<iframe width='100%' src='http://www.ustream.tv/embed/12762028?v=3&amp;wmode=direct&amp;autoplay=true' scrolling='no' frameborder='0' style='border: 0px none transparent;'></iframe>">Animal Planet</option>
+                                </select>
+                                <div class="alert alert-success" id="tvchannel-success" style="display: none;">Success! <strong><a href="/broadcast/business/16" target="_blank">View Broadcast Page</a></strong></div>
+                                <div class="alert alert-danger" id="tvchannel-danger" style="display: none;">Oops! Something went wrong.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ads-type a3">Numbers only</div>
+                    {{--<img src="/images/broadcast/carousel/car1.jpg" id="ad-width-preview" class="center-block" style="height: 300px;">--}}
+                    <div class="drag abs">
+                        <div class="">Drag to resize <span class="glyphicon glyphicon-transfer"></span></div>
+                    </div>
                 </div>
-                <div class="ui-widget ui-widget-content" id="ad-num-width" style="float: left; height: 300px;">
-                    <table id="ad-num-preview">
-
-                    </table>
+                <div class="mb30 ui-widget ui-widget-content" id="ad-num-width" style="float: left; min-height: 400px;">
+                    <h2 class="mb30 text-center">NOW SERVING</h2>
+                    <select id="select-q-numbers" name="cd-dropdown" class="form-control">
+                        <option value="1">1 Number</option>
+                        <option value="2">2 Numbers</option>
+                        <option value="3">4 Numbers</option>
+                        <option value="4">6 Numbers</option>
+                    </select>
+                    <div class="q-numbers n1">
+                        <div class="clearfix">
+                            <div class="pull-left full">1</div>
+                        </div>
+                    </div>
+                    <div class="q-numbers n2">
+                        <div class="clearfix">
+                            <div class="pull-left half">1</div>
+                            <div class="pull-right half">2</div>
+                        </div>
+                    </div>
+                    <div class="q-numbers n3">
+                        <div class="clearfix">
+                            <div class="pull-left half">1</div>
+                            <div class="pull-right half">2</div>
+                        </div>
+                        <div class="clearfix">
+                            <div class="pull-left half">3</div>
+                            <div class="pull-right half">4</div>
+                        </div>
+                    </div>
+                    <div class="q-numbers n4">
+                        <div class="clearfix">
+                            <div class="pull-left half">1</div>
+                            <div class="pull-right half">2</div>
+                        </div>
+                        <div class="clearfix">
+                            <div class="pull-left half">3</div>
+                            <div class="pull-right half">4</div>
+                        </div>
+                        <div class="clearfix">
+                            <div class="pull-left half">5</div>
+                            <div class="pull-right half">6</div>
+                        </div>
+                    </div>
+                    <span class="blue mt20" style="display: block"><input style="font-size: 30px;" type="checkbox" ng-model="show_called_only" ng-click="activateTheme(theme_type, business_id, show_called_only)"> &nbsp; Show only called numbers in broadcast page</span>
+                    {{--<table id="ad-num-preview">
+                    </table>--}}
                 </div>
-                <div class="alert alert-info" style="float: left; font-size: 14px;">Drag line to resize broadcast screen.</div>
             </div>
-            <div class="col-md-3">
+            <div class="ticker-wrap">
+                <input class="form-control" placeholder="Your Ticker Message Here" type="text"/>
+                <button type="button" id="" class="btn btn-primary btn-lg">
+                    <span class="glyphicon glyphicon-plus"></span> Add New Ticker Message
+                </button>
+            </div>
+            {{--<div class="col-md-3">
                 <button class="btn btn-orange" ng-click="addNumBoxes('ad-num-preview')">+</button>
                 <button class="btn btn-orange" ng-click="reduceNumBoxes('ad-num-preview')">-</button>
                 <button class="btn btn-primary btn-lg">Activate</button>
                 <div class="alert alert-info" style="float: left; font-size: 14px;">Only a maximum of 10 broadcast numbers are allowed.</div>
-            </div>
+            </div>--}}
             <!--
             <div class="col-md-3 col-sm-6 col-xs-6">
                 <img src="/images/icon-b1.jpg" class="mb10 img-responsive broadcast-preview">
@@ -62,7 +147,7 @@
 </div>
 
 
-<div class="col-md-12">
+{{--<div class="col-md-12">
     <div class="well">
         <div class="row">
             <div class="col-md-3 col-sm-6 col-xs-12">
@@ -144,7 +229,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>--}}
 
 
 

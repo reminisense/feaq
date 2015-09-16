@@ -64,6 +64,29 @@ $(document).ready(function(){
 
     $(".datepicker").datepicker();
 
+
+    /*select option chooser for how many numbers to display*/
+    $(function () {
+        $('.q-numbers').hide();
+        $('.n3').show();
+
+        $('#select-q-numbers').on("change",function () {
+            $('.q-numbers').hide();
+            $('.n'+$(this).val()).show();
+        }).val("3");
+    });
+    /*select option chooser for ads type*/
+    $(function () {
+        $('.ads-type').hide();
+        $('.a1').show();
+
+        $('#select-ads-type').on("change",function () {
+            $('.ads-type').hide();
+            $('.a'+$(this).val()).show();
+        }).val("1");
+    });
+
+
     //eb.jquery_functions.load_users();
     eb.jquery_functions.setBusinessId($('#business_id').val());
     eb.jquery_functions.setUserId($('#user_id').val());
@@ -778,20 +801,29 @@ var eb = {
                     $('.'+response.display+'.activated').show();
 
                     // default ad screen size
-                    var total_width = 500;
-                    $('#ad-width').css('width', 250);
-                    $('#ad-num-width').css('width', 250);
-                    $('#ad-width-preview').css('width', 225);
+                    var total_width = $('#ad-well-inner').css('width');
+                    $('#ad-width').css('width', '50%');
+                    $('#ad-num-width').css('width', '50%');
+                    $('#ad-width-preview').css('width', 400);
+
                     $("#ad-width").resizable({
-                        handles: 'e, w'
-                    }).bind( "resize", function() {
-                        var width = $("#ad-width").width();
-                        if(width > total_width) {
-                            width = total_width;
-                            $('#ad-width').css('width', width);
+                        handles: 'e'
+                    }).bind( "resize", function(e) {
+                        var total_width = $('#ad-well-inner').css('width');
+                        var percent_total = Math.floor(parseInt(total_width) * 0.25);
+
+                        total_width = parseInt(total_width);
+                        var adwidth = parseInt($("#ad-width").css('width'));
+                        var numwidth = parseInt($('#ad-num-width').css('width'));
+
+                        numwidth = total_width - adwidth;
+                        if (numwidth >= percent_total){
+                            $('#ad-width').css('width', adwidth);
+                            $('#ad-num-width').css('width', numwidth);
+                        } else {
+                            $('#ad-width').css('width', total_width - percent_total);
+                            $('#ad-num-width').css('width', percent_total);
                         }
-                        $('#ad-num-width').css('width', (total_width - width));
-                        $('#ad-width-preview').css('width', width - 25);
                     });
 
                     // default ad video / image

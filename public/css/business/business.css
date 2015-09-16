@@ -753,3 +753,42 @@ button#sendreply {
 .reorder-images {
     height: 400px;
 }
+/*rodel sep15*/
+.broadcast-wrap {
+    padding: 40px;
+    margin-bottom: 20px;
+    background-color: #daebf2;
+}
+#ad-width {
+    background-color: transparent;
+    padding-left: 0px!important;
+}
+#ad-num-width {
+    background-color: #c6dce5;
+}
+#ad-width, #ad-num-width {
+    padding: 20px;
+    border: none;
+}
+#ad-well-inner {
+    width: 100%;
+}
+.broadcast-wrap h1, .broadcast-wrap h2, .broadcast-wrap h3 {
+    margin-top: 0px;
+}
+.broadcast-wrap select {
+    width: 220px;
+    border: 1px solid #337ab7!important;
+    background-color: #222;
+    outline: none;
+}
+.ticker-wrap input {border: 1px solid #337ab7!important; color: #333;background-color: #fff!important;}
+.q-numbers .half {
+    width: 49%;
+    margin-bottom: 6px;
+}
+.q-numbers .half,.q-numbers .full {padding: 35px 20px; text-align: center; font-size: 32px; background-color: #fff; font-family: 'ralewaybold'; }
+.q-numbers .full {width: 100%;}
+.rel {position: relative;} .abs {position: absolute;}
+#ad-well-inner .drag {right: -3px;top:12%;}
+#ad-well-inner .drag div {font-size:12px; padding: 5px 10px; color: #fff; font-family: 'ralewayregular'; background-color: #337ab7;}
