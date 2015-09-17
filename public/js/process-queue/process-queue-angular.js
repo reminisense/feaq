@@ -333,7 +333,6 @@
                 rank: rank,
                 box: box
             }
-            console.log(msg);
             $scope.pq_websocket.send(JSON.stringify(msg));
         }
 

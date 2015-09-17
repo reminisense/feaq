@@ -23,12 +23,10 @@ app.controller('nowServingCtrl', function($scope, $http, $compile) {
             rank: '',
             box: ''
         };
-        console.log(data);
         websocket.send(JSON.stringify(data));
     }
     websocket.onmessage = function(response) {
         var result = JSON.parse(response.data); //PHP sends Json data
-        console.log(result);
         if(result != null){
             $scope.writeNumber(result);
         }

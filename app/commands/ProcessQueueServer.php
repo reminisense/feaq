@@ -290,7 +290,6 @@ class ProcessQueueServer extends Command {
 		if(isset($msg->business_id) && isset($msg->terminal_id) && isset($msg->service_id)){
 			$this->process_queue_logic($msg, $changed_socket);
 		}else if(isset($msg->business_id) && isset($msg->number) && isset($msg->terminal) && isset($msg->rank) && isset($msg->box)){
-			var_dump($msg);
 			$this->broadcast_logic($msg, $changed_socket);
 		}else{
 			$response_text = $this->mask(json_encode($msg));
