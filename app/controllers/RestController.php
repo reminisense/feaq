@@ -239,6 +239,7 @@ class RestController extends BaseController {
         unset($numbers['ad_type']);
         unset($numbers['ad_image']);
         unset($numbers['ticker_message']);
+        unset($numbers['carousel_delay']);
 
         foreach($numbers as $key => $box_data) {
             // generate object attribute
