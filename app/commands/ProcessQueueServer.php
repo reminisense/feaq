@@ -7,6 +7,7 @@ use Symfony\Component\Console\Input\InputArgument;
 class ProcessQueueServer extends Command {
 
     private $business_clients = array();
+	private $broadcast_clients = array();
 	private $clients;
 	private $host; //host
 	private $port; //port
@@ -17,7 +18,7 @@ class ProcessQueueServer extends Command {
 	 *
 	 * @var string
 	 */
-	protected $name = 'websocket:processqueue';
+	protected $name = 'websocket:queue';
 
 	/**
 	 * The console command description.
@@ -45,7 +46,12 @@ class ProcessQueueServer extends Command {
 	 */
 	public function fire()
 	{
-		$this->start();
+		try{
+			$this->start();
+		}catch(Exception $e){
+			var_dump($e);
+			$this->fire();
+		}
 	}
 
 	/**
@@ -117,22 +123,8 @@ class ProcessQueueServer extends Command {
 				//check for any incomming data
 				while(socket_recv($changed_socket, $buf, 1024, 0) >= 1)
 				{
-                    $received_text = $this->unmask($buf); //unmask data
-                    $msg = json_decode($received_text); //json decode
-
-                    //prepare data to be sent to client
-					if(isset($msg->business_id) && isset($msg->terminal_id) && isset($msg->service_id)){
-						$business_id = $msg->business_id;
-						$service_id = $msg->service_id;
-						$terminal_id = $msg->terminal_id;
-
-                        $this->add_process_queue_client($changed_socket, $business_id, $service_id, $terminal_id);
-                        $this->update_business_sockets($business_id);
-                    }else{
-						$response_text = $this->mask(json_encode($msg));
-                        $this->send_message($changed_socket, $response_text); //send data
-                    }
-
+					//execute main logic
+                    $this->main_logic($changed_socket, $buf);
 					break 2; //exist this loop
 				}
 
@@ -229,6 +221,7 @@ class ProcessQueueServer extends Command {
 
     private function add_process_queue_client($client, $business_id, $service_id, $terminal_id){
 		$this->delete_business_socket($client);
+		var_dump('added new business socket' . $client);
 		$this->business_clients[] = [
             'business_id' => $business_id,
             'service_id' => $service_id,
@@ -255,5 +248,67 @@ class ProcessQueueServer extends Command {
 				unset($this->business_clients[$key]);
 			}
 		}
+	}
+
+	private function add_broadcast_client($client, $business_id){
+		$this->delete_broadcast_socket($client);
+		var_dump('added new broadcast socket' . $client);
+		$this->broadcast_clients[] = [
+			'business_id' => $business_id,
+			'client' => $client
+		];
+	}
+
+	private function update_broadcast_sockets($msg){
+		foreach($this->broadcast_clients as $client){
+			if($client['business_id'] == $msg->business_id){
+				$number = $msg->number; //sender name
+				$terminal = $msg->terminal; //message text
+				$rank = $msg->rank; //color
+				$box = $msg->box; //color
+
+				$response_text = $this->mask(json_encode(array('type'=>'usermsg', 'number'=>$number, 'terminal'=>$terminal, 'rank'=>$rank, 'box'=>$box)));
+				$this->send_message($client['client'], $response_text);
+			}
+		}
+	}
+
+	private function delete_broadcast_socket($socket){
+		foreach($this->broadcast_clients as $key => $client){
+			$found_socket = array_search($socket, $client);
+			if($found_socket){
+				unset($this->broadcast_clients[$key]);
+			}
+		}
+	}
+
+	private function main_logic($changed_socket, $buf){
+		$received_text = $this->unmask($buf); //unmask data
+		$msg = json_decode($received_text); //json decode
+
+		//prepare data to be sent to client
+		if(isset($msg->business_id) && isset($msg->terminal_id) && isset($msg->service_id)){
+			$this->process_queue_logic($msg, $changed_socket);
+		}else if(isset($msg->business_id) && isset($msg->number) && isset($msg->terminal) && isset($msg->rank) && isset($msg->box)){
+			var_dump($msg);
+			$this->broadcast_logic($msg, $changed_socket);
+		}else{
+			$response_text = $this->mask(json_encode($msg));
+			$this->send_message($changed_socket, $response_text); //send data
+		}
+	}
+
+	private function process_queue_logic($msg, $changed_socket){
+		$business_id = $msg->business_id;
+		$service_id = $msg->service_id;
+		$terminal_id = $msg->terminal_id;
+
+		$this->add_process_queue_client($changed_socket, $business_id, $service_id, $terminal_id);
+		$this->update_business_sockets($business_id);
+	}
+
+	private function broadcast_logic($msg, $changed_socket){
+		$this->add_broadcast_client($changed_socket, $msg->business_id);
+		$this->update_broadcast_sockets($msg);
 	}
 }

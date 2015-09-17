@@ -13,9 +13,6 @@
         $scope.pqWsUri = "ws://localhost:55347/";
         $scope.pq_websocket = new WebSocket($scope.pqWsUri);
 
-        $scope.bsWsUri = "ws://localhost:55346/";
-        $scope.bs_websocket = new WebSocket($scope.bsWsUri);
-
         $scope.terminal_id = pq.ids.terminal_id;
         $scope.called_numbers = [];
         $scope.uncalled_numbers = [];
@@ -305,7 +302,7 @@
                 terminal = number.terminal_name ? number.terminal_name : '';
                 rank = number.box_rank ? number.box_rank : '';
 
-                $scope.sendNumberToBroadcast($scope.business_id, priority_number, terminal, rank, i + 1);
+                $scope.sendNumberToBroadcast(pq.ids.business_id, priority_number, terminal, rank, i + 1);
             }
 
             for(j = 0; i < 6; j++){
@@ -323,7 +320,7 @@
                 terminal = number.terminal_name ? number.terminal_name : '';
                 rank = number.box_rank ? number.box_rank : '';
 
-                $scope.sendNumberToBroadcast($scope.business_id, priority_number, terminal, rank, i + 1);
+                $scope.sendNumberToBroadcast(pq.ids.business_id, priority_number, terminal, rank, i + 1);
                 i++;
             }
         },
@@ -337,7 +334,7 @@
                 box: box
             }
             console.log(msg);
-            $scope.bs_websocket.send(JSON.stringify(msg));
+            $scope.pq_websocket.send(JSON.stringify(msg));
         }
 
         //****************************** refreshing

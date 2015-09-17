@@ -6,24 +6,35 @@ var app = angular.module('BusinessBroadcast', []);
 
 app.controller('nowServingCtrl', function($scope, $http, $compile) {
 
-    //open a web socket connection
-    var wsUri = "ws://localhost:55346/socket/server.php";
-    websocket = new WebSocket(wsUri);
-    websocket.onopen = function(response) { // connection is open
-
-    }
-    websocket.onmessage = function(response) {
-        var result = JSON.parse(response.data); //PHP sends Json data
-        $scope.writeNumber(result);
-    };
-    websocket.onerror	= function(response){};
-    websocket.onclose 	= function(response){};
-
     var business_id = $('#business-id').attr('business_id');
     var broadcast_type = $('#broadcast-type').attr('broadcast_type');
     var ad_type = $('#ad-type').attr('ad_type');
     var carousel_delay = $('#fqCarousel').attr('data-interval');
     var live_ticker = $('.marquee-text').text();
+
+    //open a web socket connection
+    var wsUri = "ws://localhost:55347/";
+    websocket = new WebSocket(wsUri);
+    websocket.onopen = function(response) { // connection is open
+        data = {
+            business_id: business_id,
+            number: '',
+            terminal: '',
+            rank: '',
+            box: ''
+        };
+        console.log(data);
+        websocket.send(JSON.stringify(data));
+    }
+    websocket.onmessage = function(response) {
+        var result = JSON.parse(response.data); //PHP sends Json data
+        console.log(result);
+        if(result != null){
+            $scope.writeNumber(result);
+        }
+    };
+    websocket.onerror	= function(response){};
+    websocket.onclose 	= function(response){};
 
     $scope.callNumberSound = (function (soundobj) {
         var thissound = document.getElementById(soundobj);
