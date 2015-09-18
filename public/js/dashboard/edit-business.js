@@ -78,13 +78,13 @@ $(document).ready(function(){
     /*select option chooser for ads type*/
     $(function () {
         $('.ads-type').hide();
-        $('.a1').show();
+        $('.acarousel').show();
 
         $('#select-ads-type').on("change",function () {
             $('.ads-type').hide();
             $('.a'+$(this).val()).show();
 
-            if ($(this).val() == '3'){
+            if ($(this).val() == 'numbers_only'){
                 $('#ad-num-width').css('width', '100%');
                 $('#ad-width').hide();
             } else {
@@ -92,7 +92,7 @@ $(document).ready(function(){
                 $('#ad-width').css('width', '50%');
                 $('#ad-num-width').css('width', '50%');
             }
-        }).val("1");
+        }).val("carousel");
     });
     /*add new fields for ticker message*/
     var qmax_fields      = 10;
@@ -413,6 +413,7 @@ var eb = {
             terminal_name : ""
         };
 
+        /*
         $scope.business_reply_form = {
             message_reply : "",
             active_sender_email : "",
@@ -422,6 +423,19 @@ var eb = {
         $scope.sendby = {
             email : 'email',
             phone : 'phone'
+        }
+        */
+
+        $scope.settings = {
+            ad_type : "",
+            tv_channel : "",
+            show_issued : "",
+            carousel_delay : "",
+            ticker_message : "",
+            ticker_message2 : "",
+            ticker_message3 : "",
+            ticker_message4 : "",
+            ticker_message5 : ""
         }
 
         $scope.business_features = {
@@ -645,7 +659,6 @@ var eb = {
                     eb.jquery_functions.clear_terminal_delete_msg();
                 });
             }
-
             $event.preventDefault();
         }
 
@@ -826,7 +839,34 @@ var eb = {
                 });
             }
         });
+        
+        $scope.saveBroadcastSettings = function(business_id) {
+            alert($('#ad-width').css('width'));
+            alert($('.q-nums-wrap > div').length);
+            alert($scope.settings.ad_type);
+            alert($scope.settings.carousel_delay);
+            alert($scope.settings.tv_channel);
+            alert($scope.settings.show_issued);
+            /*
+            $http.post('/broadcast/save-settings', {
+                business_id : business_id,
+                adspace_size : $scope.settings.adspace_size,
+                num_boxes : $scope.settings.num_boxes,
+                ad_type : $scope.settings.ad_type,
+                tv_channel : $scope.settings.tv_channel,
+                show_issued : $scope.settings.show_issued,
+                ticker_message : $scope.settings.ticker_message,
+                ticker_message2 : $scope.settings.ticker_message2,
+                ticker_message3 : $scope.settings.ticker_message3,
+                ticker_message4 : $scope.settings.ticker_message4,
+                ticker_message5 : $scope.settings.ticker_message5
+            }).success(function(response) {
 
+            });
+            */
+        };
+
+        /*
         $scope.activateTheme = (function(theme_type, business_id, show_called_only) {
             $http.post(eb.urls.broadcast.broadcast_set_theme_url, {
                 'business_id' : business_id,
@@ -840,14 +880,15 @@ var eb = {
                 $scope.theme_type = theme_type;
             });
         });
+        */
 
         $scope.currentActiveBroadcastDetails = (function(business_id) {
             if (business_id > 0){
                 $http.get(eb.urls.broadcast.broadcast_json_url + business_id + '.json?nocache='+Math.floor((Math.random() * 10000) + 1)).success(function(response) {
-                    $('.activated').hide();
-                    $('.theme-btn').show();
-                    $('.'+response.display+'.theme-btn').hide();
-                    $('.'+response.display+'.activated').show();
+                    //$('.activated').hide();
+                    //$('.theme-btn').show();
+                    //$('.'+response.display+'.theme-btn').hide();
+                    //$('.'+response.display+'.activated').show();
 
                     // default ad screen size
                     var total_width = $('#ad-well-inner').css('width');
@@ -877,41 +918,37 @@ var eb = {
                         }
                     });
 
+                    /*
                     // default ad video / image
                     if (!response.ad_image) {
                         response.ad_image = '/images/ads.jpg'
                     }
                     $('#ad-preview').attr('src', response.ad_image);
                     $('#advideo-preview').attr('src', response.ad_video);
+                    */
 
                     // ad type
-                    if (response.ad_type == 'video') {
-                        $('input:radio[name=ad_type]').filter('[value=video]').prop('checked', true);
-                        $('#image-adtype').hide();
-                        $('#video-adtype').show();
+                    if (response.ad_type == 'image' || response.ad_type == 'video') {
+                        response.ad_type = 'carousel';
                     }
-                    else {
-                        $('input:radio[name=ad_type]').filter('[value=image]').prop('checked', true);
-                        $('#video-adtype').hide();
-                        $('#image-adtype').show();
-                    }
+                    $scope.settings.ad_type = response.ad_type;
 
                     //ARA Added for toggling to show only called numbers in broadcast page
                     $scope.theme_type = response.display;
-                    $scope.show_called_only = response.show_issued != undefined ? !response.show_issued : false;
+                    $scope.settings.show_issued = response.show_issued != undefined ? !response.show_issued : false;
 
                     // default internet TV channel
-                    $scope.tv_channel = response.tv_channel;
+                    $scope.settings.tv_channel = response.tv_channel;
 
                     // current active ticker message
-                    $scope.ticker_message = response.ticker_message;
-                    $scope.ticker_message2 = response.ticker_message2;
-                    $scope.ticker_message3 = response.ticker_message3;
-                    $scope.ticker_message4 = response.ticker_message4;
-                    $scope.ticker_message5 = response.ticker_message5;
+                    $scope.settings.ticker_message = response.ticker_message;
+                    $scope.settings.ticker_message2 = response.ticker_message2;
+                    $scope.settings.ticker_message3 = response.ticker_message3;
+                    $scope.settings.ticker_message4 = response.ticker_message4;
+                    $scope.settings.ticker_message5 = response.ticker_message5;
 
                     // current carousel delay
-                    $scope.carousel_delay = response.carousel_delay/1000;
+                    $scope.settings.carousel_delay = response.carousel_delay/1000;
                 });
                 $http.post(eb.urls.advertisement.get_slider_image, {
                     'business_id' : business_id
@@ -926,17 +963,6 @@ var eb = {
                 });
             }
         });
-
-        $scope.addNumBoxes = function(table_id) {
-            var total_rows = $('#'+table_id+' tr').length + 1;
-            if (total_rows <= 10) {
-                $('#'+table_id).append('<tr><td>'+total_rows+'</td></tr>');
-            }
-        };
-
-        $scope.reduceNumBoxes = function(table_id) {
-            $('#'+table_id+' tr:last').remove();
-        };
 
         $scope.deleteImageSlide = function(business_id, count, img_path) {
             if (confirm('Are you sure you want to delete this image?')) {

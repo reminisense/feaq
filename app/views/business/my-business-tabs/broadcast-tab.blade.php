@@ -16,25 +16,26 @@
 <div class="col-md-12">
     <div class="broadcast-wrap" id="ad-well">
         <div class="clearfix">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <h3 class="mb20">Choose an Advertisement Type:</h3>
-                <select id="select-ads-type" name="cd-dropdown" class="form-control">
-                    <option value="1">Image Slider</option>
-                    <option value="2">Internet TV</option>
-                    <option value="3">Numbers Only</option>
+                <select id="select-ads-type" name="cd-dropdown" class="form-control" ng-model="settings.ad_type" ng-init="settings.ad_type">
+                    <option value="carousel">Image & Video Carousel</option>
+                    <option value="internet_tv">Internet TV</option>
+                    <option value="numbers_only">Numbers Only</option>
                 </select>
             </div>
-            <div class="col-md-6">
-                <div class="form-group pull-right">
-                    <button type="submit" class="btn btn-lg btn-orange" id=""><span class="glyphicon glyphicon-check"></span> SAVE</button>
-                    <button id="loading-img-3" style="display:none;" class="btn btn-orange btn-disabled"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
+            <div class="col-md-8">
+                <div role="alert" class="alert alert-warning">
+                    <strong>* Video Embedding Feature</strong> will soon be enjoyed by business partners that have been in close contact with us.
+                    To be one of these partners, you may contact us at <strong><a href="mailto:contact@featherq.com">contact@featherq.com</a></strong>.
+                    You may also call us at <strong>(+63 32) 345-4658</strong> for further inquiries.
                 </div>
             </div>
         </div>
         <div class="clearfix">
             <div class="clearfix" id="ad-well-inner">
                 <div class="mb30 ui-widget ui-widget-content" id="ad-width" style="float: left; min-height:400px; border-right: 3px dotted #337ab7;">
-                    <div class="ads-type a1">
+                    <div class="ads-type acarousel">
                         <div class="">
                             <div class="clearfix">
                                 <div class="">
@@ -46,12 +47,20 @@
                                 </div>
                             </div>
                         </div>
+                        <div style="margin-top: 20px; width: 450px;">
+                            <div class="col-md-6 col-xs-6">
+                                <small>Transition Time Delay: (seconds)</small>
+                            </div>
+                            <div class="col-md-6 col-xs-6">
+                                <input type="number" min="0" step="1" ng-model="settings.carousel_delay" class="form-control ng-pristine ng-untouched ng-valid ng-valid-min" width="30px">
+                            </div>
+                        </div>
                     </div>
-                    <div class="ads-type a2">
+                    <div class="ads-type ainternet_tv">
                         <div class="clearfix">
                             <div class="form-group">
                             <small>Choose a channel:</small>
-                                <select ng-model="tv_channel" ng-init="tv_channel" id="tv-channel" class="form-control ng-pristine ng-valid ng-touched">
+                                <select ng-model="settings.tv_channel" ng-init="settings.tv_channel" id="tv-channel" class="form-control ng-pristine ng-valid ng-touched">
                                     <option value="">- Select A Channel -</option>
                                     <option value="<embed flashvars=&quot;vid=12163886&amp;autoplay=true&quot; width=&quot;100%&quot; allowfullscreen=&quot;true&quot; allowscriptaccess=&quot;always&quot; src=&quot;http://www.ustream.tv/flash/viewer.swf&quot; type=&quot;application/x-shockwave-flash&quot;>">TechCrunch TV</option>
                                     <option value="<iframe width='100%' src='http://www.ustream.tv/embed/14067349?v=3&amp;wmode=direct&amp;autoplay=true' scrolling='no' frameborder='0' style='border: 0px none transparent;'></iframe>">Arirang TV</option>
@@ -63,7 +72,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="ads-type a3">Numbers only</div>
+                    <div class="ads-type anumbers_only">Numbers only</div>
                     {{--<img src="/images/broadcast/carousel/car1.jpg" id="ad-width-preview" class="center-block" style="height: 300px;">--}}
                     <div class="drag abs">
                         <div class="">Drag to resize <span class="glyphicon glyphicon-transfer"></span></div>
@@ -83,7 +92,7 @@
                         </div>
                     </div>
                     <div class="clearfix">
-                        <span class="blue mt20" style="display: block"><input style="font-size: 30px;" type="checkbox" ng-model="show_called_only" ng-click="activateTheme(theme_type, business_id, show_called_only)"> &nbsp; Show only called numbers in broadcast page</span>
+                        <span class="blue mt20" style="display: block"><input style="font-size: 30px;" type="checkbox" ng-model="settings.show_issued"> &nbsp; Show only called numbers in broadcast page</span>
                     </div>
                 </div>
             </div>
@@ -94,6 +103,10 @@
                 <button type="button" id="" class="btn btn-primary btn-lg add-ticker">
                     <span class="glyphicon glyphicon-plus"></span> Add New Ticker Message
                 </button>
+            </div>
+            <div class="col-md-12" style="margin-top: 20px;">
+                <button ng-click="saveBroadcastSettings(business_id)" type="submit" class="center-block btn btn-lg btn-orange" id=""><span class="glyphicon glyphicon-check"></span> SAVE SETTINGS</button>
+                <button id="loading-img-3" style="display:none;" class="center-block btn btn-orange btn-disabled"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
             </div>
             {{--<div class="col-md-3">
                 <button class="btn btn-orange" ng-click="addNumBoxes('ad-num-preview')">+</button>
