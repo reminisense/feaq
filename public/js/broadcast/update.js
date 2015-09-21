@@ -6,6 +6,12 @@ var app = angular.module('BusinessBroadcast', []);
 
 app.controller('nowServingCtrl', function($scope, $http, $compile) {
 
+    var business_id = $('#business-id').attr('business_id');
+    var broadcast_type = $('#broadcast-type').attr('broadcast_type');
+    var ad_type = $('#ad-type').attr('ad_type');
+    var carousel_delay = $('#fqCarousel').attr('data-interval');
+    var live_ticker = $('.marquee-text').text();
+
     //open a web socket connection
     websocket = new WebSocket("ws://localhost:55346/socket/server.php");
     websocket.onopen = function(response) { // connection is open
@@ -13,16 +19,12 @@ app.controller('nowServingCtrl', function($scope, $http, $compile) {
     }
     websocket.onmessage = function(response) { // what happens when data is received
         var result = JSON.parse(response.data);
-        $scope.writeNumber(result);
+        if (result.broadcast_update) {
+            $http.get('/json/' + business_id + '.json?nocache=' + Math.floor((Math.random() * 10000) + 1)).success($scope.updateBroadcastPage);
+        }
     };
     websocket.onerror	= function(response){};
     websocket.onclose 	= function(response){};
-
-    var business_id = $('#business-id').attr('business_id');
-    var broadcast_type = $('#broadcast-type').attr('broadcast_type');
-    var ad_type = $('#ad-type').attr('ad_type');
-    var carousel_delay = $('#fqCarousel').attr('data-interval');
-    var live_ticker = $('.marquee-text').text();
 
     $scope.callNumberSound = (function (soundobj) {
         var thissound = document.getElementById(soundobj);
@@ -49,40 +51,10 @@ app.controller('nowServingCtrl', function($scope, $http, $compile) {
         }
     });
 
-    $scope.writeNumber = (function(response) {
-        $scope.$apply(function() {
-            if (response.box == 1) {
-                $scope.box1 = response.number;
-                $scope.name1 = response.terminal;
-                $scope.rank1 = response.rank;
-            }
-            else if (response.box == 2) {
-                $scope.box2 = response.number;
-                $scope.name2 = response.terminal;
-                $scope.rank2 = response.rank;
-            }
-            else if (response.box == 3) {
-                $scope.box3 = response.number;
-                $scope.name3 = response.terminal;
-                $scope.rank3 = response.rank;
-            }
-            else if (response.box == 4) {
-                $scope.box4 = response.number;
-                $scope.name4 = response.terminal;
-                $scope.rank4 = response.rank;
-            }
-            else if (response.box == 5) {
-                $scope.box5 = response.number;
-                $scope.name5 = response.terminal;
-                $scope.rank5 = response.rank;
-            }
-            else if (response.box == 6) {
-                $scope.box6 = response.number;
-                $scope.name6 = response.terminal;
-                $scope.rank6 = response.rank;
-            }
-        });
-        $scope.callNumberSound('call-number-sound');
+    $scope.writeNumber = (function(response, box_num) {
+        if (typeof response[box_num] != 'undefined') {
+            $scope[box_num] = response[box_num].number;
+        }
     });
 
     $scope.refreshOnSettingsChange = (function(response) {
@@ -111,6 +83,38 @@ app.controller('nowServingCtrl', function($scope, $http, $compile) {
             || carousel_delay != response.carousel_delay || live_ticker != total_ticker) {
             window.location.reload(true);
         }
+    });
+
+    $scope.updateBroadcastPage = (function(response) {
+        $scope.refreshOnSettingsChange(response);
+
+        $scope.announceNumber(response, 'rank1', 'box1', 'name1');
+        $scope.announceNumber(response, 'rank2', 'box2', 'name2');
+        $scope.announceNumber(response, 'rank3', 'box3', 'name3');
+        $scope.announceNumber(response, 'rank4', 'box4', 'name4');
+        $scope.announceNumber(response, 'rank5', 'box5', 'name5');
+        $scope.announceNumber(response, 'rank6', 'box6', 'name6');
+
+        $scope.announceNumberFromBlank(response, 'box1', 'rank1');
+        $scope.announceNumberFromBlank(response, 'box2', 'rank2');
+        $scope.announceNumberFromBlank(response, 'box3', 'rank3');
+        $scope.announceNumberFromBlank(response, 'box4', 'rank4');
+        $scope.announceNumberFromBlank(response, 'box5', 'rank5');
+        $scope.announceNumberFromBlank(response, 'box6', 'rank6');
+
+        $scope.writeNumber(response, 'box1');
+        $scope.writeNumber(response, 'box2');
+        $scope.writeNumber(response, 'box3');
+        $scope.writeNumber(response, 'box4');
+        $scope.writeNumber(response, 'box5');
+        $scope.writeNumber(response, 'box6');
+
+        /*        $('.marquee-text').remove();
+         if(response.ticker_message != ''){ $('.ticker').append("<div class='marquee-text hidden'>" + response.ticker_message + "</div"); }
+         if(response.ticker_message2 != ''){ $('.ticker').append("<div class='marquee-text hidden'>" + response.ticker_message2 + "</div"); }
+         if(response.ticker_message3 != ''){ $('.ticker').append("<div class='marquee-text hidden'>" + response.ticker_message3 + "</div"); }
+         if(response.ticker_message4 != ''){ $('.ticker').append("<div class='marquee-text hidden'>" + response.ticker_message4 + "</div"); }
+         if(response.ticker_message5 != ''){ $('.ticker').append("<div class='marquee-text hidden'>" + response.ticker_message5 + "</div"); }*/
     });
 
 });

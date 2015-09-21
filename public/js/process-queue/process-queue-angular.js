@@ -31,11 +31,20 @@
         $scope.number_limit = null;
         $scope.issue_call_number = null;
 
+        //open a web socket connection
+        websocket = new WebSocket("ws://localhost:55346/socket/server.php");
+        websocket.onopen = function(response) { // connection is open
+
+        }
+
         $scope.getAllNumbers = function(){
             getResponseResetValues(pq.urls.process_queue.all_numbers_url + pq.ids.service_id + '/' + pq.ids.terminal_id, null, null, function(){
                 setTimeout(function(){
                     $scope.getAllNumbers();
                 }, 1000);
+                websocket.send(JSON.stringify({
+                    broadcast_update : true
+                }));
             });
         };
 
@@ -288,6 +297,9 @@
         //****************************** refreshing
             $scope.getAllNumbers();
             $scope.getAllowedBusinesses();
+
+        websocket.onerror	= function(response){};
+        websocket.onclose 	= function(response){};
     });
 
 })();
