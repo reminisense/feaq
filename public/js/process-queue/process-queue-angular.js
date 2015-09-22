@@ -39,9 +39,9 @@
 
         $scope.getAllNumbers = function(){
             getResponseResetValues(pq.urls.process_queue.all_numbers_url + pq.ids.service_id + '/' + pq.ids.terminal_id, null, null, function(){
-                setTimeout(function(){
-                    $scope.getAllNumbers();
-                }, 1000);
+                //setTimeout(function(){
+                //    $scope.getAllNumbers();
+                //}, 1000);
                 websocket.send(JSON.stringify({
                     broadcast_update : true
                 }));
@@ -55,6 +55,7 @@
                 pq.jquery_functions.remove_and_update_dropdown(transaction_number);
                 $scope.issue_call_number = null;
                 $scope.isCalling = false;
+                $scope.getAllNumbers();
             },null, function(){
                 checkEmailAndAdd($scope.called_numbers[0].email, transaction_number);
             });
