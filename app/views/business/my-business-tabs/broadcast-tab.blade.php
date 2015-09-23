@@ -47,7 +47,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div style="margin-top: 20px; width: 450px;">
+                        <div style="margin-top: 40px; width: 450px;">
                             <div class="col-md-6 col-xs-6">
                                 <small>Transition Time Delay: (seconds)</small>
                             </div>
@@ -67,6 +67,9 @@
                                     <option value="<iframe width='100%' src='http://www.ustream.tv/embed/8429259?v=3&amp;wmode=direct&amp;autoplay=true' scrolling='no' frameborder='0' style='border: 0px none transparent;'></iframe>">EnergyFM Manila</option>
                                     <option value="<iframe width='100%' src='http://www.ustream.tv/embed/12762028?v=3&amp;wmode=direct&amp;autoplay=true' scrolling='no' frameborder='0' style='border: 0px none transparent;'></iframe>">Animal Planet</option>
                                 </select>
+                                <div>
+                                    <img src="/images/samsung-tv.jpg" class="img-responsive" style="max-height: 280px;min-width: 500px;">
+                                </div>
                                 <div class="alert alert-success" id="tvchannel-success" style="display: none;">Success! <strong><a href="/broadcast/business/16" target="_blank">View Broadcast Page</a></strong></div>
                                 <div class="alert alert-danger" id="tvchannel-danger" style="display: none;">Oops! Something went wrong.</div>
                             </div>

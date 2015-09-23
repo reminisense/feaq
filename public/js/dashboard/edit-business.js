@@ -313,9 +313,10 @@ var eb = {
                 unique_names : true,
 
                 filters : {
-                    max_file_size : '5mb',
+                    max_file_size : '10mb',
                     mime_types: [
-                        {title : "Image files", extensions : "jpg,jpeg,gif,png"}
+                        {title : "Image files", extensions : "jpg,jpeg,gif,png"},
+                        {title : "Video files", extensions : "flv,avi,mp4"}
                     ]
                 },
 
