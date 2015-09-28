@@ -16,6 +16,7 @@ socket_listen($socket);
 
 //create & add listning socket to the list
 $clients = array($socket);
+$business_sockets = array();
 
 //start endless loop, so that our script doesn't stop
 while (true) {
@@ -48,17 +49,17 @@ while (true) {
     while(socket_recv($changed_socket, $buf, 1024, 0) >= 1)
     {
       $received_text = unmask($buf); //unmask data
-      $tst_msg = json_decode($received_text); //json decode
+      $msg = json_decode($received_text); //json decode
       //$number = $tst_msg->number; // the number to be called
       //$terminal = $tst_msg->terminal; // the name of the terminal calling
       //$rank = $tst_msg->rank; // the id of the terminal calling
       //$box = $tst_msg->box; // the box where the number will be displayed
-      $broadcast_update = $tst_msg->broadcast_update; // the box where the number will be displayed
 
       //prepare data to be sent to client
       //$response_text = mask(json_encode(array('type'=>'usermsg', 'number'=>$number, 'terminal'=>$terminal, 'rank'=>$rank, 'box'=>$box)));
-      $response_text = mask(json_encode(array('type'=>'usermsg', 'broadcast_update'=>$broadcast_update)));
-      send_message($response_text); //send data
+      $business_sockets[$changed_socket] = $msg->business_id;
+      $response_text = mask(json_encode(array('business_id' => $msg->business_id, 'broadcast_update'=> $msg->broadcast_update)));
+      send_message($msg->business_id, $response_text); //send data
       break 2; //exist this loop
     }
 
@@ -76,14 +77,17 @@ while (true) {
   }
 }
 // close the listening socket
-socket_close($sock);
+socket_close($socket);
 
-function send_message($msg)
+function send_message($business_id, $msg)
 {
   global $clients;
+  global $business_sockets;
   foreach($clients as $changed_socket)
   {
-    @socket_write($changed_socket,$msg,strlen($msg));
+    if ($business_sockets[$changed_socket] == $business_id) {
+      @socket_write($changed_socket, $msg, strlen($msg));
+    }
   }
   return true;
 }

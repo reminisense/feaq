@@ -43,6 +43,7 @@
                 //    $scope.getAllNumbers();
                 //}, 1000);
                 websocket.send(JSON.stringify({
+                    business_id : pq.ids.business_id,
                     broadcast_update : true
                 }));
             });
