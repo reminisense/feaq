@@ -8,6 +8,24 @@ app.controller('nowServingCtrl', function($scope, $http, $compile) {
     var carousel_delay = $('#fqCarousel').attr('data-interval');
     var live_ticker = $('.marquee-text').text();
 
+  //open a web socket connection
+  websocket = new WebSocket("ws://localhost:55346/socket/server.php");
+  websocket.onopen = function(response) { // connection is open
+    $http.get('/json/' + business_id + '.json?nocache=' + Math.floor((Math.random() * 10000) + 1)).success($scope.updateBroadcastPage);
+    websocket.send(JSON.stringify({
+      business_id : business_id,
+      broadcast_update : false
+    }));
+  }
+  websocket.onmessage = function(response) { // what happens when data is received
+    var result = JSON.parse(response.data);
+    if (result.broadcast_update) {
+      $http.get('/json/' + business_id + '.json?nocache=' + Math.floor((Math.random() * 10000) + 1)).success($scope.updateBroadcastPage);
+    }
+  };
+  websocket.onerror	= function(response){};
+  websocket.onclose 	= function(response){};
+
     $scope.callNumberSound = (function (soundobj) {
         var thissound = document.getElementById(soundobj);
         thissound.play();

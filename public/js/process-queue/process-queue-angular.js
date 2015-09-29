@@ -42,10 +42,6 @@
                 //setTimeout(function(){
                 //    $scope.getAllNumbers();
                 //}, 1000);
-                websocket.send(JSON.stringify({
-                    business_id : pq.ids.business_id,
-                    broadcast_update : true
-                }));
             });
         };
 
@@ -56,7 +52,11 @@
                 pq.jquery_functions.remove_and_update_dropdown(transaction_number);
                 $scope.issue_call_number = null;
                 $scope.isCalling = false;
-                $scope.getAllNumbers();
+                websocket.send(JSON.stringify({
+                  business_id : pq.ids.business_id,
+                  broadcast_update : true
+                }));
+                //$scope.getAllNumbers();
             },null, function(){
                 checkEmailAndAdd($scope.called_numbers[0].email, transaction_number);
             });
@@ -87,6 +87,10 @@
             $scope.isProcessing = true;
             getResponseResetValues(pq.urls.process_queue.drop_number_url + transaction_number, function(){
                 pq.jquery_functions.remove_from_called(transaction_number);
+                websocket.send(JSON.stringify({
+                  business_id : pq.ids.business_id,
+                  broadcast_update : true
+                }));
             }, null, function(){
                 $scope.isProcessing = false;
             });
@@ -115,6 +119,10 @@
                     $scope.stopProcessQueue();
                 });
             }
+            websocket.send(JSON.stringify({
+              business_id : pq.ids.business_id,
+              broadcast_update : true
+            }));
         }
 
         $scope.issueAndCall = function(priority_number){
@@ -299,6 +307,10 @@
         //****************************** refreshing
             $scope.getAllNumbers();
             $scope.getAllowedBusinesses();
+
+      websocket.onmessage = function(response) {
+        $scope.getAllNumbers();
+      }
 
         websocket.onerror	= function(response){};
         websocket.onclose 	= function(response){};

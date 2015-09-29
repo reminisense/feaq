@@ -18,8 +18,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script> {{-- RDH Using CDN for Angular JS File --}}
 
     <script type="text/javascript" src="/js/jquery.marquee.min.js"></script>
-    <!-- <script type="text/javascript" src="/js/broadcast/default/business-{{ $box_num }}.js"></script> -->
-    <script type="text/javascript" src="/js/broadcast/update.js"></script>
+    <script type="text/javascript" src="/js/broadcast/default/business-{{ $box_num }}.js"></script>
+    <!-- <script type="text/javascript" src="/js/broadcast/update.js"></script> -->
 
     <script type="text/javascript" src="/js/google-analytics/googleAnalytics.js"></script>
     <script type="text/javascript" src="/js/google-analytics/ga-broadcast.js"></script>
