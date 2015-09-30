@@ -159,6 +159,7 @@
     </div>
 </div>
 @include('modals.broadcast.remote-queue-modal')
+@include('modals.websockets.websocket-loader')
 
 {{--{{ HTML::script('js/bootstrap.min.js') }}--}}
 <script src="/js/broadcast/bootstrap.min.js"></script>

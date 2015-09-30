@@ -62,6 +62,8 @@
     &copy; 2015 : Reminisense Corp.
 </div>--}}
 
+@include('modals.websockets.websocket-loader')
+
 <script src="/js/broadcast/bootstrap.min.js"></script>
 <script src="/js/broadcast/custom.js"></script>
 

@@ -34,7 +34,7 @@
         //open a web socket connection
         websocket = new WebSocket("ws://128.199.169.32:55346/socket/server.php");
         websocket.onopen = function(response) { // connection is open
-
+          $('#WebsocketLoaderModal').modal('hide');
         }
         websocket.onmessage = function(response){
             $scope.getAllNumbers();

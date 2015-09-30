@@ -16,6 +16,7 @@ app.controller('nowServingCtrl', function($scope, $http, $compile) {
       business_id : business_id,
       broadcast_update : false
     }));
+    $('#WebsocketLoaderModal').modal('hide');
   }
   websocket.onmessage = function(response) { // what happens when data is received
     var result = JSON.parse(response.data);
