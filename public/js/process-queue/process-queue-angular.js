@@ -36,6 +36,9 @@
         websocket.onopen = function(response) { // connection is open
 
         }
+        websocket.onmessage = function(response){
+            $scope.getAllNumbers();
+        }
 
         $scope.getAllNumbers = function(){
             getResponseResetValues(pq.urls.process_queue.all_numbers_url + pq.ids.service_id + '/' + pq.ids.terminal_id, null, null, function(){
@@ -52,11 +55,7 @@
                 pq.jquery_functions.remove_and_update_dropdown(transaction_number);
                 $scope.issue_call_number = null;
                 $scope.isCalling = false;
-                websocket.send(JSON.stringify({
-                  business_id : pq.ids.business_id,
-                  broadcast_update : true
-                }));
-                //$scope.getAllNumbers();
+                $scope.sendWebsocket();
             },null, function(){
                 checkEmailAndAdd($scope.called_numbers[0].email, transaction_number);
             });
@@ -66,6 +65,7 @@
             $scope.isProcessing = true;
             getResponseResetValues(pq.urls.process_queue.serve_number_url + transaction_number, function(){
                 pq.jquery_functions.remove_from_called(transaction_number);
+                $scope.sendWebsocket();
                 if(typeof callback === 'function') callback();
             }, null, function(){
                 $scope.isProcessing = false;
@@ -87,10 +87,7 @@
             $scope.isProcessing = true;
             getResponseResetValues(pq.urls.process_queue.drop_number_url + transaction_number, function(){
                 pq.jquery_functions.remove_from_called(transaction_number);
-                websocket.send(JSON.stringify({
-                  business_id : pq.ids.business_id,
-                  broadcast_update : true
-                }));
+                $scope.sendWebsocket();
             }, null, function(){
                 $scope.isProcessing = false;
             });
@@ -119,10 +116,7 @@
                     $scope.stopProcessQueue();
                 });
             }
-            websocket.send(JSON.stringify({
-              business_id : pq.ids.business_id,
-              broadcast_update : true
-            }));
+          $scope.sendWebsocket();
         }
 
         $scope.issueAndCall = function(priority_number){
@@ -144,6 +138,13 @@
             }else{
                 $scope.callNumber();
             }
+        }
+
+        $scope.sendWebsocket = function(){
+            websocket.send(JSON.stringify({
+                business_id : pq.ids.business_id,
+                broadcast_update : true
+            }));
         }
 
         checkTextfieldErrors = function(priority_number){
@@ -307,10 +308,6 @@
         //****************************** refreshing
             $scope.getAllNumbers();
             $scope.getAllowedBusinesses();
-
-      websocket.onmessage = function(response) {
-        $scope.getAllNumbers();
-      }
 
         websocket.onerror	= function(response){};
         websocket.onclose 	= function(response){};
