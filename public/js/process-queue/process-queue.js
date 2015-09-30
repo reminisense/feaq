@@ -169,11 +169,7 @@ var pq = {
         remove_and_update_dropdown : function(transaction_number){
             $('#selected-tnumber').val(0);
             if(transaction_number) pq.jquery_functions.remove_from_dropdown(transaction_number);
-            if($('#uncalled-numbers li').length == 0){
-                pq.jquery_functions.change_dropdown_message('Please issue a number');
-            }else{
-                pq.jquery_functions.select_next_number();
-            }
+            pq.jquery_functions.select_next_number();
         },
 
         find_in_numbers_array : function(transaction_number, uncalled_numbers){
