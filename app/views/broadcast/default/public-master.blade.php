@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="/css/ngCloak.css">
     <link href="/css/broadcast/default/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
 
-
+    <link href="/css/broadcast/default/dashboard.css" rel="stylesheet" type="text/css" media="all">
 
     <link href="/css/app-global.css" rel="stylesheet" type="text/css" media="all">
     <link href="/css/broadcast/default/public-broadcast.css" rel="stylesheet" type="text/css" media="all">
