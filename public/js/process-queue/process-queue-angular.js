@@ -32,7 +32,7 @@
         $scope.issue_call_number = null;
 
         //open a web socket connection
-        websocket = new WebSocket("ws://localhost:55346/socket/server.php");
+        websocket = new WebSocket("ws://128.199.169.32:55346/socket/server.php");
         websocket.onopen = function(response) { // connection is open
 
         }

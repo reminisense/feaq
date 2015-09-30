@@ -9,7 +9,7 @@ app.controller('nowServingCtrl', function($scope, $http, $compile) {
     var live_ticker = $('.marquee-text').text();
 
   //open a web socket connection
-  websocket = new WebSocket("ws://localhost:55346/socket/server.php");
+  websocket = new WebSocket("ws://128.199.169.32:55346/socket/server.php");
   websocket.onopen = function(response) { // connection is open
     $http.get('/json/' + business_id + '.json?nocache=' + Math.floor((Math.random() * 10000) + 1)).success($scope.updateBroadcastPage);
     websocket.send(JSON.stringify({
@@ -123,8 +123,4 @@ app.controller('nowServingCtrl', function($scope, $http, $compile) {
         }
     });
 
-    setInterval(function() {
-        $http.get('/broadcast/reset-numbers/'+business_id).success($scope.resetNumbers);
-        $http.get('/json/'+business_id+'.json?nocache='+Math.floor((Math.random() * 10000) + 1)).success($scope.updateBroadcastPage);
-    }, 1000);
 });
