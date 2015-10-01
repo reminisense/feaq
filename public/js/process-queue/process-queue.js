@@ -4,6 +4,7 @@
 
 //load functions
 $(document).ready(function(){
+    pq.jquery_functions.load_pq_websocket();
     pq.jquery_functions.load_switch_tabs();
     pq.jquery_functions.load_select_number();
     pq.jquery_functions.load_default_navbar_link();
@@ -52,6 +53,36 @@ var pq = {
     },
 
     jquery_functions : {
+        load_pq_websocket: function(){
+            var pq_scope = angular.element($("#process-queue-wrapper")).scope();
+            pq_websocket = pq_scope.pq_websocket;
+            pq_websocket.onopen = function(response) { // connection is open
+                console.log('socket connected');
+                pq.jquery_functions.send_pq_websocket_data();
+            };
+
+            pq_websocket.onmessage = function(response) {
+                var result = JSON.parse(response.data); //PHP sends Json data
+                if(result != null){
+                    if(result.numbers){
+                        pq_scope.resetValues(result.numbers);
+                    }
+                }
+            };
+
+            pq_websocket.onerror	= function(response){
+
+            };
+
+            pq_websocket.onclose 	= function(response){
+                console.log('socket closed');
+                console.log('reconnecting in 10 seconds')
+                setTimeout(function(){
+                    pq.jquery_functions.load_pq_websocket();
+                }, 10000);
+            };
+        },
+
         load_switch_tabs : function(){
             $('#pmore-tab a').on('click', function(e) {
                 e.preventDefault();
@@ -275,6 +306,16 @@ var pq = {
             $('#moreq form input[name=priority_number]').attr('placeholder', next_number);
             $('#moreq form input[name=number_start]').attr('placeholder', next_number);
             $('#issue-call-number').attr('placeholder', next_number);
+        },
+
+        send_pq_websocket_data : function(data){
+            var pq_scope = angular.element($("#process-queue-wrapper")).scope();
+            pq_websocket = pq_scope.pq_websocket;
+            data = data == undefined ? {} : data;
+            data.business_id = pq.ids.business_id;
+            data.service_id = pq.ids.service_id;
+            data.terminal_id = pq.ids.terminal_id;
+            pq_websocket.send(JSON.stringify(data));
         }
     }
 };
