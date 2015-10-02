@@ -1,86 +1,76 @@
 <?php
-$host = 'localhost'; //host
-$port = '9000'; //port
-$null = NULL; //null var
 
-//Create TCP/IP sream socket
+/**
+ * Basic Websocket Server for Process Queue & Broadast Page Updating
+ *
+ */
+
+$host = '128.199.169.32';
+$port = '55346';
+$null = NULL; // only variables can be passed by reference in socket_select function
 $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-//reuseable port
+
 socket_set_option($socket, SOL_SOCKET, SO_REUSEADDR, 1);
-
-//bind socket to specified host
 socket_bind($socket, 0, $port);
-
-//listen to port
 socket_listen($socket);
 
-//create & add listning socket to the list
 $clients = array($socket);
+$business_sockets = array();
 
 //start endless loop, so that our script doesn't stop
 while (true) {
-  //manage multipal connections
   $changed = $clients;
-  //returns the socket resources in $changed array
   socket_select($changed, $null, $null, 0, 10);
-
-  //check for new socket
   if (in_array($socket, $changed)) {
-    $socket_new = socket_accept($socket); //accpet new socket
-    $clients[] = $socket_new; //add socket to client array
-
-    $header = socket_read($socket_new, 1024); //read data sent by the socket
-    perform_handshaking($header, $socket_new, $host, $port); //perform websocket handshake
-
-    socket_getpeername($socket_new, $ip); //get ip address of connected socket
-    $response = mask(json_encode(array('type'=>'system', 'message'=>$ip.' connected'))); //prepare json data
-    send_message($response); //notify all users about new connection
-
-    //make room for new socket
+    $socket_new = socket_accept($socket);
+    $clients[] = $socket_new;
+    $header = socket_read($socket_new, 1024);
+    perform_handshaking($header, $socket_new, $host, $port);
+    socket_getpeername($socket_new, $ip);
     $found_socket = array_search($socket, $changed);
     unset($changed[$found_socket]);
   }
 
   //loop through all connected sockets
   foreach ($changed as $changed_socket) {
+    while(socket_recv($changed_socket, $buf, 1024, 0) >= 1) {
+      $received_text = unmask($buf);
+      $msg = json_decode($received_text);
 
-    //check for any incomming data
-    while(socket_recv($changed_socket, $buf, 1024, 0) >= 1)
-    {
-      $received_text = unmask($buf); //unmask data
-      $tst_msg = json_decode($received_text); //json decode
-      $user_name = $tst_msg->name; //sender name
-      $user_message = $tst_msg->message; //message text
-      $user_color = $tst_msg->color; //color
+      //store the business id of the connected sockets so that the server will know
+      //what sockets are to be pinged rather than all the sockets
+      $business_sockets[$changed_socket] = $msg->business_id;
 
-      //prepare data to be sent to client
-      $response_text = mask(json_encode(array('type'=>'usermsg', 'name'=>$user_name, 'message'=>$user_message, 'color'=>$user_color)));
-      send_message($response_text); //send data
-      break 2; //exist this loop
+      $response_text = mask(json_encode(array(
+        'business_id' => $msg->business_id, // determines the business making the process
+        'broadcast_update'=> $msg->broadcast_update, // determines if the broadcast page needs to be updated
+      )));
+      send_message($msg->business_id, $response_text);
+      break 2;
     }
 
     $buf = @socket_read($changed_socket, 1024, PHP_NORMAL_READ);
-    if ($buf === false) { // check disconnected client
-      // remove client for $clients array
+    if ($buf === false) {
       $found_socket = array_search($changed_socket, $clients);
       socket_getpeername($changed_socket, $ip);
       unset($clients[$found_socket]);
-
-      //notify all users about disconnected connection
-      $response = mask(json_encode(array('type'=>'system', 'message'=>$ip.' disconnected')));
-      send_message($response);
     }
   }
 }
-// close the listening socket
-socket_close($sock);
+socket_close($socket);
 
-function send_message($msg)
+
+function send_message($business_id, $msg)
 {
   global $clients;
+  global $business_sockets;
   foreach($clients as $changed_socket)
   {
-    @socket_write($changed_socket,$msg,strlen($msg));
+    //we should check if the current socket has the same business id with the
+    //business that is calling the number before sending the ping
+    if ($business_sockets[$changed_socket] == $business_id) {
+      @socket_write($changed_socket, $msg, strlen($msg));
+    }
   }
   return true;
 }

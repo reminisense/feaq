@@ -213,4 +213,5 @@ Processs Queue > {{ $business_name }}
 <!-- end process queue main -->
 @include('modals.process-queue.issue-number-modal')
 @include('modals.process-queue.priority-number-details-modal')
+@include('modals.websockets.websocket-loader')
 @stop

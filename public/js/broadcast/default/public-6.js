@@ -8,6 +8,33 @@ app.controller('nowServingCtrl', function($scope, $http) {
     var carousel_delay = $('#fqCarousel').attr('data-interval');
     var live_ticker = $('.marquee-text').text();
 
+  //open a web socket connection
+  websocket = new WebSocket("ws://128.199.169.32:55346/socket/server.php");
+  websocket.onopen = function(response) { // connection is open
+    $http.get('/json/' + business_id + '.json?nocache=' + Math.floor((Math.random() * 10000) + 1)).success($scope.updateBroadcastPage);
+    websocket.send(JSON.stringify({
+      business_id : business_id,
+      broadcast_update : false
+    }));
+    $('#WebsocketLoaderModal').modal('hide');
+  }
+  websocket.onmessage = function(response) { // what happens when data is received
+    var result = JSON.parse(response.data);
+    if (result.broadcast_update) {
+      $http.get('/json/' + business_id + '.json?nocache=' + Math.floor((Math.random() * 10000) + 1)).success($scope.updateBroadcastPage);
+    }
+  };
+  websocket.onerror	= function(response){
+    $('#WebsocketLoaderModal img').attr('src', '/img/stop.png');
+    $('.socket-info').text('Your connection has timed out. Please refresh the page to re-connect.');
+    $('#WebsocketLoaderModal').modal('show');
+  };
+  websocket.onclose 	= function(response){
+    $('#WebsocketLoaderModal img').attr('src', '/img/stop.png');
+    $('.socket-info').text('Your connection has timed out. Please refresh the page to re-connect.');
+    $('#WebsocketLoaderModal').modal('show');
+  };
+
     $scope.callNumberSound = (function (soundobj) {
         var thissound = document.getElementById(soundobj);
         thissound.play();
@@ -103,11 +130,6 @@ app.controller('nowServingCtrl', function($scope, $http) {
             window.location.reload(true);
         }
     });
-
-    setInterval(function() {
-        $http.get('/broadcast/reset-numbers/'+business_id).success($scope.resetNumbers);
-        $http.get('/json/'+business_id+'.json?nocache='+Math.floor((Math.random() * 10000) + 1)).success($scope.updateBroadcastPage);
-    }, 1000);
 
     $('.marquee-text').html($scope.ticker_message);
 });

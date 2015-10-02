@@ -1,6 +1,10 @@
-var app = angular.module('PublicBroadcast', ['Facebook']);
+/**
+ * Created by polljii on 8/28/15.
+ */
 
-app.controller('nowServingCtrl', function($scope, $http) {
+var app = angular.module('BusinessBroadcast', []);
+
+app.controller('nowServingCtrl', function($scope, $http, $compile) {
 
     var business_id = $('#business-id').attr('business_id');
     var broadcast_type = $('#broadcast-type').attr('broadcast_type');
@@ -8,32 +12,23 @@ app.controller('nowServingCtrl', function($scope, $http) {
     var carousel_delay = $('#fqCarousel').attr('data-interval');
     var live_ticker = $('.marquee-text').text();
 
-  //open a web socket connection
-  websocket = new WebSocket("ws://128.199.169.32:55346/socket/server.php");
-  websocket.onopen = function(response) { // connection is open
-    $http.get('/json/' + business_id + '.json?nocache=' + Math.floor((Math.random() * 10000) + 1)).success($scope.updateBroadcastPage);
-    websocket.send(JSON.stringify({
-      business_id : business_id,
-      broadcast_update : false
-    }));
-    $('#WebsocketLoaderModal').modal('hide');
-  }
-  websocket.onmessage = function(response) { // what happens when data is received
-    var result = JSON.parse(response.data);
-    if (result.broadcast_update) {
+    //open a web socket connection
+    websocket = new WebSocket("ws://localhost:55346/socket/server.php");
+    websocket.onopen = function(response) { // connection is open
       $http.get('/json/' + business_id + '.json?nocache=' + Math.floor((Math.random() * 10000) + 1)).success($scope.updateBroadcastPage);
+      websocket.send(JSON.stringify({
+        business_id : business_id,
+        broadcast_update : false
+      }));
     }
-  };
-  websocket.onerror	= function(response){
-    $('#WebsocketLoaderModal img').attr('src', '/img/stop.png');
-    $('.socket-info').text('Your connection has timed out. Please refresh the page to re-connect.');
-    $('#WebsocketLoaderModal').modal('show');
-  };
-  websocket.onclose 	= function(response){
-    $('#WebsocketLoaderModal img').attr('src', '/img/stop.png');
-    $('.socket-info').text('Your connection has timed out. Please refresh the page to re-connect.');
-    $('#WebsocketLoaderModal').modal('show');
-  };
+    websocket.onmessage = function(response) { // what happens when data is received
+        var result = JSON.parse(response.data);
+        if (result.broadcast_update) {
+            $http.get('/json/' + business_id + '.json?nocache=' + Math.floor((Math.random() * 10000) + 1)).success($scope.updateBroadcastPage);
+        }
+    };
+    websocket.onerror	= function(response){};
+    websocket.onclose 	= function(response){};
 
     $scope.callNumberSound = (function (soundobj) {
         var thissound = document.getElementById(soundobj);
@@ -64,10 +59,6 @@ app.controller('nowServingCtrl', function($scope, $http) {
         if (typeof response[box_num] != 'undefined') {
             $scope[box_num] = response[box_num].number;
         }
-    });
-
-    $scope.getNum = (function(response) {
-        $scope.get_num = (response.get_num === "") ? "-": response.get_num;
     });
 
     $scope.refreshOnSettingsChange = (function(response) {
@@ -105,25 +96,29 @@ app.controller('nowServingCtrl', function($scope, $http) {
         $scope.announceNumber(response, 'rank2', 'box2', 'name2');
         $scope.announceNumber(response, 'rank3', 'box3', 'name3');
         $scope.announceNumber(response, 'rank4', 'box4', 'name4');
+        $scope.announceNumber(response, 'rank5', 'box5', 'name5');
+        $scope.announceNumber(response, 'rank6', 'box6', 'name6');
 
         $scope.announceNumberFromBlank(response, 'box1', 'rank1');
         $scope.announceNumberFromBlank(response, 'box2', 'rank2');
         $scope.announceNumberFromBlank(response, 'box3', 'rank3');
         $scope.announceNumberFromBlank(response, 'box4', 'rank4');
+        $scope.announceNumberFromBlank(response, 'box5', 'rank5');
+        $scope.announceNumberFromBlank(response, 'box6', 'rank6');
 
         $scope.writeNumber(response, 'box1');
         $scope.writeNumber(response, 'box2');
         $scope.writeNumber(response, 'box3');
         $scope.writeNumber(response, 'box4');
+        $scope.writeNumber(response, 'box5');
+        $scope.writeNumber(response, 'box6');
 
-        /* RDH Checks if empty, show '-' if yes*/
-        $scope.getNum(response);
-    });
-
-    $scope.resetNumbers = (function(response) {
-        if (response.status == '1') {
-            window.location.reload(true);
-        }
+        /*        $('.marquee-text').remove();
+         if(response.ticker_message != ''){ $('.ticker').append("<div class='marquee-text hidden'>" + response.ticker_message + "</div"); }
+         if(response.ticker_message2 != ''){ $('.ticker').append("<div class='marquee-text hidden'>" + response.ticker_message2 + "</div"); }
+         if(response.ticker_message3 != ''){ $('.ticker').append("<div class='marquee-text hidden'>" + response.ticker_message3 + "</div"); }
+         if(response.ticker_message4 != ''){ $('.ticker').append("<div class='marquee-text hidden'>" + response.ticker_message4 + "</div"); }
+         if(response.ticker_message5 != ''){ $('.ticker').append("<div class='marquee-text hidden'>" + response.ticker_message5 + "</div"); }*/
     });
 
 });

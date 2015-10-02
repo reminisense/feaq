@@ -19,6 +19,7 @@
 
     <script type="text/javascript" src="/js/jquery.marquee.min.js"></script>
     <script type="text/javascript" src="/js/broadcast/default/business-{{ $box_num }}.js"></script>
+    <!-- <script type="text/javascript" src="/js/broadcast/update.js"></script> -->
 
     <script type="text/javascript" src="/js/google-analytics/googleAnalytics.js"></script>
     <script type="text/javascript" src="/js/google-analytics/ga-broadcast.js"></script>
@@ -60,6 +61,8 @@
 {{--<div class="footer">
     &copy; 2015 : Reminisense Corp.
 </div>--}}
+
+@include('modals.websockets.websocket-loader')
 
 <script src="/js/broadcast/bootstrap.min.js"></script>
 <script src="/js/broadcast/custom.js"></script>
