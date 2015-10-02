@@ -24,8 +24,16 @@ app.controller('nowServingCtrl', function($scope, $http, $compile) {
       $http.get('/json/' + business_id + '.json?nocache=' + Math.floor((Math.random() * 10000) + 1)).success($scope.updateBroadcastPage);
     }
   };
-  websocket.onerror	= function(response){};
-  websocket.onclose 	= function(response){};
+  websocket.onerror	= function(response){
+    $('#WebsocketLoaderModal img').attr('src', '/img/stop.png');
+    $('.socket-info').text('Your connection has timed out. Please refresh the page to re-connect.');
+    $('#WebsocketLoaderModal').modal('show');
+  };
+  websocket.onclose 	= function(response){
+    $('#WebsocketLoaderModal img').attr('src', '/img/stop.png');
+    $('.socket-info').text('Your connection has timed out. Please refresh the page to re-connect.');
+    $('#WebsocketLoaderModal').modal('show');
+  };
 
     $scope.callNumberSound = (function (soundobj) {
         var thissound = document.getElementById(soundobj);
