@@ -18,6 +18,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script> {{-- RDH Using CDN for Angular JS File --}}
 
     <script type="text/javascript" src="/js/jquery.marquee.min.js"></script>
+    <script src="/js/websocket-variables.js"></script>
     <script type="text/javascript" src="/js/broadcast/default/business-{{ $box_num }}.js"></script>
     <!-- <script type="text/javascript" src="/js/broadcast/update.js"></script> -->
 

@@ -27,6 +27,7 @@
     <script type="text/javascript" src="/js/jquery.marquee.min.js"></script>
 
     {{--{{ HTML::script('js/ngPublicBroadcast.js') }}--}}
+    <script src="/js/websocket-variables.js"></script>
     <script src="/js/broadcast/default/public-{{ $box_num }}.js"></script>
 
     <script src="/js/ngFacebook.js"></script>
