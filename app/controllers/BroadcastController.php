@@ -193,18 +193,97 @@ class BroadcastController extends BaseController{
   public function postSaveSettings() {
     $data = json_decode(file_get_contents(public_path() . '/json/' . Input::get('business_id') . '.json'));
     $data->adspace_size = Input::get('adspace_size');
-    $data->num_boxes = Input::get('num_boxes');
     $data->ad_type = Input::get('ad_type');
-    if (Input::get('ad_type') == 'internet_tv') {
+    $data->carousel_delay = Input::get('carousel_delay');
+    if ($data->ad_type == 'internet_tv') {
       $data->tv_channel = Input::get('tv_channel');
     }
+
+    // generate a representation for the combination of ad_type and num_boxes
+    if ($data->ad_type == 'carousel') {
+      $display = '1-';
+    }
+    elseif ($data->ad_type == 'internet_tv') {
+      $display = '2-';
+    }
+    else {
+      $display = '0-';
+    }
+    $data->display = $display . Input::get('num_boxes');
+
     $data->show_issued = Input::get('show_issued');
-    $data->ticker_message = Input::get('ticker_message');
-    $data->ticker_message2 = Input::get('ticker_message2');
-    $data->ticker_message3 = Input::get('ticker_message3');
-    $data->ticker_message4 = Input::get('ticker_message4');
-    $data->ticker_message5 = Input::get('ticker_message5');
-    if (Input::get('num_boxes') == '1') {
+    //$data->ticker_message = Input::get('ticker_message');
+    //$data->ticker_message2 = Input::get('ticker_message2');
+    //$data->ticker_message3 = Input::get('ticker_message3');
+    //$data->ticker_message4 = Input::get('ticker_message4');
+    //$data->ticker_message5 = Input::get('ticker_message5');
+    $data = $this->boxObjectCreator($data, Input::get('num_boxes'));
+    $encode = json_encode($data);
+    file_put_contents(public_path() . '/json/' . Input::get('business_id') . '.json', $encode);
+    return json_encode(array('status' => 1));
+  }
+
+  private function boxObjectCreator($data, $num_boxes) {
+    if ($num_boxes == '2') {
+      $data->box2 = new stdClass();
+      $data->box2->number = '';
+      $data->box2->terminal = '';
+      $data->box2->rank = '';
+    }
+    if ($num_boxes >= '3') {
+      $data->box3 = new stdClass();
+      $data->box3->number = '';
+      $data->box3->terminal = '';
+      $data->box3->rank = '';
+    }
+    if ($num_boxes >= '4') {
+      $data->box4 = new stdClass();
+      $data->box4->number = '';
+      $data->box4->terminal = '';
+      $data->box4->rank = '';
+    }
+    if ($num_boxes >= '5') {
+      $data->box5 = new stdClass();
+      $data->box5->number = '';
+      $data->box5->terminal = '';
+      $data->box5->rank = '';
+    }
+    if ($num_boxes >= '6') {
+      $data->box6 = new stdClass();
+      $data->box6->number = '';
+      $data->box6->terminal = '';
+      $data->box6->rank = '';
+    }
+    if ($num_boxes >= '7') {
+      $data->box7 = new stdClass();
+      $data->box7->number = '';
+      $data->box7->terminal = '';
+      $data->box7->rank = '';
+    }
+    if ($num_boxes >= '8') {
+      $data->box8 = new stdClass();
+      $data->box8->number = '';
+      $data->box8->terminal = '';
+      $data->box8->rank = '';
+    }
+    if ($num_boxes >= '9') {
+      $data->box9 = new stdClass();
+      $data->box9->number = '';
+      $data->box9->terminal = '';
+      $data->box9->rank = '';
+    }
+    if ($num_boxes == '10') {
+      $data->box10 = new stdClass();
+      $data->box10->number = '';
+      $data->box10->terminal = '';
+      $data->box10->rank = '';
+    }
+    $data = $this->boxObjectUnsetter($data, $num_boxes);
+    return $data;
+  }
+
+  private function boxObjectUnsetter($data, $num_boxes) {
+    if ($num_boxes == '1') {
       unset($data->box2);
       unset($data->box3);
       unset($data->box4);
@@ -215,10 +294,7 @@ class BroadcastController extends BaseController{
       unset($data->box9);
       unset($data->box10);
     }
-    elseif (Input::get('num_boxes') == '2') {
-      $data->box2->number = "";
-      $data->box2->terminal = "";
-      $data->box2->rank = "";
+    elseif ($num_boxes == '2') {
       unset($data->box3);
       unset($data->box4);
       unset($data->box5);
@@ -228,13 +304,7 @@ class BroadcastController extends BaseController{
       unset($data->box9);
       unset($data->box10);
     }
-    elseif (Input::get('num_boxes') == '3') {
-      $data->box2->number = "";
-      $data->box2->terminal = "";
-      $data->box2->rank = "";
-      $data->box3->number = "";
-      $data->box3->terminal = "";
-      $data->box3->rank = "";
+    elseif ($num_boxes == '3') {
       unset($data->box4);
       unset($data->box5);
       unset($data->box6);
@@ -243,16 +313,7 @@ class BroadcastController extends BaseController{
       unset($data->box9);
       unset($data->box10);
     }
-    elseif (Input::get('num_boxes') == '4') {
-      $data->box2->number = "";
-      $data->box2->terminal = "";
-      $data->box2->rank = "";
-      $data->box3->number = "";
-      $data->box3->terminal = "";
-      $data->box3->rank = "";
-      $data->box4->number = "";
-      $data->box4->terminal = "";
-      $data->box4->rank = "";
+    elseif ($num_boxes == '4') {
       unset($data->box5);
       unset($data->box6);
       unset($data->box7);
@@ -260,153 +321,32 @@ class BroadcastController extends BaseController{
       unset($data->box9);
       unset($data->box10);
     }
-    elseif (Input::get('num_boxes') == '5') {
-      $data->box2->number = "";
-      $data->box2->terminal = "";
-      $data->box2->rank = "";
-      $data->box3->number = "";
-      $data->box3->terminal = "";
-      $data->box3->rank = "";
-      $data->box4->number = "";
-      $data->box4->terminal = "";
-      $data->box4->rank = "";
-      $data->box5->number = "";
-      $data->box5->terminal = "";
-      $data->box5->rank = "";
+    elseif ($num_boxes == '5') {
       unset($data->box6);
       unset($data->box7);
       unset($data->box8);
       unset($data->box9);
       unset($data->box10);
     }
-    elseif (Input::get('num_boxes') == '6') {
-      $data->box2->number = "";
-      $data->box2->terminal = "";
-      $data->box2->rank = "";
-      $data->box3->number = "";
-      $data->box3->terminal = "";
-      $data->box3->rank = "";
-      $data->box4->number = "";
-      $data->box4->terminal = "";
-      $data->box4->rank = "";
-      $data->box5->number = "";
-      $data->box5->terminal = "";
-      $data->box5->rank = "";
-      $data->box6->number = "";
-      $data->box6->terminal = "";
-      $data->box6->rank = "";
+    elseif ($num_boxes == '6') {
       unset($data->box7);
       unset($data->box8);
       unset($data->box9);
       unset($data->box10);
     }
-    elseif (Input::get('num_boxes') == '7') {
-      $data->box2->number = "";
-      $data->box2->terminal = "";
-      $data->box2->rank = "";
-      $data->box3->number = "";
-      $data->box3->terminal = "";
-      $data->box3->rank = "";
-      $data->box4->number = "";
-      $data->box4->terminal = "";
-      $data->box4->rank = "";
-      $data->box5->number = "";
-      $data->box5->terminal = "";
-      $data->box5->rank = "";
-      $data->box6->number = "";
-      $data->box6->terminal = "";
-      $data->box6->rank = "";
-      $data->box7->number = "";
-      $data->box7->terminal = "";
-      $data->box7->rank = "";
+    elseif ($num_boxes == '7') {
       unset($data->box8);
       unset($data->box9);
       unset($data->box10);
     }
-    elseif (Input::get('num_boxes') == '8') {
-      $data->box2->number = "";
-      $data->box2->terminal = "";
-      $data->box2->rank = "";
-      $data->box3->number = "";
-      $data->box3->terminal = "";
-      $data->box3->rank = "";
-      $data->box4->number = "";
-      $data->box4->terminal = "";
-      $data->box4->rank = "";
-      $data->box5->number = "";
-      $data->box5->terminal = "";
-      $data->box5->rank = "";
-      $data->box6->number = "";
-      $data->box6->terminal = "";
-      $data->box6->rank = "";
-      $data->box7->number = "";
-      $data->box7->terminal = "";
-      $data->box7->rank = "";
-      $data->box8->number = "";
-      $data->box8->terminal = "";
-      $data->box8->rank = "";
+    elseif ($num_boxes == '8') {
       unset($data->box9);
       unset($data->box10);
     }
-    elseif (Input::get('num_boxes') == '9') {
-      $data->box2->number = "";
-      $data->box2->terminal = "";
-      $data->box2->rank = "";
-      $data->box3->number = "";
-      $data->box3->terminal = "";
-      $data->box3->rank = "";
-      $data->box4->number = "";
-      $data->box4->terminal = "";
-      $data->box4->rank = "";
-      $data->box5->number = "";
-      $data->box5->terminal = "";
-      $data->box5->rank = "";
-      $data->box6->number = "";
-      $data->box6->terminal = "";
-      $data->box6->rank = "";
-      $data->box7->number = "";
-      $data->box7->terminal = "";
-      $data->box7->rank = "";
-      $data->box8->number = "";
-      $data->box8->terminal = "";
-      $data->box8->rank = "";
-      $data->box9->number = "";
-      $data->box9->terminal = "";
-      $data->box9->rank = "";
+    elseif ($num_boxes == '9') {
       unset($data->box10);
     }
-    elseif (Input::get('num_boxes') == '10') {
-      $data->box2->number = "";
-      $data->box2->terminal = "";
-      $data->box2->rank = "";
-      $data->box3->number = "";
-      $data->box3->terminal = "";
-      $data->box3->rank = "";
-      $data->box4->number = "";
-      $data->box4->terminal = "";
-      $data->box4->rank = "";
-      $data->box5->number = "";
-      $data->box5->terminal = "";
-      $data->box5->rank = "";
-      $data->box6->number = "";
-      $data->box6->terminal = "";
-      $data->box6->rank = "";
-      $data->box7->number = "";
-      $data->box7->terminal = "";
-      $data->box7->rank = "";
-      $data->box8->number = "";
-      $data->box8->terminal = "";
-      $data->box8->rank = "";
-      $data->box9->number = "";
-      $data->box9->terminal = "";
-      $data->box9->rank = "";
-      $data->box10->number = "";
-      $data->box10->terminal = "";
-      $data->box10->rank = "";
-    }
-    $encode = json_encode($data);
-    file_put_contents(public_path() . '/json/' . Input::get('business_id') . '.json', $encode);
-    return json_encode(array('status' => 1));
+    return $data;
   }
 
   public function getResetNumbers($business_id) {

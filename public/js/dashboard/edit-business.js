@@ -842,29 +842,31 @@ var eb = {
         });
         
         $scope.saveBroadcastSettings = function(business_id) {
+          /*
             alert($('#ad-width').css('width'));
             alert($('.q-nums-wrap > div').length);
             alert($scope.settings.ad_type);
             alert($scope.settings.carousel_delay);
             alert($scope.settings.tv_channel);
             alert($scope.settings.show_issued);
-            /*
+            */
+
             $http.post('/broadcast/save-settings', {
                 business_id : business_id,
-                adspace_size : $scope.settings.adspace_size,
-                num_boxes : $scope.settings.num_boxes,
+                adspace_size : $('#ad-width').css('width'),
+                num_boxes : $('.q-nums-wrap > div').length,
                 ad_type : $scope.settings.ad_type,
                 tv_channel : $scope.settings.tv_channel,
-                show_issued : $scope.settings.show_issued,
-                ticker_message : $scope.settings.ticker_message,
-                ticker_message2 : $scope.settings.ticker_message2,
-                ticker_message3 : $scope.settings.ticker_message3,
-                ticker_message4 : $scope.settings.ticker_message4,
-                ticker_message5 : $scope.settings.ticker_message5
+                carousel_delay : $scope.settings.carousel_delay,
+                show_issued : $scope.settings.show_issued
+                //ticker_message : $scope.settings.ticker_message,
+                //ticker_message2 : $scope.settings.ticker_message2,
+                //ticker_message3 : $scope.settings.ticker_message3,
+                //ticker_message4 : $scope.settings.ticker_message4,
+                //ticker_message5 : $scope.settings.ticker_message5
             }).success(function(response) {
-
+              alert('saved');
             });
-            */
         };
 
         /*
@@ -883,7 +885,7 @@ var eb = {
         });
         */
 
-        $scope.currentActiveBroadcastDetails = (function(business_id) {
+        $scope.currentActiveBroadcastDetails = function(business_id) {
             if (business_id > 0){
                 $http.get(eb.urls.broadcast.broadcast_json_url + business_id + '.json?nocache='+Math.floor((Math.random() * 10000) + 1)).success(function(response) {
                     //$('.activated').hide();
@@ -963,7 +965,7 @@ var eb = {
                     }
                 });
             }
-        });
+        };
 
         $scope.deleteImageSlide = function(business_id, count, img_path) {
             if (confirm('Are you sure you want to delete this image?')) {
