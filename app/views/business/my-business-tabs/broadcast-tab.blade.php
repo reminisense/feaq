@@ -91,7 +91,7 @@
                             <span class="glyphicon glyphicon-plus"></span> Numbers
                         </button>
                         <div class="q-nums-wrap clearfix">
-                            <div class="qbox"><div class="pull-left half">1</div></div>
+
                         </div>
                     </div>
                     <div class="clearfix">
@@ -101,7 +101,6 @@
             </div>
             <div class="ticker-wrap">
                 <div class="ticker-field-wrap">
-                    <div><input class="form-control" placeholder="Your Ticker Message Here" type="text"/></div>
                 </div>
                 <button type="button" id="" class="btn btn-primary btn-lg add-ticker">
                     <span class="glyphicon glyphicon-plus"></span> Add New Ticker Message

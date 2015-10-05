@@ -78,7 +78,6 @@ $(document).ready(function(){
     /*select option chooser for ads type*/
     $(function () {
         $('.ads-type').hide();
-        $('.acarousel').show();
 
         $('#select-ads-type').on("change",function () {
             $('.ads-type').hide();
@@ -94,47 +93,6 @@ $(document).ready(function(){
             }
         }).val("carousel");
     });
-    /*add new fields for ticker message*/
-    var qmax_fields      = 10;
-    var qdefault         = 1;
-    var qwrapper         = $(".q-nums-wrap");
-    var qadd_button      = $(".q-add");
-    var qx = 1;
-    $(qadd_button).click(function(e){
-        e.preventDefault();
-        if(qx < qmax_fields){
-            qx++;
-            $(qwrapper).append('<div class="qbox"><div class="pull-left half">1</div></div>');
-        }
-        $('.q-nums-wrap .qbox:last-child .half').html(qx);
-    });
-    $('.q-minus').on("click", function(e){ //user click on remove text
-        qx--;
-        if(qx < qdefault){
-            qx = qdefault;
-            $('.q-nums-wrap .qbox:last-child .half').html(qx);
-        }
-        else {
-            e.preventDefault(); $('.q-nums-wrap .qbox:last-child').remove();
-        }
-
-    });
-    /**/
-        var max_fields      = 5;
-        var wrapper         = $(".ticker-field-wrap");
-        var add_button      = $(".add-ticker");//Add button ID
-        var x = 1;
-        $(add_button).click(function(e){
-            e.preventDefault();
-            if(x < max_fields){
-                x++;
-                $(wrapper).append('<div class="rel"><input class="form-control" placeholder="Your Ticker Message Here" type="text"/><a href="#" class="btn btn-md btn-primary abs remove_field"> Remove</a></div>');
-            }
-        });
-        $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
-            e.preventDefault(); $(this).parent('div').remove(); x--;
-        });
-
 
     //eb.jquery_functions.load_users();
     eb.jquery_functions.setBusinessId($('#business_id').val());
@@ -842,31 +800,50 @@ var eb = {
         });
         
         $scope.saveBroadcastSettings = function(business_id) {
-          /*
-            alert($('#ad-width').css('width'));
-            alert($('.q-nums-wrap > div').length);
-            alert($scope.settings.ad_type);
-            alert($scope.settings.carousel_delay);
-            alert($scope.settings.tv_channel);
-            alert($scope.settings.show_issued);
-            */
 
-            $http.post('/broadcast/save-settings', {
-                business_id : business_id,
-                adspace_size : $('#ad-width').css('width'),
-                num_boxes : $('.q-nums-wrap > div').length,
-                ad_type : $scope.settings.ad_type,
-                tv_channel : $scope.settings.tv_channel,
-                carousel_delay : $scope.settings.carousel_delay,
-                show_issued : $scope.settings.show_issued
-                //ticker_message : $scope.settings.ticker_message,
-                //ticker_message2 : $scope.settings.ticker_message2,
-                //ticker_message3 : $scope.settings.ticker_message3,
-                //ticker_message4 : $scope.settings.ticker_message4,
-                //ticker_message5 : $scope.settings.ticker_message5
-            }).success(function(response) {
-              alert('saved');
-            });
+          // count the number of activated tickers in order to save them
+          var counter = 0;
+          var ticker_message = "";
+          var ticker_message2 = "";
+          var ticker_message3 = "";
+          var ticker_message4 = "";
+          var ticker_message5 = "";
+          $('.ticker-field-wrap .ticker_message').each(function() {
+            counter++;
+            if (counter == 1) {
+              ticker_message = $(this).val();
+            }
+            else if (counter == 2) {
+              ticker_message2 = $(this).val();
+            }
+            else if (counter == 3) {
+              ticker_message3 = $(this).val();
+            }
+            else if (counter == 4) {
+              ticker_message4 = $(this).val();
+            }
+            else if (counter == 5) {
+              ticker_message5 = $(this).val();
+            }
+          });
+
+          $http.post('/broadcast/save-settings', {
+              business_id : business_id,
+              adspace_size : $('#ad-width').css('width'),
+              numspace_size : $('#ad-num-width').css('width'),
+              num_boxes : $('.q-nums-wrap > div').length,
+              ad_type : $scope.settings.ad_type,
+              tv_channel : $scope.settings.tv_channel,
+              carousel_delay : $scope.settings.carousel_delay,
+              show_issued : $scope.settings.show_issued,
+              ticker_message : ticker_message,
+              ticker_message2 : ticker_message2,
+              ticker_message3 : ticker_message3,
+              ticker_message4 : ticker_message4,
+              ticker_message5 : ticker_message5
+          }).success(function(response) {
+            alert('saved');
+          });
         };
 
         /*
@@ -888,15 +865,19 @@ var eb = {
         $scope.currentActiveBroadcastDetails = function(business_id) {
             if (business_id > 0){
                 $http.get(eb.urls.broadcast.broadcast_json_url + business_id + '.json?nocache='+Math.floor((Math.random() * 10000) + 1)).success(function(response) {
-                    //$('.activated').hide();
-                    //$('.theme-btn').show();
-                    //$('.'+response.display+'.theme-btn').hide();
-                    //$('.'+response.display+'.activated').show();
+                    $scope.settings.ad_type = response.ad_type;
+                    $scope.settings.show_issued = response.show_issued;
+                    $scope.theme_type = response.display;
+                    $scope.settings.tv_channel = response.tv_channel;
+                    $scope.settings.carousel_delay = response.carousel_delay;
 
                     // default ad screen size
-                    var total_width = $('#ad-well-inner').css('width');
-                    $('#ad-width').css('width', '50%');
-                    $('#ad-num-width').css('width', '50%');
+                    if (!response.adspace_size) {
+                      response.adspace_size = '50%';
+                      response.numspace_size = '50%';
+                    }
+                    $('#ad-width').css('width', response.adspace_size);
+                    $('#ad-num-width').css('width', response.numspace_size);
                     $('#ad-width-preview').css('width', 400);
 
                     $("#ad-width").resizable({
@@ -921,37 +902,79 @@ var eb = {
                         }
                     });
 
-                    /*
-                    // default ad video / image
-                    if (!response.ad_image) {
-                        response.ad_image = '/images/ads.jpg'
-                    }
-                    $('#ad-preview').attr('src', response.ad_image);
-                    $('#advideo-preview').attr('src', response.ad_video);
-                    */
-
-                    // ad type
+                    // default ad type
                     if (response.ad_type == 'image' || response.ad_type == 'video') {
                         response.ad_type = 'carousel';
                     }
-                    $scope.settings.ad_type = response.ad_type;
+                    else if (response.ad_type == 'numbers_only') {
+                      $('#ad-num-width').css('width', '100%');
+                      $('#ad-width').hide();
+                    }
+                    $('.a'+response.ad_type).show();
 
-                    //ARA Added for toggling to show only called numbers in broadcast page
-                    $scope.theme_type = response.display;
-                    $scope.settings.show_issued = response.show_issued != undefined ? !response.show_issued : false;
+                    // default number of boxes and function to increase or decrease
+                    for (var qx = 0; qx < response.display.split("-")[1]; qx++) {
+                      $($(".q-nums-wrap")).append('<div class="qbox"><div class="pull-left half">'+(qx+1)+'</div></div>');
+                    };
+                    $(".q-add").click(function(e){
+                      e.preventDefault();
+                      if(qx < 10){
+                        qx++;
+                        $($(".q-nums-wrap")).append('<div class="qbox"><div class="pull-left half">'+qx+'</div></div>');
+                      }
+                    });
+                    $('.q-minus').on("click", function(e){ //user click on remove text
+                      qx--;
+                      if(qx < 1){
+                        qx = 1;
+                        $('.q-nums-wrap .qbox:last-child .half').html(qx);
+                      }
+                      else {
+                        e.preventDefault(); $('.q-nums-wrap .qbox:last-child').remove();
+                      }
+                    });
 
-                    // default internet TV channel
-                    $scope.settings.tv_channel = response.tv_channel;
+                    // default ticker messages value
+                    var ticker_size = 1;
+                    var ticker_value = response.ticker_message;
+                    if ($.trim(response.ticker_message5) != "") {
+                      ticker_size = 5;
+                    }
+                    else if ($.trim(response.ticker_message4) != "") {
+                      ticker_size = 4;
+                    }
+                    else if ($.trim(response.ticker_message3) != "") {
+                      ticker_size = 3;
+                    }
+                    else if ($.trim(response.ticker_message2) != "") {
+                      ticker_size = 2;
+                    }
+                    for (var counter = 1; counter <= ticker_size; counter++) {
+                      if (counter == 2) {
+                        ticker_value = response.ticker_message2;
+                      }
+                      else if (counter == 3) {
+                        ticker_value = response.ticker_message3;
+                      }
+                      else if (counter == 4) {
+                        ticker_value = response.ticker_message4;
+                      }
+                      else if (counter == 5) {
+                        ticker_value = response.ticker_message5;
+                      }
+                      $(".ticker-field-wrap").append('<div class="rel"><input class="form-control ticker_message" placeholder="Your Ticker Message Here" type="text" value="'+ticker_value+'"/><a href="#" class="btn btn-md btn-primary abs remove_field"> Remove</a></div>');
+                    }
+                    $(".add-ticker").click(function(e){
+                      e.preventDefault();
+                      if(ticker_size < 5){
+                        ticker_size++;
+                        $(".ticker-field-wrap").append('<div class="rel"><input class="form-control ticker_message" placeholder="Your Ticker Message Here" type="text"/><a href="#" class="btn btn-md btn-primary abs remove_field"> Remove</a></div>');
+                      }
+                    });
+                    $(".ticker-field-wrap").on("click",".remove_field", function(e){ //user click on remove text
+                      e.preventDefault(); $(this).parent('div').remove(); ticker_size--;
+                    });
 
-                    // current active ticker message
-                    $scope.settings.ticker_message = response.ticker_message;
-                    $scope.settings.ticker_message2 = response.ticker_message2;
-                    $scope.settings.ticker_message3 = response.ticker_message3;
-                    $scope.settings.ticker_message4 = response.ticker_message4;
-                    $scope.settings.ticker_message5 = response.ticker_message5;
-
-                    // current carousel delay
-                    $scope.settings.carousel_delay = response.carousel_delay/1000;
                 });
                 $http.post(eb.urls.advertisement.get_slider_image, {
                     'business_id' : business_id

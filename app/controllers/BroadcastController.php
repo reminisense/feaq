@@ -193,6 +193,7 @@ class BroadcastController extends BaseController{
   public function postSaveSettings() {
     $data = json_decode(file_get_contents(public_path() . '/json/' . Input::get('business_id') . '.json'));
     $data->adspace_size = Input::get('adspace_size');
+    $data->numspace_size = Input::get('numspace_size');
     $data->ad_type = Input::get('ad_type');
     $data->carousel_delay = Input::get('carousel_delay');
     if ($data->ad_type == 'internet_tv') {
@@ -212,11 +213,11 @@ class BroadcastController extends BaseController{
     $data->display = $display . Input::get('num_boxes');
 
     $data->show_issued = Input::get('show_issued');
-    //$data->ticker_message = Input::get('ticker_message');
-    //$data->ticker_message2 = Input::get('ticker_message2');
-    //$data->ticker_message3 = Input::get('ticker_message3');
-    //$data->ticker_message4 = Input::get('ticker_message4');
-    //$data->ticker_message5 = Input::get('ticker_message5');
+    $data->ticker_message = Input::get('ticker_message');
+    $data->ticker_message2 = Input::get('ticker_message2');
+    $data->ticker_message3 = Input::get('ticker_message3');
+    $data->ticker_message4 = Input::get('ticker_message4');
+    $data->ticker_message5 = Input::get('ticker_message5');
     $data = $this->boxObjectCreator($data, Input::get('num_boxes'));
     $encode = json_encode($data);
     file_put_contents(public_path() . '/json/' . Input::get('business_id') . '.json', $encode);
