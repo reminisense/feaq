@@ -3,8 +3,8 @@
         <div class="modal-content" style="padding: 20px 0;">
             <div class="modal-body" style="padding-top:10px;">
                 <div style="margin:auto;text-align: center;">
-                    <img  src="/img/socket-loader.gif" style="margin-top: 5px; margin-right: 20px; width:40px;" alt="socket-loader">
-                Establishing network connection with FeatherQ servers. Please wait.
+                    <img src="/img/socket-loader.gif" style="margin-top: 5px; margin-right: 20px; width:40px;" alt="socket-loader">
+                <span class="socket-info">Establishing network connection with FeatherQ servers. Please wait.</span>
                 </div>
             </div>
         </div>
