@@ -294,8 +294,9 @@ body#broadcast .terminal {
 .ads-sixnums .numbers, .ads-sixnums .qrwrap { height:39vh!important; padding: 25px 15px!important;}
 
 /*terminal names*/
-.onenum .terminal { font-size: 42px; }
-.fournums .terminal { font-size:5.5vmin; }
+.onenum .terminal { font-size: 4.5vmin; }
+.fournums .terminal { font-size:5.5vmin;}
+.broadcast .fournums .numbers p { padding-top: 5px; line-height: 45px!important;}
 .sixnums .terminal { font-size:4.5vmin; }
 /*.ads-onenum .terminal { font-size:6vmin; }*/
 .ads-fournums .terminal { font-size:4.5vmin; }
@@ -303,7 +304,7 @@ body#broadcast .terminal {
 
 /*font sizes*/
 .onenum h1 { font-size: 280px; line-height: 320px; }
-.fournums h1 { font-size: 22vmin; margin-top: -10px!important; }
+.fournums h1 { font-size: 22vmin; margin-top: -40px!important; }
 .sixnums h1 { font-size: 18vmin; margin-top: -10px!important; }
 .sixnums .terminal { margin-top:0!important; margin-bottom: 0!important; line-height: 42px!important; height: 2em!important;}
 .ads-onenum h1 { font-size: 20vmin; }
