@@ -24,7 +24,7 @@ while (true) {
   if (in_array($socket, $changed)) {
     $socket_new = socket_accept($socket);
     $clients[] = $socket_new;
-    $header = socket_read($socket_new, 1024);
+    $header = socket_read($socket_new, 5120);
     perform_handshaking($header, $socket_new, $host, $port);
     socket_getpeername($socket_new, $ip);
     $found_socket = array_search($socket, $changed);
