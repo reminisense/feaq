@@ -1,4 +1,4 @@
-@include('broadcast.default.ads-master')
+@include('broadcast.default.business-ads-master')
 <div class="col-md-6">
     <div class="boxed mb20">
         <div class="head">

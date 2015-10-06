@@ -11,6 +11,8 @@
 
 class BroadcastController extends BaseController{
 
+  private $tv_cons = 2;
+
     /*public function getBranch($branch_id = 0)
     {
         $business_id = Branch::businessId($branch_id);
@@ -40,14 +42,16 @@ class BroadcastController extends BaseController{
     public function getBusiness($business_id = 0)
     {
         $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
+        /*
         $arr = explode("-", $data->display);
         if ($arr[0]) {
           $template_type = 'ads-' . $arr[1];
         } else {
           $template_type = 'noads-' . $arr[1];
         }
+        */
 
-        if ($data->ad_type == 'image') {
+        if ($data->ad_type == 'image' || $data->ad_type == 'carousel') {
           $ad_src = array();
           $res = AdImages::getAllImagesByBusinessId($business_id);
           foreach ($res as $count => $img) {
@@ -62,7 +66,7 @@ class BroadcastController extends BaseController{
           }
           */
         }
-        else $ad_src = $data->ad_video;
+        //else $ad_src = $data->ad_video;
 
         $business_name = Business::name($business_id);
         $open_time = str_pad(Business::openHour($business_id), 2, 0, STR_PAD_LEFT) . ':' . str_pad(Business::openMinute($business_id), 2, 0, STR_PAD_LEFT) . ' ' . Business::openAMPM($business_id);
@@ -72,6 +76,7 @@ class BroadcastController extends BaseController{
         $allow_remote = QueueSettings::allowRemote($first_service->service_id);
 
         // Update Contact Form with Custom Fields if applicable
+        /*
         $custom_fields = '';
         $forms = new FormsController();
         $fields = $forms->getFields($business_id);
@@ -124,38 +129,41 @@ class BroadcastController extends BaseController{
                 array_push($ticker_message, $data->ticker_message5);
             }
         }
+        */
+        $ticker_message = array();
+        array_push($ticker_message, $data->ticker_message);
+        array_push($ticker_message, $data->ticker_message2);
+        array_push($ticker_message, $data->ticker_message3);
+        array_push($ticker_message, $data->ticker_message4);
+        array_push($ticker_message, $data->ticker_message5);
 
-        if (Auth::check()) {
-            $user = User::getUserByUserId(Auth::user()->user_id);
-            // business owners have different broadcast screens for display
-            if (UserBusiness::getBusinessIdByOwner(Auth::user()->user_id) == $business_id) {
-                if ($arr[0] == 2 || $arr[0] == 3) {
-                    $ad_src = $data->tv_channel; // check if TV is on
-                    if ($arr[0] == 3) {
-                      $template_type = 'ads-' . $arr[1] . '-2';
-                    }
-                    $broadcast_template = 'broadcast.default.internet-tv-master';
-                } else {
-                    $broadcast_template = 'broadcast.default.business-master';
-                }
-
-            } else {
-                $broadcast_template = 'broadcast.default.public-master';
+        $arr = explode("-", $data->display);
+        $user = Auth::user();
+        if (Helper::isBusinessOwner($business_id, Helper::userId())) {
+          if ($arr[0] == $this->tv_cons) {
+            $ad_src = $data->tv_channel;
+            /*
+            if ($arr[0] == 3) {
+              $template_type = 'ads-' . $arr[1] . '-2';
             }
-
-        } else {
-            $user = [];
-            $broadcast_template = 'broadcast.default.public-master';
+            */
+            $broadcast_template = 'broadcast.default.tv-master';
+          } else {
+            $broadcast_template = 'broadcast.default.business-master';
+          }
+        }
+        else { // anonymous and non business users should view only the public broadcast screen
+          $broadcast_template = 'broadcast.default.public-master';
         }
         $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
 
         return View::make($broadcast_template)
+          //->with('custom_fields', $custom_fields)
+          //->with('template_type', $data->d)
             ->with('carousel_interval', isset($data->carousel_delay) ? (int)$data->carousel_delay : 5000)
-            ->with('custom_fields', $custom_fields)
             ->with('ad_type', $data->ad_type)
             ->with('ad_src', $ad_src)
-            ->with('box_num', $arr[1])
-            ->with('template_type', $template_type)
+            ->with('box_num', $arr[1]) // the second index tells how many numbers to show in the broadcast screen
             ->with('broadcast_type', $data->display)
             ->with('open_time', $open_time)
             ->with('close_time', $close_time)

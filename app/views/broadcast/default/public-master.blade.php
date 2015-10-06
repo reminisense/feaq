@@ -104,7 +104,7 @@
         <div id="ad-type" ad_type="{{ $ad_type }}"></div>
         <audio id="call-number-sound" src="/audio/doorbell_x.wav" controls preload="auto" autobuffer style="display: none;"></audio>
 
-        @include('broadcast.default.public-' . $template_type)
+        @include('broadcast.default.public-' . $broadcast_type)
         <div class="publiclogin ng-scope hidden-lg hidden-md visible-sm visible-xs text-center" ng-controller="fbController">
             <a class="btn-play" style="margin-right:5px;" href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
                 <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png">

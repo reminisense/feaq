@@ -46,7 +46,7 @@
         <audio id="call-number-sound" src="/audio/doorbell_x.wav" controls preload="auto" autobuffer style="display: none;"></audio>
 
         <div class="container-fluid">
-            @include('broadcast.default.business-' . $template_type)
+            @include('broadcast.default.business-' . $broadcast_type)
         </div>
     </div>
 
