@@ -304,7 +304,7 @@ body#broadcast .terminal {
 
 /*font sizes*/
 .onenum h1 { font-size: 280px; line-height: 320px; }
-.fournums h1 { font-size: 22vmin; margin-top: -40px!important; }
+.fournums h1 { font-size: 22vmin; margin-top: -75px!important; }
 .sixnums h1 { font-size: 18vmin; margin-top: -10px!important; }
 .sixnums .terminal { margin-top:0!important; margin-bottom: 0!important; line-height: 42px!important; height: 2em!important;}
 .ads-onenum h1 { font-size: 20vmin; }
