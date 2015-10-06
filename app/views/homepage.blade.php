@@ -169,8 +169,10 @@
               <img style="width: 41px;" src="/images/reload_home.gif" />
             </div>
             <div id="search-grid" style="display: none;" class="clearfix businesses">
-              <div class="col-md-12 col-xs-12 col-sm-12">
-                <h5 class="mb30 searchresults">@{{ searchLabel }}</h5>
+              <div class="clearfix">
+                <div class="col-md-12 col-xs-12 col-sm-12">
+                    <h5 class="mb30 searchresults">@{{ searchLabel }}</h5>
+                </div>
               </div>
               <div class="col-md-3" ng-repeat="business in businesses">
                 <a class="business_link" href="/broadcast/business/@{{ business.business_id }}" target="_blank">
