@@ -356,6 +356,15 @@ var eb = {
             terminal_users: 3
         };
 
+      //open a web socket connection
+      websocket = new WebSocket(websocket_url);
+      websocket.onopen = function(response) { // connection is open
+        $('#WebsocketLoaderModal').modal('hide');
+      }
+      websocket.onmessage = function(response){
+
+      }
+
         $scope.startdate = $filter('date')(new Date(),'MM/dd/yyyy');
         $scope.enddate = $filter('date')(new Date(),'MM/dd/yyyy');
 
@@ -766,6 +775,10 @@ var eb = {
                 $('.'+theme_type+'.theme-btn').hide();
                 $('.'+theme_type+'.activated').show();
                 $scope.theme_type = theme_type;
+                websocket.send(JSON.stringify({
+                  business_id : business_id,
+                  broadcast_update : true
+                }));
             });
         });
 
@@ -896,6 +909,10 @@ var eb = {
                 $('#ticker-danger').hide();
                 $('#ticker-success').fadeIn();
                 $('#ticker-success').fadeOut(7000);
+              websocket.send(JSON.stringify({
+                business_id : business_id,
+                broadcast_update : true
+              }));
             }).error(function() {
                 $('#ticker-danger').hide();
                 $('#ticker-success').fadeIn();
@@ -910,6 +927,10 @@ var eb = {
                 $('#carouseldelay-danger').hide();
                 $('#carouseldelay-success').fadeIn();
                 $('#carouseldelay-success').fadeOut(7000);
+              websocket.send(JSON.stringify({
+                business_id : $scope.business_id,
+                broadcast_update : true
+              }));
             }).error(function() {
                 $('#carouseldelay-danger').hide();
                 $('#carouseldelay-success').fadeIn();
@@ -1080,6 +1101,17 @@ var eb = {
                 $scope.my_accesskey = response.access_key;
             });
         }
+
+      websocket.onerror	= function(response){
+        $('#WebsocketLoaderModal img').attr('src', '/img/stop.png');
+        $('.socket-info').text('Your connection has timed out. Please refresh the page to re-connect.');
+        $('#WebsocketLoaderModal').modal('show');
+      };
+      websocket.onclose = function(response){
+        $('#WebsocketLoaderModal img').attr('src', '/img/stop.png');
+        $('.socket-info').text('Your connection has timed out. Please refresh the page to re-connect.');
+        $('#WebsocketLoaderModal').modal('show');
+      };
     });
 
 })();
