@@ -212,7 +212,7 @@
 
         $scope.sendWebsocket = function(){
             process_queue = angular.element($("#process-queue-wrapper")).scope();
-            process_queue.sendWebsocket();
+            process_queue.updateBroadcast();
         }
 
         $http.get('/user/remoteuser/'+user_id).success($scope.populateRemoteQueueModal);

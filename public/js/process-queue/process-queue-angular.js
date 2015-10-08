@@ -35,7 +35,7 @@
         websocket = new WebSocket(websocket_url);
         websocket.onopen = function(response) { // connection is open
             $('#WebsocketLoaderModal').modal('hide');
-            $scope.sendWebsocket();
+            $scope.updateBroadcast();
         }
         websocket.onmessage = function(response){
             $scope.getAllNumbers();
@@ -57,7 +57,7 @@
                 pq.jquery_functions.remove_and_update_dropdown(transaction_number);
                 $scope.issue_call_number = null;
                 $scope.isCalling = false;
-                $scope.sendWebsocket();
+                $scope.updateBroadcast();
             },null, function(){
                 checkEmailAndAdd($scope.called_numbers[0].email, transaction_number);
             });
@@ -67,7 +67,7 @@
             $scope.isProcessing = true;
             getResponseResetValues(pq.urls.process_queue.serve_number_url + transaction_number, function(){
                 pq.jquery_functions.remove_from_called(transaction_number);
-                $scope.sendWebsocket();
+                $scope.updateBroadcast();
                 if(typeof callback === 'function') callback();
             }, null, function(){
                 $scope.isProcessing = false;
@@ -89,7 +89,7 @@
             $scope.isProcessing = true;
             getResponseResetValues(pq.urls.process_queue.drop_number_url + transaction_number, function(){
                 pq.jquery_functions.remove_from_called(transaction_number);
-                $scope.sendWebsocket();
+                $scope.updateBroadcast();
             }, null, function(){
                 $scope.isProcessing = false;
             });
@@ -118,7 +118,7 @@
                     $scope.stopProcessQueue();
                 });
             }
-          $scope.sendWebsocket();
+            $scope.updateBroadcast();
         }
 
         $scope.issueAndCall = function(priority_number){
@@ -147,6 +147,12 @@
                 business_id : pq.ids.business_id,
                 broadcast_update : true
             }));
+        }
+
+        $scope.updateBroadcast = function(){
+            getResponseResetValues('/processqueue/update-broadcast/' + pq.ids.business_id, function(){
+                $scope.sendWebsocket();
+            });
         }
 
         checkTextfieldErrors = function(priority_number){

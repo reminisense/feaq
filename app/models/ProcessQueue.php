@@ -402,5 +402,6 @@ class ProcessQueue extends Eloquent{
 
             File::put($file_path, json_encode($boxes, JSON_PRETTY_PRINT));
         }
+        return $all_numbers;
     }
 }
