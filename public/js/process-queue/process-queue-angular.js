@@ -125,8 +125,9 @@
             $http.post(pq.urls.issue_numbers.issue_specific_url + pq.ids.service_id + '/' + pq.ids.terminal_id, {priority_number : priority_number})
                 .success(function(response){
                     $scope.callNumber(response.number.transaction_number);
+                }).finally(function(){
+                    $scope.isCalling = false;
                 });
-            $scope.isCalling = false;
         }
 
         $scope.issueOrCall = function(){
