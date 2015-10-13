@@ -9,6 +9,10 @@
 class IssueNumberController extends BaseController{
 
     public function getMultiple($service_id, $range, $terminal_id = 0, $number_start = null, $date = null){
+        if($terminal_id != 0 && !TerminalUser::isCurrentUserAssignedToTerminal($terminal_id)){
+            return json_encode(['error' => 'You are not assigned to this terminal.']);
+        }
+
         $terminal_id = QueueSettings::terminalSpecificIssue($service_id) ? $terminal_id : 0;
         $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
         $queue_platform = $number_start == $next_number || $number_start == null ? 'web' : 'specific';
@@ -20,6 +24,10 @@ class IssueNumberController extends BaseController{
     }
 
     public function postInsertspecific($service_id, $terminal_id = 0, $queue_platform = 'web'){
+        if($terminal_id != 0 && !TerminalUser::isCurrentUserAssignedToTerminal($terminal_id)){
+            return json_encode(['error' => 'You are not assigned to this terminal.']);
+        }
+
         $priority_number = Input::get('priority_number');
         $name = Input::get('name');
         $phone = Input::get('phone');

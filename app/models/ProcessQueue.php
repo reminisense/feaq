@@ -113,6 +113,11 @@ class ProcessQueue extends Eloquent{
         $pnumber = $priority_queue->priority_number;
         $confirmation_code = $priority_queue->confirmation_code;
         $terminal_id = $transaction->terminal_id;
+
+        if(!TerminalUser::isCurrentUserAssignedToTerminal($transaction->terminal_id)){
+            throw new Exception('You are not assigned to this terminal.');
+        }
+
         try{
             $terminal = Terminal::findOrFail($transaction->terminal_id);
             $terminal_name = $terminal->name;
@@ -402,5 +407,6 @@ class ProcessQueue extends Eloquent{
 
             File::put($file_path, json_encode($boxes, JSON_PRETTY_PRINT));
         }
+        return $all_numbers;
     }
 }

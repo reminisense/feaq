@@ -39,13 +39,15 @@ while (true) {
 
       //store the business id of the connected sockets so that the server will know
       //what sockets are to be pinged rather than all the sockets
-      $business_sockets[$changed_socket] = $msg->business_id;
-
-      $response_text = mask(json_encode(array(
-        'business_id' => $msg->business_id, // determines the business making the process
-        'broadcast_update'=> $msg->broadcast_update, // determines if the broadcast page needs to be updated
-      )));
-      send_message($msg->business_id, $response_text);
+      if(isset($msg->business_id)){
+        $resource_id = (string) $changed_socket;
+        $business_sockets[$resource_id] = $msg->business_id;
+        $response_text = mask(json_encode(array(
+            'business_id' => $msg->business_id, // determines the business making the process
+            'broadcast_update'=> $msg->broadcast_update, // determines if the broadcast page needs to be updated
+        )));
+        send_message($msg->business_id, $response_text);
+      }
       break 2;
     }
 
@@ -68,7 +70,8 @@ function send_message($business_id, $msg)
   {
     //we should check if the current socket has the same business id with the
     //business that is calling the number before sending the ping
-    if ($business_sockets[$changed_socket] == $business_id) {
+    $resource_id = (string) $changed_socket;
+    if (array_key_exists($resource_id, $business_sockets) && $business_sockets[$resource_id] == $business_id) {
       @socket_write($changed_socket, $msg, strlen($msg));
     }
   }
