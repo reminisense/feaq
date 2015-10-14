@@ -94,7 +94,17 @@ app.controller('nowServingCtrl', function($scope, $http) {
 
         if (broadcast_type != response.display || ad_type != response.ad_type
             || carousel_delay != response.carousel_delay || live_ticker != total_ticker) {
+
+          // update the json so that the hidden called numbers will show if the number of boxes changed
+          if (broadcast_type != response.display) {
+            $http.get('/processqueue/update-broadcast').success(function(response) {
+              window.location.reload(true);
+            });
+          }
+          else {
             window.location.reload(true);
+          }
+
         }
     });
 
