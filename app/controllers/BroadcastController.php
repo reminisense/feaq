@@ -149,7 +149,7 @@ class BroadcastController extends BaseController{
             */
             $broadcast_template = 'broadcast.default.tv-master';
           } else {
-            $broadcast_template = 'broadcast.default.business-master';
+            $broadcast_template = 'business_broadcast.business-master';
           }
         }
         else { // anonymous and non business users should view only the public broadcast screen
