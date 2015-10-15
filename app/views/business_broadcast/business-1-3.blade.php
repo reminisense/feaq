@@ -1,9 +1,9 @@
 @include('business_broadcast.business-ads-master')
 
 <div class="numbers-area fifty fifty-b abs">
-  <div class="boxed two">
+  <div class="boxed three">
     <h3 class="abs">NOW SERVING</h3>
-    <div class="row-2">
+    <div class="row-3">
       <div class="col-1">
         <div class="numbers t@{{ rank1 }}">
           <p class="terminal">@{{ name1 }}</p>

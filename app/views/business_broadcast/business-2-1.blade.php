@@ -10,8 +10,8 @@
 <div class="numbers-area fifty fifty-b abs">
   <div class="boxed ten">
     <h3 class="abs">NOW SERVING</h3>
-    <div class="row-5">
-      <div class="col-2">
+    <div class="row-1">
+      <div class="col-1">
         <div class="numbers t@{{ rank1 }}">
           <p class="terminal">@{{ name1 }}</p>
           <p class="callnum">@{{ box1 }}</p>
