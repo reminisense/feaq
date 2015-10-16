@@ -1,7 +1,11 @@
-<div class="col-md-6">
-    @if (strstr($broadcast_type, "2"))
+<div class="ads-area {{ $ad_class }} abs">
+  <div class="top">
+    <a class="" href="#"><img src="/images/featherq-home-logo.png"></a>
+  </div>
+  <div class="vid-container">
+    @if ($ad_type == 'internet_tv')
         {{ $ad_src }}
-    @elseif ($ad_type == 'image')
+    @elseif ($ad_type == 'carousel')
         <div id="fqCarousel" class="carousel slide" data-ride="carousel" data-interval="<?php print $carousel_interval; ?>" style="min-height: 550px;">
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
@@ -29,12 +33,11 @@
                 </div>
             </div>
         </div>
-    @elseif ($ad_type == 'video')
-        <iframe src="{{ $ad_src }}" id="video-ad" width="100%"></iframe>
     @endif
+  </div>
 </div>
 
-<script>
+<script type="text/javascript">
     $('iframe').css({'height' : $(window).height()});
     $('embed').css({'height' : $(window).height()});
 </script>
