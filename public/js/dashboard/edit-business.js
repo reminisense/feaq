@@ -404,6 +404,10 @@ var eb = {
       //open a web socket connection
       websocket = new WebSocket(websocket_url);
       websocket.onopen = function(response) { // connection is open
+        websocket.send(JSON.stringify({
+          business_id : $scope.business_id,
+          broadcast_update : false
+        }));
         $('#WebsocketLoaderModal').modal('hide');
       }
       websocket.onmessage = function(response){
@@ -838,6 +842,7 @@ var eb = {
 
           $http.post('/broadcast/save-settings', {
               business_id : business_id,
+              percentage : $('#percentage').attr('percentage'),
               adspace_size : $('#ad-width').css('width'),
               numspace_size : $('#ad-num-width').css('width'),
               num_boxes : $('.q-nums-wrap > div').length,
@@ -851,10 +856,13 @@ var eb = {
               ticker_message4 : ticker_message4,
               ticker_message5 : ticker_message5
           }).success(function(response) {
+            $http.get('/processqueue/update-broadcast/' + business_id).success(function(response) {
               websocket.send(JSON.stringify({
-                  business_id : business_id,
-                  broadcast_update : true
+                business_id : business_id,
+                broadcast_update : true
               }));
+              alert('saved');
+            });
           });
         };
 

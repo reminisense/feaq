@@ -34,6 +34,7 @@ class BroadcastController extends BaseController{
         return View::make($broadcast_template)
           //->with('custom_fields', $custom_fields)
           //->with('template_type', $data->d)
+            ->with('adspace_size', $data->adspace_size)
             ->with('carousel_delay', isset($data->carousel_delay) ? (int)$data->carousel_delay : 5000)
             ->with('ad_type', $data->ad_type)
             ->with('ad_src', $ad_src)
@@ -134,11 +135,7 @@ class BroadcastController extends BaseController{
     private function broadcastTemplate($display, $business_id) {
       $arr = explode("-", $display);
       if (Helper::isBusinessOwner($business_id, Helper::userId())) {
-        if ($arr[0] == $this->tv_cons) {
-          $broadcast_template = 'broadcast.default.tv-master';
-        } else {
-          $broadcast_template = 'broadcast.default.business-master';
-        }
+        $broadcast_template = 'broadcast.default.business-master';
       }
       else { // anonymous and non business users should view only the public broadcast screen
         $broadcast_template = 'broadcast.default.public-master';
@@ -175,6 +172,7 @@ class BroadcastController extends BaseController{
     if ($data->ad_type == 'internet_tv') {
       $data->tv_channel = Input::get('tv_channel');
     }
+    $data->percentage = Input::get('percentage');
     $data->display = $this->generateDisplayCode($data->ad_type, Input::get('num_boxes'));
     $data->show_issued = Input::get('show_issued');
     $data->ticker_message = Input::get('ticker_message');
@@ -203,7 +201,7 @@ class BroadcastController extends BaseController{
   }
 
   private function boxObjectCreator($data, $num_boxes) {
-    if ($num_boxes == '2') {
+    if ($num_boxes >= '2') {
       $data->box2 = new stdClass();
       $data->box2->number = '';
       $data->box2->terminal = '';

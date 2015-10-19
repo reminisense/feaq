@@ -18,9 +18,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script> {{-- RDH Using CDN for Angular JS File --}}
 
     <script type="text/javascript" src="/js/jquery.marquee.min.js"></script>
-    <script type="text/javascript" src="/js/websocket-variables.js"></script>
-    <script type="text/javascript" src="/js/broadcast/default/business-{{ $box_num }}.js"></script>
-
     <script type="text/javascript" src="/js/google-analytics/googleAnalytics.js"></script>
     <script type="text/javascript" src="/js/google-analytics/ga-broadcast.js"></script>
     <script type="text/javascript" src="/js/user/Usertracker.js"></script> {{-- ARA For user tracking --}}
@@ -36,6 +33,7 @@
 <div id="business-id" business_id="{{ $business_id }}"></div>
 <div id="broadcast-type" broadcast_type="{{ $broadcast_type }}"></div>
 <div id="ad-type" ad_type="{{ $ad_type }}"></div>
+<div id="adspace-size" adspace_size="{{ $adspace_size }}"></div>
 <div class="qrcode qrwrap">
     <p class="nomg"><h4 class="orange">Monitor via your PHONE.</h4> Just scan this QR Code</p>
     <div class="text-center">
@@ -54,7 +52,12 @@
 </div>
 
 @include('modals.websockets.websocket-loader')
+
 <script src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/websocket-variables.js"></script>
+<script type="text/javascript" src="/js/broadcast/lib.js"></script>
+<script type="text/javascript" src="/js/broadcast/socket.js"></script>
+<script type="text/javascript" src="/js/broadcast/default/business-{{ $box_num }}.js"></script>
 </body>
 
 </html>
