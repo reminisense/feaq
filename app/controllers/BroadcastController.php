@@ -34,7 +34,7 @@ class BroadcastController extends BaseController{
         return View::make($broadcast_template)
           //->with('custom_fields', $custom_fields)
           //->with('template_type', $data->d)
-            ->with('carousel_interval', isset($data->carousel_delay) ? (int)$data->carousel_delay : 5000)
+            ->with('carousel_delay', isset($data->carousel_delay) ? (int)$data->carousel_delay : 5000)
             ->with('ad_type', $data->ad_type)
             ->with('ad_src', $ad_src)
             ->with('box_num', explode("-", $data->display)[1]) // the second index tells how many numbers to show in the broadcast screen
@@ -171,23 +171,11 @@ class BroadcastController extends BaseController{
     $data->adspace_size = Input::get('adspace_size');
     $data->numspace_size = Input::get('numspace_size');
     $data->ad_type = Input::get('ad_type');
-    $data->carousel_delay = Input::get('carousel_delay');
+    $data->carousel_delay = Input::get('carousel_delay') * 1000; // convert from second to millisecond
     if ($data->ad_type == 'internet_tv') {
       $data->tv_channel = Input::get('tv_channel');
     }
-
-    // generate a representation for the combination of ad_type and num_boxes
-    if ($data->ad_type == 'carousel') {
-      $display = '1-';
-    }
-    elseif ($data->ad_type == 'internet_tv') {
-      $display = '2-';
-    }
-    else {
-      $display = '0-';
-    }
-    $data->display = $display . Input::get('num_boxes');
-
+    $data->display = $this->generateDisplayCode($data->ad_type, Input::get('num_boxes'));
     $data->show_issued = Input::get('show_issued');
     $data->ticker_message = Input::get('ticker_message');
     $data->ticker_message2 = Input::get('ticker_message2');
@@ -198,6 +186,20 @@ class BroadcastController extends BaseController{
     $encode = json_encode($data);
     file_put_contents(public_path() . '/json/' . Input::get('business_id') . '.json', $encode);
     return json_encode(array('status' => 1));
+  }
+
+  // generate a representation for the combination of ad_type and num_boxes
+  private function generateDisplayCode($ad_type, $num_boxes) {
+    if ($ad_type == 'carousel') {
+      $display = '1-';
+    }
+    elseif ($ad_type == 'internet_tv') {
+      $display = '2-';
+    }
+    else {
+      $display = '0-';
+    }
+    return $display . $num_boxes;
   }
 
   private function boxObjectCreator($data, $num_boxes) {

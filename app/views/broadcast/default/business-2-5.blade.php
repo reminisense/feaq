@@ -1,3 +1,5 @@
+@include('broadcast.default.business-ads-master')
+
 <div class="ads-area fifty fifty-a abs">
   <div class="top">
     <a class="" href="#"><img src="/images/featherq-home-logo.png"></a>

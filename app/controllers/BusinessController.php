@@ -149,6 +149,7 @@ class BusinessController extends BaseController{
                   "ad_image": "",
                   "ad_video": "\/\/www.youtube.com\/embed\/EMnDdH8fdEc",
                   "ad_type": "carousel",
+                  "carousel_delay": "5000",
                   "turn_on_tv": false,
                   "tv_channel": "",
                   "date": "' . date("mdy") . '",

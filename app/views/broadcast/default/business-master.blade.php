@@ -50,7 +50,7 @@
 </div>
 <div class="wrap-broadcast rel" ng-controller="nowServingCtrl">
     <audio id="call-number-sound" src="/audio/doorbell_x.wav" controls preload="auto" autobuffer style="display: none;"></audio>
-    @include('business_broadcast.business-' . $broadcast_type)
+    @include('broadcast.default.business-' . $broadcast_type)
 </div>
 
 @include('modals.websockets.websocket-loader')

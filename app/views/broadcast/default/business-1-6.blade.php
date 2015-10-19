@@ -1,4 +1,4 @@
-@include('business_broadcast.business-ads-master')
+@include('broadcast.default.business-ads-master')
 
 <div class="numbers-area {{ $num_class }} abs">
   <div class="boxed six">

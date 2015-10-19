@@ -851,7 +851,10 @@ var eb = {
               ticker_message4 : ticker_message4,
               ticker_message5 : ticker_message5
           }).success(function(response) {
-            alert('saved');
+              websocket.send(JSON.stringify({
+                  business_id : business_id,
+                  broadcast_update : true
+              }));
           });
         };
 
@@ -882,7 +885,7 @@ var eb = {
                     $scope.settings.show_issued = response.show_issued;
                     $scope.theme_type = response.display;
                     $scope.settings.tv_channel = response.tv_channel;
-                    $scope.settings.carousel_delay = response.carousel_delay;
+                    $scope.settings.carousel_delay = response.carousel_delay / 1000; // convert to seconds for display
 
                     // default ad screen size
                     if (!response.adspace_size) {

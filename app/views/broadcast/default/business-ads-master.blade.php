@@ -6,7 +6,7 @@
     @if ($ad_type == 'internet_tv')
         {{ $ad_src }}
     @elseif ($ad_type == 'carousel')
-        <div id="fqCarousel" class="carousel slide" data-ride="carousel" data-interval="<?php print $carousel_interval; ?>" style="min-height: 550px;">
+        <div id="fqCarousel" class="carousel slide" data-ride="carousel" data-interval="<?php print $carousel_delay; ?>" style="min-height: 550px;">
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
                 @foreach ($ad_src as $count => $filename)

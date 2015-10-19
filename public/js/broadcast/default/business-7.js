@@ -67,16 +67,9 @@ app.controller('nowServingCtrl', function($scope, $http) {
     });
 
     $scope.refreshOnSettingsChange = (function(response) {
-        // check if carousel delay is existing but check if it's for image advertisements first
-        if (broadcast_type.search('1-') != '-1') {
-            if (typeof response.carousel_delay == "undefined") {
-                response.carousel_delay = "5000";
-            }
-        }
-        else {
-            carousel_delay = '';
-            response.carousel_delay = '';
-        }
+        var carousel_delay_checker = $scope.carouselDelayChecker(broadcast_type, response);
+        carousel_delay = carousel_delay_checker[0];
+        response.carousel_delay = carousel_delay_checker[1];
 
         // check if ticker messages are existing
         if (typeof response.ticker_message == "undefined" || response.ticker_message == null) response.ticker_message = '';
@@ -103,6 +96,22 @@ app.controller('nowServingCtrl', function($scope, $http) {
 
         }
     });
+
+    // check if carousel delay is existing but check if it's for image advertisements first
+    $scope.carouselDelayChecker = function(broadcast_type, response) {
+        var response_carousel_delay = "";
+        var carousel_delay = "";
+        if (broadcast_type.search('1-') != '-1') {
+            if (typeof response.carousel_delay == "undefined") {
+                response_carousel_delay = "5000";
+            }
+        }
+        else {
+            carousel_delay = '';
+            response_carousel_delay = '';
+        }
+        return [carousel_delay, response_carousel_delay];
+    }
 
     $scope.updateBroadcastPage = (function(response) {
         $scope.refreshOnSettingsChange(response);
