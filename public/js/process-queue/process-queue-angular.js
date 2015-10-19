@@ -67,8 +67,8 @@
             $scope.isProcessing = true;
             getResponseResetValues(pq.urls.process_queue.serve_number_url + transaction_number, function(){
                 pq.jquery_functions.remove_from_called(transaction_number);
-                $scope.updateBroadcast();
                 if(typeof callback === 'function') callback();
+                $scope.updateBroadcast();
             }, null, function(){
                 $scope.isProcessing = false;
             });
@@ -310,6 +310,10 @@
             $scope.serveNumber(transaction_number, function(){
                 $http.post('/issuenumber/issue-other/', data).success(function(){
                     $('#priority-number-modal').modal('hide');
+                    websocket.send(JSON.stringify({
+                        business_id : business_id,
+                        broadcast_update : true
+                    }));
                 });
             });
         }
