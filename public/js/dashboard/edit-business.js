@@ -64,6 +64,36 @@ $(document).ready(function(){
 
     $(".datepicker").datepicker();
 
+
+    /*select option chooser for how many numbers to display*/
+    /*$(function () {
+        $('.q-numbers').hide();
+        $('.n3').show();
+
+        $('#select-q-numbers').on("change",function () {
+            $('.q-numbers').hide();
+            $('.n'+$(this).val()).show();
+        }).val("3");
+    });*/
+    /*select option chooser for ads type*/
+    $(function () {
+        $('.ads-type').hide();
+
+        $('#select-ads-type').on("change",function () {
+            $('.ads-type').hide();
+            $('.a'+$(this).val()).show();
+
+            if ($(this).val() == 'numbers_only'){
+                $('#ad-num-width').css('width', '100%');
+                $('#ad-width').hide();
+            } else {
+                $('#ad-width').show();
+                $('#ad-width').css('width', '50%');
+                $('#ad-num-width').css('width', '50%');
+            }
+        }).val("carousel");
+    });
+
     //eb.jquery_functions.load_users();
     eb.jquery_functions.setBusinessId($('#business_id').val());
     eb.jquery_functions.setUserId($('#user_id').val());
@@ -241,9 +271,10 @@ var eb = {
                 unique_names : true,
 
                 filters : {
-                    max_file_size : '5mb',
+                    max_file_size : '10mb',
                     mime_types: [
-                        {title : "Image files", extensions : "jpg,jpeg,gif,png"}
+                        {title : "Image files", extensions : "jpg,jpeg,gif,png"},
+                        {title : "Video files", extensions : "flv,avi,mp4"}
                     ]
                 },
 
@@ -341,6 +372,7 @@ var eb = {
             terminal_name : ""
         };
 
+        /*
         $scope.business_reply_form = {
             message_reply : "",
             active_sender_email : "",
@@ -351,6 +383,19 @@ var eb = {
             email : 'email',
             phone : 'phone'
         }
+        */
+
+        $scope.settings = {
+            ad_type : "",
+            tv_channel : "",
+            show_issued : "",
+            carousel_delay : "",
+            ticker_message : "",
+            ticker_message2 : "",
+            ticker_message3 : "",
+            ticker_message4 : "",
+            ticker_message5 : ""
+        }
 
         $scope.business_features = {
             terminal_users: 3
@@ -359,6 +404,10 @@ var eb = {
       //open a web socket connection
       websocket = new WebSocket(websocket_url);
       websocket.onopen = function(response) { // connection is open
+        websocket.send(JSON.stringify({
+          business_id : $scope.business_id,
+          broadcast_update : false
+        }));
         $('#WebsocketLoaderModal').modal('hide');
       }
       websocket.onmessage = function(response){
@@ -582,7 +631,6 @@ var eb = {
                     eb.jquery_functions.clear_terminal_delete_msg();
                 });
             }
-
             $event.preventDefault();
         }
 
@@ -763,7 +811,62 @@ var eb = {
                 });
             }
         });
+        
+        $scope.saveBroadcastSettings = function(business_id) {
 
+          // count the number of activated tickers in order to save them
+          var counter = 0;
+          var ticker_message = "";
+          var ticker_message2 = "";
+          var ticker_message3 = "";
+          var ticker_message4 = "";
+          var ticker_message5 = "";
+          $('.ticker-field-wrap .ticker_message').each(function() {
+            counter++;
+            if (counter == 1) {
+              ticker_message = $(this).val();
+            }
+            else if (counter == 2) {
+              ticker_message2 = $(this).val();
+            }
+            else if (counter == 3) {
+              ticker_message3 = $(this).val();
+            }
+            else if (counter == 4) {
+              ticker_message4 = $(this).val();
+            }
+            else if (counter == 5) {
+              ticker_message5 = $(this).val();
+            }
+          });
+
+          $http.post('/broadcast/save-settings', {
+              business_id : business_id,
+              percentage : $('#percentage').attr('percentage'),
+              adspace_size : $('#ad-width').css('width'),
+              numspace_size : $('#ad-num-width').css('width'),
+              num_boxes : $('.q-nums-wrap > div').length,
+              ad_type : $scope.settings.ad_type,
+              tv_channel : $scope.settings.tv_channel,
+              carousel_delay : $scope.settings.carousel_delay,
+              show_issued : $scope.settings.show_issued,
+              ticker_message : ticker_message,
+              ticker_message2 : ticker_message2,
+              ticker_message3 : ticker_message3,
+              ticker_message4 : ticker_message4,
+              ticker_message5 : ticker_message5
+          }).success(function(response) {
+            $http.get('/processqueue/update-broadcast/' + business_id).success(function(response) {
+              websocket.send(JSON.stringify({
+                business_id : business_id,
+                broadcast_update : true
+              }));
+              alert('saved');
+            });
+          });
+        };
+
+        /*
         $scope.activateTheme = (function(theme_type, business_id, show_called_only) {
             $http.post(eb.urls.broadcast.broadcast_set_theme_url, {
                 'business_id' : business_id,
@@ -781,50 +884,121 @@ var eb = {
                 }));
             });
         });
+        */
 
-        $scope.currentActiveBroadcastDetails = (function(business_id) {
+        $scope.currentActiveBroadcastDetails = function(business_id) {
             if (business_id > 0){
                 $http.get(eb.urls.broadcast.broadcast_json_url + business_id + '.json?nocache='+Math.floor((Math.random() * 10000) + 1)).success(function(response) {
-                    $('.activated').hide();
-                    $('.theme-btn').show();
-                    $('.'+response.display+'.theme-btn').hide();
-                    $('.'+response.display+'.activated').show();
-
-                    // default ad video / image
-                    if (!response.ad_image) {
-                        response.ad_image = '/images/ads.jpg'
-                    }
-                    $('#ad-preview').attr('src', response.ad_image);
-                    $('#advideo-preview').attr('src', response.ad_video);
-
-                    // ad type
-                    if (response.ad_type == 'video') {
-                        $('input:radio[name=ad_type]').filter('[value=video]').prop('checked', true);
-                        $('#image-adtype').hide();
-                        $('#video-adtype').show();
-                    }
-                    else {
-                        $('input:radio[name=ad_type]').filter('[value=image]').prop('checked', true);
-                        $('#video-adtype').hide();
-                        $('#image-adtype').show();
-                    }
-
-                    //ARA Added for toggling to show only called numbers in broadcast page
+                    $scope.settings.ad_type = response.ad_type;
+                    $scope.settings.show_issued = response.show_issued;
                     $scope.theme_type = response.display;
-                    $scope.show_called_only = response.show_issued != undefined ? !response.show_issued : false;
+                    $scope.settings.tv_channel = response.tv_channel;
+                    $scope.settings.carousel_delay = response.carousel_delay / 1000; // convert to seconds for display
 
-                    // default internet TV channel
-                    $scope.tv_channel = response.tv_channel;
+                    // default ad screen size
+                    if (!response.adspace_size) {
+                      response.adspace_size = '50%';
+                      response.numspace_size = '50%';
+                    }
+                    $('#ad-width').css('width', response.adspace_size);
+                    $('#ad-num-width').css('width', response.numspace_size);
+                    $('#ad-width-preview').css('width', 400);
 
-                    // current active ticker message
-                    $scope.ticker_message = response.ticker_message;
-                    $scope.ticker_message2 = response.ticker_message2;
-                    $scope.ticker_message3 = response.ticker_message3;
-                    $scope.ticker_message4 = response.ticker_message4;
-                    $scope.ticker_message5 = response.ticker_message5;
+                    $("#ad-width").resizable({
+                        handles: 'e'
+                    }).bind( "resize", function(e) {
+                        var total_width = parseInt($('#ad-well-inner').css('width'));
+                        var percent_num = Math.floor(parseInt(total_width) * 0.25);
+                        var percent_ad = Math.floor(parseInt(total_width) * 0.50);
 
-                    // current carousel delay
-                    $scope.carousel_delay = response.carousel_delay/1000;
+                        var adwidth = parseInt($("#ad-width").css('width'));
+                        var numwidth = total_width - adwidth;
+
+                        if (numwidth >= percent_num && adwidth >= percent_ad){
+                            $('#ad-width').css('width', adwidth);
+                            $('#ad-num-width').css('width', numwidth);
+                        } else if (numwidth <= percent_num) {
+                            $('#ad-width').css('width', total_width - percent_num);
+                            $('#ad-num-width').css('width', percent_num);
+                        } else if (adwidth <= percent_ad) {
+                            $('#ad-width').css('width', percent_ad);
+                            $('#ad-num-width').css('width', total_width - percent_ad);
+                        }
+                    });
+
+                    // default ad type
+                    if (response.ad_type == 'image' || response.ad_type == 'video') {
+                        response.ad_type = 'carousel';
+                    }
+                    else if (response.ad_type == 'numbers_only') {
+                      $('#ad-num-width').css('width', '100%');
+                      $('#ad-width').hide();
+                    }
+                    $('.a'+response.ad_type).show();
+
+                    // default number of boxes and function to increase or decrease
+                    for (var qx = 0; qx < response.display.split("-")[1]; qx++) {
+                      $($(".q-nums-wrap")).append('<div class="qbox"><div class="pull-left half">'+(qx+1)+'</div></div>');
+                    };
+                    $(".q-add").click(function(e){
+                      e.preventDefault();
+                      if(qx < 10){
+                        qx++;
+                        $($(".q-nums-wrap")).append('<div class="qbox"><div class="pull-left half">'+qx+'</div></div>');
+                      }
+                    });
+                    $('.q-minus').on("click", function(e){ //user click on remove text
+                      qx--;
+                      if(qx < 1){
+                        qx = 1;
+                        $('.q-nums-wrap .qbox:last-child .half').html(qx);
+                      }
+                      else {
+                        e.preventDefault(); $('.q-nums-wrap .qbox:last-child').remove();
+                      }
+                    });
+
+                    // default ticker messages value
+                    var ticker_size = 1;
+                    var ticker_value = response.ticker_message;
+                    if ($.trim(response.ticker_message5) != "") {
+                      ticker_size = 5;
+                    }
+                    else if ($.trim(response.ticker_message4) != "") {
+                      ticker_size = 4;
+                    }
+                    else if ($.trim(response.ticker_message3) != "") {
+                      ticker_size = 3;
+                    }
+                    else if ($.trim(response.ticker_message2) != "") {
+                      ticker_size = 2;
+                    }
+                    for (var counter = 1; counter <= ticker_size; counter++) {
+                      if (counter == 2) {
+                        ticker_value = response.ticker_message2;
+                      }
+                      else if (counter == 3) {
+                        ticker_value = response.ticker_message3;
+                      }
+                      else if (counter == 4) {
+                        ticker_value = response.ticker_message4;
+                      }
+                      else if (counter == 5) {
+                        ticker_value = response.ticker_message5;
+                      }
+                      $(".ticker-field-wrap").append('<div class="rel"><input class="form-control ticker_message" placeholder="Your Ticker Message Here" type="text" value="'+ticker_value+'"/><a href="#" class="btn btn-md btn-primary abs remove_field"> Remove</a></div>');
+                    }
+                    $(".add-ticker").click(function(e){
+                      e.preventDefault();
+                      if(ticker_size < 5){
+                        ticker_size++;
+                        $(".ticker-field-wrap").append('<div class="rel"><input class="form-control ticker_message" placeholder="Your Ticker Message Here" type="text"/><a href="#" class="btn btn-md btn-primary abs remove_field"> Remove</a></div>');
+                      }
+                    });
+                    $(".ticker-field-wrap").on("click",".remove_field", function(e){ //user click on remove text
+                      e.preventDefault(); $(this).parent('div').remove(); ticker_size--;
+                    });
+
                 });
                 $http.post(eb.urls.advertisement.get_slider_image, {
                     'business_id' : business_id
@@ -838,7 +1012,7 @@ var eb = {
                     }
                 });
             }
-        });
+        };
 
         $scope.deleteImageSlide = function(business_id, count, img_path) {
             if (confirm('Are you sure you want to delete this image?')) {

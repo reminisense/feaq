@@ -35,35 +35,39 @@
 <!-- NAVBAR ================================================== -->
   <body cz-shortcut-listen="true" id="broadcast" ng-app="BusinessBroadcast" ng-cloak>
   <div id="business-id" business_id="{{ $business_id }}"></div>
-    @if ($template_type == 'ads-4-2' || $template_type == 'ads-6-2')
-  	<div class="qrcode qrwrap">
+    {{-- @if ($broadcast_type == 'ads-4-2' || $template_type == 'ads-6-2') --}}
+    <div class="qrcode qrwrap">
         <p class="nomg"><h4 class="orange">Monitor via your PHONE.</h4> Just scan this QR Code</p>
         <div class="text-center">
           <img class="qrcode" src='https://api.qrserver.com/v1/create-qr-code/?data={{ URL::to('/broadcast/business/' . $business_id) }}&size=120x120' />
         </div>
-	</div>
-	@endif
-    <div class="row-fluid" ng-controller="nowServingCtrl">
-      <div class="container-fluid" id="nowServingCtrl">
-        <div id="broadcast-type" broadcast_type="{{ $broadcast_type }}"></div>
-        <div id="ad-type" ad_type="{{ $ad_type }}"></div>
-        <audio id="call-number-sound" src="/audio/doorbell_x.wav" controls preload="auto" autobuffer style="display: none;"></audio>
+    </div>
+  {{--@endif --}}
+  <div class="row-fluid" ng-controller="nowServingCtrl">
+    <div class="container-fluid" id="nowServingCtrl">
+      <div id="broadcast-type" broadcast_type="{{ $broadcast_type }}"></div>
+      <div id="ad-type" ad_type="{{ $ad_type }}"></div>
+      <audio id="call-number-sound" src="/audio/doorbell_x.wav" controls preload="auto" autobuffer style="display: none;"></audio>
 
-        @if ($template_type == 'ads-1')
-            @include('broadcast.default.business-ads-1')
+        {{--
+      @if ($template_type == 'ads-1')
+          @include('broadcast.default.business-ads-1')
 
-        @elseif ($template_type == 'ads-4')
-            @include('broadcast.default.business-ads-4')
+      @elseif ($template_type == 'ads-4')
+          @include('broadcast.default.business-ads-4')
 
-        @elseif ($template_type == 'ads-6')
-            @include('broadcast.default.business-ads-6')
+      @elseif ($template_type == 'ads-6')
+          @include('broadcast.default.business-ads-6')
 
-        @elseif ($template_type == 'ads-4-2')
-            @include('broadcast.default.business-ads-4-2')
+      @elseif ($template_type == 'ads-4-2')
+          @include('broadcast.default.business-ads-4-2')
 
-        @elseif ($template_type == 'ads-6-2')
-            @include('broadcast.default.business-ads-6-2')
-        @endif
+      @elseif ($template_type == 'ads-6-2')
+          @include('broadcast.default.business-ads-6-2')
+      @endif
+      --}}
+
+        @include('broadcast.default.business-' . $broadcast_type)
 
         <div class="ticker">
             @foreach($ticker_message as $message)

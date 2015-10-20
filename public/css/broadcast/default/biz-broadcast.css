@@ -1,0 +1,184 @@
+html,body { height: 100%; }
+body { background-color: #000; position: relative;  font-family: 'Lato', sans-serif; overflow: hidden; }
+.wrap-broadcast {  width: 100%; height: 100%; }
+
+.thirty   { width:30%; }
+.forty    { width:40%; }
+.fifty    { width:50%; }
+.sixty    { width:60%; }
+.seventy  { width:70%; }
+.ads-area.seventy, .sixty, .fifty-a {left: 0;}
+.numbers-area.thirty, .forty ,.fifty-b {right: 0;}
+
+/*--- 30% broadcast width---  */
+.boxed.ten .row-5,
+.boxed.nine .row-5 > .col-2,
+.boxed.nine .row-5 > .col-1,
+.boxed.eight .row-4 > .col-2,
+.boxed.seven .row-4 > .col-2,
+.boxed.seven .row-4 > .col-1,
+.boxed.six .row-3,
+.boxed.three .row-3,
+.boxed.five .row-5,
+.boxed.five .row-3,
+.boxed.four .row-4 { height:100vh; top:6vh; position:relative; }
+.boxed.one .row-1 > .col-1    { height:100%; height:100vh; width:100%; text-align:center; display:table; }
+.boxed.two .row-2 > .col-1    { height:50%;  height:50vh;  width:100%; text-align:center; display:table; }
+.boxed.three .row-2 > .col-1,
+.boxed.three .row-3 > .col-1,
+.boxed.five .row-3 > .col-1  { height:32%;  height:32vh;  width:100%; text-align:center; display:table; }
+.boxed.five .row-3 > .col-2,
+.boxed.six .row-3 > .col-2     { height:32%;  height:32vh;  width:50%; text-align:center; display:table; overflow:hidden; }
+.boxed.four .row-4 > .col-1   { height:23.6%;height:23.6vh; width:100%; text-align:center; display: table; }
+.boxed.five .row-5 > .col-1   { height:19%;  height:19vh; width:100%; text-align:center; display:table; }
+.boxed.seven .row-4 > .col-2  { height:23.6%;height:23.6vh; width:50%; text-align:center; display: table; }
+.boxed.seven .row-4 > .col-1  { height:23.6%;height:23.6vh; width:100%; text-align:center; display: table; }
+.boxed.eight .row-4 > .col-2  { height:23.6%;height:23.6vh; width:50%; text-align:center; display: table; }
+.boxed.ten .row-5 > .col-2    { height:19%;  height:19vh; width:50%; text-align:center; display:table; }
+.boxed.nine .row-5 > .col-1   { height:19%;  height:19vh; width:100%; text-align:center; display:table; }
+.boxed.nine .row-5 > .col-2   { height:19%;  height:19vh; width:50%; text-align:center; display:table; }
+.fifty .boxed.four .row-2 > .col-2    { height:50%;  height:50vh;  width:50%; text-align:center; display:table; }
+
+.boxed.three .callnum  {font-size: 6vw;}
+.boxed.four .callnum   {font-size: 6.5vw;}
+.boxed.four .terminal  {font-size: 1.6vw;}
+.boxed.five .callnum   {font-size: 4vw;}
+.boxed.five .terminal  {font-size: 1.4vw;}
+.boxed.six .callnum    {font-size: 4vw;}
+.boxed.six .terminal   {font-size: 2vw;}
+.boxed.seven .callnum  {font-size: 4vw;}
+.boxed.seven .terminal {font-size: 1.5vw;}
+.boxed.eight .callnum  {font-size: 4vw;}
+.boxed.eight .terminal {font-size: 1.5vw;}
+.boxed.nine .callnum   {font-size: 4vw;}
+.boxed.nine .terminal  {font-size: 1.5vw;}
+.boxed.ten .callnum    {font-size: 4vw;}
+.boxed.ten .terminal   {font-size: 1.2vw;}
+.fifty .boxed.four .callnum    {font-size: 7vw;}
+.fifty .boxed.four .terminal   {font-size: 2vw;}
+.fifty .boxed.five .callnum    {font-size: 6vw;}
+.fifty .boxed.five .terminal   {font-size: 1.8vw;}
+.fifty .boxed.six .callnum    {font-size: 6vw;}
+.fifty .boxed.seven .callnum    {font-size: 5vw;}
+.fifty .boxed.eight .callnum    {font-size: 5vw;}
+.fifty .boxed.eight .terminal   {font-size: 1.8vw;}
+.fifty .boxed.ten .terminal   {font-size: 1.6vw;}
+.fifty .boxed.ten .callnum    {font-size: 5vw;}
+
+.fifty .row-2 .col-2 .numbers,
+.row-5 > .col-2 .numbers,
+.row-4 > .col-2 .numbers,
+.row-3 > .col-2 .numbers,
+.row-5 > .col-1 .numbers,
+.row-4 > .col-1 .numbers,
+.row-3 > .col-1 .numbers,
+.row-2 > .col-1 .numbers,
+.row-1 > .col-1 .numbers { display: table-cell; vertical-align: middle;}
+.col-2 { float: left; }
+
+.numbers .callnum { font-size: 10vw; font-weight: 900;}
+.boxed.two .numbers .callnum { line-height: 200px; }
+.thirty .numbers .terminal { width:400px; margin:auto; text-align:center; }
+.thirty .boxed.ten .numbers .terminal,
+.thirty .boxed.six .numbers .terminal,
+.thirty .boxed.seven .numbers .terminal,
+.thirty .boxed.eight .numbers .terminal,
+.thirty .boxed.nine .numbers .terminal { width:200px; }
+.thirty .boxed.six .numbers .callnum,
+.thirty .boxed.seven .numbers .callnum,
+.thirty .boxed.nine .numbers .callnum,
+.thirty .boxed.ten .numbers .callnum  { width:90%; }
+.forty .numbers .terminal { width:280px; margin:auto; text-align:center; }
+.fifty .numbers .terminal { width:330px; margin:auto; text-align:center; }
+
+
+/*h3 {display: none;}*/
+h1,h2,h3,h4 {margin: 0;}
+.t1 {background-color: #44a9aa;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
+.t2 {background-color: #657fb3;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
+.t3 {background-color: #746ca8;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
+.numbers-area .boxed { background-color: white; height: 100vh; max-height: 100%; position: relative; z-index: 4;}
+.numbers-area .boxed h3 {text-align:center; margin:auto; width:100%; height: 6vh; padding-top:1.5vh; background-color:white; z-index: 2; font-weight: 900; vertical-align: middle; display: table;}
+.numbers p {margin: 0; padding: 0;}
+.numbers .terminal {font-size: 2.5vw; font-weight: 700;}
+.rel {position: relative;}
+.abs {position: absolute;}
+.callnum {margin:auto!important; text-align:center;}
+.terminal,.callnum {white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+.top {background-color: #262a31;text-align: center;margin: auto;padding: 12px 0;}
+.ticker-message {background-color: #fff;color: #000;padding: 10px 0;position: absolute;bottom: 0;width: 100%;z-index: 1; max-height: 62px; overflow: hidden; white-space: nowrap;}
+.ticker-message p {font-size: 30px;font-weight: 900;margin-bottom: 0;}
+.qrcode.qrwrap {width: 200px;position: absolute;bottom: 62px;left: 0;z-index: 20;text-align: center;min-height: inherit!important;padding: 15px!important;background: rgba(255,255,255,0.85)!important;}
+.qrcode.qrwrap .orange {font-size: 20px!important;}
+.qrcode.qrwrap h4 {margin: 0;color: #ff8649;font-weight: 900;}
+.qrcode.qrwrap img {width: 100%;margin-top: 5px;}
+.vid-container {position: relative;width: 100%;height: 0;padding-bottom: 56.23%;}
+.vid-container iframe,.vid-container object,.vid-container embed {position: absolute;top: 0;left: 0;width: 100%;height: 100%;}
+.boxed.four .numbers .callnum {line-height: 120px;}
+.fifty .boxed.four .numbers .terminal { padding-bottom:50px; }
+.fifty .boxed.ten .numbers .callnum { line-height: 95px; }
+
+@media only screen and (max-width : 1400px) {
+    .boxed.two .numbers .callnum { line-height:140px; }
+    .boxed.four .numbers .callnum { line-height:95px; }
+    .thirty .numbers .terminal { width:330px; }
+    .boxed.six .numbers .terminal,
+    .boxed.seven .numbers .terminal,
+    .boxed.eight .numbers .terminal,
+    .boxed.nine .numbers .terminal,
+    .boxed.ten .numbers .terminal { width:150px!important; }
+    .fifty .numbers .terminal { width:290px!important; }
+    .fifty .boxed.six .numbers .terminal { width:220px!important; }
+}
+
+@media only screen and (max-width : 1200px) {
+    .boxed.two .numbers .callnum {line-height: 120px;}
+    .thirty .numbers .terminal { width: 280px;}
+    .boxed.four .numbers .callnum {line-height: 95px;}
+    .fifty .numbers .terminal { padding-bottom:20px; }
+    .fifty .boxed.ten .numbers .terminal { padding-bottom:0px; }
+    .fifty .numbers .terminal { width:230px!important; }
+    .numbers-area .boxed h3 { height:7vh; }
+    .fifty .boxed.ten .numbers .callnum { line-height: inherit!important; }
+}
+
+@media only screen and (max-width : 992px) {
+    .thirty .numbers .terminal { width: 220px;}
+    .boxed.four .numbers .callnum {line-height: 90px;}
+    .numbers-area .boxed h3 {padding-top:1vh;}
+    .boxed.six .numbers .terminal,
+    .boxed.seven .numbers .terminal,
+    .boxed.eight .numbers .terminal,
+    .boxed.nine .numbers .terminal,
+    .boxed.ten .numbers .terminal { width:110px!important; }
+    .fifty .numbers .terminal { padding-bottom:inherit; }
+    .fifty .numbers .terminal { width:170px!important; }
+    .fifty .boxed.six .numbers .terminal { width:120px!important; }
+    .fifty .boxed.ten .numbers .callnum { line-height: inherit!important; }
+}
+
+@media only screen and (max-width : 768px) {
+    .boxed.two .numbers .callnum {line-height: 100px;}
+    .thirty .numbers .terminal { width: 140px;}
+    .numbers-area .boxed h3 {font-size: 16px;}
+    .numbers-area .boxed h3 {padding-top:1.4vh;}
+    .boxed.six .numbers .terminal,
+    .boxed.seven .numbers .terminal,
+    .boxed.eight .numbers .terminal,
+    .boxed.nine .numbers .terminal,
+    .boxed.ten .numbers .terminal { width:50px!important; }
+    .fifty .numbers .terminal { width:110px!important; }
+    .fifty .boxed.six .numbers .terminal { width:100px!important; }
+    .fifty .boxed.ten .numbers .callnum { line-height: inherit!important; }
+}
+
+@media only screen and (max-width : 480px) {
+    .numbers-area .boxed h3 {font-size: 16px;}
+    .thirty .numbers .terminal { width: 120px;}
+    .numbers-area .boxed h3 {padding-top:1.4vh;}
+    .fifty .numbers .terminal { width:80px!important; }
+}
+
+@media only screen and (max-width : 320px) {
+
+}

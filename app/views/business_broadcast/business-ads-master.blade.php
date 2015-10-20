@@ -1,4 +1,8 @@
-<div class="col-md-6">
+<div class="ads-area fifty fifty-a abs">
+  <div class="top">
+    <a class="" href="#"><img src="/images/featherq-home-logo.png"></a>
+  </div>
+  <div class="vid-container">
     @if (strstr($broadcast_type, "2"))
         {{ $ad_src }}
     @elseif ($ad_type == 'image')
@@ -32,9 +36,10 @@
     @elseif ($ad_type == 'video')
         <iframe src="{{ $ad_src }}" id="video-ad" width="100%"></iframe>
     @endif
+  </div>
 </div>
 
-<script>
+<script type="text/javascript">
     $('iframe').css({'height' : $(window).height()});
     $('embed').css({'height' : $(window).height()});
 </script>

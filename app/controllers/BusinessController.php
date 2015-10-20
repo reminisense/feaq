@@ -148,7 +148,8 @@ class BusinessController extends BaseController{
                   "show_issued": true,
                   "ad_image": "",
                   "ad_video": "\/\/www.youtube.com\/embed\/EMnDdH8fdEc",
-                  "ad_type": "image",
+                  "ad_type": "carousel",
+                  "carousel_delay": "5000",
                   "turn_on_tv": false,
                   "tv_channel": "",
                   "date": "' . date("mdy") . '",
@@ -156,7 +157,9 @@ class BusinessController extends BaseController{
                   "ticker_message2" : "",
                   "ticker_message3" : "",
                   "ticker_message4" : "",
-                  "ticker_message5" : ""
+                  "ticker_message5" : "",
+                  "adspace_size" : "",
+                  "num_boxes" : "6"
                 }
             ';
 

@@ -96,8 +96,8 @@ used as it is.
 					'<div class="plupload">' +
 						'<div class="plupload_header">' +
 							'<div class="plupload_header_content">' +
-								'<div class="plupload_header_title">' + _('Upload Images for Your Advertisement Carousel') + '</div>' +
-								'<div class="plupload_header_text">' + _('Max Filesize: <strong>5MB</strong> <br> Type: <strong>PNG, GIF, JPG, JPEG.</strong> <br>Recommended Dimension: <strong>956x960 px</strong><br><i>*The system will automatically re-size the images for optimal viewing.</i><br><br>') + '</div>' +
+								'<div class="plupload_header_title">' + _('Upload Images and Video Clips for Your Advertisement Carousel') + '</div>' +
+								'<div class="plupload_header_text">' + _('Max Filesize: <strong>10MB</strong> <br> Type: <strong>FLV, AVI, MP4, PNG, GIF, JPG, JPEG.</strong> <br>Recommended Dimension: <strong>956x960 px</strong><br><i>*The system will automatically re-size the images for optimal viewing.</i><br><br>') + '</div>' +
 							'</div>' +
 						'</div>' +
 
