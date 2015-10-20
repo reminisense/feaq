@@ -783,7 +783,13 @@ button#sendreply {
     background-color: #222;
     outline: none;
 }
-.ticker-wrap input {border: 1px solid #337ab7!important; color: #333;background-color: #fff!important;}
+.ticker-wrap input {
+    border: 1px solid #337ab7!important;
+    color: #333;
+    background-color: #fff!important;
+    border-radius: 0px 5px 5px 0px;
+    -webkit-border-radius: 0px 5px 5px 0px!important;
+}
 .q-numbers .half {
     width: 47%;
     margin-bottom: 6px;
@@ -794,6 +800,6 @@ button#sendreply {
 #ad-well-inner .drag {right: -3px;top:15%;}
 #ad-well-inner .drag div {font-size:12px; padding: 5px 10px; color: #fff; font-family: 'ralewayregular'; background-color: #337ab7;}
 .remove_field {
-    right: 0; top: 0;
+    right: 0; top: 0; height: 100%; padding-top: 10px;
 }
 .q-minus,.q-add {padding-left: 10px!important;padding-right: 10px!important;}
