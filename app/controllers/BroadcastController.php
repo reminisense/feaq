@@ -507,6 +507,9 @@ class BroadcastController extends BaseController{
       if (!isset($data->ticker_message5)) {
         $data->ticker_message5 = "";
       }
+      if (!isset($data->adspace_size)) {
+        $data->adspace_size = "";
+      }
       //$data->display = "1-6";
       $encode = json_encode($data);
       file_put_contents(public_path() . '/json/' . $business_id . '.json', $encode);
