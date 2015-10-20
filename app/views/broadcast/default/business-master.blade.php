@@ -42,7 +42,9 @@
 </div>
 <div class="ticker-message">
     @foreach($ticker_message as $message)
-        <div class="marquee-text hidden">{{ $message }}</div>
+        @if($message != "")
+            <div class="marquee-text hidden">{{ $message }}</div>
+        @endif
     @endforeach
     <p class="nomg real-marquee-text"></p>
 </div>
@@ -57,6 +59,7 @@
 <script type="text/javascript" src="/js/websocket-variables.js"></script>
 <script type="text/javascript" src="/js/broadcast/lib.js"></script>
 <script type="text/javascript" src="/js/broadcast/socket.js"></script>
+<script type="text/javascript" src="/js/broadcast/custom.js"></script>
 <script type="text/javascript" src="/js/broadcast/default/business-{{ $box_num }}.js"></script>
 </body>
 
