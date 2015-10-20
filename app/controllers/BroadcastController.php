@@ -11,8 +11,6 @@
 
 class BroadcastController extends BaseController{
 
-  private $tv_cons = 2;
-
     public function getBusiness($business_id = 0)
     {
         $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
@@ -23,7 +21,7 @@ class BroadcastController extends BaseController{
         $first_service = Service::getFirstServiceOfBusiness($business_id);
         $allow_remote = QueueSettings::allowRemote($first_service->service_id);
         $ticker_message = $this->tickerPusher($data->ticker_message, $data->ticker_message2, $data->ticker_message3, $data->ticker_message4, $data->ticker_message5);
-        $broadcast_template = $this->broadcastTemplate($data->display, $business_id);
+        $templates = $this->broadcastTemplate($data->display, $business_id);
         $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
         $regions = $this->broadcastRegionsClassName($data->adspace_size, $data->numspace_size);
         $ad_class = $regions['ad_class'];
@@ -31,7 +29,7 @@ class BroadcastController extends BaseController{
         $numboxes = $this->numBoxesClassName($data->display, $regions['percentage']);
         $row_class = $numboxes['row_class'];
         $box_class = $numboxes['box_class'];
-        return View::make($broadcast_template)
+        return View::make($templates['broadcast_template'])
           //->with('custom_fields', $custom_fields)
           //->with('template_type', $data->d)
             ->with('adspace_size', $data->adspace_size)
@@ -39,7 +37,7 @@ class BroadcastController extends BaseController{
             ->with('ad_type', $data->ad_type)
             ->with('ad_src', $ad_src)
             ->with('box_num', explode("-", $data->display)[1]) // the second index tells how many numbers to show in the broadcast screen
-            ->with('broadcast_type', $data->display)
+            ->with('broadcast_type', $templates['broadcast_type'])
             ->with('open_time', $open_time)
             ->with('close_time', $close_time)
             ->with('local_address', Business::localAddress($business_id))
@@ -115,7 +113,16 @@ class BroadcastController extends BaseController{
         }
       }
       else {
-        $ad_src = $tv_channel;
+        if (Helper::isBusinessOwner($business_id, Helper::userId())) {
+          $ad_src = $tv_channel;
+        }
+        else { // non business users are just shown ad images instead of tv for bandwidth purposes
+          $ad_src = array();
+          $res = AdImages::getAllImagesByBusinessId($business_id);
+          foreach ($res as $count => $img) {
+            $ad_src[] = $img->path;
+          }
+        }
       }
       return $ad_src;
     }
@@ -131,6 +138,19 @@ class BroadcastController extends BaseController{
       return $arr;
     }
 
+  // This function will replace the TV template to a regular ad if the broadcast screen is not business type.
+  private function replaceTVtoAdsTemplate($arr, $business_id) {
+    if ($arr[0] == '2') {
+      if (Helper::isBusinessOwner($business_id, Helper::userId())) {
+        return '2-' . $arr[1];
+      }
+      return '1-' . $arr[1];
+    }
+    else {
+      return $arr[0] . '-' . $arr[1];
+    }
+  }
+
     // This function determines the master template of the broadcast screen depending on the type of advertisement.
     private function broadcastTemplate($display, $business_id) {
       $arr = explode("-", $display);
@@ -140,7 +160,8 @@ class BroadcastController extends BaseController{
       else { // anonymous and non business users should view only the public broadcast screen
         $broadcast_template = 'broadcast.default.public-master';
       }
-      return $broadcast_template;
+      $broadcast_type = $this->replaceTVtoAdsTemplate($arr, $business_id);
+      return array('broadcast_template' => $broadcast_template, 'broadcast_type' => $broadcast_type);
     }
 
     public function getNumbers($branch_id = 0) {

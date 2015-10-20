@@ -42,6 +42,9 @@ var totalTickerMessages = function(response) {
 // check if the current attributes in the template are the same with the response. reload if not.
 var reloadPage = function(broadcast_type, ad_type, carousel_delay, live_ticker, response) {
   var total_ticker = totalTickerMessages(response);
+  if (response.display.search('2-') != '-1' && broadcast_type.search('1-') != '-1') {
+    broadcast_type = response.display;
+  }
   if (broadcast_type != response.display || ad_type != response.ad_type  || carousel_delay != response.carousel_delay
     || adspace_size != response.adspace_size || live_ticker != total_ticker) {
     window.location.reload(true);

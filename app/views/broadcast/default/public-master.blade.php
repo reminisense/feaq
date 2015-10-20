@@ -83,6 +83,7 @@
     <div class="row mt20" id="nowServingCtrl" ng-controller="nowServingCtrl">
         <div id="broadcast-type" broadcast_type="{{ $broadcast_type }}"></div>
         <div id="ad-type" ad_type="{{ $ad_type }}"></div>
+        <div id="adspace-size" adspace_size="{{ $adspace_size }}"></div>
         <audio id="call-number-sound" src="/audio/doorbell_x.wav" controls preload="auto" autobuffer style="display: none;"></audio>
 
         @include('broadcast.default.public-' . $broadcast_type)
