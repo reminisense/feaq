@@ -193,7 +193,6 @@ class BroadcastController extends BaseController{
     if ($data->ad_type == 'internet_tv') {
       $data->tv_channel = Input::get('tv_channel');
     }
-    $data->percentage = Input::get('percentage');
     $data->display = $this->generateDisplayCode($data->ad_type, Input::get('num_boxes'));
     $data->show_issued = Input::get('show_issued');
     $data->ticker_message = Input::get('ticker_message');
@@ -509,6 +508,9 @@ class BroadcastController extends BaseController{
       }
       if (!isset($data->adspace_size)) {
         $data->adspace_size = "";
+      }
+      if (!isset($data->numspace_size)) {
+        $data->numspace_size = "";
       }
       //$data->display = "1-6";
       $encode = json_encode($data);

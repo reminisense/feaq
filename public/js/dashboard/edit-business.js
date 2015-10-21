@@ -842,7 +842,6 @@ var eb = {
 
           $http.post('/broadcast/save-settings', {
               business_id : business_id,
-              percentage : $('#percentage').attr('percentage'),
               adspace_size : $('#ad-width').css('width'),
               numspace_size : $('#ad-num-width').css('width'),
               num_boxes : $('.q-nums-wrap > div').length,
