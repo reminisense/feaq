@@ -992,6 +992,7 @@ var eb = {
                       $(".ticker-field-wrap").append('<div class="rel"><input class="form-control ticker_message" placeholder="Your Ticker Message Here" type="text" value="'+ticker_value+'"/><a href="#" class="btn btn-md btn-primary abs remove_field"> Remove</a></div>');
                     }
                     $(".add-ticker").click(function(e){
+                      e.preventDefault();
                       if(ticker_size < 5){
                         ticker_size++;
                         $(".ticker-field-wrap").append('<div class="rel"><input class="form-control ticker_message" placeholder="Your Ticker Message Here" type="text"/><a href="#" class="btn btn-md btn-primary abs remove_field"> Remove</a></div>');
