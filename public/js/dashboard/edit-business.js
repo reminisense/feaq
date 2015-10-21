@@ -811,7 +811,7 @@ var eb = {
                 });
             }
         });
-        
+
         $scope.saveBroadcastSettings = function(business_id) {
 
           // count the number of activated tickers in order to save them
@@ -857,11 +857,15 @@ var eb = {
               ticker_message5 : ticker_message5
           }).success(function(response) {
             $http.get('/processqueue/update-broadcast/' + business_id).success(function(response) {
-              websocket.send(JSON.stringify({
-                business_id : business_id,
-                broadcast_update : true
-              }));
-              alert('saved');
+                websocket.send(JSON.stringify({
+                    business_id : business_id,
+                    broadcast_update : true
+                }));
+                $('#edit_message').removeClass('alert-danger');
+                $('#edit_message').addClass('alert-success');
+                $('#edit_message p').html('Your broadcast page layouts have been saved.');
+                $('#edit_message').fadeIn();
+                setTimeout(function(){ $('#edit_message').fadeOut(); }, 3000);
             });
           });
         };
