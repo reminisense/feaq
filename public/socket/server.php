@@ -46,6 +46,7 @@ while (true) {
         $response_text = mask(json_encode(array(
             'business_id' => $msg->business_id, // determines the business making the process
             'broadcast_update'=> $msg->broadcast_update, // determines if the broadcast page needs to be updated
+            'broadcast_reload' => $msg->broadcast_reload, // determines if the broadcast page needs to be reloaded
         )));
         send_message($msg->business_id, $response_text);
       }

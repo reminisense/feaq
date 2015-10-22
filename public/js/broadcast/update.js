@@ -18,7 +18,8 @@ app.controller('nowServingCtrl', function($scope, $http, $compile) {
       $http.get('/json/' + business_id + '.json?nocache=' + Math.floor((Math.random() * 10000) + 1)).success($scope.updateBroadcastPage);
       websocket.send(JSON.stringify({
         business_id : business_id,
-        broadcast_update : false
+        broadcast_update : false,
+        broadcast_reload: false
       }));
     }
     websocket.onmessage = function(response) { // what happens when data is received
