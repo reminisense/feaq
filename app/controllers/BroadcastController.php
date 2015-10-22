@@ -483,7 +483,7 @@ class BroadcastController extends BaseController{
         $data->ad_video = "";
       }
       if (!isset($data->ad_type) || $data->ad_type == "") {
-        $data->ad_type = "image";
+        $data->ad_type = "carousel";
       }
       if (!isset($data->turn_on_tv)) {
         $data->turn_on_tv = FALSE;
@@ -507,11 +507,15 @@ class BroadcastController extends BaseController{
         $data->ticker_message5 = "";
       }
       if (!isset($data->adspace_size)) {
-        $data->adspace_size = "";
+        $data->adspace_size = "517px";
       }
       if (!isset($data->numspace_size)) {
-        $data->numspace_size = "";
+        $data->numspace_size = "517px";
       }
+      $data->adspace_size = "517px";
+      $data->numspace_size = "517px";
+      $data->ad_type = "carousel";
+
       //$data->display = "1-6";
       $encode = json_encode($data);
       file_put_contents(public_path() . '/json/' . $business_id . '.json', $encode);

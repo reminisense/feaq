@@ -158,8 +158,8 @@ class BusinessController extends BaseController{
                   "ticker_message3" : "",
                   "ticker_message4" : "",
                   "ticker_message5" : "",
-                  "adspace_size" : "",
-                  "numspace_size": "",
+                  "adspace_size" : "517px",
+                  "numspace_size": "517px",
                   "num_boxes" : "6"
                 }
             ';
