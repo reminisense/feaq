@@ -56,7 +56,12 @@
                                 </div>
                             </div>
                             <div class="alert alert-warning" role="alert" ng-show="priority_number.length > 3">
-                                <div><strong class="message">Please make sure that the length of your number will fit the boxes of your broadcast screen. <br>Very long numbers might cause the broadcast screen to display incorrectly.</strong></div>
+                                <div>
+                                    <strong class="message">Please make sure that the length of your number will fit the boxes of your broadcast screen.
+                                        <br/>The ideal number of characters that will fit the broadcast screen is 4 characters.
+                                        <br/>Very long numbers might cause the broadcast screen to display incorrectly.
+                                    </strong>
+                                </div>
                             </div>
                             <div class="alert alert-danger col-md-12" role="alert" ng-show="issue_specific_error.length > 0">
                                 <div><strong class="message">@{{ issue_specific_error }}</strong></div>
