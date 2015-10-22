@@ -40,17 +40,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div style="margin-top: 40px; width: 450px;">
-                            <div class="col-md-6 col-xs-6">
-                                <small>Transition Time Delay: (seconds)</small>
-                            </div>
-                            <div class="col-md-6 col-xs-6">
-                                <input type="number" min="0" step="1" ng-model="settings.carousel_delay" class="form-control ng-pristine ng-untouched ng-valid ng-valid-min" width="30px">
-                            </div>
-                        </div>
-                        <div class="col-md-12" style="margin-top: 20px;">
+                        <div class="col-md-12" style="margin-top: 80px;">
                             <div class="col-md-12 reorder-note" style="">
-                                <div class="alert alert-info" style="font-size: 14px;">Reorder Images as they Appear in the Broadcast Screen. You might have to refresh the broadcast screen after re-ordering.</div>
+                                <div class="alert alert-warning" style="font-size: 14px;">Reorder Images as they Appear in the Broadcast Screen. You might have to refresh the broadcast screen after re-ordering.</div>
                             </div>
                             <div class="col-md-12 table-responsive reorder-images">
                                 <table class="table table-striped" id="ad-images-preview">
@@ -68,6 +60,14 @@
                                     </tr>
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+                        <div style="margin-top: 20px; width: 450px;">
+                            <div class="col-md-6 col-xs-6">
+                                <small>Transition Time Delay: (seconds)</small>
+                            </div>
+                            <div class="col-md-6 col-xs-6">
+                                <input type="number" min="0" step="1" ng-model="settings.carousel_delay" class="form-control ng-pristine ng-untouched ng-valid ng-valid-min" width="30px">
                             </div>
                         </div>
                     </div>
