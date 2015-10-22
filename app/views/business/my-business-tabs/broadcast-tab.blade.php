@@ -48,6 +48,28 @@
                                 <input type="number" min="0" step="1" ng-model="settings.carousel_delay" class="form-control ng-pristine ng-untouched ng-valid ng-valid-min" width="30px">
                             </div>
                         </div>
+                        <div class="col-md-12" style="margin-top: 20px;">
+                            <div class="col-md-12 reorder-note" style="">
+                                <div class="alert alert-info" style="font-size: 14px;">Reorder Images as they Appear in the Broadcast Screen. You might have to refresh the broadcast screen after re-ordering.</div>
+                            </div>
+                            <div class="col-md-12 table-responsive reorder-images">
+                                <table class="table table-striped" id="ad-images-preview">
+                                    <tbody>
+                                    <tr ng-repeat="slider in slider_images" id="slide@{{ slider.count }}" img_id="@{{ slider.img_id }}" img_weight="@{{ slider.weight }}">
+                                        <td>
+                                            <span class="glyphicon glyphicon-move" style="font-size: 20px;"></span>
+                                        </td>
+                                        <td>
+                                            <img ng-src="/@{{ slider.path }}" style="max-height: 100px; max-width: 300px;">
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-danger" ng-click="deleteImageSlide(business_id, slider.count, slider.path);">Remove</button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                     <div class="ads-type ainternet_tv">
                         <div class="clearfix">
@@ -61,7 +83,7 @@
                                     <option value="<iframe width='100%' src='http://www.ustream.tv/embed/12762028?v=3&amp;wmode=direct&amp;autoplay=true' scrolling='no' frameborder='0' style='border: 0px none transparent;'></iframe>">Animal Planet</option>
                                 </select>
                                 <div>
-                                    <img src="/images/samsung-tv.jpg" class="img-responsive" style="max-height: 280px;min-width: 500px;">
+                                    <img src="/images/samsung-tv.jpg" class="img-responsive" style="max-height: 315px;width: 745px;">
                                 </div>
                                 <div class="alert alert-success" id="tvchannel-success" style="display: none;">Success! <strong><a href="/broadcast/business/16" target="_blank">View Broadcast Page</a></strong></div>
                                 <div class="alert alert-danger" id="tvchannel-danger" style="display: none;">Oops! Something went wrong.</div>

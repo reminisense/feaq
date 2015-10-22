@@ -860,6 +860,7 @@ var eb = {
                     business_id : business_id,
                     broadcast_update : true
                 }));
+                window.scrollTo(0,300);
                 $('#edit_message').removeClass('alert-danger');
                 $('#edit_message').addClass('alert-success');
                 $('#edit_message p').html('Your broadcast page layouts have been saved.');
