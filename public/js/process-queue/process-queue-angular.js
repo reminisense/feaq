@@ -146,7 +146,8 @@
         $scope.sendWebsocket = function(){
             websocket.send(JSON.stringify({
                 business_id : pq.ids.business_id,
-                broadcast_update : true
+                broadcast_update : true,
+              broadcast_reload: false
             }));
         }
 
@@ -312,7 +313,8 @@
                     $('#priority-number-modal').modal('hide');
                     websocket.send(JSON.stringify({
                         business_id : business_id,
-                        broadcast_update : true
+                        broadcast_update : true,
+                      broadcast_reload: false
                     }));
                 });
             });

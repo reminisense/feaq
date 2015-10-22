@@ -5,8 +5,8 @@
  *
  */
 
-$host = '128.199.169.32';
-//$host = 'localhost';
+//$host = '128.199.169.32';
+$host = 'localhost';
 $port = '55346';
 $null = NULL; // only variables can be passed by reference in socket_select function
 $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
@@ -46,6 +46,7 @@ while (true) {
         $response_text = mask(json_encode(array(
             'business_id' => $msg->business_id, // determines the business making the process
             'broadcast_update'=> $msg->broadcast_update, // determines if the broadcast page needs to be updated
+            'broadcast_reload' => $msg->broadcast_reload, // determines if the broadcast page needs to be reloaded
         )));
         send_message($msg->business_id, $response_text);
       }

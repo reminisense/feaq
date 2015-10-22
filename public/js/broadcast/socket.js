@@ -7,7 +7,8 @@ var establishSocketConnection = function($scope, $http, business_id) {
     $http.get('/json/' + business_id + '.json?nocache=' + Math.floor((Math.random() * 10000) + 1)).success($scope.updateBroadcastPage);
     websocket.send(JSON.stringify({
       business_id: business_id,
-      broadcast_update: false
+      broadcast_update: false,
+      broadcast_reload: false
     }));
     $('#WebsocketLoaderModal').modal('hide');
   }
@@ -16,6 +17,9 @@ var establishSocketConnection = function($scope, $http, business_id) {
     var result = JSON.parse(response.data);
     if (result.broadcast_update) {
       $http.get('/json/' + business_id + '.json?nocache=' + Math.floor((Math.random() * 10000) + 1)).success($scope.updateBroadcastPage);
+    }
+    if (result.broadcast_reload) {
+      window.location.reload(true);
     }
   };
 

@@ -406,7 +406,8 @@ var eb = {
       websocket.onopen = function(response) { // connection is open
         websocket.send(JSON.stringify({
           business_id : $scope.business_id,
-          broadcast_update : false
+          broadcast_update : false,
+          broadcast_reload: false
         }));
         $('#WebsocketLoaderModal').modal('hide');
       }
@@ -858,7 +859,8 @@ var eb = {
             $http.get('/processqueue/update-broadcast/' + business_id).success(function(response) {
                 websocket.send(JSON.stringify({
                     business_id : business_id,
-                    broadcast_update : true
+                    broadcast_update : false,
+                  broadcast_reload: true
                 }));
                 window.scrollTo(0,300);
                 $('#edit_message').removeClass('alert-danger');
@@ -1096,7 +1098,8 @@ var eb = {
                 $('#ticker-success').fadeOut(7000);
               websocket.send(JSON.stringify({
                 business_id : business_id,
-                broadcast_update : true
+                broadcast_update : true,
+                broadcast_reload: false
               }));
             }).error(function() {
                 $('#ticker-danger').hide();
@@ -1114,7 +1117,8 @@ var eb = {
                 $('#carouseldelay-success').fadeOut(7000);
               websocket.send(JSON.stringify({
                 business_id : $scope.business_id,
-                broadcast_update : true
+                broadcast_update : true,
+                broadcast_reload: false
               }));
             }).error(function() {
                 $('#carouseldelay-danger').hide();
