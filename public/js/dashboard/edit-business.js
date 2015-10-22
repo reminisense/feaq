@@ -849,7 +849,7 @@ var eb = {
               ad_type : $scope.settings.ad_type,
               tv_channel : $scope.settings.tv_channel,
               carousel_delay : $scope.settings.carousel_delay,
-              show_issued : $scope.settings.show_issued,
+              show_issued : !$scope.settings.show_called, //ARA Added negation and changed variable name since UI says "Show only called numbers in broadcast page"
               ticker_message : ticker_message,
               ticker_message2 : ticker_message2,
               ticker_message3 : ticker_message3,
@@ -896,7 +896,7 @@ var eb = {
             if (business_id > 0){
                 $http.get(eb.urls.broadcast.broadcast_json_url + business_id + '.json?nocache='+Math.floor((Math.random() * 10000) + 1)).success(function(response) {
                     $scope.settings.ad_type = response.ad_type;
-                    $scope.settings.show_issued = response.show_issued;
+                    $scope.settings.show_called = !response.show_issued; //ARA Added negation and changed variable name since UI says "Show only called numbers in broadcast page"
                     $scope.theme_type = response.display;
                     $scope.settings.tv_channel = response.tv_channel;
                     $scope.settings.carousel_delay = response.carousel_delay / 1000; // convert to seconds for display
