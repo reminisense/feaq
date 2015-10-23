@@ -1,4 +1,4 @@
-<div class="numbers-area {{ $num_class }} abs">
+<div class="numbers-area {{ $num_class }} abs" style="width: 100% !important;">
     <div class="boxed two">
         <h3 class="abs">NOW SERVING</h3>
         <div class="row-2">
