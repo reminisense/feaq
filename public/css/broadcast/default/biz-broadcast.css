@@ -21,7 +21,17 @@ body { background-color: #fff; position: relative;  font-family: 'Lato', sans-se
 .boxed.three .row-3,
 .boxed.five .row-5,
 .boxed.five .row-3,
-.boxed.four .row-4 { height:100vh; top:6vh; position:relative; }
+.boxed.four .row-4,
+#biz-broadcast-no-ads .row-4 .col-3,
+#biz-broadcast-no-ads .row-3 .col-3,
+#biz-broadcast-no-ads .row-2 .col-3,
+#biz-broadcast-no-ads .row-2 .col-2,
+#biz-broadcast-no-ads .row-1 .col-3,
+#biz-broadcast-no-ads .row-1 .col-2,
+#biz-broadcast-no-ads .row-2 .col-4,
+#biz-broadcast-no-ads .row-4 .col-2,
+#biz-broadcast-no-ads .row-3 .col-4,
+#biz-broadcast-no-ads .row-3 .col-2 { height:100vh; top:6vh; position:relative; }
 .boxed.one .row-1 > .col-1    { height:100%; height:100vh; width:100%; text-align:center; display:table; }
 .boxed.two .row-2 > .col-1    { height:50%;  height:50vh;  width:100%; text-align:center; display:table; }
 .boxed.three .row-2 > .col-1,
@@ -73,7 +83,17 @@ body { background-color: #fff; position: relative;  font-family: 'Lato', sans-se
 .row-4 > .col-1 .numbers,
 .row-3 > .col-1 .numbers,
 .row-2 > .col-1 .numbers,
-.row-1 > .col-1 .numbers { display: table-cell; vertical-align: middle;}
+.row-1 > .col-1 .numbers,
+#biz-broadcast-no-ads .row-4 .col-3 .numbers,
+#biz-broadcast-no-ads .row-3 .col-3 .numbers,
+#biz-broadcast-no-ads .row-2 .col-3 .numbers,
+#biz-broadcast-no-ads .row-2 .col-2 .numbers,
+#biz-broadcast-no-ads .row-1 .col-3 .numbers,
+#biz-broadcast-no-ads .row-1 .col-2 .numbers,
+#biz-broadcast-no-ads .row-2 .col-4 .numbers,
+#biz-broadcast-no-ads .row-4 .col-2 .numbers,
+#biz-broadcast-no-ads .row-3 .col-4 .numbers,
+#biz-broadcast-no-ads .row-3 .col-2 .numbers { display: table-cell; vertical-align: middle;}
 .col-2 { float: left; }
 
 .numbers .callnum { font-size: 10vw; font-weight: 900;}
@@ -97,6 +117,8 @@ h1,h2,h3,h4 {margin: 0;}
 .t1 {background-color: #44a9aa;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
 .t2 {background-color: #657fb3;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
 .t3 {background-color: #746ca8;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
+.t4 {background-color: #ff8649;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
+
 .numbers-area .boxed { background-color: white; height: 100vh; max-height: 100%; position: relative; z-index: 4;}
 .numbers-area .boxed h3 {text-align:center; margin:auto; width:100%; height: 6vh; padding-top:1.5vh; background-color:white; z-index: 2; font-weight: 900; vertical-align: middle; display: table;}
 .numbers p {margin: 0; padding: 0;}
@@ -117,6 +139,104 @@ h1,h2,h3,h4 {margin: 0;}
 .boxed.four .numbers .callnum {line-height: 120px; width: 390px;}
 .fifty .boxed.four .numbers .terminal { padding-bottom:50px; }
 .fifty .boxed.ten .numbers .callnum { line-height: 95px; }
+
+/*here comes no ADS*/
+#biz-broadcast-no-ads .ticker-message {z-index: 5;}
+#biz-broadcast-no-ads .row-4 .col-3 {
+    height: 22%;
+    height: 22vh;
+    width: 33.3333%;
+    float: left;
+    display: table;
+}
+#biz-broadcast-no-ads .row-3 .col-3 {
+    height: 30%;
+    height: 30vh;
+    width: 33.3333%;
+    float: left;
+    display: table;
+}
+#biz-broadcast-no-ads .row-2 .col-3 {
+    height: 45%;
+    height: 45vh;
+    width: 33.3333%;
+    float: left;
+    display: table;
+}
+#biz-broadcast-no-ads .row-2 .col-2 {
+    height: 45%;
+    height: 45vh;
+    width: 50%;
+    float: left;
+    display: table;
+}
+#biz-broadcast-no-ads .row-1 .col-3 {
+    height: 90%;
+    height: 90vh;
+    width: 33.3333%;
+    float: left;
+    display: table;
+}
+#biz-broadcast-no-ads .row-1 .col-2 {
+    height: 90%;
+    height: 90vh;
+    width: 50%;
+    float: left;
+    display: table;
+}
+#biz-broadcast-no-ads .row-2 .col-4 {
+    height: 45%;
+    height: 45vh;
+    width: 25%;
+    float: left;
+    display: table;
+}
+#biz-broadcast-no-ads .row-4 .col-2 {
+    height: 22%;
+    height: 22vh;
+    width: 50%;
+    float: left;
+    display: table;
+}
+#biz-broadcast-no-ads .row-3 .col-4 {
+    height: 30%;
+    height: 30vh;
+    width: 25%;
+    float: left;
+    display: table;
+}
+#biz-broadcast-no-ads .row-3 .col-2 {
+    height: 30%;
+    height: 30vh;
+    width: 50%;
+    float: left;
+    display: table;
+}
+#biz-broadcast-no-ads .row-4 .col-2 .qrcode img {width: 40%!important;}
+#biz-broadcast-no-ads .terminal {font-size: 1.8vw;}
+#biz-broadcast-no-ads .callnum {font-size: 6vw!important;}
+#biz-broadcast-no-ads .boxed.three .terminal {font-size: 2.4vw;}
+#biz-broadcast-no-ads .boxed.one .terminal {font-size: 4vw;}
+#biz-broadcast-no-ads .boxed.two .terminal {font-size: 2.6vw;}
+#biz-broadcast-no-ads .boxed.five .callnum {font-size: 7.8vw!important;}
+#biz-broadcast-no-ads .boxed.three .callnum {font-size: 10vw!important;}
+#biz-broadcast-no-ads .boxed.one .callnum {font-size: 13.8vw!important;}
+#biz-broadcast-no-ads .boxed.two .callnum {font-size: 9.5vw!important;}
+#biz-broadcast-no-ads .boxed.ten .callnum {line-height: 100px;}
+#biz-broadcast-no-ads .row-4 .col-3 .terminal,
+#biz-broadcast-no-ads .row-3 .col-3 .terminal,
+#biz-broadcast-no-ads .row-2 .col-3 .terminal,
+#biz-broadcast-no-ads .row-1 .col-3 .terminal { width: 350px;}
+#biz-broadcast-no-ads .row-2 .col-5 .terminal { width: 280px;}
+#biz-broadcast-no-ads .row-2 .col-2 .terminal,
+#biz-broadcast-no-ads .row-1 .col-2 .terminal { width: 550px;}
+#biz-broadcast-no-ads .row-2 .col-4 .terminal,
+#biz-broadcast-no-ads .row-3 .col-4 .terminal { width: 350px;}
+#biz-broadcast-no-ads .boxed.three .terminal { width: 550px;}
+#biz-broadcast-no-ads .terminal { text-align: center; margin: auto;}
+#biz-broadcast-no-ads .qrcode h4 {font-size: 28px; font-weight: 700;}
+#biz-broadcast-no-ads .qrcode p {font-size: 18px!important; margin-top: 15px;}
+#biz-broadcast-no-ads .boxed.three h4 {font-size: 36px;}
 
 @media only screen and (max-width : 1400px) {
     .boxed.two .numbers .callnum { line-height:140px; }
