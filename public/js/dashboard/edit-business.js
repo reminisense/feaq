@@ -267,7 +267,7 @@ var eb = {
                 // General settings
                 runtimes : 'html5',
                 url : '/advertisement/upload-image',
-                chunk_size : '1mb',
+                chunk_size : '0',
                 unique_names : true,
 
                 filters : {
