@@ -29,17 +29,19 @@
 </head>
 <!-- NAVBAR
   ================================================== -->
-<body cz-shortcut-listen="true" id="biz-broadcast" ng-app="BusinessBroadcast" ng-cloak>
+<body cz-shortcut-listen="true" id="@if (strpos($broadcast_type, '0-') === false){{'biz-broadcast'}}@else{{'biz-broadcast-no-ads'}}@endif" ng-app="BusinessBroadcast" ng-cloak>
 <div id="business-id" business_id="{{ $business_id }}"></div>
 <div id="broadcast-type" broadcast_type="{{ $broadcast_type }}"></div>
 <div id="ad-type" ad_type="{{ $ad_type }}"></div>
 <div id="adspace-size" adspace_size="{{ $adspace_size }}"></div>
+@if (strpos($broadcast_type, '0-') === false)
 <div class="qrcode qrwrap">
     <p class="nomg"><h4 class="orange">Monitor via your PHONE.</h4> Just scan this QR Code</p>
     <div class="text-center">
         <img class="qrcode" src="https://api.qrserver.com/v1/create-qr-code/?data={{ URL::to('/broadcast/business/' . $business_id) }}&size=120x120">
     </div>
 </div>
+@endif
 <div class="ticker-message">
     @foreach($ticker_message as $message)
         @if($message != "")
