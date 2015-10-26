@@ -13,6 +13,10 @@
 class BusinessController extends BaseController{
 
 
+    public function getHome(){
+        return View::make('business.business-landing');
+    }
+
     public function getMyBusiness(){
         if(Auth::check()){
             $businesses = UserBusiness::getAllBusinessIdByOwner(Helper::userId());
