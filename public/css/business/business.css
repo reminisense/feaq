@@ -751,7 +751,7 @@ button#sendreply {
 }
 
 .reorder-images {
-    height: 400px;
+    min-height: 150px;
 }
 /*rodel sep15*/
 .broadcast-wrap {

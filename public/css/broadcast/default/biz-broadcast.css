@@ -114,7 +114,7 @@ h1,h2,h3,h4 {margin: 0;}
 .qrcode.qrwrap img {width: 100%;margin-top: 5px;}
 .vid-container {position: relative;width: 100%;height: 0;padding-bottom: 56.23%;}
 .vid-container iframe,.vid-container object,.vid-container embed {position: absolute;top: 0;left: 0;width: 100%;height: 100%;}
-.boxed.four .numbers .callnum {line-height: 120px;}
+.boxed.four .numbers .callnum {line-height: 120px; width: 390px;}
 .fifty .boxed.four .numbers .terminal { padding-bottom:50px; }
 .fifty .boxed.ten .numbers .callnum { line-height: 95px; }
 
@@ -181,4 +181,8 @@ h1,h2,h3,h4 {margin: 0;}
 
 @media only screen and (max-width : 320px) {
 
+}
+/*image ads fixes*/
+#fqCarousel img {
+    width: 100%;
 }
