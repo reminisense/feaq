@@ -25,7 +25,6 @@
     <script src="/js/ngFacebook.js"></script>
     <script src="/js/google-analytics/googleAnalytics.js"></script>
     <script src="/js/google-analytics/ga-broadcast.js"></script>
-    <script src="/js/user/Usertracker.js"></script>
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -151,16 +150,15 @@
 
 <script src="/js/intlTelInput.js"></script>
 
-{{--{{ HTML::script('js/process-queue/process-queue.js') }}--}}
-<script src="/js/process-queue/process-queue.js"></script>
-
-{{--{{ HTML::script('js/process-queue/issue-number-angular.js') }}--}}
-<script src="/js/process-queue/issue-number-angular.js"></script>
 
 <script type="text/javascript" src="/js/websocket-variables.js"></script>
 <script type="text/javascript" src="/js/broadcast/lib.js"></script>
 <script type="text/javascript" src="/js/broadcast/socket.js"></script>
 <script src="/js/broadcast/default/public-{{ $box_num }}.js"></script>
+
+<script src="/js/user/Usertracker.js"></script>
+<script src="/js/process-queue/process-queue.js"></script>
+<script src="/js/process-queue/issue-number-angular.js"></script>
 
 </body>
 </html>
