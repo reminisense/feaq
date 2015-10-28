@@ -29,9 +29,9 @@ return array(
 	|
 	*/
 
-	'lifetime' => 302400, // 30 days limit
+	'lifetime' => 86400, // 24 hours limit
 
-	'expire_on_close' => false,
+	'expire_on_close' => true,
 
 	/*
 	|--------------------------------------------------------------------------

@@ -2,7 +2,7 @@
 @section('styles')
 <link rel='stylesheet' type='text/css' href='/css/business/business.css'>
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="/css/jquery-ui.css">
 @stop
 @section('container')
 <div class="feat feat-business">
@@ -48,7 +48,7 @@
 @section('scripts')
 <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
-<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script src="/js/jquery-ui.minjs"></script>
 <script src="/js/admin/admin.js"></script>
 
 @stop

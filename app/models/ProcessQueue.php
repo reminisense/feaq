@@ -113,6 +113,11 @@ class ProcessQueue extends Eloquent{
         $pnumber = $priority_queue->priority_number;
         $confirmation_code = $priority_queue->confirmation_code;
         $terminal_id = $transaction->terminal_id;
+
+        if(!TerminalUser::isCurrentUserAssignedToTerminal($transaction->terminal_id)){
+            throw new Exception('You are not assigned to this terminal.');
+        }
+
         try{
             $terminal = Terminal::findOrFail($transaction->terminal_id);
             $terminal_name = $terminal->name;
@@ -372,17 +377,10 @@ class ProcessQueue extends Eloquent{
                 $numbers = $all_numbers->called_numbers;
             }
 
-            $max_count = 6; //RDH via ARA : gisugo ko ni ruffy (dili ni tinuod) : set default value for $max_count
+            // $max_count = 6; //RDH via ARA : gisugo ko ni ruffy (dili ni tinuod) : set default value for $max_count
+
             // PAG Addition for Broadcast Display Settings
-            if (strstr($boxes->display, '-1')) {
-              $max_count = 1;
-            }
-            elseif (strstr($boxes->display, '-4')) {
-              $max_count = 4;
-            }
-            elseif (strstr($boxes->display, '-6')) {
-              $max_count = 6;
-            }
+            $max_count = explode("-", $boxes->display)[1];
 
             $box_count = 1;
             $existing = array();
@@ -402,5 +400,6 @@ class ProcessQueue extends Eloquent{
 
             File::put($file_path, json_encode($boxes, JSON_PRETTY_PRINT));
         }
+        return $all_numbers;
     }
 }

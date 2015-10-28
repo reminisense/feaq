@@ -31,21 +31,33 @@
         $scope.number_limit = null;
         $scope.issue_call_number = null;
 
+        //open a web socket connection
+        websocket = new WebSocket(websocket_url);
+        websocket.onopen = function(response) { // connection is open
+            $('#WebsocketLoaderModal').modal('hide');
+            $scope.updateBroadcast();
+        }
+        websocket.onmessage = function(response){
+            $scope.getAllNumbers();
+        }
+
         $scope.getAllNumbers = function(){
             getResponseResetValues(pq.urls.process_queue.all_numbers_url + pq.ids.service_id + '/' + pq.ids.terminal_id, null, null, function(){
-                setTimeout(function(){
-                    $scope.getAllNumbers();
-                }, 1000);
+                //setTimeout(function(){
+                //    $scope.getAllNumbers();
+                //}, 1000);
             });
         };
 
         $scope.callNumber = function(transaction_number){
             $scope.isCalling = true;
             transaction_number = transaction_number != undefined ? transaction_number : angular.element(document.querySelector('#selected-tnumber')).val();
+
             getResponseResetValues(pq.urls.process_queue.call_number_url + transaction_number + '/' + pq.ids.terminal_id, function(){
                 pq.jquery_functions.remove_and_update_dropdown(transaction_number);
                 $scope.issue_call_number = null;
                 $scope.isCalling = false;
+                $scope.updateBroadcast();
             },null, function(){
                 checkEmailAndAdd($scope.called_numbers[0].email, transaction_number);
             });
@@ -56,6 +68,7 @@
             getResponseResetValues(pq.urls.process_queue.serve_number_url + transaction_number, function(){
                 pq.jquery_functions.remove_from_called(transaction_number);
                 if(typeof callback === 'function') callback();
+                $scope.updateBroadcast();
             }, null, function(){
                 $scope.isProcessing = false;
             });
@@ -76,6 +89,7 @@
             $scope.isProcessing = true;
             getResponseResetValues(pq.urls.process_queue.drop_number_url + transaction_number, function(){
                 pq.jquery_functions.remove_from_called(transaction_number);
+                $scope.updateBroadcast();
             }, null, function(){
                 $scope.isProcessing = false;
             });
@@ -104,14 +118,16 @@
                     $scope.stopProcessQueue();
                 });
             }
+            $scope.updateBroadcast();
         }
 
         $scope.issueAndCall = function(priority_number){
             $http.post(pq.urls.issue_numbers.issue_specific_url + pq.ids.service_id + '/' + pq.ids.terminal_id, {priority_number : priority_number})
                 .success(function(response){
                     $scope.callNumber(response.number.transaction_number);
+                }).finally(function(){
+                    $scope.isCalling = false;
                 });
-            $scope.isCalling = false;
         }
 
         $scope.issueOrCall = function(){
@@ -125,6 +141,20 @@
             }else{
                 $scope.callNumber();
             }
+        }
+
+        $scope.sendWebsocket = function(){
+            websocket.send(JSON.stringify({
+                business_id : pq.ids.business_id,
+                broadcast_update : true,
+              broadcast_reload: false
+            }));
+        }
+
+        $scope.updateBroadcast = function(){
+            getResponseResetValues('/processqueue/update-broadcast/' + pq.ids.business_id, function(){
+                $scope.sendWebsocket();
+            });
         }
 
         checkTextfieldErrors = function(priority_number){
@@ -281,6 +311,11 @@
             $scope.serveNumber(transaction_number, function(){
                 $http.post('/issuenumber/issue-other/', data).success(function(){
                     $('#priority-number-modal').modal('hide');
+                    websocket.send(JSON.stringify({
+                        business_id : business_id,
+                        broadcast_update : true,
+                      broadcast_reload: false
+                    }));
                 });
             });
         }
@@ -288,6 +323,21 @@
         //****************************** refreshing
             $scope.getAllNumbers();
             $scope.getAllowedBusinesses();
+
+        websocket.onerror	= function(response){
+          $('#WebsocketLoaderModal img').attr('src', '/img/stop.png');
+          $('.socket-info').text('Your connection has timed out. Please refresh the page to re-connect.');
+          $('#WebsocketLoaderModal').modal('show');
+        };
+        websocket.onclose = function(response){
+          $('#WebsocketLoaderModal img').attr('src', '/img/stop.png');
+          $('.socket-info').text('Your connection has timed out. Please refresh the page to re-connect.');
+          $('#WebsocketLoaderModal').modal('show');
+        };
+
+        setInterval(function () {
+            $scope.sendWebsocket();
+        }, 600000);
     });
 
 })();

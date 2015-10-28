@@ -13,6 +13,7 @@ Processs Queue > {{ $business_name }}
 
 @section('scripts')
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-sanitize.min.js"></script>
+<script src="/js/websocket-variables.js"></script>
 <script src="/js/process-queue/process-queue.js"></script>
 <script src="/js/process-queue/process-queue-angular.js"></script>
 <script src="/js/process-queue/issue-number-angular.js"></script>
@@ -213,4 +214,5 @@ Processs Queue > {{ $business_name }}
 <!-- end process queue main -->
 @include('modals.process-queue.issue-number-modal')
 @include('modals.process-queue.priority-number-details-modal')
+@include('modals.websockets.websocket-loader')
 @stop
