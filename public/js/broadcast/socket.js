@@ -35,4 +35,12 @@ var establishSocketConnection = function($scope, $http, business_id) {
     $('#WebsocketLoaderModal').modal('show');
   };
 
+  setInterval(function () {
+    websocket.send(JSON.stringify({
+      business_id: business_id,
+      broadcast_update: false,
+      broadcast_reload: false
+    }));
+  }, 600000);
+
 };
