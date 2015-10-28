@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <link rel='stylesheet' type='text/css' href='/css/ngCloak.css'>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="/css/jquery-ui.css">
     <link rel='stylesheet' type='text/css' href='/css/jquery-ui.structure.min.css'>
     <link rel='stylesheet' type='text/css' href='/css/jquery-ui.theme.min.css'>
     <link rel="shortcut icon" id="favicon" href="{{URL::to('/images/favicon.png')}}">
@@ -24,7 +24,7 @@
     @yield('styles')
 
     <script type="text/javascript" src="/js/jquery-1.11.2.min.js"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <script src="/js/jquery-ui.min.js"></script>
     <script src="/js/angular.min.js"></script>
     <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
     <script src="/js/jquery.geocomplete.js"></script>

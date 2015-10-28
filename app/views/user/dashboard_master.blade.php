@@ -27,7 +27,7 @@
     @yield('styles')
 
     {{--{{ HTML::script('js/jquery1.11.0.js') }}--}}
-    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="/js/jquery-1.11.2.min.js"></script>
 
     {{--{{ HTML::script('js/bootstrap.min.js') }}--}}
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
