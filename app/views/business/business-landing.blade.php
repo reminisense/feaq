@@ -55,12 +55,12 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="">HOW <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">BENEFITS</a></li>
-                <li><a href="#">FEATURES</a></li>
-                <li><a href="#">USES</a></li>
-                <li><a href="#">SETUP GUIDE</a></li>
-                <li><a href="#">CONTACT US</a></li>
+                <li class="active"><a href="#featherq-works">HOW <span class="sr-only">(current)</span></a></li>
+                <li><a href="#benefits">BENEFITS</a></li>
+                <li><a href="#featherq-features">FEATURES</a></li>
+                <li><a href="#who-uses">USES</a></li>
+                <li><a href="http://guides.featherq.com" target="_blank">SETUP GUIDE</a></li>
+                <li><a href="#contact-us">CONTACT US</a></li>
             </ul>
         </div>
     </div>
@@ -305,7 +305,7 @@
     </div>
 </section>
 
-<section class="pre-footer">
+<section class="pre-footer" id="contact-us">
     <div class="container ">
         <div class="tri text-center">
             <img src="/images/business/landing/tri-contact.png">
