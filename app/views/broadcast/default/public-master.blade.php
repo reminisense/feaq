@@ -123,7 +123,7 @@
             </div>
         </div>
 
-        <div class="col-md-12 ticker mt20">
+        <div class="col-md-12 ticker-message mt20">
             @foreach($ticker_message as $message)
                 <div class="marquee-text hidden">{{ $message }}</div>
             @endforeach
