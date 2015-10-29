@@ -64,6 +64,7 @@ class ProcessQueue extends Eloquent{
             $terminal_transaction_data[] = array(
                 'transaction_number' => $transaction_number,
                 'time_queued' => $time_queued,
+                'terminal_id' => $terminal_id
             );
 
             $analytics_data[] = array(

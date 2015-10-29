@@ -334,6 +334,10 @@
           $('.socket-info').text('Your connection has timed out. Please refresh the page to re-connect.');
           $('#WebsocketLoaderModal').modal('show');
         };
+
+        setInterval(function () {
+            $scope.sendWebsocket();
+        }, 600000);
     });
 
 })();

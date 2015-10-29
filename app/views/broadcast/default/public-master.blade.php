@@ -19,13 +19,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet' type='text/css'>
 
-    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="/js/jquery-1.11.2.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
     <script type="text/javascript" src="/js/jquery.marquee.min.js"></script>
     <script src="/js/ngFacebook.js"></script>
     <script src="/js/google-analytics/googleAnalytics.js"></script>
     <script src="/js/google-analytics/ga-broadcast.js"></script>
-    <script src="/js/user/Usertracker.js"></script>
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -151,16 +150,15 @@
 
 <script src="/js/intlTelInput.js"></script>
 
-{{--{{ HTML::script('js/process-queue/process-queue.js') }}--}}
-<script src="/js/process-queue/process-queue.js"></script>
-
-{{--{{ HTML::script('js/process-queue/issue-number-angular.js') }}--}}
-<script src="/js/process-queue/issue-number-angular.js"></script>
 
 <script type="text/javascript" src="/js/websocket-variables.js"></script>
 <script type="text/javascript" src="/js/broadcast/lib.js"></script>
 <script type="text/javascript" src="/js/broadcast/socket.js"></script>
 <script src="/js/broadcast/default/public-{{ $box_num }}.js"></script>
+
+<script src="/js/user/Usertracker.js"></script>
+<script src="/js/process-queue/process-queue.js"></script>
+<script src="/js/process-queue/issue-number-angular.js"></script>
 
 </body>
 </html>
