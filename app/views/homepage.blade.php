@@ -460,7 +460,7 @@
 
                 <p>Signup for a <a class="noline" href="" ng-click="login()"><span>FREE FeatherQ account</span></a> today. <br>
                   Managing your lines is as simple as 1,2,3.</p>
-                  <button class="btn btn-fb" ng-click="login()"><span class="fa fa-facebook"></span> Login with facebook</button>
+                  <button class="btn btn-fb" ng-click="login()"><span class="fa fa-facebook"></span> Login with Facebook</button>
 
                   <br>
                   {{-- ARA Removed because of new agreement on sms.
