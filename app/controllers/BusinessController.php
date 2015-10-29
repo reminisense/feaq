@@ -13,8 +13,12 @@
 class BusinessController extends BaseController{
 
 
-    public function getHome(){
-        return View::make('business.business-landing');
+    public function getIndex(){
+        if(Auth::check()){
+            return Redirect::to('/business/my-business');
+        }else{
+            return View::make('business.business-landing');
+        }
     }
 
     public function getMyBusiness(){

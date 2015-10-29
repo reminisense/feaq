@@ -15,7 +15,7 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/css/business/landing/main.css">
     <link rel="stylesheet" href="/css/business/landing/animate.css">
-    <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    <script src="/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 
     <link rel="apple-touch-icon" sizes="57x57" href="/images/business/landing/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/images/business/landing/apple-icon-60x60.png">
@@ -37,8 +37,15 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="img/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
+
+    <script type="text/javascript" src="/js/angular.min.js"></script>
+    <script type="text/javascript" src="/js/ngFeatherQ.js"></script>
+    <script type="text/javascript" src="/js/ngFacebook.js"></script>
+    <script type="text/javascript" src="/js/ngAutocomplete.js"></script>
+
+
 </head>
-<body>
+<body ng-app="FeatherQ" ng-cloak>
 <!--[if lt IE 8]>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
@@ -55,7 +62,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="#featherq-works">HOW <span class="sr-only">(current)</span></a></li>
+                <li><a href="#featherq-works">HOW <span class="sr-only">(current)</span></a></li>
                 <li><a href="#benefits">BENEFITS</a></li>
                 <li><a href="#featherq-features">FEATURES</a></li>
                 <li><a href="#who-uses">USES</a></li>
@@ -66,7 +73,7 @@
     </div>
 </nav>
 
-<section id="banner">
+<section id="banner" ng-controller="fbController">
     <div class="container">
         <div class="col-md-12">
             <div id="phone">
@@ -80,7 +87,7 @@
                         </div>
                         <div class="clearfix">
                             <p id="start">Start using FeatherQ</p>
-                            <a href="#" class="btn btn-blue"><img src="/images/business/landing/fb.png">LOGIN WITH FACEBOOK</a>
+                            <a href="#" ng-click="login()" class="btn btn-blue"><img src="/images/business/landing/fb.png">LOGIN WITH FACEBOOK</a>
                         </div>
                     </div>
                     <div class="col-md-12 col-sm-12 visible-sm visible-xs">
@@ -317,18 +324,18 @@
             <div class="col-md-offset-3 col-md-6">
                 <div class="clearfix">
                     <p class="pull-left wow slideInLeft"><img src="/images/business/landing/icon-phone.png" alt="Call Us" />Give us a call</p>
-                    <p class="pull-right wow slideInRight">(+6332) 345-4658</p>
+                    <p class="pull-right wow slideInRight"><a style="text-decoration: none" href="tel:0323454658"><span class="orange">(+6332) 345-4658</span></a></p>
                 </div>
                 <div class="clearfix">
                     <p class="pull-left wow slideInLeft"><img src="/images/business/landing/icon-email.png" alt="Email Us" />Email Us</p>
-                    <p class="pull-right wow slideInRight">contact@featherq.com</p>
+                    <p class="pull-right wow slideInRight"><a style="text-decoration: none" href="mailto:contact@featherq.com"><span class="orange">contact@featherq.com</span></a></p>
                 </div>
             </div>
             <div class="col-md-12 text-center">
                 <p class="socials">Check us out on social media
-                    <a class="ml40" href="#"><img src="/images/business/landing/icon-google.png" alt="" /></a>
-                    <a href="#"><img src="/images/business/landing/icon-twitter.png" alt="" /></a>
-                    <a href="#"><img src="/images/business/landing/icon-fb.png" alt="" /></a>
+                    <a target="_blank" href="https://plus.google.com/u/0/b/101914769293976664743/101914769293976664743/about" class="ml40"><img src="/images/business/landing/icon-google.png" alt="" /></a>
+                    <a target="_blank" href="https://twitter.com/thefeatherq"><img src="/images/business/landing/icon-twitter.png" alt="" /></a>
+                    <a target="_blank" href="https://www.facebook.com/theFeatherQ"><img src="/images/business/landing/icon-fb.png" alt="" /></a>
                 </p>
             </div>
         </div>
@@ -343,6 +350,8 @@
         </div>
     </footer>
 </div>
+
+@include('modals.homepage.fb-loader')
 
 <script src="/js/business/landing/wow.min.js"></script>
 <script>
