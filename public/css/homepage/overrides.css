@@ -252,11 +252,17 @@ h3 {
 .features img {
     margin: 40px auto 0px auto;
 }
-.features p {
+.features p,
+.process p{
     margin-bottom: 30px;
     font-weight: 600;
     margin-top: 20px;
     font-size: 20px;
+}
+.process p {
+    margin-bottom: 50px;
+    font-weight: 700;
+    font-size: 22px;
 }
 .whocan {
     background: #eeece4 url('../../images/homepage/bg-whocan.jpg') top center no-repeat;
@@ -363,13 +369,15 @@ p > a:hover {
     border-radius: 0px;
 }
 .process {
-    background: #fdfdfc url('../../images/homepage/bg-process.png') center center no-repeat;
+    /*background: #fdfdfc url('../../images/homepage/bg-process.png') center center no-repeat;*/
     -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
     background-size: 100%;
-    margin-bottom: -95px;
+    /*margin-bottom: -95px;*/
+    background: #fdfdfc;
+    padding: 70px 0;
 }
 .process h2 {
     margin-top: 40px;

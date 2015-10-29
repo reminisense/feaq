@@ -198,6 +198,28 @@
         <a name="process"></a>
         <section class="process">
           <div class="container">
+            <div class="col-md-12 text-center">
+              <h2><span>The FeatherQ Process</span></h2>
+            </div>
+            <div class="col-md-4 col-sm-4 text-center">
+              <img class="img-responsive" src="/images/how-featherq-works1.png" alt="1. Sign up">
+              <p class="orange wow fadeInUp animated animated" style="visibility: visible;">1. Sign-up</p>
+
+            </div>
+            <div class="col-md-4 col-sm-4 text-center">
+              <img class="img-responsive" src="/images/how-featherq-works2.png" alt="2. Set up">
+              <p class="orange wow fadeInUp animated animated" style="visibility: visible;">2. Set-up</p>
+
+            </div>
+            <div class="col-md-4 col-sm-4 text-center">
+              <img class="img-responsive"  src="/images/how-featherq-works3.png" alt="3. Serve">
+              <p class="orange wow fadeInUp animated animated" style="visibility: visible;">3. Serve</p>
+
+            </div>
+          </div>
+        </section>
+        {{--<section class="process">
+          <div class="container">
             <div class="row rel">
 
               <div class="col-lg-5 col-lg-offset-1 col-md-12">
@@ -265,7 +287,7 @@
 
            </div>
          </div>
-       </section>
+       </section>--}}
 
        <a name="benefits"></a>
        <section class="benefits">
@@ -460,7 +482,7 @@
 
                 <p>Signup for a <a class="noline" href="" ng-click="login()"><span>FREE FeatherQ account</span></a> today. <br>
                   Managing your lines is as simple as 1,2,3.</p>
-                  <button class="btn btn-fb" ng-click="login()"><span class="fa fa-facebook"></span> Login with facebook</button>
+                  <button class="btn btn-fb" ng-click="login()"><span class="fa fa-facebook"></span> Login with Facebook</button>
 
                   <br>
                   {{-- ARA Removed because of new agreement on sms.

@@ -227,6 +227,16 @@
     }
 }
 @media only screen and (max-width : 480px) {
+    h2 {
+        font-size: 30px;
+    }
+    .benefits h3 {
+        font-size: 23px;
+    }
+    .benefits p {
+        font-size: 18px;
+        line-height: 28px;
+    }
 	.banner .slider-nav,
 	.eyebrow,
 	.do-mobile p,
@@ -287,12 +297,19 @@
     .filterwrap .btn-group:first-child {
         border-bottom-left-radius: 0px;
     }
+    .banner {
+        padding-top: 70px!important;
+    }
     .banner .btn {
         margin: 12px 4px;
     }
     .banner h1 {
-        font-size: 23px;
-        line-height: 45px;
+        font-size: 22px;
+        line-height: 40px;
+        margin-bottom: 50px;
+    }
+    .banner h1 span {
+        font-size: 22px;
     }
     #myTabs li {
         float: none;
@@ -337,11 +354,25 @@
     .featurewrapper p {
         font-size: 13px;
     }
+    .featured-partners {
+        padding: 50px 0!important;
+    }
+    .contactus h1,
+    .contactus h2 {
+        font-size: 18px;
+    }
+    .contactus input,
+    .contactus button {
+        border-radius: 0!important;
+    }
 }
 
 @media only screen and (max-width : 320px) {
     .banner {
         padding-top: 70px;
+    }
+    #subscriber-field {
+        margin-bottom: 15px;
     }
     h2.ml20 {
         margin-left: 0!important;
@@ -381,7 +412,7 @@
         margin-bottom: 0px;
     }
     .banner h1 {
-        line-height: 38px;
+        line-height: 36px;
     }
     .banner .partners img {
         display: block;

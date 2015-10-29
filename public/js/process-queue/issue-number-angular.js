@@ -197,8 +197,10 @@
             if(broadcast){
                 setInterval(function(){
                     scope = angular.element('#nowServingCtrl').scope();
-                    $scope.get_num = scope.get_num;
-                }, 1000)
+                    $scope.$apply(function(){
+                        $scope.get_num = scope.get_num;
+                    });
+                }, 1000);
             }
         }
 
