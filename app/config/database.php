@@ -57,7 +57,7 @@ return array(
             'host'      => 'localhost',
             'database'  => 'feaq',
             'username'  => 'forge',
-            'password'  => 'OjZcSiHUBoZJ2FGigqpv',
+            'password'  => 'jE8Gf9whVlHjXeIpCYiM',
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
