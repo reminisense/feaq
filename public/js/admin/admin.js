@@ -313,8 +313,9 @@ app.controller('adminController', function($scope, $http){
             }
             else{
                 $scope.business_features = {
+                    terminal_users : 3,
                     allow_sms : "false",
-                    terminal_users : 3
+                    queue_forwarding: "false"
                 };
             }
 

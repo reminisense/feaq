@@ -29,9 +29,9 @@ return array(
 	|
 	*/
 
-	'lifetime' => 302400, // 30 days limit
+	'lifetime' => 1440, // 24 hours limit
 
-	'expire_on_close' => false,
+	'expire_on_close' => true,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -83,7 +83,7 @@ return array(
 	|
 	*/
 
-	'lottery' => array(2, 100),
+	'lottery' => array(0, 100),
 
 	/*
 	|--------------------------------------------------------------------------

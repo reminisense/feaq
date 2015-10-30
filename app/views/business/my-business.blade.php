@@ -16,6 +16,7 @@ My Business
     <script src="/js/google-analytics/googleAnalytics.js"></script>
     <script src="/js/google-analytics/ga-dashboard.js"></script>
     <script src="/js/jquery.form.js"></script>
+    <script src="/js/websocket-variables.js"></script>
     <script src="/js/dashboard/dashboard.js"></script>
     <script src="/js/dashboard/edit-business.js"></script>
 @stop
@@ -42,7 +43,6 @@ My Business
                     <div class="biz-details col-md-7 col-sm-7 col-xs-12">
                         <h2>@{{ business_name }}</h2>
                         <p class="address"><span class="glyphicon glyphicon-map-marker"></span> @{{ business_address }}</p>
-                        {{--<p class="contact"><span class="glyphicon glyphicon-phone-alt"></span> +032 259 8611 / +038 259 8622 </p><br>--}}
                         <a class="btn btn-sm btn-primary" href="{{ url('business/pdf-download/' . $business_id) }}" target="_blank">Download QR Code</a><br>
                         @if($assigned_businesses)
                             <a href="#assigned" id="assigned_business"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;My Assigned Businesses</a>
@@ -82,11 +82,9 @@ My Business
                     <ul id="bizTab" class="nav nav-tabs" role="tablist">
                         <li class="active"><a href="#details" id="details-tab" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span>Details</a></li>
                         <li class=""><a href="#terminals" id="terminals-tab" data-toggle="tab"><span class="glyphicon glyphicon-tasks"></span> Terminals</a></li>
-                        <li class=""><a href="#broadcast" id="broadcast-tab" data-toggle="tab"><span class="glyphicon glyphicon-th-large"></span> Layouts</a></li>
-                        <li class=""><a href="#ads" id="ads-tab" data-toggle="tab"><span class="glyphicon glyphicon-blackboard"></span> Advertisements</a></li>
+                        <li class=""><a href="#broadcast" id="broadcast-tab" data-toggle="tab"><span class="glyphicon glyphicon-th-large"></span> Layouts & Advertisements</a></li>
                         <li class=""><a href="#settings" id="settings-tab" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
                         <li class=""><a href="#analytics" id="analytics-tab" data-toggle="tab"><span class="glyphicon glyphicon-stats"></span> Analytics</a></li>
-                        {{--<li class=""><a href="#forms" id="forms-tab" data-toggle="tab" ng-click="displayFormFields(business_id)"><span class="glyphicon glyphicon-list"></span>Contact Form</a></li>--}}
                     </ul>
                     <div id="bizTabContent" class="tab-content" style="">
                         <div class="col-md-12">
@@ -103,18 +101,12 @@ My Business
                         <div role="tabpanel" class="tab-pane fade" id="broadcast" aria-labelledby="broadcast-tab">
                             <div class="clearfix">@include('business.my-business-tabs.broadcast-tab')</div>
                         </div>
-                        <div role="tabpanel" class="tab-pane fade" id="ads" aria-labelledby="ads-tab">
-                            <div class="clearfix">@include('business.my-business-tabs.advertisements-tab')</div>
-                        </div>
                         <div role="tabpanel" class="tab-pane fade" id="settings" aria-labelledby="settings-tab">
                             <div class="clearfix">@include('business.my-business-tabs.settings-tab')</div>
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="analytics" aria-labelledby="analytics-tab">
                             <div class="clearfix">@include('business.my-business-tabs.analytics-tab')</div>
                         </div>
-                        {{--<div role="tabpanel" class="tab-pane fade" id="forms" aria-labelledby="forms-tab">
-                            <div class="clearfix">@include('business.my-business-tabs.forms-tab')</div>
-                        </div>--}}
                     </div>
                 </div>
             </form>
@@ -193,4 +185,5 @@ My Business
 <input type="hidden" id="queue-settings-get-url" value="{{ url('/queuesettings/allvalues/') }}">
 <input type="hidden" id="queue-settings-update-url" value="{{ url('/queuesettings/update/') }}">
 @include('modals.business.setup-business-modal')
+@include('modals.websockets.websocket-loader')
 @stop

@@ -12,39 +12,19 @@
 
     <link rel="stylesheet" type="text/css" href="/css/ngCloak.css">
     <link href="/css/broadcast/default/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
-
     <link href="/css/broadcast/default/dashboard.css" rel="stylesheet" type="text/css" media="all">
-
     <link href="/css/app-global.css" rel="stylesheet" type="text/css" media="all">
     <link href="/css/broadcast/default/public-broadcast.css" rel="stylesheet" type="text/css" media="all">
     <link href="/css/broadcast/default/responsive.css" rel="stylesheet" type="text/css" media="all">
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet' type='text/css'>
 
-    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="/js/jquery-1.11.2.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
     <script type="text/javascript" src="/js/jquery.marquee.min.js"></script>
-
-    {{--{{ HTML::script('js/ngPublicBroadcast.js') }}--}}
-    <script src="/js/broadcast/default/public-{{ $box_num }}.js"></script>
-
     <script src="/js/ngFacebook.js"></script>
-
-    {{--{{ HTML::script('js/google-analytics/googleAnalytics.js') }}--}}
     <script src="/js/google-analytics/googleAnalytics.js"></script>
-
-    {{--{{ HTML::script('js/google-analytics/ga-broadcast.js') }}--}}
     <script src="/js/google-analytics/ga-broadcast.js"></script>
-
-    <script src="/js/user/Usertracker.js"></script>
-
-    <script>
-        UPLOADCARE_LOCALE = "en";
-        UPLOADCARE_TABS = "file";
-        UPLOADCARE_PUBLIC_KEY = "844c2b9e554c2ee5cc0a";
-    </script>
-    <script charset="utf-8" src="//ucarecdn.com/widget/2.3.4/uploadcare/uploadcare.full.min.js"></script>
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -102,9 +82,10 @@
     <div class="row mt20" id="nowServingCtrl" ng-controller="nowServingCtrl">
         <div id="broadcast-type" broadcast_type="{{ $broadcast_type }}"></div>
         <div id="ad-type" ad_type="{{ $ad_type }}"></div>
+        <div id="adspace-size" adspace_size="{{ $adspace_size }}"></div>
         <audio id="call-number-sound" src="/audio/doorbell_x.wav" controls preload="auto" autobuffer style="display: none;"></audio>
 
-        @include('broadcast.default.public-' . $template_type)
+        @include('broadcast.default.public-' . $broadcast_type)
         <div class="publiclogin ng-scope hidden-lg hidden-md visible-sm visible-xs text-center" ng-controller="fbController">
             <a class="btn-play" style="margin-right:5px;" href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
                 <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png">
@@ -142,7 +123,7 @@
             </div>
         </div>
 
-        <div class="col-md-12 ticker mt20">
+        <div class="col-md-12 ticker-message mt20">
             @foreach($ticker_message as $message)
                 <div class="marquee-text hidden">{{ $message }}</div>
             @endforeach
@@ -159,6 +140,7 @@
     </div>
 </div>
 @include('modals.broadcast.remote-queue-modal')
+@include('modals.websockets.websocket-loader')
 
 {{--{{ HTML::script('js/bootstrap.min.js') }}--}}
 <script src="/js/broadcast/bootstrap.min.js"></script>
@@ -168,10 +150,14 @@
 
 <script src="/js/intlTelInput.js"></script>
 
-{{--{{ HTML::script('js/process-queue/process-queue.js') }}--}}
-<script src="/js/process-queue/process-queue.js"></script>
 
-{{--{{ HTML::script('js/process-queue/issue-number-angular.js') }}--}}
+<script type="text/javascript" src="/js/websocket-variables.js"></script>
+<script type="text/javascript" src="/js/broadcast/lib.js"></script>
+<script type="text/javascript" src="/js/broadcast/socket.js"></script>
+<script src="/js/broadcast/default/public-{{ $box_num }}.js"></script>
+
+<script src="/js/user/Usertracker.js"></script>
+<script src="/js/process-queue/process-queue.js"></script>
 <script src="/js/process-queue/issue-number-angular.js"></script>
 
 </body>

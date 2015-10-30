@@ -26,6 +26,7 @@
                 .success(function(response){
                     message = 'Issue number successful! <br> First number : ' + response.first_number + ' <br> Last number : ' + response.last_number;
                     pq.jquery_functions.issue_number_success(message);
+                    $scope.sendWebsocket();
 
                     $scope.number_start = '';
                     $scope.number_end = '';
@@ -52,6 +53,7 @@
                     if(response.number){
                         message = 'Issue number successful! <br> Number : ' + response.number.priority_number;
                         pq.jquery_functions.issue_number_success(message);
+                        $scope.sendWebsocket();
 
                         $scope.priority_number = '';
                         $scope.name = '';
@@ -195,8 +197,10 @@
             if(broadcast){
                 setInterval(function(){
                     scope = angular.element('#nowServingCtrl').scope();
-                    $scope.get_num = scope.get_num;
-                }, 1000)
+                    $scope.$apply(function(){
+                        $scope.get_num = scope.get_num;
+                    });
+                }, 1000);
             }
         }
 
@@ -207,6 +211,11 @@
                 $scope.email = response.email;
             }
         });
+
+        $scope.sendWebsocket = function(){
+            process_queue = angular.element($("#process-queue-wrapper")).scope();
+            process_queue.updateBroadcast();
+        }
 
         $http.get('/user/remoteuser/'+user_id).success($scope.populateRemoteQueueModal);
         $scope.initializePriorityNumber();

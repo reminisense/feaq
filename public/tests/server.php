@@ -1,5 +1,5 @@
 <?php
-$host = 'four.featherq.com'; //host
+$host = 'localhost'; //host
 $port = '9000'; //port
 $null = NULL; //null var
 

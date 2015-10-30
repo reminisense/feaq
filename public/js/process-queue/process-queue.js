@@ -2,6 +2,8 @@
  * Created by USER on 1/26/15.
  */
 
+var timeoutfunc;
+
 //load functions
 $(document).ready(function(){
     pq.jquery_functions.load_switch_tabs();
@@ -97,6 +99,7 @@ var pq = {
                     issue_number_modal.priority_number = process_queue.next_number;
                     issue_number_modal.number_start = process_queue.next_number;
                 });
+                pq.jquery_functions.clearModalTimeout();
             });
 
         },
@@ -169,11 +172,7 @@ var pq = {
         remove_and_update_dropdown : function(transaction_number){
             $('#selected-tnumber').val(0);
             if(transaction_number) pq.jquery_functions.remove_from_dropdown(transaction_number);
-            if($('#uncalled-numbers li').length == 0){
-                pq.jquery_functions.change_dropdown_message('Please issue a number');
-            }else{
-                pq.jquery_functions.select_next_number();
-            }
+            pq.jquery_functions.select_next_number();
         },
 
         find_in_numbers_array : function(transaction_number, uncalled_numbers){
@@ -228,7 +227,7 @@ var pq = {
 
             $('#issue-number-success .message').html(message);
             $('#issue-number-success').fadeIn('fast');
-            setTimeout(function(){
+            timeoutfunc = setTimeout(function(){
                 $('#issue-number-success').fadeOut('slow');
                 $('#moreq').modal('hide');
             }, 3000);
@@ -239,10 +238,18 @@ var pq = {
 
             $('#issue-number-error .message').html(message);
             $('#issue-number-error').fadeIn('fast');
-            setTimeout(function(){
+            timeoutfunc = setTimeout(function(){
                 $('#issue-number-error').fadeOut('slow');
                 $('#moreq').modal('hide');
             }, 3000);
+        },
+
+        clearModalTimeout : function(){
+            $('#issue-number-success').fadeOut('slow');
+            $('#issue-number-error').fadeOut('slow');
+            $('#issue-number-success .message').html('');
+            $('#issue-number-error .message').html('');
+            clearTimeout(timeoutfunc);
         },
 
         issue_number_success : function(message){
@@ -279,6 +286,16 @@ var pq = {
             $('#moreq form input[name=priority_number]').attr('placeholder', next_number);
             $('#moreq form input[name=number_start]').attr('placeholder', next_number);
             $('#issue-call-number').attr('placeholder', next_number);
+        },
+
+        send_pq_websocket_data : function(data){
+            var pq_scope = angular.element($("#process-queue-wrapper")).scope();
+            pq_websocket = pq_scope.pq_websocket;
+            data = data == undefined ? {} : data;
+            data.business_id = pq.ids.business_id;
+            data.service_id = pq.ids.service_id;
+            data.terminal_id = pq.ids.terminal_id;
+            pq_websocket.send(JSON.stringify(data));
         }
     }
 };

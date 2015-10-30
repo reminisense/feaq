@@ -41,6 +41,10 @@ class ProcessQueueController extends BaseController{
                 return json_encode(['error' => 'You have called an invalid input.']);
             }
 
+            if(!TerminalUser::isCurrentUserAssignedToTerminal($terminal_id)) {
+                return json_encode(['error' => 'You are not assigned to this terminal.']);
+            }
+
             $terminal_transaction = TerminalTransaction::find($transaction_number);
             $priority_queue = PriorityQueue::find($transaction_number);
             if($terminal_transaction->time_called != 0){
@@ -70,8 +74,16 @@ class ProcessQueueController extends BaseController{
     }
 
     public function getAllnumbers($service_id, $terminal_id){
+        if(!TerminalUser::isCurrentUserAssignedToTerminal($terminal_id)) {
+            return json_encode(['error' => 'You are not assigned to this terminal.']);
+        }
+
         $numbers = ProcessQueue::allNumbers($service_id, $terminal_id);
-        ProcessQueue::updateBusinessBroadcast(Business::getBusinessIdByServiceId($service_id));
+        return json_encode(['success' => 1, 'numbers' => $numbers], JSON_PRETTY_PRINT);
+    }
+
+    public function getUpdateBroadcast($business_id){
+        $numbers = ProcessQueue::updateBusinessBroadcast($business_id);
         return json_encode(['success' => 1, 'numbers' => $numbers], JSON_PRETTY_PRINT);
     }
 
