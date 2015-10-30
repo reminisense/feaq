@@ -18,8 +18,8 @@ class Helper extends Eloquent {
     // is the same with the ones in their database.
     // This will save us from the exploit of a post request with bogus details
     $fb = new Facebook\Facebook(array(
-      'app_id' => '1622215494691199',
-      'app_secret' => '93b2a59f31795425dd57dc961818824f',
+      'app_id' => '1574952899417459',
+      'app_secret' => '9a1e18932bdb13b32066c891581f9384',
       'default_graph_version' => 'v2.4',
     ));
     try {
