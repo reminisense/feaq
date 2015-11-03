@@ -7,7 +7,8 @@
 
 $host = '128.199.169.32';
 //$host = 'localhost';
-$port = '55346';
+//$port = '55346';
+$port = '443';
 $null = NULL; // only variables can be passed by reference in socket_select function
 $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 

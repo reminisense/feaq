@@ -1,7 +1,7 @@
 //open a web socket connection
 var establishSocketConnection = function($scope, $http, business_id) {
 
-  websocket = new WebSocket(websocket_url);
+  websocket = new ReconnectingWebSocket(websocket_url);
 
   websocket.onopen = function (response) { // connection is open
     $http.get('/json/' + business_id + '.json?nocache=' + Math.floor((Math.random() * 10000) + 1)).success($scope.updateBroadcastPage);

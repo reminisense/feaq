@@ -32,7 +32,7 @@
         $scope.issue_call_number = null;
 
         //open a web socket connection
-        websocket = new WebSocket(websocket_url);
+        websocket = new ReconnectingWebSocket(websocket_url);
         websocket.onopen = function(response) { // connection is open
             $('#WebsocketLoaderModal').modal('hide');
             $scope.updateBroadcast();
