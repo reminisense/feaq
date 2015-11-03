@@ -157,19 +157,19 @@
     padding: 20px 10px;
 }
 
-.ticker {
+.ticker-message {
     z-index: 9999;
     bottom: 0px;
     width: 100%;
     background: rgba(255, 255, 255, 0.93);
 }
-.ticker div {
+.ticker-message div {
     font-size: 36px;
     font-family: ArialMTStd-ExtraBold;
     color: #333338;
     margin-bottom: 0px;
 }
-#public-broadcast .ticker {
+#public-broadcast .ticker-message {
     overflow: hidden;
 }
 #public-broadcast .main-wrap {
