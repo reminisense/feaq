@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>FeatherQ</title>
+    <title>FeatherQ | Business</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -32,7 +32,7 @@
     <link rel="icon" type="image/png" sizes="96x96" href="/images/business/landing/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/images/business/landing/favicon-16x16.png">
 
-    <link rel="manifest" href="img/manifest.json">
+    <link rel="manifest" href="/images/business/landing/manifest.json">
 
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="img/ms-icon-144x144.png">
