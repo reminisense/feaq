@@ -57,6 +57,7 @@
 @include('modals.websockets.websocket-loader')
 
 <script src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/reconnecting-websocket.min.js"></script>
 <script type="text/javascript" src="/js/websocket-variables.js"></script>
 <script type="text/javascript" src="/js/broadcast/lib.js"></script>
 <script type="text/javascript" src="/js/broadcast/socket.js"></script>
