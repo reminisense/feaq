@@ -402,7 +402,7 @@ var eb = {
         };
 
       //open a web socket connection
-      websocket = new WebSocket(websocket_url);
+      websocket = new ReconnectingWebSocket(websocket_url);
       websocket.onopen = function(response) { // connection is open
         websocket.send(JSON.stringify({
           business_id : $scope.business_id,
