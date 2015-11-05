@@ -247,7 +247,6 @@ class RestController extends BaseController {
         unset($numbers['adspace_size']);
         unset($numbers['numspace_size']);
 
-
         foreach($numbers as $key => $box_data) {
             // generate object attribute
             $title = $key;
