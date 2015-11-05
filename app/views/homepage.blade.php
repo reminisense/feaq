@@ -5,8 +5,16 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="title" content="FeatherQ"/>
+  <meta name="description" content="FeatherQ is a DIY cloud-based queuing platform. We make it easy for businesses to manage their lines better and allow customers to wait on their own terms."/>
+  <meta name="author" content="Reminisense, Corp."/>
+  <meta name="og:url" content="http://www.featherq.com"/>
+  <meta name="og:type" content="website"/>
+  <meta name="og:description" content="FeatherQ is a DIY cloud-based queuing platform. We make it easy for businesses to manage their lines better and allow customers to wait on their own terms."/>
+  <meta name="og:site_name" content="FeatherQ"/>
+  <meta name="og:image" content="http://www.featherq.com/images/banner3.jpg"/>
+  <meta name="fb:app_id" content="1574952899417459"/>
+
   <title>FeatherQ</title>
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
   <link rel="icon" href="images/favicon.ico" type="image/x-icon">
