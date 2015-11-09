@@ -17,48 +17,59 @@ class BusinessController extends BaseController{
         if(Auth::check()){
             $businesses = UserBusiness::getAllBusinessIdByOwner(Helper::userId());
             $my_terminals = TerminalUser::getTerminalAssignement(Helper::userId());
-            $assigned_businesses = [];
-            if (count($my_terminals) > 0){
-                foreach($my_terminals as $terminal){
-                    $bid = Business::getBusinessIdByTerminalId($terminal['terminal_id']);
-                    if(!isset($assigned_businesses[$bid])){
-                        $assigned_businesses[$bid] = [
-                            'business_id' => $bid,
-                            'name' => Business::name($bid),
-                            'terminals' => [
-                                [
-                                    'terminal_id' => $terminal['terminal_id'],
-                                    'name' => Terminal::name($terminal['terminal_id'])
-                                ]
-                            ]
-                        ];
-                    }else{
-                        array_push($assigned_businesses[$bid]['terminals'], [
-                            'terminal_id' => $terminal['terminal_id'],
-                            'name' => Terminal::name($terminal['terminal_id'])
-                        ]);
-                    }
-                }
-            }
-
-            if (count($businesses) > 0){
-                $business = $businesses[0];
-                $business_id = $business->business_id;
-                unset($assigned_businesses[$business->business_id]);
-                $first_service = Service::getFirstServiceOfBusiness($business_id);
-                $terminals = Terminal::getTerminalsByServiceId($first_service->service_id);
-                $first_terminal = count($terminals) > 0 ? $terminals[0]['terminal_id'] : null;
-                return View::make('business.my-business')
-                    //->with('user_id', Helper::userId()) //ARA - moved assignment to filters.php
-                    ->with('business_id', $business_id)
-                    ->with('assigned_businesses', $assigned_businesses)
-                    ->with('first_terminal', $first_terminal);
-            } else {
-                return View::make('business.my-business')
-                    ->with('assigned_businesses', $assigned_businesses);
-            }
+            $assigned_businesses = $this->assignedBusinesses($my_terminals);
+            $business_data = $this->businessFirstTerminal($businesses, $assigned_businesses);
+            $business_id = $business_data['business_id'];
+            $first_terminal = $business_data['first_terminal'];
+            return View::make('business.my-business')
+                ->with('business_id', $business_id)
+                ->with('assigned_businesses', $assigned_businesses)
+                ->with('first_terminal', $first_terminal);
         } else {
             return Redirect::to('/');
+        }
+    }
+
+    // This function fetches the assigned businesses of the user.
+    private function assignedBusinesses($my_terminals) {
+        $assigned_businesses = [];
+        if (count($my_terminals) > 0){
+            foreach($my_terminals as $terminal){
+                $bid = Business::getBusinessIdByTerminalId($terminal['terminal_id']);
+                if(!isset($assigned_businesses[$bid])){
+                    $assigned_businesses[$bid] = [
+                        'business_id' => $bid,
+                        'name' => Business::name($bid),
+                        'terminals' => [
+                            [
+                                'terminal_id' => $terminal['terminal_id'],
+                                'name' => Terminal::name($terminal['terminal_id'])
+                            ]
+                        ]
+                    ];
+                }else{
+                    array_push($assigned_businesses[$bid]['terminals'], [
+                        'terminal_id' => $terminal['terminal_id'],
+                        'name' => Terminal::name($terminal['terminal_id'])
+                    ]);
+                }
+            }
+        }
+        return $assigned_businesses;
+    }
+
+    // This function fetches the first terminal of the business.
+    private function businessFirstTerminal($businesses, $assigned_businesses) {
+        if (count($businesses) > 0){
+            $business = $businesses[0];
+            $business_id = $business->business_id;
+            unset($assigned_businesses[$business->business_id]);
+            $first_service = Service::getFirstServiceOfBusiness($business_id);
+            $terminals = Terminal::getTerminalsByServiceId($first_service->service_id);
+            $first_terminal = count($terminals) > 0 ? $terminals[0]['terminal_id'] : null;
+            return array('business_id' => $business_id, 'first_terminal' => $first_terminal);
+        } else {
+            return array('business_id' => 0, 'first_terminal' => 0);
         }
     }
 
@@ -69,49 +80,77 @@ class BusinessController extends BaseController{
      */
     public function postSetupBusiness()
     {
-      if (Auth::check() && Helper::isNotAnOwner(Helper::userId())) { // PAG added permission checking
-        $business_data = $_POST;
+        if (Auth::check() && Helper::isNotAnOwner(Helper::userId())) { // PAG added permission checking
+            $business_data = $_POST;
+            if (count(Business::businessExistsByNameByAddress($business_data['business_name'], $business_data['business_address'])) != 1) {
+                $terminals = $this->createBusiness($business_data);
+                return json_encode([
+                    'success' => 1,
+                    'terminals' => $terminals
+                ]);
+            }
+            else {
+                $error = "Business name already exists with the same business address.";
+                return json_encode([
+                    'success' => $business_data['business_name'] . " " . $business_data['business_address'],
+                    'error' => $error
+                ]);
+            }
+        }
+        else {
+            return json_encode(array('success' => 0, 'error' => 'You are not allowed to access this function or you already have a business account.'));
+        }
+    }
+
+    private function createBusiness($business_data) {
         $business = new Business();
-        $business_check = Business::businessExistsByNameByAddress($business_data['business_name'], $business_data['business_address']);
+        $business->name = $business_data['business_name'];
+        $business->local_address = $business_data['business_address'];
+        $business->industry = $business_data['industry'];
+        $business->longitude = $business_data['longitude'];
+        $business->latitude = $business_data['latitude'];
 
-        if (count($business_check) != 1) {
-          $business->name = $business_data['business_name'];
-          $business->local_address = $business_data['business_address'];
-          $business->industry = $business_data['industry'];
-          $business->longitude = $business_data['longitude'];
-          $business->latitude = $business_data['latitude'];
+        $time_open_arr = Helper::parseTime($business_data['time_open']);
+        $business->open_hour = $time_open_arr['hour'];
+        $business->open_minute = $time_open_arr['min'];
+        $business->open_ampm = $time_open_arr['ampm'];
 
-          $time_open_arr = Helper::parseTime($business_data['time_open']);
-          $business->open_hour = $time_open_arr['hour'];
-          $business->open_minute = $time_open_arr['min'];
-          $business->open_ampm = $time_open_arr['ampm'];
+        $time_close_arr = Helper::parseTime($business_data['time_close']);
+        $business->close_hour = $time_close_arr['hour'];
+        $business->close_minute = $time_close_arr['min'];
+        $business->close_ampm = $time_close_arr['ampm'];
 
-          $time_close_arr = Helper::parseTime($business_data['time_close']);
-          $business->close_hour = $time_close_arr['hour'];
-          $business->close_minute = $time_close_arr['min'];
-          $business->close_ampm = $time_close_arr['ampm'];
+        $business->queue_limit = 9999; // CSD: set default queue limit to 9999 max
+        $business->num_terminals = 1;
+        $business->timezone = $business_data['timezone'];
+        $business->save();
 
-          /*
-           * @author CSD
-           * @description:
-           * set default num terminals to 3 when creating a business
-           * set default queue limit to 9999 max
-           */
-          $business->queue_limit = 9999;
-          $business->num_terminals = 1;
-          $business->save();
+        /* Timezone is already set in config/app.php
+        date_default_timezone_set("Asia/Manila"); // Manila Timezone for now but this depends on business location
+        */
 
-          $business_user = new UserBusiness();
-          $business_user->user_id = $business_data['user_id'];
-          $business_user->business_id = $business->business_id;
+        $branch_id = Branch::createBusinessBranch($business->business_id, $business->name);
+        $service_id = Service::createBranchService($branch_id, $business->name);
+        $this->createJSONFile($business->business_id);
+        $this->createBusinessOwner($business->business_id, Helper::userId());
+        $terminals = Terminal::createBranchServiceTerminal(Helper::userId(), $service_id, $business->num_terminals);
 
-          $business->timezone = $business_data['timezone'];
+        /* @CSD Auto issue on business create */
+        $this->autoIssueNumbersOnCreate($service_id);
+        /* Auto issue end */
 
-          /* Timezone is already set in config/app.php
-          date_default_timezone_set("Asia/Manila"); // Manila Timezone for now but this depends on business location
-          */
+        return $terminals;
+    }
 
-          $contents = '
+    // This function issues numbers from 1-10 after the business is created
+    private function autoIssueNumbersOnCreate($service_id) {
+        $issueController = new IssueNumberController();
+        $issueController->getMultiple($service_id, 10);
+    }
+
+    // This function creates the JSON file of the business
+    private function createJSONFile($business_id) {
+        $contents = '
                 {
                   "box1": {
                     "number": "1",
@@ -163,44 +202,17 @@ class BusinessController extends BaseController{
                   "num_boxes" : "6"
                 }
             ';
+        File::put(public_path() . '/json/' . $business_id . '.json', $contents);
+    }
 
-          File::put(public_path() . '/json/' . $business->business_id . '.json', $contents);
-          $business_user->save();
-
-          $branch_id = Branch::createBusinessBranch($business->business_id, $business->name);
-          $service_id = Service::createBranchService($branch_id, $business->name);
-
-          /* @CSD Auto issue on business create */
-          $issueController = new IssueNumberController();
-          $issueController->getMultiple($service_id, 10);
-          /* Auto issue end */
-
-          $terminals = Terminal::createBranchServiceTerminal(Auth::user()->user_id, $service_id, $business->num_terminals);
-          if ($business->save()) {
-            return json_encode([
-              'success' => 1,
-              'terminals' => $terminals
-            ]);
-          }
-          else {
-            return json_encode([
-              'success' => 0,
-              'error' => 'Something went wrong while saving your business.'
-            ]);
-          }
+    // This function maps the current user to the newly created business making him/her the owner
+    private function createBusinessOwner($business_id, $user_id) {
+        if ($business_id) {
+            $business_user = new UserBusiness();
+            $business_user->user_id = $user_id;
+            $business_user->business_id = $business_id;
+            $business_user->save();
         }
-        else {
-          $error = "Business name already exists with the same business address.";
-          return json_encode([
-            'success' => 0,
-            'error' => $error
-          ]);
-        }
-      }
-      else {
-        return json_encode(array('success' => 0, 'error' => 'You are not allowed to access this function or you already have a business account.'));
-      }
-
     }
 
     /*
@@ -210,110 +222,126 @@ class BusinessController extends BaseController{
      */
     public function postEditBusiness(){
         $business_data = Input::all();
-      if (Helper::isBusinessOwner($business_data['business_id'], Helper::userId())) { // PAG added permission checking
-        $business = Business::find($business_data['business_id']);
-
-        if ($this->validateBusinessNameBusinessAddress($business, $business_data)) {
-          $business->name = $business_data['business_name'];
-          $business->local_address = $business_data['business_address'];
-          $business->industry = $business_data['industry'];
-          $business->fb_url = $business_data['facebook_url'];
-          $business->timezone = $business_data['timezone']; //ARA Added timezone property
-
-          $time_open_arr = Helper::parseTime($business_data['time_open']);
-          $business->open_hour = $time_open_arr['hour'];
-          $business->open_minute = $time_open_arr['min'];
-          $business->open_ampm = $time_open_arr['ampm'];
-
-          $time_close_arr = Helper::parseTime($business_data['time_close']);
-          $business->close_hour = $time_close_arr['hour'];
-          $business->close_minute = $time_close_arr['min'];
-          $business->close_ampm = $time_close_arr['ampm'];
-
-          $business->queue_limit = $business_data['queue_limit']; /* RDH Added queue_limit to Edit Business Page */
-
-          $business->save();
-
-            //ARA For queue settings terminal-specific numbers
-            $queue_settings = new QueueSettingsController();
-            $queue_settings->getUpdate($business['business_id'], 'number_limit', $business_data['queue_limit']);
-            $queue_settings->getUpdate($business['business_id'], 'terminal_specific_issue', $business_data['terminal_specific_issue']);
-            $queue_settings->getUpdate($business['business_id'], 'sms_current_number', $business_data['sms_current_number']);
-            $queue_settings->getUpdate($business['business_id'], 'sms_1_ahead', $business_data['sms_1_ahead']);
-            $queue_settings->getUpdate($business['business_id'], 'sms_5_ahead', $business_data['sms_5_ahead']);
-            $queue_settings->getUpdate($business['business_id'], 'sms_10_ahead', $business_data['sms_10_ahead']);
-            $queue_settings->getUpdate($business['business_id'], 'sms_blank_ahead', $business_data['sms_blank_ahead']);
-            $queue_settings->getUpdate($business['business_id'], 'input_sms_field', $business_data['input_sms_field']);
-            $queue_settings->getUpdate($business['business_id'], 'allow_remote', $business_data['allow_remote']);
-            $queue_settings->getUpdate($business['business_id'], 'remote_limit', $business_data['remote_limit']);
-
-            //sms settings
-            $sms_api_data = [];
-            $sms_gateway_api = NULL;
-            if($business_data['sms_gateway'] == 'frontline_sms'){
-                $sms_api_data = [
-                    'frontline_sms_url' => $business_data['frontline_sms_url'],
-                    'frontline_sms_api_key' => $business_data['frontline_sms_api_key'],
-                ];
-                $sms_gateway_api = serialize($sms_api_data);
-            }elseif($business_data['sms_gateway'] == 'twilio'){
-                if($business_data['twilio_account_sid'] == TWILIO_ACCOUNT_SID &&
-                    $business_data['twilio_auth_token'] == TWILIO_AUTH_TOKEN &&
-                    $business_data['twilio_phone_number'] == TWILIO_PHONE_NUMBER){
-                        $business_data['sms_gateway'] = NULL;
-                        $sms_gateway_api = NULL;
-                }else{
-                    $sms_api_data = [
-                        'twilio_account_sid' => $business_data['twilio_account_sid'],
-                        'twilio_auth_token' => $business_data['twilio_auth_token'],
-                        'twilio_phone_number' => $business_data['twilio_phone_number'],
-                    ];
-                    $sms_gateway_api = serialize($sms_api_data);
-                }
+        if (Helper::isBusinessOwner($business_data['business_id'], Helper::userId())) { // PAG added permission checking
+            $business = Business::find($business_data['business_id']);
+            if ($this->validateBusinessNameBusinessAddress($business, $business_data)) {
+                $business = $this->updateBusinessDetails($business, $business_data);
+                return json_encode([
+                    'success' => 1,
+                    'business' => $business
+                ]);
+            } else {
+                return json_encode([
+                    'success' => 0,
+                    'error' => 'Business name already exists with the same business address.'
+                ]);
             }
-            $queue_settings->getUpdate($business['business_id'], 'sms_gateway', $business_data['sms_gateway']);
-            $queue_settings->getUpdate($business['business_id'], 'sms_gateway_api', $sms_gateway_api);
-            $business = Business::getBusinessDetails($business->business_id);
-            return json_encode([
-                'success' => 1,
-                'business' => $business
-            ]);
-        } else {
+        }
+        else {
             return json_encode([
                 'success' => 0,
-                'error' => 'Business name already exists with the same business address.'
+                'error' => 'You are not allowed to access this function.',
             ]);
         }
-      }
-      else {
-        return json_encode([
-          'success' => 0,
-          'error' => 'You are not allowed to access this function.',
-        ]);
-      }
+    }
+
+    // This function updates the details of the business
+    private function updateBusinessDetails($business, $business_data) {
+        $business->name = $business_data['business_name'];
+        $business->local_address = $business_data['business_address'];
+        $business->industry = $business_data['industry'];
+        $business->fb_url = $business_data['facebook_url'];
+        $business->timezone = $business_data['timezone']; //ARA Added timezone property
+
+        $time_open_arr = Helper::parseTime($business_data['time_open']);
+        $business->open_hour = $time_open_arr['hour'];
+        $business->open_minute = $time_open_arr['min'];
+        $business->open_ampm = $time_open_arr['ampm'];
+
+        $time_close_arr = Helper::parseTime($business_data['time_close']);
+        $business->close_hour = $time_close_arr['hour'];
+        $business->close_minute = $time_close_arr['min'];
+        $business->close_ampm = $time_close_arr['ampm'];
+
+        $business->queue_limit = $business_data['queue_limit']; /* RDH Added queue_limit to Edit Business Page */
+
+        $business->save();
+
+        //ARA For queue settings terminal-specific numbers
+        $queue_settings = new QueueSettingsController();
+        $this->updateQueueSettings($queue_settings, $business, $business_data);
+
+        //sms settings
+        $this->updateSMSSettings($queue_settings, $business, $business_data);
+
+        return Business::getBusinessDetails($business->business_id);
+    }
+
+
+    // Helper function to update the sms settings of the business
+    private function updateSMSSettings($queue_settings, $business, $business_data) {
+        $sms_api_data = [];
+        $sms_gateway_api = NULL;
+        if($business_data['sms_gateway'] == 'frontline_sms'){
+            $sms_api_data = [
+                'frontline_sms_url' => $business_data['frontline_sms_url'],
+                'frontline_sms_api_key' => $business_data['frontline_sms_api_key'],
+            ];
+            $sms_gateway_api = serialize($sms_api_data);
+        }elseif($business_data['sms_gateway'] == 'twilio'){
+            if($business_data['twilio_account_sid'] == TWILIO_ACCOUNT_SID &&
+                $business_data['twilio_auth_token'] == TWILIO_AUTH_TOKEN &&
+                $business_data['twilio_phone_number'] == TWILIO_PHONE_NUMBER){
+                $business_data['sms_gateway'] = NULL;
+                $sms_gateway_api = NULL;
+            }else{
+                $sms_api_data = [
+                    'twilio_account_sid' => $business_data['twilio_account_sid'],
+                    'twilio_auth_token' => $business_data['twilio_auth_token'],
+                    'twilio_phone_number' => $business_data['twilio_phone_number'],
+                ];
+                $sms_gateway_api = serialize($sms_api_data);
+            }
+        }
+        $queue_settings->getUpdate($business['business_id'], 'sms_gateway', $business_data['sms_gateway']);
+        $queue_settings->getUpdate($business['business_id'], 'sms_gateway_api', $sms_gateway_api);
+    }
+
+    // Helper function to update the queue settings of the business
+    private function updateQueueSettings($queue_settings, $business, $business_data) {
+        $queue_settings->getUpdate($business['business_id'], 'number_limit', $business_data['queue_limit']);
+        $queue_settings->getUpdate($business['business_id'], 'terminal_specific_issue', $business_data['terminal_specific_issue']);
+        $queue_settings->getUpdate($business['business_id'], 'sms_current_number', $business_data['sms_current_number']);
+        $queue_settings->getUpdate($business['business_id'], 'sms_1_ahead', $business_data['sms_1_ahead']);
+        $queue_settings->getUpdate($business['business_id'], 'sms_5_ahead', $business_data['sms_5_ahead']);
+        $queue_settings->getUpdate($business['business_id'], 'sms_10_ahead', $business_data['sms_10_ahead']);
+        $queue_settings->getUpdate($business['business_id'], 'sms_blank_ahead', $business_data['sms_blank_ahead']);
+        $queue_settings->getUpdate($business['business_id'], 'input_sms_field', $business_data['input_sms_field']);
+        $queue_settings->getUpdate($business['business_id'], 'allow_remote', $business_data['allow_remote']);
+        $queue_settings->getUpdate($business['business_id'], 'remote_limit', $business_data['remote_limit']);
     }
 
     public function getPdfDownload($business_id){
-      if (Helper::isBusinessOwner($business_id, Helper::userId())) { // PAG added permission checking
-        $business_name = Business::name($business_id);
-        $business_address = Business::localAddress($business_id);
+        if (Helper::isBusinessOwner($business_id, Helper::userId())) { // PAG added permission checking
+            $business_name = Business::name($business_id);
+            $business_address = Business::localAddress($business_id);
 
-        $businesslink = $this->make_bitly_url(url('/broadcast/business/' . $business_id), 'reminisense', 'R_553289e06aaf4ca684392d2dbadec0a8', 'json');
-        $qr_link = "https://api.qrserver.com/v1/create-qr-code/?data=" . url('/broadcast/business/' . $business_id) . "&size=302x302"; // CSD Updated QR Link
+            $businesslink = $this->make_bitly_url(url('/broadcast/business/' . $business_id), 'reminisense', 'R_553289e06aaf4ca684392d2dbadec0a8', 'json');
+            $qr_link = "https://api.qrserver.com/v1/create-qr-code/?data=" . url('/broadcast/business/' . $business_id) . "&size=302x302"; // CSD Updated QR Link
 
-        $data = [
-          'business_name' => $business_name,
-          'business_address' => $business_address,
-          'qr_code' => $qr_link,
-          'shortlink' => $businesslink
-        ];
+            $data = [
+                'business_name' => $business_name,
+                'business_address' => $business_address,
+                'qr_code' => $qr_link,
+                'shortlink' => $businesslink
+            ];
 
-        $pdf = PDF::loadView('pdf.pdftemplate', $data);
-        return $pdf->stream($business_name . '.pdf');
-      }
-      else {
-        return json_encode(array('status' => 0, 'message', 'You are not allowed to access this function.'));
-      }
+            $pdf = PDF::loadView('pdf.pdftemplate', $data);
+            return $pdf->stream($business_name . '.pdf');
+        }
+        else {
+            return json_encode(array('status' => 0, 'message', 'You are not allowed to access this function.'));
+        }
     }
 
     /* make a URL small */
@@ -340,13 +368,13 @@ class BusinessController extends BaseController{
 
 
     public function getBusinessdetails($business_id){
-      if (Helper::isBusinessOwner($business_id, Helper::userId())) { // PAG added permission checking
-        $business = Business::getBusinessDetails($business_id);
-        return json_encode(['success' => 1, 'business' => $business]);
-      }
-      else {
-        return json_encode(array('status' => 0, 'message', 'You are not allowed to access this function.'));
-      }
+        if (Helper::isBusinessOwner($business_id, Helper::userId())) { // PAG added permission checking
+            $business = Business::getBusinessDetails($business_id);
+            return json_encode(['success' => 1, 'business' => $business]);
+        }
+        else {
+            return json_encode(array('status' => 0, 'message', 'You are not allowed to access this function.'));
+        }
     }
 
     public function postFilterSearch() {
@@ -385,10 +413,10 @@ class BusinessController extends BaseController{
             );
         }
         if (Auth::check()) { // dashboard business boxes should be 8; known users will be redirected to dashboard
-          $arr = array_slice($arr, 0, 8);
+            $arr = array_slice($arr, 0, 8);
         }
         else { // homepage business boxes should be only 7 to give space for (more business) box; anon users will be redirected to homepage
-          $arr = array_slice($arr, 0, 7);
+            $arr = array_slice($arr, 0, 7);
         }
         return json_encode($arr);
     }
@@ -404,30 +432,31 @@ class BusinessController extends BaseController{
     }
 
     public function postRemove() {
-      $post = json_decode(file_get_contents("php://input"));
-      if (Helper::isBusinessOwner($post->business_id, Helper::userId())) { // PAG added permission checking
-        Business::deleteBusinessByBusinessId($post->business_id);
-        $branches = Branch::getBranchesByBusinessId($post->business_id);
-        foreach ($branches as $count => $data) {
-          $services = Service::getServicesByBranchId($data->branch_id);
-          foreach ($services as $count2 => $data2) {
-            $terminals = Terminal::getTerminalsByServiceId($data2->service_id);
-            foreach ($terminals as $count3 => $data3) {
-              TerminalUser::deleteUserByTerminalId($data3['terminal_id']);
+        $post = json_decode(file_get_contents("php://input"));
+        if (Helper::isBusinessOwner($post->business_id, Helper::userId())) { // PAG added permission checking
+            Business::deleteBusinessByBusinessId($post->business_id);
+            $branches = Branch::getBranchesByBusinessId($post->business_id);
+
+            // delete the lowest children first in the relationship to avoid object errors
+            foreach ($branches as $count => $data) {
+                $services = Service::getServicesByBranchId($data->branch_id);
+                foreach ($services as $count2 => $data2) {
+                    $terminals = Terminal::getTerminalsByServiceId($data2->service_id);
+                    foreach ($terminals as $count3 => $data3) {
+                        TerminalUser::deleteUserByTerminalId($data3['terminal_id']); // delete the users first
+                    }
+                    Terminal::deleteTerminalsByServiceId($data2->service_id); // delete the terminals next
+                }
+                Service::deleteServicesByBranchId($data->branch_id); // delete the services 3rd
             }
-            Terminal::deleteTerminalsByServiceId($data2->service_id);
-          }
-          Service::deleteServicesByBranchId($data->branch_id);
+            Branch::deleteBranchesByBusinessId($post->business_id); // delete the branches last
+            UserBusiness::deleteUserByBusinessId($post->business_id);
+
+            return json_encode(array('status' => 1));
         }
-
-        Branch::deleteBranchesByBusinessId($post->business_id);
-        UserBusiness::deleteUserByBusinessId($post->business_id);
-
-        return json_encode(array('status' => 1));
-      }
-      else {
-        return json_encode(array('status' => 0, 'message' => 'You are not allowed to access this function.'));
-      }
+        else {
+            return json_encode(array('status' => 0, 'message' => 'You are not allowed to access this function.'));
+        }
     }
 
     /*
@@ -529,17 +558,17 @@ class BusinessController extends BaseController{
             }
             $merged_businesses = array_merge($processing, $not_processing);
             if (Auth::check()) { // dashboard business boxes should be 8; known users will be redirected to dashboard
-              $merged_businesses = array_slice($merged_businesses, 0, 8);
+                $merged_businesses = array_slice($merged_businesses, 0, 8);
             }
             else { // homepage business boxes should be only 7 to give space for (more business) box; anon users will be redirected to homepage
-              $merged_businesses = array_slice($merged_businesses, 0, 7);
+                $merged_businesses = array_slice($merged_businesses, 0, 7);
             }
             return json_encode($merged_businesses);
         }
     }
 
     public function getName($business_id) {
-      return json_encode(array('business_name' => Business::name($business_id)));
+        return json_encode(array('business_name' => Business::name($business_id)));
     }
 
     public function getGeolocationFixer($business_id) {

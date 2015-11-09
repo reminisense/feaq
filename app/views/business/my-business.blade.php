@@ -35,7 +35,7 @@ My Business
 </div>
 
 <div class="container" ng-controller="editBusinessController" id="editBusiness">
-    @if(isset($business_id))
+    @if($business_id)
     <div class="row">
         <div class="biz-details-wrap clearfix">
             <div class="col-md-12">

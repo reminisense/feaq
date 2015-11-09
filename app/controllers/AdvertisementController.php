@@ -13,35 +13,26 @@ class AdvertisementController extends BaseController{
 
   public function postSliderImages() {
     if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId())) { // PAG added permission checking
-      //$business_id = Input::get('business_id');
-      //$count = 0;
-      $ad_src = array();
-      $res = AdImages::getAllImagesByBusinessId(Input::get('business_id'));
-      foreach ($res as $count => $data) {
-        $ad_src[] = array(
-          'count' => $count,
-          'path' => $data->path,
-          'weight' => $data->weight,
-          'img_id' => $data->img_id,
-        );
-      }
-      /*
-      $ad_directory = public_path() . '/ads/' . $business_id;
-      if (file_exists($ad_directory)) {
-        foreach (glob($ad_directory . '/*.*') as $filename) {
-          $ad_src[] = array(
-            'count' => $count,
-            'path' => 'ads/' . Input::get('business_id') . '/' . basename($filename),
-          );
-          $count++;
-        }
-      }
-      */
-      return json_encode(array('slider_images' => $ad_src));
+      return json_encode(array('slider_images' => $this->fetchImages(Input::get('business_id'))));
     }
     else {
       return json_encode(array('status' => 'You are not allowed to access this function.'));
     }
+  }
+
+  // This function fetches images in the database mapped to a certain business.
+  private function fetchImages($business_id) {
+    $ad_src = array();
+    $res = AdImages::getAllImagesByBusinessId($business_id);
+    foreach ($res as $count => $data) {
+      $ad_src[] = array(
+          'count' => $count,
+          'path' => $data->path,
+          'weight' => $data->weight,
+          'img_id' => $data->img_id,
+      );
+    }
+    return $ad_src;
   }
 
   public function postDeleteImage() {
@@ -64,25 +55,12 @@ class AdvertisementController extends BaseController{
       header("Pragma: no-cache");
 
       @set_time_limit(5 * 60);
-
       $targetDir = public_path() . '/ads/' . Input::get('business_id');
       $cleanupTargetDir = TRUE; // Remove old files
       //$maxFileAge = 5 * 3600; // Temp file age in seconds
-
       if (!file_exists($targetDir)) {
         @mkdir($targetDir);
       }
-
-      if (isset($_REQUEST["name"])) {
-        $fileName = $_REQUEST["name"];
-      }
-      elseif (!empty($_FILES)) {
-        $fileName = $_FILES["file"]["name"];
-      }
-      else {
-        $fileName = uniqid("file_");
-      }
-
       $chunk = isset($_REQUEST["chunk"]) ? intval($_REQUEST["chunk"]) : 0;
       $chunks = isset($_REQUEST["chunks"]) ? intval($_REQUEST["chunks"]) : 0;
       $fileName = isset($_REQUEST["name"]) ? $_REQUEST["name"] : '';
@@ -163,14 +141,6 @@ class AdvertisementController extends BaseController{
         rename("{$filePath}.part", $filePath);
       }
 
-      // save to json file
-      /*
-      $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
-      $data->ad_image = $data->ad_image . '|ads/' . $business_id . '/' . basename($filePath);
-      $encode = json_encode($data);
-      file_put_contents(public_path() . '/json/' . $business_id . '.json', $encode);
-      */
-
       AdImages::saveImages('ads/' . Input::get('business_id') . '/' . basename($filePath), Input::get('business_id'));
 
       // Return Success JSON-RPC response
@@ -199,94 +169,6 @@ class AdvertisementController extends BaseController{
     }
     else {
       return json_encode(array('status' => 'Something went wrong..'));
-    }
-  }
-
-  public function postTvSelect() {
-    $post = json_decode(file_get_contents("php://input"));
-    if ($post) {
-      if (Helper::isBusinessOwner($post->business_id, Helper::userId())) { // PAG added permission checking
-        $data = json_decode(file_get_contents(public_path() . '/json/' . $post->business_id . '.json'));
-        //$data->ad_video = preg_replace("/\s*[a-zA-Z\/\/:\.]*youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i", "//www.youtube.com/embed/$1", $_POST['ad_video']);
-        $data->tv_channel = $post->tv_channel;
-        $encode = json_encode($data);
-        file_put_contents(public_path() . '/json/' . $post->business_id . '.json', $encode);
-      }
-      else {
-        return json_encode(array('status' => 'You are not allowed to access this function.'));
-      }
-    }
-    else {
-      return json_encode(array('status' => 'Something went wrong..'));
-    }
-  }
-
-  public function postTurnOnTv() {
-    $post = json_decode(file_get_contents("php://input"));
-    if ($post) {
-      if (Helper::isBusinessOwner($post->business_id, Helper::userId())) { // PAG added permission checking
-        $data = json_decode(file_get_contents(public_path() . '/json/' . $post->business_id . '.json'));
-        //$data->ad_video = preg_replace("/\s*[a-zA-Z\/\/:\.]*youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i", "//www.youtube.com/embed/$1", $_POST['ad_video']);
-        $data->turn_on_tv = $post->status;
-        $encode = json_encode($data);
-        file_put_contents(public_path() . '/json/' . $post->business_id . '.json', $encode);
-        //return json_encode(array('turn_on_tv' => $data->turn_on_tv));
-      }
-      else {
-        return json_encode(array('status' => 'You are not allowed to access this function.'));
-      }
-    }
-    else {
-      return json_encode(array('status' => 'Something went wrong..'));
-    }
-  }
-
-  public function postAdType() {
-    $post = json_decode(file_get_contents("php://input"));
-    if ($post) {
-      if (Helper::isBusinessOwner($post->business_id, Helper::userId())) { // PAG added permission checking
-        $data = json_decode(file_get_contents(public_path() . '/json/' . $post->business_id . '.json'));
-        $data->ad_type = $post->ad_type;
-        $encode = json_encode($data);
-        file_put_contents(public_path() . '/json/' . $post->business_id . '.json', $encode);
-        //return json_encode(array('ad_type' => $data->ad_type));
-      }
-      else {
-        return json_encode(array('status' => 'You are not allowed to access this function.'));
-      }
-    }
-    else {
-      return json_encode(array('status' => 'Something went wrong..'));
-    }
-  }
-
-  public function postSaveTicker() {
-    $business_id = Input::get('business_id');
-    if (Helper::isBusinessOwner($business_id, Helper::userId())) { // PAG added permission checking
-      $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
-      $data->ticker_message = Input::get('ticker_message');
-      $data->ticker_message2 = Input::get('ticker_message2');
-      $data->ticker_message3 = Input::get('ticker_message3');
-      $data->ticker_message4 = Input::get('ticker_message4');
-      $data->ticker_message5 = Input::get('ticker_message5');
-      $encode = json_encode($data);
-      file_put_contents(public_path() . '/json/' . $business_id . '.json', $encode);
-    }
-    else {
-      return json_encode(array('status' => 'You are not allowed to access this function.'));
-    }
-  }
-
-  public function postCarouselDelay() {
-    $business_id = Input::get('business_id');
-    if (Helper::isBusinessOwner($business_id, Helper::userId())) { // PAG added permission checking
-      $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
-      $data->carousel_delay = (int)Input::get('carousel_delay') * 1000;
-      $encode = json_encode($data);
-      file_put_contents(public_path() . '/json/' . $business_id . '.json', $encode);
-    }
-    else {
-      return json_encode(array('status' => 'You are not allowed to access this function.'));
     }
   }
 
