@@ -322,7 +322,8 @@ ul.nav {
   margin-bottom: 50px;
   position: relative;
   -webkit-box-shadow: 0 2px 5px 4px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 2px 5px 4px rgba(0, 0, 0, 0.3); }
+  box-shadow: 0 2px 5px 4px rgba(0, 0, 0, 0.3);
+  height: 46px; }
 
 .filterwrap .btn,
 .filterwrap .form-control {
@@ -536,3 +537,8 @@ ul.nav {
     font-size: 20px; } }
 /* Extra Small Devices, Phones */
 /* Custom, iPhone Retina */
+
+/*ARA search dropdown*/
+#search-suggest{
+  display: block;
+}

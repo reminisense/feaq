@@ -50,6 +50,7 @@
     <script type="text/javascript" src="/js/ngFeatherQ.js"></script>
     <script type="text/javascript" src="/js/ngFacebook.js"></script>
     <script type="text/javascript" src="/js/ngAutocomplete.js"></script>
+    <script type="text/javascript" src="/js/ngDirectives.js"></script>
 
     <script>window.jQuery || document.write('<script src="/js/jquery-1.11.2.min.js"><\/script>')</script>
     <script type="text/javascript" src="/js/jquery.plugin.js"></script>
@@ -123,17 +124,30 @@
                     </ul>
                 </div>
                 <div class="col-md-2 col-sm-2 col-xs-4 btn-group">
-                    <input type="text" id="time_open-filter" name="time_open" placeholder="Time Open" class="timepicker form-control">
+                    <input type="text" id="time_open-filter" name="time_open" ng-model="time_open" placeholder="Time Open" class="timepicker form-control">
                 </div>
-                <form class="ng-pristine ng-valid">
-                    <input class="col-md-4 col-sm-4 col-xs-6" type="text" placeholder="ie: Ng Khai Devt Corp" id="search-keyword">
-                    <div class="col-md-2 col-sm-2 col-xs-6">
-                        <button type="button" class=" btn btn-black btn-md" ng-click="searchBusiness(location_filter, industry_filter);">SEARCH</button>
+                <form class="ng-pristine ng-valid col-md-4 col-sm-4 col-xs-6">
+                    <div class="clearfix" style="position: relative">
+                        <input class="" type="text" placeholder="ie: Ng Khai Devt Corp" id="search-keyword" ng-model="search_keyword" ng-model-options="{debounce: 1000}" autocomplete="off" >
+                        <ul class="dropdown-menu" role="menu" id="search-suggest" ng-hide="dropdown_businesses.length == 0"  outside-click="dropdown_businesses = []">
+                            <li ng-repeat="business in dropdown_businesses">
+                                <a href="#" ng-click="searchBusiness(location_filter, industry_filter, business.name, $event)">
+                                    <strong class="business-name">@{{ business.name }}</strong><br>
+                                    <small class="address">@{{ business.local_address }}</small>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </form>
+                <div class="col-md-2 col-sm-2 col-xs-6">
+                    <button type="button" class=" btn btn-black btn-md" ng-click="searchBusiness(location_filter, industry_filter, search_keyword);">SEARCH</button>
+                </div>
             </div>
         </div>
-        <div class="clearfix">
+        <div class="clearfix col-md-12" id="search-loader" style="display: none; text-align: center;">
+            <img style="width: 41px;" src="/images/loader-spinner-white.gif" />
+        </div>
+        <div class="clearfix" id="search-grid" style="display: none;">
             <div class="col-md-3 ng-scope" ng-repeat="business in businesses">
                 <a class="business_link" href="/broadcast/business/@{{ business.business_id }}" target="_blank">
                     <div class="box-wrap">
