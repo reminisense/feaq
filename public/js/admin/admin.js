@@ -37,6 +37,8 @@ app.controller('adminController', function($scope, $http){
 
     $scope.new_business = 0;
     $scope.new_users = 0;
+    $scope.business_information = [];
+    $scope.users_information = [];
     $scope.issued_numbers = 0;
     $scope.called_numbers = 0;
     $scope.served_numbers = 0;
@@ -56,12 +58,14 @@ app.controller('adminController', function($scope, $http){
     $scope.loadBusinessNumbers = function() {
         $scope.getDate();
         $http.get('/admin/businessnumbers/' +  $scope.start_date + '/' +  $scope.end_date).success(function(response){
-            $scope.new_business = response.businesses;
-            $scope.new_users = response.users;
-            $scope.issued_numbers = response.issued_numbers;
-            $scope.called_numbers = response.called_numbers;
-            $scope.served_numbers = response.served_numbers;
-            $scope.dropped_numbers = response.dropped_numbers;
+            $scope.new_business = response.businesses_count;
+            $scope.issued_numbers = response.business_numbers['issued_numbers'];
+            $scope.called_numbers = response.business_numbers['called_numbers'];
+            $scope.served_numbers = response.business_numbers['served_numbers'];
+            $scope.dropped_numbers = response.business_numbers['dropped_numbers'];
+            $scope.new_users = response.users_count;
+            $scope.users_information = response.users_information;
+            $scope.business_information = response.businesses_information;
         });
     }
 
