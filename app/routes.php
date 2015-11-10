@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'UserController@getUserDashboard');
+Route::get('/{raw_code?}', 'UserController@getUserDashboard');
 
 Route::post('/', 'UserController@processContactForm');
 

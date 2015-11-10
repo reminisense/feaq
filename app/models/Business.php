@@ -58,6 +58,10 @@ class Business extends Eloquent
         return Business::where('business_id', '=', $business_id)->select(array('industry'))->first()->industry;
     }
 
+    public static function getBusinessIdByRawCode($raw_code = '') {
+        return Business::where('raw_code', '=', $raw_code)->select(array('business_id'))->first()->business_id;
+    }
+
     /** functions to get the Business name **/
     public static function getBusinessNameByTerminalId($terminal_id)
     {

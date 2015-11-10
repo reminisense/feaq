@@ -14,14 +14,6 @@ class UserController extends BaseController{
      */
     public function getUserStatus()
     {
-      /* PAG code re-written due to trivial values
-        $user = Auth::user();
-
-        return json_encode([
-            'success'   => 1,
-            'user'      => $user,
-        ]);
-      */
       return json_encode(array('success'   => 1, 'user' => Auth::user()));
     }
 
@@ -90,56 +82,24 @@ class UserController extends BaseController{
      * @author: CSD
      * @description: render dashboard, fetch all businesses for default search view, and businesses created by logged in user
      */
-    public function getUserDashboard(){
-        $response = Helper::VerifyFB(Session::get('FBaccessToken'));
-        //$active_businesses = Business::getDashboardBusinesses();
-        if (Auth::check())
-        {
-            /*
-            //$search_businesses = Business::getPopularBusinesses(); ARA No more popular businesses. only active businesses
-            $business_ids = UserBusiness::getAllBusinessIdByOwner(Helper::userId());
-            $my_businesses = [];
-            if (count($business_ids) > 0){
-                foreach($business_ids as $b_id)
-                {
-                    $temp_array = Business::getBusinessArray($b_id->business_id);
-                    $temp_array->owner = 1;
-                    array_push($my_businesses, $temp_array);
-                }
-            }
-            /* @author: CSD
-             * @desc: check if user already has own business
+    public function getUserDashboard($raw_code = false){
 
-            if(count($my_businesses) > 0){
-                $has_business = true;
-            } else {
-                $has_business = false;
-            }
+        // Check if the user is accessing a custom URL; redirect if yes, skip if no
+        $this->redirectToBroadcast($raw_code);
 
-            $my_terminals = TerminalUser::getTerminalAssignement(Auth::user()->user_id);
-            if (count($my_terminals) > 0){
-                foreach($my_terminals as $terminal){
-                    $b_id = Business::getBusinessIdByTerminalId($terminal['terminal_id']);
-                    $business = Business::getBusinessArray($b_id);
-                    if (!$this->inArrayBusiness($my_businesses, $business)){
-                        $business->owner = 0;
-                        array_push($my_businesses, $business);
-                    }
-                }
-            }
-            */
-
+        if (Auth::check()) {
             return View::make('user.dashboardnew');
-            //->with('search_businesses', $search_businesses) ARA No more popular businesses. only active businesses
-            //->with('active_businesses', $active_businesses)
-            //->with('my_businesses', $my_businesses)
-            //->with('has_business', $has_business);
         }
-        else
-        {
+        else {
             return View::make('user.user-landing');
-            //->with('active_businesses', $active_businesses)
-            //->with('search_businesses', Business::getNewBusinesses()); // RDH Active and New Businesses on Front Use Different Results
+        }
+    }
+
+    // This function redirects users to the broadcast page mapped by the URL code
+    private function redirectToBroadcast($raw_code = false) {
+        if (!empty($raw_code)) {
+            $business_id = Business::getBusinessIdByRawCode($raw_code);
+            return Redirect::to('broadcast/business/' . $business_id);
         }
     }
 
