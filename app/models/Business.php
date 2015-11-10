@@ -544,10 +544,10 @@ class Business extends Eloquent
         return Business::where('name', $business_name)->get();
     }
 
-    public static function countBusinessByRange($start_date, $end_date){
+    public static function getBusinessByRange($start_date, $end_date){
         $temp_start_date = date("Y/m/d", $start_date);
         $temp_end_date = date("Y/m/d", $end_date);
-        return Business::where('registration_date', '>=', $temp_start_date)->where('registration_date','<', $temp_end_date)->count();
+        return Business::where('registration_date', '>=', $temp_start_date)->where('registration_date','<', $temp_end_date)->get();
     }
 
     public static function getAllBusinessNames(){

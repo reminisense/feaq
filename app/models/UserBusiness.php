@@ -44,4 +44,8 @@ class UserBusiness extends Eloquent{
     UserBusiness::where('business_id', '=', $business_id)->delete();
   }
 
+  public static function getUserByBusinessId($business_id) {
+     return UserBusiness::where('business_id', '=', $business_id)->get()->first();
+  }
+
 }
