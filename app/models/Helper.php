@@ -64,8 +64,8 @@ class Helper extends Eloquent
      * @return bool
      */
     public static function isRawCodeExists($rawCode) {
-        $ret = Helper::firstFromTable('business', 'raw_code', $rawCode, '=');
-        return !empty($ret);
+        return Helper::firstFromTable('business', 'raw_code', $rawCode, '=');
+        //return !empty($ret);
     }
 
     /**
