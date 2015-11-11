@@ -85,21 +85,15 @@ class UserController extends BaseController{
     public function getUserDashboard($raw_code = false){
 
         // Check if the user is accessing a custom URL; redirect if yes, skip if no
-        $this->redirectToBroadcast($raw_code);
+      if (!empty($raw_code)) {
+        return Redirect::to('broadcast/business/' . Business::getBusinessIdByRawCode($raw_code));
+      }
 
         if (Auth::check()) {
             return View::make('user.dashboardnew');
         }
         else {
             return View::make('user.user-landing');
-        }
-    }
-
-    // This function redirects users to the broadcast page mapped by the URL code
-    private function redirectToBroadcast($raw_code = false) {
-        if (!empty($raw_code)) {
-            $business_id = Business::getBusinessIdByRawCode($raw_code);
-            return Redirect::to('broadcast/business/' . $business_id);
         }
     }
 
