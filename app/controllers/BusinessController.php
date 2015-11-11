@@ -606,4 +606,20 @@ class BusinessController extends BaseController{
         $allowed_businesses = Business::getForwarderAllowedBusinesses($business_id);
         return json_encode(['success' => 1, 'allowed_businesses' => $allowed_businesses]);
     }
+
+
+  // This callback function will auto generate the raw codes for the existing businesses; please delete afterwards
+  public function getGenerateRawcode() {
+    include app_path() . '/utils/RandomStringGenerator.php';
+    $res = Business::all();
+    foreach ($res as $count => $business) {
+      $business_id = $business->business_id;
+      $raw_code = Helper::generateRawCode();
+      while (Helper::isRawCodeExists($raw_code)) {
+        $raw_code = Helper::generateRawCode();
+      }
+      Business::where('business_id', '=', $business_id)->update(array('raw_code' => $raw_code));
+    }
+    print 'Raw codes generated.';
+  }
 }
