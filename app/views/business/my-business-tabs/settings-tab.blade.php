@@ -3,12 +3,13 @@
         <div class=" header">
             <h5>QUEUE SETTINGS</h5>
         </div>
+        <div class="broadcast-wrap2">
         <div class="clearfix">
             <div class="col-md-6 mb20">
                 <p class="title">Number Limit</p>
             </div>
             <div class="col-md-6 mb20">
-                <input class="mb0 form-control" type="text" value="@{{ queue_limit }}" ng-model="queue_limit" ></td>  {{--RDH Added queue_limit to Edit Business Page--}}
+                <input class="mb0 form-control white" type="text" value="@{{ queue_limit }}" ng-model="queue_limit" ></td>  {{--RDH Added queue_limit to Edit Business Page--}}
             </div>
         </div>
         <div class="clearfix">
@@ -69,20 +70,24 @@
         </div>
         <div class="clearfix">
             <div class="col-md-12">
-                <div class="alert alert-info" role="alert">
+                <div class="alert alert-warning" role="alert">
                     <strong>* Remote Queue Limit</strong> - Set the percentage of people able to join the queue remotely
                     (E.g.: At 10% Remote queue limit, one person can join remotely after issuing 10 numbers).
                 </div>
             </div>
+        </div>
         </div>
     </div>
     <div class="col-md-6">
         <div class=" header">
             <h5>** SMS SETTINGS</h5>
         </div>
-        <div class="clearfix">
-            <span><label>Frontline SMS</label> <input ng-disabled="business_features.allow_sms == 'false'" type="radio" value="frontline_sms" ng-model="sms_gateway"/></span>
-            <span><label>Twilio</label> <input ng-disabled="business_features.allow_sms == 'false'" type="radio" value="twilio" ng-model="sms_gateway"/></span>
+        <div class="broadcast-wrap2">
+        <div class="col-md-12">
+            <div class="clearfix mb10">
+                <span><label>Frontline SMS</label> <input ng-disabled="business_features.allow_sms == 'false'" type="radio" value="frontline_sms" ng-model="sms_gateway"/></span>
+                <span><label>Twilio</label> <input ng-disabled="business_features.allow_sms == 'false'" type="radio" value="twilio" ng-model="sms_gateway"/></span>
+            </div>
         </div>
         <div ng-show="sms_gateway == 'frontline_sms'">
             <div class="clearfix">
@@ -94,7 +99,7 @@
                     </p>
                 </div>
                 <div class="col-md-6 mb20">
-                    <input class="mb0 form-control" ng-disabled="business_features.allow_sms == 'false'" type="password" value="@{{ frontline_api_key }}" ng-model="frontline_api_key" ng-disabled="true">
+                    <input class="mb0 white form-control" ng-disabled="business_features.allow_sms == 'false'" type="password" value="@{{ frontline_api_key }}" ng-model="frontline_api_key" ng-disabled="true">
                 </div>
             </div>
             <div class="clearfix">
@@ -106,7 +111,7 @@
                     </p>
                 </div>
                 <div class="col-md-6 mb20">
-                    <input class="mb0 form-control" ng-disabled="business_features.allow_sms == 'false'" type="text" value="@{{ frontline_url }}" ng-model="frontline_url" ng-disabled="true">
+                    <input class="mb0 white form-control" ng-disabled="business_features.allow_sms == 'false'" type="text" value="@{{ frontline_url }}" ng-model="frontline_url" ng-disabled="true">
                 </div>
             </div>
         </div>
@@ -116,7 +121,7 @@
                     <p class="title">Twilio Account SID</p>
                 </div>
                 <div class="col-md-6 mb20">
-                    <input class="mb0 form-control" ng-disabled="business_features.allow_sms == 'false'" type="password" value="@{{ twilio_account_sid }}" ng-model="twilio_account_sid" ng-disabled="true">
+                    <input class="mb0 white form-control" ng-disabled="business_features.allow_sms == 'false'" type="password" value="@{{ twilio_account_sid }}" ng-model="twilio_account_sid" ng-disabled="true">
                 </div>
             </div>
             <div class="clearfix">
@@ -124,7 +129,7 @@
                     <p class="title">Twilio Auth Token</p>
                 </div>
                 <div class="col-md-6 mb20">
-                    <input class="mb0 form-control" ng-disabled="business_features.allow_sms == 'false'" type="password" value="@{{ twilio_auth_token }}" ng-model="twilio_auth_token" ng-disabled="true">
+                    <input class="mb0 white form-control" ng-disabled="business_features.allow_sms == 'false'" type="password" value="@{{ twilio_auth_token }}" ng-model="twilio_auth_token" ng-disabled="true">
                 </div>
             </div>
             <div class="clearfix">
@@ -132,19 +137,36 @@
                     <p class="title">Twilio phone number</p>
                 </div>
                 <div class="col-md-6 mb20">
-                    <input class="mb0 form-control" ng-disabled="business_features.allow_sms == 'false'" type="text" value="@{{ twilio_phone_number }}" ng-model="twilio_phone_number" ng-disabled="true">
+                    <input class="mb0 white form-control" ng-disabled="business_features.allow_sms == 'false'" type="text" value="@{{ twilio_phone_number }}" ng-model="twilio_phone_number" ng-disabled="true">
                 </div>
             </div>
         </div>
         <div class="clearfix">
             <div class="col-md-12">
-                <div class="alert alert-info" role="alert">
+                <div class="alert alert-warning" role="alert">
                     <strong>** FeatherQ SMS Notifications</strong> will soon be enjoyed by business partners that have been in close contact with us.
                     To be one of these partners, you may contact us at <strong><a href="mailto:contact@featherq.com">contact@featherq.com</a></strong>.
                     You may also call us at <strong>(+63 32) 345-4658</strong> for further inquiries.
                 </div>
             </div>
         </div>
+        </div>
+
+        <div class="mt50 header">
+            <h5>CUSTOM LINK</h5>
+        </div>
+        <div class="broadcast-wrap2 clearfix">
+            <div class=" col-md-12">
+                http://featherq.com/<input class="inline-b white mb0 form-control" type="text" style="width: 160px;" placeholder="myurl" />
+                <small class="mt10 inline-b">only numbers, lowercase characters and hyphens are allowed</small>
+            </div>
+            <div class="col-md-12">
+                <div class="mt20 alert alert-warning" role="alert">
+                    What with custom URL? Yeah Lorem ipsum here
+                </div>
+            </div>
+        </div>
+
     </div>
     <div class="col-md-6" ng-show="business_features.queue_forwarding == 'true'">
         <div class=" header">

@@ -98,10 +98,10 @@
                 <div class="mb30 ui-widget ui-widget-content" id="ad-num-width" style="float: left; min-height: 400px;">
                     <h2 class="mb30 text-center">NOW SERVING</h2>
                     <div class="q-wrap q-numbers">
-                        <button type="button" id="" class="mb10 btn btn-primary btn-md q-minus">
+                        <button type="button" id="" class="mb10 btn btn-primary btn-lg q-minus">
                             <span class="glyphicon glyphicon-minus"></span> Numbers
                         </button>
-                        <button type="button" id="" class="mb10 btn btn-primary btn-md q-add">
+                        <button type="button" id="" class="mb10 btn btn-primary btn-lg q-add">
                             <span class="glyphicon glyphicon-plus"></span> Numbers
                         </button>
                         <div class="q-nums-wrap clearfix">
