@@ -44,16 +44,11 @@ class Helper extends Eloquent
      */
     public static function generateRawCode()
     {
-        // alphanumeric smallcaps
-        $customAlphabet = '0123456789abcdefghijklmnopqrstuvwxyz';
-        // Create new instance of generator class.
-        $generator = new RandomStringGenerator($customAlphabet);
-
         // Set token length.
         $tokenLength = 4;
 
         // Call method to generate random string.
-        $raw_id = $generator->generate($tokenLength);
+        $raw_id = \RandomStringGenerator::generate($tokenLength);
 
         return $raw_id;
     }

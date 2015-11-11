@@ -19,6 +19,7 @@ ClassLoader::addDirectories(array(
 	app_path().'/database/seeds',
 	app_path().'/constants', // add directory for featherq constants
 	app_path().'/validators', // add directory for featherq validators
+  app_path().'/utils', // add directory for featherq utility functions
 
 ));
 
@@ -84,6 +85,9 @@ require app_path().'/filters.php';
 
 // Declare featherq constants
 FeatherqConstants::init();
+
+// Declare generator alphabet
+RandomStringGenerator::init('0123456789abcdefghijklmnopqrstuvwxyz');
 
 
 /**

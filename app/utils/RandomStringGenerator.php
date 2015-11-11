@@ -1,7 +1,5 @@
 <?php
 
-namespace utils;
-
 /**
  * Class RandomStringGenerator
  * @package utils
@@ -12,21 +10,22 @@ namespace utils;
 class RandomStringGenerator
 {
     /** @var string */
-    protected $alphabet;
+    protected static $alphabet;
 
     /** @var int */
-    protected $alphabetLength;
+    protected static $alphabetLength;
 
 
     /**
      * @param string $alphabet
      */
-    public function __construct($alphabet = '')
+    //public function __construct($alphabet = '')
+    public static function init($alphabet = '')
     {
         if ('' !== $alphabet) {
-            $this->setAlphabet($alphabet);
+            RandomStringGenerator::setAlphabet($alphabet);
         } else {
-            $this->setAlphabet(
+            RandomStringGenerator::setAlphabet(
                 implode(range('a', 'z'))
                 . implode(range('A', 'Z'))
                 . implode(range(0, 9))
@@ -37,23 +36,23 @@ class RandomStringGenerator
     /**
      * @param string $alphabet
      */
-    public function setAlphabet($alphabet)
+    public static function setAlphabet($alphabet)
     {
-        $this->alphabet = $alphabet;
-        $this->alphabetLength = strlen($alphabet);
+        RandomStringGenerator::$alphabet = $alphabet;
+        RandomStringGenerator::$alphabetLength = strlen($alphabet);
     }
 
     /**
      * @param int $length
      * @return string
      */
-    public function generate($length)
+    public static function generate($length)
     {
         $token = '';
 
         for ($i = 0; $i < $length; $i++) {
-            $randomKey = $this->getRandomInteger(0, $this->alphabetLength);
-            $token .= $this->alphabet[$randomKey];
+            $randomKey = RandomStringGenerator::getRandomInteger(0, RandomStringGenerator::$alphabetLength);
+            $token .= RandomStringGenerator::$alphabet[$randomKey];
         }
 
         return $token;
@@ -64,7 +63,7 @@ class RandomStringGenerator
      * @param int $max
      * @return int
      */
-    protected function getRandomInteger($min, $max)
+    protected static function getRandomInteger($min, $max)
     {
         $range = ($max - $min);
 

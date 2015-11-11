@@ -107,6 +107,10 @@ class BusinessController extends BaseController{
            */
           $business->queue_limit = 9999;
           $business->num_terminals = 1;
+
+          // Generate business raw code for broadcast redirect
+          $business->raw_code = Helper::generateRawCode();
+
           $business->save();
 
           $business_user = new UserBusiness();
@@ -610,7 +614,6 @@ class BusinessController extends BaseController{
 
   // This callback function will auto generate the raw codes for the existing businesses; please delete afterwards
   public function getGenerateRawcode() {
-    include app_path() . '/utils/RandomStringGenerator.php';
     $res = Business::all();
     foreach ($res as $count => $business) {
       $business_id = $business->business_id;
