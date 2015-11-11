@@ -13,7 +13,6 @@
 .biz-navs .nav>li>a .glyphicon {
     font-size: 11px;
 }
-
 #view-broadcast,
 #process-queue {
     font-family: 'ralewayregular';
@@ -27,7 +26,6 @@
     vertical-align: middle;
     height: 59px;
 }
-
 #view-broadcast {
     /*margin-top: 30px;*/
     color: #fff;
@@ -148,7 +146,6 @@
 .biz-details a {
     margin-bottom: 20px;
 }
-
 /*ARA 04082015*/
 .biz-navs .form-control {
     margin-bottom: 20px;
@@ -156,6 +153,9 @@
     border-bottom: 1px solid #ddd;
     background-color: #f0f0f0;
     border-radius: 0;
+}
+.broadcast-wrap .form-control {
+    background-color: #fff!important;
 }
 .table-hover>tbody>tr:hover {
     background: none;
@@ -203,9 +203,9 @@
 }
 #bizTabContent .tab-pane small {
     margin-bottom: 6px;
-    font-size: 14px;
+    font-size: 12px;
     display: inline-block;
-    color: #000;
+    color: #555;
 }
 #tv-channel-select select {
     background-color: #fff;
@@ -420,7 +420,6 @@ table .title {
 .mt10 {
     margin-top: 10px;
 }
-
 .mt20 {
     margin-top: 20px;
 }
@@ -438,11 +437,9 @@ table .title {
     color: #000;
     margin-bottom: 0px!important;
 }
-
 .sender {
     color: #000;
 }
-
 .messagefrom, .messageto {
     padding: 20px;
     color: #000;
@@ -451,16 +448,13 @@ table .title {
     border-top: 1px solid rgb(0, 186, 139);
     background-color: rgba(0, 186, 139, 0.2);
 }
-
 .messageto {
     border-top: 1px solid rgb(255, 146, 91);
     background-color: rgba(255, 146, 91, 0.2);
 }
-
 .optionlabel {
     padding-left: 10px;
 }
-
 .phone-select {
     margin-bottom: 0px!important;
 }
@@ -468,7 +462,6 @@ table .title {
 #select-phone-div {
     padding-top: 15px;
 }
-
 .biz-terminals {
     display: none;
     background-color: #1f5297;
@@ -755,9 +748,21 @@ button#sendreply {
 }
 /*rodel sep15*/
 .broadcast-wrap {
-    padding: 40px;
+    padding: 30px;
     margin-bottom: 20px;
     background-color: #daebf2;
+}
+.broadcast-wrap2 {
+    padding: 15px 10px;
+    margin-bottom: 20px;
+    background-color: #daebf2;
+}
+.broadcast-wrap2 .alert {
+    margin-bottom: 0;
+}
+#remote-limit {
+    background-color: #daebf2;
+    margin-bottom: 3px;
 }
 #ad-width {
     background-color: transparent;
@@ -797,9 +802,11 @@ button#sendreply {
 .q-numbers .half {padding: 20px 20px; text-align: center; font-size: 32px; background-color: #fff; font-family: 'ralewaybold';margin: 3px; }
 .q-numbers .full {width: 100%;}
 .rel {position: relative;} .abs {position: absolute;}
-#ad-well-inner .drag {right: -3px;top:15%;}
-#ad-well-inner .drag div {font-size:12px; padding: 5px 10px; color: #fff; font-family: 'ralewayregular'; background-color: #337ab7;}
+#ad-well-inner .drag {right: -3px;top:10%;}
+#ad-well-inner .drag div {font-size:12px; padding: 8px 10px; color: #fff; font-family: 'ralewayregular'; background-color: #337ab7;}
 .remove_field {
     right: 0; top: 0; height: 100%; padding-top: 10px;
 }
 .q-minus,.q-add {padding-left: 10px!important;padding-right: 10px!important;}
+.ui-widget.ui-widget-content {background: none!important;}
+.white {background-color: #fff!important;}
