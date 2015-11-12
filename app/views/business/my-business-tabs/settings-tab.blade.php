@@ -164,7 +164,7 @@
                 <div class="mt20 alert alert-warning" role="alert">
                     <b>What is a Custom URL?</b> <br>
                     A Custom URL is an alpha-numeric code assigned to every business upon creation. It is a fast access to your broadcast screen. By accessing
-                    <a href="http://{{ $_SERVER['SERVER_NAME'] }}/@{{ custom_url }}" target="_blank">http://{{ $_SERVER['SERVER_NAME'] }}/@{{ custom_url }}</a>,
+                    <a href="http://{{ $_SERVER['HTTP_HOST'] }}/@{{ custom_url }}" target="_blank">http://{{ $_SERVER['HTTP_HOST'] }}/@{{ custom_url }}</a>,
                     it will redirect you to your broadcast screen. Share this to users so that they can remember your business easier.
                 </div>
                 <br>
