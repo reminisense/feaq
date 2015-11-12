@@ -39,7 +39,7 @@
     <div class="text-center">
         <img class="qrcode" src="https://api.qrserver.com/v1/create-qr-code/?data={{ URL::to('/broadcast/business/' . $business_id) }}&size=120x120">
         <div id="cust-url">
-            www.{{ $_SERVER['SERVER_NAME'] }}/<span>{{ $custom_url }}</span>
+            {{ $_SERVER['HTTP_HOST'] }}/<span>{{ $custom_url }}</span>
         </div>
     </div>
 </div>
