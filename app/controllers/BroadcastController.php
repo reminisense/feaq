@@ -26,12 +26,14 @@ class BroadcastController extends BaseController{
         $regions = $this->broadcastRegionsClassName($data->adspace_size, $data->numspace_size);
         $ad_class = $regions['ad_class'];
         $num_class = $regions['num_class'];
+        $custom_url = Business::getRawCodeByBusinessId($business_id);
         $numboxes = $this->numBoxesClassName($data->display, $regions['percentage']);
         $row_class = $numboxes['row_class'];
         $box_class = $numboxes['box_class'];
         return View::make($templates['broadcast_template'])
           //->with('custom_fields', $custom_fields)
           //->with('template_type', $data->d)
+              ->with('custom_url', $custom_url)
             ->with('adspace_size', $data->adspace_size)
             ->with('carousel_delay', isset($data->carousel_delay) ? (int)$data->carousel_delay : 5000)
             ->with('ad_type', $data->ad_type)

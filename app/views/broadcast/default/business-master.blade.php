@@ -38,6 +38,9 @@
     <p class="nomg"><h4 class="orange">Monitor via your PHONE.</h4> Just scan this QR Code</p>
     <div class="text-center">
         <img class="qrcode" src="https://api.qrserver.com/v1/create-qr-code/?data={{ URL::to('/broadcast/business/' . $business_id) }}&size=120x120">
+        <div>
+            http://{{ $_SERVER['SERVER_NAME'] }}/<span style="font-size: 22px; font-weight: bold; color: #ff8649;">{{ $custom_url }}</span>
+        </div>
     </div>
 </div>
 @endif
