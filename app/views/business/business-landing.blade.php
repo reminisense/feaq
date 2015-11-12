@@ -92,6 +92,7 @@
                         <div data-wow-delay="0.2s"
                              style="visibility: visible; -webkit-animation-delay: 0.2s;
            -moz-animation-delay: 0.2s; animation-delay: 0.2s;">
+                            <h1>Don't Waste Your Life -- Waiting</h1>
                             <p>FeatherQ is a DIY cloud-based queuing platform. </p>
                             <h1>We make it easy for businesses to <br><span>manage their lines better</span> and allow customers to wait on their own terms.</h1>
                         </div>

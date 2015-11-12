@@ -87,7 +87,7 @@
 <section id="banner" ng-controller="fbController">
     <div class="container">
         <div class="col-md-6">
-            <h1>There's a better way to wait.</h1>
+            <h1>Don't Waste Your Life -- Waiting</h1>
             <h2 class="sub-heading">Use FeatherQ's mobile application to join lines from anywhere, using your mobile device.</h2>
             <div class="cta">
                 <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" target="_blank"><img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png"></a>
