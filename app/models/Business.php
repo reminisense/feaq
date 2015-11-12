@@ -119,6 +119,7 @@ class Business extends Eloquent
             'features' => Business::getBusinessFeatures($business_id),
             'sms_gateway' => QueueSettings::smsGateway($first_service->service_id),
             'allowed_businesses' => Business::getForwardingAllowedBusinesses($business_id),
+            'raw_code' => $business->raw_code,
         ];
 
 

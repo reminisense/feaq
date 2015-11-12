@@ -153,16 +153,25 @@
         </div>
 
         <div class="mt50 header">
-            <h5>CUSTOM LINK</h5>
+            <h5>CUSTOM URL</h5>
         </div>
         <div class="broadcast-wrap2 clearfix">
             <div class=" col-md-12">
-                http://featherq.com/<input class="inline-b white mb0 form-control" type="text" style="width: 160px;" placeholder="myurl" />
+                http://featherq.com/<input class="inline-b white mb0 form-control" type="text" style="width: 160px;" placeholder="myurl" disabled="true" ng-model="custom_url" value="@{{ custom_url }}"/>
                 <small class="mt10 inline-b">only numbers, lowercase characters and hyphens are allowed</small>
             </div>
             <div class="col-md-12">
                 <div class="mt20 alert alert-warning" role="alert">
-                    What with custom URL? Yeah Lorem ipsum here
+                    <b>What is a Custom URL?</b> <br>
+                    A Custom URL is an alpha-numeric code assigned to every business upon creation. It is a fast access to your broadcast screen. By accessing
+                    <a href="http://{{ $_SERVER['SERVER_NAME'] }}/@{{ custom_url }}" target="_blank">http://{{ $_SERVER['SERVER_NAME'] }}/@{{ custom_url }}</a>,
+                    it will redirect you to your broadcast screen. Share this to users so that they can remember your business easier.
+                </div>
+                <br>
+                <div class="alert alert-warning" role="alert">
+                    <strong>** Custom URL Personalization</strong> will soon be enjoyed by business partners that have been in close contact with us.
+                    To be one of these partners, you may contact us at <strong><a href="mailto:contact@featherq.com">contact@featherq.com</a></strong>.
+                    You may also call us at <strong>(+63 32) 345-4658</strong> for further inquiries.
                 </div>
             </div>
         </div>
