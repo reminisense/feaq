@@ -319,10 +319,10 @@ app.controller('adminController', function($scope, $http){
                 $scope.business_features = {
                     terminal_users : 3,
                     allow_sms : "false",
-                    queue_forwarding: "false"
+                    queue_forwarding: "false",
+                    custom_url: "false"
                 };
             }
-
         });
     }
 

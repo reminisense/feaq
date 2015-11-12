@@ -399,7 +399,10 @@ var eb = {
         }
 
         $scope.business_features = {
-            terminal_users: 3
+            terminal_users: 3,
+            allow_sms : "false",
+            queue_forwarding: "false",
+            custom_url: "false"
         };
 
       //open a web socket connection

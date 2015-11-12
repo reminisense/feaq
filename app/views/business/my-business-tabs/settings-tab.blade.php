@@ -157,7 +157,7 @@
         </div>
         <div class="broadcast-wrap2 clearfix">
             <div class=" col-md-12">
-                http://featherq.com/<input class="inline-b white mb0 form-control" type="text" style="width: 160px;" placeholder="myurl" disabled="true" ng-model="custom_url" value="@{{ custom_url }}"/>
+                http://featherq.com/<input class="inline-b white mb0 form-control" type="text" style="width: 160px;" placeholder="myurl" disabled="true" ng-model="custom_url" value="@{{ custom_url }}" ng-disabled="business_features.custom_url == 'false'"/>
                 <small class="mt10 inline-b">only numbers, lowercase characters and hyphens are allowed</small>
             </div>
             <div class="col-md-12">
