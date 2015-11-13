@@ -141,7 +141,7 @@
            -moz-animation-delay: 0.1s; animation-delay: 0.1s;"
                  src="/images/business/landing/how-featherq-works1.png" alt="1. Sign up" />
             <h4 class="orange wow fadeInUp">1. Sign-up</h4>
-            <p class="wow fadeInUp">Clients who uses and implements FeatherQ Nullam eros mi, mollis in sollicitudin non, tincidunt sed</p>
+            {{--<p class="wow fadeInUp">Clients who uses and implements FeatherQ Nullam eros mi, mollis in sollicitudin non, tincidunt sed</p>--}}
         </div>
         <div class="col-md-4 col-sm-4 text-center">
             <img class="wow fadeInUp"
@@ -150,7 +150,7 @@
            -moz-animation-delay: 0.3s; animation-delay: 0.3s;"
                  src="/images/business/landing/how-featherq-works2.png" alt="2. Set up" />
             <h4 class="orange wow fadeInUp">2. Set-up</h4>
-            <p class="wow fadeInUp">Clients who uses and implements FeatherQ Nullam eros mi, mollis in sollicitudin non, tincid</p>
+            {{--<p class="wow fadeInUp">Clients who uses and implements FeatherQ Nullam eros mi, mollis in sollicitudin non, tincid</p>--}}
         </div>
         <div class="col-md-4 col-sm-4 text-center">
             <img class="wow fadeInUp"
@@ -159,7 +159,7 @@
            -moz-animation-delay: 0.5s; animation-delay: 0.5s;"
                  src="/images/business/landing/how-featherq-works3.png" alt="3. Serve" />
             <h4 class="orange wow fadeInUp">3. Serve</h4>
-            <p class="wow fadeInUp">Clients who uses and implements FeatherQ Nullam eros mi, mollis in sollicitudin non, tincidunt sed</p>
+            {{--<p class="wow fadeInUp">Clients who uses and implements FeatherQ Nullam eros mi, mollis in sollicitudin non, tincidunt sed</p>--}}
         </div>
     </div>
 </section>
@@ -175,17 +175,17 @@
         <div class="col-md-4 col-sm-4 text-center">
             <img class="wow fadeInUp" src="/images/business/landing/featherq-benefits-1.png" alt="1. Sign up" />
             <h4 class="wow fadeInUp orange">Reduce Opportunity Loss</h4>
-            <p class="wow fadeInUp">Clients who uses and implements FeatherQ Nullam eros mi, mollis in sollicitudin non, tincidunt sed</p>
+            {{--<p class="wow fadeInUp">Clients who uses and implements FeatherQ Nullam eros mi, mollis in sollicitudin non, tincidunt sed</p>--}}
         </div>
         <div class="col-md-4 col-sm-4 text-center">
             <img class="wow fadeInUp" src="/images/business/landing/featherq-benefits-2.png" alt="1. Set-up" />
             <h4 class="wow fadeInUp orange">Retain Clientele</h4>
-            <p class="wow fadeInUp">Clients who uses and implements FeatherQ Nullam eros mi, mollis in sollicitudin non, tincid</p>
+            {{--<p class="wow fadeInUp">Clients who uses and implements FeatherQ Nullam eros mi, mollis in sollicitudin non, tincid</p>--}}
         </div>
         <div class="col-md-4 col-sm-4 text-center">
             <img class="wow fadeInUp" src="/images/business/landing/featherq-benefits-3.png" alt="3. Serve" />
             <h4 class="wow fadeInUp orange">Manage from Anywhere</h4>
-            <p class="wow fadeInUp">Clients who uses and implements FeatherQ Nullam eros mi, mollis in sollicitudin non, tincidunt sed</p>
+            {{--<p class="wow fadeInUp">Clients who uses and implements FeatherQ Nullam eros mi, mollis in sollicitudin non, tincidunt sed</p>--}}
         </div>
     </div>
 </section>

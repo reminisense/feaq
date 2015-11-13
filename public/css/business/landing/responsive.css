@@ -46,6 +46,9 @@
             font-size: 16px;
             margin-bottom: 60px;
         }
+        #featherq-features img {
+            margin: auto;
+        }
     }
 
     @media only screen and (max-width : 480px) {
@@ -75,6 +78,7 @@
         .details {
             height: 190px;
         }
+        #featherq-works p {margin-bottom: 50px;}
     }
 
     @media only screen and (max-width : 320px) {

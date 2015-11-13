@@ -279,13 +279,13 @@ ul.nav {
 
 .tri {
   margin-top: -100px; }
-
+.business_link small {line-height: 15px; display: inline-block; font-size: 80%!important; color: #6a6a6a;}
 .business_link:hover {
   text-decoration: none; }
 
 .box-wrap {
   background-color: #fff;
-  color: #111;
+  color: #222;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -293,11 +293,12 @@ ul.nav {
   padding: 15px 20px;
   margin-bottom: 20px; }
   .box-wrap .title {
-    color: #111;
+    color: #333;
     font-size: 14px;
     font-weight: 700;
-    margin-bottom: 0;
-    overflow: hidden; }
+    margin-bottom: 10px;
+    overflow: hidden;
+    line-height: 18px;}
 
 /* filters */
 .filterwrap button,
