@@ -68,7 +68,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><img src="/images/business/landing/FeatherQ-logo.png" alt="FeatherQ" /></a>
+            <a class="navbar-brand" href="/"><img src="/images/business/landing/FeatherQ-logo.png" alt="FeatherQ"/></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -78,6 +78,7 @@
                 <li><a href="#who-uses">USES</a></li>
                 <li><a href="http://guides.featherq.com" target="_blank">SETUP GUIDE</a></li>
                 <li><a href="#contact-us">CONTACT US</a></li>
+                <li><a href="/"><span class="glyphicon glyphicon-home"></span> HOME</a></li>
             </ul>
         </div>
     </div>
