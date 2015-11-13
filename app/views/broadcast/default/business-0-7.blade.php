@@ -55,7 +55,11 @@
                   <div class="col-md-7">
                     <h4 class="orange">Monitor via your phone.</h4> <p>Just scan this QR Code</p>
                   </div>
-
+                    <div class="col-md-12">
+                        <div id="cust-url">
+                            {{ $_SERVER['HTTP_HOST'] }}/<span>{{ $custom_url }}</span>
+                        </div>
+                    </div>
                 </div>
               </div>
             </div>
