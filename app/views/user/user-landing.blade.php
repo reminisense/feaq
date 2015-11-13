@@ -151,6 +151,9 @@
             <img style="width: 41px;" src="/images/loader-spinner-white.gif" />
         </div>
         <div class="clearfix" id="search-grid" style="display: none;">
+            <div class="col-md-12 col-xs-12 col-sm-12">
+                <h5 class="mb30 searchresults" style="color: #fff;">@{{ searchLabel }}</h5>
+            </div>
             <div class="col-md-3 ng-scope" ng-repeat="business in businesses">
                 <a class="business_link" href="/broadcast/business/@{{ business.business_id }}" target="_blank">
                     <div class="box-wrap">
