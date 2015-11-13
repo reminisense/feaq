@@ -1,19 +1,24 @@
 .orange {
   color: #fe9636; }
-
 body {
   font-family: "Open Sans", sans-serif; }
-
+body#user-landing #banner .btn,
+#beat .btn {
+    -webkit-border-radius: 9px!important;
+    -moz-border-radius: 9px!important;
+    -ms-border-radius: 9px!important;
+    border-radius: 9px!important;
+    padding: 20px 25px!important;
+    margin: 0 8px;
+    font-weight: 600;}
 body p {
   line-height: 26px; }
-
 h2 {
   color: #00ba8b;
   font-size: 40px;
   font-weight: 600;
   margin-bottom: 70px;
   margin-top: 40px; }
-
 h3 {
   color: #00ba8b;
   font-size: 30px;
@@ -31,7 +36,8 @@ h5 {
   font-size: 16px;
   font-weight: 600;
   margin-top: 20px; }
-
+body#user-landing section {
+    padding: 60px 0 90px; }
 section {
   padding: 100px 0 100px; }
 
@@ -43,8 +49,8 @@ section {
     width: 200px; }
 
 #banner {
-  padding: 195px 0 0 0;
-  height: 700px;
+  padding: 195px 0 0 0!important;
+  height: 750px;
   color: #fff;
   background: url("../../images/homepage/landing/banner.jpg") no-repeat center center;
   -webkit-background-size: cover;
@@ -149,8 +155,8 @@ section {
   #wait h4 {
     font-size: 24px;
     font-weight: 600;
-    margin-bottom: 30px;
-    margin-top: 40px; }
+    margin-bottom: 23px;
+    margin-top: 30px; }
   #wait img {
     width: 220px;
     margin: auto; }
@@ -179,7 +185,7 @@ section {
 
 .pre-footer {
   background-color: #283339;
-  padding: 30px 0; }
+  padding: 30px 0!important; }
   .pre-footer img {
     margin-right: 10px; }
   .pre-footer p {
@@ -210,7 +216,7 @@ ul.nav {
   margin-bottom: 0; }
 
 .navbar-inverse {
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.8);
   padding: 20px 0;
   border: none; }
 
@@ -323,7 +329,7 @@ ul.nav {
   position: relative;
   -webkit-box-shadow: 0 2px 5px 4px rgba(0, 0, 0, 0.3);
   box-shadow: 0 2px 5px 4px rgba(0, 0, 0, 0.3);
-  height: 46px; }
+  /*height: 46px;*/ }
 
 .filterwrap .btn,
 .filterwrap .form-control {
@@ -432,8 +438,8 @@ ul.nav {
     padding-left: 20px;
     padding-right: 20px;
     font-size: 12px;
-    font-weight: 600;
-    margin-top: 10px; } }
+    font-weight: 600;  }
+}
 /* Medium Devices, Desktops */
 @media only screen and (max-width: 992px) {
   #phone > .row > .col-sm-12 {
@@ -447,7 +453,6 @@ ul.nav {
 
   body {
     background: #fefefe url("../../images/homepage/landing/bg-top-sm.jpg") top right no-repeat; }
-
   #banner {
     height: 700px; }
 
@@ -523,7 +528,6 @@ ul.nav {
 @media only screen and (max-width: 768px) {
   .navbar-right {
     margin-right: -15px; }
-
   #find-a-business img {
     width: 155px; }
 
@@ -537,7 +541,6 @@ ul.nav {
     font-size: 20px; } }
 /* Extra Small Devices, Phones */
 /* Custom, iPhone Retina */
-
 /*ARA search dropdown*/
 #search-suggest{
   display: block;
