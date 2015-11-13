@@ -379,7 +379,9 @@ ul.nav {
   overflow-y: visible;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  background-color: #f7f7f7; }
+  background-color: #f7f7f7;
+  border: 0px!important;
+}
 
 .filterwrap .btn-group.open .dropdown-toggle {
   color: #00ba8b;

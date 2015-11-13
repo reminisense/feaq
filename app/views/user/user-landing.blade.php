@@ -105,7 +105,7 @@
             <h2 class="text-center">Find a Business</h2>
         </div>
         <div class="col-md-12">
-            <div class="filterwrap wow fadeInUp col-md-offset-2 col-md-8">
+            <div class="filterwrap col-md-offset-2 col-md-8">
                 <div class="row">
                     <div class="col-md-2 col-sm-2 col-xs-4 btn-group">
                         <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle ng-binding" data-toggle="dropdown">
@@ -150,7 +150,7 @@
         <div class="clearfix col-md-12" id="search-loader" style="display: none; text-align: center;">
             <img style="width: 41px;" src="/images/loader-spinner-white.gif" />
         </div>
-        <div class="clearfix wow fadeIn" id="search-grid" style="display: none;">
+        <div class="clearfix" id="search-grid" style="display: none;">
             <div class="col-md-3 ng-scope" ng-repeat="business in businesses">
                 <a class="business_link" href="/broadcast/business/@{{ business.business_id }}" target="_blank">
                     <div class="box-wrap">
