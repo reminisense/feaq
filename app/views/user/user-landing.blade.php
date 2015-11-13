@@ -162,6 +162,14 @@
                     </div>
                 </a>
             </div>
+            <div class="col-md-3" ng-if="businesses.length > 0" ng-controller="fbController">
+                <a class="business_link" href="#" ng-click="login()">
+                    <div class="box">
+                        <p class="title"><span class="gray glyphicon glyphicon-plus"></span> More Businesses</p>
+                        <small>Sign up now to view More Businesses</small>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 </section>
