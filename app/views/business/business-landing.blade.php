@@ -198,7 +198,7 @@
         <div class="col-md-12">
             <h2 class="text-center">FeatherQ Features</h2>
         </div>
-        <div class="col-md-3 col-sm-4 col-xs-6 text-center wow fadeInUp">
+        <div class="col-md-3 col-sm-4 col-xs-12 text-center wow fadeInUp">
             <div class="rel detail-wrap">
                 <img class="img-responsive" src="/images/business/landing/features-30sec.png" alt="30 second setup" />
                 <h4>30 second <br>business set-up</h4>
@@ -209,7 +209,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-4 col-xs-6 text-center wow fadeInUp">
+        <div class="col-md-3 col-sm-4 col-xs-12 text-center wow fadeInUp">
             <div class="rel detail-wrap">
                 <img class="img-responsive" src="/images/business/landing/features-flexible.png" alt="Flexible line management" />
                 <h4>Flexible <br>line management </h4>
@@ -220,7 +220,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-4 col-xs-6 text-center wow fadeInUp">
+        <div class="col-md-3 col-sm-4 col-xs-12 text-center wow fadeInUp">
             <div class="rel detail-wrap">
                 <img class="img-responsive" src="/images/business/landing/features-customizable.png" alt="Customizable Features" />
                 <h4>Customizable <br>features</h4>
@@ -231,7 +231,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-4 col-xs-6 text-center wow fadeInUp">
+        <div class="col-md-3 col-sm-4 col-xs-12 text-center wow fadeInUp">
             <div class="rel detail-wrap">
                 <img class="img-responsive" src="/images/business/landing/features-analytics.png" alt="Business analytics" />
                 <h4>Business <br>Analytics</h4>
@@ -242,7 +242,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-4 col-xs-6 text-center wow fadeInUp">
+        <div class="col-md-3 col-sm-4 col-xs-12 text-center wow fadeInUp">
             <div class="rel detail-wrap">
                 <img class="img-responsive" src="/images/business/landing/features-minimal.png" alt="Minimal setup" />
                 <h4>Minimal<br>set-up</h4>
@@ -253,7 +253,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-4 col-xs-6 text-center wow fadeInUp">
+        <div class="col-md-3 col-sm-4 col-xs-12 text-center wow fadeInUp">
             <div class="rel detail-wrap">
                 <img class="img-responsive" src="/images/business/landing/features-notification.png" alt="Easy customer notification" />
                 <h4>Easy customer <br>notification </h4>
@@ -264,8 +264,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-4 col-xs-6 text-center wow fadeInUp">
-            <div class="rel detail-wrap">
+        <div class="col-md-3 col-sm-4 col-xs-12 text-center wow fadeInUp">
+            <div class="rel detail-wrap text-center">
                 <img class="img-responsive" src="/images/business/landing/features-simple.png" alt="Simple interface" />
                 <h4>Simple <br>interface</h4>
                 <div class="abs details">
@@ -275,7 +275,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-4 col-xs-6 text-center wow fadeInUp">
+        <div class="col-md-3 col-sm-4 col-xs-12 text-center wow fadeInUp">
             <div class="rel detail-wrap">
                 <img class="img-responsive" src="/images/business/landing/features-free.png" alt="FeatherQ is Free" />
                 <h4>It's <br>FREE!</h4>
