@@ -2,22 +2,22 @@
     <h5 class="col-md-12">BUSINESS DETAILS</h5>
 </div>
     <div class="col-md-6">
-        <small>Business Name</small>
+        <p class="title">Business Name</p>
         <input type="text" class=" form-control" value="@{{ business_name }}" ng-model="business_name">
     </div>
     <div class="col-md-6">
-        <small>Business Address</small>
+        <p class="title">Business Address</p>
         <input type="text" class="form-control" value="@{{ business_address }}" ng-model="business_address" ng-autocomplete options="options" details="details">
     </div>
     <div class="col-md-6">
-        <small>Facebook URL</small>
+        <p class="title">Facebook URL</p>
         <input type="text" class=" form-control" value="@{{ facebook_url }}" placeholder="Add Your Facebook Page!" ng-model="facebook_url">
     </div>
     <div class="col-md-6">
         <div class="row">
             <div class="col-md-6">
             <div class="col-md-12">
-                <small>Industry</small>
+                <p class="title">Industry</p>
                         <div class="btn-group">
                             <select class="form-control" ng-model="industry" name="industry" id="industry">
                                 <option value="@{{ industry }}">@{{ industry }}</option>
@@ -77,11 +77,11 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-6">
-                    <small>Time Open</small>
+                    <p class="title">Time Open</p>
                     <input type="text" class="form-control" value="@{{ time_open }}" ng-model="time_open"> <!-- RDH  Added timepicker -->
                 </div>
                 <div class="col-md-6">
-                    <small>Time Close</small>
+                    <p class="title">Time Close</p>
                     <input type="text" class="form-control" value="@{{ time_closed }}" ng-model="time_closed"> <!-- RDH  Added timepicker -->
                 </div>
             </div>
@@ -92,7 +92,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-6">
-                        <small>Timezone</small>
+                        <p class="title">Timezone</p>
                         <select class="form-control" name="timezone" id="timezone" ng-model="timezone"> <!-- ARA Added timezone picker -->
                             @foreach(Helper::getTimezoneList() as $index => $timezone)
                             <option value="{{ $timezone }}">{{ $timezone }}</option>

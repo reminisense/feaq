@@ -219,11 +219,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     }
 
 
-    public static function countUsersByRange($start_date, $end_date)
+    public static function getUsersByRange($start_date, $end_date)
     {
         $temp_start_date = date("Y/m/d", $start_date);
         $temp_end_date = date("Y/m/d", $end_date);
-        return User::where('registration_date', '>=', $temp_start_date)->where('registration_date', '<', $temp_end_date)->count();
+        return User::where('registration_date', '>=', $temp_start_date)->where('registration_date', '<', $temp_end_date)->get();
     }
 
     public static function getUserHistory($user_id, $limit, $offset){

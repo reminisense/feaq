@@ -13,6 +13,14 @@
 class BusinessController extends BaseController{
 
 
+    public function getIndex(){
+        if(Auth::check()){
+            return Redirect::to('/business/my-business');
+        }else{
+            return View::make('business.business-landing');
+        }
+    }
+
     public function getMyBusiness(){
         if(Auth::check()){
             $businesses = UserBusiness::getAllBusinessIdByOwner(Helper::userId());
@@ -99,6 +107,10 @@ class BusinessController extends BaseController{
            */
           $business->queue_limit = 9999;
           $business->num_terminals = 1;
+
+          // Generate business raw code for broadcast redirect
+          $business->raw_code = Helper::generateRawCode();
+
           $business->save();
 
           $business_user = new UserBusiness();
@@ -598,4 +610,19 @@ class BusinessController extends BaseController{
         $allowed_businesses = Business::getForwarderAllowedBusinesses($business_id);
         return json_encode(['success' => 1, 'allowed_businesses' => $allowed_businesses]);
     }
+
+
+  // This callback function will auto generate the raw codes for the existing businesses; please delete afterwards
+  public function getGenerateRawcode() {
+    $res = Business::all();
+    foreach ($res as $count => $business) {
+      $business_id = $business->business_id;
+      $raw_code = Helper::generateRawCode();
+      while (Helper::isRawCodeExists($raw_code)) {
+        $raw_code = Helper::generateRawCode();
+      }
+      Business::where('business_id', '=', $business_id)->update(array('raw_code' => $raw_code));
+    }
+    print 'Raw codes generated.';
+  }
 }

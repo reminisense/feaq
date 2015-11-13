@@ -58,6 +58,15 @@ class Business extends Eloquent
         return Business::where('business_id', '=', $business_id)->select(array('industry'))->first()->industry;
     }
 
+    public static function getBusinessIdByRawCode($raw_code = '') {
+        return Business::where('raw_code', '=', $raw_code)->select(array('business_id'))->first()->business_id;
+    }
+
+    public static function getRawCodeByBusinessId($business_id)
+    {
+        return Business::where('business_id', '=', $business_id)->select(array('raw_code'))->first()->raw_code;
+    }
+
     /** functions to get the Business name **/
     public static function getBusinessNameByTerminalId($terminal_id)
     {
@@ -115,6 +124,7 @@ class Business extends Eloquent
             'features' => Business::getBusinessFeatures($business_id),
             'sms_gateway' => QueueSettings::smsGateway($first_service->service_id),
             'allowed_businesses' => Business::getForwardingAllowedBusinesses($business_id),
+            'raw_code' => $business->raw_code,
         ];
 
 
@@ -544,10 +554,10 @@ class Business extends Eloquent
         return Business::where('name', $business_name)->get();
     }
 
-    public static function countBusinessByRange($start_date, $end_date){
+    public static function getBusinessByRange($start_date, $end_date){
         $temp_start_date = date("Y/m/d", $start_date);
         $temp_end_date = date("Y/m/d", $end_date);
-        return Business::where('registration_date', '>=', $temp_start_date)->where('registration_date','<', $temp_end_date)->count();
+        return Business::where('registration_date', '>=', $temp_start_date)->where('registration_date','<', $temp_end_date)->get();
     }
 
     public static function getAllBusinessNames(){

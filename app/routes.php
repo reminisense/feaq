@@ -11,7 +11,6 @@
 |
 */
 
-Route::get('/', 'UserController@getUserDashboard');
 
 Route::post('/', 'UserController@processContactForm');
 
@@ -60,3 +59,5 @@ Route::controller('articles', 'ContentController');
 Route::controller('how-to', 'ContentController');
 
 Route::controller('test', 'TestController');
+
+Route::get('/{raw_code?}', 'UserController@getUserDashboard');

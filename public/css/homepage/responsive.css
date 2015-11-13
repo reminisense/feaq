@@ -43,9 +43,22 @@
     .filterwrap .btn-orange {
         margin-left: -15px;
     }
+    body#user-landing #banner .btn {
+        padding: 16px 25px!important;
+        margin: 0 8px;
+        font-weight: 600;}
 }
 
 @media only screen and (max-width : 992px) {
+    body#user-landing #navbar {
+        background: #111;
+    }
+    .navbar-inverse {background-color: #111;}
+    body#user-landing #navbar ul.nav li a {
+        padding: 15px 15px!important;
+        font-size: 17px;
+        font-weight: 500;
+    }
 	.navbar-header {
         float: none;
     }
@@ -144,6 +157,10 @@
     }
 }
 @media (min-width: 480px) and (max-width: 768px) {
+    body#user-landing #banner .btn {
+        padding: 16px 25px!important;
+        margin: 10px 8px;
+        font-weight: 600;}
     .filterwrap .row {
         border-top-right-radius: 4px;
         border-bottom-right-radius: 4px;
@@ -151,6 +168,8 @@
     .filterwrap .btn-orange {
         border-top-right-radius: 0px!important;
     }
+    #wait img {width: 380px;}
+    #wait p {margin-bottom: 60px;}
     #time_open-filter {
         border: none!important;
     }
@@ -221,12 +240,29 @@
         padding-bottom: 50px;
     }
 }
+@media (min-width: 480px) and (max-width: 558px) {
+    body#user-landing #banner {padding-top: 150px!important;}
+}
 @media (min-width: 480px) and (max-width: 513px) {
     #myTabs li a {
         height: 96px;
     }
 }
+
 @media only screen and (max-width : 480px) {
+    .navbar-toggle {margin-top: 0px!important; margin-bottom: 0px!important;}
+    #banner {  padding-top: 130px!important; }
+    body#user-landing #banner .btn {
+        padding: 14px 25px!important;
+        font-weight: 600;
+        margin-top: 15px!important;
+        font-size: 15px!important;
+    }
+    #banner .sub-heading {
+        font-size: 22px;
+        line-height: 35px;
+    }
+    #banner h1 {margin-bottom: 30px;}
     h2 {
         font-size: 30px;
     }
@@ -365,9 +401,30 @@
     .contactus button {
         border-radius: 0!important;
     }
+    .cta .btn,
+    .cta .img {
+        margin: 8px!important;
+    }
+    #wait img {width: 280px;}
+    #wait p {margin-bottom: 80px;}
 }
 
 @media only screen and (max-width : 320px) {
+    .navbar-brand,
+    .navbar-brand img {
+        width: 180px!important;
+    }
+    #banner {  padding-top: 130px!important; }
+    #banner h1 {
+        font-weight: 500;
+        font-size: 30px;
+        line-height: 45px;
+        margin-bottom: 35px;
+    }
+    body#user-landing #banner .btn img {
+        height: 15px;
+    }
+    #wait img {width: 250px;}
     .banner {
         padding-top: 70px;
     }
@@ -434,7 +491,7 @@
         padding-bottom: 10px;
     }
     .navbar-toggle {
-        margin-top: 48px;
+        margin-top: 0px;
     }
     .featurewrapper {
         padding: 10px;
