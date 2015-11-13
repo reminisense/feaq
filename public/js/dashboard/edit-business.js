@@ -343,6 +343,7 @@ var eb = {
         $scope.time_open = null;
         $scope.time_closed = null;
         $scope.queue_limit = null; /* RDH Added queue_limit to Edit Business Page */
+        $scope.custom_url = "";
 
         $scope.terminals = [];
         $scope.users = [];
@@ -452,6 +453,7 @@ var eb = {
             $scope.analytics = business.analytics;
             $scope.terminal_delete_error = business.error ? business.error : null;
             $scope.allowed_businesses = business.allowed_businesses;
+            $scope.custom_url = business.raw_code;
 
             //sms settings
             $scope.sms_gateway = business.sms_gateway;

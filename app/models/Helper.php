@@ -1,4 +1,7 @@
 <?php
+
+use utils\RandomStringGenerator;
+
 /**
  * ARA - Helper class
  *
@@ -30,10 +33,34 @@ class Helper extends Eloquent {
       //return json_encode(array('message' => $e->getMessage()));
       Auth::logout();
     } catch(Facebook\Exceptions\FacebookSDKException $e) {
-      //return json_encode(array('message' => $e->getMessage()));
-      Auth::logout();
+        //return json_encode(array('message' => $e->getMessage()));
+        Auth::logout();
     }
   }
+
+    /**
+     * Generates random 4-character raw_code.
+     */
+    public static function generateRawCode()
+    {
+        // Set token length.
+        $tokenLength = 4;
+
+        // Call method to generate random string.
+        $raw_id = \RandomStringGenerator::generate($tokenLength);
+
+        return $raw_id;
+    }
+    
+    /**
+     * Returns true if raw_code exists in database.
+     * @param $rawCode
+     * @return bool
+     */
+    public static function isRawCodeExists($rawCode) {
+        return Helper::firstFromTable('business', 'raw_code', $rawCode, '=');
+        //return !empty($ret);
+    }
 
     /**
      * gets the user id of the current user

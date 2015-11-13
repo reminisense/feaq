@@ -14,11 +14,11 @@
         </tr>
         <tr>
             <td id="business-numbers-label" width="50%">New Businesses</td>
-            <td id="business-numbers"><b>@{{ new_business }}</b></td>
+            <td id="business-numbers"><b><a href="#" data-toggle="modal" data-target="#business_information">@{{ new_business }}</a></b></td>
         </tr>
         <tr>
             <td id="user-numbers-label">New Users</td>
-            <td id="user-numbers"><b>@{{ new_users }}</b></td>
+            <td id="user-numbers"><b><a href="#" data-toggle="modal" data-target="#users_information">@{{ new_users }}</a></b></td>
         </tr>
         <tr>
             <td id="issued-numbers-label">Issued Numbers</td>
@@ -353,4 +353,78 @@
 </div>
 </div>
 </div>
+</div>
+
+<div id="business_information" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">New Businesses</h4>
+            </div>
+            <div class="modal-body">
+                <div ng-repeat="business in business_information">
+                    <table class>
+                        <tr>
+                            <td><b>Business Name : </b></td>
+                            <td>@{{business['business_name']}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Name : </b></td>
+                            <td>@{{business['name']}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Email Address : </b></td>
+                            <td>@{{business['email']}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Phone Number : </b></td>
+                            <td>@{{business['phone']}}</td>
+                        </tr>
+                    </table>
+                    <hr>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="users_information" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">New Users</h4>
+            </div>
+            <div class="modal-body">
+                <div ng-repeat="user in users_information">
+                    <table class>
+                        <tr>
+                            <td><b>First Name : </b></td>
+                            <td>@{{user['first_name']}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Last Name : </b></td>
+                            <td>@{{user['last_name']}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Email Address : </b></td>
+                            <td>@{{user['email']}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Phone Number : </b></td>
+                            <td>@{{user['phone']}}</td>
+                        </tr>
+                    </table>
+                    <hr>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>

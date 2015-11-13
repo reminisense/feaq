@@ -1,0 +1,319 @@
+.orange {
+  color: #fe9636; }
+
+body {
+  background: #fefefe url("../../../images/business/landing/bg-top.jpg") top right no-repeat;
+  font-family: "Open Sans", sans-serif;
+  padding-top: 80px; }
+
+body p {
+  line-height: 26px; }
+
+h2 {
+  color: #00ba8b;
+  font-size: 40px;
+  font-weight: 600;
+  margin-bottom: 100px;
+  margin-top: 60px; }
+
+h3 {
+  color: #00ba8b;
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 70px; }
+
+h4 {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #013a49;
+  line-height: 24px; }
+
+h5 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 20px; }
+
+section {
+  padding: 100px 0 100px; }
+
+.navbar-brand {
+  height: inherit;
+  padding: 0px;
+  margin-left: 15px !important; }
+
+#banner {
+  padding: 0px 0 0 0;
+  height: 600px;
+  color: #fff; }
+  #banner .btn {
+    -webkit-border-radius: 22px;
+    -moz-border-radius: 22px;
+    -ms-border-radius: 22px;
+    border-radius: 22px;
+    color: #fff;
+    background-color: #4666b6;
+    padding: 14px 40px;
+    font-size: 13px;
+    font-weight: 700; }
+    #banner .btn img {
+      height: 13px;
+      margin-right: 12px;
+      margin-top: -1px; }
+  #banner p, #banner h1 {
+    margin-bottom: 50px;
+    text-shadow: 0 1px 1px #4f4f4f; }
+  #banner h1 {
+    font-weight: 300;
+    font-size: 28px;
+    margin-bottom: 60px;
+    line-height: 48px; }
+    #banner h1 span {
+      font-weight: 600; }
+  #banner #start {
+      margin-left: 20px;
+    margin-bottom: 20px; }
+
+#featherq-features {
+  background-color: #e1e0dc; }
+  #featherq-features h4 {
+    margin-bottom: 60px; }
+
+#who-uses {
+  background-color: #f4f3f0; }
+
+#benefits {
+  background-color: #f4f3f0; }
+  #benefits h4 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    margin-top: 40px; }
+
+#featherq-works {
+  background-color: #ffffff; }
+  #featherq-works h4 {
+    font-size: 24px;
+    margin-top: 40px;
+    margin-bottom: 30px;
+    font-weight: 600; }
+
+#partners {
+  background-color: #f3f2ee;
+  padding-top: 150px; }
+  #partners img {
+    margin: 10px; }
+
+#phone {
+  padding-top: 90px;
+  height: 680px;
+  background: url("../../../images/business/landing/featherq-on-mobile.png") bottom right no-repeat;
+  margin-bottom: -120px; }
+  #phone p {
+    font-size: 34px; }
+
+.pre-footer {
+  background-color: #283339; }
+  .pre-footer img {
+    margin-right: 10px; }
+  .pre-footer p {
+    color: #fff;
+    font-size: 18px; }
+  .pre-footer .pull-right {
+    color: #fe9636;
+    font-size: 22px; }
+  .pre-footer .socials img {
+    width: 40px;
+    margin-right: 2px; }
+
+footer {
+  background-color: #181e22;
+  padding: 56px 0; }
+  footer p {
+    margin: 0;
+    color: #fff; }
+
+ul.nav {
+  -webkit-border-radius: 24px;
+  -moz-border-radius: 24px;
+  -ms-border-radius: 24px;
+  border-radius: 24px;
+  background-color: #283339;
+  padding-left: 30px;
+  padding-right: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 10px; }
+
+.navbar {
+  margin-bottom: 0; }
+
+.navbar-inverse {
+  background: none;
+  border: none; }
+
+.navbar-inverse .navbar-nav > li > a {
+  color: #fff; }
+
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+  color: #ffb667; }
+
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+  background: none;
+  color: #ffb667; }
+
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+  border: none; }
+
+.socials {
+  margin-top: 40px; }
+
+#start {
+  font-size: 22px !important; }
+.navbar-inverse .navbar-toggle {
+    background-color: #283339;
+}
+.details {
+  display: none;
+  bottom: 66px;
+  /* transition: all 0.4s ease-in-out;
+  background: #fefefe url('../img/bg-details.png') center center no-repeat;
+  	transform: scale(0);
+  	opacity: 0; */
+  background: rgba(0, 0, 0, 0.8);
+  height: 160px; }
+  .details p {
+    color: #fff;
+    padding: 20px;
+    line-height: 24px;
+    font-size: 14px;
+    display: table-cell;
+    vertical-align: middle; }
+  .details .wrap {
+    display: table;
+    height: 100%; }
+
+.rel {
+  position: relative; }
+
+.abs {
+  position: absolute; }
+
+.box {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px; }
+
+.ml40 {
+  margin-left: 40px; }
+
+.tri {
+  margin-top: -100px; }
+
+@media only screen and (max-width: 1200px) {
+  ul.nav {
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 10px; } }
+/* Medium Devices, Desktops */
+@media only screen and (max-width: 992px) {
+  #phone > .row > .col-sm-12 {
+    text-align: center; }
+  #phone {
+    background: none;
+    padding-top: 60px; }
+  body {
+    background: #fefefe url("../../../images/business/landing/bg-top-sm.jpg") top right no-repeat; }
+  #phone .visible-sm {
+    margin-top: 40px; }
+
+  /* specific screen nav toggle */
+  .navbar-header {
+    float: none; }
+
+  .navbar-header {
+    float: none; }
+
+  .navbar-left, .navbar-right {
+    float: none !important; }
+
+  .navbar-toggle {
+    display: block; }
+
+  .navbar-collapse {
+    border-top: 1px solid transparent;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1); }
+
+  .navbar-fixed-top {
+    top: 0;
+    border-width: 0 0 1px; }
+
+  .navbar-collapse.collapse {
+    display: none !important; }
+
+  .navbar-nav {
+    float: none !important;
+    margin-top: 7.5px; }
+
+  .navbar-nav > li {
+    float: none; }
+
+  .navbar-nav > li > a {
+    padding-top: 10px;
+    padding-bottom: 10px; }
+
+  .collapse.in {
+    display: block !important; }
+
+  /*  */
+  .navbar-right {
+    margin-right: 0px; }
+
+  ul.nav {
+    margin-top: 20px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px; }
+
+  #navbar {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none; }
+
+  body {
+    padding-top: 40px; }
+
+  #partners {
+    padding-top: 200px; }
+    #partners img {
+      width: 200px; }
+
+  #banner .btn {
+    font-size: 20px; }
+    #banner .btn img {
+      height: 21px; }
+
+  #featherq-works img,
+  #benefits img {
+    width: 100%; } }
+/* Small Devices, Tablets */
+@media only screen and (max-width: 768px) {
+  .navbar-right {
+    margin-right: -15px; }
+
+  #partners img {
+    width: 155px; }
+
+  section {
+    padding: 50px 0 70px; }
+
+  .tri {
+    margin-top: -50px; }
+
+  #banner .btn {
+    font-size: 20px; } }
+

@@ -130,7 +130,7 @@ h1,h2,h3,h4 {margin: 0;}
 .top {background-color: #262a31;text-align: center;margin: auto;padding: 12px 0;}
 .ticker-message {background-color: #fff;color: #000;padding: 10px 0;position: absolute;bottom: 0;width: 100%;z-index: 1; max-height: 62px; overflow: hidden; white-space: nowrap;}
 .ticker-message p {font-size: 30px;font-weight: 900;margin-bottom: 0;}
-.qrcode.qrwrap {width: 200px;position: absolute;bottom: 62px;left: 0;z-index: 20;text-align: center;min-height: inherit!important;padding: 15px!important;background: rgba(255,255,255,0.85)!important;}
+.qrcode.qrwrap {width: 220px;position: absolute;bottom: 62px;left: 0;z-index: 20;text-align: center;min-height: inherit!important;padding: 15px!important;background: rgba(255,255,255,0.85)!important;}
 .qrcode.qrwrap .orange {font-size: 20px!important;}
 .qrcode.qrwrap h4 {margin: 0;color: #ff8649;font-weight: 900;}
 .qrcode.qrwrap img {width: 100%;margin-top: 5px;}
@@ -139,6 +139,8 @@ h1,h2,h3,h4 {margin: 0;}
 .boxed.four .numbers .callnum {line-height: 120px; width: 390px;}
 .fifty .boxed.four .numbers .terminal { padding-bottom:50px; }
 .fifty .boxed.ten .numbers .callnum { line-height: 95px; }
+#cust-url {  margin-top: 8px; font-size: 14px; font-weight: bold; }
+#cust-url span {font-size: 24px; font-weight: bold; color: #ff8649;}
 
 /*here comes no ADS*/
 #biz-broadcast-no-ads .ticker-message {z-index: 5;}
