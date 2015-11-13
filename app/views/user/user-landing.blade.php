@@ -162,6 +162,14 @@
                     </div>
                 </a>
             </div>
+            <div class="col-md-3 ng-scope" ng-controller="fbController">
+                <a class="business_link" href="#" ng-click="login()">
+                    <div class="box-wrap">
+                        <p class="title ng-binding"> More Businesses</p>
+                        <small class="ng-binding">Sign up now to view More Businesses</small>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 </section>
