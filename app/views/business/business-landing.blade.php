@@ -25,6 +25,7 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/css/business/landing/main.css">
     <link rel="stylesheet" href="/css/business/landing/animate.css">
+    <link rel="stylesheet" href="/css/business/landing/responsive.css">
     <script src="/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 
     <link rel="apple-touch-icon" sizes="57x57" href="/images/business/landing/apple-icon-57x57.png">
@@ -93,9 +94,8 @@
                         <div data-wow-delay="0.2s"
                              style="visibility: visible; -webkit-animation-delay: 0.2s;
            -moz-animation-delay: 0.2s; animation-delay: 0.2s;">
-                            <h1>Don't Waste Your Life -- Waiting</h1>
-                            <p>FeatherQ is a DIY cloud-based queuing platform. </p>
-                            <h1>We make it easy for businesses to <br><span>manage their lines better</span> and allow customers to wait on their own terms.</h1>
+                            <p>Don't Waste Your Life &mdash; Waiting</p>
+                            <h1>FeatherQ is a DIY cloud-based queuing platform. We make it easy for businesses to <span>manage their lines better</span> and allow customers to wait on their own terms.</h1>
                         </div>
                         <div class="clearfix">
                             <p id="start">Start using FeatherQ</p>
@@ -103,7 +103,7 @@
                         </div>
                     </div>
                     <div class="col-md-12 col-sm-12 visible-sm visible-xs">
-                        <img src="/images/business/landing/featherq-on-mobile-sm.png" alt="FeatherQ on mobile" />
+                        <img class="img-responsive" style="margin: auto;" src="/images/business/landing/featherq-on-mobile-sm.png" alt="FeatherQ on mobile" />
                     </div>
                 </div>
             </div>
@@ -129,7 +129,7 @@
 <section id="featherq-works">
     <div class="container">
         <div class="tri text-center">
-            <img src="/images/business/landing/tri-contact.png">
+            <img style="width: inherit" src="/images/business/landing/tri-contact.png">
         </div>
         <div class="col-md-12">
             <h2 class="text-center">How FeatherQ Works</h2>
@@ -141,7 +141,7 @@
            -moz-animation-delay: 0.1s; animation-delay: 0.1s;"
                  src="/images/business/landing/how-featherq-works1.png" alt="1. Sign up" />
             <h4 class="orange wow fadeInUp">1. Sign-up</h4>
-            <p>Clients who uses and implements FeatherQ Nullam eros mi, mollis in sollicitudin non, tincidunt sed</p>
+            <p class="wow fadeInUp">Clients who uses and implements FeatherQ Nullam eros mi, mollis in sollicitudin non, tincidunt sed</p>
         </div>
         <div class="col-md-4 col-sm-4 text-center">
             <img class="wow fadeInUp"
@@ -150,7 +150,7 @@
            -moz-animation-delay: 0.3s; animation-delay: 0.3s;"
                  src="/images/business/landing/how-featherq-works2.png" alt="2. Set up" />
             <h4 class="orange wow fadeInUp">2. Set-up</h4>
-            <p>Clients who uses and implements FeatherQ Nullam eros mi, mollis in sollicitudin non, tincid</p>
+            <p class="wow fadeInUp">Clients who uses and implements FeatherQ Nullam eros mi, mollis in sollicitudin non, tincid</p>
         </div>
         <div class="col-md-4 col-sm-4 text-center">
             <img class="wow fadeInUp"
@@ -159,7 +159,7 @@
            -moz-animation-delay: 0.5s; animation-delay: 0.5s;"
                  src="/images/business/landing/how-featherq-works3.png" alt="3. Serve" />
             <h4 class="orange wow fadeInUp">3. Serve</h4>
-            <p>Clients who uses and implements FeatherQ Nullam eros mi, mollis in sollicitudin non, tincidunt sed</p>
+            <p class="wow fadeInUp">Clients who uses and implements FeatherQ Nullam eros mi, mollis in sollicitudin non, tincidunt sed</p>
         </div>
     </div>
 </section>
@@ -167,25 +167,25 @@
 <section id="benefits">
     <div class="container">
         <div class="tri text-center">
-            <img src="/images/business/landing/tri-benefits.png">
+            <img style="width: inherit" src="/images/business/landing/tri-benefits.png">
         </div>
         <div class="col-md-12">
             <h2 class="text-center">Benefits of using FeatherQ</h2>
         </div>
         <div class="col-md-4 col-sm-4 text-center">
             <img class="wow fadeInUp" src="/images/business/landing/featherq-benefits-1.png" alt="1. Sign up" />
-            <h4 class="orange">Reduce Opportunity Loss</h4>
-            <p>Clients who uses and implements FeatherQ Nullam eros mi, mollis in sollicitudin non, tincidunt sed</p>
+            <h4 class="wow fadeInUp orange">Reduce Opportunity Loss</h4>
+            <p class="wow fadeInUp">Clients who uses and implements FeatherQ Nullam eros mi, mollis in sollicitudin non, tincidunt sed</p>
         </div>
         <div class="col-md-4 col-sm-4 text-center">
             <img class="wow fadeInUp" src="/images/business/landing/featherq-benefits-2.png" alt="1. Set-up" />
-            <h4 class="orange">Retain Clientele</h4>
-            <p>Clients who uses and implements FeatherQ Nullam eros mi, mollis in sollicitudin non, tincid</p>
+            <h4 class="wow fadeInUp orange">Retain Clientele</h4>
+            <p class="wow fadeInUp">Clients who uses and implements FeatherQ Nullam eros mi, mollis in sollicitudin non, tincid</p>
         </div>
         <div class="col-md-4 col-sm-4 text-center">
             <img class="wow fadeInUp" src="/images/business/landing/featherq-benefits-3.png" alt="3. Serve" />
-            <h4 class="orange">Manage from Anywhere</h4>
-            <p>Clients who uses and implements FeatherQ Nullam eros mi, mollis in sollicitudin non, tincidunt sed</p>
+            <h4 class="wow fadeInUp orange">Manage from Anywhere</h4>
+            <p class="wow fadeInUp">Clients who uses and implements FeatherQ Nullam eros mi, mollis in sollicitudin non, tincidunt sed</p>
         </div>
     </div>
 </section>
@@ -193,14 +193,14 @@
 <section id="featherq-features">
     <div class="container">
         <div class="tri text-center">
-            <img src="/images/business/landing/tri-contact.png">
+            <img style="width: inherit" src="/images/business/landing/tri-contact.png">
         </div>
         <div class="col-md-12">
             <h2 class="text-center">FeatherQ Features</h2>
         </div>
-        <div class="col-md-3 col-sm-4 text-center">
+        <div class="col-md-3 col-sm-4 col-xs-6 text-center wow fadeInUp">
             <div class="rel detail-wrap">
-                <img class="img-responsive wow fadeInUp" src="/images/business/landing/features-30sec.png" alt="30 second setup" />
+                <img class="img-responsive" src="/images/business/landing/features-30sec.png" alt="30 second setup" />
                 <h4>30 second <br>business set-up</h4>
                 <div class="abs details">
                     <div class="wrap">
@@ -209,9 +209,9 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-4 text-center">
+        <div class="col-md-3 col-sm-4 col-xs-6 text-center wow fadeInUp">
             <div class="rel detail-wrap">
-                <img class="img-responsive wow slideInUp" src="/images/business/landing/features-flexible.png" alt="Flexible line management" />
+                <img class="img-responsive" src="/images/business/landing/features-flexible.png" alt="Flexible line management" />
                 <h4>Flexible <br>line management </h4>
                 <div class="abs details">
                     <div class="wrap">
@@ -220,9 +220,9 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-4 text-center">
+        <div class="col-md-3 col-sm-4 col-xs-6 text-center wow fadeInUp">
             <div class="rel detail-wrap">
-                <img class="img-responsive wow fadeInUp" src="/images/business/landing/features-customizable.png" alt="Customizable Features" />
+                <img class="img-responsive" src="/images/business/landing/features-customizable.png" alt="Customizable Features" />
                 <h4>Customizable <br>features</h4>
                 <div class="abs details">
                     <div class="wrap">
@@ -231,9 +231,9 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-4 text-center">
+        <div class="col-md-3 col-sm-4 col-xs-6 text-center wow fadeInUp">
             <div class="rel detail-wrap">
-                <img class="img-responsive wow fadeInUp" src="/images/business/landing/features-analytics.png" alt="Business analytics" />
+                <img class="img-responsive" src="/images/business/landing/features-analytics.png" alt="Business analytics" />
                 <h4>Business <br>Analytics</h4>
                 <div class="abs details">
                     <div class="wrap">
@@ -242,9 +242,9 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-4 text-center">
+        <div class="col-md-3 col-sm-4 col-xs-6 text-center wow fadeInUp">
             <div class="rel detail-wrap">
-                <img class="img-responsive wow fadeInUp" src="/images/business/landing/features-minimal.png" alt="Minimal setup" />
+                <img class="img-responsive" src="/images/business/landing/features-minimal.png" alt="Minimal setup" />
                 <h4>Minimal<br>set-up</h4>
                 <div class="abs details">
                     <div class="wrap">
@@ -253,9 +253,9 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-4 text-center">
+        <div class="col-md-3 col-sm-4 col-xs-6 text-center wow fadeInUp">
             <div class="rel detail-wrap">
-                <img class="img-responsive wow fadeInUp" src="/images/business/landing/features-notification.png" alt="Easy customer notification" />
+                <img class="img-responsive" src="/images/business/landing/features-notification.png" alt="Easy customer notification" />
                 <h4>Easy customer <br>notification </h4>
                 <div class="abs details">
                     <div class="wrap">
@@ -264,9 +264,9 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-4 text-center">
+        <div class="col-md-3 col-sm-4 col-xs-6 text-center wow fadeInUp">
             <div class="rel detail-wrap">
-                <img class="img-responsive wow fadeInUp" src="/images/business/landing/features-simple.png" alt="Simple interface" />
+                <img class="img-responsive" src="/images/business/landing/features-simple.png" alt="Simple interface" />
                 <h4>Simple <br>interface</h4>
                 <div class="abs details">
                     <div class="wrap">
@@ -275,9 +275,9 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-sm-4 text-center">
+        <div class="col-md-3 col-sm-4 col-xs-6 text-center wow fadeInUp">
             <div class="rel detail-wrap">
-                <img class="img-responsive wow fadeInUp" src="/images/business/landing/features-free.png" alt="FeatherQ is Free" />
+                <img class="img-responsive" src="/images/business/landing/features-free.png" alt="FeatherQ is Free" />
                 <h4>It's <br>FREE!</h4>
                 <div class="abs details">
                     <div class="wrap">
@@ -297,28 +297,28 @@
         <div class="col-md-12">
             <h2 class="text-center">Who Uses FeatherQ</h2>
         </div>
-        <div class="col-md-2 col-sm-3">
-            <img class="wow fadeInUp" src="/images/business/landing/banks.png" alt="Banks" />
+        <div class="col-md-2 col-sm-3 col-xs-6 wow fadeInUp">
+            <img src="/images/business/landing/banks.png" alt="Banks" />
             <h5>Banks</h5>
         </div>
-        <div class="col-md-2 col-sm-3">
-            <img class="wow fadeInUp" src="/images/business/landing/hospitals.png" alt="Hospitals" />
+        <div class="col-md-2 col-sm-3 col-xs-6 wow fadeInUp">
+            <img src="/images/business/landing/hospitals.png" alt="Hospitals" />
             <h5>Hospitals</h5>
         </div>
-        <div class="col-md-2 col-sm-3">
-            <img class="wow fadeInUp" src="/images/business/landing/restaurants.png" alt="Restaurants" />
+        <div class="col-md-2 col-sm-3 col-xs-6 wow fadeInUp">
+            <img src="/images/business/landing/restaurants.png" alt="Restaurants" />
             <h5>Restaurants</h5>
         </div>
-        <div class="col-md-2 col-sm-3">
-            <img class="wow fadeInUp" src="/images/business/landing/schools.png" alt="Schools" />
+        <div class="col-md-2 col-sm-3 col-xs-6 wow fadeInUp">
+            <img src="/images/business/landing/schools.png" alt="Schools" />
             <h5>Schools</h5>
         </div>
-        <div class="col-md-2 col-sm-3">
-            <img class="wow fadeInUp" src="/images/business/landing/services.png" alt="Services" />
+        <div class="col-md-2 col-sm-3 col-xs-6 wow fadeInUp">
+            <img src="/images/business/landing/services.png" alt="Services" />
             <h5>Services</h5>
         </div>
-        <div class="col-md-2 col-sm-3">
-            <img class="wow fadeInUp" src="/images/business/landing/your-business.png" alt="Your Business" />
+        <div class="col-md-2 col-sm-3 col-xs-6 wow fadeInUp">
+            <img src="/images/business/landing/your-business.png" alt="Your Business" />
             <h5>Your Business</h5>
         </div>
     </div>

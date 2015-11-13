@@ -65,11 +65,13 @@ section {
     text-shadow: 0 1px 1px #4f4f4f; }
   #banner h1 {
     font-weight: 300;
-    font-size: 33px;
-    line-height: 52px; }
+    font-size: 28px;
+    margin-bottom: 60px;
+    line-height: 48px; }
     #banner h1 span {
       font-weight: 600; }
   #banner #start {
+      margin-left: 20px;
     margin-bottom: 20px; }
 
 #featherq-features {
@@ -84,7 +86,7 @@ section {
   background-color: #f4f3f0; }
   #benefits h4 {
     font-size: 24px;
-    font-weight: 400;
+    font-weight: 600;
     margin-bottom: 30px;
     margin-top: 40px; }
 
@@ -94,7 +96,7 @@ section {
     font-size: 24px;
     margin-top: 40px;
     margin-bottom: 30px;
-    font-weight: 400; }
+    font-weight: 600; }
 
 #partners {
   background-color: #f3f2ee;
@@ -108,7 +110,7 @@ section {
   background: url("../../../images/business/landing/featherq-on-mobile.png") bottom right no-repeat;
   margin-bottom: -120px; }
   #phone p {
-    font-size: 24px; }
+    font-size: 34px; }
 
 .pre-footer {
   background-color: #283339; }
@@ -160,9 +162,6 @@ ul.nav {
   background: none;
   color: #ffb667; }
 
-.navbar-right {
-  margin-right: 15px; }
-
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
   border: none; }
 
@@ -171,7 +170,9 @@ ul.nav {
 
 #start {
   font-size: 22px !important; }
-
+.navbar-inverse .navbar-toggle {
+    background-color: #283339;
+}
 .details {
   display: none;
   bottom: 66px;
@@ -221,19 +222,11 @@ ul.nav {
 @media only screen and (max-width: 992px) {
   #phone > .row > .col-sm-12 {
     text-align: center; }
-
   #phone {
     background: none;
     padding-top: 60px; }
-    #phone p {
-      font-size: 30px; }
-
   body {
-    background: #fefefe url("../img/bg-top-sm.jpg") top right no-repeat; }
-
-  #banner {
-    height: 700px; }
-
+    background: #fefefe url("../../../images/business/landing/bg-top-sm.jpg") top right no-repeat; }
   #phone .visible-sm {
     margin-top: 40px; }
 
@@ -323,5 +316,4 @@ ul.nav {
 
   #banner .btn {
     font-size: 20px; } }
-/* Extra Small Devices, Phones */
-/* Custom, iPhone Retina */
+
