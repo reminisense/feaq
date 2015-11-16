@@ -416,7 +416,10 @@ ul.nav {
   padding: 14px 20px;
   vertical-align: middle;
   color: #111111 !important; }
-
+#search-grid .address {
+    overflow: hidden;
+    height: 30px;
+}
 .filterwrap .btn-black {
   color: #fff;
   border-top-left-radius: 0;

@@ -158,7 +158,7 @@
                 <a class="business_link" href="/broadcast/business/@{{ business.business_id }}" target="_blank">
                     <div class="box-wrap">
                         <p class="title ng-binding">@{{ business.business_name }}</p>
-                        <small class="ng-binding">@{{ business.local_address }}</small>
+                        <small class="address ng-binding">@{{ business.local_address }}</small>
                     </div>
                 </a>
             </div>
@@ -166,7 +166,7 @@
                 <a class="business_link" href="#" ng-click="login()">
                     <div class="box-wrap">
                         <p class="title ng-binding"> More Businesses</p>
-                        <small class="ng-binding">Sign up now to view More Businesses</small>
+                        <a href="#" ng-click="login()" style="display: block;"><small class="ng-binding">Sign up now to view More Businesses</small></a>
                     </div>
                 </a>
             </div>
