@@ -141,7 +141,7 @@
            -moz-animation-delay: 0.1s; animation-delay: 0.1s;"
                  src="/images/business/landing/how-featherq-works1.png" alt="1. Sign up" />
             <h4 class="orange wow fadeInUp">1. Sign-up</h4>
-            {{--<p class="wow fadeInUp">Clients who uses and implements FeatherQ Nullam eros mi, mollis in sollicitudin non, tincidunt sed</p>--}}
+            <p class="wow fadeInUp">Sign up is easy! Use your Facebook account to create a free account today.</p>
         </div>
         <div class="col-md-4 col-sm-4 text-center">
             <img class="wow fadeInUp"
@@ -150,7 +150,7 @@
            -moz-animation-delay: 0.3s; animation-delay: 0.3s;"
                  src="/images/business/landing/how-featherq-works2.png" alt="2. Set up" />
             <h4 class="orange wow fadeInUp">2. Set-up</h4>
-            {{--<p class="wow fadeInUp">Clients who uses and implements FeatherQ Nullam eros mi, mollis in sollicitudin non, tincid</p>--}}
+            <p class="wow fadeInUp">Set up your business account and begin serving customers in 5 minutes.</p>
         </div>
         <div class="col-md-4 col-sm-4 text-center">
             <img class="wow fadeInUp"
@@ -159,7 +159,7 @@
            -moz-animation-delay: 0.5s; animation-delay: 0.5s;"
                  src="/images/business/landing/how-featherq-works3.png" alt="3. Serve" />
             <h4 class="orange wow fadeInUp">3. Serve</h4>
-            {{--<p class="wow fadeInUp">Clients who uses and implements FeatherQ Nullam eros mi, mollis in sollicitudin non, tincidunt sed</p>--}}
+            <p class="wow fadeInUp">Use FeatherQ to give your customers a better waiting experience.</p>
         </div>
     </div>
 </section>
@@ -175,17 +175,17 @@
         <div class="col-md-4 col-sm-4 text-center">
             <img class="wow fadeInUp" src="/images/business/landing/featherq-benefits-1.png" alt="1. Sign up" />
             <h4 class="wow fadeInUp orange">Reduce Opportunity Loss</h4>
-            {{--<p class="wow fadeInUp">Clients who uses and implements FeatherQ Nullam eros mi, mollis in sollicitudin non, tincidunt sed</p>--}}
+            <p class="wow fadeInUp">Your customers can line up for your business using their cellphone, reducing line that turn customers away.</p>
         </div>
         <div class="col-md-4 col-sm-4 text-center">
             <img class="wow fadeInUp" src="/images/business/landing/featherq-benefits-2.png" alt="1. Set-up" />
             <h4 class="wow fadeInUp orange">Retain Clientele</h4>
-            {{--<p class="wow fadeInUp">Clients who uses and implements FeatherQ Nullam eros mi, mollis in sollicitudin non, tincid</p>--}}
+            <p class="wow fadeInUp">Build goodwill and transparency by communicating quickly and effectively with waiting guests.</p>
         </div>
         <div class="col-md-4 col-sm-4 text-center">
             <img class="wow fadeInUp" src="/images/business/landing/featherq-benefits-3.png" alt="3. Serve" />
             <h4 class="wow fadeInUp orange">Manage from Anywhere</h4>
-            {{--<p class="wow fadeInUp">Clients who uses and implements FeatherQ Nullam eros mi, mollis in sollicitudin non, tincidunt sed</p>--}}
+            <p class="wow fadeInUp">With FeatherQ, all you need to manage your lines is an internet connection and a web browser. You can access FeatherQ's features on a computer, smartphone or tablet.</p>
         </div>
     </div>
 </section>
