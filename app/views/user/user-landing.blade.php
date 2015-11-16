@@ -154,19 +154,19 @@
             <div class="col-md-12">
                 <h5 class="mb30 searchresults" style="color: #fff;">@{{ searchLabel }}</h5>
             </div>
-            <div class="col-md-3 ng-scope" ng-repeat="business in businesses">
+            <div class="col-md-3 col-sm-6 col-xs-12 ng-scope" ng-repeat="business in businesses">
                 <a class="business_link" href="/broadcast/business/@{{ business.business_id }}" target="_blank">
                     <div class="box-wrap">
                         <p class="title ng-binding">@{{ business.business_name }}</p>
-                        <small class="ng-binding">@{{ business.local_address }}</small>
+                        <small class="address ng-binding">@{{ business.local_address }}</small>
                     </div>
                 </a>
             </div>
-            <div class="col-md-3 ng-scope" ng-controller="fbController">
+            <div class="col-md-3 col-sm-6 col-xs-12 ng-scope" ng-controller="fbController">
                 <a class="business_link" href="#" ng-click="login()">
                     <div class="box-wrap">
                         <p class="title ng-binding"> More Businesses</p>
-                        <small class="ng-binding">Sign up now to view More Businesses</small>
+                        <a href="#" ng-click="login()" style="display: block;"><small class="ng-binding">Sign up now to view More Businesses</small></a>
                     </div>
                 </a>
             </div>
