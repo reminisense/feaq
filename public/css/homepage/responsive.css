@@ -38,6 +38,15 @@
     #myTabs #serve-tab {
         width: 40%;
     }
+    .box-wrap .title {
+        height: 37px;
+        overflow: hidden;
+    }
+    .business_link small {
+        height: 30px;
+        overflow: hidden;
+        display: inline-block;
+    }
 }
 @media (min-width: 768px) and (max-width: 979px) {
     .filterwrap .btn-orange {
