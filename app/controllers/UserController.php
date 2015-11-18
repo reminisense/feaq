@@ -86,7 +86,8 @@ class UserController extends BaseController{
 
         // Check if the user is accessing a custom URL; redirect if yes, skip if no
       if (!empty($raw_code)) {
-        return Redirect::to('broadcast/business/' . Business::getBusinessIdByRawCode($raw_code));
+        $broadcast = new BroadcastController();
+        return $broadcast->viewBroadcastPage($raw_code);
       }
 
         if (Auth::check()) {
