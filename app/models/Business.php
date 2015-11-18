@@ -614,4 +614,65 @@ class Business extends Eloquent
         return DB::table('queue_forward_permissions')->where('business_id', '=', $business_id)->where('forwarder_id', '=', $forwarder_id)->first();
     }
 
+    public static function getKeywordsByBusinessId($business_id){
+        try{
+            $industry = Business::industry($business_id);
+        }catch(Exception $e){
+            $industry = '';
+        }
+        return Business::getIndustryKeywords($industry);
+    }
+
+    public static function getIndustryKeywords($industry){
+        return isset(Business::$keywords[$industry]) ? Business::$keywords[$industry] : [];
+    }
+
+    private static $keywords = [
+        'Accounting' => [],
+        'Advertising' => [],
+        'Agriculture' => [],
+        'Air Services' => [],
+        'Airlines' => [],
+        'Apparel' => [],
+        'Appliances' => [],
+        'Auto Dealership' => [],
+        'Banking' => [],
+        'Broadcasting' => [],
+        'Business Services' => [],
+        'Communications' => [],
+        'Corporate' => [],
+        'Customer Service' => [],
+        'Delivery'  => [],
+        'Delivery Services' => [],
+        'Education' => [],
+        'Energy' => ['energy', 'electricity', 'power'],
+        'Entertainment' => [],
+        'Events' => [],
+        'Food and Beverage' => [],
+        'Government' => [],
+        'Grocery' => [],
+        'Healthcare' => [],
+        'Hobbies and Collections' => [],
+        'Hospitality' => [],
+        'Insurance' => [],
+        'Information Technology' => [],
+        'Lifestyle' => [],
+        'Mail Order Services' => [],
+        'Manufacturing' => [],
+        'Media' => [],
+        'Pharmaceutical' => [],
+        'Professional services' => [],
+        'Publishing' => [],
+        'Real Estate' => [],
+        'Recreation' => [],
+        'Rentals' => [],
+        'Retail' => [],
+        'Software Development' => [],
+        'Technology' => [],
+        'Travel and Tours' => [],
+        'Utility services' => [],
+        'Web Services' => [],
+        'Wholesale' => [],
+    ];
+
 }
