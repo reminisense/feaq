@@ -95,7 +95,7 @@
                         <p class="title">Timezone</p>
                         <select class="form-control" name="timezone" id="timezone" ng-model="timezone"> <!-- ARA Added timezone picker -->
                             @foreach(Helper::getTimezoneList() as $index => $timezone)
-                            <option value="{{ $timezone }}">{{ $timezone }}</option>
+                            <option value="{{ $index }}">{{ $timezone }}</option>
                             @endforeach
                         </select>
                 </div>
