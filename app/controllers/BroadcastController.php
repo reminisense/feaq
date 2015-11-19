@@ -61,7 +61,8 @@ class BroadcastController extends BaseController{
         ->with('num_class', $num_class)
         ->with('row_class', $row_class)
         ->with('box_class', $box_class)
-        ->with('user', Auth::user());
+        ->with('user', Auth::user())
+        ->with('keywords', Business::getKeywordsByBusinessId($business_id));
     }
 
     // set the appropriate responsive class names
