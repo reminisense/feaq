@@ -3,6 +3,13 @@
  */
 
 $(document).ready(function(){
+    // Determines the time zone of the browser client
+    var tz = jstz.determine();
+    var timezone = tz.name();
+    if($("#timezone option[value='" + timezone + "']").length > 0) {
+        $("#timezone").val(timezone);
+    }
+
     $("#user_location").geocomplete();
     $("#edit_user_location").geocomplete();
     $("#business_location").geocomplete().bind("geocode:result", function (event, result) {
