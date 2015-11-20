@@ -83,7 +83,7 @@
                             <label>Timezone</label>
                             <select id="timezone" name="timezone" class="form-control modal-input" >
                                 @foreach(Helper::getTimezoneList() as $index => $timezone)
-                                <option value="{{ $index }}">{{ $timezone }}</option>
+                                <option value="{{ $index }}" {{ strcmp($index, "Asia/Manila" ) == 0 ? "selected" : ""}}>{{ $timezone }}</option>
                                 @endforeach
                             </select>
                         </div>
