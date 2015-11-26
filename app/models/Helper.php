@@ -375,6 +375,8 @@ class Helper extends Eloquent {
         }
       }
     }
+    return FALSE;
+  }
 
   public static function isNotAnOwner($user_id) {
     return !UserBusiness::getBusinessIdByOwner($user_id);
