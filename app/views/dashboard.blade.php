@@ -5,7 +5,8 @@
     <title>FeatherQ - Online Queuing Software</title>
     <meta name="title" content="FeatherQ Online Queueing software" />
     <meta name="description" content="FeatherQ online Queueing software" />
-    <meta name="author" content="">
+    <meta name="author" content="Reminisense, Corp.">
+    <meta name="keywords" content="queueing, queuing, queue, line, lining, wait, waiting, priority, online, software"/>
     <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <link rel='stylesheet' type='text/css' href='/css/ngCloak.css'>
     <link rel="stylesheet" href="/css/jquery-ui.css">

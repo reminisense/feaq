@@ -614,4 +614,64 @@ class Business extends Eloquent
         return DB::table('queue_forward_permissions')->where('business_id', '=', $business_id)->where('forwarder_id', '=', $forwarder_id)->first();
     }
 
+    public static function getKeywordsByBusinessId($business_id){
+        try{
+            $industry = Business::industry($business_id);
+        }catch(Exception $e){
+            $industry = '';
+        }
+        return Business::getIndustryKeywords($industry);
+    }
+
+    public static function getIndustryKeywords($industry){
+        return isset(Business::$keywords[$industry]) ? Business::$keywords[$industry] : [];
+    }
+
+    private static $keywords = [
+        'Accounting'                => ['accounting'],
+        'Advertising'               => ['advertising'],
+        'Agriculture'               => ['agriculture'],
+        'Air Services'              => ['air services'],
+        'Airlines'                  => ['airlines'],
+        'Apparel'                   => ['apparel'],
+        'Appliances'                => ['appliances'],
+        'Auto Dealership'           => ['auto dealership'],
+        'Banking'                   => ['banking'],
+        'Broadcasting'              => ['broadcasting'],
+        'Business Services'         => ['business services'],
+        'Communications'            => ['communications'],
+        'Corporate'                 => ['corporate'],
+        'Customer Service'          => ['customer service'],
+        'Delivery'                  => ['delivery'],
+        'Delivery Services'         => ['delivery services'],
+        'Education'                 => ['education'],
+        'Energy'                    => ['energy', 'electricity', 'power'],
+        'Entertainment'             => ['entertainment'],
+        'Events'                    => ['events'],
+        'Food and Beverage'         => ['food', 'beverage'],
+        'Government'                => ['government'],
+        'Grocery'                   => ['grocery'],
+        'Healthcare'                => ['healthcare'],
+        'Hobbies and Collections'   => ['hobbies', 'collections'],
+        'Hospitality'               => ['hospitality'],
+        'Insurance'                 => ['insurance'],
+        'Information Technology'    => ['information technology'],
+        'Lifestyle'                 => ['lifestyle'],
+        'Mail Order Services'       => ['mail order service', 'mail order'],
+        'Manufacturing'             => ['manufacturing'],
+        'Media'                     => ['media'],
+        'Pharmaceutical'            => ['pharmaceutical', 'pharmacy'],
+        'Professional services'     => ['professional services'],
+        'Publishing'                => ['publishing'],
+        'Real Estate'               => ['real estate'],
+        'Recreation'                => ['recreation'],
+        'Rentals'                   => ['rentals'],
+        'Retail'                    => ['retail'],
+        'Software Development'      => ['software development', 'software'],
+        'Technology'                => ['technology'],
+        'Travel and Tours'          => ['travel and tours', 'travel', 'tours'],
+        'Utility services'          => ['utility services'],
+        'Web Services'              => ['web services'],
+        'Wholesale'                 => ['wholesale'],
+    ];
 }
