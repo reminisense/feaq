@@ -24,14 +24,10 @@ var establishSocketConnection = function($scope, $http, business_id) {
   };
 
   websocket.onerror = function (response) {
-    $('#WebsocketLoaderModal img').attr('src', '/img/stop.png');
-    $('.socket-info').text('Your connection has timed out. Please refresh the page to re-connect.');
     $('#WebsocketLoaderModal').modal('show');
   };
 
   websocket.onclose = function (response) {
-    $('#WebsocketLoaderModal img').attr('src', '/img/stop.png');
-    $('.socket-info').text('Your connection has timed out. Please refresh the page to re-connect.');
     $('#WebsocketLoaderModal').modal('show');
   };
 
