@@ -163,48 +163,10 @@
             $('#search-business').removeClass('active');
             $('#message-inbox').addClass('active');
         };
-
-        /*
-        setInterval(function() {
-            if ($scope.business_reply_form.thread_message_id != "") {
-                var curr_length = $('.messagefrom').length + $('.messageto').length;
-                $http.post('/message/message-thread', {
-                    message_id : $scope.business_reply_form.thread_message_id,
-                    preview_type : $scope.business_reply_form.preview_type
-                }).success(function(response) {
-                    if (response.contactmessage.length != curr_length) {
-                        $('.new-message').show();
-                    }
-                    else {
-                        $('.new-message').fadeOut();
-                    }
-                });
-            }
-            if ($scope.business_reply_form.preview_type == 'business') {
-                $http.post('/message/business-inbox').success(function(response) {
-                    if (response.messages.length != $('.message-item').length) {
-                        $('.new-thread').show();
-                    }
-                    else {
-                        $('.new-thread').fadeOut();
-                    }
-                });
-            }
-            else {
-                $http.post('/message/other-inbox').success(function(response) {
-                    if (response.messages.length != $('.message-item').length) {
-                        $('.new-thread').show();
-                    }
-                    else {
-                        $('.new-thread').fadeOut();
-                    }
-                });
-            }
-        }, 1000);
-        */
     });
 
 })();
+
 
 $(document).ready(function() {
     var scope = angular.element($("#messageInbox")).scope();
@@ -224,4 +186,10 @@ $(document).ready(function() {
         $('.business-inbox').fadeIn();
         $('.preview-container').fadeOut();
     });
+
+    $('#my-business').removeClass('active');
+    $('#search-business').removeClass('active');
+    $('#message-inbox').addClass('active');
+
+    alert('dada');
 });

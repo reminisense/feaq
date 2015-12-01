@@ -10,7 +10,6 @@
 @stop
 
 @section('scripts')
-    <script src="/js/dashboard/dashboard.js"></script>
     <script src="/js/dashboard/messages.js"></script>
     <script>
         UPLOADCARE_LOCALE = "en";
