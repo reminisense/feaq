@@ -60,4 +60,14 @@ Route::controller('how-to', 'ContentController');
 
 Route::controller('test', 'TestController');
 
+//services methods
+Route::get('services/{id}', 'ServiceController@getIndex');
+
+Route::put('services/{id}', 'ServiceController@putIndex');
+
+Route::delete('services/{id}', 'ServiceController@deletIndex');
+
+Route::controller('services', 'ServiceController');
+
+//raw code implementation
 Route::get('/{raw_code?}', 'UserController@getUserDashboard');
