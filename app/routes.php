@@ -65,7 +65,7 @@ Route::get('services/{id}', 'ServiceController@getIndex');
 
 Route::put('services/{id}', 'ServiceController@putIndex');
 
-Route::delete('services/{id}', 'ServiceController@deletIndex');
+Route::delete('services/{id}', 'ServiceController@deleteIndex');
 
 Route::controller('services', 'ServiceController');
 
