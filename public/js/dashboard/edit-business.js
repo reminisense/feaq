@@ -11,9 +11,9 @@ $(document).ready(function(){
 //        $('#editbiz-tabs li.active a').trigger('click'); //ARA Added to execute functions triggered by clicking tabs
 //    });
 
-    $('body').on('click', '#btn-addterminal',function (e) {
-        $('#inputterminal').show();
-        $('#btn-addterminal').hide();
+    $('body').on('click', '.btn-addterminal',function (e) {
+        $(this).next('.inputterminal-form').show();
+        $(this).hide();
         e.preventDefault();
     });
 
@@ -346,6 +346,7 @@ var eb = {
         $scope.custom_url = "";
 
         $scope.terminals = [];
+        $scope.services = [];
         $scope.users = [];
         $scope.analytics = [];
         $scope.messages = [];
@@ -450,6 +451,7 @@ var eb = {
             $scope.allow_remote = business.allow_remote ? true : false;
             $scope.remote_limit = business.remote_limit;
             $scope.terminals = business.terminals;
+            $scope.services = business.services;
             $scope.analytics = business.analytics;
             $scope.terminal_delete_error = business.error ? business.error : null;
             $scope.allowed_businesses = business.allowed_businesses;
@@ -677,11 +679,12 @@ var eb = {
             $event.preventDefault();
         });
 
-        $scope.createTerminal = function(){
+        $scope.createTerminal = function(service_id){
             var terminal_name = $scope.add_terminal.terminal_name.trim();
             if (terminal_name !== ""){
                 $http.post(eb.urls.terminals.terminal_create_url, {
                     business_id : $scope.business_id,
+                    service_id: service_id,
                     name : terminal_name
                 }).success(function(response){
                     if(response.status == 0){
@@ -1292,6 +1295,30 @@ var eb = {
                 $scope.my_accesskey = response.access_key;
             });
         }
+
+        //Service functions
+        $scope.createService = function(name){
+            $http.post('/services', {name: name, business_id: $scope.business_id}).success(function(response){
+                $scope.getBusinessDetails();
+                $scope.service_create = false;
+                $scope.new_service_name = '';
+            });
+        }
+        $scope.updateService = function(name, service_id){
+            $http.put('/services/' + service_id, {name: name}).success(function(response){
+                $scope.getBusinessDetails();
+                $scope.edit_service_name = '';
+            });
+        }
+        $scope.removeService = function(service_id){
+            var confirmDel = confirm("Are you sure you want to remove this service?");
+            if(confirmDel){
+                $http.delete('/services/' + service_id).success(function(response){
+                    $scope.getBusinessDetails();
+                });
+            }
+        }
+
 
       websocket.onerror	= function(response){
         $('#WebsocketLoaderModal').modal('show');

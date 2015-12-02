@@ -62,6 +62,15 @@ class Service extends Eloquent{
             ->get();
     }
 
+    public static function getBusinessServicesWithTerminals($business_id){
+        $services = Service::getServicesByBusinessId($business_id);
+        foreach($services as $service){
+            $terminals = Terminal::getTerminalsByServiceId($service->service_id);
+            $service->terminals = Terminal::getAssignedTerminalWithUsers($terminals);
+        }
+        return $services;
+    }
+
     /*
      * @author: CSD
      * @description: fetch services by branch id
@@ -89,6 +98,10 @@ class Service extends Eloquent{
     }
 
     public static function deleteService($service_id){
+        $terminals = Terminal::getTerminalsByServiceId($service_id);
+        foreach($terminals as $terminal){
+            Terminal::deleteTerminal($terminal['terminal_id']);
+        }
         Service::where('service_id', '=', $service_id)->delete();
     }
 

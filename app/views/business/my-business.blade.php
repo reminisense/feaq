@@ -63,10 +63,12 @@ My Business
                                             <span class=" glyphicon glyphicon-check"></span>
                                             <small>@{{ terminal.name }}</small>
                                         </a>
+                                        {{-- ARA removed for multiple services implementation
                                         <a ng-if="!isAssignedUser(user_id, terminal.terminal_id)" href="#" class="not-active">
                                             <span class=" glyphicon glyphicon-ban-circle"></span>
                                             <small>@{{ terminal.name }}</small>
                                         </a>
+                                         --}}
                                     </div>
                                 </div>
                             </div>
