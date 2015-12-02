@@ -4,6 +4,7 @@
     </h5>
 </div>
 <form></form> <!-- ARA I just placed this because if not placed other form elements below will not be rendered -->
+<div class="alert alert-danger" id="service-error" ng-show="service_error"> @{{ service_error }}</div>
 <table class="table table-hover table-spaces table-responsive" ng-show="service_create">
     <thead>
     <tr>

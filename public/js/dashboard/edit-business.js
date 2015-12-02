@@ -245,6 +245,18 @@ var eb = {
             }, 3000);
         },
 
+        clear_service_error_msg: function(){
+            setTimeout(function() {
+                $("#service-error").fadeOut('slow', function () {
+                    var scope = angular.element($("#editBusiness")).scope();
+                    scope.$apply(function () {
+                        scope.service_error = null;
+                    });
+                    $("#service-error").show();
+                });
+            }, 3000);
+        },
+
         load_remote_limit_slider : function(){
             var scope = angular.element($("#editBusiness")).scope();
             var value = scope.remote_limit;
@@ -1298,17 +1310,27 @@ var eb = {
 
         //Service functions
         $scope.createService = function(name){
-            $http.post('/services', {name: name, business_id: $scope.business_id}).success(function(response){
-                $scope.getBusinessDetails();
-                $scope.service_create = false;
-                $scope.new_service_name = '';
-            });
+            if(name != '' && name != undefined) {
+                $http.post('/services', {name: name, business_id: $scope.business_id}).success(function (response) {
+                    $scope.getBusinessDetails();
+                    $scope.service_create = false;
+                    $scope.new_service_name = '';
+                });
+            }else{
+                $scope.service_error = 'Service name is not valid.';
+                eb.jquery_functions.clear_service_error_msg();
+            }
         }
         $scope.updateService = function(name, service_id){
-            $http.put('/services/' + service_id, {name: name}).success(function(response){
-                $scope.getBusinessDetails();
-                $scope.edit_service_name = '';
-            });
+            if(name != '' && name != undefined){
+                $http.put('/services/' + service_id, {name: name}).success(function(response){
+                    $scope.getBusinessDetails();
+                    $scope.edit_service_name = '';
+                });
+            }else{
+                $scope.service_error = 'Service name is not valid.';
+                eb.jquery_functions.clear_service_error_msg();
+            }
         }
         $scope.removeService = function(service_id){
             var confirmDel = confirm("Are you sure you want to remove this service?");
