@@ -16,6 +16,10 @@ class Service extends Eloquent{
         return Service::find($service_id)->branch_id;
     }
 
+    public static function name($sevice_id){
+        return Service::find($sevice_id)->name;
+    }
+
     /*
      * @author: ARA
      * @description: create new service

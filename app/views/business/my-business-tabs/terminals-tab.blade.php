@@ -1,6 +1,6 @@
 <div class="clearfix header">
     <h5 class="clearfix">SERVICES
-        <button type="submit" class="pull-right btn btn-lg btn-orange" id="" ng-click="service_create = true"><span class="glyphicon glyphicon-plus"></span> Add a Service</button>
+        <button type="submit" class="pull-right btn btn-lg btn-orange" id="" ng-click="service_create = true" ng-show="terminals.length < 3" ><span class="glyphicon glyphicon-plus"></span> Add a Service</button>
     </h5>
 </div>
 <form></form> <!-- ARA I just placed this because if not placed other form elements below will not be rendered -->
@@ -137,7 +137,7 @@
         </td>
     </tr>
     <!-- -->
-    <tr ng-if="service.terminals.length < 3">
+    <tr ng-if="terminals.length < 3">
         <td>
             <div></div>
         </td>
