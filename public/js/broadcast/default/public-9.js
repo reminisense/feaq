@@ -5,15 +5,15 @@ app.controller('nowServingCtrl', function($scope, $http) {
   establishSocketConnection($scope, $http, business_id);
 
   $scope.updateBroadcastPage = (function(response) {
-    announceNumber($scope, response, 'rank1', 'box1', 'name1');
-    announceNumber($scope, response, 'rank2', 'box2', 'name2');
-    announceNumber($scope, response, 'rank3', 'box3', 'name3');
-    announceNumber($scope, response, 'rank4', 'box4', 'name4');
-    announceNumber($scope, response, 'rank5', 'box5', 'name5');
-    announceNumber($scope, response, 'rank6', 'box6', 'name6');
-    announceNumber($scope, response, 'rank7', 'box7', 'name7');
-    announceNumber($scope, response, 'rank8', 'box8', 'name8');
-    announceNumber($scope, response, 'rank9', 'box9', 'name9');
+    announceNumber($scope, response, 'rank1', 'box1', 'name1', 'service1');
+    announceNumber($scope, response, 'rank2', 'box2', 'name2', 'service2');
+    announceNumber($scope, response, 'rank3', 'box3', 'name3', 'service3');
+    announceNumber($scope, response, 'rank4', 'box4', 'name4', 'service4');
+    announceNumber($scope, response, 'rank5', 'box5', 'name5', 'service5');
+    announceNumber($scope, response, 'rank6', 'box6', 'name6', 'service6');
+    announceNumber($scope, response, 'rank7', 'box7', 'name7', 'service7');
+    announceNumber($scope, response, 'rank8', 'box8', 'name8', 'service8');
+    announceNumber($scope, response, 'rank9', 'box9', 'name9', 'service9');
 
     announceNumberFromBlank($scope, response, 'box1', 'rank1');
     announceNumberFromBlank($scope, response, 'box2', 'rank2');
