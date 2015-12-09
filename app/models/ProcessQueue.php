@@ -101,7 +101,7 @@ class ProcessQueue extends Eloquent{
             TerminalTransaction::updateTransactionTimeCalled($transaction_number, $login_id, $time_called, $terminal_id);
             Analytics::insertAnalyticsQueueNumberCalled($transaction_number, $pn->service_id, $pn->date, $time_called, $terminal_id, $pq->queue_platform); //insert to queue_analytics
             Notifier::sendNumberCalledNotification($transaction_number, $terminal_id); //notifies users that his/her number is called
-            return json_encode(['success' => 1, 'numbers' => ProcessQueue::allNumbers(Terminal::serviceId($terminal_id))]);
+            return json_encode(['success' => 1, /*'numbers' => ProcessQueue::allNumbers(Terminal::serviceId($terminal_id))*/]); //ARA removed all numbers to prevent redundant database query
         }else{
             return json_encode(['error' => 'Please assign a terminal.']);
         }
@@ -153,7 +153,7 @@ class ProcessQueue extends Eloquent{
                 'terminal_id' => $terminal_id,
                 'terminal_name' => $terminal_name,
             ),
-            'numbers' => ProcessQueue::allNumbers($priority_number->service_id),
+            //'numbers' => ProcessQueue::allNumbers($priority_number->service_id), //ARA removed all numbers to prevent redundant database query
         ));
     }
 
