@@ -153,7 +153,7 @@
                 attachment : $('#business-attachment').val()
             }).success(function(response){
                 websocket.send(JSON.stringify({
-                    message_id: scope.business_reply_form.thread_message_id,
+                    message_id: $scope.business_reply_form.thread_message_id,
                     preview_type: preview_type,
                     message_update: true
                 }));
