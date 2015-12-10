@@ -6,6 +6,17 @@
 
     app.controller('messagingController', function($scope, $http) {
 
+        websocket = new ReconnectingWebSocket(mailsocket_url);
+
+        websocket.onmessage = function (response) { // what happens when data is received
+            var result = JSON.parse(response.data);
+            $scope.setPreviewMessage(result.preview_type, "", result.message_id, "");
+        };
+
+        websocket.onopen = function (response) { // connection is open
+            $('#WebsocketLoaderModal').modal('hide');
+        }
+
         $scope.messages = [];
         $scope.assigned_businesses = [];
         $scope.business_reply_form = {
@@ -141,6 +152,11 @@
                 messageContent: $scope.business_reply_form.message_reply,
                 attachment : $('#business-attachment').val()
             }).success(function(response){
+                websocket.send(JSON.stringify({
+                    message_id: scope.business_reply_form.thread_message_id,
+                    preview_type: preview_type,
+                    message_update: true
+                }));
                 var attachmentLink = $('#business-attachment').val();
                 if ($.trim(attachmentLink)) {
                     attachmentLink = "<p><a style=\"font-weight: bold; color: #d36e3c;\" href=\"" + attachmentLink + "\" download>Download Attachment</a></p>";
@@ -163,6 +179,15 @@
             $('#search-business').removeClass('active');
             $('#message-inbox').addClass('active');
         };
+
+        websocket.onerror = function (response) {
+            $('#WebsocketLoaderModal').modal('show');
+        };
+
+        websocket.onclose = function (response) {
+            $('#WebsocketLoaderModal').modal('show');
+        };
+
     });
 
 })();
@@ -190,6 +215,4 @@ $(document).ready(function() {
     $('#my-business').removeClass('active');
     $('#search-business').removeClass('active');
     $('#message-inbox').addClass('active');
-
-    alert('dada');
 });

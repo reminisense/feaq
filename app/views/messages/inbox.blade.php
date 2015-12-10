@@ -10,6 +10,8 @@
 @stop
 
 @section('scripts')
+    <script type="text/javascript" src="/js/reconnecting-websocket.min.js"></script>
+    <script type="text/javascript" src="/js/websocket-variables.js"></script>
     <script src="/js/dashboard/messages.js"></script>
     <script>
         UPLOADCARE_LOCALE = "en";
@@ -100,4 +102,5 @@
             </div>
         </div>
     </div>
+    @include('modals.websockets.websocket-loader')
 @stop
