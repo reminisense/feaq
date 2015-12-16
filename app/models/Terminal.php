@@ -12,6 +12,18 @@ class Terminal extends Eloquent{
     protected $primaryKey = 'terminal_id';
     public $timestamps = false;
 
+    public static function createTerminal($service_id, $name){
+        $terminal = new Terminal();
+        $terminal->name = $name;
+        $terminal->service_id = $service_id;
+        $terminal->status = 1;
+        $terminal->box_rank = Terminal::generateBoxRank($service_id); // Added by PAG
+
+        $terminal->save();
+
+        return $terminal;
+    }
+
     /*
      * @author: CSD
      * @description: create terminal on business creation/setup
@@ -20,14 +32,7 @@ class Terminal extends Eloquent{
     public static function createBranchServiceTerminal($user_id, $service_id, $num){
         $terminals = [];
         for($i = 1; $i <= $num; $i++){
-            $terminal = new Terminal();
-            $terminal->name = "Terminal " . $i;
-            $terminal->service_id = $service_id;
-            $terminal->status = 1;
-            $terminal->box_rank = Terminal::generateBoxRank($service_id); // Added by PAG
-
-            $terminal->save();
-
+            $terminal = Terminal::createTerminal($service_id, "Terminal " . $i);
             $terminaluser = new TerminalUser();
             $terminaluser->user_id = $user_id;
             $terminaluser->terminal_id = $terminal->terminal_id;
@@ -97,27 +102,24 @@ class Terminal extends Eloquent{
     public static function createBusinessNewTerminal($business_id, $name){
         $first_branch = Branch::where('business_id', '=', $business_id)->first();
         $first_service = Service::where('branch_id', '=', $first_branch->branch_id)->first();
-
-        $terminal = new Terminal();
-        $terminal->name = $name;
-        $terminal->service_id = $first_service->service_id;
-        $terminal->status = 1;
-        $terminal->box_rank = Terminal::generateBoxRank($first_service->service_id); // Added by PAG
-
-        $terminal->save();
+        Terminal::createTerminal($first_service->service_id);
     }
 
     // Added by PAG
+    // 12032015 Updated by ARA for multiple services implementation
     private static function generateBoxRank($service_id) {
-      $box_rank = array();
-      $res = Terminal::where('service_id', '=', $service_id)->select(array('box_rank'))->get();
-      foreach ($res as $count => $data) {
-        $box_rank[] = $data->box_rank;
-      }
-      if (!in_array('1', $box_rank)) return '1';
-      elseif (!in_array('2', $box_rank)) return '2';
-      elseif (!in_array('3', $box_rank)) return '3';
-      //return Terminal::where('service_id', '=', $service_id)->select(DB::raw('COUNT(*) AS rankcount'))->first()->rankcount + 1;
+        $box_rank = array();
+        $business_id = Business::getBusinessIdByServiceId($service_id);
+        $res = Terminal::join('service', 'terminal.service_id', '=', 'service.service_id')
+            ->join('branch', 'service.branch_id', '=', 'branch.branch_id')
+            ->join('business', 'branch.business_id', '=', 'business.business_id')
+            ->where('business.business_id', '=', $business_id)
+            ->select(array('box_rank'))->get();
+        foreach ($res as $count => $data) {
+            $box_rank[] = $data->box_rank;
+        }
+
+        for($rank = 1; in_array($rank, $box_rank); $rank++); return $rank;
     }
 
     public static function boxRank($terminal_id) {

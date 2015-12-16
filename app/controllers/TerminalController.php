@@ -53,7 +53,7 @@ class TerminalController extends BaseController{
       if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId())) { // PAG added permission checking
         $terminal_id = count(Terminal::getTerminalsByBusinessId(Input::get('business_id')));
         if ($this->validateTerminalName(Input::get('business_id'), Input::get('name'), $terminal_id)) {
-          Terminal::createBusinessNewTerminal(Input::get('business_id'), Input::get('name'));
+          Terminal::createTerminal(Input::get('service_id'), Input::get('name'));
           $business = Business::getBusinessDetails(Input::get('business_id'));
           return json_encode(['success' => 1, 'business' => $business]);
         }

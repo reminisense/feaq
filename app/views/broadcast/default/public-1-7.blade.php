@@ -12,42 +12,49 @@
             <div class="row">
                 <div class="col-md-4 col-xs-6">
                     <div class="numbers t@{{ rank1 }}">
+                        <p class="terminal">@{{ service1 }}</p>
                         <p class="terminal">@{{ name1 }}</p>
                         <h3>@{{ box1 }}</h3>
                     </div>
                 </div>
                 <div class="col-md-4 col-xs-6">
                     <div class="numbers t@{{ rank2 }}">
+                        <p class="terminal">@{{ service2 }}</p>
                         <p class="terminal">@{{ name2 }}</p>
                         <h3> @{{ box2 }}</h3>
                     </div>
                 </div>
                 <div class="col-md-4 col-xs-6">
                     <div class="numbers t@{{ rank3 }}">
+                        <p class="terminal">@{{ service3 }}</p>
                         <p class="terminal">@{{ name3 }}</p>
                         <h3> @{{ box3 }}</h3>
                     </div>
                 </div>
                 <div class="col-md-4 col-xs-6">
                     <div class="numbers t@{{ rank4 }}">
+                        <p class="terminal">@{{ service4 }}</p>
                         <p class="terminal">@{{ name4 }}</p>
                         <h3>@{{ box4 }}</h3>
                     </div>
                 </div>
                 <div class="col-md-4 col-xs-6">
                     <div class="numbers t@{{ rank5 }}">
+                        <p class="terminal">@{{ service5 }}</p>
                         <p class="terminal">@{{ name5 }}</p>
                         <h3>@{{ box5 }}</h3>
                     </div>
                 </div>
                 <div class="col-md-4 col-xs-6">
                     <div class="numbers t@{{ rank6 }}">
+                        <p class="terminal">@{{ service6 }}</p>
                         <p class="terminal">@{{ name6 }}</p>
                         <h3>@{{ box6 }}</h3>
                     </div>
                 </div>
                 <div class="col-md-4 col-xs-6">
                     <div class="numbers t@{{ rank7 }}">
+                        <p class="terminal">@{{ service7 }}</p>
                         <p class="terminal">@{{ name7 }}</p>
                         <h3>@{{ box7 }}</h3>
                     </div>
