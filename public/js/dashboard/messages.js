@@ -10,7 +10,7 @@
 
         websocket.onmessage = function (response) { // what happens when data is received
             var result = JSON.parse(response.data);
-            $scope.setPreviewMessage(result.preview_type, "", result.message_id, "");
+            $scope.loadNewMessage(result.message_id, result.messageContent, result.attachmentLink, result.timestamp)
         };
 
         websocket.onopen = function (response) { // connection is open
@@ -92,7 +92,21 @@
             }
         };
 
+        $scope.loadNewMessage = function(message_id, messageContent, attachmentLink, timestamp) {
+            if (message_id == $scope.current_message_id) {
+                var finalMessage = "" +
+                    "<div class='messageto'>" +
+                    "<p>" + messageContent.replace(/\n/g, '<br>') + "</p>" + attachmentLink +
+                    "<p class='timestamp pull-right'>Posted by <strong class='sender'>You</strong> on <strong>" + timestamp +
+                    "</strong></div>" +
+                    "";
+                $('.thread-boundary').before(finalMessage);
+                $("#thread-container").animate({ scrollTop: $('#thread-container').prop("scrollHeight")}, 1000);
+            }
+        }
+
         $scope.setPreviewMessage = function(preview_type, sender, message_id, active_email){
+            $scope.current_message_id = message_id;
             $('.message-preview').hide();
             $('.preview-container').fadeIn();
             if (isMobile.any() != null){
@@ -152,22 +166,16 @@
                 messageContent: $scope.business_reply_form.message_reply,
                 attachment : $('#business-attachment').val()
             }).success(function(response){
-                websocket.send(JSON.stringify({
-                    message_id: $scope.business_reply_form.thread_message_id,
-                    preview_type: preview_type,
-                    message_update: true
-                }));
                 var attachmentLink = $('#business-attachment').val();
                 if ($.trim(attachmentLink)) {
                     attachmentLink = "<p><a style=\"font-weight: bold; color: #d36e3c;\" href=\"" + attachmentLink + "\" download>Download Attachment</a></p>";
                 }
-                var finalMessage = "" +
-                    "<div class='messageto'>" +
-                    "<p>" + $scope.business_reply_form.message_reply.replace(/\n/g, '<br>') + "</p>" + attachmentLink +
-                    "<p class='timestamp pull-right'>Posted by <strong class='sender'>You</strong> on <strong>" + response.timestamp +
-                    "</strong></div>" +
-                    "";
-                $('.thread-boundary').before(finalMessage);
+                websocket.send(JSON.stringify({
+                    message_id: $scope.business_reply_form.thread_message_id,
+                    messageContent: $scope.business_reply_form.message_reply,
+                    attachmentLink : attachmentLink,
+                    timestamp: response.timestamp
+                }));
                 $('#sendreplytext').val('');
                 $('#sendreply').html('Send Reply');
                 $('#sendreply').removeAttr('disabled');

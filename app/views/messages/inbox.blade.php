@@ -68,7 +68,7 @@
                                     <div class="col-md-7">
                                         <div class="preview-container">
                                             <div class="message-preview" style="display: none;">
-                                                <div style="max-height: 450px; overflow: scroll;">
+                                                <div style="max-height: 450px; overflow: scroll;" id="thread-container">
                                                     <div class="thread-boundary"></div>
                                                 </div>
                                                 <div class="message-reply clearfix">
