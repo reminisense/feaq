@@ -40,6 +40,7 @@ class BroadcastController extends BaseController{
       return View::make($templates['broadcast_template'])
         //->with('custom_fields', $custom_fields)
         //->with('template_type', $data->d)
+        ->with('ticker_width', 100 - $regions['percentage'])
         ->with('custom_url', $custom_url)
         ->with('adspace_size', $data->adspace_size)
         ->with('carousel_delay', isset($data->carousel_delay) ? (int)$data->carousel_delay : 5000)
@@ -105,6 +106,7 @@ class BroadcastController extends BaseController{
       elseif ($percentage <= 30) {
         $ad_class = 'seventy';
         $num_class = 'thirty';
+        $percentage = 30;
       }
       else {
         $ad_class = 'fifty fifty-a';

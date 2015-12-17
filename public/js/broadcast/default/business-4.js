@@ -5,10 +5,10 @@ app.controller('nowServingCtrl', function($scope, $http) {
   establishSocketConnection($scope, $http, business_id);
 
   $scope.updateBroadcastPage = (function(response) {
-    announceNumber($scope, response, 'rank1', 'box1', 'name1');
-    announceNumber($scope, response, 'rank2', 'box2', 'name2');
-    announceNumber($scope, response, 'rank3', 'box3', 'name3');
-    announceNumber($scope, response, 'rank4', 'box4', 'name4');
+    announceNumber($scope, response, 'rank1', 'box1', 'name1', 'service1');
+    announceNumber($scope, response, 'rank2', 'box2', 'name2', 'service2');
+    announceNumber($scope, response, 'rank3', 'box3', 'name3', 'service3');
+    announceNumber($scope, response, 'rank4', 'box4', 'name4', 'service4');
 
     announceNumberFromBlank($scope, response, 'box1', 'rank1');
     announceNumberFromBlank($scope, response, 'box2', 'rank2');
