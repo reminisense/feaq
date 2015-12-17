@@ -96,6 +96,7 @@ class Business extends Eloquent
     public static function getBusinessDetails($business_id)
     {
         $business = Business::where('business_id', '=', $business_id)->get()->first();
+        $services = Service::getBusinessServicesWithTerminals($business_id);
         $terminals = Terminal::getTerminalsByBusinessId($business_id);
         $terminals = Terminal::getAssignedTerminalWithUsers($terminals);
         $analytics = Analytics::getBusinessAnalytics($business_id);
@@ -120,6 +121,7 @@ class Business extends Eloquent
             'allow_remote' => QueueSettings::allowRemote($first_service->service_id),
             'remote_limit' => QueueSettings::remoteLimit($first_service->service_id),
             'terminals' => $terminals,
+            'services' => $services,
             'analytics' => $analytics,
             'features' => Business::getBusinessFeatures($business_id),
             'sms_gateway' => QueueSettings::smsGateway($first_service->service_id),

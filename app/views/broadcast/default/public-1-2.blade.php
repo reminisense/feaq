@@ -12,12 +12,14 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="numbers t@{{ rank1 }} spaceht">
+                        <p class="terminal">@{{ service1 }}</p>
                         <p class="terminal">@{{ name1 }}</p>
                         <h3>@{{ box1 }}</h3>
                     </div>
                 </div>
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="numbers t@{{ rank2 }} spaceht">
+                        <p class="terminal">@{{ service2 }}</p>
                         <p class="terminal">@{{ name2 }}</p>
                         <h3>@{{ box2 }}</h3>
                     </div>

@@ -38,7 +38,7 @@
                             <div class="col-md-1 col-xs-1"><button class="btn btn-primary" id="forward-btn">Forward</button></div>
                         </div>
                     </div>
-                    {{-- ARA Save this for later
+
                     <div class="tab-pane fade in" id="messages">
                         <div class="">
                             <div class="col-md-12 text-center"><h5>Conversation History</h5></div>
@@ -77,7 +77,7 @@
                             </div>
                         </div>
                     </div>
-                    --}}
+
                 </div>
             </div>
             <div class="modal-footer">
