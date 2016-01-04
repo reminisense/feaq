@@ -59,6 +59,7 @@ class BusinessController extends BaseController{
                 return View::make('business.my-business')
                     //->with('user_id', Helper::userId()) //ARA - moved assignment to filters.php
                     ->with('business_id', $business_id)
+                    ->with('raw_code', Business::getRawCodeByBusinessId($business_id))
                     ->with('assigned_businesses', $assigned_businesses)
                     ->with('first_terminal', $first_terminal);
             } else {
@@ -506,6 +507,12 @@ class BusinessController extends BaseController{
                             'business_id' => $data->business_id,
                             'business_name' => $data->name,
                             'local_address' => $data->local_address,
+
+                            //ARA more info for business cards
+                            'last_number_called' => count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'none', //ok
+                            'next_available_number' => $all_numbers->next_number, //ok
+                            'last_active' => Analytics::getLastActive($data->business_id),
+                            'card_bool' => true, // for info cards marker
                         );
                     }
 
@@ -534,6 +541,12 @@ class BusinessController extends BaseController{
                             'business_id' => $data->business_id,
                             'business_name' => $data->name,
                             'local_address' => $data->local_address,
+
+                            //ARA more info for business cards
+                            'last_number_called' => count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'none', //ok
+                            'next_available_number' => $all_numbers->next_number, //ok
+                            'last_active' => Analytics::getLastActive($data->business_id),
+                            'card_bool' => false, // for info cards marker
                         );
                     }
                 }
