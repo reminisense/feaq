@@ -361,7 +361,6 @@ var eb = {
         $scope.services = [];
         $scope.users = [];
         $scope.analytics = [];
-        $scope.messages = [];
 
         $scope.form_fields = [];
 
@@ -385,19 +384,6 @@ var eb = {
         $scope.add_terminal = {
             terminal_name : ""
         };
-
-        /*
-        $scope.business_reply_form = {
-            message_reply : "",
-            active_sender_email : "",
-            attachment : "",
-            pick_number : 0
-        };
-        $scope.sendby = {
-            email : 'email',
-            phone : 'phone'
-        }
-        */
 
         $scope.settings = {
             ad_type : "",
@@ -497,84 +483,6 @@ var eb = {
                 }
             }
         }
-
-        /* @CSD 05062015 */
-        /* @CSD 08032015 Migrated to messages.js by Paul */
-        /*
-        $scope.setPreviewMessage = function(sender, message_id, active_email){
-            $('.message-preview').hide();
-            $('.preview-container').fadeIn();
-            if (isMobile.any() != null){
-                $('#mobile-back-button').removeClass('hidden').fadeIn();
-                $('.message-collection').fadeOut();
-            }
-            $scope.business_reply_form.active_sender_email = active_email;
-            $http.post('/message/phone-list', {
-                message_id : message_id
-            }).success(function(response) {
-                $scope.number_list = response.numbers;
-            });
-            $http.post('/message/message-thread', {
-                message_id : message_id
-            }).success(function(response) {
-                $('.messagefrom').remove();
-                $('.messageto').remove();
-                for(var i = 0; i < response.contactmessage.length; i++){
-                    var newMessage = response.contactmessage[i].content.replace(/\n/g, '<br>');
-                    var attachmentLink = response.contactmessage[i].attachment;
-                    if ($.trim(attachmentLink)) {
-                        attachmentLink = "<p><a style=\"font-weight: bold; color: #d36e3c;\" href=\"" + attachmentLink + "\" download>Download Attachment</a></p>";
-                    }
-                    if (response.contactmessage[i].sender == 'user'){
-                        finalMessage = "" +
-                            "<div class='messagefrom clearfix'>" +
-                            "<p>" + newMessage + "</p>" + attachmentLink +
-                            "<p class='timestamp pull-right'>Posted by <strong class='sender'>" + sender + "</strong> on <strong>" + response.contactmessage[i].timestamp +
-                            "</strong></div>" +
-                            "";
-                        $('.thread-boundary').before(finalMessage);
-                    } else {
-                        finalMessage = "" +
-                            "<div class='messageto clearfix'>" +
-                            "<p>" + newMessage + "</p>" + attachmentLink +
-                            "<p class='timestamp pull-right'>Posted by <strong class='sender'>You</strong> on <strong>" + response.contactmessage[i].timestamp +
-                            "</strong></div>" +
-                            "";
-                        $('.thread-boundary').before(finalMessage);
-                    }
-                }
-                $('.message-preview').fadeIn();
-            });
-        }
-
-        $scope.sendBusinessReply = function(){
-            $('#sendreply').html('Sending... &nbsp;<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
-            $('#sendreply').attr('disabled', '');
-            $http.post('/message/sendto-user', {
-                business_id: $scope.business_id,
-                contactemail: $scope.business_reply_form.active_sender_email,
-                messageContent: $scope.business_reply_form.message_reply,
-                phonenumber : $scope.business_reply_form.pick_number,
-                attachment : $('#business-attachment').val(),
-                sendbyphone : $scope.sendby.phone
-            }).success(function(response){
-                var attachmentLink = $('#business-attachment').val();
-                if ($.trim(attachmentLink)) {
-                    attachmentLink = "<p><a style=\"font-weight: bold; color: #d36e3c;\" href=\"" + attachmentLink + "\" download>Download Attachment</a></p>";
-                }
-                var finalMessage = "" +
-                    "<div class='messageto'>" +
-                    "<p>" + $scope.business_reply_form.message_reply.replace(/\n/g, '<br>') + "</p>" + attachmentLink +
-                    "<p class='timestamp pull-right'>Posted by <strong class='sender'>You</strong> on <strong>" + response.timestamp +
-                    "</strong></div>" +
-                "";
-                $('.thread-boundary').before(finalMessage);
-                $('#sendreplytext').val('');
-                $('#sendreply').html('Send Reply');
-                $('#sendreply').removeAttr('disabled');
-            });
-        }
-        */
 
         $scope.unassignFromTerminal = function(user_id, terminal_id){
             var confirmDel = confirm("Are you sure you want to remove this terminal user?");
@@ -888,26 +796,6 @@ var eb = {
             });
           });
         };
-
-        /*
-        $scope.activateTheme = (function(theme_type, business_id, show_called_only) {
-            $http.post(eb.urls.broadcast.broadcast_set_theme_url, {
-                'business_id' : business_id,
-                'theme_type' : theme_type,
-                'show_issued' : !show_called_only //ARA Added for toggling to show only called numbers in broadcast page
-            }).success(function(response) {
-                $('.activated').hide();
-                $('.theme-btn').show();
-                $('.'+theme_type+'.theme-btn').hide();
-                $('.'+theme_type+'.activated').show();
-                $scope.theme_type = theme_type;
-                websocket.send(JSON.stringify({
-                  business_id : business_id,
-                  broadcast_update : true
-                }));
-            });
-        });
-        */
 
         $scope.currentActiveBroadcastDetails = function(business_id) {
             if (business_id > 0){

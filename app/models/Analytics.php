@@ -14,7 +14,7 @@ class Analytics extends Eloquent{
         $uncalled_numbers = 0;
         $branches = Branch::getBranchesByBusinessId($business_id);
         foreach($branches as $branch){
-            $uncalled_numbers = Analytics::getBranchRemainingCount($branch->branch_id);
+            $uncalled_numbers += Analytics::getBranchRemainingCount($branch->branch_id);
         }
         return $uncalled_numbers;
     }

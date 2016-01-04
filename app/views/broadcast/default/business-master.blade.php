@@ -46,9 +46,9 @@
     </div>
 </div>
 @endif
-<div class="ticker-message">
+<div class="ticker-message" style="width: {{ $ticker_width }}%;">
     @foreach($ticker_message as $message)
-        @if($message != "")
+        @if($message)
             <div class="marquee-text hidden">{{ $message }}</div>
         @endif
     @endforeach

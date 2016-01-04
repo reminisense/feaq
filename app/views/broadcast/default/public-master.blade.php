@@ -127,7 +127,9 @@
 
         <div class="col-md-12 ticker-message mt20">
             @foreach($ticker_message as $message)
-                <div class="marquee-text hidden">{{ $message }}</div>
+                @if($message)
+                    <div class="marquee-text hidden">{{ $message }}</div>
+                @endif
             @endforeach
             <div class="real-marquee-text"></div>
         </div>

@@ -811,5 +811,5 @@ button#sendreply {
     right: 0; top: 0; height: 100%; padding-top: 10px;
 }
 .q-minus,.q-add {padding-left: 10px!important;padding-right: 10px!important;}
-.ui-widget.ui-widget-content {background: none!important;}
+.broadcast-wrap .ui-widget.ui-widget-content {background: none!important;}
 .white {background-color: #fff!important;}
