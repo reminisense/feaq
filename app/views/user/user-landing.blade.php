@@ -229,7 +229,7 @@
             <h2 class="wow fadeInUp text-center">Beat the waiting game</h2>
         </div>
         <div class="col-md-offset-2 col-md-8 text-center wow fadeInUp">
-            <p>FeatherQ is free to use. Forever. All you need to start queuing is a Facebook account, and an internet connection.</p>
+            <p>FeatherQ eliminates long lines and boosts customer experience. All you need to start queuing is a Facebook account, and an internet connection.</p>
             <p>Get started now. Download the app  and login using your Facebook account and discover a better way to wait.</p>
             <div class="cta">
                 <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" target="_blank"><img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png"></a>
