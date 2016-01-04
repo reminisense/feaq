@@ -310,7 +310,7 @@ class BusinessController extends BaseController{
         $business_name = Business::name($business_id);
         $business_address = Business::localAddress($business_id);
 
-        $businesslink = $this->make_bitly_url(url('/broadcast/business/' . $business_id), 'reminisense', 'R_553289e06aaf4ca684392d2dbadec0a8', 'json');
+        $businesslink = 'http://' . $_SERVER['HTTP_HOST'] . '/' . Business::getRawCodeByBusinessId($business_id);
         $qr_link = "https://api.qrserver.com/v1/create-qr-code/?data=" . url('/broadcast/business/' . $business_id) . "&size=302x302"; // CSD Updated QR Link
 
         $data = [
