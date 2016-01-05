@@ -279,21 +279,22 @@ ul.nav {
 
 .tri {
   margin-top: -100px; }
-.business_link small {line-height: 15px; display: inline-block; font-size: 80%!important; color: #6a6a6a;}
+.business_link small {line-height: 15px; display: inline-block; font-size: 80%!important; color: #dedede;}
 .business_link:hover {
   text-decoration: none; }
 
 .box-wrap {
-  background-color: #fff;
-  color: #222;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
+  color: #fff;
   height: 110px;
   padding: 15px 20px;
-  margin-bottom: 20px; }
+  margin-bottom: 20px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    background: #18323b url('../../img/bg-bizgrid-box.png') top right no-repeat;
+}
   .box-wrap .title {
-    color: #333;
+    color: #fff;
     font-size: 14px;
     font-weight: 700;
     margin-bottom: 10px;
@@ -320,7 +321,7 @@ ul.nav {
   border-bottom-left-radius: 4px; }
 
 .filterwrap {
-  background-color: #fff;
+  /*background-color: #fff;*/
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;

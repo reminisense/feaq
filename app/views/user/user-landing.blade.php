@@ -130,7 +130,7 @@
                         <input type="text" id="time_open-filter" name="time_open" ng-model="time_open" placeholder="Time Open" class="timepicker form-control">
                     </div>
                     <form class="ng-pristine ng-valid col-md-4 col-sm-4 col-xs-6">
-                        <div class="clearfix" style="position: relative;background-color: #fff; border-bottom-left-radius: 4px;">
+                        <div class="clearfix" style="position: relative;background-color: #fff;">
                             <input class="" type="text" placeholder="ie: Ng Khai Devt Corp" id="search-keyword" ng-model="search_keyword" ng-model-options="{debounce: 1000}" autocomplete="off" >
                             <ul class="dropdown-menu" role="menu" id="search-suggest" ng-hide="dropdown_businesses.length == 0"  outside-click="dropdown_businesses = []">
                                 <li ng-repeat="business in dropdown_businesses">
@@ -165,9 +165,12 @@
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12 ng-scope" ng-controller="fbController">
                 <a class="business_link" href="#" ng-click="login()">
-                    <div class="box-wrap">
-                        <p class="title ng-binding"> More Businesses</p>
-                        <a href="#" ng-click="login()" style="display: block;"><small class="ng-binding">Sign up now to view More Businesses</small></a>
+                    <div class="box-wrap text-center" style="background-color: #4666B6;">
+                        {{--<p class="title ng-binding"> More Businesses</p>--}}
+                        <a href="#" ng-click="login()" style="display: block; color:#fff;  margin-top:18px;">
+                            <span style="font-weight:600;display: block;">LOGIN WITH FACEBOOK</span>
+                            <small class="ng-binding">{{--<img src="/images/homepage/landing/fb.png"> --}} to view More Businesses</small>
+                        </a>
                     </div>
                 </a>
             </div>
