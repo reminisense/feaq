@@ -468,7 +468,7 @@ class Business extends Eloquent
             $next_number = $all_numbers->next_number;
             $is_calling = count($all_numbers->called_numbers) > 0 ? true : false;
             $is_issuing = count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? true : false;
-            $last_active = Analytics::getLastActive($business['business_id']);
+            $last_active = Analytics::daysAgoActive($business['business_id']);
 
             $business_details = array(
                 'business_id' => $business['business_id'],
