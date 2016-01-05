@@ -82,9 +82,9 @@ My Business
             <form>
                 <div class="form-group row">
                     <ul id="bizTab" class="nav nav-tabs" role="tablist">
-                        <li class="active"><a href="#details" id="details-tab" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span>Details</a></li>
+                        <li class="active"><a href="#broadcast" id="broadcast-tab" data-toggle="tab"><span class="glyphicon glyphicon-th-large"></span> Layouts & Advertisements</a></li>
+                        <li class=""><a href="#details" id="details-tab" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span>Details</a></li>
                         <li class=""><a href="#terminals" id="terminals-tab" data-toggle="tab"><span class="glyphicon glyphicon-tasks"></span> Services</a></li>
-                        <li class=""><a href="#broadcast" id="broadcast-tab" data-toggle="tab"><span class="glyphicon glyphicon-th-large"></span> Layouts & Advertisements</a></li>
                         <li class=""><a href="#settings" id="settings-tab" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
                         <li class=""><a href="#analytics" id="analytics-tab" data-toggle="tab"><span class="glyphicon glyphicon-stats"></span> Analytics</a></li>
                     </ul>
@@ -94,14 +94,14 @@ My Business
                                 <p style="text-align: center;"></p>
                             </div>
                         </div>
-                        <div role="tabpanel" class="tab-pane fade active in" id="details" aria-labelledby="details-tab">
+                        <div role="tabpanel" class="tab-pane fade active in" id="broadcast" aria-labelledby="broadcast-tab">
+                            <div class="clearfix">@include('business.my-business-tabs.broadcast-tab')</div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="details" aria-labelledby="details-tab">
                             <div class="clearfix">@include('business.my-business-tabs.details-tab')</div>
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="terminals" aria-labelledby="terminals-tab">
                             <div class="clearfix">@include('business.my-business-tabs.terminals-tab')</div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="broadcast" aria-labelledby="broadcast-tab">
-                            <div class="clearfix">@include('business.my-business-tabs.broadcast-tab')</div>
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="settings" aria-labelledby="settings-tab">
                             <div class="clearfix">@include('business.my-business-tabs.settings-tab')</div>
