@@ -100,7 +100,12 @@ class Business extends Eloquent
         $terminals = Terminal::getTerminalsByBusinessId($business_id);
         $terminals = Terminal::getAssignedTerminalWithUsers($terminals);
         $analytics = Analytics::getBusinessAnalytics($business_id);
-        $first_service = Service::getFirstServiceOfBusiness($business_id);
+        if(Service::getFirstServiceOfBusiness($business_id)) {
+            $first_service = Service::getFirstServiceOfBusiness($business_id);
+        }else{
+            $first_service = new stdClass();
+            $first_service->service_id = 0;
+        }
         $business_details = [
             'business_id' => $business_id,
             'business_name' => $business->name,
