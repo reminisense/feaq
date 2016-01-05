@@ -17,17 +17,32 @@ Modules - reusable parts of our design
 
 .cd-img-replace {
     /* replace text with background images */
+    content: '?';
     display: inline-block;
-    overflow: hidden;
-    text-indent: 100%;
+    /*overflow: hidden;*/
+    text-indent: 35%;
     white-space: nowrap;
 }
 
-/* --------------------------------
+/*ARA changed links to visible question marks*/
+.cd-img-replace:link,
+.cd-img-replace:hover,
+.cd-img-replace:visited,
+.cd-img-replace:active{
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 900;
+}
 
-Main components
+/*ARA hide close link*/
+.cd-img-replace.cd-close-info{
+    overflow: hidden;
+}
+    /* --------------------------------
 
--------------------------------- */
+    Main components
+
+    -------------------------------- */
 
 .cd-product {
     text-align: center;
@@ -86,12 +101,12 @@ Main components
     transition-duration: 0.2s;
 }
 .cd-single-point > a::after {
-    height: 2px;
-    width: 12px;
+    height:0px;
+    width: 0px;
 }
 .cd-single-point > a::before {
-    height: 12px;
-    width: 2px;
+    height: 0px;
+    width: 0px;
 }
 .cd-single-point::after {
     /* this is used to create the pulse animation */
