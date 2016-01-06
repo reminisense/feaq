@@ -160,6 +160,33 @@
                     <div class="box-wrap">
                         <p class="title ng-binding">@{{ business.business_name }}</p>
                         <small class="address ng-binding">@{{ business.local_address }}</small>
+                        <div class="statuses" ng-if="!business.card_bool">
+                            <p><span class="icon-lineq"></span> Business Hours: <span class="pull-right">@{{ business.time_open }} - @{{ business.time_close }}</span> <span class="icon-busy"></span> </p>
+                            <p><span class="icon-waittime"></span> Last Active:
+                                <span class="pull-right"><i>@{{ business.last_active }}</i></span>
+                            </p>
+                        </div>
+                        <div class="statuses" ng-if="business.card_bool">
+                            <div class="col-md-6 col-xs-6 text-center">
+                                <h5>Calling</h5>
+                                <h4><strong>@{{ business.last_number_called }}</strong></h4>
+                            </div>
+                            <div class="col-md-6 col-xs-6 text-center">
+                                <h5>Next Available</h5>
+                                <h4><strong>@{{ business.next_available_number }}</strong></h4>
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <p class="line">Line Status: <span class="@{{ business.waiting_time }}">&middot</span> @{{ business.waiting_time }}</p>
+                            </div>
+                        </div>
+                        <div class="status open" data-toggle="tooltip" data-placement="top" title="" data-original-title="Queue on-going" ng-if="business.card_bool">
+                            <span class="glyphicon glyphicon-play"></span>
+                            <div class="bg"></div>
+                        </div>
+                        <div class="status closed" data-toggle="tooltip" data-placement="top" title="Queue Closed" ng-if="!business.card_bool">
+                            <span class="glyphicon glyphicon-ban-circle"></span>
+                            <div class="bg"></div>
+                        </div>
                     </div>
                 </a>
             </div>
