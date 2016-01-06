@@ -123,6 +123,7 @@
 
 
         $scope.industries = [
+            {code: 'Any'},
             {code :'Accounting'},               {code :'Advertising'},                  {code :'Agriculture'},              {code :'Air Services'},
             {code :'Airlines'},                 {code :'Apparel'},                      {code :'Appliances'},               {code :'Auto Dealership'},
             {code :'Banking'},                  {code :'Broadcasting'},                 {code :'Business Services'},        {code :'Communications'},
