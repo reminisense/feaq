@@ -501,8 +501,8 @@ var eb = {
                 user_id : user_id,
                 terminal_id : terminal_id
             }).success(function(response){
-                    setBusinessFields(response.business);
-                });
+                setBusinessFields(response.business);
+            });
         }
 
         $scope.emailSearch = function(email, terminal_id){
@@ -587,6 +587,7 @@ var eb = {
                         $('.terminal-error-message[terminal_id=' + terminal_id + ']').show();
                         setTimeout(function(){$('.terminal-error-message[terminal_id=' + terminal_id + ']').fadeOut('slow')}, 3000);
                     }
+                    setBusinessFields(response.business);
                 }).error(function(response) {
                     alert('Something went wrong..');
                 });
