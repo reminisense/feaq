@@ -78,7 +78,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#" ng-click="login()">Login with Facebook <span class="sr-only">(current)</span></a></li>
+                <li><a href="#" ng-click="login()" id="nav-fb">Login with Facebook <span class="sr-only">(current)</span></a></li>
                 <li><a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" target="_blank">Download the App</a></li>
                 <li><a href="/business">FeatherQ for Business</a></li>
             </ul>
