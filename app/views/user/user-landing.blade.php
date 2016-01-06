@@ -160,13 +160,15 @@
                     <div class="box-wrap">
                         <p class="title ng-binding">@{{ business.business_name }}</p>
                         <small class="address ng-binding">@{{ business.local_address }}</small>
+                        <!-- inactive business -->
                         <div class="statuses clearfix" ng-if="!business.card_bool">
                             <p><span class="icon-lineq"></span> Business Hours: <span class="pull-right">@{{ business.time_open }} - @{{ business.time_close }}</span> <span class="icon-busy"></span> </p>
                             <p><span class="icon-waittime"></span> Last Active:
                                 <span class="pull-right"><i>@{{ business.last_active }}</i></span>
                             </p>
                         </div>
-                        <div class="statuses" ng-if="business.card_bool">
+                        <!-- active business -->
+                        <div class="statuses clearfix" ng-if="business.card_bool">
                             <div class="col-md-6 col-xs-6 text-center">
                                 <h5>Calling</h5>
                                 <h4><strong>@{{ business.last_number_called }}</strong></h4>
