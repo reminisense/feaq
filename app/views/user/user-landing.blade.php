@@ -160,7 +160,7 @@
                     <div class="box-wrap">
                         <p class="title ng-binding">@{{ business.business_name }}</p>
                         <small class="address ng-binding">@{{ business.local_address }}</small>
-                        <div class="statuses" ng-if="!business.card_bool">
+                        <div class="statuses clearfix" ng-if="!business.card_bool">
                             <p><span class="icon-lineq"></span> Business Hours: <span class="pull-right">@{{ business.time_open }} - @{{ business.time_close }}</span> <span class="icon-busy"></span> </p>
                             <p><span class="icon-waittime"></span> Last Active:
                                 <span class="pull-right"><i>@{{ business.last_active }}</i></span>
@@ -179,23 +179,23 @@
                                 <p class="line">Line Status: <span class="@{{ business.waiting_time }}">&middot</span> @{{ business.waiting_time }}</p>
                             </div>
                         </div>
-                        <div class="status open" data-toggle="tooltip" data-placement="top" title="" data-original-title="Queue on-going" ng-if="business.card_bool">
+                        {{--<div class="status open" data-toggle="tooltip" data-placement="top" title="" data-original-title="Queue on-going" ng-if="business.card_bool">
                             <span class="glyphicon glyphicon-play"></span>
                             <div class="bg"></div>
                         </div>
                         <div class="status closed" data-toggle="tooltip" data-placement="top" title="Queue Closed" ng-if="!business.card_bool">
                             <span class="glyphicon glyphicon-ban-circle"></span>
                             <div class="bg"></div>
-                        </div>
+                        </div>--}}
                     </div>
                 </a>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12 ng-scope" ng-controller="fbController">
                 <a class="business_link" href="#" ng-click="login()">
-                    <div class="box-wrap text-center" style="background-color: #4666B6;">
+                    <div class="box-wrap box-fb text-center">
                         {{--<p class="title ng-binding"> More Businesses</p>--}}
-                        <a href="#" ng-click="login()" style="display: block; color:#fff;  margin-top:18px;">
-                            <span style="font-weight:600;display: block;">LOGIN WITH FACEBOOK</span>
+                        <a href="#" ng-click="login()">
+                            <span>LOGIN WITH FACEBOOK</span>
                             <small class="ng-binding">{{--<img src="/images/homepage/landing/fb.png"> --}} to view More Businesses</small>
                         </a>
                     </div>
