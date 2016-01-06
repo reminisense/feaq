@@ -298,30 +298,31 @@
         <div class="col-md-12">
             <h2 class="text-center">Who Uses FeatherQ</h2>
         </div>
-        <div class="col-md-2 col-sm-3 col-xs-6 wow fadeInUp">
+
+        <div class="col-lg-2 col-md-2 col-md-offset-1 col-sm-offset-1 col-sm-2  col-xs-6 wow fadeInUp">
             <img src="/images/business/landing/banks.png" alt="Banks" />
             <h5>Banks</h5>
         </div>
-        <div class="col-md-2 col-sm-3 col-xs-6 wow fadeInUp">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 wow fadeInUp">
             <img src="/images/business/landing/hospitals.png" alt="Hospitals" />
             <h5>Hospitals</h5>
         </div>
-        <div class="col-md-2 col-sm-3 col-xs-6 wow fadeInUp">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 wow fadeInUp">
             <img src="/images/business/landing/restaurants.png" alt="Restaurants" />
             <h5>Restaurants</h5>
         </div>
-        <div class="col-md-2 col-sm-3 col-xs-6 wow fadeInUp">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 wow fadeInUp">
             <img src="/images/business/landing/schools.png" alt="Schools" />
             <h5>Schools</h5>
         </div>
-        <div class="col-md-2 col-sm-3 col-xs-6 wow fadeInUp">
+        <div class="col-lg-2 col-md-2 col-md-offset-0 col-sm-offset-0 col-sm-2  col-xs-6 col-xs-offset-3 wow fadeInUp">
             <img src="/images/business/landing/services.png" alt="Services" />
             <h5>Services</h5>
         </div>
-        <div class="col-md-2 col-sm-3 col-xs-6 wow fadeInUp">
+        {{--<div class="col-md-2 col-sm-3 col-xs-6 wow fadeInUp">
             <img src="/images/business/landing/your-business.png" alt="Your Business" />
             <h5>Your Business</h5>
-        </div>
+        </div>--}}
     </div>
 </section>
 
