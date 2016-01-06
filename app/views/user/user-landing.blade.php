@@ -169,6 +169,7 @@
                         </div>
                         <!-- active business -->
                         <div class="statuses clearfix" ng-if="business.card_bool">
+                            <div class="row">
                             <div class="col-md-6 col-xs-6 text-center">
                                 <h5>Calling</h5>
                                 <h4><strong>@{{ business.last_number_called }}</strong></h4>
@@ -179,6 +180,7 @@
                             </div>
                             <div class="col-md-12 text-center">
                                 <p class="line">Line Status: <span class="@{{ business.waiting_time }}">&middot</span> @{{ business.waiting_time }}</p>
+                            </div>
                             </div>
                         </div>
                         {{--<div class="status open" data-toggle="tooltip" data-placement="top" title="" data-original-title="Queue on-going" ng-if="business.card_bool">

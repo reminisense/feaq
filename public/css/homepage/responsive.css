@@ -9,6 +9,9 @@
     #myTabs .nav-tabs>li>a {
         height: 67.5px!important;
     }
+    .box-wrap {
+        min-height: 202px!important;
+    }
     .banner .partners {
         margin-top: 50px;
     }

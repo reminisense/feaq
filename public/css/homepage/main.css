@@ -286,6 +286,7 @@ ul.nav {
 .box-wrap {
   color: #fff;
   /*height: 110px;*/
+    min-height: 183px;
   padding: 15px 20px;
   margin-bottom: 20px;
     -webkit-border-radius: 4px;
@@ -293,11 +294,11 @@ ul.nav {
     border-radius: 4px;
     background: #18323b url('../../img/bg-bizgrid-box.png') top right no-repeat;
 }
-.box-wrap:hover {
-    background-color: #204551;
-}
-.box-fb {background-color: #4666B6; min-height: 137px;}
-.box-fb a {margin-top: 33px;display: block; color:#fff;}
+.box-wrap:hover {  background-color: #204551;  -webkit-box-shadow: 0 2px 8px 0 rgba(0,0,0,0.4);  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.4);  }
+.box-fb {background-color: #4666B6; min-height: 183px;}
+.box-fb a {margin-top: 53px;display: block; color:#fff;}
+.box-fb a:hover {text-decoration: none;}
+.box-fb:hover { background-color: #4a6dc3;}
 .box-fb span {font-weight:600;display: block;}
 .box-wrap .title {
     color: #fff;
@@ -308,6 +309,11 @@ ul.nav {
     line-height: 18px;}
 .box-wrap .statuses p {font-size:11px; margin-bottom: 0px;line-height: 18px; color: #dedede;}
 .box-wrap .status {position: absolute; right: 0; top:0;}
+.box-wrap h5 { font-weight: 400; margin-top: 5px;  margin-bottom: 0px!important;  font-size: 11px; white-space: nowrap;  overflow: hidden;  text-overflow: ellipsis;}
+.box-wrap h4 { color:#fff; margin-top: 5px; color: #dedede;}
+.statuses {
+    background: url('../../img/bg-statuses-sep.jpg') top center no-repeat;
+padding-top: 8px;}
 /* filters */
 .filterwrap button,
 .filterwrap .btn,
