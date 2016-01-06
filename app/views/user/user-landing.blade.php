@@ -131,7 +131,7 @@
                     </div>
                     <form class="ng-pristine ng-valid col-md-4 col-sm-4 col-xs-6">
                         <div class="clearfix" style="position: relative;background-color: #fff; border-bottom-left-radius: 4px;">
-                            <input class="" type="text" placeholder="ie: Ng Khai Devt Corp" id="search-keyword" ng-model="search_keyword" ng-model-options="{debounce: 1000}" autocomplete="off" >
+                            <input class="" type="text" placeholder="e.g. Bills Payment SM Megamall" id="search-keyword" ng-model="search_keyword" ng-model-options="{debounce: 1000}" autocomplete="off" >
                             <ul class="dropdown-menu" role="menu" id="search-suggest" ng-hide="dropdown_businesses.length == 0"  outside-click="dropdown_businesses = []">
                                 <li ng-repeat="business in dropdown_businesses">
                                     <a href="#" ng-click="searchBusiness(location_filter, industry_filter, business.name, $event)">
