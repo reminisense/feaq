@@ -50,5 +50,6 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 <script src="/js/jquery-ui.minjs"></script>
 <script src="/js/admin/admin.js"></script>
-
+<script src="/js/dashboard/dashboard.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.4/jstz.min.js"></script>
 @stop
