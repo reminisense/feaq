@@ -33,6 +33,18 @@ $(document).ready(function(){
         eb.jquery_functions.hide_add_terminal_form();
     });
 
+    $('body').on('click', '.info-button', function(e){
+        e.preventDefault();
+        var href = $(this).attr('href');
+        $(href).toggleClass('hidden');
+        if($(href).hasClass('hidden')){
+            $(this).html('More info...');
+        }else{
+            $(this).html('Less info...');
+        }
+
+    })
+
     $('#tv-channel').on('change', function(){
         $('#tv-script-submit-btn').removeAttr('disabled');
     });
