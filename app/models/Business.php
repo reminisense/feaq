@@ -217,7 +217,7 @@ class Business extends Eloquent
             $time_open_arr['ampm'] = '';
         }
 
-        if ($industry == 'Industry') {
+        if ($industry == 'Industry' || $industry == 'Any') {
             $industry = '';
         }
 
