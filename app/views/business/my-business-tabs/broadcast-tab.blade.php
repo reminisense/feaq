@@ -62,11 +62,11 @@
                                 </table>
                             </div>
                         </div>
-                        <div style="margin-top: 20px; width: 450px;">
-                            <div class="col-md-6 col-xs-6">
+                        <div class="clearfix" id="time-delay" style="margin-top: 20px; width: 450px;">
+                            <div class="col-md-6 col-xs-12">
                                 <small>Transition Time Delay: (seconds)</small>
                             </div>
-                            <div class="col-md-6 col-xs-6">
+                            <div class="col-md-6 col-xs-12">
                                 <input type="number" min="0" step="1" ng-model="settings.carousel_delay" class="form-control ng-pristine ng-untouched ng-valid ng-valid-min" width="30px">
                             </div>
                         </div>
