@@ -5,6 +5,14 @@ $('.detail-wrap').on('mouseleave', function(){
 	$(this).find('.details').hide();
 });
 
+$(window).scroll(function() {
+    if ($(document).scrollTop() > 200) {
+        $('.nav li a').addClass('show');
+    } else {
+        $('.nav li a').removeClass('show');
+    }
+});
+
 
 (function() {
   var Util,
