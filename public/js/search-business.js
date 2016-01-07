@@ -86,7 +86,12 @@
                         "last_active": response[i].last_active
                     });
                 }
-                $scope.searchLabel= 'Showing Top Result(s)';
+                if (i) {
+                    $scope.searchLabel= 'Showing Top Result(s)';
+                }
+                else {
+                    $scope.searchLabel = "No businesses were found based on the criteria. Try another search.";
+                }
                 $('#search-grid').show();
                 $('#search-filter').html('SEARCH');
                 $('#browse-label').show();
