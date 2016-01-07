@@ -9,6 +9,9 @@
     #myTabs .nav-tabs>li>a {
         height: 67.5px!important;
     }
+    .box-wrap {
+        min-height: 202px!important;
+    }
     .banner .partners {
         margin-top: 50px;
     }
@@ -56,11 +59,19 @@
         padding: 16px 25px!important;
         margin: 0 8px;
         font-weight: 600;}
+    .box-wrap .title {
+        height: inherit;
+        overflow: hidden;
+    }
 }
 
 @media only screen and (max-width : 992px) {
     body#user-landing #navbar {
         background: #111;
+    }
+    .box-wrap .title {
+        height: inherit;
+        overflow: hidden;
     }
     .navbar-inverse {background-color: #111;}
     body#user-landing #navbar ul.nav li a {
@@ -210,6 +221,12 @@
 }
 
 @media only screen and (max-width : 768px) {
+    .box-wrap {
+        text-align: left;
+    }
+    .box-fb {
+        text-align: center;
+    }
 	section.banner .slider-nav {
 		margin-top: -100px;
 	}
@@ -250,7 +267,12 @@
     }
 }
 @media (min-width: 480px) and (max-width: 558px) {
-    body#user-landing #banner {padding-top: 150px!important;}
+    body#user-landing #banner {
+        padding-top: 120px!important;
+    }
+    #banner {
+        height: 650px;
+    }
 }
 @media (min-width: 480px) and (max-width: 513px) {
     #myTabs li a {
@@ -259,19 +281,40 @@
 }
 
 @media only screen and (max-width : 480px) {
-    .navbar-toggle {margin-top: 0px!important; margin-bottom: 0px!important;}
-    #banner {  padding-top: 130px!important; }
+    .box-wrap .title {
+        height: inherit;
+        overflow: hidden;
+    }
+    .box-fb {
+        text-align: center;
+        min-height: 80px!important;
+    }
+    .box-fb a {
+        margin-top: 6px;
+    }
+    .navbar-toggle {
+        margin-top: 0px!important; margin-bottom: 0px!important;
+    }
+    #banner {
+        padding-top: 100px!important;
+    }
+    #banner h2 {
+        margin-top: 20px;
+    }
     body#user-landing #banner .btn {
         padding: 14px 25px!important;
         font-weight: 600;
         margin-top: 15px!important;
-        font-size: 15px;
+        font-size: 15px!important;
     }
     #banner .sub-heading {
         font-size: 22px;
         line-height: 35px;
     }
-    #banner h1 {margin-top:0px; margin-bottom: 30px; font-size:35px;}
+    #banner h1 {
+        margin-bottom: 25px;
+        font-size: 30px;
+    }
     h2 {
         font-size: 30px;
     }
@@ -423,21 +466,12 @@
     .navbar-brand img {
         width: 180px!important;
     }
-    #banner {  padding-top: 120px!important; }
+    #banner {  padding-top: 130px!important; }
     #banner h1 {
         font-weight: 500;
-        font-size: 28px;
-        line-height: 40px;
-        margin-bottom: 20px;
-        margin-top: 0px;
-    }
-    #banner .btn,
-    #beat .btn-blue {
-        font-size: 9px!important;
-    }
-    #banner .sub-heading {
-        font-size: 18px;
-        margin-top: 20px;
+        font-size: 26px;
+        line-height: 42px;
+        margin-bottom: 25px;
     }
     body#user-landing #banner .btn img {
         height: 15px;

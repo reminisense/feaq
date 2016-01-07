@@ -507,6 +507,9 @@ class BusinessController extends BaseController{
                             'business_id' => $data->business_id,
                             'business_name' => $data->name,
                             'local_address' => $data->local_address,
+                            'time_open' => Helper::changeBusinessTimeTimezone($time_open, $data->timezone, $user_timezone),
+                            'time_close' => Helper::changeBusinessTimeTimezone($time_close, $data->timezone, $user_timezone),
+                            'waiting_time' => Analytics::getWaitingTimeString($data->business_id),
 
                             //ARA more info for business cards
                             'last_number_called' => count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'none', //ok
@@ -541,7 +544,10 @@ class BusinessController extends BaseController{
                             'business_id' => $data->business_id,
                             'business_name' => $data->name,
                             'local_address' => $data->local_address,
-
+                            'time_open' => Helper::changeBusinessTimeTimezone($time_open, $data->timezone, $user_timezone),
+                            'time_close' => Helper::changeBusinessTimeTimezone($time_close, $data->timezone, $user_timezone),
+                            'waiting_time' => Analytics::getWaitingTimeString($data->business_id),
+                            
                             //ARA more info for business cards
                             'last_number_called' => count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'none', //ok
                             'next_available_number' => $all_numbers->next_number, //ok
