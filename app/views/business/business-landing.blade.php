@@ -117,12 +117,14 @@
         <div class="col-md-12">
             <h3 class="text-center">Featured Partners</h3>
         </div>
-        <div class="col-md-12 text-center wow fadeIn">
-            <img src="/images/business/landing/partner-grab.jpg" alt="Grab Taxi" />
-            <img src="/images/business/landing/partner-up.jpg" alt="University of the Philippines - Cebu" />
-            <img src="/images/business/landing/partner-primary.jpg" alt="Primary Care Plus" />
-            <img src="/images/business/landing/partner-honda.jpg" alt="Honda" />
-            <img src="/images/business/landing/partner-isuzu.jpg" alt="Isuzu" />
+        <div class="row">
+            <div class="col-md-12 text-center wow fadeIn">
+                <img src="/images/business/landing/partner-grab.jpg" alt="Grab Taxi" />
+                <img src="/images/business/landing/partner-up.jpg" alt="University of the Philippines - Cebu" />
+                <img src="/images/business/landing/partner-primary.jpg" alt="Primary Care Plus" />
+                <img src="/images/business/landing/partner-honda.jpg" alt="Honda" />
+                <img src="/images/business/landing/partner-isuzu.jpg" alt="Isuzu" />
+            </div>
         </div>
     </div>
 </section>
@@ -293,7 +295,7 @@
 <section id="who-uses">
     <div class="container text-center">
         <div class="tri text-center">
-            <img class="wow fadeInUp" src="/images/business/landing/bg-who.png">
+            <img src="/images/business/landing/bg-who.png">
         </div>
         <div class="col-md-12">
             <h2 class="text-center">Who Uses FeatherQ</h2>
