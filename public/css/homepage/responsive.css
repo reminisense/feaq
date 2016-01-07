@@ -265,13 +265,13 @@
         padding: 14px 25px!important;
         font-weight: 600;
         margin-top: 15px!important;
-        font-size: 15px!important;
+        font-size: 15px;
     }
     #banner .sub-heading {
         font-size: 22px;
         line-height: 35px;
     }
-    #banner h1 {margin-bottom: 30px;}
+    #banner h1 {margin-top:0px; margin-bottom: 30px; font-size:35px;}
     h2 {
         font-size: 30px;
     }
@@ -423,12 +423,21 @@
     .navbar-brand img {
         width: 180px!important;
     }
-    #banner {  padding-top: 130px!important; }
+    #banner {  padding-top: 120px!important; }
     #banner h1 {
         font-weight: 500;
-        font-size: 30px;
-        line-height: 45px;
-        margin-bottom: 35px;
+        font-size: 28px;
+        line-height: 40px;
+        margin-bottom: 20px;
+        margin-top: 0px;
+    }
+    #banner .btn,
+    #beat .btn-blue {
+        font-size: 9px!important;
+    }
+    #banner .sub-heading {
+        font-size: 18px;
+        margin-top: 20px;
     }
     body#user-landing #banner .btn img {
         height: 15px;
