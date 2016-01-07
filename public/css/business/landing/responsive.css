@@ -79,6 +79,22 @@
             height: 190px;
         }
         #featherq-works p {margin-bottom: 50px;}
+        #contact-us .socials span {
+            display: block;
+            margin-top: 20px;
+        }
+        #contact-us .socials .ml40 {
+            margin-left: 0!important;
+        }
+        #contact-us p.pull-left,
+        #contact-us p.pull-right {
+            float: none!important;
+            display: block;
+            text-align: center;
+        }
+        #contact-us #contact-number {
+            margin-bottom: 50px;
+        }
     }
 
     @media only screen and (max-width : 320px) {
