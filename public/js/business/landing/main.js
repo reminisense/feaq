@@ -5,6 +5,15 @@ $('.detail-wrap').on('mouseleave', function(){
 	$(this).find('.details').hide();
 });
 
+/*animate navbar on scroll down*/
+$(window).scroll(function() {
+    if ($(document).scrollTop() > 50) {
+        $('.navbar-fixed-top').addClass('shrink');
+    } else {
+        $('.navbar-fixed-top').removeClass('shrink');
+    }
+});
+
 $(function() {
   $('ul.navbar-nav a[href*=#]').click(function() {
     if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
