@@ -238,22 +238,38 @@
         <div class="col-md-12">
             <h2 class="wow fadeInUp text-center">FeatherQ Features</h2>
         </div>
-        <div class="col-md-6 col-sm-6 text-center wow fadeInUp">
-            <img class="img-responsive" src="/images/homepage/landing/feature3.png" alt="Join the line from anywhere" />
-            <p>Our geo-locator will help you find the nearest businesses. <br>FeatherQ lets you see the status of their lines.</p>
+        <div class="clearfix">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 text-center wow fadeInUp">
+                                <img class="img-responsive" src="/images/homepage/landing/feature3.png" alt="Join the line from anywhere" />
+                                <div class="clearfix">
+                                    <p class="col-md-offset-1 col-md-10">Our geo-locator will help you find the nearest businesses. FeatherQ lets you see the status of their lines.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6 text-center wow fadeInUp">
+                                <img class="img-responsive" src="/images/homepage/landing/feature2.png" alt="Join the line from anywhere" />
+                                <div class="clearfix">
+                                    <p class="col-md-offset-1 col-md-10">Join the line virtually using the FeatherQ app. With FeatherQ, you can join lines using your smartphone before you even reach the store.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6 text-center wow fadeInUp">
+                                <img class="img-responsive" src="/images/homepage/landing/feature1.png" alt="Join the line from anywhere" />
+                                <div class="clearfix">
+                                    <p class="col-md-offset-1 col-md-10">Receive push notifications on our mobile app whenever your turn is up.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6 text-center wow fadeInUp">
+                                <img class="img-responsive" src="/images/homepage/landing/feature4.png" alt="Join the line from anywhere" />
+                                <div class="clearfix">
+                                    <p class="col-md-offset-1 col-md-10">Rate your lining experience with different establishments and share them with your friends!</p>
+                                </div>
+                            </div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-6 col-sm-6 text-center wow fadeInUp">
-            <img class="img-responsive" src="/images/homepage/landing/feature2.png" alt="Join the line from anywhere" />
-            <p>Join the line virtually using the FeatherQ app. <br>With FeatherQ, you can join lines using your smartphone before you even reach the store.</p>
-        </div>
-        <div class="col-md-6 col-sm-6 text-center wow fadeInUp">
-            <img class="img-responsive" src="/images/homepage/landing/feature1.png" alt="Join the line from anywhere" />
-            <p>Receive push notifications on our mobile app<br> whenever your turn is up.</p>
-        </div>
-        <div class="col-md-6 col-sm-6 text-center wow fadeInUp">
-            <img class="img-responsive" src="/images/homepage/landing/feature4.png" alt="Join the line from anywhere" />
-            <p>Rate your lining experience with different <br>establishments and share them with your friends!</p>
-        </div>
+
+
     </div>
 </section>
 
