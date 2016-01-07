@@ -79,6 +79,7 @@
             height: 190px;
         }
         #featherq-works p {margin-bottom: 50px;}
+        #biz-fq-logo {width: 200px;}
     }
 
     @media only screen and (max-width : 320px) {
