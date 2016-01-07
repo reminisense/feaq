@@ -428,7 +428,9 @@ padding-top: 8px;}
   font-size: 13px;
   padding: 14px 20px;
   vertical-align: middle;
-  color: #111111 !important; }
+  color: #111111 !important;
+  width: 100%;
+}
 #search-grid .address {
     margin-bottom: 8px;
     overflow: hidden;

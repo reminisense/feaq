@@ -78,7 +78,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#" ng-click="login()" id="nav-fb">Login with Facebook <span class="sr-only">(current)</span></a></li>
+                <li><a href="#" ng-click="login()">Login with Facebook <span class="sr-only">(current)</span></a></li>
                 <li><a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" target="_blank">Download the App</a></li>
                 <li><a href="/business">FeatherQ for Business</a></li>
             </ul>
@@ -130,8 +130,8 @@
                         <input type="text" id="time_open-filter" name="time_open" ng-model="time_open" placeholder="Time Open" class="timepicker form-control">
                     </div>
                     <form class="ng-pristine ng-valid col-md-4 col-sm-4 col-xs-6">
-                        <div class="clearfix" style="position: relative;background-color: #fff;">
-                            <input class="" type="text" placeholder="ie: Ng Khai Devt Corp" id="search-keyword" ng-model="search_keyword" ng-model-options="{debounce: 1000}" autocomplete="off" >
+                        <div class="clearfix" style="position: relative;background-color: #fff; border-bottom-left-radius: 4px;">
+                            <input class="" type="text" placeholder="e.g. Bills Payment SM City" id="search-keyword" ng-model="search_keyword" ng-model-options="{debounce: 1000}" autocomplete="off" >
                             <ul class="dropdown-menu" role="menu" id="search-suggest" ng-hide="dropdown_businesses.length == 0"  outside-click="dropdown_businesses = []">
                                 <li ng-repeat="business in dropdown_businesses">
                                     <a href="#" ng-click="searchBusiness(location_filter, industry_filter, business.name, $event)">
@@ -160,48 +160,14 @@
                     <div class="box-wrap">
                         <p class="title ng-binding">@{{ business.business_name }}</p>
                         <small class="address ng-binding">@{{ business.local_address }}</small>
-                        <!-- inactive business -->
-                        <div class="statuses clearfix" ng-if="!business.card_bool">
-                            <p><span class="icon-lineq"></span> Business Hours: <span class="pull-right">@{{ business.time_open }} - @{{ business.time_close }}</span> <span class="icon-busy"></span> </p>
-                            <p><span class="icon-waittime"></span> Last Active:
-                                <span class="pull-right"><i>@{{ business.last_active }}</i></span>
-                            </p>
-                        </div>
-                        <!-- active business -->
-                        <div class="statuses clearfix" ng-if="business.card_bool">
-                            <div class="row">
-                            <div class="col-md-6 col-xs-6 text-center">
-                                <h5>Calling</h5>
-                                <h4><strong>@{{ business.last_number_called }}</strong></h4>
-                            </div>
-                            <div class="col-md-6 col-xs-6 text-center">
-                                <h5>Next Available</h5>
-                                <h4><strong>@{{ business.next_available_number }}</strong></h4>
-                            </div>
-                            <div class="col-md-12 text-center">
-                                <p class="line">Line Status: <span class="@{{ business.waiting_time }}">&middot</span> @{{ business.waiting_time }}</p>
-                            </div>
-                            </div>
-                        </div>
-                        {{--<div class="status open" data-toggle="tooltip" data-placement="top" title="" data-original-title="Queue on-going" ng-if="business.card_bool">
-                            <span class="glyphicon glyphicon-play"></span>
-                            <div class="bg"></div>
-                        </div>
-                        <div class="status closed" data-toggle="tooltip" data-placement="top" title="Queue Closed" ng-if="!business.card_bool">
-                            <span class="glyphicon glyphicon-ban-circle"></span>
-                            <div class="bg"></div>
-                        </div>--}}
                     </div>
                 </a>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12 ng-scope" ng-controller="fbController">
                 <a class="business_link" href="#" ng-click="login()">
-                    <div class="box-wrap box-fb text-center">
-                        {{--<p class="title ng-binding"> More Businesses</p>--}}
-                        <a href="#" ng-click="login()">
-                            <span>LOGIN WITH FACEBOOK</span>
-                            <small class="ng-binding">{{--<img src="/images/homepage/landing/fb.png"> --}} to view More Businesses</small>
-                        </a>
+                    <div class="box-wrap">
+                        <p class="title ng-binding"> More Businesses</p>
+                        <a href="#" ng-click="login()" style="display: block;"><small class="ng-binding">Sign up now to view More Businesses</small></a>
                     </div>
                 </a>
             </div>
@@ -238,38 +204,22 @@
         <div class="col-md-12">
             <h2 class="wow fadeInUp text-center">FeatherQ Features</h2>
         </div>
-        <div class="clearfix">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="row">
-                    <div class="col-md-6 col-sm-6 text-center wow fadeInUp">
-                                <img class="img-responsive" src="/images/homepage/landing/feature3.png" alt="Join the line from anywhere" />
-                                <div class="clearfix">
-                                    <p class="col-md-offset-1 col-md-10">Our geo-locator will help you find the nearest businesses. FeatherQ lets you see the status of their lines.</p>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-6 text-center wow fadeInUp">
-                                <img class="img-responsive" src="/images/homepage/landing/feature2.png" alt="Join the line from anywhere" />
-                                <div class="clearfix">
-                                    <p class="col-md-offset-1 col-md-10">Join the line virtually using the FeatherQ app. With FeatherQ, you can join lines using your smartphone before you even reach the store.</p>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-6 text-center wow fadeInUp">
-                                <img class="img-responsive" src="/images/homepage/landing/feature1.png" alt="Join the line from anywhere" />
-                                <div class="clearfix">
-                                    <p class="col-md-offset-1 col-md-10">Receive push notifications on our mobile app whenever your turn is up.</p>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-6 text-center wow fadeInUp">
-                                <img class="img-responsive" src="/images/homepage/landing/feature4.png" alt="Join the line from anywhere" />
-                                <div class="clearfix">
-                                    <p class="col-md-offset-1 col-md-10">Rate your lining experience with different establishments and share them with your friends!</p>
-                                </div>
-                            </div>
-                </div>
-            </div>
+        <div class="col-md-6 col-sm-6 text-center wow fadeInUp">
+            <img class="img-responsive" src="/images/homepage/landing/feature3.png" alt="Join the line from anywhere" />
+            <p>Our geo-locator will help you find the nearest businesses. <br>FeatherQ lets you see the status of their lines.</p>
         </div>
-
-
+        <div class="col-md-6 col-sm-6 text-center wow fadeInUp">
+            <img class="img-responsive" src="/images/homepage/landing/feature2.png" alt="Join the line from anywhere" />
+            <p>Join the line virtually using the FeatherQ app. <br>With FeatherQ, you can join lines using your smartphone before you even reach the store.</p>
+        </div>
+        <div class="col-md-6 col-sm-6 text-center wow fadeInUp">
+            <img class="img-responsive" src="/images/homepage/landing/feature1.png" alt="Join the line from anywhere" />
+            <p>Receive push notifications on our mobile app<br> whenever your turn is up.</p>
+        </div>
+        <div class="col-md-6 col-sm-6 text-center wow fadeInUp">
+            <img class="img-responsive" src="/images/homepage/landing/feature4.png" alt="Join the line from anywhere" />
+            <p>Rate your lining experience with different <br>establishments and share them with your friends!</p>
+        </div>
     </div>
 </section>
 
