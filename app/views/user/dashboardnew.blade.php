@@ -11,8 +11,9 @@ Dashboard
 @stop
 
 @section('scripts')
+<script src="/js/dashboard/dashboard.js"></script>
 <script src="/js/search-business.js"></script>
-<script type="text/javascript" src="js/dashboard/dashboard.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.4/jstz.min.js"></script>
 @stop
 
 @section('container')
@@ -97,9 +98,7 @@ Dashboard
                         <div class="statuses" ng-if="!business.card_bool">
                             <p><span class="icon-lineq"></span> Business Hours: <span class="pull-right">@{{ business.time_open }} - @{{ business.time_close }}</span> <span class="icon-busy"></span> </p>
                             <p><span class="icon-waittime"></span> Last Active:
-                                <span class="pull-right" ng-if="business.last_active > 1">@{{ business.last_active }} days ago</span>
-                                <span class="pull-right" ng-if="business.last_active == 1">Yesterday</span>
-                                <span class="pull-right" ng-if="business.last_active == 0">Today</span>
+                                <span class="pull-right"><i>@{{ business.last_active }}</i></span>
                             </p>
                         </div>
                         <div class="statuses" ng-if="business.card_bool">

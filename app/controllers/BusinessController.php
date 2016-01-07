@@ -53,14 +53,11 @@ class BusinessController extends BaseController{
                 $business = $businesses[0];
                 $business_id = $business->business_id;
                 unset($assigned_businesses[$business->business_id]);
-                $first_service = Service::getFirstServiceOfBusiness($business_id);
-                $terminals = Terminal::getTerminalsByServiceId($first_service->service_id);
-                $first_terminal = count($terminals) > 0 ? $terminals[0]['terminal_id'] : null;
                 return View::make('business.my-business')
                     //->with('user_id', Helper::userId()) //ARA - moved assignment to filters.php
                     ->with('business_id', $business_id)
-                    ->with('assigned_businesses', $assigned_businesses)
-                    ->with('first_terminal', $first_terminal);
+                    ->with('raw_code', Business::getRawCodeByBusinessId($business_id))
+                    ->with('assigned_businesses', $assigned_businesses);
             } else {
                 return View::make('business.my-business')
                     ->with('assigned_businesses', $assigned_businesses);
@@ -310,7 +307,7 @@ class BusinessController extends BaseController{
         $business_name = Business::name($business_id);
         $business_address = Business::localAddress($business_id);
 
-        $businesslink = $this->make_bitly_url(url('/broadcast/business/' . $business_id), 'reminisense', 'R_553289e06aaf4ca684392d2dbadec0a8', 'json');
+        $businesslink = 'http://' . $_SERVER['HTTP_HOST'] . '/' . Business::getRawCodeByBusinessId($business_id);
         $qr_link = "https://api.qrserver.com/v1/create-qr-code/?data=" . url('/broadcast/business/' . $business_id) . "&size=302x302"; // CSD Updated QR Link
 
         $data = [
@@ -392,7 +389,7 @@ class BusinessController extends BaseController{
                 'next_available_number' => $all_numbers->next_number, //ok
                 //'is_calling' => count($all_numbers->called_numbers) > 0 ? true : false, //ok
                 //'is_issuing' => count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? true : false, //ok
-                'last_active' => Analytics::getLastActive($data->business_id),
+                'last_active' => Analytics::daysAgoActive($data->business_id),
                 'card_bool' => Business::processingBusinessBool($data->business_id), // for info cards marker
             );
         }
@@ -497,7 +494,7 @@ class BusinessController extends BaseController{
                             'next_available_number' => $all_numbers->next_number, //ok
                             //'is_calling' => count($all_numbers->called_numbers) > 0 ? true : false, //ok
                             //'is_issuing' => count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? true : false, //ok
-                            'last_active' => Analytics::getLastActive($data->business_id),
+                            'last_active' => Analytics::daysAgoActive($data->business_id),
                             'card_bool' => true, // for info cards marker
                         );
                     }
@@ -506,6 +503,15 @@ class BusinessController extends BaseController{
                             'business_id' => $data->business_id,
                             'business_name' => $data->name,
                             'local_address' => $data->local_address,
+                            'time_open' => Helper::changeBusinessTimeTimezone($time_open, $data->timezone, $user_timezone),
+                            'time_close' => Helper::changeBusinessTimeTimezone($time_close, $data->timezone, $user_timezone),
+                            'waiting_time' => Analytics::getWaitingTimeString($data->business_id),
+
+                            //ARA more info for business cards
+                            'last_number_called' => count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'none', //ok
+                            'next_available_number' => $all_numbers->next_number, //ok
+                            'last_active' => Analytics::daysAgoActive($data->business_id),
+                            'card_bool' => true, // for info cards marker
                         );
                     }
 
@@ -525,7 +531,7 @@ class BusinessController extends BaseController{
                             'next_available_number' => $all_numbers->next_number, //ok
                             //'is_calling' => count($all_numbers->called_numbers) > 0 ? true : false, //ok
                             //'is_issuing' => count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? true : false, //ok
-                            'last_active' => Analytics::getLastActive($data->business_id),
+                            'last_active' => Analytics::daysAgoActive($data->business_id),
                             'card_bool' => false, // for info cards marker
                         );
                     }
@@ -534,6 +540,15 @@ class BusinessController extends BaseController{
                             'business_id' => $data->business_id,
                             'business_name' => $data->name,
                             'local_address' => $data->local_address,
+                            'time_open' => Helper::changeBusinessTimeTimezone($time_open, $data->timezone, $user_timezone),
+                            'time_close' => Helper::changeBusinessTimeTimezone($time_close, $data->timezone, $user_timezone),
+                            'waiting_time' => Analytics::getWaitingTimeString($data->business_id),
+                            
+                            //ARA more info for business cards
+                            'last_number_called' => count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'none', //ok
+                            'next_available_number' => $all_numbers->next_number, //ok
+                            'last_active' => Analytics::daysAgoActive($data->business_id),
+                            'card_bool' => false, // for info cards marker
                         );
                     }
                 }

@@ -327,7 +327,19 @@ class ProcessQueue extends Eloquent{
 				q.track_id = n.track_id AND
 				t.transaction_number = q.transaction_number
 			GROUP BY
-				n.track_id
+				n.track_id,
+				q.priority_number,
+				q.confirmation_code,
+				q.queue_platform,
+				q.name,
+			    q.phone,
+			    q.email,
+				t.transaction_number,
+				t.time_called,
+				t.time_removed,
+				t.time_completed,
+				t.time_assigned,
+			    t.terminal_id
 			LIMIT ?, ?
 		', [$date, $service_id, $start, $take]);
         return !empty($query) ? $query : [];

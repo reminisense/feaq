@@ -86,7 +86,12 @@
                         "last_active": response[i].last_active
                     });
                 }
-                $scope.searchLabel= 'Showing Top Result(s)';
+                if (i) {
+                    $scope.searchLabel= 'Showing Top Result(s)';
+                }
+                else {
+                    $scope.searchLabel = "No businesses were found based on the criteria. Try another search.";
+                }
                 $('#search-grid').show();
                 $('#search-filter').html('SEARCH');
                 $('#browse-label').show();
@@ -123,6 +128,7 @@
 
 
         $scope.industries = [
+            {code: 'Any'},
             {code :'Accounting'},               {code :'Advertising'},                  {code :'Agriculture'},              {code :'Air Services'},
             {code :'Airlines'},                 {code :'Apparel'},                      {code :'Appliances'},               {code :'Auto Dealership'},
             {code :'Banking'},                  {code :'Broadcasting'},                 {code :'Business Services'},        {code :'Communications'},

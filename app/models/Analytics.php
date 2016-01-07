@@ -215,6 +215,22 @@ class Analytics extends Eloquent{
         return $last_active;
     }
 
+    public static function daysAgoActive($business_id) {
+        $days = Analytics::getLastActive($business_id);
+        if ($days > 7) {
+            return "More than a week ago";
+        }
+        elseif ($days == 1) {
+            return "Yesterday";
+        }
+        elseif ($days == 0) {
+            return "Today";
+        }
+        else {
+            return $days . " days ago";
+        }
+    }
+
     public static function getUserQueues($user_id = null){
         if($user_id){
             $results = Analytics::where('user_id', '=', $user_id)->get();

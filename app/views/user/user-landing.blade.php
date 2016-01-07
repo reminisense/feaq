@@ -131,7 +131,7 @@
                     </div>
                     <form class="ng-pristine ng-valid col-md-4 col-sm-4 col-xs-6">
                         <div class="clearfix" style="position: relative;background-color: #fff; border-bottom-left-radius: 4px;">
-                            <input class="" type="text" placeholder="ie: Ng Khai Devt Corp" id="search-keyword" ng-model="search_keyword" ng-model-options="{debounce: 1000}" autocomplete="off" >
+                            <input class="" type="text" placeholder="e.g. Bills Payment SM City" id="search-keyword" ng-model="search_keyword" ng-model-options="{debounce: 1000}" autocomplete="off" >
                             <ul class="dropdown-menu" role="menu" id="search-suggest" ng-hide="dropdown_businesses.length == 0"  outside-click="dropdown_businesses = []">
                                 <li ng-repeat="business in dropdown_businesses">
                                     <a href="#" ng-click="searchBusiness(location_filter, industry_filter, business.name, $event)">
@@ -229,7 +229,7 @@
             <h2 class="wow fadeInUp text-center">Beat the waiting game</h2>
         </div>
         <div class="col-md-offset-2 col-md-8 text-center wow fadeInUp">
-            <p>FeatherQ is free to use. Forever. All you need to start queuing is a Facebook account, and an internet connection.</p>
+            <p>FeatherQ eliminates long lines and boosts customer experience. All you need to start queuing is a Facebook account, and an internet connection.</p>
             <p>Get started now. Download the app  and login using your Facebook account and discover a better way to wait.</p>
             <div class="cta">
                 <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" target="_blank"><img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png"></a>

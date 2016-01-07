@@ -61,7 +61,7 @@
 <!--[if lt IE 8]>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
-<nav class="navbar navbar-inverse" role="navigation">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -70,7 +70,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/"><img src="/images/business/landing/FeatherQ-logo.png" alt="FeatherQ"/></a>
+            <a class="navbar-brand" href="/"><img id="biz-fq-logo" src="/images/business/landing/FeatherQ-logo.png" alt="FeatherQ"/></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -202,7 +202,7 @@
         <div class="col-md-3 col-sm-4 col-xs-12 text-center wow fadeInUp">
             <div class="rel detail-wrap">
                 <img class="img-responsive" src="/images/business/landing/features-30sec.png" alt="30 second setup" />
-                <h4>30 second <br>business set-up</h4>
+                <h4>30 Second <br>Business Set-up</h4>
                 <div class="abs details">
                     <div class="wrap">
                         <p>In as short as 30-seconds, connect to FB and create your business account to begin managing your lines today. </p>
@@ -213,7 +213,7 @@
         <div class="col-md-3 col-sm-4 col-xs-12 text-center wow fadeInUp">
             <div class="rel detail-wrap">
                 <img class="img-responsive" src="/images/business/landing/features-flexible.png" alt="Flexible line management" />
-                <h4>Flexible <br>line management </h4>
+                <h4>Flexible <br>Line Management </h4>
                 <div class="abs details">
                     <div class="wrap">
                         <p>Whether you have three terminals serving one line, or only one terminal, FeatherQ can be set for these.</p>
@@ -224,7 +224,7 @@
         <div class="col-md-3 col-sm-4 col-xs-12 text-center wow fadeInUp">
             <div class="rel detail-wrap">
                 <img class="img-responsive" src="/images/business/landing/features-customizable.png" alt="Customizable Features" />
-                <h4>Customizable <br>features</h4>
+                <h4>Customizable <br>Features</h4>
                 <div class="abs details">
                     <div class="wrap">
                         <p>Choose a display layout that fits your business. FeatherQ lets you customize how your customers get informed about their status.</p>
@@ -246,7 +246,7 @@
         <div class="col-md-3 col-sm-4 col-xs-12 text-center wow fadeInUp">
             <div class="rel detail-wrap">
                 <img class="img-responsive" src="/images/business/landing/features-minimal.png" alt="Minimal setup" />
-                <h4>Minimal<br>set-up</h4>
+                <h4>Minimal<br>Set-up</h4>
                 <div class="abs details">
                     <div class="wrap">
                         <p>FeatherQ's browser-based solution works on any smartphone, tablet or computer.</p>
@@ -257,7 +257,7 @@
         <div class="col-md-3 col-sm-4 col-xs-12 text-center wow fadeInUp">
             <div class="rel detail-wrap">
                 <img class="img-responsive" src="/images/business/landing/features-notification.png" alt="Easy customer notification" />
-                <h4>Easy customer <br>notification </h4>
+                <h4>Easy Customer <br>Notification </h4>
                 <div class="abs details">
                     <div class="wrap">
                         <p>Easily reach and inform your customers through SMS or Email.</p>
@@ -268,7 +268,7 @@
         <div class="col-md-3 col-sm-4 col-xs-12 text-center wow fadeInUp">
             <div class="rel detail-wrap text-center">
                 <img class="img-responsive" src="/images/business/landing/features-simple.png" alt="Simple interface" />
-                <h4>Simple <br>interface</h4>
+                <h4>Simple <br>Interface</h4>
                 <div class="abs details">
                     <div class="wrap">
                         <p>FeatherQ comes without bulky training manuals, or complicated instructions.</p>
@@ -298,30 +298,31 @@
         <div class="col-md-12">
             <h2 class="text-center">Who Uses FeatherQ</h2>
         </div>
-        <div class="col-md-2 col-sm-3 col-xs-6 wow fadeInUp">
+
+        <div class="col-lg-2 col-md-2 col-md-offset-1 col-sm-offset-1 col-sm-2  col-xs-6 wow fadeInUp">
             <img src="/images/business/landing/banks.png" alt="Banks" />
             <h5>Banks</h5>
         </div>
-        <div class="col-md-2 col-sm-3 col-xs-6 wow fadeInUp">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 wow fadeInUp">
             <img src="/images/business/landing/hospitals.png" alt="Hospitals" />
             <h5>Hospitals</h5>
         </div>
-        <div class="col-md-2 col-sm-3 col-xs-6 wow fadeInUp">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 wow fadeInUp">
             <img src="/images/business/landing/restaurants.png" alt="Restaurants" />
             <h5>Restaurants</h5>
         </div>
-        <div class="col-md-2 col-sm-3 col-xs-6 wow fadeInUp">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 wow fadeInUp">
             <img src="/images/business/landing/schools.png" alt="Schools" />
             <h5>Schools</h5>
         </div>
-        <div class="col-md-2 col-sm-3 col-xs-6 wow fadeInUp">
+        <div class="col-lg-2 col-md-2 col-md-offset-0 col-sm-offset-0 col-sm-2  col-xs-6 col-xs-offset-3 wow fadeInUp">
             <img src="/images/business/landing/services.png" alt="Services" />
             <h5>Services</h5>
         </div>
-        <div class="col-md-2 col-sm-3 col-xs-6 wow fadeInUp">
+        {{--<div class="col-md-2 col-sm-3 col-xs-6 wow fadeInUp">
             <img src="/images/business/landing/your-business.png" alt="Your Business" />
             <h5>Your Business</h5>
-        </div>
+        </div>--}}
     </div>
 </section>
 

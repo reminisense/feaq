@@ -100,7 +100,12 @@ class Business extends Eloquent
         $terminals = Terminal::getTerminalsByBusinessId($business_id);
         $terminals = Terminal::getAssignedTerminalWithUsers($terminals);
         $analytics = Analytics::getBusinessAnalytics($business_id);
-        $first_service = Service::getFirstServiceOfBusiness($business_id);
+        if(Service::getFirstServiceOfBusiness($business_id)) {
+            $first_service = Service::getFirstServiceOfBusiness($business_id);
+        }else{
+            $first_service = new stdClass();
+            $first_service->service_id = 0;
+        }
         $business_details = [
             'business_id' => $business_id,
             'business_name' => $business->name,
@@ -217,7 +222,7 @@ class Business extends Eloquent
             $time_open_arr['ampm'] = '';
         }
 
-        if ($industry == 'Industry') {
+        if ($industry == 'Industry' || $industry == 'Any') {
             $industry = '';
         }
 
@@ -468,7 +473,7 @@ class Business extends Eloquent
             $next_number = $all_numbers->next_number;
             $is_calling = count($all_numbers->called_numbers) > 0 ? true : false;
             $is_issuing = count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? true : false;
-            $last_active = Analytics::getLastActive($business['business_id']);
+            $last_active = Analytics::daysAgoActive($business['business_id']);
 
             $business_details = array(
                 'business_id' => $business['business_id'],
