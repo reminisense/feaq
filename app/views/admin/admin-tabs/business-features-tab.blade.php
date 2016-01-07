@@ -1,8 +1,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="alert alert-danger" ng-if="messages.error_message != '' && messages.error_message != undefined">@{{ messages.error_message }}</div>
-            <div class="alert alert-success" ng-if="messages.success_message != '' && messages.success_message != undefined">@{{ messages.success_message }}</div>
+            <div class="alert alert-danger mt30" ng-if="messages.error_message != '' && messages.error_message != undefined">@{{ messages.error_message }}</div>
+            <div class="alert alert-success mt30" ng-if="messages.success_message != '' && messages.success_message != undefined">@{{ messages.success_message }}</div>
         </div>
         <div class="col-md-12 mb20">
             <div>
@@ -43,10 +43,6 @@
                 </div>
                 <div class="col-md-12">
                     <button class="btn btn-primary">Submit</button>
-                </div>
-                <div class="col-md-12">
-                    <div class="alert alert-danger" ng-if="messages.error_message != '' && messages.error_message != undefined">@{{ messages.error_message }}</div>
-                    <div class="alert alert-success" ng-if="messages.success_message != '' && messages.success_message != undefined">@{{ messages.success_message }}</div>
                 </div>
             </form>
         </div>

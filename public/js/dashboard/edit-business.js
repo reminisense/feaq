@@ -712,7 +712,7 @@ var eb = {
                             setBusinessFields(response.business);
                             $('#edit_message').removeClass('alert-danger');
                             $('#edit_message').addClass('alert-success');
-                            $('#edit_message p').html("Your business details have been updated");
+                            $('#edit_message p').html("Your business details have been updated.");
                             $('#edit_message').fadeIn();
                             setTimeout(function(){ $('#edit_message').fadeOut(); }, 3000);
                         } else {

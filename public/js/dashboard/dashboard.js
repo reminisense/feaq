@@ -123,9 +123,9 @@ $(document).ready(function(){
                     if ($('#profile_update_message').hasClass('alert-danger')){
                         $('#profile_update_message').removeClass('alert-danger');
                         $('#profile_update_message').addClass('alert-success');
-                        $('#profile_update_message').text("Your profile has been successfully updated!");
+                        $('#profile_update_message').text("Your profile has been successfully updated.");
                     }
-                    $('#profile_update_message').text("Your profile has been successfully updated!");
+                    $('#profile_update_message').text("Your profile has been successfully updated.");
                 } else {
                     if ($('#profile_update_message').hasClass('alert-success')){
                         $('#profile_update_message').removeClass('alert-success');
