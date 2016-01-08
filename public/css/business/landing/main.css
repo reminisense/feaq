@@ -340,5 +340,20 @@ ul.nav {
     margin-top: -50px; }
 
   #banner .btn {
-    font-size: 20px; } }
+    font-size: 20px; }
+}
+@media only screen and (max-width : 480px) {
+    #partners {
+        padding-top: 140px;
+    }
+    #partners img {
+        display: inline-block;
+        width: 135px;
+        margin:0;
+    }
+    section .container h2 {
+        font-size: 30px;
+    }
+}
+
 

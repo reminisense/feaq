@@ -117,12 +117,14 @@
         <div class="col-md-12">
             <h3 class="text-center">Featured Partners</h3>
         </div>
-        <div class="col-md-12 text-center wow fadeIn">
-            <img src="/images/business/landing/partner-grab.jpg" alt="Grab Taxi" />
-            <img src="/images/business/landing/partner-up.jpg" alt="University of the Philippines - Cebu" />
-            <img src="/images/business/landing/partner-primary.jpg" alt="Primary Care Plus" />
-            <img src="/images/business/landing/partner-honda.jpg" alt="Honda" />
-            <img src="/images/business/landing/partner-isuzu.jpg" alt="Isuzu" />
+        <div class="row">
+            <div class="col-md-12 text-center wow fadeIn">
+                <img src="/images/business/landing/partner-grab.jpg" alt="Grab Taxi" />
+                <img src="/images/business/landing/partner-up.jpg" alt="University of the Philippines - Cebu" />
+                <img src="/images/business/landing/partner-primary.jpg" alt="Primary Care Plus" />
+                <img src="/images/business/landing/partner-honda.jpg" alt="Honda" />
+                <img src="/images/business/landing/partner-isuzu.jpg" alt="Isuzu" />
+            </div>
         </div>
     </div>
 </section>
@@ -293,7 +295,7 @@
 <section id="who-uses">
     <div class="container text-center">
         <div class="tri text-center">
-            <img class="wow fadeInUp" src="/images/business/landing/bg-who.png">
+            <img src="/images/business/landing/bg-who.png">
         </div>
         <div class="col-md-12">
             <h2 class="text-center">Who Uses FeatherQ</h2>
@@ -338,7 +340,7 @@
             <div class="col-md-offset-3 col-md-6">
                 <div class="clearfix">
                     <p class="pull-left wow slideInLeft"><img src="/images/business/landing/icon-phone.png" alt="Call Us" />Give us a call</p>
-                    <p class="pull-right wow slideInRight"><a style="text-decoration: none" href="tel:0323454658"><span class="orange">(+6332) 345-4658</span></a></p>
+                    <p id="contact-number" class="pull-right wow slideInRight"><a style="text-decoration: none" href="tel:0323454658"><span class="orange">(+6332) 345-4658</span></a></p>
                 </div>
                 <div class="clearfix">
                     <p class="pull-left wow slideInLeft"><img src="/images/business/landing/icon-email.png" alt="Email Us" />Email Us</p>
@@ -347,9 +349,11 @@
             </div>
             <div class="col-md-12 text-center">
                 <p class="socials">Check us out on social media
+                    <span>
                     <a target="_blank" href="https://plus.google.com/u/0/b/101914769293976664743/101914769293976664743/about" class="ml40"><img src="/images/business/landing/icon-google.png" alt="" /></a>
                     <a target="_blank" href="https://twitter.com/thefeatherq"><img src="/images/business/landing/icon-twitter.png" alt="" /></a>
                     <a target="_blank" href="https://www.facebook.com/theFeatherQ"><img src="/images/business/landing/icon-fb.png" alt="" /></a>
+                    </span>
                 </p>
             </div>
         </div>
