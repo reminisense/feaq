@@ -91,15 +91,10 @@ class UserController extends BaseController{
       }
 
         if (Auth::check()) {
-          if (UserBusiness::getBusinessIdByOwner(Auth::user()->user_id)) {
-            return Redirect::to('business/my-business');
-          }
-          else {
-            return View::make('user.dashboardnew');
-          }
+          return View::make('user.dashboardnew');
         }
         else {
-            return View::make('user.user-landing');
+          return View::make('user.user-landing');
         }
     }
 

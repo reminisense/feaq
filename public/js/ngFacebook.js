@@ -61,7 +61,7 @@ fbapp.controller('fbController', function($scope, $http) {
                 "gender": response.gender
             };
             $http.post('/fb/save-details', fbData).success(function(response) {
-                window.location.replace('/');
+                window.location.replace(response.redirect);
             });
         });
     };
