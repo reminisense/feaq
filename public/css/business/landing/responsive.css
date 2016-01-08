@@ -87,8 +87,21 @@
             width: 280px;
         }
         #featherq-works img, #benefits img {
-            width: 100%;
+            width: 85%;
             margin-left: 20px;
             margin-right: 20px;
+        }
+        #featherq-works h4 {
+            margin-bottom: 20px;
+        }
+        #banner .btn {
+            font-size: 12px;
+        }
+        #banner .btn img {
+            width: 8px!important;
+            height: 13px;
+        }
+        #partners {
+            padding-top: 100px;
         }
     }
