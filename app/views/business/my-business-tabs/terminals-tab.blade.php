@@ -163,6 +163,7 @@
                 <!-- button here -->
             </div>
         </td>
+        <td></td>
     </tr>
     </tbody>
 </table>
