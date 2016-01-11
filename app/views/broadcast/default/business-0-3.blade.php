@@ -4,21 +4,21 @@
         <div class="row-2">
             <div class="col-2">
                 <div class="numbers t@{{ rank1 }}">
-                    <p class="terminal">@{{ service1 }}</p>
+                    <p class="service">@{{ service1 }}</p>
                     <p class="terminal">@{{ name1 }}</p>
                     <p class="callnum">@{{ box1 }}</p>
                 </div>
             </div>
             <div class="col-2">
                 <div class="numbers t@{{ rank2 }}">
-                    <p class="terminal">@{{ service2 }}</p>
+                    <p class="service">@{{ service2 }}</p>
                     <p class="terminal">@{{ name2 }}</p>
                     <p class="callnum">@{{ box2 }}</p>
                 </div>
             </div>
             <div class="col-2">
                 <div class="numbers t@{{ rank3 }}">
-                    <p class="terminal">@{{ service3 }}</p>
+                    <p class="service">@{{ service3 }}</p>
                     <p class="terminal">@{{ name3 }}</p>
                     <p class="callnum">@{{ box3 }}</p>
                 </div>

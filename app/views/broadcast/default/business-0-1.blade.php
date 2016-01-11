@@ -4,7 +4,7 @@
         <div class="row-1">
             <div class="col-2">
                 <div class="numbers t@{{ rank1 }}">
-                    <p class="terminal">@{{ service1 }}</p>
+                    <p class="service">@{{ service1 }}</p>
                     <p class="terminal">@{{ name1 }}</p>
                     <p class="callnum">@{{ box1 }}</p>
                 </div>
