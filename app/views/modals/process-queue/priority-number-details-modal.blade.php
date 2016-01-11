@@ -80,9 +80,7 @@
 
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-orange btn-md" data-dismiss="modal" aria-label="Close">CLOSE</button>
-            </div>
+            <div class="modal-footer"></div>
         </div>
     </div>
 </div>
