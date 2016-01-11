@@ -422,8 +422,8 @@ class ProcessQueue extends Eloquent{
             for($counter = 1; $box_count <= $max_count; $counter++){
                 $index = $counter - 1;
                 $number = isset($numbers[$index]['priority_number']) ? $numbers[$index]['priority_number'] : '';
-                if(!in_array($number, $existing) || $number == ''){ //check if same number already exists
-                    $existing[] = $number;
+                if(!in_array($numbers[$index]['transaction_number'], $existing) || $number == ''){ //check if same number already exists
+                    $existing[] = $numbers[$index]['transaction_number'];
                     $box = 'box'.$box_count;
                     $boxes->$box->number = $number;
                     $boxes->$box->service = isset($numbers[$index]['service_name']) ? $numbers[$index]['service_name'] : ''; //ARA Added service name for multiple services
@@ -433,7 +433,6 @@ class ProcessQueue extends Eloquent{
                 }
             }
             $boxes->get_num = $all_numbers->next_number;
-
             File::put($file_path, json_encode($boxes, JSON_PRETTY_PRINT));
         }
         //return $all_numbers;
