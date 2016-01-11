@@ -5,29 +5,33 @@
 </div>
 <form></form> <!-- ARA I just placed this because if not placed other form elements below will not be rendered -->
 <div class="alert alert-danger" id="service-error" ng-show="service_error"> @{{ service_error }}</div>
-<table class="table table-hover table-spaces table-responsive" ng-show="service_create">
-    <thead>
-    <tr>
-        <th></th>
-        <th><input type="text" ng-model="new_service_name"/></th>
-        <th>
-            <a href="" ng-click="createService(new_service_name)" class="edit-terminal-button btn-boxy btn-primary"  ><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
-        </th>
-        <th class="text-right">
-            <a href="" class="btn-boxy btn-removeuser btn-default" ng-click="service_create = false">
-                <span class="glyphicon glyphicon-remove"></span> Cancel
-            </a>
-        </th>
-    </tr>
-    </thead>
-</table>
+<form ng-submit="createService(new_service_name)">
+    <table class="table table-hover table-spaces table-responsive" ng-show="service_create">
+        <thead>
+        <tr>
+            <th></th>
+            <th><input type="text" ng-model="new_service_name" placeholder="e.g. Cashier"/></th>
+            <th>
+                <button type="submit" class="edit-terminal-button btn-boxy btn-primary"  ><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
+            </th>
+            <th class="text-right">
+                <a href="" class="btn-boxy btn-removeuser btn-default" ng-click="service_create = false">
+                    <span class="glyphicon glyphicon-remove"></span> Cancel
+                </a>
+            </th>
+        </tr>
+        </thead>
+    </table>
+</form>
 <table class="table table-hover table-spaces table-responsive" ng-init="terminal_index = 0" ng-repeat="service in services">
     <thead>
     <tr>
         <th>@{{ $index + 1 }}</th>
         <th>
-            <span class="service-name" ng-hide="service.edit_service">@{{ service.name }}</span>
-            <input type="text" ng-model="edit_service_name" ng-show="service.edit_service" placeholder="@{{ service.name }}"/>
+            <form ng-submit="updateService(edit_service_name, service.service_id)">
+                <span class="service-name" ng-hide="service.edit_service">@{{ service.name }}</span>
+                <input type="text" ng-model="edit_service_name" ng-show="service.edit_service" placeholder="@{{ service.name }}"/>
+            </form>
         </th>
         <th>
             <a href="" ng-hide="service.edit_service" ng-click="service.edit_service = !service.edit_service" class="edit-terminal-button btn-boxy btn-primary"  ><span class="glyphicon glyphicon-pencil"></span> Edit</a>
@@ -48,15 +52,16 @@
             <div>Terminal @{{ $index + 1 }}</div>
         </td>
         <td width="35%">
-            <span class="terminal-name-display" terminal_id="@{{ terminal.terminal_id }}" style="font-size: 14px; ">@{{ terminal.name }}</span>
-            <input type="text" class="form-control terminal-name-update terminal-update-field" terminal_id="@{{ terminal.terminal_id }}" value="@{{ terminal.name }}" style="display: none;">
-            <div class="mt10 mb10 block terminal-buttons">
-                <a href="" ng-click="deleteTerminal($event, terminal.terminal_id)" class="delete-terminal-button btn-boxy btn-default" style="display:inline-block;"><span class="glyphicon glyphicon-trash"></span> Delete</a>
-                <a href="" ng-click="editTerminal($event, terminal.terminal_id)" class="edit-terminal-button btn-boxy btn-primary" terminal_id="@{{ terminal.terminal_id }}" ><span class="glyphicon glyphicon-pencil"></span> Edit</a>
-                <a href="" ng-click="updateTerminal($event, terminal.terminal_id)" class="update-terminal-button btn-boxy btn-primary" terminal_id="@{{ terminal.terminal_id }}" style="display: none;"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
-
-            </div>
-            <div style="display: none; margin-top: 10px;" class="alert alert-danger terminal-error-message" terminal_id="@{{ terminal.terminal_id }}"></div>
+            <form ng-submit="updateTerminal($event, terminal.terminal_id)">
+                <span class="terminal-name-display" terminal_id="@{{ terminal.terminal_id }}" style="font-size: 14px; ">@{{ terminal.name }}</span>
+                <input type="text" class="form-control terminal-name-update terminal-update-field" terminal_id="@{{ terminal.terminal_id }}" value="@{{ terminal.name }}" style="display: none;">
+                <div class="mt10 mb10 block terminal-buttons">
+                    <a href="" ng-click="deleteTerminal($event, terminal.terminal_id)" class="delete-terminal-button btn-boxy btn-default" style="display:inline-block;"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+                    <a href="" ng-click="editTerminal($event, terminal.terminal_id)" class="edit-terminal-button btn-boxy btn-primary" terminal_id="@{{ terminal.terminal_id }}" ><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+                    <button ng-click="" type="submit" class="update-terminal-button btn-boxy btn-primary" terminal_id="@{{ terminal.terminal_id }}" style="display: none;"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
+                </div>
+                <div style="display: none; margin-top: 10px;" class="alert alert-danger terminal-error-message" terminal_id="@{{ terminal.terminal_id }}"></div>
+            </form>
         </td>
         <td width="40%">
         <span ng-if="terminal.users.length != 0">
@@ -90,7 +95,7 @@
                                             </ul>
                                         </div>
                                         <div class="col-md-12">
-                                            <button class="btn-boxy btn-danger cancel-adduser"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                                            <button type="button" class="btn-boxy btn-danger cancel-adduser"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
                                             <button type="submit" class="btn-boxy btn-cyan"><span class="glyphicon glyphicon-plus"></span> Add</button>
                                         </div>
                                     </form>
@@ -125,7 +130,7 @@
                                 </ul>
                             </div>
                             <div class="col-md-12">
-                                <button class="btn-boxy btn-danger cancel-adduser"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                                <button type="button" class="btn-boxy btn-danger cancel-adduser"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
                                 <button type="submit" class="btn-boxy btn-cyan"><span class="glyphicon glyphicon-plus"></span> Add</button>
                             </div>
                         </form>
