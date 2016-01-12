@@ -5,12 +5,12 @@
 </div>
 <form></form> <!-- ARA I just placed this because if not placed other form elements below will not be rendered -->
 <div class="alert alert-danger" id="service-error" ng-show="service_error"> @{{ service_error }}</div>
-<form ng-submit="createService(new_service_name)">
+<form id="create-service" ng-submit="createService(new_service_name)">
     <table class="table table-hover table-spaces table-responsive" ng-show="service_create">
         <thead>
         <tr>
-            <th></th>
-            <th><input type="text" ng-model="new_service_name" placeholder="e.g. Cashier"/></th>
+            <th>Add a New Service</th>
+            <th><input type="text" ng-model="new_service_name" placeholder="e.g. Cashier" class="form-control nomg white"/></th>
             <th>
                 <button type="submit" class="edit-terminal-button btn-boxy btn-primary"  ><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
             </th>
