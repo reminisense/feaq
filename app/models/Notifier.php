@@ -14,11 +14,11 @@ class Notifier extends Eloquent{
         $service_id = Terminal::serviceId($terminal_id);
         $queue_setting = QueueSettings::getServiceQueueSettings($service_id);
 
-        if($queue_setting->sms_current_number) Notifier::sendNumberCalledToAllChannels($transaction_number);
-        if($queue_setting->sms_1_ahead) Notifier::sendNumberCalledToNextNumber($transaction_number, 1);
-        if($queue_setting->sms_5_ahead) Notifier::sendNumberCalledToNextNumber($transaction_number, 5);
-        if($queue_setting->sms_10_ahead) Notifier::sendNumberCalledToNextNumber($transaction_number, 10);
-        if($queue_setting->sms_blank_ahead) Notifier::sendNumberCalledToNextNumber($transaction_number, $queue_setting->input_sms_field);
+        if(isset($queue_setting->sms_current_number) && $queue_setting->sms_current_number) Notifier::sendNumberCalledToAllChannels($transaction_number);
+        if(isset($queue_setting->sms_1_ahead) && $queue_setting->sms_1_ahead) Notifier::sendNumberCalledToNextNumber($transaction_number, 1);
+        if(isset($queue_setting->sms_5_ahead) && $queue_setting->sms_5_ahead) Notifier::sendNumberCalledToNextNumber($transaction_number, 5);
+        if(isset($queue_setting->sms_10_ahead) && $queue_setting->sms_10_ahead) Notifier::sendNumberCalledToNextNumber($transaction_number, 10);
+        if(isset($queue_setting->sms_blank_ahead) && $queue_setting->sms_blank_ahead) Notifier::sendNumberCalledToNextNumber($transaction_number, $queue_setting->input_sms_field);
     }
 
     public static function sendNumberCalledToAllChannels($transaction_number){
