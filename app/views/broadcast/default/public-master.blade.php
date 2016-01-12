@@ -53,7 +53,7 @@
             </a>
         </div>
         <div class="cta pull-right hidden-sm hidden-xs">
-            <span>Start using FeatherQ</span>
+            <span><a href="{{URL::to('/')}}" class="orange">Start using FeatherQ</a></span>
             @if (!Auth::check())
             <a ng-controller="fbController" href="" class="btn btn-fb" role="button" ng-click="login()"><span class="fa fa-facebook"></span> Login with Facebook</a>
             @endif
