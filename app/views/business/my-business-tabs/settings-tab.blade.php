@@ -62,7 +62,8 @@
             <div class="clearfix">
                 <div class="col-md-6 mb20">
                     <p class="title">
-                        Remote Queue Limit <small><a class="info-button" href="#remote-queue-limit-alert">More info...</a></small>
+                        Remote Queue Limit
+                        <br><small><a class="info-button" href="#remote-queue-limit-alert">More info...</a></small>
                     </p>
                 </div>
                 <div class="col-md-6 mb20">
@@ -90,7 +91,7 @@
             <div class="clearfix mb10">
                 <span><label>Frontline SMS</label> <input ng-disabled="business_features.allow_sms == 'false'" type="radio" value="frontline_sms" ng-model="sms_gateway"/></span>
                 <span><label>Twilio</label> <input ng-disabled="business_features.allow_sms == 'false'" type="radio" value="twilio" ng-model="sms_gateway"/></span>
-                <small><a class="info-button" href="#sms-alert">More info...</a></small>
+                <br><small><a class="info-button" href="#sms-alert">More info...</a></small>
             </div>
         </div>
         <div ng-show="sms_gateway == 'frontline_sms'">
@@ -162,7 +163,10 @@
         <div class="broadcast-wrap2 clearfix">
             <div class=" col-md-12">
                 http://featherq.com/<input class="inline-b white mb0 form-control" type="text" style="width: 160px;" placeholder="myurl" disabled="true" ng-model="custom_url" value="@{{ custom_url }}"/>
-                <small class="mt10 inline-b">only numbers, lowercase characters and hyphens are allowed. <a class="info-button" href="#custom-url-alert">More info...</a></small>
+                <small class="mt10 inline-b">
+                    Only numbers, lowercase characters and hyphens are allowed.
+                    <br><a class="info-button" href="#custom-url-alert">More info...</a>
+                </small>
             </div>
             <div class="col-md-12 hidden" id="custom-url-alert">
                 <div class="mt20 alert alert-warning" role="alert">
