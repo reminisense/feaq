@@ -118,7 +118,6 @@
                     $scope.stopProcessQueue();
                 });
             }
-            $scope.updateBroadcast();
         }
 
         $scope.issueAndCall = function(priority_number){

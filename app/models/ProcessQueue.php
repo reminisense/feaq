@@ -420,16 +420,20 @@ class ProcessQueue extends Eloquent{
             $box_count = 1;
             $existing = array();
             for($counter = 1; $box_count <= $max_count; $counter++){
-                $index = $counter - 1;
-                $number = isset($numbers[$index]['priority_number']) ? $numbers[$index]['priority_number'] : '';
-                if(!in_array($numbers[$index]['transaction_number'], $existing) || $number == ''){ //check if same number already exists
-                    $existing[] = $numbers[$index]['transaction_number'];
-                    $box = 'box'.$box_count;
-                    $boxes->$box->number = $number;
-                    $boxes->$box->service = isset($numbers[$index]['service_name']) ? $numbers[$index]['service_name'] : ''; //ARA Added service name for multiple services
-                    $boxes->$box->terminal = isset($numbers[$index]['terminal_name']) ? $numbers[$index]['terminal_name'] : '';
-                    $boxes->$box->rank = isset($numbers[$index]['box_rank']) ? $numbers[$index]['box_rank'] : ''; // Added by PAG
-                    $box_count++;
+                if($counter <= count($numbers)){
+                    $index = $counter - 1;
+                    $number = isset($numbers[$index]['priority_number']) ? $numbers[$index]['priority_number'] : '';
+                    if(!in_array($numbers[$index]['transaction_number'], $existing) || $number == ''){ //check if same number already exists
+                        $existing[] = $numbers[$index]['transaction_number'];
+                        $box = 'box'.$box_count;
+                        $boxes->$box->number = $number;
+                        $boxes->$box->service = isset($numbers[$index]['service_name']) ? $numbers[$index]['service_name'] : ''; //ARA Added service name for multiple services
+                        $boxes->$box->terminal = isset($numbers[$index]['terminal_name']) ? $numbers[$index]['terminal_name'] : '';
+                        $boxes->$box->rank = isset($numbers[$index]['box_rank']) ? $numbers[$index]['box_rank'] : ''; // Added by PAG
+                        $box_count++;
+                    }
+                }else{
+                    break;
                 }
             }
             $boxes->get_num = $all_numbers->next_number;
