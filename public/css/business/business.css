@@ -813,3 +813,11 @@ button#sendreply {
 .q-minus,.q-add {padding-left: 10px!important;padding-right: 10px!important;}
 .broadcast-wrap .ui-widget.ui-widget-content {background: none!important;}
 .white {background-color: #fff!important;}
+
+/*change jquery ui header color to match featherq branding*/
+#ui-datepicker-div .ui-widget-header {
+    border: 1px solid #fff;
+    background: none!important;
+    background-color: #00ba8b!important;
+
+}
