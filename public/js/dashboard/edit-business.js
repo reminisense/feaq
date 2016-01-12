@@ -30,7 +30,8 @@ $(document).ready(function(){
     });
 
     $('body').on('click', '.cancel-add-terminal', function(){
-        eb.jquery_functions.hide_add_terminal_form();
+        $(this).parents('.inputterminal-form').hide();
+        $(this).parents('.inputterminal-form').siblings('.btn-addterminal').show();
     });
 
     $('body').on('click', '.info-button', function(e){
@@ -235,8 +236,8 @@ var eb = {
 //        },
 
         hide_add_terminal_form : function(){
-            $('#inputterminal').hide();
-            $('#btn-addterminal').show();
+            $('.inputterminal-form').hide();
+            $('.btn-addterminal').show();
         },
 
         my_business_link_active : function(){
