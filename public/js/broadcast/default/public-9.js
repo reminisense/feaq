@@ -25,15 +25,15 @@ app.controller('nowServingCtrl', function($scope, $http) {
     announceNumberFromBlank($scope, response, 'box8', 'rank8');
     announceNumberFromBlank($scope, response, 'box9', 'rank9');
 
-    writeNumber($scope, response, 'box1');
-    writeNumber($scope, response, 'box2');
-    writeNumber($scope, response, 'box3');
-    writeNumber($scope, response, 'box4');
-    writeNumber($scope, response, 'box5');
-    writeNumber($scope, response, 'box6');
-    writeNumber($scope, response, 'box7');
-    writeNumber($scope, response, 'box8');
-    writeNumber($scope, response, 'box9');
+    writeNumber($scope, response, 'box1', 'service1');
+    writeNumber($scope, response, 'box2', 'service2');
+    writeNumber($scope, response, 'box3', 'service3');
+    writeNumber($scope, response, 'box4', 'service4');
+    writeNumber($scope, response, 'box5', 'service5');
+    writeNumber($scope, response, 'box6', 'service6');
+    writeNumber($scope, response, 'box7', 'service7');
+    writeNumber($scope, response, 'box8', 'service8');
+    writeNumber($scope, response, 'box9', 'service9');
 
     /* RDH Checks if empty, show '-' if yes*/
     getNum($scope, response);
