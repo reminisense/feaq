@@ -125,32 +125,38 @@ class BusinessController extends BaseController{
                   "box1": {
                     "number": "1",
                     "terminal": "",
-                    "rank": ""
+                    "rank": "",
+                    "service": ""
                   },
                   "box2": {
                     "number": "2",
                     "terminal": "",
-                    "rank": ""
+                    "rank": "",
+                    "service": ""
                   },
                   "box3": {
                     "number": "3",
                     "terminal": "",
-                    "rank": ""
+                    "rank": "",
+                    "service": ""
                   },
                   "box4": {
                     "number": "4",
                     "terminal": "",
-                    "rank": ""
+                    "rank": "",
+                    "service": ""
                   },
                   "box5": {
                     "number": "5",
                     "terminal": "",
-                    "rank": ""
+                    "rank": "",
+                    "service": ""
                   },
                   "box6": {
                     "number": "6",
                     "terminal": "",
-                    "rank": ""
+                    "rank": "",
+                    "service": ""
                   },
                   "get_num": " ",
                   "display": "1-6",

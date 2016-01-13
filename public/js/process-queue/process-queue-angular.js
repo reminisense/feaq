@@ -118,7 +118,20 @@
                     $scope.stopProcessQueue();
                 });
             }
-        }
+            else {
+                $scope.clearBroadcastNumbers();
+            }
+        };
+
+        $scope.clearBroadcastNumbers = function() {
+            $http.post('/broadcast/clear-numbers', {
+                business_id : pq.ids.business_id
+            }).success(function(response) {
+                if (response.status) {
+                    $scope.sendWebsocket();
+                }
+            });
+        };
 
         $scope.issueAndCall = function(priority_number){
             $http.post(pq.urls.issue_numbers.issue_specific_url + pq.ids.service_id + '/' + pq.ids.terminal_id, {priority_number : priority_number})
