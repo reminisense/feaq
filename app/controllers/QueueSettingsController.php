@@ -8,16 +8,19 @@
 class QueueSettingsController extends BaseController{
     public function getUpdate($business_id, $field, $value){
         $first_branch = Branch::where('business_id', '=', $business_id)->first();
-        $first_service = Service::where('branch_id', '=', $first_branch->branch_id)->first();
+        $services = Service::where('branch_id', '=', $first_branch->branch_id)->get();
 
-        if(QueueSettings::serviceExists($first_service->service_id)){
-            QueueSettings::updateQueueSetting($first_service->service_id, $field, $value);
-        }else{
-            QueueSettings::createQueueSetting([
-                'service_id' => $first_service->service_id,
-                'date' => mktime(0, 0, 0, date('m'), date('d'), date('Y')),
-                $field => $value
-            ]);
+        foreach($services as $service){
+            if(QueueSettings::serviceExists($service->service_id)){
+                QueueSettings::updateQueueSetting($service->service_id, $field, $value);
+            }else{
+                QueueSettings::createQueueSetting([
+                    'service_id' => $service->service_id,
+                    'date' => mktime(0, 0, 0, date('m'), date('d'), date('Y')),
+                    'number_start' => 1,
+                    $field => $value
+                ]);
+            }
         }
 
         return json_encode(['success' => 1]);
