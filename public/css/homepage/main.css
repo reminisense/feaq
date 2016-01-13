@@ -529,8 +529,8 @@ ul.nav li a.fadeout {
 
 #nav-fb {
     /*display: none;*/
-    -webkit-transition: all 0.6s ease;
-    transition: all 0.6s ease;
+    /*-webkit-transition: all 0.6s ease;*/
+    /*transition: all 0.6s ease;*/
     color: #fff;
     background-color: #4666b6;
     -webkit-border-radius: 7px!important;
