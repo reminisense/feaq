@@ -22,9 +22,14 @@
         </div>
         <div class="clearfix">
             <div class="col-md-6 mb20">
-                <p class="title">General Notification Settings
-                    <span class="glyphicon glyphicon-info-sign" style="color:#337ab7; cursor: pointer;margin-bottom:20px;" title="When to notify users via SMS."></span>
-                </p>
+                <p class="title">General Notification Settings</p>
+                <small><a class="info-button" href="#general-notif"><span class="glyphicon glyphicon-info-sign"></span>  More info...</a></small>
+                <div class="clearfix mb20">
+                    <div class="alert alert-warning hidden" role="alert" id="general-notif">
+                        When to notify users via SMS.
+                    </div>
+                </div>
+
             </div>
             <div class="col-md-6 mb20">
                 <div class=" mb10">
@@ -51,19 +56,23 @@
         </div>
             <div class="clearfix">
                 <div class="col-md-6 mb20">
-                    <p class="title">Allow Remote Queuing
-                        <span class="glyphicon glyphicon-info-sign" style="color:#337ab7; cursor: pointer" title="Allow users to issue numbers away from location."></span>
-                    </p>
+                    <p class="title">Allow Remote Queuing</p>
+                    <small><a class="info-button" href="#remote-queue"><span class="glyphicon glyphicon-info-sign"></span>  More info...</a></small>
+                    <div class="clearfix mb20">
+                        <div class="alert alert-warning hidden" role="alert" id="remote-queue">
+                            Allow users to get priority numbers remotely from your business
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-6 mb20">
-                    <input type="checkbox" ng-model="allow_remote">
+                    <input type="checkbox" ng-model="allow_remote"> Allow
                 </div>
             </div>
             <div class="clearfix">
                 <div class="col-md-6 mb20">
                     <p class="title">
                         Remote Queue Limit
-                        <br><small><a class="info-button" href="#remote-queue-limit-alert">More info...</a></small>
+                        <br><small><a class="info-button" href="#remote-queue-limit-alert"> <span class="glyphicon glyphicon-info-sign"></span> More info...</a></small>
                     </p>
                 </div>
                 <div class="col-md-6 mb20">
@@ -89,10 +98,19 @@
         <div class="broadcast-wrap2">
         <div class="col-md-12">
             <div class="clearfix mb10">
-                <span><label>Frontline SMS</label> <input ng-disabled="business_features.allow_sms == 'false'" type="radio" value="frontline_sms" ng-model="sms_gateway"/></span>
+                <span class="inline-b" style="padding-right:12px;"><label>Frontline SMS </label> <input ng-disabled="business_features.allow_sms == 'false'" type="radio" value="frontline_sms" ng-model="sms_gateway"/></span>
                 <span><label>Twilio</label> <input ng-disabled="business_features.allow_sms == 'false'" type="radio" value="twilio" ng-model="sms_gateway"/></span>
-                <br><small><a class="info-button" href="#sms-alert">More info...</a></small>
+                <br><small><a class="info-button" href="#sms-alert"><span class="glyphicon glyphicon-info-sign"></span> More info...</a></small>
             </div>
+        </div>
+        <div class="clearfix mb20">
+                <div class="col-md-12">
+                        <div class="alert alert-warning hidden" role="alert" id="sms-alert">
+                            <strong>FeatherQ SMS Notifications</strong> will soon be enjoyed by business partners that have been in close contact with us.
+                            To be one of these partners, you may contact us at <strong><a href="mailto:contact@featherq.com">contact@featherq.com</a></strong>.
+                            You may also call us at <strong>(+63 32) 345-4658</strong> for further inquiries.
+                        </div>
+                    </div>
         </div>
         <div ng-show="sms_gateway == 'frontline_sms'">
             <div class="clearfix">
@@ -146,15 +164,7 @@
                 </div>
             </div>
         </div>
-        <div class="clearfix">
-            <div class="col-md-12">
-                <div class="alert alert-warning hidden" role="alert" id="sms-alert">
-                    <strong>FeatherQ SMS Notifications</strong> will soon be enjoyed by business partners that have been in close contact with us.
-                    To be one of these partners, you may contact us at <strong><a href="mailto:contact@featherq.com">contact@featherq.com</a></strong>.
-                    You may also call us at <strong>(+63 32) 345-4658</strong> for further inquiries.
-                </div>
-            </div>
-        </div>
+
         </div>
 
         <div class="mt50 header">
@@ -165,7 +175,7 @@
                 http://featherq.com/<input class="inline-b white mb0 form-control" type="text" style="width: 160px;" placeholder="myurl" disabled="true" ng-model="custom_url" value="@{{ custom_url }}"/>
                 <small class="mt10 inline-b">
                     Only numbers, lowercase characters and hyphens are allowed.
-                    <br><a class="info-button" href="#custom-url-alert">More info...</a>
+                    <br><a class="info-button" href="#custom-url-alert"> <span class="glyphicon glyphicon-info-sign"></span> More info...</a>
                 </small>
             </div>
             <div class="col-md-12 hidden" id="custom-url-alert">
