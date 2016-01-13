@@ -39,9 +39,9 @@ $(document).ready(function(){
         var href = $(this).attr('href');
         $(href).toggleClass('hidden');
         if($(href).hasClass('hidden')){
-            $(this).html('More info...');
+            $(this).html('<span class="glyphicon glyphicon-info-sign"></span> More info...');
         }else{
-            $(this).html('Less info...');
+            $(this).html('<span class="glyphicon glyphicon-minus-sign"></span> Less info...');
         }
 
     })
