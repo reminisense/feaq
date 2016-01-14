@@ -55,7 +55,8 @@ Processs Queue > {{ $business_name }}
             </div>--}}
             <div class="col-md-offset-1 col-md-7 col-sm-8">
                 <p>Processing Queues for:</p>
-                <h2>{{ $business_name }} - {{ $terminal_name }}</h2>
+                <h2><strong>{{ $business_name }}</strong></h2>
+                <h3><strong>{{ $service_name }} - {{ $terminal_name }}</strong></h3>
             </div>
             <div class="col-md-3 col-sm-4 ">
                 {{--<a id="view-broadcast" target="_blank" href="{{ url('/broadcast/business/' . $business_id) }}">View Broadcast <br>Screen</a>--}}
