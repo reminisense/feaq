@@ -48,6 +48,7 @@ body { background-color: #fff; position: relative;  font-family: 'Lato', sans-se
 .boxed.nine .row-5 > .col-1   { height:19%;  height:19vh; width:100%; text-align:center; display:table; }
 .boxed.nine .row-5 > .col-2   { height:19%;  height:19vh; width:50%; text-align:center; display:table; }
 .fifty .boxed.four .row-2 > .col-2    { height:50%;  height:50vh;  width:50%; text-align:center; display:table; }
+#biz-broadcast-no-ads .ticker-message {width: 100%!important;}
 
 .boxed.three .callnum  {font-size: 6vw;}
 .boxed.four .callnum   {font-size: 6.5vw;}
