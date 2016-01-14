@@ -216,7 +216,7 @@
         </div>
         <div class="col-md-4 col-sm-4 text-center wow fadeInUp">
             <img class="img-responsive" src="/images/homepage/landing/wait1.png" alt="Join the line from anywhere" />
-            <h4 class="orange">Join the line. From Anywhere.</h4>
+            <h4 class="orange">Join the line. From anywhere.</h4>
             <p>Use FeatherQ to join lines using your smartphone or mobile device. Get into the queue even before you arrive at the store.</p>
         </div>
         <div class="col-md-4 col-sm-4 text-center wow fadeInUp">
