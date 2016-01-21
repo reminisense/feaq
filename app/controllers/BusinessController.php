@@ -96,6 +96,9 @@ class BusinessController extends BaseController{
           $business->close_minute = $time_close_arr['min'];
           $business->close_ampm = $time_close_arr['ampm'];
 
+          $business->fb_url = '';
+          $business->business_features = '';
+
           /*
            * @author CSD
            * @description:
@@ -631,7 +634,7 @@ class BusinessController extends BaseController{
     }
 
     public function getAllowedBusinesses($business_id){
-        $allowed_businesses = Business::getForwarderAllowedBusinesses($business_id);
+        $allowed_businesses = Business::getForwarderAllowedServices($business_id);
         return json_encode(['success' => 1, 'allowed_businesses' => $allowed_businesses]);
     }
 

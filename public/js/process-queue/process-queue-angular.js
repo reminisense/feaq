@@ -303,7 +303,7 @@
                 if(response.allowed_businesses && response.allowed_businesses.length != 0 ){
                     var businesses = response.allowed_businesses;
                     for(var index in businesses){
-                        $('#allowed-businesses').append('<option value="' + businesses[index].business_id +'">' + businesses[index].name + '</option>');
+                        $('#allowed-businesses').append('<option value="' + businesses[index].service_id +'">' + businesses[index].name + ' - ' + businesses[index].service_name + '</option>');
                     }
                 }else{
                     $('#allowed-businesses-area').remove();
@@ -312,10 +312,10 @@
         }
 
 
-        $scope.issueToOther = function(business_id, transaction_number){
+        $scope.issueToOther = function(service_id, transaction_number){
             var forwarder_id = pq.ids.business_id;
             data = {
-                business_id : business_id, //the business to forward to
+                service_id : service_id, //the service to forward to
                 forwarder_id : forwarder_id, //your business
                 transaction_number: transaction_number
             };

@@ -15,10 +15,10 @@ $(document).ready(function(){
 
     $(document).on('click', '#forward-btn', function(e){
         e.preventDefault();
-        business_id = $('#allowed-businesses').val();
+        service_id = $('#allowed-businesses').val();
         transaction_number = $('#priority-number-modal').attr('data-transaction-number');
         process_queue_scope = angular.element($("#process-queue-wrapper")).scope();
-        process_queue_scope.issueToOther(business_id, transaction_number);
+        process_queue_scope.issueToOther(service_id, transaction_number);
     });
 
 });

@@ -609,11 +609,21 @@ class Business extends Eloquent
             ->get();
     }
 
-    public static function getForwarderAllowedBusinesses($business_id){
+//    public static function getForwarderAllowedBusinesses($business_id){
+//        return DB::table('queue_forward_permissions')
+//            ->where('queue_forward_permissions.forwarder_id', '=', $business_id)
+//            ->join('business', 'business.business_id', '=', 'queue_forward_permissions.business_id')
+//            ->select('business.business_id', 'business.name')
+//            ->get();
+//    }
+
+    public static function getForwarderAllowedServices($business_id){
         return DB::table('queue_forward_permissions')
             ->where('queue_forward_permissions.forwarder_id', '=', $business_id)
             ->join('business', 'business.business_id', '=', 'queue_forward_permissions.business_id')
-            ->select('business.business_id', 'business.name')
+            ->join('branch', 'branch.business_id', '=', 'business.business_id')
+            ->join('service', 'service.branch_id', '=', 'branch.branch_id')
+            ->select('business.business_id', 'business.name', 'branch.branch_id', 'service.service_id', 'service.name as service_name')
             ->get();
     }
 

@@ -33,9 +33,9 @@
                             <div class="col-md-6 col-xs-6"><h5 id="priority-number-email"></h5></div>
                         </div>
                         <div class="" id="allowed-businesses-area">
-                            <div class="col-md-6 col-xs-6"><h5>Forward to business: </h5></div>
+                            <div class="col-md-6 col-xs-6"><h5>Forward to: </h5></div>
                             <div class="col-md-4 col-xs-4"><select id="allowed-businesses"></select></div>
-                            <div class="col-md-1 col-xs-1"><button class="btn btn-primary" id="forward-btn">Forward</button></div>
+                            <div class="col-md-12 col-xs-12 text-right"><button class="btn btn-primary" id="forward-btn">Forward</button></div>
                         </div>
                     </div>
 
