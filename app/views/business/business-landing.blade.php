@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Content-Type"
+          content="text/html; charset=UTF-8" />
     <title>FeatherQ | Business</title>
 
     <meta name="title" content="FeatherQ"/>
@@ -74,13 +75,13 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#featherq-works">HOW <span class="sr-only">(current)</span></a></li>
-                <li><a href="#benefits">BENEFITS</a></li>
-                <li><a href="#featherq-features">FEATURES</a></li>
-                <li><a href="#who-uses">USES</a></li>
-                <li><a href="http://guides.featherq.com" target="_blank">SETUP GUIDE</a></li>
-                <li><a href="#contact-us">CONTACT US</a></li>
-                <li><a href="/"><span class="glyphicon glyphicon-home"></span> HOME</a></li>
+                <li><a href="#featherq-works">{{ Lang::get('messages.how') }} <span class="sr-only">(current)</span></a></li>
+                <li><a href="#benefits">{{ Lang::get('messages.benefits') }}</a></li>
+                <li><a href="#featherq-features">{{ Lang::get('messages.features') }}</a></li>
+                <li><a href="#who-uses">{{ Lang::get('messages.uses') }}</a></li>
+                <li><a href="http://guides.featherq.com" target="_blank">{{ Lang::get('messages.setupguide') }}</a></li>
+                <li><a href="#contact-us">{{ Lang::get('messages.contactus') }}</a></li>
+                <li><a href="/"><span class="glyphicon glyphicon-home"></span> {{ Lang::get('messages.home') }}</a></li>
             </ul>
         </div>
     </div>
@@ -95,12 +96,12 @@
                         <div data-wow-delay="0.2s"
                              style="visibility: visible; -webkit-animation-delay: 0.2s;
            -moz-animation-delay: 0.2s; animation-delay: 0.2s;">
-                            <p>Don't Waste Your Life &mdash; Waiting</p>
-                            <h1>FeatherQ is a DIY cloud-based queuing platform. We make it easy for businesses to <span>manage their lines better</span> and allow customers to wait on their own terms.</h1>
+                            <p>{{ Lang::get('messages.slogan') }}</p>
+                            <h1>{{ Lang::get('messages.description') }}</h1>
                         </div>
                         <div class="clearfix">
-                            <p id="start">Start using FeatherQ</p>
-                            <a href="#" ng-click="login()" class="btn btn-blue"><img src="/images/business/landing/fb.png">LOGIN WITH FACEBOOK</a>
+                            <p id="start">{{ Lang::get('messages.welcome') }}</p>
+                            <a href="#" ng-click="login()" class="btn btn-blue"><img src="/images/business/landing/fb.png">{{ Lang::get('messages.loginfb') }}</a>
                         </div>
                     </div>
                     <div class="col-md-12 col-sm-12 visible-sm visible-xs">

@@ -11,4 +11,12 @@ class TestController extends Controller{
     public function getTwilio($number, $message){
         return Notifier::sendTwilio($number, $message);
     }
+
+    public function testLocale($lang){
+        if($lang !== 'en') {
+            App::setLocale('ja');
+        }
+
+        echo trans('messages.welcome');
+    }
 }

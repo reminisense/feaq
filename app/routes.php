@@ -11,7 +11,6 @@
 |
 */
 
-
 Route::post('/', 'UserController@processContactForm');
 
 Route::get('rest/register-user/{fb_id}/{first_name}/{last_name}/{email}/{gender}/{phone}/{country}', 'RestController@getRegisterUser');
@@ -71,3 +70,6 @@ Route::controller('services', 'ServiceController');
 
 //raw code implementation
 Route::get('/{raw_code?}', 'UserController@getUserDashboard');
+
+// localization testing
+Route::get('/lang/{lang?}', 'TestController@testLocale');

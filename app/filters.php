@@ -11,17 +11,28 @@
 |
 */
 
-App::before(function($request)
-{
-	//ARA - Add user_id in all pages
+App::before(function ($request) {
+    //ARA - Add user_id in all pages
     View::share('user_id', Helper::userId());
     View::share('is_admin', Admin::isAdmin());
+
+    // Get the Browser Request language
+    $url_lang = Input::get('lang');
+    $browser_lang = substr(Request::server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
+    if (!empty($url_lang) AND in_array($url_lang, Config::get('app.languages'))) {
+        // Set Browser Lang
+        App::setLocale($url_lang);
+    } else if (!empty($browser_lang) AND in_array($browser_lang, Config::get('app.languages'))) {
+        // Set Browser Lang
+        App::setLocale($browser_lang);
+    }
+
+
 });
 
 
-App::after(function($request, $response)
-{
-	//
+App::after(function ($request, $response) {
+    //
 });
 
 /*
@@ -35,25 +46,19 @@ App::after(function($request, $response)
 |
 */
 
-Route::filter('auth', function()
-{
-	if (Auth::guest())
-	{
-		if (Request::ajax())
-		{
-			return Response::make('Unauthorized', 401);
-		}
-		else
-		{
-			return Redirect::guest('login');
-		}
-	}
+Route::filter('auth', function () {
+    if (Auth::guest()) {
+        if (Request::ajax()) {
+            return Response::make('Unauthorized', 401);
+        } else {
+            return Redirect::guest('login');
+        }
+    }
 });
 
 
-Route::filter('auth.basic', function()
-{
-	return Auth::basic();
+Route::filter('auth.basic', function () {
+    return Auth::basic();
 });
 
 /*
@@ -67,9 +72,8 @@ Route::filter('auth.basic', function()
 |
 */
 
-Route::filter('guest', function()
-{
-	if (Auth::check()) return Redirect::to('/');
+Route::filter('guest', function () {
+    if (Auth::check()) return Redirect::to('/');
 });
 
 /*
@@ -83,10 +87,8 @@ Route::filter('guest', function()
 |
 */
 
-Route::filter('csrf', function()
-{
-	if (Session::token() !== Input::get('_token'))
-	{
-		throw new Illuminate\Session\TokenMismatchException;
-	}
+Route::filter('csrf', function () {
+    if (Session::token() !== Input::get('_token')) {
+        throw new Illuminate\Session\TokenMismatchException;
+    }
 });

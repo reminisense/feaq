@@ -53,6 +53,8 @@ return array(
 	*/
 
 	'locale' => 'en',
+	// supported languages
+	'languages' => array('en','ja'),
 
 	/*
 	|--------------------------------------------------------------------------
