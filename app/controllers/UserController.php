@@ -190,4 +190,60 @@ class UserController extends BaseController{
         $users = User::searchByKeyword($keyword);
         return json_encode(['success' => 1, 'users' => $users]);
     }
+
+
+    /**
+     * Register without using fb
+     *
+     */
+    public function postEmailRegistration(){
+
+        $first_name = Input::get('first_name');
+        $last_name = Input::get('last_name');
+        $email = Input::get('email');
+        $password = Input::get('password');
+
+        if(
+            isset($first_name) && $first_name != "" &&
+            isset($last_name) && $last_name != "" &&
+            isset($email) && $email != "" &&
+            isset($password) && $password != ""
+        ){
+            $user = [
+                'first_name' => $first_name,
+                'last_name' => $last_name,
+                'email' => $email,
+                'password' => $password,
+                'gcm_token' => '',
+            ];
+
+            User::insert($user);
+            //Notifier::sendSignupEmail($email, $first_name . " " . $last_name);
+            return json_encode(['success' => 1]);
+        }else{
+            return json_encode(['error' => "There are missing parameters."]);
+        }
+
+
+    }
+
+    /**
+     * login without using fb
+     *
+     */
+    public function postLogin(){
+        $email = Input::get('email');
+        $password = Input::get('password');
+
+        if(isset($email) && $email != "" && isset($password) && $password != ""){
+            $user = User::where('email', '=', $email)->where('password', '=', $password)->first();
+            if($user){
+                return json_encode(['success' => 1]);
+            }else{
+                return json_encode(['error' => 'The email or password is incorrect.']);
+            }
+        }else{
+            return json_encode(['error' => 'The email or password should not be blank.']);
+        }
+    }
 }
