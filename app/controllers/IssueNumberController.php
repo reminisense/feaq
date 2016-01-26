@@ -67,17 +67,16 @@ class IssueNumberController extends BaseController{
         $queue_platform = 'web';
         $terminal_id = 0;
 
-        $business_id = Input::get('business_id');
         $forwarder_id = Input::get('forwarder_id');
+        $service_id = Input::get('service_id');
         $transaction_number = Input::get('transaction_number');
+        $business_id = Business::getBusinessIdByServiceId($service_id);
 
         if(Business::getForwarderAllowedInBusiness($business_id, $forwarder_id)){
             $name = PriorityQueue::name($transaction_number);
             $phone = PriorityQueue::phone($transaction_number);
             $email = PriorityQueue::email($transaction_number);
 
-            $service = Service::getFirstServiceOfBusiness($business_id);
-            $service_id = $service->service_id;
             $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
             $priority_number = $next_number;
 

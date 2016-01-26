@@ -224,14 +224,14 @@
                     <button type="submit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus"></span> Add</button>
                 </form>
             </div>
-        </div>
-        <div class="clearfix">
-            <div class="col-md-6 mb20" ng-repeat="allowed_business in allowed_businesses">
-                <div class="form-control">
-                    <span class="pull-left">@{{ allowed_business.name }}</span>
-                    <a href="" class="pull-right" ng-click="deletePermission(allowed_business.business_id)">
-                        <span class="glyphicon glyphicon-trash"></span>
-                    </a>
+            <div class="clearfix">
+                <div class="col-md-6 mb20" ng-repeat="allowed_business in allowed_businesses">
+                    <div class="form-control">
+                        <span class="pull-left">@{{ allowed_business.name }}</span>
+                        <a href="" class="pull-right" ng-click="deletePermission(allowed_business.business_id)">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
