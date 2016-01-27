@@ -93,6 +93,14 @@ class Business extends Eloquent
         return Branch::businessId(Service::branchId($service_id));
     }
 
+    public static function getVanityURLByBusinessId($business_id) {
+        return Business::where('business_id', '=', $business_id)->select(array('vanity_url'))->first()->vanity_url;
+    }
+
+    public static function saveVanityURL($business_id, $vanity_url){
+        Business::where('business_id', '=', $business_id)->update(['vanity_url' => $vanity_url]);
+    }
+
     public static function getBusinessDetails($business_id)
     {
         $business = Business::where('business_id', '=', $business_id)->get()->first();
@@ -132,6 +140,7 @@ class Business extends Eloquent
             'sms_gateway' => QueueSettings::smsGateway($first_service->service_id),
             'allowed_businesses' => Business::getForwardingAllowedBusinesses($business_id),
             'raw_code' => $business->raw_code,
+            'business_features' => unserialize($business->business_features),
         ];
 
 
@@ -559,6 +568,10 @@ class Business extends Eloquent
 
     public static function getBusinessIdByName($business_name){
         return Business::where('name', $business_name)->get();
+    }
+
+    public static function getByLikeName($business_name){
+        return Business::where('name', 'LIKE', '%' . $business_name . '%')->get();
     }
 
     public static function getBusinessByRange($start_date, $end_date){
