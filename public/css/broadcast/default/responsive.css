@@ -189,9 +189,15 @@
   .mobileme {
     display: none!important;
   }
+    .publiclogin .btn-play img {
+        height: 41px;
+    }
 }
 
 @media (max-width: 767px) {
+    .publiclogin .btn-play img {
+        height: 41px;
+    }
   .processq .btn-cyan,
   .processq .btn-blue,
   .processq .btn-orange {
