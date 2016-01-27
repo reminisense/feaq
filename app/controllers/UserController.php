@@ -311,7 +311,7 @@ class UserController extends BaseController{
         $email = Input::get('email');
         $user = User::where('email', '=', $email)->first();
         if($user){
-            $code = $user->user_id;
+            $code = Crypt::encrypt($user->user_id);
             $url = url('/user/password-reset') . '/' . $code;
             $message = 'To reset your password, click this <a href="' . $url . '">link</a>.';
         }else{
@@ -337,7 +337,7 @@ class UserController extends BaseController{
     }
 
     public function getPasswordReset($code){
-        $user_id = $code;
+        $user_id = Crypt::decrypt($code);
         return View::make('user.password-reset')
             ->with('user_id', $user_id)
             ->with('error', '');

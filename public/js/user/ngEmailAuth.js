@@ -9,6 +9,12 @@ app.controller('emailAuthController', function($scope, $http){
     $scope.password_confirm = '';
     $scope.error_message = '';
 
+    $scope.send_password_reset = function(){
+        $http.post('/user/send-reset', {email: $scope.email}).success(function(response){
+            $scope.message = 'Password reset link sent.';
+        });
+    }
+
     $scope.login = function(){
         $('#FBLoaderModal').modal('show');
         $http.post('/user/email-login', {email: $scope.email, password: $scope.password}).success(function(response){
