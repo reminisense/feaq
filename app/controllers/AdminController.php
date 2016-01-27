@@ -33,6 +33,33 @@ class AdminController extends BaseController{
         }
     }
 
+    public function postBusinessSearch() {
+      return Business::getByLikeName(Input::get('keyword'));
+    }
+
+    public function getVanityUrl($business_id) {
+      return json_encode(array('vanity_url' => Business::getVanityURLByBusinessId($business_id)));
+    }
+
+    public function postSaveVanity() {
+      Business::saveVanityURL(Input::get('business_id'), Input::get('vanity_url'));
+    }
+
+    public function getInitializeBusinessfeatures() {
+      $res = Business::all();
+      foreach ($res as $count => $business) {
+        $business_id = $business->business_id;
+        Business::saveBusinessFeatures($business_id, [
+          'package_type' => 'Trial',
+          'max_services' => "3",
+          'max_terminals' => "3",
+          'enable_video_ads' => "0",
+          'upload_size_limit' => "10",
+        ]);
+      }
+      echo 'done..';
+    }
+
     public function getNumbers(){
         if(Admin::isAdmin()){
             return View::make('analytics.user_numbers');
