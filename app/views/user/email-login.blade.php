@@ -38,6 +38,7 @@
             <button type="submit">LOGIN</button>
         </form>
         <a href="/user/register">Sign up using email</a>
+        <a href="/user/forgot-password">Forgot password?</a>
         <div class="alert alert-danger" ng-show="error_message != ''">@{{ error_message  }}</div>
     </div>
     <hr/>

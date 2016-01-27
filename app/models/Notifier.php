@@ -87,6 +87,10 @@ class Notifier extends Eloquent{
         Notifier::sendEmail($email, 'emails.auth.confirmation', 'Welcome to FeatherQ', ['email' => $email]);
     }
 
+    public static function sendPasswordResetEmail($email, $email_message){
+        Notifier::sendEmail($email, 'emails.auth.forgot-password', 'Reset FeatherQ Password', ['email_message' => $email_message]);
+    }
+
     /**
      * Sms sending templates
      */
