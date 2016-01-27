@@ -83,6 +83,9 @@ class Notifier extends Eloquent{
         Notifier::sendEmail($email, 'emails.auth.signup', 'Welcome to FeatherQ', ['name' => $name]);
     }
 
+    public static function sendConfirmationEmail($email){
+        Notifier::sendEmail($email, 'emails.auth.confirmation', 'Welcome to FeatherQ', ['email' => $email]);
+    }
 
     /**
      * Sms sending templates

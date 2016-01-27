@@ -52,7 +52,7 @@ class UserController extends BaseController{
      * @description: verify data and update user details
      */
     public function postVerifyUser(){
-        $userData = $_POST;
+        $userData = Input::all();
       if (Auth::check() && Helper::userId() == $userData['user_id']) { // PAG added permission checking
         $user = User::find($userData['user_id']);
         $user->first_name = $userData['first_name'];
@@ -72,8 +72,24 @@ class UserController extends BaseController{
             'success' => 0,
           ]);
         }
-      }
-      else {
+
+      } else if($user = User::where('email', '=', $userData['email'])->first()) {
+          $user->first_name = $userData['first_name'];
+          $user->last_name = $userData['last_name'];
+          $user->email = $userData['email'];
+          $user->phone = $userData['mobile'];
+          $user->local_address = $userData['location'];
+          $user->verified = 1;
+
+          if ($user->save()) {
+              Auth::loginUsingId($user->user_id);
+              return json_encode(['success' => 1,]);
+          }
+          else {
+              return json_encode(['success' => 0,]);
+          }
+
+      }else{
         return json_encode(array('message' => 'You are not allowed to access this function.'));
       }
     }
@@ -198,28 +214,36 @@ class UserController extends BaseController{
      */
     public function postEmailRegistration(){
 
-        $first_name = Input::get('first_name');
-        $last_name = Input::get('last_name');
         $email = Input::get('email');
         $password = Input::get('password');
+        $password_confirm = Input::get('password_confirm');
+
 
         if(
-            isset($first_name) && $first_name != "" &&
-            isset($last_name) && $last_name != "" &&
             isset($email) && $email != "" &&
-            isset($password) && $password != ""
+            isset($password) && $password != "" &&
+            isset($password_confirm) && $password_confirm != ""
         ){
+
+            if($password != $password_confirm){
+                return json_encode(['error' => "Passwords do not match."]);
+            }
+
             $user = [
-                'first_name' => $first_name,
-                'last_name' => $last_name,
+                'first_name' => '',
+                'last_name' => '',
                 'email' => $email,
-                'password' => $password,
+                'password' => Hash::make($password),
                 'gcm_token' => '',
             ];
 
             User::insert($user);
-            //Notifier::sendSignupEmail($email, $first_name . " " . $last_name);
-            return json_encode(['success' => 1]);
+            try{
+                Notifier::sendConfirmationEmail($email);
+                return json_encode(['success' => 1, 'redirect' => '/user/login']);
+            }catch(Exception $e){
+                return json_encode(['success' => 1, 'redirect' => '/user/email-verify/' . $email]);
+            }
         }else{
             return json_encode(['error' => "There are missing parameters."]);
         }
@@ -231,19 +255,64 @@ class UserController extends BaseController{
      * login without using fb
      *
      */
-    public function postLogin(){
+    public function postEmailLogin(){
         $email = Input::get('email');
         $password = Input::get('password');
 
         if(isset($email) && $email != "" && isset($password) && $password != ""){
-            $user = User::where('email', '=', $email)->where('password', '=', $password)->first();
-            if($user){
-                return json_encode(['success' => 1]);
+            $user = User::where('email', '=', $email)->first();
+            if($user && !$user->verified){
+                $verification_url = url('/user/verify-email');
+                return json_encode(['error' => 'Email verification required. Go ' . $verification_url . '/{your email} to verify your account.']);
+            }else if($user && Hash::check($password, $user->password)){
+                Auth::loginUsingId($user->user_id);
+                if (UserBusiness::getBusinessIdByOwner($user->user_id)) {
+                    return json_encode(array('success' => 1, 'redirect' => '/business/my-business'));
+                }
+                else {
+                    return json_encode(array('success' => 1, 'redirect' => '/'));
+                }
             }else{
                 return json_encode(['error' => 'The email or password is incorrect.']);
             }
         }else{
             return json_encode(['error' => 'The email or password should not be blank.']);
+        }
+    }
+
+    public function getResendConfirmation($email){
+        try{
+            Notifier::sendConfirmationEmail($email);
+        }catch(Exception $e){}
+        return Redirect::back();
+    }
+
+    public function getLogin(){
+        if(Auth::check()){
+            return Redirect::to('/');
+        }else{
+            return View::make('user.email-login');
+        }
+    }
+
+    public function getRegister(){
+        if(Auth::check()){
+            return Redirect::to('/');
+        }else{
+            return View::make('user.email-registration');
+        }
+    }
+
+    public function getVerifyEmail($email){
+        if(Auth::check()) {
+            return Redirect::to('/');
+        }else{
+            $user = User::where('email', '=', $email)->first();
+            if($user && $user->verified == 0){
+                return View::make('user.email-verify')->with('email', $email);
+            }else{
+                return Redirect::to('/user/login');
+            }
         }
     }
 }
