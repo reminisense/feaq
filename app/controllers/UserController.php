@@ -23,7 +23,7 @@ class UserController extends BaseController{
      */
     public function postUpdateUser(){
         $userData = $_POST;
-      if (Auth::check() && Helper::userId() == $userData['user_id']) { // PAG added permission checking
+      if (Auth::check() && Helper::userId() == $userData['user_id'] || Admin::isAdmin(Helper::userId())) { // PAG added permission checking
         $user = User::find($userData['user_id']);
         $user->first_name = $userData['edit_first_name'];
         $user->last_name = $userData['edit_last_name'];
@@ -190,4 +190,5 @@ class UserController extends BaseController{
         $users = User::searchByKeyword($keyword);
         return json_encode(['success' => 1, 'users' => $users]);
     }
+
 }

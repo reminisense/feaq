@@ -45,6 +45,51 @@ class AdminController extends BaseController{
       Business::saveVanityURL(Input::get('business_id'), Input::get('vanity_url'));
     }
 
+  public function getUserDetails($user_id) {
+    if (Admin::isAdmin(Helper::userId())) {
+      return json_encode(array_merge(User::getUserByUserId($user_id), array(
+        'status' => User::getStatusByUserId($user_id),
+        'address' => User::local_address($user_id),
+      )));
+    }
+    return json_encode(array('status' => 0));
+  }
+
+  public function postUpdateUser(){
+    if (Admin::isAdmin(Helper::userId())) { // PAG added permission checking
+      $user = User::find(Input::get('user_id'));
+      $user->first_name = Input::get('edit_first_name');
+      $user->last_name = Input::get('edit_last_name');
+      $user->phone = Input::get('edit_mobile');
+      $user->local_address = Input::get('edit_user_location');
+      $user->status = Input::get('status');
+
+      if ($user->save()) {
+        return json_encode([
+          'success' => 1,
+        ]);
+      }
+      else {
+        return json_encode([
+          'success' => 0,
+          'error' => 'Something went wrong while trying to save your profile.'
+        ]);
+      }
+    }
+    else {
+      return json_encode(array('message' => 'You are not allowed to access this function.'));
+    }
+  }
+
+    public function getUser(){
+      if(Admin::isAdmin()){
+        return View::make('admin.user-dashboard')
+          ->with('users', User::all());
+      }else{
+        return Redirect::to('/');
+      }
+    }
+
     public function getInitializeBusinessfeatures() {
       $res = Business::all();
       foreach ($res as $count => $business) {

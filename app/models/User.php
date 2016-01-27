@@ -205,6 +205,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return User::where('user_id', '=', $user_id)->first()->birthdate;
     }
 
+    public static function getStatusByUserId($user_id){
+        return User::where('user_id', '=', $user_id)->first()->status;
+    }
+
     public static function age($user_id){
         $birthdate = User::birthdate($user_id);
         if($birthdate){
