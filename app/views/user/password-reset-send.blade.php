@@ -64,8 +64,11 @@
                 <div class="container">
                     <div class="col-md-offset-3 col-md-6 text-center" ng-controller="emailAuthController">
 
-                        <div class="col-md-12">
+                        {{--<div class="col-md-12">
                             <p>@{{ message }}</p>
+                        </div>--}}
+                        <div class="clearfix col-md-12">
+                            <div class="alert alert-warning" ng-show="message != null" >@{{ message  }}</div>
                         </div>
 
                         <form id="login" class=" col-md-12" ng-submit="send_password_reset()">
@@ -80,7 +83,7 @@
 
                             <div class="row mt30">
                                 <div class="col-md-6 col-xs-12 text-left ">
-                                    <a class="forgot-pass no-line" href=""><i class="glyphicon glyphicon-circle-arrow-left"></i> Return to Login</a>
+                                    <a class="forgot-pass no-line" href="/user/login"><i class="glyphicon glyphicon-circle-arrow-left"></i> Return to Login</a>
                                 </div>
                                 <div class="col-md-6 col-xs-12 text-right ">
                                     <button class="btn btn-teal" type="submit">Reset Password</button>

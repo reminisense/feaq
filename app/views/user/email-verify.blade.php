@@ -14,6 +14,7 @@
     <meta name="fb:app_id" content="1574952899417459"/>
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/signup/signup.css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600' rel='stylesheet' type='text/css'>
 
     <link rel="stylesheet" href="/css/jquery-ui.css">
@@ -42,7 +43,75 @@
 
 </head>
 <body ng-app="FeatherQ" ng-cloak>
-<div>
+
+<section id="signup-header">
+        <div class="">
+            <div class="container">
+                <div class="text-center col-md-12">
+                    <a class="logo" href="/"><img src="/images/homepage/landing/FeatherQ-logo.png" alt="FeatherQ" /></a>
+                    <h3 class="mt30" style="margin-bottom: 0;">Please confirm your data</h3>
+                </div>
+            </div>
+            <div class="tri text-center"><img src="/images/homepage/tri.png"></div>
+        </div>
+</section>
+
+    <section id="signup-body">
+            <div class="">
+                <div class="container">
+                    <div class="col-md-offset-2 col-md-8" ng-controller="emailAuthController">
+
+                        <div class="col-md-12 text-center">
+                            <div class="clearfix col-md-12">
+                                <div class="alert alert-warning modal-message" id="verifyError" style="display: none;"></div>
+                            </div>
+                        </div>
+
+
+                        <form id="verification_form" class="col-md-12 clearfix" ng-submit="verify()">
+                            <div class="clearfix">
+
+                                    <input type="hidden" class="user_id" name="user_id" value="" />
+                                    <div class="form-group">
+                                        <div class="col-md-6  col-xs-12">
+                                            <label>First Name</label>
+                                            <input type="text" class=" form-control" id="first_name" name="first_name" ng-model="first_name" required />
+                                        </div>
+                                        <div class="col-md-6 col-xs-12">
+                                            <label>Last Name</label>
+                                            <input type="text" class=" form-control" id="last_name" name="last_name" ng-model="last_name" required />
+                                        </div>
+                                        <div class="col-md-6 col-xs-12">
+                                            <label>Email <small>(We will only make use of your Facebook email)</small></label>
+                                            <input type="email" class=" form-control" id="email" name="email" readonly style="color: #bbb;" value="{{ $email }}" />
+                                        </div>
+                                        <div class="col-md-6 col-xs-12">
+                                            <label>Mobile</label>
+                                            <input type="text" min="9" maxlength="15" class="mobile form-control" id="mobile" name="mobile" ng-model="mobile" required/>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label>Location</label>
+                                            <input type="text" class="form-control" id="location" name="location" autocomplete="off" ng-model="location" required/>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 text-right">
+                                    <br>
+                                        <button id="start_queuing" type="submit" class="btn btn-teal" ng-click="verify()">START QUEUING</button>
+                                    </div>
+                            </div>
+                        </form>
+                    </div>
+
+
+                </div>
+            </div>
+    </section>
+
+
+
+
+{{--<div>
     <div>
         <h3>Please confirm your data</h3>
     </div>
@@ -75,7 +144,7 @@
         </form>
         <div class="alert alert-danger modal-message" id="verifyError" style="display: none;"></div>
     </div>
-</div>
+</div>--}}
 <script type="text/javascript" src="/js/user/ngEmailAuth.js"></script>
 </body>
 </html>
