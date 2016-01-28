@@ -24,7 +24,7 @@
             <input type="email" class="form-control" placeholder="Email" ng-model="search_user" title="Staff Email"/>
         </div>
         <div class="col-md-1">
-            <button type="submit" class="form-control">Assign</button>
+            <button type="submit" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-ok"></span> Assign</button>
         </div>
     </form>
 </div>
@@ -48,7 +48,7 @@
                     <input type="text" ng-model="new_service_name" placeholder="e.g. Cashier" class="form-control nomg white"/>
                 </div>
                 <div class="col-md-3">
-                    <button type="button" class="btn-boxy btn-removeuser btn-danger" ng-click="service_create = false"><span class="glyphicon glyphicon-remove"></span></button>
+                    <button type="button" class="btn-boxy btn-removeuser btn-danger" ng-click="service_create = false" title="Cancel"><span class="glyphicon glyphicon-remove"></span></button>
                     <button type="submit" class="edit-terminal-button btn-boxy btn-success" title="Save"><span class="glyphicon glyphicon-floppy-disk"></span></button>
                 </div>
             </th>
