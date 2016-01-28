@@ -228,7 +228,7 @@ class BusinessController extends BaseController{
      */
     public function postEditBusiness(){
         $business_data = Input::all();
-      if (Helper::isBusinessOwner($business_data['business_id'], Helper::userId()) || Admin::isAdmin(Auth::user()->user_id)) { // PAG added permission checking
+      if (Helper::isBusinessOwner($business_data['business_id'], Helper::userId())) { // PAG added permission checking
         $business = Business::find($business_data['business_id']);
 
         if ($this->validateBusinessNameBusinessAddress($business, $business_data)) {
