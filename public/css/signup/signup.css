@@ -1,0 +1,121 @@
+body {
+    font-family: "Open Sans", sans-serif;
+    color: #4a4a4a;
+    background-color: #e1e0dc;
+}
+a {color: #00ba8b;  text-decoration: underline;}
+a:hover {text-decoration: underline; color: #00ba8b;}
+#signup-header {
+    background-color: #f3f3f3;
+    padding: 60px 0 30px;
+    font-size: 16px;
+}
+.rel {
+    position: relative;
+}
+.abs {
+    position: absolute;
+}
+.tri img {
+    margin-bottom: -100px;
+    width: 38px;
+}
+#signup-body {
+    background-color: #e1e0dc;
+    font-size: 18px;
+    padding: 40px 0;
+}
+.no-line {text-decoration: none;}
+#signup-body .btn-fb img {
+    width: 9px;
+    margin-top: -2px;
+    margin-right: 20px;
+}
+.logo img {width: 270px;}
+.subhead {
+    font-size: 17px;
+    margin-top: 25px;
+    line-height: 30px;
+    margin-bottom: 0px;
+}
+.forgot-pass {
+    font-size: 14px;
+    margin-top: 12px;
+    display: inline-block;
+}
+.forgot-pass .glyphicon {
+    padding: 0!important;
+    padding-right: 6px!important;
+}
+form#login .glyphicon {
+    z-index: 2;
+    left: 0;
+    padding: 14px 16px;
+    color: #9f9f9c;
+}
+form#login label {
+    display: block;
+    text-align: left;
+    font-weight: 600;
+    margin-top: 20px;
+}
+form#login .clearfix {
+    height: 100px;
+}
+form#login input[type="text"],
+form#login input[type="email"],
+form#login input[type="password"]{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    height: inherit;
+    font-size: 16px;
+    padding-left: 45px;
+}
+.btn-fb {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #4666b6;
+    padding: 14px 60px;
+    font-size: 13px;
+    font-weight: 700;
+}
+.btn-fb:hover {
+    background-color: #426bcc;
+    color: #fff;
+}
+.btn-teal {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #00ba8b;
+    padding: 14px 40px;
+    font-size: 13px;
+    font-weight: 700;
+}
+.or {
+    background: url("../../images/homepage/hr.png") no-repeat center center;
+    margin: 40px 0!important;
+}
+.agree {
+    margin-top: 15px;
+    font-size: 14px;
+}
+.btn-teal:hover {
+    background-color: #00cf9b;
+    color: #fff;
+}
+#signup-body .alert {
+    border: none;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.mt20 {margin-top: 20px;}
+.mt30 {margin-top: 30px!important;}
+.mt40 {margin-top: 40px!important;}
+.mb0 {margin: 0!important;}
