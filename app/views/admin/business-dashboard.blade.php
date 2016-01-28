@@ -21,24 +21,22 @@
                 });
             };
             $scope.manageBusiness = function(business_id) {
-                $http.get('/business/businessdetails/' + business_id).success(function(response) {
+                $http.get('/admin/business-details/' + business_id).success(function(response) {
                     console.log(response);
-                    $scope.businessObj = response.business;
-                    $scope.edit_business_id = response.business.business_id;
-                    $scope.edit_name = response.business.business_name;
-                    $scope.edit_address = response.business.business_address;
-                    $scope.edit_industry = response.business.industry;
-                    $scope.edit_timezone = response.business.timezone;
-                    $scope.edit_time_open = response.business.time_open;
-                    $scope.edit_time_close = response.business.time_closed;
-                    $scope.package_type = response.business.business_features.package_type;
-                    $scope.max_services = response.business.business_features.max_services;
-                    $scope.max_terminals = response.business.business_features.max_terminals;
-                    $scope.enable_video_ads = response.business.business_features.enable_video_ads;
-                    $scope.upload_size_limit = response.business.business_features.upload_size_limit;
-                });
-                $http.get('/admin/vanity-url/'+business_id).success(function(response2) {
-                    $scope.vanity_url = response2.vanity_url;
+                    $scope.businessObj = response;
+                    $scope.edit_business_id = response.business_id;
+                    $scope.edit_name = response.business_name;
+                    $scope.edit_address = response.business_address;
+                    $scope.edit_industry = response.industry;
+                    $scope.edit_timezone = response.timezone;
+                    $scope.edit_time_open = response.time_open;
+                    $scope.edit_time_close = response.time_closed;
+                    $scope.vanity_url = response.vanity_url;
+                    $scope.package_type = response.business_features.package_type;
+                    $scope.max_services = response.business_features.max_services;
+                    $scope.max_terminals = response.business_features.max_terminals;
+                    $scope.enable_video_ads = response.business_features.enable_video_ads;
+                    $scope.upload_size_limit = response.business_features.upload_size_limit;
                 });
             }
             $scope.updateBusiness = function() {
@@ -50,19 +48,15 @@
                 data.time_open = $scope.edit_time_open;
                 data.time_close = $scope.edit_time_close;
                 data.timezone = $scope.edit_timezone;
+                data.vanity_url = $scope.vanity_url;
                 data.business_features.package_type = $scope.package_type;
                 data.business_features.max_services = $scope.max_services;
                 data.business_features.max_terminals = $scope.max_terminals;
                 data.business_features.enable_video_ads = $scope.enable_video_ads;
                 data.business_features.upload_size_limit = $scope.upload_size_limit;
-                $http.post('/business/edit-business', data).success(function(response) {
+                $http.post('/admin/update-business', data).success(function(response) {
                     console.log(response);
-                });
-                $http.post('/admin/save-vanity', {
-                    business_id: $scope.edit_business_id,
-                    vanity_url: $scope.vanity_url
-                }).success(function(response) {
-                    console.log(response);
+                    alert('updated');
                 });
             }
         });

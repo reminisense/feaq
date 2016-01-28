@@ -33,12 +33,114 @@ class AdminController extends BaseController{
         }
     }
 
+  public function getBusinessDetails($business_id){
+    if (Admin::isAdmin(Helper::userId())) { // PAG added permission checking
+      return json_encode(array_merge(Business::getBusinessDetails($business_id), ['vanity_url' => Business::getVanityURLByBusinessId($business_id)]));
+    }
+    else {
+      return json_encode(array('status' => 0, 'message', 'You are not allowed to access this function.'));
+    }
+  }
+
+  public function postUpdateBusiness(){
+    $business_data = Input::all();
+    if (Admin::isAdmin(Helper::userId())) { // PAG added permission checking
+      $business = Business::find($business_data['business_id']);
+
+      if ($this->validateBusinessNameBusinessAddress($business, $business_data)) {
+        $business->name = $business_data['business_name'];
+        $business->local_address = $business_data['business_address'];
+        $business->industry = $business_data['industry'];
+        $business->fb_url = $business_data['facebook_url'];
+        $business->timezone = $business_data['timezone']; //ARA Added timezone property
+
+        $time_open_arr = Helper::parseTime($business_data['time_open']);
+        $business->open_hour = $time_open_arr['hour'];
+        $business->open_minute = $time_open_arr['min'];
+        $business->open_ampm = $time_open_arr['ampm'];
+
+        $time_close_arr = Helper::parseTime($business_data['time_close']);
+        $business->close_hour = $time_close_arr['hour'];
+        $business->close_minute = $time_close_arr['min'];
+        $business->close_ampm = $time_close_arr['ampm'];
+
+        $business->queue_limit = $business_data['queue_limit']; /* RDH Added queue_limit to Edit Business Page */
+        $business->business_features = serialize($business_data['business_features']);
+        $business->vanity_url = $business_data['vanity_url'];
+
+        $business->save();
+
+        //ARA For queue settings terminal-specific numbers
+        $queue_settings = new QueueSettingsController();
+        $queue_settings->getUpdate($business['business_id'], 'number_limit', $business_data['queue_limit']);
+        $queue_settings->getUpdate($business['business_id'], 'terminal_specific_issue', $business_data['terminal_specific_issue']);
+        $queue_settings->getUpdate($business['business_id'], 'sms_current_number', $business_data['sms_current_number']);
+        $queue_settings->getUpdate($business['business_id'], 'sms_1_ahead', $business_data['sms_1_ahead']);
+        $queue_settings->getUpdate($business['business_id'], 'sms_5_ahead', $business_data['sms_5_ahead']);
+        $queue_settings->getUpdate($business['business_id'], 'sms_10_ahead', $business_data['sms_10_ahead']);
+        $queue_settings->getUpdate($business['business_id'], 'sms_blank_ahead', $business_data['sms_blank_ahead']);
+        $queue_settings->getUpdate($business['business_id'], 'input_sms_field', $business_data['input_sms_field']);
+        $queue_settings->getUpdate($business['business_id'], 'allow_remote', $business_data['allow_remote']);
+        $queue_settings->getUpdate($business['business_id'], 'remote_limit', $business_data['remote_limit']);
+
+        //sms settings
+        $sms_api_data = [];
+        $sms_gateway_api = NULL;
+        if($business_data['sms_gateway'] == 'frontline_sms'){
+          $sms_api_data = [
+            'frontline_sms_url' => $business_data['frontline_sms_url'],
+            'frontline_sms_api_key' => $business_data['frontline_sms_api_key'],
+          ];
+          $sms_gateway_api = serialize($sms_api_data);
+        }elseif($business_data['sms_gateway'] == 'twilio'){
+          if($business_data['twilio_account_sid'] == TWILIO_ACCOUNT_SID &&
+            $business_data['twilio_auth_token'] == TWILIO_AUTH_TOKEN &&
+            $business_data['twilio_phone_number'] == TWILIO_PHONE_NUMBER){
+            $business_data['sms_gateway'] = NULL;
+            $sms_gateway_api = NULL;
+          }else{
+            $sms_api_data = [
+              'twilio_account_sid' => $business_data['twilio_account_sid'],
+              'twilio_auth_token' => $business_data['twilio_auth_token'],
+              'twilio_phone_number' => $business_data['twilio_phone_number'],
+            ];
+            $sms_gateway_api = serialize($sms_api_data);
+          }
+        }
+        $queue_settings->getUpdate($business['business_id'], 'sms_gateway', $business_data['sms_gateway']);
+        $queue_settings->getUpdate($business['business_id'], 'sms_gateway_api', $sms_gateway_api);
+        return json_encode(['success' => 1]);
+      }
+      else {
+        return json_encode([
+          'success' => 0,
+          'error' => 'Business name already exists with the same business address.'
+        ]);
+      }
+    }
+    else {
+      return json_encode([
+        'success' => 0,
+        'error' => 'You are not allowed to access this function.',
+      ]);
+    }
+  }
+
+  private function validateBusinessNameBusinessAddress($dbBusiness, $inputBusiness) {
+    if ($dbBusiness->name != $inputBusiness['business_name'] || $dbBusiness->local_address != $inputBusiness['business_address']){
+      $row = Business::businessExistsByNameByAddress($inputBusiness['business_name'], $inputBusiness['business_address']);
+      if(count($row) == 0){
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return true;
+    }
+  }
+
     public function postBusinessSearch() {
       return Business::getByLikeName(Input::get('keyword'));
-    }
-
-    public function getVanityUrl($business_id) {
-      return json_encode(array('vanity_url' => Business::getVanityURLByBusinessId($business_id)));
     }
 
     public function postSaveVanity() {
