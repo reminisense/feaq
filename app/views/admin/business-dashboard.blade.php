@@ -31,12 +31,15 @@
                     $scope.edit_timezone = response.timezone;
                     $scope.edit_time_open = response.time_open;
                     $scope.edit_time_close = response.time_closed;
+                    $scope.services = response.services;
                     $scope.vanity_url = response.vanity_url;
                     $scope.package_type = response.business_features.package_type;
                     $scope.max_services = response.business_features.max_services;
                     $scope.max_terminals = response.business_features.max_terminals;
                     $scope.enable_video_ads = response.business_features.enable_video_ads;
                     $scope.upload_size_limit = response.business_features.upload_size_limit;
+                    $scope.business_owner = response.business_owner;
+                    $scope.business_email_address = response.email_address;
                 });
             }
             $scope.updateBusiness = function() {
@@ -86,12 +89,30 @@
                 Time Open: <input type="text" ng-model="edit_time_open" /><br>
                 Time Close: <input type="text" ng-model="edit_time_close" /><br>
                 <br>
+                <div>
+                    <div ng-repeat="service in services">
+                        <span class="biz-name">@{{ service.name }}</span>
+                        <button onclick="">Edit Service</button>
+                        <button onclick="">Delete Service</button>
+                        <div ng-repeat="terminal in service.terminals">
+                            <span class="biz-name">@{{ terminal.name }}</span>
+                            <button onclick="">Edit Terminal</button>
+                            <button onclick="">Delete Terminal</button>
+                        </div>
+                        <button onclick="">Add Terminal</button>
+                    </div>
+                    <button onclick="">Add Service</button>
+                </div>
+
+                <br>
                 Contract: <select ng-model="package_type" ng-init="package_type">
                     <option value="Trial">Trial</option>
                     <option value="Basic">Basic</option>
                     <option value="Plus">Plus</option>
                     <option value="Pro">Pro</option>
-                </select><br>
+                </select>
+                Business Owner: <input type="text" ng-model="business_owner" /><br>
+                Emaill Address: <input type="text" ng-model="business_email_address1" /><br>
                 <br>
                 Max Services: <input type="text" ng-model="max_services" /><br>
                 Max Terminals: <input type="text" ng-model="max_terminals" /><br>
