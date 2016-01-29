@@ -6,6 +6,8 @@
  * Time: 3:37 PM
  */
 
+use utils\RandomStringGenerator;
+
 class AdminController extends BaseController{
 
     public function getDashboard(){
@@ -157,6 +159,61 @@ class AdminController extends BaseController{
     return json_encode(array('status' => 0));
   }
 
+  /**
+   * Register without using fb
+   * Taken from UserController->postEmailRegistration()
+   *
+   */
+  public function postCreateUser(){
+
+    if (Admin::isAdmin(Helper::userId())) {
+      $email = Input::get('email');
+      $password = Input::get('password');
+      $password_confirm = Input::get('password_confirm');
+
+
+      if (
+        isset($email) && $email != "" &&
+        isset($password) && $password != "" &&
+        isset($password_confirm) && $password_confirm != ""
+      ) {
+
+        if ($password != $password_confirm) {
+          return json_encode(['error' => "Passwords do not match."]);
+        }
+
+        $user = [
+          'first_name' => Input::get('create_first_name'),
+          'last_name' => Input::get('create_last_name'),
+          'email' => $email,
+          'password' => Hash::make($password),
+          'gcm_token' => '',
+          'phone' => Input::get('create_mobile'),
+          'local_address' => Input::get('create_user_location'),
+          'gender' => Input::get('create_gender'),
+        ];
+
+        User::insert($user);
+        try {
+          Notifier::sendConfirmationEmail($email);
+          return json_encode(['success' => 1, 'redirect' => '/user/login']);
+        } catch (Exception $e) {
+          return json_encode([
+            'success' => 1,
+            'redirect' => '/user/email-verify/' . $email
+          ]);
+        }
+      }
+      else {
+        return json_encode(['error' => "There are missing parameters."]);
+      }
+    }
+    else {
+      return json_encode(array('status' => 0, 'message' => 'You are not allowed to access this function.'));
+    }
+
+  }
+
   public function postUpdateUser(){
     if (Admin::isAdmin(Helper::userId())) { // PAG added permission checking
       $user = User::find(Input::get('user_id'));
@@ -164,7 +221,8 @@ class AdminController extends BaseController{
       $user->last_name = Input::get('edit_last_name');
       $user->phone = Input::get('edit_mobile');
       $user->local_address = Input::get('edit_user_location');
-      $user->status = Input::get('status');
+      $user->status = Input::get('edit_status');
+      $user->email = Input::get('edit_email');
 
       if ($user->save()) {
         return json_encode([
@@ -177,6 +235,19 @@ class AdminController extends BaseController{
           'error' => 'Something went wrong while trying to save your profile.'
         ]);
       }
+    }
+    else {
+      return json_encode(array('message' => 'You are not allowed to access this function.'));
+    }
+  }
+
+  public function postResetPassword() {
+    if (Admin::isAdmin(Helper::userId())) { // PAG added permission checking
+      $new_pass = \RandomStringGenerator::generate(8);
+      $user = User::find(Input::get('user_id'));
+      $user->password = Hash::make($new_pass);
+      $user->save();
+      return json_encode(array('password' => $new_pass));
     }
     else {
       return json_encode(array('message' => 'You are not allowed to access this function.'));
