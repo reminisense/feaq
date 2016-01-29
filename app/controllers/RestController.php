@@ -593,6 +593,7 @@ class RestController extends BaseController {
             $next_available_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service->service_id), QueueSettings::numberStart($service->service_id), QueueSettings::numberLimit($service->service_id));
 
             $details = [
+                'business_id' => $business_id,
                 'business_name' => $business_name,
                 'estimated_time' => $estimated_time,
                 'people_in_queue' => $remaining_queue_count,
