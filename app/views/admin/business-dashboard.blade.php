@@ -62,6 +62,44 @@
                     alert('updated');
                 });
             }
+
+            //Service functions
+            $scope.createService = function(name, business_id){;
+                if(name != '' && name != undefined) {
+                    alert("test");
+                    $http.post('/services', {name: name, business_id: business_id}).success(function (response) {
+                        $scope.getBusinessDetails();
+                        $scope.service_create = false;
+                        $scope.new_service_name = '';
+                        alert("success");
+                    });
+                }else{
+                    $scope.service_error = 'Service name is not valid.';
+                    eb.jquery_functions.clear_service_error_msg();
+                    alert("error");
+                }
+            }
+            $scope.updateService = function(name, service_id){
+                if(name != '' && name != undefined){
+                    $http.put('/services/' + service_id, {name: name}).success(function(response){
+                        $scope.getBusinessDetails();
+                        $scope.edit_service_name = '';
+                    });
+                }else{
+                    $scope.service_error = 'Service name is not valid.';
+                    eb.jquery_functions.clear_service_error_msg();
+                }
+            }
+            $scope.removeService = function(service_id){
+                var confirmDel = confirm("Are you sure you want to remove this service?");
+                if(confirmDel){
+                    alert(service_id);
+                    $http.delete('/services/' + service_id).success(function(response){
+                        $scope.getBusinessDetails();
+                    });
+                }
+            }
+
         });
     </script>
 </head>
@@ -91,17 +129,19 @@
                 <br>
                 <div>
                     <div ng-repeat="service in services">
-                        <span class="biz-name">@{{ service.name }}</span>
-                        <button onclick="">Edit Service</button>
-                        <button onclick="">Delete Service</button>
-                        <div ng-repeat="terminal in service.terminals">
-                            <span class="biz-name">@{{ terminal.name }}</span>
-                            <button onclick="">Edit Terminal</button>
-                            <button onclick="">Delete Terminal</button>
-                        </div>
-                        <button onclick="">Add Terminal</button>
+                        <input type="text" value="@{{ service.name}}"><br>
+                        <button ng-click="updateService(edit_service_name, service.id)">Edit Service</button>
+                        <button ng-click="removeService(service.service_id)">Delete Service</button>
+                        <div ng-repeat="terminal in service.terminals" style="padding-left: 100px;">
+                            <input type="text" value="@{{ terminal.name }}"><br>
+                            <button ng-click="">Edit Terminal</button>
+                            <button ng-click="">Delete Terminal</button>
+                            <button ng-show="service.terminals.length < 3">Add Terminal</button>
                     </div>
-                    <button onclick="">Add Service</button>
+                    <div ng-show="service.terminals.length < 3">
+                        <input type="text" ng-model="name">
+                        <button ng-click="createService(name, edit_business_id)">Add Service</button>
+                    </div>
                 </div>
 
                 <br>
