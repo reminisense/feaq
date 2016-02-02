@@ -440,8 +440,6 @@ app.controller('adminController', function($scope, $http){
     }
 
 
-
-
     $(".biz-main > h4").click(function() {
         if ($('.biz-main-form').is(':visible')){
             $(".biz-main-form").slideUp("slow");

@@ -59,10 +59,10 @@
                                     <input type="text" value="@{{ terminal.name }}"><br>
                                     <button ng-click="">Edit Terminal</button>
                                     <button ng-click="">Delete Terminal</button>
-                                    <button ng-click="" ng-show="terminals.length < 3">Add Terminal</button>
+                                    <button ng-click="" ng-show="terminals.length < max_terminals"> Add Terminal</button>
                                 </div>
                             </div>
-                            <div class="mt20" ng-show="terminals.length < 3">
+                            <div class="mt20" ng-show="terminals.length < max_services">
                                 <input type="text" ng-model="name">
                                 <button ng-click="createService(name, edit_business_id)">Add Service</button>
                             </div>
@@ -78,8 +78,8 @@
                                     <option value="Plus">Plus</option>
                                     <option value="Pro">Pro</option>
                                 </select>
-                                Business Owner: <input type="text" ng-model="business_owner" /><br>
-                                Emaill Address: <input type="text" ng-model="business_email_address" /><br>
+                                Business Owner: <input type="text" ng-model="business_owner" readonly="readonly" /><br>
+                                Emaill Address: <input type="text" ng-model="business_email_address" readonly="readonly" /><br>
                                 <br>
                                 <button type="submit">Update Status</button>
                             </form>
@@ -89,36 +89,22 @@
                         <h4> > Settings</h4>
                         <div class="biz-settings-form">
                             <form ng-submit="updateBusiness()">
-                                <input type="hidden" ng-model="edit_business_id" value="@{{ edit_business_id }}">
-                                Business Name: <input type="text" ng-model="edit_name" /><br>
-                                Address: <input type="text" ng-model="edit_address" /><br>
-                                Industry: <input type="text" ng-model="edit_industry" /><br>
-                                Timezone: <input type="text" ng-model="edit_timezone" /><br>
-                                Time Open: <input type="text" ng-model="edit_time_open" /><br>
-                                Time Close: <input type="text" ng-model="edit_time_close" /><br>
+                                Max Services: <input type="text" ng-model="max_services" /><br>
+                                Max Terminals: <input type="text" ng-model="max_terminals" /><br>
                                 <br>
-                                <div></div>
+                                Vanity URL: <input type="text" ng-model="vanity_url" /><br>
+                                <br>
+                                {{--Enable Video Ads? <label><input type="radio" name="video_ads" ng-model="enable_video_ads" value="1">Yes</label> <label><input type="radio" name="video_ads" ng-model="enable_video_ads" value="0">No</label><br>--}}
+                                {{--<br>--}}
+                                {{--Video Ad Limits:<br>--}}
+                                {{--Upload limit: <input type="text" ng-model="upload_size_limit" /> MB<br>--}}
+                                {{--<br>--}}
                                 <button type="submit">Update Settings</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             <div class="container user-container">
                 <p>this is a test</p>
             </div>
