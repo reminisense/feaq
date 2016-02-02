@@ -402,4 +402,8 @@ class Helper extends Eloquent
         return !UserBusiness::getBusinessIdByOwner($user_id);
     }
 
+    public static function threadKeyGenerator($business_id, $email) {
+        return md5($business_id . 'fq' . $email);
+    }
+
 }

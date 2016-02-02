@@ -9,7 +9,7 @@
 
 class MobileController extends BaseController{
 
-    //Screen number 5
+    //Screen #5
     public function getUserQueue($user_id)
     {
         $user = User::find($user_id);
@@ -76,6 +76,94 @@ class MobileController extends BaseController{
 
             ];
         }
+        return json_encode($data);
+    }
+
+    //Screen #10
+    public function postSendMessage(){
+        $user_id = Input::get('user_id');
+        $business_id = Input::get('business_id');
+        $message = Input::get('message');
+
+        $email = User::email($user_id);
+        $timestamp = time();
+        $thread_key = Helper::threadKeyGenerator($business_id, $email);
+
+        if (!Message::checkThreadByKey($thread_key)) {
+            $phones[] = Input::get('contmobile');
+            Message::createThread(array(
+                'contactname' => User::first_name($user_id) . ' ' . User::last_name($user_id),
+                'business_id' => $business_id,
+                'email' => $email,
+                'phone' => serialize($phones),
+                'thread_key' => $thread_key,
+            ));
+            $data = json_encode(array(
+                array(
+                    'timestamp' => $timestamp,
+                    'contmessage' => $message,
+                    'sender' => 'user',
+                )
+            ));
+            file_put_contents(public_path() . '/json/messages/' . $thread_key . '.json', $data);
+        }
+        else {
+            $data = json_decode(file_get_contents(public_path() . '/json/messages/' . $thread_key . '.json'));
+            $data[] = array(
+                'timestamp' => $timestamp,
+                'contmessage' => $message,
+                'sender' => 'user',
+            );
+            $data = json_encode($data);
+            file_put_contents(public_path() . '/json/messages/' . $thread_key . '.json', $data);
+        }
+        return json_encode(array('business_id' => $business_id, 'user_id' => $user_id, 'message' => $message));
+    }
+
+    //Screen #12
+    public function getBusinessStatus($business_id)
+    {
+        $business = Business::where('business_id', '=', $business_id)->first();
+        $services = Service::getServicesByBusinessId($business->business_id);
+        $all_numbers = ProcessQueue::businessAllNumbers($business->business_id);
+        $all_numbers = json_decode(json_encode($all_numbers));
+
+        //get services list
+        $service_list = [];
+        var_dump($services);
+        foreach($services as $service){
+            $service_list = array_merge($service_list, [
+                'id' => $service->service_id,
+                'name' => $service->name,
+                'isEnabled' => QueueSettings::allowRemote($service->service_id) ? true : false,
+            ]);
+        }
+        dd($service_list);
+        $broadcast_numbers = [];
+        if($all_numbers){
+            foreach($all_numbers->called_numbers as $number){
+                $user = $number->email ? User::searchByEmail($number->email) : null;
+                $user = json_decode(json_encode($user));
+                $broadcast_numbers = array_merge($broadcast_numbers, [
+                    'service_id' => Terminal::serviceId($number->terminal_id),
+                    'service_name' => $number->service_name,
+                    'terminal_id' => $number->terminal_id,
+                    'terminal_name' => $number->terminal_name,
+                    'priority_number' => $number->priority_number,
+                    'user_id' => $user ? $user->user_id : null,
+                    'user_first_name' => $user ? $user->first_name : $number->name
+                ]);
+            }
+        }
+
+        $data = [
+            'business_id' => $business->business_id,
+            'business_name' => $business->name,
+            'ticker_message' => 'This is a ticker message',
+            'service_list' => $service_list,
+            'broadcast_numbers' => $broadcast_numbers
+        ];
+
         return json_encode($data);
     }
 }
