@@ -37,7 +37,9 @@ class AdminController extends BaseController{
 
   public function getBusinessDetails($business_id){
     if (Admin::isAdmin(Helper::userId())) { // PAG added permission checking
-      return json_encode(array_merge(Business::getBusinessDetails($business_id), ['vanity_url' => Business::getVanityURLByBusinessId($business_id)]));
+      $user = UserBusiness::getUserByBusinessId($business_id);
+      return json_encode(array_merge(Business::getBusinessDetails($business_id), ['vanity_url' => Business::getVanityURLByBusinessId($business_id)],
+          ['business_owner' => User::full_name($user->user_id)],['email_address' => User::email($user->user_id)]));
     }
     else {
       return json_encode(array('status' => 0, 'message', 'You are not allowed to access this function.'));

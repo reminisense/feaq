@@ -326,7 +326,162 @@ app.controller('adminController', function($scope, $http){
         });
     }
 
-    //
+    /*
+    General Settings
+     */
+    $scope.searchBusiness = function() {
+        $scope.businesses = new Array();
+        $http.post('/admin/business-search', {
+            "keyword": $scope.business_name
+        }).success(function(response) {
+            console.log(response);
+            for (var i = 0; i < response.length; i++) {
+                $scope.businesses.push({
+                    "business_id": response[i].business_id,
+                    "business_name": response[i].name
+                });
+            }
+        });
+        $('.biz-specific').hide();
+    };
+
+    $scope.manageBusiness = function(business_id) {
+        $http.get('/admin/business-details/' + business_id).success(function(response) {
+            console.log(response);
+            $scope.businessObj = response;
+            $scope.edit_business_id = response.business_id;
+            $scope.edit_name = response.business_name;
+            $scope.edit_address = response.business_address;
+            $scope.edit_industry = response.industry;
+            $scope.edit_timezone = response.timezone;
+            $scope.edit_time_open = response.time_open;
+            $scope.edit_time_close = response.time_closed;
+            $scope.services = response.services;
+            $scope.terminals = response.terminals;
+            $scope.vanity_url = response.vanity_url;
+            $scope.package_type = response.business_features.package_type;
+            $scope.max_services = response.business_features.max_services;
+            $scope.max_terminals = response.business_features.max_terminals;
+            $scope.enable_video_ads = response.business_features.enable_video_ads;
+            $scope.upload_size_limit = response.business_features.upload_size_limit;
+            $scope.business_owner = response.business_owner;
+            $scope.business_email_address = response.email_address;
+        });
+
+        $('.biz-results > div').empty();
+        $('.biz-specific').show();
+    }
+
+    $scope.updateBusiness = function() {
+        var data = $scope.businessObj;
+        data.business_id = $scope.edit_business_id;
+        data.business_name = $scope.edit_name;
+        data.business_address = $scope.edit_address;
+        data.industry = $scope.edit_industry;
+        data.time_open = $scope.edit_time_open;
+        data.time_close = $scope.edit_time_close;
+        data.timezone = $scope.edit_timezone;
+        data.vanity_url = $scope.vanity_url;
+        data.business_features.package_type = $scope.package_type;
+        data.business_features.max_services = $scope.max_services;
+        data.business_features.max_terminals = $scope.max_terminals;
+        data.business_features.enable_video_ads = $scope.enable_video_ads;
+        data.business_features.upload_size_limit = $scope.upload_size_limit;
+        $http.post('/admin/update-business', data).success(function(response) {
+            console.log(response);
+            alert('updated');
+        });
+    }
+
+    $scope.createService = function(name, business_id){;
+        if(name != '' && name != undefined) {
+            alert("test");
+            $http.post('/services', {name: name, business_id: business_id}).success(function (response) {
+                $scope.getBusinessDetails();
+                $scope.service_create = false;
+                $scope.new_service_name = '';
+                alert("success");
+            });
+        }else{
+            $scope.service_error = 'Service name is not valid.';
+            alert("error");
+        }
+    }
+    $scope.updateService = function(index, service_id){
+        var name = $('#service-input'+index).val();
+        if(name != '' && name != undefined){
+            $http.put('/services/' + service_id, {name: name}).success(function(response){
+                $scope.getBusinessDetails();
+                $scope.edit_service_name = '';
+            });
+        }else{
+            $scope.service_error = 'Service name is not valid.';
+            alert("error");
+        }
+    }
+    $scope.removeService = function(service_id){
+        var confirmDel = confirm("Are you sure you want to remove this service?");
+        if(confirmDel){
+            alert(service_id);
+            $http.delete('/services/' + service_id).success(function(response){
+                $scope.getBusinessDetails();
+            });
+        }
+    }
+
+    $scope.getBusinessDetails = function(){
+        if ( $scope.business_id > 0 ) {
+            $http.get(eb.urls.business.business_details_url + $scope.business_id)
+                .success(function(response){
+                    setBusinessFields(response.business);
+                    setBusinessFeatures(response.business.features);
+                });
+        }
+    }
+
+
+    $(".biz-main > h4").click(function() {
+        if ($('.biz-main-form').is(':visible')){
+            $(".biz-main-form").slideUp("slow");
+        } else {
+            $(".biz-main-form").slideDown("slow");
+        }
+    });
+
+    $(".biz-service > h4").click(function() {
+        if ($('.biz-service-form').is(':visible')){
+            $(".biz-service-form").slideUp("slow");
+        } else {
+            $(".biz-service-form").slideDown("slow");
+        }
+    });
+
+    $(".biz-status > h4").click(function() {
+        if ($('.biz-status-form').is(':visible')){
+            $(".biz-status-form").slideUp("slow");
+        } else {
+            $(".biz-status-form").slideDown("slow");
+        }
+    });
+
+    $(".biz-settings > h4").click(function() {
+        if ($('.biz-settings-form').is(':visible')){
+            $(".biz-settings-form").slideUp("slow");
+        } else {
+            $(".biz-settings-form").slideDown("slow");
+        }
+    });
+
+    $("#user-settings").click(function(){
+        $('.business-container').hide();
+        $('.user-container').show();
+    });
+
+    $('#business-settings').click(function(){
+        $('.user-container').hide();
+        $('.business-container').show();
+    });
+
     $("#graph-nav a").click(function(){
         $(this).tab("show");
     });

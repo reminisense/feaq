@@ -823,3 +823,30 @@ button#sendreply {
 }
 #create-service thead th {  background-color: #daebf2!important; padding: 14px 8px!important; vertical-align: middle;}
 .form-control.white {background-color: #fff;}
+
+.general-container{
+    text-align: center;
+}
+
+#user-settings, #business-settings{
+    background:none;
+    border:none;
+    outline:none;
+}
+
+.search-business input, .search-business button {
+    width: 100%;
+}
+
+.user-container{
+    display: none;
+}
+
+.biz-specific{
+    display: none;
+}
+
+.biz-service-form, .biz-status-form,
+.biz-settings-form{
+    display:none;
+}
