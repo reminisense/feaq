@@ -524,6 +524,7 @@ var eb = {
                     if(response.user){
                         $scope.assignToTerminal(response.user.user_id, terminal_id);
                         $scope.clearUserResults();
+                        $scope.search_user = '';
                     }else{
                         $('.add-user-error[terminal_id=' + terminal_id + ']').show();
                         setTimeout(function(){$('.add-user-error[terminal_id=' + terminal_id + ']').fadeOut('slow')}, 3000);

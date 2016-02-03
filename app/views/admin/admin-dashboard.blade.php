@@ -20,14 +20,14 @@
         <div class="biz-details-wrap">
             <div id="tabs">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#all-admins" data-toggle="tab">Admins</a></li>
+                    <li class="active"><a href="#business-features" data-toggle="tab">General Settings</a></li>
+                    <li><a href="#all-admins" data-toggle="tab">Admins</a></li>
                     <li><a href="#usage-stats" data-toggle="tab">Usage Stats</a></li>
                     <li><a href="#business-stats" data-toggle="tab">Business Stats</a></li>
-                    <li><a href="#business-features" data-toggle="tab">Business Features</a></li>
                 </ul>
             </div>
             <div class="clearfix tab-content">
-                <div class="tab-pane fade active in" id="all-admins">
+                <div class="tab-pane fade in" id="all-admins">
                     @include('admin.admin-tabs.admins-list-tab')
                 </div>
                 <div class="tab-pane fade in" id="usage-stats"> <!--usage stats tab-->
@@ -36,7 +36,7 @@
                 <div class="tab-pane fade in" id="business-stats"> <!--business numbers-->
                     @include('admin.admin-tabs.business-stats-tab')
                 </div>
-                <div class="tab-pane fade in" id="business-features">
+                <div class="tab-pane fade  active in" id="business-features">
                     @include('admin.admin-tabs.business-features-tab')
                 </div>
             </div>

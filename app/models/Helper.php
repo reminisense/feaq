@@ -402,6 +402,17 @@ class Helper extends Eloquent
         return !UserBusiness::getBusinessIdByOwner($user_id);
     }
 
+    public static function assignedToBusiness()
+    {
+        $businesses = UserBusiness::getAllBusinessIdByOwner(Helper::userId());
+        $terminals = TerminalUser::getTerminalAssignement(Helper::userId());
+
+//        var_dump($businesses->toArray());
+//        var_dump($terminals);
+//        dd($businesses || $terminals);
+
+        return (count($businesses) || count($terminals));
+    }
     public static function threadKeyGenerator($business_id, $email) {
         return md5($business_id . 'fq' . $email);
     }
