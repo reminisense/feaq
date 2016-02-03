@@ -571,3 +571,8 @@ app.controller('adminController', function($scope, $http){
     $scope.loadBusinessNumbers();
     $scope.loadBusinesses();
 });
+
+$('#admin-manage a').click(function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+})

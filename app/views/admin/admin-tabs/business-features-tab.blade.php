@@ -1,33 +1,37 @@
-<div class="container">
-    <div class="row">
+
+    <div class="clearfix">
         <div class="col-md-12">
-            <div class="alert alert-danger mt30" ng-if="messages.error_message != '' && messages.error_message != undefined">@{{ messages.error_message }}</div>
-            <div class="alert alert-success mt30" ng-if="messages.success_message != '' && messages.success_message != undefined">@{{ messages.success_message }}</div>
+            <div class="alert alert-danger mt10" ng-if="messages.error_message != '' && messages.error_message != undefined">@{{ messages.error_message }}</div>
+            <div class="alert alert-success mt10" ng-if="messages.success_message != '' && messages.success_message != undefined">@{{ messages.success_message }}</div>
+        </div>
+        <div class="col-md-12 ">
+            <div class="general-container">
+                <ul id="admin-manage" class="nav nav-tabs">
+                    <li class="active"><a class="" href="" id="business-settings">Manage Businesses</a></li>
+                    <li><a class="" href="" id="user-settings">Manage Users</a></li>
+                </ul>
+            </div>
         </div>
         <div class="col-md-12 mb20">
-            <div class="container mt30 general-container">
-                <div class="col-md-6">
-                    <button id="business-settings"><h4>Business</h4></button>
-                </div>
-                <div class="col-md-6">
-                    <button id="user-settings"><h4>User</h4></button>
-                </div>
-            </div>
-            <div class="container business-container">
-                <div class="search-business container">
+            <div class="business-container clearfix">
+                <div class="search-business col-md-12 clearfix ">
                     <form ng-submit="searchBusiness()">
-                        <div class="col-md-10">
-                            <input type="text" ng-model="business_name" placeholder="Search for a business.."/>
-                        </div>
-                        <div class="col-md-2">
-                            <button class="btn btn-primary" type="submit">Search</button>
-                        </div>
+                            <input class="form-control" type="text" ng-model="business_name" placeholder="Search for a business.."/>
+                            <button class="btn btn-primary btn-lg" type="submit">Search</button>
                     </form>
                 </div>
-                <div class="biz-results">
-                    <div ng-repeat="business in businesses" class="mt10">
-                        <span class="biz-name">@{{ business.business_name }}</span>
-                        <a href="#" class="biz-manage" ng-click="manageBusiness(business.business_id)">Manage</a>
+                <div class="biz-results clearfix">
+                    <div class="col-md-12 mt10">
+                        <table class="table table-striped ">
+                            <tr ng-repeat="business in businesses">
+                                <td width="80%"><h4 class="biz-name"><strong>@{{ business.business_name }}</strong></h4></td>
+                                <td width="20%">
+                                    <a href="#" class="btn btn-blue biz-manage" ng-click="manageBusiness(business.business_id)">
+                                        <span class="glyphicon glyphicon-pencil"></span> Manage
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
                 <div class="biz-specific mt20">
@@ -105,51 +109,130 @@
                     </div>
                 </div>
             </div>
-            <div class="container user-container">
-                <div class="search-user container">
+            <div class=" user-container clearfix">
+                <div class="search-user clearfix">
                     <form>
                         <div class="col-md-8">
-                            <input type="text" id="user-email" placeholder="Search for a user using the email address.."/>
+                            <input class="form-control" type="text" id="user-email" placeholder="Search for a user using the email address.."/>
                         </div>
                         <div class="col-md-2">
-                            <button class="btn btn-primary search-user-button" type="submit" ng-click="searchUser()">Search</button>
+                            <button class="btn btn-primary btn-lg search-user-button" type="submit" ng-click="searchUser()">Search</button>
                         </div>
                         <div class="col-md-2">
-                            <button class="btn btn-primary create-user-button" type="submit" id="create-user">Create</button>
+                            <button class="btn btn-cyan btn-lg create-user-button" type="submit" id="create-user"><span class="glyphicon glyphicon-plus"></span> Create</button>
                         </div>
                     </form>
                 </div>
-                <div class="cus-main-form">
-                    Manage User<br>
+                <div class="col-md-12 cus-main-form clearfix">
+                    <h2>Manage User</h2>
                     <form ng-submit="updateUser(user_id)">
-                        First Name: <input type="text" ng-model="edit_first_name" /><br>
-                        Last Name: <input type="text" ng-model="edit_last_name" /><br>
-                        Address: <input type="text" ng-model="edit_user_location" /><br>
-                        Email: <input type="text" ng-model="edit_email" /><br>
-                        Phone: <input type="text" ng-model="edit_mobile" /><br>
-                        <button type="button" ng-click="resetPass(user_id)">Reset Password</button><br>
-                        <br>
-                        Status: <label><input type="radio" name="edit_status" ng-model="edit_status" value="1">Enabled</label> <label><input type="radio" name="edit_status" ng-model="edit_status" value="0">Disabled</label><br>
-                        <br>
-                        <button type="submit">Save</button>
+                        <table class="table table-form">
+                            <tr>
+                                <td>
+                                    <label>First Name:</label>
+                                    <input class="form-control" type="text" ng-model="edit_first_name" />
+                                </td>
+                                <td>
+                                    <label>Last Name:</label>
+                                    <input class="form-control" type="text" ng-model="edit_last_name" />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <label>Address:</label>
+                                    <input class="form-control" type="text" ng-model="edit_user_location" />
+                                </td>
+                                <td>
+                                    <label>Email:</label>
+                                    <input class="form-control" type="text" ng-model="edit_email" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Phone:</label>
+                                    <input class="form-control" type="text" ng-model="edit_mobile" />
+                                </td>
+                                <td>
+                                    <label>Password:</label><br>
+                                    <button class="btn btn-primary btn-lg" type="button" ng-click="resetPass(user_id)">Reset Password</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Status:</label>
+                                    <div class="status">
+                                    <input type="radio" name="edit_status" ng-model="edit_status" value="1"> <h5>Enabled</h5>
+                                    <input type="radio" name="edit_status" ng-model="edit_status" value="0"> <h5>Disabled</h5>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="text-right">
+                                    <button class="btn btn-orange btn-lg" type="submit">Save</button>
+                                </td>
+                            </tr>
+                        </table>
                     </form>
                 </div>
-                <div class="cus-create-form">
-                    Create User<br>
+                <div class=" col-md- 12 cus-create-form">
+                    <h2 class="col-md-12">Create User</h2>
                     <form ng-submit="createUser()">
-                        Email: <input type="text" ng-model="create_email" /><br>
-                        Password: <input type="password" ng-model="new_password" /><br>
-                        Confirm Password: <input type="password" ng-model="password_confirm" /><br>
-                        First Name: <input type="text" ng-model="create_first_name" /><br>
-                        Last Name: <input type="text" ng-model="create_last_name" /><br>
-                        Gender: <select ng-model="create_gender" ng-init="create_gender='male'">
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select><br>
-                        Address: <input type="text" ng-model="create_user_location" /><br>
-                        Phone: <input type="text" ng-model="create_mobile" /><br>
-                        <br>
-                        <button type="submit">Save</button>
+                        <table class="table table-form">
+                            <tr>
+                                <td>
+                                    <label>Email: </label>
+                                    <input class="form-control" type="text" ng-model="create_email" />
+                                </td>
+                                <td>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <label>Password: </label>
+                                    <input class="form-control" type="password" ng-model="new_password" />
+                                </td>
+                                <td>
+                                    <label>Confirm Password:</label>
+                                    <input class="form-control" type="password" ng-model="password_confirm" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>First Name:</label>
+                                    <input class="form-control" type="text" ng-model="create_first_name" />
+                                </td>
+                                <td>
+                                    <label>Last Name:</label>
+                                    <input class="form-control" type="text" ng-model="create_last_name" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Gender:</label>
+                                    <select class="form-control" ng-model="create_gender" ng-init="create_gender='male'">
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <label>Address: </label>
+                                    <input class="form-control" type="text" ng-model="create_user_location" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Phone:</label>
+                                    <input class="form-control" type="text" ng-model="create_mobile" />
+                                </td>
+                                <td class="text-right">
+                                    <button class="mt20 btn btn-orange btn-lg" type="submit">Save</button>
+                                </td>
+                            </tr>
+
+                        </table>
                     </form>
                 </div>
             </div>
@@ -193,4 +276,4 @@
             {{--</form>--}}
         {{--</div>--}}
     </div>
-</div>
+
