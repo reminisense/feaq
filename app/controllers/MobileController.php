@@ -124,46 +124,61 @@ class MobileController extends BaseController{
     public function getBusinessStatus($business_id)
     {
         $business = Business::where('business_id', '=', $business_id)->first();
-        $services = Service::getServicesByBusinessId($business->business_id);
-        $all_numbers = ProcessQueue::businessAllNumbers($business->business_id);
-        $all_numbers = json_decode(json_encode($all_numbers));
+        if(!$business){
+            json_encode(['error' => 'Business not fouund.']);
+        }else{
+            $services = Service::getServicesByBusinessId($business->business_id);
+            $all_numbers = ProcessQueue::businessAllNumbers($business->business_id);
+            $all_numbers = json_decode(json_encode($all_numbers));
 
-        //get services list
-        $service_list = [];
-        var_dump($services);
-        foreach($services as $service){
-            $service_list = array_merge($service_list, [
-                'id' => $service->service_id,
-                'name' => $service->name,
-                'isEnabled' => QueueSettings::allowRemote($service->service_id) ? true : false,
-            ]);
-        }
-        dd($service_list);
-        $broadcast_numbers = [];
-        if($all_numbers){
-            foreach($all_numbers->called_numbers as $number){
-                $user = $number->email ? User::searchByEmail($number->email) : null;
-                $user = json_decode(json_encode($user));
-                $broadcast_numbers = array_merge($broadcast_numbers, [
-                    'service_id' => Terminal::serviceId($number->terminal_id),
-                    'service_name' => $number->service_name,
-                    'terminal_id' => $number->terminal_id,
-                    'terminal_name' => $number->terminal_name,
-                    'priority_number' => $number->priority_number,
-                    'user_id' => $user ? $user->user_id : null,
-                    'user_first_name' => $user ? $user->first_name : $number->name
+            //get services list
+            $service_list = array();
+            foreach($services as $service){
+                array_push($service_list, [
+                    'id' => $service->service_id,
+                    'name' => $service->name,
+                    'isEnabled' => QueueSettings::allowRemote($service->service_id) ? true : false,
                 ]);
             }
+            $broadcast_numbers = array();
+            if($all_numbers){
+                $json_path = public_path() . '/json/' . $business->business_id . '.json';
+                $json_contents = file_get_contents($json_path);
+                $json = json_decode($json_contents);
+                $max_count = explode("-", $json->display)[1];
+                $box_count = 1;
+
+                if(!isset($json->show_issued) || $json->show_issued){
+                    $numbers =  (object) array_merge((array) $all_numbers->called_numbers, (array) $all_numbers->uncalled_numbers);
+                }else{
+                    $numbers = $all_numbers->called_numbers;
+                }
+
+                foreach($numbers as $number){
+                    if($box_count <= $max_count){ $box_count++; }else{ break; }
+                    $user = $number->email ? User::searchByEmail($number->email) : null;
+                    $user = json_decode(json_encode($user));
+                    array_push($broadcast_numbers, [
+                        'service_id' => $number->service_id,
+                        'service_name' => $number->service_name,
+                        'terminal_id' => isset($number->terminal_id) ? $number->terminal_id : null,
+                        'terminal_name' => isset($number->terminal_name) ? $number->terminal_name : null,
+                        'priority_number' => $number->priority_number,
+                        'user_id' => $user ? $user->user_id : null,
+                        'user_first_name' => $user ? $user->first_name : $number->name
+                    ]);
+                }
+            }
+
+            $data = [
+                'business_id' => $business->business_id,
+                'business_name' => $business->name,
+                'ticker_message' => 'This is a ticker message',
+                'service_list' => $service_list,
+                'broadcast_numbers' => $broadcast_numbers
+            ];
+
+            return json_encode($data);
         }
-
-        $data = [
-            'business_id' => $business->business_id,
-            'business_name' => $business->name,
-            'ticker_message' => 'This is a ticker message',
-            'service_list' => $service_list,
-            'broadcast_numbers' => $broadcast_numbers
-        ];
-
-        return json_encode($data);
     }
 }
