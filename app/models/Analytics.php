@@ -213,6 +213,32 @@ class Analytics extends Eloquent{
         return $average_waiting_time * $numbers_in_queue;
     }
 
+    public static function getWaitingTimeByTransactionNumber($transaction_number){
+        $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+        $service_id = PriorityNumber::serviceId(PriorityQueue::trackId($transaction_number));
+        $numbers_ahead = Analytics::getNumbersAhead($transaction_number);
+        $average_waiting_time = Analytics::getAverageTimeCalledByServiceId($service_id, 'numeric', $date, $date);
+        return $average_waiting_time * $numbers_ahead;
+    }
+
+    public static function getNumbersAhead($transaction_number){
+        $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+        $service_id = PriorityNumber::serviceId(PriorityQueue::trackId($transaction_number));
+        $numbers_ahead = TerminalTransaction::join('priority_queue', 'priority_queue.transaction_number', '=', 'terminal_transaction.transaction_number')
+            ->join('priority_number', 'priority_number.track_id', '=', 'priority_queue.track_id')
+            ->where('priority_number.service_id', '=', $service_id)
+            ->where('priority_number.date', '=', $date)
+            ->where('terminal_transaction.transaction_number', '<', $transaction_number)
+            ->where('terminal_transaction.time_queued', '>', 0)
+            ->where('terminal_transaction.time_called', '=', 0)
+            ->where('terminal_transaction.time_completed', '=', 0)
+            ->where('terminal_transaction.time_removed', '=', 0)
+            ->select('terminal_transaction.transaction_number')
+            ->get();
+        return count($numbers_ahead);
+    }
+
+
     public static function getWaitingTimeString($business_id){
         $waiting_time = Analytics::getWaitingTime($business_id);
         $waiting_time = floor($waiting_time / 60);

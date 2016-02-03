@@ -51,7 +51,7 @@ class MobileController extends BaseController{
                 'email' => $user->email,
                 'contact' => $user->phone,
                 'priority_number' => $priority_queue->priority_number,
-                'estimated_time_left' => Analytics::getServiceWaitingTime($priority_number->service_id),
+                'estimated_time_left' => Analytics::getWaitingTimeByTransactionNumber($transaction_number),
                 'business' => [
                     'id' => $business->business_id,
                     'name' => $business->name,
@@ -121,35 +121,48 @@ class MobileController extends BaseController{
     }
 
     //Screen #12
-    public function getBusinessStatus($business_id)
+    public function getBusinessStatus($business_id, $get_services = true)
     {
         $business = Business::where('business_id', '=', $business_id)->first();
         if(!$business){
             json_encode(['error' => 'Business not fouund.']);
         }else{
-            $services = Service::getServicesByBusinessId($business->business_id);
+            $json_path = public_path() . '/json/' . $business->business_id . '.json';
+            $json_contents = file_get_contents($json_path);
+            $json = json_decode($json_contents);
             $all_numbers = ProcessQueue::businessAllNumbers($business->business_id);
             $all_numbers = json_decode(json_encode($all_numbers));
+            $data = [
+                'business_id' => $business->business_id,
+                'business_name' => $business->name,
+                'ticker_message' => $json->ticker_message,
+                'ticker_message2' =>$json->ticker_message2,
+                'ticker_message3' =>$json->ticker_message3,
+                'ticker_message4' =>$json->ticker_message4,
+                'ticker_message5' =>$json->ticker_message5,
+            ];
 
             //get services list
-            $service_list = array();
-            foreach($services as $service){
-                array_push($service_list, [
-                    'id' => $service->service_id,
-                    'name' => $service->name,
-                    'isEnabled' => QueueSettings::allowRemote($service->service_id) ? true : false,
-                ]);
+            if($get_services){
+                $service_list = array();
+                $services = Service::getServicesByBusinessId($business->business_id);
+                foreach($services as $service){
+                    array_push($service_list, [
+                        'id' => $service->service_id,
+                        'name' => $service->name,
+                        'isEnabled' => QueueSettings::allowRemote($service->service_id) ? true : false,
+                    ]);
+                }
+                $data['service_list'] = $service_list;
             }
+
             $broadcast_numbers = array();
             if($all_numbers){
-                $json_path = public_path() . '/json/' . $business->business_id . '.json';
-                $json_contents = file_get_contents($json_path);
-                $json = json_decode($json_contents);
                 $max_count = explode("-", $json->display)[1];
                 $box_count = 1;
 
                 if(!isset($json->show_issued) || $json->show_issued){
-                    $numbers =  (object) array_merge((array) $all_numbers->called_numbers, (array) $all_numbers->uncalled_numbers);
+                    $numbers =  array_merge($all_numbers->called_numbers, $all_numbers->uncalled_numbers);
                 }else{
                     $numbers = $all_numbers->called_numbers;
                 }
@@ -169,16 +182,32 @@ class MobileController extends BaseController{
                     ]);
                 }
             }
-
-            $data = [
-                'business_id' => $business->business_id,
-                'business_name' => $business->name,
-                'ticker_message' => 'This is a ticker message',
-                'service_list' => $service_list,
-                'broadcast_numbers' => $broadcast_numbers
-            ];
-
+            $data['broadcast_numbers'] = $broadcast_numbers;
             return json_encode($data);
         }
+    }
+
+    //Screen #13
+    public function getBusinessBroadcast($business_id, $user_id){
+        $data = $this->getBusinessStatus($business_id, false);
+        $data = json_decode($data);
+
+        if($user_id){
+            $user = User::find($user_id);
+            $transaction_number = PriorityQueue::getLatestTransactionNumberOfUser($user->user_id);
+            $terminal_transaction = TerminalTransaction::where('transaction_number', '=', $transaction_number)->first();
+            $priority_queue = PriorityQueue::find($transaction_number);
+            $priority_number = PriorityNumber::find($priority_queue->track_id);
+
+            if($terminal_transaction->time_completed == 0 && $terminal_transaction->time_removed == 0){
+                $data->service_name = Service::name($priority_number->service_id);
+                $data->user_priority_number = $priority_queue->priority_number;
+                $data->number_people_ahead = Analytics::getNumbersAhead($transaction_number);
+                $data->estimated_time_left = Analytics::getWaitingTimeByTransactionNumber($transaction_number);
+            }
+
+        }
+
+        return json_encode($data);
     }
 }
