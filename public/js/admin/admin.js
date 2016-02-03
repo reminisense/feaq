@@ -395,7 +395,6 @@ app.controller('adminController', function($scope, $http){
 
     $scope.createService = function(name, business_id){;
         if(name != '' && name != undefined) {
-            alert("test");
             $http.post('/services', {name: name, business_id: business_id}).success(function (response) {
                 $scope.getBusinessDetails();
                 $scope.service_create = false;
@@ -439,6 +438,73 @@ app.controller('adminController', function($scope, $http){
         }
     }
 
+    $scope.searchUser = function() {
+        var email = $("#user-email").val();
+        if(email != '' && email != undefined) {
+            $http.get('/user/user-by-email/' + email).success(function (response) {
+                $scope.user_id = response.user_id;
+                $scope.edit_email = response.email;
+                $scope.edit_first_name = response.first_name;
+                $scope.edit_last_name = response.last_name;
+                $scope.edit_mobile = response.phone;
+                $scope.edit_status = response.status;
+                $scope.edit_user_location = response.address;
+            });
+        }else{
+            alert("error");
+        }
+    };
+
+    $scope.updateUser = function(user_id) {
+        $http.post('/admin/update-user', {
+            user_id: user_id,
+            edit_first_name: $scope.edit_first_name,
+            edit_last_name: $scope.edit_last_name,
+            edit_mobile: $scope.edit_mobile,
+            edit_user_location: $scope.edit_user_location,
+            edit_status: $scope.edit_status,
+            edit_email: $scope.edit_email
+        }).success(function(response) {
+            alert('updated');
+        });
+    };
+
+    $scope.createUser = function() {
+        if ($scope.new_password == $scope.password_confirm) {
+            $http.post('/admin/create-user', {
+                email: $scope.create_email,
+                password: $scope.new_password,
+                password_confirm: $scope.password_confirm,
+                create_first_name: $scope.create_first_name,
+                create_last_name: $scope.create_last_name,
+                create_mobile: $scope.create_mobile,
+                create_user_location: $scope.create_user_location,
+                create_gender: $scope.create_gender
+            }).success(function (response) {
+                alert('created');
+            });
+        }
+        else {
+            alert('passwords do not match');
+        }
+    };
+    $scope.resetPass = function(user_id) {
+        $http.post('/admin/reset-password', {
+            user_id: user_id
+        }).success(function(response) {
+            alert(response.password);
+        });
+    }
+
+    $(".search-user-button").click(function() {
+         $(".cus-main-form").show();
+         $(".cus-create-form").hide();
+    });
+
+    $(".create-user-button").click(function() {
+        $(".cus-create-form").show();
+        $(".cus-main-form").hide();
+    });
 
     $(".biz-main > h4").click(function() {
         if ($('.biz-main-form').is(':visible')){

@@ -106,7 +106,52 @@
                 </div>
             </div>
             <div class="container user-container">
-                <p>this is a test</p>
+                <div class="search-user container">
+                    <form>
+                        <div class="col-md-8">
+                            <input type="text" id="user-email" placeholder="Search for a user using the email address.."/>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary search-user-button" type="submit" ng-click="searchUser()">Search</button>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary create-user-button" type="submit" id="create-user">Create</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="cus-main-form">
+                    Manage User<br>
+                    <form ng-submit="updateUser(user_id)">
+                        First Name: <input type="text" ng-model="edit_first_name" /><br>
+                        Last Name: <input type="text" ng-model="edit_last_name" /><br>
+                        Address: <input type="text" ng-model="edit_user_location" /><br>
+                        Email: <input type="text" ng-model="edit_email" /><br>
+                        Phone: <input type="text" ng-model="edit_mobile" /><br>
+                        <button type="button" ng-click="resetPass(user_id)">Reset Password</button><br>
+                        <br>
+                        Status: <label><input type="radio" name="edit_status" ng-model="edit_status" value="1">Enabled</label> <label><input type="radio" name="edit_status" ng-model="edit_status" value="0">Disabled</label><br>
+                        <br>
+                        <button type="submit">Save</button>
+                    </form>
+                </div>
+                <div class="cus-create-form">
+                    Create User<br>
+                    <form ng-submit="createUser()">
+                        Email: <input type="text" ng-model="create_email" /><br>
+                        Password: <input type="password" ng-model="new_password" /><br>
+                        Confirm Password: <input type="password" ng-model="password_confirm" /><br>
+                        First Name: <input type="text" ng-model="create_first_name" /><br>
+                        Last Name: <input type="text" ng-model="create_last_name" /><br>
+                        Gender: <select ng-model="create_gender" ng-init="create_gender='male'">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select><br>
+                        Address: <input type="text" ng-model="create_user_location" /><br>
+                        Phone: <input type="text" ng-model="create_mobile" /><br>
+                        <br>
+                        <button type="submit">Save</button>
+                    </form>
+                </div>
             </div>
         </div>
             {{--<select id="business-dropdown" class="form-control" ng-model="business_id" ng-change="getBusinessFeatures(business_id)">--}}

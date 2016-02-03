@@ -834,19 +834,14 @@ button#sendreply {
     outline:none;
 }
 
-.search-business input, .search-business button {
+.search-business input, .search-business button,
+.search-user input, .search-user button{
     width: 100%;
 }
 
-.user-container{
-    display: none;
-}
-
-.biz-specific{
-    display: none;
-}
-
 .biz-service-form, .biz-status-form,
-.biz-settings-form{
+.biz-settings-form, .cus-main-form,
+.cus-create-form, .biz-specific,
+.user-container {
     display:none;
 }
