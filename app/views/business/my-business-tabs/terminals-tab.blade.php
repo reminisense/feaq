@@ -32,7 +32,7 @@
 
 <div class="clearfix header">
     <h5 class="clearfix">SERVICES MANAGEMENT
-        <button type="submit" class="pull-right btn btn-lg btn-orange" id="" ng-click="service_create = true" ng-show="terminals.length < 3" title="Add a Service"><span class="glyphicon glyphicon-plus"></span></button>
+        <button type="submit" class="pull-right btn btn-lg btn-orange" id="" ng-click="service_create = true" ng-show="services.length < business_features.max_services" title="Add a Service"><span class="glyphicon glyphicon-plus"></span></button>
     </h5>
 </div>
 
@@ -123,7 +123,7 @@
         </td>
     </tr>
     <!-- -->
-    <tr ng-if="terminals.length < 3">
+    <tr ng-if="service.terminals.length < business_features.max_terminals">
         <td width="25%" colspan="2"></td>
         <td width="35%">
             <div class="block mt10 mb10">
