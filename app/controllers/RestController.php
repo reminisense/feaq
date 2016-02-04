@@ -607,6 +607,47 @@ class RestController extends BaseController {
     }
 
     /**
+     * @param $facebook_id
+     * @return JSON-formatted response of the business name, estimated time, people-in-queue and next number available .
+     */
+    public function getBusinessServiceDetails2($facebook_id)
+    {
+        try {
+            $user_id = User::getUserIdByFbId($facebook_id);
+        } catch (Exception $e) {
+            $user_id = null;
+        }
+
+        if ($user_id) {
+
+            $business_id = UserBusiness::getBusinessIdByOwner($user_id);
+            $business_name = Business::name($business_id);
+            $estimated_time = Analytics::getWaitingTime($business_id);
+
+            // $services
+            $services = Service::getServicesByBusinessId($business_id);
+            foreach($services as $service) {
+                $service_id = $service->service_id;
+                $rqc =  Analytics::getServiceRemainingCount($service_id);
+                $nam = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
+                $service['people_in_queue'] = $rqc;
+                $service['next_available_number'] = $nam;
+            }
+
+            $details = [
+                'business_id' => $business_id,
+                'business_name' => $business_name,
+                'estimated_time' => $estimated_time,
+                'services' => $services
+            ];
+
+            return Response::json($details, 200, array(), JSON_PRETTY_PRINT);
+        } else {
+            return json_encode(['error' => 'Something went wrong!']);
+        }
+    }
+
+    /**
      * @param $service_id
      * @param $name
      * @param $phone
