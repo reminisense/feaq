@@ -35,9 +35,11 @@ app.controller('emailAuthController', function($scope, $http){
             $http.post('/user/email-registration', {email: $scope.email, password: $scope.password, password_confirm: $scope.password_confirm}).success(function(response) {
                 if(response.message != undefined){
                     $scope.success_message = response.message;
+                    $scope.error_message = '';
                 }else if(response.redirect != undefined){
                     window.location.href = response.redirect;
                 }else if(response.error != undefined){
+                    $scope.success_message = '';
                     $scope.error_message = response.error;
                 }
             });
