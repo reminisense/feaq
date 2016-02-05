@@ -239,6 +239,10 @@ class UserController extends BaseController{
                 return json_encode(['error' => "Passwords do not match."]);
             }
 
+            if(User::where('email', '=', $email)->first()){
+                return json_encode(['error' => "Email already exists."]);
+            }
+
             $user = [
                 'first_name' => '',
                 'last_name' => '',
@@ -250,9 +254,9 @@ class UserController extends BaseController{
             User::insert($user);
             try{
                 Notifier::sendConfirmationEmail($email);
-                return json_encode(['success' => 1, 'redirect' => '/user/login']);
+                return json_encode(['success' => 1, 'redirect' => '/user/login', 'message' => 'Your account has been created please check your email to confirm your registration.']);
             }catch(Exception $e){
-                return json_encode(['success' => 1, 'redirect' => '/user/email-verify/' . $email]);
+                return json_encode(['success' => 1, 'redirect' => '/user/verify-email/' . $email]);
             }
         }else{
             return json_encode(['error' => "There are missing parameters."]);

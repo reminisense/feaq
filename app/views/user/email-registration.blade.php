@@ -83,7 +83,7 @@
                             </div>
                         </form>
                         <div class="alert alert-danger" ng-show="error_message != ''">@{{ error_message  }}</div>
-
+                        <div class="alert alert-success" ng-show="success_message != ''">@{{ success_message  }}</div>
                     </div>
 
                     <div class=" text-center col-md-12" ng-controller="fbController">
