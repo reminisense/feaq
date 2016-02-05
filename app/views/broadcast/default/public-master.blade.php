@@ -59,7 +59,7 @@
             @endif
             <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
               <img alt="Android app on Google Play"
-              src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png" height="40"/>
+              src="/images/homepage/btn-download-app.png" height="40"/>
             </a>
         </div>
         <div id="navbar" class="hidden-xs hidden hidden-sm hidden-md navbar-collapse collapse">
@@ -72,7 +72,7 @@
                 <li class="hidden-md hidden-sm hidden-xs btn-gplay">
                     <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
                       <img alt="Android app on Google Play"
-                      src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png" height="50"/>
+                      src="/images/homepage/btn-download-app.png" height="50"/>
                     </a>
                 </li>
             </ul>
@@ -90,7 +90,7 @@
         @include('broadcast.default.public-' . $broadcast_type)
         <div class="publiclogin ng-scope hidden-lg hidden-md visible-sm visible-xs text-center" ng-controller="fbController">
             <a class="btn-play" style="margin-right:5px;" href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
-                <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png">
+                <img alt="Android app on Google Play" src="/images/homepage/btn-download-app.png">
             </a>
             @if (!Auth::check())
                 <a href="" class="btn btn-fb" role="button" ng-click="login()"><span class="fa fa-facebook"></span> Login with Facebook</a>
