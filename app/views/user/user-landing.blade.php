@@ -78,9 +78,11 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#" ng-click="login()" id="nav-fb" style="display:none">Login with Facebook <span class="sr-only">(current)</span></a></li>
+                {{--<li><a href="#" ng-click="login()" id="nav-fb" style="display:none">Login with Facebook <span class="sr-only">(current)</span></a></li>--}}
+
                 <li><a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" target="_blank">Download the App</a></li>
                 <li><a href="/business">FeatherQ for Business</a></li>
+                <li id="login"><a href="/user/login">Login</a></li>
             </ul>
         </div>
     </div>
@@ -93,9 +95,8 @@
             <h2 class="sub-heading">Use FeatherQ's mobile application to join lines from anywhere, using your mobile device.</h2>
             <div class="cta">
                 <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" target="_blank"><img alt="Android app on Google Play" src="/images/homepage/btn-download-app.png"></a>
-                <a href="#" ng-click="login()" class="btn btn-blue"><img src="/images/homepage/landing/fb.png">LOGIN WITH FACEBOOK</a>
+                <a href="/user/register" class="btn btn-blue">SIGN UP FOR FREE!</a>
             </div>
-
         </div>
     </div>
 </section>
