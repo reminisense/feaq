@@ -116,7 +116,7 @@
     <a href="#" ng-click="login()" class="btn btn-blue"><img src="/images/homepage/landing/fb.png">LOGIN WITH FACEBOOK</a>
 </div>--}}
 
-@include('modals.homepage.fb-loader')
+@include('modals.homepage.fq-loader')
 
 <script src="/js/bootstrap.min.js"></script>
 </body>

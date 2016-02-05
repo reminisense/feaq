@@ -92,7 +92,7 @@
 
 
 
-        @include('modals.homepage.fb-loader')
+        @include('modals.homepage.fq-loader')
 
         <script src="/js/bootstrap.min.js"></script>
     </body>
