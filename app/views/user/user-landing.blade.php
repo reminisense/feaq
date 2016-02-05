@@ -94,10 +94,9 @@
             <h1>Don't Waste Your Life &mdash; Waiting</h1>
             <h2 class="sub-heading">Use FeatherQ's mobile application to join lines from anywhere, using your mobile device.</h2>
             <div class="cta">
-                <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" target="_blank"><img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png"></a>
-                <a href="/user/signup" class="btn btn-blue">SIGN UP FOR FREE!</a>
+                <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" target="_blank"><img alt="Android app on Google Play" src="/images/homepage/btn-download-app.png"></a>
+                <a href="/user/register" class="btn btn-blue">SIGN UP FOR FREE!</a>
             </div>
-
         </div>
     </div>
 </section>
@@ -284,7 +283,7 @@
             <p>FeatherQ helps people line up and reduce the hassle of waiting. All you need to start queuing is a Facebook account and an internet connection.</p>
             <p>Get started now. Download the app  and login using your Facebook account and discover a better way to wait.</p>
             <div class="cta">
-                <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" target="_blank"><img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png"></a>
+                <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" target="_blank"><img alt="Android app on Google Play" src="/images/homepage/btn-download-app.png"></a>
                 <a href="#" ng-click="login()" class="btn btn-blue"><img src="/images/homepage/landing/fb.png">LOGIN WITH FACEBOOK</a>
             </div>
             <p class="black">Looking to manage your own line?<p>

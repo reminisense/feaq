@@ -17,14 +17,14 @@ app.controller('emailAuthController', function($scope, $http){
     }
 
     $scope.login = function(){
-        $('#FBLoaderModal').modal('show');
+        $('#FQLoaderModal').modal('show');
         $http.post('/user/email-login', {email: $scope.email, password: $scope.password}).success(function(response){
             if(response.redirect != undefined){
                 window.location.href = response.redirect;
             }else if(response.error != undefined){
-                $('#FBLoaderModal').modal('hide');
                 $scope.error_message = response.error;
             }
+            $('#FQLoaderModal').modal('hide');
         });
     }
 
@@ -32,6 +32,7 @@ app.controller('emailAuthController', function($scope, $http){
         if($scope.password != $scope.password_confirm){
             $scope.error_message = "Passwords do not match."
         }else{
+            $('#FQLoaderModal').modal('show');
             $http.post('/user/email-registration', {email: $scope.email, password: $scope.password, password_confirm: $scope.password_confirm}).success(function(response) {
                 if(response.message != undefined){
                     $scope.success_message = response.message;
@@ -42,6 +43,7 @@ app.controller('emailAuthController', function($scope, $http){
                     $scope.success_message = '';
                     $scope.error_message = response.error;
                 }
+                $('#FQLoaderModal').modal('hide');
             });
         }
     }
