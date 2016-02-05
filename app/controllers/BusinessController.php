@@ -228,7 +228,7 @@ class BusinessController extends BaseController{
      */
     public function postEditBusiness(){
         $business_data = Input::all();
-      if (Helper::isBusinessOwner($business_data['business_id'], Helper::userId()) || Admin::isAdmin(Auth::user()->user_id)) { // PAG added permission checking
+      if (Helper::isBusinessOwner($business_data['business_id'], Helper::userId())) { // PAG added permission checking
         $business = Business::find($business_data['business_id']);
 
         if ($this->validateBusinessNameBusinessAddress($business, $business_data)) {
@@ -249,7 +249,6 @@ class BusinessController extends BaseController{
           $business->close_ampm = $time_close_arr['ampm'];
 
           $business->queue_limit = $business_data['queue_limit']; /* RDH Added queue_limit to Edit Business Page */
-          $business->business_features = serialize($business_data['business_features']);
 
           $business->save();
 
@@ -359,7 +358,7 @@ class BusinessController extends BaseController{
 
 
     public function getBusinessdetails($business_id){
-      if (Helper::isBusinessOwner($business_id, Helper::userId()) || Admin::isAdmin(Auth::user()->user_id)) { // PAG added permission checking
+      if (Helper::isBusinessOwner($business_id, Helper::userId())) { // PAG added permission checking
         $business = Business::getBusinessDetails($business_id);
         return json_encode(['success' => 1, 'business' => $business]);
       }

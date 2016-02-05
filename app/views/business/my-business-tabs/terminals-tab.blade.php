@@ -1,24 +1,58 @@
 <div class="clearfix header">
-    <h5 class="clearfix">SERVICES
-        <button type="submit" class="pull-right btn btn-lg btn-orange" id="" ng-click="service_create = true" ng-show="terminals.length < 3" ><span class="glyphicon glyphicon-plus"></span> Add a Service</button>
+    <h5 class="clearfix">STAFF MANAGEMENT</h5>
+</div>
+
+<!-- Start new services form -->
+<div class="col-md-12">
+    <form ng-submit="emailSearch(search_user, selected_terminal)">
+        <div class="col-md-2">
+            Assign to terminal :
+        </div>
+        <div class="col-md-2">
+            <select class="form-control" ng-model="selected_service" title="Select Service">
+                <option>SELECT SERVICE</option>
+                <option ng-repeat="service in services" value="@{{ $index }}">@{{ service.name }}</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select class="form-control" ng-model="selected_terminal" title="Select Terminal">
+                <option>SELECT TERMINAL</option>
+                <option ng-repeat="terminal in services[selected_service].terminals" value="@{{ terminal.terminal_id }}">@{{ terminal.name }}</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <input type="email" class="form-control" placeholder="Email" ng-model="search_user" title="Staff Email"/>
+        </div>
+        <div class="col-md-1">
+            <button type="submit" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-ok"></span> Assign</button>
+        </div>
+    </form>
+</div>
+<!-- end new services form -->
+
+<div class="clearfix header">
+    <h5 class="clearfix">SERVICES MANAGEMENT
+        <button type="submit" class="pull-right btn btn-lg btn-orange" id="" ng-click="service_create = true" ng-show="services.length < business_features.max_services" title="Add a Service"><span class="glyphicon glyphicon-plus"></span></button>
     </h5>
 </div>
-<form></form> <!-- ARA I just placed this because if not placed other form elements below will not be rendered -->
+
 <div class="alert alert-danger" id="service-error" ng-show="service_error"> @{{ service_error }}</div>
 <form id="create-service" ng-submit="createService(new_service_name)">
     <table class="table table-hover table-spaces table-responsive" ng-show="service_create">
         <thead>
         <tr>
-            <th>Add a New Service</th>
-            <th><input type="text" ng-model="new_service_name" placeholder="e.g. Cashier" class="form-control nomg white"/></th>
-            <th>
-                <button type="submit" class="edit-terminal-button btn-boxy btn-primary"  ><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
+            <th width="5%"></th>
+            <th width="20%">Add a new Service</th>
+            <th width="35%">
+                <div class="col-md-9">
+                    <input type="text" ng-model="new_service_name" placeholder="e.g. Cashier" class="form-control nomg white"/>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn-boxy btn-removeuser btn-danger" ng-click="service_create = false" title="Cancel"><span class="glyphicon glyphicon-remove"></span></button>
+                    <button type="submit" class="edit-terminal-button btn-boxy btn-success" title="Save"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+                </div>
             </th>
-            <th class="text-right">
-                <a href="" class="btn-boxy btn-removeuser btn-default" ng-click="service_create = false">
-                    <span class="glyphicon glyphicon-remove"></span> Cancel
-                </a>
-            </th>
+            <th width="40%" class="text-right"></th>
         </tr>
         </thead>
     </table>
@@ -34,14 +68,12 @@
             </form>
         </th>
         <th>
-            <a href="" ng-hide="service.edit_service" ng-click="service.edit_service = !service.edit_service" class="edit-terminal-button btn-boxy btn-primary"  ><span class="glyphicon glyphicon-pencil"></span> Edit</a>
-            <a href="" ng-show="service.edit_service" ng-click="service.edit_service = !service.edit_service" class="edit-terminal-button btn-boxy btn-default"  ><span class="glyphicon glyphicon-remove"></span> Cancel</a>
-            <a href="" ng-show="service.edit_service" ng-click="updateService(edit_service_name, service.service_id)" class="edit-terminal-button btn-boxy btn-primary"  ><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
+            <a href="" ng-show="service.edit_service" ng-click="service.edit_service = !service.edit_service" class="edit-terminal-button btn-boxy btn-default" title="Cancel" ><span class="glyphicon glyphicon-remove"></span></a>
+            <a href="" ng-show="service.edit_service" ng-click="updateService(edit_service_name, service.service_id)" class="edit-terminal-button btn-boxy btn-primary" title="Save" ><span class="glyphicon glyphicon-floppy-disk"></span></a>
         </th>
         <th class="text-right">
-            <a href="" class="btn-boxy btn-removeuser btn-default" ng-click="removeService(service.service_id)">
-                <span class="glyphicon glyphicon-remove"></span> Remove Service
-            </a>
+            <a href="" ng-hide="service.edit_service" ng-click="service.edit_service = !service.edit_service" class="edit-terminal-button btn-boxy btn-primary"  title="Edit Service"><span class="glyphicon glyphicon-pencil"></span></a>
+            <a href="" class="btn-boxy btn-removeuser btn-danger" ng-click="removeService(service.service_id)" title="Remove Service"><span class="glyphicon glyphicon-trash"></span></a>
         </th>
     </tr>
     </thead>
@@ -49,126 +81,68 @@
     <tr ng-repeat="terminal in service.terminals">
         <td width="5%"></td>
         <td width="20%">
-            <div>Terminal @{{ $index + 1 }}</div>
+            <div class="mt10 mb10 block clearfix">Terminal @{{ $index + 1 }}</div>
         </td>
         <td width="35%">
-            <form ng-submit="updateTerminal($event, terminal.terminal_id)">
-                <span class="terminal-name-display" terminal_id="@{{ terminal.terminal_id }}" style="font-size: 14px; ">@{{ terminal.name }}</span>
-                <input type="text" class="form-control terminal-name-update terminal-update-field" terminal_id="@{{ terminal.terminal_id }}" value="@{{ terminal.name }}" style="display: none;">
-                <div class="mt10 mb10 block terminal-buttons">
-                    <a href="" ng-click="deleteTerminal($event, terminal.terminal_id)" class="delete-terminal-button btn-boxy btn-default" style="display:inline-block;"><span class="glyphicon glyphicon-trash"></span> Delete</a>
-                    <a href="" ng-click="editTerminal($event, terminal.terminal_id)" class="edit-terminal-button btn-boxy btn-primary" terminal_id="@{{ terminal.terminal_id }}" ><span class="glyphicon glyphicon-pencil"></span> Edit</a>
-                    <button ng-click="" type="submit" class="update-terminal-button btn-boxy btn-primary" terminal_id="@{{ terminal.terminal_id }}" style="display: none;"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
-                </div>
-                <div style="display: none; margin-top: 10px;" class="alert alert-danger terminal-error-message" terminal_id="@{{ terminal.terminal_id }}"></div>
-            </form>
-        </td>
-        <td width="40%">
-        <span ng-if="terminal.users.length != 0">
-            <span ng-repeat="user in terminal.users">
-                <div class="mt10 mb10 block clearfix">
-                    <div class="col-md-12">
-                        <a href="" class="btn-boxy btn-removeuser btn-default" ng-click="unassignFromTerminal(user.user_id, user.terminal_id)">
-                            <span class="glyphicon glyphicon-remove"></span> Remove
-                        </a>
-                        <span class="terminal_user" style="margin-left:10px;">@{{ user.first_name + ' ' + user.last_name }}</span>
+            <div class="mt10 mb10 block clearfix">
+                <form ng-submit="updateTerminal($event, terminal.terminal_id)">
+                    <div class="col-md-9" style="height: 25px;">
+                        <input type="text" class="form-control terminal-name-update terminal-update-field" terminal_id="@{{ terminal.terminal_id }}" value="@{{ terminal.name }}" style="display: none;">
+                        <span class="terminal-name-display" terminal_id="@{{ terminal.terminal_id }}" style="font-size: 14px;">@{{ terminal.name }}</span>
+                        <div style="display: none; margin-top: 10px;" class="alert alert-danger terminal-error-message" terminal_id="@{{ terminal.terminal_id }}"></div>
                     </div>
-                    {{--<div class="col-md-6">
-
-                    </div>--}}
-                </div>
-                <div class="mt10 block terminal-buttons clearfix">
-                    <div class="col-md-12">
-                        <span class="inline-btns" ng-if="terminal.users.length < business_features.terminal_users">
-                            <span ng-if="user.user_id == terminal.users[terminal.users.length - 1].user_id">
-                                <a href="" class="btn-boxy btn-adduser btn-primary"><span class="glyphicon glyphicon-plus"></span> Add User</a>
-                                <div class="mb10 mt10 inputuser" style="display: none">
-                                    <form ng-submit="emailSearch(search_user, terminal.terminal_id)">
-                                        <div class="col-md-12">
-                                            <input type="text" class="form-control" ng-model="search_user" placeholder="Facebook Email" ng-model-options="{debounce: 1000}">
-                                            <ul class="dropdown-menu" role="menu" ng-show="user_results.users.length > 0"  style="display: block;" outside-click="clearUserResults()">
-                                                <li ng-repeat="user in user_results.users" ng-click="emailSearch(user.email, terminal.terminal_id)">
-                                                    <a href="#">
-                                                        <strong>@{{ user.first_name + ' ' + user.last_name }}</strong><br>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <button type="button" class="btn-boxy btn-danger cancel-adduser"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-                                            <button type="submit" class="btn-boxy btn-cyan"><span class="glyphicon glyphicon-plus"></span> Add</button>
-                                        </div>
-                                    </form>
-                                    <div style="display: none; margin-top: 10px;" class="alert alert-danger add-user-error" terminal_id="@{{ terminal.terminal_id }}"> User does not exist in FeatherQ. </div>
-                                </div>
-                            </span>
-                        </span>
-                        <span class="inline-btns" ng-if="terminal.users.length == business_features.terminal_users">
-                            <span ng-if="user.user_id == terminal.users[terminal.users.length - 1].user_id">
-                                <a class="btn-boxy btn-xs btn-disabled"><span class="glyphicon glyphicon-plus"></span> Add User</a>
-                            </span>
-                        </span>
-                    </div>
-                </div>
-            </span>
-        </span>
-        <span ng-if="terminal.users.length == 0">
-            <div class="mb10 mt10 block col-md-12">
-                <span ng-if="user.user_id == terminal.users[terminal.users.length - 1].user_id">
-                    <a href="" class="btn-boxy btn-xs btn-adduser btn-primary"><span class="glyphicon glyphicon-plus"></span> Add User</a>
-                    <div class="mb10 inputuser" style="display: none">
-                        <form ng-submit="emailSearch(search_user, terminal.terminal_id)">
-                            <div class="col-md-12">
-                                <input type="text" class="form-control" ng-model="search_user" placeholder="Facebook Email" ng-model-options="{debounce: 1000}">
-                                <ul class="dropdown-menu" role="menu" ng-show="user_results.users.length > 0"  style="display: block" outside-click="clearUserResults()">
-                                    <li ng-repeat="user in user_results.users" ng-click="emailSearch(user.email, terminal.terminal_id)">
-                                        <a href="#">
-                                            <strong>@{{ user.first_name + ' ' + user.last_name }}</strong><br>
-                                            <span>@{{ user.email }}</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-md-12">
-                                <button type="button" class="btn-boxy btn-danger cancel-adduser"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-                                <button type="submit" class="btn-boxy btn-cyan"><span class="glyphicon glyphicon-plus"></span> Add</button>
-                            </div>
-                        </form>
-                        <div style="display: none; margin-top: 10px;" class="alert alert-danger add-user-error" terminal_id="@{{ terminal.terminal_id }}"> User does not exist in FeatherQ. </div>
-                    </div>
-                </span>
-            </div>
-        </span>
-        </td>
-    </tr>
-    <!-- -->
-    <tr ng-if="terminals.length < 3">
-        <td>
-            <div></div>
-        </td>
-        <td>
-            <div class="block mt10 mb10">
-                <a href="" id="" class="btn-boxy btn-xs btn-orange btn-addterminal"><span class="glyphicon glyphicon-plus"></span> Add Terminal</a>
-                <form class="inputterminal-form" ng-submit="createTerminal(service.service_id)" style="display: none">
-                    <div class="inputterminal">
-                        <div class="">
-                            <input type="text" class="form-control" ng-model="add_terminal.terminal_name" placeholder="Terminal Name">
-                        </div>
-                        <div class="">
-                            <button type="button" class="btn-boxy btn-xs btn-primary cancel-add-terminal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-                            <button class="btn-boxy btn-xs btn-cyan" type="submit"><span class="glyphicon glyphicon-plus"></span> Add</button>
-                        </div>
-                        <div style="display: none; margin-top: 10px;" class="alert alert-danger terminal-error-msg"></div>
+                    <div class="col-md-3">
+                        <button type="button" ng-click="deleteTerminal($event, terminal.terminal_id)" class="delete-terminal-button btn-boxy btn-danger" style="display:inline-block;" title="Delete Terminal">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                        <button type="button" ng-click="editTerminal($event, terminal.terminal_id)" class="edit-terminal-button btn-boxy btn-primary" terminal_id="@{{ terminal.terminal_id }}" title="Edit Terminal">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                        <button type="submit" class="update-terminal-button btn-boxy btn-success" terminal_id="@{{ terminal.terminal_id }}" style="display: none;" title="Save">
+                            <span class="glyphicon glyphicon-floppy-disk"></span>
+                        </button>
                     </div>
                 </form>
             </div>
         </td>
-        <td>
-            <div class="block mb10">
-                <!-- button here -->
+        <td width="40%">
+            <div class="col-md-12" ng-if="terminal.users.length != 0">
+                <div ng-repeat="user in terminal.users">
+                    <div class="mt10 mb10 block clearfix">
+                        <div class="col-md-12">
+                            <div class="col-md-11">
+                                <span class="terminal_user" style="margin-left:10px;">@{{ user.first_name + ' ' + user.last_name }}</span>
+                            </div>
+                            <div class="col-md-1 text-right">
+                                <a href="" class="btn-boxy btn-removeuser btn-danger" ng-click="unassignFromTerminal(user.user_id, user.terminal_id)"><span class="glyphicon glyphicon-trash"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </td>
-        <td></td>
+    </tr>
+    <!-- -->
+    <tr ng-if="service.terminals.length < business_features.max_terminals">
+        <td width="25%" colspan="2"></td>
+        <td width="35%">
+            <div class="block mt10 mb10">
+                <a href="" id="" class="btn-boxy btn-xs btn-orange btn-addterminal"><span class="glyphicon glyphicon-plus"></span> Add Terminal</a>
+                <form class="inputterminal-form" ng-submit="createTerminal(service.service_id)" style="display: none">
+                    <div class="inputterminal">
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" ng-model="add_terminal.terminal_name" placeholder="Terminal Name">
+                            <div style="display: none; margin-top: 10px;" class="alert alert-danger terminal-error-msg"></div>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="button" class="btn-boxy btn-xs btn-danger cancel-add-terminal" title="Cancel"><span class="glyphicon glyphicon-remove"></span></button>
+                            <button type="submit" class="btn-boxy btn-xs btn-success" title="Add"><span class="glyphicon glyphicon-plus"></span></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </td>
+        <td width="40%"></td>
     </tr>
     </tbody>
 </table>

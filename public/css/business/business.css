@@ -823,3 +823,54 @@ button#sendreply {
 }
 #create-service thead th {  background-color: #daebf2!important; padding: 14px 8px!important; vertical-align: middle;}
 .form-control.white {background-color: #fff;}
+
+.general-container{
+    text-align: center;
+}
+
+/*#user-settings, #business-settings{*/
+    /*background:none;*/
+    /*border:none;*/
+    /*outline:none;*/
+/*}*/
+
+.search-business input, .search-business button,
+.search-user input, .search-user button{
+    width: 100%;
+}
+
+.biz-service-form, .biz-status-form,
+.biz-settings-form, .cus-main-form,
+.cus-create-form, .biz-specific,
+.user-container {
+    display:none;
+}
+.admin-tabs li {
+    display: block;
+    float: none;
+}
+.admin-tabs li a {
+    border-radius: 0px;
+    margin: 0px;
+}
+.admin-tabs li:first-child a {
+    margin-left: 2px;
+}
+.admin-tabs li a:hover {
+    background-color: #495361;
+}
+#admin-cont-wrap {
+    padding: 20px 15px;
+    background-color: #dee2e3;
+}
+#admin-cont-wrap .general-container .form-control {width: inherit;}
+#admin-cont-wrap .business-container, #admin-cont-wrap .user-container {background-color: #fff; padding: 15px;}
+#admin-cont-wrap .alert {border: none;}
+#admin-cont-wrap .search-business, #admin-cont-wrap .search-user {padding-top: 10px; padding-bottom: 10px;}
+#admin-cont-wrap .search-business .form-control {width: 70%; display: inline-block;}
+#admin-cont-wrap .search-business button {width: 26%;}
+#admin-cont-wrap .biz-name {color: #555;}
+#admin-cont-wrap .table-form td {padding-bottom: 0px;}
+#admin-cont-wrap .table-form .status h5 {display: inline-block; margin-right: 20px;}
+#admin-list {background-color: #eee;}
+#admin-list tr:hover {background-color: #ddd!important;}

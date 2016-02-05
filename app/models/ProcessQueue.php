@@ -205,6 +205,7 @@ class ProcessQueue extends Eloquent{
                     $timebound_numbers[] = array(
                         'transaction_number' => $number->transaction_number,
                         'priority_number' => $number->priority_number,
+                        'service_id' => $service_id,
                         'service_name' => $service_name,
                         'name' => $number->name,
                         'phone' => $number->phone,
@@ -214,6 +215,7 @@ class ProcessQueue extends Eloquent{
                     $uncalled_numbers[] = array(
                         'transaction_number' => $number->transaction_number,
                         'priority_number' => $number->priority_number,
+                        'service_id' => $service_id,
                         'service_name' => $service_name,
                         'name' => $number->name,
                         'phone' => $number->phone,
@@ -223,6 +225,7 @@ class ProcessQueue extends Eloquent{
                     $uncalled_numbers[] = array(
                         'transaction_number' => $number->transaction_number,
                         'priority_number' => $number->priority_number,
+                        'service_id' => $service_id,
                         'service_name' => $service_name,
                         'name' => $number->name,
                         'phone' => $number->phone,
@@ -235,6 +238,7 @@ class ProcessQueue extends Eloquent{
                         'confirmation_code' => $number->confirmation_code,
                         'terminal_id' => $number->terminal_id,
                         'terminal_name' => $terminal_name,
+                        'service_id' => $service_id,
                         'service_name' => $service_name,
                         'time_called' => $number->time_called,
                         'name' => $number->name,
@@ -249,6 +253,7 @@ class ProcessQueue extends Eloquent{
                         'confirmation_code' => $number->confirmation_code,
                         'terminal_id' => $number->terminal_id,
                         'terminal_name' => $terminal_name,
+                        'service_id' => $service_id,
                         'service_name' => $service_name,
                         'time_processed' => $number->time_removed,
                         'status' => 'Dropped',
@@ -260,6 +265,7 @@ class ProcessQueue extends Eloquent{
                         'confirmation_code' => $number->confirmation_code,
                         'terminal_id' => $number->terminal_id,
                         'terminal_name' => $terminal_name,
+                        'service_id' => $service_id,
                         'service_name' => $service_name,
                         'time_processed' => $number->time_removed,
                         'status' => 'Removed',
@@ -271,6 +277,7 @@ class ProcessQueue extends Eloquent{
                         'confirmation_code' => $number->confirmation_code,
                         'terminal_id' => $number->terminal_id,
                         'terminal_name' => $terminal_name,
+                        'service_id' => $service_id,
                         'service_name' => $service_name,
                         'time_processed' => $number->time_completed,
                         'status' => 'Served',
@@ -447,5 +454,24 @@ class ProcessQueue extends Eloquent{
             File::put($file_path, json_encode($boxes, JSON_PRETTY_PRINT));
         }
         //return $all_numbers;
+    }
+
+    public static function businessAllNumbers($business_id){
+        $services = Service::getServicesByBusinessId($business_id);
+        $all_numbers = [];
+        foreach($services as $service){
+            $service_numbers = ProcessQueue::allNumbers($service->service_id);
+            if($all_numbers){
+                $all_numbers->called_numbers = array_merge($all_numbers->called_numbers, $service_numbers->called_numbers);
+                $all_numbers->uncalled_numbers = array_merge($all_numbers->uncalled_numbers, $service_numbers->uncalled_numbers);
+                $all_numbers->processed_numbers = array_merge($all_numbers->processed_numbers, $service_numbers->processed_numbers);
+                $all_numbers->timebound_numbers = array_merge($all_numbers->timebound_numbers, $service_numbers->timebound_numbers);
+
+                usort($all_numbers->called_numbers, array('ProcessQueue', 'sortCalledNumbers'));
+            }else{
+                $all_numbers = $service_numbers;
+            }
+        }
+        return $all_numbers;
     }
 }

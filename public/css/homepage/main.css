@@ -538,6 +538,26 @@ ul.nav li a.fadeout {
     -ms-border-radius: 5px!important;
     border-radius: 5px!important;
 }
+#navbar .nav li#login {
+    border: 1px solid #fe9636;
+    border-radius: 5px;
+    margin-left: 15px;
+}
+#navbar .nav li#login a {
+    color: #fe9636;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+.navbar-nav>li>a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+#navbar .nav li#login:hover {
+    background-color: #fe9636;
+}
+#navbar .nav li#login:hover a {
+    color: #fff;
+}
 
 @media only screen and (max-width: 1200px) {
   ul.nav {

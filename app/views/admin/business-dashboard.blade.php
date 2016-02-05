@@ -21,24 +21,25 @@
                 });
             };
             $scope.manageBusiness = function(business_id) {
-                $http.get('/business/businessdetails/' + business_id).success(function(response) {
+                $http.get('/admin/business-details/' + business_id).success(function(response) {
                     console.log(response);
-                    $scope.businessObj = response.business;
-                    $scope.edit_business_id = response.business.business_id;
-                    $scope.edit_name = response.business.business_name;
-                    $scope.edit_address = response.business.business_address;
-                    $scope.edit_industry = response.business.industry;
-                    $scope.edit_timezone = response.business.timezone;
-                    $scope.edit_time_open = response.business.time_open;
-                    $scope.edit_time_close = response.business.time_closed;
-                    $scope.package_type = response.business.business_features.package_type;
-                    $scope.max_services = response.business.business_features.max_services;
-                    $scope.max_terminals = response.business.business_features.max_terminals;
-                    $scope.enable_video_ads = response.business.business_features.enable_video_ads;
-                    $scope.upload_size_limit = response.business.business_features.upload_size_limit;
-                });
-                $http.get('/admin/vanity-url/'+business_id).success(function(response2) {
-                    $scope.vanity_url = response2.vanity_url;
+                    $scope.businessObj = response;
+                    $scope.edit_business_id = response.business_id;
+                    $scope.edit_name = response.business_name;
+                    $scope.edit_address = response.business_address;
+                    $scope.edit_industry = response.industry;
+                    $scope.edit_timezone = response.timezone;
+                    $scope.edit_time_open = response.time_open;
+                    $scope.edit_time_close = response.time_closed;
+                    $scope.services = response.services;
+                    $scope.vanity_url = response.vanity_url;
+                    $scope.package_type = response.business_features.package_type;
+                    $scope.max_services = response.business_features.max_services;
+                    $scope.max_terminals = response.business_features.max_terminals;
+                    $scope.enable_video_ads = response.business_features.enable_video_ads;
+                    $scope.upload_size_limit = response.business_features.upload_size_limit;
+                    $scope.business_owner = response.business_owner;
+                    $scope.business_email_address = response.email_address;
                 });
             }
             $scope.updateBusiness = function() {
@@ -50,21 +51,55 @@
                 data.time_open = $scope.edit_time_open;
                 data.time_close = $scope.edit_time_close;
                 data.timezone = $scope.edit_timezone;
+                data.vanity_url = $scope.vanity_url;
                 data.business_features.package_type = $scope.package_type;
                 data.business_features.max_services = $scope.max_services;
                 data.business_features.max_terminals = $scope.max_terminals;
                 data.business_features.enable_video_ads = $scope.enable_video_ads;
                 data.business_features.upload_size_limit = $scope.upload_size_limit;
-                $http.post('/business/edit-business', data).success(function(response) {
+                $http.post('/admin/update-business', data).success(function(response) {
                     console.log(response);
-                });
-                $http.post('/admin/save-vanity', {
-                    business_id: $scope.edit_business_id,
-                    vanity_url: $scope.vanity_url
-                }).success(function(response) {
-                    console.log(response);
+                    alert('updated');
                 });
             }
+
+            //Service functions
+            $scope.createService = function(name, business_id){;
+                if(name != '' && name != undefined) {
+                    alert("test");
+                    $http.post('/services', {name: name, business_id: business_id}).success(function (response) {
+                        $scope.getBusinessDetails();
+                        $scope.service_create = false;
+                        $scope.new_service_name = '';
+                        alert("success");
+                    });
+                }else{
+                    $scope.service_error = 'Service name is not valid.';
+                    eb.jquery_functions.clear_service_error_msg();
+                    alert("error");
+                }
+            }
+            $scope.updateService = function(name, service_id){
+                if(name != '' && name != undefined){
+                    $http.put('/services/' + service_id, {name: name}).success(function(response){
+                        $scope.getBusinessDetails();
+                        $scope.edit_service_name = '';
+                    });
+                }else{
+                    $scope.service_error = 'Service name is not valid.';
+                    eb.jquery_functions.clear_service_error_msg();
+                }
+            }
+            $scope.removeService = function(service_id){
+                var confirmDel = confirm("Are you sure you want to remove this service?");
+                if(confirmDel){
+                    alert(service_id);
+                    $http.delete('/services/' + service_id).success(function(response){
+                        $scope.getBusinessDetails();
+                    });
+                }
+            }
+
         });
     </script>
 </head>
@@ -92,12 +127,32 @@
                 Time Open: <input type="text" ng-model="edit_time_open" /><br>
                 Time Close: <input type="text" ng-model="edit_time_close" /><br>
                 <br>
+                <div>
+                    <div ng-repeat="service in services">
+                        <input type="text" value="@{{ service.name}}"><br>
+                        <button ng-click="updateService(edit_service_name, service.id)">Edit Service</button>
+                        <button ng-click="removeService(service.service_id)">Delete Service</button>
+                        <div ng-repeat="terminal in service.terminals" style="padding-left: 100px;">
+                            <input type="text" value="@{{ terminal.name }}"><br>
+                            <button ng-click="">Edit Terminal</button>
+                            <button ng-click="">Delete Terminal</button>
+                            <button ng-show="service.terminals.length < 3">Add Terminal</button>
+                    </div>
+                    <div ng-show="service.terminals.length < 3">
+                        <input type="text" ng-model="name">
+                        <button ng-click="createService(name, edit_business_id)">Add Service</button>
+                    </div>
+                </div>
+
+                <br>
                 Contract: <select ng-model="package_type" ng-init="package_type">
                     <option value="Trial">Trial</option>
                     <option value="Basic">Basic</option>
                     <option value="Plus">Plus</option>
                     <option value="Pro">Pro</option>
-                </select><br>
+                </select>
+                Business Owner: <input type="text" ng-model="business_owner" /><br>
+                Emaill Address: <input type="text" ng-model="business_email_address1" /><br>
                 <br>
                 Max Services: <input type="text" ng-model="max_services" /><br>
                 Max Terminals: <input type="text" ng-model="max_terminals" /><br>

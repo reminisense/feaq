@@ -270,6 +270,7 @@ class Helper extends Eloquent
             'Europe/Bucharest' => "(GMT+02:00) Bucharest",
             'Africa/Cairo' => "(GMT+02:00) Cairo",
             'Africa/Harare' => "(GMT+02:00) Harare",
+            'Africa/Bujumbura' => "(GMT+02:00) Bujumbura",
             'Europe/Helsinki' => "(GMT+02:00) Helsinki",
             'Europe/Istanbul' => "(GMT+02:00) Istanbul",
             'Asia/Jerusalem' => "(GMT+02:00) Jerusalem",
@@ -400,6 +401,21 @@ class Helper extends Eloquent
     public static function isNotAnOwner($user_id)
     {
         return !UserBusiness::getBusinessIdByOwner($user_id);
+    }
+
+    public static function assignedToBusiness()
+    {
+        $businesses = UserBusiness::getAllBusinessIdByOwner(Helper::userId());
+        $terminals = TerminalUser::getTerminalAssignement(Helper::userId());
+
+//        var_dump($businesses->toArray());
+//        var_dump($terminals);
+//        dd($businesses || $terminals);
+
+        return (count($businesses) || count($terminals));
+    }
+    public static function threadKeyGenerator($business_id, $email) {
+        return md5($business_id . 'fq' . $email);
     }
 
 }
