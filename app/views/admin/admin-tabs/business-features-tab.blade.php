@@ -22,7 +22,7 @@
                 </div>
                 <div class="biz-results clearfix">
                     <div class="col-md-12 mt10">
-                        <table class="table table-striped ">
+                        <table class="table table-striped table-results">
                             <tr ng-repeat="business in businesses">
                                 <td width="80%"><h4 class="biz-name"><strong>@{{ business.business_name }}</strong></h4></td>
                                 <td width="20%">
