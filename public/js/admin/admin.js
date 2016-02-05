@@ -342,6 +342,7 @@ app.controller('adminController', function($scope, $http){
                 });
             }
         });
+        $('.biz-results').show();
         $('.biz-specific').hide();
     };
 
@@ -368,7 +369,7 @@ app.controller('adminController', function($scope, $http){
             $scope.business_email_address = response.email_address;
         });
 
-        $('.biz-results > div').empty();
+        $('.biz-results').hide();
         $('.biz-specific').show();
     }
 
