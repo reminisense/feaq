@@ -885,3 +885,10 @@ button#sendreply {
     padding-bottom: 14px;
     text-transform: uppercase;
 }
+.table-inputnotblock .form-control {
+    display: inline-block;
+    width: inherit;
+}
+.table-inputnotblock .pb10 {
+    padding-bottom: 15px!important;
+}

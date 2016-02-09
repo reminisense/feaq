@@ -96,24 +96,42 @@
                         </div>
                         <div class="col-md-12">
                             <div class="biz-service-form">
-                                <div ng-repeat="service in services" class="mt10">
-                                    <input id="service-input@{{ $index }}" type="text" value="@{{service.name}}"><br>
-                                    <button ng-click="updateService($index,service.service_id)">Edit Service</button>
-                                    <button ng-click="removeService(service.service_id)">Delete Service</button>
-                                    <div ng-repeat="terminal in service.terminals" style="padding-left: 100px;" class="mt10">
-                                        <input type="text" value="@{{ terminal.name }}"><br>
-                                        <button ng-click="">Edit Terminal</button>
-                                        <button ng-click="">Delete Terminal</button>
-                                    </div>
-                                    <div class="mt20" ng-show="terminals.length < max_terminals">
-                                        <input type="text" ng-model="name">
-                                        <button ng-click=""> Add Terminal</button>
-                                    </div>
-                                </div>
-                                <div class="mt20" ng-show="terminals.length < max_services">
-                                    <input type="text" ng-model="name">
-                                    <button ng-click="createService(name, edit_business_id)">Add Service</button>
-                                </div>
+                                <table class="table table-form table-spaces table-hover table-responsive table-inputnotblock">
+                                    <tr  ng-repeat="service in services">
+                                        <th>
+                                                <input style="width: 100%" class="form-control" id="service-input@{{ $index }}" type="text" value="@{{service.name}}">
+                                                <div ng-repeat="terminal in service.terminals" style="padding-left: 100px;" class="mt10">
+                                                    <input class="form-control" type="text" value="@{{ terminal.name }}">
+                                                    <button class="btn-boxy btn-primary" ng-click=""> <span class="glyphicon glyphicon-pencil"></span> Edit</button>
+                                                    <button class="btn-boxy btn-danger" ng-click=""> <span class="glyphicon glyphicon-trash"></span> Delete</button>
+                                                </div>
+                                                <div style="padding-left: 100px;" class="mt10" ng-show="terminals.length < max_terminals">
+                                                    <input class="form-control" type="text" ng-model="name">
+                                                    <button class="btn btn-orange" ng-click=""> New Terminal</button>
+                                                </div>
+                                        </th>
+                                        <th>
+                                                <button class="btn-boxy btn-primary" ng-click="updateService($index,service.service_id)"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
+                                                <button class="btn-boxy btn-danger" ng-click="removeService(service.service_id)"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+                                        </th>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr ng-show="terminals.length < max_services" style="background-color: #eee;">
+                                        <td class="pb10">
+                                            <input style="width: 100%" class="form-control" type="text" ng-model="name">
+                                        </td>
+                                        <td class="text-right">
+                                            <button class="btn btn-orange btn-lg" ng-click="createService(name, edit_business_id)">Add Service</button>
+                                        </td>
+                                    </tr>
+                                </table>
+
+
                             </div>
                         </div>
                     </div>
