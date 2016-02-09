@@ -104,7 +104,10 @@
                                         <input type="text" value="@{{ terminal.name }}"><br>
                                         <button ng-click="">Edit Terminal</button>
                                         <button ng-click="">Delete Terminal</button>
-                                        <button ng-click="" ng-show="terminals.length < max_terminals"> Add Terminal</button>
+                                    </div>
+                                    <div class="mt20" ng-show="terminals.length < max_terminals">
+                                        <input type="text" ng-model="name">
+                                        <button ng-click=""> Add Terminal</button>
                                     </div>
                                 </div>
                                 <div class="mt20" ng-show="terminals.length < max_services">
