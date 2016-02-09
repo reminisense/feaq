@@ -24,22 +24,27 @@
                     <div class="col-md-offset-3 col-md-6 text-center" ng-controller="emailAuthController">
                         <div class="clearfix col-md-12">
                             <div>
-                                @if($error)
+                                @if(isset($error))
                                 <div>
                                     <div class="alert alert-warning"> {{ $error  }}</div>
-                                </div>@endif
+                                </div>
+                                @endif
+                                @if(isset($success))
+                                <div>
+                                    <div class="alert alert-success"> {{ $success  }}</div>
+                                </div>
+                                @endif
                             </div>
                         </div>
 
 
                         <form id="login" class="col-md-12" method="post" action="{{url('/user/password-reset')}}">
                             <input type="hidden" name="user_id" value="{{ $user_id }}"/>
-
                             <div class="clearfix">
                                 <label>Password</label>
                                 <div class="rel">
                                     <i class="abs glyphicon glyphicon-lock"></i>
-                                    <input class="abs form-control" type="password" name="password_confirm" />
+                                    <input class="abs form-control" type="password" name="password" />
                                 </div>
                             </div>
 

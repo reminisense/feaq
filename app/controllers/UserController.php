@@ -362,6 +362,7 @@ class UserController extends BaseController{
         $password = Input::get('password');
         $password_confirm = Input::get('password_confirm');
         $error = '';
+        $success = '';
 
         if($password == ''){
             $error = 'Passwords should not be empty.';
@@ -372,6 +373,7 @@ class UserController extends BaseController{
             if($user){
                 $user->password = Hash::make($password);
                 $user->save();
+                $success = 'Password has been reset. Login <a href="/user/login">here</a>';
             }else{
                 $error = 'User not found.';
             }
@@ -381,6 +383,10 @@ class UserController extends BaseController{
             return View::make('user.password-reset')
                 ->with('user_id', $user_id)
                 ->with('error', $error);
+        }else if($success){
+            return View::make('user.password-reset')
+                ->with('user_id', $user_id)
+                ->with('success', $success);
         }else{
             return Redirect::to('/user/login');
         }
