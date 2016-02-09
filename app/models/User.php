@@ -254,4 +254,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
         return $results;
     }
+
+    public static function getUserIdByEmail($email) {
+        return User::where('email', '=', $email)->select(array('user_id'))->first()->user_id;
+    }
 }

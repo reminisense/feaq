@@ -5,6 +5,27 @@
     <script src="/js/angular.min.js"></script>
     <script>
         var app = angular.module('FeatherQ', []);
+        app.controller('createBusinessCtrl', function($scope, $http) {
+            $scope.createBusiness = function() {
+                $http.post('/admin/create-business', {
+                    business_name: $scope.business_name,
+                    business_address: $scope.address,
+                    industry: $scope.industry,
+                    time_open: $scope.time_open,
+                    time_close: $scope.time_close,
+                    email: $scope.email,
+                    timezone: $scope.timezone,
+                }).success(function(response) {
+                   if (response.success == 1) {
+                       alert('business created');
+                       $('.create-fields').val('');
+                   }
+                   else{
+                       alert(response.error);
+                   }
+                });
+            }
+        });
         app.controller('searchBusinessCtrl', function($scope, $http) {
             $scope.searchBusiness = function() {
                 $scope.businesses = new Array();
@@ -136,7 +157,7 @@
                             <input type="text" value="@{{ terminal.name }}"><br>
                             <button ng-click="">Edit Terminal</button>
                             <button ng-click="">Delete Terminal</button>
-                            <button ng-show="service.terminals.length < 3">Add Terminal</button>
+                            <button ng-show="service.terminals.length < 3">Add Terminal</button></div>
                     </div>
                     <div ng-show="service.terminals.length < 3">
                         <input type="text" ng-model="name">
@@ -167,6 +188,21 @@
                 <button type="submit">Save</button>
             </form>
         </div>
+    </div>
+    <br><br>
+    CREATE BUSINESS
+    <div ng-controller="createBusinessCtrl">
+        <form ng-submit="createBusiness()">
+            Business Owner (email): <input type="text" ng-model="email" required="true" class="create-fields"/><br>
+            Business Name: <input type="text" ng-model="business_name" required="true" class="create-fields"/><br>
+            Address: <input type="text" ng-model="address" id="create_address" required="true" class="create-fields"/><br>
+            Industry: <input type="text" ng-model="industry" required="true" class="create-fields"/><br>
+            Timezone: <input type="text" ng-model="timezone" required="true" class="create-fields"/><br>
+            Time Open: <input type="text" ng-model="time_open" required="true" class="create-fields"/><br>
+            Time Close: <input type="text" ng-model="time_close" required="true" class="create-fields"/><br>
+            <br>
+            <button type="submit">Save</button>
+        </form>
     </div>
 </body>
 </html>
