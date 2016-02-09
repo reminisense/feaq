@@ -874,3 +874,14 @@ button#sendreply {
 #admin-cont-wrap .table-form .status h5 {display: inline-block; margin-right: 20px;}
 #admin-list {background-color: #eee;}
 #admin-list tr:hover {background-color: #ddd!important;}
+.biz-main a,
+.biz-service a,
+.biz-status a,
+.biz-settings a {
+    width: 100%;
+    background-color: #333a44!important;
+    text-align: left;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    text-transform: uppercase;
+}

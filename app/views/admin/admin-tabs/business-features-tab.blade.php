@@ -36,78 +36,175 @@
                 </div>
                 <div class="biz-specific mt20">
                     <div class="biz-main">
-                        <h4> > Details</h4>
-                        <div class="biz-main-form">
-                            <form ng-submit="updateBusiness()">
-                                <input type="hidden" ng-model="edit_business_id" value="@{{ edit_business_id }}">
-                                Business Name: <input type="text" ng-model="edit_name" /><br>
-                                Address: <input type="text" ng-model="edit_address" /><br>
-                                Industry: <input type="text" ng-model="edit_industry" /><br>
-                                Timezone: <input type="text" ng-model="edit_timezone" /><br>
-                                Time Open: <input type="text" ng-model="edit_time_open" /><br>
-                                Time Close: <input type="text" ng-model="edit_time_close" /><br>
-                                <br>
-                                <div></div>
-                                <button type="submit">Update Information</button>
-                            </form>
+                        <div class="col-md-12 mt20">
+                            <a class="btn btn-gray btn-lg" href=""><span class="glyphicon glyphicon-chevron-right"></span> Details</a>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="biz-main-form clearfix">
+                                <form ng-submit="updateBusiness()">
+                                    <input class="form-control" type="hidden" ng-model="edit_business_id" value="@{{ edit_business_id }}">
+                                    <table class="table table-form">
+                                        <tr>
+                                            <td>
+                                                <label>Business Name:</label>
+                                                <input class="form-control" type="text" ng-model="edit_name" />
+                                            </td>
+                                            <td>
+                                                <label>Address:</label>
+                                                <input class="form-control" type="text" ng-model="edit_address" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label>Industry:</label>
+                                                <input class="form-control" type="text" ng-model="edit_name" />
+                                            </td>
+                                            <td>
+                                                <label>Industry:</label>
+                                                <input class="form-control" type="text" ng-model="edit_industry" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label>Timezone:</label>
+                                                <input class="form-control" type="text" ng-model="edit_timezone" /><br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label>Time Open:</label>
+                                                <input class="form-control" type="text" ng-model="edit_time_open" />
+                                            </td>
+                                            <td>
+                                                <label>Time Close:</label>
+                                                <input class="form-control" type="text" ng-model="edit_time_close" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" class="text-right">
+                                                <button class="btn btn-orange btn-lg" type="submit">Update Information</button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </form>
+                            </div>
                         </div>
                     </div>
                     <div class="biz-service">
-                        <h4> > Services</h4>
-                        <div class="biz-service-form">
-                            <div ng-repeat="service in services" class="mt10">
-                                <input id="service-input@{{ $index }}" type="text" value="@{{service.name}}"><br>
-                                <button ng-click="updateService($index,service.service_id)">Edit Service</button>
-                                <button ng-click="removeService(service.service_id)">Delete Service</button>
-                                <div ng-repeat="terminal in service.terminals" style="padding-left: 100px;" class="mt10">
-                                    <input type="text" value="@{{ terminal.name }}"><br>
-                                    <button ng-click="">Edit Terminal</button>
-                                    <button ng-click="">Delete Terminal</button>
-                                    <button ng-click="" ng-show="terminals.length < max_terminals"> Add Terminal</button>
+                        <div class="col-md-12">
+                            <a class="btn btn-gray btn-lg" href=""><span class="glyphicon glyphicon-chevron-right"></span> Services</a>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="biz-service-form">
+                                <div ng-repeat="service in services" class="mt10">
+                                    <input id="service-input@{{ $index }}" type="text" value="@{{service.name}}"><br>
+                                    <button ng-click="updateService($index,service.service_id)">Edit Service</button>
+                                    <button ng-click="removeService(service.service_id)">Delete Service</button>
+                                    <div ng-repeat="terminal in service.terminals" style="padding-left: 100px;" class="mt10">
+                                        <input type="text" value="@{{ terminal.name }}"><br>
+                                        <button ng-click="">Edit Terminal</button>
+                                        <button ng-click="">Delete Terminal</button>
+                                        <button ng-click="" ng-show="terminals.length < max_terminals"> Add Terminal</button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="mt20" ng-show="terminals.length < max_services">
-                                <input type="text" ng-model="name">
-                                <button ng-click="createService(name, edit_business_id)">Add Service</button>
+                                <div class="mt20" ng-show="terminals.length < max_services">
+                                    <input type="text" ng-model="name">
+                                    <button ng-click="createService(name, edit_business_id)">Add Service</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="biz-status">
-                        <h4> > Account Status</h4>
-                        <div class="biz-status-form">
-                            <form ng-submit="updateBusiness()">
-                                Contract: <select ng-model="package_type" ng-init="package_type">
-                                    <option value="Trial">Trial</option>
-                                    <option value="Basic">Basic</option>
-                                    <option value="Plus">Plus</option>
-                                    <option value="Pro">Pro</option>
-                                </select>
-                                Business Owner: <input type="text" ng-model="business_owner" readonly="readonly" /><br>
-                                Emaill Address: <input type="text" ng-model="business_email_address" readonly="readonly" /><br>
-                                <br>
-                                <button type="submit">Update Status</button>
-                            </form>
+                        <div class="col-md-12">
+                            <a class="btn btn-gray btn-lg" href=""><span class="glyphicon glyphicon-chevron-right"></span> Account Status</a>
                         </div>
+                        <div class="col-md-12">
+                            <div class="biz-status-form mt20">
+                                <form ng-submit="updateBusiness()">
+                                    <table class="table table-form">
+                                        <tr>
+                                            <td>
+                                                <label>Contract:</label>
+                                                <select class="form-control" ng-model="package_type" ng-init="package_type">
+                                                                                    <option value="Trial">Trial</option>
+                                                                                    <option value="Basic">Basic</option>
+                                                                                    <option value="Plus">Plus</option>
+                                                                                    <option value="Pro">Pro</option>
+                                                                                </select>
+                                            </td>
+                                            <td>
+                                                <label>Business Owner:</label>
+                                                <input class="form-control" type="text" ng-model="business_owner" readonly="readonly" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label>Emaill Address:</label>
+                                                <input class="form-control" type="text" ng-model="business_email_address" readonly="readonly" />
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" class="text-right">
+                                                <button class="btn btn-lg btn-orange" type="submit">Update Status</button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </form>
+                            </div>
+                         </div>
                     </div>
                     <div class="biz-settings">
-                        <h4> > Settings</h4>
-                        <div class="biz-settings-form">
-                            <form ng-submit="updateBusiness()">
-                                Max Services: <input type="text" ng-model="max_services" /><br>
-                                Max Terminals: <input type="text" ng-model="max_terminals" /><br>
-                                <br>
-                                Vanity URL: <input type="text" ng-model="vanity_url" /><br>
-                                <br>
-                                {{--Enable Video Ads? <label><input type="radio" name="video_ads" ng-model="enable_video_ads" value="1">Yes</label> <label><input type="radio" name="video_ads" ng-model="enable_video_ads" value="0">No</label><br>--}}
-                                {{--<br>--}}
-                                {{--Video Ad Limits:<br>--}}
-                                {{--Upload limit: <input type="text" ng-model="upload_size_limit" /> MB<br>--}}
-                                {{--<br>--}}
-                                <button type="submit">Update Settings</button>
-                            </form>
+                        <div class="col-md-12">
+                            <a class="btn btn-gray btn-lg" href=""><span class="glyphicon glyphicon-chevron-right"></span> Settings</a>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="biz-settings-form mt20">
+                                <form ng-submit="updateBusiness()">
+                                    <table class="table table-form">
+                                        <tr>
+                                            <td>
+                                                <label>Max Services: </label>
+                                                <input class="form-control" type="text" ng-model="max_services" /><br>
+                                            </td>
+                                            <td>
+                                                <label>Max Terminals:</label>
+                                                <input class="form-control" type="text" ng-model="max_terminals" /><br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label>Vanity URL:</label>
+                                                <input class="form-control" type="text" ng-model="vanity_url" /><br>
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" class="text-right">
+                                                <button class="btn btn-lg btn-orange" type="submit">Update Settings</button>
+                                            </td>
+                                        </tr>
+
+
+
+                                    {{--Enable Video Ads? <label><input type="radio" name="video_ads" ng-model="enable_video_ads" value="1">Yes</label> <label><input type="radio" name="video_ads" ng-model="enable_video_ads" value="0">No</label><br>--}}
+                                    {{--<br>--}}
+                                    {{--Video Ad Limits:<br>--}}
+                                    {{--Upload limit: <input type="text" ng-model="upload_size_limit" /> MB<br>--}}
+                                    {{--<br>--}}
+
+                                    </table>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
+                    
+                    
+                    
+                
             </div>
             <div class=" user-container clearfix">
                 <div class="search-user clearfix">

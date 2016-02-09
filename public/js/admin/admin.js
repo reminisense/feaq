@@ -507,7 +507,7 @@ app.controller('adminController', function($scope, $http){
         $(".cus-main-form").hide();
     });
 
-    $(".biz-main > h4").click(function() {
+    $(".biz-main a").click(function() {
         if ($('.biz-main-form').is(':visible')){
             $(".biz-main-form").slideUp("slow");
         } else {
@@ -515,7 +515,7 @@ app.controller('adminController', function($scope, $http){
         }
     });
 
-    $(".biz-service > h4").click(function() {
+    $(".biz-service a").click(function() {
         if ($('.biz-service-form').is(':visible')){
             $(".biz-service-form").slideUp("slow");
         } else {
@@ -523,7 +523,7 @@ app.controller('adminController', function($scope, $http){
         }
     });
 
-    $(".biz-status > h4").click(function() {
+    $(".biz-status a").click(function() {
         if ($('.biz-status-form').is(':visible')){
             $(".biz-status-form").slideUp("slow");
         } else {
@@ -531,7 +531,7 @@ app.controller('adminController', function($scope, $http){
         }
     });
 
-    $(".biz-settings > h4").click(function() {
+    $(".biz-settings a").click(function() {
         if ($('.biz-settings-form').is(':visible')){
             $(".biz-settings-form").slideUp("slow");
         } else {
