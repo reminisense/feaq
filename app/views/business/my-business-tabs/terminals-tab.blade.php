@@ -9,6 +9,9 @@
             Assign to terminal :
         </div>
         <div class="col-md-2">
+            <input type="email" class="form-control" placeholder="Email" ng-model="search_user" title="Staff Email"/>
+        </div>
+        <div class="col-md-2">
             <select class="form-control" ng-model="selected_service" title="Select Service">
                 <option>SELECT SERVICE</option>
                 <option ng-repeat="service in services" value="@{{ $index }}">@{{ service.name }}</option>
@@ -19,9 +22,6 @@
                 <option>SELECT TERMINAL</option>
                 <option ng-repeat="terminal in services[selected_service].terminals" value="@{{ terminal.terminal_id }}">@{{ terminal.name }}</option>
             </select>
-        </div>
-        <div class="col-md-2">
-            <input type="email" class="form-control" placeholder="Email" ng-model="search_user" title="Staff Email"/>
         </div>
         <div class="col-md-1">
             <button type="submit" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-ok"></span> Assign</button>
@@ -109,12 +109,15 @@
             <div class="col-md-12" ng-if="terminal.users.length != 0">
                 <div ng-repeat="user in terminal.users">
                     <div class="mt10 mb10 block clearfix">
-                        <div class="col-md-12">
-                            <div class="col-md-11">
-                                <span class="terminal_user" style="margin-left:10px;">@{{ user.first_name + ' ' + user.last_name }}</span>
-                            </div>
-                            <div class="col-md-1 text-right">
-                                <a href="" class="btn-boxy btn-removeuser btn-danger" ng-click="unassignFromTerminal(user.user_id, user.terminal_id)"><span class="glyphicon glyphicon-trash"></span></a>
+                        <div class="col-md-12 panel panel-default">
+                            <div class="panel-body">
+                                <div class="col-md-11">
+                                    <span class="glyphicon glyphicon-user"></span>
+                                    <span class="terminal_user" style="margin-left:10px;">@{{ user.first_name + ' ' + user.last_name }}</span>
+                                </div>
+                                <div class="col-md-1 text-right">
+                                    <a href="" class="btn-boxy btn-removeuser btn-danger" ng-click="unassignFromTerminal(user.user_id, user.terminal_id)" title="Remove Terminal User"><span class="glyphicon glyphicon-remove"></span></a>
+                                </div>
                             </div>
                         </div>
                     </div>
