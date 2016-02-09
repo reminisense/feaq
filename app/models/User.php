@@ -75,10 +75,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
             User::insert($data);
             Notifier::sendSignupEmail($data['email'], $data['first_name'] . ' ' . $data['last_name']);
         }
+        Helper::dbLogger('User', 'user', 'insert', 'saveFBDetails', User::email($data['email']), 'fb_id:' . $data['fb_id']);
     }
 
     public static function updateContactCountry($fb_id, $contact, $country)
     {
+        Helper::dbLogger('User', 'user', 'update', 'updateContactCountry', $fb_id);
         return User::where('fb_id', '=', $fb_id)
             ->update(array(
                 'phone' => $contact,
@@ -161,6 +163,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
      * @description Update GCM Token
      */
     public static function updateGCMToken($fb_id, $gcm){
+        Helper::dbLogger('User', 'user', 'update', 'updateGCMToken', $fb_id, 'gcm_token:' . $gcm);
         return User::where('fb_id', '=', $fb_id)->update(array('gcm_token' => $gcm));
     }
 

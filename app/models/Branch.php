@@ -25,11 +25,12 @@ class Branch extends Eloquent{
      * @description: create new branch on business setup
      * @return branch_id
      */
-    public static function createBusinessBranch($business_id, $business_name){
+    public static function createBusinessBranch($business_id, $business_name, $user_id){
         $branch = new Branch();
         $branch->name = $business_name . " Branch";
         $branch->business_id = $business_id;
         $branch->save();
+        Helper::dbLogger('Branch', 'branch', 'insert', 'createBusinessBranch', User::email($user_id), 'branch_id:' . $branch->branch_id);
 
         return $branch->branch_id;
     }
@@ -43,7 +44,8 @@ class Branch extends Eloquent{
         return Branch::where('business_id', '=', $business_id)->get();
     }
 
-  public static function deleteBranchesByBusinessId($business_id){
+  public static function deleteBranchesByBusinessId($business_id, $user_id){
+      Helper::dbLogger('Branch', 'branch', 'insert', 'deleteBranchesByBusinessId', User::email($user_id), 'business_id:' . $business_id);
     return Branch::where('business_id', '=', $business_id)->delete();
   }
 

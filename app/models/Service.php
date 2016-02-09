@@ -29,13 +29,13 @@ class Service extends Eloquent{
      * @description: create new service
      * @return service_id
      */
-    public static function createService($branch_id, $name){
+    public static function createService($branch_id, $name, $user_id){
         $service = new Service();
         $service->name = $name;
         $service->status = 1;
         $service->branch_id = $branch_id;
         $service->save();
-
+        Helper::dbLogger('Service', 'service', 'insert', 'createService', User::email($user_id), 'service_id:' . $service->service_id . ', service_name:' . $name);
         return $service->service_id;
     }
 
@@ -88,7 +88,8 @@ class Service extends Eloquent{
         return Service::where('branch_id', '=', $branch_id)->get();
     }
 
-    public static function deleteServicesByBranchId($branch_id){
+    public static function deleteServicesByBranchId($branch_id, $user_id){
+        Helper::dbLogger('Service', 'service', 'delete', 'deleteServicesByBranchId', User::email($user_id), 'branch_id:' . $branch_id);
         return Service::where('branch_id', '=', $branch_id)->delete();
     }
 
@@ -101,16 +102,18 @@ class Service extends Eloquent{
         return Service::where('branch_id', '=', $branch_id)->first();
     }
 
-    public static function updateServiceName($service_id, $name){
+    public static function updateServiceName($service_id, $name, $user_id){
         Service::where('service_id', '=', $service_id)->update(['name' => $name]);
+        Helper::dbLogger('Service', 'service', 'update', 'updateServiceName', User::email($user_id), 'service_id:' . $service_id);
     }
 
-    public static function deleteService($service_id){
+    public static function deleteService($service_id, $user_id){
         $terminals = Terminal::getTerminalsByServiceId($service_id);
         foreach($terminals as $terminal){
             Terminal::deleteTerminal($terminal['terminal_id']);
         }
         Service::where('service_id', '=', $service_id)->delete();
+        Helper::dbLogger('Service', 'service', 'delete', 'deleteService', User::email($user_id), 'service_id:' . $service_id);
     }
 
 }
