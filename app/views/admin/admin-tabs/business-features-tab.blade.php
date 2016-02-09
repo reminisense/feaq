@@ -106,8 +106,8 @@
                                                     <button class="btn-boxy btn-danger" ng-click=""> <span class="glyphicon glyphicon-trash"></span> Delete</button>
                                                 </div>
                                                 <div style="padding-left: 100px;" class="mt10" ng-show="terminals.length < max_terminals">
-                                                    <input class="form-control" type="text" ng-model="name">
-                                                    <button class="btn btn-orange" ng-click=""> New Terminal</button>
+                                                    <input class="form-control" type="text" ng-model="terminal_name">
+                                                    <button class="btn btn-orange" ng-click="createTerminal(terminal_name, service.service_id, edit_business_id)"> New Terminal</button>
                                                 </div>
                                         </th>
                                         <th>

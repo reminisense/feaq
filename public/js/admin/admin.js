@@ -429,6 +429,19 @@ app.controller('adminController', function($scope, $http){
         }
     }
 
+    $scope.createTerminal = function(terminal_name, service_id, business_id){
+        if (terminal_name !== "" & terminal_name != undefined){
+            $http.post('/terminal/create', {
+                business_id : business_id,
+                service_id: service_id,
+                name : terminal_name
+            }).success(function(response){
+                alert("success");
+            });
+        } else {
+            alert("error");
+        }
+    }
     $scope.getBusinessDetails = function(){
         if ( $scope.business_id > 0 ) {
             $http.get(eb.urls.business.business_details_url + $scope.business_id)
