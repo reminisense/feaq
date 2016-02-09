@@ -418,4 +418,11 @@ class Helper extends Eloquent
         return md5($business_id . 'fq' . $email);
     }
 
+    public static function generateAccessKey(){
+        return Hash::make('FeatherQ');
+    }
+
+    public static function checkAccessKey(){
+        return Hash::check('FeatherQ', Request::header('access_key'));
+    }
 }

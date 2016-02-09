@@ -210,4 +210,26 @@ class MobileController extends BaseController{
 
         return json_encode($data);
     }
+
+    /**
+     * to check for the correct access key, tue access_key variable should be placed in the request header
+     * and validated using the Helper::checkAccessKey() function.
+     */
+    public function postEmailLogin(){
+        $email = Input::get('email');
+        $password = Input::get('password');
+
+        if(isset($email) && $email != "" && isset($password) && $password != ""){
+            $user = User::where('email', '=', $email)->first();
+            if($user && !$user->verified){
+                return json_encode(['error' => 'Email verification required.']);
+            }else if($user && Hash::check($password, $user->password)){
+                return json_encode(['success' => 1, 'access_token' => Helper::generateAccessKey()]);
+            }else{
+                return json_encode(['error' => 'The email or password is incorrect.']);
+            }
+        }else{
+            return json_encode(['error' => 'The email or password should not be blank.']);
+        }
+    }
 }
