@@ -127,6 +127,7 @@ var pq = {
                 $('#priority-number-email').html(email);
                 $('#priority-number-modal').attr('data-transaction-number', transaction_number);
 
+                $('#priority-number-modal .modal-body ul .details a').trigger('click');
             });
 
             $('body').on('click', '.show-messages', function(e){

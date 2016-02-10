@@ -39,24 +39,26 @@ class IssueNumberController extends BaseController{
         $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
         $queue_platform = $priority_number == $next_number || $priority_number == null ? $queue_platform : 'specific';
 
-        $thread_key = Helper::threadKeyGenerator($business_id, $email);
-        if (!Message::checkThreadByKey($thread_key)) {
-            Message::createThread(array(
-                'contactname' => Input::get('name'),
-                'business_id' => $business_id,
-                'email' => Input::get('email'),
-                'thread_key' => $thread_key,
-                'phone' => Input::get('phone')
-            ));
-            $data = json_encode(array(
-                array(
-                    'timestamp' => time(),
-                    'contmessage' => 'Thank you for lining up!',
-                    'attachment' => '',
-                    'sender' => 'business',
-                )
-            ));
-            file_put_contents(public_path() . '/json/messages/' . $thread_key . '.json', $data);
+        if($email != ''){
+            $thread_key = Helper::threadKeyGenerator($business_id, $email);
+            if (!Message::checkThreadByKey($thread_key)) {
+                Message::createThread(array(
+                    'thread_key' => $thread_key,
+                    'business_id' => $business_id,
+                    'email' => $email,
+                    'contactname' => $name ? $name : '',
+                    'phone' => $phone ? $phone : ''
+                ));
+                $data = json_encode(array(
+                    array(
+                        'timestamp' => time(),
+                        'contmessage' => 'Thank you for lining up!',
+                        'attachment' => '',
+                        'sender' => 'business',
+                    )
+                ));
+                file_put_contents(public_path() . '/json/messages/' . $thread_key . '.json', $data);
+            }
         }
 
         //save
