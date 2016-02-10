@@ -229,20 +229,54 @@
                         </div>
                     </div>
                 </div>
-                <div class="biz-create">
-                    <form ng-submit="createBusiness()">
-                        Business Owner (email): <input type="text" ng-model="email" required="true" class="create-fields"/><br>
-                        Business Name: <input type="text" ng-model="new_business_name" required="true" class="create-fields"/><br>
-                        Address: <input type="text" ng-model="address" id="create_address" required="true" class="create-fields"/><br>
-                        Industry: <input type="text" ng-model="industry" required="true" class="create-fields"/><br>
-                        Timezone: <input type="text" ng-model="timezone" required="true" class="create-fields"/><br>
-                        Time Open: <input type="text" ng-model="time_open" required="true" class="create-fields"/><br>
-                        Time Close: <input type="text" ng-model="time_close" required="true" class="create-fields"/><br>
-                        <br>
-                        <button type="submit">Save</button>
-                    </form>
+                <div class="col-md-12">
+                    <div class="biz-create">
+                        <form ng-submit="createBusiness()">
+                            <table class="table table-responsive table-form">
+                                <tr>
+                                    <td>
+                                        <label>Business Owner (email):</label>
+                                        <input type="text" ng-model="email" required="true" class="form-control create-fields"/>
+                                    </td>
+                                    <td>
+                                        <label>Business Name:</label>
+                                        <input type="text" ng-model="new_business_name" required="true" class="form-control create-fields"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Address:</label>
+                                        <input type="text" ng-model="address" id="create_address" required="true" class="form-control create-fields"/>
+                                    </td>
+                                    <td>
+                                        <label>Industry:</label>
+                                         <input type="text" ng-model="industry" required="true" class="form-control create-fields"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Timezone:</label>
+                                        <input type="text" ng-model="timezone" required="true" class="form-control create-fields"/>
+                                    </td>
+                                    <td>
+                                        <label>Time Open: </label>
+                                        <input type="text" ng-model="time_open" required="true" class="form-control create-fields"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Time Close:</label>
+                                        <input type="text" ng-model="time_close" required="true" class="form-control create-fields"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <br>
+                                        <button class="btn btn-orange btn-lg" type="submit">Create Business</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
                 </div>
-
                 
             </div>
             <div class=" user-container clearfix">
