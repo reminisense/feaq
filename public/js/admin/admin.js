@@ -344,6 +344,7 @@ app.controller('adminController', function($scope, $http){
         });
         $('.biz-results').show();
         $('.biz-specific').hide();
+        $('.biz-create').hide();
     };
 
     $scope.manageBusiness = function(business_id) {
@@ -371,6 +372,7 @@ app.controller('adminController', function($scope, $http){
 
         $('.biz-results').hide();
         $('.biz-specific').show();
+        $('.biz-create').hide();
     }
 
     $scope.updateBusiness = function() {
@@ -537,6 +539,32 @@ app.controller('adminController', function($scope, $http){
         });
     }
 
+    $scope.createBusiness = function() {
+        $http.post('/admin/create-business', {
+            business_name: $scope.new_business_name,
+            business_address: $scope.address,
+            industry: $scope.industry,
+            time_open: $scope.time_open,
+            time_close: $scope.time_close,
+            email: $scope.email,
+            timezone: $scope.timezone,
+        }).success(function(response) {
+            if (response.success == 1) {
+                alert('business created');
+                $('.create-fields').val('');
+            }
+            else{
+                alert(response.error);
+            }
+        });
+    }
+
+
+    $(".create-business-button").click(function() {
+        $(".biz-create").show();
+        $(".biz-results").hide();
+        $(".biz-specific").hide();
+    });
 
     $(".search-user-button").click(function() {
          $(".cus-main-form").show();

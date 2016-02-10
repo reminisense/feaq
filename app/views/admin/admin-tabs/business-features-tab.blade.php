@@ -15,9 +15,16 @@
         <div class="col-md-12 mb20">
             <div class="business-container clearfix">
                 <div class="search-business col-md-12 clearfix ">
-                    <form ng-submit="searchBusiness()">
+                    <form>
+                        <div class="col-md-8">
                             <input class="form-control" type="text" ng-model="business_name" placeholder="Search for a business.."/>
-                            <button class="btn btn-primary btn-lg" type="submit">Search</button>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary btn-lg search-business-button" type="submit" ng-click="searchBusiness()">Search</button>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-cyan btn-lg create-business-button" type="submit" id="create-business"><span class="glyphicon glyphicon-plus"></span> Create</button>
+                        </div>
                     </form>
                 </div>
                 <div class="biz-results clearfix">
@@ -222,9 +229,20 @@
                         </div>
                     </div>
                 </div>
-                    
-                    
-                    
+                <div class="biz-create">
+                    <form ng-submit="createBusiness()">
+                        Business Owner (email): <input type="text" ng-model="email" required="true" class="create-fields"/><br>
+                        Business Name: <input type="text" ng-model="new_business_name" required="true" class="create-fields"/><br>
+                        Address: <input type="text" ng-model="address" id="create_address" required="true" class="create-fields"/><br>
+                        Industry: <input type="text" ng-model="industry" required="true" class="create-fields"/><br>
+                        Timezone: <input type="text" ng-model="timezone" required="true" class="create-fields"/><br>
+                        Time Open: <input type="text" ng-model="time_open" required="true" class="create-fields"/><br>
+                        Time Close: <input type="text" ng-model="time_close" required="true" class="create-fields"/><br>
+                        <br>
+                        <button type="submit">Save</button>
+                    </form>
+                </div>
+
                 
             </div>
             <div class=" user-container clearfix">
