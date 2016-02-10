@@ -206,7 +206,16 @@
                                                 <input class="form-control" type="text" ng-model="vanity_url" /><br>
                                             </td>
                                             <td>
-
+                                                <label>SMS Feature:</label><br>
+                                                <input class="text-center" type="radio" ng-model="allow_sms" value="false"/> No<br>
+                                                <input class="text-center" type="radio" ng-model="allow_sms" value="true"/> Yes
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label>Queue Forwarding:</label><br>
+                                                <input type="radio" ng-model="queue_forwarding" value="false"/> No <br>
+                                                <input type="radio" ng-model="queue_forwarding" value="true"/> Yes
                                             </td>
                                         </tr>
                                         <tr>

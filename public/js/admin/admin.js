@@ -367,6 +367,8 @@ app.controller('adminController', function($scope, $http){
             $scope.enable_video_ads = response.business_features.enable_video_ads;
             $scope.upload_size_limit = response.business_features.upload_size_limit;
             $scope.business_owner = response.business_owner;
+            $scope.allow_sms = response.business_features.allow_sms;
+            $scope.queue_forwarding = response.business_features.queue_forwarding;
             $scope.business_email_address = response.email_address;
         });
 
@@ -390,6 +392,8 @@ app.controller('adminController', function($scope, $http){
         data.business_features.max_terminals = $scope.max_terminals;
         data.business_features.enable_video_ads = $scope.enable_video_ads;
         data.business_features.upload_size_limit = $scope.upload_size_limit;
+        data.business_features.allow_sms = $scope.allow_sms;
+        data.business_features.queue_forwarding =  $scope.queue_forwarding;
         $http.post('/admin/update-business', data).success(function(response) {
             console.log(response);
             alert('updated');
