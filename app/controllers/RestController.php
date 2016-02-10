@@ -246,6 +246,7 @@ class RestController extends BaseController {
         unset($numbers['carousel_delay']);
         unset($numbers['adspace_size']);
         unset($numbers['numspace_size']);
+        unset($numbers['num_boxes']);
 
         foreach($numbers as $key => $box_data) {
             // generate object attribute
