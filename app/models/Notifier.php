@@ -15,10 +15,10 @@ class Notifier extends Eloquent{
         $queue_setting = QueueSettings::getServiceQueueSettings($service_id);
 
         if(isset($queue_setting->sms_current_number) && $queue_setting->sms_current_number) Notifier::sendNumberCalledToAllChannels($transaction_number);
-        if(isset($queue_setting->sms_1_ahead) && $queue_setting->sms_1_ahead) Notifier::sendNumberCalledToNextNumber($transaction_number, 1);
-        if(isset($queue_setting->sms_5_ahead) && $queue_setting->sms_5_ahead) Notifier::sendNumberCalledToNextNumber($transaction_number, 5);
-        if(isset($queue_setting->sms_10_ahead) && $queue_setting->sms_10_ahead) Notifier::sendNumberCalledToNextNumber($transaction_number, 10);
-        if(isset($queue_setting->sms_blank_ahead) && $queue_setting->sms_blank_ahead) Notifier::sendNumberCalledToNextNumber($transaction_number, $queue_setting->input_sms_field);
+        if(isset($queue_setting->sms_1_ahead) && $queue_setting->sms_1_ahead) Notifier::sendNumberCalledToNextNumber($transaction_number, 1, $service_id);
+        if(isset($queue_setting->sms_5_ahead) && $queue_setting->sms_5_ahead) Notifier::sendNumberCalledToNextNumber($transaction_number, 5, $service_id);
+        if(isset($queue_setting->sms_10_ahead) && $queue_setting->sms_10_ahead) Notifier::sendNumberCalledToNextNumber($transaction_number, 10, $service_id);
+        if(isset($queue_setting->sms_blank_ahead) && $queue_setting->sms_blank_ahead) Notifier::sendNumberCalledToNextNumber($transaction_number, $queue_setting->input_sms_field, $service_id);
     }
 
     public static function sendNumberCalledToAllChannels($transaction_number){
@@ -33,8 +33,13 @@ class Notifier extends Eloquent{
         Notifier::sendNumberNextAndroid($transaction_number, $diff);
     }
 
-    public static function sendNumberCalledToNextNumber($transaction_number, $diff){
-        $number = TerminalTransaction::where('transaction_number', '>=', $transaction_number)->skip($diff)->first();
+    public static function sendNumberCalledToNextNumber($transaction_number, $diff, $service_id){
+        $number = TerminalTransaction::join('priority_queue', 'terminal_transaction.transaction_number', '=', 'priority_queue.transaction_number')
+            ->join('priority_number', 'priority_number.track_id', '=', 'priority_queue.track_id')
+            ->where('terminal_transaction.transaction_number', '>=', $transaction_number)
+            ->where('priority_number.service_id', '=', $service_id)
+            ->skip($diff)
+            ->first();
         if($number){
             Notifier::sendNumberNextToAllChannels($number->transaction_number, $diff);
         }

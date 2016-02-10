@@ -34,9 +34,30 @@ class IssueNumberController extends BaseController{
         $email = Input::get('email');
         $time_assigned = Input::get('time_assigned') ? strtotime(Input::get('time_assigned')) : 0;
         $terminal_id = QueueSettings::terminalSpecificIssue($service_id) ? $terminal_id : 0;
+        $business_id = Business::getBusinessIdByServiceId($service_id);
 
         $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
         $queue_platform = $priority_number == $next_number || $priority_number == null ? $queue_platform : 'specific';
+
+        $thread_key = Helper::threadKeyGenerator($business_id, $email);
+        if (!Message::checkThreadByKey($thread_key)) {
+            Message::createThread(array(
+                'contactname' => Input::get('name'),
+                'business_id' => $business_id,
+                'email' => Input::get('email'),
+                'thread_key' => $thread_key,
+                'phone' => Input::get('phone')
+            ));
+            $data = json_encode(array(
+                array(
+                    'timestamp' => time(),
+                    'contmessage' => 'Thank you for lining up!',
+                    'attachment' => '',
+                    'sender' => 'business',
+                )
+            ));
+            file_put_contents(public_path() . '/json/messages/' . $thread_key . '.json', $data);
+        }
 
         //save
         if(($queue_platform == 'android' || $queue_platform == 'remote') && !QueueSettings::checkRemoteQueue($service_id)){
