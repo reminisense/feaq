@@ -145,15 +145,33 @@ class Analytics extends Eloquent{
         }
     }
 
+    public static function getAverageTimeCalledByServiceId($business_id, $format = 'string', $startdate, $enddate){
+        if($format === 'string'){
+            return Analytics::getAverageTimeFromActionByServiceId(0, 1, $business_id, $startdate, $enddate);
+        }else{
+            return Analytics::getAverageTimeValueFromActionByServiceId(0, 1, $business_id, $startdate, $enddate);
+        }
+    }
+
     //gets the string representation of the average time
     public static function getAverageTimeFromActionByBusinessId($action1, $action2, $business_id, $startdate, $enddate){
         return Helper::millisecondsToHMSFormat(Analytics::getAverageTimeValueFromActionByBusinessId($action1, $action2, $business_id, $startdate, $enddate));
+    }
+
+    public static function getAverageTimeFromActionByServiceId($action1, $action2, $service_id, $startdate, $enddate){
+        return Helper::millisecondsToHMSFormat(Analytics::getAverageTimeValueFromActionByServiceId($action1, $action2, $service_id, $startdate, $enddate));
     }
 
     //gets the numeric representation of the average time
     public static function getAverageTimeValueFromActionByBusinessId($action1, $action2, $business_id, $startdate, $enddate){
         $action1_numbers = Analytics::getQueueAnalyticsRows(['action' => ['=', $action1], 'business_id' => ['=', $business_id ], 'date' => ['>=', $startdate], 'date.' => ['<=', $enddate]]);
         $action2_numbers = Analytics::getQueueAnalyticsRows(['action' => ['=', $action2], 'business_id' => ['=', $business_id ], 'date' => ['>=', $startdate], 'date.' => ['<=', $enddate]]);
+        return Analytics::getAverageTimeFromActionArray($action1_numbers, $action2_numbers);
+    }
+
+    public static function getAverageTimeValueFromActionByServiceId($action1, $action2, $service_id, $startdate, $enddate){
+        $action1_numbers = Analytics::getQueueAnalyticsRows(['action' => ['=', $action1], 'service_id' => ['=', $service_id ], 'date' => ['>=', $startdate], 'date.' => ['<=', $enddate]]);
+        $action2_numbers = Analytics::getQueueAnalyticsRows(['action' => ['=', $action2], 'service_id' => ['=', $service_id ], 'date' => ['>=', $startdate], 'date.' => ['<=', $enddate]]);
         return Analytics::getAverageTimeFromActionArray($action1_numbers, $action2_numbers);
     }
 
@@ -181,12 +199,45 @@ class Analytics extends Eloquent{
      * ARA Computes for the time the next available number has to wait in order to be called
      * equation : time_to_be_called = average_calling_time x numbers_remaining_in_queue
      */
+    public static function getServiceWaitingTime($service_id){
+        $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+        $numbers_in_queue = Analytics::getServiceRemainingCount($service_id);
+        $average_waiting_time = Analytics::getAverageTimeCalledByServiceId($service_id, 'numeric', $date, $date);
+        return $average_waiting_time * $numbers_in_queue;
+    }
+
     public static function getWaitingTime($business_id){
         $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
         $numbers_in_queue = Analytics::getBusinessRemainingCount($business_id);
         $average_waiting_time = Analytics::getAverageTimeCalledByBusinessId($business_id, 'numeric', $date, $date);
         return $average_waiting_time * $numbers_in_queue;
     }
+
+    public static function getWaitingTimeByTransactionNumber($transaction_number){
+        $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+        $service_id = PriorityNumber::serviceId(PriorityQueue::trackId($transaction_number));
+        $numbers_ahead = Analytics::getNumbersAhead($transaction_number);
+        $average_waiting_time = Analytics::getAverageTimeCalledByServiceId($service_id, 'numeric', $date, $date);
+        return $average_waiting_time * $numbers_ahead;
+    }
+
+    public static function getNumbersAhead($transaction_number){
+        $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+        $service_id = PriorityNumber::serviceId(PriorityQueue::trackId($transaction_number));
+        $numbers_ahead = TerminalTransaction::join('priority_queue', 'priority_queue.transaction_number', '=', 'terminal_transaction.transaction_number')
+            ->join('priority_number', 'priority_number.track_id', '=', 'priority_queue.track_id')
+            ->where('priority_number.service_id', '=', $service_id)
+            ->where('priority_number.date', '=', $date)
+            ->where('terminal_transaction.transaction_number', '<', $transaction_number)
+            ->where('terminal_transaction.time_queued', '>', 0)
+            ->where('terminal_transaction.time_called', '=', 0)
+            ->where('terminal_transaction.time_completed', '=', 0)
+            ->where('terminal_transaction.time_removed', '=', 0)
+            ->select('terminal_transaction.transaction_number')
+            ->get();
+        return count($numbers_ahead);
+    }
+
 
     public static function getWaitingTimeString($business_id){
         $waiting_time = Analytics::getWaitingTime($business_id);

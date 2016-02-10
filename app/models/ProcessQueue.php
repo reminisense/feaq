@@ -178,16 +178,15 @@ class ProcessQueue extends Eloquent{
                 $timebound = ($number->time_assigned) != 0 && ($number->time_assigned <= time()) ? TRUE : FALSE;
 
 
-                $service_name = '';
-                $terminal_name = '';
-                if($number->terminal_id){
-                    try{
-                        $service_name = Service::name($service_id);
+                try{
+                    $service_name = Service::name($service_id);
+                    if($number->terminal_id){
                         $terminal = Terminal::findOrFail($number->terminal_id);
                         $terminal_name = $terminal->name;
-                    }catch(Exception $e){
-                        $terminal_name = '';
                     }
+                }catch(Exception $e){
+                    $service_name = '';
+                    $terminal_name = '';
                 }
 
                 if($number->queue_platform != 'specific'){
@@ -206,6 +205,8 @@ class ProcessQueue extends Eloquent{
                     $timebound_numbers[] = array(
                         'transaction_number' => $number->transaction_number,
                         'priority_number' => $number->priority_number,
+                        'service_id' => $service_id,
+                        'service_name' => $service_name,
                         'name' => $number->name,
                         'phone' => $number->phone,
                         'email' => $number->email,
@@ -214,6 +215,8 @@ class ProcessQueue extends Eloquent{
                     $uncalled_numbers[] = array(
                         'transaction_number' => $number->transaction_number,
                         'priority_number' => $number->priority_number,
+                        'service_id' => $service_id,
+                        'service_name' => $service_name,
                         'name' => $number->name,
                         'phone' => $number->phone,
                         'email' => $number->email,
@@ -222,6 +225,8 @@ class ProcessQueue extends Eloquent{
                     $uncalled_numbers[] = array(
                         'transaction_number' => $number->transaction_number,
                         'priority_number' => $number->priority_number,
+                        'service_id' => $service_id,
+                        'service_name' => $service_name,
                         'name' => $number->name,
                         'phone' => $number->phone,
                         'email' => $number->email,
@@ -233,6 +238,7 @@ class ProcessQueue extends Eloquent{
                         'confirmation_code' => $number->confirmation_code,
                         'terminal_id' => $number->terminal_id,
                         'terminal_name' => $terminal_name,
+                        'service_id' => $service_id,
                         'service_name' => $service_name,
                         'time_called' => $number->time_called,
                         'name' => $number->name,
@@ -247,6 +253,7 @@ class ProcessQueue extends Eloquent{
                         'confirmation_code' => $number->confirmation_code,
                         'terminal_id' => $number->terminal_id,
                         'terminal_name' => $terminal_name,
+                        'service_id' => $service_id,
                         'service_name' => $service_name,
                         'time_processed' => $number->time_removed,
                         'status' => 'Dropped',
@@ -258,6 +265,7 @@ class ProcessQueue extends Eloquent{
                         'confirmation_code' => $number->confirmation_code,
                         'terminal_id' => $number->terminal_id,
                         'terminal_name' => $terminal_name,
+                        'service_id' => $service_id,
                         'service_name' => $service_name,
                         'time_processed' => $number->time_removed,
                         'status' => 'Removed',
@@ -269,6 +277,7 @@ class ProcessQueue extends Eloquent{
                         'confirmation_code' => $number->confirmation_code,
                         'terminal_id' => $number->terminal_id,
                         'terminal_name' => $terminal_name,
+                        'service_id' => $service_id,
                         'service_name' => $service_name,
                         'time_processed' => $number->time_completed,
                         'status' => 'Served',
@@ -420,22 +429,49 @@ class ProcessQueue extends Eloquent{
             $box_count = 1;
             $existing = array();
             for($counter = 1; $box_count <= $max_count; $counter++){
-                $index = $counter - 1;
-                $number = isset($numbers[$index]['priority_number']) ? $numbers[$index]['priority_number'] : '';
-                if(!in_array($number, $existing) || $number == ''){ //check if same number already exists
-                    $existing[] = $number;
+                if($counter <= count($numbers)){
+                    $index = $counter - 1;
+                    $number = isset($numbers[$index]['priority_number']) ? $numbers[$index]['priority_number'] : '';
+                    if(!in_array($numbers[$index]['transaction_number'], $existing) || $number == ''){ //check if same number already exists
+                        $existing[] = $numbers[$index]['transaction_number'];
+                        $box = 'box'.$box_count;
+                        $boxes->$box->number = $number;
+                        $boxes->$box->service = isset($numbers[$index]['service_name']) ? $numbers[$index]['service_name'] : ''; //ARA Added service name for multiple services
+                        $boxes->$box->terminal = isset($numbers[$index]['terminal_name']) ? $numbers[$index]['terminal_name'] : '';
+                        $boxes->$box->rank = isset($numbers[$index]['box_rank']) ? $numbers[$index]['box_rank'] : ''; // Added by PAG
+                        $box_count++;
+                    }
+                }else{
                     $box = 'box'.$box_count;
-                    $boxes->$box->number = $number;
-                    $boxes->$box->service = isset($numbers[$index]['service_name']) ? $numbers[$index]['service_name'] : ''; //ARA Added service name for multiple services
-                    $boxes->$box->terminal = isset($numbers[$index]['terminal_name']) ? $numbers[$index]['terminal_name'] : '';
-                    $boxes->$box->rank = isset($numbers[$index]['box_rank']) ? $numbers[$index]['box_rank'] : ''; // Added by PAG
+                    $boxes->$box->number = '';
+                    $boxes->$box->service = ''; //ARA Added service name for multiple services
+                    $boxes->$box->terminal = '';
+                    $boxes->$box->rank = ''; // Added by PAG
                     $box_count++;
                 }
             }
             $boxes->get_num = $all_numbers->next_number;
-
             File::put($file_path, json_encode($boxes, JSON_PRETTY_PRINT));
         }
         //return $all_numbers;
+    }
+
+    public static function businessAllNumbers($business_id){
+        $services = Service::getServicesByBusinessId($business_id);
+        $all_numbers = [];
+        foreach($services as $service){
+            $service_numbers = ProcessQueue::allNumbers($service->service_id);
+            if($all_numbers){
+                $all_numbers->called_numbers = array_merge($all_numbers->called_numbers, $service_numbers->called_numbers);
+                $all_numbers->uncalled_numbers = array_merge($all_numbers->uncalled_numbers, $service_numbers->uncalled_numbers);
+                $all_numbers->processed_numbers = array_merge($all_numbers->processed_numbers, $service_numbers->processed_numbers);
+                $all_numbers->timebound_numbers = array_merge($all_numbers->timebound_numbers, $service_numbers->timebound_numbers);
+
+                usort($all_numbers->called_numbers, array('ProcessQueue', 'sortCalledNumbers'));
+            }else{
+                $all_numbers = $service_numbers;
+            }
+        }
+        return $all_numbers;
     }
 }

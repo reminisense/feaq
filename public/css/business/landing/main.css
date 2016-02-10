@@ -63,8 +63,9 @@ section {
     width: 100%;
 }
 .navbar-fixed-top.shrink .navbar-brand img {
-    width: 160px;
+    width: 160px!important;
     margin-top: 6px;
+
 }
 #banner {
   padding: 0px 0 0 0;

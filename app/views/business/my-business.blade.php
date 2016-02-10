@@ -115,21 +115,21 @@ My Business
         </div>
     </div>
     @else
-    <div class="row">
-        <div class="biz-details-wrap">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-4 col-md-offset-4 col-xs-12" data-toggle="modal" id="add_business">
-                        <a id="add-business" target="_blank"><span class="glyphicon glyphicon-plus"></span> Create Your First Business</a>
-                    </div>
-                </div>
-                <point-of-interest position="left" bottom="35" right="67" title="Create A Business" description="Click the link to create your very own business."></point-of-interest>
-            </div>
-        </div>
-    </div>
+    {{--<div class="row">--}}
+        {{--<div class="biz-details-wrap">--}}
+            {{--<div class="col-md-12">--}}
+                {{--<div class="row">--}}
+                    {{--<div class="col-md-4 col-md-offset-4 col-xs-12" data-toggle="modal" id="add_business">--}}
+                        {{--<a id="add-business" target="_blank"><span class="glyphicon glyphicon-plus"></span> Create Your First Business</a>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+                {{--<point-of-interest position="left" bottom="35" right="67" title="Create A Business" description="Click the link to create your very own business."></point-of-interest>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</div>--}}
     @endif
-    <div class="row assigned-business"> <!-- assigned business -->
     @if($assigned_businesses)
+    <div class="row assigned-business mt50"> <!-- assigned business -->
         <a name="assigned"></a>
         <div class="rounded-box" id="box-wrapper">
             <div id="biz-grid" class="clearfix">
@@ -155,8 +155,15 @@ My Business
                 @endforeach
             </div>
         </div>
-    @endif
     </div>
+    @endif
+    @if(!$assigned_to_business)
+        <div class="alert alert-danger mt50">
+            <p>
+                You neither a business owner or assigned to any business. For more information, please email us at <a href="mailto:contact@featherq.com">contact@featherq.com</a>
+            </p>
+        </div>
+    @endif
 </div>
 
 {{-- js variables used --}}
@@ -186,6 +193,6 @@ My Business
 <!-- queue settings-->
 <input type="hidden" id="queue-settings-get-url" value="{{ url('/queuesettings/allvalues/') }}">
 <input type="hidden" id="queue-settings-update-url" value="{{ url('/queuesettings/update/') }}">
-@include('modals.business.setup-business-modal')
+{{--@include('modals.business.setup-business-modal')--}}
 @include('modals.websockets.websocket-loader')
 @stop

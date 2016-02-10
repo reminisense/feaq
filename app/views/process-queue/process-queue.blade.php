@@ -18,19 +18,17 @@ Processs Queue > {{ $business_name }}
 <script src="/js/process-queue/process-queue.js"></script>
 <script src="/js/process-queue/process-queue-angular.js"></script>
 <script src="/js/process-queue/issue-number-angular.js"></script>
-{{--<script src="/js/process-queue/messages-angular.js"></script>--}}
+<script src="/js/process-queue/messages-angular.js"></script>
 <script src="/js/dashboard/dashboard.js"></script>
 
 <script src="/js/google-analytics/googleAnalytics.js"></script>
 <script src="/js/google-analytics/ga-process_queue.js"></script>
-{{-- ARA Removed for later use
 <script src="https://ucarecdn.com/widget/2.3.5/uploadcare/uploadcare.min.js" charset="utf-8"></script>
 <script>
     UPLOADCARE_LOCALE = "en";
     UPLOADCARE_TABS = "file";
     UPLOADCARE_PUBLIC_KEY = "844c2b9e554c2ee5cc0a";
 </script>
---}}
 <script src="/js/dashboard/dashboard.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.4/jstz.min.js"></script>
 @stop
@@ -55,7 +53,8 @@ Processs Queue > {{ $business_name }}
             </div>--}}
             <div class="col-md-offset-1 col-md-7 col-sm-8">
                 <p>Processing Queues for:</p>
-                <h2>{{ $business_name }} - {{ $terminal_name }}</h2>
+                <h2><strong>{{ $business_name }}</strong></h2>
+                <h3><strong>{{ $service_name }} - {{ $terminal_name }}</strong></h3>
             </div>
             <div class="col-md-3 col-sm-4 ">
                 {{--<a id="view-broadcast" target="_blank" href="{{ url('/broadcast/business/' . $business_id) }}">View Broadcast <br>Screen</a>--}}
@@ -132,7 +131,7 @@ Processs Queue > {{ $business_name }}
                             </div>
                             <point-of-interest position="left" bottom="85" right="100"  title="Issued Numbers" description="Look for the numbers you want to call in this drop-down list or type the number you want call when the list is empty."></point-of-interest>
                             <div class="col-md-1 col-sm-1 col-xs-3">
-                                <a href="#" id="btn-pmore" class="btn btn-md btn-primary" data-toggle="modal" data-target="#moreq" title="Issue a number.">+</a>
+                                <a id="btn-pmore" class="btn btn-md btn-primary" data-toggle="modal" data-target="#moreq" title="Issue a number.">+</a>
                             </div>
                             <point-of-interest position="right" bottom="85" right="25"  title="Issue Numbers" description="Click on the blue '+' (plus) button to issue more numbers."></point-of-interest>
                             <div class="col-md-3 col-sm-3 col-xs-12 text-right">
@@ -181,8 +180,8 @@ Processs Queue > {{ $business_name }}
                                     <input type="radio" name="rating" ng-model="temp_called_numbers[$index].rating" value="5"><i></i>
                                 </span>
                             </form>
-                            <a href="#" class="delete" ng-click="dropNumber(number.transaction_number)" ng-disabled="isProcessing"><span class="glyphicon glyphicon-trash"></span></a>
-                            <a href="#" class="btn btn-sm btn-default" ng-click="serveAndCallNext(number.transaction_number)" ng-disabled="isProcessing">Next <span class="glyphicon glyphicon-arrow-right"></span></a>
+                            <a class="delete" ng-click="dropNumber(number.transaction_number)" ng-disabled="isProcessing"><span class="glyphicon glyphicon-trash"></span></a>
+                            <a class="btn btn-sm btn-default" ng-click="serveAndCallNext(number.transaction_number)" ng-disabled="isProcessing">Next <span class="glyphicon glyphicon-arrow-right"></span></a>
                         </td>
                     </tr>
                     </tbody>

@@ -7,9 +7,15 @@ $('.detail-wrap').on('mouseleave', function(){
 
 $(window).scroll(function() {
     if ($(document).scrollTop() > 200) {
-        $('.nav li a').addClass('show');
+        $('.nav li a#nav-fb').addClass('show');
     } else {
-        $('.nav li a').removeClass('show');
+        $("#nav-fb").fadeOut("2000", function() {
+            $(this).removeClass("show");
+        });
+        /*$('.nav li a#nav-fb').removeClass('show');
+        $('.nav li a#nav-fb').fadeOut();
+        $('.nav li a.fadeout').removeClass('show');
+        return false;*/
     }
 });
 

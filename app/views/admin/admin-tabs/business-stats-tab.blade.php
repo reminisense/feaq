@@ -1,4 +1,4 @@
-<div class="container" id="date-container">
+<div class="" id="date-container">
     <div class="col-md-4"></div>
     <div class="col-md-6">
         <input type="text" id="start-date" name="start-date" class="datepicker"/><b>-</b>
@@ -6,8 +6,8 @@
     </div>
     <div class="col-md-2"></div>
 </div>
-<div class="container">
-<div class="col-md-4 table-container">
+<div class="">
+<div class="col-md-12 table-container">
     <table id="business-table" class="table-bordered table-responsive table">
         <tr>
             <th class="text-center" id="business-label" colspan="2">Business Numbers</th>
@@ -41,8 +41,8 @@
         <button class="btn btn-primary" id="btn-submit-numbers" ng-click="loadBusinessNumbers()">View Numbers</button>
     </div>
 </div>
-<div class="col-md-8 container">
-<div class="cold-md-12">
+<div class="col-md-12">
+
     <div>
         <div id="graphs-container">
             <ul id="graph-nav" class="nav nav-tabs">
@@ -71,7 +71,7 @@
             </div>
         </div>
     </div>
-</div>
+
 <div id="filter-container" class="col-md-4">
     <div id="filter-labels">
         <b>Sort By Business:</b>

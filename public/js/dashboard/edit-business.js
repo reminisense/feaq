@@ -30,7 +30,8 @@ $(document).ready(function(){
     });
 
     $('body').on('click', '.cancel-add-terminal', function(){
-        eb.jquery_functions.hide_add_terminal_form();
+        $(this).parents('.inputterminal-form').hide();
+        $(this).parents('.inputterminal-form').siblings('.btn-addterminal').show();
     });
 
     $('body').on('click', '.info-button', function(e){
@@ -38,9 +39,9 @@ $(document).ready(function(){
         var href = $(this).attr('href');
         $(href).toggleClass('hidden');
         if($(href).hasClass('hidden')){
-            $(this).html('More info...');
+            $(this).html('<span class="glyphicon glyphicon-info-sign"></span> More info...');
         }else{
-            $(this).html('Less info...');
+            $(this).html('<span class="glyphicon glyphicon-minus-sign"></span> Less info...');
         }
 
     })
@@ -235,8 +236,8 @@ var eb = {
 //        },
 
         hide_add_terminal_form : function(){
-            $('#inputterminal').hide();
-            $('#btn-addterminal').show();
+            $('.inputterminal-form').hide();
+            $('.btn-addterminal').show();
         },
 
         my_business_link_active : function(){
@@ -523,6 +524,7 @@ var eb = {
                     if(response.user){
                         $scope.assignToTerminal(response.user.user_id, terminal_id);
                         $scope.clearUserResults();
+                        $scope.search_user = '';
                     }else{
                         $('.add-user-error[terminal_id=' + terminal_id + ']').show();
                         setTimeout(function(){$('.add-user-error[terminal_id=' + terminal_id + ']').fadeOut('slow')}, 3000);

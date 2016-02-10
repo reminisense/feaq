@@ -1,6 +1,6 @@
 <!-- modal -->
 
-<div class="modal fade" id="priority-number-modal" tabindex="-1" data-transaction_number="">{{--<div class="modal fade" id="priority-number-modal" tabindex="-1" ng-controller="messageController">--}}
+<div class="modal fade" id="priority-number-modal" tabindex="-1" data-transaction_number="" ng-controller="messageController">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -12,7 +12,7 @@
             <div class="modal-body">
                 <ul id="pmore-tab" class="nav nav-tabs">
                     <li class="details active"><a href="#details" data-toggle="tab">DETAILS</a></li>
-                    {{-- ARA Save this for later <li class="messages"><a href="#messages" data-toggle="tab" ng-click="getMessages()">MESSAGES</a></li> --}}
+                    <li class="messages"><a href="#messages" data-toggle="tab" ng-click="getMessages()">MESSAGES</a></li>
                 </ul>
                 <div class="clearfix tab-content">
                     <div class="tab-pane fade active in" id="details">
@@ -33,9 +33,9 @@
                             <div class="col-md-6 col-xs-6"><h5 id="priority-number-email"></h5></div>
                         </div>
                         <div class="" id="allowed-businesses-area">
-                            <div class="col-md-6 col-xs-6"><h5>Forward to business: </h5></div>
+                            <div class="col-md-6 col-xs-6"><h5>Forward to: </h5></div>
                             <div class="col-md-4 col-xs-4"><select id="allowed-businesses"></select></div>
-                            <div class="col-md-1 col-xs-1"><button class="btn btn-primary" id="forward-btn">Forward</button></div>
+                            <div class="col-md-12 col-xs-12 text-right"><button class="btn btn-primary" id="forward-btn">Forward</button></div>
                         </div>
                     </div>
 
@@ -80,9 +80,7 @@
 
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-orange btn-md" data-dismiss="modal" aria-label="Close">CLOSE</button>
-            </div>
+            <div class="modal-footer"></div>
         </div>
     </div>
 </div>

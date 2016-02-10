@@ -6,35 +6,35 @@
         <div class="{{ $row_class }}">
             <div class="{{ $box_class }}">
                 <div class="numbers t@{{ rank1 }}">
-                    <p class="terminal">@{{ service1 }}</p>
+                    <p class="service">@{{ service1 }}</p>
                     <p class="terminal">@{{ name1 }}</p>
                     <p class="callnum">@{{ box1 }}</p>
                 </div>
             </div>
             <div class="{{ $box_class }}">
                 <div class="numbers t@{{ rank2 }}">
-                    <p class="terminal">@{{ service2 }}</p>
+                    <p class="service">@{{ service2 }}</p>
                     <p class="terminal">@{{ name2 }}</p>
                     <p class="callnum">@{{ box2 }}</p>
                 </div>
             </div>
             <div class="{{ $box_class }}">
                 <div class="numbers t@{{ rank3 }}">
-                    <p class="terminal">@{{ service3 }}</p>
+                    <p class="service">@{{ service3 }}</p>
                     <p class="terminal">@{{ name3 }}</p>
                     <p class="callnum">@{{ box3 }}</p>
                 </div>
             </div>
             <div class="{{ $box_class }}">
                 <div class="numbers t@{{ rank4 }}">
-                    <p class="terminal">@{{ service4 }}</p>
+                    <p class="service">@{{ service4 }}</p>
                     <p class="terminal">@{{ name4 }}</p>
                     <p class="callnum">@{{ box4 }}</p>
                 </div>
             </div>
             <div class="col-1">
                 <div class="numbers t@{{ rank5 }}">
-                    <p class="terminal">@{{ service5 }}</p>
+                    <p class="service">@{{ service5 }}</p>
                     <p class="terminal">@{{ name5 }}</p>
                     <p class="callnum">@{{ box5 }}</p>
                 </div>

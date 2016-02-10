@@ -93,6 +93,14 @@ class Business extends Eloquent
         return Branch::businessId(Service::branchId($service_id));
     }
 
+    public static function getVanityURLByBusinessId($business_id) {
+        return Business::where('business_id', '=', $business_id)->select(array('vanity_url'))->first()->vanity_url;
+    }
+
+    public static function saveVanityURL($business_id, $vanity_url){
+        Business::where('business_id', '=', $business_id)->update(['vanity_url' => $vanity_url]);
+    }
+
     public static function getBusinessDetails($business_id)
     {
         $business = Business::where('business_id', '=', $business_id)->get()->first();
@@ -132,6 +140,7 @@ class Business extends Eloquent
             'sms_gateway' => QueueSettings::smsGateway($first_service->service_id),
             'allowed_businesses' => Business::getForwardingAllowedBusinesses($business_id),
             'raw_code' => $business->raw_code,
+            'business_features' => unserialize($business->business_features),
         ];
 
 
@@ -561,6 +570,10 @@ class Business extends Eloquent
         return Business::where('name', $business_name)->get();
     }
 
+    public static function getByLikeName($business_name){
+        return Business::where('name', 'LIKE', '%' . $business_name . '%')->get();
+    }
+
     public static function getBusinessByRange($start_date, $end_date){
         $temp_start_date = date("Y/m/d", $start_date);
         $temp_end_date = date("Y/m/d", $end_date);
@@ -609,11 +622,21 @@ class Business extends Eloquent
             ->get();
     }
 
-    public static function getForwarderAllowedBusinesses($business_id){
+//    public static function getForwarderAllowedBusinesses($business_id){
+//        return DB::table('queue_forward_permissions')
+//            ->where('queue_forward_permissions.forwarder_id', '=', $business_id)
+//            ->join('business', 'business.business_id', '=', 'queue_forward_permissions.business_id')
+//            ->select('business.business_id', 'business.name')
+//            ->get();
+//    }
+
+    public static function getForwarderAllowedServices($business_id){
         return DB::table('queue_forward_permissions')
             ->where('queue_forward_permissions.forwarder_id', '=', $business_id)
             ->join('business', 'business.business_id', '=', 'queue_forward_permissions.business_id')
-            ->select('business.business_id', 'business.name')
+            ->join('branch', 'branch.business_id', '=', 'business.business_id')
+            ->join('service', 'service.branch_id', '=', 'branch.branch_id')
+            ->select('business.business_id', 'business.name', 'branch.branch_id', 'service.service_id', 'service.name as service_name')
             ->get();
     }
 

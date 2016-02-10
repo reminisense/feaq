@@ -78,9 +78,11 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#" ng-click="login()" id="nav-fb">Login with Facebook <span class="sr-only">(current)</span></a></li>
+                {{--<li><a href="#" ng-click="login()" id="nav-fb" style="display:none">Login with Facebook <span class="sr-only">(current)</span></a></li>--}}
+
                 <li><a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" target="_blank">Download the App</a></li>
                 <li><a href="/business">FeatherQ for Business</a></li>
+                <li id="login"><a href="/user/login">Login</a></li>
             </ul>
         </div>
     </div>
@@ -92,10 +94,9 @@
             <h1>Don't Waste Your Life &mdash; Waiting</h1>
             <h2 class="sub-heading">Use FeatherQ's mobile application to join lines from anywhere, using your mobile device.</h2>
             <div class="cta">
-                <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" target="_blank"><img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png"></a>
-                <a href="#" ng-click="login()" class="btn btn-blue"><img src="/images/homepage/landing/fb.png">LOGIN WITH FACEBOOK</a>
+                <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" target="_blank"><img alt="Android app on Google Play" src="/images/homepage/btn-download-app.png"></a>
+                <a href="/user/register" class="btn btn-blue">SIGN UP FOR FREE!</a>
             </div>
-
         </div>
     </div>
 </section>
@@ -216,7 +217,7 @@
         </div>
         <div class="col-md-4 col-sm-4 text-center wow fadeInUp">
             <img class="img-responsive" src="/images/homepage/landing/wait1.png" alt="Join the line from anywhere" />
-            <h4 class="orange">Join the line. From Anywhere.</h4>
+            <h4 class="orange">Join the line. From anywhere.</h4>
             <p>Use FeatherQ to join lines using your smartphone or mobile device. Get into the queue even before you arrive at the store.</p>
         </div>
         <div class="col-md-4 col-sm-4 text-center wow fadeInUp">
@@ -282,7 +283,7 @@
             <p>FeatherQ helps people line up and reduce the hassle of waiting. All you need to start queuing is a Facebook account and an internet connection.</p>
             <p>Get started now. Download the app  and login using your Facebook account and discover a better way to wait.</p>
             <div class="cta">
-                <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" target="_blank"><img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png"></a>
+                <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" target="_blank"><img alt="Android app on Google Play" src="/images/homepage/btn-download-app.png"></a>
                 <a href="#" ng-click="login()" class="btn btn-blue"><img src="/images/homepage/landing/fb.png">LOGIN WITH FACEBOOK</a>
             </div>
             <p class="black">Looking to manage your own line?<p>

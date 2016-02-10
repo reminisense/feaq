@@ -60,6 +60,8 @@ Route::controller('how-to', 'ContentController');
 
 Route::controller('test', 'TestController');
 
+Route::controller('mobile', 'MobileController');
+
 //services methods
 Route::get('services/{id}', 'ServiceController@getIndex');
 

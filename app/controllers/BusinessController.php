@@ -96,6 +96,9 @@ class BusinessController extends BaseController{
           $business->close_minute = $time_close_arr['min'];
           $business->close_ampm = $time_close_arr['ampm'];
 
+          $business->fb_url = '';
+          $business->business_features = '';
+
           /*
            * @author CSD
            * @description:
@@ -125,32 +128,38 @@ class BusinessController extends BaseController{
                   "box1": {
                     "number": "1",
                     "terminal": "",
-                    "rank": ""
+                    "rank": "",
+                    "service": ""
                   },
                   "box2": {
                     "number": "2",
                     "terminal": "",
-                    "rank": ""
+                    "rank": "",
+                    "service": ""
                   },
                   "box3": {
                     "number": "3",
                     "terminal": "",
-                    "rank": ""
+                    "rank": "",
+                    "service": ""
                   },
                   "box4": {
                     "number": "4",
                     "terminal": "",
-                    "rank": ""
+                    "rank": "",
+                    "service": ""
                   },
                   "box5": {
                     "number": "5",
                     "terminal": "",
-                    "rank": ""
+                    "rank": "",
+                    "service": ""
                   },
                   "box6": {
                     "number": "6",
                     "terminal": "",
-                    "rank": ""
+                    "rank": "",
+                    "service": ""
                   },
                   "get_num": " ",
                   "display": "1-6",
@@ -625,7 +634,7 @@ class BusinessController extends BaseController{
     }
 
     public function getAllowedBusinesses($business_id){
-        $allowed_businesses = Business::getForwarderAllowedBusinesses($business_id);
+        $allowed_businesses = Business::getForwarderAllowedServices($business_id);
         return json_encode(['success' => 1, 'allowed_businesses' => $allowed_businesses]);
     }
 
