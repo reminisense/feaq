@@ -344,6 +344,7 @@ app.controller('adminController', function($scope, $http){
         });
         $('.biz-results').show();
         $('.biz-specific').hide();
+        $('.biz-create').hide();
     };
 
     $scope.manageBusiness = function(business_id) {
@@ -371,6 +372,7 @@ app.controller('adminController', function($scope, $http){
 
         $('.biz-results').hide();
         $('.biz-specific').show();
+        $('.biz-create').hide();
     }
 
     $scope.updateBusiness = function() {
@@ -425,6 +427,46 @@ app.controller('adminController', function($scope, $http){
             alert(service_id);
             $http.delete('/services/' + service_id).success(function(response){
                 $scope.getBusinessDetails();
+            });
+        }
+    }
+
+    $scope.createTerminal = function(terminal_name, service_id, business_id){
+        if (terminal_name !== "" & terminal_name != undefined){
+            $http.post('/terminal/create', {
+                business_id : business_id,
+                service_id: service_id,
+                name : terminal_name
+            }).success(function(response){
+                alert("success");
+            });
+        } else {
+            alert("error");
+        }
+    }
+
+    $scope.updateTerminal = function(terminal_id){
+        var terminal_name = $('.edit-terminal[terminal_id=' + terminal_id + ']').val();
+        alert(terminal_id);
+        if (terminal_name !== "" & terminal_name != undefined){
+            $http.post('/terminal/edit', {
+                terminal_id : terminal_id,
+                name : terminal_name
+            }).success(function(response) {
+                alert("success");
+            });
+        }else{
+            alert("error");
+        }
+    }
+
+    $scope.deleteTerminal = function(terminal_id) {
+        var confirmDel = confirm("Are you sure you want to delete this terminal?");
+        if (confirmDel){
+            $http.post('/terminal/delete', {
+                terminal_id : terminal_id
+            }).success(function(response) {
+                alert("success");
             });
         }
     }
@@ -497,6 +539,33 @@ app.controller('adminController', function($scope, $http){
         });
     }
 
+    $scope.createBusiness = function() {
+        $http.post('/admin/create-business', {
+            business_name: $scope.new_business_name,
+            business_address: $scope.address,
+            industry: $scope.industry,
+            time_open: $scope.time_open,
+            time_close: $scope.time_close,
+            email: $scope.email,
+            timezone: $scope.timezone,
+        }).success(function(response) {
+            if (response.success == 1) {
+                alert('business created');
+                $('.create-fields').val('');
+            }
+            else{
+                alert(response.error);
+            }
+        });
+    }
+
+
+    $(".create-business-button").click(function() {
+        $(".biz-create").show();
+        $(".biz-results").hide();
+        $(".biz-specific").hide();
+    });
+
     $(".search-user-button").click(function() {
          $(".cus-main-form").show();
          $(".cus-create-form").hide();
@@ -507,7 +576,7 @@ app.controller('adminController', function($scope, $http){
         $(".cus-main-form").hide();
     });
 
-    $(".biz-main > h4").click(function() {
+    $(".biz-main a").click(function() {
         if ($('.biz-main-form').is(':visible')){
             $(".biz-main-form").slideUp("slow");
         } else {
@@ -515,7 +584,7 @@ app.controller('adminController', function($scope, $http){
         }
     });
 
-    $(".biz-service > h4").click(function() {
+    $(".biz-service a").click(function() {
         if ($('.biz-service-form').is(':visible')){
             $(".biz-service-form").slideUp("slow");
         } else {
@@ -523,7 +592,7 @@ app.controller('adminController', function($scope, $http){
         }
     });
 
-    $(".biz-status > h4").click(function() {
+    $(".biz-status a").click(function() {
         if ($('.biz-status-form').is(':visible')){
             $(".biz-status-form").slideUp("slow");
         } else {
@@ -531,7 +600,7 @@ app.controller('adminController', function($scope, $http){
         }
     });
 
-    $(".biz-settings > h4").click(function() {
+    $(".biz-settings a").click(function() {
         if ($('.biz-settings-form').is(':visible')){
             $(".biz-settings-form").slideUp("slow");
         } else {
