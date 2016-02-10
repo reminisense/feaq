@@ -1,6 +1,6 @@
 <!-- modal -->
 
-<div class="modal fade" id="priority-number-modal" tabindex="-1" data-transaction_number="">{{--<div class="modal fade" id="priority-number-modal" tabindex="-1" ng-controller="messageController">--}}
+<div class="modal fade" id="priority-number-modal" tabindex="-1" data-transaction_number="" ng-controller="messageController">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -12,7 +12,7 @@
             <div class="modal-body">
                 <ul id="pmore-tab" class="nav nav-tabs">
                     <li class="details active"><a href="#details" data-toggle="tab">DETAILS</a></li>
-                    {{-- ARA Save this for later <li class="messages"><a href="#messages" data-toggle="tab" ng-click="getMessages()">MESSAGES</a></li> --}}
+                    <li class="messages"><a href="#messages" data-toggle="tab" ng-click="getMessages()">MESSAGES</a></li>
                 </ul>
                 <div class="clearfix tab-content">
                     <div class="tab-pane fade active in" id="details">
