@@ -106,8 +106,7 @@ class MobileController extends BaseController{
                 )
             ));
             file_put_contents(public_path() . '/json/messages/' . $thread_key . '.json', $data);
-        }
-        else {
+        } else {
             $data = json_decode(file_get_contents(public_path() . '/json/messages/' . $thread_key . '.json'));
             $data[] = array(
                 'timestamp' => $timestamp,
@@ -231,5 +230,120 @@ class MobileController extends BaseController{
         }else{
             return json_encode(['error' => 'The email or password should not be blank.']);
         }
+    }
+
+    //screen #1
+
+//    public function getActiveBusiness()
+//    {
+//
+//        $active_businesses = array();
+//
+//        $businesses = Business::all();
+//
+//        foreach ($businesses as $count => $data) {
+//            $first_service = Service::getFirstServiceOfBusiness($data->business_id);
+//            if ($first_service) {
+//                $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
+//
+//                $time_open = $data->open_hour . ':' . Helper::doubleZero($data->open_minute) . ' ' . strtoupper($data->open_ampm);
+//                $time_close = $data->close_hour . ':' . Helper::doubleZero($data->close_minute) . ' ' . strtoupper($data->close_ampm);
+//
+//                // check if business is currently processing numbers
+//                if (Business::processingBusinessBool($data->business_id)) {
+//                    $processing[] = array(
+//                        'business_id' => $data->business_id,
+//                        'business_name' => $data->name,
+//                        'local_address' => $data->local_address,geBusinessTimeTimezone($time_open, $data->timezone, $user_timezone),
+//                        'time_open' => Helper::chan
+//                        'time_close' => Helper::changeBusinessTimeTimezone($time_close, $data->timezone, $user_timezone),
+//                        'waiting_time' => Analytics::getWaitingTimeString($data->business_id),
+//                        'last_number_called' => count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'none', //ok
+//                        'next_available_number' => $all_numbers->next_number,
+//                        'last_active' => Analytics::daysAgoActive($data->business_id),
+//                        'card_bool' => true, // for info cards marker
+//                    );
+//
+//                }
+//            }
+//        }
+//        $business =
+//        $last_called = [
+//            'service_id' => ,
+//            'name' => ,
+//            'enabled' =>
+//        ];
+//
+//        $service_list = [
+//            'service_id' => ,
+//            'name' => ,
+//            'enabled' =>
+//        ];
+//
+//        $business = [
+//            'id' => ,
+//            'name' => ,
+//             'address' =>,
+//            'img_url' =>,
+//            'last_called' =>,
+//            'time_requested' =>,
+//            'remote_queue' =>,
+//            'service_list' =>
+//        ];
+
+//        $data = [
+//
+//        ];
+//        return json_encode($data);
+//
+//    }
+
+
+    public function getMyAllHistory($user_id, $limit = 5, $offset = 0){
+
+        $user_queues = User::getUserHistory($user_id, $limit, $offset);
+        $businesses = array();
+
+        for($i = 0; $i < count($user_queues); $i++){
+            array_push($businesses, [
+                'id' =>  (int) $user_id,
+                'business_id' => $user_queues[$i]['business_id'],
+                'business_name' => $user_queues[$i]['business_name'],
+                'image_url' => '',
+                'status' => $user_queues[$i]['status'],
+                'transaction_length' => $user_queues[$i]['time_completed'] - $user_queues[$i]['time_queued'],
+                'priority_number' => $user_queues[$i]['priority_number'],
+                'rating' => $user_queues[$i]['rating'],
+                'transaction_date' => $user_queues[$i]['date']
+                ]);
+        }
+
+        return json_encode($businesses);
+
+    }
+
+    public function getMyBusinessHistory($transaction_number){
+
+        $user_id = PriorityQueue::userId($transaction_number);
+        $user_queues = User::getUserBusinessHistory($user_id, $transaction_number);
+
+        $business = [
+            'business_id' => $user_queues->business_id,
+            'transaction_date' => $user_queues->date,
+            'business_name' => $user_queues->business_name,
+            'address' => $user_queues->business_address,
+            'location' => [
+                'longitude' => $user_queues->longitude,
+                'latitude' => $user_queues->latitude
+            ],
+            'status' => $user_queues->status,
+            'priority_number' => $user_queues->priority_number,
+            'time_issued' => $user_queues->time_queued,
+            'time_called' => $user_queues->time_called,
+            'rating' => $user_queues->rating
+
+        ];
+
+        return json_encode($business);
     }
 }
