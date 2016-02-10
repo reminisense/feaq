@@ -46,6 +46,156 @@ class AdminController extends BaseController{
     }
   }
 
+  public function postCreateBusiness()
+  {
+    if (Admin::isAdmin(Helper::userId())) { // PAG added permission checking
+      $business_data = Input::all();
+      $business = new Business();
+      $business_check = Business::businessExistsByNameByAddress($business_data['business_name'], $business_data['business_address']);
+
+      if (count($business_check) != 1) {
+        $business->name = $business_data['business_name'];
+        $business->local_address = $business_data['business_address'];
+        $business->industry = $business_data['industry'];
+
+        $geolocation = json_decode(file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.str_replace(" ", "+", $business_data['business_address'])));
+        $business->longitude = $geolocation->results[0]->geometry->location->lng;
+        $business->latitude = $geolocation->results[0]->geometry->location->lat;
+
+        $time_open_arr = Helper::parseTime($business_data['time_open']);
+        $business->open_hour = $time_open_arr['hour'];
+        $business->open_minute = $time_open_arr['min'];
+        $business->open_ampm = $time_open_arr['ampm'];
+
+        $time_close_arr = Helper::parseTime($business_data['time_close']);
+        $business->close_hour = $time_close_arr['hour'];
+        $business->close_minute = $time_close_arr['min'];
+        $business->close_ampm = $time_close_arr['ampm'];
+
+        $business->fb_url = '';
+        $business->business_features = '';
+        $business->queue_limit = 9999;
+        $business->num_terminals = 1;
+        $business->raw_code = Helper::generateRawCode(); // Generate business raw code for broadcast redirect
+
+        $business_features = array(
+          'package_type' => 'Trial',
+          'max_services' => 3,
+          'max_terminals' => 3,
+          'enable_video_ads' => 0,
+          'upload_size_limit' => 0,
+        );
+        $business->business_features = serialize($business_features);
+
+        $business->save();
+
+        $business_user = new UserBusiness();
+        $business_user->user_id = User::getUserIdByEmail($business_data['email']);
+        $business_user->business_id = $business->business_id;
+        $business->timezone = $business_data['timezone'];
+
+        /* Timezone is already set in config/app.php
+        date_default_timezone_set("Asia/Manila"); // Manila Timezone for now but this depends on business location
+        */
+
+        $contents = '
+                {
+                  "box1": {
+                    "number": "1",
+                    "terminal": "",
+                    "rank": "",
+                    "service": ""
+                  },
+                  "box2": {
+                    "number": "2",
+                    "terminal": "",
+                    "rank": "",
+                    "service": ""
+                  },
+                  "box3": {
+                    "number": "3",
+                    "terminal": "",
+                    "rank": "",
+                    "service": ""
+                  },
+                  "box4": {
+                    "number": "4",
+                    "terminal": "",
+                    "rank": "",
+                    "service": ""
+                  },
+                  "box5": {
+                    "number": "5",
+                    "terminal": "",
+                    "rank": "",
+                    "service": ""
+                  },
+                  "box6": {
+                    "number": "6",
+                    "terminal": "",
+                    "rank": "",
+                    "service": ""
+                  },
+                  "get_num": " ",
+                  "display": "1-6",
+                  "show_issued": true,
+                  "ad_image": "",
+                  "ad_video": "\/\/www.youtube.com\/embed\/EMnDdH8fdEc",
+                  "ad_type": "carousel",
+                  "carousel_delay": "5000",
+                  "turn_on_tv": false,
+                  "tv_channel": "",
+                  "date": "' . date("mdy") . '",
+                  "ticker_message" : "",
+                  "ticker_message2" : "",
+                  "ticker_message3" : "",
+                  "ticker_message4" : "",
+                  "ticker_message5" : "",
+                  "adspace_size" : "517px",
+                  "numspace_size": "517px",
+                  "num_boxes" : "6"
+                }
+            ';
+
+        File::put(public_path() . '/json/' . $business->business_id . '.json', $contents);
+        $business_user->save();
+
+        $branch_id = Branch::createBusinessBranch($business->business_id, $business->name);
+        $service_id = Service::createBranchService($branch_id, $business->name);
+
+        /* @CSD Auto issue on business create */
+        $issueController = new IssueNumberController();
+        $issueController->getMultiple($service_id, 10);
+        /* Auto issue end */
+
+        $terminals = Terminal::createBranchServiceTerminal($business_user->user_id, $service_id, $business->num_terminals);
+        if ($business->save()) {
+          return json_encode([
+            'success' => 1,
+            'terminals' => $terminals
+          ]);
+        }
+        else {
+          return json_encode([
+            'success' => 0,
+            'error' => 'Something went wrong while saving your business.'
+          ]);
+        }
+      }
+      else {
+        $error = "Business name already exists with the same business address.";
+        return json_encode([
+          'success' => 0,
+          'error' => $error
+        ]);
+      }
+    }
+    else {
+      return json_encode(array('success' => 0, 'error' => 'You are not allowed to access this function or you already have a business account.'));
+    }
+
+  }
+
   public function postUpdateBusiness(){
     $business_data = Input::all();
     if (Admin::isAdmin(Helper::userId())) { // PAG added permission checking
