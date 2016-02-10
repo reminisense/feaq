@@ -59,7 +59,7 @@
                 $scope.isCalling = false;
                 $scope.updateBroadcast();
             },null, function(){
-                checkEmailAndAdd($scope.called_numbers[0].email, transaction_number);
+                $scope.checkEmailAndAdd($scope.called_numbers[0].email, transaction_number);
             });
         };
 
@@ -80,7 +80,7 @@
                             .success(function(response){
                             });
                     }
-                    addOrRemoveRating(i,1);
+                    $scope.addOrRemoveRating(i,1);
                 }
             });
         };
@@ -100,7 +100,7 @@
                             .success(function(response){
                             });
                     }
-                    addOrRemoveRating(i,1);
+                    $scope.addOrRemoveRating(i,1);
                 }
             });
         };
@@ -197,9 +197,8 @@
             $scope.number_limit = numbers.number_limit;
 
             pq.jquery_functions.set_next_number_placeholder($scope.next_number);
-
             if($scope.create_temporary_array == 0){
-                createTemporaryRatingsArray();
+                $scope.createTemporaryRatingsArray();
                 $scope.create_temporary_array = 1;
 
             }
@@ -244,11 +243,11 @@
             }
         }
 
-        checkEmailAndAdd = function(email, transaction_number){
+        $scope.checkEmailAndAdd = function(email, transaction_number){
             if(email){
                 $http.get(pq.urls.rating.verify_email_url + email)
                     .success(function(response){
-                        addOrRemoveRating(0,0,{
+                        $scope.addOrRemoveRating(0,0,{
                             rating : 0,
                             tran_number : transaction_number,
                             email : $scope.called_numbers[0].email,
@@ -257,7 +256,7 @@
                         });
                     });
             }else{
-                addOrRemoveRating(0,0,{
+                $scope.addOrRemoveRating(0,0,{
                     rating : 0, tran_number : transaction_number,
                     email : $scope.called_numbers[0].email,
                     email_checker : false,
@@ -265,7 +264,7 @@
             }
         }
 
-        createTemporaryRatingsArray = function(){
+        $scope.createTemporaryRatingsArray = function(){
             angular.forEach($scope.called_numbers, function(called_number, i) {
                 if(called_number.email){
                     $http.get(pq.urls.rating.verify_email_url + called_number.email)
@@ -290,7 +289,7 @@
             });
         }
 
-        addOrRemoveRating = function(index, item, object){
+        $scope.addOrRemoveRating = function(index, item, object){
             if(object){
                 $scope.temp_called_numbers.splice(index, item, object);
             }else{
