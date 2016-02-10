@@ -425,6 +425,8 @@ class AdminController extends BaseController{
           'max_terminals' => "3",
           'enable_video_ads' => "0",
           'upload_size_limit' => "10",
+          'allow_sms' => 'false',
+          'queue_forwarding' => 'false'
         ]);
       }
       echo 'done..';
