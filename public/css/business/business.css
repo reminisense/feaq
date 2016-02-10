@@ -842,7 +842,7 @@ button#sendreply {
 .biz-service-form, .biz-status-form,
 .biz-settings-form, .cus-main-form,
 .cus-create-form, .biz-specific,
-.user-container {
+.user-container, #terminal-save-button{
     display:none;
 }
 .admin-tabs li {

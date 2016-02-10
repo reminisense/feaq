@@ -442,6 +442,33 @@ app.controller('adminController', function($scope, $http){
             alert("error");
         }
     }
+
+    $scope.updateTerminal = function(terminal_id){
+        var terminal_name = $('.edit-terminal[terminal_id=' + terminal_id + ']').val();
+        alert(terminal_id);
+        if (terminal_name !== "" & terminal_name != undefined){
+            $http.post('/terminal/edit', {
+                terminal_id : terminal_id,
+                name : terminal_name
+            }).success(function(response) {
+                alert("success");
+            });
+        }else{
+            alert("error");
+        }
+    }
+
+    $scope.deleteTerminal = function(terminal_id) {
+        var confirmDel = confirm("Are you sure you want to delete this terminal?");
+        if (confirmDel){
+            $http.post('/terminal/delete', {
+                terminal_id : terminal_id
+            }).success(function(response) {
+                alert("success");
+            });
+        }
+    }
+
     $scope.getBusinessDetails = function(){
         if ( $scope.business_id > 0 ) {
             $http.get(eb.urls.business.business_details_url + $scope.business_id)
@@ -509,6 +536,7 @@ app.controller('adminController', function($scope, $http){
             alert(response.password);
         });
     }
+
 
     $(".search-user-button").click(function() {
          $(".cus-main-form").show();
