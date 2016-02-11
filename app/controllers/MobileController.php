@@ -9,71 +9,69 @@
 
 class MobileController extends BaseController{
 
-    //screen #1
+    //Screen #1
+    public function getActiveBusinesses(){
+        $active_businesses = [];
+        $businesses = Business::all();
 
-//    public function getActiveBusiness()
-//    {
-//
-//        $active_businesses = array();
-//
-//        $businesses = Business::all();
-//
-//        foreach ($businesses as $count => $data) {
-//            $first_service = Service::getFirstServiceOfBusiness($data->business_id);
-//            if ($first_service) {
-//                $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
-//
-//                $time_open = $data->open_hour . ':' . Helper::doubleZero($data->open_minute) . ' ' . strtoupper($data->open_ampm);
-//                $time_close = $data->close_hour . ':' . Helper::doubleZero($data->close_minute) . ' ' . strtoupper($data->close_ampm);
-//
-//                // check if business is currently processing numbers
-//                if (Business::processingBusinessBool($data->business_id)) {
-//                    $processing[] = array(
-//                        'business_id' => $data->business_id,
-//                        'business_name' => $data->name,
-//                        'local_address' => $data->local_address,geBusinessTimeTimezone($time_open, $data->timezone, $user_timezone),
-//                        'time_open' => Helper::chan
-//                        'time_close' => Helper::changeBusinessTimeTimezone($time_close, $data->timezone, $user_timezone),
-//                        'waiting_time' => Analytics::getWaitingTimeString($data->business_id),
-//                        'last_number_called' => count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'none', //ok
-//                        'next_available_number' => $all_numbers->next_number,
-//                        'last_active' => Analytics::daysAgoActive($data->business_id),
-//                        'card_bool' => true, // for info cards marker
-//                    );
-//
-//                }
-//            }
-//        }
-//        $business =
-//        $last_called = [
-//            'service_id' => ,
-//            'name' => ,
-//            'enabled' =>
-//        ];
-//
-//        $service_list = [
-//            'service_id' => ,
-//            'name' => ,
-//            'enabled' =>
-//        ];
-//
-//        $business = [
-//            'id' => ,
-//            'name' => ,
-//             'address' =>,
-//            'img_url' =>,
-//            'last_called' =>,
-//            'time_requested' =>,
-//            'remote_queue' =>,
-//            'service_list' =>
-//        ];
+        foreach($businesses as $business){
+            if(Business::processingBusinessBool($business->business_id)){
+                $services = Service::getServicesByBusinessId($business->business_id);
+                $all_numbers = ProcessQueue::businessAllNumbers($business->business_id);
 
-//        $data = [
-//
-//        ];
-//        return json_encode($data);
-//
-//    }
+                if(count($all_numbers->called_numbers) > 0){
+                    $last_called = json_decode(json_encode($all_numbers->called_numbers[0]));
+                    $last_called->service_id = Terminal::serviceId($last_called->terminal_id);
+                    $last_called->user_id = PriorityQueue::userId($last_called->transaction_number);
+                }else{
+                    $last_called = new stdClass();
+                    $last_called->service_id = '';
+                    $last_called->user_id = '';
+                    $last_called->service_name = '';
+                    $last_called->terminal_id = '';
+                    $last_called->terminal_name = '';
+                    $last_called->priority_number = '';
+                    $last_called->name = '';
+                    $last_called->email = '';
+                    $last_called->phone = '';
+                }
+
+                $services_list = [];
+                $allow_remote = false;
+                foreach($services as $service){
+                    $enabled = QueueSettings::allowRemote($service->service_id) > 0 ? true : false;
+                    $allow_remote = $enabled ? true : $allow_remote;
+                    $services_list[] = [
+                        'service_id' => $service->service_id,
+                        'name' => $service->name,
+                        'enabled' => $enabled
+                    ];
+                }
+
+                $active_businesses[] = [
+                    'id' => $business->business_id,
+                    'name' => $business->name,
+                    'address' => $business->local_address,
+                    'image_url' => "http://imgur.com/as1DaJ.jpg",
+                    'time_requested' => time(),
+                    'remote_queue' => $allow_remote,
+                    'service_list'  => $services_list,
+                    'last_called' => [
+                        'service_id' => $last_called->service_id,
+                        'service_name' => $last_called->service_name,
+                        'terminal_id' => $last_called->terminal_id,
+                        'terminal_name' => $last_called->terminal_name,
+                        'queue_number' => $last_called->priority_number,
+                        'queue_user_id' => $last_called->user_id,
+                        'queue_user_name' => $last_called->name,
+                        'queue_user_email' => $last_called->email,
+                        'queue_user_contact' => $last_called->phone,
+                    ],
+                ];
+            }
+        }
+        return json_encode($active_businesses);
+    }
 
     //Screen #5
     public function getUserQueue($user_id)

@@ -559,8 +559,7 @@ class Business extends Eloquent
       */
 
       // will be using Aunne's data from process queue to determine if the business is active or inactive
-      $first_service = Service::getFirstServiceOfBusiness($business_id);
-      $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
+      $all_numbers = ProcessQueue::businessAllNumbers($business_id);
       $is_calling = count($all_numbers->called_numbers) > 0 ? true : false;
       $is_issuing = count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? true : false;
       return $is_calling || $is_issuing;
