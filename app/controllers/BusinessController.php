@@ -316,7 +316,13 @@ class BusinessController extends BaseController{
         $business_name = Business::name($business_id);
         $business_address = Business::localAddress($business_id);
 
-        $businesslink = 'http://' . $_SERVER['HTTP_HOST'] . '/' . Business::getRawCodeByBusinessId($business_id);
+        $vanity_url = Business::getVanityURLByBusinessId($business_id);
+        if ($vanity_url) {
+          $businesslink = 'http://' . $_SERVER['HTTP_HOST'] . '/' . $vanity_url;
+        }
+        else {
+          $businesslink = 'http://' . $_SERVER['HTTP_HOST'] . '/' . Business::getRawCodeByBusinessId($business_id);
+        }
         $qr_link = "https://api.qrserver.com/v1/create-qr-code/?data=" . url('/broadcast/business/' . $business_id) . "&size=302x302"; // CSD Updated QR Link
 
         $data = [
