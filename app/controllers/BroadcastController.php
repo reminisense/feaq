@@ -19,7 +19,18 @@ class BroadcastController extends BaseController{
 
     // The broadcast rendering function
     public function viewBroadcastPage($raw_code = '') {
-      $business_id = Business::getBusinessIdByRawCode($raw_code);
+      if (Business::businessWithVanityURLExists($raw_code)) {
+        $business_id = Business::getBusinessIdByVanityURL($raw_code);
+        $custom_url = $raw_code;
+      }
+      else {
+        $business_id = Business::getBusinessIdByRawCode($raw_code);
+        $vanity_url = Business::getVanityURLByRawCode($raw_code);
+        if ($vanity_url) {
+          return Redirect::to('/' . $vanity_url);
+        }
+        $custom_url = $raw_code;
+      }
       $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
       $ad_src = $this->fetchAdSource($data->ad_type, $business_id, $data->tv_channel);
       $business_name = Business::name($business_id);
@@ -33,7 +44,6 @@ class BroadcastController extends BaseController{
       $regions = $this->broadcastRegionsClassName($data->adspace_size, $data->numspace_size);
       $ad_class = $regions['ad_class'];
       $num_class = $regions['num_class'];
-      $custom_url = Business::getRawCodeByBusinessId($business_id);
       $numboxes = $this->numBoxesClassName($data->display, $regions['percentage']);
       $row_class = $numboxes['row_class'];
       $box_class = $numboxes['box_class'];
