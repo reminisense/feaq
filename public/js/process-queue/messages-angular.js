@@ -34,9 +34,9 @@ app.controller('messageController', function($scope, $http){
             $scope.message_id = response.message_id;
             $scope.allow_send = true;
         }).error(function(response){
-            //$scope.allow_send = false;
+            $scope.allow_send = false;
         }).finally(function(){
-            $scope.allow_send = true;
+            //$scope.allow_send = true;
             $('.glyphicon-refresh').removeClass('glyphicon-refresh-animate');
         });
     }

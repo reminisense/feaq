@@ -6,6 +6,7 @@
 .navbar-default {
     background-color: #262a31;
 }
+.navbar .cta span a {color: #fff;}
 .navbar-brand {
     height: inherit;
     padding: 12px 0;

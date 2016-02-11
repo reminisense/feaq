@@ -72,7 +72,8 @@ class TerminalController extends BaseController{
       if (Helper::isBusinessOwner($business_id, Helper::userId())) { // PAG added permission checking
         if ($this->validateTerminalName($business_id, $post->name, $post->terminal_id)) {
           Terminal::setName($post->terminal_id, $post->name);
-          return json_encode(array('status' => 1));
+            $business = Business::getBusinessDetails($business_id);
+            return json_encode(array('status' => 1, 'business' => $business));
         }
         else {
           return json_encode(array('status' => 0));

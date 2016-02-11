@@ -30,8 +30,21 @@ $(document).ready(function(){
     });
 
     $('body').on('click', '.cancel-add-terminal', function(){
-        eb.jquery_functions.hide_add_terminal_form();
+        $(this).parents('.inputterminal-form').hide();
+        $(this).parents('.inputterminal-form').siblings('.btn-addterminal').show();
     });
+
+    $('body').on('click', '.info-button', function(e){
+        e.preventDefault();
+        var href = $(this).attr('href');
+        $(href).toggleClass('hidden');
+        if($(href).hasClass('hidden')){
+            $(this).html('<span class="glyphicon glyphicon-info-sign"></span> More info...');
+        }else{
+            $(this).html('<span class="glyphicon glyphicon-minus-sign"></span> Less info...');
+        }
+
+    })
 
     $('#tv-channel').on('change', function(){
         $('#tv-script-submit-btn').removeAttr('disabled');
@@ -223,8 +236,8 @@ var eb = {
 //        },
 
         hide_add_terminal_form : function(){
-            $('#inputterminal').hide();
-            $('#btn-addterminal').show();
+            $('.inputterminal-form').hide();
+            $('.btn-addterminal').show();
         },
 
         my_business_link_active : function(){
@@ -501,8 +514,8 @@ var eb = {
                 user_id : user_id,
                 terminal_id : terminal_id
             }).success(function(response){
-                    setBusinessFields(response.business);
-                });
+                setBusinessFields(response.business);
+            });
         }
 
         $scope.emailSearch = function(email, terminal_id){
@@ -511,6 +524,7 @@ var eb = {
                     if(response.user){
                         $scope.assignToTerminal(response.user.user_id, terminal_id);
                         $scope.clearUserResults();
+                        $scope.search_user = '';
                     }else{
                         $('.add-user-error[terminal_id=' + terminal_id + ']').show();
                         setTimeout(function(){$('.add-user-error[terminal_id=' + terminal_id + ']').fadeOut('slow')}, 3000);
@@ -587,6 +601,7 @@ var eb = {
                         $('.terminal-error-message[terminal_id=' + terminal_id + ']').show();
                         setTimeout(function(){$('.terminal-error-message[terminal_id=' + terminal_id + ']').fadeOut('slow')}, 3000);
                     }
+                    setBusinessFields(response.business);
                 }).error(function(response) {
                     alert('Something went wrong..');
                 });
@@ -712,7 +727,7 @@ var eb = {
                             setBusinessFields(response.business);
                             $('#edit_message').removeClass('alert-danger');
                             $('#edit_message').addClass('alert-success');
-                            $('#edit_message p').html("Your business details have been updated");
+                            $('#edit_message p').html("Your business details have been updated.");
                             $('#edit_message').fadeIn();
                             setTimeout(function(){ $('#edit_message').fadeOut(); }, 3000);
                         } else {

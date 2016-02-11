@@ -246,6 +246,7 @@ class RestController extends BaseController {
         unset($numbers['carousel_delay']);
         unset($numbers['adspace_size']);
         unset($numbers['numspace_size']);
+        unset($numbers['num_boxes']);
 
         foreach($numbers as $key => $box_data) {
             // generate object attribute
@@ -483,21 +484,21 @@ class RestController extends BaseController {
         echo $result;
     }
 
-    public function getMyHistory($facebook_id, $limit = 5, $offset = 0){
-        $user = User::searchByFacebookId($facebook_id);
-        $user_queues = User::getUserHistory($user['user_id'], $limit, $offset);
-        foreach($user_queues as $index => $data){
-            $action = 'issued';
-            if($data['status'] == 1 ) { $action = 'called'; }
-            else if($data['status'] == 2 ) { $action = 'served'; }
-            else if($data['status'] == 3 ) { $action = 'dropped'; }
-
-            $user_queues[$index]['status'] = $action;
-            $user_queues[$index]['date'] = date('Y-m-d', $data['date']);
-        }
-
-        return json_encode(['history' => $user_queues]);
-    }
+//    public function getMyHistory($facebook_id, $limit = 5, $offset = 0){
+//        $user = User::searchByFacebookId($facebook_id);
+//        $user_queues = User::getUserHistory($user['user_id'], $limit, $offset);
+//        foreach($user_queues as $index => $data){
+//            $action = 'issued';
+//            if($data['status'] == 1 ) { $action = 'called'; }
+//            else if($data['status'] == 2 ) { $action = 'served'; }
+//            else if($data['status'] == 3 ) { $action = 'dropped'; }
+//
+//            $user_queues[$index]['status'] = $action;
+//            $user_queues[$index]['date'] = date('Y-m-d', $data['date']);
+//        }
+//
+//        return json_encode(['history' => $user_queues]);
+//    }
 
     /**
      * @author Ruffy Heredia
@@ -593,6 +594,7 @@ class RestController extends BaseController {
             $next_available_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service->service_id), QueueSettings::numberStart($service->service_id), QueueSettings::numberLimit($service->service_id));
 
             $details = [
+                'business_id' => $business_id,
                 'business_name' => $business_name,
                 'estimated_time' => $estimated_time,
                 'people_in_queue' => $remaining_queue_count,
@@ -601,6 +603,47 @@ class RestController extends BaseController {
 
             return Response::json($details, 200, array(), JSON_PRETTY_PRINT);
         }else{
+            return json_encode(['error' => 'Something went wrong!']);
+        }
+    }
+
+    /**
+     * @param $facebook_id
+     * @return JSON-formatted response of the business name, estimated time, people-in-queue and next number available .
+     */
+    public function getBusinessServiceDetails2($facebook_id)
+    {
+        try {
+            $user_id = User::getUserIdByFbId($facebook_id);
+        } catch (Exception $e) {
+            $user_id = null;
+        }
+
+        if ($user_id) {
+
+            $business_id = UserBusiness::getBusinessIdByOwner($user_id);
+            $business_name = Business::name($business_id);
+            $estimated_time = Analytics::getWaitingTime($business_id);
+
+            // $services
+            $services = Service::getServicesByBusinessId($business_id);
+            foreach($services as $service) {
+                $service_id = $service->service_id;
+                $rqc =  Analytics::getServiceRemainingCount($service_id);
+                $nam = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
+                $service['people_in_queue'] = $rqc;
+                $service['next_available_number'] = $nam;
+            }
+
+            $details = [
+                'business_id' => $business_id,
+                'business_name' => $business_name,
+                'estimated_time' => $estimated_time,
+                'services' => $services
+            ];
+
+            return Response::json($details, 200, array(), JSON_PRETTY_PRINT);
+        } else {
             return json_encode(['error' => 'Something went wrong!']);
         }
     }

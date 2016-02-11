@@ -24,8 +24,17 @@ class FBController extends BaseController {
           'gender' => $post->gender,
         );
         User::saveFBDetails($data);
-        Auth::loginUsingId(User::getUserIdByFbId($data['fb_id']));
-        return json_encode(array('success' => $data['fb_id']));
+        $user_id = User::getUserIdByFbId($data['fb_id']);
+        Auth::loginUsingId($user_id);
+        if (UserBusiness::getBusinessIdByOwner($user_id)) {
+          return json_encode(array('success' => $data['fb_id'], 'redirect' => '/business/my-business'));
+        }
+        else {
+          return json_encode(array('success' => $data['fb_id'], 'redirect' => '/'));
+        }
+      }
+      else {
+        return json_encode(array('err' => 'FBVerifyError'));
       }
     }
 

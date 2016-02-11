@@ -20,6 +20,10 @@ class Service extends Eloquent{
         return Service::find($sevice_id)->name;
     }
 
+    public static function getServiceNameByTerminalId($terminal_id){
+        return Service::name(Terminal::serviceId($terminal_id));
+    }
+
     /*
      * @author: ARA
      * @description: create new service

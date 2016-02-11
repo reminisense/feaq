@@ -13,7 +13,7 @@ app.directive('pointOfInterest', function(){
 
             return '<ul><!-- start point of interest-->' +
                 '<li class="cd-single-point ' + attr.class + '" style="bottom:' + bottom + '; right:' + right + ';">' +
-                '<a class="cd-img-replace" href="#">More</a>' +
+                '<a class="cd-img-replace" href="#">?</a>' +
                 '<div class="cd-more-info cd-' + attr.position + '"> <!-- 4 classes available: cd-top, cd-bottom, cd-left, cd-right  -->' +
                 '<h2>' + attr.title  + '</h2>' +
                 '<p>' + attr.description + ' <br><a href="#" class="cd-hide-tooltips btn btn-danger" title="Hide all tooltips">Hide tooltips for this page</a></p>' +

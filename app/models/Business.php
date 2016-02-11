@@ -62,9 +62,17 @@ class Business extends Eloquent
         return Business::where('raw_code', '=', $raw_code)->select(array('business_id'))->first()->business_id;
     }
 
+    public static function getBusinessIdByVanityURL($vanity_url = '') {
+        return Business::where('vanity_url', '=', $vanity_url)->select(array('business_id'))->first()->business_id;
+    }
+
     public static function getRawCodeByBusinessId($business_id)
     {
         return Business::where('business_id', '=', $business_id)->select(array('raw_code'))->first()->raw_code;
+    }
+
+    public static function businessWithVanityURLExists($vanity_url) {
+        return Business::where('vanity_url', '=', $vanity_url)->exists();
     }
 
     /** functions to get the Business name **/
@@ -93,6 +101,18 @@ class Business extends Eloquent
         return Branch::businessId(Service::branchId($service_id));
     }
 
+    public static function getVanityURLByBusinessId($business_id) {
+        return Business::where('business_id', '=', $business_id)->select(array('vanity_url'))->first()->vanity_url;
+    }
+
+    public static function getVanityURLByRawCode($raw_code) {
+        return Business::where('raw_code', '=', $raw_code)->select(array('vanity_url'))->first()->vanity_url;
+    }
+
+    public static function saveVanityURL($business_id, $vanity_url){
+        Business::where('business_id', '=', $business_id)->update(['vanity_url' => $vanity_url]);
+    }
+
     public static function getBusinessDetails($business_id)
     {
         $business = Business::where('business_id', '=', $business_id)->get()->first();
@@ -100,7 +120,12 @@ class Business extends Eloquent
         $terminals = Terminal::getTerminalsByBusinessId($business_id);
         $terminals = Terminal::getAssignedTerminalWithUsers($terminals);
         $analytics = Analytics::getBusinessAnalytics($business_id);
-        $first_service = Service::getFirstServiceOfBusiness($business_id);
+        if(Service::getFirstServiceOfBusiness($business_id)) {
+            $first_service = Service::getFirstServiceOfBusiness($business_id);
+        }else{
+            $first_service = new stdClass();
+            $first_service->service_id = 0;
+        }
         $business_details = [
             'business_id' => $business_id,
             'business_name' => $business->name,
@@ -127,6 +152,7 @@ class Business extends Eloquent
             'sms_gateway' => QueueSettings::smsGateway($first_service->service_id),
             'allowed_businesses' => Business::getForwardingAllowedBusinesses($business_id),
             'raw_code' => $business->raw_code,
+            'business_features' => unserialize($business->business_features),
         ];
 
 
@@ -217,7 +243,7 @@ class Business extends Eloquent
             $time_open_arr['ampm'] = '';
         }
 
-        if ($industry == 'Industry') {
+        if ($industry == 'Industry' || $industry == 'Any') {
             $industry = '';
         }
 
@@ -468,7 +494,7 @@ class Business extends Eloquent
             $next_number = $all_numbers->next_number;
             $is_calling = count($all_numbers->called_numbers) > 0 ? true : false;
             $is_issuing = count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? true : false;
-            $last_active = Analytics::getLastActive($business['business_id']);
+            $last_active = Analytics::daysAgoActive($business['business_id']);
 
             $business_details = array(
                 'business_id' => $business['business_id'],
@@ -545,8 +571,7 @@ class Business extends Eloquent
       */
 
       // will be using Aunne's data from process queue to determine if the business is active or inactive
-      $first_service = Service::getFirstServiceOfBusiness($business_id);
-      $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
+      $all_numbers = ProcessQueue::businessAllNumbers($business_id);
       $is_calling = count($all_numbers->called_numbers) > 0 ? true : false;
       $is_issuing = count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? true : false;
       return $is_calling || $is_issuing;
@@ -554,6 +579,10 @@ class Business extends Eloquent
 
     public static function getBusinessIdByName($business_name){
         return Business::where('name', $business_name)->get();
+    }
+
+    public static function getByLikeName($business_name){
+        return Business::where('name', 'LIKE', '%' . $business_name . '%')->get();
     }
 
     public static function getBusinessByRange($start_date, $end_date){
@@ -604,11 +633,21 @@ class Business extends Eloquent
             ->get();
     }
 
-    public static function getForwarderAllowedBusinesses($business_id){
+//    public static function getForwarderAllowedBusinesses($business_id){
+//        return DB::table('queue_forward_permissions')
+//            ->where('queue_forward_permissions.forwarder_id', '=', $business_id)
+//            ->join('business', 'business.business_id', '=', 'queue_forward_permissions.business_id')
+//            ->select('business.business_id', 'business.name')
+//            ->get();
+//    }
+
+    public static function getForwarderAllowedServices($business_id){
         return DB::table('queue_forward_permissions')
             ->where('queue_forward_permissions.forwarder_id', '=', $business_id)
             ->join('business', 'business.business_id', '=', 'queue_forward_permissions.business_id')
-            ->select('business.business_id', 'business.name')
+            ->join('branch', 'branch.business_id', '=', 'business.business_id')
+            ->join('service', 'service.branch_id', '=', 'branch.branch_id')
+            ->select('business.business_id', 'business.name', 'branch.branch_id', 'service.service_id', 'service.name as service_name')
             ->get();
     }
 

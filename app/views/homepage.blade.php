@@ -176,7 +176,7 @@
               </div>
               <div class="col-md-3" ng-repeat="business in businesses">
                 <a class="business_link" href="/broadcast/business/@{{ business.business_id }}" target="_blank">
-                  <div class="box">
+                  <div class="box" ng-class="{true: 'boxed biz-open', false: 'boxed biz-closed'}[business.card_bool]">
                     <p class="title">@{{ business.business_name }}</p>
                     <small>@{{ business.local_address }}</small>
                   </div>

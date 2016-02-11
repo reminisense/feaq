@@ -98,7 +98,6 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary btn-md btn-close" data-dismiss="modal" aria-label="Close">CLOSE</button>
                 <button id="issue-specific-submit" type="button" class="issue-submit-btn btn btn-orange btn-md" ng-disabled="isIssuing" ng-click="checkIssueSpecificErrors(priority_number, number_limit)">SUBMIT</button>
                 <button id="issue-multiple-submit" type="button" class="issue-submit-btn btn btn-orange btn-md" ng-disabled="isIssuing" ng-click="checkIssueMultipleErrors()" style="display: none">SUBMIT</button>
             </div>

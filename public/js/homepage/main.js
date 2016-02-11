@@ -5,6 +5,20 @@ $('.detail-wrap').on('mouseleave', function(){
 	$(this).find('.details').hide();
 });
 
+$(window).scroll(function() {
+    if ($(document).scrollTop() > 200) {
+        $('.nav li a#nav-fb').addClass('show');
+    } else {
+        $("#nav-fb").fadeOut("2000", function() {
+            $(this).removeClass("show");
+        });
+        /*$('.nav li a#nav-fb').removeClass('show');
+        $('.nav li a#nav-fb').fadeOut();
+        $('.nav li a.fadeout').removeClass('show');
+        return false;*/
+    }
+});
+
 
 (function() {
   var Util,

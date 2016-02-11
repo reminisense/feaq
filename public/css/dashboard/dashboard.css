@@ -209,7 +209,7 @@
 }
 #search-grid .statuses p {
     margin-bottom: 2px;
-    text-transform: capitalize;
+    /*text-transform: capitalize;*/
 }
 #search-grid .boxed:hover .statuses {
     /*background: url('../../img/bg-statuseshover-sep.jpg') top left no-repeat;*/
