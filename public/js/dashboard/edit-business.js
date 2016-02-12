@@ -375,6 +375,9 @@ var eb = {
         $scope.users = [];
         $scope.analytics = [];
 
+        $scope.selected_service = 0;
+        $scope.selected_terminal = 0;
+
         $scope.form_fields = [];
 
         $scope.remaining_character1  = 95;
@@ -522,7 +525,7 @@ var eb = {
         }
 
         $scope.assignToTerminal = function(user_id, terminal_id){
-            if(terminal_id == undefined){
+            if(!terminal_id){
                 $scope.assign_error = 'Please select a terminal.';
                 setTimeout(function(){
                     $('#add-user-error').fadeOut('slow', function(){
@@ -555,24 +558,36 @@ var eb = {
         }
 
         $scope.emailSearch = function(email, terminal_id){
-            $http.get(eb.urls.terminals.user_emailsearch_url + email)
-                .success(function(response){
-                    if(response.user){
-                        $scope.assignToTerminal(response.user.user_id, terminal_id);
-                        $scope.clearUserResults();
-                        $scope.search_user = '';
-                    }else{
-                        $scope.assign_error = 'User does not exist in FeatherQ.'
-                        setTimeout(function(){
-                            $('#add-user-error').fadeOut('slow', function(){
-                                $scope.$apply(function(){
-                                    $scope.assign_error = '';
+            if(email != ''){
+                $http.get(eb.urls.terminals.user_emailsearch_url + email)
+                    .success(function(response){
+                        if(response.user){
+                            $scope.assignToTerminal(response.user.user_id, terminal_id);
+                            $scope.clearUserResults();
+                            $scope.search_user = '';
+                        }else{
+                            $scope.assign_error = 'User does not exist in FeatherQ.'
+                            setTimeout(function(){
+                                $('#add-user-error').fadeOut('slow', function(){
+                                    $scope.$apply(function(){
+                                        $scope.assign_error = '';
+                                    });
+                                    $('#add-user-error').show();
                                 });
-                                $('#add-user-error').show();
-                            });
-                        }, 3000);
-                    }
-                });
+                            }, 3000);
+                        }
+                    });
+            }else {
+                $scope.assign_error = 'Email field cannot be empty.';
+                setTimeout(function () {
+                    $('#add-user-error').fadeOut('slow', function () {
+                        $scope.$apply(function () {
+                            $scope.assign_error = '';
+                        });
+                        $('#add-user-error').show();
+                    });
+                }, 3000);
+            }
         }
 
         $scope.user_results = {users : []};
