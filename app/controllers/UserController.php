@@ -154,7 +154,7 @@ class UserController extends BaseController{
 
     public function getEmailsearch($email){
         $user = User::searchByEmail($email);
-        return json_encode(['success' => 1, 'user' => $user]);
+        return $user ? json_encode(['success' => 1, 'user' => $user]) : json_encode(['success' => 0, 'error' => 'User does not exist in FeatherQ.']);
     }
 
     public function getUserByEmail($email){

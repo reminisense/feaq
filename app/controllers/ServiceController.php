@@ -38,8 +38,12 @@ class ServiceController extends Controller{
 
     //update service
     public function putIndex($service_id){
-        Service::updateServiceName($service_id, Input::get('name'));
-        return json_encode(['success' => 1]);
+        if(Service::branchServiceNameExists(Input::get('name'), $service_id)){
+            return json_encode(['error' => 'Service name already exists']);
+        }else{
+            Service::updateServiceName($service_id, Input::get('name'));
+            return json_encode(['success' => 1]);
+        }
     }
 
     //delete service

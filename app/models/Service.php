@@ -113,4 +113,9 @@ class Service extends Eloquent{
         Service::where('service_id', '=', $service_id)->delete();
     }
 
+    public static function branchServiceNameExists($name, $service_id){
+        $branch_id = Service::branchId($service_id);
+        return Service::where('name', '=', $name)->where('branch_id', '=', $branch_id)->exists();
+    }
+
 }
