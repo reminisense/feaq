@@ -238,6 +238,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
             ->join('priority_queue', 'priority_queue.email', '=', 'user.email')
             ->join('queue_analytics', 'queue_analytics.transaction_number', '=', 'priority_queue.transaction_number')
             ->join('business', 'business.business_id', '=', 'queue_analytics.business_id')
+            ->join('terminal_transaction', 'terminal_transaction.transaction_number', '=', 'priority_queue.transaction_number')
+            ->join('user_rating', 'user_rating.transaction_number', '=', 'priority_queue.transaction_number')
+            ->where('user_rating.rated_by', '=', 'user')
             ->selectRaw('
                 queue_analytics.transaction_number,
                 queue_analytics.date as date,
@@ -246,6 +249,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
                 business.business_id as business_id,
                 business.name as business_name,
                 business.local_address as business_address,
+                terminal_transaction.time_completed as time_completed,
+                terminal_transaction.time_queued as time_queued,
+                user_rating.rating as rating,
                 MAX(queue_analytics.action) as status
             ')
             ->orderBy('queue_analytics.transaction_number', 'desc')
@@ -256,6 +262,37 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
             ->toArray();
 
         return $results;
+    }
+
+    public static function getUserBusinessHistory($user_id, $transaction_number){
+
+        $result = User::where('user.user_id', '=', $user_id)
+            ->join('priority_queue', 'priority_queue.email', '=', 'user.email')
+            ->join('queue_analytics', 'queue_analytics.transaction_number', '=', 'priority_queue.transaction_number')
+            ->join('business', 'business.business_id', '=', 'queue_analytics.business_id')
+            ->join('terminal_transaction', 'terminal_transaction.transaction_number', '=', 'priority_queue.transaction_number')
+            ->join('user_rating', 'user_rating.transaction_number', '=', 'priority_queue.transaction_number')
+            ->where('priority_queue.transaction_number','=',$transaction_number)
+            ->where('user_rating.rated_by', '=', 'user')
+            ->selectRaw('
+                queue_analytics.transaction_number,
+                queue_analytics.date as date,
+                priority_queue.priority_number,
+                priority_queue.email,
+                business.business_id as business_id,
+                business.name as business_name,
+                business.local_address as business_address,
+                business.longitude as longitude,
+                business.latitude as latitude,
+                terminal_transaction.time_completed as time_completed,
+                terminal_transaction.time_queued as time_queued,
+                terminal_transaction.time_queued as time_called,
+                user_rating.rating as rating,
+                MAX(queue_analytics.action) as status
+            ')
+            ->first();
+
+        return $result;
     }
 
     public static function getUserIdByEmail($email) {

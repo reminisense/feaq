@@ -50,7 +50,7 @@ class FeatherqConstants {
     public static function twilio(){
         define('TWILIO_ACCOUNT_SID', 'AC92ee14fb111afb188f1b2e485262ac8d');
         define('TWILIO_AUTH_TOKEN', '881ae32d9c3d8096e488138ed82b266d');
-        define('TWILIO_PHONE_NUMBER', '+14028350080');
+        define('TWILIO_PHONE_NUMBER', '+12015828518');
 
     }
 

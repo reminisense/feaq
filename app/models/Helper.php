@@ -425,4 +425,11 @@ class Helper extends Eloquent
         file_put_contents(public_path() . '/logs/fq-logs.txt', $log, FILE_APPEND);
     }
 
+    public static function generateAccessKey(){
+        return Hash::make('FeatherQ');
+    }
+
+    public static function checkAccessKey(){
+        return Hash::check('FeatherQ', Request::header('access_key'));
+    }
 }

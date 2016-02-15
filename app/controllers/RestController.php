@@ -246,6 +246,7 @@ class RestController extends BaseController {
         unset($numbers['carousel_delay']);
         unset($numbers['adspace_size']);
         unset($numbers['numspace_size']);
+        unset($numbers['num_boxes']);
 
         foreach($numbers as $key => $box_data) {
             // generate object attribute
@@ -483,21 +484,21 @@ class RestController extends BaseController {
         echo $result;
     }
 
-    public function getMyHistory($facebook_id, $limit = 5, $offset = 0){
-        $user = User::searchByFacebookId($facebook_id);
-        $user_queues = User::getUserHistory($user['user_id'], $limit, $offset);
-        foreach($user_queues as $index => $data){
-            $action = 'issued';
-            if($data['status'] == 1 ) { $action = 'called'; }
-            else if($data['status'] == 2 ) { $action = 'served'; }
-            else if($data['status'] == 3 ) { $action = 'dropped'; }
-
-            $user_queues[$index]['status'] = $action;
-            $user_queues[$index]['date'] = date('Y-m-d', $data['date']);
-        }
-
-        return json_encode(['history' => $user_queues]);
-    }
+//    public function getMyHistory($facebook_id, $limit = 5, $offset = 0){
+//        $user = User::searchByFacebookId($facebook_id);
+//        $user_queues = User::getUserHistory($user['user_id'], $limit, $offset);
+//        foreach($user_queues as $index => $data){
+//            $action = 'issued';
+//            if($data['status'] == 1 ) { $action = 'called'; }
+//            else if($data['status'] == 2 ) { $action = 'served'; }
+//            else if($data['status'] == 3 ) { $action = 'dropped'; }
+//
+//            $user_queues[$index]['status'] = $action;
+//            $user_queues[$index]['date'] = date('Y-m-d', $data['date']);
+//        }
+//
+//        return json_encode(['history' => $user_queues]);
+//    }
 
     /**
      * @author Ruffy Heredia

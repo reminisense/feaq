@@ -62,9 +62,17 @@ class Business extends Eloquent
         return Business::where('raw_code', '=', $raw_code)->select(array('business_id'))->first()->business_id;
     }
 
+    public static function getBusinessIdByVanityURL($vanity_url = '') {
+        return Business::where('vanity_url', '=', $vanity_url)->select(array('business_id'))->first()->business_id;
+    }
+
     public static function getRawCodeByBusinessId($business_id)
     {
         return Business::where('business_id', '=', $business_id)->select(array('raw_code'))->first()->raw_code;
+    }
+
+    public static function businessWithVanityURLExists($vanity_url) {
+        return Business::where('vanity_url', '=', $vanity_url)->exists();
     }
 
     /** functions to get the Business name **/
@@ -96,8 +104,12 @@ class Business extends Eloquent
     public static function getVanityURLByBusinessId($business_id) {
         return Business::where('business_id', '=', $business_id)->select(array('vanity_url'))->first()->vanity_url;
     }
+    
+    public static function getVanityURLByRawCode($raw_code) {
+        return Business::where('raw_code', '=', $raw_code)->select(array('vanity_url'))->first()->vanity_url;
+    }
 
-    public static function saveVanityURL($business_id, $vanity_url, $user_id){
+    public static function saveVanityURL($business_id, $vanity_url){
         Business::where('business_id', '=', $business_id)->update(['vanity_url' => $vanity_url]);
         Helper::dbLogger('Business', 'business', 'update', 'saveVanityURL', User::email($user_id), 'business_id:' . $business_id . ', vanity_url:' . $vanity_url);
     }
@@ -562,8 +574,7 @@ class Business extends Eloquent
       */
 
       // will be using Aunne's data from process queue to determine if the business is active or inactive
-      $first_service = Service::getFirstServiceOfBusiness($business_id);
-      $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
+      $all_numbers = ProcessQueue::businessAllNumbers($business_id);
       $is_calling = count($all_numbers->called_numbers) > 0 ? true : false;
       $is_issuing = count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? true : false;
       return $is_calling || $is_issuing;

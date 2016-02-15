@@ -18,19 +18,17 @@ Processs Queue > {{ $business_name }}
 <script src="/js/process-queue/process-queue.js"></script>
 <script src="/js/process-queue/process-queue-angular.js"></script>
 <script src="/js/process-queue/issue-number-angular.js"></script>
-{{--<script src="/js/process-queue/messages-angular.js"></script>--}}
+<script src="/js/process-queue/messages-angular.js"></script>
 <script src="/js/dashboard/dashboard.js"></script>
 
 <script src="/js/google-analytics/googleAnalytics.js"></script>
 <script src="/js/google-analytics/ga-process_queue.js"></script>
-{{-- ARA Removed for later use
 <script src="https://ucarecdn.com/widget/2.3.5/uploadcare/uploadcare.min.js" charset="utf-8"></script>
 <script>
     UPLOADCARE_LOCALE = "en";
     UPLOADCARE_TABS = "file";
     UPLOADCARE_PUBLIC_KEY = "844c2b9e554c2ee5cc0a";
 </script>
---}}
 <script src="/js/dashboard/dashboard.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.4/jstz.min.js"></script>
 @stop

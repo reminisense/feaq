@@ -9,6 +9,70 @@
 
 class MobileController extends BaseController{
 
+    //Screen #1
+    public function getActiveBusinesses(){
+        $active_businesses = [];
+        $businesses = Business::all();
+
+        foreach($businesses as $business){
+            if(Business::processingBusinessBool($business->business_id)){
+                $services = Service::getServicesByBusinessId($business->business_id);
+                $all_numbers = ProcessQueue::businessAllNumbers($business->business_id);
+
+                if(count($all_numbers->called_numbers) > 0){
+                    $last_called = json_decode(json_encode($all_numbers->called_numbers[0]));
+                    $last_called->service_id = Terminal::serviceId($last_called->terminal_id);
+                    $last_called->user_id = PriorityQueue::userId($last_called->transaction_number);
+                }else{
+                    $last_called = new stdClass();
+                    $last_called->service_id = '';
+                    $last_called->user_id = '';
+                    $last_called->service_name = '';
+                    $last_called->terminal_id = '';
+                    $last_called->terminal_name = '';
+                    $last_called->priority_number = '';
+                    $last_called->name = '';
+                    $last_called->email = '';
+                    $last_called->phone = '';
+                }
+
+                $services_list = [];
+                $allow_remote = false;
+                foreach($services as $service){
+                    $enabled = QueueSettings::allowRemote($service->service_id) > 0 ? true : false;
+                    $allow_remote = $enabled ? true : $allow_remote;
+                    $services_list[] = [
+                        'service_id' => $service->service_id,
+                        'name' => $service->name,
+                        'enabled' => $enabled
+                    ];
+                }
+
+                $active_businesses[] = [
+                    'id' => $business->business_id,
+                    'name' => $business->name,
+                    'address' => $business->local_address,
+                    'image_url' => "http://imgur.com/as1DaJ.jpg",
+                    'time_requested' => time(),
+                    'remote_queue' => $allow_remote,
+                    'service_list'  => $services_list,
+                    'last_called' => [
+                        'service_id' => $last_called->service_id,
+                        'service_name' => $last_called->service_name,
+                        'terminal_id' => $last_called->terminal_id,
+                        'terminal_name' => $last_called->terminal_name,
+                        'queue_number' => $last_called->priority_number,
+                        'queue_user_id' => $last_called->user_id,
+                        'queue_user_name' => $last_called->name,
+                        'queue_user_email' => $last_called->email,
+                        'queue_user_contact' => $last_called->phone,
+                    ],
+                ];
+            }
+        }
+        return json_encode($active_businesses);
+    }
+
     //Screen #5
     public function getUserQueue($user_id)
     {
@@ -77,6 +141,56 @@ class MobileController extends BaseController{
             ];
         }
         return json_encode($data);
+    }
+
+    //Screen #6
+    public function getMyAllHistory($user_id, $limit = 5, $offset = 0){
+
+        $user_queues = User::getUserHistory($user_id, $limit, $offset);
+        $businesses = array();
+
+        for($i = 0; $i < count($user_queues); $i++){
+            array_push($businesses, [
+                'id' =>  (int) $user_id,
+                'business_id' => $user_queues[$i]['business_id'],
+                'business_name' => $user_queues[$i]['business_name'],
+                'image_url' => '',
+                'status' => $user_queues[$i]['status'],
+                'transaction_length' => $user_queues[$i]['time_completed'] - $user_queues[$i]['time_queued'],
+                'priority_number' => $user_queues[$i]['priority_number'],
+                'rating' => $user_queues[$i]['rating'],
+                'transaction_date' => $user_queues[$i]['date']
+            ]);
+        }
+
+        return json_encode($businesses);
+
+    }
+
+    //Screen #7
+    public function getMyBusinessHistory($transaction_number){
+
+        $user_id = PriorityQueue::userId($transaction_number);
+        $user_queues = User::getUserBusinessHistory($user_id, $transaction_number);
+
+        $business = [
+            'business_id' => $user_queues->business_id,
+            'transaction_date' => $user_queues->date,
+            'business_name' => $user_queues->business_name,
+            'address' => $user_queues->business_address,
+            'location' => [
+                'longitude' => $user_queues->longitude,
+                'latitude' => $user_queues->latitude
+            ],
+            'status' => $user_queues->status,
+            'priority_number' => $user_queues->priority_number,
+            'time_issued' => $user_queues->time_queued,
+            'time_called' => $user_queues->time_called,
+            'rating' => $user_queues->rating
+
+        ];
+
+        return json_encode($business);
     }
 
     //Screen #10
@@ -155,7 +269,6 @@ class MobileController extends BaseController{
                 }
                 $data['service_list'] = $service_list;
             }
-
             $broadcast_numbers = array();
             if($all_numbers){
                 $max_count = explode("-", $json->display)[1];
@@ -209,5 +322,27 @@ class MobileController extends BaseController{
         }
 
         return json_encode($data);
+    }
+
+    /**
+     * to check for the correct access key, tue access_key variable should be placed in the request header
+     * and validated using the Helper::checkAccessKey() function.
+     */
+    public function postEmailLogin(){
+        $email = Input::get('email');
+        $password = Input::get('password');
+
+        if(isset($email) && $email != "" && isset($password) && $password != ""){
+            $user = User::where('email', '=', $email)->first();
+            if($user && !$user->verified){
+                return json_encode(['error' => 'Email verification required.']);
+            }else if($user && Hash::check($password, $user->password)){
+                return json_encode(['success' => 1, 'access_token' => Helper::generateAccessKey()]);
+            }else{
+                return json_encode(['error' => 'The email or password is incorrect.']);
+            }
+        }else{
+            return json_encode(['error' => 'The email or password should not be blank.']);
+        }
     }
 }

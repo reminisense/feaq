@@ -53,12 +53,12 @@
             $('#search-loader').show();
             if (typeof $event != 'undefined') $event.preventDefault();
             if (typeof search_keyword == 'undefined') search_keyword = '';
-            if (typeof $scope.time_open == 'undefined') $scope.time_open = '';
+            if (typeof $('#time_open-filter').val() == 'undefined') $('#time_open-filter').val('');
             var data = {
                 "keyword": search_keyword,
                 "country": location,
                 "industry": industry,
-                "time_open": $scope.time_open,
+                "time_open": $('#time_open-filter').val(),
                 "latitude" : USER_LATITUDE,
                 "longitude" : USER_LONGITUDE,
                 "user_timezone" : - (new Date().getTimezoneOffset() * 60) //ARA for converting business time to client time
