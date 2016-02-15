@@ -37,7 +37,7 @@ class TerminalController extends BaseController{
       if (Helper::isBusinessOwner($business_id, Helper::userId())) { // PAG added permission checking
         $error = 'There are still pending numbers for this terminal.';
         if (TerminalTransaction::terminalActiveNumbers(Input::get('terminal_id')) == 0) {
-          Terminal::deleteTerminal(Input::get('terminal_id'));
+          Terminal::deleteTerminal(Input::get('terminal_id'), Helper::userId());
           $error = NULL;
         }
         $business = Business::getBusinessDetails($business_id);
@@ -53,7 +53,7 @@ class TerminalController extends BaseController{
       if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId())) { // PAG added permission checking
         $terminal_id = count(Terminal::getTerminalsByBusinessId(Input::get('business_id')));
         if ($this->validateTerminalName(Input::get('business_id'), Input::get('name'), $terminal_id)) {
-          Terminal::createTerminal(Input::get('service_id'), Input::get('name'));
+          Terminal::createTerminal(Input::get('service_id'), Input::get('name'), Helper::userId());
           $business = Business::getBusinessDetails(Input::get('business_id'));
           return json_encode(['success' => 1, 'business' => $business]);
         }

@@ -756,7 +756,7 @@ class RestController extends BaseController {
                         'email' => $email,
                         'phone' => serialize($phones),
                         'thread_key' => $thread_key,
-                    ));
+                    ), Helper::userId());
                     $data = json_encode(array(array(
                         'timestamp' => $timestamp,
                         'contmessage' => $message,
@@ -770,7 +770,7 @@ class RestController extends BaseController {
                     if (!in_array($phone, $phones)) $phones[] = $phone;
                     Message::updateThread(array(
                         'phone' => serialize($phones),
-                    ), $thread_key);
+                    ), $thread_key, Helper::userId());
                     $data = json_decode(file_get_contents(public_path() . '/json/messages/' . $thread_key . '.json'));
                     $data[] = array(
                         'timestamp' => $timestamp,

@@ -46,7 +46,7 @@ class Service extends Eloquent{
      */
     public static function createBusinessService($business_id, $name){
         $first_branch = Branch::getFirstBranchOfBusiness($business_id);
-        return Service::createService($first_branch->branch_id, $name);
+        return Service::createService($first_branch->branch_id, $name, Helper::userId());
     }
 
     /*
@@ -55,7 +55,7 @@ class Service extends Eloquent{
      * @return service_id
      */
     public static function createBranchService($branch_id, $business_name){
-        return Service::createService($branch_id, $business_name . " Service"); //ARA Moved function to createService
+        return Service::createService($branch_id, $business_name . " Service", Helper::userId()); //ARA Moved function to createService
     }
 
     /*
@@ -110,7 +110,7 @@ class Service extends Eloquent{
     public static function deleteService($service_id, $user_id){
         $terminals = Terminal::getTerminalsByServiceId($service_id);
         foreach($terminals as $terminal){
-            Terminal::deleteTerminal($terminal['terminal_id']);
+            Terminal::deleteTerminal($terminal['terminal_id'], Helper::userId());
         }
         Service::where('service_id', '=', $service_id)->delete();
         Helper::dbLogger('Service', 'service', 'delete', 'deleteService', User::email($user_id), 'service_id:' . $service_id);

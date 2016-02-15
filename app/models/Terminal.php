@@ -33,7 +33,7 @@ class Terminal extends Eloquent{
     public static function createBranchServiceTerminal($user_id, $service_id, $num){
         $terminals = [];
         for($i = 1; $i <= $num; $i++){
-            $terminal = Terminal::createTerminal($service_id, "Terminal " . $i);
+            $terminal = Terminal::createTerminal($service_id, "Terminal " . $i, Helper::userId());
             $terminaluser = new TerminalUser();
             $terminaluser->user_id = $user_id;
             $terminaluser->terminal_id = $terminal->terminal_id;
@@ -104,7 +104,7 @@ class Terminal extends Eloquent{
     public static function createBusinessNewTerminal($business_id, $name){
         $first_branch = Branch::where('business_id', '=', $business_id)->first();
         $first_service = Service::where('branch_id', '=', $first_branch->branch_id)->first();
-        Terminal::createTerminal($first_service->service_id);
+        Terminal::createTerminal($first_service->service_id, Helper::userId());
     }
 
     // Added by PAG

@@ -102,7 +102,7 @@ class MessageController extends BaseController {
             'email' => $email,
             'phone' => serialize($phones),
             'thread_key' => $thread_key,
-          ));
+          ), Helper::userId());
           $data = json_encode(array(
             array(
               'timestamp' => $timestamp,
@@ -180,7 +180,7 @@ class MessageController extends BaseController {
                 'business_id' => $business_id,
                 'email' => $email,
                 'thread_key' => $thread_key,
-              ));
+              ), Helper::userId());
             }
           }
           else {

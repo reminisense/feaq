@@ -11,7 +11,7 @@ class AdImages extends Eloquent{
     Helper::dbLogger('AdImages', 'ad_images', 'update', 'setWeight', User::email($user_id), 'img_id:' . $img_id);
   }
 
-  public static function getAllImagesByBusinessId($business_id, $user_id) {
+  public static function getAllImagesByBusinessId($business_id) {
     return AdImages::where('business_id', '=', $business_id)->orderBy('weight')->get();
   }
 

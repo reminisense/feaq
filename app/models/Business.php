@@ -109,7 +109,7 @@ class Business extends Eloquent
         return Business::where('raw_code', '=', $raw_code)->select(array('vanity_url'))->first()->vanity_url;
     }
 
-    public static function saveVanityURL($business_id, $vanity_url){
+    public static function saveVanityURL($business_id, $vanity_url, $user_id){
         Business::where('business_id', '=', $business_id)->update(['vanity_url' => $vanity_url]);
         Helper::dbLogger('Business', 'business', 'update', 'saveVanityURL', User::email($user_id), 'business_id:' . $business_id . ', vanity_url:' . $vanity_url);
     }

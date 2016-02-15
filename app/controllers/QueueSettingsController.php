@@ -12,7 +12,7 @@ class QueueSettingsController extends BaseController{
 
         foreach($services as $service){
             if(QueueSettings::serviceExists($service->service_id)){
-                QueueSettings::updateQueueSetting($service->service_id, $field, $value);
+                QueueSettings::updateQueueSetting($service->service_id, $field, $value, Helper::userId());
             }else{
                 QueueSettings::createQueueSetting([
                     'service_id' => $service->service_id,
