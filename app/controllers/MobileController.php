@@ -334,10 +334,19 @@ class MobileController extends BaseController{
 
         if(isset($email) && $email != "" && isset($password) && $password != ""){
             $user = User::where('email', '=', $email)->first();
+            $user_data = [
+                'user_id' => $user->user_id,
+                'first_name' => $user->first_name,
+                'last_name' => $user->last_name,
+                'email' => $user->email,
+                'phone' => $user->phone,
+                'local_address' => $user->local_address,
+                'gender' => $user->gender,
+            ];
             if($user && !$user->verified){
                 return json_encode(['error' => 'Email verification required.']);
             }else if($user && Hash::check($password, $user->password)){
-                return json_encode(['success' => 1, 'access_token' => Helper::generateAccessKey()]);
+                return json_encode(['success' => 1, 'user'=> $user_data, 'access_token' => Helper::generateAccessKey()]);
             }else{
                 return json_encode(['error' => 'The email or password is incorrect.']);
             }
