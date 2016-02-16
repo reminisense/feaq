@@ -408,10 +408,6 @@ class Helper extends Eloquent
         $businesses = UserBusiness::getAllBusinessIdByOwner(Helper::userId());
         $terminals = TerminalUser::getTerminalAssignement(Helper::userId());
 
-//        var_dump($businesses->toArray());
-//        var_dump($terminals);
-//        dd($businesses || $terminals);
-
         return (count($businesses) || count($terminals));
     }
     public static function threadKeyGenerator($business_id, $email) {
