@@ -156,9 +156,9 @@ class MobileController extends BaseController{
                 'business_name' => $user_queues[$i]['business_name'],
                 'image_url' => '',
                 'status' => $user_queues[$i]['status'],
-                'transaction_length' => $user_queues[$i]['time_completed'] - $user_queues[$i]['time_queued'],
+                'transaction_length' => $user_queues[$i]['time_completed'] - $user_queues[$i]['time_queued'] > 0 ? $user_queues[$i]['time_completed'] - $user_queues[$i]['time_queued'] : 0,
                 'priority_number' => $user_queues[$i]['priority_number'],
-                'rating' => $user_queues[$i]['rating'],
+                'rating' => UserRating::getUserRating($user_queues[$i]['transaction_number']) ? UserRating::getUserRating($user_queues[$i]['transaction_number'])->rating : 0,
                 'transaction_date' => $user_queues[$i]['date']
             ]);
         }
@@ -186,7 +186,7 @@ class MobileController extends BaseController{
             'priority_number' => $user_queues->priority_number,
             'time_issued' => $user_queues->time_queued,
             'time_called' => $user_queues->time_called,
-            'rating' => $user_queues->rating
+            'rating' => UserRating::getUserRating($transaction_number) ? UserRating::getUserRating($transaction_number)->rating : 0
 
         ];
 
