@@ -150,7 +150,13 @@ Processs Queue > {{ $business_name }}
                     <tbody>
                     <tr>
                         <th></th>
-                        <td></td>
+                        <td>
+                            <div class="progress" style="padding-top: 0;" ng-show="isStopping">
+                                <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="@{{ progress_current }}" aria-valuemin="0" aria-valuemax="@{{ progress_max }}" style="padding-top: 0; width: @{{ stop_progress + '%' }}">
+                                    <span> Stopping... </span>
+                                </div>
+                            </div>
+                        </td>
                         <td>
                             <button class="pull-right btn btn-sm btn-danger stopbutton" ng-click="stopProcessQueue()">
                                 <span class="glyphicon glyphicon-stop"></span> STOP
