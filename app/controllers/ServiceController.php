@@ -38,13 +38,13 @@ class ServiceController extends Controller{
 
     //update service
     public function putIndex($service_id){
-        Service::updateServiceName($service_id, Input::get('name'), Helper::userId());
+        Service::updateServiceName($service_id, Input::get('name'));
         return json_encode(['success' => 1]);
     }
 
     //delete service
     public function deleteIndex($service_id){
-        Service::deleteService($service_id, Helper::userId());
+        Service::deleteService($service_id);
         return json_encode(['success' => 1]);
     }
 

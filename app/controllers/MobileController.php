@@ -211,7 +211,7 @@ class MobileController extends BaseController{
                 'email' => $email,
                 'phone' => serialize($phones),
                 'thread_key' => $thread_key,
-            ), Helper::userId());
+            ));
             $data = json_encode(array(
                 array(
                     'timestamp' => $timestamp,

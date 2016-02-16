@@ -9,13 +9,13 @@ class Message extends Eloquent {
     return Message::where('thread_key', '=', $thread_key)->exists();
   }
 
-  public static function createThread($val = array(), $user_id) {
+  public static function createThread($val = array()) {
     Message::insert($val);
-    Helper::dbLogger('Message', 'message', 'insert', 'createThread', User::email($user_id), 'message_id:' . $val['message_id']);
+    Helper::dbLogger('Message', 'message', 'insert', 'createThread', User::email(Helper::userId()), 'message_id:' . $val['message_id']);
   }
-  public static function updateThread($val = array(), $thread_key, $user_id) {
+  public static function updateThread($val = array(), $thread_key) {
     Message::where('thread_key', '=', $thread_key)->update($val);
-    Helper::dbLogger('Message', 'message', 'update', 'updateThread', User::email($user_id), 'thread_key:' . $thread_key);
+    Helper::dbLogger('Message', 'message', 'update', 'updateThread', User::email(Helper::userId()), 'thread_key:' . $thread_key);
   }
 
   public static function getPhoneByKey($thread_key) {

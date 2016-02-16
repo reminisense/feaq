@@ -47,7 +47,7 @@ class AdvertisementController extends BaseController{
   public function postDeleteImage() {
     if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId())) { // PAG added permission checking
       unlink(Input::get('path'));
-      AdImages::deleteImageByPath(Input::get('path'), Helper::userId());
+      AdImages::deleteImageByPath(Input::get('path'));
       return json_encode(array('status' => 1));
     }
     else {
@@ -171,7 +171,7 @@ class AdvertisementController extends BaseController{
       file_put_contents(public_path() . '/json/' . $business_id . '.json', $encode);
       */
 
-      AdImages::saveImages('ads/' . Input::get('business_id') . '/' . basename($filePath), Input::get('business_id'), Helper::userId());
+      AdImages::saveImages('ads/' . Input::get('business_id') . '/' . basename($filePath), Input::get('business_id'));
 
       // Return Success JSON-RPC response
       die('{"jsonrpc" : "2.0", "result" : null, "id" : "id"}');
@@ -292,7 +292,7 @@ class AdvertisementController extends BaseController{
 
   public function postReorderImages() {
     if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId())) { // PAG added permission checking
-      AdImages::setWeight(Input::get('weight'), Input::get('img_id'), Helper::userId());
+      AdImages::setWeight(Input::get('weight'), Input::get('img_id'));
     }
     else {
       return json_encode(array('status' => 'You are not allowed to access this function.'));

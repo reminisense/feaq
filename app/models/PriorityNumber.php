@@ -12,7 +12,7 @@ class PriorityNumber extends Eloquent {
     protected $primaryKey = 'track_id';
     public $timestamps = false;
 
-    public static function createPriorityNumber($service_id, $number_start, $number_limit, $last_number_given, $current_number, $date, $user_id){
+    public static function createPriorityNumber($service_id, $number_start, $number_limit, $last_number_given, $current_number, $date){
         $values = [
             'service_id' => $service_id,
             'number_start' => $number_start,
@@ -21,7 +21,7 @@ class PriorityNumber extends Eloquent {
             'current_number' => $current_number,
             'date' => $date
         ];
-        Helper::dbLogger('PriorityNumber', 'priority_number', 'insert', 'createPriorityNumber', User::email($user_id), 'service_id:' . $service_id . ', current_number:' . $current_number);
+        Helper::dbLogger('PriorityNumber', 'priority_number', 'insert', 'createPriorityNumber', User::email(Helper::userId()), 'service_id:' . $service_id . ', current_number:' . $current_number);
         return PriorityNumber::insertGetId($values);
     }
 

@@ -29,13 +29,13 @@ class Service extends Eloquent{
      * @description: create new service
      * @return service_id
      */
-    public static function createService($branch_id, $name, $user_id){
+    public static function createService($branch_id, $name){
         $service = new Service();
         $service->name = $name;
         $service->status = 1;
         $service->branch_id = $branch_id;
         $service->save();
-        Helper::dbLogger('Service', 'service', 'insert', 'createService', User::email($user_id), 'service_id:' . $service->service_id . ', service_name:' . $name);
+        Helper::dbLogger('Service', 'service', 'insert', 'createService', User::email(Helper::userId()), 'service_id:' . $service->service_id . ', service_name:' . $name);
         return $service->service_id;
     }
 
@@ -46,7 +46,7 @@ class Service extends Eloquent{
      */
     public static function createBusinessService($business_id, $name){
         $first_branch = Branch::getFirstBranchOfBusiness($business_id);
-        return Service::createService($first_branch->branch_id, $name, Helper::userId());
+        return Service::createService($first_branch->branch_id, $name);
     }
 
     /*
@@ -55,7 +55,7 @@ class Service extends Eloquent{
      * @return service_id
      */
     public static function createBranchService($branch_id, $business_name){
-        return Service::createService($branch_id, $business_name . " Service", Helper::userId()); //ARA Moved function to createService
+        return Service::createService($branch_id, $business_name . " Service"); //ARA Moved function to createService
     }
 
     /*
@@ -88,8 +88,8 @@ class Service extends Eloquent{
         return Service::where('branch_id', '=', $branch_id)->get();
     }
 
-    public static function deleteServicesByBranchId($branch_id, $user_id){
-        Helper::dbLogger('Service', 'service', 'delete', 'deleteServicesByBranchId', User::email($user_id), 'branch_id:' . $branch_id);
+    public static function deleteServicesByBranchId($branch_id){
+        Helper::dbLogger('Service', 'service', 'delete', 'deleteServicesByBranchId', User::email(Helper::userId()), 'branch_id:' . $branch_id);
         return Service::where('branch_id', '=', $branch_id)->delete();
     }
 
@@ -102,18 +102,18 @@ class Service extends Eloquent{
         return Service::where('branch_id', '=', $branch_id)->first();
     }
 
-    public static function updateServiceName($service_id, $name, $user_id){
+    public static function updateServiceName($service_id, $name){
         Service::where('service_id', '=', $service_id)->update(['name' => $name]);
-        Helper::dbLogger('Service', 'service', 'update', 'updateServiceName', User::email($user_id), 'service_id:' . $service_id);
+        Helper::dbLogger('Service', 'service', 'update', 'updateServiceName', User::email(Helper::userId()), 'service_id:' . $service_id);
     }
 
-    public static function deleteService($service_id, $user_id){
+    public static function deleteService($service_id){
         $terminals = Terminal::getTerminalsByServiceId($service_id);
         foreach($terminals as $terminal){
             Terminal::deleteTerminal($terminal['terminal_id'], Helper::userId());
         }
         Service::where('service_id', '=', $service_id)->delete();
-        Helper::dbLogger('Service', 'service', 'delete', 'deleteService', User::email($user_id), 'service_id:' . $service_id);
+        Helper::dbLogger('Service', 'service', 'delete', 'deleteService', User::email(Helper::userId()), 'service_id:' . $service_id);
     }
 
 }

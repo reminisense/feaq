@@ -48,7 +48,7 @@ class IssueNumberController extends BaseController{
                     'email' => $email,
                     'contactname' => $name ? $name : '',
                     'phone' => $phone ? $phone : ''
-                ), Helper::userId());
+                ));
                 $data = json_encode(array(
                     array(
                         'timestamp' => time(),

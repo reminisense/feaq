@@ -100,13 +100,13 @@ class QueueSettings extends Eloquent{
      * Basic functions
      */
 
-    public static function updateQueueSetting($service_id, $field, $value, $user_id){
+    public static function updateQueueSetting($service_id, $field, $value){
         QueueSettings::where('service_id', '=', $service_id)->update([$field => $value]);
-        Helper::dbLogger('QueueSettings', 'queue_settings', 'update', 'updateQueueSetting', User::email($user_id), 'service_id:' . $service_id);
+        Helper::dbLogger('QueueSettings', 'queue_settings', 'update', 'updateQueueSetting', User::email(Helper::userId()), 'service_id:' . $service_id);
     }
 
-    public static function createQueueSetting($values, $user_id){
-        Helper::dbLogger('QueueSettings', 'queue_settings', 'update', 'createQueueSetting', User::email($user_id));
+    public static function createQueueSetting($values){
+        Helper::dbLogger('QueueSettings', 'queue_settings', 'update', 'createQueueSetting', User::email(Helper::userId()));
         return QueueSettings::insertGetId($values);
     }
 

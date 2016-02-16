@@ -159,7 +159,7 @@ class AdminController extends BaseController{
         File::put(public_path() . '/json/' . $business->business_id . '.json', $contents);
         $business_user->save();
 
-        $branch_id = Branch::createBusinessBranch($business->business_id, $business->name, Helper::userId());
+        $branch_id = Branch::createBusinessBranch($business->business_id, $business->name);
         $service_id = Service::createBranchService($branch_id, $business->name);
 
         /* @CSD Auto issue on business create */
@@ -297,7 +297,7 @@ class AdminController extends BaseController{
     }
 
     public function postSaveVanity() {
-      Business::saveVanityURL(Input::get('business_id'), Input::get('vanity_url'), Helper::userId());
+      Business::saveVanityURL(Input::get('business_id'), Input::get('vanity_url'));
     }
 
   public function getUserDetails($user_id) {

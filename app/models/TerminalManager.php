@@ -75,7 +75,7 @@ class TerminalManager extends Eloquent{
             'terminal_id' => $terminal_id,
             'in_out' => $in_out,
         ];
-        Helper::dbLogger('TerminalManager', 'terminal_manager', 'insert', 'addTerminalManager', User::email($user_id), 'terminal_id:' . $terminal_id);
+        Helper::dbLogger('TerminalManager', 'terminal_manager', 'insert', 'addTerminalManager', User::email(Helper::userId()), 'terminal_id:' . $terminal_id);
         return TerminalManager::insertGetId($values);
     }
 }

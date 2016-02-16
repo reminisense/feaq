@@ -26,7 +26,7 @@ class TerminalUser extends Eloquent{
 
     public static function updateTerminalUserStatus($user_id, $terminal_id, $status = 0){
         TerminalUser::where('user_id', '=', $user_id)->where('terminal_id', '=', $terminal_id)->update(['status' => $status]);
-        Helper::dbLogger('TerminalUser', 'terminal_user', 'update', 'updateTerminalUserStatus', User::email($user_id), 'terminal_id:' . $terminal_id);
+        Helper::dbLogger('TerminalUser', 'terminal_user', 'update', 'updateTerminalUserStatus', User::email(Helper::userId()), 'terminal_id:' . $terminal_id);
     }
 
     public static function terminalUserExists($user_id, $terminal_id){
@@ -41,7 +41,7 @@ class TerminalUser extends Eloquent{
             'status' => 1,
             'date' => $date
         ];
-        Helper::dbLogger('TerminalUser', 'terminal_user', 'insert', 'createTerminalUser', User::email($user_id), 'terminal_id:' . $terminal_id);
+        Helper::dbLogger('TerminalUser', 'terminal_user', 'insert', 'createTerminalUser', User::email(Helper::userId()), 'terminal_id:' . $terminal_id);
         return TerminalUser::insertGetId($values);
     }
 
@@ -66,8 +66,8 @@ class TerminalUser extends Eloquent{
         return TerminalUser::isUserAssignedToTerminal(Helper::userId(), $terminal_id);
     }
 
-  public static function deleteUserByTerminalId($terminal_id, $user_id) {
+  public static function deleteUserByTerminalId($terminal_id) {
     TerminalUser::where('terminal_id', '=', $terminal_id)->delete();
-      Helper::dbLogger('TerminalUser', 'terminal_user', 'delete', 'deleteUserByTerminalId', User::email($user_id), 'terminal_id:' . $terminal_id);
+      Helper::dbLogger('TerminalUser', 'terminal_user', 'delete', 'deleteUserByTerminalId', User::email(Helper::userId()), 'terminal_id:' . $terminal_id);
   }
 }

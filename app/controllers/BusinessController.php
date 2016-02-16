@@ -185,7 +185,7 @@ class BusinessController extends BaseController{
           File::put(public_path() . '/json/' . $business->business_id . '.json', $contents);
           $business_user->save();
 
-          $branch_id = Branch::createBusinessBranch($business->business_id, $business->name, Helper::userId());
+          $branch_id = Branch::createBusinessBranch($business->business_id, $business->name);
           $service_id = Service::createBranchService($branch_id, $business->name);
 
           /* @CSD Auto issue on business create */
@@ -462,22 +462,22 @@ class BusinessController extends BaseController{
     public function postRemove() {
       $post = json_decode(file_get_contents("php://input"));
       if (Helper::isBusinessOwner($post->business_id, Helper::userId())) { // PAG added permission checking
-        Business::deleteBusinessByBusinessId($post->business_id, Helper::userId());
+        Business::deleteBusinessByBusinessId($post->business_id);
         $branches = Branch::getBranchesByBusinessId($post->business_id);
         foreach ($branches as $count => $data) {
           $services = Service::getServicesByBranchId($data->branch_id);
           foreach ($services as $count2 => $data2) {
             $terminals = Terminal::getTerminalsByServiceId($data2->service_id);
             foreach ($terminals as $count3 => $data3) {
-              TerminalUser::deleteUserByTerminalId($data3['terminal_id'], Helper::userId());
+              TerminalUser::deleteUserByTerminalId($data3['terminal_id']);
             }
-            Terminal::deleteTerminalsByServiceId($data2->service_id, Helper::userId());
+            Terminal::deleteTerminalsByServiceId($data2->service_id);
           }
-          Service::deleteServicesByBranchId($data->branch_id, Helper::userId());
+          Service::deleteServicesByBranchId($data->branch_id);
         }
 
-        Branch::deleteBranchesByBusinessId($post->business_id, Helper::userId());
-        UserBusiness::deleteUserByBusinessId($post->business_id, Helper::userId());
+        Branch::deleteBranchesByBusinessId($post->business_id);
+        UserBusiness::deleteUserByBusinessId($post->business_id);
 
         return json_encode(array('status' => 1));
       }

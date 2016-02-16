@@ -37,12 +37,12 @@ class Analytics extends Eloquent{
      * Saving To Queue Analytics table
      */
 
-    public static function saveQueueAnalytics($values, $user_id){
+    public static function saveQueueAnalytics($values){
         DB::table('queue_analytics')->insert($values);
-        Helper::dbLogger('Analytics', 'queue_analytics', 'insert', 'saveQueueAnalytics', User::email($user_id));
+        Helper::dbLogger('Analytics', 'queue_analytics', 'insert', 'saveQueueAnalytics', User::email(Helper::userId()));
     }
 
-    public static function insertAnalyticsQueueNumber($action, $transaction_number, $service_id, $date, $time, $terminal_id, $queue_platform, $user_id){
+    public static function insertAnalyticsQueueNumber($action, $transaction_number, $service_id, $date, $time, $terminal_id, $queue_platform){
         $values = [
             'transaction_number' => $transaction_number,
             'date' => $date,
@@ -56,24 +56,24 @@ class Analytics extends Eloquent{
             'action_time' => $time
         ];
 
-        Analytics::saveQueueAnalytics($values, Helper::userId());
-        Helper::dbLogger('Analytics', 'queue_analytics', 'insert', 'insertAnalyticsQueueNumber', User::email($user_id), 'transaction_number:' . $transaction_number);
+        Analytics::saveQueueAnalytics($values);
+        Helper::dbLogger('Analytics', 'queue_analytics', 'insert', 'insertAnalyticsQueueNumber', User::email(Helper::userId()), 'transaction_number:' . $transaction_number);
     }
 
     public static function insertAnalyticsQueueNumberIssued($transaction_number, $service_id, $date, $time, $terminal_id, $queue_platform){
-        Analytics::insertAnalyticsQueueNumber(0, $transaction_number, $service_id, $date, $time, $terminal_id, $queue_platform, Helper::userId());
+        Analytics::insertAnalyticsQueueNumber(0, $transaction_number, $service_id, $date, $time, $terminal_id, $queue_platform);
     }
 
     public static function insertAnalyticsQueueNumberCalled($transaction_number, $service_id, $date, $time, $terminal_id, $queue_platform){
-        Analytics::insertAnalyticsQueueNumber(1, $transaction_number, $service_id, $date, $time, $terminal_id, $queue_platform, Helper::userId());
+        Analytics::insertAnalyticsQueueNumber(1, $transaction_number, $service_id, $date, $time, $terminal_id, $queue_platform);
     }
 
     public static function insertAnalyticsQueueNumberServed($transaction_number, $service_id, $date, $time, $terminal_id, $queue_platform){
-        Analytics::insertAnalyticsQueueNumber(2, $transaction_number, $service_id, $date, $time, $terminal_id, $queue_platform, Helper::userId());
+        Analytics::insertAnalyticsQueueNumber(2, $transaction_number, $service_id, $date, $time, $terminal_id, $queue_platform);
     }
 
     public static function insertAnalyticsQueueNumberRemoved($transaction_number, $service_id, $date, $time, $terminal_id, $queue_platform){
-        Analytics::insertAnalyticsQueueNumber(3, $transaction_number, $service_id, $date, $time, $terminal_id, $queue_platform, Helper::userId());
+        Analytics::insertAnalyticsQueueNumber(3, $transaction_number, $service_id, $date, $time, $terminal_id, $queue_platform);
     }
 
     /**
