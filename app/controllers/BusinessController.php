@@ -671,8 +671,14 @@ class BusinessController extends BaseController{
     }
 
     public function getAllowedBusinesses($business_id){
-        $allowed_businesses = Business::getForwarderAllowedServices($business_id);
-        return json_encode(['success' => 1, 'allowed_businesses' => $allowed_businesses]);
+        $business_features = Business::getBusinessFeatures($business_id);
+        if($business_features['queue_forwarding'] == 'true'){
+            $allowed_businesses = Business::getForwarderAllowedServices($business_id);
+            return json_encode(['success' => 1, 'allowed_businesses' => $allowed_businesses]);
+        }else{
+            return json_encode(['success' => 1, 'allowed_businesses' => []]);
+        }
+
     }
 
 

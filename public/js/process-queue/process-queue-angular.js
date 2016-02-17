@@ -57,20 +57,16 @@
         };
 
         $scope.serveNumber = function(transaction_number, callback){
-
-                var i = getIndex(transaction_number);
-                if($scope.called_numbers[i].verified_email){
-                    console.log($scope.called_numbers_rating[i]);
-                    if($scope.called_numbers_rating[i] == undefined){
-                        var rating = 3;
-                    }else{
-                        var rating = $scope.called_numbers_rating[i];
-                    }
-
-                    $http.get('/rating/userratings/'+rating+'/'+$scope.called_numbers[i].email+'/'+$scope.terminal_id
-                    +'/'+2+'/'+transaction_number);
-
+            var i = getIndex(transaction_number);
+            console.log($scope.called_numbers[i].verified_email);
+            if($scope.called_numbers[i].verified_email){
+                if($scope.called_numbers_rating[i] == undefined){
+                    var rating = 3;
+                }else{
+                    var rating = $scope.called_numbers_rating[i];
                 }
+                $http.get('/rating/userratings/'+rating+'/'+$scope.called_numbers[i].email+'/'+$scope.terminal_id +'/'+2+'/'+transaction_number);
+            }
 
             $scope.isProcessing = true;
             getResponseResetValues(pq.urls.process_queue.serve_number_url + transaction_number, function(){
@@ -83,19 +79,15 @@
         };
 
         $scope.dropNumber = function(transaction_number){
-
             var i = getIndex(transaction_number);
+            console.log($scope.called_numbers[i].verified_email);
             if($scope.called_numbers[i].verified_email){
-                console.log($scope.called_numbers_rating[i]);
                 if($scope.called_numbers_rating[i] == undefined){
                     var rating = 0;
                 }else{
                     var rating = $scope.called_numbers_rating[i];
                 }
-
-                $http.get('/rating/userratings/'+rating+'/'+$scope.called_numbers[i].email+'/'+$scope.terminal_id
-                +'/'+3+'/'+transaction_number);
-
+                $http.get('/rating/userratings/'+rating+'/'+$scope.called_numbers[i].email+'/'+$scope.terminal_id +'/'+3+'/'+transaction_number);
             }
 
             $scope.isProcessing = true;
@@ -174,7 +166,7 @@
             websocket.send(JSON.stringify({
                 business_id : pq.ids.business_id,
                 broadcast_update : true,
-              broadcast_reload: false
+                broadcast_reload: false
             }));
         }
 
@@ -259,8 +251,8 @@
             for(var i = 0;  i < $scope.called_numbers.length; i++) {
                 if ($scope.called_numbers[i].transaction_number === transaction_number) {
                     return i;
+                }
             }
-        }
 
         }
 
@@ -272,7 +264,8 @@
                         $('#allowed-businesses').append('<option value="' + businesses[index].service_id +'">' + businesses[index].name + ' - ' + businesses[index].service_name + '</option>');
                     }
                 }else{
-                    $('#allowed-businesses-area').remove();
+                    $('#allowed-businesses option').remove();
+                    $('#allowed-businesses-area').hide();
                 }
             });
         }
@@ -292,21 +285,21 @@
                     websocket.send(JSON.stringify({
                         business_id : business_id,
                         broadcast_update : true,
-                      broadcast_reload: false
+                        broadcast_reload: false
                     }));
                 });
             });
         }
 
         //****************************** refreshing
-            $scope.getAllNumbers();
-            $scope.getAllowedBusinesses();
+        $scope.getAllNumbers();
+        $scope.getAllowedBusinesses();
 
         websocket.onerror	= function(response){
-          $('#WebsocketLoaderModal').modal('show');
+            $('#WebsocketLoaderModal').modal('show');
         };
         websocket.onclose = function(response){
-          $('#WebsocketLoaderModal').modal('show');
+            $('#WebsocketLoaderModal').modal('show');
         };
 
         setInterval(function () {
