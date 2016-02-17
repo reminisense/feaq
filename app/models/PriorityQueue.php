@@ -59,12 +59,13 @@ class PriorityQueue extends Eloquent {
         Helper::dbLogger('PriorityQueue', 'priority_queue', 'update', 'updatePriorityQueueUser', $email, 'transaction_number:' . $transaction_number);
     }
 
-  public static function getTransactionNumberByTrackId($track_id) {
-    return PriorityQueue::where('track_id', '=', $track_id)->select(array('transaction_number'))->get();
-  }
+    public static function getTransactionNumberByTrackId($track_id) {
+        return PriorityQueue::where('track_id', '=', $track_id)->select(array('transaction_number'))->get();
+    }
 
     public static function getLatestTransactionNumberOfUser($user_id){
-        return PriorityQueue::where('user_id', '=', $user_id)->orderBy('transaction_number', 'desc')->first()->transaction_number;
+        $terminal_trasaction = PriorityQueue::where('user_id', '=', $user_id)->orderBy('transaction_number', 'desc')->first();
+        return isset($terminal_trasaction->transaction_number) ? $terminal_trasaction->transaction_number : null;
     }
 
 }

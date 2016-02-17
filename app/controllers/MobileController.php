@@ -9,6 +9,75 @@
 
 class MobileController extends BaseController{
 
+    public function getBusinessNumbers($business_id, $user_id){
+        $business = Business::where('business_id', '=', $business_id)->first();
+        $services = Service::getServicesByBusinessId($business_id);
+
+        $services_list = [];
+        foreach($services as $service){
+            $services_list[] = [
+                "service_id"=> $service->service_id,
+                "service_name"=> $service->name,
+                "enabled"=> QueueSettings::allowRemote($service->service_id) > 0 ? true : false,
+            ];
+        }
+
+        $broadcast_numbers = [];
+        $last_called = null;
+        $all_numbers = ProcessQueue::businessAllNumbers($business->business_id);
+        if($all_numbers){
+            $last_called = count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : null;
+            foreach($all_numbers->called_numbers as $number){
+                $number = json_decode(json_encode($number));
+                $broadcast_numbers[] = [
+                    "number"=> $number->priority_number,
+                    "service_id"=> $number->service_id,
+                    "service_name"=> $number->service_name,
+                    "terminal_id"=> $number->terminal_id ? $number->terminal_id : null,
+                    "terminal_name"=> $number->terminal_name ? $number->terminal_name : null,
+                    "rank"=> $number->box_rank ? $number->box_rank : null,
+                ];
+            }
+        }
+
+        $user = User::where('user_id', '=', $user_id)->first();
+        if($user){
+            $transaction_number = PriorityQueue::getLatestTransactionNumberOfUser($user_id);
+            if($transaction_number){
+                $terminal_transaction = TerminalTransaction::where('transaction_number', '=', $transaction_number)->first();
+                $priority_queue = PriorityQueue::find($transaction_number);
+                $priority_number = PriorityNumber::find($priority_queue->track_id);
+                $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+
+                $issued_today = $priority_number->date == $date;
+                if($issued_today && $terminal_transaction->time_completed > 0){
+                    $user_status = 'served';
+                }else if($issued_today && $terminal_transaction->time_called > 0){
+                    $user_status = 'called';
+                }else if($issued_today && $terminal_transaction->time_issued > 0){
+                    $user_status = 'in_queue';
+                }else{
+                    $user_status = 'not_queued';
+                }
+            }else{
+                $user_status = 'not_queued';
+            }
+        }else{
+            $user_status = 'user_not_found';
+        }
+
+
+        return json_encode([
+            "business_id"=> $business->business_id,
+            "business_name"=> $business->name,
+            "business_address"=> $business->local_address,
+            "last_number_called"=> $last_called,
+            "user_status"=> $user_status,
+            "service_list"=> $services_list,
+            "broadcast_numbers"=> $broadcast_numbers,
+        ]);
+    }
+
     //Screen #1
     public function getActiveBusinesses(){
         $active_businesses = [];
