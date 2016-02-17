@@ -53,8 +53,9 @@ class UserRating extends Eloquent{
     }
 
     public static function getUserRating($transaction_number) {
-        return $user_rating = DB::table('user_rating')
+            $user_rating = DB::table('user_rating')
             ->where('transaction_number', '=', $transaction_number)
             ->first();
+        return $user_rating ? $user_rating : null;
     }
 }
