@@ -58,7 +58,6 @@
 
         $scope.serveNumber = function(transaction_number, callback){
             var i = getIndex(transaction_number);
-            console.log($scope.called_numbers[i].verified_email);
             if($scope.called_numbers[i].verified_email){
                 if($scope.called_numbers_rating[i] == undefined){
                     var rating = 3;
@@ -80,7 +79,6 @@
 
         $scope.dropNumber = function(transaction_number){
             var i = getIndex(transaction_number);
-            console.log($scope.called_numbers[i].verified_email);
             if($scope.called_numbers[i].verified_email){
                 if($scope.called_numbers_rating[i] == undefined){
                     var rating = 0;
@@ -249,8 +247,9 @@
 
         getIndex = function(transaction_number){
             for(var i = 0;  i < $scope.called_numbers.length; i++) {
-                if ($scope.called_numbers[i].transaction_number === transaction_number) {
+                if ($scope.called_numbers[i].transaction_number == transaction_number) {
                     return i;
+                    break;
                 }
             }
 
@@ -280,8 +279,9 @@
             };
 
             $scope.serveNumber(transaction_number, function(){
-                $http.post('/issuenumber/issue-other/', data).success(function(){
+                $http.post('/issuenumber/issue-other/', data).success(function(response){
                     $('#priority-number-modal').modal('hide');
+                    var business_id = response.business_id;
                     websocket.send(JSON.stringify({
                         business_id : business_id,
                         broadcast_update : true,

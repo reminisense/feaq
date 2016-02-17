@@ -646,13 +646,24 @@ class BusinessController extends BaseController{
         $business_id = Input::get('business_id');
         $access_key = Input::get('access_key');
         if(Helper::isBusinessOwner($business_id, Helper::userId())){
-            $forwarder_id = Crypt::decrypt($access_key);
-            $existing = DB::table('queue_forward_permissions')->where('business_id', '=', $business_id)->where('forwarder_id', '=', $forwarder_id)->first();
-            if(!$existing){
-                DB::table('queue_forward_permissions')->insert(['business_id' => $business_id, 'forwarder_id' => $forwarder_id]);
+            try{
+                $forwarder_id = Crypt::decrypt($access_key);
+                $existing = DB::table('queue_forward_permissions')->where('business_id', '=', $business_id)->where('forwarder_id', '=', $forwarder_id)->first();
+                if(!Business::where('business_id', '=', $forwarder_id)->exists()){
+                    $allowed_businesses = Business::getForwardingAllowedBusinesses($business_id);
+                    return json_encode(['success' => 1, 'allowed_businesses' => $allowed_businesses, 'error' => 'Business does not exist.']);
+                }if($forwarder_id == $business_id || $existing){
+                    $allowed_businesses = Business::getForwardingAllowedBusinesses($business_id);
+                    return json_encode(['success' => 1, 'allowed_businesses' => $allowed_businesses, 'error' => 'Business permission is already granted.']);
+                }else{
+                    DB::table('queue_forward_permissions')->insert(['business_id' => $business_id, 'forwarder_id' => $forwarder_id]);
+                    $allowed_businesses = Business::getForwardingAllowedBusinesses($business_id);
+                    return json_encode(['success' => 1, 'allowed_businesses' => $allowed_businesses]);
+                }
+            }catch (Exception $e){
+                $allowed_businesses = Business::getForwardingAllowedBusinesses($business_id);
+                return json_encode(['success' => 1, 'allowed_businesses' => $allowed_businesses, 'error' => $e->getMessage()]);
             }
-            $allowed_businesses = Business::getForwardingAllowedBusinesses($business_id);
-            return json_encode(['success' => 1, 'allowed_businesses' => $allowed_businesses]);
         }else{
             return json_encode(['error' => 'Access Denied.']);
         }
