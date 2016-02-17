@@ -62,9 +62,17 @@ class Business extends Eloquent
         return Business::where('raw_code', '=', $raw_code)->select(array('business_id'))->first()->business_id;
     }
 
+    public static function getBusinessIdByVanityURL($vanity_url = '') {
+        return Business::where('vanity_url', '=', $vanity_url)->select(array('business_id'))->first()->business_id;
+    }
+
     public static function getRawCodeByBusinessId($business_id)
     {
         return Business::where('business_id', '=', $business_id)->select(array('raw_code'))->first()->raw_code;
+    }
+
+    public static function businessWithVanityURLExists($vanity_url) {
+        return Business::where('vanity_url', '=', $vanity_url)->exists();
     }
 
     /** functions to get the Business name **/
@@ -96,9 +104,14 @@ class Business extends Eloquent
     public static function getVanityURLByBusinessId($business_id) {
         return Business::where('business_id', '=', $business_id)->select(array('vanity_url'))->first()->vanity_url;
     }
+    
+    public static function getVanityURLByRawCode($raw_code) {
+        return Business::where('raw_code', '=', $raw_code)->select(array('vanity_url'))->first()->vanity_url;
+    }
 
     public static function saveVanityURL($business_id, $vanity_url){
         Business::where('business_id', '=', $business_id)->update(['vanity_url' => $vanity_url]);
+        Helper::dbLogger('Business', 'business', 'update', 'saveVanityURL', User::email(Helper::userId()), 'business_id:' . $business_id . ', vanity_url:' . $vanity_url);
     }
 
     public static function getBusinessDetails($business_id)
@@ -284,6 +297,8 @@ class Business extends Eloquent
 
         // PAG delete also the json file
         unlink(public_path() . '/json/' . $business_id . '.json');
+
+        Helper::dbLogger('Business', 'business', 'delete', 'deleteBusinessByBusinessId', User::email(Helper::userId()), 'business_id:' . $business_id);
     }
 
     /*

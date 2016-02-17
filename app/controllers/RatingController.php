@@ -20,17 +20,4 @@ class RatingController extends BaseController{
 
         return json_encode(['success' => 1]);
     }
-
-    public function getVerifyemail($email){
-
-        $user = User::searchByEmail($email);
-
-        if(is_null($user)){
-           return json_encode(['success' => 1, 'result' => false]);
-        }else{
-           return json_encode(['success' => 1, 'result' => true]);
-        }
-
-
-    }
 }

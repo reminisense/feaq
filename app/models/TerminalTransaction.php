@@ -37,6 +37,7 @@ class TerminalTransaction extends Eloquent{
         ];
         if($terminal_id) $values['terminal_id'] = $terminal_id;
         TerminalTransaction::insert($values);
+        Helper::dbLogger('TerminalTransaction', 'terminal_transaction', 'insert', 'createTerminalTransaction', User::email(Helper::userId()), 'transaction_number:' . $transaction_number);
     }
 
 
@@ -50,6 +51,7 @@ class TerminalTransaction extends Eloquent{
         $values['time_called'] = $time_called == null ? time() : $time_called;
         if(isset($terminal_id))$values['terminal_id'] =  $terminal_id;  //Adds terminal id to terminal transaction to bypass hooking of terminals
         TerminalTransaction::where('transaction_number', '=', $transaction_number)->update($values);
+        Helper::dbLogger('TerminalTransaction', 'terminal_transaction', 'update', 'updateTransactionTimeCalled', User::email(Helper::userId()), 'transaction_number:' . $transaction_number);
     }
 
     /**
@@ -60,6 +62,7 @@ class TerminalTransaction extends Eloquent{
     public static function updateTransactionTimeCompleted($transaction_number, $time_completed = null){
         $values['time_completed'] = $time_completed == null ? time() : $time_completed;
         TerminalTransaction::where('transaction_number', '=', $transaction_number)->update($values);
+        Helper::dbLogger('TerminalTransaction', 'terminal_transaction', 'update', 'updateTransactionTimeCompleted', User::email(Helper::userId()), 'transaction_number:' . $transaction_number);
     }
 
     /**
@@ -70,6 +73,7 @@ class TerminalTransaction extends Eloquent{
     public static function updateTransactionTimeRemoved($transaction_number, $time_removed = null){
         $values['time_removed'] = $time_removed == null ? time() : $time_removed;
         TerminalTransaction::where('transaction_number', '=', $transaction_number)->update($values);
+        Helper::dbLogger('TerminalTransaction', 'terminal_transaction', 'update', 'updateTransactionTimeRemoved', User::email(Helper::userId()), 'transaction_number:' . $transaction_number);
     }
 
     public static function getTimesByTransactionNumber($transaction_number) {

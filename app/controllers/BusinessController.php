@@ -251,6 +251,7 @@ class BusinessController extends BaseController{
           $business->queue_limit = $business_data['queue_limit']; /* RDH Added queue_limit to Edit Business Page */
 
           $business->save();
+          Helper::dbLogger('Business', 'business', 'update', 'postEditBusiness', User::email(Helper::userId()), 'business_id:' . $business->business_id . ', business_name:' . $business->name);
 
             //ARA For queue settings terminal-specific numbers
             $queue_settings = new QueueSettingsController();
@@ -316,7 +317,13 @@ class BusinessController extends BaseController{
         $business_name = Business::name($business_id);
         $business_address = Business::localAddress($business_id);
 
-        $businesslink = 'http://' . $_SERVER['HTTP_HOST'] . '/' . Business::getRawCodeByBusinessId($business_id);
+        $vanity_url = Business::getVanityURLByBusinessId($business_id);
+        if ($vanity_url) {
+          $businesslink = 'http://' . $_SERVER['HTTP_HOST'] . '/' . $vanity_url;
+        }
+        else {
+          $businesslink = 'http://' . $_SERVER['HTTP_HOST'] . '/' . Business::getRawCodeByBusinessId($business_id);
+        }
         $qr_link = "https://api.qrserver.com/v1/create-qr-code/?data=" . url('/broadcast/business/' . $business_id) . "&size=302x302"; // CSD Updated QR Link
 
         $data = [
@@ -379,31 +386,61 @@ class BusinessController extends BaseController{
         $user_timezone = isset($post->user_timezone) ? $post->user_timezone : 'Asia/Manila'; //ARA set user timezone if any
         $res = Business::getBusinessByNameCountryIndustryTimeopen($post->keyword, $post->country, $post->industry, $post->time_open, $user_timezone);
 
-        $arr = array();
+        $arr = array(); // for active businesses
+        $arr2 = array(); // for inactive businesses
         foreach ($res as $count => $data) {
             $first_service = Service::getFirstServiceOfBusiness($data->business_id);
             if($first_service){
                 $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
                 $time_open = $data->open_hour . ':' . Helper::doubleZero($data->open_minute) . ' ' . strtoupper($data->open_ampm);
                 $time_close = $data->close_hour . ':' . Helper::doubleZero($data->close_minute) . ' ' . strtoupper($data->close_ampm);
-                $arr[] = array(
+                $card_bool = Business::processingBusinessBool($data->business_id);
+                if ($card_bool) {
+                  $arr[] = array(
                     'business_id' => $data->business_id,
                     'business_name' => $data->name,
                     'local_address' => $data->local_address,
                     'time_open' => Helper::changeBusinessTimeTimezone($time_open, $data->timezone, $user_timezone),
                     'time_close' => Helper::changeBusinessTimeTimezone($time_close, $data->timezone, $user_timezone),
                     'waiting_time' => Analytics::getWaitingTimeString($data->business_id),
-
                     //ARA more info for business cards
-                    'last_number_called' => count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'none', //ok
-                    'next_available_number' => $all_numbers->next_number, //ok
+                    'last_number_called' => count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'none',
+                    //ok
+                    'next_available_number' => $all_numbers->next_number,
+                    //ok
                     //'is_calling' => count($all_numbers->called_numbers) > 0 ? true : false, //ok
                     //'is_issuing' => count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? true : false, //ok
                     'last_active' => Analytics::daysAgoActive($data->business_id),
-                    'card_bool' => Business::processingBusinessBool($data->business_id), // for info cards marker
-                );
+                    'card_bool' => $card_bool,
+                    // for info cards marker
+                  );
+                }
+                else {
+                  $arr2[] = array(
+                    'business_id' => $data->business_id,
+                    'business_name' => $data->name,
+                    'local_address' => $data->local_address,
+                    'time_open' => Helper::changeBusinessTimeTimezone($time_open, $data->timezone, $user_timezone),
+                    'time_close' => Helper::changeBusinessTimeTimezone($time_close, $data->timezone, $user_timezone),
+                    'waiting_time' => Analytics::getWaitingTimeString($data->business_id),
+                    //ARA more info for business cards
+                    'last_number_called' => count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'none',
+                    //ok
+                    'next_available_number' => $all_numbers->next_number,
+                    //ok
+                    //'is_calling' => count($all_numbers->called_numbers) > 0 ? true : false, //ok
+                    //'is_issuing' => count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? true : false, //ok
+                    'last_active' => Analytics::daysAgoActive($data->business_id),
+                    'card_bool' => $card_bool,
+                    // for info cards marker
+                  );
+                }
             }
         }
+
+        // merge both active and inactive business, with active businesses first
+        $arr = array_merge($arr, $arr2);
+
         if (Auth::check()) { // dashboard business boxes should be 8; known users will be redirected to dashboard
           $arr = array_slice($arr, 0, 8);
         }
