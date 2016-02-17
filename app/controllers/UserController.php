@@ -279,6 +279,7 @@ class UserController extends BaseController{
                 $verification_url = url('/user/verify-email');
                 return json_encode(['error' => 'Email verification required. Go ' . $verification_url . '/{your email} to verify your account.']);
             }else if($user && Hash::check($password, $user->password)){
+                Session::put('FBaccessToken', null);
                 Auth::loginUsingId($user->user_id);
                 if (UserBusiness::getBusinessIdByOwner($user->user_id)) {
                     return json_encode(array('success' => 1, 'redirect' => '/business/my-business'));

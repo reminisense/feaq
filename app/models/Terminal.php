@@ -20,6 +20,7 @@ class Terminal extends Eloquent{
         $terminal->box_rank = Terminal::generateBoxRank($service_id); // Added by PAG
 
         $terminal->save();
+        Helper::dbLogger('Terminal', 'terminal', 'insert', 'createTerminal', User::email(Helper::userId()), 'terminal_id:' . $terminal->terminal_id);
 
         return $terminal;
     }
@@ -94,15 +95,16 @@ class Terminal extends Eloquent{
         return $terminals;
     }
 
-    public static function deleteTerminal($terminal_id){
+    public static function deleteTerminal($terminal_id, $user_id){
         TerminalUser::where('terminal_id', '=', $terminal_id)->delete();
         Terminal::where('terminal_id', '=', $terminal_id)->delete();
+        Helper::dbLogger('Terminal', 'terminal', 'delete', 'deleteTerminal', User::email($user_id), 'terminal_id:' . $terminal_id);
     }
 
     public static function createBusinessNewTerminal($business_id, $name){
         $first_branch = Branch::where('business_id', '=', $business_id)->first();
         $first_service = Service::where('branch_id', '=', $first_branch->branch_id)->first();
-        Terminal::createTerminal($first_service->service_id);
+        Terminal::createTerminal($first_service->service_id, $name);
     }
 
     // Added by PAG
@@ -132,6 +134,7 @@ class Terminal extends Eloquent{
 
   public static function deleteTerminalsByServiceId($service_id) {
     Terminal::where('service_id', '=', $service_id)->delete();
+      Helper::dbLogger('Terminal', 'terminal', 'delete', 'deleteTerminalsByServiceId', User::email(Helper::userId()), 'service_id:' . $service_id);
   }
 
 }

@@ -21,6 +21,7 @@ class PriorityNumber extends Eloquent {
             'current_number' => $current_number,
             'date' => $date
         ];
+        Helper::dbLogger('PriorityNumber', 'priority_number', 'insert', 'createPriorityNumber', User::email(Helper::userId()), 'service_id:' . $service_id . ', current_number:' . $current_number);
         return PriorityNumber::insertGetId($values);
     }
 

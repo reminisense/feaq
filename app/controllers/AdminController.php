@@ -86,7 +86,6 @@ class AdminController extends BaseController{
           'upload_size_limit' => 0,
         );
         $business->business_features = serialize($business_features);
-
         $business->save();
 
         $business_user = new UserBusiness();

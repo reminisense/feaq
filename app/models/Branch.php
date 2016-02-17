@@ -30,6 +30,7 @@ class Branch extends Eloquent{
         $branch->name = $business_name . " Branch";
         $branch->business_id = $business_id;
         $branch->save();
+        Helper::dbLogger('Branch', 'branch', 'insert', 'createBusinessBranch', User::email(Helper::userId()), 'branch_id:' . $branch->branch_id);
 
         return $branch->branch_id;
     }
@@ -44,6 +45,7 @@ class Branch extends Eloquent{
     }
 
   public static function deleteBranchesByBusinessId($business_id){
+      Helper::dbLogger('Branch', 'branch', 'insert', 'deleteBranchesByBusinessId', User::email(Helper::userId()), 'business_id:' . $business_id);
     return Branch::where('business_id', '=', $business_id)->delete();
   }
 

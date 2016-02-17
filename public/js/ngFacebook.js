@@ -18,9 +18,11 @@ fbapp.run(function($http) {
                 //    if (response.success == 1) window.location.replace('/');
                 //});
             } else if (response.status === 'not_authorized') {
-                $http.post('/fb/laravel-logout');
+                //ARA removed for email login
+                //$http.post('/fb/laravel-logout');
             } else {
-                $http.post('/fb/laravel-logout');
+                //ARA removed for email login
+                // $http.post('/fb/laravel-logout');
             }
         });
     });
