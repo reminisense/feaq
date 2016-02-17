@@ -90,9 +90,10 @@
 
 <section id="banner" ng-controller="fbController">
     <div class="container">
-        <div class="col-md-6">
-            <h1>Don't Waste Your Life &mdash; Waiting</h1>
-            <h2 class="sub-heading">Use FeatherQ's mobile application to join lines from anywhere, using your mobile device.</h2>
+        <div class="col-md-8">
+            <h1>Beat the waiting game</h1>
+            <h2 class="sub-heading">FeatherQ helps people line up and reduce the hassle of waiting. All you need to start queuing is a Facebook account and an internet connection.</h2>
+            <h2 class="sub-heading">Get started now. Download the app and login using your Facebook account and discover a better way to wait.</h2>
             <div class="cta">
                 <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" target="_blank"><img alt="Android app on Google Play" src="/images/homepage/btn-download-app.png"></a>
                 <a href="/user/register" class="btn btn-blue">SIGN UP FOR FREE!</a>

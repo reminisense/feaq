@@ -4,7 +4,8 @@
 body {
   background: #fefefe url("../../../images/business/landing/bg-top.jpg") top right no-repeat;
   font-family: "Open Sans", sans-serif;
-  padding-top: 100px; }
+  padding-top: 100px;
+background-attachment: fixed;}
 
 body p {
   line-height: 26px; }
@@ -42,20 +43,21 @@ section {
   padding: 0px;
   margin-left: 15px !important; }
 .navbar-fixed-top {
-    top: 60px;
-    -webkit-transition: all 0.6s ease;
-    transition: all 0.6s ease;
+    top: 40px;
 }
 .navbar-fixed-top.shrink {
     top:0px;
     padding: 5px 0;
     background-color: #283339;
+    -webkit-transition: all 0.8s ease;
+    transition: all 0.8s ease;
 }
 .navbar-fixed-top.shrink ul {
     background: none;
     margin-top: 0px;
-    -webkit-transition: all 0.6s ease;
-    transition: all 0.6s ease;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    border-radius: 0px;
 }
 .navbar .navbar-brand img {
     -webkit-transition: all 0.6s ease;
@@ -65,11 +67,10 @@ section {
 .navbar-fixed-top.shrink .navbar-brand img {
     width: 160px!important;
     margin-top: 6px;
-
 }
 #banner {
   padding: 0px 0 0 0;
-  height: 600px;
+  height: 580px;
   color: #fff; }
   #banner .btn {
     -webkit-border-radius: 22px;
@@ -87,12 +88,12 @@ section {
       margin-top: -1px; }
   #banner p, #banner h1 {
     margin-bottom: 50px;
-    text-shadow: 0 1px 1px #4f4f4f; }
+    /*text-shadow: 0 1px 1px #4f4f4f;*/ }
   #banner h1 {
     font-weight: 300;
-    font-size: 28px;
-    margin-bottom: 60px;
-    line-height: 48px; }
+    font-size: 24px;
+    margin-bottom: 80px;
+    line-height: 44px; }
     #banner h1 span {
       font-weight: 600; }
   #banner #start {
@@ -130,12 +131,12 @@ section {
     margin: 10px; }
 
 #phone {
-  padding-top: 90px;
+  padding-top: 100px;
   height: 680px;
   background: url("../../../images/business/landing/featherq-on-mobile.png") bottom right no-repeat;
   margin-bottom: -120px; }
   #phone p {
-    font-size: 34px; }
+    font-size: 36px; }
 
 .pre-footer {
   background-color: #283339; }
@@ -165,6 +166,7 @@ ul.nav {
   border-radius: 24px;
   background-color: #283339;
   padding-left: 30px;
+
   padding-right: 30px;
   font-size: 14px;
   font-weight: 600;
@@ -198,7 +200,9 @@ ul.nav {
 .navbar-inverse .navbar-toggle {
     background-color: #283339;
 }
-#biz-fq-logo {width: 290px;}
+.detail-wrap {cursor: pointer;}
+.detail-wrap img {width: 100%!important;}
+#biz-fq-logo {width: 230px;}
 .details {
   display: none;
   bottom: 66px;
@@ -206,12 +210,22 @@ ul.nav {
   background: #fefefe url('../img/bg-details.png') center center no-repeat;
   	transform: scale(0);
   	opacity: 0; */
-  background: rgba(0, 0, 0, 0.8);
-  height: 160px; }
+  /*background: rgba(0, 0, 0, 0.8);*/
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0.8+0,0.9+100 */
+    background: -moz-linear-gradient(top,  rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.9) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.9) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.9) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc000000', endColorstr='#e6000000',GradientType=0 ); /* IE6-9 */
+
+    height: 169px;
+    width: 230px;
+    bottom: 68px;
+    left: 61px;
+}
   .details p {
     color: #fff;
-    padding: 20px;
-    line-height: 24px;
+    padding: 10px;
+    line-height: 22px;
     font-size: 14px;
     display: table-cell;
     vertical-align: middle; }
