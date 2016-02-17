@@ -48,8 +48,18 @@ class ServiceController extends Controller{
 
     //delete service
     public function deleteIndex($service_id){
-        Service::deleteService($service_id);
-        return json_encode(['success' => 1]);
+        $terminals = Terminal::getTerminalsByServiceId($service_id);
+        $delete = true;
+        foreach($terminals as $terminal){
+            $delete = TerminalTransaction::terminalActiveNumbers($terminal['terminal_id']) == 0 ? $delete : false;
+        }
+
+        if($delete){
+            Service::deleteService($service_id);
+            return json_encode(['success' => 1]);
+        }else{
+            return json_encode(['error' => 'There are still active numbers for this service.']);
+        }
     }
 
 }

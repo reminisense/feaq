@@ -1303,7 +1303,12 @@ var eb = {
             var confirmDel = confirm("Are you sure you want to remove this service?");
             if(confirmDel){
                 $http.delete('/services/' + service_id).success(function(response){
-                    $scope.getBusinessDetails();
+                    if(response.success){
+                        $scope.getBusinessDetails();
+                    }else if(response.error){
+                        $scope.service_error = response.error;
+                        eb.jquery_functions.clear_service_error_msg();
+                    }
                 });
             }
         }
