@@ -23,6 +23,9 @@
 
         $scope.called_numbers_rating = []
 
+        $scope.progress_current = 0;
+        $scope.progress_max = 0;
+        $scope.stop_progress = 0;
         //open a web socket connection
         websocket = new ReconnectingWebSocket(websocket_url);
         websocket.onopen = function(response) { // connection is open
@@ -112,13 +115,26 @@
         };
 
         $scope.stopProcessQueue = function(){
+            $scope.isStopping = true;
+            $scope.isCalling = true;
+            $scope.progress_max = $scope.progress_max > 0 ? $scope.progress_max : $scope.called_numbers.length;
+            $scope.progress_current = $scope.progress_max - $scope.called_numbers.length;
+            $scope.stop_progress = ($scope.progress_current / $scope.progress_max) * 100;
             if($scope.called_numbers.length > 0){
                 $scope.serveNumber($scope.called_numbers[0].transaction_number, function(){
                     $scope.stopProcessQueue();
                 });
             }
             else {
-                $scope.clearBroadcastNumbers();
+                setTimeout(function(){
+                    $scope.isStopping = false;
+                    $scope.isCalling = false;
+                    $scope.progress_current = 0;
+                    $scope.progress_max = 0;
+                    $scope.stop_progress = 0;
+                    $scope.clearBroadcastNumbers();
+                }, 1000);
+
             }
         };
 

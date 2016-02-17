@@ -17,9 +17,11 @@
         $scope.range = null;
 
         var user_id = $('#user-id').attr('user_id');
+        var process_queue = angular.element($("#process-queue-wrapper")).scope();
 
         $scope.issueMultiple = function(range, number_start, date){
             $scope.isIssuing = true;
+            process_queue.isCalling = true;
             url = pq.urls.issue_numbers.issue_multiple_url + pq.ids.service_id + '/' + range + '/' + pq.ids.terminal_id + '/' + number_start;
             url = date == undefined ? url : url + '/' + date;
             $http.get( url )
@@ -33,11 +35,13 @@
                     $scope.range = null;
                 }).finally(function(){
                     $scope.isIssuing = false;
+                    process_queue.isCalling = false;
                 });
         };
 
         $scope.issueSpecific = function(priority_number, name, phone, email, time_assigned){
             $scope.isIssuing = true;
+            process_queue.isCalling = true;
             url = pq.urls.issue_numbers.issue_specific_url;
             service_id = pq.ids.service_id;
             terminal_id = pq.ids.terminal_id ? pq.ids.terminal_id : 0;
@@ -65,6 +69,7 @@
                     }
                 }).finally(function(){
                     $scope.isIssuing = false;
+                    process_queue.isCalling = false;
                 });
         }
 
@@ -213,7 +218,6 @@
         });
 
         $scope.sendWebsocket = function(){
-            process_queue = angular.element($("#process-queue-wrapper")).scope();
             process_queue.updateBroadcast();
         }
 
