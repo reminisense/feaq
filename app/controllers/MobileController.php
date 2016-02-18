@@ -423,4 +423,44 @@ class MobileController extends BaseController{
             return json_encode(['error' => 'The email or password should not be blank.']);
         }
     }
+
+    public function postEmailRegistration(){
+        $email = Input::get('email');
+        $password = Input::get('password');
+        $password_confirm = Input::get('password_confirm');
+
+
+        if(
+            isset($email) && $email != "" &&
+            isset($password) && $password != "" &&
+            isset($password_confirm) && $password_confirm != ""
+        ){
+
+            if($password != $password_confirm){
+                return json_encode(['error' => "Passwords do not match."]);
+            }
+
+            if(User::where('email', '=', $email)->first()){
+                return json_encode(['error' => "Email already exists."]);
+            }
+
+            $user = [
+                'first_name' => '',
+                'last_name' => '',
+                'email' => $email,
+                'password' => Hash::make($password),
+                'gcm_token' => '',
+            ];
+
+            User::insert($user);
+            try{
+                Notifier::sendConfirmationEmail($email);
+                return json_encode(['success' => 1, 'message' => 'Your account has been created please check your email to confirm your registration.']);
+            }catch(Exception $e){
+                return json_encode(['success' => 1, 'error' => $e->getMessage()]);
+            }
+        }else{
+            return json_encode(['error' => "There are missing parameters."]);
+        }
+    }
 }
