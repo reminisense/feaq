@@ -36,7 +36,7 @@
 <div class="clearfix mt20 mb30">
     <div class="col-md-12">
         <h5 class="mb20">SERVICES MANAGEMENT</h5>
-        <button type="submit" class=" btn btn-lg btn-orange" id="" ng-click="service_create = true" ng-show="services.length < business_features.max_services" title="Add a Service"><span class="glyphicon glyphicon-plus"></span> Add a Service</button>
+        <button type="button" class=" btn btn-lg btn-orange" id="" ng-click="service_create = true" ng-show="services.length < business_features.max_services" title="Add a Service"><span class="glyphicon glyphicon-plus"></span> Add a Service</button>
     </div>
 </div>
 
@@ -44,7 +44,7 @@
     <div class="col-md-12 alert alert-danger" id="service-error" ng-show="service_error"> @{{ service_error }}</div>
 </div>
 
-<form class="clearfix" id="create-service" ng-submit="createService(new_service_name)">
+<form class="clearfix" id="create-service" ng-submit="createService(new_service_name)" ng-show="service_create">
     <div class="col-md-12 broadcast-wrap clearfix" style="padding: 15px 20px;">
         <div class="col-md-6 col-xs-12">Add a New Service</div>
         <div class="col-md-4 col-xs-6">
