@@ -117,7 +117,7 @@
 </div>--}}
 
 @include('modals.homepage.fq-loader')
-
+@include('modals.homepage.fb-loader')
 <script src="/js/bootstrap.min.js"></script>
 </body>
 </html>

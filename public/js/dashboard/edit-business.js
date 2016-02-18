@@ -80,14 +80,14 @@ $(document).ready(function(){
 
     /*select option chooser for how many numbers to display*/
     /*$(function () {
-        $('.q-numbers').hide();
-        $('.n3').show();
+     $('.q-numbers').hide();
+     $('.n3').show();
 
-        $('#select-q-numbers').on("change",function () {
-            $('.q-numbers').hide();
-            $('.n'+$(this).val()).show();
-        }).val("3");
-    });*/
+     $('#select-q-numbers').on("change",function () {
+     $('.q-numbers').hide();
+     $('.n'+$(this).val()).show();
+     }).val("3");
+     });*/
     /*select option chooser for ads type*/
     $(function () {
         $('.ads-type').hide();
@@ -375,6 +375,9 @@ var eb = {
         $scope.users = [];
         $scope.analytics = [];
 
+        $scope.selected_service = 0;
+        $scope.selected_terminal = 0;
+
         $scope.form_fields = [];
 
         $scope.remaining_character1  = 95;
@@ -414,19 +417,19 @@ var eb = {
             terminal_users: 3
         };
 
-      //open a web socket connection
-      websocket = new ReconnectingWebSocket(websocket_url);
-      websocket.onopen = function(response) { // connection is open
-        websocket.send(JSON.stringify({
-          business_id : $scope.business_id,
-          broadcast_update : false,
-          broadcast_reload: false
-        }));
-        $('#WebsocketLoaderModal').modal('hide');
-      }
-      websocket.onmessage = function(response){
+        //open a web socket connection
+        websocket = new ReconnectingWebSocket(websocket_url);
+        websocket.onopen = function(response) { // connection is open
+            websocket.send(JSON.stringify({
+                business_id : $scope.business_id,
+                broadcast_update : false,
+                broadcast_reload: false
+            }));
+            $('#WebsocketLoaderModal').modal('hide');
+        }
+        websocket.onmessage = function(response){
 
-      }
+        }
 
         $scope.startdate = $filter('date')(new Date(),'MM/dd/yyyy');
         $scope.enddate = $filter('date')(new Date(),'MM/dd/yyyy');
@@ -504,32 +507,87 @@ var eb = {
                     user_id : user_id,
                     terminal_id : terminal_id
                 }).success(function(response){
-                    setBusinessFields(response.business);
+                    if(response.error){
+                        $scope.assign_error = response.error;
+                        setTimeout(function(){
+                            $('#add-user-error').fadeOut('slow', function(){
+                                $scope.$apply(function(){
+                                    $scope.assign_error = '';
+                                });
+                                $('#add-user-error').show();
+                            });
+                        }, 3000);
+                    }else{
+                        setBusinessFields(response.business);
+                    }
                 });
             }
         }
 
         $scope.assignToTerminal = function(user_id, terminal_id){
-            $http.post(eb.urls.terminals.terminal_assign_url, {
-                user_id : user_id,
-                terminal_id : terminal_id
-            }).success(function(response){
-                setBusinessFields(response.business);
-            });
+            if(!terminal_id){
+                $scope.assign_error = 'Please select a terminal.';
+                setTimeout(function(){
+                    $('#add-user-error').fadeOut('slow', function(){
+                        $scope.$apply(function(){
+                            $scope.assign_error = '';
+                        });
+                        $('#add-user-error').show();
+                    });
+                }, 3000);
+            }else{
+                $http.post(eb.urls.terminals.terminal_assign_url, {
+                    user_id : user_id,
+                    terminal_id : terminal_id
+                }).success(function(response){
+                    if(response.error){
+                        $scope.assign_error = response.error;
+                        setTimeout(function(){
+                            $('#add-user-error').fadeOut('slow', function(){
+                                $scope.$apply(function(){
+                                    $scope.assign_error = '';
+                                });
+                                $('#add-user-error').show();
+                            });
+                        }, 3000);
+                    }else{
+                        setBusinessFields(response.business);
+                    }
+                });
+            }
         }
 
         $scope.emailSearch = function(email, terminal_id){
-            $http.get(eb.urls.terminals.user_emailsearch_url + email)
-                .success(function(response){
-                    if(response.user){
-                        $scope.assignToTerminal(response.user.user_id, terminal_id);
-                        $scope.clearUserResults();
-                        $scope.search_user = '';
-                    }else{
-                        $('.add-user-error[terminal_id=' + terminal_id + ']').show();
-                        setTimeout(function(){$('.add-user-error[terminal_id=' + terminal_id + ']').fadeOut('slow')}, 3000);
-                    }
-                });
+            if(email != ''){
+                $http.get(eb.urls.terminals.user_emailsearch_url + email)
+                    .success(function(response){
+                        if(response.user){
+                            $scope.assignToTerminal(response.user.user_id, terminal_id);
+                            $scope.clearUserResults();
+                            $scope.search_user = '';
+                        }else{
+                            $scope.assign_error = 'User does not exist in FeatherQ.'
+                            setTimeout(function(){
+                                $('#add-user-error').fadeOut('slow', function(){
+                                    $scope.$apply(function(){
+                                        $scope.assign_error = '';
+                                    });
+                                    $('#add-user-error').show();
+                                });
+                            }, 3000);
+                        }
+                    });
+            }else {
+                $scope.assign_error = 'Email field cannot be empty.';
+                setTimeout(function () {
+                    $('#add-user-error').fadeOut('slow', function () {
+                        $scope.$apply(function () {
+                            $scope.assign_error = '';
+                        });
+                        $('#add-user-error').show();
+                    });
+                }, 3000);
+            }
         }
 
         $scope.user_results = {users : []};
@@ -755,61 +813,61 @@ var eb = {
 
         $scope.saveBroadcastSettings = function(business_id) {
 
-          // count the number of activated tickers in order to save them
-          var counter = 0;
-          var ticker_message = "";
-          var ticker_message2 = "";
-          var ticker_message3 = "";
-          var ticker_message4 = "";
-          var ticker_message5 = "";
-          $('.ticker-field-wrap .ticker_message').each(function() {
-            counter++;
-            if (counter == 1) {
-              ticker_message = $(this).val();
-            }
-            else if (counter == 2) {
-              ticker_message2 = $(this).val();
-            }
-            else if (counter == 3) {
-              ticker_message3 = $(this).val();
-            }
-            else if (counter == 4) {
-              ticker_message4 = $(this).val();
-            }
-            else if (counter == 5) {
-              ticker_message5 = $(this).val();
-            }
-          });
-
-          $http.post('/broadcast/save-settings', {
-              business_id : business_id,
-              adspace_size : $('#ad-width').css('width'),
-              numspace_size : $('#ad-num-width').css('width'),
-              num_boxes : $('.q-nums-wrap > div').length,
-              ad_type : $scope.settings.ad_type,
-              tv_channel : $scope.settings.tv_channel,
-              carousel_delay : $scope.settings.carousel_delay,
-              show_issued : !$scope.settings.show_called, //ARA Added negation and changed variable name since UI says "Show only called numbers in broadcast page"
-              ticker_message : ticker_message,
-              ticker_message2 : ticker_message2,
-              ticker_message3 : ticker_message3,
-              ticker_message4 : ticker_message4,
-              ticker_message5 : ticker_message5
-          }).success(function(response) {
-            $http.get('/processqueue/update-broadcast/' + business_id).success(function(response) {
-                websocket.send(JSON.stringify({
-                    business_id : business_id,
-                    broadcast_update : false,
-                  broadcast_reload: true
-                }));
-                window.scrollTo(0,300);
-                $('#edit_message').removeClass('alert-danger');
-                $('#edit_message').addClass('alert-success');
-                $('#edit_message p').html('Your broadcast page layouts have been saved.');
-                $('#edit_message').fadeIn();
-                setTimeout(function(){ $('#edit_message').fadeOut(); }, 3000);
+            // count the number of activated tickers in order to save them
+            var counter = 0;
+            var ticker_message = "";
+            var ticker_message2 = "";
+            var ticker_message3 = "";
+            var ticker_message4 = "";
+            var ticker_message5 = "";
+            $('.ticker-field-wrap .ticker_message').each(function() {
+                counter++;
+                if (counter == 1) {
+                    ticker_message = $(this).val();
+                }
+                else if (counter == 2) {
+                    ticker_message2 = $(this).val();
+                }
+                else if (counter == 3) {
+                    ticker_message3 = $(this).val();
+                }
+                else if (counter == 4) {
+                    ticker_message4 = $(this).val();
+                }
+                else if (counter == 5) {
+                    ticker_message5 = $(this).val();
+                }
             });
-          });
+
+            $http.post('/broadcast/save-settings', {
+                business_id : business_id,
+                adspace_size : $('#ad-width').css('width'),
+                numspace_size : $('#ad-num-width').css('width'),
+                num_boxes : $('.q-nums-wrap > div').length,
+                ad_type : $scope.settings.ad_type,
+                tv_channel : $scope.settings.tv_channel,
+                carousel_delay : $scope.settings.carousel_delay,
+                show_issued : !$scope.settings.show_called, //ARA Added negation and changed variable name since UI says "Show only called numbers in broadcast page"
+                ticker_message : ticker_message,
+                ticker_message2 : ticker_message2,
+                ticker_message3 : ticker_message3,
+                ticker_message4 : ticker_message4,
+                ticker_message5 : ticker_message5
+            }).success(function(response) {
+                $http.get('/processqueue/update-broadcast/' + business_id).success(function(response) {
+                    websocket.send(JSON.stringify({
+                        business_id : business_id,
+                        broadcast_update : false,
+                        broadcast_reload: true
+                    }));
+                    window.scrollTo(0,300);
+                    $('#edit_message').removeClass('alert-danger');
+                    $('#edit_message').addClass('alert-success');
+                    $('#edit_message p').html('Your broadcast page layouts have been saved.');
+                    $('#edit_message').fadeIn();
+                    setTimeout(function(){ $('#edit_message').fadeOut(); }, 3000);
+                });
+            });
         };
 
         $scope.currentActiveBroadcastDetails = function(business_id) {
@@ -823,8 +881,8 @@ var eb = {
 
                     // default ad screen size
                     if (!response.adspace_size) {
-                      response.adspace_size = '50%';
-                      response.numspace_size = '50%';
+                        response.adspace_size = '50%';
+                        response.numspace_size = '50%';
                     }
                     $('#ad-width').css('width', response.adspace_size);
                     $('#ad-num-width').css('width', response.numspace_size);
@@ -857,79 +915,79 @@ var eb = {
                         response.ad_type = 'carousel';
                     }
                     else if (response.ad_type == 'numbers_only') {
-                      $('#ad-num-width').css('width', '100%');
-                      $('#ad-width').hide();
+                        $('#ad-num-width').css('width', '100%');
+                        $('#ad-width').hide();
                     }
                     $('.a'+response.ad_type).show();
 
                     // default number of boxes and function to increase or decrease
                     for (var qx = 0; qx < response.display.split("-")[1]; qx++) {
-                      $($(".q-nums-wrap")).append('<div class="qbox"><div class="pull-left half">'+(qx+1)+'</div></div>');
+                        $($(".q-nums-wrap")).append('<div class="qbox"><div class="pull-left half">'+(qx+1)+'</div></div>');
                     };
                     $(".q-add").click(function(e){
-                      e.preventDefault();
-                      if(qx < 10){
-                        qx++;
-                        $($(".q-nums-wrap")).append('<div class="qbox"><div class="pull-left half">'+qx+'</div></div>');
-                      }
+                        e.preventDefault();
+                        if(qx < 10){
+                            qx++;
+                            $($(".q-nums-wrap")).append('<div class="qbox"><div class="pull-left half">'+qx+'</div></div>');
+                        }
                     });
                     $('.q-minus').on("click", function(e){ //user click on remove text
-                      qx--;
-                      if(qx < 1){
-                        qx = 1;
-                        $('.q-nums-wrap .qbox:last-child .half').html(qx);
-                      }
-                      else {
-                        e.preventDefault(); $('.q-nums-wrap .qbox:last-child').remove();
-                      }
+                        qx--;
+                        if(qx < 1){
+                            qx = 1;
+                            $('.q-nums-wrap .qbox:last-child .half').html(qx);
+                        }
+                        else {
+                            e.preventDefault(); $('.q-nums-wrap .qbox:last-child').remove();
+                        }
                     });
 
                     // default ticker messages value
                     var ticker_size = 1;
                     var ticker_value = response.ticker_message;
                     if ($.trim(response.ticker_message5) != "") {
-                      ticker_size = 5;
+                        ticker_size = 5;
                     }
                     else if ($.trim(response.ticker_message4) != "") {
-                      ticker_size = 4;
+                        ticker_size = 4;
                     }
                     else if ($.trim(response.ticker_message3) != "") {
-                      ticker_size = 3;
+                        ticker_size = 3;
                     }
                     else if ($.trim(response.ticker_message2) != "") {
-                      ticker_size = 2;
+                        ticker_size = 2;
                     }
                     for (var counter = 1; counter <= ticker_size; counter++) {
-                      if (counter == 2) {
-                        ticker_value = response.ticker_message2;
-                      }
-                      else if (counter == 3) {
-                        ticker_value = response.ticker_message3;
-                      }
-                      else if (counter == 4) {
-                        ticker_value = response.ticker_message4;
-                      }
-                      else if (counter == 5) {
-                        ticker_value = response.ticker_message5;
-                      }
-                      $(".ticker-field-wrap").append('<div class="rel"><input class="form-control ticker_message" placeholder="Your Ticker Message Here" type="text" value="'+ticker_value+'"/><a href="#" class="btn btn-md btn-primary abs remove_field"> Remove</a></div>');
+                        if (counter == 2) {
+                            ticker_value = response.ticker_message2;
+                        }
+                        else if (counter == 3) {
+                            ticker_value = response.ticker_message3;
+                        }
+                        else if (counter == 4) {
+                            ticker_value = response.ticker_message4;
+                        }
+                        else if (counter == 5) {
+                            ticker_value = response.ticker_message5;
+                        }
+                        $(".ticker-field-wrap").append('<div class="rel"><input class="form-control ticker_message" placeholder="Your Ticker Message Here" type="text" value="'+ticker_value+'"/><a href="#" class="btn btn-md btn-primary abs remove_field"> Remove</a></div>');
                     }
                     $(".add-ticker").click(function(e){
-                      e.preventDefault();
-                      if(ticker_size < 5){
-                        ticker_size++;
-                        $(".ticker-field-wrap").append('<div class="rel"><input class="form-control ticker_message" placeholder="Your Ticker Message Here" type="text"/><a href="#" class="btn btn-md btn-primary abs remove_field"> Remove</a></div>');
-                      }
+                        e.preventDefault();
+                        if(ticker_size < 5){
+                            ticker_size++;
+                            $(".ticker-field-wrap").append('<div class="rel"><input class="form-control ticker_message" placeholder="Your Ticker Message Here" type="text"/><a href="#" class="btn btn-md btn-primary abs remove_field"> Remove</a></div>');
+                        }
 
-                      // hide the add ticker button if there are already 5 ticker lines present
-                      if (ticker_size == 5) {
-                        $(this).hide();
-                      }
+                        // hide the add ticker button if there are already 5 ticker lines present
+                        if (ticker_size == 5) {
+                            $(this).hide();
+                        }
 
                     });
                     $(".ticker-field-wrap").on("click",".remove_field", function(e){ //user click on remove text
-                      e.preventDefault(); $(this).parent('div').remove(); ticker_size--;
-                      $(".add-ticker").show(); // show the add ticker button if a ticker line is removed
+                        e.preventDefault(); $(this).parent('div').remove(); ticker_size--;
+                        $(".add-ticker").show(); // show the add ticker button if a ticker line is removed
                     });
 
                 });
@@ -1016,11 +1074,11 @@ var eb = {
                 $('#ticker-danger').hide();
                 $('#ticker-success').fadeIn();
                 $('#ticker-success').fadeOut(7000);
-              websocket.send(JSON.stringify({
-                business_id : business_id,
-                broadcast_update : true,
-                broadcast_reload: false
-              }));
+                websocket.send(JSON.stringify({
+                    business_id : business_id,
+                    broadcast_update : true,
+                    broadcast_reload: false
+                }));
             }).error(function() {
                 $('#ticker-danger').hide();
                 $('#ticker-success').fadeIn();
@@ -1035,11 +1093,11 @@ var eb = {
                 $('#carouseldelay-danger').hide();
                 $('#carouseldelay-success').fadeIn();
                 $('#carouseldelay-success').fadeOut(7000);
-              websocket.send(JSON.stringify({
-                business_id : $scope.business_id,
-                broadcast_update : true,
-                broadcast_reload: false
-              }));
+                websocket.send(JSON.stringify({
+                    business_id : $scope.business_id,
+                    broadcast_update : true,
+                    broadcast_reload: false
+                }));
             }).error(function() {
                 $('#carouseldelay-danger').hide();
                 $('#carouseldelay-success').fadeIn();
@@ -1227,8 +1285,14 @@ var eb = {
         $scope.updateService = function(name, service_id){
             if(name != '' && name != undefined){
                 $http.put('/services/' + service_id, {name: name}).success(function(response){
-                    $scope.getBusinessDetails();
-                    $scope.edit_service_name = '';
+                    if(response.error){
+                        $scope.service_error = response.error;
+                        eb.jquery_functions.clear_service_error_msg();
+                    }else{
+                        $scope.getBusinessDetails();
+                        $scope.edit_service_name = '';
+                    }
+
                 });
             }else{
                 $scope.service_error = 'Service name is not valid.';
@@ -1245,12 +1309,12 @@ var eb = {
         }
 
 
-      websocket.onerror	= function(response){
-        $('#WebsocketLoaderModal').modal('show');
-      };
-      websocket.onclose = function(response){
-        $('#WebsocketLoaderModal').modal('show');
-      };
+        websocket.onerror	= function(response){
+            $('#WebsocketLoaderModal').modal('show');
+        };
+        websocket.onclose = function(response){
+            $('#WebsocketLoaderModal').modal('show');
+        };
     });
 
 })();

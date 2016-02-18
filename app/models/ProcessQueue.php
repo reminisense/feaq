@@ -193,6 +193,18 @@ class ProcessQueue extends Eloquent{
                     $last_number_given = $number->priority_number;
                 }
 
+                if($number->email){
+                    $user = User::searchByEmail($number->email);
+                    if($user){
+                        $verified = true;
+                    }else{
+                        $verified = false;
+                    }
+
+                }else{
+                    $verified = false;
+                }
+
                 /*legend*/
                 //uncalled  : not served and not removed
                 //called    : called, not served and not removed
@@ -244,6 +256,7 @@ class ProcessQueue extends Eloquent{
                         'name' => $number->name,
                         'phone' => $number->phone,
                         'email' => $number->email,
+                        'verified_email' => $verified, //Added by JCA
                         'box_rank' => Terminal::boxRank($number->terminal_id) // Added by PAG
                     );
                 }else if($called && !$served && $removed){

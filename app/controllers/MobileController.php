@@ -9,6 +9,75 @@
 
 class MobileController extends BaseController{
 
+    public function getBusinessNumbers($business_id, $user_id){
+        $business = Business::where('business_id', '=', $business_id)->first();
+        $services = Service::getServicesByBusinessId($business_id);
+
+        $services_list = [];
+        foreach($services as $service){
+            $services_list[] = [
+                "service_id"=> $service->service_id,
+                "service_name"=> $service->name,
+                "enabled"=> QueueSettings::allowRemote($service->service_id) > 0 ? true : false,
+            ];
+        }
+
+        $broadcast_numbers = [];
+        $last_called = null;
+        $all_numbers = ProcessQueue::businessAllNumbers($business->business_id);
+        if($all_numbers){
+            $last_called = count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : null;
+            foreach($all_numbers->called_numbers as $number){
+                $number = json_decode(json_encode($number));
+                $broadcast_numbers[] = [
+                    "number"=> $number->priority_number,
+                    "service_id"=> $number->service_id,
+                    "service_name"=> $number->service_name,
+                    "terminal_id"=> $number->terminal_id ? $number->terminal_id : null,
+                    "terminal_name"=> $number->terminal_name ? $number->terminal_name : null,
+                    "rank"=> $number->box_rank ? $number->box_rank : null,
+                ];
+            }
+        }
+
+        $user = User::where('user_id', '=', $user_id)->first();
+        if($user){
+            $transaction_number = PriorityQueue::getLatestTransactionNumberOfUser($user_id);
+            if($transaction_number){
+                $terminal_transaction = TerminalTransaction::where('transaction_number', '=', $transaction_number)->first();
+                $priority_queue = PriorityQueue::find($transaction_number);
+                $priority_number = PriorityNumber::find($priority_queue->track_id);
+                $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+
+                $issued_today = $priority_number->date == $date;
+                if($issued_today && $terminal_transaction->time_completed > 0){
+                    $user_status = 'served';
+                }else if($issued_today && $terminal_transaction->time_called > 0){
+                    $user_status = 'called';
+                }else if($issued_today && $terminal_transaction->time_issued > 0){
+                    $user_status = 'in_queue';
+                }else{
+                    $user_status = 'not_queued';
+                }
+            }else{
+                $user_status = 'not_queued';
+            }
+        }else{
+            $user_status = 'user_not_found';
+        }
+
+
+        return json_encode([
+            "business_id"=> $business->business_id,
+            "business_name"=> $business->name,
+            "business_address"=> $business->local_address,
+            "last_number_called"=> $last_called,
+            "user_status"=> $user_status,
+            "service_list"=> $services_list,
+            "broadcast_numbers"=> $broadcast_numbers,
+        ]);
+    }
+
     //Screen #1
     public function getActiveBusinesses(){
         $active_businesses = [];
@@ -156,9 +225,9 @@ class MobileController extends BaseController{
                 'business_name' => $user_queues[$i]['business_name'],
                 'image_url' => '',
                 'status' => $user_queues[$i]['status'],
-                'transaction_length' => $user_queues[$i]['time_completed'] - $user_queues[$i]['time_queued'],
+                'transaction_length' => $user_queues[$i]['time_completed'] - $user_queues[$i]['time_queued'] > 0 ? $user_queues[$i]['time_completed'] - $user_queues[$i]['time_queued'] : 0,
                 'priority_number' => $user_queues[$i]['priority_number'],
-                'rating' => $user_queues[$i]['rating'],
+                'rating' => UserRating::getUserRating($user_queues[$i]['transaction_number']) ? UserRating::getUserRating($user_queues[$i]['transaction_number'])->rating : 0,
                 'transaction_date' => $user_queues[$i]['date']
             ]);
         }
@@ -186,7 +255,7 @@ class MobileController extends BaseController{
             'priority_number' => $user_queues->priority_number,
             'time_issued' => $user_queues->time_queued,
             'time_called' => $user_queues->time_called,
-            'rating' => $user_queues->rating
+            'rating' => UserRating::getUserRating($transaction_number) ? UserRating::getUserRating($transaction_number)->rating : 0
 
         ];
 
@@ -334,10 +403,19 @@ class MobileController extends BaseController{
 
         if(isset($email) && $email != "" && isset($password) && $password != ""){
             $user = User::where('email', '=', $email)->first();
+            $user_data = [
+                'user_id' => $user->user_id,
+                'first_name' => $user->first_name,
+                'last_name' => $user->last_name,
+                'email' => $user->email,
+                'phone' => $user->phone,
+                'local_address' => $user->local_address,
+                'gender' => $user->gender,
+            ];
             if($user && !$user->verified){
                 return json_encode(['error' => 'Email verification required.']);
             }else if($user && Hash::check($password, $user->password)){
-                return json_encode(['success' => 1, 'access_token' => Helper::generateAccessKey()]);
+                return json_encode(['success' => 1, 'user'=> $user_data, 'access_token' => Helper::generateAccessKey()]);
             }else{
                 return json_encode(['error' => 'The email or password is incorrect.']);
             }

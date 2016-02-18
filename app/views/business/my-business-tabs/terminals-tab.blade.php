@@ -5,21 +5,24 @@
 <!-- Start new services form -->
 <div class="col-md-12">
     <form ng-submit="emailSearch(search_user, selected_terminal)">
+        <div class="col-md-12">
+            <div class="alert alert-danger" id="add-user-error" ng-show="assign_error">@{{ assign_error }}</div>
+        </div>
         <div class="col-md-2">
             Assign to terminal :
         </div>
         <div class="col-md-2">
-            <input type="email" class="form-control" placeholder="Email" ng-model="search_user" title="Staff Email"/>
+            <input type="email" class="form-control" placeholder="Email" ng-model="search_user" title="Staff Email" required/>
         </div>
         <div class="col-md-2">
             <select class="form-control" ng-model="selected_service" title="Select Service">
-                <option>SELECT SERVICE</option>
+                <option value=0 ng-if="services.length == 0">SELECT SERVICE</option>
                 <option ng-repeat="service in services" value="@{{ $index }}">@{{ service.name }}</option>
             </select>
         </div>
         <div class="col-md-2">
             <select class="form-control" ng-model="selected_terminal" title="Select Terminal">
-                <option>SELECT TERMINAL</option>
+                <option value=0>SELECT TERMINAL</option>
                 <option ng-repeat="terminal in services[selected_service].terminals" value="@{{ terminal.terminal_id }}">@{{ terminal.name }}</option>
             </select>
         </div>

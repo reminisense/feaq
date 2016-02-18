@@ -42,6 +42,7 @@ class UserBusiness extends Eloquent{
 
   public static function deleteUserByBusinessId($business_id) {
     UserBusiness::where('business_id', '=', $business_id)->delete();
+      Helper::dbLogger('UserBusiness', 'user_business', 'delete', 'deleteUserByBusinessId', User::email(Helper::userId()), 'business_id:' . $business_id);
   }
 
   public static function getUserByBusinessId($business_id) {

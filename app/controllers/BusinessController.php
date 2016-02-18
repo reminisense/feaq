@@ -251,6 +251,7 @@ class BusinessController extends BaseController{
           $business->queue_limit = $business_data['queue_limit']; /* RDH Added queue_limit to Edit Business Page */
 
           $business->save();
+          Helper::dbLogger('Business', 'business', 'update', 'postEditBusiness', User::email(Helper::userId()), 'business_id:' . $business->business_id . ', business_name:' . $business->name);
 
             //ARA For queue settings terminal-specific numbers
             $queue_settings = new QueueSettingsController();

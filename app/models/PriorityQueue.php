@@ -45,6 +45,7 @@ class PriorityQueue extends Eloquent {
             'user_id' => $user_id,
             'queue_platform' => $queue_platform
         ];
+        Helper::dbLogger('PriorityQueue', 'priority_queue', 'insert', 'createPriorityQueue', User::email(Helper::userId()), 'priority_number:' . $priority_number . ', confirmation_code:' . $confirmation_code);
         return PriorityQueue::insertGetId($values);
     }
 
@@ -55,14 +56,16 @@ class PriorityQueue extends Eloquent {
             'email' => $email,
         ];
         PriorityQueue::where('transaction_number', '=', $transaction_number)->update($values);
+        Helper::dbLogger('PriorityQueue', 'priority_queue', 'update', 'updatePriorityQueueUser', $email, 'transaction_number:' . $transaction_number);
     }
 
-  public static function getTransactionNumberByTrackId($track_id) {
-    return PriorityQueue::where('track_id', '=', $track_id)->select(array('transaction_number'))->get();
-  }
+    public static function getTransactionNumberByTrackId($track_id) {
+        return PriorityQueue::where('track_id', '=', $track_id)->select(array('transaction_number'))->get();
+    }
 
     public static function getLatestTransactionNumberOfUser($user_id){
-        return PriorityQueue::where('user_id', '=', $user_id)->orderBy('transaction_number', 'desc')->first()->transaction_number;
+        $terminal_trasaction = PriorityQueue::where('user_id', '=', $user_id)->orderBy('transaction_number', 'desc')->first();
+        return isset($terminal_trasaction->transaction_number) ? $terminal_trasaction->transaction_number : null;
     }
 
 }
