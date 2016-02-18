@@ -828,12 +828,6 @@ button#sendreply {
     text-align: center;
 }
 
-/*#user-settings, #business-settings{*/
-    /*background:none;*/
-    /*border:none;*/
-    /*outline:none;*/
-/*}*/
-
 .search-business input, .search-business button,
 .search-user input, .search-user button{
     width: 100%;
