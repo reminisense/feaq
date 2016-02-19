@@ -116,9 +116,20 @@ class Service extends Eloquent{
         Helper::dbLogger('Service', 'service', 'delete', 'deleteService', User::email(Helper::userId()), 'service_id:' . $service_id);
     }
 
-    public static function branchServiceNameExists($name, $service_id){
+    public static function serviceNameExists($name, $service_id){
         $branch_id = Service::branchId($service_id);
+        return Service::branchServiceNameExists($name, $branch_id);
+    }
+
+    public static function branchServiceNameExists($name, $branch_id){
         return Service::where('name', '=', $name)->where('branch_id', '=', $branch_id)->exists();
     }
 
+    public static function businessServiceNameExists($name, $business_id){
+        return Service::join('branch', 'branch.branch_id', '=', 'service.branch_id')
+            ->join('business', 'business.business_id', '=', 'branch.business_id')
+            ->where('service.name', '=', $name)
+            ->where('business.business_id', '=', $business_id)
+            ->exists();
+    }
 }

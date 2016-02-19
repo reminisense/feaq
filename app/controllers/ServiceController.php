@@ -32,13 +32,17 @@ class ServiceController extends Controller{
 
     //create service
     public function postIndex(){
-        $service_id = Service::createBusinessService(Input::get('business_id'), Input::get('name'));
-        return json_encode(['service_id' => $service_id]);
+        if(Service::businessServiceNameExists(Input::get('name'), Input::get('business_id'))){
+            return json_encode(['error' => 'Service name already exists']);
+        }else{
+            $service_id = Service::createBusinessService(Input::get('business_id'), Input::get('name'));
+            return json_encode(['service_id' => $service_id]);
+        }
     }
 
     //update service
     public function putIndex($service_id){
-        if(Service::branchServiceNameExists(Input::get('name'), $service_id)){
+        if(Service::serviceNameExists(Input::get('name'), $service_id)){
             return json_encode(['error' => 'Service name already exists']);
         }else{
             Service::updateServiceName($service_id, Input::get('name'));

@@ -1273,9 +1273,13 @@ var eb = {
         $scope.createService = function(name){
             if(name != '' && name != undefined) {
                 $http.post('/services', {name: name, business_id: $scope.business_id}).success(function (response) {
-                    $scope.getBusinessDetails();
-                    $scope.service_create = false;
-                    $scope.new_service_name = '';
+                    if(response.error){
+                        $scope.service_error = response.error;
+                    }else{
+                        $scope.getBusinessDetails();
+                        $scope.service_create = false;
+                        $scope.new_service_name = '';
+                    }
                 });
             }else{
                 $scope.service_error = 'Service name is not valid.';
