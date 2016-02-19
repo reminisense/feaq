@@ -611,7 +611,7 @@ class RestController extends BaseController {
      * @param $facebook_id
      * @return JSON-formatted response of the business name, estimated time, people-in-queue and next number available .
      */
-    public function getBusinessServiceDetails2($facebook_id)
+    public function getBusinessDetailsByFacebook($facebook_id)
     {
         try {
             $user_id = User::getUserIdByFbId($facebook_id);
@@ -619,6 +619,14 @@ class RestController extends BaseController {
             $user_id = null;
         }
 
+        return getBusinessDetailsByUser($user_id);
+    }
+
+    /**
+     * @param $user_id
+     * @return JSON-formatted response of the business name, estimated time, people-in-queue and next number available .
+     */
+    public function getBusinessDetailsByUser($user_id) {
         if ($user_id) {
 
             $business_id = UserBusiness::getBusinessIdByOwner($user_id);
@@ -647,6 +655,7 @@ class RestController extends BaseController {
             return json_encode(['error' => 'Something went wrong!']);
         }
     }
+
 
     /**
      * @param $service_id
