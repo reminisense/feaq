@@ -371,7 +371,7 @@ var eb = {
         $scope.custom_url = "";
 
         $scope.terminals = [];
-        $scope.services = [];
+        $scope.services = [{ name: 'SELECT SERVICE' }];
         $scope.users = [];
         $scope.analytics = [];
 
@@ -470,6 +470,10 @@ var eb = {
             $scope.terminal_delete_error = business.error ? business.error : null;
             $scope.allowed_businesses = business.allowed_businesses;
             $scope.custom_url = business.raw_code;
+
+            $scope.services.unshift({ name: 'SELECT SERVICE' });
+            $scope.selected_service = 0;
+            $scope.selected_terminal = 0;
 
             //sms settings
             $scope.sms_gateway = business.sms_gateway;

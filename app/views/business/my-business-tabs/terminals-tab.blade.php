@@ -15,8 +15,7 @@
             <input type="email" class="form-control" placeholder="Email" ng-model="search_user" title="Staff Email" required/>
         </div>
         <div class="col-md-2">
-            <select class="form-control" ng-model="selected_service" title="Select Service">
-                <option value=0 ng-if="services.length == 0">SELECT SERVICE</option>
+            <select class="form-control" ng-model="selected_service" title="Select Service" ng-change="selected_terminal = 0">
                 <option ng-repeat="service in services" value="@{{ $index }}">@{{ service.name }}</option>
             </select>
         </div>
@@ -60,10 +59,10 @@
         </thead>
     </table>
 </form>
-<table class="table table-hover table-spaces table-responsive" ng-init="terminal_index = 0" ng-repeat="service in services">
+<table class="table table-hover table-spaces table-responsive" ng-init="terminal_index = 0" ng-repeat="service in services" ng-if="$index > 0">
     <thead>
     <tr>
-        <th>@{{ $index + 1 }}</th>
+        <th>@{{ $index }}</th>
         <th>
             <form ng-submit="updateService(edit_service_name, service.service_id)">
                 <span class="service-name" ng-hide="service.edit_service">@{{ service.name }}</span>
