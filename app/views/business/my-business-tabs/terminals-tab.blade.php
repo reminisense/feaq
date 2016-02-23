@@ -16,7 +16,6 @@
         </div>
         <div class="col-md-2">
             <select class="form-control" ng-model="selected_service" title="Select Service">
-                <option value=0 ng-if="services.length == 0">SELECT SERVICE</option>
                 <option ng-repeat="service in services" value="@{{ $index }}">@{{ service.name }}</option>
             </select>
         </div>
@@ -57,13 +56,13 @@
 </form>
 
 <div class="clearfix table-responsive">
-<table class="clearfix table table-hover" ng-init="terminal_index = 0" ng-repeat="service in services">
+<table class="clearfix table table-hover" ng-init="terminal_index = 0" ng-repeat="service in services" ng-if="$index > 0">
     <thead>
     <tr>
         <th width="">
 
             <form ng-submit="updateService(edit_service_name, service.service_id)">
-                <strong>@{{ $index + 1 }} - <span class="service-name" ng-hide="service.edit_service">@{{ service.name }}</span></strong>
+                <strong>@{{ $index }} - <span class="service-name" ng-hide="service.edit_service">@{{ service.name }}</span></strong>
                 <input type="text" ng-model="edit_service_name" ng-show="service.edit_service" placeholder="@{{ service.name }}"/>
             </form>
         </th>

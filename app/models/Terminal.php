@@ -95,10 +95,10 @@ class Terminal extends Eloquent{
         return $terminals;
     }
 
-    public static function deleteTerminal($terminal_id, $user_id){
+    public static function deleteTerminal($terminal_id){
         TerminalUser::where('terminal_id', '=', $terminal_id)->delete();
         Terminal::where('terminal_id', '=', $terminal_id)->delete();
-        Helper::dbLogger('Terminal', 'terminal', 'delete', 'deleteTerminal', User::email($user_id), 'terminal_id:' . $terminal_id);
+        Helper::dbLogger('Terminal', 'terminal', 'delete', 'deleteTerminal', User::email(Helper::userId()), 'terminal_id:' . $terminal_id);
     }
 
     public static function createBusinessNewTerminal($business_id, $name){
