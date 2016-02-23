@@ -831,6 +831,7 @@ button#sendreply {
 .search-business input, .search-business button,
 .search-user input, .search-user button{
     width: 100%;
+    margin-bottom: 20px;
 }
 
 .biz-service-form, .biz-status-form,
