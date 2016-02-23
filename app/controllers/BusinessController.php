@@ -20,6 +20,9 @@ class BusinessController extends BaseController{
             return View::make('business.business-landing');
         }
     }
+    public function getPricing(){
+        return View::make('business.pricing');
+    }
 
     public function getMyBusiness(){
         if(Auth::check()){
