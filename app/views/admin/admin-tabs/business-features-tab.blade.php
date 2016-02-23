@@ -16,13 +16,13 @@
             <div class="business-container clearfix">
                 <div class="search-business col-md-12 clearfix ">
                     <form>
-                        <div class="col-md-8">
+                        <div class="col-lg-8 col-md-6 col-xs-12 col-sm-12">
                             <input class="form-control" type="text" ng-model="business_name" placeholder="Search for a business.."/>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-lg-2 col-md-3 col-xs-4 col-sm-4">
                             <button class="btn btn-primary btn-lg search-business-button" type="submit" ng-click="searchBusiness()">Search</button>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-lg-2 col-md-3 col-xs-4 col-sm-4 text-center">
                             <button class="btn btn-cyan btn-lg create-business-button" type="submit" id="create-business"><span class="glyphicon glyphicon-plus"></span> Create</button>
                         </div>
                     </form>
@@ -291,13 +291,13 @@
             <div class=" user-container clearfix">
                 <div class="search-user clearfix">
                     <form>
-                        <div class="col-md-8">
+                        <div class="col-lg-8 col-md-6 col-xs-12 col-sm-12">
                             <input class="form-control" type="text" id="user-email" placeholder="Search for a user using the email address.."/>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-lg-2 col-md-3 col-xs-4 col-sm-4">
                             <button class="btn btn-primary btn-lg search-user-button" type="submit" ng-click="searchUser()">Search</button>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-lg-2 col-md-3 col-xs-4 col-sm-4">
                             <button class="btn btn-cyan btn-lg create-user-button" type="submit" id="create-user"><span class="glyphicon glyphicon-plus"></span> Create</button>
                         </div>
                     </form>
