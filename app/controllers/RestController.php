@@ -282,6 +282,20 @@ class RestController extends BaseController {
         return json_encode(array('success' => $data['fb_id']));
     }
 
+    public function postRegisterUser() {
+        $data = array(
+          'fb_id' => Input::get('fb_id'),
+          'fb_url' => 'https://www.facebook.com/app_scoped_user_id/' . Input::get('fb_id') . '/', // https://www.facebook.com/app_scoped_user_id/1438888283100110/
+          'first_name' => Input::get('first_name'),
+          'last_name' => Input::get('last_name'),
+          'email' => Input::get('email'),
+          'gender' => Input::get('gender'),
+        );
+        User::saveFBDetails($data);
+//        Auth::loginUsingId(User::getUserIdByFbId($data['fb_id']));
+        return json_encode(array('success' => $data['fb_id']));
+    }
+
     /**
      * @author Ruffy Heredia
      * @desc Quick turnaround fix for instant registration and update later
