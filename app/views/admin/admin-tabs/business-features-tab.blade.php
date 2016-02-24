@@ -106,7 +106,7 @@
                                                     <button class="btn-boxy btn-primary" id="terminal-edit-button"  ng-click="updateTerminal(terminal.terminal_id)"> <span class="glyphicon glyphicon-pencil"></span> Edit</button>
                                                     <button class="btn-boxy btn-danger" ng-click="deleteTerminal(terminal.terminal_id)"> <span class="glyphicon glyphicon-trash"></span> Delete</button>
                                                 </div>
-                                                <div style="padding-left: 100px;" class="mt10" ng-show="terminals.length < max_terminals">
+                                                <div style="padding-left: 100px;" class="mt10" ng-show="service.terminals.length < max_terminals">
                                                     <input class="form-control" type="text" ng-model="terminal_name">
                                                     <button class="btn btn-orange" ng-click="createTerminal(terminal_name, service.service_id, edit_business_id)"> New Terminal</button>
                                                 </div>
@@ -122,7 +122,7 @@
                                         <td></td>
                                         <td></td>
                                     </tr>
-                                    <tr ng-show="terminals.length < max_services" style="background-color: #eee;">
+                                    <tr ng-show="services.length < max_services" style="background-color: #eee;">
                                         <td class="pb10">
                                             <input style="width: 100%" class="form-control" type="text" ng-model="name">
                                         </td>
