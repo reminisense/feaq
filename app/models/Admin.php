@@ -21,6 +21,7 @@ class Admin extends Eloquent{
                 fputcsv($file, $emails, ',');
                 fclose($file);
             }
+            Helper::dbLogger('Admin', 'CSV', 'insert', 'addAdmin', User::email(Helper::userId()), 'email:' . $email);
             return true;
         }catch(Exception $e){
             return false;
@@ -36,6 +37,7 @@ class Admin extends Eloquent{
                 fputcsv($file, $emails, ',');
                 fclose($file);
             }
+          Helper::dbLogger('Admin', 'CSV', 'delete', 'removeAdmin', User::email(Helper::userId()), 'email:' . $email);
             return true;
         }catch(Exception $e){
             return false;

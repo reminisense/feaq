@@ -102,22 +102,12 @@
                 <div class="wrap">
                     <div class="row">
                         <div class="col-md-5 getnum-info">
-                            @if($allow_remote)
-                            <h2 class="">Remote Queue Number:</h2>
-                            <p>Remote queuing allows you to get this number before being at the location.</p>
-                            @else
                             <h2 class="">Next Available Number:</h2>
                             <p>Please go to the location to get this number.</p>
-                            @endif
                         </div>
                         <div class="col-md-7 getnum-info">
                             <div class="ng-binding">
                                 <h1 class="nomg">@{{ get_num }}</h1>
-                                @if($allow_remote)
-                                <a href="" class="btn-getnum @if(!Auth::check()) {{ 'disabled' }} @endif" data-toggle="modal" data-target="#remote-queue-modal"  ng-if="get_num > 0">
-                                    Get this number <span class="glyphicon glyphicon-save"></span>
-                                </a>
-                                @endif
                             </div>
                         </div>
                     </div>
@@ -143,7 +133,7 @@
         </div>
     </div>
 </div>
-@include('modals.broadcast.remote-queue-modal')
+{{--@include('modals.broadcast.remote-queue-modal')--}}
 @include('modals.websockets.websocket-loader')
 
 {{--{{ HTML::script('js/bootstrap.min.js') }}--}}

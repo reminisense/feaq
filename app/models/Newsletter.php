@@ -24,6 +24,7 @@ class Newsletter extends Eloquent
     {
         $data = ['email' => $email];
         Newsletter::insert($data);
+        Helper::dbLogger('Newsletter', 'newsletter_subscription', 'insert', 'saveEmail', $email);
     }
 
     public static function sendEmail($email)
@@ -32,5 +33,6 @@ class Newsletter extends Eloquent
         {
             $message->to($email)->subject("Thank you for subscribing to FeatherQ's Newsletters");
         });
+        Helper::dbLogger('Newsletter', 'newsletter_subscription', 'email', 'sendEmail', $email);
     }
 }

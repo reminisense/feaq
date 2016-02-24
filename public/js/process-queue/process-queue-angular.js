@@ -16,21 +16,16 @@
         $scope.processed_numbers = [];
         $scope.timebound_numbers = [];
 
-        $scope.create_temporary_array = 0;
-        $scope.temp_called_numbers = [];
-        $scope.rating_stars = {
-            value:0,
-            tran_number: 0,
-            email: "",
-            email_checker : false,
-            terminal_id : 0
-        };
-
         $scope.called_number = 0;
         $scope.next_number = 0;
         $scope.number_limit = null;
         $scope.issue_call_number = null;
 
+        $scope.called_numbers_rating = []
+
+        $scope.progress_current = 0;
+        $scope.progress_max = 0;
+        $scope.stop_progress = 0;
         //open a web socket connection
         websocket = new ReconnectingWebSocket(websocket_url);
         websocket.onopen = function(response) { // connection is open
@@ -50,6 +45,7 @@
         };
 
         $scope.callNumber = function(transaction_number){
+            $scope.called_numbers_rating = [];
             $scope.isCalling = true;
             transaction_number = transaction_number != undefined ? transaction_number : angular.element(document.querySelector('#selected-tnumber')).val();
 
@@ -58,12 +54,20 @@
                 $scope.issue_call_number = null;
                 $scope.isCalling = false;
                 $scope.updateBroadcast();
-            },null, function(){
-                $scope.checkEmailAndAdd($scope.called_numbers[0].email, transaction_number);
             });
         };
 
         $scope.serveNumber = function(transaction_number, callback){
+            var i = getIndex(transaction_number);
+            if($scope.called_numbers[i].verified_email){
+                if($scope.called_numbers_rating[i] == undefined){
+                    var rating = 3;
+                }else{
+                    var rating = $scope.called_numbers_rating[i];
+                }
+                $http.get('/rating/userratings/'+rating+'/'+$scope.called_numbers[i].email+'/'+$scope.terminal_id +'/'+2+'/'+transaction_number);
+            }
+
             $scope.isProcessing = true;
             getResponseResetValues(pq.urls.process_queue.serve_number_url + transaction_number, function(){
                 pq.jquery_functions.remove_from_called(transaction_number);
@@ -72,36 +76,25 @@
             }, null, function(){
                 $scope.isProcessing = false;
             });
-            angular.forEach($scope.temp_called_numbers, function(temp,i){
-                if(temp.tran_number == transaction_number){
-                    if( temp.email_checker == true){
-                        temp.rating = (temp.rating ? temp.rating : 3) ;
-                        $http.get(pq.urls.rating.ratings_url + temp.rating + "/" + temp.email + "/" + temp.terminal_id + '/' + 2 + '/' + temp.tran_number)
-                            .success(function(response){
-                            });
-                    }
-                    $scope.addOrRemoveRating(i,1);
-                }
-            });
         };
 
         $scope.dropNumber = function(transaction_number){
+            var i = getIndex(transaction_number);
+            if($scope.called_numbers[i].verified_email){
+                if($scope.called_numbers_rating[i] == undefined){
+                    var rating = 0;
+                }else{
+                    var rating = $scope.called_numbers_rating[i];
+                }
+                $http.get('/rating/userratings/'+rating+'/'+$scope.called_numbers[i].email+'/'+$scope.terminal_id +'/'+3+'/'+transaction_number);
+            }
+
             $scope.isProcessing = true;
             getResponseResetValues(pq.urls.process_queue.drop_number_url + transaction_number, function(){
                 pq.jquery_functions.remove_from_called(transaction_number);
                 $scope.updateBroadcast();
             }, null, function(){
                 $scope.isProcessing = false;
-            });
-            angular.forEach($scope.temp_called_numbers, function(temp,i){
-                if(temp.tran_number == transaction_number){
-                    if( temp.email_checker == true){
-                        $http.get(pq.urls.rating.ratings_url + 0 + "/" + temp.email + "/" + temp.terminal_id + '/' + 3 + '/' + temp.tran_number)
-                            .success(function(response){
-                            });
-                    }
-                    $scope.addOrRemoveRating(i,1);
-                }
             });
         };
 
@@ -113,13 +106,26 @@
         };
 
         $scope.stopProcessQueue = function(){
+            $scope.isStopping = true;
+            $scope.isCalling = true;
+            $scope.progress_max = $scope.progress_max > 0 ? $scope.progress_max : $scope.called_numbers.length;
+            $scope.progress_current = $scope.progress_max - $scope.called_numbers.length;
+            $scope.stop_progress = ($scope.progress_current / $scope.progress_max) * 100;
             if($scope.called_numbers.length > 0){
                 $scope.serveNumber($scope.called_numbers[0].transaction_number, function(){
                     $scope.stopProcessQueue();
                 });
             }
             else {
-                $scope.clearBroadcastNumbers();
+                setTimeout(function(){
+                    $scope.isStopping = false;
+                    $scope.isCalling = false;
+                    $scope.progress_current = 0;
+                    $scope.progress_max = 0;
+                    $scope.stop_progress = 0;
+                    $scope.clearBroadcastNumbers();
+                }, 1000);
+
             }
         };
 
@@ -159,7 +165,7 @@
             websocket.send(JSON.stringify({
                 business_id : pq.ids.business_id,
                 broadcast_update : true,
-              broadcast_reload: false
+                broadcast_reload: false
             }));
         }
 
@@ -197,11 +203,8 @@
             $scope.number_limit = numbers.number_limit;
 
             pq.jquery_functions.set_next_number_placeholder($scope.next_number);
-            if($scope.create_temporary_array == 0){
-                $scope.createTemporaryRatingsArray();
-                $scope.create_temporary_array = 1;
 
-            }
+
         };
 
         select_next_number = function(){
@@ -243,58 +246,14 @@
             }
         }
 
-        $scope.checkEmailAndAdd = function(email, transaction_number){
-            if(email){
-                $http.get(pq.urls.rating.verify_email_url + email)
-                    .success(function(response){
-                        $scope.addOrRemoveRating(0,0,{
-                            rating : 0,
-                            tran_number : transaction_number,
-                            email : $scope.called_numbers[0].email,
-                            email_checker : response.result,
-                            terminal_id : $scope.called_numbers[0].terminal_id
-                        });
-                    });
-            }else{
-                $scope.addOrRemoveRating(0,0,{
-                    rating : 0, tran_number : transaction_number,
-                    email : $scope.called_numbers[0].email,
-                    email_checker : false,
-                    terminal_id : $scope.called_numbers[0].terminal_id});
-            }
-        }
-
-        $scope.createTemporaryRatingsArray = function(){
-            angular.forEach($scope.called_numbers, function(called_number, i) {
-                if(called_number.email){
-                    $http.get(pq.urls.rating.verify_email_url + called_number.email)
-                        .success(function(response){
-                            $scope.temp_called_numbers[i] = ({
-                                rating : 0,
-                                tran_number : called_number.transaction_number,
-                                email : called_number.email,
-                                email_checker : response.result,
-                                terminal_id : called_number.terminal_id
-                            });
-                        });
-                }else{
-                    $scope.temp_called_numbers[i] = ({
-                        rating : 0,
-                        tran_number :called_number.transaction_number,
-                        email : called_number.email,
-                        email_checker : false,
-                        terminal_id : called_number.terminal_id
-                    });
+        getIndex = function(transaction_number){
+            for(var i = 0;  i < $scope.called_numbers.length; i++) {
+                if ($scope.called_numbers[i].transaction_number == transaction_number) {
+                    return i;
+                    break;
                 }
-            });
-        }
-
-        $scope.addOrRemoveRating = function(index, item, object){
-            if(object){
-                $scope.temp_called_numbers.splice(index, item, object);
-            }else{
-                $scope.temp_called_numbers.splice(index, item);
             }
+
         }
 
         $scope.getAllowedBusinesses = function(){
@@ -305,7 +264,8 @@
                         $('#allowed-businesses').append('<option value="' + businesses[index].service_id +'">' + businesses[index].name + ' - ' + businesses[index].service_name + '</option>');
                     }
                 }else{
-                    $('#allowed-businesses-area').remove();
+                    $('#allowed-businesses option').remove();
+                    $('#allowed-businesses-area').hide();
                 }
             });
         }
@@ -320,26 +280,27 @@
             };
 
             $scope.serveNumber(transaction_number, function(){
-                $http.post('/issuenumber/issue-other/', data).success(function(){
+                $http.post('/issuenumber/issue-other/', data).success(function(response){
                     $('#priority-number-modal').modal('hide');
+                    var business_id = response.business_id;
                     websocket.send(JSON.stringify({
                         business_id : business_id,
                         broadcast_update : true,
-                      broadcast_reload: false
+                        broadcast_reload: false
                     }));
                 });
             });
         }
 
         //****************************** refreshing
-            $scope.getAllNumbers();
-            $scope.getAllowedBusinesses();
+        $scope.getAllNumbers();
+        $scope.getAllowedBusinesses();
 
         websocket.onerror	= function(response){
-          $('#WebsocketLoaderModal').modal('show');
+            $('#WebsocketLoaderModal').modal('show');
         };
         websocket.onclose = function(response){
-          $('#WebsocketLoaderModal').modal('show');
+            $('#WebsocketLoaderModal').modal('show');
         };
 
         setInterval(function () {

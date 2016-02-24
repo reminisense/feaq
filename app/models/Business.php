@@ -104,13 +104,14 @@ class Business extends Eloquent
     public static function getVanityURLByBusinessId($business_id) {
         return Business::where('business_id', '=', $business_id)->select(array('vanity_url'))->first()->vanity_url;
     }
-
+    
     public static function getVanityURLByRawCode($raw_code) {
         return Business::where('raw_code', '=', $raw_code)->select(array('vanity_url'))->first()->vanity_url;
     }
 
     public static function saveVanityURL($business_id, $vanity_url){
         Business::where('business_id', '=', $business_id)->update(['vanity_url' => $vanity_url]);
+        Helper::dbLogger('Business', 'business', 'update', 'saveVanityURL', User::email(Helper::userId()), 'business_id:' . $business_id . ', vanity_url:' . $vanity_url);
     }
 
     public static function getBusinessDetails($business_id)
@@ -296,6 +297,8 @@ class Business extends Eloquent
 
         // PAG delete also the json file
         unlink(public_path() . '/json/' . $business_id . '.json');
+
+        Helper::dbLogger('Business', 'business', 'delete', 'deleteBusinessByBusinessId', User::email(Helper::userId()), 'business_id:' . $business_id);
     }
 
     /*
@@ -609,6 +612,7 @@ class Business extends Eloquent
 
     public static function saveBusinessFeatures($business_id, $features = array()){
         Business::where('business_id', '=', $business_id)->update(['business_features' => serialize($features)]);
+        Helper::dbLogger('Business', 'business', 'update', 'saveBusinessFeatures', User::email(Helper::userId()), 'business_id:' . $business_id);
     }
 
     public static function getBusinessFeatures($business_id){
@@ -626,33 +630,43 @@ class Business extends Eloquent
      * @return mixed
      */
     public static function getForwardingAllowedBusinesses($business_id){
-        return DB::table('queue_forward_permissions')
+        $my_business = Business::where('business_id', '=', $business_id)
+            ->select('business.business_id', 'business.name')
+            ->first();
+
+        $allowed_businesses = DB::table('queue_forward_permissions')
             ->where('queue_forward_permissions.business_id', '=', $business_id)
             ->join('business', 'business.business_id', '=', 'queue_forward_permissions.forwarder_id')
             ->select('business.business_id', 'business.name')
             ->get();
+        array_push($allowed_businesses, $my_business);
+        return $allowed_businesses;
     }
 
-//    public static function getForwarderAllowedBusinesses($business_id){
-//        return DB::table('queue_forward_permissions')
-//            ->where('queue_forward_permissions.forwarder_id', '=', $business_id)
-//            ->join('business', 'business.business_id', '=', 'queue_forward_permissions.business_id')
-//            ->select('business.business_id', 'business.name')
-//            ->get();
-//    }
-
     public static function getForwarderAllowedServices($business_id){
-        return DB::table('queue_forward_permissions')
+        $my_services = Business::where('business.business_id', '=', $business_id)
+            ->join('branch', 'branch.business_id', '=', 'business.business_id')
+            ->join('service', 'service.branch_id', '=', 'branch.branch_id')
+            ->select('business.business_id', 'business.name')
+            ->select('business.business_id', 'business.name', 'branch.branch_id', 'service.service_id', 'service.name as service_name')
+            ->get()->toArray();
+
+        $allowed_services = DB::table('queue_forward_permissions')
             ->where('queue_forward_permissions.forwarder_id', '=', $business_id)
             ->join('business', 'business.business_id', '=', 'queue_forward_permissions.business_id')
             ->join('branch', 'branch.business_id', '=', 'business.business_id')
             ->join('service', 'service.branch_id', '=', 'branch.branch_id')
             ->select('business.business_id', 'business.name', 'branch.branch_id', 'service.service_id', 'service.name as service_name')
             ->get();
+
+        return array_merge($allowed_services, $my_services);
     }
 
     public static function getForwarderAllowedInBusiness($business_id, $forwarder_id){
-        return DB::table('queue_forward_permissions')->where('business_id', '=', $business_id)->where('forwarder_id', '=', $forwarder_id)->first();
+        return $business_id == $forwarder_id || DB::table('queue_forward_permissions')
+            ->where('business_id', '=', $business_id)
+            ->where('forwarder_id', '=', $forwarder_id)
+            ->first();
     }
 
     public static function getKeywordsByBusinessId($business_id){

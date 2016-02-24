@@ -1,0 +1,318 @@
+.orange {
+    color: #fe9636; }
+.btn-orange {
+    background-color: #fe9636;
+    color: #fff;}
+.btn-orange:hover {
+    background-color: #ffa551!important;
+}
+.btn-red:hover {
+    background-color: #d26161!important;
+}
+.btn-orange:hover,
+.btn-blue:hover,
+.btn-red:hover {
+    color: #fff!important;
+}
+.btn-red {
+    background-color: #b05252;
+    color: #fff;
+}
+#app {
+    background: url("/images/queue/demo/app.jpg") bottom center no-repeat;
+    height: 290px;
+}
+#terminal {
+    background: url("/images/queue/demo/terminal.jpg") bottom center no-repeat;
+    height: 290px;
+}
+.table>tbody>tr>td, .table>tfoot>tr>td {
+    padding-top:5px;
+    padding-bottom: 0px!important;
+}
+#terminal .btn {
+    font-size: 10px;
+}
+#terminal select,
+#terminal input {
+    width: 60px;
+    font-weight: 700;
+    text-align: center;
+}
+#app {
+    padding: 40px 62px 40px 61px;
+}
+.btn-xs {
+    padding: 4px 8px;
+}
+#app .boxes>div {
+    width: 60px;
+    height: 50px;
+    margin: 3px;
+}
+#app .boxes>div p {
+    font-size: 20px;
+}
+#app .boxes>div p span {
+    font-size: 8px;
+    width: 60px;
+    overflow: hidden;
+}
+.remoteq {
+    margin: 20px 5px 10px 5px;
+    border-top: 1px dotted #ccc;
+}
+.remoteq .pull-left > p {
+    font-size: 12px;
+    line-height: 14px;
+    text-transform: uppercase;
+    text-align: left;
+    margin-top: 10px;
+}
+.remoteq .btn {
+    padding-left: 21px;
+    padding-right: 21px;
+}
+.remoteq h3 {
+    margin-top: 10px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+#broadcast {
+    background: url("/images/queue/demo/broadcast.jpg") top center no-repeat;
+    height: 290px;
+    padding: 26px 26px;
+}
+.boxes > div {
+    width: 141px;
+    height: 75px;
+    color: #fff;
+    margin: 4px;
+    display: table;
+    vertical-align: middle;
+    background-color: #657fb3;
+}
+.boxes > div.t2 {
+    background-color: #40b0b0;
+}
+.boxes > div p {
+    margin: 0;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 26px;
+    font-weight: 700;
+}
+.boxes > div p span {
+    display: block;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 15px;
+}
+#terminal {
+    padding: 30px 89px 30px 82px;
+}
+#terminal table {
+    height: 158px;
+    overflow: scroll;
+}
+@media only screen and (max-width : 1200px) {
+    #app {
+        padding: 40px 37px 40px 36px;
+    }
+    #terminal {
+        padding: 30px 40px 30px 40px;
+    }
+    #broadcast {
+        background: url("/images/queue/demo/broadcast-1200.jpg") top center no-repeat;
+        padding: 14px 26px;
+    }
+    .boxes > div {
+        width: 107px;
+        height: 61px;
+        margin: 2px;
+
+    }
+    #terminal table {
+        width: 279px;
+    }
+}
+
+@media only screen and (max-width : 992px) {
+    #app {
+        padding: 40px 279px 40px 279px;
+    }
+    #terminal {
+        margin-top: 80px;
+        padding: 30px 200px 30px 200px;
+    }
+    #broadcast {
+        margin-top: 80px;
+        background: url("/images/queue/demo/broadcast.jpg") top center no-repeat;
+        height: 290px;
+        padding: 26px 196px;
+    }
+    .boxes > div {
+        width: 145px;
+        height: 78px;
+    }
+    #broadcast {
+        height: 230px;
+    }
+}
+
+
+@media only screen and (max-width: 768px) {
+    #app {
+        padding: 40px 278px 40px 278px;
+    }
+    #terminal {
+        padding: 30px 203px 30px 203px;
+    }
+}
+@media only screen and (max-width: 584px) {
+    #app {
+        padding: 40px 37% 40px 37%;
+    }
+}
+@media only screen and (max-width: 567px) {
+    #app {
+        padding: 40px 37% 40px 37%;
+    }
+    #app .boxes>div {
+        margin: 2px;
+    }
+    #terminal {
+        padding: 30px 112px 30px 112px;
+    }
+}
+
+@media only screen and (max-width : 600px) {
+    #app {
+        padding: 40px 203px 40px 203px;
+    }
+    #terminal {
+        padding: 15px 135px 30px 135px;
+        background: url("/images/queue/demo/terminal325.jpg") top center no-repeat;
+    }
+    #terminal table {
+        width: 264px;
+        height: 148px;
+    }
+    #broadcast {
+        padding: 26px 119px;
+    }
+}
+
+@media only screen and (max-width : 480px) {
+    #app {
+        padding: 40px 34% 40px 34%;
+    }
+    #terminal {
+        padding: 28px 67px 30px 67px;
+    }
+    #broadcast {
+        padding: 26px 59px;
+    }
+}
+
+@media only screen and (max-width : 414px) {
+    #app {
+        padding: 40px 32% 40px 31%;
+    }
+    #terminal {
+        padding: 15px 42px 30px 42px;
+        background: url("/images/queue/demo/terminal325.jpg") top center no-repeat;
+    }
+    #terminal table {
+        width: 264px;
+        height: 148px;
+    }
+    #broadcast {
+        padding: 26px 25px;
+    }
+}
+
+@media only screen and (max-width : 384px) {
+    #app {
+        padding: 40px 30% 40px 30%;
+    }
+    #terminal {
+        padding: 15px 26px 30px 26px;
+        background: url("/images/queue/demo/terminal325.jpg") top center no-repeat;
+    }
+    #terminal table {
+        width: 264px;
+        height: 148px;
+    }
+    #broadcast {
+        padding: 26px 6px;
+    }
+}
+
+@media only screen and (max-width : 375px) {
+    #app {
+        padding: 40px 30% 40px 29%;
+    }
+    #terminal {
+        padding: 15px 22px 30px 22px;
+        background: url("/images/queue/demo/terminal325.jpg") top center no-repeat;
+    }
+    #terminal table {
+        width: 264px;
+        height: 148px;
+    }
+    #broadcast {
+        padding: 26px 6px;
+    }
+}
+
+@media only screen and (max-width : 360px) {
+    #app {
+        padding: 40px 28% 40px 28%;
+    }
+    #terminal {
+        padding: 15px 14px 30px 14px;
+        background: url("/images/queue/demo/terminal325.jpg") top center no-repeat;
+    }
+    #terminal table {
+        width: 264px;
+        height: 148px;
+    }
+    #broadcast {
+        background: url("/images/queue/demo/broadcast-1200.jpg") top center no-repeat;
+        padding: 18px 40px;
+    }
+    .boxes > div {
+        width: 106px;
+        height: 57px;
+    }
+}
+
+
+@media only screen and (max-width : 320px) {
+    #app {
+        padding: 40px 25% 40px 25%;
+    }
+    #terminal {
+        height: 240px;
+        padding: 30px 20px 30px 15px;
+        background: url("/images/queue/demo/terminal300.jpg") bottom center no-repeat;
+    }
+    #terminal table {
+        width: 220px;
+        height: 110px;
+    }
+    #terminal table td {
+        padding-left: 2px;
+    }
+    #broadcast {
+        background: url("/images/queue/demo/broadcast-1200.jpg") top center no-repeat;
+        padding: 14px 22px;
+        height: 160px;
+    }
+    .boxes > div {
+        width: 103px;
+        height: 60px;
+    }
+}
