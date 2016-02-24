@@ -156,9 +156,9 @@
                             </tr>
                             <tr>
                                 <td>SMS Notification <small>(Optional)</small></td>
-                                <td>0.01cents/SMS Notification</td>
-                                <td class="apple">0.01cents/SMS Notification</td>
-                                <td>0.01cents/SMS Notification</td>
+                                <td>$0.01/SMS Notification</td>
+                                <td class="apple">$0.01/SMS Notification</td>
+                                <td>$0.01/SMS Notification</td>
                             </tr>
                             <tr>
                                 <td>Support</td>
