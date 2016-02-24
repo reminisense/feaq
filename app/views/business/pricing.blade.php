@@ -96,23 +96,28 @@
                     <table id="pricing" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th class="nobg"></th>
+                                <th class="">
+                                    <div class="head">
+                                        <span class="pack head1">PACKAGE</span>
+                                        <span class="price head2"></span>
+                                    </div>
+                                </th>
                                 <th>
                                     <div class="head">
                                         <span class="pack heada">Basic</span>
-                                        <span class="price headb">$99/mo</span>
+                                        <span class="price headb">$99<span>/mo</span></span>
                                     </div>
                                 </th>
                                 <th>
                                     <div class="head">
                                         <span class="pack headc">Plus</span>
-                                        <span class="price headd">$299/mo</span>
+                                        <span class="price headd">$299<span>/mo</span></span>
                                     </div>
                                 </th>
                                 <th>
                                     <div class="head">
                                         <span class="pack heade">Pro</span>
-                                        <span class="price headf">$1250/mo<br></span>
+                                        <span class="price headf">$699<span>/mo</span><br></span>
                                         <small>Initial Software Rights
                                                                                     does not include hardware. Hardware
                                                                                     and installation costs are separate.
@@ -145,9 +150,9 @@
                             </tr>
                             <tr>
                                 <td>Email Notification</td>
-                                <td>3</td>
-                                <td class="banana">3</td>
-                                <td>3</td>
+                                <td><span class="glyphicon glyphicon-ok"></span></td>
+                                <td class="banana"><span class="glyphicon glyphicon-ok"></span></td>
+                                <td><span class="glyphicon glyphicon-ok"></span></td>
                             </tr>
                             <tr>
                                 <td>SMS Notification <small>(Optional)</small></td>
@@ -208,13 +213,13 @@
                                 <td>With own Virtual Server</td>
                             </tr>
                             <tr>
-                                <td>Remote Queuing Feature</td>
+                                <td>Custom URL</td>
                                 <td></td>
                                 <td class="banana"><span class="glyphicon glyphicon-ok"></span></td>
                                 <td><span class="glyphicon glyphicon-ok"></span></td>
                             </tr>
                             <tr>
-                                <td>Take Action Now!</td>
+                                <td style="vertical-align: middle">Take Action Now! <span class="orange glyphicon glyphicon-arrow-right"></span> </td>
                                 <td><button class="btn btn-orange btn-md">Request for Quotation</button></td>
                                 <td class="apple"><button class="btn btn-orange btn-md">Request for Quotation</button></td>
                                 <td><button class="btn btn-orange btn-md">Request for Quotation</button></td>
