@@ -64,14 +64,8 @@
                                         <tr>
                                             <td>
                                                 <label>Industry:</label>
-                                                <input class="form-control" type="text" ng-model="edit_name" />
-                                            </td>
-                                            <td>
-                                                <label>Industry:</label>
                                                 <input class="form-control" type="text" ng-model="edit_industry" />
                                             </td>
-                                        </tr>
-                                        <tr>
                                             <td>
                                                 <label>Timezone:</label>
                                                 <input class="form-control" type="text" ng-model="edit_timezone" /><br>
