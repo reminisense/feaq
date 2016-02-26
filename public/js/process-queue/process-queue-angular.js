@@ -45,6 +45,7 @@
         };
 
         $scope.callNumber = function(transaction_number){
+            $scope.called_numbers_rating = [];
             $scope.isCalling = true;
             transaction_number = transaction_number != undefined ? transaction_number : angular.element(document.querySelector('#selected-tnumber')).val();
 

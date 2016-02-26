@@ -16,13 +16,13 @@
             <div class="business-container clearfix">
                 <div class="search-business col-md-12 clearfix ">
                     <form>
-                        <div class="col-md-8">
+                        <div class="col-lg-8 col-md-6 col-xs-12 col-sm-12">
                             <input class="form-control" type="text" ng-model="business_name" placeholder="Search for a business.."/>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-lg-2 col-md-3 col-xs-4 col-sm-4">
                             <button class="btn btn-primary btn-lg search-business-button" type="submit" ng-click="searchBusiness()">Search</button>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-lg-2 col-md-3 col-xs-4 col-sm-4 text-center">
                             <button class="btn btn-cyan btn-lg create-business-button" type="submit" id="create-business"><span class="glyphicon glyphicon-plus"></span> Create</button>
                         </div>
                     </form>
@@ -64,14 +64,8 @@
                                         <tr>
                                             <td>
                                                 <label>Industry:</label>
-                                                <input class="form-control" type="text" ng-model="edit_name" />
-                                            </td>
-                                            <td>
-                                                <label>Industry:</label>
                                                 <input class="form-control" type="text" ng-model="edit_industry" />
                                             </td>
-                                        </tr>
-                                        <tr>
                                             <td>
                                                 <label>Timezone:</label>
                                                 <input class="form-control" type="text" ng-model="edit_timezone" /><br>
@@ -112,7 +106,7 @@
                                                     <button class="btn-boxy btn-primary" id="terminal-edit-button"  ng-click="updateTerminal(terminal.terminal_id)"> <span class="glyphicon glyphicon-pencil"></span> Edit</button>
                                                     <button class="btn-boxy btn-danger" ng-click="deleteTerminal(terminal.terminal_id)"> <span class="glyphicon glyphicon-trash"></span> Delete</button>
                                                 </div>
-                                                <div style="padding-left: 100px;" class="mt10" ng-show="terminals.length < max_terminals">
+                                                <div style="padding-left: 100px;" class="mt10" ng-show="service.terminals.length < max_terminals">
                                                     <input class="form-control" type="text" ng-model="terminal_name">
                                                     <button class="btn btn-orange" ng-click="createTerminal(terminal_name, service.service_id, edit_business_id)"> New Terminal</button>
                                                 </div>
@@ -128,7 +122,7 @@
                                         <td></td>
                                         <td></td>
                                     </tr>
-                                    <tr ng-show="terminals.length < max_services" style="background-color: #eee;">
+                                    <tr ng-show="services.length < max_services" style="background-color: #eee;">
                                         <td class="pb10">
                                             <input style="width: 100%" class="form-control" type="text" ng-model="name">
                                         </td>
@@ -291,13 +285,13 @@
             <div class=" user-container clearfix">
                 <div class="search-user clearfix">
                     <form>
-                        <div class="col-md-8">
+                        <div class="col-lg-8 col-md-6 col-xs-12 col-sm-12">
                             <input class="form-control" type="text" id="user-email" placeholder="Search for a user using the email address.."/>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-lg-2 col-md-3 col-xs-4 col-sm-4">
                             <button class="btn btn-primary btn-lg search-user-button" type="submit" ng-click="searchUser()">Search</button>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-lg-2 col-md-3 col-xs-4 col-sm-4">
                             <button class="btn btn-cyan btn-lg create-user-button" type="submit" id="create-user"><span class="glyphicon glyphicon-plus"></span> Create</button>
                         </div>
                     </form>

@@ -220,7 +220,7 @@ class MobileController extends BaseController{
 
         for($i = 0; $i < count($user_queues); $i++){
             array_push($businesses, [
-                'id' =>  (int) $user_id,
+                'id' =>  $user_queues[$i]['transaction_number'],
                 'business_id' => $user_queues[$i]['business_id'],
                 'business_name' => $user_queues[$i]['business_name'],
                 'image_url' => '',

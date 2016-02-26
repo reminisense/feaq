@@ -612,6 +612,7 @@ class Business extends Eloquent
 
     public static function saveBusinessFeatures($business_id, $features = array()){
         Business::where('business_id', '=', $business_id)->update(['business_features' => serialize($features)]);
+        Helper::dbLogger('Business', 'business', 'update', 'saveBusinessFeatures', User::email(Helper::userId()), 'business_id:' . $business_id);
     }
 
     public static function getBusinessFeatures($business_id){
