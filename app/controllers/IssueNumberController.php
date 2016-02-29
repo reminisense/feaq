@@ -105,7 +105,8 @@ class IssueNumberController extends BaseController{
 
             $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, $terminal_id);
             PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
-            return json_encode(['success' => 1, 'number' => $number]);
+            $business_id = Business::getBusinessIdByServiceId($service_id);
+            return json_encode(['success' => 1, 'number' => $number, 'business_id' => $business_id]);
         }{
             return json_encode(['error' => 'You are not allowed to issue a number to this business']);
         }

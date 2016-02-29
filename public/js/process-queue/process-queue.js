@@ -128,6 +128,10 @@ var pq = {
                 $('#priority-number-modal').attr('data-transaction-number', transaction_number);
 
                 $('#priority-number-modal .modal-body ul .details a').trigger('click');
+
+                $('#allowed-businesses option').remove();
+                process_queue = angular.element($("#process-queue-wrapper")).scope();
+                process_queue.getAllowedBusinesses();
             });
 
             $('body').on('click', '.show-messages', function(e){

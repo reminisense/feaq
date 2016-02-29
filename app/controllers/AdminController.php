@@ -86,8 +86,8 @@ class AdminController extends BaseController{
           'upload_size_limit' => 0,
         );
         $business->business_features = serialize($business_features);
-
         $business->save();
+        Helper::dbLogger('AdminController', 'business', 'insert', 'postCreateBusiness', User::email(Helper::userId()), 'business_id:' . $business->business_id . ', business_name:' . $business->name);
 
         $business_user = new UserBusiness();
         $business_user->user_id = User::getUserIdByEmail($business_data['email']);
@@ -159,6 +159,7 @@ class AdminController extends BaseController{
 
         File::put(public_path() . '/json/' . $business->business_id . '.json', $contents);
         $business_user->save();
+        Helper::dbLogger('AdminController', 'user_business', 'insert', 'postCreateBusiness', User::email(Helper::userId()), 'owner:' . $business_data['email'] . ', business_name:' . $business->name);
 
         $branch_id = Branch::createBusinessBranch($business->business_id, $business->name);
         $service_id = Service::createBranchService($branch_id, $business->name);
@@ -223,6 +224,7 @@ class AdminController extends BaseController{
         $business->vanity_url = $business_data['vanity_url'];
 
         $business->save();
+        Helper::dbLogger('AdminController', 'business', 'update', 'postEditBusiness', User::email(Helper::userId()), 'business_id:' . $business->business_id . ', business_name:' . $business->name);
 
         //ARA For queue settings terminal-specific numbers
         $queue_settings = new QueueSettingsController();
@@ -346,6 +348,8 @@ class AdminController extends BaseController{
         ];
 
         User::insert($user);
+        Helper::dbLogger('AdminController', 'user', 'insert', 'postCreateUser', User::email(Helper::userId()), 'email:' . $email . ',first_name:' . $user['first_name'] . ',last_name:' . $user['last_name']);
+
         try {
           Notifier::sendConfirmationEmail($email);
           return json_encode(['success' => 1, 'redirect' => '/user/login']);
@@ -377,6 +381,7 @@ class AdminController extends BaseController{
       $user->email = Input::get('edit_email');
 
       if ($user->save()) {
+        Helper::dbLogger('AdminController', 'user', 'update', 'postUpdateUser', User::email(Helper::userId()), 'email:' . $user->email . ',user_id:' . Input::get('user_id'));
         return json_encode([
           'success' => 1,
         ]);
@@ -399,6 +404,7 @@ class AdminController extends BaseController{
       $user = User::find(Input::get('user_id'));
       $user->password = Hash::make($new_pass);
       $user->save();
+      Helper::dbLogger('AdminController', 'user', 'update', 'postResetPassword', User::email(Helper::userId()), 'user_id:' . Input::get('user_id'));
       return json_encode(array('password' => $new_pass));
     }
     else {

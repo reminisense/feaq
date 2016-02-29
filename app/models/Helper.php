@@ -388,14 +388,17 @@ class Helper extends Eloquent {
         $businesses = UserBusiness::getAllBusinessIdByOwner(Helper::userId());
         $terminals = TerminalUser::getTerminalAssignement(Helper::userId());
 
-//        var_dump($businesses->toArray());
-//        var_dump($terminals);
-//        dd($businesses || $terminals);
-
         return (count($businesses) || count($terminals));
     }
     public static function threadKeyGenerator($business_id, $email) {
         return md5($business_id . 'fq' . $email);
+    }
+
+    public static function dbLogger($model, $table, $action, $method, $email, $infos = NULL) {
+        // [2016/1/26 13:23]User [Jonas] updated Business [XXX] Record [Business Name]
+        $log = date("Y-m-d H:i:s", time()) . " Model: " . $model . "| Table: " . $table . "| Action: " .
+            $action . "| Method: " . $method . "| By: " . $email . "| Info: " . $infos . "\n";
+        file_put_contents(public_path() . '/logs/fq-logs.txt', $log, FILE_APPEND);
     }
 
     public static function generateAccessKey(){

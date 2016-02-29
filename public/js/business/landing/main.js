@@ -2,15 +2,17 @@ $('.detail-wrap').on('mouseenter', function(){
 	$(this).find('.details').fadeIn();
 });
 $('.detail-wrap').on('mouseleave', function(){
-	$(this).find('.details').hide();
+	$(this).find('.details').fadeOut();
 });
 
 /*animate navbar on scroll down*/
 $(window).scroll(function() {
     if ($(document).scrollTop() > 50) {
         $('.navbar-fixed-top').addClass('shrink');
+
     } else {
         $('.navbar-fixed-top').removeClass('shrink');
+
     }
 });
 

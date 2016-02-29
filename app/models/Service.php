@@ -35,7 +35,7 @@ class Service extends Eloquent{
         $service->status = 1;
         $service->branch_id = $branch_id;
         $service->save();
-
+        Helper::dbLogger('Service', 'service', 'insert', 'createService', User::email(Helper::userId()), 'service_id:' . $service->service_id . ', service_name:' . $name);
         return $service->service_id;
     }
 
@@ -89,6 +89,7 @@ class Service extends Eloquent{
     }
 
     public static function deleteServicesByBranchId($branch_id){
+        Helper::dbLogger('Service', 'service', 'delete', 'deleteServicesByBranchId', User::email(Helper::userId()), 'branch_id:' . $branch_id);
         return Service::where('branch_id', '=', $branch_id)->delete();
     }
 
@@ -103,14 +104,32 @@ class Service extends Eloquent{
 
     public static function updateServiceName($service_id, $name){
         Service::where('service_id', '=', $service_id)->update(['name' => $name]);
+        Helper::dbLogger('Service', 'service', 'update', 'updateServiceName', User::email(Helper::userId()), 'service_id:' . $service_id);
     }
 
     public static function deleteService($service_id){
         $terminals = Terminal::getTerminalsByServiceId($service_id);
         foreach($terminals as $terminal){
-            Terminal::deleteTerminal($terminal['terminal_id']);
+            Terminal::deleteTerminal($terminal['terminal_id'], Helper::userId());
         }
         Service::where('service_id', '=', $service_id)->delete();
+        Helper::dbLogger('Service', 'service', 'delete', 'deleteService', User::email(Helper::userId()), 'service_id:' . $service_id);
     }
 
+    public static function serviceNameExists($name, $service_id){
+        $branch_id = Service::branchId($service_id);
+        return Service::branchServiceNameExists($name, $branch_id);
+    }
+
+    public static function branchServiceNameExists($name, $branch_id){
+        return Service::where('name', '=', $name)->where('branch_id', '=', $branch_id)->exists();
+    }
+
+    public static function businessServiceNameExists($name, $business_id){
+        return Service::join('branch', 'branch.branch_id', '=', 'service.branch_id')
+            ->join('business', 'business.business_id', '=', 'branch.business_id')
+            ->where('service.name', '=', $name)
+            ->where('business.business_id', '=', $business_id)
+            ->exists();
+    }
 }

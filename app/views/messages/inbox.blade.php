@@ -38,10 +38,10 @@
             <div class="biz-navs">
                 <div id="messages-wrap" class="form-group row">
                     <ul role="tablist" class="nav nav-tabs" id="bizTab">
-                        <li class="active"><a data-toggle="tab" ng-click="displayBusinessInbox()"><span class="glyphicon glyphicon-inbox"></span> My Inbox <span class="glyphicon glyphicon-asterisk new-thread" style="display: none;"></span></a>
+                        <li class="active"><a data-toggle="tab" ng-click="displayBusinessInbox()"><span class="glyphicon glyphicon-inbox"></span> Conversations <span class="glyphicon glyphicon-asterisk new-thread" style="display: none;"></span></a>
 
                         </li>
-                        <li class=""><a data-toggle="tab" ng-click="displayOtherInbox()"><span class="glyphicon glyphicon-share-alt"></span> Sent Messages</a></li>
+                        <!-- <li class=""><a data-toggle="tab" ng-click="displayOtherInbox()"><span class="glyphicon glyphicon-share-alt"></span> Sent Messages</a></li> -->
                     </ul>
                     <div id="bizTabContent" class="tab-content" style="">
                         <div class="messages">

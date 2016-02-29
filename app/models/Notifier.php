@@ -210,6 +210,7 @@ class Notifier extends Eloquent{
             $message->subject($subject);
             $message->to($email);
         });
+//        Helper::dbLogger('Notifier', 'notifier', 'email', 'sendConfirmationEmail', User::email(Helper::userId()), 'to:' . $email);
     }
 
     public static function sendSMS($message, $phone, $service_id){

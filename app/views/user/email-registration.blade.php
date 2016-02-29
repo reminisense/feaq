@@ -12,6 +12,24 @@
     <meta name="og:site_name" content="FeatherQ"/>
     <meta name="fb:app_id" content="1574952899417459"/>
 
+<link rel="apple-touch-icon" sizes="57x57" href="/images/homepage/landing/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/homepage/landing/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/homepage/landing/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/homepage/landing/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/homepage/landing/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/homepage/landing/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/homepage/landing/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/homepage/landing/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/homepage/landing/apple-icon-180x180.png">
+
+    <link rel="icon" type="image/png" sizes="192x192"  href="/images/homepage/landing/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/homepage/landing/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/homepage/landing/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/homepage/landing/favicon-16x16.png">
+
+    <link rel="manifest" href="img/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="img/ms-icon-144x144.png">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/signup/signup.css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600' rel='stylesheet' type='text/css'>
@@ -75,12 +93,46 @@
                             <div class="row mt30">
                                 <div class="col-md-5 col-xs-12">
                                     {{--<a class="forgot-pass no-line" href="/user/forgot-password">Forgot password?</a>--}}
-                                    <i class="abs glyphicon glyphicon-book"></i><a href="" class="forgot-pass no-line">Visit our Privacy Policy</a>
+                                    <i class="abs glyphicon glyphicon-book"></i><a href="" data-toggle="modal" data-target="#privacyModal" class="forgot-pass no-line">Visit our Privacy Policy</a>
                                 </div>
+                                <div class="modal fade" id="privacyModal" tabindex="-1" role="dialog" aria-labelledby="privacyModal">
+                                  <div class="modal-dialog modal-lg text-left" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">PRIVACY POLICY</h4>
+                                      </div>
+                                      <div class="modal-body">
+                                        <p>The Privacy Policy governs your use of FeatherQ Mobile Application, a DIY cloud-based line-management application, created by Reminisense Corporation.</p>
+                                        <p>Reminisense is committed to protecting your privacy and customer information security. Thus, we do not collect any information from you, except where it is explicitly and knowingly provided.</p>
+
+                                        <h5>Customer Information</h5>
+                                        <p>In order to use FeatherQ, one is required to register or login through Facebook. Upon registration, you generally provide (a) your name, (b) email address, (c) gender, (d) address, and (e) contact number. Other means of obtaining information provided by users is through a manual business sign-up/creation or information you enter/update in your profile when using FeatherQ. This information is used primarily for basic processing of queues and appointments, online tracking and billing purposes, and analytical and/or comparative reports.</p>
+
+                                        <h5>Data Security</h5>
+                                        <p>Generally, Reminisense prohibits the transfer of data from users to third parties. However, we may disclose information when:</p>
+                                            <ul>
+                                                <li>required by law, such as to comply with a subpoena or similar legal process; and,
+                                                <li>in good faith, the disclosure is necessary to protect our rights and protect our clients and/or user’s safety.</li>
+                                            </ul>
+                                        <p>Reminisense is concerned about safeguarding the privacy and confidentiality of the client information. However, we disclaim any liability for possible breach of data security from external factors, such as force of entry to the security system.</p>
+
+
+                                        <h5>Policy Changes</h5>
+                                        <p>Reminisense reserves the right to change, amend, and update these policies from time to time.</p>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
                                 <div class="col-md-7 col-xs-12 text-right ">
                                     <button class="btn btn-teal" type="submit">CREATE MY ACCOUNT</button>
                                 </div>
                             </div>
+
                         </form>
                         <div class="alert alert-danger" ng-show="error_message != ''">@{{ error_message  }}</div>
                         <div class="alert alert-success" ng-show="success_message != ''">@{{ success_message  }}</div>
@@ -117,7 +169,7 @@
 </div>--}}
 
 @include('modals.homepage.fq-loader')
-
+@include('modals.homepage.fb-loader')
 <script src="/js/bootstrap.min.js"></script>
 </body>
 </html>

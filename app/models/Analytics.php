@@ -39,6 +39,7 @@ class Analytics extends Eloquent{
 
     public static function saveQueueAnalytics($values){
         DB::table('queue_analytics')->insert($values);
+        Helper::dbLogger('Analytics', 'queue_analytics', 'insert', 'saveQueueAnalytics', User::email(Helper::userId()));
     }
 
     public static function insertAnalyticsQueueNumber($action, $transaction_number, $service_id, $date, $time, $terminal_id, $queue_platform){
@@ -56,7 +57,7 @@ class Analytics extends Eloquent{
         ];
 
         Analytics::saveQueueAnalytics($values);
-
+        Helper::dbLogger('Analytics', 'queue_analytics', 'insert', 'insertAnalyticsQueueNumber', User::email(Helper::userId()), 'transaction_number:' . $transaction_number);
     }
 
     public static function insertAnalyticsQueueNumberIssued($transaction_number, $service_id, $date, $time, $terminal_id, $queue_platform){
