@@ -45,7 +45,6 @@ class PriorityQueue extends Eloquent {
             'user_id' => $user_id,
             'queue_platform' => $queue_platform
         ];
-        Helper::dbLogger('PriorityQueue', 'priority_queue', 'insert', 'createPriorityQueue', User::email(Helper::userId()), 'priority_number:' . $priority_number . ', confirmation_code:' . $confirmation_code);
         return PriorityQueue::insertGetId($values);
     }
 
