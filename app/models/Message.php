@@ -1,9 +1,9 @@
 <?php
 
 class Message extends Eloquent {
-    protected $table = 'message';
-    protected $primaryKey = 'message_id';
-    public $timestamps = false;
+  protected $table = 'message';
+  protected $primaryKey = 'message_id';
+  public $timestamps = false;
 
   public static function checkThreadByKey($thread_key) {
     return Message::where('thread_key', '=', $thread_key)->exists();
@@ -55,15 +55,37 @@ class Message extends Eloquent {
   }
 
   public static function getMessagesByEmail($email){
-      return Message::where('email', '=', $email)->get();
+    return Message::where('email', '=', $email)->get();
   }
 
   public static function threadKeyGenerator($business_id, $email) {
-      return md5($business_id . 'fq' . $email);
+    return md5($business_id . 'fq' . $email);
   }
 
   public static function getThreadKeysByEmail($email) {
     return Message::where('email', '=', $email)->select(array('thread_key'))->get();
   }
 
+  public static function sendInitialMessage($business_id, $email, $name = null, $phone = null){
+    $thread_key = Helper::threadKeyGenerator($business_id, $email);
+    $business_name = Business::name($business_id);
+    if (!Message::checkThreadByKey($thread_key)) {
+      Message::createThread(array(
+          'thread_key' => $thread_key,
+          'business_id' => $business_id,
+          'email' => $email,
+          'contactname' => $name ? $name : '',
+          'phone' => $phone ? $phone : ''
+      ));
+      $data = json_encode(array(
+          array(
+              'timestamp' => time(),
+              'contmessage' => 'Thank you for lining up at ' . $business_name .'!',
+              'attachment' => '',
+              'sender' => 'business',
+          )
+      ));
+      file_put_contents(public_path() . '/json/messages/' . $thread_key . '.json', $data);
+    }
+  }
 }
