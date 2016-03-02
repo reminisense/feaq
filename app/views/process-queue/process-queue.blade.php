@@ -109,7 +109,8 @@ Processs Queue > {{ $business_name }}
                                             data-email="@{{ number.email }}"
                                             data-phone="@{{ number.phone }}"
                                             >
-                                            @{{ number.priority_number }}
+                                            @{{ number.priority_number }} <small class="font-normal">remote queue</small>
+                                            <small class="pull-right font-normal"> Checked in</small> <span class="pull-right mr5 glyphicon glyphicon-ok"> </span>
                                             <span
                                                class="pull-right userinfo show-messages"
                                                title="Number: @{{ number.priority_number }}"
