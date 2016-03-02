@@ -220,9 +220,9 @@
                             </tr>
                             <tr>
                                 <td style="vertical-align: middle">Take Action Now! <span class="orange glyphicon glyphicon-arrow-right"></span> </td>
-                                <td><button class="btn btn-orange btn-md">Request for Quotation</button></td>
-                                <td class="apple"><button class="btn btn-orange btn-md">Request for Quotation</button></td>
-                                <td><button class="btn btn-orange btn-md">Request for Quotation</button></td>
+                                <td><a href="/business/#contact-us" class="btn btn-orange btn-md">Request for Quotation</a></td>
+                                <td class="apple"><a href="/business/#contact-us" class="btn btn-orange btn-md">Request for Quotation</a></td>
+                                <td><a href="/business/#contact-us" class="btn btn-orange btn-md">Request for Quotation</a></td>
                             </tr>
                         </tbody>
                     </table>

@@ -92,17 +92,19 @@ class MobileController extends BaseController{
                     $last_called = json_decode(json_encode($all_numbers->called_numbers[0]));
                     $last_called->service_id = Terminal::serviceId($last_called->terminal_id);
                     $last_called->user_id = PriorityQueue::userId($last_called->transaction_number);
+                    $last_called = [
+                        'service_id' => $last_called->service_id,
+                        'service_name' => $last_called->service_name,
+                        'terminal_id' => $last_called->terminal_id,
+                        'terminal_name' => $last_called->terminal_name,
+                        'queue_number' => $last_called->priority_number,
+                        'queue_user_id' => $last_called->user_id,
+                        'queue_user_name' => $last_called->name,
+                        'queue_user_email' => $last_called->email,
+                        'queue_user_contact' => $last_called->phone,
+                    ];
                 }else{
-                    $last_called = new stdClass();
-                    $last_called->service_id = '';
-                    $last_called->user_id = '';
-                    $last_called->service_name = '';
-                    $last_called->terminal_id = '';
-                    $last_called->terminal_name = '';
-                    $last_called->priority_number = '';
-                    $last_called->name = '';
-                    $last_called->email = '';
-                    $last_called->phone = '';
+                    $last_called = null;
                 }
 
                 $services_list = [];
@@ -122,20 +124,10 @@ class MobileController extends BaseController{
                     'name' => $business->name,
                     'address' => $business->local_address,
                     'image_url' => "http://imgur.com/as1DaJ.jpg",
-                    'time_requested' => time(),
+                    'time_requested' => time() * 1000, //convert to milliseconds
                     'remote_queue' => $allow_remote,
                     'service_list'  => $services_list,
-                    'last_called' => [
-                        'service_id' => $last_called->service_id,
-                        'service_name' => $last_called->service_name,
-                        'terminal_id' => $last_called->terminal_id,
-                        'terminal_name' => $last_called->terminal_name,
-                        'queue_number' => $last_called->priority_number,
-                        'queue_user_id' => $last_called->user_id,
-                        'queue_user_name' => $last_called->name,
-                        'queue_user_email' => $last_called->email,
-                        'queue_user_contact' => $last_called->phone,
-                    ],
+                    'last_called' => $last_called,
                 ];
             }
         }
@@ -149,9 +141,8 @@ class MobileController extends BaseController{
         $transaction_number = PriorityQueue::getLatestTransactionNumberOfUser($user->user_id);
         $terminal_transaction = TerminalTransaction::where('transaction_number', '=', $transaction_number)->first();
 
-        if($terminal_transaction->time_completed > 0 || $terminal_transaction->time_removed > 0){
-
-        }else{
+        $data = [];
+        if($terminal_transaction->time_completed == 0 && $terminal_transaction->time_removed == 0){
             //user priority_number details
             $priority_queue = PriorityQueue::find($transaction_number);
             $priority_number = PriorityNumber::find($priority_queue->track_id);
@@ -164,17 +155,19 @@ class MobileController extends BaseController{
                 $last_called = json_decode(json_encode($all_numbers->called_numbers[0]));
                 $last_called->service_id = Terminal::serviceId($last_called->terminal_id);
                 $last_called->user_id = PriorityQueue::userId($last_called->transaction_number);
+                $last_called = [
+                    'service_id' => $last_called->service_id,
+                    'service_name' => $last_called->service_name,
+                    'terminal_id' => $last_called->terminal_id,
+                    'terminal_name' => $last_called->terminal_name,
+                    'queue_number' => $last_called->priority_number,
+                    'queue_user_id' => $last_called->user_id,
+                    'queue_user_name' => $last_called->name,
+                    'queue_user_email' => $last_called->email,
+                    'queue_user_contact' => $last_called->phone,
+                ];
             }else{
-                $last_called = new stdClass();
-                $last_called->service_id = '';
-                $last_called->user_id = '';
-                $last_called->service_name = '';
-                $last_called->terminal_id = '';
-                $last_called->terminal_name = '';
-                $last_called->priority_number = '';
-                $last_called->name = '';
-                $last_called->email = '';
-                $last_called->phone = '';
+                $last_called = null;
             }
 
             $data = [
@@ -184,23 +177,13 @@ class MobileController extends BaseController{
                 'email' => $user->email,
                 'contact' => $user->phone,
                 'priority_number' => $priority_queue->priority_number,
-                'estimated_time_left' => Analytics::getWaitingTimeByTransactionNumber($transaction_number),
+                'estimated_time_left' => Analytics::getWaitingTimeByTransactionNumber($transaction_number) * 1000, //convert to milliseconds
                 'business' => [
                     'id' => $business->business_id,
                     'name' => $business->name,
                     'address' => $business->local_address,
-                    'image_url' => '',
-                    'last_called' => [
-                        'service_id' => $last_called->service_id,
-                        'service_name' => $last_called->service_name,
-                        'terminal_id' => $last_called->terminal_id,
-                        'terminal_name' => $last_called->terminal_name,
-                        'queue_number' => $last_called->priority_number,
-                        'queue_user_id' => $last_called->user_id,
-                        'queue_user_name' => $last_called->name,
-                        'queue_user_email' => $last_called->email,
-                        'queue_user_contact' => $last_called->phone,
-                    ]
+                    'image_url' => "http://imgur.com/as1DaJ.jpg",
+                    'last_called' => $last_called,
                 ],
                 'location' => [
                     'latitude' => $business->latitude,
@@ -220,7 +203,7 @@ class MobileController extends BaseController{
 
         for($i = 0; $i < count($user_queues); $i++){
             array_push($businesses, [
-                'id' =>  (int) $user_id,
+                'id' =>  $user_queues[$i]['transaction_number'],
                 'business_id' => $user_queues[$i]['business_id'],
                 'business_name' => $user_queues[$i]['business_name'],
                 'image_url' => '',

@@ -35,7 +35,7 @@
 <div class="clearfix mt20 mb30">
     <div class="col-md-12">
         <h5 class="mb20">SERVICES MANAGEMENT</h5>
-        <button type="button" class=" btn btn-lg btn-orange" id="" ng-click="service_create = true" ng-show="services.length < business_features.max_services" title="Add a Service"><span class="glyphicon glyphicon-plus"></span> Add a Service</button>
+        <button type="button" class=" btn btn-lg btn-orange" id="" ng-click="service_create = true" ng-show="services.length <= business_features.max_services" title="Add a Service"><span class="glyphicon glyphicon-plus"></span> Add a Service</button>
     </div>
 </div>
 
