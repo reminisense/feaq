@@ -39,27 +39,7 @@ class IssueNumberController extends BaseController{
         $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
         $queue_platform = $priority_number == $next_number || $priority_number == null ? $queue_platform : 'specific';
 
-        if($email != ''){
-            $thread_key = Helper::threadKeyGenerator($business_id, $email);
-            if (!Message::checkThreadByKey($thread_key)) {
-                Message::createThread(array(
-                    'thread_key' => $thread_key,
-                    'business_id' => $business_id,
-                    'email' => $email,
-                    'contactname' => $name ? $name : '',
-                    'phone' => $phone ? $phone : ''
-                ));
-                $data = json_encode(array(
-                    array(
-                        'timestamp' => time(),
-                        'contmessage' => 'Thank you for lining up!',
-                        'attachment' => '',
-                        'sender' => 'business',
-                    )
-                ));
-                file_put_contents(public_path() . '/json/messages/' . $thread_key . '.json', $data);
-            }
-        }
+        if($email != ''){ Message::sendInitialMessage($business_id, $email, $name, $phone); }
 
         //save
         if(($queue_platform == 'android' || $queue_platform == 'remote') && !QueueSettings::checkRemoteQueue($service_id)){
@@ -106,6 +86,7 @@ class IssueNumberController extends BaseController{
             $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, $terminal_id);
             PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
             $business_id = Business::getBusinessIdByServiceId($service_id);
+            if($email != ''){ Message::sendInitialMessage($business_id, $email, $name, $phone); }
             return json_encode(['success' => 1, 'number' => $number, 'business_id' => $business_id]);
         }{
             return json_encode(['error' => 'You are not allowed to issue a number to this business']);

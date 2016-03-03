@@ -24,12 +24,12 @@
                     <div class="col-md-offset-3 col-md-6 text-center" ng-controller="emailAuthController">
                         <div class="clearfix col-md-12">
                             <div>
-                                @if(isset($error))
+                                @if(isset($error) && $error != '')
                                 <div>
                                     <div class="alert alert-warning"> {{ $error  }}</div>
                                 </div>
                                 @endif
-                                @if(isset($success))
+                                @if(isset($success) && $success != '')
                                 <div>
                                     <div class="alert alert-success"> {{ $success  }}</div>
                                 </div>

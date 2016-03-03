@@ -114,12 +114,6 @@ var pq = {
                 priority_number = $(this).attr('data-priority-number');
                 transaction_number = $(this).attr('data-transaction-number');
 
-                if(transaction_number == undefined){
-                    $('#allowed-businesses-area').hide();
-                }else{
-                    $('#allowed-businesses-area').show();
-                }
-
                 $('#priority-number-modal .modal-title').html('#' + priority_number);
                 $('#priority-number-number').html(priority_number);
                 $('#priority-number-name').html(name);
@@ -129,7 +123,6 @@ var pq = {
 
                 $('#priority-number-modal .modal-body ul .details a').trigger('click');
 
-                $('#allowed-businesses option').remove();
                 process_queue = angular.element($("#process-queue-wrapper")).scope();
                 process_queue.getAllowedBusinesses();
             });
@@ -142,12 +135,6 @@ var pq = {
                 email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
                 priority_number = $(this).attr('data-priority-number');
                 transaction_number = $(this).attr('data-transaction-number');
-
-                if(transaction_number == undefined){
-                    $('#allowed-businesses-area').hide();
-                }else{
-                    $('#allowed-businesses-area').show();
-                }
 
                 $('#priority-number-modal .modal-title').html('#' + priority_number);
                 $('#priority-number-number').html(priority_number);

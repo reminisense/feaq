@@ -424,6 +424,7 @@ class RestController extends BaseController {
 
             $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, 0, $user_id);
             PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
+            if($email != ''){ Message::sendInitialMessage($business_id, $email, $name, $phone); }
 
             $details = [
                 'number_assigned' => $priority_number,
@@ -656,7 +657,6 @@ class RestController extends BaseController {
         }
     }
 
-
     /**
      * @param $service_id
      * @param $name
@@ -674,6 +674,9 @@ class RestController extends BaseController {
 
             $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform);
             PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
+
+            $business_id = Business::getBusinessIdByServiceId($service_id);
+            if($email != ''){ Message::sendInitialMessage($business_id, $email, $name, $phone); }
 
             $details = [
                 'number_assigned' => $priority_number,

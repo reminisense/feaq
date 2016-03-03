@@ -1279,6 +1279,7 @@ var eb = {
                 $http.post('/services', {name: name, business_id: $scope.business_id}).success(function (response) {
                     if(response.error){
                         $scope.service_error = response.error;
+                        eb.jquery_functions.clear_service_error_msg();
                     }else{
                         $scope.getBusinessDetails();
                         $scope.service_create = false;
