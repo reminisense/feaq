@@ -426,6 +426,9 @@ table .title {
 .mt20 {
     margin-top: 20px;
 }
+.mt30 {
+    margin-top: 30px;
+}
 
 .table .block a {
     display: inline-block;
@@ -805,8 +808,16 @@ button#sendreply {
 .q-numbers .half {padding: 20px 20px; text-align: center; font-size: 32px; background-color: #fff; font-family: 'ralewaybold';margin: 3px; }
 .q-numbers .full {width: 100%;}
 .rel {position: relative;} .abs {position: absolute;}
-#ad-well-inner .drag {right: -3px;top:10%;}
-#ad-well-inner .drag div {font-size:12px; padding: 8px 10px; color: #fff; font-family: 'ralewayregular'; background-color: #337ab7;}
+#ad-well-inner .drag {right: -44px;top:7%;}
+#ad-well-inner .drag div {
+    font-size:12px;
+    padding: 6px 10px;
+    color: #fff; font-family: 'ralewayregular';
+    background-color: #337ab7;
+    -ms-transform: rotate(270deg); /* IE 9 */
+    -webkit-transform: rotate(270deg); /* Safari */
+    transform: rotate(270deg); /* Standard syntax */
+}
 .remove_field {
     right: 0; top: 0; height: 100%; padding-top: 10px;
 }
@@ -886,4 +897,17 @@ button#sendreply {
 }
 .table-inputnotblock .pb10 {
     padding-bottom: 15px!important;
+}
+#terminal-colors {
+    padding-left: 0;
+}
+#terminal-colors li {
+    width: 80px;
+    display: inline-block;
+    list-style-type: none;
+    margin-right: 5px;
+}
+#terminal-colors p {margin-bottom: 5px;}
+#terminal-colors input[type="color"] {
+    padding: 0px;
 }
