@@ -710,4 +710,33 @@ class AdminController extends BaseController{
     public function getTest($business_id){
         return Business::getBusinessAccessKey($business_id);
     }
+
+    public function getMigrateTransactions() {
+      $res = DB::table('terminal_transaction')->join('priority_queue', 'terminal_transaction.transaction_number', '=', 'priority_queue.transaction_number')->join('priority_number', 'priority_queue.track_id', '=', 'priority_number.track_id')->select(array(
+        'terminal_transaction.transaction_number','terminal_transaction.time_completed', 'terminal_transaction.time_queued', 'terminal_transaction.time_called', 'terminal_transaction.terminal_id', 'terminal_transaction.time_assigned', 'priority_queue.priority_number', 'priority_queue.confirmation_code', 'priority_queue.user_id', 'priority_queue.queue_platform', 'priority_queue.name', 'priority_queue.phone', 'priority_number.date', 'priority_number.service_id', 'priority_number.last_number_given', 'priority_number.current_number',
+      ))->get();
+
+      foreach ($res as $count => $data) {
+        QueueTransaction::insert(array(
+          'transaction_number' => $data->transaction_number,
+          'time_completed' => $data->time_completed,
+          'time_queued' => $data->time_queued,
+          'time_called' => $data->time_called,
+          'terminal_id' => $data->terminal_id,
+          'time_assigned' => $data->time_assigned,
+          'priority_number' => $data->priority_number,
+          'confirmation_code' => $data->confirmation_code,
+          'user_id' => $data->user_id,
+          'queue_platform' => $data->queue_platform,
+          'name' => $data->name,
+          'phone' => $data->phone,
+          'date' => $data->date,
+          'service_id' => $data->service_id,
+          'last_number_given' => $data->last_number_given,
+          'current_number' => $data->current_number,
+        ));
+      }
+
+      echo 'data migrated';
+    }
 }
