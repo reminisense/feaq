@@ -222,7 +222,9 @@
                         $scope.timebound_numbers[0].priority_number,
                         $scope.timebound_numbers[0].name,
                         $scope.timebound_numbers[0].email,
-                        $scope.timebound_numbers[0].phone
+                        $scope.timebound_numbers[0].phone,
+                        $scope.timebound_numbers[0].queue_platform,
+                        $scope.timebound_numbers[0].checked_in
                     );
                 }else if($scope.uncalled_numbers.length > 0){
                     pq.jquery_functions.select_number(
@@ -230,7 +232,9 @@
                         $scope.uncalled_numbers[0].priority_number,
                         $scope.uncalled_numbers[0].name,
                         $scope.uncalled_numbers[0].email,
-                        $scope.uncalled_numbers[0].phone
+                        $scope.uncalled_numbers[0].phone,
+                        $scope.uncalled_numbers[0].queue_platform,
+                        $scope.uncalled_numbers[0].checked_in
                     );
                 }
             }else if(is_uncalled.length == 0 && is_timebound.length == 0){
@@ -241,7 +245,9 @@
                     $scope.timebound_numbers[0].priority_number,
                     $scope.timebound_numbers[0].name,
                     $scope.timebound_numbers[0].email,
-                    $scope.timebound_numbers[0].phone
+                    $scope.timebound_numbers[0].phone,
+                    $scope.timebound_numbers[0].queue_platform,
+                    $scope.timebound_numbers[0].checked_in
                 );
             }
         }

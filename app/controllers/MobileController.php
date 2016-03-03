@@ -446,4 +446,9 @@ class MobileController extends BaseController{
             return json_encode(['error' => "There are missing parameters."]);
         }
     }
+
+    public function getCheckinTransaction($transaction_number){
+        TerminalTransaction::where('transaction_number', '=', $transaction_number)->update(['time_checked_in' => time()]);
+        return json_encode(['success' => 1]);
+    }
 }
