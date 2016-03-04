@@ -292,9 +292,9 @@ h5>small {
 /* CSD 05252015 From css/dashboard.css */
 .btn {
     border: none;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
     padding-left: 24px;
     padding-right: 24px;
     font-family: 'ralewaybold';
@@ -901,13 +901,52 @@ button#sendreply {
 #terminal-colors {
     padding-left: 0;
 }
-#terminal-colors li {
-    width: 80px;
-    display: inline-block;
-    list-style-type: none;
-    margin-right: 5px;
-}
 #terminal-colors p {margin-bottom: 5px;}
 #terminal-colors input[type="color"] {
     padding: 0px;
+}
+#terminal-colors .dropdown {
+    display: inline-block;
+    margin-left: 15px;
+}
+#terminal-colors .btn {
+    color: #fff;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: inline-block;
+}
+#terminal-colors .dropdown-menu {
+    background-color: #f8f8f8;
+    color: #333;
+}
+#terminal-colors .dropdown-menu a {
+    color: #333;
+}
+#terminal-colors .dropdown-menu>li {
+    margin: 6px 8px;
+}
+#terminal-colors .dropdown-menu>li>a {
+    padding: 6px 15px;
+    height: 20px;
+}
+#terminal-colors #cyan {
+    background-color: #7acaad;
+}
+#terminal-colors #yellow {
+    background-color: #f9c44d;
+}
+#terminal-colors #blue {
+    background-color: #5d8dbc;
+}
+#terminal-colors #orange {
+    background-color: #ed8c5c;
+}
+#terminal-colors #red {
+    background-color: #de787c;
+}
+#terminal-colors #violet {
+    background-color: #887aac;
+}
+#terminal-colors #green {
+    background-color: #89c27b;
 }

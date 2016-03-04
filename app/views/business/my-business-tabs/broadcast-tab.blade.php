@@ -98,10 +98,10 @@
                 <div class="mb30 ui-widget ui-widget-content" id="ad-num-width" style="float: left; min-height: 400px;">
                     <h2 style="background-color: #b9ccd5;margin-top: -20px;padding: 13px 10px;width: 96%;" class="mb30 text-center">NOW SERVING</h2>
                     <div class="q-wrap q-numbers">
-                        <button type="button" id="" class="mb10 btn btn-primary btn-lg q-minus">
+                        <button type="button" id="" class="mb10 btn btn-primary btn-md q-minus">
                             <span class="glyphicon glyphicon-minus"></span> Numbers
                         </button>
-                        <button type="button" id="" class="mb10 btn btn-primary btn-lg q-add">
+                        <button type="button" id="" class="mb10 btn btn-primary btn-md q-add">
                             <span class="glyphicon glyphicon-plus"></span> Numbers
                         </button>
                         <div class="q-nums-wrap clearfix">
@@ -113,28 +113,88 @@
                     </div>
                     <div class="clearfix mt30">
                         <h3 class="mb10">Choose terminal colors:</h3>
-                        <ul id="terminal-colors" class="clearfix">
-                            <li>
-                                <small>Terminal 1</small>
-                                <input type="color" value="#ff0080">
-                            </li>
-                            <li>
-                                <small>Terminal 2</small>
-                                <input type="color" value="#a9bec7">
-                            </li>
-                            <li>
-                                <small>Terminal 3</small>
-                                <input type="color" value="#cccccc">
-                            </li>
-                            <li>
-                                <small>Terminal 4</small>
-                                <input type="color" value="#ff0000">
-                            </li>
-                            <li>
-                                <small>Terminal 5</small>
-                                <input type="color" value="ff0892">
-                            </li>
-                        </ul>
+                        <div id="terminal-colors" class="clearfix">
+                            <div class="col-md-6 col-xs-12 mb10">
+                                    Terminal 1
+                                    <div class="dropdown">
+                                         <button class="btn btn-md btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Color
+                                         <span class="caret"></span></button>
+                                         <ul class="dropdown-menu">
+                                           <li><a id="cyan" href="#"></a></li>
+                                           <li><a id="yellow" href="#"></a></li>
+                                           <li><a id="blue" href="#"></a></li>
+                                           <li><a id="orange" href="#"></a></li>
+                                           <li><a id="red" href="#"></a></li>
+                                           <li><a id="green" href="#"></a></li>
+                                           <li><a id="violet" href="#"></a></li>
+                                         </ul>
+                                    </div>
+                            </div>
+                            <div class="col-md-6 col-xs-12 mb10">
+                                    Terminal 2
+                                    <div class="dropdown">
+                                         <button class="btn btn-md btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Color
+                                         <span class="caret"></span></button>
+                                         <ul class="dropdown-menu">
+                                           <li><a id="cyan" href="#"></a></li>
+                                           <li><a id="yellow" href="#"></a></li>
+                                           <li><a id="blue" href="#"></a></li>
+                                           <li><a id="orange" href="#"></a></li>
+                                           <li><a id="red" href="#"></a></li>
+                                           <li><a id="green" href="#"></a></li>
+                                           <li><a id="violet" href="#"></a></li>
+                                         </ul>
+                                    </div>
+                            </div>
+                            <div class="col-md-6 col-xs-12 mb10">
+                                    Terminal 3
+                                    <div class="dropdown">
+                                         <button class="btn btn-md btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Color
+                                         <span class="caret"></span></button>
+                                         <ul class="dropdown-menu">
+                                           <li><a id="cyan" href="#"></a></li>
+                                           <li><a id="yellow" href="#"></a></li>
+                                           <li><a id="blue" href="#"></a></li>
+                                           <li><a id="orange" href="#"></a></li>
+                                           <li><a id="red" href="#"></a></li>
+                                           <li><a id="green" href="#"></a></li>
+                                           <li><a id="violet" href="#"></a></li>
+                                         </ul>
+                                    </div>
+                            </div>
+                            <div class="col-md-6 col-xs-12 mb10">
+                                    Terminal 4
+                                    <div class="dropdown">
+                                         <button class="btn btn-md btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Color
+                                         <span class="caret"></span></button>
+                                         <ul class="dropdown-menu">
+                                           <li><a id="cyan" href="#"></a></li>
+                                           <li><a id="yellow" href="#"></a></li>
+                                           <li><a id="blue" href="#"></a></li>
+                                           <li><a id="orange" href="#"></a></li>
+                                           <li><a id="red" href="#"></a></li>
+                                           <li><a id="green" href="#"></a></li>
+                                           <li><a id="violet" href="#"></a></li>
+                                         </ul>
+                                    </div>
+                            </div>
+                            <div class="col-md-6 col-xs-12 mb10">
+                                    Terminal 5
+                                    <div class="dropdown">
+                                         <button class="btn btn-md btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Color
+                                         <span class="caret"></span></button>
+                                         <ul class="dropdown-menu">
+                                           <li><a id="cyan" href="#"></a></li>
+                                           <li><a id="yellow" href="#"></a></li>
+                                           <li><a id="blue" href="#"></a></li>
+                                           <li><a id="orange" href="#"></a></li>
+                                           <li><a id="red" href="#"></a></li>
+                                           <li><a id="green" href="#"></a></li>
+                                           <li><a id="violet" href="#"></a></li>
+                                         </ul>
+                                    </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
