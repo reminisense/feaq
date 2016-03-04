@@ -10,6 +10,12 @@
     }]);
 
     app.controller('processqueueController', function($scope, $http){
+        var current_date = new Date();
+        var day = current_date.getDate() < 10 ? '0' + current_date.getDate() : current_date.getDate();
+        var month = (current_date.getMonth() + 1) < 10 ? '0' + (current_date.getMonth() + 1) : (current_date.getMonth() + 1);
+        var year = current_date.getFullYear();
+
+        $scope.date = month + '-' + day + '-' + year;
         $scope.terminal_id = pq.ids.terminal_id;
         $scope.called_numbers = [];
         $scope.uncalled_numbers = [];
@@ -37,7 +43,8 @@
         }
 
         $scope.getAllNumbers = function(){
-            getResponseResetValues(pq.urls.process_queue.all_numbers_url + pq.ids.service_id + '/' + pq.ids.terminal_id, null, null, function(){
+            url = pq.urls.process_queue.all_numbers_url + pq.ids.service_id + '/' + pq.ids.terminal_id + '/' + $scope.date;
+            getResponseResetValues(url, null, null, function(){
                 //setTimeout(function(){
                 //    $scope.getAllNumbers();
                 //}, 1000);

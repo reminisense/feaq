@@ -55,6 +55,12 @@ Processs Queue > {{ $business_name }}
                 <p>Processing Queues for:</p>
                 <h2><strong>{{ $business_name }}</strong></h2>
                 <h3><strong>{{ $service_name }} - {{ $terminal_name }}</strong></h3>
+                Showing numbers for date:
+                <div class="col-md-12 row">
+                    <div class="col-md-4">
+                        <input type="text" class="datepicker form-control" ng-model="date" ng-change="getAllNumbers()" readonly="readonly" style="cursor: text; background-color: #FFFFFF"/>
+                    </div>
+                </div>
             </div>
             <div class="col-md-3 col-sm-4 ">
                 {{--<a id="view-broadcast" target="_blank" href="{{ url('/broadcast/business/' . $business_id) }}">View Broadcast <br>Screen</a>--}}
