@@ -284,6 +284,10 @@ span.glyphicon-zoom-in {
 .mt20 {
     margin-top: 20px;
 }
+.mr5{margin-right: 5px;}
+.font-normal {
+    font-family: 'ralewayregular';
+}
 
 .stopbutton {
     /*border-radius: 50%;

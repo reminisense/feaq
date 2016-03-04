@@ -84,10 +84,17 @@ Processs Queue > {{ $business_name }}
                                             data-name="@{{ number.name }}"
                                             data-email="@{{ number.email }}"
                                             data-phone="@{{ number.phone }}"
+                                            data-queue_platform="@{{ number.queue_platform }}"
+                                            data-checked_in="@{{ number.checked_in }}"
                                             >
                                             @{{ number.priority_number }}
+                                            <small class="font-normal">@{{ number.queue_platform }}</small>
+                                            <span ng-if="(number.queue_platform == 'remote' || number.queue_platform == 'android') && number.checked_in">
+                                                <small class="pull-right font-normal">Checked in</small>
+                                                <span class="pull-right mr5 glyphicon glyphicon-ok"></span>
+                                            </span>
                                             <span
-                                               class="pull-right userinfo show-messages"
+                                               class="pull-right mr5 userinfo show-messages"
                                                title="Number: @{{ number.priority_number }}"
                                                data-toggle="modal"
                                                data-target="#priority-number-modal"
@@ -108,10 +115,17 @@ Processs Queue > {{ $business_name }}
                                             data-name="@{{ number.name }}"
                                             data-email="@{{ number.email }}"
                                             data-phone="@{{ number.phone }}"
+                                            data-queue_platform="@{{ number.queue_platform }}"
+                                            data-checked_in="@{{ number.checked_in }}"
                                             >
                                             @{{ number.priority_number }}
+                                            <small class="font-normal">@{{ number.queue_platform }}</small>
+                                            <span ng-if="(number.queue_platform == 'remote' || number.queue_platform == 'android') && number.checked_in">
+                                                <small class="pull-right font-normal">Checked in</small>
+                                                <span class="pull-right mr5 glyphicon glyphicon-ok"> </span>
+                                            </span>
                                             <span
-                                               class="pull-right userinfo show-messages"
+                                               class="pull-right mr5 userinfo show-messages"
                                                title="Number: @{{ number.priority_number }}"
                                                data-toggle="modal"
                                                data-target="#priority-number-modal"

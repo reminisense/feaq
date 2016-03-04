@@ -71,7 +71,9 @@ var pq = {
                     $(this).attr('data-pnumber'),
                     $(this).attr('data-name'),
                     $(this).attr('data-email'),
-                    $(this).attr('data-phone')
+                    $(this).attr('data-phone'),
+                    $(this).attr('data-queue_platform'),
+                    $(this).attr('data-checked_in')
                 );
                 $('#btn-call').removeAttr('disabled');
             });
@@ -173,11 +175,17 @@ var pq = {
             });
         },
 
-        select_number : function(tnumber, pnumber, username, email, phone){
+        select_number : function(tnumber, pnumber, username, email, phone, queue_platform, checked_in){
             username = username != undefined ? username : '';
-
+            queue_platform = queue_platform != undefined ? queue_platform : '';
+            checked_in = checked_in != undefined ? checked_in : false;
             //ARA add priority number and
-            var userinfo = '<span ' +
+            var userinfo = '';
+            if((queue_platform == 'remote' || queue_platform == 'android') && checked_in){
+                userinfo = '<span><small class="pull-right font-normal">Checked in</small><span class="pull-right mr5 glyphicon glyphicon-ok"></span></span>';
+            }
+
+            userinfo += '<span ' +
                 'class="pull-right user-info show-messages" ' +
                 'style="margin-right: 20px; z-index: 99999" ' +
                 'title="Number: ' + pnumber + '" ' +
@@ -189,12 +197,13 @@ var pq = {
                 'data-target="#priority-number-modal"' +
                 '>';
             userinfo += '<a href="#">';
-            userinfo += username != undefined? '<span>' + username + ' </span>' : '';
+            userinfo += username != undefined ? '<span>' + username + ' </span>' : '';
             userinfo += '</a>';
             userinfo += '</span>';
 
+
             $('#selected-tnumber').val(tnumber);
-            $('#selected-pnumber').html(pnumber);
+            $('#selected-pnumber').html(pnumber + ' <small class="font-normal">' + queue_platform + '</small>');
             $('#selected-userinfo').html(userinfo);
         },
 
