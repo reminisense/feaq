@@ -58,18 +58,18 @@ $(document).ready(function(){
         $('#vid-submit-btn').removeClass('btn-disabled');
     });
 
-    $(document).on('click', '.process-queue', function(e){
+    /*removed by rodel to give modal a go*/
+    /*$(document).on('click', '.process-queue', function(e){
         if ($(this).find('.biz-terminals').is(':hidden')) {
             $(this).find('.biz-terminals').slideDown('fast');
             $('#process-queue').css("border","none");
         }
         return false;
     });
-
     $('html').click(function () {
         $('.biz-terminals').slideUp('fast');
         $('#process-queue').css({"border-bottom":"4px solid #d36e3c"});
-    });
+    });*/
 
     $('.biz-terminals').on('click', 'a', function(e){
         e.stopPropagation();
