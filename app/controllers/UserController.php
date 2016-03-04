@@ -354,6 +354,7 @@ class UserController extends BaseController{
     }
 
     public function getPasswordReset($code){
+        Auth::logout();
         $user_id = Crypt::decrypt($code);
         return View::make('user.password-reset')
             ->with('user_id', $user_id)
