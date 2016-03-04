@@ -258,6 +258,7 @@
 
         $scope.getAllowedBusinesses = function(){
             $('#allowed-businesses option').remove();
+            $('#allowed-businesses-area').hide();
             $http.get('/business/allowed-businesses/' + pq.ids.business_id).success(function(response){
                 if(response.allowed_businesses && response.allowed_businesses.length != 0 ){
                     var businesses = response.allowed_businesses;

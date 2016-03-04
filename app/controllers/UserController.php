@@ -278,6 +278,8 @@ class UserController extends BaseController{
             if($user && !$user->verified){
                 $verification_url = url('/user/verify-email');
                 return json_encode(['error' => 'Email verification required. Go ' . $verification_url . '/{your email} to verify your account.']);
+            }else if($user && $user->password == '' && $user->fb_id != ''){
+                return json_encode(['error' => 'Email is connected to a Facebook account. Please login with Facebook.']);
             }else if($user && Hash::check($password, $user->password)){
                 Session::put('FBaccessToken', null);
                 Auth::loginUsingId($user->user_id);
