@@ -89,13 +89,13 @@
                                             <label>Mobile</label>
                                             <input type="text" min="9" maxlength="15" class="mobile form-control" id="mobile" name="mobile" ng-model="mobile" required/>
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="col-md-12 col-xs-12">
                                             <label>Location</label>
                                             <input type="text" class="form-control" id="location" name="location" autocomplete="off" ng-model="location" required/>
                                         </div>
                                     </div>
 
-                                    <div class="col-md-12 text-right">
+                                    <div class="col-md-12 col-xs-12 text-right">
                                     <br>
                                         <button id="start_queuing" type="submit" class="btn btn-teal" ng-click="verify()">START QUEUING</button>
                                     </div>
