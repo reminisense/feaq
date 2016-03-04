@@ -223,6 +223,7 @@ class ProcessQueue extends Eloquent{
                         'name' => $number->name,
                         'phone' => $number->phone,
                         'email' => $number->email,
+                        'verified_email' => $verified,
                         'checked_in' => $checked_in,
                     );
                 }else if(!$called && !$removed && $terminal_specific_calling && ($number->terminal_id == $terminal_id || $number->terminal_id == 0)){
@@ -235,6 +236,7 @@ class ProcessQueue extends Eloquent{
                         'name' => $number->name,
                         'phone' => $number->phone,
                         'email' => $number->email,
+                        'verified_email' => $verified,
                         'checked_in' => $checked_in,
                     );
                 }else if(!$called && !$removed && (!$terminal_specific_calling || $terminal_id == null)){
@@ -247,6 +249,7 @@ class ProcessQueue extends Eloquent{
                         'name' => $number->name,
                         'phone' => $number->phone,
                         'email' => $number->email,
+                        'verified_email' => $verified,
                         'checked_in' => $checked_in,
                     );
                 }else if($called && !$served && !$removed){
