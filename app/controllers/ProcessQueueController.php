@@ -38,7 +38,7 @@ class ProcessQueueController extends BaseController{
      */
     public function getCallnumber($transaction_number, $terminal_id){
         try{
-            if(is_null(TerminalTransaction::find($transaction_number))){
+            if(is_null(QueueTransaction::find($transaction_number))){
                 return json_encode(['error' => 'You have called an invalid input.']);
             }
 
@@ -46,8 +46,8 @@ class ProcessQueueController extends BaseController{
                 return json_encode(['error' => 'You are not assigned to this terminal.']);
             }
 
-            $terminal_transaction = TerminalTransaction::find($transaction_number);
-            $priority_queue = PriorityQueue::find($transaction_number);
+            $terminal_transaction = QueueTransaction::find($transaction_number);
+            $priority_queue = QueueTransaction::find($transaction_number);
             if($terminal_transaction->time_called != 0){
                 return json_encode(['error' => 'Number ' . $priority_queue->priority_number . ' has already been called. Please call another number.']);
             }else{

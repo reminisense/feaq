@@ -42,11 +42,11 @@ class MobileController extends BaseController{
 
         $user = User::where('user_id', '=', $user_id)->first();
         if($user){
-            $transaction_number = PriorityQueue::getLatestTransactionNumberOfUser($user_id);
+            $transaction_number = QueueTransaction::getLatestTransactionNumberOfUser($user_id);
             if($transaction_number){
-                $terminal_transaction = TerminalTransaction::where('transaction_number', '=', $transaction_number)->first();
-                $priority_queue = PriorityQueue::find($transaction_number);
-                $priority_number = PriorityNumber::find($priority_queue->track_id);
+                $terminal_transaction = QueueTransaction::where('transaction_number', '=', $transaction_number)->first();
+                $priority_queue = QueueTransaction::find($transaction_number);
+                $priority_number = QueueTransaction::find($priority_queue->track_id);
                 $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
 
                 $issued_today = $priority_number->date == $date;
@@ -91,7 +91,7 @@ class MobileController extends BaseController{
                 if(count($all_numbers->called_numbers) > 0){
                     $last_called = json_decode(json_encode($all_numbers->called_numbers[0]));
                     $last_called->service_id = Terminal::serviceId($last_called->terminal_id);
-                    $last_called->user_id = PriorityQueue::userId($last_called->transaction_number);
+                    $last_called->user_id = QueueTransaction::userId($last_called->transaction_number);
                     $last_called = [
                         'service_id' => $last_called->service_id,
                         'service_name' => $last_called->service_name,
@@ -138,14 +138,14 @@ class MobileController extends BaseController{
     public function getUserQueue($user_id)
     {
         $user = User::find($user_id);
-        $transaction_number = PriorityQueue::getLatestTransactionNumberOfUser($user->user_id);
-        $terminal_transaction = TerminalTransaction::where('transaction_number', '=', $transaction_number)->first();
+        $transaction_number = QueueTransaction::getLatestTransactionNumberOfUser($user->user_id);
+        $terminal_transaction = QueueTransaction::where('transaction_number', '=', $transaction_number)->first();
 
         $data = [];
         if($terminal_transaction->time_completed == 0 && $terminal_transaction->time_removed == 0){
             //user priority_number details
-            $priority_queue = PriorityQueue::find($transaction_number);
-            $priority_number = PriorityNumber::find($priority_queue->track_id);
+            $priority_queue = QueueTransaction::find($transaction_number);
+            $priority_number = QueueTransaction::find($priority_queue->track_id);
             $queued_business_id = Business::getBusinessIdByServiceId($priority_number->service_id);
             $business = Business::find($queued_business_id);
 
@@ -154,7 +154,7 @@ class MobileController extends BaseController{
             if(count($all_numbers->called_numbers) > 0){
                 $last_called = json_decode(json_encode($all_numbers->called_numbers[0]));
                 $last_called->service_id = Terminal::serviceId($last_called->terminal_id);
-                $last_called->user_id = PriorityQueue::userId($last_called->transaction_number);
+                $last_called->user_id = QueueTransaction::userId($last_called->transaction_number);
                 $last_called = [
                     'service_id' => $last_called->service_id,
                     'service_name' => $last_called->service_name,
@@ -222,7 +222,7 @@ class MobileController extends BaseController{
     //Screen #7
     public function getMyBusinessHistory($transaction_number){
 
-        $user_id = PriorityQueue::userId($transaction_number);
+        $user_id = QueueTransaction::userId($transaction_number);
         $user_queues = User::getUserBusinessHistory($user_id, $transaction_number);
 
         $business = [
@@ -359,10 +359,10 @@ class MobileController extends BaseController{
 
         if($user_id){
             $user = User::find($user_id);
-            $transaction_number = PriorityQueue::getLatestTransactionNumberOfUser($user->user_id);
-            $terminal_transaction = TerminalTransaction::where('transaction_number', '=', $transaction_number)->first();
-            $priority_queue = PriorityQueue::find($transaction_number);
-            $priority_number = PriorityNumber::find($priority_queue->track_id);
+            $transaction_number = QueueTransaction::getLatestTransactionNumberOfUser($user->user_id);
+            $terminal_transaction = QueueTransaction::where('transaction_number', '=', $transaction_number)->first();
+            $priority_queue = QueueTransaction::find($transaction_number);
+            $priority_number = QueueTransaction::find($priority_queue->track_id);
 
             if($terminal_transaction->time_completed == 0 && $terminal_transaction->time_removed == 0){
                 $data->service_name = Service::name($priority_number->service_id);

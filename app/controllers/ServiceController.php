@@ -55,7 +55,7 @@ class ServiceController extends Controller{
         $terminals = Terminal::getTerminalsByServiceId($service_id);
         $delete = true;
         foreach($terminals as $terminal){
-            $delete = TerminalTransaction::terminalActiveNumbers($terminal['terminal_id']) == 0 ? $delete : false;
+            $delete = QueueTransaction::terminalActiveNumbers($terminal['terminal_id']) == 0 ? $delete : false;
         }
 
         if($delete){

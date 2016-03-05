@@ -34,10 +34,8 @@ class Notifier extends Eloquent{
     }
 
     public static function sendNumberCalledToNextNumber($transaction_number, $diff, $service_id){
-        $number = TerminalTransaction::join('priority_queue', 'terminal_transaction.transaction_number', '=', 'priority_queue.transaction_number')
-            ->join('priority_number', 'priority_number.track_id', '=', 'priority_queue.track_id')
-            ->where('terminal_transaction.transaction_number', '>=', $transaction_number)
-            ->where('priority_number.service_id', '=', $service_id)
+        $number = QueueTransaction::where('transaction_number', '>=', $transaction_number)
+            ->where('service_id', '=', $service_id)
             ->skip($diff)
             ->first();
         if($number){
@@ -50,13 +48,13 @@ class Notifier extends Eloquent{
      */
 
     public static function sendNumberCalledEmail($transaction_number){
-        $email = PriorityQueue::email($transaction_number);
-        $name = PriorityQueue::name($transaction_number);
+        $email = QueueTransaction::email($transaction_number);
+        $name = QueueTransaction::name($transaction_number);
         if($email){
-            $terminal_id = TerminalTransaction::terminalId($transaction_number);
+            $terminal_id = QueueTransaction::terminalId($transaction_number);
             $data = [
                 'name' => $name == null ? null : ' ' . $name,
-                'priority_number' => PriorityQueue::priorityNumber($transaction_number),
+                'priority_number' => QueueTransaction::priorityNumber($transaction_number),
                 'terminal_name' => $terminal_id != 0 ? Terminal::name($terminal_id) : '',
                 'business_name' => $terminal_id != 0 ? Business::name(Business::getBusinessIdByTerminalId($terminal_id)) : '',
             ];
@@ -65,17 +63,17 @@ class Notifier extends Eloquent{
     }
 
     public static function sendNumberNextEmail($transaction_number, $diff = null){
-        $email = PriorityQueue::email($transaction_number);
-        $name = PriorityQueue::name($transaction_number);
+        $email = QueueTransaction::email($transaction_number);
+        $name = QueueTransaction::name($transaction_number);
         if($email){
-            $terminal_id = TerminalTransaction::terminalId($transaction_number);
+            $terminal_id = QueueTransaction::terminalId($transaction_number);
             $business_id = $terminal_id ? Business::getBusinessIdByTerminalId($terminal_id) : 0;
             $business_name = $business_id ? Business::name($business_id) : '';
             $waiting_time = Analytics::getWaitingTime($business_id);
             $estimated_time = Helper::millisecondsToHMSFormat($waiting_time);
             $data = [
                 'name' => $name == null ? null : ' ' . $name,
-                'priority_number' => PriorityQueue::priorityNumber($transaction_number),
+                'priority_number' => QueueTransaction::priorityNumber($transaction_number),
                 'numbers_ahead' => $diff,
                 'business_name' => $business_name,
                 'estimated_time' => $estimated_time,
@@ -101,12 +99,12 @@ class Notifier extends Eloquent{
      */
 
     public static function sendNumberCalledSms($transaction_number){
-        $phone = PriorityQueue::phone($transaction_number);
-        $name = PriorityQueue::name($transaction_number);
+        $phone = QueueTransaction::phone($transaction_number);
+        $name = QueueTransaction::name($transaction_number);
         if($phone){
-            $terminal_id = TerminalTransaction::terminalId($transaction_number);
+            $terminal_id = QueueTransaction::terminalId($transaction_number);
             $service_id = Terminal::serviceId($terminal_id);
-            $priority_number = PriorityQueue::priorityNumber($transaction_number);
+            $priority_number = QueueTransaction::priorityNumber($transaction_number);
             $terminal_name = $terminal_id != 0 ? Terminal::name($terminal_id) : '';
             $business_name = $terminal_id != 0 ? Business::name(Business::getBusinessIdByTerminalId($terminal_id)) : '';
             $name = $name == null ? null : ' ' . $name;
@@ -116,13 +114,13 @@ class Notifier extends Eloquent{
     }
 
     public static function sendNumberNextSms($transaction_number, $diff){
-        $phone = PriorityQueue::phone($transaction_number);
-        $name = PriorityQueue::name($transaction_number);
+        $phone = QueueTransaction::phone($transaction_number);
+        $name = QueueTransaction::name($transaction_number);
         if($phone){
             $pq = Helper::firstFromTable('priority_queue', 'transaction_number', $transaction_number);
-            $terminal_id = TerminalTransaction::terminalId($transaction_number);
-            $service_id = PriorityNumber::serviceId($pq->track_id);
-            $priority_number = PriorityQueue::priorityNumber($transaction_number);
+            $terminal_id = QueueTransaction::terminalId($transaction_number);
+            $service_id = QueueTransaction::serviceId($transaction_number);
+            $priority_number = QueueTransaction::priorityNumber($transaction_number);
             $current_number = ProcessQueue::currentNumber($service_id);
             $terminal_name = $terminal_id != 0 ? Terminal::name($terminal_id) : '';
             $business_name = $terminal_id != 0 ? Business::name(Business::getBusinessIdByTerminalId($terminal_id)) : '';
@@ -146,14 +144,14 @@ class Notifier extends Eloquent{
      */
 
     public static function sendNumberCalledAndroid($transaction_number){
-        $priority_queue = PriorityQueue::find($transaction_number);
+        $priority_queue = QueueTransaction::find($transaction_number);
         if($priority_queue){
             $user_id = $priority_queue->user_id;
             $priority_number = $priority_queue->priority_number;
             $queue_platform = $priority_queue->queue_platform;
             $email = $priority_queue->email;
 
-            $terminal_id = TerminalTransaction::terminalId($transaction_number);
+            $terminal_id = QueueTransaction::terminalId($transaction_number);
             $terminal_name = $terminal_id != 0 ? Terminal::name($terminal_id) : '';
             $business_name = $terminal_id != 0 ? Business::name(Business::getBusinessIdByTerminalId($terminal_id)) : '';
             $message = "Please proceed to $terminal_name at $business_name. Your number ($priority_number) has been called.";
@@ -170,14 +168,14 @@ class Notifier extends Eloquent{
     }
 
     public static function sendNumberNextAndroid($transaction_number, $diff){
-        $priority_queue = PriorityQueue::find($transaction_number);
+        $priority_queue = QueueTransaction::find($transaction_number);
         if($priority_queue){
             $user_id = $priority_queue->user_id;
             $priority_number = $priority_queue->priority_number;
             $queue_platform = $priority_queue->queue_platform;
             $email = $priority_queue->email;
 
-            $terminal_id = TerminalTransaction::terminalId($transaction_number);
+            $terminal_id = QueueTransaction::terminalId($transaction_number);
             $terminal_name = $terminal_id != 0 ? Terminal::name($terminal_id) : '';
             $business_id = $terminal_id != 0 ? Business::getBusinessIdByTerminalId($terminal_id) : 0;
             $business_name = $business_id != 0 ? Business::name($business_id) : '';

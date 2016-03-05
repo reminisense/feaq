@@ -68,18 +68,17 @@ class IssueNumberController extends BaseController{
             return json_encode(['error' => 'You are only allowed to queue remotely once per day.']);
         }else{
             $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, $terminal_id);
-            PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
-            TerminalTransaction::where('transaction_number', '=', $number['transaction_number'])->update(['time_assigned' => $time_assigned]);
+            QueueTransaction::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
+            QueueTransaction::where('transaction_number', '=', $number['transaction_number'])->update(['time_assigned' => $time_assigned]);
             return json_encode(['success' => 1, 'number' => $number]);
         }
     }
 
     private function queueNumberExists($email){
         $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
-        $count = PriorityNumber::where('priority_number.date', '=', $date)
-            ->join('priority_queue', 'priority_queue.track_id', '=', 'priority_number.track_id')
-            ->where('priority_queue.email', '=', $email)
-            ->select(DB::raw('COUNT(priority_number.track_id) as number_exists'))
+        $count = QueueTransaction::where('date', '=', $date)
+            ->where('email', '=', $email)
+            ->select(DB::raw('COUNT(transaction_number) as number_exists'))
             ->first()
             ->number_exists;
 
@@ -96,15 +95,15 @@ class IssueNumberController extends BaseController{
         $business_id = Business::getBusinessIdByServiceId($service_id);
 
         if(Business::getForwarderAllowedInBusiness($business_id, $forwarder_id)){
-            $name = PriorityQueue::name($transaction_number);
-            $phone = PriorityQueue::phone($transaction_number);
-            $email = PriorityQueue::email($transaction_number);
+            $name = QueueTransaction::name($transaction_number);
+            $phone = QueueTransaction::phone($transaction_number);
+            $email = QueueTransaction::email($transaction_number);
 
             $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
             $priority_number = $next_number;
 
             $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, $terminal_id);
-            PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
+            QueueTransaction::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
             $business_id = Business::getBusinessIdByServiceId($service_id);
             return json_encode(['success' => 1, 'number' => $number, 'business_id' => $business_id]);
         }{

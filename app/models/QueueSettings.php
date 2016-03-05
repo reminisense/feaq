@@ -141,15 +141,14 @@ class QueueSettings extends Eloquent{
         $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
         $allow_remote = QueueSettings::allowRemote($service_id);
         $remote_limit = QueueSettings::remoteLimit($service_id);
-        $total_numbers_today = PriorityNumber::where('date', '=', $date)
-            ->select(DB::raw('COUNT(priority_number.track_id) as total_numbers_today'))
+        $total_numbers_today = QueueTransaction::where('date', '=', $date)
+            ->select(DB::raw('COUNT(priority_number) as total_numbers_today'))
             ->first()
             ->total_numbers_today;
-        $total_remote_today = PriorityNumber::where('date', '=', $date)
-            ->join('priority_queue', 'priority_queue.track_id' , '=', 'priority_number.track_id')
+        $total_remote_today = QueueTransaction::where('date', '=', $date)
             ->where(function($query){
-                $query->where('priority_queue.queue_platform' , '=', 'remote')
-                    ->orWhere('priority_queue.queue_platform' , '=', 'android');
+                $query->where('queue_platform' , '=', 'remote')
+                    ->orWhere('queue_platform' , '=', 'android');
             })
             ->select(DB::raw('COUNT(priority_number.track_id) as total_remote_today'))
             ->first()

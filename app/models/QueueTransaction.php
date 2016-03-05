@@ -177,4 +177,8 @@ class QueueTransaction extends Eloquent{
     return QueueTransaction::find($transaction_number)->service_id;
   }
 
+  public static function getPriorityNumberByServiceId($service_id) {
+    return PriorityNumber::where('service_id', '=', $service_id)->select(array('priority_number'))->get();
+  }
+
 }

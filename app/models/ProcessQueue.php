@@ -25,10 +25,10 @@ class ProcessQueue extends Eloquent{
 
         $user_id = $user_id == null? Helper::userId() : $user_id;
 
-        $track_id = PriorityNumber::createPriorityNumber($service_id, $number_start, $number_limit, $last_number_given, $current_number, $date);
+        $track_id = QueueTransaction::createPriorityNumber($service_id, $number_start, $number_limit, $last_number_given, $current_number, $date);
         $confirmation_code = strtoupper(substr(md5($track_id), 0, 4));
-        $transaction_number = PriorityQueue::createPriorityQueue($track_id, $priority_number, $confirmation_code, $user_id, $queue_platform);
-        TerminalTransaction::createTerminalTransaction($transaction_number, $time_queued, $terminal_id);
+        $transaction_number = QueueTransaction::createPriorityQueue($track_id, $priority_number, $confirmation_code, $user_id, $queue_platform);
+        QueueTransaction::createQueueTransaction($transaction_number, $time_queued, $terminal_id);
         Analytics::insertAnalyticsQueueNumberIssued($transaction_number, $service_id, $date, $time_queued, $terminal_id, $queue_platform); //insert to queue_analytics
         $number = array(
             'transaction_number' => $transaction_number,
@@ -57,9 +57,9 @@ class ProcessQueue extends Eloquent{
         $analytics_data = array();
         //@todo insert bulk to priority number table and get track ids
         for($i = 1; $i <= $range; $i++){
-            $track_id = PriorityNumber::createPriorityNumber($service_id, $number_start, $number_limit, $last_number_given, $current_number, $date);
+            $track_id = QueueTransaction::createPriorityNumber($service_id, $number_start, $number_limit, $last_number_given, $current_number, $date);
             $confirmation_code = strtoupper(substr(md5($track_id), 0, 4));
-            $transaction_number = PriorityQueue::createPriorityQueue($track_id, $priority_number, $confirmation_code, $user_id, $queue_platform);
+            $transaction_number = QueueTransaction::createPriorityQueue($track_id, $priority_number, $confirmation_code, $user_id, $queue_platform);
 
             $terminal_transaction_data[] = array(
                 'transaction_number' => $transaction_number,
@@ -86,7 +86,7 @@ class ProcessQueue extends Eloquent{
 
 
         //@todo insert bulk to priority queue and get transaction numbers
-        TerminalTransaction::insert($terminal_transaction_data); //insert bulk to terminal transaction
+        QueueTransaction::insert($terminal_transaction_data); //insert bulk to terminal transaction
         Analytics::saveQueueAnalytics($analytics_data); //insert bulk to analytics
         return array('first_number' => $first_number, 'last_number' => $last_number_given);
     }
@@ -94,11 +94,11 @@ class ProcessQueue extends Eloquent{
     //calls a number based on its transaction number
     public static function callTransactionNumber($transaction_number, $user_id, $terminal_id){
         if(is_numeric($terminal_id)){
-            $pq = PriorityQueue::find($transaction_number);
-            $pn = PriorityNumber::find($pq->track_id);
+            $pq = QueueTransaction::find($transaction_number);
+            $pn = QueueTransaction::find($pq->track_id);
             $time_called = time();
             $login_id = TerminalManager::hookedTerminal($terminal_id) ? TerminalManager::getLatestLoginIdOfTerminal($terminal_id) : 0;
-            TerminalTransaction::updateTransactionTimeCalled($transaction_number, $login_id, $time_called, $terminal_id);
+            QueueTransaction::updateTransactionTimeCalled($transaction_number, $login_id, $time_called, $terminal_id);
             Analytics::insertAnalyticsQueueNumberCalled($transaction_number, $pn->service_id, $pn->date, $time_called, $terminal_id, $pq->queue_platform); //insert to queue_analytics
             Notifier::sendNumberCalledNotification($transaction_number, $terminal_id); //notifies users that his/her number is called
             return json_encode(['success' => 1, /*'numbers' => ProcessQueue::allNumbers(Terminal::serviceId($terminal_id))*/]); //ARA removed all numbers to prevent redundant database query
@@ -108,9 +108,9 @@ class ProcessQueue extends Eloquent{
     }
 
     public static function processNumber($transaction_number, $process){
-        $transaction = TerminalTransaction::find($transaction_number);
-        $priority_queue = PriorityQueue::find($transaction_number);
-        $priority_number = PriorityNumber::find($priority_queue->track_id);
+        $transaction = QueueTransaction::find($transaction_number);
+        $priority_queue = QueueTransaction::find($transaction_number);
+        $priority_number = QueueTransaction::find($priority_queue->track_id);
         $pnumber = $priority_queue->priority_number;
         $confirmation_code = $priority_queue->confirmation_code;
         $terminal_id = $transaction->terminal_id;
@@ -134,10 +134,10 @@ class ProcessQueue extends Eloquent{
         if($transaction->time_removed == 0 && $transaction->time_completed == 0){
             $time = time();
             if($process == 'serve'){
-                TerminalTransaction::updateTransactionTimeCompleted($transaction_number, $time);
+                QueueTransaction::updateTransactionTimeCompleted($transaction_number, $time);
                 Analytics::insertAnalyticsQueueNumberServed($transaction_number, $priority_number->service_id, $priority_number->date, $time, $terminal_id, $priority_queue->queue_platform); //insert to queue_analytics
             }else if($process == 'remove'){
-                TerminalTransaction::updateTransactionTimeRemoved($transaction_number, $time);
+                QueueTransaction::updateTransactionTimeRemoved($transaction_number, $time);
                 Analytics::insertAnalyticsQueueNumberRemoved($transaction_number, $priority_number->service_id, $priority_number->date, $time, $terminal_id, $priority_queue->queue_platform); //insert to queue_analytics
             }
         }else{
