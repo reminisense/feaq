@@ -56,20 +56,6 @@ My Business
                         <point-of-interest position="left" bottom="55" right="100" title="Broadcast Page" description="Click on the <strong>View Broadcast Page</strong> link to view the numbers being called."></point-of-interest>
                         <div id="process-queue" href="#" class="edit-biz process-queue" data-toggle="modal" data-target="#modal-terminals">
                             <a href="#" style=""><span class="glyphicon glyphicon-share-alt"></span>Process Queue</a>
-                            <div class="biz-terminals">
-                                <div class="clearfix">
-                                    <div ng-repeat="terminal in terminals" >
-                                        <a ng-if="isAssignedUser(user_id, terminal.terminal_id)" href="{{ url('/processqueue/terminal') }}/@{{ terminal.terminal_id }}" target="_blank">
-                                            <span class=" glyphicon glyphicon-check"></span>
-                                            <small>@{{ terminal.name }}</small>
-                                        </a>
-                                        <a ng-if="!isAssignedUser(user_id, terminal.terminal_id)" href="#" class="not-active">
-                                            <span class=" glyphicon glyphicon-ban-circle"></span>
-                                            <small>@{{ terminal.name }}</small>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="modal fade" id="modal-terminals" role="dialog">
                             <div class="modal-dialog">
@@ -79,37 +65,20 @@ My Business
                                         <h4 class="modal-title">Choose Terminals</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <table class="table table-responsive table-condense table-striped">
+                                        <table class="table table-responsive table-condense table-striped" ng-repeat="service in services" ng-if="$index > 0">
                                             <thead>
                                                 <tr>
-                                                    <th>SERVICE APPLICATION</th>
-                                                    <th class="text-right"><small>Service Name</small></th>
+                                                    <th>@{{ service.name }}</th>
+                                                    <th class="text-right"><small></small></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>Window 1</td>
-                                                    <td class="text-right"><button class="btn btn-sm btn-cyan">Process</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Payment Terminal 2</td>
-                                                    <td class="text-right"><button class="btn btn-sm btn-cyan">Process</button></td>
-                                                </tr>
-                                            </tbody>
-                                            <thead>
-                                                <tr>
-                                                    <th>FINAL PROCESSING</th>
-                                                    <th class="text-right"><small>Service Name</small></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Window 1</td>
-                                                    <td class="text-right"><button class="btn btn-sm btn-cyan">Process</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Payment Terminal 2</td>
-                                                    <td class="text-right"><button class="btn btn-sm btn-cyan">Process</button></td>
+                                                <tr ng-repeat="terminal in service.terminals">
+                                                    <td>@{{ terminal.name }}</td>
+                                                    <td class="text-right">
+                                                        <button ng-if="!isAssignedUser(user_id, terminal.terminal_id)" class="btn btn-sm disabled">Process</button>
+                                                        <a ng-if="isAssignedUser(user_id, terminal.terminal_id)" class="btn btn-sm btn-cyan" href="{{ url('/processqueue/terminal') }}/@{{ terminal.terminal_id }}" target="_blank">Process</a>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
