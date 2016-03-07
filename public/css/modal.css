@@ -164,4 +164,7 @@ body#processq .tab-pane .navbar-form {
     border-bottom: 1px solid #eee;
     vertical-align: middle;
 }
+#modal-terminals th {
+    font-size: 18px;
+}
 
