@@ -929,24 +929,31 @@ button#sendreply {
     padding: 6px 15px;
     height: 20px;
 }
-#terminal-colors #cyan {
+#terminal-colors #cyan,
+#terminal-colors button.cyan {
     background-color: #7acaad;
 }
-#terminal-colors #yellow {
+#terminal-colors #yellow,
+#terminal-colors button.yellow{
     background-color: #f9c44d;
 }
-#terminal-colors #blue {
+#terminal-colors #blue,
+#terminal-colors button.blue {
     background-color: #5d8dbc;
 }
-#terminal-colors #orange {
+#terminal-colors #orange,
+#terminal-colors button.borange {
     background-color: #ed8c5c;
 }
-#terminal-colors #red {
+#terminal-colors #red,
+#terminal-colors button.red {
     background-color: #de787c;
 }
-#terminal-colors #violet {
+#terminal-colors #violet,
+#terminal-colors button.violet {
     background-color: #887aac;
 }
-#terminal-colors #green {
+#terminal-colors #green,
+#terminal-colors button.green {
     background-color: #89c27b;
 }

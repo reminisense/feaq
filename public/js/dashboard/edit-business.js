@@ -66,6 +66,12 @@ $(document).ready(function(){
         return false;
     });
 
+    /*terminal colors select value on dropdown click*/
+    $('#terminal-colors li a').on('click', function(){
+        $(this).parents('ul').prev().removeClass('cyan yellow blue borange red violet green');
+        $(this).parents('ul').prev().addClass($(this).attr('data-color'));
+    });
+
     $('html').click(function () {
         $('.biz-terminals').slideUp('fast');
         $('#process-queue').css({"border-bottom":"4px solid #d36e3c"});
