@@ -334,12 +334,16 @@ app.controller('adminController', function($scope, $http){
         $http.post('/admin/business-search', {
             "keyword": $scope.business_name
         }).success(function(response) {
-            console.log(response);
-            for (var i = 0; i < response.length; i++) {
-                $scope.businesses.push({
-                    "business_id": response[i].business_id,
-                    "business_name": response[i].name
-                });
+            if(response.length){
+                for (var i = 0; i < response.length; i++) {
+                    $scope.businesses.push({
+                        "business_id": response[i].business_id,
+                        "business_name": response[i].name
+                    });
+                }
+            }else{
+                $('#business-search-error').fadeIn();
+                $('#business-search-error').fadeOut(4000);
             }
         });
         $('.biz-results').show();
@@ -349,7 +353,6 @@ app.controller('adminController', function($scope, $http){
 
     $scope.manageBusiness = function(business_id) {
         $http.get('/admin/business-details/' + business_id).success(function(response) {
-            console.log(response);
             $scope.businessObj = response;
             $scope.edit_business_id = response.business_id;
             $scope.edit_name = response.business_name;
@@ -395,9 +398,8 @@ app.controller('adminController', function($scope, $http){
         data.business_features.allow_sms = $scope.allow_sms;
         data.business_features.queue_forwarding =  $scope.queue_forwarding;
         $http.post('/admin/update-business', data).success(function(response) {
-            console.log(response);
-            alert('updated');
         });
+
     }
 
     $scope.createService = function(name, business_id){;
@@ -406,11 +408,17 @@ app.controller('adminController', function($scope, $http){
                 $scope.getBusinessDetails();
                 $scope.service_create = false;
                 $scope.new_service_name = '';
-                alert("success");
+                if(response.error == undefined){
+                    $scope.updateFields(business_id);
+                    $("#create-service-inpt").val('');
+                }else{
+                    $("#add-service-err p").html(response.error);
+                    $("#add-service-err").fadeIn();
+                    $("#add-service-err").fadeOut(4000);
+                }
             });
         }else{
-            $scope.service_error = 'Service name is not valid.';
-            alert("error");
+            $("#add-service-err p").html('Service name is not valid.');
         }
     }
     $scope.updateService = function(index, service_id){
@@ -475,6 +483,11 @@ app.controller('adminController', function($scope, $http){
         }
     }
 
+    $scope.updateFields = function(business_id){
+
+        $scope.manageBusiness(business_id);
+
+    }
     $scope.getBusinessDetails = function(){
         if ( $scope.business_id > 0 ) {
             $http.get(eb.urls.business.business_details_url + $scope.business_id)
@@ -489,18 +502,30 @@ app.controller('adminController', function($scope, $http){
         var email = $("#user-email").val();
         if(email != '' && email != undefined) {
             $http.get('/user/user-by-email/' + email).success(function (response) {
-                $scope.user_id = response.user_id;
-                $scope.edit_email = response.email;
-                $scope.edit_first_name = response.first_name;
-                $scope.edit_last_name = response.last_name;
-                $scope.edit_mobile = response.phone;
-                $scope.edit_status = response.status;
-                $scope.edit_user_location = response.address;
+                console.log(response);
+                if(response.status != null){
+                    $scope.user_id = response.user_id;
+                    $scope.edit_email = response.email;
+                    $scope.edit_first_name = response.first_name;
+                    $scope.edit_last_name = response.last_name;
+                    $scope.edit_mobile = response.phone;
+                    $scope.edit_status = response.status;
+                    $scope.edit_user_location = response.address;
+
+                    $(".cus-main-form").show();
+                    $(".cus-create-form").hide();
+                }else{
+                    $("#user-search-error").fadeIn();
+                    $("#user-search-error").fadeOut(4000);
+                }
+
             });
         }else{
-            alert("error");
+            $("#user-email-error").fadeIn();
+            $("#user-email-error").fadeOut(4000);
         }
     };
+
 
     $scope.updateUser = function(user_id) {
         $http.post('/admin/update-user', {
@@ -512,7 +537,8 @@ app.controller('adminController', function($scope, $http){
             edit_status: $scope.edit_status,
             edit_email: $scope.edit_email
         }).success(function(response) {
-            alert('updated');
+            $("#user-update-success").fadeIn();
+            $("#user-update-success").fadeOut(4000);
         });
     };
 
@@ -528,11 +554,13 @@ app.controller('adminController', function($scope, $http){
                 create_user_location: $scope.create_user_location,
                 create_gender: $scope.create_gender
             }).success(function (response) {
-                alert('created');
+                $("#user-create-success").fadeIn();
+                $("#user-create-success").fadeOut(4000);
             });
         }
         else {
-            alert('passwords do not match');
+            $("#user-create-error").fadeIn();
+            $("#user-create-error").fadeOut(4000);
         }
     };
     $scope.resetPass = function(user_id) {
@@ -554,25 +582,38 @@ app.controller('adminController', function($scope, $http){
             timezone: $scope.timezone,
         }).success(function(response) {
             if (response.success == 1) {
-                alert('business created');
+                $("#biz-create-success").fadeIn();
+                $("#biz-create-success").fadeOut(4000);
+
                 $('.create-fields').val('');
             }
             else{
-                alert(response.error);
+                $("#biz-create-error p").html(response.error);
+                $("#biz-create-error").fadeIn();
+                $("#biz-create-error").fadeOut(4000);
             }
         });
     }
 
+    $("#biz-details-btn").click(function(){
+        $("#biz-details-success").fadeIn();
+        $("#biz-details-success").fadeOut(4000);
+    });
+
+    $("#biz-status-btn").click(function(){
+        $("#biz-status-success").fadeIn();
+        $("#biz-status-success").fadeOut(4000);
+    });
+
+    $("#biz-settings-btn").click(function(){
+        $("#biz-settings-success").fadeIn();
+        $("#biz-settings-success").fadeOut(4000);
+    });
 
     $(".create-business-button").click(function() {
         $(".biz-create").show();
         $(".biz-results").hide();
         $(".biz-specific").hide();
-    });
-
-    $(".search-user-button").click(function() {
-         $(".cus-main-form").show();
-         $(".cus-create-form").hide();
     });
 
     $(".create-user-button").click(function() {

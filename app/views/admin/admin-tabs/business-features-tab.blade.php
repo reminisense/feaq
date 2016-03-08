@@ -38,6 +38,9 @@
                                     </a>
                                 </td>
                             </tr>
+                            <div class="alert alert-danger" id="business-search-error" style="display: none">
+                                <p style="text-align: center;">No businesses found.</p>
+                            </div>
                         </table>
                     </div>
                 </div>
@@ -58,35 +61,89 @@
                                             </td>
                                             <td>
                                                 <label>Address:</label>
-                                                <input class="form-control" type="text" ng-model="edit_address" />
+                                                <input type="text" class="form-control" ng-model="edit_address" ng-autocomplete options="options" details="details">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <label>Industry:</label>
-                                                <input class="form-control" type="text" ng-model="edit_industry" />
+                                                <select class="form-control" ng-model="edit_industry">
+                                                    <option value="@{{ edit_industry }}">@{{ edit_industry }}</option>
+                                                    <option value="Accounting">Accounting</option>
+                                                    <option value="Advertising">Advertising</option>
+                                                    <option value="Agriculture">Agriculture</option>
+                                                    <option value="Air Services">Air Services</option>
+                                                    <option value="Airlines">Airlines</option>
+                                                    <option value="Apparel">Apparel</option>
+                                                    <option value="Appliances">Appliances</option>
+                                                    <option value="Auto Dealership">Auto Dealership</option>
+                                                    <option value="Banking">Banking</option>
+                                                    <option value="Broadcasting">Broadcasting</option>
+                                                    <option value="Business Services">Business Services</option>
+                                                    <option value="Communications">Communications</option>
+                                                    <option value="Corporate">Corporate</option>
+                                                    <option value="Customer Service">Customer Service</option>
+                                                    <option value="Delivery">Delivery</option>
+                                                    <option value="Delivery Services">Delivery Services</option>
+                                                    <option value="Education">Education</option>
+                                                    <option value="Energy">Energy</option>
+                                                    <option value="Entertainment">Entertainment</option>
+                                                    <option value="Events">Events</option>
+                                                    <option value="Food and Beverage">Food and Beverage</option>
+                                                    <option value="Government">Government</option>
+                                                    <option value="Grocery">Grocery</option>
+                                                    <option value="Healthcare">Healthcare</option>
+                                                    <option value="Hobbies and Collections">Hobbies and Collections</option>
+                                                    <option value="Hospitality">Hospitality</option>
+                                                    <option value="Insurance">Insurance</option>
+                                                    <option value="Information Technology">Information Technology</option>
+                                                    <option value="Lifestyle">Lifestyle</option>
+                                                    <option value="Mail Order Services">Mail Order Services</option>
+                                                    <option value="Manufacturing">Manufacturing</option>
+                                                    <option value="Pharmaceutical">Pharmaceutical</option>
+                                                    <option value="Media">Media</option>
+                                                    <option value="Professional Services">Professional Services</option>
+                                                    <option value="Publishing">Publishing</option>
+                                                    <option value="Real Estate">Real Estate</option>
+                                                    <option value="Recreation">Recreation</option>
+                                                    <option value="Rentals">Rentals</option>
+                                                    <option value="Retail">Retail</option>
+                                                    <option value="Software Development">Software Development</option>
+                                                    <option value="Technology">Technology</option>
+                                                    <option value="Travel and Tours">Travel and Tours</option>
+                                                    <option value="Utility Services">Utility Services</option>
+                                                    <option value="Web Services">Web Services</option>
+                                                    <option value="Wholesale">Wholesale</option>
+                                                </select>
                                             </td>
-                                            <td>
-                                                <label>Timezone:</label>
-                                                <input class="form-control" type="text" ng-model="edit_timezone" /><br>
-                                            </td>
-                                        </tr>
-                                        <tr>
                                             <td>
                                                 <label>Time Open:</label>
                                                 <input class="form-control" type="text" ng-model="edit_time_open" />
                                             </td>
-                                            <td>
+                                        </tr>
+                                        <tr>
+                                            <td width="50%">
+                                                <label>Timezone:</label>
+                                                <select class="form-control" ng-model="edit_timezone"> <!-- ARA Added timezone picker -->
+                                                    @foreach(Helper::getTimezoneList() as $index => $timezone)
+                                                        <option value="{{ $index }}">{{ $timezone }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </td>
+                                            <td width="50%">
                                                 <label>Time Close:</label>
                                                 <input class="form-control" type="text" ng-model="edit_time_close" />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td colspan="2" class="text-right">
-                                                <button class="btn btn-orange btn-lg" type="submit">Update Information</button>
+                                                <button class="btn btn-orange btn-lg" id="biz-details-btn" type="submit">Update Information</button>
                                             </td>
                                         </tr>
                                     </table>
+                                    <div class="alert alert-success" id="biz-details-success" style="display: none">
+                                        <p style="text-align: center;">Business information updated.</p>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -100,23 +157,31 @@
                                 <table class="table table-form table-spaces table-hover table-responsive table-inputnotblock">
                                     <tr  ng-repeat="service in services">
                                         <th>
-                                                <input style="width: 100%" class="form-control" id="service-input@{{ $index }}" type="text" value="@{{service.name}}">
-                                                <div ng-repeat="terminal in service.terminals" style="padding-left: 100px;" class="mt10">
-                                                    <input class="form-control edit-terminal" terminal_id="@{{ terminal.terminal_id }}" type="text" value="@{{ terminal.name }}">
-                                                    <button class="btn-boxy btn-primary" id="terminal-edit-button"  ng-click="updateTerminal(terminal.terminal_id)"> <span class="glyphicon glyphicon-pencil"></span> Edit</button>
-                                                    <button class="btn-boxy btn-danger" ng-click="deleteTerminal(terminal.terminal_id)"> <span class="glyphicon glyphicon-trash"></span> Delete</button>
+                                            <input style="width: 100%" class="form-control" id="service-input@{{ $index }}" type="text" value="@{{service.name}}">
+                                            <div class="alert alert-success mt10" id="edt-service-err@{{ $index }}" style="display: none">
+                                                <p style="text-align: center;"></p>
+                                            </div>
+                                            <div ng-repeat="terminal in service.terminals" style="padding-left: 100px; padding-right:150px;" class="mt10">
+                                                <input class="form-control edit-terminal" terminal_id="@{{ terminal.terminal_id }}" type="text" value="@{{ terminal.name }}">
+                                                <button class="btn-boxy btn-primary" id="terminal-edit-button"  ng-click="updateTerminal(terminal.terminal_id)"> <span class="glyphicon glyphicon-pencil"></span> Edit</button>
+                                                <button class="btn-boxy btn-danger" ng-click="deleteTerminal(terminal.terminal_id)"> <span class="glyphicon glyphicon-trash"></span> Delete</button>
+                                                <div class="alert alert-success mt10" id="edt-terminal-err" style="display: none">
+                                                    <p style="text-align: center;"></p>
                                                 </div>
-                                                <div style="padding-left: 100px;" class="mt10" ng-show="service.terminals.length < max_terminals">
-                                                    <input class="form-control" type="text" ng-model="terminal_name">
-                                                    <button class="btn btn-orange" ng-click="createTerminal(terminal_name, service.service_id, edit_business_id)"> New Terminal</button>
+                                            </div>
+                                            <div style="padding-left: 100px; padding-right:150px;" class="mt10" ng-show="service.terminals.length < max_terminals">
+                                                <input class="form-control" type="text" ng-model="terminal_name">
+                                                <button class="btn btn-orange" ng-click="createTerminal(terminal_name, service.service_id, edit_business_id)"> New Terminal</button>
+                                                <div class="alert alert-success mt10" id="add-terminal-err" style="display: none">
+                                                    <p style="text-align: center;"></p>
                                                 </div>
+                                            </div>
+
                                         </th>
                                         <th>
-                                                <button class="btn-boxy btn-primary" ng-click="updateService($index,service.service_id)"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
-                                                <button class="btn-boxy btn-danger" ng-click="removeService(service.service_id)"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+                                            <button class="btn-boxy btn-primary" ng-click="updateService($index,service.service_id)"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
+                                            <button class="btn-boxy btn-danger" ng-click="removeService(service.service_id)"><span class="glyphicon glyphicon-trash"></span> Delete</button>
                                         </th>
-
-
                                     </tr>
                                     <tr>
                                         <td></td>
@@ -124,15 +189,16 @@
                                     </tr>
                                     <tr ng-show="services.length < max_services" style="background-color: #eee;">
                                         <td class="pb10">
-                                            <input style="width: 100%" class="form-control" type="text" ng-model="name">
+                                            <input style="width: 100%" class="form-control" type="text" ng-model="name" id="create-service-inpt">
+                                            <div class="alert alert-danger mt10" id="add-service-err" style="display: none">
+                                                <p style="text-align: center;"></p>
+                                            </div>
                                         </td>
                                         <td class="text-right">
                                             <button class="btn btn-orange btn-lg" ng-click="createService(name, edit_business_id)">Add Service</button>
                                         </td>
                                     </tr>
                                 </table>
-
-
                             </div>
                         </div>
                     </div>
@@ -168,10 +234,13 @@
                                         </tr>
                                         <tr>
                                             <td colspan="2" class="text-right">
-                                                <button class="btn btn-lg btn-orange" type="submit">Update Status</button>
+                                                <button class="btn btn-lg btn-orange" id="biz-status-btn" type="submit">Update Status</button>
                                             </td>
                                         </tr>
                                     </table>
+                                    <div class="alert alert-success" id="biz-status-success" style="display: none">
+                                        <p style="text-align: center;">Business status updated.</p>
+                                    </div>
                                 </form>
                             </div>
                          </div>
@@ -214,7 +283,7 @@
                                         </tr>
                                         <tr>
                                             <td colspan="2" class="text-right">
-                                                <button class="btn btn-lg btn-orange" type="submit">Update Settings</button>
+                                                <button class="btn btn-lg btn-orange" id="biz-settings-btn" type="submit">Update Settings</button>
                                             </td>
                                         </tr>
 
@@ -227,6 +296,9 @@
                                     {{--<br>--}}
 
                                     </table>
+                                    <div class="alert alert-success" id="biz-settings-success" style="display: none">
+                                        <p style="text-align: center;">Business settings updated.</p>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -249,34 +321,92 @@
                                 <tr>
                                     <td>
                                         <label>Address:</label>
-                                        <input type="text" ng-model="address" id="create_address" required="true" class="form-control create-fields"/>
+                                        <input type="text" class="form-control create-fields" ng-model="address" ng-autocomplete options="options" details="details" required="true">
                                     </td>
                                     <td>
                                         <label>Industry:</label>
-                                         <input type="text" ng-model="industry" required="true" class="form-control create-fields"/>
+                                        <select class="form-control create-fields" ng-model="industry" required="true">
+                                            <option value="" >Please select an industry</option>
+                                            <option value="Accounting">Accounting</option>
+                                            <option value="Advertising">Advertising</option>
+                                            <option value="Agriculture">Agriculture</option>
+                                            <option value="Air Services">Air Services</option>
+                                            <option value="Airlines">Airlines</option>
+                                            <option value="Apparel">Apparel</option>
+                                            <option value="Appliances">Appliances</option>
+                                            <option value="Auto Dealership">Auto Dealership</option>
+                                            <option value="Banking">Banking</option>
+                                            <option value="Broadcasting">Broadcasting</option>
+                                            <option value="Business Services">Business Services</option>
+                                            <option value="Communications">Communications</option>
+                                            <option value="Corporate">Corporate</option>
+                                            <option value="Customer Service">Customer Service</option>
+                                            <option value="Delivery">Delivery</option>
+                                            <option value="Delivery Services">Delivery Services</option>
+                                            <option value="Education">Education</option>
+                                            <option value="Energy">Energy</option>
+                                            <option value="Entertainment">Entertainment</option>
+                                            <option value="Events">Events</option>
+                                            <option value="Food and Beverage">Food and Beverage</option>
+                                            <option value="Government">Government</option>
+                                            <option value="Grocery">Grocery</option>
+                                            <option value="Healthcare">Healthcare</option>
+                                            <option value="Hobbies and Collections">Hobbies and Collections</option>
+                                            <option value="Hospitality">Hospitality</option>
+                                            <option value="Insurance">Insurance</option>
+                                            <option value="Information Technology">Information Technology</option>
+                                            <option value="Lifestyle">Lifestyle</option>
+                                            <option value="Mail Order Services">Mail Order Services</option>
+                                            <option value="Manufacturing">Manufacturing</option>
+                                            <option value="Pharmaceutical">Pharmaceutical</option>
+                                            <option value="Media">Media</option>
+                                            <option value="Professional Services">Professional Services</option>
+                                            <option value="Publishing">Publishing</option>
+                                            <option value="Real Estate">Real Estate</option>
+                                            <option value="Recreation">Recreation</option>
+                                            <option value="Rentals">Rentals</option>
+                                            <option value="Retail">Retail</option>
+                                            <option value="Software Development">Software Development</option>
+                                            <option value="Technology">Technology</option>
+                                            <option value="Travel and Tours">Travel and Tours</option>
+                                            <option value="Utility Services">Utility Services</option>
+                                            <option value="Web Services">Web Services</option>
+                                            <option value="Wholesale">Wholesale</option>
+                                        </select>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
+                                    <td width="50%">
                                         <label>Timezone:</label>
-                                        <input type="text" ng-model="timezone" required="true" class="form-control create-fields"/>
+                                        <select class="form-control create-fields" ng-model="timezone" required="true"> <!-- ARA Added timezone picker -->
+                                            <option value="">Please select a timezone</option>
+                                            @foreach(Helper::getTimezoneList() as $index => $timezone)
+                                                <option value="{{ $index }}">{{ $timezone }}</option>
+                                            @endforeach
+                                        </select>
                                     </td>
-                                    <td>
+                                    <td width="50%">
                                         <label>Time Open: </label>
-                                        <input type="text" ng-model="time_open" required="true" class="form-control create-fields"/>
+                                        <input type="text" ng-model="time_open" required="true" class="form-control create-fields" placeholder="ex: 10:00 AM"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <label>Time Close:</label>
-                                        <input type="text" ng-model="time_close" required="true" class="form-control create-fields"/>
+                                        <input type="text" ng-model="time_close" required="true" class="form-control create-fields" placeholder="ex :05:00 PM"/>
                                     </td>
                                     <td class="text-right">
                                         <br>
-                                        <button class="btn btn-orange btn-lg" type="submit">Create Business</button>
+                                        <button class="btn btn-orange btn-lg" type="submit" id="biz-create-btn">Create Business</button>
                                     </td>
                                 </tr>
                             </table>
+                            <div class="alert alert-success" id="biz-create-success" style="display: none">
+                                <p style="text-align: center;">Business created.</p>
+                            </div>
+                            <div class="alert alert-danger" id="biz-create-error" style="display: none">
+                                <p style="text-align: center;"></p>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -314,7 +444,7 @@
                             <tr>
                                 <td>
                                     <label>Address:</label>
-                                    <input class="form-control" type="text" ng-model="edit_user_location" />
+                                    <input type="text" class="form-control" ng-model="edit_user_location" ng-autocomplete options="options" details="details" required="true">
                                 </td>
                                 <td>
                                     <label>Email:</label>
@@ -346,7 +476,16 @@
                                 </td>
                             </tr>
                         </table>
+                        <div class="alert alert-success" id="user-update-success" style="display: none">
+                            <p style="text-align: center;">User information updated.</p>
+                        </div>
                     </form>
+                </div>
+                <div class="alert alert-danger" id="user-email-error" style="display: none">
+                    <p style="text-align: center;">Please enter a valid email.</p>
+                </div>
+                <div class="alert alert-danger" id="user-search-error" style="display: none">
+                    <p style="text-align: center;">No users found.</p>
                 </div>
                 <div class=" col-md- 12 cus-create-form">
                     <h2 class="col-md-12">Create User</h2>
@@ -392,7 +531,7 @@
                                 </td>
                                 <td>
                                     <label>Address: </label>
-                                    <input class="form-control" type="text" ng-model="create_user_location" />
+                                    <input type="text" class="form-control" ng-model="create_user_location" ng-autocomplete options="options" details="details" required="true">
                                 </td>
                             </tr>
                             <tr>
@@ -404,8 +543,13 @@
                                     <button class="mt20 btn btn-orange btn-lg" type="submit">Save</button>
                                 </td>
                             </tr>
-
                         </table>
+                        <div class="alert alert-success" id="user-create-success" style="display: none">
+                            <p style="text-align: center;">User created.</p>
+                        </div>
+                        <div class="alert alert-danger" id="user-create-error" style="display: none">
+                            <p style="text-align: center;">Passwords do not match.</p>
+                        </div>
                     </form>
                 </div>
             </div>
