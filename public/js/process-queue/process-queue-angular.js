@@ -203,9 +203,8 @@
                 $http.post(pq.urls.issue_numbers.issue_specific_url + pq.ids.service_id + '/' + pq.ids.terminal_id, data)
                     .success(function(response) {
                         $scope.updateBroadcast();
-                        $scope.callNumber(transaction_number, function(){
-                            $scope.stopProcessQueue();
-                        });
+                        $scope.date = $scope.today;
+                        $scope.getAllNumbers();
                     });
             }
         }
