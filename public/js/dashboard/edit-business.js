@@ -469,7 +469,7 @@ var eb = {
             $scope.analytics = business.analytics;
             $scope.terminal_delete_error = business.error ? business.error : null;
             $scope.allowed_businesses = business.allowed_businesses;
-            $scope.custom_url = business.raw_code;
+            $scope.custom_url = business.custom_url != '' ?  business.custom_url : business.raw_code;
 
             $scope.services.unshift({ name: 'SELECT SERVICE' });
             $scope.selected_service = 0;
