@@ -179,7 +179,7 @@ Processs Queue > {{ $business_name }}
                             </div>
                         </td>
                         <td>
-                            <button class="pull-right btn btn-sm btn-danger stopbutton" ng-click="stopProcessQueue()">
+                            <button ng-if="date == today" class="pull-right btn btn-sm btn-danger stopbutton" ng-click="stopProcessQueue()">
                                 <span class="glyphicon glyphicon-stop"></span> STOP
                             </button>
                         </td>
@@ -198,7 +198,7 @@ Processs Queue > {{ $business_name }}
                             </div>
                         </td>
                         <td>
-                            <form class="star-rating-form" ng-show="called_numbers[$index].verified_email">
+                            <form ng-if="date == today" class="star-rating-form" ng-show="called_numbers[$index].verified_email">
                                 <span class="star-rating">
                                     <input type="radio" name="rating" ng-model="called_numbers_rating[$index]" value="1"><i></i>
                                     <input type="radio" name="rating" ng-model="called_numbers_rating[$index]" value="2"><i></i>
@@ -207,8 +207,8 @@ Processs Queue > {{ $business_name }}
                                     <input type="radio" name="rating" ng-model="called_numbers_rating[$index]" value="5"><i></i>
                                 </span>
                             </form>
-                            <a class="delete" ng-click="dropNumber(number.transaction_number)" ng-disabled="isProcessing"><span class="glyphicon glyphicon-trash"></span></a>
-                            <a class="btn btn-sm btn-default" ng-click="serveAndCallNext(number.transaction_number)" ng-disabled="isProcessing">Next <span class="glyphicon glyphicon-arrow-right"></span></a>
+                            <a ng-if="date == today" class="delete" ng-click="dropNumber(number.transaction_number)" ng-disabled="isProcessing"><span class="glyphicon glyphicon-trash"></span></a>
+                            <a ng-if="date == today" class="btn btn-sm btn-default"  ng-click="serveAndCallNext(number.transaction_number)" ng-disabled="isProcessing">Next <span class="glyphicon glyphicon-arrow-right"></span></a>
                         </td>
                     </tr>
                     </tbody>
