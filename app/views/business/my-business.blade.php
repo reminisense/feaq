@@ -151,18 +151,36 @@ My Business
                 <h5 class="col-md-12 col-xs-12 mb20">ASSIGNED BUSINESSES</h5>
                 @foreach($assigned_businesses as $business)
                 <div class="col-md-3 col-sm-4 col-xs-12">
-                    <div class="boxed edit-biz process-queue">
+                    <div class="boxed edit-biz process-queue" data-toggle="modal" data-target="#modal-{{ $business['business_id'] }}">
                         <p class="title"><span class="glyphicon glyphicon-home"></span> {{ $business['name'] }}</p>
-                        <div class="biz-terminals assigned-terminals">
-                            <div class="clearfix">
-                                @foreach($business['terminals'] as $terminal)
-                                <div>
-                                    <a href="{{ url('/processqueue/terminal/' . $terminal['terminal_id'] ) }}" target="_blank" style="padding: 12px;">
-                                        <span class=" glyphicon glyphicon-check"></span>
-                                        <small>{{ $terminal['name'] }}</small>
-                                    </a>
+                    </div>
+                    <div class="modal fade" id="modal-{{ $business['business_id'] }}" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">Choose Terminals</h4>
                                 </div>
-                                @endforeach
+                                <div class="modal-body">
+                                    <table class="table table-responsive table-condense table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>{{ $business['name'] }}</th>
+                                            <th class="text-right"><small></small></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($business['terminals'] as $terminal)
+                                            <tr>
+                                                <td>{{ $terminal['name'] }}</td>
+                                                <td class="text-right">
+                                                    <a class="btn btn-sm btn-cyan" href="{{ url('/processqueue/terminal/' . $terminal['terminal_id'] ) }}" target="_blank">Process</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
