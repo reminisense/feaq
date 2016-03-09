@@ -405,11 +405,11 @@ app.controller('adminController', function($scope, $http){
     $scope.createService = function(name, business_id){;
         if(name != '' && name != undefined) {
             $http.post('/services', {name: name, business_id: business_id}).success(function (response) {
-                $scope.getBusinessDetails();
-                $scope.service_create = false;
-                $scope.new_service_name = '';
+                //$scope.getBusinessDetails();
+                //$scope.service_create = false;
+                //$scope.new_service_name = '';
                 if(response.error == undefined){
-                    $scope.updateFields(business_id);
+                    $scope.manageBusiness(business_id);
                     $("#create-service-inpt").val('');
                 }else{
                     $("#add-service-err p").html(response.error);
@@ -421,24 +421,32 @@ app.controller('adminController', function($scope, $http){
             $("#add-service-err p").html('Service name is not valid.');
         }
     }
-    $scope.updateService = function(index, service_id){
+    $scope.updateService = function(index, service_id, business_id){
         var name = $('#service-input'+index).val();
         if(name != '' && name != undefined){
             $http.put('/services/' + service_id, {name: name}).success(function(response){
-                $scope.getBusinessDetails();
-                $scope.edit_service_name = '';
+                //$scope.getBusinessDetails();
+                //$scope.edit_service_name = '';
+                if(response.error == undefined){
+                    $scope.manageBusiness(business_id);
+                    $("#edt-service-suc"+index).fadeIn();
+                    $("#edt-service-suc"+index).fadeOut(4000);
+                }else{
+                    $("#edt-service-err"+index +" p").html(response.error);
+                    $("#edt-service-err"+index).fadeIn();
+                    $("#edt-service-err"+index).fadeOut(4000);
+                }
             });
         }else{
-            $scope.service_error = 'Service name is not valid.';
-            alert("error");
+            //$scope.service_error = 'Service name is not valid.';
+            $("#edt-service-err"+ index +" p").html('Service name is not valid.');
         }
     }
-    $scope.removeService = function(service_id){
+    $scope.removeService = function(service_id, business_id){
         var confirmDel = confirm("Are you sure you want to remove this service?");
         if(confirmDel){
-            alert(service_id);
             $http.delete('/services/' + service_id).success(function(response){
-                $scope.getBusinessDetails();
+                $scope.manageBusiness(business_id);
             });
         }
     }
@@ -450,14 +458,20 @@ app.controller('adminController', function($scope, $http){
                 service_id: service_id,
                 name : terminal_name
             }).success(function(response){
-                alert("success");
+                if(response.success == undefined){
+                    $("#add-terminal-err"+service_id +" p").html("Duplicate terminal name.");
+                    $("#add-terminal-err"+service_id).fadeIn();
+                    $("#add-terminal-err"+service_id).fadeOut(4000)
+                }else{
+                    $scope.manageBusiness(business_id);
+                }
             });
         } else {
-            alert("error");
+            $("#edt-terminal-err"+service_id +" p").html('Terminal name is not valid.');
         }
     }
 
-    $scope.updateTerminal = function(terminal_id){
+    $scope.updateTerminal = function(terminal_id, business_id){
         var terminal_name = $('.edit-terminal[terminal_id=' + terminal_id + ']').val();
         alert(terminal_id);
         if (terminal_name !== "" & terminal_name != undefined){
@@ -465,38 +479,41 @@ app.controller('adminController', function($scope, $http){
                 terminal_id : terminal_id,
                 name : terminal_name
             }).success(function(response) {
-                alert("success");
+                if(response.error == undefined){
+                    $scope.manageBusiness(business_id);
+                    $("#add-terminal-suc"+terminal_id).fadeIn();
+                    $("#add-terminal-suc"+terminal_id).fadeOut(4000)
+                }else{
+                    $("#add-terminal-err"+terminal_id +" p").html("Duplicate terminal name.");
+                    $("#add-terminal-err"+terminal_id).fadeIn();
+                    $("#add-terminal-err"+terminal_id).fadeOut(4000)
+                }
             });
         }else{
-            alert("error");
+            $("#edt-terminal-err"+terminal_id +" p").html('Terminal name is not valid.');
         }
     }
 
-    $scope.deleteTerminal = function(terminal_id) {
+    $scope.deleteTerminal = function(terminal_id,business_id) {
         var confirmDel = confirm("Are you sure you want to delete this terminal?");
         if (confirmDel){
             $http.post('/terminal/delete', {
                 terminal_id : terminal_id
             }).success(function(response) {
-                alert("success");
+                $scope.manageBusiness(business_id);
             });
         }
     }
 
-    $scope.updateFields = function(business_id){
-
-        $scope.manageBusiness(business_id);
-
-    }
-    $scope.getBusinessDetails = function(){
-        if ( $scope.business_id > 0 ) {
-            $http.get(eb.urls.business.business_details_url + $scope.business_id)
-                .success(function(response){
-                    setBusinessFields(response.business);
-                    setBusinessFeatures(response.business.features);
-                });
-        }
-    }
+    //$scope.getBusinessDetails = function(){
+    //    if ( $scope.business_id > 0 ) {
+    //        $http.get(eb.urls.business.business_details_url + $scope.business_id)
+    //            .success(function(response){
+    //                setBusinessFields(response.business);
+    //                setBusinessFeatures(response.business.features);
+    //            });
+    //    }
+    //}
 
     $scope.searchUser = function() {
         var email = $("#user-email").val();

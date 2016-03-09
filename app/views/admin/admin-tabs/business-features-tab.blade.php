@@ -158,29 +158,35 @@
                                     <tr  ng-repeat="service in services">
                                         <th>
                                             <input style="width: 100%" class="form-control" id="service-input@{{ $index }}" type="text" value="@{{service.name}}">
-                                            <div class="alert alert-success mt10" id="edt-service-err@{{ $index }}" style="display: none">
+                                            <div class="alert alert-danger mt10" id="edt-service-err@{{ $index }}" style="display: none">
                                                 <p style="text-align: center;"></p>
+                                            </div>
+                                            <div class="alert alert-success mt10" id="edt-service-suc@{{ $index }}" style="display: none">
+                                                <p style="text-align: center;">Service name updated.</p>
                                             </div>
                                             <div ng-repeat="terminal in service.terminals" style="padding-left: 100px; padding-right:150px;" class="mt10">
                                                 <input class="form-control edit-terminal" terminal_id="@{{ terminal.terminal_id }}" type="text" value="@{{ terminal.name }}">
-                                                <button class="btn-boxy btn-primary" id="terminal-edit-button"  ng-click="updateTerminal(terminal.terminal_id)"> <span class="glyphicon glyphicon-pencil"></span> Edit</button>
-                                                <button class="btn-boxy btn-danger" ng-click="deleteTerminal(terminal.terminal_id)"> <span class="glyphicon glyphicon-trash"></span> Delete</button>
-                                                <div class="alert alert-success mt10" id="edt-terminal-err" style="display: none">
+                                                <button class="btn-boxy btn-primary" id="terminal-edit-button"  ng-click="updateTerminal(terminal.terminal_id, edit_business_id)"> <span class="glyphicon glyphicon-pencil"></span> Edit</button>
+                                                <button class="btn-boxy btn-danger" ng-click="deleteTerminal(terminal.terminal_id, edit_business_id)"> <span class="glyphicon glyphicon-trash"></span> Delete</button>
+                                                <div class="alert alert-danger mt10" id="edt-terminal-err@{{ terminal.terminal_id }}" style="display: none">
                                                     <p style="text-align: center;"></p>
+                                                </div>
+                                                <div class="alert alert-success mt10" id="edt-terminal-suc@{{ terminal.terminal_id }}}" style="display: none">
+                                                    <p style="text-align: center;">Terminal name updated.</p>
                                                 </div>
                                             </div>
                                             <div style="padding-left: 100px; padding-right:150px;" class="mt10" ng-show="service.terminals.length < max_terminals">
                                                 <input class="form-control" type="text" ng-model="terminal_name">
                                                 <button class="btn btn-orange" ng-click="createTerminal(terminal_name, service.service_id, edit_business_id)"> New Terminal</button>
-                                                <div class="alert alert-success mt10" id="add-terminal-err" style="display: none">
+                                                <div class="alert alert-danger mt10" id="add-terminal-err@{{ service.service_id }}" style="display: none">
                                                     <p style="text-align: center;"></p>
                                                 </div>
                                             </div>
 
                                         </th>
                                         <th>
-                                            <button class="btn-boxy btn-primary" ng-click="updateService($index,service.service_id)"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
-                                            <button class="btn-boxy btn-danger" ng-click="removeService(service.service_id)"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+                                            <button class="btn-boxy btn-primary" ng-click="updateService($index,service.service_id,edit_business_id)"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
+                                            <button class="btn-boxy btn-danger" ng-click="removeService(service.service_id, edit_business_id)"><span class="glyphicon glyphicon-trash"></span> Delete</button>
                                         </th>
                                     </tr>
                                     <tr>
