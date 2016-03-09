@@ -151,7 +151,7 @@ Processs Queue > {{ $business_name }}
                             </div>
                             <point-of-interest position="left" bottom="85" right="100"  title="Issued Numbers" description="Look for the numbers you want to call in this drop-down list or type the number you want call when the list is empty."></point-of-interest>
                             <div class="col-md-1 col-sm-1 col-xs-3">
-                                <a id="btn-pmore" class="btn btn-md btn-primary" data-toggle="modal" data-target="#moreq" title="Issue a number.">+</a>
+                                <a ng-if="date == today" id="btn-pmore" class="btn btn-md btn-primary" data-toggle="modal" data-target="#moreq" title="Issue a number.">+</a>
                             </div>
                             <point-of-interest position="right" bottom="85" right="25"  title="Issue Numbers" description="Click on the blue '+' (plus) button to issue more numbers."></point-of-interest>
                             <div class="col-md-3 col-sm-3 col-xs-12 text-right">
