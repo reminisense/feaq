@@ -445,14 +445,9 @@ class RestController extends BaseController {
      * @param $service_id
      * @return string
      */
-    public function getQueueService($facebook_id, $service_id){
-        try{
-            $user_id = User::getUserIdByFbId($facebook_id);
-        }catch(Exception $e){
-            $user_id = null;
-        }
-
-        if ($user_id) {
+    public function getQueueService($user_id, $service_id){
+        $user = User::where('user_id', '=', $user_id)->first();
+        if ($user) {
             $business_id = Business::getBusinessIdByServiceId($service_id);
             $name = User::full_name($user_id);
             $phone = User::phone($user_id);
