@@ -293,8 +293,6 @@ class Notifier extends Eloquent{
     }
 
     public static function sendAndroid($device_token, $message, $title = "FeatherQ", $subtitle = null){
-        $registrationIds = array($device_token);
-
         // prep the bundle
         $msg = array
         (
@@ -308,8 +306,8 @@ class Notifier extends Eloquent{
 
         $fields = array
         (
-            'registration_ids'  => $registrationIds,
-            'data'              => $msg
+            'to'                => $device_token,
+            'data'              => $msg,
         );
 
         $headers = array
@@ -319,7 +317,7 @@ class Notifier extends Eloquent{
         );
 
         $ch = curl_init();
-        curl_setopt( $ch,CURLOPT_URL, 'https://android.googleapis.com/gcm/send' );
+        curl_setopt( $ch,CURLOPT_URL, 'https://gcm-http.googleapis.com/gcm/send' );
         curl_setopt( $ch,CURLOPT_POST, true );
         curl_setopt( $ch,CURLOPT_HTTPHEADER, $headers );
         curl_setopt( $ch,CURLOPT_RETURNTRANSFER, true );

@@ -472,9 +472,15 @@ class RestController extends BaseController {
     }
 
     public function getSendMessage($device_token = null, $message = null) {
-        PushNotification::app('featherqAndroid')
-            ->to($device_token)
-            ->send($message);
+//        PushNotification::app('featherqAndroid')
+//            ->to($device_token)
+//            ->send($message);
+
+        try{
+            return Notifier::sendAndroid($device_token, $message);
+        }catch(Exception $e){
+            return $e->getMessage();
+        }
     }
 
     public function getSendManual($device_token, $message, $title = "FeatherQ", $subtitle = null) {
