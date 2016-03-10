@@ -428,13 +428,14 @@ app.controller('adminController', function($scope, $http){
                 //$scope.getBusinessDetails();
                 //$scope.edit_service_name = '';
                 if(response.error == undefined){
-                    $scope.manageBusiness(business_id);
                     $("#edt-service-suc"+index).fadeIn();
-                    $("#edt-service-suc"+index).fadeOut(4000);
+                    setTimeout(function(){
+                        $scope.manageBusiness(business_id);
+                        ("#edt-service-suc"+index).fadeOut();
+                    },2000);
                 }else{
                     $("#edt-service-err"+index +" p").html(response.error);
                     $("#edt-service-err"+index).fadeIn();
-                    $("#edt-service-err"+index).fadeOut(4000);
                 }
             });
         }else{
@@ -473,20 +474,20 @@ app.controller('adminController', function($scope, $http){
 
     $scope.updateTerminal = function(terminal_id, business_id){
         var terminal_name = $('.edit-terminal[terminal_id=' + terminal_id + ']').val();
-        alert(terminal_id);
         if (terminal_name !== "" & terminal_name != undefined){
             $http.post('/terminal/edit', {
                 terminal_id : terminal_id,
                 name : terminal_name
             }).success(function(response) {
                 if(response.error == undefined){
-                    $scope.manageBusiness(business_id);
-                    $("#add-terminal-suc"+terminal_id).fadeIn();
-                    $("#add-terminal-suc"+terminal_id).fadeOut(4000)
+                    $("#edt-terminal-suc"+terminal_id).fadeIn();
+                    setTimeout(function(){
+                        $scope.manageBusiness(business_id);
+                        $("#edt-terminal-suc"+terminal_id).fadeOut();
+                    },2000);
                 }else{
-                    $("#add-terminal-err"+terminal_id +" p").html("Duplicate terminal name.");
-                    $("#add-terminal-err"+terminal_id).fadeIn();
-                    $("#add-terminal-err"+terminal_id).fadeOut(4000)
+                    $("#edt-terminal-err"+terminal_id +" p").html("Duplicate terminal name.");
+                    $("#edt-terminal-err"+terminal_id).fadeIn();
                 }
             });
         }else{
