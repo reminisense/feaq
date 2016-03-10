@@ -11,11 +11,11 @@ class Message extends Eloquent {
 
     public static function createThread($val = array()) {
         $message_id = Message::insertGetId($val);
-        Helper::dbLogger('Message', 'message', 'insert', 'createThread', User::email(Helper::userId()), 'message_id:' . $message_id);
+        //Helper::dbLogger('Message', 'message', 'insert', 'createThread', User::email(Helper::userId()), 'message_id:' . $message_id);
     }
     public static function updateThread($val = array(), $thread_key) {
         Message::where('thread_key', '=', $thread_key)->update($val);
-        Helper::dbLogger('Message', 'message', 'update', 'updateThread', User::email(Helper::userId()), 'thread_key:' . $thread_key);
+        //Helper::dbLogger('Message', 'message', 'update', 'updateThread', User::email(Helper::userId()), 'thread_key:' . $thread_key);
     }
 
     public static function getPhoneByKey($thread_key) {

@@ -6,6 +6,8 @@ var timeoutfunc;
 
 //load functions
 $(document).ready(function(){
+    $(".datepicker").datepicker({ dateFormat: 'mm-dd-yy' });
+
     pq.jquery_functions.load_switch_tabs();
     pq.jquery_functions.load_select_number();
     pq.jquery_functions.load_default_navbar_link();

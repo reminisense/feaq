@@ -144,4 +144,27 @@ body#processq .tab-pane .navbar-form {
 .modal-backdrop.in {
     opacity: 0.8!important;
 }
+#modal-terminals .modal-body {
+    padding: 20px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+#modal-terminals th {
+    font-family: 'ralewaybold';
+}
+#modal-terminals .modal-title {
+    color: #00ba8b;
+    font-family: 'ralewaybold';
+}
+#modal-terminals .text-right{
+    font-family: 'ralewayregular';
+    color: #969696;
+}
+#modal-terminals tbody td {
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+#modal-terminals th {
+    font-size: 18px;
+}
 

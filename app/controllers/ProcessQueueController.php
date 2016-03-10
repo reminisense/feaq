@@ -74,12 +74,16 @@ class ProcessQueueController extends BaseController{
         }
     }
 
-    public function getAllnumbers($service_id, $terminal_id){
+    public function getAllnumbers($service_id, $terminal_id, $date = null){
         if(!TerminalUser::isCurrentUserAssignedToTerminal($terminal_id)) {
             return json_encode(['error' => 'You are not assigned to this terminal.']);
         }
 
-        $numbers = ProcessQueue::allNumbers($service_id, $terminal_id);
+        if($date){
+            $date_array = explode('-', $date);
+            $date = mktime(0,0,0,$date_array[0],$date_array[1], $date_array[2]);
+        }
+        $numbers = ProcessQueue::allNumbers($service_id, $terminal_id, $date);
         return json_encode(['success' => 1, 'numbers' => $numbers], JSON_PRETTY_PRINT);
     }
 

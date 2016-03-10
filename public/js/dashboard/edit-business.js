@@ -58,7 +58,8 @@ $(document).ready(function(){
         $('#vid-submit-btn').removeClass('btn-disabled');
     });
 
-    $(document).on('click', '.process-queue', function(e){
+    /*removed by rodel to give modal a go*/
+    /*$(document).on('click', '.process-queue', function(e){
         if ($(this).find('.biz-terminals').is(':hidden')) {
             $(this).find('.biz-terminals').slideDown('fast');
             $('#process-queue').css("border","none");
@@ -66,15 +67,15 @@ $(document).ready(function(){
         return false;
     });
 
+    $('html').click(function () {
+        $('.biz-terminals').slideUp('fast');
+        $('#process-queue').css({"border-bottom":"4px solid #d36e3c"});
+    });*/
+
     /*terminal colors select value on dropdown click*/
     $('#terminal-colors li a').on('click', function(){
         $(this).parents('ul').prev().removeClass('cyan yellow blue borange red violet green');
         $(this).parents('ul').prev().addClass($(this).attr('data-color'));
-    });
-
-    $('html').click(function () {
-        $('.biz-terminals').slideUp('fast');
-        $('#process-queue').css({"border-bottom":"4px solid #d36e3c"});
     });
 
     $('.biz-terminals').on('click', 'a', function(e){
@@ -475,7 +476,7 @@ var eb = {
             $scope.analytics = business.analytics;
             $scope.terminal_delete_error = business.error ? business.error : null;
             $scope.allowed_businesses = business.allowed_businesses;
-            $scope.custom_url = business.raw_code;
+            $scope.custom_url = business.custom_url != '' ?  business.custom_url : business.raw_code;
 
             $scope.services.unshift({ name: 'SELECT SERVICE' });
             $scope.selected_service = 0;

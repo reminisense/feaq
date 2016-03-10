@@ -154,6 +154,7 @@ class Business extends Eloquent
             'allowed_businesses' => Business::getForwardingAllowedBusinesses($business_id),
             'raw_code' => $business->raw_code,
             'business_features' => unserialize($business->business_features),
+            'custom_url' => $business->vanity_url,
         ];
 
 

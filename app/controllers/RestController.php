@@ -437,6 +437,40 @@ class RestController extends BaseController {
 
     }
 
+
+    /**
+     * ARA 03082016
+     * Queue To Service
+     * @param $facebook_id
+     * @param $service_id
+     * @return string
+     */
+    public function getQueueService($user_id, $service_id){
+        $user = User::where('user_id', '=', $user_id)->first();
+        if ($user) {
+            $business_id = Business::getBusinessIdByServiceId($service_id);
+            $name = User::full_name($user_id);
+            $phone = User::phone($user_id);
+            $email = User::email($user_id);
+
+            $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
+            $priority_number = $next_number;
+            $queue_platform = 'android';
+
+            $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, 0, $user_id);
+            PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
+            if($email != ''){ Message::sendInitialMessage($business_id, $email, $name, $phone); }
+
+            $details = [
+                'number_assigned' => $priority_number,
+            ];
+
+            return json_encode($details);
+        } else {
+            return json_encode(['error' => 'You are not registered to FeatherQ.']);
+        }
+    }
+
     public function getSendMessage($device_token = null, $message = null) {
         PushNotification::app('featherqAndroid')
             ->to($device_token)

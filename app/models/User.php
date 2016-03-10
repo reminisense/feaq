@@ -104,7 +104,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
             ->where('email', '=', $email )
             ->select('user_id', 'first_name', 'last_name', 'email')
             ->first();
-        return $user ? $user->toArray() : null;
+
+        return $user ? $user->toArray() : array();
     }
 
     public static function searchByKeyword($keyword){
