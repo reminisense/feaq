@@ -211,7 +211,7 @@ table#pricing tr td small {
     #banner h1 span {
       font-weight: 600; }
   #banner #start {
-      margin-left: 20px;
+      /*margin-left: 20px;*/
     margin-bottom: 20px; }
 
 #featherq-features {

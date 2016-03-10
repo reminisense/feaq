@@ -190,9 +190,7 @@ var pq = {
             checked_in = checked_in != undefined ? checked_in : false;
             //ARA add priority number and
             var userinfo = '';
-            if((queue_platform == 'remote' || queue_platform == 'android') && checked_in){
-                userinfo = '<span><small class="pull-right font-normal">Checked in</small><span class="pull-right mr5 glyphicon glyphicon-ok"></span></span>';
-            }
+
 
             userinfo += '<span ' +
                 'class="pull-right user-info show-messages" ' +
@@ -209,6 +207,9 @@ var pq = {
             userinfo += username != undefined ? '<span>' + username + ' </span>' : '';
             userinfo += '</a>';
             userinfo += '</span>';
+            if((queue_platform == 'remote' || queue_platform == 'android') && checked_in){
+                userinfo += '<span><small class="pull-right font-normal" style="margin-right: 20px;margin-top: 1px; color: #333;">checked in</small><span class="pull-right glyphicon glyphicon-ok" style="font-size:10px;margin-top:3px;margin-right:3px; color: #333;"></span></span>';
+            }
 
 
             $('#selected-tnumber').val(tnumber);
