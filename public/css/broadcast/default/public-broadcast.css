@@ -126,6 +126,30 @@
 .boxed .broadcast .numbers.t3 {
     background-color: #746ca8;
 }
+.boxed .broadcast .numbers.t4 {
+    background-color: #ff8649;
+}
+.boxed .broadcast .numbers.cyan {
+    background-color: #7acaad;
+}
+.boxed .broadcast .numbers.yellow {
+    background-color: #f9c44d;
+}
+.boxed .broadcast .numbers.blue {
+    background-color: #5d8dbc;
+}
+.boxed .broadcast .numbers.borange {
+    background-color: #ed8c5c;
+}
+.boxed .broadcast .numbers.red {
+    background-color: #de787c;
+}
+.boxed .broadcast .numbers.green {
+    background-color: #89c27b;
+}
+.boxed .broadcast .numbers.violet {
+    background-color: #887aac;
+}
 .boxed .broadcast .numbers .terminal.none, .boxed .broadcast .numbers .terminal {
     height: 18px;
     font-size: 13px;

@@ -831,6 +831,7 @@ var eb = {
             var ticker_message3 = "";
             var ticker_message4 = "";
             var ticker_message5 = "";
+            var terminal_colors = [];
             $('.ticker-field-wrap .ticker_message').each(function() {
                 counter++;
                 if (counter == 1) {
@@ -850,6 +851,16 @@ var eb = {
                 }
             });
 
+            // fetch terminal color data
+            var counter = 0;
+            $('.btn-terminal-color').each(function() {
+                terminal_colors[counter] = {
+                    terminal_id: $(this).attr('terminal_id'),
+                    color_value: $(this).attr('class').split(' ')[5]
+                };
+                counter++;
+            });
+
             $http.post('/broadcast/save-settings', {
                 business_id : business_id,
                 adspace_size : $('#ad-width').css('width'),
@@ -863,7 +874,8 @@ var eb = {
                 ticker_message2 : ticker_message2,
                 ticker_message3 : ticker_message3,
                 ticker_message4 : ticker_message4,
-                ticker_message5 : ticker_message5
+                ticker_message5 : ticker_message5,
+                terminal_colors: terminal_colors
             }).success(function(response) {
                 $http.get('/processqueue/update-broadcast/' + business_id).success(function(response) {
                     websocket.send(JSON.stringify({

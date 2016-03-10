@@ -268,6 +268,7 @@ class ProcessQueue extends Eloquent{
                         'email' => $number->email,
                         'verified_email' => $verified, //Added by JCA
                         'box_rank' => Terminal::boxRank($number->terminal_id), // Added by PAG
+                        'color' => Terminal::getColorByTerminalId($number->terminal_id),
                     );
                 }else if($called && !$served && $removed){
                     $processed_numbers[] = array(
@@ -466,6 +467,7 @@ class ProcessQueue extends Eloquent{
                         $boxes->$box->service = isset($numbers[$index]['service_name']) ? $numbers[$index]['service_name'] : ''; //ARA Added service name for multiple services
                         $boxes->$box->terminal = isset($numbers[$index]['terminal_name']) ? $numbers[$index]['terminal_name'] : '';
                         $boxes->$box->rank = isset($numbers[$index]['box_rank']) ? $numbers[$index]['box_rank'] : ''; // Added by PAG
+                        $boxes->$box->color = isset($numbers[$index]['color']) ? $numbers[$index]['color'] : ''; // Added by PAG
                         $box_count++;
                     }
                 }else{
@@ -474,6 +476,7 @@ class ProcessQueue extends Eloquent{
                     $boxes->$box->service = ''; //ARA Added service name for multiple services
                     $boxes->$box->terminal = '';
                     $boxes->$box->rank = ''; // Added by PAG
+                    $boxes->$box->color = ''; // Added by PAG
                     $box_count++;
                 }
             }

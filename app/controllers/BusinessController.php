@@ -57,6 +57,7 @@ class BusinessController extends BaseController{
                 $business_id = $business->business_id;
                 unset($assigned_businesses[$business->business_id]);
                 return View::make('business.my-business')
+                    ->with('my_terminals', Terminal::getTerminalsByBusinessId($business_id))
                     //->with('user_id', Helper::userId()) //ARA - moved assignment to filters.php
                     ->with('business_id', $business_id)
                     ->with('raw_code', Business::getRawCodeByBusinessId($business_id))
@@ -132,25 +133,29 @@ class BusinessController extends BaseController{
                     "number": "1",
                     "terminal": "",
                     "rank": "",
-                    "service": ""
+                    "service": "",
+                    "color": ""
                   },
                   "box2": {
                     "number": "2",
                     "terminal": "",
                     "rank": "",
-                    "service": ""
+                    "service": "",
+                    "color": ""
                   },
                   "box3": {
                     "number": "3",
                     "terminal": "",
                     "rank": "",
-                    "service": ""
+                    "service": "",
+                    "color": ""
                   },
                   "box4": {
                     "number": "4",
                     "terminal": "",
                     "rank": "",
-                    "service": ""
+                    "service": "",
+                    "color": ""
                   },
                   "box5": {
                     "number": "5",
@@ -162,7 +167,8 @@ class BusinessController extends BaseController{
                     "number": "6",
                     "terminal": "",
                     "rank": "",
-                    "service": ""
+                    "service": "",
+                    "color": ""
                   },
                   "get_num": " ",
                   "display": "1-6",

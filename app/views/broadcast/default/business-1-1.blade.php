@@ -5,7 +5,7 @@
     <h3 class="abs">NOW SERVING</h3>
     <div class="row-1">
       <div class="col-1">
-        <div class="numbers t@{{ rank1 }}">
+        <div class="numbers t@{{ rank1 }} @{{ color1 }}">
           <p class="service">@{{ service1 }}</p>
           <p class="terminal">@{{ name1 }}</p>
           <p class="callnum">@{{ box1 }}</p>

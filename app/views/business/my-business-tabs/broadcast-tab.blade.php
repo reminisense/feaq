@@ -114,86 +114,24 @@
                     <div class="clearfix mt30">
                         <h3 class="mb10">Choose terminal colors:</h3>
                         <div id="terminal-colors" class="clearfix">
-                            <div class="col-md-6 col-xs-12 mb10">
-                                    Terminal 1
-                                    <div class="dropdown">
-                                         <button id="btn-terminal-color" class="btn btn-md btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Color
-                                         <span class="caret"></span></button>
-                                         <ul class="dropdown-menu" id="terminal-colors">
-                                           <li><a id="cyan" data-color="cyan" href=""></a></li>
-                                           <li><a id="yellow" data-color="yellow" href=""></a></li>
-                                           <li><a id="blue" data-color="blue" href=""></a></li>
-                                           <li><a id="orange" data-color="borange" href=""></a></li>
-                                           <li><a id="red" data-color="red" href=""></a></li>
-                                           <li><a id="green" data-color="green" href=""></a></li>
-                                           <li><a id="violet" data-color="violet" href=""></a></li>
-                                         </ul>
-                                    </div>
-                            </div>
-                            <div class="col-md-6 col-xs-12 mb10">
-                                    Terminal 2
-                                    <div class="dropdown">
-                                         <button id="btn-terminal-color" class="btn btn-md btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Color
-                                         <span class="caret"></span></button>
-                                         <ul class="dropdown-menu" id="terminal-colors">
-                                           <li><a id="cyan" data-color="cyan" href=""></a></li>
-                                           <li><a id="yellow" data-color="yellow" href=""></a></li>
-                                           <li><a id="blue" data-color="blue" href=""></a></li>
-                                           <li><a id="orange" data-color="borange" href=""></a></li>
-                                           <li><a id="red" data-color="red" href=""></a></li>
-                                           <li><a id="green" data-color="green" href=""></a></li>
-                                           <li><a id="violet" data-color="violet" href=""></a></li>
-                                         </ul>
-                                    </div>
-                            </div>
-                            <div class="col-md-6 col-xs-12 mb10">
-                                    Terminal 3
-                                    <div class="dropdown">
-                                         <button id="btn-terminal-color" class="btn btn-md btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Color
-                                         <span class="caret"></span></button>
-                                         <ul class="dropdown-menu" id="terminal-colors">
-                                           <li><a id="cyan" data-color="cyan" href=""></a></li>
-                                           <li><a id="yellow" data-color="yellow" href=""></a></li>
-                                           <li><a id="blue" data-color="blue" href=""></a></li>
-                                           <li><a id="orange" data-color="borange" href=""></a></li>
-                                           <li><a id="red" data-color="red" href=""></a></li>
-                                           <li><a id="green" data-color="green" href=""></a></li>
-                                           <li><a id="violet" data-color="violet" href=""></a></li>
-                                         </ul>
-                                    </div>
-                            </div>
-                            <div class="col-md-6 col-xs-12 mb10">
-                                    Terminal 4
-                                    <div class="dropdown">
-                                         <button id="btn-terminal-color" class="btn btn-md btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Color
-                                         <span class="caret"></span></button>
-                                         <ul class="dropdown-menu" id="terminal-colors">
-                                           <li><a id="cyan" data-color="cyan" href=""></a></li>
-                                           <li><a id="yellow" data-color="yellow" href=""></a></li>
-                                           <li><a id="blue" data-color="blue" href=""></a></li>
-                                           <li><a id="orange" data-color="borange" href=""></a></li>
-                                           <li><a id="red" data-color="red" href=""></a></li>
-                                           <li><a id="green" data-color="green" href=""></a></li>
-                                           <li><a id="violet" data-color="violet" href=""></a></li>
-                                         </ul>
-                                    </div>
-                            </div>
-                            <div class="col-md-6 col-xs-12 mb10">
-                                    Terminal 5
-                                    <div class="dropdown">
-                                         <button id="btn-terminal-color" class="btn btn-md btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Color
-                                         <span class="caret"></span></button>
-                                         <ul class="dropdown-menu" id="terminal-colors">
-                                           <li><a id="cyan" data-color="cyan" href=""></a></li>
-                                           <li><a id="yellow" data-color="yellow" href=""></a></li>
-                                           <li><a id="blue" data-color="blue" href=""></a></li>
-                                           <li><a id="orange" data-color="borange" href=""></a></li>
-                                           <li><a id="red" data-color="red" href=""></a></li>
-                                           <li><a id="green" data-color="green" href=""></a></li>
-                                           <li><a id="violet" data-color="violet" href=""></a></li>
-                                         </ul>
-                                    </div>
-                            </div>
+                            @foreach ($my_terminals as $count => $data)
+                                <div class="col-md-12 col-xs-12 mb10" style="text-align: right;">
+                                        {{ $data["name"] }}
+                                        <div class="dropdown">
+                                             <button class="btn btn-md btn-primary dropdown-toggle btn-terminal-color {{ $data["color"] }}" type="button" data-toggle="dropdown" terminal_id="{{ $data['terminal_id'] }}">Select Color
+                                             <span class="caret"></span></button>
+                                             <ul class="dropdown-menu" id="terminal-colors">
+                                               <li><a id="cyan" data-color="cyan" href=""></a></li>
+                                               <li><a id="yellow" data-color="yellow" href=""></a></li>
+                                               <li><a id="blue" data-color="blue" href=""></a></li>
+                                               <li><a id="orange" data-color="borange" href=""></a></li>
+                                               <li><a id="red" data-color="red" href=""></a></li>
+                                               <li><a id="green" data-color="green" href=""></a></li>
+                                               <li><a id="violet" data-color="violet" href=""></a></li>
+                                             </ul>
+                                        </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -212,6 +150,3 @@
         </div>
     </div>
 </div>
-
-
-
