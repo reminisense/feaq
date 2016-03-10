@@ -45,12 +45,16 @@
 
         $scope.getAllNumbers = function(){
             url = pq.urls.process_queue.all_numbers_url + pq.ids.service_id + '/' + pq.ids.terminal_id + '/' + $scope.date;
-            $scope.isCalling = true;
+            $scope.$apply(function(){
+                $scope.isCalling = true;
+            });
             getResponseResetValues(url, null, null, function(){
-                setTimeout(function(){
-                    pq.jquery_functions.select_next_number();
+                pq.jquery_functions.select_next_number();
+                if($scope.date != $scope.today && ($scope.timebound_numbers.length + $scope.uncalled_numbers.length == 0)){
+                    $scope.isCalling = true;
+                }else{
                     $scope.isCalling = false;
-                }, 1);
+                }
             });
         };
 
