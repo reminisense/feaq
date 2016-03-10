@@ -336,7 +336,11 @@
 
             $scope.serveNumber(transaction_number, function(){
                 $http.post('/issuenumber/issue-other/', data).success(function(response){
-                    $('#priority-number-modal').modal('hide');
+                    $('#priority-number-modal-close').show();
+                    $('#allowed-businesses').attr('disabled', 'disabled');
+                    $('#forward-btn').hide();
+                    $('#forward-success').show();
+                    $('#forward-success').html('Forward successful. The priority number given is ' + response.number.priority_number);
                     var business_id = response.business_id;
                     websocket.send(JSON.stringify({
                         business_id : business_id,

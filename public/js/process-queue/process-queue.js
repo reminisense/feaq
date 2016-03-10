@@ -129,6 +129,13 @@ var pq = {
 
                 process_queue = angular.element($("#process-queue-wrapper")).scope();
                 process_queue.getAllowedBusinesses();
+
+                $('#priority-number-modal-close').hide();
+                $('#allowed-businesses').removeAttr('disabled');
+                $('#forward-btn').show();
+                $('#forward-success').hide();
+                $('#forward-success').html('');
+
             });
 
             $('body').on('click', '.show-messages', function(e){

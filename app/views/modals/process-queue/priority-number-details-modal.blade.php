@@ -35,7 +35,9 @@
                         <div class="" id="allowed-businesses-area" style="display: none">
                             <div class="col-md-6 col-xs-6"><h5>Forward to: </h5></div>
                             <div class="col-md-4 col-xs-4"><select id="allowed-businesses"></select></div>
+                            <div class="col-md-12 col-xs-12 mt10 mb10"><div class="alert alert-success" style="display: none" id="forward-success"></div></div>
                             <div class="col-md-12 col-xs-12 text-right"><button class="btn btn-primary" id="forward-btn">Forward</button></div>
+                            <div class="col-md-12 col-xs-12 text-right"><button class="btn btn-primary" id="priority-number-modal-close" data-dismiss="modal">Close</button></div>
                         </div>
                     </div>
 
