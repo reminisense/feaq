@@ -81,7 +81,7 @@ Processs Queue > {{ $business_name }}
                                     <button class="btn-select btn-md dropdown-toggle" type="button" data-toggle="dropdown">
                                         <span id="selected-pnumber">@{{ called_number }}</span>
                                         <span class="caret"></span>
-                                        <span id="selected-userinfo"></span>
+                                        <span id="selected-userinfo" class="font-normal"></span>
                                     </button>
                                     <ul class="dropdown-menu dd-select" id="uncalled-numbers">
                                         <li ng-repeat="number in timebound_numbers"
@@ -95,12 +95,8 @@ Processs Queue > {{ $business_name }}
                                             >
                                             @{{ number.priority_number }}
                                             <small class="font-normal">@{{ number.queue_platform }}</small>
-                                            <span ng-if="(number.queue_platform == 'remote' || number.queue_platform == 'android') && number.checked_in">
-                                                <small class="pull-right font-normal">Checked in</small>
-                                                <span class="pull-right mr5 glyphicon glyphicon-ok"></span>
-                                            </span>
                                             <span
-                                               class="pull-right mr5 userinfo show-messages"
+                                               class="pull-right font-normal mr5 userinfo show-messages"
                                                title="Number: @{{ number.priority_number }}"
                                                data-toggle="modal"
                                                data-target="#priority-number-modal"
@@ -110,8 +106,18 @@ Processs Queue > {{ $business_name }}
                                                data-phone="@{{ number.phone }}"
                                             >
                                                 <a href="#">
-                                                    <span ng-if="number.name">@{{ number.name }}</span>
+                                                    <span ng-if="number.name"
+                                                        style="text-transform: capitalize;"
+                                                    >@{{ number.name }}</span>
                                                 </a>
+                                            </span>
+                                            <span ng-if="(number.queue_platform == 'remote' || number.queue_platform == 'android') && number.checked_in">
+                                                <small class="pull-right font-normal">checked in</small>
+                                                <span class="pull-right mr5 glyphicon glyphicon-ok"
+                                                    style="font-size: 10px;
+                                                    margin-top:5px;
+                                                    margin-right: 3px;"
+                                                ></span>
                                             </span>
                                         </li>
                                         <li ng-repeat="number in uncalled_numbers"
@@ -126,12 +132,8 @@ Processs Queue > {{ $business_name }}
                                             >
                                             @{{ number.priority_number }}
                                             <small class="font-normal">@{{ number.queue_platform }}</small>
-                                            <span ng-if="(number.queue_platform == 'remote' || number.queue_platform == 'android') && number.checked_in">
-                                                <small class="pull-right font-normal">Checked in</small>
-                                                <span class="pull-right mr5 glyphicon glyphicon-ok"> </span>
-                                            </span>
                                             <span
-                                               class="pull-right mr5 userinfo show-messages"
+                                               class="font-normal pull-right mr5 userinfo show-messages"
                                                title="Number: @{{ number.priority_number }}"
                                                data-toggle="modal"
                                                data-target="#priority-number-modal"
@@ -141,9 +143,24 @@ Processs Queue > {{ $business_name }}
                                                data-phone="@{{ number.phone }}"
                                             >
                                                 <a href="#">
-                                                    <span ng-if="number.name">@{{ number.name }}</span>
+                                                    <span ng-if="number.name"
+                                                    style="text-transform: capitalize;
+                                                    font-size: 14px;"
+                                                    >@{{ number.name }}</span>
                                                 </a>
                                             </span>
+                                            <span ng-if="(number.queue_platform == 'remote' || number.queue_platform == 'android') && number.checked_in">
+                                                <small class="pull-right mr5 font-normal"
+                                                    style="margin-top: 3px;
+                                                    margin-right: 20px;"
+                                                >checked in</small>
+                                                <span class="pull-right glyphicon glyphicon-ok"
+                                                    style="font-size: 10px;
+                                                    margin-top:5px;
+                                                    margin-right:3px;"
+                                                > </span>
+                                            </span>
+
                                         </li>
                                     </ul>
                                 </div>

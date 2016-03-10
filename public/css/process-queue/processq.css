@@ -25,6 +25,8 @@ span.glyphicon-zoom-in {
 }
 .priority-number {
     display: inline-block;
+    font-size: 18px;
+    font-family: 'ralewaybold';
 }
 .priority-number:hover {
     text-decoration: none;
@@ -182,7 +184,8 @@ span.glyphicon-zoom-in {
     border: 1px solid #999;
     width: 97%; /*ARA dropdown menu to full length*/
     background-color: #f7f7f7; /*ARA white background*/
-    max-height: 100px; /*ARA prevents page stretching when too many numbers are called*/
+    /*max-height: 100px; ARA prevents page stretching when too many numbers are called*/
+    max-height: 140px; /*Rodel give it a more height*/
     overflow: auto; /*ARA prevents page stretching when too many numbers are called*/
 }
 
@@ -288,6 +291,7 @@ span.glyphicon-zoom-in {
 .font-normal {
     font-family: 'ralewayregular';
 }
+
 
 .stopbutton {
     /*border-radius: 50%;
