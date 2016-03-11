@@ -45,7 +45,7 @@
 
         $scope.getAllNumbers = function(){
             url = pq.urls.process_queue.all_numbers_url + pq.ids.service_id + '/' + pq.ids.terminal_id + '/' + $scope.date;
-            $scope.$apply(function(){
+            setTimeout(function(){
                 $scope.isCalling = true;
             });
             getResponseResetValues(url, null, null, function(){
