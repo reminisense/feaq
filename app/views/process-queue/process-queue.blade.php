@@ -94,7 +94,7 @@ Processs Queue > {{ $business_name }}
                                             data-checked_in="@{{ number.checked_in }}"
                                             >
                                             @{{ number.priority_number }}
-                                            <small class="font-normal">@{{ number.queue_platform }}</small>
+                                            <small class="font-normal">via <span style="text-transform:capitalize;">@{{ number.queue_platform }}</span></small>
                                             <span
                                                class="pull-right font-normal mr5 userinfo show-messages"
                                                title="Number: @{{ number.priority_number }}"
@@ -131,7 +131,7 @@ Processs Queue > {{ $business_name }}
                                             data-checked_in="@{{ number.checked_in }}"
                                             >
                                             @{{ number.priority_number }}
-                                            <small class="font-normal">@{{ number.queue_platform }}</small>
+                                            <small class="font-normal">via <span style="text-transform:capitalize;">@{{ number.queue_platform }}</span></small>
                                             <span
                                                class="font-normal pull-right mr5 userinfo show-messages"
                                                title="Number: @{{ number.priority_number }}"

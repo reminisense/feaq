@@ -214,7 +214,7 @@ var pq = {
 
 
             $('#selected-tnumber').val(tnumber);
-            $('#selected-pnumber').html(pnumber + ' <small class="font-normal">' + queue_platform + '</small>');
+            $('#selected-pnumber').html(pnumber + ' <small class="font-normal"> via <span style="text-transform:capitalize;">' + queue_platform + '</span></small>');
             $('#selected-userinfo').html(userinfo);
         },
 
