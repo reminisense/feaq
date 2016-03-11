@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>FeatherQ</title>
+    <meta name=viewport content="width=device-width,initial-scale=1">
     <meta name="title" content="FeatherQ"/>
     <meta name="description" content="FeatherQ is a DIY cloud-based queuing platform. We make it easy for businesses to manage their lines better and allow customers to wait on their own terms."/>
     <meta name="author" content="Reminisense, Corp."/>
@@ -11,7 +12,6 @@
     <meta name="og:description" content="FeatherQ is a DIY cloud-based queuing platform. We make it easy for businesses to manage their lines better and allow customers to wait on their own terms."/>
     <meta name="og:site_name" content="FeatherQ"/>
     <meta name="fb:app_id" content="1574952899417459"/>
-
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/signup/signup.css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600' rel='stylesheet' type='text/css'>
@@ -51,7 +51,7 @@
                         <div class="clearfix col-md-12">
                             <div class="alert alert-warning" ng-show="error_message != ''">@{{ error_message  }}</div>
                         </div>
-                        <form id="login" class=" col-md-12" ng-submit="login()">
+                        <form id="login" class="" ng-submit="login()">
                             <div class="clearfix">
                                 <label>Email</label>
                                 <div class="rel">
@@ -68,10 +68,10 @@
                             </div>
 
                             <div class="row mt30">
-                                <div class="col-md-6 col-xs-12 text-left">
-                                    <a class="forgot-pass no-line" href="/user/forgot-password"><i class="glyphicon glyphicon-question-sign"></i> Forgot password?</a>
+                                <div class="col-md-6 col-xs-6 text-left">
+                                    <a class="forgot-pass no-line" href="/user/forgot-password"><i class="glyphicon glyphicon-question-sign"></i>Forgot password?</a>
                                 </div>
-                                <div class="col-md-6 col-xs-12 text-right ">
+                                <div class="col-md-6 col-xs-6 text-right ">
                                     <button class="btn btn-teal" type="submit">LOGIN</button>
                                 </div>
                             </div>

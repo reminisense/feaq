@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>FeatherQ</title>
+    <meta name=viewport content="width=device-width,initial-scale=1">
     <meta name="title" content="FeatherQ"/>
     <meta name="description" content="FeatherQ is a DIY cloud-based queuing platform. We make it easy for businesses to manage their lines better and allow customers to wait on their own terms."/>
     <meta name="author" content="Reminisense, Corp."/>
@@ -89,13 +90,13 @@
                                             <label>Mobile</label>
                                             <input type="text" min="9" maxlength="15" class="mobile form-control" id="mobile" name="mobile" ng-model="mobile" required/>
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="col-md-12 col-xs-12">
                                             <label>Location</label>
                                             <input type="text" class="form-control" id="location" name="location" autocomplete="off" ng-model="location" required/>
                                         </div>
                                     </div>
 
-                                    <div class="col-md-12 text-right">
+                                    <div class="col-md-12 col-xs-12 text-right">
                                     <br>
                                         <button id="start_queuing" type="submit" class="btn btn-teal" ng-click="verify()">START QUEUING</button>
                                     </div>

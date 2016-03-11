@@ -137,4 +137,12 @@ class Terminal extends Eloquent{
       Helper::dbLogger('Terminal', 'terminal', 'delete', 'deleteTerminalsByServiceId', User::email(Helper::userId()), 'service_id:' . $service_id);
   }
 
+    public static function setColor($hex_color, $terminal_id) {
+        Terminal::where('terminal_id', '=', $terminal_id)->update(array('color' => $hex_color));
+    }
+
+    public static function getColorByTerminalId($terminal_id) {
+        return Terminal::where('terminal_id', '=', $terminal_id)->select(array('color'))->first()->color;
+    }
+
 }

@@ -17,6 +17,7 @@ App::before(function($request)
     View::share('user_id', Helper::userId());
     View::share('is_admin', Admin::isAdmin());
 	View::share('assigned_to_business', Helper::assignedToBusiness());
+	View::share('user_code', Crypt::encrypt(Helper::userId()));
 });
 
 

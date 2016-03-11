@@ -55,6 +55,12 @@ Processs Queue > {{ $business_name }}
                 <p>Processing Queues for:</p>
                 <h2><strong>{{ $business_name }}</strong></h2>
                 <h3><strong>{{ $service_name }} - {{ $terminal_name }}</strong></h3>
+                Showing numbers for date:
+                <div class="col-md-12 row">
+                    <div class="col-md-4">
+                        <input type="text" class="datepicker form-control" ng-model="date" ng-change="getAllNumbers()" readonly="readonly" style="cursor: text; background-color: #FFFFFF"/>
+                    </div>
+                </div>
             </div>
             <div class="col-md-3 col-sm-4 ">
                 {{--<a id="view-broadcast" target="_blank" href="{{ url('/broadcast/business/' . $business_id) }}">View Broadcast <br>Screen</a>--}}
@@ -75,7 +81,7 @@ Processs Queue > {{ $business_name }}
                                     <button class="btn-select btn-md dropdown-toggle" type="button" data-toggle="dropdown">
                                         <span id="selected-pnumber">@{{ called_number }}</span>
                                         <span class="caret"></span>
-                                        <span id="selected-userinfo"></span>
+                                        <span id="selected-userinfo" class="font-normal"></span>
                                     </button>
                                     <ul class="dropdown-menu dd-select" id="uncalled-numbers">
                                         <li ng-repeat="number in timebound_numbers"
@@ -84,10 +90,13 @@ Processs Queue > {{ $business_name }}
                                             data-name="@{{ number.name }}"
                                             data-email="@{{ number.email }}"
                                             data-phone="@{{ number.phone }}"
+                                            data-queue_platform="@{{ number.queue_platform }}"
+                                            data-checked_in="@{{ number.checked_in }}"
                                             >
                                             @{{ number.priority_number }}
+                                            <small class="font-normal">via <span style="text-transform:capitalize;">@{{ number.queue_platform }}</span></small>
                                             <span
-                                               class="pull-right userinfo show-messages"
+                                               class="pull-right font-normal mr5 userinfo show-messages"
                                                title="Number: @{{ number.priority_number }}"
                                                data-toggle="modal"
                                                data-target="#priority-number-modal"
@@ -97,8 +106,18 @@ Processs Queue > {{ $business_name }}
                                                data-phone="@{{ number.phone }}"
                                             >
                                                 <a href="#">
-                                                    <span ng-if="number.name">@{{ number.name }}</span>
+                                                    <span ng-if="number.name"
+                                                        style="text-transform: capitalize;"
+                                                    >@{{ number.name }}</span>
                                                 </a>
+                                            </span>
+                                            <span ng-if="(number.queue_platform == 'remote' || number.queue_platform == 'android') && number.checked_in">
+                                                <small class="pull-right font-normal">checked in</small>
+                                                <span class="pull-right mr5 glyphicon glyphicon-ok"
+                                                    style="font-size: 10px;
+                                                    margin-top:5px;
+                                                    margin-right: 3px;"
+                                                ></span>
                                             </span>
                                         </li>
                                         <li ng-repeat="number in uncalled_numbers"
@@ -108,10 +127,13 @@ Processs Queue > {{ $business_name }}
                                             data-name="@{{ number.name }}"
                                             data-email="@{{ number.email }}"
                                             data-phone="@{{ number.phone }}"
+                                            data-queue_platform="@{{ number.queue_platform }}"
+                                            data-checked_in="@{{ number.checked_in }}"
                                             >
                                             @{{ number.priority_number }}
+                                            <small class="font-normal">via <span style="text-transform:capitalize;">@{{ number.queue_platform }}</span></small>
                                             <span
-                                               class="pull-right userinfo show-messages"
+                                               class="font-normal pull-right mr5 userinfo show-messages"
                                                title="Number: @{{ number.priority_number }}"
                                                data-toggle="modal"
                                                data-target="#priority-number-modal"
@@ -121,9 +143,24 @@ Processs Queue > {{ $business_name }}
                                                data-phone="@{{ number.phone }}"
                                             >
                                                 <a href="#">
-                                                    <span ng-if="number.name">@{{ number.name }}</span>
+                                                    <span ng-if="number.name"
+                                                    style="text-transform: capitalize;
+                                                    font-size: 14px;"
+                                                    >@{{ number.name }}</span>
                                                 </a>
                                             </span>
+                                            <span ng-if="(number.queue_platform == 'remote' || number.queue_platform == 'android') && number.checked_in">
+                                                <small class="pull-right mr5 font-normal"
+                                                    style="margin-top: 3px;
+                                                    margin-right: 20px;"
+                                                >checked in</small>
+                                                <span class="pull-right glyphicon glyphicon-ok"
+                                                    style="font-size: 10px;
+                                                    margin-top:5px;
+                                                    margin-right:3px;"
+                                                > </span>
+                                            </span>
+
                                         </li>
                                     </ul>
                                 </div>
@@ -131,11 +168,12 @@ Processs Queue > {{ $business_name }}
                             </div>
                             <point-of-interest position="left" bottom="85" right="100"  title="Issued Numbers" description="Look for the numbers you want to call in this drop-down list or type the number you want call when the list is empty."></point-of-interest>
                             <div class="col-md-1 col-sm-1 col-xs-3">
-                                <a id="btn-pmore" class="btn btn-md btn-primary" data-toggle="modal" data-target="#moreq" title="Issue a number.">+</a>
+                                <a ng-if="date == today" id="btn-pmore" class="btn btn-md btn-primary" data-toggle="modal" data-target="#moreq" title="Issue a number.">+</a>
                             </div>
                             <point-of-interest position="right" bottom="85" right="25"  title="Issue Numbers" description="Click on the blue '+' (plus) button to issue more numbers."></point-of-interest>
                             <div class="col-md-3 col-sm-3 col-xs-12 text-right">
-                                <button class="btn btn-orange btn-md" id="btn-call" ng-click="issueOrCall()" ng-disabled="isCalling">CALL NUMBER</button>
+                                <button class="btn btn-orange btn-md" id="btn-call" ng-click="issueOrCall()" ng-disabled="isCalling" ng-if="date == today">CALL NUMBER</button>
+                                <button class="btn btn-orange btn-md" id="btn-call" ng-click="moveToday()" ng-disabled="isCalling" ng-if="date != today">MOVE TO CURRENT</button>
                             </div>
                             <point-of-interest position="right" bottom="85" right="-1"  title="Call Numbers" description="Click on the <strong>CALL NUMBER</strong> button to call the number selected on the drop-down list."></point-of-interest>
                         </form>
@@ -158,7 +196,7 @@ Processs Queue > {{ $business_name }}
                             </div>
                         </td>
                         <td>
-                            <button class="pull-right btn btn-sm btn-danger stopbutton" ng-click="stopProcessQueue()">
+                            <button ng-if="date == today" class="pull-right btn btn-sm btn-danger stopbutton" ng-click="stopProcessQueue()">
                                 <span class="glyphicon glyphicon-stop"></span> STOP
                             </button>
                         </td>
@@ -177,7 +215,7 @@ Processs Queue > {{ $business_name }}
                             </div>
                         </td>
                         <td>
-                            <form class="star-rating-form" ng-show="called_numbers[$index].verified_email">
+                            <form ng-if="date == today" class="star-rating-form" ng-show="called_numbers[$index].verified_email">
                                 <span class="star-rating">
                                     <input type="radio" name="rating" ng-model="called_numbers_rating[$index]" value="1"><i></i>
                                     <input type="radio" name="rating" ng-model="called_numbers_rating[$index]" value="2"><i></i>
@@ -186,8 +224,8 @@ Processs Queue > {{ $business_name }}
                                     <input type="radio" name="rating" ng-model="called_numbers_rating[$index]" value="5"><i></i>
                                 </span>
                             </form>
-                            <a class="delete" ng-click="dropNumber(number.transaction_number)" ng-disabled="isProcessing"><span class="glyphicon glyphicon-trash"></span></a>
-                            <a class="btn btn-sm btn-default" ng-click="serveAndCallNext(number.transaction_number)" ng-disabled="isProcessing">Next <span class="glyphicon glyphicon-arrow-right"></span></a>
+                            <a ng-if="date == today" class="delete" ng-click="dropNumber(number.transaction_number)" ng-disabled="isProcessing"><span class="glyphicon glyphicon-trash"></span></a>
+                            <a ng-if="date == today" class="btn btn-sm btn-default"  ng-click="serveAndCallNext(number.transaction_number)" ng-disabled="isProcessing">Next <span class="glyphicon glyphicon-arrow-right"></span></a>
                         </td>
                     </tr>
                     </tbody>

@@ -197,11 +197,11 @@
                 </a>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12 ng-scope" ng-controller="fbController">
-                <a class="business_link" href="#" ng-click="login()">
+                <a class="business_link" href="/user/login">
                     <div class="box-wrap box-fb text-center">
                         {{--<p class="title ng-binding"> More Businesses</p>--}}
-                        <a href="#" ng-click="login()">
-                            <span>LOGIN WITH FACEBOOK</span>
+                        <a href="/user/login">
+                            <span>LOGIN TO FEATHERQ</span>
                             <small class="ng-binding">{{--<img src="/images/homepage/landing/fb.png"> --}} to view More Businesses</small>
                         </a>
                     </div>
@@ -285,7 +285,7 @@
             <p>Get started now. Download the app  and login using your Facebook account and discover a better way to wait.</p>
             <div class="cta">
                 <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" target="_blank"><img alt="Android app on Google Play" src="/images/homepage/btn-download-app.png"></a>
-                <a href="#" ng-click="login()" class="btn btn-blue"><img src="/images/homepage/landing/fb.png">LOGIN WITH FACEBOOK</a>
+                <a href="/user/register" class="btn btn-blue">SIGN UP FOR FREE!</a>
             </div>
             <p class="black">Looking to manage your own line?<p>
                 <a href="/business">Try FeatherQ for Business</a>

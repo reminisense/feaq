@@ -39,7 +39,6 @@ class Analytics extends Eloquent{
 
     public static function saveQueueAnalytics($values){
         DB::table('queue_analytics')->insert($values);
-        Helper::dbLogger('Analytics', 'queue_analytics', 'insert', 'saveQueueAnalytics', User::email(Helper::userId()));
     }
 
     public static function insertAnalyticsQueueNumber($action, $transaction_number, $service_id, $date, $time, $terminal_id, $queue_platform){
@@ -57,7 +56,6 @@ class Analytics extends Eloquent{
         ];
 
         Analytics::saveQueueAnalytics($values);
-        Helper::dbLogger('Analytics', 'queue_analytics', 'insert', 'insertAnalyticsQueueNumber', User::email(Helper::userId()), 'transaction_number:' . $transaction_number);
     }
 
     public static function insertAnalyticsQueueNumberIssued($transaction_number, $service_id, $date, $time, $terminal_id, $queue_platform){
@@ -219,7 +217,7 @@ class Analytics extends Eloquent{
         $service_id = PriorityNumber::serviceId(PriorityQueue::trackId($transaction_number));
         $numbers_ahead = Analytics::getNumbersAhead($transaction_number);
         $average_waiting_time = Analytics::getAverageTimeCalledByServiceId($service_id, 'numeric', $date, $date);
-        return $average_waiting_time * $numbers_ahead;
+        return $average_waiting_time * $numbers_ahead * 1000; //convert to milliseconds
     }
 
     public static function getNumbersAhead($transaction_number){

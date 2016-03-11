@@ -1,5 +1,6 @@
 <html>
 <head>
+    <meta name=viewport content="width=device-width,initial-scale=1">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/signup/signup.css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600' rel='stylesheet' type='text/css'>
@@ -24,12 +25,12 @@
                     <div class="col-md-offset-3 col-md-6 text-center" ng-controller="emailAuthController">
                         <div class="clearfix col-md-12">
                             <div>
-                                @if(isset($error))
+                                @if(isset($error) && $error != '')
                                 <div>
                                     <div class="alert alert-warning"> {{ $error  }}</div>
                                 </div>
                                 @endif
-                                @if(isset($success))
+                                @if(isset($success) && $success != '')
                                 <div>
                                     <div class="alert alert-success"> {{ $success  }}</div>
                                 </div>
