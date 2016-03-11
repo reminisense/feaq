@@ -214,3 +214,7 @@
 .onenum {
     font-size: 130px!important;
 }
+.numbers.t .terminal,
+.numbers.t h3 {
+    color: #333!important;
+}
