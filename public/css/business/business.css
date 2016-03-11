@@ -915,7 +915,6 @@ button#sendreply {
 }
 #terminal-colors .dropdown {
     display: inline-block;
-    margin-left: 15px;
 }
 #terminal-colors .btn {
     color: #fff;
@@ -964,4 +963,7 @@ button#sendreply {
 #terminal-colors #green,
 #terminal-colors button.green {
     background-color: #89c27b;
+}
+#terminal-colors .terminal-name {
+    display: block;
 }
