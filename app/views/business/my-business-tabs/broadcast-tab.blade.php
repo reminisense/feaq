@@ -115,8 +115,8 @@
                         <h3 class="mb10">Choose terminal colors:</h3>
                         <div id="terminal-colors" class="clearfix">
                             @foreach ($my_terminals as $count => $data)
-                                <div class="col-md-12 col-xs-12 mb10" style="text-align: right;">
-                                        {{ $data["name"] }}
+                                <div class="col-md-6 col-xs-12 mb10" style="">
+                                        <span class="terminal-name">{{ $data["name"] }}</span>
                                         <div class="dropdown">
                                              <button class="btn btn-md btn-primary dropdown-toggle btn-terminal-color {{ $data["color"] }}" type="button" data-toggle="dropdown" terminal_id="{{ $data['terminal_id'] }}">Select Color
                                              <span class="caret"></span></button>
