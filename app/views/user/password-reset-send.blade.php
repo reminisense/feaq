@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>FeatherQ</title>
+    <meta name=viewport content="width=device-width,initial-scale=1">
     <meta name="title" content="FeatherQ"/>
     <meta name="description" content="FeatherQ is a DIY cloud-based queuing platform. We make it easy for businesses to manage their lines better and allow customers to wait on their own terms."/>
     <meta name="author" content="Reminisense, Corp."/>
@@ -71,7 +72,7 @@
                             <div class="alert alert-warning" ng-show="message != null" >@{{ message  }}</div>
                         </div>
 
-                        <form id="login" class=" col-md-12" ng-submit="send_password_reset()">
+                        <form id="login" class="" ng-submit="send_password_reset()">
                             <div class="clearfix">
                                 <label>Email</label>
                                 <div class="rel">
@@ -82,10 +83,10 @@
 
 
                             <div class="row mt30">
-                                <div class="col-md-6 col-xs-12 text-left ">
-                                    <a class="forgot-pass no-line" href="/user/login"><i class="glyphicon glyphicon-circle-arrow-left"></i> Return to Login</a>
+                                <div class="col-md-6 col-xs-6 text-left ">
+                                    <a class="forgot-pass no-line" href="/user/login"><i class="glyphicon glyphicon-circle-arrow-left"></i>Return to Login</a>
                                 </div>
-                                <div class="col-md-6 col-xs-12 text-right ">
+                                <div class="col-md-6 col-xs-6 text-right ">
                                     <button class="btn btn-teal" type="submit">Reset Password</button>
                                 </div>
                             </div>

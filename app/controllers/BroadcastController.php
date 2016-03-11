@@ -226,6 +226,10 @@ class BroadcastController extends BaseController{
       $data = $this->boxObjectCreator($data, Input::get('num_boxes'));
       $encode = json_encode($data);
       file_put_contents(public_path() . '/json/' . Input::get('business_id') . '.json', $encode);
+      print_r(Input::get('terminal_colors'));
+      foreach (Input::get('terminal_colors') as $count => $terminal_data) {
+        Terminal::setColor($terminal_data["color_value"], $terminal_data["terminal_id"]);
+      }
       return json_encode(array('status' => 1));
     }
     else {
@@ -254,6 +258,7 @@ class BroadcastController extends BaseController{
       $data->box2->terminal = '';
       $data->box2->rank = '';
       $data->box2->service = '';
+      $data->box2->color = '';
     }
     if ($num_boxes >= '3') {
       $data->box3 = new stdClass();
@@ -261,6 +266,7 @@ class BroadcastController extends BaseController{
       $data->box3->terminal = '';
       $data->box3->rank = '';
       $data->box3->service = '';
+      $data->box3->color = '';
     }
     if ($num_boxes >= '4') {
       $data->box4 = new stdClass();
@@ -268,6 +274,7 @@ class BroadcastController extends BaseController{
       $data->box4->terminal = '';
       $data->box4->rank = '';
       $data->box4->service = '';
+      $data->box4->color = '';
     }
     if ($num_boxes >= '5') {
       $data->box5 = new stdClass();
@@ -275,6 +282,7 @@ class BroadcastController extends BaseController{
       $data->box5->terminal = '';
       $data->box5->rank = '';
       $data->box5->service = '';
+      $data->box5->color = '';
     }
     if ($num_boxes >= '6') {
       $data->box6 = new stdClass();
@@ -282,6 +290,7 @@ class BroadcastController extends BaseController{
       $data->box6->terminal = '';
       $data->box6->rank = '';
       $data->box6->service = '';
+      $data->box6->color = '';
     }
     if ($num_boxes >= '7') {
       $data->box7 = new stdClass();
@@ -289,6 +298,7 @@ class BroadcastController extends BaseController{
       $data->box7->terminal = '';
       $data->box7->rank = '';
       $data->box7->service = '';
+      $data->box7->color = '';
     }
     if ($num_boxes >= '8') {
       $data->box8 = new stdClass();
@@ -296,6 +306,7 @@ class BroadcastController extends BaseController{
       $data->box8->terminal = '';
       $data->box8->rank = '';
       $data->box8->service = '';
+      $data->box8->color = '';
     }
     if ($num_boxes >= '9') {
       $data->box9 = new stdClass();
@@ -303,6 +314,7 @@ class BroadcastController extends BaseController{
       $data->box9->terminal = '';
       $data->box9->rank = '';
       $data->box9->service = '';
+      $data->box9->color = '';
     }
     if ($num_boxes == '10') {
       $data->box10 = new stdClass();
@@ -310,6 +322,7 @@ class BroadcastController extends BaseController{
       $data->box10->terminal = '';
       $data->box10->rank = '';
       $data->box10->service = '';
+      $data->box10->color = '';
     }
     $data = $this->boxObjectUnsetter($data, $num_boxes);
     return $data;
@@ -391,59 +404,69 @@ class BroadcastController extends BaseController{
         $data->box1->terminal = '';
         $data->box1->rank = '';
         $data->box1->service = '';
+        $data->box1->color = '';
         if (isset($data->box2)) {
           $data->box2->number = '';
           $data->box2->terminal = '';
           $data->box2->rank = '';
           $data->box2->service = '';
+          $data->box2->color = '';
         }
         if (isset($data->box3)) {
           $data->box3->number = '';
           $data->box3->terminal = '';
           $data->box3->rank = '';
           $data->box3->service = '';
+          $data->box3->color = '';
         }
         if (isset($data->box4)) {
           $data->box4->number = '';
           $data->box4->terminal = '';
           $data->box4->rank = '';
           $data->box4->service = '';
+          $data->box4->color = '';
         }
         if (isset($data->box5)) {
           $data->box5->number = '';
           $data->box5->terminal = '';
           $data->box5->rank = '';
           $data->box5->service = '';
+          $data->box5->color = '';
         }
         if (isset($data->box6)) {
           $data->box6->number = '';
           $data->box6->terminal = '';
           $data->box6->rank = '';
           $data->box6->service = '';
+          $data->box6->color = '';
         }
         if (isset($data->box7)) {
           $data->box7->number = '';
           $data->box7->terminal = '';
           $data->box7->rank = '';
           $data->box7->service = '';
+          $data->box7->color = '';
         }
         if (isset($data->box8)) {
           $data->box8->number = '';
           $data->box8->terminal = '';
           $data->box8->rank = '';
           $data->box8->service = '';
+          $data->box8->color = '';
         }
         if (isset($data->box9)) {
           $data->box9->number = '';
           $data->box9->terminal = '';
           $data->box9->rank = '';
           $data->box9->service = '';
+          $data->box9->color = '';
         }
         if (isset($data->box10)) {
           $data->box10->number = '';
           $data->box10->terminal = '';
           $data->box10->rank = '';
           $data->box10->service = '';
+          $data->box10->color = '';
         }
         $data->get_num = '';
         $data->date = date("mdy");
@@ -467,59 +490,69 @@ class BroadcastController extends BaseController{
       $data->box1->terminal = '';
       $data->box1->rank = '';
       $data->box1->service = '';
+      $data->box1->color = '';
       if (isset($data->box2)) {
         $data->box2->number = '';
         $data->box2->terminal = '';
         $data->box2->rank = '';
         $data->box2->service = '';
+        $data->box2->color = '';
       }
       if (isset($data->box3)) {
         $data->box3->number = '';
         $data->box3->terminal = '';
         $data->box3->rank = '';
         $data->box3->service = '';
+        $data->box3->color = '';
       }
       if (isset($data->box4)) {
         $data->box4->number = '';
         $data->box4->terminal = '';
         $data->box4->rank = '';
         $data->box4->service = '';
+        $data->box4->color = '';
       }
       if (isset($data->box5)) {
         $data->box5->number = '';
         $data->box5->terminal = '';
         $data->box5->rank = '';
         $data->box5->service = '';
+        $data->box5->color = '';
       }
       if (isset($data->box6)) {
         $data->box6->number = '';
         $data->box6->terminal = '';
         $data->box6->rank = '';
         $data->box6->service = '';
+        $data->box6->color = '';
       }
       if (isset($data->box7)) {
         $data->box7->number = '';
         $data->box7->terminal = '';
         $data->box7->rank = '';
         $data->box7->service = '';
+        $data->box7->color = '';
       }
       if (isset($data->box8)) {
         $data->box8->number = '';
         $data->box8->terminal = '';
         $data->box8->rank = '';
         $data->box8->service = '';
+        $data->box8->color = '';
       }
       if (isset($data->box9)) {
         $data->box9->number = '';
         $data->box9->terminal = '';
         $data->box9->rank = '';
         $data->box9->service = '';
+        $data->box9->color = '';
       }
       if (isset($data->box10)) {
         $data->box10->number = '';
         $data->box10->terminal = '';
         $data->box10->rank = '';
         $data->box10->service = '';
+        $data->box10->color = '';
       }
       $encode = json_encode($data);
       file_put_contents(public_path() . '/json/' . Input::get('business_id') . '.json', $encode);

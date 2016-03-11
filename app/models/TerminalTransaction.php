@@ -37,7 +37,6 @@ class TerminalTransaction extends Eloquent{
         ];
         if($terminal_id) $values['terminal_id'] = $terminal_id;
         TerminalTransaction::insert($values);
-        Helper::dbLogger('TerminalTransaction', 'terminal_transaction', 'insert', 'createTerminalTransaction', User::email(Helper::userId()), 'transaction_number:' . $transaction_number);
     }
 
 

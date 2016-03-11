@@ -10,21 +10,21 @@
             <h4 class="text-center">Now Serving</h4>
             <div class="row">
                 <div class="col-md-6 col-xs-6">
-                    <div class="numbers t@{{ rank1 }}">
+                    <div class="numbers t@{{ rank1 }} @{{ color1 }}">
                         <p class="terminal">@{{ service1 }}</p>
                         <p class="terminal">@{{ name1 }}</p>
                         <h3>@{{ box1 }}</h3>
                     </div>
                 </div>
                 <div class="col-md-6 col-xs-6">
-                    <div class="numbers t@{{ rank2 }}">
+                    <div class="numbers t@{{ rank2 }} @{{ color2 }}">
                         <p class="terminal">@{{ service2 }}</p>
                         <p class="terminal">@{{ name2 }}</p>
                         <h3>@{{ box2 }}</h3>
                     </div>
                 </div>
                 <div class="col-md-6 col-xs-6">
-                    <div class="numbers t@{{ rank3 }}">
+                    <div class="numbers t@{{ rank3 }} @{{ color3 }}">
                         <p class="terminal">@{{ service3 }}</p>
                         <p class="terminal">@{{ name3 }}</p>
                         <h3>@{{ box3 }}</h3>
