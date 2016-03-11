@@ -1,5 +1,6 @@
 <html>
 <head>
+    <meta name=viewport content="width=device-width,initial-scale=1">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/signup/signup.css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600' rel='stylesheet' type='text/css'>

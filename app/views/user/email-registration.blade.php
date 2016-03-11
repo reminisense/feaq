@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>FeatherQ</title>
+    <meta name=viewport content="width=device-width,initial-scale=1">
     <meta name="title" content="FeatherQ"/>
     <meta name="description" content="FeatherQ is a DIY cloud-based queuing platform. We make it easy for businesses to manage their lines better and allow customers to wait on their own terms."/>
     <meta name="author" content="Reminisense, Corp."/>
@@ -12,7 +13,7 @@
     <meta name="og:site_name" content="FeatherQ"/>
     <meta name="fb:app_id" content="1574952899417459"/>
 
-<link rel="apple-touch-icon" sizes="57x57" href="/images/homepage/landing/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/homepage/landing/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/images/homepage/landing/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/images/homepage/landing/apple-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="76x76" href="/images/homepage/landing/apple-icon-76x76.png">
@@ -91,9 +92,10 @@
                              </div>
 
                             <div class="row mt30">
-                                <div class="col-md-5 col-xs-12">
+                                <div class="col-md-5 col-sm-5 col-xs-12 text-left" id="privacy-policy">
                                     {{--<a class="forgot-pass no-line" href="/user/forgot-password">Forgot password?</a>--}}
-                                    <i class="abs glyphicon glyphicon-book"></i><a href="" data-toggle="modal" data-target="#privacyModal" class="forgot-pass no-line">Visit our Privacy Policy</a>
+                                    <a href="" data-toggle="modal" data-target="#privacyModal" class="nomg forgot-pass privacy no-line">
+                                    <i class="glyphicon glyphicon-book"></i>Visit our Privacy Policy</a>
                                 </div>
                                 <div class="modal fade" id="privacyModal" tabindex="-1" role="dialog" aria-labelledby="privacyModal">
                                   <div class="modal-dialog modal-lg text-left" role="document">
@@ -128,7 +130,7 @@
                                   </div>
                                 </div>
 
-                                <div class="col-md-7 col-xs-12 text-right ">
+                                <div class="col-md-7 col-sm-7 col-xs-12 text-right " id="create-account">
                                     <button class="btn btn-teal" type="submit">CREATE MY ACCOUNT</button>
                                 </div>
                             </div>

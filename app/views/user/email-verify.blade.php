@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>FeatherQ</title>
+    <meta name=viewport content="width=device-width,initial-scale=1">
     <meta name="title" content="FeatherQ"/>
     <meta name="description" content="FeatherQ is a DIY cloud-based queuing platform. We make it easy for businesses to manage their lines better and allow customers to wait on their own terms."/>
     <meta name="author" content="Reminisense, Corp."/>
