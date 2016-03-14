@@ -27,31 +27,7 @@ class BusinessController extends BaseController{
     public function getMyBusiness(){
         if(Auth::check()){
             $businesses = UserBusiness::getAllBusinessIdByOwner(Helper::userId());
-            $my_terminals = TerminalUser::getTerminalAssignement(Helper::userId());
-            $assigned_businesses = [];
-            if (count($my_terminals) > 0){
-                foreach($my_terminals as $terminal){
-                    $bid = Business::getBusinessIdByTerminalId($terminal['terminal_id']);
-                    if(!isset($assigned_businesses[$bid])){
-                        $assigned_businesses[$bid] = [
-                            'business_id' => $bid,
-                            'name' => Business::name($bid),
-                            'terminals' => [
-                                [
-                                    'terminal_id' => $terminal['terminal_id'],
-                                    'name' => Terminal::name($terminal['terminal_id'])
-                                ]
-                            ]
-                        ];
-                    }else{
-                        array_push($assigned_businesses[$bid]['terminals'], [
-                            'terminal_id' => $terminal['terminal_id'],
-                            'name' => Terminal::name($terminal['terminal_id'])
-                        ]);
-                    }
-                }
-            }
-
+            $assigned_businesses = TerminalUser::getBusinessAssignment(Helper::userId());
             if (count($businesses) > 0){
                 $business = $businesses[0];
                 $business_id = $business->business_id;

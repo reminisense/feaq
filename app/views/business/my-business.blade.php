@@ -162,15 +162,16 @@ My Business
                                     <h4 class="modal-title">Choose Terminals</h4>
                                 </div>
                                 <div class="modal-body">
+                                    @foreach($business['services'] as $service)
                                     <table class="table table-responsive table-condense table-striped">
                                         <thead>
                                         <tr>
-                                            <th>{{ $business['name'] }}</th>
+                                            <th>{{ $service['name'] }}</th>
                                             <th class="text-right"><small></small></th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($business['terminals'] as $terminal)
+                                        @foreach($service['terminals'] as $terminal)
                                             <tr>
                                                 <td>{{ $terminal['name'] }}</td>
                                                 <td class="text-right">
@@ -180,6 +181,7 @@ My Business
                                         @endforeach
                                         </tbody>
                                     </table>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
