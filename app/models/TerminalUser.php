@@ -66,8 +66,57 @@ class TerminalUser extends Eloquent{
         return TerminalUser::isUserAssignedToTerminal(Helper::userId(), $terminal_id);
     }
 
-  public static function deleteUserByTerminalId($terminal_id) {
-    TerminalUser::where('terminal_id', '=', $terminal_id)->delete();
-      Helper::dbLogger('TerminalUser', 'terminal_user', 'delete', 'deleteUserByTerminalId', User::email(Helper::userId()), 'terminal_id:' . $terminal_id);
-  }
+    public static function deleteUserByTerminalId($terminal_id) {
+        TerminalUser::where('terminal_id', '=', $terminal_id)->delete();
+        Helper::dbLogger('TerminalUser', 'terminal_user', 'delete', 'deleteUserByTerminalId', User::email(Helper::userId()), 'terminal_id:' . $terminal_id);
+    }
+
+    public static function getBusinessAssignment($user_id = 0){
+        $my_terminals = TerminalUser::getTerminalAssignement($user_id);
+        $assigned_businesses = [];
+        if (count($my_terminals) > 0){
+            foreach($my_terminals as $terminal){
+                $service = Terminal::join('service', 'service.service_id', '=', 'terminal.service_id')
+                    ->where('terminal.terminal_id', '=', $terminal['terminal_id'])
+                    ->select('service.service_id', 'service.name', 'terminal.terminal_id')
+                    ->first();
+                $bid = Business::getBusinessIdByServiceId($service->service_id);
+                if(!isset($assigned_businesses[$bid])){
+                    $assigned_businesses[$bid] = [
+                        'business_id' => $bid,
+                        'name' => Business::name($bid),
+                        'services' => [
+                            $service->service_id => [
+                                'name' => $service->name,
+                                'terminals' => [
+                                    [
+                                        'terminal_id' => $terminal['terminal_id'],
+                                        'name' => Terminal::name($terminal['terminal_id'])
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ];
+                }else {
+                    if (!isset($assigned_businesses[$bid]['services'][$service->service_id])){
+                        $assigned_businesses[$bid]['services'][$service->service_id] = [
+                            'name' => $service->name,
+                            'terminals' => [
+                                [
+                                    'terminal_id' => $terminal['terminal_id'],
+                                    'name' => Terminal::name($terminal['terminal_id'])
+                                ]
+                            ]
+                        ];
+                    }else{
+                        array_push($assigned_businesses[$bid]['services'][$service->service_id]['terminals'], [
+                            'terminal_id' => $terminal['terminal_id'],
+                            'name' => Terminal::name($terminal['terminal_id'])
+                        ]);
+                    }
+                }
+            }
+        }
+        return $assigned_businesses;
+    }
 }
