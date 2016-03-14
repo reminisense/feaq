@@ -1,9 +1,15 @@
 <div class="clearfix header">
-    <h5>BUSINESS ANALYTICS</h5>
-    <form ng-submit="getBusinessAnalytics(startdate, enddate)">
-        <input type="text" id="start-date" name="start-date" class="datepicker" ng-model="startdate"/><b>-</b>
-        <input type="text" id="end-date" name="end-date" class="datepicker" ng-model="enddate"/>
-        <button class="btn btn-primary" type="submit" ng-disabled="startdate > enddate">Get Analytics</button>
+    <h5 class="mb20">BUSINESS ANALYTICS</h5>
+    <form class="clearfix" ng-submit="getBusinessAnalytics(startdate, enddate)">
+        <div class="col-md-2">
+            <input type="text" id="start-date" name="start-date" class="form-control datepicker" ng-model="startdate"/><b>-</b>
+        </div>
+        <div class="col-md-2">
+            <input type="text" id="end-date" name="end-date" class="form-control datepicker" ng-model="enddate"/>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-lg btn-primary" type="submit" ng-disabled="startdate > enddate">Get Analytics</button>
+        </div>
     </form>
 </div>
 <table class="table">
