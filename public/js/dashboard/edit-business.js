@@ -73,7 +73,12 @@ $(document).ready(function(){
     });*/
 
     /*terminal colors select value on dropdown click*/
-    $('#terminal-colors li a').on('click', function(){
+    $('#color-select li a').on('click', function(){
+        $(this).parents('ul').prev().removeClass('cyan yellow blue borange red violet green');
+        $(this).parents('ul').prev().addClass($(this).attr('data-color'));
+    });
+    $('.banana li a').on('click', function(){
+        alert('fqwfqw');
         $(this).parents('ul').prev().removeClass('cyan yellow blue borange red violet green');
         $(this).parents('ul').prev().addClass($(this).attr('data-color'));
     });

@@ -35,10 +35,9 @@
 <div class="clearfix mt20 mb10">
     <div class="col-md-12">
         <h5 class=mb10"">SERVICES MANAGEMENT</h5>
-        <button type="button" class=" btn btn-lg btn-orange" id="" ng-click="service_create = true" ng-show="services.length <= business_features.max_services" title="Add a Service"><span class="glyphicon glyphicon-plus"></span> Add a Service</button>
+        <button type="button" class=" mt10 mb20 btn btn-lg btn-orange" id="" ng-click="service_create = true" ng-show="services.length <= business_features.max_services" title="Add a Service"><span class="glyphicon glyphicon-plus"></span> Add a Service</button>
     </div>
 </div>
-
 <div class="clearfix">
     <div class="col-md-12 alert alert-danger" id="service-error" ng-show="service_error"> @{{ service_error }}</div>
 </div>
@@ -81,6 +80,7 @@
 
         <td>
             <div class="mt10 mb10 block clearfix">Terminal @{{ $index + 1 }}</div>
+
         </td>
         <td>
             <div class="mt10 mb10 block clearfix">
@@ -91,19 +91,26 @@
                         <div style="display: none; margin-top: 10px;" class="alert alert-danger terminal-error-message" terminal_id="@{{ terminal.terminal_id }}"></div>
                     </div>
                     <div class="col-md-5">
-                        <div class="pull-left clearfix dropdown" id="terminal-colors">
-                            <button id="btn-terminal-color" class="btn btn-md btn-primary dropdown-toggle " type="button" data-toggle="dropdown" aria-expanded="false">Select Color
-                            <span class="caret"></span></button>
-                            <ul class="dropdown-menu" id="terminal-colors">
-                                <li><a id="cyan" data-color="cyan" href=""></a></li>
-                                <li><a id="yellow" data-color="yellow" href=""></a></li>
-                                <li><a id="blue" data-color="blue" href=""></a></li>
-                                <li><a id="orange" data-color="borange" href=""></a></li>
-                                <li><a id="red" data-color="red" href=""></a></li>
-                                <li><a id="green" data-color="green" href=""></a></li>
-                                <li><a id="violet" data-color="violet" href=""></a></li>
-                            </ul>
+                        <div class="pull-left">
+                            <div id="terminal-colors" class="clearfix">
+                                                <div class="dropdown">
+                                                    <button id="btn-terminal-color" class="btn btn-md btn-primary dropdown-toggle " type="button" data-toggle="dropdown" aria-expanded="false">Select Color
+                                                    <span class="caret"></span></button>
+                                                    <ul class="dropdown-menu banana" id="">
+                                                        <li><a id="cyan" data-color="cyan" href=""></a></li>
+                                                        <li><a id="yellow" data-color="yellow" href=""></a></li>
+                                                        <li><a id="blue" data-color="blue" href=""></a></li>
+                                                        <li><a id="orange" data-color="borange" href=""></a></li>
+                                                        <li><a id="red" data-color="red" href=""></a></li>
+                                                        <li><a id="green" data-color="green" href=""></a></li>
+                                                        <li><a id="violet" data-color="violet" href=""></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
                         </div>
+                        {{--<div class=" dropdown" id="terminal-colors">
+
+                        </div>--}}
                         <div class="pull-left">
                             <button type="button" ng-click="editTerminal($event, terminal.terminal_id)" class="edit-terminal-button btn-boxy btn-light" terminal_id="@{{ terminal.terminal_id }}" title="Edit Terminal">
                                 <span class="glyphicon glyphicon-pencil"></span>
@@ -118,6 +125,7 @@
 
                     </div>
                 </form>
+
             </div>
         </td>
         <td width="">
