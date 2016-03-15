@@ -209,7 +209,9 @@ var pq = {
             userinfo += '</span>';
 
             if((queue_platform == 'remote' || queue_platform == 'android') && (checked_in == "true" || checked_in == true)){
-                userinfo += '<span><small class="pull-right font-normal" style="margin-right: 20px;margin-top: 1px; color: #333;">checked in</small><span class="pull-right glyphicon glyphicon-ok" style="font-size:10px;margin-top:3px;margin-right:3px; color: #333;"></span></span>';
+                userinfo += '<span><small class="c-status pull-right mr5 checkedin font-normal">checked in</small><span class="dpq-icons pull-right checkedin glyphicon glyphicon-ok"></span></span>';
+            }else{
+                userinfo += '<span><small class="c-status pull-right mr5 font-normal">not checked in</small><span class="dpq-icons pull-right glyphicon glyphicon-remove"></span></span>';
             }
 
 
