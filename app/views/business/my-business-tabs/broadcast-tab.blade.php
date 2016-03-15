@@ -120,7 +120,7 @@
                                         <div class="dropdown">
                                              <button class="btn btn-md btn-primary dropdown-toggle btn-terminal-color {{ $data["color"] }}" type="button" data-toggle="dropdown" terminal_id="{{ $data['terminal_id'] }}">Select Color
                                              <span class="caret"></span></button>
-                                             <ul class="dropdown-menu" id="terminal-colors">
+                                             <ul class="dropdown-menu" id="color-select">
                                                <li><a id="cyan" data-color="cyan" href=""></a></li>
                                                <li><a id="yellow" data-color="yellow" href=""></a></li>
                                                <li><a id="blue" data-color="blue" href=""></a></li>

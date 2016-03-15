@@ -149,10 +149,10 @@
 /*ARA 04082015*/
 .biz-navs .form-control {
     margin-bottom: 20px;
-    border: none;
-    border-bottom: 1px solid #ddd;
-    background-color: #f0f0f0;
-    border-radius: 0;
+    border: 1px solid #bcbcbc;
+    background-color: #fff;
+    -webkit-box-shadow:inset 0 0 2px 0 rgba(0,0,0,0.1);
+    box-shadow:inset 0 0 2px 0 rgba(0,0,0,0.1);
 }
 .broadcast-wrap .form-control {
     background-color: #fff!important;
@@ -211,7 +211,7 @@
     background-color: #fff;
 }
 #bizTabContent .tab-pane h5 {
-    margin-bottom: 2px;
+    margin-bottom: 0px;
     font-size: 16px;
     color: #00ba8b;
 }
@@ -389,6 +389,14 @@ h5>small {
     font-weight: normal;
     color: #fff;
 }
+.btn-light {
+    background-color: #e9e9e9;
+    color: #333;
+    border: 1px solid #ccc;
+}
+#btn-terminal-color {
+    margin-right: 4px;
+}
 .inline-btns a {
     margin: 4px 0px 4px 0px;
 }
@@ -408,27 +416,13 @@ h5>small {
 table .title {
     margin-bottom: 0!important;
 }
-.mb0 {
-    margin-bottom: 0!important;
-}
-.mb10 {
-    margin-bottom: 10px;
-}
-.mb20 {
-    margin-bottom: 20px!important;
-}
-.mb30 {
-    margin-bottom: 30px;
-}
-.mt10 {
-    margin-top: 10px;
-}
-.mt20 {
-    margin-top: 20px;
-}
-.mt30 {
-    margin-top: 30px;
-}
+.mb0  {  margin-bottom: 0!important;}
+.mb10 { margin-bottom: 10px;  }
+.mb20 { margin-bottom: 20px!important;  }
+.mb30 { margin-bottom: 30px;  }
+.mt10 { margin-top: 10px;  }
+.mt20 { margin-top: 20px;  }
+.mt30 { margin-top: 30px;  }
 
 .table .block a {
     display: inline-block;
@@ -634,7 +628,7 @@ input#input_sms_field:focus{
     margin-right: 25px;
 }
 #end-date{
-    margin-left: 25px;
+    /*margin-left: 25px;*/
 }
 #end-date, #start-date{
     text-align: center;
@@ -921,13 +915,17 @@ button#sendreply {
     padding-left: 10px;
     padding-right: 10px;
     display: inline-block;
+    width: 100px;
+}
+#terminal-colors .t-btn {
+    margin-right: 4px;
 }
 #terminal-colors .dropdown-menu {
     background-color: #f8f8f8;
     color: #333;
 }
 #terminal-colors .dropdown-menu a {
-    color: #333;
+    display: block;
 }
 #terminal-colors .dropdown-menu>li {
     margin: 6px 8px;

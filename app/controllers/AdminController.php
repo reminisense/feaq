@@ -739,4 +739,14 @@ class AdminController extends BaseController{
 
       echo 'data migrated';
     }
+
+  public function getDefaultColors() {
+    $colors = array('', 'blue', 'borange', 'violet', 'green', 'red', 'yellow', 'cyan');
+    $terminals = Terminal::all();
+    echo '<pre>';
+    foreach ($terminals as $count => $data) {
+      Terminal::where('terminal_id', '=', $data->terminal_id)->update(array('color' => $colors[$data->box_rank]));
+    }
+    echo 'default colors set.';
+  }
 }
