@@ -468,6 +468,7 @@ class ProcessQueue extends Eloquent{
                         $boxes->$box->terminal = isset($numbers[$index]['terminal_name']) ? $numbers[$index]['terminal_name'] : '';
                         $boxes->$box->rank = isset($numbers[$index]['box_rank']) ? $numbers[$index]['box_rank'] : ''; // Added by PAG
                         $boxes->$box->color = isset($numbers[$index]['color']) ? $numbers[$index]['color'] : ''; // Added by PAG
+                        $boxes->$box->user = isset($numbers[$index]['name']) ? $numbers[$index]['name'] : ''; //Added by ARA
                         $box_count++;
                     }
                 }else{
@@ -477,6 +478,7 @@ class ProcessQueue extends Eloquent{
                     $boxes->$box->terminal = '';
                     $boxes->$box->rank = ''; // Added by PAG
                     $boxes->$box->color = ''; // Added by PAG
+                    $boxes->$box->user = ''; //Added by ARA
                     $box_count++;
                 }
             }
