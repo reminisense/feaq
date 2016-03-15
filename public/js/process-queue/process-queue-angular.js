@@ -319,8 +319,10 @@
                 if(response.allowed_businesses && response.allowed_businesses.length != 0 ){
                     var businesses = response.allowed_businesses;
                     for(var index in businesses){
-                        $('#allowed-businesses').append('<option value="' + businesses[index].service_id +'">' + businesses[index].name + ' - ' + businesses[index].service_name + '</option>');
-                        $('#allowed-businesses-area').show();
+                        if(businesses[index].service_id != pq.ids.service_id){
+                            $('#allowed-businesses').append('<option value="' + businesses[index].service_id +'">' + businesses[index].name + ' - ' + businesses[index].service_name + '</option>');
+                            $('#allowed-businesses-area').show();
+                        }
                     }
                 }else{
                     $('#allowed-businesses option').remove();
@@ -338,10 +340,14 @@
                 transaction_number: transaction_number
             };
 
+            $('#forward-btn').append(' <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
+            $('#forward-btn').attr('disabled', 'disabled');
             $scope.serveNumber(transaction_number, function(){
                 $http.post('/issuenumber/issue-other/', data).success(function(response){
                     $('#priority-number-modal-close').show();
                     $('#allowed-businesses').attr('disabled', 'disabled');
+                    $('#forward-btn span').remove();
+                    $('#forward-btn').removeAttr('disabled');
                     $('#forward-btn').hide();
                     $('#forward-success').show();
                     $('#forward-success').html('Forward successful. The priority number given is ' + response.number.priority_number);
