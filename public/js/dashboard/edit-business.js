@@ -77,11 +77,7 @@ $(document).ready(function(){
         $(this).parents('ul').prev().removeClass('cyan yellow blue borange red violet green');
         $(this).parents('ul').prev().addClass($(this).attr('data-color'));
     });
-    $('.banana li a').on('click', function(){
-        alert('fqwfqw');
-        $(this).parents('ul').prev().removeClass('cyan yellow blue borange red violet green');
-        $(this).parents('ul').prev().addClass($(this).attr('data-color'));
-    });
+
 
     $('.biz-terminals').on('click', 'a', function(e){
         e.stopPropagation();
@@ -371,6 +367,11 @@ var eb = {
         cfpLoadingBarProvider.includeSpinner = false;
     }]);
     app.controller('editBusinessController', function($scope, $http, $filter){
+        $scope.testCliker = function(terminal_id, color) {
+            $('#btn-terminal-color-'+terminal_id).removeClass('cyan yellow blue borange red violet green');
+            $('#btn-terminal-color-'+terminal_id).addClass(color);
+        }
+
         $scope.user_id = null;
         $scope.business_id = null;
         $scope.business_name = null;

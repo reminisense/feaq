@@ -917,6 +917,9 @@ button#sendreply {
     display: inline-block;
     width: 100px;
 }
+#terminal-colors .t-btn {
+    margin-right: 4px;
+}
 #terminal-colors .dropdown-menu {
     background-color: #f8f8f8;
     color: #333;
