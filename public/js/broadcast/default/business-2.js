@@ -11,7 +11,7 @@ app.controller('nowServingCtrl', function($scope, $http) {
     announceNumberFromBlank($scope, response, 'box1', 'rank1');
     announceNumberFromBlank($scope, response, 'box2', 'rank2');
 
-    writeNumber($scope, response, 'box1', 'service1');
-    writeNumber($scope, response, 'box2', 'service2');
+    writeNumber($scope, response, 'box1', 'service1', 'user1');
+    writeNumber($scope, response, 'box2', 'service2', 'user2');
   });
 });

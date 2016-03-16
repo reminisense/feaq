@@ -21,10 +21,23 @@ app.controller('emailAuthController', function($scope, $http){
         $http.post('/user/email-login', {email: $scope.email, password: $scope.password}).success(function(response){
             if(response.redirect != undefined){
                 window.location.href = response.redirect;
-            }else if(response.error != undefined){
-                $scope.error_message = response.error;
+            }else if(response.error != undefined) {
+                if(response.resend != undefined){
+                    $('#err_message').show();
+                    $scope.error_message = '';
+                }else{
+                    $scope.error_message = response.error;
+                    $('#err_message').hide();
+                }
             }
             $('#FQLoaderModal').modal('hide');
+        });
+    }
+
+    $scope.resend_confirmation = function(email){
+        $http.get('/user/resend-confirmation/'+email).success(function(response){
+            $scope.error_message = 'Confirmation email was sent to your email.';
+            $('#err_message').hide();
         });
     }
 

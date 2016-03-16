@@ -110,6 +110,7 @@
                     </div>
                     <div class="clearfix">
                         <span class="blue mt20" style="display: block"><input style="font-size: 30px;" type="checkbox" ng-model="settings.show_called"> &nbsp; Show only called numbers in broadcast page</span>
+                        <span class="blue mt20" style="display: block"><input style="font-size: 30px;" type="checkbox" ng-model="settings.show_names"> &nbsp; Show customer names in broadcast page</span>
                     </div>
                 </div>
             </div>

@@ -17,11 +17,11 @@ app.controller('nowServingCtrl', function($scope, $http) {
     announceNumberFromBlank($scope, response, 'box4', 'rank4');
     announceNumberFromBlank($scope, response, 'box5', 'rank5');
 
-    writeNumber($scope, response, 'box1', 'service1');
-    writeNumber($scope, response, 'box2', 'service2');
-    writeNumber($scope, response, 'box3', 'service3');
-    writeNumber($scope, response, 'box4', 'service4');
-    writeNumber($scope, response, 'box5', 'service5');
+    writeNumber($scope, response, 'box1', 'service1', 'user1');
+    writeNumber($scope, response, 'box2', 'service2', 'user2');
+    writeNumber($scope, response, 'box3', 'service3', 'user3');
+    writeNumber($scope, response, 'box4', 'service4', 'user4');
+    writeNumber($scope, response, 'box5', 'service5', 'user5');
 
     /* RDH Checks if empty, show '-' if yes*/
     getNum($scope, response);
