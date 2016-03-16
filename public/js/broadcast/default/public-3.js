@@ -13,9 +13,9 @@ app.controller('nowServingCtrl', function($scope, $http) {
     announceNumberFromBlank($scope, response, 'box2', 'rank2');
     announceNumberFromBlank($scope, response, 'box3', 'rank3');
 
-    writeNumber($scope, response, 'box1', 'service1');
-    writeNumber($scope, response, 'box2', 'service2');
-    writeNumber($scope, response, 'box3', 'service3');
+    writeNumber($scope, response, 'box1', 'service1', 'user1');
+    writeNumber($scope, response, 'box2', 'service2', 'user2');
+    writeNumber($scope, response, 'box3', 'service3', 'user3');
 
     /* RDH Checks if empty, show '-' if yes*/
     getNum($scope, response);

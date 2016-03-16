@@ -152,6 +152,7 @@ class BusinessController extends BaseController
                   "get_num": " ",
                   "display": "1-6",
                   "show_issued": true,
+                  "show_names": false,
                   "ad_image": "",
                   "ad_video": "\/\/www.youtube.com\/embed\/EMnDdH8fdEc",
                   "ad_type": "carousel",
