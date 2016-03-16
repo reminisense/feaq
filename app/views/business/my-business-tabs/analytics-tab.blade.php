@@ -67,6 +67,14 @@
     </tr>
     </tbody>
 </table>
+<div class="clearfix" ng-show="analytics.queue_activity.length > 0">
+    <div class="header">
+        <h5 class="mb20">QUEUE ACTIVITY</h5>
+        <p>Displays the activity of the first day specified.</p>
+        <button class="btn btn-lg btn-primary" ng-click="generateQueueGraph()" type="button">Generate Graph</button>
+    </div>
+    <div id="queue-activity"></div>
+</div>
 <div class="alert alert-info" role="alert">
     <strong>FeatherQ Business Analytics</strong> features will be given for <strong>free</strong> for the next few months.
     However, future developments might classify these features to be given exclusively to premium users without prior notice.

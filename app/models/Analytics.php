@@ -85,6 +85,29 @@ class Analytics extends Eloquent{
     }
 
     public static function getBusinessAnalytics($business_id, $startdate = null, $enddate = null){
+        Log::info('Getting Business Analytics.');
+        $business = Business::where('business_id', '=', $business_id)->first();
+        $business_features = unserialize($business->business_features);
+        $business_package = $business_features['package_type']; // basic, plus, pro
+        switch ($business_package){
+            case 'Pro':
+                Log::info('Obtaining business analytics for pro package.');
+                $data = Analytics::getProAnalytics($business_id, $startdate, $enddate);
+                break;
+            case 'Plus':
+                Log::info('Obtaining business analytics for plus package.');
+                $data = Analytics::getPlusAnalytics($business_id, $startdate, $enddate);
+                break;
+            default:
+                Log::info('Obtaining business analytics for basic package.');
+                $data = Analytics::getBasicAnalytics($business_id, $startdate, $enddate);
+                break;
+        }
+
+        return $data;
+    }
+
+    public static function getBasicAnalytics($business_id, $startdate = null, $enddate = null){
         $startdate = $startdate == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $startdate;
         $enddate = $enddate == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $enddate;
 
@@ -132,8 +155,8 @@ class Analytics extends Eloquent{
         $queue_activity = [];
         for($starttime = $startdate; $starttime < strtotime('+1 day', $startdate); $starttime = strtotime('+1 hour', $starttime)){
             $queue_activity[] = [
-                'time' => date('H:00', $starttime),
-                'numbers_queue' => count(Analytics::getQueueAnalyticsRows(['action' => ['=', 0], 'business_id' => ['=', $business_id ], 'action_time' => ['>=', $starttime], 'action_time.' => ['<=', strtotime('+1 hour', $starttime)]])),
+                'time' => date('Y-m-d H:00', $starttime),
+                'value' => count(Analytics::getQueueAnalyticsRows(['action' => ['=', 0], 'business_id' => ['=', $business_id ], 'action_time' => ['>=', $starttime], 'action_time.' => ['<=', strtotime('+1 hour', $starttime)]])),
             ];
         }
 
@@ -142,7 +165,7 @@ class Analytics extends Eloquent{
             'queue_activity' => $queue_activity,
         ];
 
-        $basic = Analytics::getBusinessAnalytics($business_id, $startdate, $enddate);
+        $basic = Analytics::getBasicAnalytics($business_id, $startdate, $enddate);
         $data = array_merge($data, $basic);
         return $data;
     }

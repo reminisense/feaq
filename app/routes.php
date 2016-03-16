@@ -62,8 +62,6 @@ Route::controller('test', 'TestController');
 
 Route::controller('mobile', 'MobileController');
 
-Route::controller('analytics', 'AnalyticsController');
-
 //services methods
 Route::get('services/{id}', 'ServiceController@getIndex');
 
