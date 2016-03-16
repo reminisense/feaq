@@ -50,6 +50,7 @@
                     <div class="col-md-offset-3 col-md-6 text-center" ng-controller="emailAuthController">
                         <div class="clearfix col-md-12">
                             <div class="alert alert-warning" ng-show="error_message != ''">@{{ error_message  }}</div>
+                            <div class="alert alert-warning" id="err_message" style="display: none;">If you did not receive any email, please click <a href="" ng-click="resend_confirmation(email)">here</a>.</div>
                         </div>
                         <form id="login" class="" ng-submit="login()">
                             <div class="clearfix">
@@ -66,7 +67,6 @@
                                     <input class="abs form-control" type="password" name="password" ng-model="password"/>
                                 </div>
                             </div>
-
                             <div class="row mt30">
                                 <div class="col-md-6 col-xs-6 text-left">
                                     <a class="forgot-pass no-line" href="/user/forgot-password"><i class="glyphicon glyphicon-question-sign"></i>Forgot password?</a>
@@ -76,7 +76,6 @@
                                 </div>
                             </div>
                         </form>
-
                     </div>
 
                     <div class=" text-center col-md-12" ng-controller="fbController">
