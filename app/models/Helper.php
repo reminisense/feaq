@@ -418,7 +418,7 @@ class Helper extends Eloquent
         // [2016/1/26 13:23]User [Jonas] updated Business [XXX] Record [Business Name]
         $log = date("Y-m-d H:i:s", time()) . " Model: " . $model . "| Table: " . $table . "| Action: " .
             $action . "| Method: " . $method . "| By: " . $email . "| Info: " . $infos . "\n";
-        file_put_contents(public_path() . '/logs/fq-logs.txt', $log, FILE_APPEND);
+        Log::info($log);
     }
 
     public static function generateAccessKey(){
