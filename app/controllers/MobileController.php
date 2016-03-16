@@ -42,14 +42,12 @@ class MobileController extends BaseController{
 
         $user = User::where('user_id', '=', $user_id)->first();
         if($user){
-            $transaction_number = PriorityQueue::getLatestTransactionNumberOfUser($user_id);
+            $transaction_number = QueueTransaction::getLatestTransactionNumberOfUser($user_id);
             if($transaction_number){
-                $terminal_transaction = TerminalTransaction::where('transaction_number', '=', $transaction_number)->first();
-                $priority_queue = PriorityQueue::find($transaction_number);
-                $priority_number = PriorityNumber::find($priority_queue->track_id);
+                $terminal_transaction = QueueTransaction::where('transaction_number', '=', $transaction_number)->first();
                 $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
 
-                $issued_today = $priority_number->date == $date;
+                $issued_today = $terminal_transaction->date == $date;
                 if($issued_today && $terminal_transaction->time_completed > 0){
                     $user_status = 'served';
                 }else if($issued_today && $terminal_transaction->time_called > 0){
@@ -91,7 +89,7 @@ class MobileController extends BaseController{
                 if(count($all_numbers->called_numbers) > 0){
                     $last_called = json_decode(json_encode($all_numbers->called_numbers[0]));
                     $last_called->service_id = Terminal::serviceId($last_called->terminal_id);
-                    $last_called->user_id = PriorityQueue::userId($last_called->transaction_number);
+                    $last_called->user_id = QueueTransaction::userId($last_called->transaction_number);
                     $last_called = [
                         'service_id' => $last_called->service_id,
                         'service_name' => $last_called->service_name,
@@ -138,15 +136,13 @@ class MobileController extends BaseController{
     public function getUserQueue($user_id)
     {
         $user = User::find($user_id);
-        $transaction_number = PriorityQueue::getLatestTransactionNumberOfUser($user->user_id);
-        $terminal_transaction = TerminalTransaction::where('transaction_number', '=', $transaction_number)->first();
+        $transaction_number = QueueTransaction::getLatestTransactionNumberOfUser($user->user_id);
+        $terminal_transaction = QueueTransaction::where('transaction_number', '=', $transaction_number)->first();
 
         $data = [];
         if($terminal_transaction->time_completed == 0 && $terminal_transaction->time_removed == 0){
             //user priority_number details
-            $priority_queue = PriorityQueue::find($transaction_number);
-            $priority_number = PriorityNumber::find($priority_queue->track_id);
-            $queued_business_id = Business::getBusinessIdByServiceId($priority_number->service_id);
+            $queued_business_id = $terminal_transaction->business_id;
             $business = Business::find($queued_business_id);
 
             //business queueing status details
@@ -154,7 +150,7 @@ class MobileController extends BaseController{
             if(count($all_numbers->called_numbers) > 0){
                 $last_called = json_decode(json_encode($all_numbers->called_numbers[0]));
                 $last_called->service_id = Terminal::serviceId($last_called->terminal_id);
-                $last_called->user_id = PriorityQueue::userId($last_called->transaction_number);
+                $last_called->user_id = QueueTransaction::userId($last_called->transaction_number);
                 $last_called = [
                     'service_id' => $last_called->service_id,
                     'service_name' => $last_called->service_name,
@@ -176,8 +172,8 @@ class MobileController extends BaseController{
                 'last_name' => $user->last_name,
                 'email' => $user->email,
                 'contact' => $user->phone,
-                'priority_number' => $priority_queue->priority_number,
-                'estimated_time_left' => Analytics::getWaitingTimeByTransactionNumber($transaction_number),
+                'priority_number' => $terminal_transaction->priority_number,
+                'estimated_time_left' => Analytics::getWaitingTimeByTransactionNumber($transaction_number) * 1000, //convert to milliseconds
                 'business' => [
                     'id' => $business->business_id,
                     'name' => $business->name,
@@ -222,7 +218,7 @@ class MobileController extends BaseController{
     //Screen #7
     public function getMyBusinessHistory($transaction_number){
 
-        $user_id = PriorityQueue::userId($transaction_number);
+        $user_id = QueueTransaction::userId($transaction_number);
         $user_queues = User::getUserBusinessHistory($user_id, $transaction_number);
 
         $business = [
@@ -359,10 +355,10 @@ class MobileController extends BaseController{
 
         if($user_id){
             $user = User::find($user_id);
-            $transaction_number = PriorityQueue::getLatestTransactionNumberOfUser($user->user_id);
-            $terminal_transaction = TerminalTransaction::where('transaction_number', '=', $transaction_number)->first();
-            $priority_queue = PriorityQueue::find($transaction_number);
-            $priority_number = PriorityNumber::find($priority_queue->track_id);
+            $transaction_number = QueueTransaction::getLatestTransactionNumberOfUser($user->user_id);
+            $terminal_transaction = QueueTransaction::where('transaction_number', '=', $transaction_number)->first();
+            $priority_queue = QueueTransaction::find($transaction_number);
+            $priority_number = QueueTransaction::find($priority_queue->track_id);
 
             if($terminal_transaction->time_completed == 0 && $terminal_transaction->time_removed == 0){
                 $data->service_name = Service::name($priority_number->service_id);
@@ -448,7 +444,7 @@ class MobileController extends BaseController{
     }
 
     public function getCheckinTransaction($transaction_number){
-        TerminalTransaction::where('transaction_number', '=', $transaction_number)->update(['time_checked_in' => time()]);
+        QueueTransaction::where('transaction_number', '=', $transaction_number)->update(['time_checked_in' => time()]);
         return json_encode(['success' => 1]);
     }
 }

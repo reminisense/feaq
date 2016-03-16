@@ -114,4 +114,84 @@ class QueueTransaction extends Eloquent{
       return 'Error';
     }
   }
+
+  public static function priorityNumber($transaction_number){
+    return QueueTransaction::where('transaction_number', '=', $transaction_number)->first()->priority_number;
+  }
+
+  public static function name($transaction_number){
+    return QueueTransaction::where('transaction_number', '=', $transaction_number)->first()->name;
+  }
+
+  public static function email($transaction_number){
+    return QueueTransaction::where('transaction_number', '=', $transaction_number)->first()->email;
+  }
+
+  public static function phone($transaction_number){
+    return QueueTransaction::where('transaction_number', '=', $transaction_number)->first()->phone;
+  }
+
+  public static function userId($transaction_number){
+    return QueueTransaction::where('transaction_number', '=', $transaction_number)->first()->user_id;
+  }
+
+
+  public static function createPriorityQueue($priority_number, $confirmation_code, $user_id, $queue_platform){
+    $values = [
+      'priority_number' => $priority_number,
+      'confirmation_code' => $confirmation_code,
+      'user_id' => $user_id,
+      'queue_platform' => $queue_platform
+    ];
+    return QueueTransaction::insertGetId($values);
+  }
+
+  public static function updatePriorityQueueUser($transaction_number, $name = null, $phone = null, $email = null){
+    $values = [
+      'name' => $name,
+      'phone' => $phone,
+      'email' => $email,
+    ];
+    QueueTransaction::where('transaction_number', '=', $transaction_number)->update($values);
+    Helper::dbLogger('QueueTransaction', 'priority_queue', 'update', 'updatePriorityQueueUser', $email, 'transaction_number:' . $transaction_number);
+  }
+
+  public static function getLatestTransactionNumberOfUser($user_id){
+    $transaction = QueueTransaction::where('user_id', '=', $user_id)->orderBy('transaction_number', 'desc')->first();
+    return isset($transaction->transaction_number) ? $transaction->transaction_number : null;
+  }
+
+  public static function createPriorityNumber($service_id, $number_start, $number_limit, $last_number_given, $current_number, $date){
+    $values = [
+      'service_id' => $service_id,
+      'number_start' => $number_start,
+      'number_limit' => $number_limit,
+      'last_number_given' => $last_number_given,
+      'current_number' => $current_number,
+      'date' => $date
+    ];
+    return QueueTransaction::insertGetId($values);
+  }
+
+  public static function serviceId($transaction_number){
+    return QueueTransaction::find($transaction_number)->service_id;
+  }
+
+  public static function getPriorityNumberByServiceId($service_id) {
+    return PriorityNumber::where('service_id', '=', $service_id)->select(array('priority_number'))->get();
+  }
+
+  public static function setTimeAssignedByTransactionNumber($time_assigned, $transaction_number) {
+    QueueTransaction::where('transaction_number', '=', $transaction_number)->update(['time_assigned' => $time_assigned]);
+  }
+
+  public static function queueNumberExists($date, $email) {
+    $count = QueueTransaction::where('date', '=', $date)
+      ->where('email', '=', $email)
+      ->select(DB::raw('COUNT(*) as number_exists'))
+      ->first()
+      ->number_exists;
+    return $count > 0 ? TRUE : FALSE;
+  }
+
 }
