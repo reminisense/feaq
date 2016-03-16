@@ -9,7 +9,7 @@ app.controller('nowServingCtrl', function($scope, $http) {
 
     announceNumberFromBlank($scope, response, 'box1', 'rank1');
 
-    writeNumber($scope, response, 'box1', 'service1');
+    writeNumber($scope, response, 'box1', 'service1', 'user1');
 
     /* RDH Checks if empty, show '-' if yes*/
     getNum($scope, response);
