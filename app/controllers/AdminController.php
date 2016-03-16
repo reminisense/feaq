@@ -352,11 +352,10 @@ class AdminController extends BaseController{
 
         try {
           Notifier::sendConfirmationEmail($email);
-          return json_encode(['success' => 1, 'redirect' => '/user/login']);
+          return json_encode(['success' => 1]);
         } catch (Exception $e) {
           return json_encode([
-            'success' => 1,
-            'redirect' => '/user/email-verify/' . $email
+            'success' => 1
           ]);
         }
       }
