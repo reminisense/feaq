@@ -14,6 +14,7 @@
                         <p class="terminal">@{{ service1 }}</p>
                         <p class="terminal">@{{ name1 }}</p>
                         <h3 class="onenum">@{{ box1 }}</h3>
+                        <p class="terminal">@{{ user1 }}</p>
                     </div>
                 </div>
             </div>
