@@ -114,6 +114,7 @@ p>a:hover {text-decoration: none;}
 .btn-orange:hover {background-color: #ed701c!important;}
 footer {background-color: #d6d7d7; padding: 15px 0 18px; margin-top: 30px;}
 footer p {margin: 0;}
+.mr5 {margin-right: 5px;}
 ::-webkit-scrollbar {
     -webkit-appearance: none;
     width: 7px;

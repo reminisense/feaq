@@ -350,7 +350,7 @@
                     $('#forward-btn').removeAttr('disabled');
                     $('#forward-btn').hide();
                     $('#forward-success').show();
-                    $('#forward-success').html('Forward successful. The priority number given is ' + response.number.priority_number);
+                    $('#forward-success').html('<p class="forward-num">Forward successful. The priority number given is </p><h2>' + response.number.priority_number + '</h2>');
                     var business_id = response.business_id;
                     websocket.send(JSON.stringify({
                         business_id : business_id,
