@@ -3,17 +3,19 @@
         <h3 class="abs">NOW SERVING</h3>
         <div class="row-1">
             <div class="col-3">
-                <div class="numbers t@{{ rank1 }}">
+                <div class="numbers t@{{ rank1 }} @{{ color1 }}">
                     <p class="service">@{{ service1 }}</p>
                     <p class="terminal">@{{ name1 }}</p>
                     <p class="callnum">@{{ box1 }}</p>
+                    <p class="terminal">@{{ user1 }}</p>
                 </div>
             </div>
             <div class="col-3">
-                <div class="numbers t@{{ rank2 }}">
+                <div class="numbers t@{{ rank2 }} @{{ color2 }}">
                     <p class="service">@{{ service2 }}</p>
                     <p class="terminal">@{{ name2 }}</p>
                     <p class="callnum">@{{ box2 }}</p>
+                    <p class="terminal">@{{ user2 }}</p>
                 </div>
             </div>
             <div class="col-3">

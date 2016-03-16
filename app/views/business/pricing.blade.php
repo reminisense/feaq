@@ -87,12 +87,12 @@
     </div>
 </nav>
 
-<section id="banner" ng-controller="fbController">
+<section id="bannerx" ng-controller="fbController">
     <div class="container">
-        <div class="col-md-12 text-center">
+        <div class=" text-center">
             <div class="wow fadeIn">
                 <h3>FeatherQ Pricing</h3>
-                <div class="table-responsive">
+                <div class="">
                     <table id="pricing" class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -208,34 +208,26 @@
                             </tr>
                             <tr>
                                 <td>Data Ownership</td>
-                                <td></td>
+                                <td class="nodata"></td>
                                 <td class="apple">Shared Hosting</td>
                                 <td>With own Virtual Server</td>
                             </tr>
                             <tr>
                                 <td>Custom URL</td>
-                                <td></td>
+                                <td class="nodata"></td>
                                 <td class="banana"><span class="glyphicon glyphicon-ok"></span></td>
                                 <td><span class="glyphicon glyphicon-ok"></span></td>
                             </tr>
                             <tr>
                                 <td style="vertical-align: middle">Take Action Now! <span class="orange glyphicon glyphicon-arrow-right"></span> </td>
-                                <td><a href="/business/#contact-us" class="btn btn-orange btn-md">Request for Quotation</a></td>
-                                <td class="apple"><a href="/business/#contact-us" class="btn btn-orange btn-md">Request for Quotation</a></td>
-                                <td><a href="/business/#contact-us" class="btn btn-orange btn-md">Request for Quotation</a></td>
+                                <td><a href="/business/#contact-us" class="btn heada btn-md">Request for Quotation</a></td>
+                                <td class="apple"><a href="/business/#contact-us" class="btn headc btn-md">Request for Quotation</a></td>
+                                <td><a href="/business/#contact-us" class="btn heade btn-md">Request for Quotation</a></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
-
-<section id="featherq-features">
-    <div class="container">
-        <div class="col-md-12">
-
         </div>
     </div>
 </section>
@@ -250,12 +242,110 @@
 
 @include('modals.homepage.fb-loader')
 
-<script src="/js/business/landing/wow.min.js"></script>
-<script>
-    new WOW().init();
-</script>
-<script>window.jQuery || document.write('<script src="/js/jquery-1.11.2.min.js"><\/script>')</script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/business/landing/main.js"></script>
+    <script src="/js/business/landing/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <script>window.jQuery || document.write('<script src="/js/jquery-1.11.2.min.js"><\/script>')</script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/business/landing/main.js"></script>
+    <style type="text/css">
+
+
+        	/*
+        	Max width before this PARTICULAR table gets nasty
+        	This query will take effect for any screen smaller than 760px
+        	and also iPads specifically.
+        	*/
+        	button.heada, button.headc, button.heade {
+                color: #fff!important;
+            }
+        	@media
+        	only screen and (max-width: 992px),
+        	(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+        		/* Force table to not be like tables anymore */
+        		table, thead, tbody, th, td, tr {
+        			display: block;
+        		}
+
+        		/* Hide table headers (but not display: none;, for accessibility) */
+        		thead tr {
+        			position: absolute;
+        			top: -9999px;
+        			left: -9999px;
+        		}
+
+        		tr { border: 1px solid #ccc; }
+
+        		td {
+        			/* Behave  like a "row" */
+        			border: none;
+        			border-bottom: 1px solid #eee;
+        			position: relative;
+        			padding-left: 50%;
+        		}
+
+        		td:before {
+        			/* Now like a table header */
+        			position: absolute;
+        			/* Top/left values mimic padding */
+        			left: 0px;
+        			width: 45%;
+        			padding-right: 10px;
+        			white-space: nowrap;
+        			vertical-align: middle;
+                        text-align: left;
+
+                        padding-left: 15px;
+                        font-weight: 700;
+        		}
+
+        		/*
+        		Label the data
+        		*/
+        		td:nth-of-type(1):before { content: ""; text-align: left!important;}
+        		td:nth-of-type(2):before { content: "BASIC"; }
+        		td:nth-of-type(3):before { content: "PLUS"; }
+        		td:nth-of-type(4):before { content: "PRO"; }
+        		.apple {
+        		    background-color: #bfe2e2!important;
+        		}
+        		table#pricing tr td:first-child {
+                    font-weight: 700;
+                    color: #fff;
+                    background-color: #00BA8B;
+                    width: 100%;
+        		}
+        		.nodata {
+        		    height: 47px;;
+        		}
+        		#banner table .btn {
+        		    padding: 12px 20px;
+        		}
+
+
+        	}
+
+        	/* Smartphones (portrait and landscape) ----------- */
+        	@media only screen
+        	and (min-device-width : 320px)
+        	and (max-device-width : 480px) {
+        		body {
+        			padding: 0;
+        			margin: 0;
+        			width: 320px; }
+        		}
+
+
+        	/* iPads (portrait and landscape) ----------- */
+        	@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+        		body {
+        			width: 495px;
+        		}
+        	}
+
+
+    </style>
 </body>
 </html>

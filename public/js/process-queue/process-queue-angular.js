@@ -10,6 +10,13 @@
     }]);
 
     app.controller('processqueueController', function($scope, $http){
+        var current_date = new Date();
+        var day = current_date.getDate() < 10 ? '0' + current_date.getDate() : current_date.getDate();
+        var month = (current_date.getMonth() + 1) < 10 ? '0' + (current_date.getMonth() + 1) : (current_date.getMonth() + 1);
+        var year = current_date.getFullYear();
+
+        $scope.today = month + '-' + day + '-' + year;
+        $scope.date = $scope.today;
         $scope.terminal_id = pq.ids.terminal_id;
         $scope.called_numbers = [];
         $scope.uncalled_numbers = [];
@@ -37,14 +44,21 @@
         }
 
         $scope.getAllNumbers = function(){
-            getResponseResetValues(pq.urls.process_queue.all_numbers_url + pq.ids.service_id + '/' + pq.ids.terminal_id, null, null, function(){
-                //setTimeout(function(){
-                //    $scope.getAllNumbers();
-                //}, 1000);
+            url = pq.urls.process_queue.all_numbers_url + pq.ids.service_id + '/' + pq.ids.terminal_id + '/' + $scope.date;
+            setTimeout(function(){
+                $scope.isCalling = true;
+            });
+            getResponseResetValues(url, null, null, function(){
+                pq.jquery_functions.select_next_number();
+                if($scope.date != $scope.today && ($scope.timebound_numbers.length + $scope.uncalled_numbers.length == 0)){
+                    $scope.isCalling = true;
+                }else{
+                    $scope.isCalling = false;
+                }
             });
         };
 
-        $scope.callNumber = function(transaction_number){
+        $scope.callNumber = function(transaction_number, callback){
             $scope.called_numbers_rating = [];
             $scope.isCalling = true;
             transaction_number = transaction_number != undefined ? transaction_number : angular.element(document.querySelector('#selected-tnumber')).val();
@@ -54,12 +68,13 @@
                 $scope.issue_call_number = null;
                 $scope.isCalling = false;
                 $scope.updateBroadcast();
+                if(typeof callback === 'function') callback();
             });
         };
 
         $scope.serveNumber = function(transaction_number, callback){
             var i = getIndex(transaction_number);
-            if($scope.called_numbers[i].verified_email){
+            if($scope.called_numbers[i].verified_email != undefined && $scope.called_numbers[i].verified_email){
                 if($scope.called_numbers_rating[i] == undefined){
                     var rating = 3;
                 }else{
@@ -161,6 +176,43 @@
             }
         }
 
+        $scope.moveToday = function(transaction_number){
+            if($scope.timebound_numbers.length > 0 || $scope.uncalled_numbers.length > 0) {
+                var transaction_number = transaction_number != undefined ? transaction_number : angular.element(document.querySelector('#selected-tnumber')).val();
+                var data = {
+                    priority_number: null,
+                    name: null,
+                    phone: null,
+                    email: null
+                };
+
+                for(i=0; i < $scope.timebound_numbers.length; i++){
+                    if($scope.timebound_numbers[i].transaction_number == transaction_number){
+                        data.name = $scope.timebound_numbers[i].name;
+                        data.phone = $scope.timebound_numbers[i].phone;
+                        data.email = $scope.timebound_numbers[i].email;
+                        break;
+                    }
+                }
+
+                for(i=0; i < $scope.uncalled_numbers.length; i++){
+                    if($scope.uncalled_numbers[i].transaction_number == transaction_number){
+                        data.name = $scope.uncalled_numbers[i].name;
+                        data.phone = $scope.uncalled_numbers[i].phone;
+                        data.email = $scope.uncalled_numbers[i].email;
+                        break;
+                    }
+                }
+
+                $http.post(pq.urls.issue_numbers.issue_specific_url + pq.ids.service_id + '/' + pq.ids.terminal_id, data)
+                    .success(function(response) {
+                        $scope.updateBroadcast();
+                        $scope.date = $scope.today;
+                        $scope.getAllNumbers();
+                    });
+            }
+        }
+
         $scope.sendWebsocket = function(){
             websocket.send(JSON.stringify({
                 business_id : pq.ids.business_id,
@@ -203,8 +255,6 @@
             $scope.number_limit = numbers.number_limit;
 
             pq.jquery_functions.set_next_number_placeholder($scope.next_number);
-
-
         };
 
         select_next_number = function(){
@@ -222,7 +272,9 @@
                         $scope.timebound_numbers[0].priority_number,
                         $scope.timebound_numbers[0].name,
                         $scope.timebound_numbers[0].email,
-                        $scope.timebound_numbers[0].phone
+                        $scope.timebound_numbers[0].phone,
+                        $scope.timebound_numbers[0].queue_platform,
+                        $scope.timebound_numbers[0].checked_in
                     );
                 }else if($scope.uncalled_numbers.length > 0){
                     pq.jquery_functions.select_number(
@@ -230,7 +282,9 @@
                         $scope.uncalled_numbers[0].priority_number,
                         $scope.uncalled_numbers[0].name,
                         $scope.uncalled_numbers[0].email,
-                        $scope.uncalled_numbers[0].phone
+                        $scope.uncalled_numbers[0].phone,
+                        $scope.uncalled_numbers[0].queue_platform,
+                        $scope.uncalled_numbers[0].checked_in
                     );
                 }
             }else if(is_uncalled.length == 0 && is_timebound.length == 0){
@@ -241,7 +295,9 @@
                     $scope.timebound_numbers[0].priority_number,
                     $scope.timebound_numbers[0].name,
                     $scope.timebound_numbers[0].email,
-                    $scope.timebound_numbers[0].phone
+                    $scope.timebound_numbers[0].phone,
+                    $scope.timebound_numbers[0].queue_platform,
+                    $scope.timebound_numbers[0].checked_in
                 );
             }
         }
@@ -257,11 +313,16 @@
         }
 
         $scope.getAllowedBusinesses = function(){
+            $('#allowed-businesses option').remove();
+            $('#allowed-businesses-area').hide();
             $http.get('/business/allowed-businesses/' + pq.ids.business_id).success(function(response){
                 if(response.allowed_businesses && response.allowed_businesses.length != 0 ){
                     var businesses = response.allowed_businesses;
                     for(var index in businesses){
-                        $('#allowed-businesses').append('<option value="' + businesses[index].service_id +'">' + businesses[index].name + ' - ' + businesses[index].service_name + '</option>');
+                        if(businesses[index].service_id != pq.ids.service_id){
+                            $('#allowed-businesses').append('<option value="' + businesses[index].service_id +'">' + businesses[index].name + ' - ' + businesses[index].service_name + '</option>');
+                            $('#allowed-businesses-area').show();
+                        }
                     }
                 }else{
                     $('#allowed-businesses option').remove();
@@ -279,9 +340,17 @@
                 transaction_number: transaction_number
             };
 
+            $('#forward-btn').append(' <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
+            $('#forward-btn').attr('disabled', 'disabled');
             $scope.serveNumber(transaction_number, function(){
                 $http.post('/issuenumber/issue-other/', data).success(function(response){
-                    $('#priority-number-modal').modal('hide');
+                    $('#priority-number-modal-close').show();
+                    $('#allowed-businesses').attr('disabled', 'disabled');
+                    $('#forward-btn span').remove();
+                    $('#forward-btn').removeAttr('disabled');
+                    $('#forward-btn').hide();
+                    $('#forward-success').show();
+                    $('#forward-success').html('Forward successful. The priority number given is ' + response.number.priority_number);
                     var business_id = response.business_id;
                     websocket.send(JSON.stringify({
                         business_id : business_id,

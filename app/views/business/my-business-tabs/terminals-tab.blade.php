@@ -1,9 +1,9 @@
-<div class="clearfix header">
+<div class="clearfix header mb10">
     <h5 class="col-md-12">STAFF MANAGEMENT</h5>
 </div>
 
 <!-- Start new services form -->
-<div class="col-md-12">
+<div class="clearfix">
     <form ng-submit="emailSearch(search_user, selected_terminal)">
         <div class="col-md-12">
             <div class="alert alert-danger" id="add-user-error" ng-show="assign_error">@{{ assign_error }}</div>
@@ -12,7 +12,7 @@
             Assign to terminal :
         </div>
         <div class="col-md-2">
-            <input type="email" class="form-control" placeholder="Email" ng-model="search_user" title="Staff Email" required/>
+            <input type="email" class="form-control" placeholder="Email Address" ng-model="search_user" title="Staff Email" required/>
         </div>
         <div class="col-md-2">
             <select class="form-control" ng-model="selected_service" title="Select Service">
@@ -32,13 +32,12 @@
 </div>
 <!-- end new services form -->
 
-<div class="clearfix mt20 mb30">
+<div class="clearfix mt20 mb10">
     <div class="col-md-12">
-        <h5 class="mb20">SERVICES MANAGEMENT</h5>
-        <button type="button" class=" btn btn-lg btn-orange" id="" ng-click="service_create = true" ng-show="services.length <= business_features.max_services" title="Add a Service"><span class="glyphicon glyphicon-plus"></span> Add a Service</button>
+        <h5 class=mb10"">SERVICES MANAGEMENT</h5>
+        <button type="button" class=" mt10 mb20 btn btn-lg btn-orange" id="" ng-click="service_create = true" ng-show="services.length <= business_features.max_services" title="Add a Service"><span class="glyphicon glyphicon-plus"></span> Add a Service</button>
     </div>
 </div>
-
 <div class="clearfix">
     <div class="col-md-12 alert alert-danger" id="service-error" ng-show="service_error"> @{{ service_error }}</div>
 </div>
@@ -79,29 +78,54 @@
     <tbody>
     <tr ng-repeat="terminal in service.terminals">
 
-        <td width="">
+        <td>
             <div class="mt10 mb10 block clearfix">Terminal @{{ $index + 1 }}</div>
+
         </td>
-        <td width="">
+        <td>
             <div class="mt10 mb10 block clearfix">
                 <form ng-submit="updateTerminal($event, terminal.terminal_id)">
-                    <div class="col-md-8" style="height: 25px;">
+                    <div class="col-md-7" style="height: 25px;">
                         <input type="text" class="form-control terminal-name-update terminal-update-field" terminal_id="@{{ terminal.terminal_id }}" value="@{{ terminal.name }}" style="display: none;">
                         <span class="terminal-name-display" terminal_id="@{{ terminal.terminal_id }}" style="font-size: 14px;">@{{ terminal.name }}</span>
                         <div style="display: none; margin-top: 10px;" class="alert alert-danger terminal-error-message" terminal_id="@{{ terminal.terminal_id }}"></div>
                     </div>
-                    <div class="col-md-4">
-                        <button type="button" ng-click="editTerminal($event, terminal.terminal_id)" class="edit-terminal-button btn-boxy btn-primary" terminal_id="@{{ terminal.terminal_id }}" title="Edit Terminal">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                        </button>
-                        <button type="button" ng-click="deleteTerminal($event, terminal.terminal_id)" class="delete-terminal-button btn-boxy btn-danger" style="display:inline-block;" title="Delete Terminal">
-                            <span class="glyphicon glyphicon-trash"></span>
-                        </button>
-                        <button type="submit" class="update-terminal-button btn-boxy btn-success" terminal_id="@{{ terminal.terminal_id }}" style="display: none;" title="Save">
-                            <span class="glyphicon glyphicon-floppy-disk"></span>
-                        </button>
+                    <div class="col-md-5">
+                        <div class="pull-left">
+                            <div id="terminal-colors" class="clearfix">
+                                                <div class="dropdown">
+                                                    <button id="btn-terminal-color-@{{ terminal.terminal_id }}" class="btn btn-md btn-primary t-btn dropdown-toggle " type="button" data-toggle="dropdown" aria-expanded="false">Select Color
+                                                    <span class="caret"></span></button>
+                                                    <ul class="dropdown-menu banana" id="">
+                                                        <li><a id="cyan" data-color="cyan" href="" ng-click="testCliker(terminal.terminal_id, 'cyan')"></a></li>
+                                                        <li><a id="yellow" data-color="yellow" href="" ng-click="testCliker(terminal.terminal_id, 'yellow')"></a></li>
+                                                        <li><a id="blue" data-color="blue" href="" ng-click="testCliker(terminal.terminal_id, 'blue')"></a></li>
+                                                        <li><a id="orange" data-color="borange" href="" ng-click="testCliker(terminal.terminal_id, 'borange')"></a></li>
+                                                        <li><a id="red" data-color="red" href="" ng-click="testCliker(terminal.terminal_id, 'red')"></a></li>
+                                                        <li><a id="green" data-color="green" href="" ng-click="testCliker(terminal.terminal_id, 'green')"></a></li>
+                                                        <li><a id="violet" data-color="violet" href="" ng-click="testCliker(terminal.terminal_id, 'violet')"></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                        </div>
+                        {{--<div class=" dropdown" id="terminal-colors">
+
+                        </div>--}}
+                        <div class="pull-left">
+                            <button type="button" ng-click="editTerminal($event, terminal.terminal_id)" class="edit-terminal-button btn-boxy btn-light" terminal_id="@{{ terminal.terminal_id }}" title="Edit Terminal">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                            <button type="button" ng-click="deleteTerminal($event, terminal.terminal_id)" class="delete-terminal-button btn-boxy btn-light" style="display:inline-block;" title="Delete Terminal">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                            <button type="submit" class="update-terminal-button btn-boxy btn-success" terminal_id="@{{ terminal.terminal_id }}" style="display: none;" title="Save">
+                                <span class="glyphicon glyphicon-floppy-disk"></span>
+                            </button>
+                        </div>
+
                     </div>
                 </form>
+
             </div>
         </td>
         <td width="">

@@ -13,11 +13,13 @@ class Terminal extends Eloquent{
     public $timestamps = false;
 
     public static function createTerminal($service_id, $name){
+        $colors = array('', 'blue', 'borange', 'violet', 'green', 'red', 'yellow', 'cyan');
         $terminal = new Terminal();
         $terminal->name = $name;
         $terminal->service_id = $service_id;
         $terminal->status = 1;
         $terminal->box_rank = Terminal::generateBoxRank($service_id); // Added by PAG
+        $terminal->color = $colors[$terminal->box_rank];
 
         $terminal->save();
         Helper::dbLogger('Terminal', 'terminal', 'insert', 'createTerminal', User::email(Helper::userId()), 'terminal_id:' . $terminal->terminal_id);
@@ -136,5 +138,13 @@ class Terminal extends Eloquent{
     Terminal::where('service_id', '=', $service_id)->delete();
       Helper::dbLogger('Terminal', 'terminal', 'delete', 'deleteTerminalsByServiceId', User::email(Helper::userId()), 'service_id:' . $service_id);
   }
+
+    public static function setColor($hex_color, $terminal_id) {
+        Terminal::where('terminal_id', '=', $terminal_id)->update(array('color' => $hex_color));
+    }
+
+    public static function getColorByTerminalId($terminal_id) {
+        return Terminal::where('terminal_id', '=', $terminal_id)->select(array('color'))->first()->color;
+    }
 
 }

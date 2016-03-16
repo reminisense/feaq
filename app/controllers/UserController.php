@@ -161,9 +161,9 @@ class UserController extends BaseController{
         $user = User::searchByEmail($email);
 
         return json_encode(array_merge($user, array(
-            'status' => User::getStatusByUserId($user['user_id']),
-            'address' => User::local_address($user['user_id']),
-            'phone' => User::phone($user['user_id'])
+            'status' =>  $user ? User::getStatusByUserId($user['user_id']) : null,
+            'address' => $user ? User::local_address($user['user_id']) : null,
+            'phone' => $user ? User::phone($user['user_id']) : null
         )));
     }
 
@@ -278,6 +278,8 @@ class UserController extends BaseController{
             if($user && !$user->verified){
                 $verification_url = url('/user/verify-email');
                 return json_encode(['error' => 'Email verification required. Go ' . $verification_url . '/{your email} to verify your account.']);
+            }else if($user && $user->password == '' && $user->fb_id != ''){
+                return json_encode(['error' => 'Email is connected to a Facebook account. Please login with Facebook.']);
             }else if($user && Hash::check($password, $user->password)){
                 Session::put('FBaccessToken', null);
                 Auth::loginUsingId($user->user_id);
@@ -352,6 +354,7 @@ class UserController extends BaseController{
     }
 
     public function getPasswordReset($code){
+        Auth::logout();
         $user_id = Crypt::decrypt($code);
         return View::make('user.password-reset')
             ->with('user_id', $user_id)

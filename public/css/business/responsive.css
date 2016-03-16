@@ -12,6 +12,12 @@
     #ad-well-inner #ad-num-width{
         width: 100%!important;
     }
+    .drag.abs {
+        display: none;
+    }
+    #ad-width {
+        border: 0px!important;
+    }
 }
 @media (min-width: 980px) and (max-width: 991px) {
     #bizTab li a {

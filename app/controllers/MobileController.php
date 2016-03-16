@@ -177,7 +177,7 @@ class MobileController extends BaseController{
                 'email' => $user->email,
                 'contact' => $user->phone,
                 'priority_number' => $priority_queue->priority_number,
-                'estimated_time_left' => Analytics::getWaitingTimeByTransactionNumber($transaction_number) * 1000, //convert to milliseconds
+                'estimated_time_left' => Analytics::getWaitingTimeByTransactionNumber($transaction_number),
                 'business' => [
                     'id' => $business->business_id,
                     'name' => $business->name,
@@ -445,5 +445,10 @@ class MobileController extends BaseController{
         }else{
             return json_encode(['error' => "There are missing parameters."]);
         }
+    }
+
+    public function getCheckinTransaction($transaction_number){
+        TerminalTransaction::where('transaction_number', '=', $transaction_number)->update(['time_checked_in' => time()]);
+        return json_encode(['success' => 1]);
     }
 }

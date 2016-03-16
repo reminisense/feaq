@@ -217,7 +217,7 @@ class Analytics extends Eloquent{
         $service_id = PriorityNumber::serviceId(PriorityQueue::trackId($transaction_number));
         $numbers_ahead = Analytics::getNumbersAhead($transaction_number);
         $average_waiting_time = Analytics::getAverageTimeCalledByServiceId($service_id, 'numeric', $date, $date);
-        return $average_waiting_time * $numbers_ahead;
+        return $average_waiting_time * $numbers_ahead * 1000; //convert to milliseconds
     }
 
     public static function getNumbersAhead($transaction_number){

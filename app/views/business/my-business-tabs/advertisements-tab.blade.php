@@ -58,7 +58,7 @@
             {{--<small>Choose whether to put an image or video in your broadcast screen.</small>--}}
         </h4>
             <div class="clearfix">
-                    <label><input type="radio" name="ad_type" value="image" ng-model="ad_type" ng-change="adType(ad_type, business_id)"> <strong>Image</strong></label>&nbsp;&nbsp;
+                <label><input type="radio" name="ad_type" value="image" ng-model="ad_type" ng-change="adType(ad_type, business_id)"> <strong>Image</strong></label>&nbsp;&nbsp;
                 <div class="clearfix">
                     <div class="col-md-12">
                         <div role="alert" class="alert alert-info">

@@ -58,7 +58,8 @@ $(document).ready(function(){
         $('#vid-submit-btn').removeClass('btn-disabled');
     });
 
-    $(document).on('click', '.process-queue', function(e){
+    /*removed by rodel to give modal a go*/
+    /*$(document).on('click', '.process-queue', function(e){
         if ($(this).find('.biz-terminals').is(':hidden')) {
             $(this).find('.biz-terminals').slideDown('fast');
             $('#process-queue').css("border","none");
@@ -69,7 +70,14 @@ $(document).ready(function(){
     $('html').click(function () {
         $('.biz-terminals').slideUp('fast');
         $('#process-queue').css({"border-bottom":"4px solid #d36e3c"});
+    });*/
+
+    /*terminal colors select value on dropdown click*/
+    $('#color-select li a').on('click', function(){
+        $(this).parents('ul').prev().removeClass('cyan yellow blue borange red violet green');
+        $(this).parents('ul').prev().addClass($(this).attr('data-color'));
     });
+
 
     $('.biz-terminals').on('click', 'a', function(e){
         e.stopPropagation();
@@ -359,6 +367,11 @@ var eb = {
         cfpLoadingBarProvider.includeSpinner = false;
     }]);
     app.controller('editBusinessController', function($scope, $http, $filter){
+        $scope.testCliker = function(terminal_id, color) {
+            $('#btn-terminal-color-'+terminal_id).removeClass('cyan yellow blue borange red violet green');
+            $('#btn-terminal-color-'+terminal_id).addClass(color);
+        }
+
         $scope.user_id = null;
         $scope.business_id = null;
         $scope.business_name = null;
@@ -469,7 +482,7 @@ var eb = {
             $scope.analytics = business.analytics;
             $scope.terminal_delete_error = business.error ? business.error : null;
             $scope.allowed_businesses = business.allowed_businesses;
-            $scope.custom_url = business.raw_code;
+            $scope.custom_url = business.custom_url != '' ?  business.custom_url : business.raw_code;
 
             $scope.services.unshift({ name: 'SELECT SERVICE' });
             $scope.selected_service = 0;
@@ -824,6 +837,7 @@ var eb = {
             var ticker_message3 = "";
             var ticker_message4 = "";
             var ticker_message5 = "";
+            var terminal_colors = [];
             $('.ticker-field-wrap .ticker_message').each(function() {
                 counter++;
                 if (counter == 1) {
@@ -843,6 +857,16 @@ var eb = {
                 }
             });
 
+            // fetch terminal color data
+            var counter = 0;
+            $('.btn-terminal-color').each(function() {
+                terminal_colors[counter] = {
+                    terminal_id: $(this).attr('terminal_id'),
+                    color_value: $(this).attr('class').split(' ')[5]
+                };
+                counter++;
+            });
+
             $http.post('/broadcast/save-settings', {
                 business_id : business_id,
                 adspace_size : $('#ad-width').css('width'),
@@ -856,7 +880,8 @@ var eb = {
                 ticker_message2 : ticker_message2,
                 ticker_message3 : ticker_message3,
                 ticker_message4 : ticker_message4,
-                ticker_message5 : ticker_message5
+                ticker_message5 : ticker_message5,
+                terminal_colors: terminal_colors
             }).success(function(response) {
                 $http.get('/processqueue/update-broadcast/' + business_id).success(function(response) {
                     websocket.send(JSON.stringify({
@@ -1279,6 +1304,7 @@ var eb = {
                 $http.post('/services', {name: name, business_id: $scope.business_id}).success(function (response) {
                     if(response.error){
                         $scope.service_error = response.error;
+                        eb.jquery_functions.clear_service_error_msg();
                     }else{
                         $scope.getBusinessDetails();
                         $scope.service_create = false;

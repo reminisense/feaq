@@ -30,6 +30,9 @@
                             <label>Location</label>
                             <input type="text" class=" form-control modal-input" id="edit_user_location" name="edit_user_location" autocomplete="off" required=""/>
                         </div>
+                        <div class="col-md-12">
+                            <a href="{{ url('/user/password-reset/' . $user_code ) }}">Reset Password</a>
+                        </div>
                     </div>
                 </form>
                  <div class="alert alert-success modal-message" id="profile_update_message" style="display: none;"></div>

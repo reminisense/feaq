@@ -152,8 +152,58 @@ form#verification_form input.mobile {
     font-weight: 700;
     font-size: 20px;
 }
-
 .mt20 {margin-top: 20px;}
 .mt30 {margin-top: 30px!important;}
 .mt40 {margin-top: 40px!important;}
 .mb0 {margin: 0!important;}
+.nomg {margin: 0!important;}
+.privacy {font-size: 14px;
+    margin-top: 12px;
+    display: inline-block;}
+@media only screen and (max-width : 1200px) {
+
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px) {
+
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+    #create-account {
+        margin-top: 20px;
+        text-align: center;
+    }
+    #privacy-policy {
+        text-align: center;
+    }
+    .mt30 {
+        margin-top: 20px!important;
+    }
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (max-width : 480px) {
+    #signup-body .btn-teal,
+    #signup-body .btn-fb {
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .forgot-pass {
+        font-size: 12px;
+    }
+    .container > .col-md-6 {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    #signup-header .logo img {
+        width: 242px;
+    }
+}
+
+/* Custom, iPhone Retina */
+@media only screen and (max-width : 320px) {
+
+}
