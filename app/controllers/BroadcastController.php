@@ -226,10 +226,6 @@ class BroadcastController extends BaseController{
       $data = $this->boxObjectCreator($data, Input::get('num_boxes'));
       $encode = json_encode($data);
       file_put_contents(public_path() . '/json/' . Input::get('business_id') . '.json', $encode);
-      print_r(Input::get('terminal_colors'));
-      foreach (Input::get('terminal_colors') as $count => $terminal_data) {
-        Terminal::setColor($terminal_data["color_value"], $terminal_data["terminal_id"]);
-      }
       return json_encode(array('status' => 1));
     }
     else {

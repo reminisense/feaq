@@ -371,6 +371,9 @@
         websocket.onclose = function(response){
             $('#WebsocketLoaderModal').modal('show');
         };
+        window.onbeforeunload = function(e) {
+            websocket.close();
+        }
 
         setInterval(function () {
             $scope.sendWebsocket();
