@@ -57,6 +57,7 @@ select.form-control {
 }
 .form-control {
     font-size: 13px;
+    margin-bottom: 20px;
 }
 .modal-body textarea,
 .modal-body,
