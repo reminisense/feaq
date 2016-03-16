@@ -49,17 +49,17 @@
                 <div class="container">
                     <div class="col-md-offset-3 col-md-6 text-center" ng-controller="emailAuthController">
                         <div class="clearfix col-md-12">
-                            <div class="alert alert-warning" ng-show="error_message != ''">@{{ error_message  }}</div>
+                            <div class="alert nomg alert-warning" ng-show="error_message != ''">@{{ error_message  }}</div>
                         </div>
-                        <form id="login" class="" ng-submit="login()">
-                            <div class="clearfix">
+                        <form id="login" class="clearfix" ng-submit="login()">
+                            <div class="col-md-12 clearfix">
                                 <label>Email</label>
                                 <div class="rel">
                                     <i class="abs glyphicon glyphicon-user"></i>
                                     <input class="abs form-control" type="email" name="email" ng-model="email"/>
                                 </div>
                             </div>
-                            <div class="clearfix">
+                            <div class="col-md-12 clearfix">
                                 <label>Password</label>
                                 <div class="rel">
                                     <i class="abs glyphicon glyphicon-lock"></i>
@@ -67,12 +67,14 @@
                                 </div>
                             </div>
 
-                            <div class="row mt30">
+                            <div class="col-md-12 mt30">
+                                <div class="row">
                                 <div class="col-md-6 col-xs-6 text-left">
                                     <a class="forgot-pass no-line" href="/user/forgot-password"><i class="glyphicon glyphicon-question-sign"></i>Forgot password?</a>
                                 </div>
                                 <div class="col-md-6 col-xs-6 text-right ">
                                     <button class="btn btn-teal" type="submit">LOGIN</button>
+                                </div>
                                 </div>
                             </div>
                         </form>
