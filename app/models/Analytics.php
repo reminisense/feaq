@@ -145,8 +145,7 @@ class Analytics extends Eloquent{
                     'numbers_called' => Analytics::getTotalNumbersCalledByTerminalUser($user['user_id'], $terminal['terminal_id'], $startdate, $enddate),
                     'numbers_served' => Analytics::getTotalNumbersServedByTerminalUser($user['user_id'], $terminal['terminal_id'], $startdate, $enddate),
                     'numbers_dropped' => Analytics::getTotalNumbersDroppedByTerminalUser($user['user_id'], $terminal['terminal_id'], $startdate, $enddate),
-                    'average_calling_time' => Analytics::getAverageTimeCalledByTerminalUser($user['user_id'], $terminal['terminal_id'], null, $startdate, $enddate),
-                    'average_serving_time' => Analytics::getAverageTimeServedByTerminalUser($user['user_id'], $terminal['terminal_id'], null, $startdate, $enddate),
+                    'average_serving_time' => Analytics::getAverageTimeServedByTerminalUser($user['user_id'], $terminal['terminal_id'], 'string', $startdate, $enddate),
                 ];
             }
         }
@@ -245,18 +244,6 @@ class Analytics extends Eloquent{
             return Analytics::getAverageTimeFromActionByServiceId(0, 1, $business_id, $startdate, $enddate);
         }else{
             return Analytics::getAverageTimeValueFromActionByServiceId(0, 1, $business_id, $startdate, $enddate);
-        }
-    }
-
-    public static function getAverageTimeCalledByTerminalUser($user_id, $terminal_id, $format = 'string', $startdate, $enddate){
-        $action1_numbers = Analytics::getQueueAnalyticsRows(['action' => ['=', 0], 'user_id' => ['=', $user_id ], 'date' => ['>=', $startdate], 'date.' => ['<=', $enddate]]);
-        $action2_numbers = Analytics::getQueueAnalyticsRows(['action' => ['=', 1], 'user_id' => ['=', $user_id ], 'terminal_id' => ['=', $terminal_id ], 'date' => ['>=', $startdate], 'date.' => ['<=', $enddate]]);
-        $average = Analytics::getAverageTimeFromActionArray($action1_numbers, $action2_numbers);
-
-        if($format === 'string'){
-            return  Helper::millisecondsToHMSFormat($average);
-        }else{
-            return $average;
         }
     }
 

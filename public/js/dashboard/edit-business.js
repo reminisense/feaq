@@ -1248,22 +1248,7 @@ var eb = {
         $scope.getBusinessAnalytics = function(startdate, enddate){
             $http.post('/business/business-analytics', { business_id: $scope.business_id, startdate: startdate, enddate: enddate }).success(function(response){
                 $scope.analytics = response.analytics;
-                $scope.generateQueueGraph();
             });
-        };
-
-        $scope.generateQueueGraph = function(){
-            angular.element('#queue-activity').empty();
-            if($scope.analytics.queue_activity.length > 0){
-                new Morris.Line({
-                    element: 'queue-activity',
-                    data: $scope.analytics.queue_activity,
-                    xkey: 'time',
-                    ykeys: ['value'],
-                    labels: ['Issued Numbers'],
-                    axes: true
-                });
-            }
         };
 
         $scope.saveQueueForwardingBusiness = function(){
