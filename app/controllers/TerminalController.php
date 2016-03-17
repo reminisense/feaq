@@ -99,4 +99,14 @@ class TerminalController extends BaseController{
         }
         return true;
     }
+
+    public function postSetColor() {
+        if (Helper::isBusinessOwner(Business::getBusinessIdByTerminalId(Input::get('terminal_id')), Helper::userId())) {
+            Terminal::setColor(Input::get('color_value'), Input::get('terminal_id'));
+            return json_encode(array('status' => '200', 'message' => 'OK'));
+        }
+        else {
+            return json_encode(array('status' => '401', 'message' => 'You are not allowed to access this webservice.'));
+        }
+    }
 }

@@ -918,7 +918,7 @@ button#sendreply {
     width: 100px;
 }
 #terminal-colors .t-btn {
-    margin-right: 4px;
+    margin: 4px 4px 4px 0;
 }
 #terminal-colors .dropdown-menu {
     background-color: #f8f8f8;
@@ -965,3 +965,4 @@ button#sendreply {
 #terminal-colors .terminal-name {
     display: block;
 }
+.table-responsive .panel {margin-bottom: 0;}
