@@ -39,6 +39,7 @@ app.controller('emailAuthController', function($scope, $http){
         $http.get('/user/resend-confirmation/'+email).success(function(response){
             $scope.error_message = 'Confirmation email was sent to your email.';
             $('#err_message').hide();
+            $('#resend-loader').hide();
         });
     }
 
