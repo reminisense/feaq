@@ -112,29 +112,6 @@
                         <span class="blue mt20" style="display: block"><input style="font-size: 30px;" type="checkbox" ng-model="settings.show_called"> &nbsp; Show only called numbers in broadcast page</span>
                         <span class="blue mt20" style="display: block"><input style="font-size: 30px;" type="checkbox" ng-model="settings.show_names"> &nbsp; Show customer names in broadcast page</span>
                     </div>
-                    <div class="clearfix mt30">
-                        <h3 class="mb10">Choose terminal colors:</h3>
-                        <div id="terminal-colors" class="clearfix">
-                            @foreach ($my_terminals as $count => $data)
-                                <div class="col-md-6 col-xs-12 mb10" style="">
-                                        <span class="terminal-name">{{ $data["name"] }}</span>
-                                        <div class="dropdown">
-                                             <button class="btn btn-md btn-primary dropdown-toggle btn-terminal-color {{ $data["color"] }}" type="button" data-toggle="dropdown" terminal_id="{{ $data['terminal_id'] }}">Select Color
-                                             <span class="caret"></span></button>
-                                             <ul class="dropdown-menu" id="color-select">
-                                               <li><a id="cyan" data-color="cyan" href=""></a></li>
-                                               <li><a id="yellow" data-color="yellow" href=""></a></li>
-                                               <li><a id="blue" data-color="blue" href=""></a></li>
-                                               <li><a id="orange" data-color="borange" href=""></a></li>
-                                               <li><a id="red" data-color="red" href=""></a></li>
-                                               <li><a id="green" data-color="green" href=""></a></li>
-                                               <li><a id="violet" data-color="violet" href=""></a></li>
-                                             </ul>
-                                        </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="ticker-wrap text-right">

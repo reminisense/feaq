@@ -58,16 +58,13 @@
 <table class="clearfix table table-hover" ng-init="terminal_index = 0" ng-repeat="service in services" ng-if="$index > 0">
     <thead>
     <tr>
-        <th width="">
-
+        <th colspan="2">
             <form ng-submit="updateService(edit_service_name, service.service_id)">
                 <strong>@{{ $index }} - <span class="service-name" ng-hide="service.edit_service">@{{ service.name }}</span></strong>
                 <input type="text" ng-model="edit_service_name" ng-show="service.edit_service" placeholder="@{{ service.name }}"/>
+                <a href="" ng-show="service.edit_service" ng-click="service.edit_service = !service.edit_service" class="edit-terminal-button btn-boxy btn-default" title="Cancel" ><span class="glyphicon glyphicon-remove"></span></a>
+                <a href="" ng-show="service.edit_service" ng-click="updateService(edit_service_name, service.service_id)" class="edit-terminal-button btn-boxy btn-primary" title="Save" ><span class="glyphicon glyphicon-floppy-disk"></span></a>
             </form>
-        </th>
-        <th width="">
-            <a href="" ng-show="service.edit_service" ng-click="service.edit_service = !service.edit_service" class="edit-terminal-button btn-boxy btn-default" title="Cancel" ><span class="glyphicon glyphicon-remove"></span></a>
-            <a href="" ng-show="service.edit_service" ng-click="updateService(edit_service_name, service.service_id)" class="edit-terminal-button btn-boxy btn-primary" title="Save" ><span class="glyphicon glyphicon-floppy-disk"></span></a>
         </th>
         <th width="" class="text-right">
             <a href="" ng-hide="service.edit_service" ng-click="service.edit_service = !service.edit_service" class="edit-terminal-button btn-boxy btn-primary"  title="Edit Service"><span class="glyphicon glyphicon-pencil"></span></a>
@@ -77,41 +74,17 @@
     </thead>
     <tbody>
     <tr ng-repeat="terminal in service.terminals">
-
-        <td>
+        <td width="15%">
             <div class="mt10 mb10 block clearfix">Terminal @{{ $index + 1 }}</div>
-
         </td>
-        <td>
+        <td width="50%">
             <div class="mt10 mb10 block clearfix">
                 <form ng-submit="updateTerminal($event, terminal.terminal_id)">
-                    <div class="col-md-7" style="height: 25px;">
+                    <div class="col-md-7">
                         <input type="text" class="form-control terminal-name-update terminal-update-field" terminal_id="@{{ terminal.terminal_id }}" value="@{{ terminal.name }}" style="display: none;">
                         <span class="terminal-name-display" terminal_id="@{{ terminal.terminal_id }}" style="font-size: 14px;">@{{ terminal.name }}</span>
                         <div style="display: none; margin-top: 10px;" class="alert alert-danger terminal-error-message" terminal_id="@{{ terminal.terminal_id }}"></div>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="pull-left">
-                            <div id="terminal-colors" class="clearfix">
-                                                <div class="dropdown">
-                                                    <button id="btn-terminal-color-@{{ terminal.terminal_id }}" class="btn btn-md btn-primary t-btn dropdown-toggle " type="button" data-toggle="dropdown" aria-expanded="false">Select Color
-                                                    <span class="caret"></span></button>
-                                                    <ul class="dropdown-menu banana" id="">
-                                                        <li><a id="cyan" data-color="cyan" href="" ng-click="testCliker(terminal.terminal_id, 'cyan')"></a></li>
-                                                        <li><a id="yellow" data-color="yellow" href="" ng-click="testCliker(terminal.terminal_id, 'yellow')"></a></li>
-                                                        <li><a id="blue" data-color="blue" href="" ng-click="testCliker(terminal.terminal_id, 'blue')"></a></li>
-                                                        <li><a id="orange" data-color="borange" href="" ng-click="testCliker(terminal.terminal_id, 'borange')"></a></li>
-                                                        <li><a id="red" data-color="red" href="" ng-click="testCliker(terminal.terminal_id, 'red')"></a></li>
-                                                        <li><a id="green" data-color="green" href="" ng-click="testCliker(terminal.terminal_id, 'green')"></a></li>
-                                                        <li><a id="violet" data-color="violet" href="" ng-click="testCliker(terminal.terminal_id, 'violet')"></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                        </div>
-                        {{--<div class=" dropdown" id="terminal-colors">
-
-                        </div>--}}
-                        <div class="pull-left">
+                        <div class="">
                             <button type="button" ng-click="editTerminal($event, terminal.terminal_id)" class="edit-terminal-button btn-boxy btn-light" terminal_id="@{{ terminal.terminal_id }}" title="Edit Terminal">
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </button>
@@ -122,13 +95,32 @@
                                 <span class="glyphicon glyphicon-floppy-disk"></span>
                             </button>
                         </div>
-
+                    </div>
+                    <div class="col-md-5 clearfix">
+                        <div class="pull-left">
+                            <div id="terminal-colors" class="clearfix">
+                                                <div class="dropdown">
+                                                    <button id="btn-terminal-color-@{{ terminal.terminal_id }}" class="btn btn-md btn-primary t-btn dropdown-toggle @{{ terminal.color }}" type="button" data-toggle="dropdown" aria-expanded="false">Select Color
+                                                    <span class="caret"></span></button>
+                                                    <ul class="dropdown-menu banana" id="">
+                                                        <li><a id="cyan" data-color="cyan" href="" ng-click="setTerminalColor(terminal.terminal_id, 'cyan')"></a></li>
+                                                        <li><a id="yellow" data-color="yellow" href="" ng-click="setTerminalColor(terminal.terminal_id, 'yellow')"></a></li>
+                                                        <li><a id="blue" data-color="blue" href="" ng-click="setTerminalColor(terminal.terminal_id, 'blue')"></a></li>
+                                                        <li><a id="orange" data-color="borange" href="" ng-click="setTerminalColor(terminal.terminal_id, 'borange')"></a></li>
+                                                        <li><a id="red" data-color="red" href="" ng-click="setTerminalColor(terminal.terminal_id, 'red')"></a></li>
+                                                        <li><a id="green" data-color="green" href="" ng-click="setTerminalColor(terminal.terminal_id, 'green')"></a></li>
+                                                        <li><a id="violet" data-color="violet" href="" ng-click="setTerminalColor(terminal.terminal_id, 'violet')"></a></li>
+                                                    </ul>
+                                                </div>
+                                                <small>*Colors will take effect on the next number.</small>
+                                            </div>
+                        </div>
                     </div>
                 </form>
 
             </div>
         </td>
-        <td width="">
+        <td width="35%">
             <div class="col-md-12" ng-if="terminal.users.length != 0">
                 <div ng-repeat="user in terminal.users">
                     <div class="mt10 mb10 block clearfix">
