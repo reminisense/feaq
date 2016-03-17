@@ -193,9 +193,9 @@ My Business
     </div>
     @endif
     @if(!$assigned_to_business)
-        <div class="alert alert-danger mt50">
+        <div class="alert alert-danger mt50 text-center">
             <p>
-                You neither a business owner or assigned to any business. For more information, please email us at <a href="mailto:contact@featherq.com">contact@featherq.com</a>
+                 If you are interested to create a FeatherQ business account, email us at <a href="mailto:contact@featherq.com">contact@featherq.com</a>
             </p>
         </div>
     @endif
