@@ -26,21 +26,6 @@ class QueueTransaction extends Eloquent{
    ============================*/
 
   /**
-   * creates a new terminal transaction
-   * @param unknown $transaction_number
-   * @param string $time_queued
-   */
-  public static function createQueueTransaction($transaction_number, $time_queued, $terminal_id = null){
-    $values = [
-      'transaction_number' => $transaction_number,
-      'time_queued' => $time_queued,
-    ];
-    if($terminal_id) $values['terminal_id'] = $terminal_id;
-    QueueTransaction::insert($values);
-  }
-
-
-  /**
    * updates the time called of a particular transaction
    * @param unknown $transaction_number
    * @param string $time_called
@@ -85,9 +70,7 @@ class QueueTransaction extends Eloquent{
       ->where('time_queued', '!=', 0)
       ->where('time_completed', '=', 0)
       ->where('time_removed', '=', 0)
-      ->where('priority_number.date', '=', $date)
-      ->leftJoin('priority_queue', 'terminal_transaction.transaction_number', '=', 'priority_queue.transaction_number')
-      ->leftJoin('priority_number', 'priority_queue.track_id', '=', 'priority_number.track_id')
+      ->where('date', '=', $date)
       ->get()
       ->toArray();
     return $results ? count($results) : 0;
@@ -131,19 +114,9 @@ class QueueTransaction extends Eloquent{
     return QueueTransaction::where('transaction_number', '=', $transaction_number)->first()->phone;
   }
 
-  public static function userId($transaction_number){
-    return QueueTransaction::where('transaction_number', '=', $transaction_number)->first()->user_id;
-  }
-
-
-  public static function createPriorityQueue($priority_number, $confirmation_code, $user_id, $queue_platform){
-    $values = [
-      'priority_number' => $priority_number,
-      'confirmation_code' => $confirmation_code,
-      'user_id' => $user_id,
-      'queue_platform' => $queue_platform
-    ];
-    return QueueTransaction::insertGetId($values);
+  public static function userId($transaction_number) {
+    return QueueTransaction::where('transaction_number', '=', $transaction_number)
+      ->first()->user_id;
   }
 
   public static function updatePriorityQueueUser($transaction_number, $name = null, $phone = null, $email = null){
@@ -161,16 +134,25 @@ class QueueTransaction extends Eloquent{
     return isset($transaction->transaction_number) ? $transaction->transaction_number : null;
   }
 
-  public static function createPriorityNumber($service_id, $number_start, $number_limit, $last_number_given, $current_number, $date){
+  public static function createTransactionRecord($service_id, $number_start, $number_limit, $last_number_given, $current_number, $date, $priority_number, $user_id, $queue_platform, $time_queued, $terminal_id = null){
     $values = [
       'service_id' => $service_id,
       'number_start' => $number_start,
       'number_limit' => $number_limit,
       'last_number_given' => $last_number_given,
       'current_number' => $current_number,
-      'date' => $date
+      'date' => $date,
+      'priority_number' => $priority_number,
+      'user_id' => $user_id,
+      'queue_platform' => $queue_platform,
+      'time_queued' => $time_queued,
     ];
+    if($terminal_id) $values['terminal_id'] = $terminal_id;
     return QueueTransaction::insertGetId($values);
+  }
+
+  public static function setConfirmationCodeByTransactionNumber($confirmation_code, $transaction_number) {
+    QueueTransaction::where('transaction_number', '=', $transaction_number)->update(array('confirmation_code' => $confirmation_code));
   }
 
   public static function serviceId($transaction_number){
@@ -178,7 +160,7 @@ class QueueTransaction extends Eloquent{
   }
 
   public static function getPriorityNumberByServiceId($service_id) {
-    return PriorityNumber::where('service_id', '=', $service_id)->select(array('priority_number'))->get();
+    return QueueTransaction::where('service_id', '=', $service_id)->select(array('priority_number'))->get();
   }
 
   public static function setTimeAssignedByTransactionNumber($time_assigned, $transaction_number) {
@@ -192,6 +174,10 @@ class QueueTransaction extends Eloquent{
       ->first()
       ->number_exists;
     return $count > 0 ? TRUE : FALSE;
+  }
+
+  public static function getTransactionNumbersByServiceId($service_id) {
+    return QueueTransaction::where('service_id', '=', $service_id)->select(array('transaction_number'))->get();
   }
 
 }

@@ -36,7 +36,7 @@ class TerminalController extends BaseController{
         $business_id = Business::getBusinessIdByTerminalId(Input::get('terminal_id'));
         if (Helper::isBusinessOwner($business_id, Helper::userId())) { // PAG added permission checking
             $error = 'There are still pending numbers for this terminal.';
-            if (TerminalTransaction::terminalActiveNumbers(Input::get('terminal_id')) == 0) {
+            if (QueueTransaction::terminalActiveNumbers(Input::get('terminal_id')) == 0) {
                 Terminal::deleteTerminal(Input::get('terminal_id'));
                 $error = NULL;
             }

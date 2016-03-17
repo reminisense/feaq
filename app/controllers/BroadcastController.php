@@ -190,22 +190,6 @@ class BroadcastController extends BaseController{
         return file_get_contents(public_path() . '/json/' . $branch_id . '.json');
     }
 
-    public function getServicesCurrentNumber($branch_id){
-        $services = PriorityNumber::getBranchServicesActiveQueue($branch_id);
-        foreach($services as $key => $service){
-            $services[$key] = $this->getServiceKeyDetails($service, $branch_id);
-        }
-        return $services;
-    }
-
-    public function getServiceKeyDetails($service, $branch_id){
-        $service->current_number = PriorityQueue::currentNumber($service->service_id, $branch_id);
-        $service->last_number_given = PriorityQueue::lastNumberGiven($service->service_id, $branch_id);
-        $service->terminals = $this->getTerminalCurrentNumber($service->service_id, $branch_id);
-        $service->called_numbers = PriorityQueue::calledNumbers($service->service_id, $branch_id);
-        return $service;
-    }
-
   public function postSaveSettings() {
     if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId())) {
       $data = json_decode(file_get_contents(public_path() . '/json/' . Input::get('business_id') . '.json'));

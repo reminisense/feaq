@@ -176,31 +176,19 @@ class RestController extends BaseController {
             foreach ($branches as $count2 => $branch) {
                 $services = Service::getServicesByBranchId($branch->branch_id);
                 foreach ($services as $count3 => $service) {
-                    $priority_numbers = PriorityNumber::getTrackIdByServiceId($service->service_id);
-                    foreach ($priority_numbers as $count4 => $priority_number) {
-                        $priority_queues = PriorityQueue::getTransactionNumberByTrackId($priority_number->track_id);
-                        foreach ($priority_queues as $count5 => $priority_queue) {
-                            $terminal_transactions = TerminalTransaction::getTimesByTransactionNumber($priority_queue->transaction_number);
-                            foreach ($terminal_transactions as $count6 => $terminal_transaction) {
-                                $grace_period = time() - $terminal_transaction->time_queued; // issued time must be on the current day to count as active
-                                if ($terminal_transaction->time_queued != 0
-                                    && $terminal_transaction->time_completed == 0
-                                    && $terminal_transaction->time_removed == 0
-                                    && $grace_period < 86400 ) { // 1 day; 60secs * 60 min * 24 hours
-                                    $active_businesses[] = array(
-                                        'business_id' => $business->business_id,
-                                        'local_address' => $business->local_address,
-                                        'name' => $business->name,
-                                    );
-                                    $actives = array('active-business' => $active_businesses);
-                                    break;
-                                }
-                            }
-                            if (array_key_exists($business->business_id, $active_businesses)) {
-                                break;
-                            }
-                        }
-                        if (array_key_exists($business->business_id, $active_businesses)) {
+                    $terminal_transactions = QueueTransaction::getTransactionNumbersByServiceId($service->service_id);
+                    foreach ($terminal_transactions as $count6 => $terminal_transaction) {
+                        $grace_period = time() - $terminal_transaction->time_queued; // issued time must be on the current day to count as active
+                        if ($terminal_transaction->time_queued != 0
+                          && $terminal_transaction->time_completed == 0
+                          && $terminal_transaction->time_removed == 0
+                          && $grace_period < 86400 ) { // 1 day; 60secs * 60 min * 24 hours
+                            $active_businesses[] = array(
+                              'business_id' => $business->business_id,
+                              'local_address' => $business->local_address,
+                              'name' => $business->name,
+                            );
+                            $actives = array('active-business' => $active_businesses);
                             break;
                         }
                     }
@@ -338,19 +326,17 @@ class RestController extends BaseController {
 
         if($user_id){
             try{
-            $transaction_number = PriorityQueue::getLatestTransactionNumberOfUser($user_id);
-            $priority_number = PriorityQueue::priorityNumber($transaction_number);
-            $track_id = PriorityQueue::trackId($transaction_number);
-            $service_id = PriorityNumber::serviceId($track_id);
+            $transaction_number = QueueTransaction::getLatestTransactionNumberOfUser($user_id);
+            $service_id = QueueTransaction::serviceId($transaction_number);
             $business_id = Branch::businessId(Service::branchId($service_id));
 
             $details = [
-                'number_assigned' => $priority_number,
+                'number_assigned' => $transaction_number->priority_number,
                 'business_id' => $business_id,
                 'business_name' => Business::name($business_id),
                 'current_number_called' => ProcessQueue::currentNumber($service_id),
                 'estimated_time_until_called' => Analytics::getWaitingTime($business_id),
-                'status' => TerminalTransaction::queueStatus($transaction_number),
+                'status' => QueueTransaction::queueStatus($transaction_number),
                 'allow_remote' => isset($allow_remote) ? $allow_remote : null,
             ];
             }catch(Exception $e){
@@ -423,7 +409,7 @@ class RestController extends BaseController {
             $queue_platform = 'android';
 
             $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, 0, $user_id);
-            PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
+            QueueTransaction::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
             if($email != ''){ Message::sendInitialMessage($business_id, $email, $name, $phone); }
 
             $details = [
@@ -458,7 +444,7 @@ class RestController extends BaseController {
             $queue_platform = 'android';
 
             $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, 0, $user_id);
-            PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
+            QueueTransaction::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
             if($email != ''){ Message::sendInitialMessage($business_id, $email, $name, $phone); }
 
             $details = [
@@ -713,7 +699,7 @@ class RestController extends BaseController {
             $queue_platform = 'kiosk';
 
             $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform);
-            PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
+            QueueTransaction::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
 
             $business_id = Business::getBusinessIdByServiceId($service_id);
             if($email != ''){ Message::sendInitialMessage($business_id, $email, $name, $phone); }

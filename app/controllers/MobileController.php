@@ -357,12 +357,10 @@ class MobileController extends BaseController{
             $user = User::find($user_id);
             $transaction_number = QueueTransaction::getLatestTransactionNumberOfUser($user->user_id);
             $terminal_transaction = QueueTransaction::where('transaction_number', '=', $transaction_number)->first();
-            $priority_queue = QueueTransaction::find($transaction_number);
-            $priority_number = QueueTransaction::find($priority_queue->track_id);
 
             if($terminal_transaction->time_completed == 0 && $terminal_transaction->time_removed == 0){
-                $data->service_name = Service::name($priority_number->service_id);
-                $data->user_priority_number = $priority_queue->priority_number;
+                $data->service_name = Service::name($terminal_transaction->service_id);
+                $data->user_priority_number = $terminal_transaction->priority_number;
                 $data->number_people_ahead = Analytics::getNumbersAhead($transaction_number);
                 $data->estimated_time_left = Analytics::getWaitingTimeByTransactionNumber($transaction_number);
             }
