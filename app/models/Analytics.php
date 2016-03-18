@@ -85,6 +85,29 @@ class Analytics extends Eloquent{
     }
 
     public static function getBusinessAnalytics($business_id, $startdate = null, $enddate = null){
+        Log::info('Getting Business Analytics.');
+        $business = Business::where('business_id', '=', $business_id)->first();
+        $business_features = unserialize($business->business_features);
+        $business_package = $business_features['package_type']; // basic, plus, pro
+        switch ($business_package){
+            case 'Pro':
+                Log::info('Obtaining business analytics for pro package.');
+                $data = Analytics::getProAnalytics($business_id, $startdate, $enddate);
+                break;
+            case 'Plus':
+                Log::info('Obtaining business analytics for plus package.');
+                $data = Analytics::getPlusAnalytics($business_id, $startdate, $enddate);
+                break;
+            default:
+                Log::info('Obtaining business analytics for basic package.');
+                $data = Analytics::getBasicAnalytics($business_id, $startdate, $enddate);
+                break;
+        }
+
+        return $data;
+    }
+
+    public static function getBasicAnalytics($business_id, $startdate = null, $enddate = null){
         $startdate = $startdate == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $startdate;
         $enddate = $enddate == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $enddate;
 
@@ -101,12 +124,84 @@ class Analytics extends Eloquent{
         return $analytics;
     }
 
+    public static function getPlusAnalytics($business_id, $startdate = null, $enddate = null){
+        $startdate = $startdate == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $startdate;
+        $enddate = $enddate == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $enddate;
+
+        $terminals = [];
+        $business_terminals = Terminal::getTerminalsByBusinessId($business_id);
+        foreach($business_terminals as $terminal_index => $terminal){
+            $terminal_users = TerminalUser::getAssignedUsers($terminal['terminal_id']);
+            $terminals[$terminal_index] = [
+                'terminal_id' =>  $terminal['terminal_id'],
+                'terminal_name' => $terminal['name'],
+                'users' => [],
+            ];
+            foreach($terminal_users as $user_index => $user){
+                $terminals[$terminal_index]['users'][] = [
+                    'user_id' => $user['user_id'],
+                    'user_name' => $user['first_name'] . ' ' . $user['last_name'],
+                    'numbers_issued' => Analytics::getTotalNumbersIssuedByTerminalUser($user['user_id'], $terminal['terminal_id'], $startdate, $enddate),
+                    'numbers_called' => Analytics::getTotalNumbersCalledByTerminalUser($user['user_id'], $terminal['terminal_id'], $startdate, $enddate),
+                    'numbers_served' => Analytics::getTotalNumbersServedByTerminalUser($user['user_id'], $terminal['terminal_id'], $startdate, $enddate),
+                    'numbers_dropped' => Analytics::getTotalNumbersDroppedByTerminalUser($user['user_id'], $terminal['terminal_id'], $startdate, $enddate),
+                    'average_serving_time' => Analytics::getAverageTimeServedByTerminalUser($user['user_id'], $terminal['terminal_id'], 'string', $startdate, $enddate),
+                ];
+            }
+        }
+
+        //getting the queue activity for the start date of
+        $queue_activity = [];
+        for($starttime = $startdate; $starttime < strtotime('+1 day', $startdate); $starttime = strtotime('+1 hour', $starttime)){
+            $queue_activity[] = [
+                'time' => date('Y-m-d H:00', $starttime),
+                'value' => count(Analytics::getQueueAnalyticsRows(['action' => ['=', 0], 'business_id' => ['=', $business_id ], 'action_time' => ['>=', $starttime], 'action_time.' => ['<=', strtotime('+1 hour', $starttime)]])),
+            ];
+        }
+
+        $data = [
+            'terminals' => $terminals,
+            'queue_activity' => $queue_activity,
+        ];
+
+        $basic = Analytics::getBasicAnalytics($business_id, $startdate, $enddate);
+        $data = array_merge($data, $basic);
+        return $data;
+    }
+
+    public static function getProAnalytics($business_id, $startdate = null, $enddate = null){
+        $startdate = $startdate == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $startdate;
+        $enddate = $enddate == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $enddate;
+
+        $data = [
+            'staff_reports' => [],
+        ];
+
+        $plus = Analytics::getPlusAnalytics($business_id, $startdate, $enddate);
+        $data = array_merge($data, $plus);
+        return $data;
+    }
+
 
     /**
      * individual queries
      */
 
-    /*time served*/
+    public static function getTotalNumbersIssuedByTerminalUser($user_id, $terminal_id, $startdate, $enddate){
+        return count(Analytics::getQueueAnalyticsRows(['action' => ['=', 0], 'user_id' => ['=', $user_id ], 'terminal_id' => ['=', $terminal_id],  'date' => ['>=', $startdate], 'date.' => ['<=', $enddate]]));
+    }
+
+    public static function getTotalNumbersCalledByTerminalUser($user_id, $terminal_id, $startdate, $enddate){
+        return count(Analytics::getQueueAnalyticsRows(['action' => ['=', 1], 'user_id' => ['=', $user_id ], 'terminal_id' => ['=', $terminal_id], 'date' => ['>=', $startdate], 'date.' => ['<=', $enddate]]));
+    }
+
+    public static function getTotalNumbersServedByTerminalUser($user_id, $terminal_id, $startdate, $enddate){
+        return count(Analytics::getQueueAnalyticsRows(['action' => ['=', 2], 'user_id' => ['=', $user_id ], 'terminal_id' => ['=', $terminal_id], 'date' => ['>=', $startdate], 'date.' => ['<=', $enddate]]));
+    }
+
+    public static function getTotalNumbersDroppedByTerminalUser($user_id, $terminal_id, $startdate, $enddate){
+        return count(Analytics::getQueueAnalyticsRows(['action' => ['=', 3], 'user_id' => ['=', $user_id ], 'terminal_id' => ['=', $terminal_id], 'date' => ['>=', $startdate], 'date.' => ['<=', $enddate]]));
+    }
 
     public static function getTotalNumbersIssuedByBusinessId($business_id, $startdate, $enddate){
         return count(Analytics::getQueueAnalyticsRows(['action' => ['=', 0], 'business_id' => ['=', $business_id ], 'date' => ['>=', $startdate], 'date.' => ['<=', $enddate]]));
@@ -152,6 +247,14 @@ class Analytics extends Eloquent{
         }
     }
 
+    public static function getAverageTimeServedByTerminalUser($user_id, $terminal_id, $format = 'string', $startdate, $enddate){
+        if($format === 'string'){
+            return Analytics::getAverageTimeFromActionByTerminalUser(1, 2, $user_id, $terminal_id, $startdate, $enddate);
+        }else{
+            return Analytics::getAverageTimeValueFromActionByTerminalUser(1, 2, $user_id, $terminal_id, $startdate, $enddate);
+        }
+    }
+
     //gets the string representation of the average time
     public static function getAverageTimeFromActionByBusinessId($action1, $action2, $business_id, $startdate, $enddate){
         return Helper::millisecondsToHMSFormat(Analytics::getAverageTimeValueFromActionByBusinessId($action1, $action2, $business_id, $startdate, $enddate));
@@ -159,6 +262,10 @@ class Analytics extends Eloquent{
 
     public static function getAverageTimeFromActionByServiceId($action1, $action2, $service_id, $startdate, $enddate){
         return Helper::millisecondsToHMSFormat(Analytics::getAverageTimeValueFromActionByServiceId($action1, $action2, $service_id, $startdate, $enddate));
+    }
+
+    public static function getAverageTimeFromActionByTerminalUser($action1, $action2, $user_id, $terminal_id, $startdate, $enddate){
+        return Helper::millisecondsToHMSFormat(Analytics::getAverageTimeValueFromActionByTerminalUser($action1, $action2, $user_id, $terminal_id, $startdate, $enddate));
     }
 
     //gets the numeric representation of the average time
@@ -171,6 +278,12 @@ class Analytics extends Eloquent{
     public static function getAverageTimeValueFromActionByServiceId($action1, $action2, $service_id, $startdate, $enddate){
         $action1_numbers = Analytics::getQueueAnalyticsRows(['action' => ['=', $action1], 'service_id' => ['=', $service_id ], 'date' => ['>=', $startdate], 'date.' => ['<=', $enddate]]);
         $action2_numbers = Analytics::getQueueAnalyticsRows(['action' => ['=', $action2], 'service_id' => ['=', $service_id ], 'date' => ['>=', $startdate], 'date.' => ['<=', $enddate]]);
+        return Analytics::getAverageTimeFromActionArray($action1_numbers, $action2_numbers);
+    }
+
+    public static function getAverageTimeValueFromActionByTerminalUser($action1, $action2, $user_id, $terminal_id, $startdate, $enddate){
+        $action1_numbers = Analytics::getQueueAnalyticsRows(['action' => ['=', $action1], 'user_id' => ['=', $user_id ], 'terminal_id' => ['=', $terminal_id ], 'date' => ['>=', $startdate], 'date.' => ['<=', $enddate]]);
+        $action2_numbers = Analytics::getQueueAnalyticsRows(['action' => ['=', $action2], 'user_id' => ['=', $user_id ], 'terminal_id' => ['=', $terminal_id ], 'date' => ['>=', $startdate], 'date.' => ['<=', $enddate]]);
         return Analytics::getAverageTimeFromActionArray($action1_numbers, $action2_numbers);
     }
 

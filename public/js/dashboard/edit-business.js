@@ -488,7 +488,6 @@ var eb = {
                 $scope.twilio_auth_token = business.twilio_auth_token;
                 $scope.twilio_phone_number = business.twilio_phone_number;
             }
-
             eb.jquery_functions.load_remote_limit_slider();
         }
 
