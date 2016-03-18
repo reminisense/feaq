@@ -218,6 +218,7 @@ class BroadcastController extends BaseController{
       }
       $data->display = $this->generateDisplayCode($data->ad_type, Input::get('num_boxes'));
       $data->show_issued = Input::get('show_issued');
+      $data->show_names = Input::get('show_names');
       $data->ticker_message = Input::get('ticker_message');
       $data->ticker_message2 = Input::get('ticker_message2');
       $data->ticker_message3 = Input::get('ticker_message3');
@@ -226,10 +227,6 @@ class BroadcastController extends BaseController{
       $data = $this->boxObjectCreator($data, Input::get('num_boxes'));
       $encode = json_encode($data);
       file_put_contents(public_path() . '/json/' . Input::get('business_id') . '.json', $encode);
-      print_r(Input::get('terminal_colors'));
-      foreach (Input::get('terminal_colors') as $count => $terminal_data) {
-        Terminal::setColor($terminal_data["color_value"], $terminal_data["terminal_id"]);
-      }
       return json_encode(array('status' => 1));
     }
     else {
@@ -649,6 +646,9 @@ class BroadcastController extends BaseController{
       $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
       if (!isset($data->show_issued)) {
         $data->show_issued = TRUE;
+      }
+      if (!isset($data->show_names)) {
+        $data->show_names = FALSE;
       }
       if (!isset($data->ad_image)) {
         $data->ad_image = "";

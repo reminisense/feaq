@@ -36,7 +36,6 @@ class BusinessController extends BaseController
                 $business_id = $business->business_id;
                 unset($assigned_businesses[$business->business_id]);
                 return View::make('business.my-business')
-                    ->with('my_terminals', Terminal::getTerminalsByBusinessId($business_id))
                     //->with('user_id', Helper::userId()) //ARA - moved assignment to filters.php
                     ->with('business_id', $business_id)
                     ->with('raw_code', Business::getRawCodeByBusinessId($business_id))
@@ -152,6 +151,7 @@ class BusinessController extends BaseController
                   "get_num": " ",
                   "display": "1-6",
                   "show_issued": true,
+                  "show_names": false,
                   "ad_image": "",
                   "ad_video": "\/\/www.youtube.com\/embed\/EMnDdH8fdEc",
                   "ad_type": "carousel",

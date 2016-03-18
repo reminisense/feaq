@@ -49,7 +49,12 @@
                 <div class="container">
                     <div class="col-md-offset-3 col-md-6 text-center" ng-controller="emailAuthController">
                         <div class="clearfix col-md-12">
-                            <div class="alert nomg alert-warning" ng-show="error_message != ''">@{{ error_message  }}</div>
+                            <div class="alert alert-warning" ng-show="error_message != ''">@{{ error_message  }}</div>
+                            <div class="alert alert-warning" id="err_message" style="display: none;">
+                                Please click on the link that was sent to your email. If you did not receive any email,
+                                please click <a href="" ng-click="resend_confirmation(email)">here</a>. </br>
+                                <img id="resend-loader" src="/img/fb-loader.gif" width="40px" style=" text-align: center; margin-top: 5px; display: none;" alt="fb-loader">
+                            </div>
                         </div>
                         <form id="login" class="clearfix" ng-submit="login()">
                             <div class="col-md-12 clearfix">
@@ -78,7 +83,6 @@
                                 </div>
                             </div>
                         </form>
-
                     </div>
 
                     <div class=" text-center col-md-12" ng-controller="fbController">
