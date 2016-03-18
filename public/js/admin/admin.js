@@ -565,12 +565,7 @@ app.controller('adminController', function($scope, $http){
             $http.post('/admin/create-user', {
                 email: $scope.create_email,
                 password: $scope.new_password,
-                password_confirm: $scope.password_confirm,
-                create_first_name: $scope.create_first_name,
-                create_last_name: $scope.create_last_name,
-                create_mobile: $scope.create_mobile,
-                create_user_location: $scope.create_user_location,
-                create_gender: $scope.create_gender
+                password_confirm: $scope.password_confirm
             }).success(function (response) {
                 $("#user-create-success").fadeIn();
                 $("#user-create-success").fadeOut(4000);

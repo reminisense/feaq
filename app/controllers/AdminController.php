@@ -337,18 +337,13 @@ class AdminController extends BaseController{
         }
 
         $user = [
-          'first_name' => Input::get('create_first_name'),
-          'last_name' => Input::get('create_last_name'),
           'email' => $email,
           'password' => Hash::make($password),
           'gcm_token' => '',
-          'phone' => Input::get('create_mobile'),
-          'local_address' => Input::get('create_user_location'),
-          'gender' => Input::get('create_gender'),
         ];
 
         User::insert($user);
-        Helper::dbLogger('AdminController', 'user', 'insert', 'postCreateUser', User::email(Helper::userId()), 'email:' . $email . ',first_name:' . $user['first_name'] . ',last_name:' . $user['last_name']);
+        Helper::dbLogger('AdminController', 'user', 'insert', 'postCreateUser', User::email(Helper::userId()), 'email:' . $email);
 
         try {
           Notifier::sendConfirmationEmail($email);
