@@ -19,7 +19,16 @@ class Terminal extends Eloquent{
         $terminal->service_id = $service_id;
         $terminal->status = 1;
         $terminal->box_rank = Terminal::generateBoxRank($service_id); // Added by PAG
-        $terminal->color = $colors[$terminal->box_rank];
+
+        // FQW-174 - temp fix, modify when there are new colors
+        if ($terminal->box_rank < 8) {
+            $terminal->color = $colors[$terminal->box_rank];
+        }
+        else {
+            $color_index = ($terminal->box_rank % 8) + 1;
+            $terminal->color = $colors[$color_index];
+        }
+
 
         $terminal->save();
         Helper::dbLogger('Terminal', 'terminal', 'insert', 'createTerminal', User::email(Helper::userId()), 'terminal_id:' . $terminal->terminal_id);
