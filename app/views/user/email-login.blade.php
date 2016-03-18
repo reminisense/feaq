@@ -71,7 +71,6 @@
                                     <input class="abs form-control" type="password" name="password" ng-model="password"/>
                                 </div>
                             </div>
-
                             <div class="col-md-12 mt30">
                                 <div class="row">
                                 <div class="col-md-6 col-xs-6 text-left">
@@ -84,7 +83,6 @@
                             </div>
                         </form>
                     </div>
-
                     <div class=" text-center col-md-12" ng-controller="fbController">
                         <p class="or">Or</p>
                         <a href="#" ng-click="login()" class="no-line btn btn-fb"><img src="/images/homepage/fb2.png">LOGIN WITH FACEBOOK</a>

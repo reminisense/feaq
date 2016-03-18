@@ -56,7 +56,6 @@
             <div class="tri text-center"><img src="/images/homepage/tri.png"></div>
         </div>
 </section>
-
     <section id="signup-body">
             <div class="">
                 <div class="container">
@@ -67,8 +66,6 @@
                                 <div class="alert alert-warning modal-message" id="verifyError" style="display: none;"></div>
                             </div>
                         </div>
-
-
                         <form id="verification_form" class="clearfix" ng-submit="verify()">
                             <div class="clearfix">
 
@@ -103,8 +100,6 @@
                             </div>
                         </form>
                     </div>
-
-
                 </div>
             </div>
     </section>
