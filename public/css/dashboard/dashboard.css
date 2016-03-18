@@ -35,6 +35,9 @@
   -webkit-box-shadow: 0 2px 5px 4px rgba(0,0,0,0.4);
   box-shadow: 0 2px 5px 4px rgba(0,0,0,0.4);
 }
+#time_open-filter {
+    margin-bottom: 0px!important;
+}
 .filterwrap .btn,
 .filterwrap .form-control {
   padding: 13px 20px;
