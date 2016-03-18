@@ -13,8 +13,6 @@ class ProcessQueue extends Eloquent{
 
         $service_properties = ProcessQueue::getServiceProperties($service_id, $date);
 
-        $number_start = $service_properties->number_start;
-        $number_limit = $service_properties->number_limit;
         $last_number_given = $service_properties->last_number_given;
         $current_number = $service_properties->current_number;
         $time_queued = time();
@@ -25,7 +23,7 @@ class ProcessQueue extends Eloquent{
 
         $user_id = $user_id == null? Helper::userId() : $user_id;
 
-        $transaction_number = QueueTransaction::createTransactionRecord($service_id, $number_start, $number_limit, $last_number_given, $current_number, $date, $priority_number, $user_id, $queue_platform, $time_queued, $terminal_id);
+        $transaction_number = QueueTransaction::createTransactionRecord($service_id, $last_number_given, $current_number, $date, $priority_number, $user_id, $queue_platform, $time_queued, $terminal_id);
         $confirmation_code = strtoupper(substr(md5($transaction_number), 0, 4));
         QueueTransaction::setConfirmationCodeByTransactionNumber($confirmation_code, $transaction_number);
         Analytics::insertAnalyticsQueueNumberIssued($transaction_number, $service_id, $date, $time_queued, $terminal_id, $queue_platform); //insert to queue_analytics
@@ -42,8 +40,6 @@ class ProcessQueue extends Eloquent{
         $date = $date == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $date;
 
         $service_properties = ProcessQueue::getServiceProperties($service_id, $date);
-        $number_start = $service_properties->number_start;
-        $number_limit = $service_properties->number_limit;
         $last_number_given = $service_properties->last_number_given;
         $current_number = $service_properties->current_number;
 
@@ -55,7 +51,7 @@ class ProcessQueue extends Eloquent{
         $analytics_data = array();
         //@todo insert bulk to priority number table and get track ids
         for($i = 1; $i <= $range; $i++){
-            $transaction_number = QueueTransaction::createTransactionRecord($service_id, $number_start, $number_limit, $last_number_given, $current_number, $date, $priority_number, $user_id, $queue_platform, $time_queued, $terminal_id);
+            $transaction_number = QueueTransaction::createTransactionRecord($service_id, $last_number_given, $current_number, $date, $priority_number, $user_id, $queue_platform, $time_queued, $terminal_id);
             $confirmation_code = strtoupper(substr(md5($transaction_number), 0, 4));
             QueueTransaction::setConfirmationCodeByTransactionNumber($confirmation_code, $transaction_number);
 

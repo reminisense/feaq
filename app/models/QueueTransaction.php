@@ -134,11 +134,9 @@ class QueueTransaction extends Eloquent{
     return isset($transaction->transaction_number) ? $transaction->transaction_number : null;
   }
 
-  public static function createTransactionRecord($service_id, $number_start, $number_limit, $last_number_given, $current_number, $date, $priority_number, $user_id, $queue_platform, $time_queued, $terminal_id = null){
+  public static function createTransactionRecord($service_id, $last_number_given, $current_number, $date, $priority_number, $user_id, $queue_platform, $time_queued, $terminal_id = null){
     $values = [
       'service_id' => $service_id,
-      'number_start' => $number_start,
-      'number_limit' => $number_limit,
       'last_number_given' => $last_number_given,
       'current_number' => $current_number,
       'date' => $date,
