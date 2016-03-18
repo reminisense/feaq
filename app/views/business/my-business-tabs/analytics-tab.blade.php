@@ -7,8 +7,9 @@
         <div class="col-md-2">
             <input type="text" id="end-date" name="end-date" class="form-control datepicker" ng-model="enddate"/>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-8">
             <button class="btn btn-lg btn-primary" type="submit" ng-disabled="startdate > enddate">Get Analytics</button>
+            <a class="btn btn-lg btn-primary" target="_blank" ng-show="analytics.queue_activity.length > 0" href="{{ url('/business/advanced-analytics/' . $business_id) }}">Advanced Analytics</a>
         </div>
     </form>
 </div>

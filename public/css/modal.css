@@ -187,5 +187,9 @@ body#processq .tab-pane .navbar-form {
 #modal-terminals th {
     font-size: 18px;
 }
+#insertq .form-control,
+#multipleq .form-control{
+    width: 100%;
+}
 
 
