@@ -56,32 +56,33 @@
                                 <img id="resend-loader" src="/img/fb-loader.gif" width="40px" style=" text-align: center; margin-top: 5px; display: none;" alt="fb-loader">
                             </div>
                         </div>
-                        <form id="login" class="" ng-submit="login()">
-                            <div class="clearfix">
+                        <form id="login" class="clearfix" ng-submit="login()">
+                            <div class="col-md-12 clearfix">
                                 <label>Email</label>
                                 <div class="rel">
                                     <i class="abs glyphicon glyphicon-user"></i>
                                     <input class="abs form-control" type="email" name="email" ng-model="email"/>
                                 </div>
                             </div>
-                            <div class="clearfix">
+                            <div class="col-md-12 clearfix">
                                 <label>Password</label>
                                 <div class="rel">
                                     <i class="abs glyphicon glyphicon-lock"></i>
                                     <input class="abs form-control" type="password" name="password" ng-model="password"/>
                                 </div>
                             </div>
-                            <div class="row mt30">
+                            <div class="col-md-12 mt30">
+                                <div class="row">
                                 <div class="col-md-6 col-xs-6 text-left">
                                     <a class="forgot-pass no-line" href="/user/forgot-password"><i class="glyphicon glyphicon-question-sign"></i>Forgot password?</a>
                                 </div>
                                 <div class="col-md-6 col-xs-6 text-right ">
                                     <button class="btn btn-teal" type="submit">LOGIN</button>
                                 </div>
+                                </div>
                             </div>
                         </form>
                     </div>
-
                     <div class=" text-center col-md-12" ng-controller="fbController">
                         <p class="or">Or</p>
                         <a href="#" ng-click="login()" class="no-line btn btn-fb"><img src="/images/homepage/fb2.png">LOGIN WITH FACEBOOK</a>
