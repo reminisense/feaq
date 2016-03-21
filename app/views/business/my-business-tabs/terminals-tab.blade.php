@@ -99,21 +99,21 @@
                     <div class="col-md-5 clearfix">
                         <div class="pull-left">
                             <div id="terminal-colors" class="clearfix">
-                                                <div class="dropdown">
-                                                    <button id="btn-terminal-color-@{{ terminal.terminal_id }}" class="btn btn-md btn-primary t-btn dropdown-toggle @{{ terminal.color }}" type="button" data-toggle="dropdown" aria-expanded="false">
-                                                    <span class="caret"></span></button>
-                                                    <ul class="dropdown-menu banana" id="">
-                                                        <li><a id="cyan" data-color="cyan" href="" ng-click="setTerminalColor(terminal.terminal_id, 'cyan')"></a></li>
-                                                        <li><a id="yellow" data-color="yellow" href="" ng-click="setTerminalColor(terminal.terminal_id, 'yellow')"></a></li>
-                                                        <li><a id="blue" data-color="blue" href="" ng-click="setTerminalColor(terminal.terminal_id, 'blue')"></a></li>
-                                                        <li><a id="orange" data-color="borange" href="" ng-click="setTerminalColor(terminal.terminal_id, 'borange')"></a></li>
-                                                        <li><a id="red" data-color="red" href="" ng-click="setTerminalColor(terminal.terminal_id, 'red')"></a></li>
-                                                        <li><a id="green" data-color="green" href="" ng-click="setTerminalColor(terminal.terminal_id, 'green')"></a></li>
-                                                        <li><a id="violet" data-color="violet" href="" ng-click="setTerminalColor(terminal.terminal_id, 'violet')"></a></li>
-                                                    </ul>
-                                                </div>
-                                                <small>*Colors will take effect on the next number.</small>
-                                            </div>
+                                <div class="dropdown">
+                                    <button id="btn-terminal-color-@{{ terminal.terminal_id }}" class="btn btn-md btn-primary t-btn dropdown-toggle @{{ terminal.color }}" type="button" data-toggle="dropdown" aria-expanded="false">
+                                    <span class="caret"></span></button>
+                                    <ul class="dropdown-menu banana" id="">
+                                        <li><a id="cyan" data-color="cyan" href="" ng-click="setTerminalColor(terminal.terminal_id, 'cyan')"></a></li>
+                                        <li><a id="yellow" data-color="yellow" href="" ng-click="setTerminalColor(terminal.terminal_id, 'yellow')"></a></li>
+                                        <li><a id="blue" data-color="blue" href="" ng-click="setTerminalColor(terminal.terminal_id, 'blue')"></a></li>
+                                        <li><a id="orange" data-color="borange" href="" ng-click="setTerminalColor(terminal.terminal_id, 'borange')"></a></li>
+                                        <li><a id="red" data-color="red" href="" ng-click="setTerminalColor(terminal.terminal_id, 'red')"></a></li>
+                                        <li><a id="green" data-color="green" href="" ng-click="setTerminalColor(terminal.terminal_id, 'green')"></a></li>
+                                        <li><a id="violet" data-color="violet" href="" ng-click="setTerminalColor(terminal.terminal_id, 'violet')"></a></li>
+                                    </ul>
+                                </div>
+                                <small id="color-info-@{{ terminal.terminal_id }}">*Colors will take effect on the next number.</small>
+                            </div>
                         </div>
                     </div>
                 </form>
