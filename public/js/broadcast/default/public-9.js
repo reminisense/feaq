@@ -25,15 +25,15 @@ app.controller('nowServingCtrl', function($scope, $http) {
     announceNumberFromBlank($scope, response, 'box8', 'rank8');
     announceNumberFromBlank($scope, response, 'box9', 'rank9');
 
-    writeNumber($scope, response, 'box1', 'service1', 'user1');
-    writeNumber($scope, response, 'box2', 'service2', 'user2');
-    writeNumber($scope, response, 'box3', 'service3', 'user3');
-    writeNumber($scope, response, 'box4', 'service4', 'user4');
-    writeNumber($scope, response, 'box5', 'service5', 'user5');
-    writeNumber($scope, response, 'box6', 'service6', 'user6');
-    writeNumber($scope, response, 'box7', 'service7', 'user7');
-    writeNumber($scope, response, 'box8', 'service8', 'user8');
-    writeNumber($scope, response, 'box9', 'service9', 'user9');
+    writeNumber($scope, response, 'box1', 'service1', 'user1', 'color1');
+    writeNumber($scope, response, 'box2', 'service2', 'user2', 'color2');
+    writeNumber($scope, response, 'box3', 'service3', 'user3', 'color3');
+    writeNumber($scope, response, 'box4', 'service4', 'user4', 'color4');
+    writeNumber($scope, response, 'box5', 'service5', 'user5', 'color5');
+    writeNumber($scope, response, 'box6', 'service6', 'user6', 'color6');
+    writeNumber($scope, response, 'box7', 'service7', 'user7', 'color7');
+    writeNumber($scope, response, 'box8', 'service8', 'user8', 'color8');
+    writeNumber($scope, response, 'box9', 'service9', 'user9', 'color9');
 
     /* RDH Checks if empty, show '-' if yes*/
     getNum($scope, response);
