@@ -624,14 +624,15 @@ input#input_sms_field:focus{
 #advanced-container{
     padding-left: 10px;
 }
-#start-date{
-    margin-right: 25px;
+/*#start-date{
+    margin: 5px 10px 5px 0;
 }
 #end-date{
-    /*margin-left: 25px;*/
-}
+    margin: 5px 10px;
+}*/
 #end-date, #start-date{
     text-align: center;
+    height: 36px;
 }
 #converted-end-date, #converted-start-date{
     text-align: center;
@@ -966,3 +967,4 @@ button#sendreply {
     display: block;
 }
 .table-responsive .panel {margin-bottom: 0;}
+#btn-analytics {margin-top: 26px;}
