@@ -272,7 +272,7 @@ h1,h2,h3,h4 {margin: 0;}
     .boxed.two .numbers .callnum {line-height: 120px;}
     .thirty .numbers .service { width: 280px;}
     .boxed.four .numbers .callnum {line-height: 95px;}
-    .fifty .numbers .service { padding-bottom:20px; }
+    .fifty .numbers .service { padding-bottom:0px; }
     .fifty .boxed.ten .numbers .service { padding-bottom:0px; }
     .fifty .numbers .service { width:230px!important; }
     .numbers-area .boxed h3 { height:7vh; }
