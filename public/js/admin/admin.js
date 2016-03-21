@@ -634,34 +634,39 @@ app.controller('adminController', function($scope, $http){
         $(".cus-main-form").hide();
     });
 
+
     $(".biz-main a").click(function() {
-        if ($('.biz-main-form').is(':visible')){
-            $(".biz-main-form").slideUp("slow");
-        } else {
+        if ($('.biz-main-form').not(':visible')){
             $(".biz-main-form").slideDown("slow");
+            $(".biz-service-form").slideUp("slow");
+            $(".biz-status-form").slideUp("slow");
+            $(".biz-settings-form").slideUp("slow");
         }
     });
 
     $(".biz-service a").click(function() {
-        if ($('.biz-service-form').is(':visible')){
-            $(".biz-service-form").slideUp("slow");
-        } else {
+        if ($('.biz-service-form').not(':visible')){
+            $(".biz-main-form").slideUp("slow");
             $(".biz-service-form").slideDown("slow");
+            $(".biz-status-form").slideUp("slow");
+            $(".biz-settings-form").slideUp("slow");
         }
     });
 
     $(".biz-status a").click(function() {
-        if ($('.biz-status-form').is(':visible')){
-            $(".biz-status-form").slideUp("slow");
-        } else {
+        if ($('.biz-status-form').not(':visible')) {
+            $(".biz-main-form").slideUp("slow");
+            $(".biz-service-form").slideUp("slow");
             $(".biz-status-form").slideDown("slow");
+            $(".biz-settings-form").slideUp("slow");
         }
     });
 
     $(".biz-settings a").click(function() {
-        if ($('.biz-settings-form').is(':visible')){
-            $(".biz-settings-form").slideUp("slow");
-        } else {
+        if ($('.biz-settings-form').not(':visible')){
+            $(".biz-main-form").slideUp("slow");
+            $(".biz-service-form").slideUp("slow");
+            $(".biz-status-form").slideUp("slow");
             $(".biz-settings-form").slideDown("slow");
         }
     });
