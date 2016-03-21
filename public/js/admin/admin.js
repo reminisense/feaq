@@ -633,38 +633,6 @@ app.controller('adminController', function($scope, $http){
         $(".cus-create-form").show();
         $(".cus-main-form").hide();
     });
-    //
-    //$(".biz-main a").click(function() {
-    //    if ($('.biz-main-form').is(':visible')){
-    //        $(".biz-main-form").slideUp("slow");
-    //    } else {
-    //        $(".biz-main-form").slideDown("slow");
-    //    }
-    //});
-    //
-    //$(".biz-service a").click(function() {
-    //    if ($('.biz-service-form').is(':visible')){
-    //        $(".biz-service-form").slideUp("slow");
-    //    } else {
-    //        $(".biz-service-form").slideDown("slow");
-    //    }
-    //});
-    //
-    //$(".biz-status a").click(function() {
-    //    if ($('.biz-status-form').is(':visible')){
-    //        $(".biz-status-form").slideUp("slow");
-    //    } else {
-    //        $(".biz-status-form").slideDown("slow");
-    //    }
-    //});
-    //
-    //$(".biz-settings a").click(function() {
-    //    if ($('.biz-settings-form').is(':visible')){
-    //        $(".biz-settings-form").slideUp("slow");
-    //    } else {
-    //        $(".biz-settings-form").slideDown("slow");
-    //    }
-    //});
 
 
     $(".biz-main a").click(function() {
