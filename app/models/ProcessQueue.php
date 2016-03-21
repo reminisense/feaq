@@ -83,8 +83,7 @@ class ProcessQueue extends Eloquent{
         if(is_numeric($terminal_id)){
             $qt = QueueTransaction::find($transaction_number);
             $time_called = time();
-            $login_id = TerminalManager::hookedTerminal($terminal_id) ? TerminalManager::getLatestLoginIdOfTerminal($terminal_id) : 0;
-            QueueTransaction::updateTransactionTimeCalled($transaction_number, $login_id, $time_called, $terminal_id);
+            QueueTransaction::updateTransactionTimeCalled($transaction_number, $time_called, $terminal_id);
             Analytics::insertAnalyticsQueueNumberCalled($transaction_number, $qt->service_id, $qt->date, $time_called, $terminal_id, $qt->queue_platform); //insert to queue_analytics
             Notifier::sendNumberCalledNotification($transaction_number, $terminal_id); //notifies users that his/her number is called
             return json_encode(['success' => 1, /*'numbers' => ProcessQueue::allNumbers(Terminal::serviceId($terminal_id))*/]); //ARA removed all numbers to prevent redundant database query
@@ -143,7 +142,8 @@ class ProcessQueue extends Eloquent{
 
     public static function allNumbers($service_id, $terminal_id = null, $date = null){
         $date = $date == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $date;
-        $numbers = ProcessQueue::queuedNumbers($service_id, $date);
+        //$numbers = ProcessQueue::queuedNumbers($service_id, $date);
+        $numbers = QueueTransaction::queuedNumbers($service_id, $date);
         $terminal_specific_calling = QueueSettings::terminalSpecificIssue($service_id);
         $number_limit = QueueSettings::numberLimit($service_id);
         $last_number_given = 0;

@@ -30,8 +30,8 @@ class QueueTransaction extends Eloquent{
    * @param unknown $transaction_number
    * @param string $time_called
    */
-  public static function updateTransactionTimeCalled($transaction_number, $login_id, $time_called = null, $terminal_id = null){
-    $values['login_id'] = $login_id;
+  public static function updateTransactionTimeCalled($transaction_number, $time_called = null, $terminal_id = null){
+    //$values['login_id'] = $login_id;
     $values['time_called'] = $time_called == null ? time() : $time_called;
     if(isset($terminal_id))$values['terminal_id'] =  $terminal_id;  //Adds terminal id to terminal transaction to bypass hooking of terminals
     QueueTransaction::where('transaction_number', '=', $transaction_number)->update($values);
@@ -134,9 +134,11 @@ class QueueTransaction extends Eloquent{
     return isset($transaction->transaction_number) ? $transaction->transaction_number : null;
   }
 
-  public static function createTransactionRecord($service_id, $last_number_given, $current_number, $date, $priority_number, $user_id, $queue_platform, $time_queued, $terminal_id = null){
+  public static function createTransactionRecord($service_id, /*$number_start, $number_limit,*/ $last_number_given, $current_number, $date, $priority_number, $user_id, $queue_platform, $time_queued, $terminal_id = null){
     $values = [
       'service_id' => $service_id,
+//      'number_start' => $number_start,
+//      'number_limit' => $number_limit,
       'last_number_given' => $last_number_given,
       'current_number' => $current_number,
       'date' => $date,
@@ -178,4 +180,7 @@ class QueueTransaction extends Eloquent{
     return QueueTransaction::where('service_id', '=', $service_id)->select(array('transaction_number'))->get();
   }
 
+  public static function queuedNumbers($service_id, $date){
+    return QueueTransaction::where('service_id', '=', $service_id)->where('date', '=', $date)->get();
+  }
 }
