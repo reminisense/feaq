@@ -1331,7 +1331,7 @@ var eb = {
                 color_value: color,
                 terminal_id: terminal_id
             }).success(function(response) {
-               console.log(reponse.status+" "+response.message);
+               console.log(response.status+" "+response.message);
             });
         }
 
