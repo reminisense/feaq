@@ -963,6 +963,42 @@ button#sendreply {
 #terminal-colors button.green {
     background-color: #89c27b;
 }
+#terminal-colors #ECD078,
+#terminal-colors button.ECD078 {
+    background-color: #ECD078;
+}
+#terminal-colors #D95B43,
+#terminal-colors button.D95B43 {
+    background-color: #D95B43;
+}
+#terminal-colors #C02942,
+#terminal-colors button.C02942 {
+    background-color: #C02942;
+}
+#terminal-colors #x542437,
+#terminal-colors button.x542437 {
+    background-color: #542437;
+}
+#terminal-colors #x53777A,
+#terminal-colors button.x53777A {
+    background-color: #53777A;
+}
+#terminal-colors #FCA78B,
+#terminal-colors button.FCA78B {
+    background-color: #FCA78B;
+}
+#terminal-colors #FF745F,
+#terminal-colors button.FF745F {
+    background-color: #FF745F;
+}
+#terminal-colors #x78250A,
+#terminal-colors button.x78250A {
+    background-color: #78250A;
+}
+#terminal-colors #x242436,
+#terminal-colors button.x242436 {
+    background-color: #242436;
+}
 #terminal-colors .terminal-name {
     display: block;
 }

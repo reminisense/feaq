@@ -262,9 +262,8 @@
             is_uncalled = pq.jquery_functions.find_in_numbers_array(next_number, $scope.uncalled_numbers);
             is_timebound = pq.jquery_functions.find_in_numbers_array(next_number, $scope.timebound_numbers);
 
-
             if($scope.timebound_numbers.length == 0 && $scope.uncalled_numbers.length == 0){
-                pq.jquery_functions.remove_and_update_dropdown();
+                pq.jquery_functions.remove_and_update_dropdown(next_number);
             }else if(next_number == 0){
                 if($scope.timebound_numbers.length > 0){
                     pq.jquery_functions.select_number(
@@ -288,7 +287,7 @@
                     );
                 }
             }else if(is_uncalled.length == 0 && is_timebound.length == 0){
-                pq.jquery_functions.remove_and_update_dropdown();
+                pq.jquery_functions.remove_and_update_dropdown(next_number);
             }else if($scope.timebound_numbers.length > 0 && is_timebound.length == 0){
                 pq.jquery_functions.select_number(
                     $scope.timebound_numbers[0].transaction_number,
