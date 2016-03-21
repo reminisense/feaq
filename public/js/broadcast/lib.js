@@ -28,11 +28,12 @@ var announceNumberFromBlank = function ($scope, response, box_num, rank_num) {
   }
 };
 
-var writeNumber = function ($scope, response, box_num, service_num, user_num) {
+var writeNumber = function ($scope, response, box_num, service_num, user_num, color_num) {
   if (typeof response[box_num] != 'undefined') {
     $scope[box_num] = response[box_num].number;
     $scope[service_num] = response[box_num].service;
     $scope[user_num] = response[box_num].user;
+    $scope[color_num] = response[box_num].color;
   }
 };
 
