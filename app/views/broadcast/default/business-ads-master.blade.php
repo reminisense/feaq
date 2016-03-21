@@ -23,13 +23,7 @@
                     <img id="ad<?php print $count+1; ?>" src="/images/broadcast/carousel/car1.jpg" alt="Ad<?php print $count+1; ?>" class="center-block">
                 </div>
                 <div class="item">
-                    <img id="ad<?php print $count+2; ?>" src="/images/broadcast/carousel/car2.jpg" alt="Ad<?php print $count+2; ?>" class="center-block">
-                </div>
-                <div class="item">
-                    <img id="ad<?php print $count+3; ?>" src="/images/broadcast/carousel/car3.jpg" alt="Ad<?php print $count+3; ?>" class="center-block">
-                </div>
-                <div class="item">
-                    <img id="ad<?php print $count+4; ?>" src="/images/broadcast/carousel/car4.jpg" alt="Ad<?php print $count+4; ?>" class="center-block">
+                    <img id="ad<?php print $count+2; ?>" src="/images/broadcast/carousel/car3.jpg" alt="Ad<?php print $count+3; ?>" class="center-block">
                 </div>
             </div>
         </div>

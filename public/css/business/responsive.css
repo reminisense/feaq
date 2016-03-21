@@ -53,6 +53,7 @@
     }
 }
 @media (min-width: 480px) and (max-width: 768px) {
+    #btn-analytics {margin-top: 0px;}
     .nav>li>a {
         padding: 12px 20px;
     }
@@ -255,8 +256,10 @@
     .biz-terminals a:hover {
         height: 80px;
     }
+    #btn-analytics {margin-top: 0px; width: 100%;}
 }
 @media (max-width: 320px) {
+    #btn-analytics {margin-top: 0px; width: 100%;}
     .nav>li>a {
         padding: 12px 20px;
     }
