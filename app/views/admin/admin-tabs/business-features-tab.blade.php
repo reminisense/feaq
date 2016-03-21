@@ -493,33 +493,28 @@
                 <div class="alert alert-danger" id="user-search-error" style="display: none">
                     <p style="text-align: center;">No users found.</p>
                 </div>
-                <div class=" col-md- 12 cus-create-form">
-                    <h2 class="col-md-12">Create User</h2>
-                    <form ng-submit="createUser()">
+                <div class=" col-md-12 cus-create-form">
+                    <form ng-submit="createUser()" style="margin-left: 15%; margin-right: 15%">
                         <table class="table table-form">
                             <tr>
-                                <td>
                                     <label>Email: </label>
                                     <input class="form-control" type="text" ng-model="create_email" />
-                                </td>
-                                <td>
-
-                                </td>
                             </tr>
 
                             <tr>
-                                <td>
                                     <label>Password: </label>
                                     <input class="form-control" type="password" ng-model="new_password" />
-                                </td>
-                                <td>
-                                    <label>Confirm Password:</label>
-                                    <input class="form-control" type="password" ng-model="password_confirm" />
-                                </td>
                             </tr>
                             <tr>
+                                    <label>Confirm Password:</label>
+                                    <input class="form-control" type="password" ng-model="password_confirm" />
+                            </tr>
+                            <tr>
+                                <td>
+
+                                </td>
                                 <td class="text-right">
-                                    <button class="mt20 btn btn-orange btn-lg" type="submit">Save</button>
+                                    <button class="mt20 btn btn-orange btn-lg" type="submit">Create User</button>
                                 </td>
                             </tr>
                         </table>
