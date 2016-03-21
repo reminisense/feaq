@@ -10,7 +10,7 @@ class TerminalController extends BaseController{
 
     public function postAssign(){
         $business_id = Business::getBusinessIdByTerminalId(Input::get('terminal_id'));
-        if (Helper::isBusinessOwner($business_id, Helper::userId())) { // PAG added permission checking
+        if (Helper::isBusinessOwner($business_id, Helper::userId()) || Admin::isAdmin()) { // PAG added permission checking
             TerminalUser::assignTerminalUser(Input::get('user_id'), Input::get('terminal_id'));
             $business = Business::getBusinessDetails(Business::getBusinessIdByTerminalId(Input::get('terminal_id')));
             return json_encode(['success' => 1, 'business' => $business]);
@@ -21,7 +21,7 @@ class TerminalController extends BaseController{
     }
 
     public function postUnassign(){
-        $business_id = Business::getBusinessIdByTerminalId(Input::get('terminal_id'));
+        $business_id = Business::getBusinessIdByTerminalId(Input::get('terminal_id') || Admin::isAdmin() );
         if (Helper::isBusinessOwner($business_id, Helper::userId())) { // PAG added permission checking
             TerminalUser::unassignTerminalUser(Input::get('user_id'), Input::get('terminal_id'));
             $business = Business::getBusinessDetails(Business::getBusinessIdByTerminalId(Input::get('terminal_id')));
@@ -33,7 +33,7 @@ class TerminalController extends BaseController{
     }
 
     public function postDelete(){
-        $business_id = Business::getBusinessIdByTerminalId(Input::get('terminal_id'));
+        $business_id = Business::getBusinessIdByTerminalId(Input::get('terminal_id') || Admin::isAdmin() );
         if (Helper::isBusinessOwner($business_id, Helper::userId())) { // PAG added permission checking
             $error = 'There are still pending numbers for this terminal.';
             if (TerminalTransaction::terminalActiveNumbers(Input::get('terminal_id')) == 0) {
@@ -50,7 +50,7 @@ class TerminalController extends BaseController{
     }
 
     public function postCreate(){
-        if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId())) { // PAG added permission checking
+        if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId()) || Admin::isAdmin() ) { // PAG added permission checking
             $terminal_id = count(Terminal::getTerminalsByBusinessId(Input::get('business_id')));
             if ($this->validateTerminalName(Input::get('business_id'), Input::get('name'), $terminal_id)) {
                 Terminal::createTerminal(Input::get('service_id'), Input::get('name'));
@@ -69,7 +69,7 @@ class TerminalController extends BaseController{
     public function postEdit() {
         $post = json_decode(file_get_contents("php://input"));
         $business_id = Business::getBusinessIdByTerminalId($post->terminal_id);
-        if (Helper::isBusinessOwner($business_id, Helper::userId())) { // PAG added permission checking
+        if (Helper::isBusinessOwner($business_id, Helper::userId()) || Admin::isAdmin() ) { // PAG added permission checking
             if ($this->validateTerminalName($business_id, $post->name, $post->terminal_id)) {
                 Terminal::setName($post->terminal_id, $post->name);
                 $business = Business::getBusinessDetails($business_id);
@@ -101,7 +101,7 @@ class TerminalController extends BaseController{
     }
 
     public function postSetColor() {
-        if (Helper::isBusinessOwner(Business::getBusinessIdByTerminalId(Input::get('terminal_id')), Helper::userId())) {
+        if (Helper::isBusinessOwner(Business::getBusinessIdByTerminalId(Input::get('terminal_id')), Helper::userId()) || Admin::isAdmin()) {
             Terminal::setColor(Input::get('color_value'), Input::get('terminal_id'));
             return json_encode(array('status' => '200', 'message' => 'OK'));
         }
