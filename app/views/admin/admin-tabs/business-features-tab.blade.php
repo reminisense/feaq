@@ -518,33 +518,6 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>
-                                    <label>First Name:</label>
-                                    <input class="form-control" type="text" ng-model="create_first_name" />
-                                </td>
-                                <td>
-                                    <label>Last Name:</label>
-                                    <input class="form-control" type="text" ng-model="create_last_name" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>Gender:</label>
-                                    <select class="form-control" ng-model="create_gender" ng-init="create_gender='male'">
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <label>Address: </label>
-                                    <input type="text" class="form-control" ng-model="create_user_location" ng-autocomplete options="options" details="details" required="true">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>Phone:</label>
-                                    <input class="form-control" type="text" ng-model="create_mobile" />
-                                </td>
                                 <td class="text-right">
                                     <button class="mt20 btn btn-orange btn-lg" type="submit">Save</button>
                                 </td>
