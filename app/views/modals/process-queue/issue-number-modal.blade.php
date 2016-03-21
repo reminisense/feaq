@@ -49,9 +49,8 @@
                                 <div class="col-md-9">
                                     <input type="email" class="form-control" ng-model="email" name="email">
                                 </div>
-                                <div class="col-md-3"></div>
-                                <div class="col-md-9">
-                                    <div class="alert alert-info col-md-12">
+                                <div class="col-md-12">
+                                    <div class="alert alert-info col-md-12 text-center">
                                         <p>An empty value in the <strong>Specific #</strong> field will automatically give you the next available number.</p>
                                     </div>
                                 </div>
