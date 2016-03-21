@@ -288,7 +288,7 @@
                     );
                 }
             }else if(is_uncalled.length == 0 && is_timebound.length == 0){
-                pq.jquery_functions.remove_and_update_dropdown();
+                pq.jquery_functions.remove_and_update_dropdown(next_number);
             }else if($scope.timebound_numbers.length > 0 && is_timebound.length == 0){
                 pq.jquery_functions.select_number(
                     $scope.timebound_numbers[0].transaction_number,
