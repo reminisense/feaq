@@ -1325,7 +1325,7 @@ var eb = {
             }
         }
         $scope.setTerminalColor = function(terminal_id, color) {
-            $('#btn-terminal-color-'+terminal_id).removeClass('cyan yellow blue borange red violet green');
+            $('#btn-terminal-color-'+terminal_id).removeClass('cyan yellow blue borange red violet green x242436 x78250A FF745F FCA78B x53777A x542437 C02942 D95B43 ECD078');
             $('#btn-terminal-color-'+terminal_id).addClass(color);
             $http.post('/terminal/set-color', {
                 color_value: color,
