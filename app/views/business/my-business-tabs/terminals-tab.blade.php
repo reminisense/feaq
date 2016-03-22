@@ -121,7 +121,7 @@
                                         <li><a id="x242436" data-color="x242436" href="" ng-click="setTerminalColor(terminal.terminal_id, 'x242436')"></a></li>
                                     </ul>
                                 </div>
-                                <small id="color-info-@{{ terminal.terminal_id }}">*Colors will take effect on the next number.</small>
+                                {{--<small id="color-info-@{{ terminal.terminal_id }}">*Colors will take effect on the next number.</small>--}}
                             </div>
                         </div>
                     </div>
