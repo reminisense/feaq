@@ -21,8 +21,8 @@ class TerminalController extends BaseController{
     }
 
     public function postUnassign(){
-        $business_id = Business::getBusinessIdByTerminalId(Input::get('terminal_id') || Admin::isAdmin() );
-        if (Helper::isBusinessOwner($business_id, Helper::userId())) { // PAG added permission checking
+        $business_id = Business::getBusinessIdByTerminalId(Input::get('terminal_id'));
+        if (Helper::isBusinessOwner($business_id, Helper::userId()) || Admin::isAdmin() ) { // PAG added permission checking
             TerminalUser::unassignTerminalUser(Input::get('user_id'), Input::get('terminal_id'));
             $business = Business::getBusinessDetails(Business::getBusinessIdByTerminalId(Input::get('terminal_id')));
             return json_encode(['success' => 1, 'business' => $business]);
@@ -33,8 +33,8 @@ class TerminalController extends BaseController{
     }
 
     public function postDelete(){
-        $business_id = Business::getBusinessIdByTerminalId(Input::get('terminal_id') || Admin::isAdmin() );
-        if (Helper::isBusinessOwner($business_id, Helper::userId())) { // PAG added permission checking
+        $business_id = Business::getBusinessIdByTerminalId(Input::get('terminal_id'));
+        if (Helper::isBusinessOwner($business_id, Helper::userId()) || Admin::isAdmin() ) { // PAG added permission checking
             $error = 'There are still pending numbers for this terminal.';
             if (TerminalTransaction::terminalActiveNumbers(Input::get('terminal_id')) == 0) {
                 Terminal::deleteTerminal(Input::get('terminal_id'));
