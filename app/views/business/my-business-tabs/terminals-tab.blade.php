@@ -48,7 +48,7 @@
         <div class="col-md-4 col-xs-6">
             <input type="text" ng-model="new_service_name" placeholder="e.g. Cashier" class="form-control nomg white"/></div>
         <div class="col-md-2 col-xs-6">
-            <button type="button" class="btn-boxy btn-removeuser btn-danger" ng-click="service_create = false" title="Cancel"><span class="glyphicon glyphicon-remove"></span></button>
+            <button type="button" class="btn-boxy btn-removeuser btn-light" ng-click="service_create = false" title="Cancel"><span class="glyphicon glyphicon-remove"></span></button>
             <button type="submit" class="edit-terminal-button btn-boxy btn-success" title="Save"><span class="glyphicon glyphicon-floppy-disk"></span></button></div>
     </div>
 
@@ -61,14 +61,14 @@
         <th colspan="2">
             <form ng-submit="updateService(edit_service_name, service.service_id)">
                 <strong>@{{ $index }} - <span class="service-name" ng-hide="service.edit_service">@{{ service.name }}</span></strong>
-                <input type="text" ng-model="edit_service_name" ng-show="service.edit_service" placeholder="@{{ service.name }}"/>
+                <input id="edit-service-name" type="text" ng-model="edit_service_name" ng-show="service.edit_service" placeholder="@{{ service.name }}"/>
                 <a href="" ng-show="service.edit_service" ng-click="service.edit_service = !service.edit_service" class="edit-terminal-button btn-boxy btn-default" title="Cancel" ><span class="glyphicon glyphicon-remove"></span></a>
-                <a href="" ng-show="service.edit_service" ng-click="updateService(edit_service_name, service.service_id)" class="edit-terminal-button btn-boxy btn-primary" title="Save" ><span class="glyphicon glyphicon-floppy-disk"></span></a>
+                <a href="" ng-show="service.edit_service" ng-click="updateService(edit_service_name, service.service_id)" class="edit-terminal-button btn-boxy btn-success" title="Save" ><span class="glyphicon glyphicon-floppy-disk"></span></a>
             </form>
         </th>
         <th width="" class="text-right">
-            <a href="" ng-hide="service.edit_service" ng-click="service.edit_service = !service.edit_service" class="edit-terminal-button btn-boxy btn-primary"  title="Edit Service"><span class="glyphicon glyphicon-pencil"></span></a>
-            <a href="" class="btn-boxy btn-removeuser btn-danger" ng-click="removeService(service.service_id)" title="Remove Service"><span class="glyphicon glyphicon-trash"></span></a>
+            <a href="" ng-hide="service.edit_service" ng-click="service.edit_service = !service.edit_service" class="edit-terminal-button btn-boxy btn-light"  title="Edit Service"><span class="glyphicon glyphicon-pencil"></span></a>
+            <a href="" class="btn-boxy btn-removeuser btn-light" ng-click="removeService(service.service_id)" title="Remove Service"><span class="glyphicon glyphicon-trash"></span></a>
         </th>
     </tr>
     </thead>
@@ -139,7 +139,7 @@
                                     <span class="terminal_user" style="margin-left:10px;">@{{ user.first_name + ' ' + user.last_name }}</span>
                                 </div>
                                 <div class="pull-right text-right">
-                                    <a href="" class="btn-boxy btn-removeuser btn-danger" ng-click="unassignFromTerminal(user.user_id, user.terminal_id)" title="Remove Terminal User"><span class="glyphicon glyphicon-remove"></span></a>
+                                    <a href="" class="btn-boxy btn-removeuser btn-light" ng-click="unassignFromTerminal(user.user_id, user.terminal_id)" title="Remove Terminal User"><span class="glyphicon glyphicon-remove"></span></a>
                                 </div>
                             </div>
                         </div>
