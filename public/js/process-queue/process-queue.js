@@ -23,6 +23,16 @@ $(document).ready(function(){
         process_queue_scope.issueToOther(service_id, transaction_number);
     });
 
+    /*add box cards animation*/
+    $('.box a.removeCard').click(function() {
+        $(this).parents('.box').remove();
+        $('.box-wrap').isotope({ layoutMode : 'fitRows' });
+    });
+
+    $('.box-wrap').isotope({
+        itemSelector : '.box'
+    });
+
 });
 
 //these functions and variables are separated since they are using jquery
