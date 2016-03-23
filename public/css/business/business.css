@@ -1015,4 +1015,4 @@ button#sendreply {
     display: block;
 }
 .table-responsive .panel {margin-bottom: 0;}
-#btn-analytics {margin-top: 26px;}
+#btn-analytics, #adv-analytics {margin-top: 26px;}
