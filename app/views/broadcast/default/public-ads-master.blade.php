@@ -13,10 +13,10 @@
                 <?php $count = count($ad_src); ?>
             @endif
             <div class="item <?php $count == 0 ? print 'active' : print ''; ?>">
-                <img id="ad<?php print $count+1; ?>" src="/images/broadcast/carousel/car1.jpg" alt="Ad<?php print $count+1; ?>" class="center-block">
+                <img id="ad<?php print $count+1; ?>" src="/images/broadcast/carousel/bs images 13.jpg" alt="Ad<?php print $count+1; ?>" class="center-block">
             </div>
             <div class="item">
-                <img id="ad<?php print $count+2; ?>" src="/images/broadcast/carousel/car3.jpg" alt="Ad<?php print $count+3; ?>" class="center-block">
+                <img id="ad<?php print $count+2; ?>" src="/images/broadcast/carousel/bs images 14.jpg" alt="Ad<?php print $count+3; ?>" class="center-block">
             </div>
         </div>
     </div>
