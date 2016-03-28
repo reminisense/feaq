@@ -282,6 +282,21 @@ class RestController extends BaseController {
         return json_encode(array('success' => $data['fb_id']));
     }
 
+    public function postRegisterUser() {
+        $data = array(
+            'fb_id' => Input::get('fb_id'),
+            'fb_url' => 'https://www.facebook.com/app_scoped_user_id/' . Input::get('fb_id') . '/', // https://www.facebook.com/app_scoped_user_id/1438888283100110/
+            'first_name' => Input::get('first_name'),
+            'last_name' => Input::get('last_name'),
+            'email' => Input::get('email'),
+            'gender' => Input::get('gender'),
+            'phone' => Input::get('phone'),
+            'country' => Input::get('country'),
+        );
+        User::saveFBDetails($data);
+        return json_encode(array('status' => 200, 'msg' => 'OK'));
+    }
+
     /**
      * @author Ruffy Heredia
      * @desc Quick turnaround fix for instant registration and update later
@@ -391,6 +406,9 @@ class RestController extends BaseController {
                 $search_results[$index]->last_number_called = count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'none';
                 $search_results[$index]->next_available_number = $all_numbers->next_number;
                 $search_results[$index]->active = count($all_numbers->called_numbers) + count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? 1: 0;
+
+                $dist = $this->getDistanceFromLatLonInKm(NULL, NULL, $business->latitude, $business->longitude);
+                $search_results[$index]->distance = $dist;
             }
 
         $found_business = array('search-result' => $search_results);
