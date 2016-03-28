@@ -76,19 +76,13 @@
             </div>
             <div class="col-2">
               <div class="numbers t4">
-                <div class="clearfix qrcode">
-                  <div class="col-md-5">
-                    <div class="text-center">
-                      <img width="50%" class="qrcode" src="https://api.qrserver.com/v1/create-qr-code/?data={{ URL::to('/broadcast/business/' . $business_id) }}&size=120x120">
-                    </div>
-                  </div>
-                  <div class="col-md-7">
-                    <h4 class="orange">Monitor via your phone.</h4> <p>Just scan this QR Code</p>
-                  </div>
-                    <div class="col-md-12">
-                        <div id="cust-url">
-                            {{ $_SERVER['HTTP_HOST'] }}/<span>{{ $custom_url }}</span>
-                        </div>
+                <div class="clearfix qrcode lrpads">
+                    <div class="clearfix text-left">
+                      <img class=" qrcode" src="https://api.qrserver.com/v1/create-qr-code/?data={{ URL::to('/broadcast/business/' . $business_id) }}&size=120x120">
+                      <h4 class="orange">Monitor via your phone.</h4>
+                      <p>Just scan this QR Code</p>
+                      <p>or visit this url:</p>
+                      <h4>{{ $_SERVER['HTTP_HOST'] }}/<span>{{ $custom_url }}</span></h4>
                     </div>
                 </div>
               </div>
