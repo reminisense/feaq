@@ -301,8 +301,13 @@ h1,h2,h3,h4 {margin: 0;}
 #biz-broadcast-no-ads .boxed.seven .qrcode img  {width: 100px;}
 #biz-broadcast-no-ads .boxed.eight .qrcode img  {width: 100px;}
 #biz-broadcast-no-ads .boxed.nine .qrcode img,
-#biz-broadcast-no-ads .boxed.ten .qrcode img    {width: 110px;}
-
+#biz-broadcast-no-ads .boxed.ten .qrcode img    {width: 60px;}
+#biz-broadcast-no-ads .boxed.ten h4,
+#biz-broadcast-no-ads .qrcode p {
+    font-size: 14px;
+    margin-top: 0;
+}
+#biz-broadcast-no-ads .boxed.ten h4
 
 @media only screen and (max-width : 1400px) {
     .boxed.two .numbers .callnum { line-height:140px; }
@@ -372,3 +377,6 @@ h1,h2,h3,h4 {margin: 0;}
 .lrpads img {float: left; padding-right: 20px;}
 #biz-broadcast-no-ads #cust-url {font-size: 19px; text-align: center; background-color: #fff; padding: 6px 12px; color: #ff8649!important; margin-left: 15px; margin-right: 15px; border-radius: 4px; margin-top: 10px;}
 #biz-broadcast-no-ads #cust-url span {color: #ff8649!important;}
+img.qrcode {
+    margin-bottom: 10px;
+}
