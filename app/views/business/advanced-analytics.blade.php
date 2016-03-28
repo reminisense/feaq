@@ -66,22 +66,20 @@
                                         <th colspan="6">@{{ terminal.terminal_name }}</th>
                                     </tr>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Numbers Issued</th>
-                                        <th>Numbers Called</th>
-                                        <th>Numbers Served</th>
-                                        <th>Numbers Dropped</th>
-                                        <th>Average Serving Time</th>
+                                        <th width="50%">Name</th>
+                                        <th width="10%">Numbers Called</th>
+                                        <th width="10%">Numbers Served</th>
+                                        <th width="10%">Numbers Dropped</th>
+                                        <th width="20%">Average Serving Time</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="user in terminal.users">
-                                        <td width="20%">@{{ user.user_name }}</td>
-                                        <td width="15%">@{{ user.numbers_issued }}</td>
-                                        <td width="15%">@{{ user.numbers_called }}</td>
-                                        <td width="15%">@{{ user.numbers_served }}</td>
-                                        <td width="15%">@{{ user.numbers_dropped }}</td>
-                                        <td width="20%">@{{ user.average_serving_time }}</td>
+                                        <td>@{{ user.user_name }}</td>
+                                        <td>@{{ user.numbers_called }}</td>
+                                        <td>@{{ user.numbers_served }}</td>
+                                        <td>@{{ user.numbers_dropped }}</td>
+                                        <td>@{{ user.average_serving_time }}</td>
                                     </tr>
                                 </tbody>
                             </table>
