@@ -281,7 +281,7 @@
             <h2 class="wow fadeInUp text-center">Get started now.</h2>
         </div>
         <div class="col-md-offset-2 col-md-8 text-center wow fadeInUp">
-            <p>Download the app and login using your Facebook account and discover a better way to wait.</p>
+            <p>Download the app and login using your FeatherQ account and discover a better way to wait.</p>
             <div class="cta">
                 <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" target="_blank"><img alt="Android app on Google Play" src="/images/homepage/btn-download-app.png"></a>
                 <a href="/user/register" class="btn btn-blue">SIGN UP FOR FREE!</a>
