@@ -66,20 +66,20 @@
                                         <th colspan="6">@{{ terminal.terminal_name }}</th>
                                     </tr>
                                     <tr>
-                                        <th width="50%">Name</th>
-                                        <th width="10%">Numbers Called</th>
-                                        <th width="10%">Numbers Served</th>
-                                        <th width="10%">Numbers Dropped</th>
-                                        <th width="20%">Average Serving Time</th>
+                                        <th width="40%">Name</th>
+                                        <th width="15%" class="text-center">Numbers Called</th>
+                                        <th width="15%" class="text-center">Numbers Served</th>
+                                        <th width="15%" class="text-center">Numbers Dropped</th>
+                                        <th width="20%" class="text-center">Average Serving Time</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="user in terminal.users">
                                         <td>@{{ user.user_name }}</td>
-                                        <td>@{{ user.numbers_called }}</td>
-                                        <td>@{{ user.numbers_served }}</td>
-                                        <td>@{{ user.numbers_dropped }}</td>
-                                        <td>@{{ user.average_serving_time }}</td>
+                                        <td class="text-center">@{{ user.numbers_called }}</td>
+                                        <td class="text-center">@{{ user.numbers_served }}</td>
+                                        <td class="text-center">@{{ user.numbers_dropped }}</td>
+                                        <td class="text-center">@{{ user.average_serving_time }}</td>
                                     </tr>
                                 </tbody>
                             </table>
