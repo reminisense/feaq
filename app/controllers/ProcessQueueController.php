@@ -27,6 +27,16 @@ class ProcessQueueController extends BaseController{
             ->with('business_name', Business::getBusinessNameByTerminalId($terminal_id));
     }
 
+    public function getForwardHistory($service_id){
+        return View::make('process-queue.queue-history')
+            ->with('body', 'processq')
+            ->with('service_id', $service_id)
+            ->with('service_name', Service::name($service_id))
+            ->with('business_id', Business::getBusinessIdByServiceId($service_id))
+            ->with('business_name', Business::getBusinessNameByServiceId($service_id))
+            ->with('transactions', QueueForwardTransactions::getForwardTransactionsByServiceId($service_id));
+    }
+
     /*==============================
             Ajax functions
     ================================*/
