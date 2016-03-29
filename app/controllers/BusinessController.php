@@ -595,8 +595,17 @@ class BusinessController extends BaseController
         }
     }
 
-    public function getName($business_id)
+    public function getName($business_code)
     {
+        try{
+            if(Business::businessWithVanityURLExists($business_code)){
+                $business_id = Business::getBusinessIdByVanityURL($business_code);
+            }else{
+                $business_id = Business::getBusinessIdByRawCode($business_code);
+            }
+        }catch(Exception $e){
+            $business_id = $business_code;
+        }
         return json_encode(array('business_name' => Business::name($business_id)));
     }
 

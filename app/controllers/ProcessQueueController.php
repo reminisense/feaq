@@ -102,16 +102,4 @@ class ProcessQueueController extends BaseController{
         return json_encode(['success' => 1, 'numbers' => $numbers], JSON_PRETTY_PRINT);
     }
 
-    public function getProcessQueue($terminal_id){
-        return View::make('process-queue.process-queue-cards')
-            ->with('body', 'processq')
-            ->with('terminal_id', $terminal_id)
-            ->with('terminal_name', Terminal::name($terminal_id))
-            ->with('service_id', Terminal::serviceId($terminal_id))
-            ->with('service_name', Service::getServiceNameByTerminalId($terminal_id))
-            ->with('business_id', Business::getBusinessIdByTerminalId($terminal_id))
-            ->with('business_name', Business::getBusinessNameByTerminalId($terminal_id))
-            ;
-
-    }
 }
