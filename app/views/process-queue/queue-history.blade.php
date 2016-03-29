@@ -29,6 +29,37 @@
     {{--</script>--}}
     {{--<script src="/js/dashboard/dashboard.js"></script>--}}
     {{--<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.4/jstz.min.js"></script>--}}
+    <script type="text/javascript">
+        (function(){
+            $(".datepicker").datepicker({ dateFormat: 'mm-dd-yy' });
+
+            app.requires.push('ngSanitize');
+            app.requires.push('angular-loading-bar'); //add angular loading bar
+            app.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+                cfpLoadingBarProvider.includeSpinner = false;
+            }]);
+
+            app.controller('forwardHistoryController', function($scope, $http){
+                var current_date = new Date();
+                var day = current_date.getDate() < 10 ? '0' + current_date.getDate() : current_date.getDate();
+                var month = (current_date.getMonth() + 1) < 10 ? '0' + (current_date.getMonth() + 1) : (current_date.getMonth() + 1);
+                var year = current_date.getFullYear();
+
+                $scope.today = month + '-' + day + '-' + year;
+                $scope.date = $scope.today;
+                $scope.service_id = $('#service-id').val();
+                $scope.transactions = null;
+                $scope.getForwardHistory = function(){
+                    $http.get('/processqueue/forward-history-data/' + $scope.service_id + '/' + $scope.date)
+                            .success(function(response){
+                                $scope.transactions = response.data;
+                            });
+                };
+
+                $scope.getForwardHistory();
+            });
+        })();
+    </script>
 @stop
 
 @section('container')
@@ -43,7 +74,7 @@
         </div>
     </div>
 
-    <div class="container" id="process-queue-wrapper" ng-controller="processqueueController">
+    <div class="container" id="process-queue-wrapper" ng-controller="forwardHistoryController">
         <div class="row">
             <div class="page-header clearfix">
                 {{--<div class="col-md-12 text-center">
@@ -56,7 +87,14 @@
                     Showing numbers for date:
                     <div class="col-md-12 row">
                         <div class="col-md-4">
-                            <input type="text" class="datepicker form-control" ng-model="date" ng-change="getAllNumbers()" readonly="readonly" style="cursor: text; background-color: #FFFFFF"/>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" class="datepicker form-control" ng-model="date" ng-change="getAllNumbers()" readonly="readonly" style="cursor: text; background-color: #FFFFFF"/>
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-primary" ng-click="getForwardHistory()" ><span class="glyphicon glyphicon-search"></span></button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -65,37 +103,27 @@
 
         <div class="row">
             <div class="col-md-offset-1 col-md-10">
-                <div class="boxed processq-box processq">
+                <div class="boxed ">
                     <table class="table table-bordered">
                         <thead>
                         <tr>
-                            <th width="10%">Transaction Number</th>
-                            <th width="10%">Priority Number</th>
-                            <th width="30%">Forwarder Terminal</th>
-                            <th width="30%">Forwarder</th>
-                            <th width="10%">Forwarded Service</th>
-                            <th width="10%">Forwarder Priority Number</th>
+                            <th width="10%" class="text-center">Transaction Number</th>
+                            <th width="10%" class="text-center">Priority Number</th>
+                            <th width="30%" class="text-center">Forwarder</th>
+                            <th width="30%" class="text-center">From Terminal</th>
+                            <th width="10%" class="text-center">To Service</th>
+                            <th width="10%" class="text-center">New Priority Number</th>
                         </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>0123456</td>
-                                <td>45</td>
-                                <td>Monster Inc Terminal</td>
-                                <td>Aunne Arzadon</td>
-                                <td>Cashier</td>
-                                <td>1</td>
+                            <tr ng-repeat="transaction in transactions">
+                                <td class="text-center">@{{ transaction.forwarder_transaction_number }}</td>
+                                <td class="text-center">@{{ transaction.forwarded_priority_number }}</td>
+                                <td class="text-center">@{{ transaction.forwarder_first_name + ' ' + transaction.forwarder_last_name}}</td>
+                                <td class="text-center">@{{ transaction.forwarder_terminal_name }}</td>
+                                <td class="text-center">@{{ transaction.forwarded_service }}</td>
+                                <td class="text-center">@{{ transaction.priority_number }}</td>
                             </tr>
-                        @foreach($transactions as $transaction)
-                            <tr>
-                                <td>{{ $transaction->forwarder_transaction_number }}</td>
-                                <td>{{ $transaction->forwarded_priority_number }}</td>
-                                <td>{{ $transaction->forwarder_terminal_id }}</td>
-                                <td>{{ $transaction->forwarder_user_id }}</td>
-                                <td>{{ $transaction->service_id }}</td>
-                                <td>{{ $transaction->priority_number }}</td>
-                            </tr>
-                        @endforeach
                         </tbody>
                     </table>
                 </div>

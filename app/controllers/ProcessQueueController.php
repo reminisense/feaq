@@ -102,4 +102,12 @@ class ProcessQueueController extends BaseController{
         return json_encode(['success' => 1, 'numbers' => $numbers], JSON_PRETTY_PRINT);
     }
 
+    public function getForwardHistoryData($service_id, $date){
+        if($date){
+            $date_array = explode('-', $date);
+            $date = mktime(0,0,0,$date_array[0],$date_array[1], $date_array[2]);
+        }
+        return json_encode(['data' => QueueForwardTransactions::getForwardTransactionsByServiceId($service_id, $date)]);
+    }
+
 }
