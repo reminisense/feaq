@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="col-md-4 col-xs-6">
-                    <div class="numbers t@{{ rank4 } @{{ color4 }}}">
+                    <div class="numbers t@{{ rank4 }} @{{ color4 }}">
                         <p class="terminal">@{{ service4 }}</p>
                         <p class="terminal">@{{ name4 }}</p>
                         <h3>@{{ box4 }}</h3>
