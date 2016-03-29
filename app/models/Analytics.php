@@ -141,7 +141,7 @@ class Analytics extends Eloquent{
                 $terminals[$terminal_index]['users'][] = [
                     'user_id' => $user['user_id'],
                     'user_name' => $user['first_name'] . ' ' . $user['last_name'],
-                    'numbers_issued' => Analytics::getTotalNumbersIssuedByTerminalUser($user['user_id'], $terminal['terminal_id'], $startdate, $enddate),
+                    //'numbers_issued' => Analytics::getTotalNumbersIssuedByTerminalUser($user['user_id'], $terminal['terminal_id'], $startdate, $enddate),
                     'numbers_called' => Analytics::getTotalNumbersCalledByTerminalUser($user['user_id'], $terminal['terminal_id'], $startdate, $enddate),
                     'numbers_served' => Analytics::getTotalNumbersServedByTerminalUser($user['user_id'], $terminal['terminal_id'], $startdate, $enddate),
                     'numbers_dropped' => Analytics::getTotalNumbersDroppedByTerminalUser($user['user_id'], $terminal['terminal_id'], $startdate, $enddate),
