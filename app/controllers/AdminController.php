@@ -336,6 +336,11 @@ class AdminController extends BaseController{
           return json_encode(['error' => "Passwords do not match."]);
         }
 
+          if(User::where('email', '=', $email)->first()){
+              return json_encode(['error' => "Email already exists."]);
+          }
+
+
         $user = [
           'email' => $email,
           'password' => Hash::make($password),

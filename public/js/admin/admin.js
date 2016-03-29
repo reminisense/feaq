@@ -567,13 +567,19 @@ app.controller('adminController', function($scope, $http){
                 password: $scope.new_password,
                 password_confirm: $scope.password_confirm
             }).success(function (response) {
-                $("#user-create-success").fadeIn();
-                $("#user-create-success").fadeOut(4000);
+                if(response.error != undefined){
+                    $scope.create_err = response.error;
+                    $("#user-create-error").fadeIn();
+                    $("#user-create-error").fadeOut(4000);
+                }else{
+                    $("#user-create-success").fadeIn();
+                    $("#user-create-success").fadeOut(4000);
+                }
             });
         }
         else {
-            $("#user-create-error").fadeIn();
-            $("#user-create-error").fadeOut(4000);
+            $("#user-password-error").fadeIn();
+            $("#user-password-error").fadeOut(4000);
         }
     };
     $scope.resetPass = function(user_id) {
