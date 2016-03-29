@@ -24,12 +24,16 @@ class BroadcastController extends BaseController{
         $custom_url = $raw_code;
       }
       else {
-        $business_id = Business::getBusinessIdByRawCode($raw_code);
-        $vanity_url = Business::getVanityURLByRawCode($raw_code);
-        if ($vanity_url) {
-          return Redirect::to('/' . $vanity_url);
+        try{
+          $business_id = Business::getBusinessIdByRawCode($raw_code);
+          $vanity_url = Business::getVanityURLByRawCode($raw_code);
+          if ($vanity_url && trim($vanity_url) != '') {
+            return Redirect::to('/' . $vanity_url);
+          }
+          $custom_url = $raw_code;
+        }catch(Exception $e){
+          return Redirect::to('/');
         }
-        $custom_url = $raw_code;
       }
       $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
       $ad_src = $this->fetchAdSource($data->ad_type, $business_id, $data->tv_channel);
