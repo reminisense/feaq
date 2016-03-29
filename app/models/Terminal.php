@@ -13,12 +13,13 @@ class Terminal extends Eloquent{
     public $timestamps = false;
 
     public static function createTerminal($service_id, $name){
+        $colors = array('', 'blue', 'borange', 'violet', 'green', 'red', 'yellow', 'cyan', 'x242436', 'x78250A', 'FF745F', 'FCA78B', 'x53777A', 'x542437', 'C02942', 'D95B43', 'ECD078');
         $terminal = new Terminal();
         $terminal->name = $name;
         $terminal->service_id = $service_id;
         $terminal->status = 1;
         $terminal->box_rank = Terminal::generateBoxRank($service_id); // Added by PAG
-
+        $terminal->color = $colors[$terminal->box_rank];
         $terminal->save();
         Helper::dbLogger('Terminal', 'terminal', 'insert', 'createTerminal', User::email(Helper::userId()), 'terminal_id:' . $terminal->terminal_id);
 

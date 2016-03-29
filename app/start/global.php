@@ -34,7 +34,10 @@ ClassLoader::addDirectories(array(
 |
 */
 
-Log::useFiles(storage_path().'/logs/laravel.log');
+// Log::useFiles(storage_path().'/logs/laravel.log');
+// this config will tell Laravel to redirect ERROR level logs to our error file
+Log::getMonolog()->pushHandler(new Monolog\Handler\RotatingFileHandler(storage_path().'/logs/error.log',0, Monolog\Logger::ERROR));
+Log::useDailyFiles(storage_path().'/logs/laravel.log');
 
 /*
 |--------------------------------------------------------------------------

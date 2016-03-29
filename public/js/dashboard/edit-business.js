@@ -72,11 +72,6 @@ $(document).ready(function(){
         $('#process-queue').css({"border-bottom":"4px solid #d36e3c"});
     });*/
 
-    /*terminal colors select value on dropdown click*/
-    $('#terminal-colors li a').on('click', function(){
-        $(this).parents('ul').prev().removeClass('cyan yellow blue borange red violet green');
-        $(this).parents('ul').prev().addClass($(this).attr('data-color'));
-    });
 
     $('.biz-terminals').on('click', 'a', function(e){
         e.stopPropagation();
@@ -412,6 +407,7 @@ var eb = {
             ad_type : "",
             tv_channel : "",
             show_issued : "",
+            show_names : "",
             carousel_delay : "",
             ticker_message : "",
             ticker_message2 : "",
@@ -492,7 +488,6 @@ var eb = {
                 $scope.twilio_auth_token = business.twilio_auth_token;
                 $scope.twilio_phone_number = business.twilio_phone_number;
             }
-
             eb.jquery_functions.load_remote_limit_slider();
         }
 
@@ -831,7 +826,6 @@ var eb = {
             var ticker_message3 = "";
             var ticker_message4 = "";
             var ticker_message5 = "";
-            var terminal_colors = [];
             $('.ticker-field-wrap .ticker_message').each(function() {
                 counter++;
                 if (counter == 1) {
@@ -851,16 +845,6 @@ var eb = {
                 }
             });
 
-            // fetch terminal color data
-            var counter = 0;
-            $('.btn-terminal-color').each(function() {
-                terminal_colors[counter] = {
-                    terminal_id: $(this).attr('terminal_id'),
-                    color_value: $(this).attr('class').split(' ')[5]
-                };
-                counter++;
-            });
-
             $http.post('/broadcast/save-settings', {
                 business_id : business_id,
                 adspace_size : $('#ad-width').css('width'),
@@ -870,12 +854,12 @@ var eb = {
                 tv_channel : $scope.settings.tv_channel,
                 carousel_delay : $scope.settings.carousel_delay,
                 show_issued : !$scope.settings.show_called, //ARA Added negation and changed variable name since UI says "Show only called numbers in broadcast page"
+                show_names : $scope.settings.show_names, //ARA Added to show names of customer in broadcast page
                 ticker_message : ticker_message,
                 ticker_message2 : ticker_message2,
                 ticker_message3 : ticker_message3,
                 ticker_message4 : ticker_message4,
-                ticker_message5 : ticker_message5,
-                terminal_colors: terminal_colors
+                ticker_message5 : ticker_message5
             }).success(function(response) {
                 $http.get('/processqueue/update-broadcast/' + business_id).success(function(response) {
                     websocket.send(JSON.stringify({
@@ -1340,7 +1324,18 @@ var eb = {
                 });
             }
         }
-
+        $scope.setTerminalColor = function(terminal_id, color) {
+            $('#btn-terminal-color-'+terminal_id).removeClass('cyan yellow blue borange red violet green x242436 x78250A FF745F FCA78B x53777A x542437 C02942 D95B43 ECD078');
+            $('#btn-terminal-color-'+terminal_id).addClass(color);
+            /*$('#color-info-'+terminal_id).fadeIn(1000);
+            $('#color-info-'+terminal_id).fadeOut(2500);*/
+            $http.post('/terminal/set-color', {
+                color_value: color,
+                terminal_id: terminal_id
+            }).success(function(response) {
+               console.log(response.status+" "+response.message);
+            });
+        }
 
         websocket.onerror	= function(response){
             $('#WebsocketLoaderModal').modal('show');
@@ -1348,6 +1343,9 @@ var eb = {
         websocket.onclose = function(response){
             $('#WebsocketLoaderModal').modal('show');
         };
+        window.onbeforeunload = function(e) {
+            websocket.close();
+        }
     });
 
 })();

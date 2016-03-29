@@ -282,6 +282,21 @@ class RestController extends BaseController {
         return json_encode(array('success' => $data['fb_id']));
     }
 
+    public function postRegisterUser() {
+        $data = array(
+            'fb_id' => Input::get('fb_id'),
+            'fb_url' => 'https://www.facebook.com/app_scoped_user_id/' . Input::get('fb_id') . '/', // https://www.facebook.com/app_scoped_user_id/1438888283100110/
+            'first_name' => Input::get('first_name'),
+            'last_name' => Input::get('last_name'),
+            'email' => Input::get('email'),
+            'gender' => Input::get('gender'),
+            'phone' => Input::get('phone'),
+            'country' => Input::get('country'),
+        );
+        User::saveFBDetails($data);
+        return json_encode(array('status' => 200, 'msg' => 'OK'));
+    }
+
     /**
      * @author Ruffy Heredia
      * @desc Quick turnaround fix for instant registration and update later
@@ -391,6 +406,9 @@ class RestController extends BaseController {
                 $search_results[$index]->last_number_called = count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'none';
                 $search_results[$index]->next_available_number = $all_numbers->next_number;
                 $search_results[$index]->active = count($all_numbers->called_numbers) + count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? 1: 0;
+
+                $dist = $this->getDistanceFromLatLonInKm(NULL, NULL, $business->latitude, $business->longitude);
+                $search_results[$index]->distance = $dist;
             }
 
         $found_business = array('search-result' => $search_results);
@@ -525,21 +543,21 @@ class RestController extends BaseController {
         echo $result;
     }
 
-//    public function getMyHistory($facebook_id, $limit = 5, $offset = 0){
-//        $user = User::searchByFacebookId($facebook_id);
-//        $user_queues = User::getUserHistory($user['user_id'], $limit, $offset);
-//        foreach($user_queues as $index => $data){
-//            $action = 'issued';
-//            if($data['status'] == 1 ) { $action = 'called'; }
-//            else if($data['status'] == 2 ) { $action = 'served'; }
-//            else if($data['status'] == 3 ) { $action = 'dropped'; }
-//
-//            $user_queues[$index]['status'] = $action;
-//            $user_queues[$index]['date'] = date('Y-m-d', $data['date']);
-//        }
-//
-//        return json_encode(['history' => $user_queues]);
-//    }
+    public function getMyHistory($facebook_id, $limit = 5, $offset = 0){
+        $user = User::searchByFacebookId($facebook_id);
+        $user_queues = User::getUserHistory($user['user_id'], $limit, $offset);
+        foreach($user_queues as $index => $data){
+            $action = 'issued';
+            if($data['status'] == 1 ) { $action = 'called'; }
+            else if($data['status'] == 2 ) { $action = 'served'; }
+            else if($data['status'] == 3 ) { $action = 'dropped'; }
+
+            $user_queues[$index]['status'] = $action;
+            $user_queues[$index]['date'] = date('Y-m-d', $data['date']);
+        }
+
+        return json_encode(['history' => $user_queues]);
+    }
 
     /**
      * @author Ruffy Heredia

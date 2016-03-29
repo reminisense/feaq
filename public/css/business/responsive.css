@@ -1,4 +1,3 @@
-.table-responsive .panel {margin-bottom: 0;}
 @media (min-width: 980px) and (max-width: 1200px) {
     ul#bizTab li a span.glyphicon {
         display: none!important;
@@ -17,6 +16,9 @@
     }
     #ad-width {
         border: 0px!important;
+    }
+    #terminal-colors {
+        margin-top: 10px!important;
     }
 }
 @media (min-width: 980px) and (max-width: 991px) {
@@ -51,6 +53,7 @@
     }
 }
 @media (min-width: 480px) and (max-width: 768px) {
+    #btn-analytics {margin-top: 0px;}
     .nav>li>a {
         padding: 12px 20px;
     }
@@ -253,8 +256,10 @@
     .biz-terminals a:hover {
         height: 80px;
     }
+    #btn-analytics {margin-top: 0px; width: 100%;}
 }
 @media (max-width: 320px) {
+    #btn-analytics {margin-top: 0px; width: 100%;}
     .nav>li>a {
         padding: 12px 20px;
     }

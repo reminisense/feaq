@@ -262,9 +262,8 @@
             is_uncalled = pq.jquery_functions.find_in_numbers_array(next_number, $scope.uncalled_numbers);
             is_timebound = pq.jquery_functions.find_in_numbers_array(next_number, $scope.timebound_numbers);
 
-
             if($scope.timebound_numbers.length == 0 && $scope.uncalled_numbers.length == 0){
-                pq.jquery_functions.remove_and_update_dropdown();
+                pq.jquery_functions.remove_and_update_dropdown(next_number);
             }else if(next_number == 0){
                 if($scope.timebound_numbers.length > 0){
                     pq.jquery_functions.select_number(
@@ -288,7 +287,7 @@
                     );
                 }
             }else if(is_uncalled.length == 0 && is_timebound.length == 0){
-                pq.jquery_functions.remove_and_update_dropdown();
+                pq.jquery_functions.remove_and_update_dropdown(next_number);
             }else if($scope.timebound_numbers.length > 0 && is_timebound.length == 0){
                 pq.jquery_functions.select_number(
                     $scope.timebound_numbers[0].transaction_number,
@@ -319,8 +318,10 @@
                 if(response.allowed_businesses && response.allowed_businesses.length != 0 ){
                     var businesses = response.allowed_businesses;
                     for(var index in businesses){
-                        $('#allowed-businesses').append('<option value="' + businesses[index].service_id +'">' + businesses[index].name + ' - ' + businesses[index].service_name + '</option>');
-                        $('#allowed-businesses-area').show();
+                        if(businesses[index].service_id != pq.ids.service_id){
+                            $('#allowed-businesses').append('<option value="' + businesses[index].service_id +'">' + businesses[index].name + ' - ' + businesses[index].service_name + '</option>');
+                            $('#allowed-businesses-area').show();
+                        }
                     }
                 }else{
                     $('#allowed-businesses option').remove();
@@ -338,13 +339,17 @@
                 transaction_number: transaction_number
             };
 
+            $('#forward-btn').append(' <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
+            $('#forward-btn').attr('disabled', 'disabled');
             $scope.serveNumber(transaction_number, function(){
                 $http.post('/issuenumber/issue-other/', data).success(function(response){
                     $('#priority-number-modal-close').show();
                     $('#allowed-businesses').attr('disabled', 'disabled');
+                    $('#forward-btn span').remove();
+                    $('#forward-btn').removeAttr('disabled');
                     $('#forward-btn').hide();
                     $('#forward-success').show();
-                    $('#forward-success').html('Forward successful. The priority number given is ' + response.number.priority_number);
+                    $('#forward-success').html('<p class="forward-num">Forward successful. The priority number given is </p><h2>' + response.number.priority_number + '</h2>');
                     var business_id = response.business_id;
                     websocket.send(JSON.stringify({
                         business_id : business_id,
@@ -365,6 +370,9 @@
         websocket.onclose = function(response){
             $('#WebsocketLoaderModal').modal('show');
         };
+        window.onbeforeunload = function(e) {
+            websocket.close();
+        }
 
         setInterval(function () {
             $scope.sendWebsocket();

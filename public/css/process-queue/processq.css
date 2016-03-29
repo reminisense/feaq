@@ -291,8 +291,25 @@ span.glyphicon-zoom-in {
 .font-normal {
     font-family: 'ralewayregular';
 }
-
-
+.checkedin,
+.checkedin.glyphicon,
+.checkedin a {
+    color: #00BA8B!important;
+}
+.notcheckedin,
+.notcheckedin.glyphicon,
+.notcheckedin a{
+    color: #a3a3a3!important;
+}
+.dpq-icons {
+    font-size: 10px;
+    margin-top:5px;
+    margin-right:3px;
+}
+.c-status {
+    margin-top: 3px;
+    margin-right: 10px;
+}
 .stopbutton {
     /*border-radius: 50%;
     height: 50px;

@@ -56,20 +56,17 @@
             <div class="tri text-center"><img src="/images/homepage/tri.png"></div>
         </div>
 </section>
-
     <section id="signup-body">
             <div class="">
                 <div class="container">
                     <div class="col-md-offset-2 col-md-8" ng-controller="emailAuthController">
 
-                        <div class="col-md-12 text-center">
-                            <div class="clearfix col-md-12">
+                        <div class="clearfix text-center">
+                            <div class=" col-md-12">
                                 <div class="alert alert-warning modal-message" id="verifyError" style="display: none;"></div>
                             </div>
                         </div>
-
-
-                        <form id="verification_form" class="col-md-12 clearfix" ng-submit="verify()">
+                        <form id="verification_form" class="clearfix" ng-submit="verify()">
                             <div class="clearfix">
 
                                     <input type="hidden" class="user_id" name="user_id" value="" />
@@ -103,8 +100,6 @@
                             </div>
                         </form>
                     </div>
-
-
                 </div>
             </div>
     </section>

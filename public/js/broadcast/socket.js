@@ -28,8 +28,13 @@ var establishSocketConnection = function($scope, $http, business_id) {
   };
 
   websocket.onclose = function (response) {
+    websocket.close();
     $('#WebsocketLoaderModal').modal('show');
   };
+
+  window.onbeforeunload = function(e) {
+    websocket.close();
+  }
 
   setInterval(function () {
     websocket.send(JSON.stringify({
@@ -40,3 +45,4 @@ var establishSocketConnection = function($scope, $http, business_id) {
   }, 600000);
 
 };
+
