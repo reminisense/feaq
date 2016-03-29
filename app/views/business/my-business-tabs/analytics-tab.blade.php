@@ -1,9 +1,20 @@
 <div class="clearfix header">
-    <h5>BUSINESS ANALYTICS</h5>
-    <form ng-submit="getBusinessAnalytics(startdate, enddate)">
-        <input type="text" id="start-date" name="start-date" class="datepicker" ng-model="startdate"/><b>-</b>
-        <input type="text" id="end-date" name="end-date" class="datepicker" ng-model="enddate"/>
-        <button class="btn btn-primary" type="submit" ng-disabled="startdate > enddate">Get Analytics</button>
+    <h5 class="mb20">BUSINESS ANALYTICS</h5>
+    <form id="get-analytics" class="clearfix" ng-submit="getBusinessAnalytics(startdate, enddate)">
+        <div class="clearfix">
+            <div class="col-md-2 col-sm-3 col-xs-6">
+                <small>From:</small><br>
+                <input type="text" id="start-date" name="start-date" class=" form-control datepicker" ng-model="startdate"/>
+            </div>
+            <div class="col-md-2 col-sm-3 col-xs-6">
+                <small>To:</small><br>
+                <input type="text" id="end-date" name="end-date" class="form-control datepicker" ng-model="enddate"/>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <button id="btn-analytics" class="btn btn-lg btn-primary" type="submit" ng-disabled="startdate > enddate">Get Analytics</button>
+                <a id="adv-analytics" class="btn btn-lg btn-primary" target="_blank" ng-show="analytics.queue_activity.length > 0" href="{{ url('/business/advanced-analytics/' . $business_id) }}">Advanced Analytics</a>
+            </div>
+        </div>
     </form>
 </div>
 <table class="table">

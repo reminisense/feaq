@@ -162,15 +162,16 @@ My Business
                                     <h4 class="modal-title">Choose Terminals</h4>
                                 </div>
                                 <div class="modal-body">
+                                    @foreach($business['services'] as $service)
                                     <table class="table table-responsive table-condense table-striped">
                                         <thead>
                                         <tr>
-                                            <th>{{ $business['name'] }}</th>
+                                            <th>{{ $service['name'] }}</th>
                                             <th class="text-right"><small></small></th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($business['terminals'] as $terminal)
+                                        @foreach($service['terminals'] as $terminal)
                                             <tr>
                                                 <td>{{ $terminal['name'] }}</td>
                                                 <td class="text-right">
@@ -180,6 +181,7 @@ My Business
                                         @endforeach
                                         </tbody>
                                     </table>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -191,9 +193,9 @@ My Business
     </div>
     @endif
     @if(!$assigned_to_business)
-        <div class="alert alert-danger mt50">
+        <div class="alert alert-danger mt50 text-center">
             <p>
-                You neither a business owner or assigned to any business. For more information, please email us at <a href="mailto:contact@featherq.com">contact@featherq.com</a>
+                 If you are interested to create a FeatherQ business account, email us at <a href="mailto:contact@featherq.com">contact@featherq.com</a>
             </p>
         </div>
     @endif

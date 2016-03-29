@@ -149,10 +149,10 @@
 /*ARA 04082015*/
 .biz-navs .form-control {
     margin-bottom: 20px;
-    border: none;
-    border-bottom: 1px solid #ddd;
-    background-color: #f0f0f0;
-    border-radius: 0;
+    border: 1px solid #bcbcbc;
+    background-color: #fff;
+    -webkit-box-shadow:inset 0 0 2px 0 rgba(0,0,0,0.1);
+    box-shadow:inset 0 0 2px 0 rgba(0,0,0,0.1);
 }
 .broadcast-wrap .form-control {
     background-color: #fff!important;
@@ -211,7 +211,7 @@
     background-color: #fff;
 }
 #bizTabContent .tab-pane h5 {
-    margin-bottom: 2px;
+    margin-bottom: 0px;
     font-size: 16px;
     color: #00ba8b;
 }
@@ -389,6 +389,14 @@ h5>small {
     font-weight: normal;
     color: #fff;
 }
+.btn-light {
+    background-color: #f2f2f2;
+    color: #286090;
+    border: 1px solid #ccc;
+}
+#btn-terminal-color {
+    margin-right: 4px;
+}
 .inline-btns a {
     margin: 4px 0px 4px 0px;
 }
@@ -408,27 +416,13 @@ h5>small {
 table .title {
     margin-bottom: 0!important;
 }
-.mb0 {
-    margin-bottom: 0!important;
-}
-.mb10 {
-    margin-bottom: 10px;
-}
-.mb20 {
-    margin-bottom: 20px!important;
-}
-.mb30 {
-    margin-bottom: 30px;
-}
-.mt10 {
-    margin-top: 10px;
-}
-.mt20 {
-    margin-top: 20px;
-}
-.mt30 {
-    margin-top: 30px;
-}
+.mb0  {  margin-bottom: 0!important;}
+.mb10 { margin-bottom: 10px;  }
+.mb20 { margin-bottom: 20px!important;  }
+.mb30 { margin-bottom: 30px;  }
+.mt10 { margin-top: 10px;  }
+.mt20 { margin-top: 20px;  }
+.mt30 { margin-top: 30px;  }
 
 .table .block a {
     display: inline-block;
@@ -630,14 +624,15 @@ input#input_sms_field:focus{
 #advanced-container{
     padding-left: 10px;
 }
-#start-date{
-    margin-right: 25px;
+/*#start-date{
+    margin: 5px 10px 5px 0;
 }
 #end-date{
-    margin-left: 25px;
-}
+    margin: 5px 10px;
+}*/
 #end-date, #start-date{
     text-align: center;
+    height: 36px;
 }
 #converted-end-date, #converted-start-date{
     text-align: center;
@@ -834,7 +829,14 @@ button#sendreply {
 }
 #create-service thead th {  background-color: #daebf2!important; padding: 14px 8px!important; vertical-align: middle;}
 .form-control.white {background-color: #fff;}
-
+#edit-service-name {
+    background-color: #fff;
+    border: 1px solid #bcbcbc;
+    border-radius: 4px;
+    display: inline-block;
+    padding: 2px 4px;
+    width:40%;
+}
 .general-container{
     text-align: center;
 }
@@ -903,8 +905,11 @@ button#sendreply {
     font-size: 16px;
 }
 #terminals .terminal-name-display {
+    display: inline-block;
     font-family: 'ralewaybold';
     font-size: 15px!important;
+    padding: 5px 0;
+    margin-bottom: 5px;
 }
 #terminal-colors {
     padding-left: 0;
@@ -921,13 +926,19 @@ button#sendreply {
     padding-left: 10px;
     padding-right: 10px;
     display: inline-block;
+    width: 100px;
+}
+#terminal-colors .t-btn {
+    margin: 4px 4px 4px 0;
 }
 #terminal-colors .dropdown-menu {
     background-color: #f8f8f8;
     color: #333;
+    height: 140px;
+    overflow: auto;
 }
 #terminal-colors .dropdown-menu a {
-    color: #333;
+    display: block;
 }
 #terminal-colors .dropdown-menu>li {
     margin: 6px 8px;
@@ -964,6 +975,44 @@ button#sendreply {
 #terminal-colors button.green {
     background-color: #89c27b;
 }
+#terminal-colors #ECD078,
+#terminal-colors button.ECD078 {
+    background-color: #ECD078;
+}
+#terminal-colors #D95B43,
+#terminal-colors button.D95B43 {
+    background-color: #D95B43;
+}
+#terminal-colors #C02942,
+#terminal-colors button.C02942 {
+    background-color: #C02942;
+}
+#terminal-colors #x542437,
+#terminal-colors button.x542437 {
+    background-color: #542437;
+}
+#terminal-colors #x53777A,
+#terminal-colors button.x53777A {
+    background-color: #53777A;
+}
+#terminal-colors #FCA78B,
+#terminal-colors button.FCA78B {
+    background-color: #FCA78B;
+}
+#terminal-colors #FF745F,
+#terminal-colors button.FF745F {
+    background-color: #FF745F;
+}
+#terminal-colors #x78250A,
+#terminal-colors button.x78250A {
+    background-color: #78250A;
+}
+#terminal-colors #x242436,
+#terminal-colors button.x242436 {
+    background-color: #242436;
+}
 #terminal-colors .terminal-name {
     display: block;
 }
+.table-responsive .panel {margin-bottom: 0;}
+#btn-analytics, #adv-analytics {margin-top: 26px;}

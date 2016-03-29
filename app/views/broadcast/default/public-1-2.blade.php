@@ -15,6 +15,7 @@
                         <p class="terminal">@{{ service1 }}</p>
                         <p class="terminal">@{{ name1 }}</p>
                         <h3>@{{ box1 }}</h3>
+                        <p class="terminal">@{{ user1 }}</p>
                     </div>
                 </div>
                 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -22,6 +23,7 @@
                         <p class="terminal">@{{ service2 }}</p>
                         <p class="terminal">@{{ name2 }}</p>
                         <h3>@{{ box2 }}</h3>
+                        <p class="terminal">@{{ user2 }}</p>
                     </div>
                 </div>
             </div>

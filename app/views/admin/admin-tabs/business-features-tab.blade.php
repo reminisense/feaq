@@ -493,67 +493,38 @@
                 <div class="alert alert-danger" id="user-search-error" style="display: none">
                     <p style="text-align: center;">No users found.</p>
                 </div>
-                <div class=" col-md- 12 cus-create-form">
-                    <h2 class="col-md-12">Create User</h2>
-                    <form ng-submit="createUser()">
+                <div class=" col-md-12 cus-create-form">
+                    <form ng-submit="createUser()" style="margin-left: 15%; margin-right: 15%">
                         <table class="table table-form">
                             <tr>
-                                <td>
                                     <label>Email: </label>
                                     <input class="form-control" type="text" ng-model="create_email" />
-                                </td>
-                                <td>
-
-                                </td>
                             </tr>
 
                             <tr>
-                                <td>
                                     <label>Password: </label>
                                     <input class="form-control" type="password" ng-model="new_password" />
-                                </td>
-                                <td>
+                            </tr>
+                            <tr>
                                     <label>Confirm Password:</label>
                                     <input class="form-control" type="password" ng-model="password_confirm" />
-                                </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <label>First Name:</label>
-                                    <input class="form-control" type="text" ng-model="create_first_name" />
-                                </td>
-                                <td>
-                                    <label>Last Name:</label>
-                                    <input class="form-control" type="text" ng-model="create_last_name" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>Gender:</label>
-                                    <select class="form-control" ng-model="create_gender" ng-init="create_gender='male'">
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <label>Address: </label>
-                                    <input type="text" class="form-control" ng-model="create_user_location" ng-autocomplete options="options" details="details" required="true">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>Phone:</label>
-                                    <input class="form-control" type="text" ng-model="create_mobile" />
+
                                 </td>
                                 <td class="text-right">
-                                    <button class="mt20 btn btn-orange btn-lg" type="submit">Save</button>
+                                    <button class="mt20 btn btn-orange btn-lg" type="submit">Create User</button>
                                 </td>
                             </tr>
                         </table>
+                        <div class="alert alert-danger" id="user-create-error" style="display: none">
+                            <p style="text-align: center;">@{{create_err}}</p>
+                        </div>
                         <div class="alert alert-success" id="user-create-success" style="display: none">
                             <p style="text-align: center;">User created.</p>
                         </div>
-                        <div class="alert alert-danger" id="user-create-error" style="display: none">
+                        <div class="alert alert-danger" id="user-password-error" style="display: none">
                             <p style="text-align: center;">Passwords do not match.</p>
                         </div>
                     </form>

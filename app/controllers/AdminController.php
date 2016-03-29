@@ -336,27 +336,26 @@ class AdminController extends BaseController{
           return json_encode(['error' => "Passwords do not match."]);
         }
 
+          if(User::where('email', '=', $email)->first()){
+              return json_encode(['error' => "Email already exists."]);
+          }
+
+
         $user = [
-          'first_name' => Input::get('create_first_name'),
-          'last_name' => Input::get('create_last_name'),
           'email' => $email,
           'password' => Hash::make($password),
           'gcm_token' => '',
-          'phone' => Input::get('create_mobile'),
-          'local_address' => Input::get('create_user_location'),
-          'gender' => Input::get('create_gender'),
         ];
 
         User::insert($user);
-        Helper::dbLogger('AdminController', 'user', 'insert', 'postCreateUser', User::email(Helper::userId()), 'email:' . $email . ',first_name:' . $user['first_name'] . ',last_name:' . $user['last_name']);
+        Helper::dbLogger('AdminController', 'user', 'insert', 'postCreateUser', User::email(Helper::userId()), 'email:' . $email);
 
         try {
           Notifier::sendConfirmationEmail($email);
-          return json_encode(['success' => 1, 'redirect' => '/user/login']);
+          return json_encode(['success' => 1]);
         } catch (Exception $e) {
           return json_encode([
-            'success' => 1,
-            'redirect' => '/user/email-verify/' . $email
+            'success' => 1
           ]);
         }
       }
@@ -739,4 +738,14 @@ class AdminController extends BaseController{
 
       echo 'data migrated';
     }
+
+  public function getDefaultColors() {
+    $colors = array('', 'blue', 'borange', 'violet', 'green', 'red', 'yellow', 'cyan');
+    $terminals = Terminal::all();
+    echo '<pre>';
+    foreach ($terminals as $count => $data) {
+      Terminal::where('terminal_id', '=', $data->terminal_id)->update(array('color' => $colors[$data->box_rank]));
+    }
+    echo 'default colors set.';
+  }
 }

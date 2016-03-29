@@ -15,6 +15,7 @@
                         <p class="terminal">@{{ service1 }}</p>
                         <p class="terminal">@{{ name1 }}</p>
                         <h3>@{{ box1 }}</h3>
+                        <p class="terminal">@{{ user1 }}</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-xs-6">
@@ -22,6 +23,7 @@
                         <p class="terminal">@{{ service2 }}</p>
                         <p class="terminal">@{{ name2 }}</p>
                         <h3>@{{ box2 }}</h3>
+                        <p class="terminal">@{{ user2 }}</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-xs-6">
@@ -29,6 +31,7 @@
                         <p class="terminal">@{{ service3 }}</p>
                         <p class="terminal">@{{ name3 }}</p>
                         <h3>@{{ box3 }}</h3>
+                        <p class="terminal">@{{ user3 }}</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-xs-6">
@@ -36,6 +39,7 @@
                         <p class="terminal">@{{ service4 }}</p>
                         <p class="terminal">@{{ name4 }}</p>
                         <h3>@{{ box4 }}</h3>
+                        <p class="terminal">@{{ user4 }}</p>
                     </div>
                 </div>
             </div>

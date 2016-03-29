@@ -109,15 +109,15 @@ Processs Queue > {{ $business_name }}
                                                     <span ng-if="number.name"
                                                         style="text-transform: capitalize;"
                                                     >@{{ number.name }}</span>
+                                                    <span ng-if="(number.queue_platform == 'remote' || number.queue_platform == 'android') && !number.checked_in">
+                                                        <small class="c-status pull-right mr5 font-normal">not checked in :</small>
+                                                        <span class="dpq-icons pull-right glyphicon glyphicon-remove"> </span>
+                                                    </span>
+                                                    <span ng-if="(number.queue_platform == 'remote' || number.queue_platform == 'android') && number.checked_in">
+                                                        <small class="c-status pull-right mr5 checkedin font-normal">checked in :</small>
+                                                        <span class="dpq-icons pull-right checkedin glyphicon glyphicon-ok"> </span>
+                                                    </span>
                                                 </a>
-                                            </span>
-                                            <span ng-if="(number.queue_platform == 'remote' || number.queue_platform == 'android') && number.checked_in">
-                                                <small class="pull-right font-normal">checked in</small>
-                                                <span class="pull-right mr5 glyphicon glyphicon-ok"
-                                                    style="font-size: 10px;
-                                                    margin-top:5px;
-                                                    margin-right: 3px;"
-                                                ></span>
                                             </span>
                                         </li>
                                         <li ng-repeat="number in uncalled_numbers"
@@ -142,25 +142,21 @@ Processs Queue > {{ $business_name }}
                                                data-email="@{{ number.email }}"
                                                data-phone="@{{ number.phone }}"
                                             >
-                                                <a href="#">
-                                                    <span ng-if="number.name"
+                                                <a href="#" class="notcheckedin">
+                                                    <span class="pull-right" ng-if="number.name"
                                                     style="text-transform: capitalize;
                                                     font-size: 14px;"
-                                                    >@{{ number.name }}</span>
+                                                    >@{{ number.name }} </span>
+                                                    <span ng-if="(number.queue_platform == 'remote' || number.queue_platform == 'android') && !number.checked_in">
+                                                        <small class="c-status pull-right mr5 font-normal">not checked in :</small>
+                                                        <span class="dpq-icons pull-right glyphicon glyphicon-remove"> </span>
+                                                    </span>
+                                                    <span ng-if="(number.queue_platform == 'remote' || number.queue_platform == 'android') && number.checked_in">
+                                                        <small class="c-status pull-right mr5 checkedin font-normal">checked in :</small>
+                                                        <span class="dpq-icons pull-right checkedin glyphicon glyphicon-ok"> </span>
+                                                    </span>
                                                 </a>
                                             </span>
-                                            <span ng-if="(number.queue_platform == 'remote' || number.queue_platform == 'android') && number.checked_in">
-                                                <small class="pull-right mr5 font-normal"
-                                                    style="margin-top: 3px;
-                                                    margin-right: 20px;"
-                                                >checked in</small>
-                                                <span class="pull-right glyphicon glyphicon-ok"
-                                                    style="font-size: 10px;
-                                                    margin-top:5px;
-                                                    margin-right:3px;"
-                                                > </span>
-                                            </span>
-
                                         </li>
                                     </ul>
                                 </div>

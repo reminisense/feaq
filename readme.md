@@ -1,3 +1,15 @@
+# FeatherQ Web App
+
+Don't Waste Your Life — Waiting
+
+FeatherQ is a cloud-based queuing platform. We make it easy for businesses to manage their lines better and allow customers to wait on their own terms.
+
+1. Reduce Opportunity Loss - Your customers can line up for your business using their cellphone, reducing line that turn customers away.
+
+2. Retain Clientele - Build goodwill and transparency by communicating quickly and effectively with waiting guests.
+
+3. Manange from anywhere - With FeatherQ, all you need to manage your lines is an internet connection and a web browser. You can access FeatherQ's features on a computer, smartphone or tablet.
+
 ## Laravel PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)

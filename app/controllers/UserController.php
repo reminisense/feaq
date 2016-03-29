@@ -276,8 +276,7 @@ class UserController extends BaseController{
         if(isset($email) && $email != "" && isset($password) && $password != ""){
             $user = User::where('email', '=', $email)->first();
             if($user && !$user->verified){
-                $verification_url = url('/user/verify-email');
-                return json_encode(['error' => 'Email verification required. Go ' . $verification_url . '/{your email} to verify your account.']);
+                return json_encode(['error' => 1, 'resend' => 1]);
             }else if($user && $user->password == '' && $user->fb_id != ''){
                 return json_encode(['error' => 'Email is connected to a Facebook account. Please login with Facebook.']);
             }else if($user && Hash::check($password, $user->password)){
@@ -321,7 +320,7 @@ class UserController extends BaseController{
         try{
             Notifier::sendConfirmationEmail($email);
         }catch(Exception $e){}
-        return Redirect::back();
+        json_encode(['success' => 1]);
     }
 
     public function postSendReset(){

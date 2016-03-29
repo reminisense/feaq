@@ -62,8 +62,7 @@
                     <div class="tri text-center"><img src="/images/homepage/tri.png"></div>
                 </div>
             </div>
-        </section>
-
+    </section>
 <section id="signup-body">
             <div class="">
                 <div class="container">
@@ -90,7 +89,6 @@
                                     <input class="abs form-control" type="password" name="password_confirm" ng-model="password_confirm" required compare-to="password"/>
                                 </div>
                              </div>
-
                             <div class="row mt30">
                                 <div class="col-md-5 col-sm-5 col-xs-12 text-left" id="privacy-policy">
                                     {{--<a class="forgot-pass no-line" href="/user/forgot-password">Forgot password?</a>--}}

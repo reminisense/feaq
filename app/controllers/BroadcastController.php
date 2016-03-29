@@ -24,20 +24,24 @@ class BroadcastController extends BaseController{
         $custom_url = $raw_code;
       }
       else {
-        $business_id = Business::getBusinessIdByRawCode($raw_code);
-        $vanity_url = Business::getVanityURLByRawCode($raw_code);
-        if ($vanity_url) {
-          return Redirect::to('/' . $vanity_url);
+        try{
+          $business_id = Business::getBusinessIdByRawCode($raw_code);
+          $vanity_url = Business::getVanityURLByRawCode($raw_code);
+          if ($vanity_url && trim($vanity_url) != '') {
+            return Redirect::to('/' . $vanity_url);
+          }
+          $custom_url = $raw_code;
+        }catch(Exception $e){
+          return Redirect::to('/');
         }
-        $custom_url = $raw_code;
       }
       $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
       $ad_src = $this->fetchAdSource($data->ad_type, $business_id, $data->tv_channel);
       $business_name = Business::name($business_id);
       $open_time = str_pad(Business::openHour($business_id), 2, 0, STR_PAD_LEFT) . ':' . str_pad(Business::openMinute($business_id), 2, 0, STR_PAD_LEFT) . ' ' . Business::openAMPM($business_id);
       $close_time = str_pad(Business::closeHour($business_id), 2, 0, STR_PAD_LEFT) . ':' . str_pad(Business::closeMinute($business_id), 2, 0, STR_PAD_LEFT) . ' ' . Business::closeAMPM($business_id);
-      $first_service = Service::getFirstServiceOfBusiness($business_id);
-      $allow_remote = QueueSettings::allowRemote($first_service->service_id);
+      //$first_service = Service::getFirstServiceOfBusiness($business_id);
+      //$allow_remote = QueueSettings::allowRemote($first_service->service_id);
       $ticker_message = $this->tickerPusher($data->ticker_message, $data->ticker_message2, $data->ticker_message3, $data->ticker_message4, $data->ticker_message5);
       $templates = $this->broadcastTemplate($data->display, $business_id);
       $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
@@ -50,6 +54,8 @@ class BroadcastController extends BaseController{
       return View::make($templates['broadcast_template'])
         //->with('custom_fields', $custom_fields)
         //->with('template_type', $data->d)
+        //->with('first_service', Service::getFirstServiceOfBusiness($business_id))
+        //->with('allow_remote', $allow_remote)
         ->with('ticker_width', 100 - $regions['percentage'])
         ->with('custom_url', $custom_url)
         ->with('adspace_size', $data->adspace_size)
@@ -65,8 +71,6 @@ class BroadcastController extends BaseController{
         ->with('business_name', $business_name)
         ->with('lines_in_queue', Analytics::getBusinessRemainingCount($business_id))
         ->with('estimate_serving_time', Analytics::getAverageTimeServedByBusinessId($business_id, 'string', $date, $date))
-        ->with('first_service', Service::getFirstServiceOfBusiness($business_id))
-        ->with('allow_remote', $allow_remote)
         ->with('ticker_message', $ticker_message)
         ->with('ad_class', $ad_class)
         ->with('num_class', $num_class)
@@ -218,6 +222,7 @@ class BroadcastController extends BaseController{
       }
       $data->display = $this->generateDisplayCode($data->ad_type, Input::get('num_boxes'));
       $data->show_issued = Input::get('show_issued');
+      $data->show_names = Input::get('show_names');
       $data->ticker_message = Input::get('ticker_message');
       $data->ticker_message2 = Input::get('ticker_message2');
       $data->ticker_message3 = Input::get('ticker_message3');
@@ -226,10 +231,6 @@ class BroadcastController extends BaseController{
       $data = $this->boxObjectCreator($data, Input::get('num_boxes'));
       $encode = json_encode($data);
       file_put_contents(public_path() . '/json/' . Input::get('business_id') . '.json', $encode);
-      print_r(Input::get('terminal_colors'));
-      foreach (Input::get('terminal_colors') as $count => $terminal_data) {
-        Terminal::setColor($terminal_data["color_value"], $terminal_data["terminal_id"]);
-      }
       return json_encode(array('status' => 1));
     }
     else {
@@ -649,6 +650,9 @@ class BroadcastController extends BaseController{
       $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
       if (!isset($data->show_issued)) {
         $data->show_issued = TRUE;
+      }
+      if (!isset($data->show_names)) {
+        $data->show_names = FALSE;
       }
       if (!isset($data->ad_image)) {
         $data->ad_image = "";
