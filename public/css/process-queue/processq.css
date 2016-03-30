@@ -2,6 +2,7 @@
     background: #03121a url('/img/feat-business.jpg') center no-repeat;
     height: 195px;
 }
+#forward-history, /*ARA for queue forwarding history*/
 #view-broadcast {
     font-family: 'ralewayregular';
     display: block;
@@ -13,7 +14,9 @@
     line-height: 18px;
     vertical-align: middle;
 }
+
 #process-queue a > span,
+#forward-history > span, /*ARA for queue forwarding history*/
 #view-broadcast > span {
     margin-right: 8px;
 }
@@ -49,12 +52,25 @@ span.glyphicon-zoom-in {
     background-color: #00ba8b;
     /*background: #00ba8b url('/img/bg-view-broadcast.png') left no-repeat;*/
 }
+#processq #forward-history{ /*ARA for queue forwarding history*/
+    margin-top: 0px;
+    color: #fff;
+    border-bottom: 4px solid #d36e3c;
+    background-color: #ff925b;
+}
+
+
+#processq #forward-history:focus, /*ARA for queue forwarding history*/
 #processq #view-broadcast:focus {
     text-decoration: none;
 }
 #processq #view-broadcast:hover {
     background-color: #009b74;
 }
+#processq #forward-history:hover {  /*ARA for queue forwarding history*/
+    background-color: #d36e3c;
+}
+#forward-history:hover,
 #view-broadcast:hover{
     text-decoration: none;
 }
