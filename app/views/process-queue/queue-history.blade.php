@@ -89,10 +89,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <div class="input-group">
-                                    <input type="text" class="datepicker form-control" ng-model="date" ng-change="getAllNumbers()" readonly="readonly" style="cursor: text; background-color: #FFFFFF"/>
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-primary" ng-click="getForwardHistory()" ><span class="glyphicon glyphicon-search"></span></button>
-                                    </div>
+                                    <input type="text" class="datepicker form-control" ng-model="date" ng-change="getForwardHistory()" readonly="readonly" style="cursor: text; background-color: #FFFFFF"/>
                                 </div>
                             </div>
                         </div>

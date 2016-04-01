@@ -316,10 +316,10 @@
             $('#allowed-businesses-area').hide();
             $http.get('/business/allowed-businesses/' + pq.ids.business_id).success(function(response){
                 if(response.allowed_businesses && response.allowed_businesses.length != 0 ){
-                    var businesses = response.allowed_businesses;
-                    for(var index in businesses){
-                        if(businesses[index].service_id != pq.ids.service_id){
-                            $('#allowed-businesses').append('<option value="' + businesses[index].service_id +'">' + businesses[index].name + ' - ' + businesses[index].service_name + '</option>');
+                    $scope.allowed_businesses = response.allowed_businesses;
+                    for(var index in $scope.allowed_businesses){
+                        if($scope.allowed_businesses[index].service_id != pq.ids.service_id){
+                            $('#allowed-businesses').append('<option value="' + $scope.allowed_businesses[index].service_id +'">' + $scope.allowed_businesses[index].name + ' - ' + $scope.allowed_businesses[index].service_name + '</option>');
                             $('#allowed-businesses-area').show();
                         }
                     }
