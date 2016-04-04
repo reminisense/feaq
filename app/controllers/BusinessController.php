@@ -705,12 +705,4 @@ class BusinessController extends BaseController
         }
         print 'Raw codes generated.';
     }
-
-    public function getAdvancedAnalytics($business_id){
-        if(Business::where('business_id', '=', $business_id)->exists()){
-            return View::make('business.advanced-analytics')->with('business_id', $business_id);
-        }else{
-            return Redirect::to('/');
-        }
-    }
 }
