@@ -77,9 +77,9 @@ class ProcessQueueController extends BaseController{
         }
     }
 
-    public function getDropnumber($transaction_number){
+    public function getDropnumber($transaction_number, $terminal_id = null){
         try{
-            return ProcessQueue::processNumber($transaction_number, 'remove');
+            return ProcessQueue::processNumber($transaction_number, 'remove', $terminal_id);
         }catch(Exception $e){
             return json_encode(['error' => $e->getMessage()]);
         }
