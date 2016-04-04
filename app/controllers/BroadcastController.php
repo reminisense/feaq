@@ -24,20 +24,24 @@ class BroadcastController extends BaseController{
         $custom_url = $raw_code;
       }
       else {
-        $business_id = Business::getBusinessIdByRawCode($raw_code);
-        $vanity_url = Business::getVanityURLByRawCode($raw_code);
-        if ($vanity_url) {
-          return Redirect::to('/' . $vanity_url);
+        try{
+          $business_id = Business::getBusinessIdByRawCode($raw_code);
+          $vanity_url = Business::getVanityURLByRawCode($raw_code);
+          if ($vanity_url && trim($vanity_url) != '') {
+            return Redirect::to('/' . $vanity_url);
+          }
+          $custom_url = $raw_code;
+        }catch(Exception $e){
+          return Redirect::to('/');
         }
-        $custom_url = $raw_code;
       }
       $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
       $ad_src = $this->fetchAdSource($data->ad_type, $business_id, $data->tv_channel);
       $business_name = Business::name($business_id);
       $open_time = str_pad(Business::openHour($business_id), 2, 0, STR_PAD_LEFT) . ':' . str_pad(Business::openMinute($business_id), 2, 0, STR_PAD_LEFT) . ' ' . Business::openAMPM($business_id);
       $close_time = str_pad(Business::closeHour($business_id), 2, 0, STR_PAD_LEFT) . ':' . str_pad(Business::closeMinute($business_id), 2, 0, STR_PAD_LEFT) . ' ' . Business::closeAMPM($business_id);
-      $first_service = Service::getFirstServiceOfBusiness($business_id);
-      $allow_remote = QueueSettings::allowRemote($first_service->service_id);
+      //$first_service = Service::getFirstServiceOfBusiness($business_id);
+      //$allow_remote = QueueSettings::allowRemote($first_service->service_id);
       $ticker_message = $this->tickerPusher($data->ticker_message, $data->ticker_message2, $data->ticker_message3, $data->ticker_message4, $data->ticker_message5);
       $templates = $this->broadcastTemplate($data->display, $business_id);
       $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
@@ -50,6 +54,8 @@ class BroadcastController extends BaseController{
       return View::make($templates['broadcast_template'])
         //->with('custom_fields', $custom_fields)
         //->with('template_type', $data->d)
+        //->with('first_service', Service::getFirstServiceOfBusiness($business_id))
+        //->with('allow_remote', $allow_remote)
         ->with('ticker_width', 100 - $regions['percentage'])
         ->with('custom_url', $custom_url)
         ->with('adspace_size', $data->adspace_size)
@@ -65,8 +71,6 @@ class BroadcastController extends BaseController{
         ->with('business_name', $business_name)
         ->with('lines_in_queue', Analytics::getBusinessRemainingCount($business_id))
         ->with('estimate_serving_time', Analytics::getAverageTimeServedByBusinessId($business_id, 'string', $date, $date))
-        ->with('first_service', Service::getFirstServiceOfBusiness($business_id))
-        ->with('allow_remote', $allow_remote)
         ->with('ticker_message', $ticker_message)
         ->with('ad_class', $ad_class)
         ->with('num_class', $num_class)

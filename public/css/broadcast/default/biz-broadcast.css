@@ -61,20 +61,21 @@ body { background-color: #fff; position: relative;  font-family: 'Lato', sans-se
 .boxed.seven .service {font-size: 1.5vw;}
 .boxed.eight .callnum  {font-size: 4vw;}
 .boxed.eight .service {font-size: 1.5vw;}
-.boxed.nine .callnum   {font-size: 3vw;}
-.boxed.nine .service  {font-size: 1.5vw;}
+.boxed.nine .callnum   {font-size: 2.2vw;}
+.boxed.nine .service,
+.boxed.nine .terminal{font-size: 1.1vw;}
 .boxed.ten .callnum    {font-size: 4vw;}
 .boxed.ten .service   {font-size: 1.2vw;}
 .fifty .boxed.four .callnum    {font-size: 7vw;}
 .fifty .boxed.four .service   {font-size: 2vw;}
 .fifty .boxed.five .callnum    {font-size: 5.2vw;}
 .fifty .boxed.five .service   {font-size: 1.8vw;}
-.fifty .boxed.six .callnum    {font-size: 6vw;}
-.fifty .boxed.seven .callnum    {font-size: 4vw;}
-.fifty .boxed.eight .callnum    {font-size: 5vw;}
-.fifty .boxed.eight .service   {font-size: 1.8vw;}
-.fifty .boxed.ten .service   {font-size: 1.6vw;}
-.fifty .boxed.ten .callnum    {font-size: 3.5vw;}
+.fifty .boxed.six .callnum    {font-size: 5vw;}
+.fifty .boxed.seven .callnum    {font-size: 3.5vw;}
+.fifty .boxed.eight .callnum    {font-size: 3.5vw;}
+.fifty .boxed.eight .service   {font-size: 1.5vw;}
+.fifty .boxed.ten .service   {font-size: 1.3vw;}
+.fifty .boxed.ten .callnum    {font-size: 2.5vw;}
 
 .fifty .row-2 .col-2 .numbers,
 .row-5 > .col-2 .numbers,
@@ -155,7 +156,7 @@ h1,h2,h3,h4 {margin: 0;}
 .qrcode.qrwrap img {width: 100%;margin-top: 5px;}
 .vid-container {position: relative;width: 100%;height: 0;padding-bottom: 56.23%;}
 .vid-container iframe,.vid-container object,.vid-container embed {position: absolute;top: 0;left: 0;width: 100%;height: 100%;}
-.boxed.four .numbers .callnum {line-height: 120px;}
+/*.boxed.four .numbers .callnum {line-height: 120px;}*/
 /*.fifty .boxed.four .numbers .service { padding-bottom:50px; }*/
 .fifty .boxed.ten .numbers .callnum { line-height: inherit; }
 #cust-url {  margin-top: 8px; font-size: 14px; font-weight: bold; }
@@ -163,8 +164,8 @@ h1,h2,h3,h4 {margin: 0;}
 
 #biz-broadcast-no-ads .row-4 .col-3 .terminal,
 .fifty .boxed.ten .terminal {font-size: 1.2vw!important;}
-#biz-broadcast-no-ads .terminal {font-size: 1.8vw;}
-.terminal {font-size: 1.5vw; text-align: center;}
+#biz-broadcast-no-ads .terminal {font-size: 1.4vw;}
+.terminal {font-size: 1.2vw; text-align: center;}
 
 /*here comes no ADS*/
 #biz-broadcast-no-ads .ticker-message {z-index: 5;}
@@ -238,35 +239,80 @@ h1,h2,h3,h4 {margin: 0;}
     float: left;
     display: table;
 }
-#biz-broadcast-no-ads .row-4 .col-2 .qrcode img {width: 40%!important;}
-#biz-broadcast-no-ads .service {font-size: 1.8vw;}
-#biz-broadcast-no-ads .callnum {font-size: 6vw!important;}
-#biz-broadcast-no-ads .boxed.three .service {font-size: 2.4vw;}
-#biz-broadcast-no-ads .boxed.one .service {font-size: 4vw;}
+/*#biz-broadcast-no-ads .row-4 .col-2 .qrcode img {width: 20%!important;}*/
+#biz-broadcast-no-ads .service {font-size: 1.4vw;}
+#biz-broadcast-no-ads .callnum {font-size: 5vw!important;}
+#biz-broadcast-no-ads .boxed.three .service {font-size: 2.2vw;}
+#biz-broadcast-no-ads .boxed.one .service {font-size: 3.5vw;}
+#biz-broadcast-no-ads .boxed.one .terminal {font-size: 2.5vw;}
 #biz-broadcast-no-ads .boxed.two .service {font-size: 2.6vw;}
-#biz-broadcast-no-ads .boxed.five .callnum {font-size: 7.8vw!important;}
-#biz-broadcast-no-ads .boxed.three .callnum {font-size: 10vw!important;}
-#biz-broadcast-no-ads .boxed.one .callnum {font-size: 13.8vw!important;}
+#biz-broadcast-no-ads .boxed.two .terminal {font-size: 2vw;}
+#biz-broadcast-no-ads .boxed.four .terminal {font-size: 2vw;}
+#biz-broadcast-no-ads .boxed.four .callnum {font-size: 6.5vw!important;}
+#biz-broadcast-no-ads .boxed.four .service {font-size: 2.5vw;}
+
+#biz-broadcast-no-ads .boxed.five .callnum {font-size: 6.6vw!important;}
+#biz-broadcast-no-ads .boxed.five .service {font-size: 1.8vw!important;}
+
+#biz-broadcast-no-ads .boxed.six .service {font-size: 1.8vw!important;}
+#biz-broadcast-no-ads .boxed.six .callnum {font-size: 6.3vw!important;}
+
+#biz-broadcast-no-ads .boxed.seven .service {font-size: 1.8vw!important;}
+#biz-broadcast-no-ads .boxed.seven .callnum {font-size: 6.5vw!important;}
+
+#biz-broadcast-no-ads .boxed.eight .service {font-size: 1.8vw!important;}
+#biz-broadcast-no-ads .boxed.eight .callnum {font-size: 4vw!important;}
+
+#biz-broadcast-no-ads .boxed.nine .callnum {font-size: 4vw!important;}
+
+#biz-broadcast-no-ads .boxed.ten .service {font-size: 1vw!important;}
+#biz-broadcast-no-ads .boxed.ten .terminal {font-size: 1vw!important;}
+#biz-broadcast-no-ads .boxed.ten .callnum {font-size: 3vw!important;}
+
+#biz-broadcast-no-ads .boxed.three .callnum {font-size: 6vw!important;}
+#biz-broadcast-no-ads .boxed.three .terminal {font-size: 2vw!important;}
+#biz-broadcast-no-ads .boxed.three {
+
+}
+/*#biz-broadcast-no-ads .boxed.four .row-2 .col-3 {  width: 31%!important;  }*/
+#biz-broadcast-no-ads .boxed.one .callnum {font-size: 12.5vw!important;}
 #biz-broadcast-no-ads .boxed.two .callnum {font-size: 9.5vw!important;}
-#biz-broadcast-no-ads .boxed.ten .callnum {line-height: 100px;}
+
 #biz-broadcast-no-ads .row-4 .col-3 .service,
 #biz-broadcast-no-ads .row-3 .col-3 .service,
 #biz-broadcast-no-ads .row-2 .col-3 .service,
-#biz-broadcast-no-ads .row-1 .col-3 .service { width: 350px;}
+#biz-broadcast-no-ads .row-1 .col-3 .service { width: 200px; }
 #biz-broadcast-no-ads .row-2 .col-5 .service { width: 280px;}
-#biz-broadcast-no-ads .row-2 .col-2 .service,
-#biz-broadcast-no-ads .row-1 .col-2 .service { width: 550px;}
+/*#biz-broadcast-no-ads .row-2 .col-2 .service,
+#biz-broadcast-no-ads .row-1 .col-2 .service { width: 550px;}*/
 #biz-broadcast-no-ads .row-2 .col-4 .service,
 #biz-broadcast-no-ads .row-3 .col-4 .service { width: 350px;}
-#biz-broadcast-no-ads .boxed.three .service { width: 550px;}
+/*#biz-broadcast-no-ads .boxed.three .service { width: 550px;}*/
 #biz-broadcast-no-ads .service { text-align: center; margin: auto;}
-#biz-broadcast-no-ads .qrcode h4 {font-size: 28px; font-weight: 700;}
-#biz-broadcast-no-ads .qrcode p {font-size: 18px!important; margin-top: 15px;}
-#biz-broadcast-no-ads .boxed.three h4 {font-size: 36px;}
+#biz-broadcast-no-ads .qrcode h4 {font-size: 20px; font-weight: 700;}
+#biz-broadcast-no-ads .qrcode p {font-size: 15px!important; margin-top: 5px;}
+
+#biz-broadcast-no-ads .boxed.three h4 {font-size: 20px;}
+#biz-broadcast-no-ads .boxed.four h4,
+#biz-broadcast-no-ads .boxed.ten h4{font-size: 18px;}
+#biz-broadcast-no-ads .boxed.eight h4 {font-size: 16px;}
+#biz-broadcast-no-ads .boxed.nine h4 {font-size: 16px;}
+#biz-broadcast-no-ads .boxed.four .qrcode img   {width: 100px;}
+#biz-broadcast-no-ads .boxed.five .qrcode img   {width: 100px;}
+#biz-broadcast-no-ads .boxed.seven .qrcode img  {width: 100px;}
+#biz-broadcast-no-ads .boxed.eight .qrcode img  {width: 100px;}
+#biz-broadcast-no-ads .boxed.nine .qrcode img,
+#biz-broadcast-no-ads .boxed.ten .qrcode img    {width: 60px;}
+#biz-broadcast-no-ads .boxed.ten h4,
+#biz-broadcast-no-ads .qrcode p {
+    font-size: 14px;
+    margin-top: 0;
+}
+#biz-broadcast-no-ads .boxed.ten h4
 
 @media only screen and (max-width : 1400px) {
     .boxed.two .numbers .callnum { line-height:140px; }
-    .boxed.four .numbers .callnum { line-height:95px; }
+    /*.boxed.four .numbers .callnum { line-height:95px; }*/
     .thirty .numbers .service { width:330px; }
     .boxed.six .numbers .service,
     .boxed.seven .numbers .service,
@@ -280,7 +326,7 @@ h1,h2,h3,h4 {margin: 0;}
 @media only screen and (max-width : 1200px) {
     .boxed.two .numbers .callnum {line-height: 120px;}
     .thirty .numbers .service { width: 280px;}
-    .boxed.four .numbers .callnum {line-height: 95px;}
+    /*.boxed.four .numbers .callnum {line-height: 95px;}*/
     .fifty .numbers .service { padding-bottom:0px; }
     .fifty .boxed.ten .numbers .service { padding-bottom:0px; }
     .fifty .numbers .service { width:230px!important; }
@@ -290,7 +336,7 @@ h1,h2,h3,h4 {margin: 0;}
 
 @media only screen and (max-width : 992px) {
     .thirty .numbers .service { width: 220px;}
-    .boxed.four .numbers .callnum {line-height: 90px;}
+    /*.boxed.four .numbers .callnum {line-height: 90px;}*/
     .numbers-area .boxed h3 {padding-top:1vh;}
     .boxed.six .numbers .service,
     .boxed.seven .numbers .service,
@@ -328,5 +374,10 @@ h1,h2,h3,h4 {margin: 0;}
 @media only screen and (max-width : 320px) {
 
 }
-#biz-broadcast-no-ads #cust-url {font-size: 19px; text-align: center; background-color: #fff; padding: 6px 12px; color: #ff8649!important; margin-left: 15px; margin-right: 15px; border-radius: 4px; margin-top: 18px;}
+.lrpads {padding: 20px}
+.lrpads img {float: left; padding-right: 20px;}
+#biz-broadcast-no-ads #cust-url {font-size: 19px; text-align: center; background-color: #fff; padding: 6px 12px; color: #ff8649!important; margin-left: 15px; margin-right: 15px; border-radius: 4px; margin-top: 10px;}
 #biz-broadcast-no-ads #cust-url span {color: #ff8649!important;}
+img.qrcode {
+    margin-bottom: 10px;
+}

@@ -12,7 +12,7 @@
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
                 <button id="btn-analytics" class="btn btn-lg btn-primary" type="submit" ng-disabled="startdate > enddate">Get Analytics</button>
-                <a class="btn btn-lg btn-primary" target="_blank" ng-show="analytics.queue_activity.length > 0" href="{{ url('/business/advanced-analytics/' . $business_id) }}">Advanced Analytics</a>
+                <a id="adv-analytics" class="btn btn-lg btn-primary" target="_blank" ng-show="analytics.queue_activity.length > 0" href="{{ url('/business/advanced-analytics/' . $business_id) }}">Advanced Analytics</a>
             </div>
         </div>
     </form>

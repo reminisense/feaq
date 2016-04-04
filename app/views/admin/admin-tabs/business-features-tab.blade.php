@@ -518,10 +518,13 @@
                                 </td>
                             </tr>
                         </table>
+                        <div class="alert alert-danger" id="user-create-error" style="display: none">
+                            <p style="text-align: center;">@{{create_err}}</p>
+                        </div>
                         <div class="alert alert-success" id="user-create-success" style="display: none">
                             <p style="text-align: center;">User created.</p>
                         </div>
-                        <div class="alert alert-danger" id="user-create-error" style="display: none">
+                        <div class="alert alert-danger" id="user-password-error" style="display: none">
                             <p style="text-align: center;">Passwords do not match.</p>
                         </div>
                     </form>
