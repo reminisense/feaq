@@ -80,20 +80,23 @@
                 {{--<div class="col-md-12 text-center">
                     <button class="btn btn-danger stopbutton"ng-click="stopProcessQueue()">STOP</button>
                 </div>--}}
-                <div class="col-md-offset-1 col-md-7 col-sm-8">
-                    <p>Processing Queues for:</p>
-                    <h2><strong>{{ $business_name }}</strong></h2>
-                    <h3><strong>{{ $service_name }}</strong></h3>
-                    Showing numbers for date:
-                    <div class="col-md-12 row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <input type="text" class="datepicker form-control" ng-model="date" ng-change="getForwardHistory()" readonly="readonly" style="cursor: text; background-color: #FFFFFF"/>
-                                </div>
-                            </div>
+                <div class="col-md-offset-1 col-md-10 col-sm-10">
+                    <div class="col-md-9 col-sm-9">
+                        <p>Business Name:</p>
+                        <h2><strong>{{ $business_name }}</strong></h2>
+                        <br>
+                        <p>Service Name:</p>
+                        <h2><strong>{{ $service_name }}</strong></h2>
+                    </div>
+                    <div class="col-md-3 col-sm-3 text-right">
+                        <h2 class=" cyan"><span class="glyphicon glyphicon-calendar"></span> <strong>Select a date</strong></h2>
+                        <p>To view queue forwarding history</p>
+                        <br>
+                        <div class="form-group">
+                            <input id="input-history-date" type="text" class="datepicker form-control" ng-model="date" ng-change="getForwardHistory()" readonly="readonly"/>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -101,7 +104,7 @@
         <div class="row">
             <div class="col-md-offset-1 col-md-10">
                 <div class="boxed ">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered table-striped" id="table-queue-history">
                         <thead>
                         <tr>
                             <th width="10%" class="text-center">Transaction Number</th>

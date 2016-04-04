@@ -54,9 +54,10 @@ span.glyphicon-zoom-in {
 }
 #processq #forward-history{ /*ARA for queue forwarding history*/
     margin-top: 0px;
-    color: #fff;
-    border-bottom: 4px solid #d36e3c;
-    background-color: #ff925b;
+    color: #333;
+    border-bottom: 4px solid #cfd8db;
+    /*background-color: #ff925b;*/
+    background-color: #d7e0e2;
 }
 
 
@@ -68,7 +69,8 @@ span.glyphicon-zoom-in {
     background-color: #009b74;
 }
 #processq #forward-history:hover {  /*ARA for queue forwarding history*/
-    background-color: #d36e3c;
+    /*background-color: #d36e3c;*/
+    background-color: #cfd8db; /*gray for this button is less important*/
 }
 #forward-history:hover,
 #view-broadcast:hover{
@@ -284,26 +286,15 @@ span.glyphicon-zoom-in {
 .star-rating i ~ i ~ i ~ i ~ i {
     width: 100%;
 }
-.mb0 {
-    margin-bottom: 0!important;
-}
-.mb10 {
-    margin-bottom: 10px;
-}
-.mb20 {
-    margin-bottom: 20px;
-}
-.mb30 {
-    margin-bottom: 30px;
-}
-.mt10 {
-    margin-top: 10px;
-}
-
-.mt20 {
-    margin-top: 20px;
-}
+.mb0  {  margin-bottom: 0!important;  }
+.mb10 {  margin-bottom: 10px;  }
+.mb20 {  margin-bottom: 20px;  }
+.mb30 {  margin-bottom: 30px;  }
+.mt10 {  margin-top: 10px;  }
+.mt20 {  margin-top: 20px;  }
 .mr5{margin-right: 5px;}
+.orange {  color: #ff925b;  }
+.cyan   {  color: #00ba8b;  }
 .font-normal {
     font-family: 'ralewayregular';
 }
@@ -337,6 +328,34 @@ span.glyphicon-zoom-in {
 }
 .stopbutton span {
     color: #fff!important;
+}
+/*queue history*/
+#table-queue-history th {
+    vertical-align: middle;
+    background-color: #333a44;
+    color: #fff;
+}
+h2.cyan span {
+    color: #585a5d;
+    padding-right: 5px;
+    font-size: 15px;
+}
+#input-history-date {
+    cursor: text;
+    background-color: #FFFFFF;
+    font-weight: 700;
+}
+#process-queue-wrapper {
+    min-height: 550px;
+}
+#table-queue-history>tbody>tr:nth-of-type(odd) {
+    background-color: #fff;
+}
+#table-queue-history>tbody>tr:nth-of-type(even) {
+    background-color: #cfd8db;
+}
+#table-queue-history>tbody>tr>td {
+    border: 1px solid #cfd8db;
 }
 
 /*ARA added styles for new 2nd column (user info)*/
