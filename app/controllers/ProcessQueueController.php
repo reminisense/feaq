@@ -19,10 +19,14 @@ class ProcessQueueController extends BaseController{
         }
 
         $service_id = Terminal::serviceId($terminal_id);
-        if(QueueSettings::processQueueLayout($service_id) == 0){
-            $view = View::make('process-queue.process-queue');
-        }else{
-            $view = View::make('process-queue.process-queue-cards');
+        $process_queue_layout = QueueSettings::processQueueLayout($service_id);
+        switch($process_queue_layout){
+            case 1:
+                $view = View::make('process-queue.process-queue-cards');
+                break;
+            default:
+                $view = View::make('process-queue.process-queue');
+                break;
         }
 
         return $view->with('body', 'processq')
@@ -32,11 +36,6 @@ class ProcessQueueController extends BaseController{
             ->with('service_name', Service::getServiceNameByTerminalId($terminal_id))
             ->with('business_id', Business::getBusinessIdByTerminalId($terminal_id))
             ->with('business_name', Business::getBusinessNameByTerminalId($terminal_id));
-    }
-
-
-    public function getProcessQueue($terminal_id){
-
     }
 
     /*==============================

@@ -229,5 +229,5 @@ My Business
 <input type="hidden" id="queue-settings-get-url" value="{{ url('/queuesettings/allvalues/') }}">
 <input type="hidden" id="queue-settings-update-url" value="{{ url('/queuesettings/update/') }}">
 {{--@include('modals.business.setup-business-modal')--}}
-{{--@include('modals.websockets.websocket-loader')--}}
+@include('modals.websockets.websocket-loader')
 @stop
