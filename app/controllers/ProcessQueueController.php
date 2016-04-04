@@ -17,14 +17,26 @@ class ProcessQueueController extends BaseController{
         if(!TerminalUser::isCurrentUserAssignedToTerminal($terminal_id)){
             return Redirect::back();
         }
-        return View::make('process-queue.process-queue')
-            ->with('body', 'processq')
+
+        $service_id = Terminal::serviceId($terminal_id);
+        if(QueueSettings::processQueueLayout($service_id) == 0){
+            $view = View::make('process-queue.process-queue');
+        }else{
+            $view = View::make('process-queue.process-queue-cards');
+        }
+
+        return $view->with('body', 'processq')
             ->with('terminal_id', $terminal_id)
             ->with('terminal_name', Terminal::name($terminal_id))
-            ->with('service_id', Terminal::serviceId($terminal_id))
+            ->with('service_id', $service_id)
             ->with('service_name', Service::getServiceNameByTerminalId($terminal_id))
             ->with('business_id', Business::getBusinessIdByTerminalId($terminal_id))
             ->with('business_name', Business::getBusinessNameByTerminalId($terminal_id));
+    }
+
+
+    public function getProcessQueue($terminal_id){
+
     }
 
     /*==============================
@@ -90,18 +102,5 @@ class ProcessQueueController extends BaseController{
     public function getUpdateBroadcast($business_id){
         $numbers = ProcessQueue::updateBusinessBroadcast($business_id);
         return json_encode(['success' => 1, 'numbers' => $numbers], JSON_PRETTY_PRINT);
-    }
-
-    public function getProcessQueue($terminal_id){
-        return View::make('process-queue.process-queue-cards')
-            ->with('body', 'processq')
-            ->with('terminal_id', $terminal_id)
-            ->with('terminal_name', Terminal::name($terminal_id))
-            ->with('service_id', Terminal::serviceId($terminal_id))
-            ->with('service_name', Service::getServiceNameByTerminalId($terminal_id))
-            ->with('business_id', Business::getBusinessIdByTerminalId($terminal_id))
-            ->with('business_name', Business::getBusinessNameByTerminalId($terminal_id))
-            ;
-
     }
 }
