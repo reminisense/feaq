@@ -27,6 +27,16 @@ class ProcessQueueController extends BaseController{
             ->with('business_name', Business::getBusinessNameByTerminalId($terminal_id));
     }
 
+    public function getForwardHistory($service_id){
+        return View::make('process-queue.queue-history')
+            ->with('body', 'processq')
+            ->with('service_id', $service_id)
+            ->with('service_name', Service::name($service_id))
+            ->with('business_id', Business::getBusinessIdByServiceId($service_id))
+            ->with('business_name', Business::getBusinessNameByServiceId($service_id))
+            ->with('transactions', QueueForwardTransactions::getForwardTransactionsByServiceId($service_id));
+    }
+
     /*==============================
             Ajax functions
     ================================*/
@@ -90,6 +100,14 @@ class ProcessQueueController extends BaseController{
     public function getUpdateBroadcast($business_id){
         $numbers = ProcessQueue::updateBusinessBroadcast($business_id);
         return json_encode(['success' => 1, 'numbers' => $numbers], JSON_PRETTY_PRINT);
+    }
+
+    public function getForwardHistoryData($service_id, $date){
+        if($date){
+            $date_array = explode('-', $date);
+            $date = mktime(0,0,0,$date_array[0],$date_array[1], $date_array[2]);
+        }
+        return json_encode(['data' => QueueForwardTransactions::getForwardTransactionsByServiceId($service_id, $date)]);
     }
 
 }
