@@ -109,9 +109,9 @@
                         <tr>
                             <th width="10%" class="text-center">Transaction Number</th>
                             <th width="10%" class="text-center">Priority Number</th>
-                            <th width="30%" class="text-center">Forwarder</th>
-                            <th width="30%" class="text-center">From Terminal</th>
-                            <th width="10%" class="text-center">To Service</th>
+                            <th width="20%" class="text-center">Forwarder</th>
+                            <th width="25%" class="text-center">From Terminal</th>
+                            <th width="25%" class="text-center">To Service</th>
                             <th width="10%" class="text-center">New Priority Number</th>
                         </tr>
                         </thead>
