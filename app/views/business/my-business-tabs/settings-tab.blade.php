@@ -22,6 +22,14 @@
         </div>
         <div class="clearfix">
             <div class="col-md-6 mb20">
+                <p class="title">New Process Queue Layout</p>
+            </div>
+            <div class="col-md-6 mb20">
+                <input type="checkbox" ng-model="process_queue_layout">
+            </div>
+        </div>
+        <div class="clearfix">
+            <div class="col-md-6 mb20">
                 <p class="title">General Notification Settings</p>
                 <small><a class="info-button" href="#general-notif"><span class="glyphicon glyphicon-info-sign"></span>  More info...</a></small>
                 <div class="clearfix mb20">

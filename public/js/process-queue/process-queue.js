@@ -23,6 +23,16 @@ $(document).ready(function(){
         process_queue_scope.issueToOther(service_id, transaction_number);
     });
 
+    /*add box cards animation*/
+    $('.box a.removeCard').on('click', function() {
+        $(this).parents('.box').remove();
+        $('.box-wrap').isotope({ layoutMode : 'fitRows' });
+    });
+
+    //$('.box-wrap').isotope({
+    //    itemSelector : '.box'
+    //});
+
 });
 
 //these functions and variables are separated since they are using jquery
@@ -155,6 +165,58 @@ var pq = {
                 $('#priority-number-modal').attr('data-transaction-number', transaction_number);
 
                 $('#priority-number-modal .modal-body #pmore-tab .messages a').trigger('click');
+            });
+
+            // Redesign functions
+            $('body').on('click', '.priority-number-forward', function(e){
+                e.preventDefault();
+                pq.jquery_functions.clear_pnumber_modal();
+                name = $(this).attr('data-name') ? $(this).attr('data-name') : 'Not specified';
+                phone = $(this).attr('data-phone') ? $(this).attr('data-phone') : 'Not specified';
+                email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
+                priority_number = $(this).attr('data-priority-number');
+                transaction_number = $(this).attr('data-transaction-number');
+
+                $('#priority-number-modal .modal-title').html('#' + priority_number);
+                $('#priority-number-number').html(priority_number);
+                $('#priority-number-name').html(name);
+                $('#priority-number-phone').html(phone);
+                $('#priority-number-email').html(email);
+                $('#priority-number-modal').attr('data-transaction-number', transaction_number);
+
+                $('#priority-number-modal .modal-body ul .details a').trigger('click');
+
+                process_queue = angular.element($("#process-queue-wrapper")).scope();
+                process_queue.getAllowedBusinesses();
+
+                $('#priority-number-modal-close').hide();
+                $('#allowed-businesses').removeAttr('disabled');
+                $('#forward-btn').show();
+                $('#forward-success').hide();
+                $('#forward-success').html('');
+
+            });
+
+            $('body').on('click', '.priority-number-details', function(e){
+                e.preventDefault();
+                pq.jquery_functions.clear_pnumber_modal();
+                name = $(this).attr('data-name') ? $(this).attr('data-name') : 'Not specified';
+                phone = $(this).attr('data-phone') ? $(this).attr('data-phone') : 'Not specified';
+                email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
+                priority_number = $(this).attr('data-priority-number');
+                transaction_number = $(this).attr('data-transaction-number');
+
+                $('#priority-number-modal .modal-title').html('#' + priority_number);
+                $('#priority-number-number').html(priority_number);
+                $('#priority-number-name').html(name);
+                $('#priority-number-phone').html(phone);
+                $('#priority-number-email').html(email);
+                $('#priority-number-modal').attr('data-transaction-number', transaction_number);
+
+                $('#allowed-businesses option').remove();
+                $('#allowed-businesses-area').hide();
+
+                $('#priority-number-modal .modal-body ul .details a').trigger('click');
             });
         },
 
