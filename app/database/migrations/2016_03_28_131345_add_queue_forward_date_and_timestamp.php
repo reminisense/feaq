@@ -25,7 +25,9 @@ class AddQueueForwardDateAndTimestamp extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::table('queue_forward_transactions', function($table){
+			$table->dropColumn(array('date', 'updated_at'));
+		});
 	}
 
 }

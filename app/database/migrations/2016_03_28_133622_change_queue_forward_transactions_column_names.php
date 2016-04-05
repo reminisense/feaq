@@ -27,7 +27,11 @@ class ChangeQueueForwardTransactionsColumnNames extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::table('queue_forward_transactions', function($table){
+			$table->renameColumn('forwarder_transaction_number', 'forwarder_transaction_id');
+			$table->renameColumn('transaction_number', 'transaction_id');
+			$table->dropCoumn(array('forwarded_priority_number', 'priority_number'));
+		});
 	}
 
 }
