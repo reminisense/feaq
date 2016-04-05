@@ -90,29 +90,40 @@
                     <div id="queue-activity-graph"></div>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="terminal-users" ng-show="analytics.terminals.length > 0">
-                    <table class="table" ng-repeat="terminal in analytics.terminals">
-                        <thead>
-                        <tr>
-                            <th colspan="6">@{{ terminal.terminal_name }}</th>
-                        </tr>
-                        <tr>
-                            <th width="40%">Name</th>
-                            <th width="15%" class="text-center">Numbers Called</th>
-                            <th width="15%" class="text-center">Numbers Served</th>
-                            <th width="15%" class="text-center">Numbers Dropped</th>
-                            <th width="20%" class="text-center">Average Serving Time</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat="user in terminal.users">
-                            <td>@{{ user.user_name }}</td>
-                            <td class="text-center">@{{ user.numbers_called }}</td>
-                            <td class="text-center">@{{ user.numbers_served }}</td>
-                            <td class="text-center">@{{ user.numbers_dropped }}</td>
-                            <td class="text-center">@{{ user.average_serving_time }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <div class="panel-group" id="accordion" role="tablist">
+                      <div class="panel panel-default" ng-repeat="terminal in analytics.terminals">
+                        <div class="panel-heading" role="tab">
+                            <a class=" panel-title" role="button" data-toggle="collapse" data-parent="#accordion" href="#terminal-@{{ terminal.terminal_id  }}" aria-expanded="false" aria-controls="collapseOne">
+                              @{{ terminal.terminal_name }}
+                            </a>
+                        </div>
+                        <div id="terminal-@{{ terminal.terminal_id  }}" class="panel-collapse collapse" role="tabpanel">
+                          <div class="panel-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th width="30%">Name</th>
+                                        <th width="" class="text-center">Numbers Called</th>
+                                        <th width="" class="text-center">Numbers Served</th>
+                                        <th width="" class="text-center">Numbers Dropped</th>
+                                        <th width="" class="text-center">Average Serving Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="user in terminal.users">
+                                        <td>@{{ user.user_name }}</td>
+                                        <td class="text-center">@{{ user.numbers_called }}</td>
+                                        <td class="text-center">@{{ user.numbers_served }}</td>
+                                        <td class="text-center">@{{ user.numbers_dropped }}</td>
+                                        <td class="text-center">@{{ user.average_serving_time }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
                 </div>
                 <!-- end of tab contents -->
             </div>

@@ -1016,3 +1016,10 @@ button#sendreply {
 }
 .table-responsive .panel {margin-bottom: 0;}
 #btn-analytics, #adv-analytics {margin-top: 26px;}
+#analyticsTabContent .panel-body .table thead th {
+    background: none;
+}
+#analyticsTabContent .panel-heading a {
+    display: block;
+    font-family: 'ralewaysemibold';
+}
