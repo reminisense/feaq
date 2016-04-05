@@ -30,7 +30,7 @@ class QueueForwardTransactions extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::drop('queue_forward_transactions');
 	}
 
 }
