@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ChangeQueueForwardTransactionsColumnNames extends Migration {
+class ChangeQueueForwardTransactionsColumnName extends Migration {
 
 	/**
 	 * Run the migrations.
