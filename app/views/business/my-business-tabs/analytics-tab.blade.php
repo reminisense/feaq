@@ -83,11 +83,14 @@
                     </table>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="queue-activity" ng-show="analytics.queue_activity.length > 0">
-                    <div class="clearfix header">
-                        <p>Displays the activity of the first day of specified range.</p>
-                        <button class="btn btn-lg btn-primary" ng-click="generateQueueGraph()" type="button">Generate Graph</button>
+                    <div class="clearfix">
+                        <div class="col-md-4 mt30">
+                            <button class="btn btn-lg btn-primary" ng-click="generateQueueGraph()" type="button">Generate Graph</button>
+                        </div>
+                        <div class="col-md-12">
+                            <div id="queue-activity-graph"></div>
+                        </div>
                     </div>
-                    <div id="queue-activity-graph"></div>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="terminal-users" ng-show="analytics.terminals.length > 0">
                     <table class="table" ng-repeat="terminal in analytics.terminals">
@@ -119,7 +122,7 @@
         </div>
     </div>
 </div>
-<div class="alert alert-info" role="alert">
-    <strong>FeatherQ Business Analytics</strong> features will be given for <strong>free</strong> for the next few months.
-    However, future developments might classify these features to be given exclusively to premium users without prior notice.
-</div>
+{{--<div class="alert alert-info" role="alert">--}}
+    {{--<strong>FeatherQ Business Analytics</strong> features will be given for <strong>free</strong> for the next few months.--}}
+    {{--However, future developments might classify these features to be given exclusively to premium users without prior notice.--}}
+{{--</div>--}}
