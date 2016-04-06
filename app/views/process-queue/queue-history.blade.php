@@ -13,22 +13,6 @@
 
 @section('scripts')
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-sanitize.min.js"></script>
-    {{--<script src="/js/process-queue/process-queue.js"></script>--}}
-    {{--<script src="/js/process-queue/process-queue-angular.js"></script>--}}
-    {{--<script src="/js/process-queue/issue-number-angular.js"></script>--}}
-    {{--<script src="/js/process-queue/messages-angular.js"></script>--}}
-    {{--<script src="/js/dashboard/dashboard.js"></script>--}}
-
-    {{--<script src="/js/google-analytics/googleAnalytics.js"></script>--}}
-    {{--<script src="/js/google-analytics/ga-process_queue.js"></script>--}}
-    {{--<script src="https://ucarecdn.com/widget/2.3.5/uploadcare/uploadcare.min.js" charset="utf-8"></script>--}}
-    {{--<script>--}}
-        {{--UPLOADCARE_LOCALE = "en";--}}
-        {{--UPLOADCARE_TABS = "file";--}}
-        {{--UPLOADCARE_PUBLIC_KEY = "844c2b9e554c2ee5cc0a";--}}
-    {{--</script>--}}
-    {{--<script src="/js/dashboard/dashboard.js"></script>--}}
-    {{--<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.4/jstz.min.js"></script>--}}
     <script type="text/javascript">
         (function(){
             $(".datepicker").datepicker({ dateFormat: 'mm-dd-yy' });
@@ -77,9 +61,6 @@
     <div class="container" id="process-queue-wrapper" ng-controller="forwardHistoryController">
         <div class="row">
             <div class="page-header clearfix">
-                {{--<div class="col-md-12 text-center">
-                    <button class="btn btn-danger stopbutton"ng-click="stopProcessQueue()">STOP</button>
-                </div>--}}
                 <div class="col-md-offset-1 col-md-10 col-sm-10">
                     <div class="col-md-9 col-sm-9">
                         <p>Business Name:</p>
@@ -94,6 +75,7 @@
                         <br>
                         <div class="form-group">
                             <input id="input-history-date" type="text" class="datepicker form-control" ng-model="date" ng-change="getForwardHistory()" readonly="readonly"/>
+                            <input type="text" class="form-control" ng-model="searchText" placeholder="Search"/>
                         </div>
                     </div>
 
@@ -117,7 +99,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="transaction in transactions">
+                            <tr ng-repeat="transaction in transactions | filter:searchText" >
                                 <td class="text-center">@{{ transaction.confirmation_code }}</td>
                                 <td class="text-center">@{{ transaction.customer_name }}</td>
                                 <td class="text-center">@{{ transaction.forwarder_first_name + ' ' + transaction.forwarder_last_name}}</td>
