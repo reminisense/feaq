@@ -53,4 +53,17 @@ class BusinessListController extends BaseController
         ));
     }
 
+    public function postUpvoteBusiness() {
+        // todo: implement anti spam upvote function
+        if (false) {
+
+        }
+        else {
+            return json_encode(array(
+                'status' => 403,
+                'msg' => 'Forbidden'
+            ));
+        }
+    }
+
 }

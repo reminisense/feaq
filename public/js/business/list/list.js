@@ -9,4 +9,14 @@ app.controller('nowServingCtrl', function($scope, $http) {
             console.log(response.body);
         });
     };
+
+    $scope.upvoteBusiness = function(business_id) {
+        $http.post('/list/upvote-business', {
+            business_id: business_id
+        }).success(function(response) {
+            console.log(response.status);
+            console.log(response.msg);
+        });
+    }
+
 });
