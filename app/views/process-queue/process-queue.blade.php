@@ -58,7 +58,10 @@ Processs Queue > {{ $business_name }}
                 Showing numbers for date:
                 <div class="col-md-12 row">
                     <div class="col-md-4">
-                        <input type="text" class="datepicker form-control" ng-model="date" ng-change="getAllNumbers()" readonly="readonly" style="cursor: text; background-color: #FFFFFF"/>
+                        <p class="date-today">
+                            <span class="glyphicon glyphicon-calendar"></span>@{{ dateString }}
+                            <input type="text" class="datepicker" ng-model="date" ng-change="getAllNumbers()" readonly="readonly" style="height: 0px; width:0px; border: 0px;"/>
+                        </p>
                     </div>
                 </div>
             </div>

@@ -53,7 +53,7 @@ Processs Queue > {{ $business_name }}
 <div class="container" id="process-queue-wrapper" ng-controller="processqueueController">
     <div class="clearfix">
         <div class="page-header clearfix">
-            <div class="col-md-6 col-sm-6" id="service-terminal-names">
+            <div class="col-md-4 col-sm-4" id="service-terminal-names">
                 <div class="clearfix">
                     <h2>{{ $service_name }}
                         <small>SERVICE NAME</small>
@@ -64,8 +64,19 @@ Processs Queue > {{ $business_name }}
                     </h2>
                 </div>
                 <div class="clearfix">
-                      <p class="date-today"><span class="glyphicon glyphicon-calendar"></span>April 19, 2016</p>
+                    <p class="date-today">
+                        <span class="glyphicon glyphicon-calendar"></span>@{{ dateString }}
+                        <input type="text" class="datepicker" ng-model="date" ng-change="getAllNumbers()" readonly="readonly" style="height: 0px; width:0px; border: 0px;"/>
+                    </p>
                 </div>
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-4">
+                <a id="fwd-history" class="dtable btn" target="_blank" href="{{ url('/processqueue/forward-history/' . $service_id) }}" ng-show="allowed_businesses.length > 0" >
+                    <div class="dcell">
+                        <span class="glyphicon glyphicon-share-alt"></span>
+                        <span>View Forwarding <br>History</span>
+                    </div>
+                </a>
             </div>
             <div class="col-md-2 col-sm-2 col-xs-4">
                 <a id="stop-queue" class="dtable btn btn-white" href="#" ng-click="stopProcessQueue()">
