@@ -107,20 +107,22 @@
                     <table class="table table-bordered table-striped" id="table-queue-history">
                         <thead>
                         <tr>
-                            <th width="10%" class="text-center">Transaction Number</th>
-                            <th width="10%" class="text-center">Priority Number</th>
+                            <th width="10%" class="text-center">Confirmation Code</th>
+                            <th width="15%" class="text-center">Customer Name</th>
                             <th width="20%" class="text-center">Forwarder</th>
-                            <th width="25%" class="text-center">From Terminal</th>
-                            <th width="25%" class="text-center">To Service</th>
+                            <th width="15%" class="text-center">From Terminal</th>
+                            <th width="10%" class="text-center">Priority Number</th>
+                            <th width="15%" class="text-center">To Service</th>
                             <th width="10%" class="text-center">New Priority Number</th>
                         </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="transaction in transactions">
-                                <td class="text-center">@{{ transaction.forwarder_transaction_number }}</td>
-                                <td class="text-center">@{{ transaction.forwarded_priority_number }}</td>
+                                <td class="text-center">@{{ transaction.confirmation_code }}</td>
+                                <td class="text-center">@{{ transaction.customer_name }}</td>
                                 <td class="text-center">@{{ transaction.forwarder_first_name + ' ' + transaction.forwarder_last_name}}</td>
                                 <td class="text-center">@{{ transaction.forwarder_terminal_name }}</td>
+                                <td class="text-center">@{{ transaction.forwarded_priority_number }}</td>
                                 <td class="text-center">@{{ transaction.forwarded_service }}</td>
                                 <td class="text-center">@{{ transaction.priority_number }}</td>
                             </tr>

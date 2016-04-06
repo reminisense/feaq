@@ -131,9 +131,11 @@ var pq = {
                 email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
                 priority_number = $(this).attr('data-priority-number');
                 transaction_number = $(this).attr('data-transaction-number');
+                confirmation_code = $(this).attr('data-confirmation-code');
 
                 $('#priority-number-modal .modal-title').html('#' + priority_number);
                 $('#priority-number-number').html(priority_number);
+                $('#priority-number-confirmation-code').html(confirmation_code);
                 $('#priority-number-name').html(name);
                 $('#priority-number-phone').html(phone);
                 $('#priority-number-email').html(email);
@@ -160,9 +162,11 @@ var pq = {
                 email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
                 priority_number = $(this).attr('data-priority-number');
                 transaction_number = $(this).attr('data-transaction-number');
+                confirmation_code = $(this).attr('data-confirmation-code');
 
                 $('#priority-number-modal .modal-title').html('#' + priority_number);
                 $('#priority-number-number').html(priority_number);
+                $('#priority-number-confirmation-code').html(confirmation_code);
                 $('#priority-number-name').html(name);
                 $('#priority-number-phone').html(phone);
                 $('#priority-number-email').html(email);
@@ -180,9 +184,11 @@ var pq = {
                 email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
                 priority_number = $(this).attr('data-priority-number');
                 transaction_number = $(this).attr('data-transaction-number');
+                confirmation_code = $(this).attr('data-confirmation-code');
 
                 $('#priority-number-modal .modal-title').html('#' + priority_number);
                 $('#priority-number-number').html(priority_number);
+                $('#priority-number-confirmation-code').html(confirmation_code);
                 $('#priority-number-name').html(name);
                 $('#priority-number-phone').html(phone);
                 $('#priority-number-email').html(email);
@@ -209,9 +215,11 @@ var pq = {
                 email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
                 priority_number = $(this).attr('data-priority-number');
                 transaction_number = $(this).attr('data-transaction-number');
+                confirmation_code = $(this).attr('data-confirmation-code');
 
                 $('#priority-number-modal .modal-title').html('#' + priority_number);
                 $('#priority-number-number').html(priority_number);
+                $('#priority-number-confirmation-code').html(confirmation_code);
                 $('#priority-number-name').html(name);
                 $('#priority-number-phone').html(phone);
                 $('#priority-number-email').html(email);

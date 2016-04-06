@@ -102,7 +102,6 @@ class IssueNumberController extends BaseController{
                 'service_id' => $service_id,
                 'priority_number' => $priority_number,
                 'date' => mktime(0, 0, 0, date('m'), date('d'), date('Y')),
-                'confirmation_code' => $pqueue->confirmation_code,
             ];
             QueueForwardTransactions::createForwardTransaction($forwarding_data);
             if($email != ''){ Message::sendInitialMessage($business_id, $email, $name, $phone); }

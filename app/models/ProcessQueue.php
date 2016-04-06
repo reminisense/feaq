@@ -162,15 +162,7 @@ class ProcessQueue extends Eloquent{
         $numbers = ProcessQueue::queuedNumbers($service_id, $date);
 
         if($numbers){
-            $process_queue_layout = QueueSettings::processQueueLayout($service_id);
-            switch($process_queue_layout){
-                case 1:
-                    $priority_numbers = ProcessQueue::cardNumbers($numbers, $service_id, $terminal_id);
-                    break;
-                default:
-                    $priority_numbers = ProcessQueue::segregatedNumbers($numbers, $service_id, $terminal_id);
-                    break;
-            }
+            $priority_numbers = ProcessQueue::segregatedNumbers($numbers, $service_id, $terminal_id);
         }else{
             $priority_numbers = new stdClass();
             $priority_numbers->last_number_given = 0;
@@ -179,18 +171,10 @@ class ProcessQueue extends Eloquent{
             $priority_numbers->number_limit = QueueSettings::numberLimit($service_id);
             $priority_numbers->called_numbers = array();
             $priority_numbers->uncalled_numbers = array();
-            $priority_numbers->processed_numbers = array();;
+            $priority_numbers->processed_numbers = array();
             $priority_numbers->timebound_numbers = array();
+            $priority_numbers->unprocessed_numbers = array();
         }
-
-        return $priority_numbers;
-    }
-
-    public static function cardNumbers($numbers, $service_id, $terminal_id){
-        $priority_numbers = ProcessQueue::segregatedNumbers($numbers, $service_id, $terminal_id);
-        $priority_numbers->unprocessed_numbers = array_merge($priority_numbers->uncalled_numbers, $priority_numbers->called_numbers);
-        usort($priority_numbers->unprocessed_numbers, array('ProcessQueue', 'sortUnprocessedNumbers'));
-        $priority_numbers->unprocessed_numbers = array_merge($priority_numbers->timebound_numbers, $priority_numbers->unprocessed_numbers);
 
         return $priority_numbers;
     }
@@ -261,6 +245,7 @@ class ProcessQueue extends Eloquent{
                     'verified_email' => $verified,
                     'checked_in' => $checked_in,
                     'time_called' => $number->time_called,
+                    'confirmation_code' => $number->confirmation_code,
                 );
             }else if(!$called && !$removed && $terminal_specific_calling && ($number->terminal_id == $terminal_id || $number->terminal_id == 0)){
                 $uncalled_numbers[] = array(
@@ -275,6 +260,7 @@ class ProcessQueue extends Eloquent{
                     'verified_email' => $verified,
                     'checked_in' => $checked_in,
                     'time_called' => $number->time_called,
+                    'confirmation_code' => $number->confirmation_code,
                 );
             }else if(!$called && !$removed && (!$terminal_specific_calling || $terminal_id == null)){
                 $uncalled_numbers[] = array(
@@ -289,6 +275,7 @@ class ProcessQueue extends Eloquent{
                     'verified_email' => $verified,
                     'checked_in' => $checked_in,
                     'time_called' => $number->time_called,
+                    'confirmation_code' => $number->confirmation_code,
                 );
             }else if($called && !$served && !$removed){
                 $called_numbers[] = array(
@@ -308,6 +295,7 @@ class ProcessQueue extends Eloquent{
                     'box_rank' => Terminal::boxRank($number->terminal_id), // Added by PAG
                     'color' => Terminal::getColorByTerminalId($number->terminal_id),
                     'time_called' => $number->time_called,
+                    'confirmation_code' => $number->confirmation_code,
                 );
             }else if($called && !$served && $removed){
                 $processed_numbers[] = array(
@@ -322,6 +310,7 @@ class ProcessQueue extends Eloquent{
                     'time_processed' => $number->time_removed,
                     'status' => 'Dropped',
                     'time_called' => $number->time_called,
+                    'confirmation_code' => $number->confirmation_code,
                 );
             }else if(!$called && $removed){
                 $processed_numbers[] = array(
@@ -336,6 +325,7 @@ class ProcessQueue extends Eloquent{
                     'time_processed' => $number->time_removed,
                     'status' => 'Removed',
                     'time_called' => $number->time_called,
+                    'confirmation_code' => $number->confirmation_code,
                 );
             }else if($called && $served){
                 $processed_numbers[] = array(
@@ -350,6 +340,7 @@ class ProcessQueue extends Eloquent{
                     'time_processed' => $number->time_completed,
                     'status' => 'Served',
                     'time_called' => $number->time_called,
+                    'confirmation_code' => $number->confirmation_code,
                 );
             }
         }
@@ -365,6 +356,10 @@ class ProcessQueue extends Eloquent{
         $priority_numbers->uncalled_numbers = $uncalled_numbers;
         $priority_numbers->processed_numbers = array_reverse($processed_numbers);
         $priority_numbers->timebound_numbers = $timebound_numbers;
+
+        $priority_numbers->unprocessed_numbers = array_merge($priority_numbers->uncalled_numbers, $priority_numbers->called_numbers);
+        usort($priority_numbers->unprocessed_numbers, array('ProcessQueue', 'sortUnprocessedNumbers'));
+        $priority_numbers->unprocessed_numbers = array_merge($priority_numbers->timebound_numbers, $priority_numbers->unprocessed_numbers);
 
         return $priority_numbers;
     }
