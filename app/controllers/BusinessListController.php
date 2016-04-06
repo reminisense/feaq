@@ -31,4 +31,26 @@ class BusinessListController extends BaseController
         return  "Success..";
     }
 
+    public function getBusinessByLetter($letter = "", $offset = 0) {
+        $arr = array();
+        $businesses = BusinessList::fetchBusinessByLetterOffset($letter, $offset);
+        foreach ($businesses as $count => $business) {
+            $arr[] = array(
+                'business_list_id' => $business->business_list_id,
+                'name' => $business->name,
+                'local_address' => $business->local_address,
+                'email' => $business->email,
+                'phone' => $business->phone,
+                'up_vote' => $business->up_vote,
+                'created_by' => $business->created_by,
+                'deleted_at' => $business->deleted_at,
+            );
+        }
+        return json_encode(array(
+            'status' => 200,
+            'msg' => 'OK',
+            'body' => $arr,
+        ));
+    }
+
 }
