@@ -80,17 +80,18 @@ class IssueNumberController extends BaseController{
             $phone = PriorityQueue::phone($transaction_number);
             $email = PriorityQueue::email($transaction_number);
 
-            $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
-            $priority_number = $next_number;
-
-            $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, $terminal_id);
-            PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
-            $business_id = Business::getBusinessIdByServiceId($service_id);
-
             $track_id = PriorityQueue::trackId($transaction_number);
             $pnumber = PriorityNumber::where('track_id', '=', $track_id)->first();
             $pqueue = PriorityQueue::where('transaction_number', '=', $transaction_number)->first();
             $terminal_transaction = TerminalTransaction::where('transaction_number', '=', $transaction_number)->first();
+
+            $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
+            $priority_number = $next_number;
+
+            $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, $terminal_id, null, $pqueue->confirmation_code);
+            PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
+            $business_id = Business::getBusinessIdByServiceId($service_id);
+
             $forwarding_data = [
                 'forwarder_transaction_number' => $transaction_number,
                 'forwarder_service_id' => $pnumber->service_id,
