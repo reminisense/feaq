@@ -23,6 +23,9 @@ $(document).ready(function(){
 
     $('.timepicker').timepicker({});
 
+    /*terminal user analytics*/
+    $('.panel-group .panel:first-child .panel-collapse').addClass('in');
+
     $.get('/user/user-status', function(){
 
     }).success(function(data){
