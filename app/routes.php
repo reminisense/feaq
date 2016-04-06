@@ -62,6 +62,8 @@ Route::controller('test', 'TestController');
 
 Route::controller('mobile', 'MobileController');
 
+Route::controller('list', 'BusinessListController');
+
 //services methods
 Route::get('services/{id}', 'ServiceController@getIndex');
 
