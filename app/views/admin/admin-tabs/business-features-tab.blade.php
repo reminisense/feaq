@@ -313,25 +313,35 @@
                 <div class="col-md-12">
                     <div class="biz-create">
                         <form ng-submit="createBusiness()">
+                            <input type="hidden" ng-model="suggested">
                             <table class="table table-responsive table-form">
                                 <tr>
                                     <td>
                                         <label>Business Owner (email):</label>
-                                        <input type="text" ng-model="email" required="true" class="form-control create-fields"/>
+                                        <input type="text" ng-model="email" required="true" id="biz-email" class="form-control create-fields"/>
                                     </td>
-                                    <td>
+                                    <td style="position: relative">
                                         <label>Business Name:</label>
-                                        <input type="text" ng-model="new_business_name" required="true" class="form-control create-fields"/>
+                                        {{--<input type="text" ng-model="new_business_name" required="true" class="form-control create-fields"/>--}}
+                                        <input class="form-control create-fields" type="text" placeholder="e.g. Bills Payment SM Megamall" id="search-keyword" ng-click="showDropdown()" ng-model="new_business_name" ng-model-options="{debounce: 1000}" autocomplete="off">
+                                        <ul class="dropdown-menu" role="menu" id="search-suggest" outside-click="dropdown_businesses = []">
+                                            <li ng-repeat="business in dropdown_businesses">
+                                                <a href="#" ng-click="fillBusinessFields(business.business_id)">
+                                                    <strong class="business-name">@{{ business.name }}</strong><br>
+                                                    <small class="address">@{{ business.local_address }}</small>
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <label>Address:</label>
+                                        <label id="biz-address-lbl">Address:</label>
                                         <input type="text" class="form-control create-fields" ng-model="address" ng-autocomplete options="options" details="details" required="true">
                                     </td>
                                     <td>
-                                        <label>Industry:</label>
-                                        <select class="form-control create-fields" ng-model="industry" required="true">
+                                        <label id="biz-industry-lbl">Industry:</label>
+                                        <select class="form-control create-fields"  ng-model="industry" required="true">
                                             <option value="" >Please select an industry</option>
                                             <option value="Accounting">Accounting</option>
                                             <option value="Advertising">Advertising</option>

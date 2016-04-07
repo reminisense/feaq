@@ -33,4 +33,15 @@ class BusinessListController extends BaseController
         return  "Success..";
     }
 
+    //JCA added this for the business_list table when creating a business
+    public function getNameSearch($keyword)
+    {
+        $businesses = BusinessList::where('name', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('local_address', 'LIKE', '%' . $keyword . '%')
+            ->select(array('name', 'local_address','business_id'))
+            ->get()
+            ->toArray();
+        return json_encode(array('keywords' => $businesses));
+    }
+
 }
