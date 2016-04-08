@@ -540,6 +540,13 @@
                     </form>
                 </div>
             </div>
+            <div class="admin-container">
+                <form enctype="multipart/form-data" action="{{url('/list/spreadsheet-business-list')}}" method="post">
+                    <input type="file" name="business_list" id="business_list" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
+                    <input type="submit" value="Upload" />
+                    </table>
+                </form>
+            </div>
         </div>
             {{--<select id="business-dropdown" class="form-control" ng-model="business_id" ng-change="getBusinessFeatures(business_id)">--}}
                 {{--<option selected disabled value="">Select a Business</option>--}}

@@ -44,4 +44,108 @@ class BusinessListController extends BaseController
         return json_encode(array('keywords' => $businesses));
     }
 
+    public function postCreateBusinessList(){
+
+        if (Auth::check() && Helper::isNotAnOwner(Helper::userId())) {
+
+            $business_list_data = Input::all();
+            $business_list = new BusinessList();
+
+            $business_list->name = $business_list_data['business_name'];
+            $business_list->local_address = $business_list_data['business_address'];
+            $business_list->email = $business_list_data['email'];
+            $business_list->time_open = $business_list_data['time_open'];
+            $business_list->time_close = $business_list_data['time_close'];
+            $business_list->phone = $business_list_data['phone'];
+            $business_list->created_by = Helper::userId();
+
+
+            if($business_list->save()){
+                return json_encode([
+                    'success' => 1
+                ]);
+            }else{
+                return json_encode([
+                    'success' => 0,
+                     'error' => 'Something went wrong while saving your business.'
+                ]);
+            }
+        }
+    }
+
+    public function postEditBusinessList(){
+
+        if (Auth::check() && Helper::isNotAnOwner(Helper::userId())) {
+
+            $business_list_data = Input::all();
+            $business_list = BusinessList::find($business_list_data['business_list_id']);
+
+            $business_list->name = $business_list_data['business_name'];
+            $business_list->local_address = $business_list_data['business_address'];
+            $business_list->email = $business_list_data['email'];
+            $business_list->time_open = $business_list_data['time_open'];
+            $business_list->time_close = $business_list_data['time_close'];
+            $business_list->phone = $business_list_data['phone'];
+            $business_list->created_by = Helper::userId();
+
+
+            if($business_list->save()){
+                return json_encode([
+                    'success' => 1
+                ]);
+            }else{
+                return json_encode([
+                    'success' => 0,
+                    'error' => 'Something went wrong while saving your business.'
+                ]);
+            }
+        }
+    }
+
+    public function postDeleteBusinessList(){
+
+        if (Auth::check() && Helper::isNotAnOwner(Helper::userId())) {
+
+            $business_list_data = Input::all();
+            $business_list = BusinessList::find($business_list_data['business_list_id']);
+
+            $business_list->deleted_at = date('Y-m-d G:i:s');
+
+            if($business_list->save()){
+                return json_encode([
+                    'success' => 1
+                ]);
+            }else{
+                return json_encode([
+                    'success' => 0,
+                    'error' => 'Something went wrong while saving your business.'
+                ]);
+            }
+        }
+    }
+
+    public function postSpreadsheetBusinessList(){
+
+        $target_dir = public_path()."/files/";
+        $target_file = $target_dir. basename($_FILES["business_list"]["name"]);
+
+//        if(move_uploaded_file($_FILES["business_list"]["tmp_name"], $target_file)) {
+//
+//            $inputFileType = PHPExcel_IOFactory::identify($target_file);
+//            $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+//            $objPHPExcel = $objReader->load($target_file);
+//
+//
+//        }
+
+        $inputFileType = PHPExcel_IOFactory::identify($target_file);
+        $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+        $objPHPExcel = $objReader->load($target_file);
+        $sheet = $objPHPExcel->getSheetCount();
+
+        $sheet = $objPHPExcel->getSheet(0);
+        $test = json_encode($sheet);
+        return $test;
+    }
+
 }
