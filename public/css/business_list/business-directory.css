@@ -237,6 +237,28 @@ footer p {margin: 0;}
 #biz-list-wrap .pull-right small {
   color: #888;
 }
+.on-featherq {
+    border-left: 4px solid #ff8141!important;
+    position: relative;
+}
+.on-featherq h2 {
+    color: #ff8141!important;
+}
+.btn-cyan {
+    background-color: #00BA8B;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 500;
+}
+.on-featherq .pull-right a {
+    display: inline;
+    width: 46px;
+    overflow: hidden;
+    padding-left: 7px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
 
 
 

@@ -8,13 +8,11 @@
     <meta name="author" content="">
     <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <link rel="shortcut icon" id="favicon" href="favicon.png">
-
     <link rel='stylesheet' type='text/css' href='/css/bootstrap.min.css'>
     <link rel='stylesheet' type='text/css' href='/css/business_list/business-directory.css'>
     <link rel='stylesheet' type='text/css' href='/css/business_list/responsive.css'>
     <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Open+Sans:400,700'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-
     <link rel="apple-touch-icon" sizes="57x57" href="img/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="img/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="img/apple-icon-72x72.png">
@@ -148,7 +146,7 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-xs-12">
-                    <div class="entry clearfix">
+                    <div class="entry on-featherq clearfix">
                         <div class="pull-left">
                             <img class="hidden-sm hidden-xs pull-left" src="http://placehold.it/80x80">
                             <div class="pull-left">
@@ -158,18 +156,19 @@
                                 <p class="inlineb"><i class="fa fa-phone"></i> (032) 239 5014</p>
                             </div>
                         </div>
-                        <div class="pull-right rating">
+                        <div class="pull-right">
                             <div class="clearfix">
-                                <p class="pull-right upvote">
-                                    <a href="" title="Upvote"><i class="fa fa-thumbs-o-up"></i></a>
-                                    <small>215</small>
+                                <p class="pull-right">
+                                    <a href="" title="View broadcast screen" class="view-screen btn btn-cyan">
+                                       <span class="glyphicon glyphicon-eye-open"></span> View Broadcast Screen
+                                    </a>
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-xs-12">
-                    <div class="entry clearfix">
+                    <div class="entry on-featherq clearfix">
                         <div class="pull-left">
                             <img class="hidden-sm hidden-xs pull-left" src="http://placehold.it/80x80">
                             <div class="pull-left">
@@ -179,11 +178,12 @@
                                 <p class="inlineb"><i class="fa fa-phone"></i> (032) 239 5014</p>
                             </div>
                         </div>
-                        <div class="pull-right rating">
+                        <div class="pull-right">
                             <div class="clearfix">
-                                <p class="pull-right upvote">
-                                    <a href="" title="Upvote"><i class="fa fa-thumbs-o-up"></i></a>
-                                    <small>215</small>
+                                <p class="pull-right">
+                                    <a href="" title="View broadcast screen" class="view-screen btn btn-cyan">
+                                       <span class="glyphicon glyphicon-eye-open"></span> View Broadcast Screen
+                                    </a>
                                 </p>
                             </div>
                         </div>
