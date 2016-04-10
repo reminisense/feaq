@@ -138,14 +138,40 @@ class BusinessListController extends BaseController
 //
 //        }
 
+        $business_list_data = BusinessList::all();
+
         $inputFileType = PHPExcel_IOFactory::identify($target_file);
         $objReader = PHPExcel_IOFactory::createReader($inputFileType);
         $objPHPExcel = $objReader->load($target_file);
-        $sheet = $objPHPExcel->getSheetCount();
 
         $sheet = $objPHPExcel->getSheet(0);
-        $test = json_encode($sheet);
-        return $test;
+        $highest_row = $sheet->getHighestRow();
+        $highest_column = $sheet->getHighestColumn();
+        $business_name_column = 0;
+        $first_element_index = 0;
+
+        $new_business_list = new BusinessList();
+        $updated_business_list = [];
+
+        for ($row = 1; $row <= $highest_row; $row++) {
+            //  Read a row of data into an array
+            $rowData = $sheet->rangeToArray('A' . $row . ':' . $highest_column . $row,NULL,TRUE,FALSE);
+
+            $business_name_input = preg_replace('/[^a-z]/', "", strtolower($rowData[$first_element_index][$business_name_column]));
+
+
+            foreach($business_list_data as $business){
+                $business_list_name = preg_replace('/[^a-z]/', "", strtolower($business['name']));
+                if($business_list_name === $business_name_input){
+
+                }
+            }
+
+
+
+        };
+
+       return json_encode(['success' => 1]);
     }
 
 }
