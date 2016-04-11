@@ -9,6 +9,10 @@
 class BusinessListController extends BaseController
 {
 
+    public function getIndex(){
+        return View::make('business-list');
+    }
+    
     public function getImportToList(){
 
         $business_list = array();
