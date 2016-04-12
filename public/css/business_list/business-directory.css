@@ -260,6 +260,10 @@ footer p {margin: 0;}
     top: 15px;
 }
 
-
-
+.truncate {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 

@@ -10,7 +10,8 @@ class BusinessListController extends BaseController
 {
 
     public function getIndex(){
-        return View::make('business-list');
+        //dd(BusinessList::getBusinesses());
+        return View::make('business-list')->with('businesses', BusinessList::getBusinesses());
     }
     
     public function getImportToList(){
