@@ -590,6 +590,8 @@ app.controller('adminController', function($scope, $http){
         });
     }
 
+    $scope.suggested = false;
+
     $scope.createBusiness = function() {
         $http.post('/admin/create-business', {
             business_name: $scope.new_business_name,
@@ -599,6 +601,7 @@ app.controller('adminController', function($scope, $http){
             time_close: $scope.time_close,
             email: $scope.email,
             timezone: $scope.timezone,
+            suggested: $scope.suggested
         }).success(function(response) {
             if (response.success == 1) {
                 $("#biz-create-success").fadeIn();
@@ -613,6 +616,39 @@ app.controller('adminController', function($scope, $http){
             }
         });
     }
+
+    $scope.dropdown_businesses = [];
+
+    $scope.fillBusinessFields = function(business_id){
+            $('#search-suggest').hide();
+            $http.get('/admin/business-details/' + business_id).success(function(response) {
+                $scope.new_business_name = response.business_name;
+                $scope.address = response.business_address;
+                $scope.time_open = response.time_open;
+                $scope.time_close = response.time_closed;
+                $scope.suggested = true;
+                $scope.industry = "";
+                $scope.email = "";
+                $scope.timezone ="";
+            })
+
+    };
+    $scope.showDropdown = function(){
+        $scope.dropdown_businesses = [];
+        $('#search-suggest').show();
+
+    }
+
+    $scope.$watch('new_business_name', function(new_business_name){
+        if(!new_business_name || new_business_name == undefined){
+            $scope.dropdown_businesses = [];
+        }else{
+            $http.get('/list/name-search/' + new_business_name).success(function(response){
+                $scope.dropdown_businesses = response.keywords;
+            });
+        }
+    });
+
 
     $("#biz-details-btn").click(function(){
         $("#biz-details-success").fadeIn();

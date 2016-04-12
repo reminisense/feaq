@@ -1,5 +1,6 @@
 @extends('dashboard')
 @section('styles')
+<link rel='stylesheet' type='text/css' href='/css/admin/admin.css'>
 <link rel='stylesheet' type='text/css' href='/css/business/business.css'>
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
 <link rel="stylesheet" href="/css/jquery-ui.css">

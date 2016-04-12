@@ -1,0 +1,30 @@
+#search-suggest {
+    display: inline-block;
+    overflow: auto;
+    left: 10px;
+    width: 95%;
+    background-color: #fff;
+}
+#search-suggest li {
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+#search-suggest li a {
+    word-wrap: break-word;
+    white-space: normal;
+    background-color: #fff;
+    color: #333;
+}
+#search-suggest .address{
+    font-size: 11px;
+    color: #646464;
+}
+
+#biz-email, #search-keyword{
+    margin-bottom: 0px;
+}
+
+#biz-address-lbl, #biz-industry-lbl{
+    margin-top: 20px;
+}

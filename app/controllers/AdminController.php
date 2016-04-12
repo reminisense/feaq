@@ -51,6 +51,7 @@ class AdminController extends BaseController{
     if (Admin::isAdmin(Helper::userId())) { // PAG added permission checking
       $business_data = Input::all();
       $business = new Business();
+      $business_list = new BusinessList();
       $business_check = Business::businessExistsByNameByAddress($business_data['business_name'], $business_data['business_address']);
 
       if (count($business_check) != 1) {
@@ -170,6 +171,21 @@ class AdminController extends BaseController{
         /* Auto issue end */
 
         $terminals = Terminal::createBranchServiceTerminal($business_user->user_id, $service_id, $business->num_terminals);
+
+
+        if(!$business_data['suggested']){
+            $business_list->name = $business_data['business_name'];
+            $business_list->local_address = $business_data['business_address'];
+            $business_list->email = '';
+            $business_list->time_open = $business_data['time_open'];
+            $business_list->time_close = $business_data['time_close'];
+            $business_list->phone = 0;
+            $business_list->business_id = Business::getBusinessIdByName($business_data['business_name']);
+            $business_list->created_by = Helper::userId();
+            $business_list->save();
+        }
+
+
         if ($business->save()) {
           return json_encode([
             'success' => 1,
