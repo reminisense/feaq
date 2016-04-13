@@ -14,7 +14,11 @@ class BusinessList extends Eloquent
     public $timestamps = true;
 
     public static function fetchBusinessByLetterOffset($letter = "", $offset = 0) {
-        return BusinessList::where('name', 'LIKE', $letter . '%s')->orderBy('name')->skip($offset)->take(10)->get();
+        return BusinessList::where('name', 'LIKE', $letter . '%')->orderBy('name')->skip($offset)->take(20)->get();
+    }
+
+    public static function fetchAllBusinessByOffset($offset = 0) {
+        return BusinessList::orderBy('name')->skip($offset)->take(20)->get();
     }
 
 }

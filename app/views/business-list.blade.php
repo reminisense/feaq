@@ -36,9 +36,12 @@
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/unveil.js"></script>
     <script type="text/javascript" src="/js/custom.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script type="text/javascript" src="/js/business/list/list.js"></script>
 </head>
 
-<body>
+<body ng-app="BusinessList">
+<div ng-controller="listController">
 <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">
     <div class="container">
         <div class="navbar-header">
@@ -107,278 +110,59 @@
         <div class="col-md-12 text-center">
             <div class="btn-toolbar col-md-12 mb20">
                 <div class="btn-group btn-group-sm">
-                    <button class="btn btn-default">A</button>
-                    <button class="btn btn-default">B</button>
-                    <button class="btn btn-default">C</button>
-                    <button class="btn btn-default">D</button>
-                    <button class="btn btn-default">E</button>
-                    <button class="btn btn-default">F</button>
-                    <button class="btn btn-default">G</button>
-                    <button class="btn btn-default">H</button>
-                    <button class="btn btn-default">I</button>
-                    <button class="btn btn-default">J</button>
-                    <button class="btn btn-default">K</button>
-                    <button class="btn btn-default">L</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('', 0)">Show All</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('A', 0)">A</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('B', 0)">B</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('C', 0)">C</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('D', 0)">D</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('E', 0)">E</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('F', 0)">F</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('G', 0)">G</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('H', 0)">H</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('I', 0)">I</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('J', 0)">J</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('K', 0)">K</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('L', 0)">L</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('M', 0)">M</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('N', 0)">N</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('O', 0)">O</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('P', 0)">P</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('Q', 0)">Q</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('R', 0)">R</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('S', 0)">S</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('T', 0)">T</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('U', 0)">U</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('V', 0)">V</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('W', 0)">W</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('X', 0)">X</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('Y', 0)">Y</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('Z', 0)">Z</button>
                 </div>
             </div>
         </div>
         <div class="col-sm-12 col-xs-12 col-md-12">
             <div class="clearfix" id="biz-list-wrap">
-                <div class="col-md-6 col-xs-12">
+                <div class="col-md-6 col-xs-12" ng-repeat="business in business_list">
                     <div class="entry clearfix">
                         <div class="pull-left">
                             <img class="hidden-sm hidden-xs pull-left" src="http://placehold.it/80x80">
                             <div class="pull-left">
-                                <h2>Malubog Swimming Pools</h2>
-                                <p><i class="fa fa-map-pin"></i> Hernan Cortes St, Mandaue City, 6014 Cebu</p>
-                                <p class="inlineb"><i class="fa fa-clock-o"></i> 8:00am to 5:00pm</p>
-                                <p class="inlineb"><i class="fa fa-phone"></i> (032) 239 5014</p>
+                                <h2>@{{ business.name }}</h2>
+                                <p><i class="fa fa-map-pin"></i> @{{ business.local_address }}</p>
+                                <p class="inlineb"><i class="fa fa-clock-o"></i> @{{ business.time_open }} to @{{ business.time_close }}</p>
+                                <p class="inlineb"><i class="fa fa-phone"></i> @{{ business.phone }}</p>
                             </div>
                         </div>
                         <div class="pull-right rating">
                             <div class="clearfix">
                                 <p class="pull-right upvote">
                                     <a href="" title="Upvote"><i class="fa fa-thumbs-o-up"></i></a>
-                                    <small>215</small>
+                                    <small>@{{ business.up_vote }}</small>
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-xs-12">
-                    <div class="entry on-featherq clearfix">
-                        <div class="pull-left">
-                            <img class="hidden-sm hidden-xs pull-left" src="http://placehold.it/80x80">
-                            <div class="pull-left">
-                                <h2>Malubog Swimming Pools</h2>
-                                <p><i class="fa fa-map-pin"></i> Hernan Cortes St, Mandaue City, 6014 Cebu</p>
-                                <p class="inlineb"><i class="fa fa-clock-o"></i> 8:00am to 5:00pm</p>
-                                <p class="inlineb"><i class="fa fa-phone"></i> (032) 239 5014</p>
-                            </div>
-                        </div>
-                        <div class="pull-right">
-                            <div class="clearfix">
-                                <p class="pull-right">
-                                    <a href="" title="View broadcast screen" class="view-screen btn btn-cyan">
-                                       <span class="glyphicon glyphicon-eye-open"></span> View Broadcast Screen
-                                    </a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xs-12">
-                    <div class="entry on-featherq clearfix">
-                        <div class="pull-left">
-                            <img class="hidden-sm hidden-xs pull-left" src="http://placehold.it/80x80">
-                            <div class="pull-left">
-                                <h2>Malubog Swimming Pools</h2>
-                                <p><i class="fa fa-map-pin"></i> Hernan Cortes St, Mandaue City, 6014 Cebu</p>
-                                <p class="inlineb"><i class="fa fa-clock-o"></i> 8:00am to 5:00pm</p>
-                                <p class="inlineb"><i class="fa fa-phone"></i> (032) 239 5014</p>
-                            </div>
-                        </div>
-                        <div class="pull-right">
-                            <div class="clearfix">
-                                <p class="pull-right">
-                                    <a href="" title="View broadcast screen" class="view-screen btn btn-cyan">
-                                       <span class="glyphicon glyphicon-eye-open"></span> View Broadcast Screen
-                                    </a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xs-12">
-                    <div class="entry clearfix">
-                        <div class="pull-left">
-                            <img class="hidden-sm hidden-xs pull-left" src="http://placehold.it/80x80">
-                            <div class="pull-left">
-                                <h2>Malubog Swimming Pools</h2>
-                                <p><i class="fa fa-map-pin"></i> Hernan Cortes St, Mandaue City, 6014 Cebu</p>
-                                <p class="inlineb"><i class="fa fa-clock-o"></i> 8:00am to 5:00pm</p>
-                                <p class="inlineb"><i class="fa fa-phone"></i> (032) 239 5014</p>
-                            </div>
-                        </div>
-                        <div class="pull-right rating">
-                            <div class="clearfix">
-                                <p class="pull-right upvote">
-                                    <a href="" title="Upvote"><i class="fa fa-thumbs-o-up"></i></a>
-                                    <small>215</small>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xs-12">
-                    <div class="entry clearfix">
-                        <div class="pull-left">
-                            <img class="hidden-sm hidden-xs pull-left" src="http://placehold.it/80x80">
-                            <div class="pull-left">
-                                <h2>Malubog Swimming Pools</h2>
-                                <p><i class="fa fa-map-pin"></i> Hernan Cortes St, Mandaue City, 6014 Cebu</p>
-                                <p class="inlineb"><i class="fa fa-clock-o"></i> 8:00am to 5:00pm</p>
-                                <p class="inlineb"><i class="fa fa-phone"></i> (032) 239 5014</p>
-                            </div>
-                        </div>
-                        <div class="pull-right rating">
-                            <div class="clearfix">
-                                <p class="pull-right upvote">
-                                    <a href="" title="Upvote"><i class="fa fa-thumbs-o-up"></i></a>
-                                    <small>215</small>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xs-12">
-                    <div class="entry clearfix">
-                        <div class="pull-left">
-                            <img class="hidden-sm hidden-xs pull-left" src="http://placehold.it/80x80">
-                            <div class="pull-left">
-                                <h2>Malubog Swimming Pools</h2>
-                                <p><i class="fa fa-map-pin"></i> Hernan Cortes St, Mandaue City, 6014 Cebu</p>
-                                <p class="inlineb"><i class="fa fa-clock-o"></i> 8:00am to 5:00pm</p>
-                                <p class="inlineb"><i class="fa fa-phone"></i> (032) 239 5014</p>
-                            </div>
-                        </div>
-                        <div class="pull-right rating">
-                            <div class="clearfix">
-                                <p class="pull-right upvote">
-                                    <a href="" title="Upvote"><i class="fa fa-thumbs-o-up"></i></a>
-                                    <small>215</small>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xs-12">
-                    <div class="entry clearfix">
-                        <div class="pull-left">
-                            <img class="hidden-sm hidden-xs pull-left" src="http://placehold.it/80x80">
-                            <div class="pull-left">
-                                <h2>Malubog Swimming Pools</h2>
-                                <p><i class="fa fa-map-pin"></i> Hernan Cortes St, Mandaue City, 6014 Cebu</p>
-                                <p class="inlineb"><i class="fa fa-clock-o"></i> 8:00am to 5:00pm</p>
-                                <p class="inlineb"><i class="fa fa-phone"></i> (032) 239 5014</p>
-                            </div>
-                        </div>
-                        <div class="pull-right rating">
-                            <div class="clearfix">
-                                <p class="pull-right upvote">
-                                    <a href="" title="Upvote"><i class="fa fa-thumbs-o-up"></i></a>
-                                    <small>215</small>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xs-12">
-                    <div class="entry clearfix">
-                        <div class="pull-left">
-                            <img class="hidden-sm hidden-xs pull-left" src="http://placehold.it/80x80">
-                            <div class="pull-left">
-                                <h2>Malubog Swimming Pools</h2>
-                                <p><i class="fa fa-map-pin"></i> Hernan Cortes St, Mandaue City, 6014 Cebu</p>
-                                <p class="inlineb"><i class="fa fa-clock-o"></i> 8:00am to 5:00pm</p>
-                                <p class="inlineb"><i class="fa fa-phone"></i> (032) 239 5014</p>
-                            </div>
-                        </div>
-                        <div class="pull-right rating">
-                            <div class="clearfix">
-                                <p class="pull-right upvote">
-                                    <a href="" title="Upvote"><i class="fa fa-thumbs-o-up"></i></a>
-                                    <small>215</small>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xs-12">
-                    <div class="entry clearfix">
-                        <div class="pull-left">
-                            <img class="hidden-sm hidden-xs pull-left" src="http://placehold.it/80x80">
-                            <div class="pull-left">
-                                <h2>Malubog Swimming Pools</h2>
-                                <p><i class="fa fa-map-pin"></i> Hernan Cortes St, Mandaue City, 6014 Cebu</p>
-                                <p class="inlineb"><i class="fa fa-clock-o"></i> 8:00am to 5:00pm</p>
-                                <p class="inlineb"><i class="fa fa-phone"></i> (032) 239 5014</p>
-                            </div>
-                        </div>
-                        <div class="pull-right rating">
-                            <div class="clearfix">
-                                <p class="pull-right upvote">
-                                    <a href="" title="Upvote"><i class="fa fa-thumbs-o-up"></i></a>
-                                    <small>215</small>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xs-12">
-                    <div class="entry clearfix">
-                        <div class="pull-left">
-                            <img class="hidden-sm hidden-xs pull-left" src="http://placehold.it/80x80">
-                            <div class="pull-left">
-                                <h2>Malubog Swimming Pools</h2>
-                                <p><i class="fa fa-map-pin"></i> Hernan Cortes St, Mandaue City, 6014 Cebu</p>
-                                <p class="inlineb"><i class="fa fa-clock-o"></i> 8:00am to 5:00pm</p>
-                                <p class="inlineb"><i class="fa fa-phone"></i> (032) 239 5014</p>
-                            </div>
-                        </div>
-                        <div class="pull-right rating">
-                            <div class="clearfix">
-                                <p class="pull-right upvote">
-                                    <a href="" title="Upvote"><i class="fa fa-thumbs-o-up"></i></a>
-                                    <small>215</small>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xs-12">
-                    <div class="entry clearfix">
-                        <div class="pull-left">
-                            <img class="hidden-sm hidden-xs pull-left" src="http://placehold.it/80x80">
-                            <div class="pull-left">
-                                <h2>Malubog Swimming Pools</h2>
-                                <p><i class="fa fa-map-pin"></i> Hernan Cortes St, Mandaue City, 6014 Cebu</p>
-                                <p class="inlineb"><i class="fa fa-clock-o"></i> 8:00am to 5:00pm</p>
-                                <p class="inlineb"><i class="fa fa-phone"></i> (032) 239 5014</p>
-                            </div>
-                        </div>
-                        <div class="pull-right rating">
-                            <div class="clearfix">
-                                <p class="pull-right upvote">
-                                    <a href="" title="Upvote"><i class="fa fa-thumbs-o-up"></i></a>
-                                    <small>215</small>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xs-12">
-                    <div class="entry clearfix">
-                        <div class="pull-left">
-                            <img class="hidden-sm hidden-xs pull-left" src="http://placehold.it/80x80">
-                            <div class="pull-left">
-                                <h2>Malubog Swimming Pools</h2>
-                                <p><i class="fa fa-map-pin"></i> Hernan Cortes St, Mandaue City, 6014 Cebu</p>
-                                <p class="inlineb"><i class="fa fa-clock-o"></i> 8:00am to 5:00pm</p>
-                                <p class="inlineb"><i class="fa fa-phone"></i> (032) 239 5014</p>
-                            </div>
-                        </div>
-                        <div class="pull-right rating">
-                            <div class="clearfix">
-                                <p class="pull-right upvote">
-                                    <a href="" title="Upvote"><i class="fa fa-thumbs-o-up"></i></a>
-                                    <small>215</small>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
@@ -390,5 +174,6 @@
         <p class="text-center">&copy; 2016 : Reminisense Corp.</p>
     </div>
 </footer>
+</div>
 </body>
 </html>
