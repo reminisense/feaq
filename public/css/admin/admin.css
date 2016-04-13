@@ -28,3 +28,8 @@
 #biz-address-lbl, #biz-industry-lbl{
     margin-top: 20px;
 }
+
+.business-list-container, .biz-list-create,.biz-list-specific,
+#biz-list-readd-btn, #biz-list-delete-btn{
+    display:none;
+}
