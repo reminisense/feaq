@@ -33,6 +33,10 @@ $(document).ready(function(){
     //    itemSelector : '.box'
     //});
 
+    $('.date-today').on('click', function(){
+        $('.datepicker').datepicker('show');
+    });
+
 });
 
 //these functions and variables are separated since they are using jquery
@@ -127,9 +131,11 @@ var pq = {
                 email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
                 priority_number = $(this).attr('data-priority-number');
                 transaction_number = $(this).attr('data-transaction-number');
+                confirmation_code = $(this).attr('data-confirmation-code');
 
                 $('#priority-number-modal .modal-title').html('#' + priority_number);
                 $('#priority-number-number').html(priority_number);
+                $('#priority-number-confirmation-code').html(confirmation_code);
                 $('#priority-number-name').html(name);
                 $('#priority-number-phone').html(phone);
                 $('#priority-number-email').html(email);
@@ -156,9 +162,11 @@ var pq = {
                 email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
                 priority_number = $(this).attr('data-priority-number');
                 transaction_number = $(this).attr('data-transaction-number');
+                confirmation_code = $(this).attr('data-confirmation-code');
 
                 $('#priority-number-modal .modal-title').html('#' + priority_number);
                 $('#priority-number-number').html(priority_number);
+                $('#priority-number-confirmation-code').html(confirmation_code);
                 $('#priority-number-name').html(name);
                 $('#priority-number-phone').html(phone);
                 $('#priority-number-email').html(email);
@@ -176,9 +184,11 @@ var pq = {
                 email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
                 priority_number = $(this).attr('data-priority-number');
                 transaction_number = $(this).attr('data-transaction-number');
+                confirmation_code = $(this).attr('data-confirmation-code');
 
                 $('#priority-number-modal .modal-title').html('#' + priority_number);
                 $('#priority-number-number').html(priority_number);
+                $('#priority-number-confirmation-code').html(confirmation_code);
                 $('#priority-number-name').html(name);
                 $('#priority-number-phone').html(phone);
                 $('#priority-number-email').html(email);
@@ -205,9 +215,11 @@ var pq = {
                 email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
                 priority_number = $(this).attr('data-priority-number');
                 transaction_number = $(this).attr('data-transaction-number');
+                confirmation_code = $(this).attr('data-confirmation-code');
 
                 $('#priority-number-modal .modal-title').html('#' + priority_number);
                 $('#priority-number-number').html(priority_number);
+                $('#priority-number-confirmation-code').html(confirmation_code);
                 $('#priority-number-name').html(name);
                 $('#priority-number-phone').html(phone);
                 $('#priority-number-email').html(email);
@@ -374,7 +386,29 @@ var pq = {
             data.service_id = pq.ids.service_id;
             data.terminal_id = pq.ids.terminal_id;
             pq_websocket.send(JSON.stringify(data));
-        }
+        },
+
+        getMonthString : function(month){
+            switch(month){
+                case '01': return 'January'; break;
+                case '02': return 'February'; break;
+                case '03': return 'March'; break;
+                case '04': return 'April'; break;
+                case '05': return 'May'; break;
+                case '06': return 'June'; break;
+                case '07': return 'July'; break;
+                case '08': return 'August'; break;
+                case '09': return 'September'; break;
+                case '10': return 'October'; break;
+                case '11': return 'November'; break;
+                case '12': return 'December'; break;
+            }
+        },
+
+        converDateToString : function(date){
+            date_array = date.split('-');
+            return pq.jquery_functions.getMonthString(date_array[0]) + ' ' + date_array[1] + ', ' + date_array[2];
+        },
     }
 };
 

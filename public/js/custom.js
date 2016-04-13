@@ -41,6 +41,21 @@ $(document).ready(function() {
         e.preventDefault()
         $(this).tab('show')
     });
+    /*business listing button on hover*/
+    $('.view-screen').hover(
+        function() {
+            $(this).animate({"width":"134"});
+        }, function() {
+            $( this ).animate({"width":"46"});
+        }
+    );
+    /*$( "li" ).hover(
+        function() {
+            $( this ).append( $( "<span> ***</span>" ) );
+        }, function() {
+            $( this ).find( "span:last" ).remove();
+        }
+    );*/
 
 //    ARA Moved to edit-business.js
 //    $('#btn-addterminal').click(function () {

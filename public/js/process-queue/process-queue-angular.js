@@ -17,6 +17,7 @@
 
         $scope.today = month + '-' + day + '-' + year;
         $scope.date = $scope.today;
+        $scope.dateString = pq.jquery_functions.converDateToString($scope.date);
         $scope.terminal_id = pq.ids.terminal_id;
         $scope.called_numbers = [];
         $scope.uncalled_numbers = [];
@@ -254,6 +255,7 @@
             $scope.next_number = numbers.next_number;
             $scope.number_limit = numbers.number_limit;
 
+            $scope.dateString = pq.jquery_functions.converDateToString($scope.date);
             pq.jquery_functions.set_next_number_placeholder($scope.next_number);
         };
 

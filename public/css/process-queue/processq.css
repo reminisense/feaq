@@ -520,6 +520,13 @@ span.glyphicon-zoom-in {
     -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.4);
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.4);
 }
+#fwd-history{ /*ARA Forward history in new design*/
+    color: #333;
+    background-color: #d7e0e2;
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.4);
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.4);
+}
+#fwd-history, /*ARA Forward history in new design*/
 #stop-queue,
 #view-bcast,
 #issue-number {
@@ -531,12 +538,14 @@ span.glyphicon-zoom-in {
     -webkit-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
 }
+#fwd-history span.glyphicon, /*ARA Forward history in new design*/
 #stop-queue span.glyphicon,
 #view-bcast span.glyphicon,
 #issue-number span.glyphicon {
     padding-right: 5px;
     font-size: 15px;
 }
+#fwd-history:hover, /*ARA Forward history in new design*/
 #stop-queue:hover,
 #view-bcast:hover,
 #issue-number:hover {
