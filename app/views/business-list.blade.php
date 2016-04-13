@@ -28,6 +28,8 @@
     <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
     <link rel="manifest" href="img/manifest.json">
 
+    <link media="all" type="text/css" rel="stylesheet" href="/css/loading-bar.css">
+
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="img/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
@@ -36,9 +38,18 @@
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/unveil.js"></script>
     <script type="text/javascript" src="/js/custom.js"></script>
+
+    <script type="text/javascript" src="/js/angular.min.js"></script>
+    <script type="text/javascript" src="/js/ngFeatherQ.js"></script>
+    <script src="/js/ngFacebook.js"></script>
+    <script src="/js/ngAutocomplete.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-sanitize.min.js"></script>
+    <script type="text/javascript" src="/js/loading-bar.min.js"></script>
+    <script type="text/javascript" src="/js/business-list/business-list-angular.js"></script>
+
 </head>
 
-<body>
+<body ng-app="FeatherQ" ng-cloak ng-controller="businessListController">
 <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">
     <div class="container">
         <div class="navbar-header">
@@ -69,23 +80,18 @@
                     <div class="row">
                         <div class="col-md-2 col-sm-2 col-xs-4 btn-group">
                             <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle ng-binding" data-toggle="dropdown">
-                                Location
+                                @{{ location }}
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupDrop1" id="location-filter">
-                                <li ng-click="locationFilter('Afghanistan');"><a href="#">Afghanistan</a></li>
-                                <li ng-click="locationFilter('Albania');"><a href="#">Albania</a></li>
-                                <li ng-click="locationFilter('Algeria');"><a href="#">Algeria</a></li>
-                                <li ng-click="locationFilter('Andorra');"><a href="#">Andorra</a></li>
-                                <li ng-click="locationFilter('Angola');"><a href="#">Angola</a></li>
-                                <li ng-click="locationFilter('Antigua and Barbuda');"><a href="#">Antigua and Barbuda</a></li>
+                                <li ng-repeat="country in locations"><a href="#" ng-click="locationFilter(country.code)">@{{ country.code }}</a></li>
                             </ul>
                         </div>
 
-                        <form class="ng-pristine ng-valid">
-                            <input class="col-md-8 col-sm-8 col-xs-8" type="text" placeholder="ie: ABC " id="search-keyword">
+                        <form class="ng-pristine ng-valid" ng-submit="getBusinessList()">
+                            <input class="col-md-8 col-sm-8 col-xs-8" type="text" placeholder="e.g. Bills Payment SM Megamall " id="search-keyword" ng-model="keyword">
                             <div class="col-md-2 col-sm-2 col-xs-12">
-                                <button type="button" class=" btn btn-orange btn-md" ng-click="searchBusiness(location_filter, industry_filter);">SEARCH</button>
+                                <button type="submit" class=" btn btn-orange btn-md">SEARCH</button>
                             </div>
                         </form>
                     </div>
@@ -107,58 +113,42 @@
         <div class="col-md-12 text-center">
             <div class="btn-toolbar col-md-12 mb20">
                 <div class="btn-group btn-group-sm">
-                    <button class="btn btn-default">A</button>
-                    <button class="btn btn-default">B</button>
-                    <button class="btn btn-default">C</button>
-                    <button class="btn btn-default">D</button>
-                    <button class="btn btn-default">E</button>
-                    <button class="btn btn-default">F</button>
-                    <button class="btn btn-default">G</button>
-                    <button class="btn btn-default">H</button>
-                    <button class="btn btn-default">I</button>
-                    <button class="btn btn-default">J</button>
-                    <button class="btn btn-default">K</button>
-                    <button class="btn btn-default">L</button>
+                    <button ng-repeat="letter in alphabet" class="btn btn-default" ng-click="getBusinessList(location, letter)">@{{ letter }}</button>
                 </div>
             </div>
         </div>
         <div class="col-sm-12 col-xs-12 col-md-12">
             <div class="clearfix" id="biz-list-wrap">
-                @foreach($businesses as $business)
-                    <div class="col-md-6 col-xs-12">
-                        <div class="entry clearfix {{ $business->business_id ? 'on-featherq' : '' }}">
+                <div class="col-md-6 col-xs-12" ng-repeat="business in business_list">
+                    <div class="entry clearfix @{{ business.business_id ? 'on-featherq' : '' }}" >
+                        <div class="pull-left">
+                            <img class="hidden-sm hidden-xs pull-left" src="http://placehold.it/80x80">
                             <div class="pull-left">
-                                <img class="hidden-sm hidden-xs pull-left" src="http://placehold.it/80x80">
-                                <div class="pull-left">
-                                    <h2>{{ $business->name }}</h2>
-                                    <p class="truncate"><i class="fa fa-map-pin"></i> {{ $business->local_address }}</p>
-                                    @if($business->time_open && $business->time_close)<p class="inlineb"><i class="fa fa-clock-o"></i> {{ $business->time_open }} to {{ $business->time_close }}</p>@endif
-                                    @if($business->phone)<p class="inlineb"><i class="fa fa-phone"></i>{{  $business->phone }}</p>@endif
-                                </div>
+                                <h2>@{{ business.name }}</h2>
+                                <p class="truncate"><i class="fa fa-map-pin"></i> @{{ business.local_address }}</p>
+                                <p class="inlineb" ng-if="business.time_open && business.time_close"><i class="fa fa-clock-o"></i> @{{ business.time_open }} to @{{ business.time_close }}</p>
+                                <p class="inlineb" ng-if="business.phone"><i class="fa fa-phone"></i>@{{  business.phone }}</p>
                             </div>
-                            @if($business->business_id)
-                            <div class="pull-right">
-                                <div class="clearfix">
-                                    <p class="pull-right">
-                                        <a target="_blank" href="{{ url('/broadcast/business/' . $business->business_id) }}" title="View broadcast screen" class="view-screen btn btn-cyan">
-                                            <span class="glyphicon glyphicon-eye-open"></span> View Broadcast Screen
-                                        </a>
-                                    </p>
-                                </div>
+                        </div>
+                        <div class="pull-right" ng-if="business.business_id">
+                            <div class="clearfix">
+                                <p class="pull-right">
+                                    <a target="_blank" href="{{ url('/broadcast/business')}}/@{{  business.business_id }}" title="View broadcast screen" class="view-screen btn btn-cyan">
+                                        <span class="glyphicon glyphicon-eye-open"></span> View Broadcast Screen
+                                    </a>
+                                </p>
                             </div>
-                            @else
-                            <div class="pull-right rating">
-                                <div class="clearfix">
-                                    <p class="pull-right upvote">
-                                        <a href="" title="Upvote"><i class="fa fa-thumbs-o-up"></i></a>
-                                        <small>0</small>
-                                    </p>
-                                </div>
+                        </div>
+                        <div class="pull-right rating" ng-if="business.business_id == 0">
+                            <div class="clearfix">
+                                <p class="pull-right upvote">
+                                    <a href="" title="Upvote"><i class="fa fa-thumbs-o-up"></i></a>
+                                    <small>@{{ business.upvote }}</small>
+                                </p>
                             </div>
-                            @endif
                         </div>
                     </div>
-                @endforeach
+                </div>
             </div>
         </div>
     </div>

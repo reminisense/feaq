@@ -10,8 +10,12 @@ class BusinessListController extends BaseController
 {
 
     public function getIndex(){
-        //dd(BusinessList::getBusinesses());
-        return View::make('business-list')->with('businesses', BusinessList::getBusinesses());
+        return View::make('business-list');
+    }
+
+    public function getBusinesses($location = null, $keyword = null, $offset = 0, $take = 10){
+        $location = $location == 'Location' || $location == 'Any'? null : $location;
+        return json_encode(['businesses' => BusinessList::getBusinesses($location, $keyword, $offset, $take)]);
     }
     
     public function getImportToList(){
