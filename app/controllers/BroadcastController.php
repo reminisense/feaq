@@ -705,6 +705,12 @@ class BroadcastController extends BaseController{
     $res = Business::all();
     foreach ($res as $count => $business) {
         $business_id = $business->business_id;
+        $this->getJsonCreate($business_id);
+    }
+    echo 'JSON files deleted and recreated.';
+  }
+
+    public function getJsonCreate($business_id){
         $file = public_path() . '/json/' . $business_id . '.json';
         if(file_exists($file)){
             unlink($file);
@@ -742,8 +748,6 @@ class BroadcastController extends BaseController{
         $encode = json_encode($data, JSON_PRETTY_PRINT);
         file_put_contents($file, $encode);
     }
-    echo 'JSON files deleted and recreated.';
-  }
 
 }
 
