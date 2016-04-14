@@ -128,7 +128,7 @@ Processs Queue > {{ $business_name }}
                         <div class="img-thumb pull-right">
                             <img src="http://placehold.it/30x30">
                         </div>
-                        <p class="name"><a href=""> @{{ number.name }}</a></p>
+                        <p class="name">@{{ number.name }}</p>
                         <p class="time"> @{{ number.confirmation_code }}</p>
                         {{--<p class="time">2:45pm - 3:330pm</p>--}}
                         <p class="status in" ng-if="number.checked_in == true"><span class="glyphicon glyphicon-ok"></span>CHECKED IN</p>
