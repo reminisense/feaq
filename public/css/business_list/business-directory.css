@@ -25,7 +25,13 @@
   border-bottom-left-radius: 4px;
 }*/
 .btn-toolbar .btn-group {
-  float: right;
+  float: none;
+}
+.btn-group-sm>.btn, .btn-sm {
+    font-size: 10px;
+}
+.gray, .gray:hover {
+    color: #ccc!important;
 }
 .filterwrap {
   background-color: #fff;
@@ -117,6 +123,7 @@ body {
   -webkit-font-smoothing: antialiased;
   background: #f2f2f2;
   font-size: 14px;
+    font-family: 'Raleway', sans-serif;
 }
 
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
