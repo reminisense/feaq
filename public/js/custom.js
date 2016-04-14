@@ -42,13 +42,15 @@ $(document).ready(function() {
         $(this).tab('show')
     });
     /*business listing button on hover*/
-    $('.view-screen').hover(
-        function() {
+    $(document).on({
+        mouseenter: function() {
             $(this).animate({"width":"134"});
-        }, function() {
+        },
+        mouseleave: function() {
             $( this ).animate({"width":"46"});
         }
-    );
+    }, '.view-screen');
+
     /*$( "li" ).hover(
         function() {
             $( this ).append( $( "<span> ***</span>" ) );
