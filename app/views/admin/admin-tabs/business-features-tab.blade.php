@@ -430,7 +430,7 @@
                 
             </div>
             <div class=" user-container clearfix">
-                <div class="search-user clearfix">
+                <div class="search-user col-md-12 clearfix">
                     <form>
                         <div class="col-lg-8 col-md-6 col-xs-12 col-sm-12">
                             <input class="form-control" type="text" id="user-email" placeholder="Search for a user using the email address.."/>
@@ -542,7 +542,7 @@
                 </div>
             </div>
             <div class="business-list-container clearfix">
-                <div class="search-business-list clearfix">
+                <div class="search-business-list col-md-12 clearfix">
                     <form>
                         <div class="col-lg-8 col-md-6 col-xs-12 col-sm-12">
                             <input class="form-control" type="text" id="business-list-name" ng-model="business_list_name" placeholder="Search for a business in the business list.."/>
@@ -551,7 +551,7 @@
                             <button class="btn btn-primary btn-lg search-user-button" type="submit" ng-click="searchBusinessList()">Search</button>
                         </div>
                         <div class="col-lg-2 col-md-3 col-xs-4 col-sm-4">
-                            <button class="btn btn-cyan btn-lg create-user-button" type="submit" id="create-business-list"><span class="glyphicon glyphicon-plus"></span>Create</button>
+                            <button class="btn btn-cyan btn-lg create-user-button" type="submit" id="create-business-list"><span class="glyphicon glyphicon-plus"></span> Create</button>
                         </div>
                     </form>
                 </div>
@@ -681,14 +681,27 @@
                             <p style="text-align: center;">Business created.</p>
                         </div>
                     </form>
-                    <form enctype="multipart/form-data" action="{{url('/admin/spreadsheet-business-list')}}" method="post" target="temporaryFrame">
-                        <input type="file" name="business_list" id="business_list" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
-                        <input type="submit" id="biz-list-upload-btn" value="Upload" />
-                        </table>
-                        <div class="alert alert-success" id="biz-list-upload-success" style="display: none">
-                            <p style="text-align: center;">Business added.</p>
-                        </div>
-                    </form>
+                    <hr>
+                    <p><strong>Import file </strong> <small>(xls, xlsx, csv)</small></p>
+                    <br>
+                    <div class="clearfix mb30">
+                        <form enctype="multipart/form-data" action="{{url('/admin/spreadsheet-business-list')}}" method="post" target="temporaryFrame">
+                            <div class="col-md-9 col-xs-12 col-sm-9">
+                                <span class="bg-gray">
+                                    <input type="file" name="business_list" id="business_list" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
+                                </span>
+                            </div>
+                            <div class="col-md-3 col-xs-12 col-sm-3 text-right">
+                                <input class="btn btn-lg btn-orange" type="submit" id="biz-list-upload-btn" value="Upload" />
+                            </div>
+
+
+                            </table>
+                            <div class="alert alert-success" id="biz-list-upload-success" style="display: none">
+                                <p style="text-align: center;">Business added.</p>
+                            </div>
+                        </form>
+                    </div>
                     {{--<input type="hidden" role="uploadcare-uploader" data-crop="disabled" id="business-attachment" />--}}
                     {{--<em class="help-block">Upload is limited to documents and images up to 5MB.</em>--}}
                     {{--<button onclick="alert($('#business-attachment').val())"></button>--}}
