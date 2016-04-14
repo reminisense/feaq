@@ -156,13 +156,18 @@
                         <div class="pull-right rating">
                             <div class="clearfix">
                                 <p class="pull-right upvote">
-                                    <a href="" title="Upvote"><i class="fa fa-thumbs-o-up"></i></a>
-                                    <small>@{{ business.up_vote }}</small>
+                                    <a href="" title="Upvote" ng-click="upvoteBusiness(business.business_list_id)" ng-hide="business.hide_vote" id="upvote-@{{ business.business_list_id }}"><i class="fa fa-thumbs-o-up"></i></a>
+                                    <small id="score-@{{ business.business_list_id }}">@{{ business.up_vote }}</small>
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div style="height: 20px;">
+                <center>
+                    <img src="/images/ajax-loader.gif" style="display: none;" id="lazy-loader"/>
+                </center>
             </div>
         </div>
     </div>

@@ -87,8 +87,12 @@ class BusinessListController extends BaseController
 
     public function postUpvoteBusiness() {
         // todo: implement anti spam upvote function
-        if (false) {
-
+        if (true) {
+            BusinessList::updateUpvoteById(Input::get('business_list_id'));
+            return json_encode(array(
+                'status' => 201,
+                'msg' => 'OK'
+            ));
         }
         else {
             return json_encode(array(
