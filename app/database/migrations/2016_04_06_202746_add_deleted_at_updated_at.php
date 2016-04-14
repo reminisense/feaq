@@ -15,7 +15,7 @@ class AddDeletedAtUpdatedAt extends Migration {
         Schema::table('business_list', function($table) {
 
             $table->timestamp('deleted_at');
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at');
         });
 	}
 
