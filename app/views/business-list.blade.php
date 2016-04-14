@@ -63,8 +63,7 @@
         </div>
         <nav class="pull-right collapse navbar-collapse bs-navbar-collapse" role="navigation">
             <ul class="nav navbar-nav">
-                <li><a href="#">Businesses</a></li>
-                <li><a href="#" >FeatherQ for Business</a></li>
+                <li><a href="/business" >FeatherQ for Business</a></li>
             </ul>
         </nav>
     </div>
@@ -100,7 +99,7 @@
         </div>
     </div>
     <div class="arrow">
-        <img src="/img/arrow.png">
+        <img src="img/arrow.png">
     </div>
 </div>
 <div class="clearfix">
@@ -146,30 +145,21 @@
         <div class="col-sm-12 col-xs-12 col-md-12">
             <div class="clearfix" id="biz-list-wrap">
                 <div class="col-md-6 col-xs-12" ng-repeat="businessRecord in directory_list">
-                    <div class="entry clearfix @{{ businessRecord.business_id ? 'on-featherq' : '' }}">
+                    <div class="entry clearfix">
                         <div class="pull-left">
                             <img class="hidden-sm hidden-xs pull-left" src="http://placehold.it/80x80">
                             <div class="pull-left">
                                 <h2>@{{ businessRecord.name }}</h2>
-                                <p class="truncate"><i class="fa fa-map-pin"></i> @{{ businessRecord.local_address }}</p>
+                                <p><i class="fa fa-map-pin"></i> @{{ businessRecord.local_address }}</p>
                                 <p class="inlineb"><i class="fa fa-clock-o"></i> @{{ businessRecord.time_open }} to @{{ businessRecord.time_close }}</p>
                                 <p class="inlineb"><i class="fa fa-phone"></i> @{{ businessRecord.phone }}</p>
                             </div>
                         </div>
-                        <div class="pull-right rating" ng-if="businessRecord.business_id == 0">
+                        <div class="pull-right rating">
                             <div class="clearfix">
                                 <p class="pull-right upvote">
                                     <a href="" title="Upvote" ng-click="upvoteBusiness(businessRecord.business_list_id)" ng-hide="businessRecord.hide_vote" id="upvote-@{{ businessRecord.business_list_id }}"><i class="fa fa-thumbs-o-up"></i></a>
                                     <small id="score-@{{ businessRecord.business_list_id }}">@{{ businessRecord.up_vote }}</small>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="pull-right" ng-if="businessRecord.business_id">
-                            <div class="clearfix">
-                                <p class="pull-right">
-                                    <a target="_blank" href="{{ url('/broadcast/business')}}/@{{  businessRecord.business_id }}" title="View broadcast screen" class="view-screen btn btn-cyan">
-                                        <span class="glyphicon glyphicon-eye-open"></span> View Broadcast Screen
-                                    </a>
                                 </p>
                             </div>
                         </div>
