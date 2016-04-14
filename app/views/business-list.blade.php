@@ -159,7 +159,8 @@
                             <div class="clearfix">
                                 <p class="pull-right upvote">
                                     <a href="" title="Upvote" ng-click="upvoteBusiness(businessRecord.business_list_id)" ng-hide="businessRecord.hide_vote" id="upvote-@{{ businessRecord.business_list_id }}"><i class="fa fa-thumbs-o-up"></i></a>
-                                    <a class="gray" ng-show="businessRecord.show_vote" title="You have already voted"><i class="fa fa-thumbs-up"></i></a>
+                                    <a class="gray" ng-show="businessRecord.hide_vote" title="You have already voted"><i class="fa fa-thumbs-up"></i></a>
+                                    <a class="gray" title="You have already voted" id="disableupvote-@{{ businessRecord.business_list_id }}" style="display: none;"><i class="fa fa-thumbs-up"></i></a>
                                     <small id="score-@{{ businessRecord.business_list_id }}">@{{ businessRecord.up_vote }}</small>
                                 </p>
                             </div>

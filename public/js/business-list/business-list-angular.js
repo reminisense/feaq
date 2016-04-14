@@ -94,10 +94,8 @@ app.controller('businessListController', function($scope, $http){
             var result = response.body;
             for (var i = 0; i < result.length; i++) {
                 var hideVote = false;
-                var showVote = false;
                 if (votedList.indexOf(result[i].business_list_id) > -1) {
                     hideVote = true;
-                    showVote = true;
                 }
                 $scope.directory_list.push({
                     business_list_id: result[i].business_list_id,
@@ -108,8 +106,7 @@ app.controller('businessListController', function($scope, $http){
                     time_open: result[i].time_open,
                     time_close: result[i].time_close,
                     up_vote: result[i].up_vote,
-                    hide_vote: hideVote,
-                    show_vote: showVote
+                    hide_vote: hideVote
                 });
 
             };
@@ -152,6 +149,7 @@ app.controller('businessListController', function($scope, $http){
             business_list_id: business_list_id
         }).success(function (response) {
             $('#upvote-'+business_list_id).hide();
+            $('#disableupvote-'+business_list_id).show();
             var upvotes = parseInt($('#score-'+business_list_id).text()) + 1;
             $('#score-'+business_list_id).text(upvotes);
             console.log(response.status);
