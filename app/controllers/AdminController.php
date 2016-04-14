@@ -298,6 +298,206 @@ class AdminController extends BaseController{
     }
   }
 
+    public function getBusinessListDetails($business_id){
+        if (Admin::isAdmin(Helper::userId())) { // PAG added permission checking
+            return json_encode(array_merge(BusinessList::getBusinessListDetails($business_id)));
+        }
+        else {
+            return json_encode(array('status' => 0, 'message', 'You are not allowed to access this function.'));
+        }
+    }
+
+    public function postBusinessListSearch() {
+        return BusinessList::getBusinessListByLikeName(Input::get('keyword'));
+    }
+
+
+    public function postUpdateBusinessList(){
+
+        if (Auth::check() && Admin::isAdmin(Helper::userId())) {
+
+            $business_list_data = Input::all();
+            $business_list = BusinessList::find($business_list_data['business_list_id']);
+
+            $business_list->name = $business_list_data['name'];
+            $business_list->local_address = $business_list_data['local_address'];
+            $business_list->email = $business_list_data['email'];
+            $business_list->time_open = $business_list_data['time_open'];
+            $business_list->time_close = $business_list_data['time_close'];
+            $business_list->phone = $business_list_data['phone'];
+            $business_list->created_by = Helper::userId();
+
+
+            if($business_list->save()){
+                return json_encode([
+                    'success' => 1
+                ]);
+            }else{
+                return json_encode([
+                    'success' => 0,
+                    'error' => 'Something went wrong while saving your business.'
+                ]);
+            }
+        }else{
+            return json_encode([
+                'success' => 0,
+                'error' => 'You are not allowed to access this function.'
+            ]);
+        }
+    }
+
+    public function postCreateBusinessList(){
+
+        if (Auth::check() && Admin::isAdmin(Helper::userId())) {
+
+            $business_list_data = Input::all();
+            $business_list = new BusinessList();
+
+            $business_list->name = $business_list_data['name'];
+            $business_list->local_address = $business_list_data['local_address'];
+            $business_list->email = $business_list_data['email'];
+            $business_list->time_open = $business_list_data['time_open'];
+            $business_list->time_close = $business_list_data['time_close'];
+            $business_list->phone = $business_list_data['phone'];
+            $business_list->business_id = null;
+            $business_list->created_by = Helper::userId();
+
+
+            if($business_list->save()){
+                return json_encode([
+                    'success' => 1
+                ]);
+            }else{
+                return json_encode([
+                    'success' => 0,
+                    'error' => 'Something went wrong while saving your business.'
+                ]);
+            }
+        }
+    }
+
+    public function postRemoveBusinessList(){
+
+        if (Auth::check() && Admin::isAdmin(Helper::userId())) {
+
+            $business_list_data = Input::all();
+            $business_list = BusinessList::find($business_list_data['business_list_id']);
+
+            $business_list->deleted_at = date('Y-m-d G:i:s');
+
+            if($business_list->save()){
+                return json_encode([
+                    'success' => 1
+                ]);
+            }else{
+                return json_encode([
+                    'success' => 0,
+                    'error' => 'Something went wrong while deleting your business.'
+                ]);
+            }
+        }
+    }
+
+    public function postRestoreBusinessList(){
+
+        if (Auth::check() && Admin::isAdmin(Helper::userId())) {
+
+            $business_list_data = Input::all();
+            $business_list = BusinessList::find($business_list_data['business_list_id']);
+
+            $business_list->deleted_at = mktime(0,0,0,0,0,0);
+
+            if($business_list->save()){
+                return json_encode([
+                    'success' => 1
+                ]);
+            }else{
+                return json_encode([
+                    'success' => 0,
+                    'error' => 'Something went wrong while restoring your business.'
+                ]);
+            }
+        }
+    }
+
+    public function postSpreadsheetBusinessList(){
+
+        $target_dir = public_path()."/files/";
+        $target_file = $target_dir. basename($_FILES["business_list"]["name"]);
+
+        if(move_uploaded_file($_FILES["business_list"]["tmp_name"], $target_file)) {
+
+            $business_list_data = BusinessList::all();
+
+            $inputFileType = PHPExcel_IOFactory::identify($target_file);
+            $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+            $objPHPExcel = $objReader->load($target_file);
+
+            $sheet = $objPHPExcel->getSheet(0);
+            $highest_row = $sheet->getHighestRow();
+            $highest_column = $sheet->getHighestColumn();
+            $business_name_column = 0;
+            $name_index = 0;
+            $local_address_index = 1;
+            $email_index = 2;
+            $phone_index = 3;
+            $time_open_index = 4;
+            $time_close_index = 5;
+
+            $new_business_list = array();
+            $updated_business_list = array();
+
+            for ($row = 1; $row <= $highest_row; $row++) {
+                //  Read a row of data into an array
+                $rowData = $sheet->rangeToArray('A' . $row . ':' . $highest_column . $row,NULL,TRUE,FALSE);
+
+                $business_name_input = preg_replace('/[^a-z]/', "", strtolower($rowData[$name_index][$business_name_column]));
+
+                foreach($business_list_data as $key=>$business){
+                    $business_list_name = preg_replace('/[^a-z]/', "", strtolower($business['name']));
+                    if($business_list_name === $business_name_input){
+                        array_push($updated_business_list,
+                            [
+                                'business_list_id' => $business['business_list_id'],
+                                'name' => $rowData[$business_name_column][$name_index],
+                                'local_address' => $rowData[$business_name_column][$local_address_index],
+                                'email' => $rowData[$business_name_column][$email_index],
+                                'phone' => $rowData[$business_name_column][$phone_index],
+                                'time_open' => date('g:i A', strtotime(PHPExcel_Style_NumberFormat::toFormattedString($rowData[$business_name_column][$time_open_index],'h:i a'))),
+                                'time_close' => date('g:i A', strtotime(PHPExcel_Style_NumberFormat::toFormattedString($rowData[$business_name_column][$time_close_index],'h:i')))
+                            ]
+                        );
+                        break;
+                    }
+                    if( $key+1 == count($business_list_data)){
+                        if($rowData){
+
+                            array_push($new_business_list, [
+                                'name' => $rowData[$business_name_column][$name_index],
+                                'local_address' => $rowData[$business_name_column][$local_address_index],
+                                'email' => $rowData[$business_name_column][$email_index],
+                                'phone' => $rowData[$business_name_column][$phone_index],
+                                'time_open' => date('g:i A', strtotime(PHPExcel_Style_NumberFormat::toFormattedString($rowData[$business_name_column][$time_open_index],'h:i a'))),
+                                'time_close' => date('g:i A', strtotime(PHPExcel_Style_NumberFormat::toFormattedString($rowData[$business_name_column][$time_close_index],'h:i'))),
+                                'business_id' => null,
+                                'created_by' => Helper::userId()
+                            ]);
+                        }
+                    }
+                }
+            };
+
+            if(BusinessList::updateListByBatch($updated_business_list) && $new_business_list ? BusinessList::insert($new_business_list):true){
+                return json_encode(['success' => 1]);
+            }else{
+                return json_encode(['success' => 0, 'error_message' =>'Something went wrong..']);
+            }
+        }else{
+            return json_encode(['success' => 0, 'error_message' =>'Something went wrong..']);
+        }
+
+    }
+
   private function validateBusinessNameBusinessAddress($dbBusiness, $inputBusiness) {
     if ($dbBusiness->name != $inputBusiness['business_name'] || $dbBusiness->local_address != $inputBusiness['business_address']){
       $row = Business::businessExistsByNameByAddress($inputBusiness['business_name'], $inputBusiness['business_address']);
