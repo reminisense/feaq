@@ -113,42 +113,64 @@
         <div class="col-md-12 text-center">
             <div class="btn-toolbar col-md-12 mb20">
                 <div class="btn-group btn-group-sm">
-                    <button ng-repeat="letter in alphabet" class="btn btn-default" ng-click="getBusinessList(location, letter)">@{{ letter }}</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('', 0)">Show All</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('A', 0)">A</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('B', 0)">B</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('C', 0)">C</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('D', 0)">D</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('E', 0)">E</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('F', 0)">F</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('G', 0)">G</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('H', 0)">H</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('I', 0)">I</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('J', 0)">J</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('K', 0)">K</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('L', 0)">L</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('M', 0)">M</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('N', 0)">N</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('O', 0)">O</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('P', 0)">P</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('Q', 0)">Q</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('R', 0)">R</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('S', 0)">S</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('T', 0)">T</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('U', 0)">U</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('V', 0)">V</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('W', 0)">W</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('X', 0)">X</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('Y', 0)">Y</button>
+                    <button class="btn btn-default" ng-click="lazyLoadBusinesses('Z', 0)">Z</button>
                 </div>
             </div>
         </div>
         <div class="col-sm-12 col-xs-12 col-md-12">
             <div class="clearfix" id="biz-list-wrap">
-                <div class="col-md-6 col-xs-12" ng-repeat="business in business_list">
-                    <div class="entry clearfix @{{ business.business_id ? 'on-featherq' : '' }}" >
+                <div class="col-md-6 col-xs-12" ng-repeat="businessRecord in directory_list">
+                    <div class="entry clearfix">
                         <div class="pull-left">
                             <img class="hidden-sm hidden-xs pull-left" src="http://placehold.it/80x80">
                             <div class="pull-left">
-                                <h2>@{{ business.name }}</h2>
-                                <p class="truncate"><i class="fa fa-map-pin"></i> @{{ business.local_address }}</p>
-                                <p class="inlineb" ng-if="business.time_open && business.time_close"><i class="fa fa-clock-o"></i> @{{ business.time_open }} to @{{ business.time_close }}</p>
-                                <p class="inlineb" ng-if="business.phone"><i class="fa fa-phone"></i>@{{  business.phone }}</p>
+                                <h2>@{{ businessRecord.name }}</h2>
+                                <p><i class="fa fa-map-pin"></i> @{{ businessRecord.local_address }}</p>
+                                <p class="inlineb"><i class="fa fa-clock-o"></i> @{{ businessRecord.time_open }} to @{{ businessRecord.time_close }}</p>
+                                <p class="inlineb"><i class="fa fa-phone"></i> @{{ businessRecord.phone }}</p>
                             </div>
                         </div>
-                        <div class="pull-right" ng-if="business.business_id">
-                            <div class="clearfix">
-                                <p class="pull-right">
-                                    <a target="_blank" href="{{ url('/broadcast/business')}}/@{{  business.business_id }}" title="View broadcast screen" class="view-screen btn btn-cyan">
-                                        <span class="glyphicon glyphicon-eye-open"></span> View Broadcast Screen
-                                    </a>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="pull-right rating" ng-if="business.business_id == 0">
+                        <div class="pull-right rating">
                             <div class="clearfix">
                                 <p class="pull-right upvote">
-                                    <a href="" title="Upvote"><i class="fa fa-thumbs-o-up"></i></a>
-                                    <small>@{{ business.upvote }}</small>
+                                    <a href="" title="Upvote" ng-click="upvoteBusiness(businessRecord.business_list_id)" ng-hide="businessRecord.hide_vote" id="upvote-@{{ businessRecord.business_list_id }}"><i class="fa fa-thumbs-o-up"></i></a>
+                                    <small id="score-@{{ businessRecord.business_list_id }}">@{{ businessRecord.up_vote }}</small>
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div style="height: 20px;">
+                <center>
+                    <img src="/images/ajax-loader.gif" style="display: none;" id="lazy-loader"/>
+                </center>
             </div>
         </div>
     </div>
