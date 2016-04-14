@@ -88,8 +88,8 @@ app.controller('businessListController', function($scope, $http){
     $scope.letter = '';
     $scope.directory_list = new Array();
     $scope.voted_list = new Array();
-    var votedList = self.window.name;
     var listBusiness = function(url_build) {
+        var votedList = self.window.name;
         $http.get(url_build).success(function (response) {
             var result = response.body;
             for (var i = 0; i < result.length; i++) {
