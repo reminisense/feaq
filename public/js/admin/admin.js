@@ -590,6 +590,8 @@ app.controller('adminController', function($scope, $http){
         });
     }
 
+    $scope.suggested = false;
+
     $scope.createBusiness = function() {
         $http.post('/admin/create-business', {
             business_name: $scope.new_business_name,
@@ -599,6 +601,7 @@ app.controller('adminController', function($scope, $http){
             time_close: $scope.time_close,
             email: $scope.email,
             timezone: $scope.timezone,
+            suggested: $scope.suggested
         }).success(function(response) {
             if (response.success == 1) {
                 $("#biz-create-success").fadeIn();
@@ -614,6 +617,174 @@ app.controller('adminController', function($scope, $http){
         });
     }
 
+    $scope.dropdown_businesses = [];
+
+    $scope.fillBusinessFields = function(business_id){
+            $('#search-suggest').hide();
+            $http.get('/admin/business-details/' + business_id).success(function(response) {
+                $scope.new_business_name = response.business_name;
+                $scope.address = response.business_address;
+                $scope.time_open = response.time_open;
+                $scope.time_close = response.time_closed;
+                $scope.suggested = true;
+                $scope.industry = "";
+                $scope.email = "";
+                $scope.timezone ="";
+            })
+
+    };
+    $scope.showDropdown = function(){
+        $scope.dropdown_businesses = [];
+        $('#search-suggest').show();
+
+    }
+
+    $scope.$watch('new_business_name', function(new_business_name){
+        if(!new_business_name || new_business_name == undefined){
+            $scope.dropdown_businesses = [];
+        }else{
+            $http.get('/list/name-search/' + new_business_name).success(function(response){
+                $scope.dropdown_businesses = response.keywords;
+            });
+        }
+    });
+
+    $scope.searchBusinessList = function() {
+        $scope.businesses_list = new Array();
+        $http.post('/admin/business-list-search', {
+            "keyword": $scope.business_list_name
+        }).success(function(response) {
+            if(response.length){
+                for (var i = 0; i < response.length; i++) {
+                    $scope.businesses_list.push({
+                        "business_list_id": response[i].business_list_id,
+                        "business_name": response[i].name
+                    });
+                }
+            }else{
+                $('#business-list-search-error').fadeIn();
+                $('#business-list-search-error').fadeOut(4000);
+            }
+        });
+
+        $('.biz-list-results').show();
+        $('.biz-list-specific').hide();
+        $('.biz-list-create').hide();
+    };
+
+    $scope.manageBusinessList = function(business_list_id) {
+        $http.get('/admin/business-list-details/' + business_list_id).success(function(response) {
+            $scope.businesslistObj = response;
+            $scope.edit_business_list_id = response.business_list_id;
+            $scope.edit_business_list_name = response.name;
+            $scope.edit_business_list_address = response.local_address;
+            $scope.edit_business_list_email = response.email;
+            $scope.edit_business_list_phone = response.phone;
+            $scope.edit_business_list_open = response.time_open;
+            $scope.edit_business_list_close = response.time_close;
+
+            if(response.deleted_at != '0000-00-00 00:00:00'){
+                $('#biz-list-restore-btn').show()
+                $('#biz-list-delete-btn').hide()
+                $('#biz-list-update-btn').hide()
+
+                $("#edit_business_list_name,#edit_business_list_address" +
+                ",#edit_business_list_email, #edit_business_list_phone" +
+                ",#edit_business_list_open, #edit_business_list_close").prop("readonly", true);
+
+            }else{
+                $('#biz-list-delete-btn').show()
+                $('#biz-list-update-btn').show()
+                $('#biz-list-restore-btn').hide()
+
+                $("#edit_business_list_name,#edit_business_list_address" +
+                ",#edit_business_list_email, #edit_business_list_phone" +
+                ",#edit_business_list_open, #edit_business_list_close").prop("readonly", false);
+            }
+
+        });
+
+        $('.biz-list-results').hide();
+        $('.biz-list-specific').show();
+        $('.biz-list-create').hide();
+    }
+
+    $scope.updateBusinessList = function() {
+        var data = $scope.businesslistObj;
+        data.business_list_id = $scope.edit_business_list_id;
+        data.name = $scope.edit_business_list_name;
+        data.local_address = $scope.edit_business_list_address;
+        data.email = $scope.edit_business_list_email;
+        data.phone = $scope.edit_business_list_phone;
+        data.time_open = $scope.edit_business_list_open ;
+        data.time_close = $scope.edit_business_list_close;
+        $http.post('/admin/update-business-list', data).success(function(response) {
+        });
+
+    }
+
+    $scope.deleteBusinessList = function() {
+        var confirmDel = confirm("Are you sure you want to remove this business?");
+
+        if(confirmDel){
+            $http.post('/admin/remove-business-list',{
+                "business_list_id": $scope.edit_business_list_id
+            }).success(function(response){
+                $scope.manageBusinessList($scope.edit_business_list_id);
+
+            });
+        }
+
+    }
+
+    $scope.restoreBusinessList = function() {
+        $http.post('/admin/restore-business-list', {
+            "business_list_id": $scope.edit_business_list_id
+        }).success(function (response) {
+            $scope.manageBusinessList($scope.edit_business_list_id);
+        });
+    }
+
+    $scope.createBusinessList = function() {
+        $http.post('/admin/create-business-list', {
+            name: $scope.new_business_list_name,
+            local_address: $scope.new_business_list_address,
+            email: $scope.new_business_list_email,
+            time_open: $scope.new_business_list_open,
+            time_close: $scope.new_business_list_close,
+            phone: $scope.new_business_list_phone
+        }).success(function(response) {
+            if (response.success == 1) {
+                $("#biz-create-list-success").fadeIn();
+                $("#biz-create-list-success").fadeOut(4000);
+
+                $(".biz-list-create").val(' ');
+            }
+        });
+    }
+
+
+    $("#biz-list-upload-btn").click(function(){
+        $("#biz-list-upload-success").fadeIn();
+        $("#biz-list-upload-success").fadeOut(4000);
+    });
+
+
+    $("#biz-list-update-btn").click(function(){
+        $("#biz-list-details-success").fadeIn();
+        $("#biz-list-details-success").fadeOut(4000);
+    });
+
+    $("#biz-list-restore-btn").click(function(){
+        $("#biz-list-restore-success").fadeIn();
+        $("#biz-list-restore-success").fadeOut(4000);
+    });
+
+    $("#bbiz-list-delete-btn").click(function(){
+        $("#biz-list-delete-success").fadeIn();
+        $("#biz-list-delete-success").fadeOut(4000);
+    });
+
     $("#biz-details-btn").click(function(){
         $("#biz-details-success").fadeIn();
         $("#biz-details-success").fadeOut(4000);
@@ -627,6 +798,12 @@ app.controller('adminController', function($scope, $http){
     $("#biz-settings-btn").click(function(){
         $("#biz-settings-success").fadeIn();
         $("#biz-settings-success").fadeOut(4000);
+    });
+
+    $("#create-business-list").click(function(){
+        $(".biz-list-create").show();
+        $(".biz-list-results").hide();
+        $(".biz-list-specific").hide();
     });
 
     $(".create-business-button").click(function() {
@@ -680,12 +857,21 @@ app.controller('adminController', function($scope, $http){
     $("#user-settings").click(function(){
         $('.business-container').hide();
         $('.user-container').show();
+        $('.business-list-container').hide();
     });
 
     $('#business-settings').click(function(){
         $('.user-container').hide();
         $('.business-container').show();
+        $('.business-list-container').hide();
     });
+
+    $('#business-list-settings').click(function(){
+        $('.user-container').hide();
+        $('.business-container').hide();
+        $('.business-list-container').show();
+    });
+
 
     $("#graph-nav a").click(function(){
         $(this).tab("show");
