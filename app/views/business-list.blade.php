@@ -155,7 +155,7 @@
                                 <p class="inlineb"><i class="fa fa-phone"></i> @{{ businessRecord.phone }}</p>
                             </div>
                         </div>
-                        <div class="pull-right rating" ng-if="businessRecord.business_id == 0">
+                        <div class="pull-right rating" ng-if="!businessRecord.business_id">
                             <div class="clearfix">
                                 <p class="pull-right upvote">
                                     <a href="" title="Upvote" ng-click="upvoteBusiness(businessRecord.business_list_id)" ng-hide="businessRecord.hide_vote" id="upvote-@{{ businessRecord.business_list_id }}"><i class="fa fa-thumbs-o-up"></i></a>
