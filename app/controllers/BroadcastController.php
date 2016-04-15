@@ -701,6 +701,54 @@ class BroadcastController extends BaseController{
     echo 'JSON files are now fixed.';
   }
 
+  public function getJsonRecreate(){
+    $res = Business::all();
+    foreach ($res as $count => $business) {
+        $business_id = $business->business_id;
+        $this->getJsonCreate($business_id);
+    }
+    echo 'JSON files deleted and recreated.';
+  }
+
+    public function getJsonCreate($business_id){
+        $file = public_path() . '/json/' . $business_id . '.json';
+        if(file_exists($file)){
+            unlink($file);
+        }
+        $data = new stdClass();
+        for($boxnum = 1; $boxnum <= 6; $boxnum++){
+            $box = new stdClass();
+            $box->number = '';
+            $box->terminal = '';
+            $box->rank = '';
+            $box->service = '';
+            $data->{"box" . $boxnum} = $box;
+        }
+        for($boxnum = 5; $boxnum > 1; $boxnum--){
+            $data->{"ticker_message" . $boxnum} = '';
+        }
+        $data->ticker_message = '';
+        $data->show_issued = TRUE;
+        $data->show_names = FALSE;
+        $data->ad_image = "";
+        $data->ad_video = "";
+        $data->ad_type = "carousel";
+        $data->turn_on_tv = FALSE;
+        $data->tv_channel = "";
+        $data->adspace_size = "517px";
+        $data->numspace_size = "517px";
+        $data->display = "1-6";
+        $data->get_num = " ";
+        $data->carousel_delay = "5000";
+        $data->date = date("mdy");
+        $data->num_boxes = "6";
+        $data->adspace_size = "517px";
+        $data->numspace_size = "517px";
+        $data->ad_type = "carousel";
+        $encode = json_encode($data, JSON_PRETTY_PRINT);
+        file_put_contents($file, $encode);
+    }
+
 }
 
 

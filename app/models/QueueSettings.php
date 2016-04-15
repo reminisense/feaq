@@ -77,6 +77,10 @@ class QueueSettings extends Eloquent{
         return QueueSettings::queueSetting('sms_gateway_api', serialize(QueueSettings::$sms_gateway_api['twilio']), $service_id, $date);
     }
 
+    public static function processQueueLayout($service_id, $date = null){
+        return QueueSettings::queueSetting('process_queue_layout', 0, $service_id, $date);
+    }
+
 
     /**
      * SMS Gateway variables

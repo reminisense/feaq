@@ -398,6 +398,7 @@ var eb = {
         $scope.input_sms_field = 0;
         $scope.allow_remote = 0;
         $scope.remote_limit = 0;
+        $scope.process_queue_layout = 0;
 
         $scope.add_terminal = {
             terminal_name : ""
@@ -467,6 +468,7 @@ var eb = {
             $scope.input_sms_field = business.input_sms_field;
             $scope.allow_remote = business.allow_remote ? true : false;
             $scope.remote_limit = business.remote_limit;
+            $scope.process_queue_layout = business.process_queue_layout ? true : false;
             $scope.terminals = business.terminals;
             $scope.services = business.services;
             $scope.analytics = business.analytics;
@@ -773,6 +775,7 @@ var eb = {
                     input_sms_field: $scope.input_sms_field,
                     allow_remote: $scope.allow_remote ? 1 : 0,
                     remote_limit: $scope.remote_limit,
+                    process_queue_layout: $scope.process_queue_layout ? 1 : 0,
                     sms_gateway : $scope.sms_gateway
                 }
 
@@ -1248,7 +1251,26 @@ var eb = {
         $scope.getBusinessAnalytics = function(startdate, enddate){
             $http.post('/business/business-analytics', { business_id: $scope.business_id, startdate: startdate, enddate: enddate }).success(function(response){
                 $scope.analytics = response.analytics;
+                $scope.generateQueueGraph();
             });
+        };
+
+        $scope.generateQueueGraph = function(){
+            $scope.emptyGraph();
+            if($scope.analytics.queue_activity.length > 0){
+                new Morris.Line({
+                    element: 'queue-activity-graph',
+                    data: $scope.analytics.queue_activity,
+                    xkey: 'time',
+                    ykeys: ['value'],
+                    labels: ['Issued Numbers'],
+                    axes: true
+                });
+            }
+        };
+
+        $scope.emptyGraph = function(){
+            angular.element('#queue-activity-graph').empty();
         };
 
         $scope.saveQueueForwardingBusiness = function(){

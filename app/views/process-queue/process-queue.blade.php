@@ -58,7 +58,10 @@ Processs Queue > {{ $business_name }}
                 Showing numbers for date:
                 <div class="col-md-12 row">
                     <div class="col-md-4">
-                        <input type="text" class="datepicker form-control" ng-model="date" ng-change="getAllNumbers()" readonly="readonly" style="cursor: text; background-color: #FFFFFF"/>
+                        <p class="date-today">
+                            <span class="glyphicon glyphicon-calendar"></span>@{{ dateString }}
+                            <input type="text" class="datepicker" ng-model="date" ng-change="getAllNumbers()" readonly="readonly" style="height: 0px; width:0px; border: 0px;"/>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -66,6 +69,7 @@ Processs Queue > {{ $business_name }}
                 {{--<a id="view-broadcast" target="_blank" href="{{ url('/broadcast/business/' . $business_id) }}">View Broadcast <br>Screen</a>--}}
                 <a id="view-broadcast" target="_blank" href="{{ url('/broadcast/business/' . $business_id) }}"><span class="glyphicon glyphicon-th-large"></span> View Broadcast Screen</a>
                 <point-of-interest position="left" bottom="35" right="100" title="Broadcast Page" description="Click on the <strong>View Broadcast Page</strong> link to view the numbers being called."></point-of-interest>
+                <a ng-show="allowed_businesses.length > 0" id="forward-history" target="_blank" href="{{ url('/processqueue/forward-history/' . $service_id) }}"><span class="glyphicon glyphicon-share-alt"></span> View Forwarding History</a>
             </div>
         </div>
     </div>
@@ -92,6 +96,7 @@ Processs Queue > {{ $business_name }}
                                             data-phone="@{{ number.phone }}"
                                             data-queue_platform="@{{ number.queue_platform }}"
                                             data-checked_in="@{{ number.checked_in }}"
+                                            data-confirmation-code="@{{ number.confirmation_code }}"
                                             >
                                             @{{ number.priority_number }}
                                             <small class="font-normal">via <span style="text-transform:capitalize;">@{{ number.queue_platform }}</span></small>
@@ -104,6 +109,7 @@ Processs Queue > {{ $business_name }}
                                                data-name="@{{ number.name }}"
                                                data-email="@{{ number.email }}"
                                                data-phone="@{{ number.phone }}"
+                                               data-confirmation-code="@{{ number.confirmation_code }}"
                                             >
                                                 <a href="#">
                                                     <span ng-if="number.name"
@@ -129,6 +135,7 @@ Processs Queue > {{ $business_name }}
                                             data-phone="@{{ number.phone }}"
                                             data-queue_platform="@{{ number.queue_platform }}"
                                             data-checked_in="@{{ number.checked_in }}"
+                                            data-confirmation-code="@{{ number.confirmation_code }}"
                                             >
                                             @{{ number.priority_number }}
                                             <small class="font-normal">via <span style="text-transform:capitalize;">@{{ number.queue_platform }}</span></small>
@@ -141,6 +148,7 @@ Processs Queue > {{ $business_name }}
                                                data-name="@{{ number.name }}"
                                                data-email="@{{ number.email }}"
                                                data-phone="@{{ number.phone }}"
+                                               data-confirmation-code="@{{ number.confirmation_code }}"
                                             >
                                                 <a href="#" class="notcheckedin">
                                                     <span class="pull-right" ng-if="number.name"
@@ -199,13 +207,13 @@ Processs Queue > {{ $business_name }}
                     </tr>
                     <tr ng-repeat="number in called_numbers" data-tnumber="@{{ number.transaction_number }}">
                         <th scope="row">
-                            <a href="#" class="priority-number" title="Number: @{{ number.priority_number }}" data-transaction-number="@{{ number.transaction_number }}" data-priority-number="@{{ number.priority_number }}" data-name="@{{ number.name }}" data-phone="@{{ number.phone }}" data-email="@{{ number.email }}" data-toggle="modal" data-target="#priority-number-modal">
+                            <a href="#" class="priority-number" title="Number: @{{ number.priority_number }}" data-transaction-number="@{{ number.transaction_number }}" data-priority-number="@{{ number.priority_number }}" data-name="@{{ number.name }}" data-phone="@{{ number.phone }}" data-email="@{{ number.email }}" data-confirmation-code="@{{ number.confirmation_code }}" data-toggle="modal" data-target="#priority-number-modal">
                                 @{{ number.priority_number }} <span class="glyphicon glyphicon-zoom-in"></span>
                             </a>
                         </th>
                         <td>
                             <div>
-                                <a ng-if="number.name" href="#" class="show-messages" title="Number: @{{ number.priority_number }}" data-transaction-number="@{{ number.transaction_number }}" data-priority-number="@{{ number.priority_number }}" data-name="@{{ number.name }}" data-phone="@{{ number.phone }}" data-email="@{{ number.email }}" data-toggle="modal" data-target="#priority-number-modal">
+                                <a ng-if="number.name" href="#" class="show-messages" title="Number: @{{ number.priority_number }}" data-transaction-number="@{{ number.transaction_number }}" data-priority-number="@{{ number.priority_number }}" data-name="@{{ number.name }}" data-phone="@{{ number.phone }}" data-email="@{{ number.email }}" data-confirmation-code="@{{ number.confirmation_code }}" data-toggle="modal" data-target="#priority-number-modal">
                                     <span>@{{ number.name }}</span>
                                 </a>
                             </div>

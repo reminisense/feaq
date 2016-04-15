@@ -146,6 +146,7 @@ class Business extends Eloquent
             'input_sms_field' => QueueSettings::inputSmsField($first_service->service_id),
             'allow_remote' => QueueSettings::allowRemote($first_service->service_id),
             'remote_limit' => QueueSettings::remoteLimit($first_service->service_id),
+            'process_queue_layout' => QueueSettings::processQueueLayout($first_service->service_id),
             'terminals' => $terminals,
             'services' => $services,
             'analytics' => $analytics,

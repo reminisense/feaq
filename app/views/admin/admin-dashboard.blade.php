@@ -1,5 +1,6 @@
 @extends('dashboard')
 @section('styles')
+<link rel='stylesheet' type='text/css' href='/css/admin/admin.css'>
 <link rel='stylesheet' type='text/css' href='/css/business/business.css'>
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
 <link rel="stylesheet" href="/css/jquery-ui.css">
@@ -55,4 +56,10 @@
 <script src="/js/admin/admin.js"></script>
 <script src="/js/dashboard/dashboard.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.4/jstz.min.js"></script>
+<script>
+    UPLOADCARE_LOCALE = "en";
+    UPLOADCARE_TABS = "file";
+    UPLOADCARE_PUBLIC_KEY = "844c2b9e554c2ee5cc0a";
+</script>
+<script charset="utf-8" src="//ucarecdn.com/widget/2.3.4/uploadcare/uploadcare.full.min.js"></script>
 @stop

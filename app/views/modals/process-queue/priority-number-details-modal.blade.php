@@ -21,6 +21,10 @@
                             <div class="col-md-8 col-xs-8"><h5 id="priority-number-number"></h5></div>
                         </div>
                         <div class="">
+                            <div class="col-md-4 col-xs-4"><h5>Confirmation Code: </h5></div>
+                            <div class="col-md-8 col-xs-8"><h5 id="priority-number-confirmation-code"></h5></div>
+                        </div>
+                        <div class="">
                             <div class="col-md-4 col-xs-4"><h5>Name: </h5></div>
                             <div class="col-md-8 col-xs-8"><h5 id="priority-number-name"></h5></div>
                         </div>

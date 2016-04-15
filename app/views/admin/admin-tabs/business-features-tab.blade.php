@@ -9,6 +9,7 @@
                 <ul id="admin-manage" class="nav nav-tabs">
                     <li class="active"><a class="" href="" id="business-settings">Manage Businesses</a></li>
                     <li><a class="" href="" id="user-settings">Manage Users</a></li>
+                    <li><a class="" href="" id="business-list-settings">Manage Business List</a></li>
                 </ul>
             </div>
         </div>
@@ -313,25 +314,35 @@
                 <div class="col-md-12">
                     <div class="biz-create">
                         <form ng-submit="createBusiness()">
+                            <input type="hidden" ng-model="suggested">
                             <table class="table table-responsive table-form">
                                 <tr>
                                     <td>
                                         <label>Business Owner (email):</label>
-                                        <input type="text" ng-model="email" required="true" class="form-control create-fields"/>
+                                        <input type="text" ng-model="email" required="true" id="biz-email" class="form-control create-fields"/>
                                     </td>
-                                    <td>
+                                    <td style="position: relative">
                                         <label>Business Name:</label>
-                                        <input type="text" ng-model="new_business_name" required="true" class="form-control create-fields"/>
+                                        {{--<input type="text" ng-model="new_business_name" required="true" class="form-control create-fields"/>--}}
+                                        <input class="form-control create-fields" type="text" placeholder="e.g. Bills Payment SM Megamall" id="search-keyword" ng-click="showDropdown()" ng-model="new_business_name" ng-model-options="{debounce: 1000}" autocomplete="off">
+                                        <ul class="dropdown-menu" role="menu" id="search-suggest" outside-click="dropdown_businesses = []">
+                                            <li ng-repeat="business in dropdown_businesses">
+                                                <a href="#" ng-click="fillBusinessFields(business.business_list_id)">
+                                                    <strong class="business-name">@{{ business.name }}</strong><br>
+                                                    <small class="address">@{{ business.local_address }}</small>
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <label>Address:</label>
+                                        <label id="biz-address-lbl">Address:</label>
                                         <input type="text" class="form-control create-fields" ng-model="address" ng-autocomplete options="options" details="details" required="true">
                                     </td>
                                     <td>
-                                        <label>Industry:</label>
-                                        <select class="form-control create-fields" ng-model="industry" required="true">
+                                        <label id="biz-industry-lbl">Industry:</label>
+                                        <select class="form-control create-fields"  ng-model="industry" required="true">
                                             <option value="" >Please select an industry</option>
                                             <option value="Accounting">Accounting</option>
                                             <option value="Advertising">Advertising</option>
@@ -419,7 +430,7 @@
                 
             </div>
             <div class=" user-container clearfix">
-                <div class="search-user clearfix">
+                <div class="search-user col-md-12 clearfix">
                     <form>
                         <div class="col-lg-8 col-md-6 col-xs-12 col-sm-12">
                             <input class="form-control" type="text" id="user-email" placeholder="Search for a user using the email address.."/>
@@ -528,6 +539,174 @@
                             <p style="text-align: center;">Passwords do not match.</p>
                         </div>
                     </form>
+                </div>
+            </div>
+            <div class="business-list-container clearfix">
+                <div class="search-business-list col-md-12 clearfix">
+                    <form>
+                        <div class="col-lg-8 col-md-6 col-xs-12 col-sm-12">
+                            <input class="form-control" type="text" id="business-list-name" ng-model="business_list_name" placeholder="Search for a business in the business list.."/>
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-xs-4 col-sm-4">
+                            <button class="btn btn-primary btn-lg search-user-button" type="submit" ng-click="searchBusinessList()">Search</button>
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-xs-4 col-sm-4">
+                            <button class="btn btn-cyan btn-lg create-user-button" type="submit" id="create-business-list"><span class="glyphicon glyphicon-plus"></span> Create</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="biz-list-results clearfix">
+                    <div class="col-md-12 mt10">
+                        <table class="table table-striped table-results">
+                            <tr ng-repeat="business in businesses_list">
+                                <td width="80%"><h4 class="biz-name"><strong>@{{ business.business_name }}</strong></h4></td>
+                                <td width="20%">
+                                    <a href="#" class="btn btn-blue biz-manage" ng-click="manageBusinessList(business.business_list_id)">
+                                        <span class="glyphicon glyphicon-pencil"></span> Manage
+                                    </a>
+                                </td>
+                            </tr>
+                            <div class="alert alert-danger" id="business-list-search-error" style="display: none">
+                                <p style="text-align: center;">No businesses found.</p>
+                            </div>
+                        </table>
+                    </div>
+                </div>
+                <div class="biz-list-specific mt20">
+                    <div class="biz-main">
+                        <div class="col-md-12">
+                            <div class=" clearfix">
+                                <h2>Manage User</h2>
+                                <form ng-submit="updateBusinessList()">
+                                    <input class="form-control" type="hidden" ng-model="edit_business_id" value="@{{ edit_business_list_id }}">
+                                    <table class="table table-form">
+                                        <tr>
+                                            <td>
+                                                <label>Business Name:</label>
+                                                <input class="form-control" type="text" id="edit_business_list_name" ng-model="edit_business_list_name" />
+                                            </td>
+                                            <td>
+                                                <label>Address:</label>
+                                                <input type="text" class="form-control" id="edit_business_list_address"  ng-model="edit_business_list_address" ng-autocomplete options="options" details="details">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label>Email:</label>
+                                                <input type="text" class="form-control" id="edit_business_list_email" ng-model="edit_business_list_email">
+                                            </td>
+                                            <td>
+                                                <label>Phone:</label>
+                                                <input class="form-control" type="text" id="edit_business_list_phone" ng-model="edit_business_list_phone" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label>Time Open:</label>
+                                                <input type="text" class="form-control" id="edit_business_list_open" ng-model="edit_business_list_open">
+                                            </td>
+                                            <td>
+                                                <label>Time Close:</label>
+                                                <input class="form-control" type="text" id="edit_business_list_close" ng-model="edit_business_list_close" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+
+                                            </td>
+                                            <td colspan="2" class="text-right">
+                                                <button type="button" id="biz-list-delete-btn" class="btn btn-primary btn-lg" ng-click="deleteBusinessList()"><span class="glyphicon glyphicon-trash"></span> Delete Business</button>
+                                                <button type="button" id="biz-list-restore-btn" class="btn btn-primary btn-lg" ng-click="restoreBusinessList()"><span class="glyphicon glyphicon-trash"></span> Re-Add Business</button>
+                                                <button class="btn btn-orange btn-lg" id="biz-list-update-btn" type="submit">Update Information</button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <div class="alert alert-success" id="biz-list-details-success" style="display: none">
+                                        <p style="text-align: center;">Business information updated.</p>
+                                    </div>
+                                    <div class="alert alert-success" id="biz-list-deleted-success" style="display: none">
+                                        <p style="text-align: center;">Business deleted.</p>
+                                    </div>
+                                    <div class="alert alert-success" id="biz-list-restore-success" style="display: none">
+                                        <p style="text-align: center;">Business restored.</p>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="biz-list-create clearfix">
+                    <form ng-submit="createBusinessList()">
+                        <table class="table table-form">
+                            <tr>
+                                <td>
+                                    <label>Business Name:</label>
+                                    <input class="biz-list-create form-control" type="text" ng-model="new_business_list_name" />
+                                </td>
+                                <td>
+                                    <label>Address:</label>
+                                    <input type="text" class="biz-list-create form-control" ng-model="new_business_list_address" ng-autocomplete options="options" details="details">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Email:</label>
+                                    <input type="text" class="biz-list-create form-control" ng-model="new_business_list_email">
+                                </td>
+                                <td>
+                                    <label>Phone:</label>
+                                    <input class="biz-list-create form-control" type="text" ng-model="new_business_list_phone" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Time Open:</label>
+                                    <input type="text" class="biz-list-create form-control" placeholder="ex. 10:00 AM" ng-model="new_business_list_open">
+                                </td>
+                                <td>
+                                    <label>Time Close:</label>
+                                    <input class="biz-list-create form-control" type="text" placeholder="ex. 10:00 PM" ng-model="new_business_list_close" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+
+                                </td>
+                                <td colspan="2" class="text-right">
+                                    <button class="btn btn-orange btn-lg" id="biz-list-create-btn" type="submit">Create</button>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="alert alert-success" id="biz-create-list-success" style="display: none">
+                            <p style="text-align: center;">Business created.</p>
+                        </div>
+                    </form>
+                    <hr>
+                    <p><strong>Import file </strong> <small>(xls, xlsx, csv)</small></p>
+                    <br>
+                    <div class="clearfix mb30">
+                        <form enctype="multipart/form-data" action="{{url('/admin/spreadsheet-business-list')}}" method="post" target="temporaryFrame">
+                            <div class="col-md-9 col-xs-12 col-sm-9">
+                                <span class="bg-gray">
+                                    <input type="file" name="business_list" id="business_list" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
+                                </span>
+                            </div>
+                            <div class="col-md-3 col-xs-12 col-sm-3 text-right">
+                                <input class="btn btn-lg btn-orange" type="submit" id="biz-list-upload-btn" value="Upload" />
+                            </div>
+
+
+                            </table>
+                            <div class="alert alert-success" id="biz-list-upload-success" style="display: none">
+                                <p style="text-align: center;">Business added.</p>
+                            </div>
+                        </form>
+                    </div>
+                    {{--<input type="hidden" role="uploadcare-uploader" data-crop="disabled" id="business-attachment" />--}}
+                    {{--<em class="help-block">Upload is limited to documents and images up to 5MB.</em>--}}
+                    {{--<button onclick="alert($('#business-attachment').val())"></button>--}}
+                    <iframe name="temporaryFrame" style="display:none">
+                    </iframe>
                 </div>
             </div>
         </div>
