@@ -47,7 +47,7 @@ class BusinessListController extends BaseController
     {
         $businesses = BusinessList::where('name', 'LIKE', '%' . $keyword . '%')
             ->orWhere('local_address', 'LIKE', '%' . $keyword . '%')
-            ->select(array('name', 'local_address','business_id'))
+            ->select(array('name', 'local_address','business_list_id'))
             ->get()
             ->toArray();
         return json_encode(array('keywords' => $businesses));

@@ -619,13 +619,13 @@ app.controller('adminController', function($scope, $http){
 
     $scope.dropdown_businesses = [];
 
-    $scope.fillBusinessFields = function(business_id){
+    $scope.fillBusinessFields = function(business_list_id){
             $('#search-suggest').hide();
-            $http.get('/admin/business-details/' + business_id).success(function(response) {
-                $scope.new_business_name = response.business_name;
-                $scope.address = response.business_address;
+            $http.get('/admin/business-list-details/' + business_list_id).success(function(response) {
+                $scope.new_business_name = response.name;
+                $scope.address = response.local_address;
                 $scope.time_open = response.time_open;
-                $scope.time_close = response.time_closed;
+                $scope.time_close = response.time_close;
                 $scope.suggested = true;
                 $scope.industry = "";
                 $scope.email = "";
