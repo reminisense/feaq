@@ -35,10 +35,10 @@ class BusinessList extends Eloquent
     }
 
 
-    public static function getBusinessListDetails($business_id)
+    public static function getBusinessListDetails($business_list_id)
     {
 
-        $business_list = BusinessList::find($business_id);
+        $business_list = BusinessList::find($business_list_id);
 
         $business_list_details = [
             'business_list_id' => $business_list['business_list_id'],

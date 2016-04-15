@@ -327,7 +327,7 @@
                                         <input class="form-control create-fields" type="text" placeholder="e.g. Bills Payment SM Megamall" id="search-keyword" ng-click="showDropdown()" ng-model="new_business_name" ng-model-options="{debounce: 1000}" autocomplete="off">
                                         <ul class="dropdown-menu" role="menu" id="search-suggest" outside-click="dropdown_businesses = []">
                                             <li ng-repeat="business in dropdown_businesses">
-                                                <a href="#" ng-click="fillBusinessFields(business.business_id)">
+                                                <a href="#" ng-click="fillBusinessFields(business.business_list_id)">
                                                     <strong class="business-name">@{{ business.name }}</strong><br>
                                                     <small class="address">@{{ business.local_address }}</small>
                                                 </a>
