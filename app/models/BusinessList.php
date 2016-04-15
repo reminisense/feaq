@@ -80,7 +80,7 @@ class BusinessList extends Eloquent
     }
 
     public static function fetchAllBusinessByOffset($offset = 0) {
-        return BusinessList::orderBy('name')->skip($offset)->take(20)->get();
+        return BusinessList::orderBy('name')->where('deleted_at','=','0000-00-00 00:00:00')->skip($offset)->take(20)->get();
     }
 
     public static function updateUpvoteById($business_list_id) {
