@@ -149,6 +149,7 @@ app.controller('businessListController', function($scope, $http){
             business_list_id: business_list_id
         }).success(function (response) {
             $('#upvote-'+business_list_id).hide();
+            $('#disableupvote-'+business_list_id).show();
             var upvotes = parseInt($('#score-'+business_list_id).text()) + 1;
             $('#score-'+business_list_id).text(upvotes);
             console.log(response.status);

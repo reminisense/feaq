@@ -11,7 +11,7 @@
     <link rel='stylesheet' type='text/css' href='/css/bootstrap.min.css'>
     <link rel='stylesheet' type='text/css' href='/css/business_list/business-directory.css'>
     <link rel='stylesheet' type='text/css' href='/css/business_list/responsive.css'>
-    <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Open+Sans:400,700'>
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="apple-touch-icon" sizes="57x57" href="img/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="img/apple-icon-60x60.png">
@@ -159,6 +159,8 @@
                             <div class="clearfix">
                                 <p class="pull-right upvote">
                                     <a href="" title="Upvote" ng-click="upvoteBusiness(businessRecord.business_list_id)" ng-hide="businessRecord.hide_vote" id="upvote-@{{ businessRecord.business_list_id }}"><i class="fa fa-thumbs-o-up"></i></a>
+                                    <a class="gray" ng-show="businessRecord.hide_vote" title="You have already voted"><i class="fa fa-thumbs-up"></i></a>
+                                    <a class="gray" title="You have already voted" id="disableupvote-@{{ businessRecord.business_list_id }}" style="display: none;"><i class="fa fa-thumbs-up"></i></a>
                                     <small id="score-@{{ businessRecord.business_list_id }}">@{{ businessRecord.up_vote }}</small>
                                 </p>
                             </div>
