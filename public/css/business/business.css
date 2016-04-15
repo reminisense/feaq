@@ -872,9 +872,10 @@ button#sendreply {
     background-color: #dee2e3;
 }
 #admin-cont-wrap .general-container .form-control {width: inherit;}
-#admin-cont-wrap .business-container, #admin-cont-wrap .user-container {background-color: #fff; padding: 15px;}
+#admin-cont-wrap .business-container, #admin-cont-wrap .user-container, .business-list-container {background-color: #fff; padding: 15px;}
 #admin-cont-wrap .alert {border: none;}
-#admin-cont-wrap .search-business, #admin-cont-wrap .search-user {padding-top: 10px; padding-bottom: 10px;}
+#admin-cont-wrap .search-business, #admin-cont-wrap .search-user,
+.search-business-list {padding-top: 10px; padding-bottom: 10px;}
 /*#admin-cont-wrap .search-business .form-control {width: 70%; display: inline-block;}*/
 /*#admin-cont-wrap .search-business button {width: 26%;}*/
 #admin-cont-wrap .biz-name {color: #555;}
@@ -1016,3 +1017,23 @@ button#sendreply {
 }
 .table-responsive .panel {margin-bottom: 0;}
 #btn-analytics, #adv-analytics {margin-top: 26px;}
+#analyticsTabContent .panel-body .table thead th {
+    background: none;
+}
+#analyticsTabContent .panel-heading a {
+    display: block;
+    font-family: 'ralewaysemibold';
+}
+.search-user-button,
+.create-user-button {
+    width: 100%;
+
+}
+form .bg-gray {
+    background-color: #f2f2f2;
+    display: inline-block;
+    background-color: #f2f2f2;
+    display: inline-block;
+    padding: 12px 15px;
+    width: 100%;
+}

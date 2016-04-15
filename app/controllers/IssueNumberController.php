@@ -80,12 +80,30 @@ class IssueNumberController extends BaseController{
             $phone = PriorityQueue::phone($transaction_number);
             $email = PriorityQueue::email($transaction_number);
 
+            $track_id = PriorityQueue::trackId($transaction_number);
+            $pnumber = PriorityNumber::where('track_id', '=', $track_id)->first();
+            $pqueue = PriorityQueue::where('transaction_number', '=', $transaction_number)->first();
+            $terminal_transaction = TerminalTransaction::where('transaction_number', '=', $transaction_number)->first();
+
             $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
             $priority_number = $next_number;
 
-            $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, $terminal_id);
+            $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, $terminal_id, null, $pqueue->confirmation_code);
             PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
             $business_id = Business::getBusinessIdByServiceId($service_id);
+
+            $forwarding_data = [
+                'forwarder_transaction_number' => $transaction_number,
+                'forwarder_service_id' => $pnumber->service_id,
+                'forwarder_terminal_id' => $terminal_transaction->terminal_id,
+                'forwarder_user_id' => Helper::userId(),
+                'forwarded_priority_number' => $pqueue->priority_number,
+                'transaction_number' => $number['transaction_number'],
+                'service_id' => $service_id,
+                'priority_number' => $priority_number,
+                'date' => mktime(0, 0, 0, date('m'), date('d'), date('Y')),
+            ];
+            QueueForwardTransactions::createForwardTransaction($forwarding_data);
             if($email != ''){ Message::sendInitialMessage($business_id, $email, $name, $phone); }
             return json_encode(['success' => 1, 'number' => $number, 'business_id' => $business_id]);
         }{

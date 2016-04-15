@@ -12,67 +12,128 @@
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
                 <button id="btn-analytics" class="btn btn-lg btn-primary" type="submit" ng-disabled="startdate > enddate">Get Analytics</button>
-                <a id="adv-analytics" class="btn btn-lg btn-primary" target="_blank" ng-show="analytics.queue_activity.length > 0" href="{{ url('/business/advanced-analytics/' . $business_id) }}">Advanced Analytics</a>
             </div>
         </div>
     </form>
 </div>
-<table class="table">
-    <tbody>
-    <tr>
-        <td style="padding-top: 18px;">
-            <p class="title">
-                Queued Numbers Remaining:
-            </p>
-        </td>
-        <td style="padding-top: 18px;">@{{ analytics.remaining_count ? analytics.remaining_count : "0" }}</td>
-    </tr>
-    <tr>
-        <td>
-            <p class="title">
-                Total Numbers Issued:
-            </p>
-        </td>
-        <td>@{{ analytics.total_numbers_issued ? analytics.total_numbers_issued : "0" }}</td>
-    </tr>
-    <tr>
-        <td>
-            <p class="title">
-                Total Numbers Called:
-            </p>
-        </td>
-        <td>@{{ analytics.total_numbers_called ? analytics.total_numbers_called : "0" }}</td>
-    </tr>
-    <tr>
-        <td>
-            <p class="title">
-                Total Numbers Served: </p>
-        </td>
-        <td>@{{ analytics.total_numbers_served ? analytics.total_numbers_served : "0" }}</td>
-    </tr>
-    <tr>
-        <td>
-            <p class="title">Total Numbers Dropped:</p>
-            </td>
-        <td>@{{ analytics.total_numbers_dropped ? analytics.total_numbers_dropped : "0" }}</td>
-    </tr>
-    <tr>
-        <td>
-            <p class="title">Average Waiting Time: </p>
-            </td> <!-- from number issued to calling -->
+<div class="">
+    <div class="biz-navs">
+        <div id="messages-wrap" class="form-group row">
+            <ul role="tablist" class="nav nav-tabs" id="analyticsTab">
+                <li role="presentation" class="active"><a data-toggle="tab" href="#basic">Basic</a></li>
+                <li role="presentation"><a data-toggle="tab" href="#queue-activity" ng-show="analytics.queue_activity.length > 0">Queue Activity</a></li>
+                <li role="presentation"><a data-toggle="tab" href="#terminal-users" ng-show="analytics.terminals.length > 0">Terminal Users</a></li>
+            </ul>
+            <div id="analyticsTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="basic">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td style="padding-top: 18px;">
+                                <p class="title">
+                                    Queued Numbers Remaining:
+                                </p>
+                            </td>
+                            <td style="padding-top: 18px;">@{{ analytics.remaining_count ? analytics.remaining_count : "0" }}</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="title">
+                                    Total Numbers Issued:
+                                </p>
+                            </td>
+                            <td>@{{ analytics.total_numbers_issued ? analytics.total_numbers_issued : "0" }}</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="title">
+                                    Total Numbers Called:
+                                </p>
+                            </td>
+                            <td>@{{ analytics.total_numbers_called ? analytics.total_numbers_called : "0" }}</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="title">
+                                    Total Numbers Served: </p>
+                            </td>
+                            <td>@{{ analytics.total_numbers_served ? analytics.total_numbers_served : "0" }}</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="title">Total Numbers Dropped:</p>
+                            </td>
+                            <td>@{{ analytics.total_numbers_dropped ? analytics.total_numbers_dropped : "0" }}</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="title">Average Waiting Time: </p>
+                            </td> <!-- from number issued to calling -->
 
-        <td>@{{ analytics.average_time_called ? analytics.average_time_called : "0 minute(s) 0 second(s)" }}</td>
-    </tr>
-    <tr>
-        <td>
-            <p class="title">Average Serving Time:
-            </p>
-        </td> <!-- from number called to served -->
-        <td>@{{ analytics.average_time_served ? analytics.average_time_served : "0 minute(s) 0 second(s)" }}</td>
-    </tr>
-    </tbody>
-</table>
-<div class="alert alert-info" role="alert">
-    <strong>FeatherQ Business Analytics</strong> features will be given for <strong>free</strong> for the next few months.
-    However, future developments might classify these features to be given exclusively to premium users without prior notice.
+                            <td>@{{ analytics.average_time_called ? analytics.average_time_called : "0 minute(s) 0 second(s)" }}</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="title">Average Serving Time:
+                                </p>
+                            </td> <!-- from number called to served -->
+                            <td>@{{ analytics.average_time_served ? analytics.average_time_served : "0 minute(s) 0 second(s)" }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="queue-activity" ng-show="analytics.queue_activity.length > 0">
+                    <div class="clearfix">
+                        <div class="col-md-4 mt30">
+                            <button class="btn btn-lg btn-primary" ng-click="generateQueueGraph()" type="button">Generate Graph</button>
+                        </div>
+                        <div class="col-md-12">
+                            <div id="queue-activity-graph"></div>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="terminal-users" ng-show="analytics.terminals.length > 0">
+                    <div class="panel-group" id="accordion" role="tablist">
+                      <div class="panel panel-default" ng-repeat="terminal in analytics.terminals">
+                        <div class="panel-heading" role="tab">
+                            <a class=" panel-title" role="button" data-toggle="collapse" data-parent="#accordion" href="#terminal-@{{ terminal.terminal_id  }}" aria-expanded="false" aria-controls="collapseOne">
+                              @{{ terminal.terminal_name }}
+                            </a>
+                        </div>
+                        <div id="terminal-@{{ terminal.terminal_id  }}" class="panel-collapse collapse" role="tabpanel">
+                          <div class="panel-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th width="30%">Name</th>
+                                        <th width="" class="text-center">Numbers Called</th>
+                                        <th width="" class="text-center">Numbers Served</th>
+                                        <th width="" class="text-center">Numbers Dropped</th>
+                                        <th width="" class="text-center">Average Serving Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="user in terminal.users">
+                                        <td>@{{ user.user_name }}</td>
+                                        <td class="text-center">@{{ user.numbers_called }}</td>
+                                        <td class="text-center">@{{ user.numbers_served }}</td>
+                                        <td class="text-center">@{{ user.numbers_dropped }}</td>
+                                        <td class="text-center">@{{ user.average_serving_time }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                </div>
+                <!-- end of tab contents -->
+            </div>
+        </div>
+    </div>
 </div>
+{{--<div class="alert alert-info" role="alert">--}}
+    {{--<strong>FeatherQ Business Analytics</strong> features will be given for <strong>free</strong> for the next few months.--}}
+    {{--However, future developments might classify these features to be given exclusively to premium users without prior notice.--}}
+{{--</div>--}}
