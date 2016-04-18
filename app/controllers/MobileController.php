@@ -221,10 +221,7 @@ class MobileController extends BaseController{
 
     //Screen #7
     public function getMyBusinessHistory($transaction_number){
-
-        $user_id = PriorityQueue::userId($transaction_number);
-        $user_queues = User::getUserBusinessHistory($user_id, $transaction_number);
-
+        $user_queues = PriorityQueue::getTransactionHistory($transaction_number);
         $business = [
             'business_id' => $user_queues->business_id,
             'transaction_date' => $user_queues->date,
