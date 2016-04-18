@@ -62,9 +62,14 @@ class PriorityQueue extends Eloquent {
         return PriorityQueue::where('track_id', '=', $track_id)->select(array('transaction_number'))->get();
     }
 
-    public static function getLatestTransactionNumberOfUser($user_id){
-        $terminal_trasaction = PriorityQueue::where('user_id', '=', $user_id)->orderBy('transaction_number', 'desc')->first();
-        return isset($terminal_trasaction->transaction_number) ? $terminal_trasaction->transaction_number : null;
+    public static function getLatestTransactionNumberOfUser($user_id, $date = null){
+        $date = $date != null ? $date : mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+        $terminal_transaction = PriorityQueue::join('priority_number', 'priority_number.track_id', '=', 'priority_queue.track_id')
+            ->where('priority_number.date', '=', $date)
+            ->where('priority_queue.user_id', '=', $user_id)
+            ->orderBy('priority_queue.transaction_number', 'priority_queue.desc')
+            ->first();
+        return isset($terminal_transaction->transaction_number) ? $terminal_transaction->transaction_number : null;
     }
 
 }
