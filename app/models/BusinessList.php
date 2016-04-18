@@ -91,4 +91,8 @@ class BusinessList extends Eloquent
     public static function getUpvoteById($business_list_id) {
         return BusinessList::where('business_list_id', '=', $business_list_id)->select(array('up_vote'))->first()->up_vote;
     }
+
+    public static function getBusinessListIdByName($name){
+        return BusinessList::select('business_list_id')->where('name', $name)->first();
+    }
 }
