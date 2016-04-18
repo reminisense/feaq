@@ -72,4 +72,29 @@ class PriorityQueue extends Eloquent {
         return isset($terminal_transaction->transaction_number) ? $terminal_transaction->transaction_number : null;
     }
 
+    public static function getTransactionHistory($transaction_number){
+        $result = PriorityQueue::where('priority_queue.transaction_number','=',$transaction_number)
+            ->join('queue_analytics', 'queue_analytics.transaction_number', '=', 'priority_queue.transaction_number')
+            ->join('business', 'business.business_id', '=', 'queue_analytics.business_id')
+            ->join('terminal_transaction', 'terminal_transaction.transaction_number', '=', 'priority_queue.transaction_number')
+            ->selectRaw('
+                queue_analytics.transaction_number,
+                queue_analytics.date as date,
+                priority_queue.priority_number,
+                priority_queue.email,
+                business.business_id as business_id,
+                business.name as business_name,
+                business.local_address as business_address,
+                business.longitude as longitude,
+                business.latitude as latitude,
+                terminal_transaction.time_completed as time_completed,
+                terminal_transaction.time_queued as time_queued,
+                terminal_transaction.time_queued as time_called,
+                MAX(queue_analytics.action) as status
+            ')
+            ->first();
+
+        return $result;
+    }
+
 }
