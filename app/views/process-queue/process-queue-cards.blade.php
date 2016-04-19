@@ -119,7 +119,7 @@ Processs Queue > {{ $business_name }}
                                 @{{ number.priority_number }}
                             </a>
                         </p>
-                        <a href="" class="pull-right forward-number priority-number-forward" ng-if="number.time_called > 0" title="Number: @{{ number.priority_number }}" data-transaction-number="@{{ number.transaction_number }}" data-priority-number="@{{ number.priority_number }}" data-name="@{{ number.name }}" data-phone="@{{ number.phone }}" data-email="@{{ number.email }}" data-confirmation-code="@{{ number.confirmation_code }}" data-toggle="modal" data-target="#priority-number-modal">
+                        <a href="" class="pull-right forward-number priority-number-forward" ng-if="number.time_called > 0" ng-show="allowed_businesses" onclick=""  title="Number: @{{ number.priority_number }}" data-transaction-number="@{{ number.transaction_number }}" data-priority-number="@{{ number.priority_number }}" data-name="@{{ number.name }}" data-phone="@{{ number.phone }}" data-email="@{{ number.email }}" data-confirmation-code="@{{ number.confirmation_code }}" data-toggle="modal" data-target="#priority-number-modal">
                             <span class="glyphicon glyphicon-share-alt"></span>
                             <small>FORWARD</small>
                         </a>
