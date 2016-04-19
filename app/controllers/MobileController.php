@@ -445,7 +445,32 @@ class MobileController extends BaseController{
     }
 
     public function getCheckinTransaction($transaction_number){
-        TerminalTransaction::where('transaction_number', '=', $transaction_number)->update(['time_checked_in' => time()]);
-        return json_encode(['success' => 1]);
+        if(TerminalTransaction::where('transaction_number', '=', $transaction_number)->exists()){
+            $time_checked_in = time();
+            TerminalTransaction::where('transaction_number', '=', $transaction_number)->update(['time_checked_in' => $time_checked_in]);
+            return json_encode([
+                'success' => 1,
+                'time_checked_in' => $time_checked_in,
+                'transaction_number' => $transaction_number
+            ]);
+        }else{
+            return json_encode(['success' => 0, 'error' => 'Transaction number not found.']);
+        }
+
+    }
+
+    public function getCheckedIn($transaction_number){
+        if(TerminalTransaction::where('transaction_number', '=', $transaction_number)->exists()) {
+            $transaction = TerminalTransaction::where('transaction_number', '=', $transaction_number)->first();
+            $time_checked_in = isset($transaction->time_checked_in) ? $transaction->time_checked_in : 0;
+            $is_checked_in = $time_checked_in ? true : false;
+            return json_encode([
+                'is_checked_in' => $is_checked_in,
+                'time_checked_in' => $time_checked_in,
+                'transaction_number' => $transaction_number,
+            ]);
+        }else{
+            return json_encode(['success' => 0, 'error' => 'Transaction number not found.']);
+        }
     }
 }
