@@ -111,7 +111,7 @@ class TerminalTransaction extends Eloquent{
         }else if($called && $served){
             return 'Served';
         }else{
-            return 'Error';
+            return 'None';
         }
     }
 }
