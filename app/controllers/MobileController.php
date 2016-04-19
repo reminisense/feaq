@@ -191,8 +191,11 @@ class MobileController extends BaseController{
                 ],
 
             ];
+            return json_encode($data);
+        }else{
+            return '{}';
         }
-        return json_encode($data);
+
     }
 
     //Screen #6
