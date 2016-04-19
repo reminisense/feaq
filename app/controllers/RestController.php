@@ -360,6 +360,7 @@ class RestController extends BaseController {
             $business_id = Branch::businessId(Service::branchId($service_id));
 
             $details = [
+                'transaction_number' => $transaction_number,
                 'number_assigned' => $priority_number,
                 'business_id' => $business_id,
                 'business_name' => Business::name($business_id),
@@ -370,6 +371,7 @@ class RestController extends BaseController {
             ];
             }catch(Exception $e){
                 $details = [
+                    'transaction_number' => 0,
                     'number_assigned' => 0,
                     'business_id' => 0,
                     'business_name' => '',
