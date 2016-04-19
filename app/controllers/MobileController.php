@@ -142,7 +142,7 @@ class MobileController extends BaseController{
         $terminal_transaction = TerminalTransaction::where('transaction_number', '=', $transaction_number)->first();
 
         $data = [];
-        if($terminal_transaction->time_completed == 0 && $terminal_transaction->time_removed == 0){
+        if(isset($terminal_transaction) && $terminal_transaction->time_completed == 0 && $terminal_transaction->time_removed == 0){
             //user priority_number details
             $priority_queue = PriorityQueue::find($transaction_number);
             $priority_number = PriorityNumber::find($priority_queue->track_id);
