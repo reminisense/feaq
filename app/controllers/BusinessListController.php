@@ -137,6 +137,7 @@ class BusinessListController extends BaseController
         foreach ($businesses as $count => $business) {
             $arr[] = array(
                 'business_list_id' => $business->business_list_id,
+                'business_id' => $business->business_id,
                 'name' => $business->name,
                 'local_address' => $business->local_address,
                 'email' => $business->email,
