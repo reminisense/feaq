@@ -176,6 +176,7 @@ class MobileController extends BaseController{
                 'last_name' => $user->last_name,
                 'email' => $user->email,
                 'contact' => $user->phone,
+                'transaction_number' => $transaction_number,
                 'priority_number' => $priority_queue->priority_number,
                 'estimated_time_left' => Analytics::getWaitingTimeByTransactionNumber($transaction_number),
                 'business' => [
