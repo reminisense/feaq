@@ -42,6 +42,7 @@ class BusinessList extends Eloquent
 
         $business_list_details = [
             'business_list_id' => $business_list['business_list_id'],
+            'business_id' => $business_list['business_id'],
             'name' => $business_list['name'],
             'local_address' => $business_list['local_address'],
             'email' => $business_list['email'],
