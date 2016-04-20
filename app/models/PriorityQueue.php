@@ -89,7 +89,7 @@ class PriorityQueue extends Eloquent {
                 business.latitude as latitude,
                 terminal_transaction.time_completed as time_completed,
                 terminal_transaction.time_queued as time_queued,
-                terminal_transaction.time_queued as time_called,
+                terminal_transaction.time_called as time_called,
                 MAX(queue_analytics.action) as status
             ')
             ->first();
