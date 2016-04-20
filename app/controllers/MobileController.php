@@ -436,6 +436,35 @@ class MobileController extends BaseController{
         }
     }
 
+    public function postUpdateUser(){
+        $user_id = Input::get('user_id');
+        if(User::where('user_id', '=', $user_id)->exists()){
+            $user = User::find($user_id);
+            $user->first_name = Input::get('first_name');
+            $user->last_name = Input::get('last_name');
+            $user->phone = Input::get('phone');
+            $user->local_address = Input::get('location');
+            try{
+                $user->save();
+                $user_data = [
+                    'user_id' => $user->user_id,
+                    'facebook_id' => $user->fb_id,
+                    'first_name' => $user->first_name,
+                    'last_name' => $user->last_name,
+                    'email' => $user->email,
+                    'phone' => $user->phone,
+                    'local_address' => $user->local_address,
+                    'gender' => $user->gender,
+                ];
+                return json_encode(['success' => 1, 'user'=> $user_data]);
+            }catch (Exception $e){
+                return json_encode(['error' => $e->getMessage()]);
+            }
+        }else{
+            return json_encode(['error' => 'User does not exist.']);
+        }
+    }
+
     public function postEmailRegistration(){
         $email = Input::get('email');
         $password = Input::get('password');
