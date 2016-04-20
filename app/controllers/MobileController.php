@@ -354,6 +354,7 @@ class MobileController extends BaseController{
     }
 
     //Screen #13
+    // Use this function when the user_id is in a remote queue. Otherwise this will result in an object not found error.
     public function getBusinessBroadcast($business_id, $user_id){
         $data = $this->getBusinessStatus($business_id, false);
         $data = json_decode($data);
@@ -402,6 +403,33 @@ class MobileController extends BaseController{
                 return json_encode(['success' => 1, 'user'=> $user_data, 'access_token' => Helper::generateAccessKey()]);
             }else{
                 return json_encode(['error' => 'The email or password is incorrect.']);
+            }
+        }else{
+            return json_encode(['error' => 'The email or password should not be blank.']);
+        }
+    }
+
+    public function postFacebookLogin(){
+        $fb_id = Input::get('facebook_id');
+
+        if(isset($fb_id) && $fb_id != ""){
+            $user = User::where('fb_id', '=', $fb_id)->first();
+            if($user && !$user->verified){
+                return json_encode(['error' => 'Email verification required.']);
+            }else if($user && $user->verified){
+                $user_data = [
+                    'user_id' => $user->user_id,
+                    'facebook_id' => $user->fb_id,
+                    'first_name' => $user->first_name,
+                    'last_name' => $user->last_name,
+                    'email' => $user->email,
+                    'phone' => $user->phone,
+                    'local_address' => $user->local_address,
+                    'gender' => $user->gender,
+                ];
+                return json_encode(['success' => 1, 'user'=> $user_data, 'access_token' => Helper::generateAccessKey()]);
+            }else{
+                return json_encode(['error' => 'User does not exist.']);
             }
         }else{
             return json_encode(['error' => 'The email or password should not be blank.']);
