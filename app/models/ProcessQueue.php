@@ -185,6 +185,7 @@ class ProcessQueue extends Eloquent{
         $last_number_given = 0;
         $called_numbers = array();
         $uncalled_numbers = array();
+        $not_checked_in = array();
         $processed_numbers = array();
         $timebound_numbers = array(); //ARA Timebound assignment
         $priority_numbers = new stdClass();
@@ -347,6 +348,37 @@ class ProcessQueue extends Eloquent{
 
         usort($processed_numbers, array('ProcessQueue', 'sortProcessedNumbers'));
         usort($called_numbers, array('ProcessQueue', 'sortCalledNumbers'));
+
+
+
+        foreach($uncalled_numbers as $uncalled_number ){
+            if($uncalled_number['queue_platform'] == 'android' && $uncalled_number['checked_in'] == false){
+                array_push($not_checked_in, array(
+                    'transaction_number' => $uncalled_number['transaction_number'],
+                    'queue_platform' => $uncalled_number['queue_platform'],
+                    'priority_number' => $uncalled_number['priority_number'],
+                    'service_id' => $uncalled_number['service_id'],
+                    'service_name' => $uncalled_number['service_name'],
+                    'name' => $uncalled_number['name'],
+                    'phone' => $uncalled_number['phone'],
+                    'email' => $uncalled_number['email'],
+                    'verified_email' => $uncalled_number['verified_email'],
+                    'checked_in' => $uncalled_number['checked_in'],
+                    'time_called' => $uncalled_number['time_called'],
+                    'confirmation_code' => $uncalled_number['confirmation_code'],
+                ));
+            }else{
+                break;
+            }
+        }
+
+        if($not_checked_in){
+            for($i = 0; $i < count($not_checked_in); $i++){
+                array_shift($uncalled_numbers);
+            }
+            $uncalled_numbers = array_merge($uncalled_numbers, $not_checked_in);
+        }
+
 
         $priority_numbers->last_number_given = $last_number_given;
         $priority_numbers->next_number = ProcessQueue::nextNumber($priority_numbers->last_number_given, QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
