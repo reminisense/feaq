@@ -16,6 +16,7 @@
         $scope.number_end = null;
         $scope.range = null;
 
+
         var user_id = $('#user-id').attr('user_id');
         var process_queue = angular.element($("#process-queue-wrapper")).scope();
 
@@ -43,7 +44,8 @@
             $scope.isIssuing = true;
             if(process_queue){process_queue.isCalling = true;}
             url = pq.urls.issue_numbers.issue_specific_url;
-            service_id = pq.ids.service_id;
+            service_id = $('#services').val() ? $('#services').val() : pq.ids.service_id;
+            console.log(service_id);
             terminal_id = pq.ids.terminal_id ? pq.ids.terminal_id : 0;
             data = {
                 priority_number : priority_number,
@@ -71,7 +73,7 @@
                     $scope.isIssuing = false;
                     if(process_queue){process_queue.isCalling = false;}
                 });
-        }
+        };
 
         $scope.checkIssueSpecificErrors = function(priority_number, number_limit, issue){
             time_format = /^([0-9]{2})\:([0-9]{2})([ ][aApP][mM])$/g;
@@ -138,7 +140,7 @@
                 setTimeout(function(){ $scope.issue_specific_error = '';}, 3000);
             }
             return error;
-        }
+        };
 
         $scope.checkIssueMultipleErrors = function(){
             error = false;
@@ -189,7 +191,7 @@
                 setTimeout(function(){ $scope.issue_multiple_error = '';}, 3000);
             }
             return error;
-        }
+        };
 
         $scope.initializePriorityNumber = function(){
             var broadcast = false;
@@ -207,7 +209,7 @@
                     });
                 }, 1000);
             }
-        }
+        };
 
         $scope.populateRemoteQueueModal = (function(response){
             if (response.status == '1') {
@@ -231,8 +233,35 @@
                     }));
                 }
             }
+        };
+
+        //for new remote queue
+        $scope.getBusinessServices = function(){
+            if(typeof business_id != 'undefined'){
+                $http.get('/services/business/' + business_id).success(function(response){
+                    $('#services').empty();
+                    business_services = response.business_services;
+                    for(branch in business_services){
+                        for(service in business_services[branch]){
+                            $('#services').append('<option value="' + business_services[branch][service].service_id +'">' + business_services[branch][service].name + '</option>');
+                        }
+                    }
+                });
+            }
+        };
+
+        $scope.selectService = function(){
+            service_id = $('#services').val();
+            $http.get('/processqueue/next-number/' + service_id).success(function(response){
+                $('.nomg').html(response.next_number);
+                $('#insertq input[name=number]').val(response.next_number);
+                setTimeout(function(){
+                    $scope.selectService();
+                }, 5000);
+            });
         }
 
+        $scope.getBusinessServices();
         $http.get('/user/remoteuser/'+user_id).success($scope.populateRemoteQueueModal);
         $scope.initializePriorityNumber();
     });

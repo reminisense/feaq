@@ -103,8 +103,15 @@
                     <div class="row" ng-controller="issuenumberController">
                         <div class="col-md-5 getnum-info">
                             @if($allow_remote && Auth::check())
-                            <h2 class="">Remote Queue Available Number:</h2>
-                            <p>Remote queuing allows you to get this number before being at the location.</p>
+                            <h2 class="">Remote Queue Number:</h2>
+                            <p>
+                                Remote queuing allows you to get this number before being at the location.
+                                <select class="form-control" id="services" ng-model="service_id" ng-change="selectService()">
+                                    <option value="179">Service 1</option>
+                                    <option>Service 2</option>
+                                    <option>Service 3</option>
+                                </select>
+                            </p>
                             @else
                             <h2 class="">Next Available Number:</h2>
                             <p>Please go to the location to get this number.</p>
