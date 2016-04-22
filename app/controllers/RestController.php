@@ -877,4 +877,32 @@ class RestController extends BaseController {
         }
         return Response::json(['transaction_stats' => $transaction_stats], 200, array(), JSON_PRETTY_PRINT);
     }
+
+    /**
+     * Retrieves the business assignments of a given user.
+     * @author Nico
+     * @param $user_id
+     */
+    public function getBusinessAssignments($user_id) {
+        try {
+            $business_assignments = DB::table('terminal_user AS tu')
+                ->where('tu.user_id', '=', $user_id)
+                ->join('terminal AS t', 'tu.terminal_id', '=', 't.terminal_id')
+                ->join('service AS s', 't.service_id', '=', 's.service_id')
+                ->join('branch AS br', 's.branch_id', '=', 'br.business_id')
+                ->join('business AS b', 'br.branch_id', '=', 'b.business_id')
+                ->select(
+                    'tu.user_id AS user_id',
+                    't.terminal_id AS terminal_id',
+                    't.name AS terminal_name',
+                    's.service_id AS service_id',
+                    's.name AS service_name',
+                    'b.business_id AS business_id',
+                    'b.name AS business_name'
+                )->get();
+        } catch (Exception $e) {
+            return Response::json(['error' => $e->getMessage()], 200, array(), JSON_PRETTY_PRINT);
+        }
+        return Response::json($business_assignments, 200, array(), JSON_PRETTY_PRINT);
+    }
 }
