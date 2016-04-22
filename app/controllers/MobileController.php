@@ -103,8 +103,10 @@ class MobileController extends BaseController{
                         'queue_user_email' => $last_called->email,
                         'queue_user_contact' => $last_called->phone,
                     ];
+                    $last_called_array = $last_called;
                 }else{
                     $last_called = null;
+                    $last_called_array = [];
                 }
 
                 $services_list = [];
@@ -128,6 +130,7 @@ class MobileController extends BaseController{
                     'remote_queue' => $allow_remote,
                     'service_list'  => $services_list,
                     'last_called' => $last_called,
+                    'last_called_array' => $last_called_array,
                 ];
             }
         }
@@ -534,4 +537,5 @@ class MobileController extends BaseController{
             return json_encode(['success' => 0, 'error' => 'Transaction number not found.']);
         }
     }
+
 }
