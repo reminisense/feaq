@@ -41,7 +41,7 @@ class BroadcastController extends BaseController{
       $open_time = str_pad(Business::openHour($business_id), 2, 0, STR_PAD_LEFT) . ':' . str_pad(Business::openMinute($business_id), 2, 0, STR_PAD_LEFT) . ' ' . Business::openAMPM($business_id);
       $close_time = str_pad(Business::closeHour($business_id), 2, 0, STR_PAD_LEFT) . ':' . str_pad(Business::closeMinute($business_id), 2, 0, STR_PAD_LEFT) . ' ' . Business::closeAMPM($business_id);
       $first_service = Service::getFirstServiceOfBusiness($business_id);
-      $allow_remote = QueueSettings::allowRemote($first_service->service_id);
+      $allow_remote = $first_service ? QueueSettings::allowRemote($first_service->service_id) : 0;
       $ticker_message = $this->tickerPusher($data->ticker_message, $data->ticker_message2, $data->ticker_message3, $data->ticker_message4, $data->ticker_message5);
       $templates = $this->broadcastTemplate($data->display, $business_id);
       $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
