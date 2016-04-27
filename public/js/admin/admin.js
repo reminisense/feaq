@@ -586,7 +586,8 @@ app.controller('adminController', function($scope, $http){
         $http.post('/admin/reset-password', {
             user_id: user_id
         }).success(function(response) {
-            alert(response.password);
+            $scope.new_password = response.password;
+            //alert(response.password);
         });
     }
 

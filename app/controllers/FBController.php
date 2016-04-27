@@ -11,31 +11,26 @@ class FBController extends BaseController {
 
     public function postSaveDetails()
     {
-      $post = json_decode(file_get_contents("php://input"));
-      Session::put('FBaccessToken', $post->accessToken);
-      $response = Helper::VerifyFB($post->accessToken);
-      if ($response->getGraphUser()) {
-        $data = array(
-          'fb_id' => $post->fb_id,
-          'fb_url' => $post->fb_url,
-          'first_name' => $post->first_name,
-          'last_name' => $post->last_name,
-          'email' => $post->email,
-          'gender' => $post->gender,
-        );
-        User::saveFBDetails($data);
-        $user_id = User::getUserIdByFbId($data['fb_id']);
-        Auth::loginUsingId($user_id);
-        if (UserBusiness::getBusinessIdByOwner($user_id)) {
-          return json_encode(array('success' => $data['fb_id'], 'redirect' => '/business/my-business'));
+        $post = json_decode(file_get_contents("php://input"));
+        Session::put('FBaccessToken', $post->accessToken);
+        $response = Helper::VerifyFB($post->accessToken);
+        if ($response->getGraphUser()) {
+            $data = array(
+                'fb_id' => $post->fb_id,
+                'fb_url' => $post->fb_url,
+                'first_name' => $post->first_name,
+                'last_name' => $post->last_name,
+                'email' => $post->email,
+                'gender' => $post->gender,
+            );
+            User::saveFBDetails($data);
+            $user_id = User::getUserIdByFbId($data['fb_id']);
+            Auth::loginUsingId($user_id);
+            return json_encode(array('success' => $data['fb_id'], 'redirect' => '/'));
         }
         else {
-          return json_encode(array('success' => $data['fb_id'], 'redirect' => '/'));
+            return json_encode(array('err' => 'FBVerifyError'));
         }
-      }
-      else {
-        return json_encode(array('err' => 'FBVerifyError'));
-      }
     }
 
     /*

@@ -82,7 +82,16 @@
 
                 <li><a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" target="_blank">Download the App</a></li>
                 <li><a href="/business">FeatherQ for Business</a></li>
-                <li id="login"><a href="/user/login">Login</a></li>
+                <li id="login" class="dropdown">
+                    <a href="#" id="login-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Login
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu navbar-inverse" aria-labelledby="login-dropdown">
+                        <li><a href="#" ng-click="login()">Login as User</a></li>
+                        <li><a href="/user/login">Login as Business</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
@@ -96,7 +105,7 @@
             <h2 class="sub-heading">FeatherQ is a line-management application that uses your mobile device and internet connection to line up for a business.</h2>
             <div class="cta">
                 <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" target="_blank"><img alt="Android app on Google Play" src="/images/homepage/btn-download-app.png"></a>
-                <a href="/user/register" class="btn btn-blue">SIGN UP FOR FREE!</a>
+                <a href="#" class="btn btn-blue" ng-click="login()">SIGN UP FOR FREE!</a>
             </div>
         </div>
     </div>
@@ -200,7 +209,7 @@
                 <a class="business_link" href="/user/login">
                     <div class="box-wrap box-fb text-center">
                         {{--<p class="title ng-binding"> More Businesses</p>--}}
-                        <a href="/user/login">
+                        <a href="#" ng-click="login()">
                             <span>LOGIN TO FEATHERQ</span>
                             <small class="ng-binding">{{--<img src="/images/homepage/landing/fb.png"> --}} to view More Businesses</small>
                         </a>
@@ -284,7 +293,7 @@
             <p>Download the app and login using your FeatherQ account and discover a better way to wait.</p>
             <div class="cta">
                 <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" target="_blank"><img alt="Android app on Google Play" src="/images/homepage/btn-download-app.png"></a>
-                <a href="/user/register" class="btn btn-blue">SIGN UP FOR FREE!</a>
+                <a href="#" class="btn btn-blue" ng-click="login()">SIGN UP FOR FREE!</a>
             </div>
             <p class="black">Looking to manage your own line?<p>
                 <a href="/business">Try FeatherQ for Business</a>
