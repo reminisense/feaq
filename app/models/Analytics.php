@@ -50,6 +50,7 @@ class Analytics extends Eloquent{
             'service_id' => $service_id,
             'terminal_id' => $terminal_id,
             'queue_platform' => $queue_platform,
+            // FIXME we must not use helper methods in the context of the model to ensure that our app is decoupled.
             'user_id' => Helper::userId(),
             'action' => $action,
             'action_time' => $time

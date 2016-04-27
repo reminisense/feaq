@@ -143,7 +143,7 @@ class ProcessQueue extends Eloquent{
 
         //ARA in case the number was not called but served/removed which is unlikely
         if ($transaction->time_called == 0 && $terminal_id != 0) {
-            ProcessQueue::callTransactionNumber($transaction_number, Helper::userId(), $terminal_id);
+            ProcessQueue::callTransactionNumber($transaction_number, $user, $terminal_id);
         }
 
         if ($transaction->time_removed == 0 && $transaction->time_completed == 0) {
