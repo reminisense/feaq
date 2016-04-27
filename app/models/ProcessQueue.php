@@ -112,11 +112,11 @@ class ProcessQueue extends Eloquent{
      * @param $transaction_number
      * @param $process
      * @param null $terminal_id
-     * @param null $user
+     * @param null $user_id
      * @return string
      * @throws Exception
      */
-    public static function processNumber($transaction_number, $process, $terminal_id = null, $user = null)
+    public static function processNumber($transaction_number, $process, $terminal_id = null, $user_id = null)
     {
         $transaction = TerminalTransaction::find($transaction_number);
         $priority_queue = PriorityQueue::find($transaction_number);
@@ -125,12 +125,12 @@ class ProcessQueue extends Eloquent{
         $confirmation_code = $priority_queue->confirmation_code;
         $terminal_id = $terminal_id != null ? $terminal_id : $transaction->terminal_id;
 
-        if ($user == null) {
-            $user = Helper::userId();
+        if ($user_id == null) {
+            $user_id = Helper::userId();
         }
         // check currently logged in user if no user was provided.
         // note: for webservice usage, this will be null.
-        if (!TerminalUser::isUserAssignedToTerminal($user, $terminal_id)) {
+        if (!TerminalUser::isUserAssignedToTerminal($user_id, $terminal_id)) {
             throw new Exception('You are not assigned to this terminal.');
         }
 
@@ -143,7 +143,7 @@ class ProcessQueue extends Eloquent{
 
         //ARA in case the number was not called but served/removed which is unlikely
         if ($transaction->time_called == 0 && $terminal_id != 0) {
-            ProcessQueue::callTransactionNumber($transaction_number, $user, $terminal_id);
+            ProcessQueue::callTransactionNumber($transaction_number, $user_id, $terminal_id);
         }
 
         if ($transaction->time_removed == 0 && $transaction->time_completed == 0) {

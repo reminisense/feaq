@@ -914,8 +914,8 @@ class RestController extends BaseController {
      */
     public function postServeNumber()
     {
-        $transaction_number = Input::get('$transaction_number');
-        $terminal_id = Input::get('$terminal_id');
+        $transaction_number = Input::get('transaction_number');
+        $terminal_id = Input::get('terminal_id');
         $user_id = Input::get('user_id');
         try {
             return ProcessQueue::processNumber($transaction_number, 'serve', $terminal_id, $user_id);
