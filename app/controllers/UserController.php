@@ -282,12 +282,7 @@ class UserController extends BaseController{
             }else if($user && Hash::check($password, $user->password)){
                 Session::put('FBaccessToken', null);
                 Auth::loginUsingId($user->user_id);
-                if (UserBusiness::getBusinessIdByOwner($user->user_id)) {
-                    return json_encode(array('success' => 1, 'redirect' => '/business/my-business'));
-                }
-                else {
-                    return json_encode(array('success' => 1, 'redirect' => '/'));
-                }
+                return json_encode(array('success' => 1, 'redirect' => '/business'));
             }else{
                 return json_encode(['error' => 'The email or password is incorrect.']);
             }
@@ -304,13 +299,14 @@ class UserController extends BaseController{
         }
     }
 
-    public function getRegister(){
-        if(Auth::check()){
-            return Redirect::to('/');
-        }else{
-            return View::make('user.email-registration');
-        }
-    }
+/* ARA - FQW-218 Removed to separate business and user registration*/
+//    public function getRegister(){
+//        if(Auth::check()){
+//            return Redirect::to('/');
+//        }else{
+//            return View::make('user.email-registration');
+//        }
+//    }
 
     public function getForgotPassword(){
         return View::make('user.password-reset-send');
