@@ -912,7 +912,7 @@ class RestController extends BaseController {
      * @author NMEnego
      * @return string
      */
-    public function getServeNumber()
+    public function postServeNumber()
     {
         $transaction_number = Input::get('$transaction_number');
         $terminal_id = Input::get('$terminal_id');
