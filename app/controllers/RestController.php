@@ -880,7 +880,8 @@ class RestController extends BaseController {
 
     /**
      * Retrieves the business assignments of a given user.
-     * @author Nico
+     * Used by desktop application.
+     * @author NMEnego
      * @param $user_id
      */
     public function getBusinessAssignments($user_id) {
@@ -904,5 +905,39 @@ class RestController extends BaseController {
             return Response::json(['error' => $e->getMessage()], 200, array(), JSON_PRETTY_PRINT);
         }
         return Response::json($business_assignments, 200, array(), JSON_PRETTY_PRINT);
+    }
+
+    /**
+     * Mark $transaction_number as served.
+     * @author NMEnego
+     * @return string
+     */
+    public function getServeNumber()
+    {
+        $transaction_number = Input::get('$transaction_number');
+        $terminal_id = Input::get('$terminal_id');
+        $user_id = Input::get('user_id');
+        try {
+            return ProcessQueue::processNumber($transaction_number, 'serve', $terminal_id, $user_id);
+        } catch (Exception $e) {
+            return json_encode(['error' => $e->getMessage()]);
+        }
+    }
+
+    /**
+     * Mark a $transaction_number as dropped.
+     * @author NMEnego
+     * @return string
+     */
+    public function postDropNumber()
+    {
+        $transaction_number = Input::get('transaction_number');
+        $terminal_id = Input::get('terminal_id');
+        $user_id = Input::get('user_id');
+        try {
+            return ProcessQueue::processNumber($transaction_number, 'remove', $terminal_id, $user_id);
+        } catch (Exception $e) {
+            return json_encode(['error' => $e->getMessage()]);
+        }
     }
 }

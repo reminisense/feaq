@@ -107,7 +107,17 @@ class ProcessQueue extends Eloquent{
         }
     }
 
-    public static function processNumber($transaction_number, $process, $terminal_id = null){
+    /**
+     * Common method used to serve or drop.
+     * @param $transaction_number
+     * @param $process
+     * @param null $terminal_id
+     * @param null $user
+     * @return string
+     * @throws Exception
+     */
+    public static function processNumber($transaction_number, $process, $terminal_id = null, $user = null)
+    {
         $transaction = TerminalTransaction::find($transaction_number);
         $priority_queue = PriorityQueue::find($transaction_number);
         $priority_number = PriorityNumber::find($priority_queue->track_id);
@@ -115,32 +125,37 @@ class ProcessQueue extends Eloquent{
         $confirmation_code = $priority_queue->confirmation_code;
         $terminal_id = $terminal_id != null ? $terminal_id : $transaction->terminal_id;
 
-        if(!TerminalUser::isCurrentUserAssignedToTerminal($terminal_id)){
+        if ($user == null) {
+            $user = Helper::userId();
+        }
+        // check currently logged in user if no user was provided.
+        // note: for webservice usage, this will be null.
+        if (!TerminalUser::isUserAssignedToTerminal($user, $terminal_id)) {
             throw new Exception('You are not assigned to this terminal.');
         }
 
-        try{
+        try {
             $terminal = Terminal::findOrFail($terminal_id);
             $terminal_name = $terminal->name;
-        }catch(Exception $e){
+        } catch (Exception $e) {
             $terminal_name = '';
         }
 
         //ARA in case the number was not called but served/removed which is unlikely
-        if($transaction->time_called == 0 && $terminal_id != 0){
+        if ($transaction->time_called == 0 && $terminal_id != 0) {
             ProcessQueue::callTransactionNumber($transaction_number, Helper::userId(), $terminal_id);
         }
 
-        if($transaction->time_removed == 0 && $transaction->time_completed == 0){
+        if ($transaction->time_removed == 0 && $transaction->time_completed == 0) {
             $time = time();
-            if($process == 'serve'){
+            if ($process == 'serve') {
                 TerminalTransaction::updateTransactionTimeCompleted($transaction_number, $time);
                 Analytics::insertAnalyticsQueueNumberServed($transaction_number, $priority_number->service_id, $priority_number->date, $time, $terminal_id, $priority_queue->queue_platform); //insert to queue_analytics
-            }else if($process == 'remove'){
+            } else if ($process == 'remove') {
                 TerminalTransaction::updateTransactionTimeRemoved($transaction_number, $time);
                 Analytics::insertAnalyticsQueueNumberRemoved($transaction_number, $priority_number->service_id, $priority_number->date, $time, $terminal_id, $priority_queue->queue_platform); //insert to queue_analytics
             }
-        }else{
+        } else {
             return json_encode(array('error' => 'Number ' . $pnumber . ' has already been processed. If the number still exists, please reload the page.'));
         }
 
