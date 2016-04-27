@@ -414,6 +414,10 @@ class Helper extends Eloquent
         return md5($business_id . 'fq' . $email);
     }
 
+    /**
+     * @deprecated
+     * Please use Log::Xxx() instead.
+     */
     public static function dbLogger($model, $table, $action, $method, $email, $infos = NULL) {
         // [2016/1/26 13:23]User [Jonas] updated Business [XXX] Record [Business Name]
         $log = date("Y-m-d H:i:s", time()) . " Model: " . $model . "| Table: " . $table . "| Action: " .
