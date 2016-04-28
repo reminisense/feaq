@@ -185,7 +185,7 @@ class ProcessQueue extends Eloquent{
         $last_number_given = 0;
         $called_numbers = array();
         $uncalled_numbers = array();
-        $not_checked_in = array();
+        $not_checked_in = array(); //JCA Remote numbers who are not checked in
         $processed_numbers = array();
         $timebound_numbers = array(); //ARA Timebound assignment
         $priority_numbers = new stdClass();
@@ -388,6 +388,7 @@ class ProcessQueue extends Eloquent{
         $priority_numbers->uncalled_numbers = $uncalled_numbers;
         $priority_numbers->processed_numbers = array_reverse($processed_numbers);
         $priority_numbers->timebound_numbers = $timebound_numbers;
+        $priority_numbers->not_checked_in = $not_checked_in;
 
         $priority_numbers->unprocessed_numbers = array_merge($priority_numbers->uncalled_numbers, $priority_numbers->called_numbers);
         usort($priority_numbers->unprocessed_numbers, array('ProcessQueue', 'sortUnprocessedNumbers'));

@@ -23,6 +23,7 @@
         $scope.uncalled_numbers = [];
         $scope.processed_numbers = [];
         $scope.timebound_numbers = [];
+        $scope.not_checked_in_numbers = [];
 
         $scope.called_number = 0;
         $scope.next_number = 0;
@@ -249,11 +250,17 @@
 
         resetValues = function(numbers){
             $scope.called_numbers = numbers.called_numbers;
-            $scope.uncalled_numbers = numbers.uncalled_numbers;
+            if($scope.not_checked_in_numbers || numbers.not_checked_in){
+                $scope.not_checked_in_numbers = checkDuplicate($scope.not_checked_in_numbers.concat(numbers.not_checked_in));
+                $scope.uncalled_numbers =  arrangeUncalledNumbers(numbers.uncalled_numbers, $scope.not_checked_in_numbers);
+            }else{
+                $scope.uncalled_numbers = numbers.uncalled_numbers;
+            }
             $scope.processed_numbers = numbers.processed_numbers;
             $scope.timebound_numbers = numbers.timebound_numbers;
             $scope.next_number = numbers.next_number;
             $scope.number_limit = numbers.number_limit;
+
 
             $scope.dateString = pq.jquery_functions.converDateToString($scope.date);
             pq.jquery_functions.set_next_number_placeholder($scope.next_number);
@@ -302,6 +309,42 @@
                 );
             }
         }
+
+        checkDuplicate = function(not_checked_in){
+            var arr = {};
+            var len=not_checked_in.length;
+
+            for ( var i=0; i < len; i++ )
+                arr[not_checked_in[i]['transaction_number']] = not_checked_in[i];
+
+            not_checked_in = new Array();
+            for ( var key in arr )
+                not_checked_in.push(arr[key]);
+
+            return not_checked_in
+        }
+
+        arrangeUncalledNumbers = function(not_checked_in, uncalled_numbers){
+
+            var not_checked, index;
+            var arr = [];
+            var uncalled_len = uncalled_numbers.length;
+            var uncalled = uncalled_numbers;
+
+            for ( var i=0; i < uncalled_len; i++ )
+                arr.push(uncalled[i]['transaction_number']);
+
+            for (not_checked in not_checked_in){
+                index = arr.indexOf(not_checked['transaction_number']);
+                if(index){
+                    uncalled.splice(index, 1);
+                }
+            }
+
+            uncalled_numbers = uncalled_numbers.concat(not_checked_in);
+            return uncalled_numbers;
+        }
+
 
         getIndex = function(transaction_number){
             for(var i = 0;  i < $scope.called_numbers.length; i++) {

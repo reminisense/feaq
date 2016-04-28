@@ -297,8 +297,20 @@ var pq = {
         },
 
         select_next_number : function(){
-            $('#uncalled-numbers li:first-child').trigger('click');
-        },
+            $('#uncalled-numbers li').each(function(index){
+                var uncalled_index = index + 1;
+                if(uncalled_index == $('#uncalled-numbers li').length){
+                    $('#uncalled-numbers li:first-child').trigger('click');
+                    return false;
+                }else if($('#uncalled-numbers li:nth-child('+uncalled_index+')').attr('data-queue_platform') != 'android' || $('#uncalled-numbers li:nth-child('+uncalled_index+')').attr('data-checked_in') != 'false' ) {
+                    $('#uncalled-numbers li:nth-child(' + uncalled_index + ')').trigger('click');
+                    return false;
+                }else if($('#uncalled-numbers li:first-child').attr('data-checked_in') == 'true' ) {
+                    $('#uncalled-numbers li:first-child').trigger('click');
+                    return false;
+                }
+            })
+         },
 
         remove_from_dropdown : function(transaction_number){
             $('#uncalled-numbers li[data-tnumber=' + transaction_number + ']').remove();
