@@ -326,22 +326,29 @@
 
         arrangeUncalledNumbers = function(not_checked_in, uncalled_numbers){
 
-            var not_checked, index;
+            var index;
             var arr = [];
+            var not_checked_len = not_checked_in.length;
             var uncalled_len = uncalled_numbers.length;
-            var uncalled = uncalled_numbers;
 
             for ( var i=0; i < uncalled_len; i++ )
-                arr.push(uncalled[i]['transaction_number']);
+                arr.push(uncalled_numbers[i]['transaction_number']);
 
-            for (not_checked in not_checked_in){
-                index = arr.indexOf(not_checked['transaction_number']);
+            for (var i=0; i < not_checked_len; i++){
+                index = arr.indexOf(not_checked_in[i]['transaction_number']);
+
                 if(index){
-                    uncalled.splice(index, 1);
+                    if(not_checked_in[i]['checked_in']=='true'){
+                        not_checked_in.splice(i, 1);
+                        i--;
+                    }else{
+                        uncalled_numbers.splice(index, 1);
+                    }
                 }
             }
 
             uncalled_numbers = uncalled_numbers.concat(not_checked_in);
+
             return uncalled_numbers;
         }
 
