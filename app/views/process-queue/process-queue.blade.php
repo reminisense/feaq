@@ -99,7 +99,7 @@ Processs Queue > {{ $business_name }}
                                             data-confirmation-code="@{{ number.confirmation_code }}"
                                             >
                                             @{{ number.priority_number }}
-                                            <small class="font-normal">via <span style="text-transform:capitalize;">@{{ number.queue_platform }}</span></small>
+                                            <small class="font-normal" ng-if="number.queue_platform != 'web'">via <span style="text-transform:capitalize;">@{{ number.queue_platform }}</span></small>
                                             <span
                                                class="pull-right font-normal mr5 userinfo show-messages"
                                                title="Number: @{{ number.priority_number }}"
@@ -138,7 +138,7 @@ Processs Queue > {{ $business_name }}
                                             data-confirmation-code="@{{ number.confirmation_code }}"
                                             >
                                             @{{ number.priority_number }}
-                                            <small class="font-normal">via <span style="text-transform:capitalize;">@{{ number.queue_platform }}</span></small>
+                                            <small class="font-normal" ng-if="number.queue_platform != 'web'">via <span style="text-transform:capitalize;">@{{ number.queue_platform }}</span></small>
                                             <span
                                                class="font-normal pull-right mr5 userinfo show-messages"
                                                title="Number: @{{ number.priority_number }}"

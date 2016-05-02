@@ -24,6 +24,7 @@ class ProcessQueue extends Eloquent{
         }
 
         $user_id = $user_id == null? Helper::userId() : $user_id;
+        //$user_id = $queue_platform != 'web'? $user_id : 0;
 
         $track_id = PriorityNumber::createPriorityNumber($service_id, $number_start, $number_limit, $last_number_given, $current_number, $date);
         $confirmation_code = $confirmation_code == null?  strtoupper(substr(md5($track_id), 0, 4)) : $confirmation_code;
