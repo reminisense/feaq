@@ -69,6 +69,13 @@ class QueueSettings extends Eloquent{
         return QueueSettings::queueSetting('remote_limit', 0, $service_id, $date);
     }
 
+    public static function remoteTime($service_id, $date = null){
+        $hour = QueueSettings::queueSetting('remote_hour', 12, $service_id, $date);
+        $min = QueueSettings::queueSetting('remote_min', 0, $service_id, $date);
+        $ampm = QueueSettings::queueSetting('remote_ampm', 'AM', $service_id, $date);
+        return Helper::mergeTime($hour, $min, $ampm);
+    }
+
     public static function smsGateway($service_id, $date = null){
         return QueueSettings::queueSetting('sms_gateway', 'twilio', $service_id, $date);
     }
@@ -105,7 +112,11 @@ class QueueSettings extends Eloquent{
      */
 
     public static function updateQueueSetting($service_id, $field, $value){
-        QueueSettings::where('service_id', '=', $service_id)->update([$field => $value]);
+        if($field == 'remote_time'){
+            QueueSettings::setRemoteTime($service_id, $value);
+        }else{
+            QueueSettings::where('service_id', '=', $service_id)->update([$field => $value]);
+        }
         Helper::dbLogger('QueueSettings', 'queue_settings', 'update', 'updateQueueSetting', User::email(Helper::userId()), 'service_id:' . $service_id);
     }
 
@@ -116,6 +127,16 @@ class QueueSettings extends Eloquent{
 
     public static function serviceExists($service_id){
         return isset(QueueSettings::where('service_id', '=', $service_id)->first()->service_id) ? true : false;
+    }
+
+    public static function setRemoteTime($service_id, $time){
+        $remote_time = Helper::parseTime($time);
+        $data = [
+            'remote_hour' => $remote_time['hour'],
+            'remote_minute' => $remote_time['min'],
+            'remote_ampm' => $remote_time['ampm'],
+        ];
+        QueueSettings::where('service_id', '=', $service_id)->update($data);
     }
 
     /**
@@ -145,6 +166,8 @@ class QueueSettings extends Eloquent{
         $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
         $allow_remote = QueueSettings::allowRemote($service_id);
         $remote_limit = QueueSettings::remoteLimit($service_id);
+        $remote_time = QueueSettings::remoteTime($service_id);
+
         $total_numbers_today = PriorityNumber::where('date', '=', $date)
             ->select(DB::raw('COUNT(priority_number.track_id) as total_numbers_today'))
             ->first()
@@ -160,7 +183,7 @@ class QueueSettings extends Eloquent{
             ->total_remote_today;
 
         $remote_queue_value = floor($total_numbers_today * ($remote_limit / 100));
-        $result = $allow_remote && ($remote_queue_value > $total_remote_today) ? true : false;
+        $result = $allow_remote && ($remote_queue_value > $total_remote_today) && (time() > strtotime($remote_time)) ? true : false;
 
         return $result;
     }
