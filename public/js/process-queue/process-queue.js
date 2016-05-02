@@ -305,9 +305,6 @@ var pq = {
                 }else if($('#uncalled-numbers li:nth-child('+uncalled_index+')').attr('data-queue_platform') != 'android' || $('#uncalled-numbers li:nth-child('+uncalled_index+')').attr('data-checked_in') != 'false' ) {
                     $('#uncalled-numbers li:nth-child(' + uncalled_index + ')').trigger('click');
                     return false;
-                }else if($('#uncalled-numbers li:first-child').attr('data-checked_in') == 'true' ) {
-                    $('#uncalled-numbers li:first-child').trigger('click');
-                    return false;
                 }
             })
          },
