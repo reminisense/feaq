@@ -45,7 +45,6 @@
             if(process_queue){process_queue.isCalling = true;}
             url = pq.urls.issue_numbers.issue_specific_url;
             service_id = $('#services').val() ? $('#services').val() : pq.ids.service_id;
-            console.log(service_id);
             terminal_id = pq.ids.terminal_id ? pq.ids.terminal_id : 0;
             data = {
                 priority_number : priority_number,
@@ -66,6 +65,10 @@
                         $scope.phone = '';
                         $scope.email = '';
                         $scope.time_assigned = '';
+
+                        if(!process_queue){
+                            $('.btn-getnum').addClass('disabled');
+                        }
                     }else if(response.error){
                         pq.jquery_functions.issue_number_error(response.error);
                     }
@@ -134,7 +137,7 @@
 
             if(!error && issue){
                 $scope.issue_specific_error = '';
-                $scope.issueSpecific($scope.priority_number, $scope.name, $scope.phone, $scope.email, $scope.time_assigned)
+                $scope.issueSpecific($scope.priority_number, $scope.name, $scope.phone, $scope.email, $scope.time_assigned);
             }else{
                 $scope.issue_specific_error = error_message;
                 setTimeout(function(){ $scope.issue_specific_error = '';}, 3000);
@@ -203,21 +206,29 @@
 
             if(broadcast){
                 setInterval(function(){
-                    scope = angular.element('#nowServingCtrl').scope();
-                    $scope.$apply(function(){
-                        $scope.get_num = scope.get_num;
-                    });
+                    if($scope.queue_status == 1){
+                        scope = angular.element('#nowServingCtrl').scope();
+                        $scope.$apply(function(){
+                            $scope.get_num = scope.get_num;
+                        });
+                    }
                 }, 1000);
             }
         };
 
-        $scope.populateRemoteQueueModal = (function(response){
+        $scope.populateRemoteQueueModal = function(response){
             if (response.status == '1') {
                 $scope.name = response.first_name + ' ' + response.last_name;
                 $scope.phone = response.phone;
                 $scope.email = response.email;
+                $scope.user_queue = response.user_queue;
+
+                $scope.queue_status = response.queue_status;
+                if($scope.user_queue){
+                    $scope.get_num = response.user_queue.priority_number;
+                }
             }
-        });
+        };
 
         $scope.sendWebsocket = function(){
             if(process_queue){
@@ -259,10 +270,30 @@
                     $scope.selectService();
                 }, 5000);
             });
+        };
+
+        $scope.checkIn = function(){
+            transaction_number = $scope.user_queue.transaction_number;
+            $http.get('/mobile/checkin-transaction/' + transaction_number).success(function(response){
+                $scope.sendWebsocket();
+                $('.btn-getnum').html('You are checked in');
+                $('.btn-getnum').addClass('disabled');
+            });
+        };
+
+        $scope.getRemoteuser = function(){
+            if(!process_queue){
+                $http.get('/user/remoteuser/'+user_id).success(function(response){
+                    $scope.populateRemoteQueueModal(response);
+                    setTimeout(function(){
+                        $scope.getRemoteuser();
+                    }, 5000);
+                });
+            }
         }
 
         $scope.getBusinessServices();
-        $http.get('/user/remoteuser/'+user_id).success($scope.populateRemoteQueueModal);
         $scope.initializePriorityNumber();
+        $scope.getRemoteuser();
     });
 })();

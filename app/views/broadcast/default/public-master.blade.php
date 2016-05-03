@@ -121,8 +121,11 @@
                             <div class="ng-binding">
                                 <h1 class="nomg">@{{ get_num }}</h1>
                                 @if($allow_remote && Auth::check())
-                                <a href="" class="btn-getnum" data-toggle="modal" data-target="#remote-queue-modal">
+                                <a ng-if="queue_status == 1" href="" class="btn-getnum" data-toggle="modal" data-target="#remote-queue-modal">
                                     Get this number <span class="glyphicon glyphicon-save"></span>
+                                </a>
+                                <a ng-if="queue_status == 0" href="" class="btn-getnum @{{ user_queue.time_checked_in > 0 ? 'disabled' : '' }}" ng-click="checkIn()">
+                                    @{{ user_queue.time_checked_in > 0 ? 'You are checked in' : 'Check in' }}
                                 </a>
                                 @endif
                             </div>
