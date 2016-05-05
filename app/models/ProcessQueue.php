@@ -183,9 +183,12 @@ class ProcessQueue extends Eloquent{
         $number_limit = QueueSettings::numberLimit($service_id);
         $terminal_specific_calling = QueueSettings::terminalSpecificIssue($service_id);
         $last_number_given = 0;
+        $move_to_last_counter = false; //JCA Will be true if all not checked in numbers will be transferred to the bottom
         $called_numbers = array();
         $uncalled_numbers = array();
-        $not_checked_in = array(); //JCA Remote numbers who are not checked in
+        $not_checked_in = array();
+        $skipped_priority_numbers = array(); //JCA Priority numbers of remote numbers who were called but not checked in
+        $skipped_numbers = array(); //JCA  Object number of remote numbers who were called but not checked in
         $processed_numbers = array();
         $timebound_numbers = array(); //ARA Timebound assignment
         $priority_numbers = new stdClass();
@@ -197,6 +200,9 @@ class ProcessQueue extends Eloquent{
 
             $timebound = ($number->time_assigned) != 0 && ($number->time_assigned <= time()) ? TRUE : FALSE;
             $checked_in = isset($number->time_checked_in) && $number->time_checked_in != 0 ? TRUE : FALSE;
+
+            if($number->skipped != 0)array_push($skipped_priority_numbers, $number->priority_number);
+
 
             try{
                 $service_name = Service::name($service_id);
@@ -344,15 +350,17 @@ class ProcessQueue extends Eloquent{
                     'confirmation_code' => $number->confirmation_code,
                 );
             }
+
         }
 
         usort($processed_numbers, array('ProcessQueue', 'sortProcessedNumbers'));
         usort($called_numbers, array('ProcessQueue', 'sortCalledNumbers'));
 
+        $temporary_uncalled = $uncalled_numbers;
 
+        foreach($uncalled_numbers as $key => $uncalled_number ){
 
-        foreach($uncalled_numbers as $uncalled_number ){
-            if($uncalled_number['queue_platform'] == 'android' && $uncalled_number['checked_in'] == false){
+            if($uncalled_number['queue_platform'] == 'android' && $uncalled_number['checked_in'] == false && $move_to_last_counter == false){
                 array_push($not_checked_in, array(
                     'transaction_number' => $uncalled_number['transaction_number'],
                     'queue_platform' => $uncalled_number['queue_platform'],
@@ -367,14 +375,38 @@ class ProcessQueue extends Eloquent{
                     'time_called' => $uncalled_number['time_called'],
                     'confirmation_code' => $uncalled_number['confirmation_code'],
                 ));
-            }else{
-                break;
+            }else if($move_to_last_counter == false){
+                $move_to_last_counter = true;
             }
+
+            if(!empty($skipped_priority_numbers) && in_array($uncalled_number['priority_number'],$skipped_priority_numbers)){
+
+                array_push($skipped_numbers, array(
+                    'transaction_number' => $uncalled_number['transaction_number'],
+                    'queue_platform' => $uncalled_number['queue_platform'],
+                    'priority_number' => $uncalled_number['priority_number'],
+                    'service_id' => $uncalled_number['service_id'],
+                    'service_name' => $uncalled_number['service_name'],
+                    'name' => $uncalled_number['name'],
+                    'phone' => $uncalled_number['phone'],
+                    'email' => $uncalled_number['email'],
+                    'verified_email' => $uncalled_number['verified_email'],
+                    'checked_in' => $uncalled_number['checked_in'],
+                    'time_called' => $uncalled_number['time_called'],
+                    'confirmation_code' => $uncalled_number['confirmation_code'],
+                ));
+
+                unset($temporary_uncalled[$key]);
+            }
+        }
+
+        if($skipped_numbers){
+            $uncalled_numbers = array_merge(array_values($temporary_uncalled),$skipped_numbers);
         }
 
         if($not_checked_in){
             for($i = 0; $i < count($not_checked_in); $i++){
-                array_shift($uncalled_numbers);
+                array_shift($not_checked_in);
             }
             $uncalled_numbers = array_merge($uncalled_numbers, $not_checked_in);
         }
@@ -388,7 +420,6 @@ class ProcessQueue extends Eloquent{
         $priority_numbers->uncalled_numbers = $uncalled_numbers;
         $priority_numbers->processed_numbers = array_reverse($processed_numbers);
         $priority_numbers->timebound_numbers = $timebound_numbers;
-        $priority_numbers->not_checked_in = $not_checked_in;
 
         $priority_numbers->unprocessed_numbers = array_merge($priority_numbers->uncalled_numbers, $priority_numbers->called_numbers);
         usort($priority_numbers->unprocessed_numbers, array('ProcessQueue', 'sortUnprocessedNumbers'));
@@ -413,7 +444,8 @@ class ProcessQueue extends Eloquent{
 				t.time_completed,
 				t.time_assigned,
 			    t.time_checked_in,
-			    t.terminal_id
+			    t.terminal_id,
+			    t.skipped
 			FROM
 				`priority_number` n,
 				`priority_queue` q,
