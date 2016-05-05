@@ -148,18 +148,34 @@ Processs Queue > {{ $business_name }}
                         </div>
                     </div>
                     <div class="box-footer clearfix" ng-if="number.time_called == 0">
-                        <a href="" class="bgdblue removeCard" ng-click="dropNumber(number.transaction_number)"><span class="glyphicon glyphicon-trash"></span></a>
+                        <a href="" class="bgdblue removeCard" data-toggle="modal" data-target="#drop-modal"><span class="glyphicon glyphicon-trash"></span></a>
                         <a href="" class="bgblue cardAction" ng-click="callNumber(number.transaction_number)">
                             CALL
                             <span ng-if='isCalling' class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
                         </a>
                     </div>
                     <div class="box-footer clearfix" ng-if="number.time_called > 0">
-                        <a href="" class="bgdcyan removeCard" ng-click="dropNumber(number.transaction_number)"><span class="glyphicon glyphicon-trash"></span></a>
+                        <a href="" class="bgdcyan removeCard" data-toggle="modal" data-target="#drop-modal"><span class="glyphicon glyphicon-trash"></span></a>
                         <a href="" class="bgcyan cardAction" ng-click="serveNumber(number.transaction_number)">
                             DONE
                             <span ng-if='isCalling' class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
                         </a>
+                    </div>
+                    <div id="drop-modal" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content text-left">
+                                <div class="modal-header">
+                                    <h3 class="modal-title">Drop Number</h3>
+                                </div>
+                                <div class="modal-body text-left">
+                                    <h5>Are you sure that you want to drop this number?</h5>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" data-dismiss="modal" class="btn btn-danger" id="delete" ng-click="dropNumber(number.transaction_number)">Drop</button>
+                                    <button type="button" data-dismiss="modal" class="btn">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
