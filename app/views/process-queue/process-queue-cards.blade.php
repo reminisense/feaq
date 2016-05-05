@@ -135,16 +135,31 @@ Processs Queue > {{ $business_name }}
                         <p class="status"  ng-if="number.checked_in != true">NOT CHECKED IN</p>
 
                         <div class="clearfix">
+                            <form ng-if="date == today" class="star-rating-form pull-left" ng-show="number.verified_email && number.time_called > 0">
+                                <span class="star-rating">
+                                    <input type="radio" name="rating" ng-model="called_numbers_rating[$index]" value="1"><i></i>
+                                    <input type="radio" name="rating" ng-model="called_numbers_rating[$index]" value="2"><i></i>
+                                    <input type="radio" name="rating" ng-model="called_numbers_rating[$index]" value="3"><i></i>
+                                    <input type="radio" name="rating" ng-model="called_numbers_rating[$index]" value="4"><i></i>
+                                    <input type="radio" name="rating" ng-model="called_numbers_rating[$index]" value="5"><i></i>
+                                </span>
+                            </form>
                             <small class="pull-right">via <span style="text-transform:capitalize;">@{{ number.queue_platform }}</span></small>
                         </div>
                     </div>
                     <div class="box-footer clearfix" ng-if="number.time_called == 0">
                         <a href="" class="bgdblue removeCard" ng-click="dropNumber(number.transaction_number)"><span class="glyphicon glyphicon-trash"></span></a>
-                        <a href="" class="bgblue cardAction" ng-click="callNumber(number.transaction_number)">CALL</a>
+                        <a href="" class="bgblue cardAction" ng-click="callNumber(number.transaction_number)">
+                            CALL
+                            <span ng-if='isCalling' class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+                        </a>
                     </div>
                     <div class="box-footer clearfix" ng-if="number.time_called > 0">
                         <a href="" class="bgdcyan removeCard" ng-click="dropNumber(number.transaction_number)"><span class="glyphicon glyphicon-trash"></span></a>
-                        <a href="" class="bgcyan cardAction" ng-click="serveNumber(number.transaction_number)">DONE</a>
+                        <a href="" class="bgcyan cardAction" ng-click="serveNumber(number.transaction_number)">
+                            DONE
+                            <span ng-if='isCalling' class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+                        </a>
                     </div>
                 </div>
             </div>
