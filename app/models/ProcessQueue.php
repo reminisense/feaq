@@ -157,7 +157,7 @@ class ProcessQueue extends Eloquent{
         ));
     }
 
-    public static function allNumbers($service_id, $terminal_id = null, $date = null){
+    public static function  allNumbers($service_id, $terminal_id = null, $date = null){
         $date = $date == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $date;
         $numbers = ProcessQueue::queuedNumbers($service_id, $date);
 
@@ -406,6 +406,7 @@ class ProcessQueue extends Eloquent{
 
         if($not_checked_in){
             for($i = 0; $i < count($not_checked_in); $i++){
+                TerminalTransaction::where('transaction_number','=',$not_checked_in['transaction_number'])->update(['skipped' => 1]);
                 array_shift($not_checked_in);
             }
             $uncalled_numbers = array_merge($uncalled_numbers, $not_checked_in);

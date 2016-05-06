@@ -445,7 +445,7 @@ class MobileController extends BaseController{
     }
 
     public function getCheckinTransaction($transaction_number){
-        TerminalTransaction::where('transaction_number', '=', $transaction_number)->update(['time_checked_in' => time()]);
+        TerminalTransaction::where('transaction_number', '=', $transaction_number)->update(['time_checked_in' => time(), 'skipped' => 1]);
         return json_encode(['success' => 1]);
     }
 }
