@@ -217,6 +217,32 @@
             }
         });
 
+        $(".datepicker").datepicker();
+
+        $scope.getNumberSubmitForm = function(){
+
+            var date =  $("#date").datepicker({ dateFormat: 'dd,MM,yyyy' }).val();
+
+            var data = {
+                number: $scope.get_num,
+                name: $scope.name,
+                phone: $scope.phone,
+                age: $scope.age,
+                birthdate: date,
+                email: $scope.email,
+                gender: $scope.gender,
+                height: $scope.height,
+                weight: $scope.weight,
+                bloodtype: $scope.bloodtype,
+                medication: $scope.medication,
+                allergies: $scope.allergies
+            };
+
+            $http.post('broadcast/convert-form', data).success(function(response){
+
+            })
+        };
+
         $scope.sendWebsocket = function(){
             process_queue.updateBroadcast();
         }

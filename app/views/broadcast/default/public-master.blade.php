@@ -20,13 +20,20 @@
     <link href="/css/broadcast/default/responsive.css" rel="stylesheet" type="text/css" media="all">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
 
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="/js/jquery-1.11.2.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
     <script type="text/javascript" src="/js/jquery.marquee.min.js"></script>
     <script src="/js/ngFacebook.js"></script>
     <script src="/js/google-analytics/googleAnalytics.js"></script>
     <script src="/js/google-analytics/ga-broadcast.js"></script>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -103,18 +110,20 @@
                     <div class="row">
                         <div class="col-md-5 getnum-info">
                             <h2 class="">Next Available Number:</h2>
-                            <p>Please go to the location to get this number.</p>
+                            {{--<p>Please go to the location to get this number.</p>--}}
                         </div>
                         <div class="col-md-7 getnum-info">
                             <div class="ng-binding">
                                 <h1 class="nomg">@{{ get_num }}</h1>
+                                <a href="" class="btn-getnum" data-toggle="modal" data-target="#remote-queue-modal">
+                                    Get this number <span class="glyphicon glyphicon-save"></span>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="col-md-12 ticker-message mt20">
             @foreach($ticker_message as $message)
                 @if($message)
@@ -133,7 +142,7 @@
         </div>
     </div>
 </div>
-{{--@include('modals.broadcast.remote-queue-modal')--}}
+@include('modals.broadcast.remote-queue-modal')
 @include('modals.websockets.websocket-loader')
 
 {{--{{ HTML::script('js/bootstrap.min.js') }}--}}

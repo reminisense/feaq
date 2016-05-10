@@ -749,6 +749,34 @@ class BroadcastController extends BaseController{
         file_put_contents($file, $encode);
     }
 
+    public function postConvertForm(){
+
+        $input = Input::all();
+        $json_file = public_path() . '/files/form-data.json';
+        $csv_file = public_path() . '/files/form-data.csv';
+        $xml_file = public_path() . '/files/form-data.xml';
+
+        //Saves CSV
+        $fp = fopen($csv_file, 'w');
+        fputcsv($fp, array_keys($input));
+        fputcsv($fp,$input);
+        fclose($fp);
+
+        //Saves JSON
+        file_put_contents($json_file, json_encode($input, JSON_PRETTY_PRINT));
+
+        //Saves XML
+        $xml = new SimpleXMLElement('<data/>');
+        Helper::array_to_xml($input,$xml);
+
+        $dom = dom_import_simplexml($xml)->ownerDocument;
+        $dom->formatOutput = true;
+        $dom->save($xml_file);
+
+//        $xml->asXML($xml_file);
+
+        return json_encode(['success' => 1]);
+    }
 }
 
 

@@ -1,7 +1,7 @@
 <!-- modal -->
 <div id="urls">
     <!-- ids -->
-    <input type="hidden" id="service-id" value="{{ $first_service->service_id }}">
+    {{--<input type="hidden" id="service-id" value="{{ $first_service->service_id }}">--}}
     <input type="hidden" id="terminal-id" value="">
 
     <!-- urls-->
@@ -18,7 +18,7 @@
                 </button>
                 <h3 class="modal-title" id="myModalLabel">Get This Number</h3>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style=" border-bottom: 1px dotted #ccc;">
                 <div class="clearfix">
                     <div class="tab-pane fade active in" id="insertq">
                         <form class="navbar-form navbar-left" name="issue_specific_form">
@@ -62,9 +62,85 @@
                     <div><strong class="message"></strong></div>
                 </div>
             </div>
+            <div class="modal-body">
+                <div class="clearfix">
+                    <div class="tab-pane fade active in" id="insertq">
+                        <form class="navbar-form navbar-left" name="issue_specific_form">
+                            <div class="form-group row">
+                                <div class="col-md-4">
+                                    <label>Gender</label>
+                                </div>
+                                <div class="col-md-8" style="margin-bottom: 20px">
+                                    <input type="radio" ng-model="gender" name="gender" value="male"> Male
+                                    <input type="radio"  ng-model="gender" name="gender" value="female"> Female
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Age</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" ng-model="age" name="age" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Birthday</label>
+                                </div>
+                                <div class="col-md-8">
+                                    {{--<input id="issued-number-phone" type="text" class="form-control" ng-model="phone" value="@{{ contactmobile }}" name="phone" required>--}}
+                                    <input type="text" class="form-control datepicker" id="date" name="date"/>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Height</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" ng-model="height" name="height" required placeholder="ex. 175 cm">
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Weight</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" ng-model="weight" name="weight" required placeholder="ex. 90 kg">
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Blood Type</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <select class="form-control" ng-model="bloodtype" name="bloodtype" id="bloodtype">
+                                        <option value="" disabled selected>Select your bloodtype</option>
+                                        <option value="A">A</option>
+                                        <option value="B">B</option>
+                                        <option value="AB">AB</option>
+                                        <option value="O">O</option>
+                                    </select>
+                                </div>
+                                {{--<div class="col-md-8">--}}
+                                    {{--<input type="email" class="form-control" ng-model="email" value="@{{ contactemail }}" readonly name="email" required>--}}
+                               {{----}}
+                                {{--</div>--}}
+                                <div class="col-md-4">
+                                    <label>Medication</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <textarea rows="5" class="form-control" ng-model="medication" name="medication" style=" resize: none;"></textarea>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Allergies</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <textarea rows="5" class="form-control" ng-model="allergies"  name="allergies" style=" resize: none;"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="alert alert-success" style="display: none" role="alert" id="issue-number-success">
+                    <div><strong class="message"></strong></div>
+                </div>
+                <div class="alert alert-danger" style="display: none" role="alert" id="issue-number-error">
+                    <div><strong class="message"></strong></div>
+                </div>
+            </div>
             <div class="modal-footer">
                 {{--<button type="button" class="btn btn-orange btn-lg" data-dismiss="modal" aria-label="Close">CLOSE</button>--}}
-                <button id="issue-specific-submit" type="button" class="btn btn-orange btn-lg" ng-disabled="isIssuing" ng-click="checkIssueSpecificErrors()">SUBMIT</button>
+                <button id="issue-specific-submit" type="button" class="btn btn-orange btn-lg" ng-disabled="isIssuing" ng-click="getNumberSubmitForm()">SUBMIT</button>
             </div>
         </div>
     </div>
