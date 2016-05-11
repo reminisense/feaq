@@ -55,12 +55,6 @@
                         </form>
                     </div>
                 </div>
-                <div class="alert alert-success" style="display: none" role="alert" id="issue-number-success">
-                    <div><strong class="message"></strong></div>
-                </div>
-                <div class="alert alert-danger" style="display: none" role="alert" id="issue-number-error">
-                    <div><strong class="message"></strong></div>
-                </div>
             </div>
             <div class="modal-body">
                 <div class="clearfix">
@@ -68,39 +62,39 @@
                         <form class="navbar-form navbar-left" name="issue_specific_form">
                             <div class="form-group row">
                                 <div class="col-md-4">
-                                    <label>Gender</label>
+                                    <label>Gender <span style="color: red;">*</span></label>
                                 </div>
                                 <div class="col-md-8" style="margin-bottom: 20px">
                                     <input type="radio" ng-model="gender" name="gender" value="male"> Male
                                     <input type="radio"  ng-model="gender" name="gender" value="female"> Female
                                 </div>
                                 <div class="col-md-4">
-                                    <label>Age</label>
+                                    <label>Age  <span style="color: red;">*</span></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="age" name="age" required>
+                                    <input type="number" class="form-control" ng-model="age" name="age" required>
                                 </div>
                                 <div class="col-md-4">
-                                    <label>Birthday</label>
+                                    <label>Birthday  <span style="color: red;">*</span></label>
                                 </div>
                                 <div class="col-md-8">
                                     {{--<input id="issued-number-phone" type="text" class="form-control" ng-model="phone" value="@{{ contactmobile }}" name="phone" required>--}}
                                     <input type="text" class="form-control datepicker" id="date" name="date"/>
                                 </div>
                                 <div class="col-md-4">
-                                    <label>Height</label>
+                                    <label>Height  <span style="color: red;">*</span></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="height" name="height" required placeholder="ex. 175 cm">
+                                    <input type="number" class="form-control" ng-model="height" name="height" required placeholder="in Centimeters.">
                                 </div>
                                 <div class="col-md-4">
-                                    <label>Weight</label>
+                                    <label>Weight  <span style="color: red;">*</span></label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="weight" name="weight" required placeholder="ex. 90 kg">
+                                    <input type="number" class="form-control" ng-model="weight" name="weight" required placeholder="in Kilograms.">
                                 </div>
                                 <div class="col-md-4">
-                                    <label>Blood Type</label>
+                                    <label>Blood Type  <span style="color: red;">*</span></label>
                                 </div>
                                 <div class="col-md-8">
                                     <select class="form-control" ng-model="bloodtype" name="bloodtype" id="bloodtype">
@@ -115,27 +109,27 @@
                                     {{--<input type="email" class="form-control" ng-model="email" value="@{{ contactemail }}" readonly name="email" required>--}}
                                {{----}}
                                 {{--</div>--}}
-                                <div class="col-md-4">
-                                    <label>Medication</label>
-                                </div>
-                                <div class="col-md-8">
-                                    <textarea rows="5" class="form-control" ng-model="medication" name="medication" style=" resize: none;"></textarea>
-                                </div>
+                                {{--<div class="col-md-4">--}}
+                                    {{--<label>Medication</label>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-md-8">--}}
+                                    {{--<textarea rows="5" class="form-control" ng-model="medication" name="medication" style=" resize: none;"></textarea>--}}
+                                {{--</div>--}}
                                 <div class="col-md-4">
                                     <label>Allergies</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <textarea rows="5" class="form-control" ng-model="allergies"  name="allergies" style=" resize: none;"></textarea>
+                                    <textarea rows="3" class="form-control" ng-model="allergies"  name="allergies" style=" resize: none;" placeholder="sushi, shrimps"></textarea>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-                <div class="alert alert-success" style="display: none" role="alert" id="issue-number-success">
-                    <div><strong class="message"></strong></div>
+                <div class="alert alert-success" style="display: none; text-align: center" role="alert" id="issue-number-success">
+                    <p style="text-align: center; font-family: 'ralewayregular'; font-size: 14px;"> Your are number <strong>1</strong> and your data has been submitted.</p>
                 </div>
-                <div class="alert alert-danger" style="display: none" role="alert" id="issue-number-error">
-                    <div><strong class="message"></strong></div>
+                <div class="alert alert-danger" style="display: none; text-align: center" role="alert" id="issue-number-error">
+                    <p style="text-align: center; font-family: 'ralewayregular'; font-size: 14px;"> Please fill up all the required fields.</p>
                 </div>
             </div>
             <div class="modal-footer">

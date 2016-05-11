@@ -749,12 +749,12 @@ class BroadcastController extends BaseController{
         file_put_contents($file, $encode);
     }
 
-    public function postConvertForm(){
+    public function postConvertToForm(){
 
         $input = Input::all();
-        $json_file = public_path() . '/files/form-data.json';
-        $csv_file = public_path() . '/files/form-data.csv';
-        $xml_file = public_path() . '/files/form-data.xml';
+        $json_file = public_path() . '/form-data.json';
+        $csv_file = public_path() . '/form-data.csv';
+        $xml_file = public_path() . '/form-data.xml';
 
         //Saves CSV
         $fp = fopen($csv_file, 'w');
@@ -772,8 +772,6 @@ class BroadcastController extends BaseController{
         $dom = dom_import_simplexml($xml)->ownerDocument;
         $dom->formatOutput = true;
         $dom->save($xml_file);
-
-//        $xml->asXML($xml_file);
 
         return json_encode(['success' => 1]);
     }

@@ -220,27 +220,32 @@
         $(".datepicker").datepicker();
 
         $scope.getNumberSubmitForm = function(){
-
             var date =  $("#date").datepicker({ dateFormat: 'dd,MM,yyyy' }).val();
 
             var data = {
-                number: $scope.get_num,
+                priority_number: $scope.get_num,
                 name: $scope.name,
                 phone: $scope.phone,
-                age: $scope.age,
+                age: parseInt($scope.age),
                 birthdate: date,
                 email: $scope.email,
                 gender: $scope.gender,
-                height: $scope.height,
-                weight: $scope.weight,
+                height: parseInt($scope.height),
+                weight: parseInt($scope.weight),
                 bloodtype: $scope.bloodtype,
-                medication: $scope.medication,
                 allergies: $scope.allergies
             };
 
-            $http.post('broadcast/convert-form', data).success(function(response){
+            if($scope.age==undefined || date==undefined || $scope.gender==undefined || $scope.height==undefined || $scope.weight==undefined || $scope.bloodtype==undefined){
+                $('#issue-number-error').fadeIn();
+                $('#issue-number-error').fadeOut(6000);
+            }else{
+                $http.post('broadcast/convert-to-form', data).success(function(response){
+                    $('#issue-number-success').fadeIn();
+                    $('#issue-number-success').fadeOut(6000);
+                })
+            }
 
-            })
         };
 
         $scope.sendWebsocket = function(){
