@@ -50,6 +50,7 @@ class IssueNumberController extends BaseController{
             $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, $terminal_id);
             PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
             TerminalTransaction::where('transaction_number', '=', $number['transaction_number'])->update(['time_assigned' => $time_assigned]);
+            ProcessQueue::updateBusinessBroadcast($business_id);
             return json_encode(['success' => 1, 'number' => $number]);
         }
     }

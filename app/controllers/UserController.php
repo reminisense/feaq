@@ -204,12 +204,25 @@ class UserController extends BaseController{
      * @description: Get User by User ID for remote queue
      */
     public function getRemoteuser($user_id){
-        if($user_id != 0){
-            return json_encode(array('status' => '1', 'first_name' => User::first_name($user_id), 'last_name' => User::last_name($user_id), 'phone' => User::phone($user_id), 'email' => User::email($user_id)));
+        $user = User::where('user_id', '=', $user_id)->first();
+        if($user){
+            $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+            $user_queue = User::getUserHistory($user->user_id, 99, 0, $date);
+            $queue_status = $user_queue[0]['date'] == $date && $user_queue[0]['time_called'] == 0 ? 0 : 1;
+            return json_encode(
+                array(
+                    'status' => '1',
+                    'first_name' => $user->first_name,
+                    'last_name' => $user->last_name,
+                    'phone' => $user->phone,
+                    'email' => $user->email,
+                    'queue_status' => $queue_status,
+                    'user_queue' => $queue_status ? null : $user_queue[0],
+                )
+            );
         } else {
             return json_encode(array('status' => '0'));
         }
-
     }
 
     public function getSearchUser($keyword){

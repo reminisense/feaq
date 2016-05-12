@@ -100,14 +100,34 @@
         <div class="col-md-6" ng-if="get_num > 0">
             <div class="boxed boxed-single">
                 <div class="wrap">
-                    <div class="row">
+                    <div class="row" ng-controller="issuenumberController">
                         <div class="col-md-5 getnum-info">
+                            @if($allow_remote && Auth::check())
+                            <h2 class="">Remote Queue Number:</h2>
+                            <p>
+                                Remote queuing allows you to get this number before being at the location.
+                                <select class="form-control" id="services" ng-model="service_id" ng-change="selectService()">
+                                    <option value="179">Service 1</option>
+                                    <option>Service 2</option>
+                                    <option>Service 3</option>
+                                </select>
+                            </p>
+                            @else
                             <h2 class="">Next Available Number:</h2>
                             <p>Please go to the location to get this number.</p>
+                            @endif
                         </div>
                         <div class="col-md-7 getnum-info">
                             <div class="ng-binding">
                                 <h1 class="nomg">@{{ get_num }}</h1>
+                                @if($allow_remote && Auth::check())
+                                <a ng-if="queue_status == 1" href="" class="btn-getnum" data-toggle="modal" data-target="#remote-queue-modal">
+                                    Get this number <span class="glyphicon glyphicon-save"></span>
+                                </a>
+                                <a ng-if="queue_status == 0" href="" class="btn-getnum @{{ user_queue.time_checked_in > 0 ? 'disabled' : '' }}" ng-click="checkIn()">
+                                    @{{ user_queue.time_checked_in > 0 ? 'You are checked in' : 'Check in' }}
+                                </a>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -133,7 +153,7 @@
         </div>
     </div>
 </div>
-{{--@include('modals.broadcast.remote-queue-modal')--}}
+@include('modals.broadcast.remote-queue-modal')
 @include('modals.websockets.websocket-loader')
 
 {{--{{ HTML::script('js/bootstrap.min.js') }}--}}

@@ -398,6 +398,7 @@ var eb = {
         $scope.input_sms_field = 0;
         $scope.allow_remote = 0;
         $scope.remote_limit = 0;
+        $scope.remote_time = null;
         $scope.process_queue_layout = 0;
 
         $scope.add_terminal = {
@@ -468,6 +469,7 @@ var eb = {
             $scope.input_sms_field = business.input_sms_field;
             $scope.allow_remote = business.allow_remote ? true : false;
             $scope.remote_limit = business.remote_limit;
+            $scope.remote_time = business.remote_time;
             $scope.process_queue_layout = business.process_queue_layout ? true : false;
             $scope.terminals = business.terminals;
             $scope.services = business.services;
@@ -775,6 +777,7 @@ var eb = {
                     input_sms_field: $scope.input_sms_field,
                     allow_remote: $scope.allow_remote ? 1 : 0,
                     remote_limit: $scope.remote_limit,
+                    remote_time: $scope.remote_time,
                     process_queue_layout: $scope.process_queue_layout ? 1 : 0,
                     sms_gateway : $scope.sms_gateway
                 }
