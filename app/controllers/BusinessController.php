@@ -707,4 +707,14 @@ class BusinessController extends BaseController
         }
         print 'Raw codes generated.';
     }
+
+    public function getAssignedBusinesses(){
+        if(Auth::check()){
+            $user_id = Helper::userId();
+            $assigned_businesses = TerminalUser::getBusinessAssignment($user_id);
+            return json_encode(['businesses' => $assigned_businesses, 'user_id' => $user_id]);
+        }else{
+            return json_encode(['error' => 'Please Login to FeatherQ']);
+        }
+    }
 }
