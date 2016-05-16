@@ -222,7 +222,6 @@ var eb = {
                 scope.business_id = business_id;
             });
         },
-
         setUserId : function(user_id){
             var scope = angular.element($("#editBusiness")).scope();
             scope.$apply(function(){
@@ -1241,9 +1240,11 @@ var eb = {
          };
          */
 
-        $scope.deleteFormField = function(form_id) {
+        $scope.deleteFormField = function(form_id, business_id) {
+            console.log(business_id)
             if (confirm('Are you sure you want to delete this field?')) {
                 $http.post(eb.urls.forms.delete_field_url, {
+                    business_id : business_id,
                     form_id : form_id
                 }).success(function(response) {
                     $('.field-'+form_id).remove();
@@ -1361,6 +1362,7 @@ var eb = {
                console.log(response.status+" "+response.message);
             });
         }
+        $scope.displayFormFields($('#business_id').val());
 
         websocket.onerror	= function(response){
             $('#WebsocketLoaderModal').modal('show');

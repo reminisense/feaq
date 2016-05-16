@@ -34,7 +34,7 @@
         <tr ng-repeat="(form_id, field) in form_fields" class="field-@{{ form_id }}">
             <td><strong>@{{ field.label }}</strong></td>
             <td>@{{ field.field_type }}</td>
-            <td><a href="" ng-click="deleteFormField(form_id)" class="btn-boxy btn-primary" style="display:inline-block;"><span class="glyphicon glyphicon-trash"></span></a></td>
+            <td><a href="" ng-click="deleteFormField(form_id, business_id)" class="btn-boxy btn-primary" style="display:inline-block;"><span class="glyphicon glyphicon-trash"></span></a></td>
         </tr>
         </tbody>
     </table>

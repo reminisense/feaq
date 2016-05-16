@@ -55,6 +55,54 @@
                         </form>
                     </div>
                 </div>
+                <div id="custom-forms" ng-show="form_fields != 0">
+                    <div style=" border-top: 1px dotted #ccc;">
+                        <div class="clearfix mt20">
+                            <div class="tab-pane fade active in" id="insertq">
+                                <form class="navbar-form navbar-left" name="issue_specific_form">
+                                    <div class="form-group row" ng-repeat="(form_id, field) in form_fields" class="field-@{{ form_id }}">
+                                       <div class="col-md-4">
+                                            <label>@{{ field.label }}</label>
+                                        </div>
+                                        {{--<div class="col-md-8">--}}
+                                            {{--<input type="text" disabled class="form-control" ng-model="get_num" name="number" required>--}}
+                                        {{--</div>--}}
+                                    </div>
+                                    {{--<div class="form-group row">--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<label>Number</label>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-8">--}}
+                                            {{--<input type="text" disabled class="form-control" ng-model="get_num" name="number" required>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<label>Name</label>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-8">--}}
+                                            {{--<input type="text" class="form-control" ng-model="name" value="@{{ contactname }}" readonly name="name" required>--}}
+                                        {{--</div>--}}
+
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<label>Cellphone</label>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-8">--}}
+                                            {{--<input id="issued-number-phone" type="text" class="form-control" ng-model="phone" value="@{{ contactmobile }}" name="phone" required>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<label>Email</label>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-8">--}}
+                                            {{--<input type="email" class="form-control" ng-model="email" value="@{{ contactemail }}" readonly name="email" required>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                    <div class="alert alert-danger" role="alert" ng-show="issue_specific_error.length > 0">
+                                        <div><strong class="message">@{{ issue_specific_error }}</strong></div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="alert alert-success" style="display: none" role="alert" id="issue-number-success">
                     <div><strong class="message"></strong></div>
                 </div>

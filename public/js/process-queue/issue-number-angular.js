@@ -16,6 +16,8 @@
         $scope.number_end = null;
         $scope.range = null;
 
+        $scope.form_fields = null;
+        var biz_id = $('#business-id').attr('business_id');
 
         var user_id = $('#user-id').attr('user_id');
         var process_queue = angular.element($("#process-queue-wrapper")).scope();
@@ -281,6 +283,21 @@
             });
         };
 
+        $scope.getFormFields = function(business_id) {
+            var field;
+            $http.post('/forms/display-fields/', {
+                business_id : business_id
+            }).success(function(response) {
+                console.log(response)
+                if(response!=0){
+                    for (field in response.form_fields) {
+
+                    }
+                }
+                $scope.form_fields = response.form_fields;
+            });
+        };
+
         $scope.getRemoteuser = function(){
             if(!process_queue){
                 $http.get('/user/remoteuser/'+user_id).success(function(response){
@@ -292,6 +309,7 @@
             }
         }
 
+        $scope.getFormFields(biz_id);
         $scope.getBusinessServices();
         $scope.initializePriorityNumber();
         $scope.getRemoteuser();

@@ -71,7 +71,7 @@ class FormsController extends BaseController{
   }
 
   public function postDisplayFields() {
-    if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId())) { // PAG added permission checking
+    if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId()) || Helper::userId() != 0) { // PAG added permission checking
       $fields = $this->getFields(Input::get('business_id'));
       if (!count($fields)) {
         $fields = 0;
