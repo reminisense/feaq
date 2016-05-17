@@ -55,19 +55,50 @@
                         </form>
                     </div>
                 </div>
-                <div id="custom-forms" ng-show="form_fields != 0">
+                <div class="clearfix" id="custom-forms" ng-show="form_fields != 0">
                     <div style=" border-top: 1px dotted #ccc;">
-                        <div class="clearfix mt20">
+                        <div class="mt20">
                             <div class="tab-pane fade active in" id="insertq">
-                                <form class="navbar-form navbar-left" name="issue_specific_form">
-                                    <div class="form-group row" ng-repeat="(form_id, field) in form_fields" class="field-@{{ form_id }}">
-                                       <div class="col-md-4">
-                                            <label>@{{ field.label }}</label>
+                                <form class="navbar-form navbar-left">
+                                    <div class="form-group row">
+                                        <div ng-repeat="(form_id, field) in form_fields" class="col-md-12">
+                                            <div class="col-md-4">
+                                                <label>@{{ field.label }}</label>
+                                            </div>
+                                            <div class="col-md-8" id="field-@{{ form_id }}" style="margin-bottom: 20px">
+                                            </div>
                                         </div>
-                                        {{--<div class="col-md-8">--}}
-                                            {{--<input type="text" disabled class="form-control" ng-model="get_num" name="number" required>--}}
-                                        {{--</div>--}}
                                     </div>
+                                    {{--<div class="form-group row">--}}
+                                            {{--<div class="col-md-4">--}}
+                                                {{--<label class="ng-binding">Red</label>--}}
+                                            {{--</div>--}}
+                                            {{--<div class="col-md-8">--}}
+                                                {{--<input type="text" class="form-control" ng-model="Red" required="">--}}
+                                            {{--</div>--}}
+                                            {{--<div class="col-md-4">--}}
+                                                {{--<label class="ng-binding">Blue</label>--}}
+                                            {{--</div>--}}
+                                            {{--<div class="col-md-8" style="margin-bottom: 20px">--}}
+                                                {{--<input type="radio" ng-model="1">Blue--}}
+                                                {{--<input type="radio" ng-model="2">Blue--}}
+                                            {{--</div>--}}
+                                            {{--<div class="col-md-4">--}}
+                                                {{--<label class="ng-binding">True</label>--}}
+                                            {{--</div>--}}
+                                            {{--<div class="col-md-8" style="margin-bottom: 20px">--}}
+                                                {{--<input type="checkbox" ng-model="True" required=""></div>--}}
+                                            {{--<div class="col-md-4">--}}
+                                                {{--<label class="ng-binding">aaa</label>--}}
+                                            {{--</div>--}}
+                                            {{--<div class="col-md-8">--}}
+                                                {{--<select class="form-control" ng-model="aaa">--}}
+                                                    {{--<option value="a">a</option>--}}
+                                                    {{--<option value="a">a</option>--}}
+                                                    {{--<option value="a">a</option>--}}
+                                                {{--</select>--}}
+                                            {{--</div>--}}
+                                    {{--</div>--}}
                                     {{--<div class="form-group row">--}}
                                         {{--<div class="col-md-4">--}}
                                             {{--<label>Number</label>--}}

@@ -284,17 +284,43 @@
         };
 
         $scope.getFormFields = function(business_id) {
+
             var field;
+            var option;
+            var dropdown;
+
+
             $http.post('/forms/display-fields/', {
                 business_id : business_id
             }).success(function(response) {
-                console.log(response)
                 if(response!=0){
+                    $scope.form_fields = response.form_fields;
                     for (field in response.form_fields) {
+                        if(response.form_fields[field].field_type == "Text Field"){
+                            $('#field-'+field).append('<input type="text" class="form-control" ng-model="'+response.form_fields[field].label+'" required>')
 
+                        }else if(response.form_fields[field].field_type == "Radio"){
+
+                            $('#field-'+field).append('<input type="radio" ng-model="'+response.form_fields[field].value_a+'">'+response.form_fields[field].label +
+                            '<input type="radio" ng-model="'+response.form_fields[field].value_b+'">'+response.form_fields[field].label)
+
+                        }else if(response.form_fields[field].field_type == "Checkbox"){
+
+                            $('#field-'+field).append('<input type="checkbox" ng-model="'+response.form_fields[field].label+'" required>')
+                        }else if(response.form_fields[field].field_type == "Dropdown"){
+                            dropdown = '<select class="form-control" ng-model="'+response.form_fields[field].label+'">'
+
+                            for (option in response.form_fields[field].options){
+                                dropdown += '<option value="'+response.form_fields[field].options[option]+'">'+response.form_fields[field].options[option]+'</option>';
+                            }
+
+                            dropdown += '</select>';
+                            $('#field-'+field).append(dropdown);
+                        }
                     }
+                }else{
+                    $scope.form_fields = response.form_fields;
                 }
-                $scope.form_fields = response.form_fields;
             });
         };
 
