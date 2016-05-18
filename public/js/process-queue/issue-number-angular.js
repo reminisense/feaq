@@ -44,6 +44,7 @@
 
         $scope.issueSpecific = function(priority_number, name, phone, email, time_assigned){
             $scope.isIssuing = true;
+            custom_fields = new Array()
             if(process_queue){process_queue.isCalling = true;}
             url = pq.urls.issue_numbers.issue_specific_url;
             service_id = $('#services').val() ? $('#services').val() : pq.ids.service_id;
@@ -61,6 +62,14 @@
                         message = 'Issue number successful! <br> Number : ' + response.number.priority_number;
                         pq.jquery_functions.issue_number_success(message);
                         $scope.sendWebsocket();
+
+                        if($scope.form_fields != null){
+                            for (field in $scope.form_fields){
+                                custom_fields[field].label = $scope.form_fields[field].label
+                                custom_fields[field].input = $scope[field];
+                            }
+                            $http.post('/issuenumber/insert-custom-fields/', custom_fields).success();
+                        }
 
                         $scope.priority_number = '';
                         $scope.name = '';
@@ -81,70 +90,86 @@
         };
 
         $scope.checkIssueSpecificErrors = function(priority_number, number_limit, issue){
-            time_format = /^([0-9]{2})\:([0-9]{2})([ ][aApP][mM])$/g;
-            issue = issue != undefined ? issue : true;
-            error = false
-            error_message = '';
-
-            //variables
-            priority_number = priority_number != null ? priority_number : $scope.priority_number;
-
-            //check priority number
-            //if(isNaN(priority_number) || priority_number % 1 != 0){
+            //time_format = /^([0-9]{2})\:([0-9]{2})([ ][aApP][mM])$/g;
+            //issue = issue != undefined ? issue : true;
+            //error = false
+            //error_message = '';
+            //
+            ////variables
+            //priority_number = priority_number != null ? priority_number : $scope.priority_number;
+            //
+            ////check priority number
+            ////if(isNaN(priority_number) || priority_number % 1 != 0){
+            ////    error = true;
+            ////    error_message += 'Priority number is invalid. ';
+            ////}
+            //
+            //if(number_limit != null && (priority_number > number_limit)){
             //    error = true;
-            //    error_message += 'Priority number is invalid. ';
+            //    error_message += 'Priority number is greater than the limit. ';
             //}
+            //
+            ////check phone number
+            //if(isNaN($scope.phone)){
+            //    error = true;
+            //    error_message += 'Phone number is invalid. ';
+            //}
+            //
+            ////check email
+            //if($scope.issue_specific_form.email.$error.email ){
+            //    error = true;
+            //    error_message += 'Invalid email format. ';
+            //}
+            //
+            ////check time assigned
+            //if(time_format.test($scope.time_assigned) != true && $scope.time_assigned){
+            //    error = true;
+            //    error_message += 'Invalid time format. ';
+            //}
+            //
+            //try{
+            //   if(angular.module('PublicBroadcast')){
+            //       if($scope.issue_specific_form.name.$error.required){
+            //           error = true;
+            //           error_message += 'Your name is required. ';
+            //       }
+            //
+            //       if($scope.issue_specific_form.phone.$error.required){
+            //           error = true;
+            //           error_message += 'Phone number is required. ';
+            //       }
+            //
+            //       if($scope.issue_specific_form.email.$error.required){
+            //           error = true;
+            //           error_message += 'Email address is required. ';
+            //       }
+            //   }
+            //}catch(err){}
+            //
+            //if(!error && issue){
+            //    $scope.issue_specific_error = '';
+            //    $scope.issueSpecific($scope.priority_number, $scope.name, $scope.phone, $scope.email, $scope.time_assigned);
+            //}else{
+            //    $scope.issue_specific_error = error_message;
+            //    setTimeout(function(){ $scope.issue_specific_error = '';}, 3000);
+            //}
+            //return error;
 
-            if(number_limit != null && (priority_number > number_limit)){
-                error = true;
-                error_message += 'Priority number is greater than the limit. ';
+            custom_fields= new Array();
+            console.log($scope.form_fields);
+
+            if($scope.form_fields != null){
+                for (field in $scope.form_fields){
+                    custom_fields[field] = {
+                        label: $scope.form_fields[field],
+                        input: $scope[field]
+                    }
+                    console.log($scope['test'+field]);
+                }
+
+                console.log(custom_fields);
+                //$http.post('/issuenumber/insert-custom-fields/', custom_fields).success();
             }
-
-            //check phone number
-            if(isNaN($scope.phone)){
-                error = true;
-                error_message += 'Phone number is invalid. ';
-            }
-
-            //check email
-            if($scope.issue_specific_form.email.$error.email ){
-                error = true;
-                error_message += 'Invalid email format. ';
-            }
-
-            //check time assigned
-            if(time_format.test($scope.time_assigned) != true && $scope.time_assigned){
-                error = true;
-                error_message += 'Invalid time format. ';
-            }
-
-            try{
-               if(angular.module('PublicBroadcast')){
-                   if($scope.issue_specific_form.name.$error.required){
-                       error = true;
-                       error_message += 'Your name is required. ';
-                   }
-
-                   if($scope.issue_specific_form.phone.$error.required){
-                       error = true;
-                       error_message += 'Phone number is required. ';
-                   }
-
-                   if($scope.issue_specific_form.email.$error.required){
-                       error = true;
-                       error_message += 'Email address is required. ';
-                   }
-               }
-            }catch(err){}
-
-            if(!error && issue){
-                $scope.issue_specific_error = '';
-                $scope.issueSpecific($scope.priority_number, $scope.name, $scope.phone, $scope.email, $scope.time_assigned);
-            }else{
-                $scope.issue_specific_error = error_message;
-                setTimeout(function(){ $scope.issue_specific_error = '';}, 3000);
-            }
-            return error;
         };
 
         $scope.checkIssueMultipleErrors = function(){
@@ -297,18 +322,20 @@
                     $scope.form_fields = response.form_fields;
                     for (field in response.form_fields) {
                         if(response.form_fields[field].field_type == "Text Field"){
-                            $('#field-'+field).append('<input type="text" class="form-control" ng-model="'+response.form_fields[field].label+'" required>')
+                            $('#field-'+field).append('<input type="text" class="form-control" ng-model="test'+field+'" required>')
 
                         }else if(response.form_fields[field].field_type == "Radio"){
 
-                            $('#field-'+field).append('<input type="radio" ng-model="'+response.form_fields[field].value_a+'">'+response.form_fields[field].label +
-                            '<input type="radio" ng-model="'+response.form_fields[field].value_b+'">'+response.form_fields[field].label)
-
+                            $('#field-'+field).append('<input type="radio" ng-model="'+field+'" name="'+field+'">'+response.form_fields[field].value_a +
+                            '<input type="radio" ng-model="test'+field+'" name="'+field+'">'+response.form_fields[field].value_b)
+                            $('#field-'+field).css("padding-bottom", "20px");
                         }else if(response.form_fields[field].field_type == "Checkbox"){
 
-                            $('#field-'+field).append('<input type="checkbox" ng-model="'+response.form_fields[field].label+'" required>')
+                            $('#field-'+field).append('<input type="checkbox" ng-model="'+field+'" required>')
+                            $('#field-'+field).css("padding-bottom", "20px");
+
                         }else if(response.form_fields[field].field_type == "Dropdown"){
-                            dropdown = '<select class="form-control" ng-model="'+response.form_fields[field].label+'">'
+                            dropdown = '<select class="form-control" ng-model="'+field+'">'
 
                             for (option in response.form_fields[field].options){
                                 dropdown += '<option value="'+response.form_fields[field].options[option]+'">'+response.form_fields[field].options[option]+'</option>';

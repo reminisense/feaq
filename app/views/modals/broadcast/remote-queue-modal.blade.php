@@ -61,11 +61,11 @@
                             <div class="tab-pane fade active in" id="insertq">
                                 <form class="navbar-form navbar-left">
                                     <div class="form-group row">
-                                        <div ng-repeat="(form_id, field) in form_fields" class="col-md-12">
+                                        <div ng-repeat="(form_id, field) in form_fields" class="col-md-12" style="padding-left: 0px; padding-right: 0px;">
                                             <div class="col-md-4">
                                                 <label>@{{ field.label }}</label>
                                             </div>
-                                            <div class="col-md-8" id="field-@{{ form_id }}" style="margin-bottom: 20px">
+                                            <div class="col-md-8" id="field-@{{ form_id }}">
                                             </div>
                                         </div>
                                     </div>

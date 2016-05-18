@@ -55,6 +55,10 @@ class IssueNumberController extends BaseController{
         }
     }
 
+    public function postInsertCustomFields(){
+
+    }
+
     private function queueNumberExists($email){
         $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
         $count = PriorityNumber::where('priority_number.date', '=', $date)
