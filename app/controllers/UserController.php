@@ -208,7 +208,11 @@ class UserController extends BaseController{
         if($user){
             $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
             $user_queue = User::getUserHistory($user->user_id, 99, 0, $date);
-            $queue_status = $user_queue[0]['date'] == $date && $user_queue[0]['time_called'] == 0 ? 0 : 1;
+            if($user_queue){
+                $queue_status = $user_queue[0]['date'] == $date && $user_queue[0]['time_called'] == 0 ? 0 : 1;
+            }else{
+                $queue_status = 1;
+            }
             return json_encode(
                 array(
                     'status' => '1',
