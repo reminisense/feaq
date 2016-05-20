@@ -225,6 +225,7 @@ class ProcessQueue extends Eloquent{
                 $verified = false;
             }
 
+            $custom_field = $number->custom_fields ? json_decode($number->custom_fields) : null;
             /*legend*/
             //uncalled  : not served and not removed
             //called    : called, not served and not removed
@@ -243,6 +244,7 @@ class ProcessQueue extends Eloquent{
                     'name' => $number->name,
                     'phone' => $number->phone,
                     'email' => $number->email,
+                    'custom_fields' => $custom_field,
                     'verified_email' => $verified,
                     'checked_in' => $checked_in,
                     'time_called' => $number->time_called,
@@ -258,6 +260,7 @@ class ProcessQueue extends Eloquent{
                     'name' => $number->name,
                     'phone' => $number->phone,
                     'email' => $number->email,
+                    'custom_fields' => $custom_field,
                     'verified_email' => $verified,
                     'checked_in' => $checked_in,
                     'time_called' => $number->time_called,
@@ -273,6 +276,7 @@ class ProcessQueue extends Eloquent{
                     'name' => $number->name,
                     'phone' => $number->phone,
                     'email' => $number->email,
+                    'custom_fields' => $custom_field,
                     'verified_email' => $verified,
                     'checked_in' => $checked_in,
                     'time_called' => $number->time_called,
@@ -292,6 +296,7 @@ class ProcessQueue extends Eloquent{
                     'name' => $number->name,
                     'phone' => $number->phone,
                     'email' => $number->email,
+                    'custom_fields' => $custom_field,
                     'verified_email' => $verified, //Added by JCA
                     'box_rank' => Terminal::boxRank($number->terminal_id), // Added by PAG
                     'color' => Terminal::getColorByTerminalId($number->terminal_id),
@@ -375,6 +380,7 @@ class ProcessQueue extends Eloquent{
 				q.name,
 			    q.phone,
 			    q.email,
+			    q.custom_fields,
 				t.transaction_number,
 				t.time_called,
 				t.time_removed,
@@ -399,6 +405,7 @@ class ProcessQueue extends Eloquent{
 				q.name,
 			    q.phone,
 			    q.email,
+                q.custom_fields,
 				t.transaction_number,
 				t.time_called,
 				t.time_removed,

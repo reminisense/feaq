@@ -108,5 +108,106 @@ class FormsController extends BaseController{
       return json_encode(array('message' => 'You are not allowed to access this function.'));
     }
   }
+    public function postConvertToFormat(){
+
+        $name = $_POST['name'];
+        $phone = $_POST['phone'];
+        $email = $_POST['email'];
+        $custom_fields = $_POST['custom_fields'];
+        $format = $_POST['data-format'];
+
+        if($format == "json") {
+            header('Content-disposition: attachment; filename=data.json');
+            header('Content-type: application/json');
+
+
+            $json_contents = json_encode(array(
+                'name' => $name,
+                'phone' => $phone,
+                'email' => $email,
+                'custom_fields' => $custom_fields
+            ));
+
+            echo $json_contents;
+
+        
+//        }else if ($format == "xml"){
+//
+//        }else if ($format == "csv") {
+//
+//
+////            header("Content-Type: text/csv");
+////            header("Content-Disposition: attachment; filename=file.csv");
+////            // Disable caching
+////            header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1
+////            header("Expires: 0"); // Proxies
+//
+//
+//            $data = [
+//                'name' => $name,
+//                'phone' => $phone,
+//                'email' => $email
+//            ];
+////                'custom_fields'=>$custom_fields
+//
+//
+//
+//            var_dump($data);
+//
+//            $output = fopen("php://output", "w");
+//            foreach ($data as $row) {
+//                var_dump($row);
+////                fputcsv($output, $row); // here you can change delimiter/enclosure
+//            }
+//
+//            fclose($output);
+////
+////            $fp = fopen($csv_file, 'w');
+////            fputcsv($fp, array_keys($input));
+////            fputcsv($fp,$input);
+////            fclose($fp);
+//
+////
+        }
+
+//
+
+
+//        $json_file = public_path() . '/form-data.json';
+//        $csv_file = public_path() . '/form-data.csv';
+//        $xml_file = public_path() . '/form-data.xml';
+//
+//        //Saves CSV
+//        $fp = fopen($csv_file, 'w');
+//        fputcsv($fp, array_keys($input));
+//        fputcsv($fp,$input);
+//        fclose($fp);
+//
+//        //Saves JSON
+//        file_put_contents($json_file, json_encode($input, JSON_PRETTY_PRINT));
+//
+//        //Saves XML
+//        $xml = new SimpleXMLElement('<data/>');
+//        foreach($array as $key => $value) {
+//            if(is_array($value)) {
+//                if(!is_numeric($key)){
+//                    $subnode = $xml_user_info->addChild("$key");
+//                    array_to_xml($value, $subnode);
+//                }else{
+//                    $subnode = $xml_user_info->addChild("item$key");
+//                    array_to_xml($value, $subnode);
+//                }
+//            }else {
+//                $xml_user_info->addChild("$key",htmlspecialchars("$value"));
+//            }
+//        }
+//        Helper::array_to_xml($input,$xml);
+//
+//        $dom = dom_import_simplexml($xml)->ownerDocument;
+//        $dom->formatOutput = true;
+//        $dom->save($xml_file);
+
+//        return json_encode(['success' => 1]);
+    }
 
 }
