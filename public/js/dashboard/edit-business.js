@@ -905,7 +905,7 @@ var eb = {
                         handles: 'e'
                     }).bind( "resize", function(e) {
                         var total_width = parseInt($('#ad-well-inner').css('width'));
-                        var percent_num = Math.floor(parseInt(total_width) * 0.25);
+                        var percent_num = Math.floor(parseInt(total_width) * 0.10);
                         var percent_ad = Math.floor(parseInt(total_width) * 0.50);
 
                         var adwidth = parseInt($("#ad-width").css('width'));
