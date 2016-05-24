@@ -340,7 +340,7 @@
 
                         }else if(response.form_fields[field].field_type == "Radio"){
 
-                            $('#field-'+field).append('<input type="radio" id="'+field+'" name="'+field+'" value="'+response.form_fields[field].value_a+'">'+response.form_fields[field].value_a +
+                            $('#field-'+field).append('<input type="radio" id="'+field+'" name="'+field+'" value="'+response.form_fields[field].value_a+'">'+response.form_fields[field].value_a +'</br>'+
                             '<input type="radio" id="'+field+'" name="'+field+'" value="'+response.form_fields[field].value_b+'">'+response.form_fields[field].value_b)
                             $('#field-'+field).css("padding-bottom", "20px");
                         }else if(response.form_fields[field].field_type == "Checkbox"){

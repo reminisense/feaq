@@ -146,7 +146,6 @@ var pq = {
                 if(custom_fields.length > 0){
 
                     var dropdown;
-                    var custom_fields;
 
                     for(i=0;i<custom_fields.length;i++){
                         $('.priority-number-custom-fields').append('<div class="col-md-4 col-xs-4"><h5>'+custom_fields[i].label+': </h5></div>'+
@@ -154,6 +153,7 @@ var pq = {
                     }
 
                     dropdown = '<form method=post action="../../forms/convert-to-format" target="content_iframe">'+
+                    '<div class="col-md-4 col-xs-4">'+
                     '<select name="data-format">'+
                     '<option value="json">Json</option>'+
                     '<option value="xml">XML</option>'+
@@ -164,23 +164,18 @@ var pq = {
                     '<input type="hidden" name="email" value="'+email+'">';
 
                     for(i=0;i<custom_fields.length;i++){
-                        console.log(custom_fields);
+                        dropdown+= '';
+                        dropdown+= '<input type="hidden" name="custom_fields['+i+']['+"id"+']" value="'+custom_fields[i].id+'">';
                         dropdown+= '<input type="hidden" name="custom_fields['+i+']['+"id"+']" value="'+custom_fields[i].id+'">';
                         dropdown+= '<input type="hidden" name="custom_fields['+i+']['+"label"+']" value="'+custom_fields[i].label+'">';
                         dropdown+= '<input type="hidden" name="custom_fields['+i+']['+"input"+']" value="'+custom_fields[i].input+'">';
+                        dropdown+= '</div>';
                     }
 
-                    dropdown+= '<input type="submit" name="submit">'+
+                    dropdown+= '<div class="col-md-8 col-xs-8"><input type="submit" name="submit"></div>'+
                     '</form>'+
                     '<iframe name="content_iframe" style="display: none;"></iframe>'
 
-                    //
-                    //First name: <input type="text" name="firstname" />
-                    //<br />
-                    //Last name: <input type="text" name="lastname" />
-                    //<br />
-                    //<input type="submit" name="submit">
-                    //</form>
                     $('.priority-number-custom-fields').append(dropdown);
 
                 }
@@ -204,7 +199,7 @@ var pq = {
                 name = $(this).attr('data-name') ? $(this).attr('data-name') : 'Not specified';
                 phone = $(this).attr('data-phone') ? $(this).attr('data-phone') : 'Not specified';
                 email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
-                custom_fields = $(this).attr('data-custom_fields') ? $(this).attr('data-custom_fields') : null;
+                custom_fields = $(this).data('custom_fields') ? $(this).data('custom_fields') : null;
                 priority_number = $(this).attr('data-priority-number');
                 transaction_number = $(this).attr('data-transaction-number');
                 confirmation_code = $(this).attr('data-confirmation-code');
@@ -217,12 +212,16 @@ var pq = {
                 $('#priority-number-email').html(email);
                 $('#priority-number-modal').attr('data-transaction-number', transaction_number);
 
-                if(custom_fields != null){
+
+                if(custom_fields.length > 0){
+
                     for(i=0;i<custom_fields.length;i++){
+                        console.log(custom_fields[i]);
                         $('.priority-number-custom-fields').append('<div class="col-md-4 col-xs-4"><h5>'+custom_fields[i].label+': </h5></div>'+
                         '<div class="col-md-8 col-xs-8"><h5 id="priority-number-email">'+custom_fields[i].input+'</h5></div>');
                     }
                 }
+
 
                 $('#priority-number-modal .modal-body #pmore-tab .messages a').trigger('click');
             });
@@ -247,12 +246,6 @@ var pq = {
                 $('#priority-number-email').html(email);
                 $('#priority-number-modal').attr('data-transaction-number', transaction_number);
 
-                if(custom_fields != null){
-                    for(i=0;i<custom_fields.length;i++){
-                        $('.priority-number-custom-fields').append('<div class="col-md-4 col-xs-4"><h5>'+custom_fields[i].label+': </h5></div>'+
-                        '<div class="col-md-8 col-xs-8"><h5 id="priority-number-email">'+custom_fields[i].input+'</h5></div>');
-                    }
-                }
 
                 $('#priority-number-modal .modal-body ul .details a').trigger('click');
 
