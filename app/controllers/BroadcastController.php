@@ -117,6 +117,14 @@ class BroadcastController extends BaseController{
         $ad_class = 'sixty';
         $num_class = 'forty';
       }
+      else if ($percentage == 10) {
+        $ad_class = 'ninety';
+        $num_class = 'ten';
+      }
+      else if ($percentage == 20) {
+        $ad_class = 'eighty';
+        $num_class = 'twenty';
+      }
       elseif ($percentage <= 30) {
         $ad_class = 'seventy';
         $num_class = 'thirty';
