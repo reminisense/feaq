@@ -36,7 +36,6 @@ $(document).ready(function(){
     $('.date-today').on('click', function(){
         $('.datepicker').datepicker('show');
     });
-
 });
 
 //these functions and variables are separated since they are using jquery
@@ -88,6 +87,7 @@ var pq = {
                     $(this).attr('data-name'),
                     $(this).attr('data-email'),
                     $(this).attr('data-phone'),
+                    $(this).attr('data-custom_fields'),
                     $(this).attr('data-queue_platform'),
                     $(this).attr('data-checked_in')
                 );
@@ -100,7 +100,6 @@ var pq = {
             $('#message-inbox').removeClass('active');
             $('#my-business').addClass('active');
         },
-
         load_show_modal : function(){
             process_queue = angular.element($("#process-queue-wrapper")).scope();
             issue_number_modal = angular.element($("#moreq")).scope();
@@ -129,6 +128,7 @@ var pq = {
                 name = $(this).attr('data-name') ? $(this).attr('data-name') : 'Not specified';
                 phone = $(this).attr('data-phone') ? $(this).attr('data-phone') : 'Not specified';
                 email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
+                custom_fields = $(this).data('custom_fields') ? $(this).data('custom_fields') : null;
                 priority_number = $(this).attr('data-priority-number');
                 transaction_number = $(this).attr('data-transaction-number');
                 confirmation_code = $(this).attr('data-confirmation-code');
@@ -140,6 +140,45 @@ var pq = {
                 $('#priority-number-phone').html(phone);
                 $('#priority-number-email').html(email);
                 $('#priority-number-modal').attr('data-transaction-number', transaction_number);
+
+                user_name = name;
+
+                if(custom_fields.length > 0){
+
+                    var dropdown;
+
+                    for(i=0;i<custom_fields.length;i++){
+                        $('.priority-number-custom-fields').append('<div class="col-md-4 col-xs-4"><h5>'+custom_fields[i].label+': </h5></div>'+
+                        '<div class="col-md-8 col-xs-8"><h5 id="priority-number-email">'+custom_fields[i].input+'</h5></div>');
+                    }
+
+                    dropdown = '<form method=post action="../../forms/convert-to-format" target="content_iframe">'+
+                    '<div class="col-md-4 col-xs-4">'+
+                    '<select name="data-format">'+
+                    '<option value="json">Json</option>'+
+                    '<option value="xml">XML</option>'+
+                    '<option value="csv">CSV</option>'+
+                    '</select></div>'+
+                    '<input type="hidden" name="name" value="'+user_name+'">'+
+                    '<input type="hidden" name="phone" value="'+phone+'">'+
+                    '<input type="hidden" name="email" value="'+email+'">';
+
+                    for(i=0;i<custom_fields.length;i++){
+                        dropdown+= '';
+                        dropdown+= '<input type="hidden" name="custom_fields['+i+']['+"id"+']" value="'+custom_fields[i].id+'">';
+                        dropdown+= '<input type="hidden" name="custom_fields['+i+']['+"id"+']" value="'+custom_fields[i].id+'">';
+                        dropdown+= '<input type="hidden" name="custom_fields['+i+']['+"label"+']" value="'+custom_fields[i].label+'">';
+                        dropdown+= '<input type="hidden" name="custom_fields['+i+']['+"input"+']" value="'+custom_fields[i].input+'">';
+                        dropdown+= '</div>';
+                    }
+
+                    dropdown+= '<div class="col-md-8 col-xs-8"><input type="submit" name="submit"></div>'+
+                    '</form>'+
+                    '<iframe name="content_iframe" style="display: none;"></iframe>'
+
+                    $('.priority-number-custom-fields').append(dropdown);
+
+                }
 
                 $('#priority-number-modal .modal-body ul .details a').trigger('click');
 
@@ -160,6 +199,7 @@ var pq = {
                 name = $(this).attr('data-name') ? $(this).attr('data-name') : 'Not specified';
                 phone = $(this).attr('data-phone') ? $(this).attr('data-phone') : 'Not specified';
                 email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
+                custom_fields = $(this).data('custom_fields') ? $(this).data('custom_fields') : null;
                 priority_number = $(this).attr('data-priority-number');
                 transaction_number = $(this).attr('data-transaction-number');
                 confirmation_code = $(this).attr('data-confirmation-code');
@@ -171,6 +211,17 @@ var pq = {
                 $('#priority-number-phone').html(phone);
                 $('#priority-number-email').html(email);
                 $('#priority-number-modal').attr('data-transaction-number', transaction_number);
+
+
+                if(custom_fields.length > 0){
+
+                    for(i=0;i<custom_fields.length;i++){
+                        console.log(custom_fields[i]);
+                        $('.priority-number-custom-fields').append('<div class="col-md-4 col-xs-4"><h5>'+custom_fields[i].label+': </h5></div>'+
+                        '<div class="col-md-8 col-xs-8"><h5 id="priority-number-email">'+custom_fields[i].input+'</h5></div>');
+                    }
+                }
+
 
                 $('#priority-number-modal .modal-body #pmore-tab .messages a').trigger('click');
             });
@@ -182,6 +233,7 @@ var pq = {
                 name = $(this).attr('data-name') ? $(this).attr('data-name') : 'Not specified';
                 phone = $(this).attr('data-phone') ? $(this).attr('data-phone') : 'Not specified';
                 email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
+                custom_fields = $(this).attr('data-custom_fields') ? $(this).attr('data-custom_fields') : null;
                 priority_number = $(this).attr('data-priority-number');
                 transaction_number = $(this).attr('data-transaction-number');
                 confirmation_code = $(this).attr('data-confirmation-code');
@@ -193,6 +245,7 @@ var pq = {
                 $('#priority-number-phone').html(phone);
                 $('#priority-number-email').html(email);
                 $('#priority-number-modal').attr('data-transaction-number', transaction_number);
+
 
                 $('#priority-number-modal .modal-body ul .details a').trigger('click');
 
@@ -213,10 +266,10 @@ var pq = {
                 name = $(this).attr('data-name') ? $(this).attr('data-name') : 'Not specified';
                 phone = $(this).attr('data-phone') ? $(this).attr('data-phone') : 'Not specified';
                 email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
+                custom_fields = $(this).attr('data-custom_fields') ? $(this).attr('data-custom_fields') : null;
                 priority_number = $(this).attr('data-priority-number');
                 transaction_number = $(this).attr('data-transaction-number');
                 confirmation_code = $(this).attr('data-confirmation-code');
-
                 $('#priority-number-modal .modal-title').html('#' + priority_number);
                 $('#priority-number-number').html(priority_number);
                 $('#priority-number-confirmation-code').html(confirmation_code);
@@ -224,6 +277,13 @@ var pq = {
                 $('#priority-number-phone').html(phone);
                 $('#priority-number-email').html(email);
                 $('#priority-number-modal').attr('data-transaction-number', transaction_number);
+
+                if(custom_fields != null){
+                    for(i=0;i<custom_fields.length;i++){
+                        $('.priority-number-custom-fields').append('<div class="col-md-4 col-xs-4"><h5>'+custom_fields[i].label+': </h5></div>'+
+                        '<div class="col-md-8 col-xs-8"><h5 id="priority-number-email">'+custom_fields[i].input+'</h5></div>');
+                    }
+                }
 
                 $('#allowed-businesses option').remove();
                 $('#allowed-businesses-area').hide();
@@ -244,6 +304,7 @@ var pq = {
             $('#priority-number-name').html('');
             $('#priority-number-phone').html('');
             $('#priority-number-email').html('');
+            $('.priority-number-custom-fields').html('');
         },
 
         remove_and_update_dropdown : function(transaction_number){
@@ -258,7 +319,7 @@ var pq = {
             });
         },
 
-        select_number : function(tnumber, pnumber, username, email, phone, queue_platform, checked_in){
+        select_number : function(tnumber, pnumber, username, email, phone, custom_fields, queue_platform, checked_in){
             username = username != undefined ? username : '';
             queue_platform = queue_platform != undefined ? queue_platform : '';
             checked_in = checked_in != undefined ? checked_in : false;
@@ -272,8 +333,9 @@ var pq = {
                 'title="Number: ' + pnumber + '" ' +
                 'data-priority-number="' + pnumber + '" ' +
                 'data-name="' + username + '" ' +
-                'data-phone="' + phone + '" ' +
                 'data-email="' + email + '" ' +
+                'data-phone="' + phone + '" ' +
+                'data-custom_fields="' + custom_fields + '" ' +
                 'data-toggle="modal" ' +
                 'data-target="#priority-number-modal"' +
                 '>';
@@ -292,7 +354,7 @@ var pq = {
 
 
             $('#selected-tnumber').val(tnumber);
-            $('#selected-pnumber').html(pnumber + ' <small class="font-normal"> via <span style="text-transform:capitalize;">' + queue_platform + '</span></small>');
+            $('#selected-pnumber').html( queue_platform != 'web' ? pnumber + ' <small class="font-normal"> via <span style="text-transform:capitalize;">' + queue_platform + '</span></small>' : pnumber);
             $('#selected-userinfo').html(userinfo);
         },
 

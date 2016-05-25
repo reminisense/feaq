@@ -54,7 +54,7 @@ Processs Queue > {{ $business_name }}
             <div class="col-md-offset-1 col-md-7 col-sm-8">
                 <p>Processing Queues for:</p>
                 <h2><strong>{{ $business_name }}</strong></h2>
-                <h3><strong>{{ $service_name }} - {{ $terminal_name }}</strong></h3>
+                <h3 class="cyan"><strong>{{ $service_name }} - {{ $terminal_name }}</strong></h3>
                 Showing numbers for date:
                 <div class="col-md-12 row">
                     <div class="col-md-4">
@@ -94,12 +94,13 @@ Processs Queue > {{ $business_name }}
                                             data-name="@{{ number.name }}"
                                             data-email="@{{ number.email }}"
                                             data-phone="@{{ number.phone }}"
+                                            data-custom_fields="@{{ number.custom_fields }}"
                                             data-queue_platform="@{{ number.queue_platform }}"
                                             data-checked_in="@{{ number.checked_in }}"
                                             data-confirmation-code="@{{ number.confirmation_code }}"
                                             >
                                             @{{ number.priority_number }}
-                                            <small class="font-normal">via <span style="text-transform:capitalize;">@{{ number.queue_platform }}</span></small>
+                                            <small class="font-normal" ng-if="number.queue_platform != 'web'">via <span style="text-transform:capitalize;">@{{ number.queue_platform }}</span></small>
                                             <span
                                                class="pull-right font-normal mr5 userinfo show-messages"
                                                title="Number: @{{ number.priority_number }}"
@@ -109,6 +110,7 @@ Processs Queue > {{ $business_name }}
                                                data-name="@{{ number.name }}"
                                                data-email="@{{ number.email }}"
                                                data-phone="@{{ number.phone }}"
+                                               data-custom_fields="@{{ number.custom_fields }}"
                                                data-confirmation-code="@{{ number.confirmation_code }}"
                                             >
                                                 <a href="#">
@@ -133,12 +135,13 @@ Processs Queue > {{ $business_name }}
                                             data-name="@{{ number.name }}"
                                             data-email="@{{ number.email }}"
                                             data-phone="@{{ number.phone }}"
+                                            data-custom_fields="@{{ number.custom_fields }}"
                                             data-queue_platform="@{{ number.queue_platform }}"
                                             data-checked_in="@{{ number.checked_in }}"
                                             data-confirmation-code="@{{ number.confirmation_code }}"
                                             >
                                             @{{ number.priority_number }}
-                                            <small class="font-normal">via <span style="text-transform:capitalize;">@{{ number.queue_platform }}</span></small>
+                                            <small class="font-normal" ng-if="number.queue_platform != 'web'">via <span style="text-transform:capitalize;">@{{ number.queue_platform }}</span></small>
                                             <span
                                                class="font-normal pull-right mr5 userinfo show-messages"
                                                title="Number: @{{ number.priority_number }}"
@@ -148,6 +151,7 @@ Processs Queue > {{ $business_name }}
                                                data-name="@{{ number.name }}"
                                                data-email="@{{ number.email }}"
                                                data-phone="@{{ number.phone }}"
+                                               data-custom_fields="@{{ number.custom_fields }}"
                                                data-confirmation-code="@{{ number.confirmation_code }}"
                                             >
                                                 <a href="#" class="notcheckedin">
@@ -207,16 +211,17 @@ Processs Queue > {{ $business_name }}
                     </tr>
                     <tr ng-repeat="number in called_numbers" data-tnumber="@{{ number.transaction_number }}">
                         <th scope="row">
-                            <a href="#" class="priority-number" title="Number: @{{ number.priority_number }}" data-transaction-number="@{{ number.transaction_number }}" data-priority-number="@{{ number.priority_number }}" data-name="@{{ number.name }}" data-phone="@{{ number.phone }}" data-email="@{{ number.email }}" data-confirmation-code="@{{ number.confirmation_code }}" data-toggle="modal" data-target="#priority-number-modal">
-                                @{{ number.priority_number }} <span class="glyphicon glyphicon-zoom-in"></span>
+                            <a href="#" class="priority-number" title="Number: @{{ number.priority_number }}" data-transaction-number="@{{ number.transaction_number }}" data-priority-number="@{{ number.priority_number }}" data-name="@{{ number.name }}" data-phone="@{{ number.phone }}" data-email="@{{ number.email }}" data-custom_fields="@{{ number.custom_fields }}" data-confirmation-code="@{{ number.confirmation_code }}" data-toggle="modal" data-target="#priority-number-modal">
+                                @{{ number.priority_number }}
                             </a>
+                            <span class="pull-right @{{ number.terminal_id == terminal_id ? 'cyan' : 'red' }}">@{{ number.terminal_name }}</span>
                         </th>
                         <td>
-                            <div>
-                                <a ng-if="number.name" href="#" class="show-messages" title="Number: @{{ number.priority_number }}" data-transaction-number="@{{ number.transaction_number }}" data-priority-number="@{{ number.priority_number }}" data-name="@{{ number.name }}" data-phone="@{{ number.phone }}" data-email="@{{ number.email }}" data-confirmation-code="@{{ number.confirmation_code }}" data-toggle="modal" data-target="#priority-number-modal">
-                                    <span>@{{ number.name }}</span>
-                                </a>
-                            </div>
+                            {{--<div>--}}
+                                {{--<a ng-if="number.name" href="#" class="show-messages" title="Number: @{{ number.priority_number }}" data-transaction-number="@{{ number.transaction_number }}" data-priority-number="@{{ number.priority_number }}" data-name="@{{ number.name }}" data-phone="@{{ number.phone }}" data-email="@{{ number.email }}"  data-custom_fields="@{{ number.custom_fields }}" data-confirmation-code="@{{ number.confirmation_code }}" data-toggle="modal" data-target="#priority-number-modal">--}}
+                                    {{--<span>@{{ number.name }}</span>--}}
+                                {{--</a>--}}
+                            {{--</div>--}}
                         </td>
                         <td>
                             <form ng-if="date == today" class="star-rating-form" ng-show="called_numbers[$index].verified_email">
@@ -228,8 +233,24 @@ Processs Queue > {{ $business_name }}
                                     <input type="radio" name="rating" ng-model="called_numbers_rating[$index]" value="5"><i></i>
                                 </span>
                             </form>
-                            <a ng-if="date == today" class="delete" ng-click="dropNumber(number.transaction_number)" ng-disabled="isProcessing"><span class="glyphicon glyphicon-trash"></span></a>
+                            <a ng-if="date == today" class="delete" ng-disabled="isProcessing" data-toggle="modal" data-target="#drop-modal"><span class="glyphicon glyphicon-trash"></span></a>
                             <a ng-if="date == today" class="btn btn-sm btn-default"  ng-click="serveAndCallNext(number.transaction_number)" ng-disabled="isProcessing">Next <span class="glyphicon glyphicon-arrow-right"></span></a>
+                            <div id="drop-modal" class="modal fade">
+                                <div class="modal-dialog">
+                                    <div class="modal-content text-left">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title">Drop Number</h3>
+                                        </div>
+                                        <div class="modal-body text-left">
+                                            <h5>Are you sure that you want to drop this number?</h5>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" data-dismiss="modal" class="btn btn-danger" id="delete" ng-click="dropNumber(number.transaction_number)">Drop</button>
+                                            <button type="button" data-dismiss="modal" class="btn">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                     </tbody>

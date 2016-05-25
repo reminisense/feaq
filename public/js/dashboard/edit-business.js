@@ -222,7 +222,6 @@ var eb = {
                 scope.business_id = business_id;
             });
         },
-
         setUserId : function(user_id){
             var scope = angular.element($("#editBusiness")).scope();
             scope.$apply(function(){
@@ -398,6 +397,7 @@ var eb = {
         $scope.input_sms_field = 0;
         $scope.allow_remote = 0;
         $scope.remote_limit = 0;
+        $scope.remote_time = null;
         $scope.process_queue_layout = 0;
 
         $scope.add_terminal = {
@@ -468,6 +468,7 @@ var eb = {
             $scope.input_sms_field = business.input_sms_field;
             $scope.allow_remote = business.allow_remote ? true : false;
             $scope.remote_limit = business.remote_limit;
+            $scope.remote_time = business.remote_time;
             $scope.process_queue_layout = business.process_queue_layout ? true : false;
             $scope.terminals = business.terminals;
             $scope.services = business.services;
@@ -775,6 +776,7 @@ var eb = {
                     input_sms_field: $scope.input_sms_field,
                     allow_remote: $scope.allow_remote ? 1 : 0,
                     remote_limit: $scope.remote_limit,
+                    remote_time: $scope.remote_time,
                     process_queue_layout: $scope.process_queue_layout ? 1 : 0,
                     sms_gateway : $scope.sms_gateway
                 }
@@ -1238,9 +1240,11 @@ var eb = {
          };
          */
 
-        $scope.deleteFormField = function(form_id) {
+        $scope.deleteFormField = function(form_id, business_id) {
+            console.log(business_id)
             if (confirm('Are you sure you want to delete this field?')) {
                 $http.post(eb.urls.forms.delete_field_url, {
+                    business_id : business_id,
                     form_id : form_id
                 }).success(function(response) {
                     $('.field-'+form_id).remove();
@@ -1358,6 +1362,7 @@ var eb = {
                console.log(response.status+" "+response.message);
             });
         }
+        $scope.displayFormFields($('#business_id').val());
 
         websocket.onerror	= function(response){
             $('#WebsocketLoaderModal').modal('show');

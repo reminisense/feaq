@@ -475,7 +475,8 @@
                                 </td>
                                 <td>
                                     <label>Password:</label><br>
-                                    <button class="btn btn-primary btn-lg" type="button" ng-click="resetPass(user_id)">Reset Password</button>
+                                    <button class="btn btn-primary btn-lg" type="button" ng-click="resetPass(user_id)">Reset</button>
+                                    <span class="alert alert-info" ng-show="new_password"> @{{ new_password }}</span>
                                 </td>
                             </tr>
                             <tr>

@@ -71,7 +71,7 @@ class FormsController extends BaseController{
   }
 
   public function postDisplayFields() {
-    if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId())) { // PAG added permission checking
+    if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId()) || Helper::userId() != 0) { // PAG added permission checking
       $fields = $this->getFields(Input::get('business_id'));
       if (!count($fields)) {
         $fields = 0;
@@ -108,5 +108,75 @@ class FormsController extends BaseController{
       return json_encode(array('message' => 'You are not allowed to access this function.'));
     }
   }
+    public function postConvertToFormat(){
+
+        $name = $_POST['name'];
+        $phone = $_POST['phone'];
+        $email = $_POST['email'];
+        $custom_fields = $_POST['custom_fields'];
+        $format = $_POST['data-format'];
+
+        $data = array(
+            'name' => $name,
+            'phone' => $phone,
+            'email' => $email,
+        );
+
+
+        for($i = 0; $i < count($custom_fields); $i++ ){
+            $data[$custom_fields[$i]['label']] = $custom_fields[$i]['input'];
+        }
+
+
+        if($format == "json") {
+
+            header('Content-disposition: attachment; filename=file.json');
+            header('Content-type: application/json');
+
+            $json_contents = json_encode($data, JSON_PRETTY_PRINT);
+
+            echo $json_contents;
+
+        }else if ($format == "xml"){
+
+            header('Content-type: text/xml');
+            header('Content-Disposition: attachment; filename="file.xml"');
+
+            //Saves XML
+            $xml = new SimpleXMLElement("<?xml version=\"1.0\"?><data></data>");
+
+            foreach($data as $key => $value) {
+                if(is_array($value)) {
+                    if(!is_numeric($key)){
+                        $subnode = $xml->addChild("$key");
+                        array_to_xml($value, $subnode);
+                    }else{
+                        $subnode = $xml->addChild("item$key");
+                        array_to_xml($value, $subnode);
+                    }
+                }else {
+                    $xml->addChild("$key",htmlspecialchars("$value"));
+                }
+            }
+
+            echo $xml->asXML();
+
+        }else if ($format == "csv") {
+
+
+            header("Content-Type: text/csv");
+            header("Content-Disposition: attachment; filename=file.csv");
+            // Disable caching
+            header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1
+            header("Expires: 0"); // Proxies
+
+
+            $output = fopen("php://output", "w");
+            fputcsv($output, array_keys($data));
+            fputcsv($output,$data);
+            fclose($output);
+        }
+
+    }
 
 }

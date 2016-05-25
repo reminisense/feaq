@@ -251,6 +251,7 @@ class BusinessController extends BaseController
                 $queue_settings->getUpdate($business['business_id'], 'input_sms_field', $business_data['input_sms_field']);
                 $queue_settings->getUpdate($business['business_id'], 'allow_remote', $business_data['allow_remote']);
                 $queue_settings->getUpdate($business['business_id'], 'remote_limit', $business_data['remote_limit']);
+                $queue_settings->getUpdate($business['business_id'], 'remote_time', $business_data['remote_time']);
                 $queue_settings->getUpdate($business['business_id'], 'process_queue_layout', $business_data['process_queue_layout']);
 
                 //sms settings
@@ -705,5 +706,15 @@ class BusinessController extends BaseController
             Business::where('business_id', '=', $business_id)->update(array('raw_code' => $raw_code));
         }
         print 'Raw codes generated.';
+    }
+
+    public function getAssignedBusinesses(){
+        if(Auth::check()){
+            $user_id = Helper::userId();
+            $assigned_businesses = TerminalUser::getBusinessAssignment($user_id);
+            return json_encode(['businesses' => $assigned_businesses, 'user_id' => $user_id]);
+        }else{
+            return json_encode(['error' => 'Please Login to FeatherQ']);
+        }
     }
 }

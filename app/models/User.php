@@ -247,8 +247,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
                 business.business_id as business_id,
                 business.name as business_name,
                 business.local_address as business_address,
-                terminal_transaction.time_completed as time_completed,
                 terminal_transaction.time_queued as time_queued,
+                terminal_transaction.time_checked_in as time_checked_in,
+                terminal_transaction.time_called as time_called,
+                terminal_transaction.time_completed as time_completed,
                 MAX(queue_analytics.action) as status
             ')
             ->orderBy('queue_analytics.transaction_number', 'desc')
