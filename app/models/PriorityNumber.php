@@ -32,4 +32,24 @@ class PriorityNumber extends Eloquent {
     return PriorityNumber::where('service_id', '=', $service_id)->select(array('track_id'))->get();
   }
 
+    public static function getCustomFieldsDataByServiceId($service_id){
+
+        $result = PriorityNumber::where('priority_number.service_id','=',$service_id)
+            ->join('priority_queue', 'priority_queue.track_id', '=', 'priority_number.track_id')
+            ->whereIn('priority_queue.queue_platform',array('android','remote'))
+            ->selectRaw('
+                priority_queue.transaction_number,
+                priority_queue.priority_number,
+                priority_queue.confirmation_code,
+                priority_queue.name,
+                priority_queue.phone,
+                priority_queue.email,
+                priority_queue.custom_fields
+            ')
+           ->orderBy('priority_queue.transaction_number')
+            ->get();
+
+        return $result;
+    }
+
 }

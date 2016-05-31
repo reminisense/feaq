@@ -233,7 +233,7 @@ var pq = {
                 name = $(this).attr('data-name') ? $(this).attr('data-name') : 'Not specified';
                 phone = $(this).attr('data-phone') ? $(this).attr('data-phone') : 'Not specified';
                 email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
-                custom_fields = $(this).attr('data-custom_fields') ? $(this).attr('data-custom_fields') : null;
+                custom_fields = $(this).data('custom_fields') ? $(this).data('custom_fields') : null;
                 priority_number = $(this).attr('data-priority-number');
                 transaction_number = $(this).attr('data-transaction-number');
                 confirmation_code = $(this).attr('data-confirmation-code');
@@ -246,6 +246,14 @@ var pq = {
                 $('#priority-number-email').html(email);
                 $('#priority-number-modal').attr('data-transaction-number', transaction_number);
 
+                if(custom_fields.length > 0){
+
+                    for(i=0;i<custom_fields.length;i++){
+                        console.log(custom_fields[i]);
+                        $('.priority-number-custom-fields').append('<div class="col-md-4 col-xs-4"><h5>'+custom_fields[i].label+': </h5></div>'+
+                        '<div class="col-md-8 col-xs-8"><h5 id="priority-number-email">'+custom_fields[i].input+'</h5></div>');
+                    }
+                }
 
                 $('#priority-number-modal .modal-body ul .details a').trigger('click');
 
@@ -266,7 +274,7 @@ var pq = {
                 name = $(this).attr('data-name') ? $(this).attr('data-name') : 'Not specified';
                 phone = $(this).attr('data-phone') ? $(this).attr('data-phone') : 'Not specified';
                 email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
-                custom_fields = $(this).attr('data-custom_fields') ? $(this).attr('data-custom_fields') : null;
+                custom_fields = $(this).data('custom_fields') ? $(this).data('custom_fields') : null;
                 priority_number = $(this).attr('data-priority-number');
                 transaction_number = $(this).attr('data-transaction-number');
                 confirmation_code = $(this).attr('data-confirmation-code');
@@ -278,8 +286,10 @@ var pq = {
                 $('#priority-number-email').html(email);
                 $('#priority-number-modal').attr('data-transaction-number', transaction_number);
 
-                if(custom_fields != null){
+                if(custom_fields.length > 0){
+
                     for(i=0;i<custom_fields.length;i++){
+                        console.log(custom_fields[i]);
                         $('.priority-number-custom-fields').append('<div class="col-md-4 col-xs-4"><h5>'+custom_fields[i].label+': </h5></div>'+
                         '<div class="col-md-8 col-xs-8"><h5 id="priority-number-email">'+custom_fields[i].input+'</h5></div>');
                     }

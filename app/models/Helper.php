@@ -430,4 +430,20 @@ class Helper extends Eloquent
     public static function checkAccessKey(){
         return Hash::check('FeatherQ', Request::header('access_key'));
     }
+
+    public static function array_to_xml($array, $xml){
+        foreach($array as $key => $value) {
+            if(is_array($value)) {
+                if(!is_numeric($key)){
+                    $subnode = $xml->addChild("$key");
+                    Helper::array_to_xml($value, $subnode);
+                }else{
+                    $subnode = $xml->addChild("transaction$key");
+                    Helper::array_to_xml($value, $subnode);
+                }
+            }else {
+                $xml->addChild("$key",htmlspecialchars("$value"));
+            }
+        }
+    }
 }

@@ -179,4 +179,78 @@ class FormsController extends BaseController{
 
     }
 
+    public function getBusinessData()
+    {
+        $input = Input::all();
+
+        if(Service::find($input['id'])){
+
+            $data = json_decode(PriorityNumber::getCustomFieldsDataByServiceId($input['id']));
+
+            foreach ($data as &$value) {
+                $value->custom_fields = json_decode($value->custom_fields);
+                if ($value->custom_fields != null) {
+                    foreach ($value->custom_fields as $custom_field) {
+                        $value->{$custom_field->label} = $custom_field->input;
+                    }
+                }
+                unset($value->custom_fields);
+                $value = (array)$value;
+            }
+
+            if ($input['type'] == 'json') {
+
+                header('Content-disposition: attachment; filename=file.json');
+                header('Content-type: application/json');
+
+                $json_contents = json_encode($data, JSON_PRETTY_PRINT);
+
+                echo $json_contents;
+
+            } else if ($input['type'] == 'xml') {
+
+                header('Content-type: text/xml');
+                header('Content-Disposition: attachment; filename="file.xml"');
+
+                $xml = new SimpleXMLElement("<?xml version=\"1.0\"?><data></data>");
+
+                Helper::array_to_xml($data,$xml);
+
+                $dom = dom_import_simplexml($xml)->ownerDocument;
+                $dom->formatOutput = true;
+                echo $dom->saveXML();
+
+            } else if ($input['type'] == 'csv') {
+
+                $header = array_keys($data[0]);
+
+                header("Content-Type: text/csv");
+                header("Content-Disposition: attachment; filename=file.csv");
+                // Disable caching
+                header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1
+                header("Expires: 0"); // Proxies
+
+                $output = fopen("php://output", "w");
+
+                foreach ($data as $row) {
+                    $diff = array_diff(array_keys($row), $header);
+                    if ($diff) {
+                        $header = array_merge($header, $diff);
+                    }
+                }
+                fputcsv($output, $header);
+
+                foreach ($data as $row) {
+                    fputcsv($output, $row);
+                }
+                fclose($output);
+            }else{
+                return json_encode(array('error_message'=>'Invalid file type.'));
+            }
+        }else{
+            return json_encode(array('error_message'=>'Service not found.'));
+        }
+
+
+    }
 }
