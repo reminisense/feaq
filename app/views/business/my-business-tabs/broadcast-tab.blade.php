@@ -26,6 +26,19 @@
             </div>--}}
         </div>
         <div class="clearfix">
+        <div class="col-md-12" id="qrcode-widget">
+            <a href="" id="toggle-qrcode" class="mb20 btn btn-md btn-primary"><i class="glyphicon glyphicon-qrcode"></i> Show QR Code</a>
+            <div class="clearfix qrcode-wrap">
+                <div class="clearfix text-center abs" id="qrcode-size">
+                    <a class="pull-left" id="qr-decrease"><i class="glyphicon glyphicon-minus"></i></a>
+                    Size
+                    <a class="pull-right" id="qr-increase"><i class="glyphicon glyphicon-plus"></i></a>
+                </div>
+                <p>Monitor via phone</p>
+                    <img src="/images/qrcode.jpg" />
+                <p id="qrcode-link">featherq.com/<span>ABCD</span></p>
+            </div>
+        </div>
             <div class="clearfix" id="ad-well-inner">
                 <div class="mb30 ui-widget ui-widget-content" id="ad-width" style="float: left; min-height:400px; border-right: 3px dotted #337ab7;">
                     <div class="ads-type acarousel">
@@ -41,8 +54,8 @@
                             </div>
                         </div>
                         <div class="clearfix" style="margin-top: 80px;">
-                            <div class="col-md-12 reorder-note" style="">
-                                <div class="alert alert-warning" style="font-size: 14px;">Reorder Images as they Appear in the Broadcast Screen. You might have to refresh the broadcast screen after re-ordering.</div>
+                            <div class="col-md-12 reorder-note" >
+                                <div class="alert alert-warning" style="font-size: 12px;">Reorder Images as they Appear in the Broadcast Screen. You might have to refresh the broadcast screen after re-ordering.</div>
                             </div>
                             <div class="col-md-12 table-responsive reorder-images">
                                 <table class="table table-striped" id="ad-images-preview">
@@ -72,7 +85,7 @@
                         </div>
                     </div>
                     <div class="ads-type ainternet_tv">
-                        <div class="clearfix">
+                        <div class="col-md-12">
                             <div class="form-group">
                             <small>Choose a channel:</small>
                                 <select ng-model="settings.tv_channel" ng-init="settings.tv_channel" id="tv-channel" class="form-control ng-pristine ng-valid ng-touched">
@@ -118,7 +131,7 @@
                     </div>
                 </div>
                 <div class="mb30 ui-widget ui-widget-content" id="ad-num-width" style="float: left; min-height: 400px;">
-                    <h2 style="background-color: #b9ccd5;margin-top: -20px;padding: 13px 10px;width: 96%;" class="mb30 text-center">NOW SERVING</h2>
+                    <h2 style="background-color: #b9ccd5;margin-top: -10px;padding: 13px 10px;width: 96%;" class="mb30 text-center">NOW SERVING</h2>
                     <div class="q-wrap q-numbers">
                         <button type="button" id="" class="mb10 btn btn-primary btn-md q-minus">
                             <span class="glyphicon glyphicon-minus"></span> Numbers
@@ -131,8 +144,8 @@
                         </div>
                     </div>
                     <div class="clearfix">
-                        <span class="blue mt20" style="display: block"><input style="font-size: 30px;" type="checkbox" ng-model="settings.show_called"> &nbsp; Show only called numbers in broadcast page</span>
-                        <span class="blue mt20" style="display: block"><input style="font-size: 30px;" type="checkbox" ng-model="settings.show_names"> &nbsp; Show customer names in broadcast page</span>
+                        <span class="blue mt20" style="display: block"><input style="font-size: 30px;" type="checkbox" ng-model="settings.show_called"> &nbsp; Show only called numbers</span>
+                        <span class="blue mt20" style="display: block"><input style="font-size: 30px;" type="checkbox" ng-model="settings.show_names"> &nbsp; Show customer names</span>
                     </div>
                 </div>
             </div>

@@ -57,6 +57,22 @@ $(document).ready(function(){
     $(document).on('change', '#ad-video', function(){
         $('#vid-submit-btn').removeClass('btn-disabled');
     });
+    /*toggle qrcode image on business settings*/
+    $( '#toggle-qrcode' ).click(function() {
+        $( '.qrcode-wrap' ).toggle();
+        $(this).html( $(this).html() == '<i class="glyphicon glyphicon-eye-close"></i>  Hide QR Code' ? '<i class="glyphicon glyphicon-qrcode"></i>  Show QR Code' : '<i class="glyphicon glyphicon-eye-close"></i>  Hide QR Code' );
+    });
+    $( '#qr-decrease').click(function() {
+        $( '.qrcode-wrap').css({
+            'width' : $(this).width() - 20
+            /*haha di man mo gana pls ko enhance*/
+        });
+    });
+    $( '#qr-increase').click(function() {
+        $( '.qrcode-wrap').css({
+            'width' : $(this).width() + 20
+        });
+    });
 
     /*removed by rodel to give modal a go*/
     /*$(document).on('click', '.process-queue', function(e){
@@ -913,12 +929,45 @@ var eb = {
                         if (numwidth >= percent_num && adwidth >= percent_ad){
                             $('#ad-width').css('width', adwidth);
                             $('#ad-num-width').css('width', numwidth);
+                            $('#ad-num-width h2').css({
+                                "font-size": "1vw",
+                                "width": "96%"
+                            });
+                            $('.q-numbers .half').css({
+                                "width": "47%"
+                            });
+                            $('.q-minus, .q-add').css({
+                                "width": "inherit",
+                                "font-size": "12px"
+                            });
                         } else if (numwidth <= percent_num) {
                             $('#ad-width').css('width', total_width - percent_num);
                             $('#ad-num-width').css('width', percent_num);
+                            $('#ad-num-width h2').css({
+                                "font-size": "0.8vw",
+                                "width": "100%"
+                            });
+                            $('.q-numbers .half').css({
+                                "width": "100%"
+                            });
+                            $('.q-minus, .q-add').css({
+                                "width": "100%",
+                                "font-size": "8px"
+                            });
                         } else if (adwidth <= percent_ad) {
                             $('#ad-width').css('width', percent_ad);
                             $('#ad-num-width').css('width', total_width - percent_ad);
+                            $('#ad-num-width h2').css({
+                                "font-size": "1vw",
+                                "width": "96%"
+                            });
+                            $('.q-numbers .half').css({
+                                "width": "47%"
+                            });
+                            $('.q-minus, .q-add').css({
+                                "width": "inherit",
+                                "font-size": "12px"
+                            });
                         }
                     });
 

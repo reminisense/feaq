@@ -774,7 +774,7 @@ button#sendreply {
     background-color: #c6dce5;
 }
 #ad-width, #ad-num-width {
-    padding: 20px;
+    padding: 10px 5px;
     border: none;
 }
 #ad-well-inner {
@@ -1037,3 +1037,34 @@ form .bg-gray {
     padding: 12px 15px;
     width: 100%;
 }
+#toggle-qrcode {
+    z-index: 100;
+    position: relative;
+    color: #fff;
+}
+.qrcode-wrap {
+    background-color: #fff;
+    display: none;
+    left: 8px;
+    padding: 30px 10px 10px;
+    position: absolute;
+    text-align: center;
+    top: 210px;
+    width: 120px;
+    z-index: 20;
+    -webkit-box-shadow: 4px 3px 6px 0 rgba(0,0,0,0.3);
+    box-shadow: 4px 3px 6px 0 rgba(0,0,0,0.3);
+}
+.qrcode-wrap p {margin-bottom: 8px; font-size: 11px; font-family: 'ralewaybold'; color: #ff8649;}
+.qrcode-wrap #qrcode-link {font-size: 8px; margin-bottom: 0;}
+.qrcode-wrap #qrcode-link span {font-size: 11px; color: #ff8649;}
+.qrcode-wrap img {margin: auto; width: 80%; margin-bottom: 8px;}
+#qrcode-size {
+    background-color: #337ab7;
+    color: #fff;
+    left: 0;
+    width: 100%;
+    top: 0px;
+    padding: 3px 6px;
+}
+#qrcode-size a {color: #fff;}
