@@ -473,4 +473,47 @@ class MobileController extends BaseController{
             return json_encode(['success' => 0, 'error' => 'Transaction number not found.']);
         }
     }
+
+    public function getCustomFieldsData($transaction_number){
+        if(PriorityQueue::where('transaction_number', '=', $transaction_number)->exists()) {
+            $result= PriorityQueue::where('transaction_number', '=', $transaction_number)->first(['custom_fields']);
+            return json_decode($result->custom_fields);
+        }else{
+            return json_encode(['success' => 0, 'error' => 'Transaction number not found.']);
+        }
+    }
+
+    public function getCustomFields($service_id){
+
+        if(Forms::where('service_id', '=', $service_id)->exists()) {
+            $fields = array();
+            $res = Forms::getFieldsByServiceId($service_id);
+            foreach ($res as $count => $data) {
+                $field_data = unserialize($data->field_data);
+                $fields[$data->form_id] = array(
+                    'field_type' => $data->field_type,
+                    'label' => $field_data['label'],
+                    'options' => array_key_exists('options', $field_data) ? unserialize($field_data['options']) : array(),
+                    'value_a' => array_key_exists('value_a', $field_data) ? $field_data['value_a'] : '',
+                    'value_b' => array_key_exists('value_b', $field_data) ? $field_data['value_b'] : '',
+                );
+            }
+            return json_encode($fields);
+        }else{
+            return json_encode(['success' => 0, 'error' => 'Transaction number not found.']);
+        }
+    }
+
+    public function postInsertCustomFieldsData(){
+        $data = Input::all();
+        $result =  PriorityQueue::updateCustomFieldsOfNumber($data['transaction_number'], json_encode($data['input']));
+
+        if($result){
+            return json_encode(['success' => 1]);
+        }else{
+            return json_encode(['error' =>'Something Went Wrong']);
+        }
+
+    }
+
 }

@@ -56,9 +56,7 @@ class IssueNumberController extends BaseController{
     }
 
     public function postInsertCustomFields(){
-
         $data = Input::all();
-
         $result =  PriorityQueue::updateCustomFieldsOfNumber($data['transaction_number'], json_encode($data['input']));
 
         if($result){

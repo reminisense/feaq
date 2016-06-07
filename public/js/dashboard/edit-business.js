@@ -1173,53 +1173,77 @@ var eb = {
         });
 
         $scope.addTextField = function(business_id) {
-            $http.post(eb.urls.forms.add_textfield_url, {
-                business_id : business_id,
-                text_field_label : $scope.text_field_label
-            }).success(function(response) {
-                $scope.displayFormFields(business_id);
-                $('#add-text-field').modal('hide');
-                $('#text-field-label').val('');
-            });
+            var service_id =  $('#text-fld').val();
+            if(service_id != ""){
+                $http.post(eb.urls.forms.add_textfield_url, {
+                    service_id : service_id,
+                    text_field_label : $scope.text_field_label
+                }).success(function(response) {
+                    $scope.displayFormFields(business_id);
+                    $('#add-text-field').modal('hide');
+                    $('#text-field-label').val('');
+                });
+            }else{
+                $('#text-error').fadeIn();
+                $('#text-error').fadeOut(3000);
+            }
         };
 
         $scope.addRadioButton = function(business_id) {
-            $http.post(eb.urls.forms.add_radiobutton_url, {
-                business_id : business_id,
-                radio_button_label : $scope.radio_button_label,
-                radio_value_a : $scope.radio_value_a,
-                radio_value_b : $scope.radio_value_b
-            }).success(function(response) {
-                $scope.displayFormFields(business_id);
-                $('#add-radio-button').modal('hide');
-                $('#radio-button-label').val('');
-                $('#radio-value-a').val('');
-                $('#radio-value-b').val('');
-            });
+            var service_id =  $('#radio-fld').val();
+            if(service_id != "") {
+                $http.post(eb.urls.forms.add_radiobutton_url, {
+                    service_id: service_id,
+                    radio_button_label: $scope.radio_button_label,
+                    radio_value_a: $scope.radio_value_a,
+                    radio_value_b: $scope.radio_value_b
+                }).success(function (response) {
+                    $scope.displayFormFields(business_id);
+                    $('#add-radio-button').modal('hide');
+                    $('#radio-button-label').val('');
+                    $('#radio-value-a').val('');
+                    $('#radio-value-b').val('');
+                });
+            }else{
+                $('#radio-error').fadeIn();
+                $('#radio-error').fadeOut(3000);
+            }
         };
 
         $scope.addCheckbox = function(business_id) {
-            $http.post(eb.urls.forms.add_checkbox_url, {
-                business_id : business_id,
-                checkbox_label : $scope.checkbox_label
-            }).success(function(response) {
-                $scope.displayFormFields(business_id);
-                $('#add-check-box').modal('hide');
-                $('#check-box-label').val('');
-            });
+            var service_id =  $('#checkbox-fld').val();
+            if(service_id != "") {
+                $http.post(eb.urls.forms.add_checkbox_url, {
+                    service_id: service_id,
+                    checkbox_label: $scope.checkbox_label
+                }).success(function (response) {
+                    $scope.displayFormFields(business_id);
+                    $('#add-check-box').modal('hide');
+                    $('#check-box-label').val('');
+                });
+            }else{
+                $('#checkbox-error').fadeIn();
+                $('#checkbox-error').fadeOut(3000);
+            }
         };
 
         $scope.addDropdown = function(business_id) {
-            $http.post(eb.urls.forms.add_dropdown_url, {
-                business_id : business_id,
-                dropdown_label : $scope.dropdown_label,
-                dropdown_options : $scope.dropdown_options
-            }).success(function(response) {
-                $scope.displayFormFields(business_id);
-                $('#add-dropdown').modal('hide');
-                $('#dropdown-label').val('');
-                $('#dropdown-options').val('');
-            });
+            var service_id =  $('#dropdown-fld').val();
+            if(service_id != "") {
+                $http.post(eb.urls.forms.add_dropdown_url, {
+                    service_id: service_id,
+                    dropdown_label: $scope.dropdown_label,
+                    dropdown_options: $scope.dropdown_options
+                }).success(function (response) {
+                    $scope.displayFormFields(business_id);
+                    $('#add-dropdown').modal('hide');
+                    $('#dropdown-label').val('');
+                    $('#dropdown-options').val('');
+                });
+            }else{
+                $('#dropdown-error').fadeIn();
+                $('#dropdown-error').fadeOut(3000);
+            }
         };
 
         $scope.displayFormFields = function(business_id) {
@@ -1229,6 +1253,7 @@ var eb = {
                 $scope.form_fields = response.form_fields;
             });
         };
+
 
         /*
          $scope.showPreviewForm = function(business_id) {
@@ -1362,6 +1387,7 @@ var eb = {
                console.log(response.status+" "+response.message);
             });
         }
+
         $scope.displayFormFields($('#business_id').val());
 
         websocket.onerror	= function(response){

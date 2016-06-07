@@ -3,15 +3,16 @@
 class FormsController extends BaseController{
 
   public function postAddTextfield() {
-    if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId())) { // PAG added permission checking
+    if (Helper::isBusinessOwner(Business::getBusinessIdByServiceId(Input::get('service_id')), Helper::userId())) { // PAG added permission checking
       Forms::createField(array(
-        'business_id' => Input::get('business_id'),
+        'business_id' => Business::getBusinessIdByServiceId(Input::get('service_id')),
+        'service_id' => Input::get('service_id'),
         'field_type' => 'Text Field',
         'field_data' => serialize(array(
           'label' => Input::get('text_field_label'),
         )),
       ));
-      return json_encode(array('form_fields' => $this->getFields(Input::get('business_id'))));
+      return json_encode(array('form_fields' => $this->getFields(Input::get('service_id'))));
     }
     else {
       return json_encode(array('message' => 'You are not allowed to access this function.'));
@@ -19,9 +20,10 @@ class FormsController extends BaseController{
   }
 
   public function postAddRadiobutton() {
-    if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId())) { // PAG added permission checking
+      if (Helper::isBusinessOwner(Business::getBusinessIdByServiceId(Input::get('service_id')), Helper::userId())) {  // PAG added permission checking
       $form_id = Forms::createField(array(
-        'business_id' => Input::get('business_id'),
+          'business_id' => Business::getBusinessIdByServiceId(Input::get('service_id')),
+          'service_id' => Input::get('service_id'),
         'field_type' => 'Radio',
         'field_data' => serialize(array(
           'label' => Input::get('radio_button_label'),
@@ -37,9 +39,10 @@ class FormsController extends BaseController{
   }
 
   public function postAddCheckbox() {
-    if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId())) { // PAG added permission checking
+      if (Helper::isBusinessOwner(Business::getBusinessIdByServiceId(Input::get('service_id')), Helper::userId())) {  // PAG added permission checking
       $form_id = Forms::createField(array(
-        'business_id' => Input::get('business_id'),
+          'business_id' => Business::getBusinessIdByServiceId(Input::get('service_id')),
+          'service_id' => Input::get('service_id'),
         'field_type' => 'Checkbox',
         'field_data' => serialize(array(
           'label' => Input::get('checkbox_label'),
@@ -53,10 +56,11 @@ class FormsController extends BaseController{
   }
 
   public function postAddDropdown() {
-    if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId())) { // PAG added permission checking
+      if (Helper::isBusinessOwner(Business::getBusinessIdByServiceId(Input::get('service_id')), Helper::userId())) { // PAG added permission checking
       $options = preg_split('/\r\n|[\r\n]/', Input::get('dropdown_options'));
       $form_id = Forms::createField(array(
-        'business_id' => Input::get('business_id'),
+          'business_id' => Business::getBusinessIdByServiceId(Input::get('service_id')),
+          'service_id' => Input::get('service_id'),
         'field_type' => 'Dropdown',
         'field_data' => serialize(array(
           'label' => Input::get('dropdown_label'),
@@ -94,6 +98,7 @@ class FormsController extends BaseController{
         'options' => array_key_exists('options', $field_data) ? unserialize($field_data['options']) : array(),
         'value_a' => array_key_exists('value_a', $field_data) ? $field_data['value_a'] : '',
         'value_b' => array_key_exists('value_b', $field_data) ? $field_data['value_b'] : '',
+        'service_id' => $data->service_id,
       );
     }
     return $fields;
@@ -179,13 +184,13 @@ class FormsController extends BaseController{
 
     }
 
-    public function getBusinessData()
+    public function getBusinessData($business_id)
     {
         $input = Input::all();
 
-        if(Service::find($input['id'])){
+        if(Business::find($business_id)){
 
-            $data = json_decode(PriorityNumber::getCustomFieldsDataByServiceId($input['id']));
+            $data = json_decode(Business::getCustomFieldsDataByBusinessId($business_id));
 
             foreach ($data as &$value) {
                 $value->custom_fields = json_decode($value->custom_fields);
@@ -248,7 +253,7 @@ class FormsController extends BaseController{
                 return json_encode(array('error_message'=>'Invalid file type.'));
             }
         }else{
-            return json_encode(array('error_message'=>'Service not found.'));
+            return json_encode(array('error_message'=>'Business not found.'));
         }
 
 
