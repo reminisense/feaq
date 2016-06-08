@@ -61,7 +61,7 @@
                             <div class="tab-pane fade active in" id="insertq">
                                 <form class="navbar-form navbar-left">
                                     <div class="form-group row">
-                                        <div ng-repeat="(form_id, field) in form_fields" class="col-md-12" style="padding-left: 0px; padding-right: 0px;">
+                                        <div ng-repeat="(form_id, field) in form_fields" class="col-md-12" id="custom-field-@{{ form_id }}" style="padding-left: 0px; padding-right: 0px;">
                                             <div class="col-md-4">
                                                 <label>@{{ field.label }}</label>
                                             </div>
@@ -69,63 +69,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{--<div class="form-group row">--}}
-                                            {{--<div class="col-md-4">--}}
-                                                {{--<label class="ng-binding">Red</label>--}}
-                                            {{--</div>--}}
-                                            {{--<div class="col-md-8">--}}
-                                                {{--<input type="text" class="form-control" ng-model="Red" required="">--}}
-                                            {{--</div>--}}
-                                            {{--<div class="col-md-4">--}}
-                                                {{--<label class="ng-binding">Blue</label>--}}
-                                            {{--</div>--}}
-                                            {{--<div class="col-md-8" style="margin-bottom: 20px">--}}
-                                                {{--<input type="radio" ng-model="1">Blue--}}
-                                                {{--<input type="radio" ng-model="2">Blue--}}
-                                            {{--</div>--}}
-                                            {{--<div class="col-md-4">--}}
-                                                {{--<label class="ng-binding">True</label>--}}
-                                            {{--</div>--}}
-                                            {{--<div class="col-md-8" style="margin-bottom: 20px">--}}
-                                                {{--<input type="checkbox" ng-model="True" required=""></div>--}}
-                                            {{--<div class="col-md-4">--}}
-                                                {{--<label class="ng-binding">aaa</label>--}}
-                                            {{--</div>--}}
-                                            {{--<div class="col-md-8">--}}
-                                                {{--<select class="form-control" ng-model="aaa">--}}
-                                                    {{--<option value="a">a</option>--}}
-                                                    {{--<option value="a">a</option>--}}
-                                                    {{--<option value="a">a</option>--}}
-                                                {{--</select>--}}
-                                            {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="form-group row">--}}
-                                        {{--<div class="col-md-4">--}}
-                                            {{--<label>Number</label>--}}
-                                        {{--</div>--}}
-                                        {{--<div class="col-md-8">--}}
-                                            {{--<input type="text" disabled class="form-control" ng-model="get_num" name="number" required>--}}
-                                        {{--</div>--}}
-                                        {{--<div class="col-md-4">--}}
-                                            {{--<label>Name</label>--}}
-                                        {{--</div>--}}
-                                        {{--<div class="col-md-8">--}}
-                                            {{--<input type="text" class="form-control" ng-model="name" value="@{{ contactname }}" readonly name="name" required>--}}
-                                        {{--</div>--}}
-
-                                        {{--<div class="col-md-4">--}}
-                                            {{--<label>Cellphone</label>--}}
-                                        {{--</div>--}}
-                                        {{--<div class="col-md-8">--}}
-                                            {{--<input id="issued-number-phone" type="text" class="form-control" ng-model="phone" value="@{{ contactmobile }}" name="phone" required>--}}
-                                        {{--</div>--}}
-                                        {{--<div class="col-md-4">--}}
-                                            {{--<label>Email</label>--}}
-                                        {{--</div>--}}
-                                        {{--<div class="col-md-8">--}}
-                                            {{--<input type="email" class="form-control" ng-model="email" value="@{{ contactemail }}" readonly name="email" required>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
                                     <div class="alert alert-danger" role="alert" ng-show="issue_specific_error.length > 0">
                                         <div><strong class="message">@{{ issue_specific_error }}</strong></div>
                                     </div>

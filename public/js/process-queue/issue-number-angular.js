@@ -16,6 +16,8 @@
         $scope.number_end = null;
         $scope.range = null;
 
+        $scope.def_service_id = pq.ids.service_id;
+
         $scope.form_fields = null;
         var biz_id = $('#business-id').attr('business_id');
 
@@ -90,24 +92,24 @@
 
             var custom_fields = [];
             var data;
-            console.log($scope.form_fields);
 
             for (field in $scope.form_fields){
 
-                var input = $('#'+field).val();
+                if($('#custom-field-'+field).is(":visible")){
+                    var input = $('#'+field).val();
 
-                if($scope.form_fields[field].field_type == "Checkbox"){
-                    input = $('#' + field).prop('checked') ? "Yes" : "No";
-                }else if($scope.form_fields[field].field_type == "Radio"){
-                    input = $('input[name="'+field+'"]:checked').val();
+                    if($scope.form_fields[field].field_type == "Checkbox"){
+                        input = $('#' + field).prop('checked') ? "Yes" : "No";
+                    }else if($scope.form_fields[field].field_type == "Radio"){
+                        input = $('input[name="'+field+'"]:checked').val();
+                    }
+
+                    custom_fields.push({
+                        'id': field,
+                        'label': $scope.form_fields[field].label,
+                        'input': input
+                    });
                 }
-
-                custom_fields.push({
-                    'id': field,
-                    'label': $scope.form_fields[field].label,
-                    'input': input
-                });
-
             }
 
             data = {
@@ -310,6 +312,10 @@
                 setTimeout(function(){
                     $scope.selectService();
                 }, 5000);
+                if(service_id != $scope.def_service_id){
+                    $scope.def_service_id = service_id;
+                    displayFormFields(service_id);
+                }
             });
         };
 
@@ -362,8 +368,22 @@
                 }else{
                     $scope.form_fields = response.form_fields;
                 }
+                displayFormFields($scope.def_service_id);
             });
         };
+
+
+        displayFormFields = function(service_id){
+
+            for (field in $scope.form_fields) {
+                if($scope.form_fields[field].service_id != service_id){
+                    $('#custom-field-'+field).css('display','none');
+                }else{
+                    $('#custom-field-'+field).show();
+                }
+            }
+
+        }
 
         $scope.getRemoteuser = function(){
             if(!process_queue){
