@@ -22,22 +22,25 @@
     </div>
 </div>
 <div class="table table-responsive">
-    <table class="table ">
-        <thead>
-        <tr>
-            <th>Label</th>
-            <th>Field Type</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="(form_id, field) in form_fields" class="field-@{{ form_id }}">
-            <td><strong>@{{ field.label }}</strong></td>
-            <td>@{{ field.field_type }}</td>
-            <td><a href="" ng-click="deleteFormField(form_id, business_id)" class="btn-boxy btn-primary" style="display:inline-block;"><span class="glyphicon glyphicon-trash"></span></a></td>
-        </tr>
-        </tbody>
-    </table>
+    <div ng-repeat="service in services" ng-if="$index > 0">
+        <table class="table">
+            <h5 class="mb20">@{{service.name}}</h5>
+            <thead>
+            <tr>
+                <th>Label</th>
+                <th>Field Type</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="(form_id, field) in form_fields" ng-if="field.service_id == service.service_id" class="field-@{{ form_id }}">
+                <td><strong>@{{ field.label }}</strong></td>
+                <td>@{{ field.field_type }}</td>
+                <td><a href="" ng-click="deleteFormField(form_id, business_id)" class="btn-boxy btn-primary" style="display:inline-block;"><span class="glyphicon glyphicon-trash"></span></a></td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
 </div>
 
 @include('modals.forms.add-text-modal')

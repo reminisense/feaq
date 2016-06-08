@@ -14,6 +14,10 @@ class Forms extends Eloquent {
     return Forms::where('business_id', '=', $business_id)->get();
   }
 
+  public static function getFieldsByServiceId($service_id) {
+      return Forms::where('service_id', '=', $service_id)->get();
+  }
+
   public static function deleteField($form_id) {
     Forms::where('form_id', '=', $form_id)->delete();
   }

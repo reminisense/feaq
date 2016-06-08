@@ -16,7 +16,7 @@ Route::post('/', 'UserController@processContactForm');
 
 Route::get('rest/register-user/{fb_id}/{first_name}/{last_name}/{email}/{gender}/{phone}/{country}', 'RestController@getRegisterUser');
 
-Route::get('forms/service', 'FormsController@getBusinessData');
+Route::get('forms/business/{business_id}', 'FormsController@getBusinessData');
 
 Route::controller('fb', 'FBController');
 
