@@ -191,5 +191,8 @@ body#processq .tab-pane .navbar-form {
 #multipleq .form-control{
     width: 100%;
 }
+#verifyUser .has-warning .form-control {
+    border: 1px solid #ccc;
+}
 
 
