@@ -28,4 +28,28 @@ class Forms extends Eloquent {
     return $arr['label'];
   }
 
+  public static function postCreateForm($service_id, $name, $fields) {
+
+  }
+
+  public static function fetchFormsByServiceId($service_id) {
+
+  }
+
+  public static function fetchFormsByFilter($filter) {
+
+  }
+
+  public static function getTitleByFormId($form_id) {
+
+  }
+
+  public static function getServiceIdByFormId($form_id) {
+
+  }
+
+  public static function fetchFieldsByFormId($form_id) {
+
+  }
+
 }
