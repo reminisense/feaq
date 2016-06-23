@@ -13,23 +13,23 @@ class FormRecord extends Eloquent {
   public $timestamps = FALSE;
 
   public static function fetchRecordsByUserIdFormId($user_id, $form_id) {
-
+    return FormRecord::where('user_id', '=', $user_id)->where('form_id', '=', $form_id)->get();
   }
 
   public static function fetchAllRecordsByFormId($form_id) {
-
+    return FormRecord::where('form_id', '=', $form_id)->get();
   }
 
   public static function getUserIdByRecordId($record_id) {
-
+    return FormRecord::where('record_id', '=', $record_id)->select(array('user_id'))->first()->user_id;
   }
 
   public static function getTransactionNumberByRecordId($record_id) {
-
+    return FormRecord::where('record_id', '=', $record_id)->select(array('transaction_number'))->first()->transaction_number;
   }
 
   public static function getXMLPathByRecordId($record_id) {
-
+    return FormRecord::where('record_id', '=', $record_id)->select(array('record_path'))->first()->record_path;
   }
 
 }
