@@ -41,15 +41,15 @@ class Forms extends Eloquent {
   }
 
   public static function getTitleByFormId($form_id) {
-
+    return Forms::where('form_id', '=', $form_id)->select(array('form_name'))->first()->form_name;
   }
 
   public static function getServiceIdByFormId($form_id) {
-
+    return Forms::where('form_id', '=', $form_id)->select(array('service_id'))->first()->service_id;
   }
 
-  public static function fetchFieldsByFormId($form_id) {
-
+  public static function getFieldsByFormId($form_id) {
+    return Forms::where('form_id', '=', $form_id)->select(array('fields'))->first()->fields;
   }
 
 }
