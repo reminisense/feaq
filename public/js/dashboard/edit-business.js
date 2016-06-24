@@ -395,7 +395,7 @@ var eb = {
         $scope.selected_service = 0;
         $scope.selected_terminal = 0;
 
-        $scope.form_fields = [];
+        $scope.forms= [];
 
         $scope.remaining_character1  = 95;
         $scope.remaining_character2  = 95;
@@ -1221,88 +1221,35 @@ var eb = {
             });
         });
 
-        $scope.addTextField = function(business_id) {
-            var service_id =  $('#text-fld').val();
-            if(service_id != ""){
-                $http.post(eb.urls.forms.add_textfield_url, {
-                    service_id : service_id,
-                    text_field_label : $scope.text_field_label
-                }).success(function(response) {
-                    $scope.displayFormFields(business_id);
-                    $('#add-text-field').modal('hide');
-                    $('#text-field-label').val('');
-                });
-            }else{
-                $('#text-error').fadeIn();
-                $('#text-error').fadeOut(3000);
-            }
-        };
-
-        $scope.addRadioButton = function(business_id) {
-            var service_id =  $('#radio-fld').val();
-            if(service_id != "") {
-                $http.post(eb.urls.forms.add_radiobutton_url, {
-                    service_id: service_id,
-                    radio_button_label: $scope.radio_button_label,
-                    radio_value_a: $scope.radio_value_a,
-                    radio_value_b: $scope.radio_value_b
-                }).success(function (response) {
-                    $scope.displayFormFields(business_id);
-                    $('#add-radio-button').modal('hide');
-                    $('#radio-button-label').val('');
-                    $('#radio-value-a').val('');
-                    $('#radio-value-b').val('');
-                });
-            }else{
-                $('#radio-error').fadeIn();
-                $('#radio-error').fadeOut(3000);
-            }
-        };
-
-        $scope.addCheckbox = function(business_id) {
-            var service_id =  $('#checkbox-fld').val();
-            if(service_id != "") {
-                $http.post(eb.urls.forms.add_checkbox_url, {
-                    service_id: service_id,
-                    checkbox_label: $scope.checkbox_label
-                }).success(function (response) {
-                    $scope.displayFormFields(business_id);
-                    $('#add-check-box').modal('hide');
-                    $('#check-box-label').val('');
-                });
-            }else{
-                $('#checkbox-error').fadeIn();
-                $('#checkbox-error').fadeOut(3000);
-            }
-        };
-
-        $scope.addDropdown = function(business_id) {
-            var service_id =  $('#dropdown-fld').val();
-            if(service_id != "") {
-                $http.post(eb.urls.forms.add_dropdown_url, {
-                    service_id: service_id,
-                    dropdown_label: $scope.dropdown_label,
-                    dropdown_options: $scope.dropdown_options
-                }).success(function (response) {
-                    $scope.displayFormFields(business_id);
-                    $('#add-dropdown').modal('hide');
-                    $('#dropdown-label').val('');
-                    $('#dropdown-options').val('');
-                });
-            }else{
-                $('#dropdown-error').fadeIn();
-                $('#dropdown-error').fadeOut(3000);
-            }
-        };
-
-        $scope.displayFormFields = function(business_id) {
-            $http.post(eb.urls.forms.display_fields_url, {
-                business_id : business_id
-            }).success(function(response) {
-                $scope.form_fields = response.form_fields;
+        $scope.displayBusinessForms = function(business_id) {
+            $http.get('forms/display-forms/' + business_id).success(function(response) {
+                $scope.forms = response.forms;
             });
         };
 
+        $scope.displayServiceForms = function (service_id){
+            $http.get('/forms/service-forms/' + service_id).success(function(response){
+                $scope.forms = response.forms;
+            });
+        }
+
+        $scope.displayFilteredForms = function (filter, val, business_id){
+            $http.get('/forms/filtered-forms/' + filter +'/'+ val +'/'+ business_id).success(function(response){
+                $scope.forms = response.forms;
+            });
+        }
+
+        $scope.displayForms = function(input){
+            var business_id = $('#business_id').val();
+            if(input == 0){
+                $scope.displayBusinessForms(business_id);
+            }else if(typeof input == 'number' ){
+                $scope.displayServiceForms(input);
+            }else if (isNaN(input)){
+                var val = $('#filter-forms').val();
+                $scope.displayFilteredForms(input, val, business_id);
+            }
+        }
 
         /*
          $scope.showPreviewForm = function(business_id) {
@@ -1314,17 +1261,17 @@ var eb = {
          };
          */
 
-        $scope.deleteFormField = function(form_id, business_id) {
-            console.log(business_id)
-            if (confirm('Are you sure you want to delete this field?')) {
-                $http.post(eb.urls.forms.delete_field_url, {
-                    business_id : business_id,
-                    form_id : form_id
-                }).success(function(response) {
-                    $('.field-'+form_id).remove();
-                });
-            }
-        };
+        //$scope.deleteFormField = function(form_id, business_id) {
+        //    console.log(business_id)
+        //    if (confirm('Are you sure you want to delete this field?')) {
+        //        $http.post(eb.urls.forms.delete_field_url, {
+        //            business_id : business_id,
+        //            form_id : form_id
+        //        }).success(function(response) {
+        //            $('.field-'+form_id).remove();
+        //        });
+        //    }
+        //};
 
         $scope.getBusinessAnalytics = function(startdate, enddate){
             $http.post('/business/business-analytics', { business_id: $scope.business_id, startdate: startdate, enddate: enddate }).success(function(response){
@@ -1437,7 +1384,7 @@ var eb = {
             });
         }
 
-        $scope.displayFormFields($('#business_id').val());
+        $scope.displayBusinessForms($('#business_id').val());
 
         websocket.onerror	= function(response){
             $('#WebsocketLoaderModal').modal('show');

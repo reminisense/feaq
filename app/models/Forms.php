@@ -33,11 +33,11 @@ class Forms extends Eloquent {
   }
 
   public static function fetchFormsByServiceId($service_id) {
-
+      return Forms::where('service_id', '=', $service_id)->get();
   }
 
-  public static function fetchFormsByFilter($filter) {
-
+  public static function fetchFormsByFilter($filter, $value) {
+      return Forms::where($filter, '=', $value)->get();
   }
 
   public static function getTitleByFormId($form_id) {
