@@ -4,7 +4,7 @@ class Forms extends Eloquent {
 
   protected $table = 'forms';
   protected $primaryKey = 'form_id';
-  public $timestamps = FALSE;
+  public $timestamps = TRUE;
 
   public static function createField($val = array()) {
     return Forms::insertGetId($val);
@@ -28,8 +28,14 @@ class Forms extends Eloquent {
     return $arr['label'];
   }
 
-  public static function postCreateForm($service_id, $name, $fields) {
-
+  public static function postCreateForm($service_id, $name, $fields, $path) {
+      $data = [
+          'service_id' => $service_id,
+          'name' => $name,
+          'fields' => $fields,
+          'path' => $path
+      ];
+      return Forms::insert($data);
   }
 
   public static function fetchFormsByServiceId($service_id) {

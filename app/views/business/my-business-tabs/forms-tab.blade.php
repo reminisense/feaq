@@ -4,6 +4,24 @@
 </div>
 <div class="clearfix">
     <button type="button" class="btn btn-primary btn-lg" id="create_form">CREATE A FORM</button>
+    <div class="col-md-12 container" style="background-color: #daebf2">
+        <div class="col-md-6">
+            <label>Select Service :</label>
+            <select id="select-service">
+                <option ng-repeat="service in services" ng-if="service.service_id != undefined" value="@{{ service.service_id }}">@{{ service.name }}</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label>Form Name</label>
+            <input type="textfield" id="form-name">
+        </div>
+    </div>
+    <div>
+        <button type="button" class="btn btn-primary btn-lg" id="create_form">CREATE A FORM</button>
+        <button type="button" class="btn btn-primary btn-lg" id="create_form">CREATE A FORM</button>
+    </div>
+</div>
+<div class="clearfix">
     <label>Show Only</label>
     <select id="filter-forms">
         <option value="0">ALL</option>
