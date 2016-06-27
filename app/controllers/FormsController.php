@@ -9,15 +9,19 @@ class FormsController extends BaseController{
           foreach($services as $service){
               $forms = Forms::fetchFormsByServiceId($service->service_id);
               foreach ($forms as $form) {
+                  $date = new DateTime($form->time_created);
                   $data[] = array(
                       'form_id' => $form->form_id,
                       'form_name' => $form->form_name,
                       'service_id' => $form->service_id,
+                      'service_name' => Service::name($form->service_id),
+                      'date_created' => $date->format('Y-m-d'),
+                      'path' => $form->path,
                       'fields' => unserialize($form->fields)
                   );
               }
           }
-          return json_encode(array('success'=> 1, 'data' => $data));
+          return json_encode(array('success'=> 1, 'forms' => $data));
       } else {
           return json_encode(array('message' => 'You are not allowed to access this function.'));
       }
@@ -28,14 +32,19 @@ class FormsController extends BaseController{
           $data = array();
           $forms = Forms::fetchFormsByServiceId($service_id);
           foreach ($forms as $form) {
+              $date = new DateTime($form->time_created);
               $data[] = array(
                   'form_id' => $form->form_id,
                   'form_name' => $form->form_name,
                   'service_id' => $form->service_id,
+                  'service_name' => Service::name($form->service_id),
+                  'date_created' => $date->format('Y-m-d'),
+                  'date_created' => $form->time_created,
+                  'path' => $form->path,
                   'fields' => unserialize($form->fields)
               );
           }
-          return json_encode(array('success' => 1, 'data' => $data));
+          return json_encode(array('success' => 1, 'forms' => $data));
       } else {
           return json_encode(array('message' => 'You are not allowed to access this function.'));
       }
@@ -46,39 +55,21 @@ class FormsController extends BaseController{
             $data = array();
             $forms = Forms::fetchFormsByFilter($filter, $value);
             foreach ($forms as $form) {
+                $date = new DateTime($form->time_created);
                 $data[] = array(
                     'form_id' => $form->form_id,
                     'form_name' => $form->form_name,
                     'service_id' => $form->service_id,
+                    'service_name' => Service::name($form->service_id),
+                    'date_created' => $date->format('Y-m-d'),
+                    'date_created' => $form->time_created,
+                    'path' => $form->path,
                     'fields' => unserialize($form->fields)
                 );
             }
-            return json_encode(array('success' => 1, 'data' => $data));
+            return json_encode(array('success' => 1, 'forms' => $data));
         } else {
             return json_encode(array('message' => 'You are not allowed to access this function.'));
-        }
-    }
-
-    public function postSaveForm(){
-        if (Helper::isBusinessOwner(Business::getBusinessIdByServiceId(Input::get('service_id')), Helper::userId())) { // PAG added permission checking
-
-            $service_id = Input::get('service_id');
-            $name = Input::get('name');
-            $fields = Input::get('fields');
-            $form_tag = count(Forms::fetchFormsByServiceId($service_id))+1;
-            $path = 'public/xml/form_'.$service_id.'_'.$form_tag.'.xml';
-
-            $xml = new SimpleXMLElement("<?xml version=\"1.0\"?><data></data>");
-
-            Helper::array_to_xml($fields,$xml);
-
-            $dom = dom_import_simplexml($xml)->ownerDocument;
-            $dom->formatOutput = true;
-            $dom->saveXML();
-            file_put_contents($path, $dom->saveXML());
-
-            Forms::postCreateForm($service_id ,$name,serialize($fields), $path);
-            return json_encode(array('success'=>1));
         }
     }
 }
