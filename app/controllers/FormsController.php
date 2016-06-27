@@ -63,9 +63,9 @@ class FormsController extends BaseController{
         if (Helper::isBusinessOwner(Business::getBusinessIdByServiceId(Input::get('service_id')), Helper::userId())) { // PAG added permission checking
 
             $service_id = Input::get('service_id');
-            $form_tag = count(Forms::fetchFormsByServiceId($service_id))+1;
             $name = Input::get('name');
             $fields = Input::get('fields');
+            $form_tag = count(Forms::fetchFormsByServiceId($service_id))+1;
             $path = 'public/xml/form_'.$service_id.'_'.$form_tag.'.xml';
 
             $xml = new SimpleXMLElement("<?xml version=\"1.0\"?><data></data>");
@@ -75,7 +75,7 @@ class FormsController extends BaseController{
             $dom = dom_import_simplexml($xml)->ownerDocument;
             $dom->formatOutput = true;
             $dom->saveXML();
-            file_put_contents('', $dom->saveXML());
+            file_put_contents($path, $dom->saveXML());
 
             Forms::postCreateForm($service_id ,$name,serialize($fields), $path);
             return json_encode(array('success'=>1));
