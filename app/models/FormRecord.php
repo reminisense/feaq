@@ -32,4 +32,8 @@ class FormRecord extends Eloquent {
     return FormRecord::where('record_id', '=', $record_id)->select(array('record_path'))->first()->record_path;
   }
 
+  public static function getFormIdByRecordId($record_id) {
+    return FormRecord::where('record_id', '=', $record_id)->select(array('form_id'))->first()->form_id;
+  }
+
 }

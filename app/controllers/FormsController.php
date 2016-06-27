@@ -81,4 +81,23 @@ class FormsController extends BaseController{
             return json_encode(array('success'=>1));
         }
     }
+
+    public function getViewForm($form_id) {
+        if (Helper::isBusinessOwner(Business::getBusinessIdByServiceId(Input::get('service_id')), Helper::userId())) { // PAG added permission checking
+            $form_name = Forms::getTitleByFormId($form_id);
+            $service_name = Service::name(Forms::getServiceIdByFormId($form_id));
+            $fields = unserialize(Forms::getFieldsByFormId($form_id));
+            return array(
+                'fields' => $fields,
+                'service_name' => $service_name,
+                'form_name' => $form_name,
+            );
+        }
+        else {
+            return json_encode(array(
+                'status' => 403,
+                'msg' => 'You are not allowed to access this function.',
+            ));
+        }
+    }
 }
