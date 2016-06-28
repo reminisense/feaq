@@ -27,7 +27,7 @@ class FormsController extends BaseController{
       }
   }
 
-  public function  getServiceForms($service_id){
+  public function getServiceForms($service_id){
       if (Helper::isBusinessOwner(Business::getBusinessIdByServiceId($service_id), Helper::userId())) { // PAG added permission checking
           $data = array();
           $forms = Forms::fetchFormsByServiceId($service_id);
@@ -50,7 +50,7 @@ class FormsController extends BaseController{
       }
   }
 
-    public function  getFilteredForms($filter, $value,  $business_id){
+    public function getFilteredForms($filter, $value,  $business_id){
         if (Helper::isBusinessOwner($business_id, Helper::userId())) { // PAG added permission checking
             $data = array();
             $forms = Forms::fetchFormsByFilter($filter, $value);
@@ -72,4 +72,28 @@ class FormsController extends BaseController{
             return json_encode(array('message' => 'You are not allowed to access this function.'));
         }
     }
+
+    public function getViewForm($form_id) {
+        $service_id = Forms::getServiceIdByFormId($form_id);
+        $business_id = Business::getBusinessIdByServiceId($service_id);
+        if (Helper::isBusinessOwner($business_id, Helper::userId())) { // PAG added permission checking
+            $form_name = Forms::getTitleByFormId($form_id);
+            $service_name = Service::name($service_id);
+            $fields = unserialize(Forms::getFieldsByFormId($form_id));
+            $records = FormRecord::fetchAllRecordsByFormId($form_id);
+            return json_encode(array(
+              'fields' => $fields,
+              'service_name' => $service_name,
+              'form_name' => $form_name,
+              'records' => $records,
+            ));
+        }
+        else {
+            return json_encode(array(
+              'status' => 403,
+              'msg' => 'You are not allowed to access this function.',
+            ));
+        }
+    }
+
 }

@@ -6,10 +6,12 @@
  * Time: 5:21 PM
  */
 
-class FormsController extends BaseController {
+class FormRecordController extends BaseController {
 
   public function getViewRecords($form_id) {
-    if (Helper::isBusinessOwner(Business::getBusinessIdByServiceId(Input::get('service_id')), Helper::userId())) { // PAG added permission checking
+    $service_id = Forms::getServiceIdByFormId($form_id);
+    $business_id = Business::getBusinessIdByServiceId($service_id);
+    if (Helper::isBusinessOwner($business_id, Helper::userId())) { // PAG added permission checking
       $records = FormRecord::fetchAllRecordsByFormId($form_id);
       return $records;
     }
@@ -22,7 +24,9 @@ class FormsController extends BaseController {
   }
 
   public function getSearchRecords($form_id, $full_name) {
-    if (Helper::isBusinessOwner(Business::getBusinessIdByServiceId(Input::get('service_id')), Helper::userId())) { // PAG added permission checking
+    $service_id = Forms::getServiceIdByFormId($form_id);
+    $business_id = Business::getBusinessIdByServiceId($service_id);
+    if (Helper::isBusinessOwner($business_id, Helper::userId())) { // PAG added permission checking
       $arr = array();
       $users = User::searchByKeyword($full_name);
       foreach ($users as $count => $user) {
@@ -39,19 +43,22 @@ class FormsController extends BaseController {
   }
 
   public function getViewUser($record_id) {
-    if (Helper::isBusinessOwner(Business::getBusinessIdByServiceId(Input::get('service_id')), Helper::userId())) { // PAG added permission checking
+    $form_id = FormRecord::getFormIdByRecordId($record_id);
+    $service_id = Forms::getServiceIdByFormId($form_id);
+    $business_id = Business::getBusinessIdByServiceId($service_id);
+    if (Helper::isBusinessOwner($business_id, Helper::userId())) { // PAG added permission checking
       $form_id = FormRecord::getFormIdByRecordId($record_id);
       $form_name = Forms::getTitleByFormId($form_id);
-      $service_name = Service::name(Forms::getServiceIdByFormId($form_id));
+      $service_name = Service::name($service_id);
       $fields = unserialize(Forms::getFieldsByFormId($form_id));
       $form_data = FormRecord::getXMLPathByRecordId($record_id);
       $transaction_number = FormRecord::getTransactionNumberByRecordId($record_id);
-      return array(
+      return json_encode(array(
         'fields' => $fields,
         'service_name' => $service_name,
         'form_name' => $form_name,
         'form_data' => $form_data,
-      );
+      ));
     }
     else {
       return json_encode(array(
