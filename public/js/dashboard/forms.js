@@ -28,6 +28,16 @@
       });
     };
 
+    $scope.viewRecord = function (record_id) {
+      $http.get('/records/view-user/' + record_id).success(function (response) {
+        $scope.fields = response.fields;
+        $scope.service_name = response.service_name;
+        $scope.form_name = response.form_name;
+        $scope.form_data = response.form_data;
+        $scope.transaction_number = $scope.transaction_number;
+      });
+    };
+
   });
 
 })();

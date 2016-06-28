@@ -58,6 +58,7 @@ class FormRecordController extends BaseController {
         'service_name' => $service_name,
         'form_name' => $form_name,
         'form_data' => $form_data,
+        'transaction_number' => $transaction_number,
       ));
     }
     else {
