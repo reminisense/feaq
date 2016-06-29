@@ -544,7 +544,7 @@ class Analytics extends Eloquent{
         foreach($called_numbers as $called){
             foreach($served_numbers as $served){
                 if($called->transaction_number == $served->transaction_number){
-                    $serving_times[] = ($called->action_time - $served->action_time);
+                    $serving_times[] = ($served->action_time - $called->action_time);
                 }
             }
         }
@@ -597,8 +597,8 @@ class Analytics extends Eloquent{
             'mean' => $mean,
             'standard_deviation' => $standard_deviation,
             'numbers_ahead' => $numbers_ahead,
-            'upper_limit' => ($time + ($mean * $numbers_ahead)) + ($standard_deviation * $accuracy),
-            'lower_limit' => ($time + ($mean * $numbers_ahead)) - ($standard_deviation * $accuracy)
+            'upper_limit' => ($time + (($mean + ($standard_deviation * $accuracy)) * $numbers_ahead)),
+            'lower_limit' => ($time + (($mean - ($standard_deviation * $accuracy)) * $numbers_ahead))
         ];
 
         return $estimate;
