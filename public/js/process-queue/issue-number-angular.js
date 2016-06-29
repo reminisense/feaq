@@ -115,10 +115,10 @@
             data = {
                 'transaction_number': transaction_number,
                 'input': custom_fields
-            }
+            };
 
             $http.post('/issuenumber/insert-custom-fields/', data).success();
-        }
+        };
 
         $scope.checkIssueSpecificErrors = function(priority_number, number_limit, issue){
             time_format = /^([0-9]{2})\:([0-9]{2})([ ][aApP][mM])$/g;
@@ -394,7 +394,7 @@
                     }, 5000);
                 });
             }
-        }
+        };
 
         $scope.getFormFields(biz_id);
         $scope.getBusinessServices();

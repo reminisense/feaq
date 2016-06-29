@@ -504,4 +504,106 @@ class Analytics extends Eloquent{
         return array_sum($count);
     }
 
+
+    /**
+     * New Time Estimates Algorithm
+     *
+     */
+
+    public function getServiceTimeEstimates($service_id){
+        $serving_times = $this->getServingTimes($service_id);
+        if(count($serving_times) > 1){
+            $mean = $this->getMean($serving_times);
+            $standard_deviation = $this->getStandardDeviation($serving_times);
+            $time = time();
+            $numbers_ahead = 2;
+            $time_estimates = $this->getTimeEstimate($time, $numbers_ahead, $mean, $standard_deviation);
+
+            $time_estimates['upper_limit'] = Helper::millisecondsToHMSFormat($time_estimates['upper_limit']);
+            $time_estimates['lower_limit'] = Helper::millisecondsToHMSFormat($time_estimates['lower_limit']);
+            dd($time_estimates);
+        }else{
+            return 'Insufficient data';
+        }
+    }
+
+    /**
+     * @param $service_id
+     * @return array $serving_times
+     * get serving times of each transaction of service
+     */
+    private function getServingTimes($service_id){
+        $called_numbers = Analytics::where('service_id', '=', $service_id)
+            ->where('action', '=', '1')
+            ->get();
+        $served_numbers = Analytics::where('service_id', '=', $service_id)
+            ->where('action', '=', '2')
+            ->get();
+
+        $serving_times = [];
+        foreach($called_numbers as $called){
+            foreach($served_numbers as $served){
+                if($called->transaction_number == $served->transaction_number){
+                    $serving_times[] = ($called->action_time - $served->action_time);
+                }
+            }
+        }
+        //$serving_times = [10, 20, 30, 10, 20, 50, 40, 20];
+        return $serving_times;
+    }
+
+    /**
+     * @param $serving_times
+     * @return float mean
+     * get the mean of the entries given
+     */
+    private function getMean($serving_times){
+        $sum = 0;
+        $entries = count($serving_times);
+
+        foreach($serving_times as $serving_time){
+            $sum += $serving_time;
+        }
+
+        $mean = $sum / $entries;
+        return $mean;
+    }
+
+    /**
+     * @param $serving_times = array
+     * @return standard deviation
+     * get the standard deviation of the given serving times
+     */
+    private function getStandardDeviation($serving_times){
+        $entries = count($serving_times);
+        $sum_deviation = 0;
+        $mean = $this->getMean($serving_times);
+        foreach($serving_times as $serving_time){
+            $sum_deviation += ($serving_time - $mean) * ($serving_time - $mean);
+        }
+
+        return sqrt($sum_deviation/ ($entries - 1));
+    }
+
+    /**
+     * @param $time
+     * @param $standard_deviation
+     * @param int $accuracy\
+     * @return array $estimate
+     * get the time estimate using the given standard deviation
+     */
+    private function getTimeEstimate($time, $numbers_ahead, $mean, $standard_deviation, $accuracy = 2){
+        $estimate = [
+            'mean' => $mean,
+            'standard_deviation' => $standard_deviation,
+            'numbers_ahead' => $numbers_ahead,
+            'upper_limit' => ($time + ($mean * $numbers_ahead)) + ($standard_deviation * $accuracy),
+            'lower_limit' => ($time + ($mean * $numbers_ahead)) - ($standard_deviation * $accuracy)
+        ];
+
+        return $estimate;
+    }
+
+
+
 }
