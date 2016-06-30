@@ -28,3 +28,7 @@
         </tbody>
     </table>
 </div>
+
+<div ng-controller="formsController">
+    <button ng-click="viewRecord(1)">View User Record</button>
+</div>

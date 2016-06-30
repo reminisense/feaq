@@ -34,7 +34,12 @@
         $scope.service_name = response.service_name;
         $scope.form_name = response.form_name;
         $scope.form_data = response.form_data;
-        $scope.transaction_number = $scope.transaction_number;
+        $scope.transaction_number = response.transaction_number;
+        console.log($scope.service_name);
+        console.log($scope.form_name);
+        console.log($scope.transaction_number);
+        console.log($scope.fields);
+        console.log($scope.form_data);
       });
     };
 
