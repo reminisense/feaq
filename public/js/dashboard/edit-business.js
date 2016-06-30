@@ -95,6 +95,12 @@ $(document).ready(function(){
 
     $(".datepicker").datepicker();
 
+    $("#create-form").on('click', function(){
+        $('#create-form-container').show();
+        if($('#create-form-container').is(':hidden')) {
+            $('#create-form-container').show();
+        }
+    });
 
     /*select option chooser for how many numbers to display*/
     /*$(function () {
@@ -1259,9 +1265,36 @@ var eb = {
             }).success(function(){
 
             });
-
         }
 
+        $scope.addField = function(){
+            var field = $("#select-field").val();
+            var field_name = $("#field-name").val();
+            var count =  $("#fields > div").length;
+
+            if(field == 1){
+                $('#fields').append('<div id='+field_name+'-'+count+'>' +
+                '<label>'+field_name+'<label>' +
+                    '<input type="text" disabled>' +
+                    '<span class="glyphicon glyphicon-trash" onclick="deleteField('+field_name+'-'+count+')"></span>' +
+                '</div>')
+            }else if(field == 2){
+                $('#fields').append('<div id='+field_name+'-'+count+'>' +
+                '<label>'+field_name+'<label>' +
+                '<input type="text" disabled>' +
+                '<span class="glyphicon glyphicon-trash" onclick="deleteField('+field_name+'-'+count+')"></span>' +
+                '</div>')
+            }else if(field == 3){
+
+            }else if(field == 4){
+
+            }
+            if($("#fields").is(':hidden')){
+                $('#fields').show();
+            }
+
+
+        }
 
         /*
          $scope.showPreviewForm = function(business_id) {

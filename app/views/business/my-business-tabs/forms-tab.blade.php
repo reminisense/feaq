@@ -3,22 +3,77 @@
     <small>Customize the contact form to suit your business needs.</small>
 </div>
 <div class="clearfix">
-    <button type="button" class="btn btn-primary btn-lg" id="create_form">CREATE A FORM</button>
-    <div class="col-md-12 container" style="background-color: #daebf2">
-        <div class="col-md-6">
-            <label>Select Service :</label>
-            <select id="select-service">
-                <option ng-repeat="service in services" ng-if="service.service_id != undefined" value="@{{ service.service_id }}">@{{ service.name }}</option>
-            </select>
-        </div>
-        <div class="col-md-6">
-            <label>Form Name</label>
-            <input type="textfield" id="form-name">
-        </div>
+    <div style="padding-bottom: 20px;">
+        <button type="button" class="btn btn-primary btn-lg" id="create-form"><span class="	glyphicon glyphicon-plus"></span> Create a Form</button>
     </div>
-    <div>
-        <button type="button" class="btn btn-primary btn-lg" id="create_form">CREATE A FORM</button>
-        <button type="button" class="btn btn-primary btn-lg" id="create_form">CREATE A FORM</button>
+    <div id="create-form-container" style="background-color: #daebf2; display: none; padding: 20px;">
+        <div class="cold-md-12" style="text-align: center; background-color: #ffffff;">
+            <div class="container">
+                <div class="col-md-4">
+                    <label>Select a Service: </label>
+                </div>
+                <div class="col-md-8">
+                    <select id="select-service">
+                        <option ng-repeat="service in services" ng-if="service.service_id != undefined" value="@{{ service.service_id }}">@{{ service.name }}</option>
+                    </select>
+                </div>
+            </div>
+            <hr>
+            <div class="tab-pane fade active in">
+                <form class="navbar-form">
+                    <div>
+                        <input id="form-name" type="text" class="form-control" required placeholder="Form Name">
+                    </div>
+                    <hr>
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label>Number</label>
+                        </div>
+                        <div class="col-md-8">
+                            <h5> 82</h5>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Email</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" value="johndoe@gmail.com" disabled>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Name :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" disabled value="John Doe">
+                        </div>
+                        <div class="col-md-4">
+                            <label>Phone :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" disabled value="+639991516057">
+                        </div>
+                        <hr>
+                        <div class="form-control" id="fields" style="display: none;">
+                        </div>
+                        <div>
+                            <div class="col-md-5">
+                                <input type="text" id="field-name" class="form-control" placeholder="Put a Label">
+                            </div>
+                            <div class="col-md-5">
+                                <select id="select-field" class="form-control">
+                                    <option value="" disabled selected>Select a Field</option>
+                                    <option value="1">Text Field</option>
+                                    <option value="2">Checkbox</option>
+                                    <option value="3">Radio Button</option>
+                                    <option value="4">Dropdown</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" ng-click="addField()" class="btn btn-primary btn-lg" id="create-field">Add a Field</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 <div class="clearfix">
@@ -28,47 +83,3 @@
         <option ng-repeat="service in services" ng-if="service.service_id != undefined" value="@{{ service.service_id }}">@{{ service.name }}</option>
     </select>
 </div>
-{{--<div class="clearfix">--}}
-    {{--<div class="well">--}}
-        {{--<div class="row">--}}
-            {{--<div class="col-md-3">--}}
-                {{--<button type="button" id="add_textfield" class="btn btn-primary btn-lg" data-target="#add-text-field" data-toggle="modal" style="width: 100%; margin-bottom: 5px;"><span class="glyphicon glyphicon-text-size"></span> Add Text Field</button>--}}
-            {{--</div>--}}
-            {{--<div class="col-md-3">--}}
-                {{--<button type="button" id="add_radio" class="btn btn-primary btn-lg" data-target="#add-radio-button" data-toggle="modal" style="width: 100%; margin-bottom: 5px;"><span class="glyphicon glyphicon-record"></span> Add Radio</button>--}}
-            {{--</div>--}}
-            {{--<div class="col-md-3">--}}
-                {{--<button type="button" id="add_checkbox" class="btn btn-primary btn-lg" data-target="#add-check-box" data-toggle="modal" style="width: 100%; margin-bottom: 5px;"><span class="glyphicon glyphicon-check"></span> Add Checkbox</button>--}}
-            {{--</div>--}}
-            {{--<div class="col-md-3">--}}
-                {{--<button type="button" id="add_dropdown" class="btn btn-primary btn-lg" data-target="#add-dropdown" data-toggle="modal" style="width: 100%; margin-bottom: 5px;"><span class="glyphicon glyphicon-collapse-down"></span> Add Dropdown</button>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
-{{--</div>--}}
-{{--<div class="table table-responsive">--}}
-    {{--<div ng-repeat="service in services" ng-if="$index > 0">--}}
-        {{--<table class="table">--}}
-            {{--<h5 class="mb20">@{{service.name}}</h5>--}}
-            {{--<thead>--}}
-            {{--<tr>--}}
-                {{--<th>Label</th>--}}
-                {{--<th>Field Type</th>--}}
-                {{--<th></th>--}}
-            {{--</tr>--}}
-            {{--</thead>--}}
-            {{--<tbody>--}}
-            {{--<tr ng-repeat="(form_id, field) in form_fields" ng-if="field.service_id == service.service_id" class="field-@{{ form_id }}">--}}
-                {{--<td><strong>@{{ field.label }}</strong></td>--}}
-                {{--<td>@{{ field.field_type }}</td>--}}
-                {{--<td><a href="" ng-click="deleteFormField(form_id, business_id)" class="btn-boxy btn-primary" style="display:inline-block;"><span class="glyphicon glyphicon-trash"></span></a></td>--}}
-            {{--</tr>--}}
-            {{--</tbody>--}}
-        {{--</table>--}}
-        {{--</div>--}}
-{{--</div>--}}
-
-{{--@include('modals.forms.add-text-modal')--}}
-{{--@include('modals.forms.add-radio-modal')--}}
-{{--@include('modals.forms.add-checkbox-modal')--}}
-{{--@include('modals.forms.add-dropdown-modal')--}}
