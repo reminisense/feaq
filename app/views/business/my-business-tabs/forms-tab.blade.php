@@ -33,4 +33,5 @@
     <button ng-click="viewForm(1)">View Form</button><br>
     <input type="text" ng-model="keyword">
     <button ng-click="searchUserRecords(1, keyword)">Search Record</button>
+    <button ng-click="viewRecord(1)">View User Record</button>
 </div>
