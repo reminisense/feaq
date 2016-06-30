@@ -78,3 +78,4 @@ Route::controller('services', 'ServiceController');
 //raw code implementation
 Route::get('/{raw_code?}', 'UserController@getUserDashboard');
 
+Route::controller('records', 'FormRecordController');

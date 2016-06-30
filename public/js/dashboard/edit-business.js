@@ -1222,7 +1222,7 @@ var eb = {
         });
 
         $scope.displayBusinessForms = function(business_id) {
-            $http.get('forms/display-forms/' + business_id).success(function(response) {
+            $http.get('/forms/display-forms/' + business_id).success(function(response) {
                 $scope.forms = response.forms;
             });
         };
