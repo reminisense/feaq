@@ -28,3 +28,9 @@
         </tbody>
     </table>
 </div>
+
+<div ng-controller="formsController">
+    <button ng-click="viewForm(1)">View Form</button><br>
+    <input type="text" ng-model="keyword">
+    <button ng-click="searchUserRecords(1, keyword)">Search Record</button>
+</div>
