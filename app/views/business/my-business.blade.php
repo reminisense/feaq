@@ -7,6 +7,7 @@ My Business
 @section('styles')
     <link rel="stylesheet" href="/plupload/js/jquery.plupload.queue/css/jquery.plupload.queue.css" type="text/css" media="screen" />
     <link rel='stylesheet' type='text/css' href='/css/business/business.css'>
+    <link rel='stylesheet' type='text/css' href='/css/business/onoff.css'>
     <link rel='stylesheet' type='text/css' href='/css/business/responsive.css'>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
 @stop
@@ -22,6 +23,8 @@ My Business
     <script src="/js/dashboard/dashboard.js"></script>
     <script src="/js/dashboard/edit-business.js"></script>
     <script src="/js/dashboard/forms.js"></script>
+    <script src="/js/dashboard/business-forms.js"></script>
+    <script src="/js/dashboard/onoff.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.4/jstz.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
