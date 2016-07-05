@@ -7,6 +7,7 @@
         <button type="button" class="btn btn-primary btn-lg" id="create-form"><span class="	glyphicon glyphicon-plus"></span> Create a Form</button>
     </div>
 </div>
+<div ng-controller="formsController">
 <div class="clearfix create-form-wrap">
               <div class="col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
                 <div class="clearfix">
@@ -159,7 +160,7 @@
                         <th>Generic Health checkup</th>
                         <td>98</td>
                         <td>June 17, 2016</td>
-                        <td><a href="" id="btn-view-form"><span class="glyphicon glyphicon-eye-open"></span>View</a></td>
+                        <td><a href="" id="btn-view-form" ng-click="viewForm(1)"><span class="glyphicon glyphicon-eye-open"></span>View</a></td>
                         <td id="onoff"><input type="checkbox" checked data-toggle="toggle"></td>
                       </tr>
                       <tr>
@@ -209,15 +210,15 @@
                 <tbody>
                   <tr>
                     <td><strong>Name</strong></td>
-                    <td><strong>Lebron James</strong></td>
+                    <td><strong>@{{ fullName }}</strong></td>
                   </tr>
                   <tr>
                     <td>Time check-in</td>
-                    <td>Lebron James</td>
+                    <td>@{{ timeCheckIn }}</td>
                   </tr>
                   <tr>
                     <td>Time of Queue</td>
-                    <td>10:32 am</td>
+                    <td>@{{ queueTime }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -226,77 +227,10 @@
                 <div class="clearfix">
                   <form>
                     <div class="form-header">
-                      <p>Physical Examination Form</p>
+                      <p>@{{ formName }}</p>
                     </div>
                     <div class="clearfix form-body">
-                      <div class="clearfix">
-                        <div class="entry clearfix">
-                          <div class="col-md-6 col-sm-6 col-xs-12">
-                            Priority Number
-                          </div>
-                          <div class="col-md-6 col-sm-6 col-xs-12">
-                            <p id="prio-number">#</p>
-                          </div>
-                        </div>
-                        <div class="entry clearfix">
-                          <div class="col-md-6 col-sm-6 col-xs-12">
-                            Name
-                          </div>
-                          <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input class="form-control" type="text"/>
-                          </div>
-                        </div>
-                        <div class="entry clearfix">
-                          <div class="col-md-6 col-sm-6 col-xs-12">
-                            Cellphone
-                          </div>
-                          <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input class="form-control" type="text"/>
-                          </div>
-                        </div>
-                        <div class="entry clearfix">
-                          <div class="col-md-6 col-sm-6 col-xs-12">
-                            Email Address
-                          </div>
-                          <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input class="form-control" type="text"/>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="clearfix">
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                          <div class="sep"></div>
-                        </div>
-                      </div>
-
-                      <div class="dynamic-inputs">
-                        <div class="clearfix entry">
-                          <div class="col-md-6 col-sm-6 col-xs-12">
-                            Age
-                          </div>
-                          <div class="col-md-3 col-sm-3 col-xs-10">
-                            <input class="form-control" type="text"/>
-                          </div>
-                        </div>
-                        <div class="clearfix entry">
-                          <div class="col-md-6 col-sm-6 col-xs-12">
-                            Sex
-                          </div>
-                          <div class="col-md-6 col-sm-6 col-xs-10">
-                            <span><input type="radio" /> Male</span>
-                            <span><input type="radio" /> Female</span>
-                          </div>
-                        </div>
-                        <div class="clearfix entry">
-                          <div class="col-md-6 col-sm-6 col-xs-12">
-                            Last Physical Examination
-                          </div>
-                          <div class="col-md-6 col-sm-6 col-xs-10">
-                            <input class="form-control" type="text"/>
-                          </div>
-                        </div>
-                      </div>
+                      <div id="form-fields-html"></div>
                     </div>
                   </form>
                 </div>
@@ -308,83 +242,19 @@
                 <thead>
                   <tr>
                     <th>Costumer</th>
-                    <th>Form Name/Title</th>
                     <th>Transaction #</th>
-                    <th>Priority #</th>
                     <th>Date</th>
                     <th class="text-right">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th>Lebron James</th>
-                    <td>Generic Health checkup</td>
-                    <td>201601010</td>
-                    <td>98</td>
-                    <td>June 17, 2016</td>
-                    <td class="text-right"><a href=""><span class="glyphicon glyphicon-eye-open"></span>View Transaction</a></td>
-                  </tr>
-                  <tr>
-                    <th>Stella Waiting</th>
-                    <td>Generic Examination Form</td>
-                    <td>201601010</td>
-                    <td>98</td>
-                    <td>June 17, 2016</td>
-                    <td class="text-right"><a href=""><span class="glyphicon glyphicon-eye-open"></span>View Transaction</a></td>
-                  </tr>
-                  <tr>
-                    <th>Liam Owiz Onqueue</th>
-                    <td>Generic Examination Form</td>
-                    <td>201601010</td>
-                    <td>98</td>
-                    <td>June 17, 2016</td>
-                    <td class="text-right"><a href=""><span class="glyphicon glyphicon-eye-open"></span>View Transaction</a></td>
-                  </tr>
-                  <tr>
-                    <th>Rita Avila</th>
-                    <td>Generic Examination Form</td>
-                    <td>201601010</td>
-                    <td>98</td>
-                    <td>June 17, 2016</td>
-                    <td class="text-right"><a href="" ><span class="glyphicon glyphicon-eye-open"></span>View Transaction</a></td>
-                  </tr>
-                  <tr>
-                    <th>Roman Makarov</th>
-                    <td>Generic Examination Form</td>
-                    <td>201601010</td>
-                    <td>98</td>
-                    <td>June 17, 2016</td>
-                    <td class="text-right"><a href="" ><span class="glyphicon glyphicon-eye-open"></span>View Transaction</a></td>
+                  <tr ng-repeat="(count, record) in records">
+                    <th>@{{ record.full_name }}</th>
+                    <td>@{{ record.transaction_number }}</td>
+                    <td>@{{ record.date }}</td>
+                    <td class="text-right"><a href="" ng-click="viewRecord(record.record_id)"><span class="glyphicon glyphicon-eye-open"></span>View Transaction</a></td>
                   </tr>
                 </tbody>
               </table>
             </div>
-
-<div class="clearfix">
-    <table class="clearfix table table-hover">
-        <tbody>
-            <thead>
-                <tr>
-                    <th width="25%">Form Name/Title </th>
-                    <th width="25%">Service</th>
-                    <th width="25%">Date</th>
-                    <th width="25%">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="form in forms">
-                <td>@{{ form.form_name }}</td>
-                <td>@{{ form.service_name }}</td>
-                <td>@{{ form.date_created }}</td>
-                <td><a href="" style="text-decoration: none;"><span class="glyphicon glyphicon-th-list"></span> View</a></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-<div ng-controller="formsController">
-    <button ng-click="viewForm(1)">View Form</button><br>
-    <input type="text" ng-model="keyword">
-    <button ng-click="searchUserRecords(1, keyword)">Search Record</button>
-    <button ng-click="viewRecord(1)">View User Record</button>
 </div>

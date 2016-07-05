@@ -1,8 +1,10 @@
 <xml>
     <form_name>Shipping Details</form_name>
     <service_name>Reminisense Corporation Service</service_name>
-    <Gender>Male</Gender>
-    <Occupation>Developer</Occupation>
-    <SubscribetoNewsletter>Yes</SubscribetoNewsletter>
-    <Age>21-30</Age>
+    <form_data>
+        <gender>Female</gender>
+        <occupation>Artisan</occupation>
+        <subscribetonewsletter>1</subscribetonewsletter>
+        <age>21-30</age>
+    </form_data>
 </xml>

@@ -23,7 +23,7 @@ $(document).ready(function() {
     $('#business-form-tabs-table').hide();
     $('#business-forms-tabs').hide();
     $('.create-form-wrap').hide();
-    $('.view-form-wrap').fadeIn(); 
+    $('.view-form-wrap').fadeIn();
     $('.table-view-signups').fadeIn();
     e.preventDefault();
   });

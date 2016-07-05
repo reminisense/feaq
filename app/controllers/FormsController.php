@@ -77,16 +77,25 @@ class FormsController extends BaseController{
         $service_id = Forms::getServiceIdByFormId($form_id);
         $business_id = Business::getBusinessIdByServiceId($service_id);
         if (Helper::isBusinessOwner($business_id, Helper::userId())) { // PAG added permission checking
-            $form_name = Forms::getTitleByFormId($form_id);
-            $service_name = Service::name($service_id);
-            $fields = unserialize(Forms::getFieldsByFormId($form_id));
-            $records = FormRecord::fetchAllRecordsByFormId($form_id);
-            return json_encode(array(
-              'fields' => $fields,
-              'service_name' => $service_name,
-              'form_name' => $form_name,
-              'records' => $records,
-            ));
+          $record_list = array();
+          $form_name = Forms::getTitleByFormId($form_id);
+          $service_name = Service::name($service_id);
+          $fields = unserialize(Forms::getFieldsByFormId($form_id));
+          $records = FormRecord::fetchAllRecordsByFormId($form_id);
+          foreach ($records as $count => $record) {
+            $record_list[] = array(
+              'full_name' => User::first_name($record->user_id) . ' ' . User::last_name($record->user_id),
+              'transaction_number' => $record->transaction_number,
+              'date' => date("D, M j, Y g:i A", strtotime($record->time_created)),
+              'record_id' => $record->record_id,
+            );
+          }
+          return json_encode(array(
+            'fields' => $fields,
+//            'service_name' => $service_name,
+            'form_name' => $form_name,
+            'records' => $record_list,
+          ));
         }
         else {
             return json_encode(array(
