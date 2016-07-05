@@ -509,19 +509,20 @@ class Analytics extends Eloquent{
      * New Time Estimates Algorithm
      *
      */
-
-    public function getServiceTimeEstimates($service_id){
-        $serving_times = $this->getServingTimes($service_id);
+    public function getServiceTimeEstimates($service_id, $date = null){
+        $date = $date == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $date;
+        $serving_times = $this->getServingTimes($service_id, $date);
         if(count($serving_times) > 1){
             $mean = $this->getMean($serving_times);
             $standard_deviation = $this->getStandardDeviation($serving_times);
             $time = time();
-            $numbers_ahead = 2;
+            $numbers_ahead = Analytics::getServiceRemainingCount($service_id);
             $time_estimates = $this->getTimeEstimate($time, $numbers_ahead, $mean, $standard_deviation);
 
-            $time_estimates['upper_limit'] = Helper::millisecondsToHMSFormat($time_estimates['upper_limit']);
-            $time_estimates['lower_limit'] = Helper::millisecondsToHMSFormat($time_estimates['lower_limit']);
-            dd($time_estimates);
+            $time_estimates['upper_limit'] = date('Y-m-d h:i:s', $time_estimates['upper_limit']); //Helper::millisecondsToHMSFormat($time_estimates['upper_limit']);
+            $time_estimates['lower_limit'] = date('Y-m-d h:i:s', $time_estimates['lower_limit']); //Helper::millisecondsToHMSFormat($time_estimates['lower_limit']);
+            $time_estimates['serving_times'] = $serving_times;
+            return json_encode($time_estimates);
         }else{
             return 'Insufficient data';
         }
@@ -532,11 +533,13 @@ class Analytics extends Eloquent{
      * @return array $serving_times
      * get serving times of each transaction of service
      */
-    private function getServingTimes($service_id){
+    private function getServingTimes($service_id, $date){
         $called_numbers = Analytics::where('service_id', '=', $service_id)
+            ->where('date', '=', $date)
             ->where('action', '=', '1')
             ->get();
         $served_numbers = Analytics::where('service_id', '=', $service_id)
+            ->where('date', '=', $date)
             ->where('action', '=', '2')
             ->get();
 
@@ -596,9 +599,10 @@ class Analytics extends Eloquent{
         $estimate = [
             'mean' => $mean,
             'standard_deviation' => $standard_deviation,
+            'time' => $time,
             'numbers_ahead' => $numbers_ahead,
-            'upper_limit' => ($time + (($mean + ($standard_deviation * $accuracy)) * $numbers_ahead)),
-            'lower_limit' => ($time + (($mean - ($standard_deviation * $accuracy)) * $numbers_ahead))
+            'lower_limit' => $time + (($mean * $numbers_ahead) - ($standard_deviation * $accuracy)),
+            'upper_limit' => $time + (($mean * $numbers_ahead) + ($standard_deviation * $accuracy)) ,
         ];
 
         return $estimate;
