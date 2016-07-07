@@ -580,4 +580,9 @@ class MobileController extends BaseController{
 
     }
 
+    public function getServiceEstimates($service_id){
+        $analytics = new Analytics();
+        return $analytics->getServiceTimeEstimates($service_id);
+    }
+
 }

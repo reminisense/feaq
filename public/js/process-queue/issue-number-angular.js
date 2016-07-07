@@ -254,6 +254,7 @@
                         $scope.$apply(function(){
                             $scope.get_num = scope.get_num;
                         });
+                        $scope.getServiceEstimates($scope.def_service_id);
                     }
                 }, 1000);
             }
@@ -394,6 +395,12 @@
                     }, 5000);
                 });
             }
+        };
+
+        $scope.getServiceEstimates = function(service_id){
+            $http.get('/mobile/service-estimates/' + service_id).success(function(response){
+                $scope.estimates = response;
+            });
         };
 
         $scope.getFormFields(biz_id);
