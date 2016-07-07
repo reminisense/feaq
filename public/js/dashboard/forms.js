@@ -10,6 +10,9 @@
 
   app.controller('formsController', function($scope, $http) {
 
+      $scope.services = [];
+      $scope.forms = [];
+
     $scope.viewForm = function (form_id) {
       $http.get('/forms/view-form/' + form_id).success(function (response) {
         $scope.fields = response.fields;
@@ -45,6 +48,34 @@
         console.log($scope.form_data);
       });
     };
+
+      $scope.getServices = function (business_id){
+          $http.get('/services/business/' + business_id).success(function (response) {
+              $scope.services = response.business_services[0];
+          });
+      };
+
+      $scope.getForms = function(business_id) {
+          $http.get('/forms/display-forms/' + business_id).success(function(response) {
+              $scope.forms = response.forms;
+          });
+      };
+
+      $scope.displayForms = function(input){
+          var business_id = $('#business_id').val();
+
+          if(input == 0){
+              $scope.displayBusinessForms(business_id);
+          }else if(typeof input == 'number' ){
+              $scope.displayServiceForms(input);
+          }else if (isNaN(input)){
+              var val = $('#filter-forms').val();
+              $scope.displayFilteredForms(input, val, business_id);
+          }
+      }
+
+      $scope.getForms($('#business_id').val());
+      $scope.getServices($('#business_id').val());
 
   });
 
