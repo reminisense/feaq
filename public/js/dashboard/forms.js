@@ -97,10 +97,16 @@
           }
         });
         $scope.fullName = response.full_name;
-        $scope.transaction_number = response.transaction_number;
+        $scope.transactionNumber = response.transaction_number;
+        $scope.priorityNumber = response.transaction_history.priority_number;
+        $scope.transactionDate = response.transaction_history.date;
+        $scope.userEmail = response.transaction_history.email;
+        $scope.timeCalled = response.transaction_history.time_called;
+        $scope.timeCompleted = response.transaction_history.time_completed;
+        $scope.timeQueued = response.transaction_history.time_queued;
         // console.log($scope.service_name);
         // console.log($scope.form_name);
-        console.log($scope.transaction_number);
+        console.log($scope.transactionNumber);
         // console.log($scope.fields);
       });
     };

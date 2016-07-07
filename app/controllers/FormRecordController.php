@@ -54,12 +54,14 @@ class FormRecordController extends BaseController {
       $form_data = FormRecord::getXMLPathByRecordId($record_id);
       $transaction_number = FormRecord::getTransactionNumberByRecordId($record_id);
       $user_id = FormRecord::getUserIdByRecordId($record_id);
+      $transaction_history = PriorityQueue::getTransactionHistory($transaction_number);
       return json_encode(array(
         'fields' => $fields,
         'service_name' => $service_name,
         'form_name' => $form_name,
         'form_data' => simplexml_load_string(file_get_contents($form_data)),
         'transaction_number' => $transaction_number,
+        'transaction_history' => $transaction_history,
         'full_name' => User::first_name($user_id) . ' ' . User::last_name($user_id),
       ));
     }

@@ -210,15 +210,35 @@
                 <tbody>
                   <tr>
                     <td><strong>Name</strong></td>
-                    <td><strong>@{{ fullName }}</strong></td>
+                    <td>@{{ fullName }}</td>
                   </tr>
                   <tr>
-                    <td>Time check-in</td>
+                    <td><strong>Email</strong></td>
+                    <td>@{{ userEmail }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Transaction Number</strong></td>
+                    <td>@{{ transactionNumber }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Priority Number</strong></td>
+                    <td>@{{ priorityNumber }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Date</strong></td>
+                    <td>@{{ transactionDate }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Time Checked In</strong></td>
                     <td>@{{ timeCheckIn }}</td>
                   </tr>
                   <tr>
-                    <td>Time of Queue</td>
-                    <td>@{{ queueTime }}</td>
+                    <td><strong>Time Lined Up</strong></td>
+                    <td>@{{ timeQueued }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Time Called</strong></td>
+                    <td>@{{ timeCalled }}</td>
                   </tr>
                 </tbody>
               </table>
