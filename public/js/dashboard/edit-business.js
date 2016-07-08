@@ -1221,18 +1221,6 @@ var eb = {
             });
         });
 
-        $scope.createForm = function(){
-            $http.post('/forms/save-form',{
-                service_id: $('#select-service').val(),
-                name: $('#form-name').val(),
-                fields: 1
-            }).success(function(){
-
-            });
-
-        }
-
-
         /*
          $scope.showPreviewForm = function(business_id) {
          $http.post(eb.urls.forms.display_fields_url, {

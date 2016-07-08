@@ -12,6 +12,7 @@
 
       $scope.services = [];
       $scope.forms = [];
+      $scope.fields = [];
 
     $scope.viewForm = function (form_id) {
       $http.get('/forms/view-form/' + form_id).success(function (response) {
@@ -71,6 +72,71 @@
           }else if (isNaN(input)){
               var val = $('#filter-forms').val();
               $scope.displayFilteredForms(input, val, business_id);
+          }
+      }
+
+      $scope.createForm = function(){
+          $http.post('/forms/save-form',{
+              service_id: $('#select-service').val(),
+              name: $('#form-name').val(),
+              fields: $scope.fields
+          }).success(function(){
+
+          });
+      }
+
+      $scope.addField = function(){
+          var field = $("#option-field").val();
+          var field_name = $("#for-label").val();
+
+          if (field != 0){
+              if(field == 'checkbox' || field=='textfield'){
+                  $scope.fields.push({
+                      field_type: field,
+                      field_data: {
+                          label: field_name
+                      }
+                  });
+              }else if(field == "radio"){
+
+                  var value_a = $("#value_a").val();
+                  var value_b = $("#value_b").val();
+
+                  $scope.fields.push({
+                      field_type: field,
+                      field_data: {
+                          label: field_name,
+                          value_a: value_a,
+                          value_b: value_b
+                      }
+                  });
+
+              }else if(field == 'dropdown'){
+
+                  var options = {};
+
+                  $scope.fields.push({
+                      field_type: field,
+                      field_data: {
+                          label: field_name,
+                          options: options
+                      }
+                  });
+
+              }
+           $('#for-label').val('');
+           $('#option-field').val(0);
+          }
+      }
+
+      $scope.deleteField = function(label){
+          $( "#"+label ).remove();
+          for(var i=0; i<$scope.fields.length; i++){
+              console.log($scope.fields[i].field_data.label)
+              if(label == $scope.fields[i].field_data.label){
+                  $scope.fields.splice(i, 1)
+                  break;
+              }
           }
       }
 
