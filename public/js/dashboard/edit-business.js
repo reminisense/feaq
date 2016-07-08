@@ -1221,48 +1221,6 @@ var eb = {
             });
         });
 
-        $scope.displayBusinessForms = function(business_id) {
-            $http.get('/forms/display-forms/' + business_id).success(function(response) {
-                $scope.forms = response.forms;
-            });
-        };
-
-        $scope.displayServiceForms = function (service_id){
-            $http.get('/forms/service-forms/' + service_id).success(function(response){
-                $scope.forms = response.forms;
-            });
-        }
-
-        $scope.displayFilteredForms = function (filter, val, business_id){
-            $http.get('/forms/filtered-forms/' + filter +'/'+ val +'/'+ business_id).success(function(response){
-                $scope.forms = response.forms;
-            });
-        }
-
-        $scope.displayForms = function(input){
-            var business_id = $('#business_id').val();
-            if(input == 0){
-                $scope.displayBusinessForms(business_id);
-            }else if(typeof input == 'number' ){
-                $scope.displayServiceForms(input);
-            }else if (isNaN(input)){
-                var val = $('#filter-forms').val();
-                $scope.displayFilteredForms(input, val, business_id);
-            }
-        }
-
-        $scope.createForm = function(){
-            $http.post('/forms/save-form',{
-                service_id: $('#select-service').val(),
-                name: $('#form-name').val(),
-                fields: 1
-            }).success(function(){
-
-            });
-
-        }
-
-
         /*
          $scope.showPreviewForm = function(business_id) {
          $http.post(eb.urls.forms.display_fields_url, {
@@ -1395,8 +1353,6 @@ var eb = {
                console.log(response.status+" "+response.message);
             });
         }
-
-        $scope.displayBusinessForms($('#business_id').val());
 
         websocket.onerror	= function(response){
             $('#WebsocketLoaderModal').modal('show');
