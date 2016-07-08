@@ -4,7 +4,7 @@ class Forms extends Eloquent {
 
   protected $table = 'forms';
   protected $primaryKey = 'form_id';
-  public $timestamps = TRUE;
+  public $timestamps = FALSE;
 
   public static function createField($val = array()) {
     return Forms::insertGetId($val);
