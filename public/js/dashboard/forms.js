@@ -13,6 +13,7 @@
       $scope.services = [];
       $scope.forms = [];
       $scope.fields = [];
+      $scope.dropdowns = [];
 
     $scope.viewForm = function (form_id) {
       $scope.formFields = '';
@@ -141,11 +142,18 @@
       }
 
       $scope.createForm = function(){
+
+          console.log($scope.fields);
           $http.post('/forms/save-form',{
               service_id: $('#select-service').val(),
               name: $('#form-name').val(),
               fields: $scope.fields
           }).success(function(){
+             $('#form-success').fadeIn();
+             $('#form-success').fadeOut(4000);
+             $scope.fields = [];
+             $('#select-service').val(0);
+             $('#form-name').val();
 
           });
       }
@@ -180,6 +188,11 @@
 
                   var options = {};
 
+                  for(var i=0; i<=$scope.dropdowns.length; i++){
+                      var name = $('#dropdown-'+i).val();
+                      options[name] = name;
+                  }
+
                   $scope.fields.push({
                       field_type: field,
                       field_data: {
@@ -189,20 +202,35 @@
                   });
 
               }
-           $('#for-label').val('');
-           $('#option-field').val(0);
+
+              $scope.dropdowns =[];
+              $('#for-label').val('');
+              $('#option-field').val(0);
+              $("#value_a").val();
+              $("#value_b").val();
+              $("#dropdown-0").val();
+              $('#radio-options').hide();
+              $('#dropdown-options').hide();
+
+              console.log($scope.fields);
           }
       }
 
       $scope.deleteField = function(label){
           $( "#"+label ).remove();
           for(var i=0; i<$scope.fields.length; i++){
-              console.log($scope.fields[i].field_data.label)
               if(label == $scope.fields[i].field_data.label){
                   $scope.fields.splice(i, 1)
                   break;
               }
           }
+      }
+
+      $scope.addDropdown = function(){
+          $scope.dropdowns.push({
+             number_of_options : $scope.dropdowns.length + 1
+          });
+          console.log($scope.dropdowns);
       }
 
       $scope.getForms($('#business_id').val());

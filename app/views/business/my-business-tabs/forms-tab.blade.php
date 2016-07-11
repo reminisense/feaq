@@ -19,8 +19,6 @@
                             </a>
                             <div class="clearfix" id="edit-form-title" style="display:none">
                                 <input id="form-name" class="mr5 form-control" type="text" placeholder="Form Title" />
-                                <a href="" class="btn btn-xs btn-default">Cancel</a>
-                                <a href="" class="btn btn-xs btn-primary">Save</a>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -81,8 +79,8 @@
                                     <input class="form-control" type="text" ng-if="field.field_type == 'textfield'"/>
                                     <input type="checkbox"ng-if="field.field_type == 'checkbox'"/>
                                     <div ng-if="field.field_type == 'radio'">
-                                        <input type="radio">@{{ field.field_data.value_a }}<br>
-                                        <input type="radio"> @{{ field.field_data.value_b }}<br>
+                                        <input type="radio" name="field.field_data.label"> @{{ field.field_data.value_a }}<br>
+                                        <input type="radio" name="field.field_data.label"> @{{ field.field_data.value_b }}<br>
                                     </div>
                                     <select ng-if="field.field_type == 'dropdown'">
                                         <option ng-repeat="option in field.field_data.options">@{{ option }}</option>
@@ -98,12 +96,13 @@
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="for-label" type="text" class="form-control" placeholder="Put a Label" />
                                 <div id="radio-options" style="display:none">
-                                    <input id="for-label" class="form-control" type="text" placeholder="Option 1" />
-                                    <input id="for-label" class="form-control" type="text" placeholder="Option 2" />
+                                    <input id="value_a" class="form-control" type="text" placeholder="Option 1" />
+                                    <input id="value_b" class="form-control" type="text" placeholder="Option 2" />
                                 </div>
                                 <div id="dropdown-options" style="display:none">
-                                    <input id="for-label" class="form-control" type="text" placeholder="Option 1" />
-                                    <a ng-click="addDropdown()" id="btn-add-dropdown">Add Field</a>
+                                    <input id="dropdown-0" class="form-control" type="text" placeholder="Option 1" />
+                                    <input ng-repeat="dropdown in dropdowns" class="form-control" id="dropdown-@{{ dropdown.number_of_options}}" type="text" placeholder="Option @{{ dropdown.number_of_options + 1 }}" />
+                                    <a ng-click="addDropdown()" id="btn-add-dropdown">Add Option</a>
                                 </div>
                             </div>
                             <div class="col-md-4 col-sm-4 col-xs-10">
@@ -122,9 +121,12 @@
                     </div>
                     <div class="clearfix form-footer">
                         <div class="pull-right">
-                            <a href="" class="mr5 btn btn-md btn-default">Cancel</a>
-                            <a href="" class="btn btn-md btn-orange">Save Form</a>
+                            <button id="cancel-form" class="mr5 btn btn-md btn-default">Cancel</button>
+                            <button class="btn btn-md btn-orange" ng-click="createForm()">Save Form</button>
                         </div>
+                    </div>
+                    <div class="clearfix form-footer">
+                        <div class="alert alert-success mt10" id="form-success" style="display: none; text-align: center">Your form has been created.</div>
                     </div>
                 </form>
             </div>

@@ -442,7 +442,7 @@ class Helper extends Eloquent
                     $subnode = $xml->addChild("$key");
                     Helper::array_to_xml($value, $subnode);
                 }else{
-                    $subnode = $xml->addChild("transaction$key");
+                    $subnode = $xml->addChild("field$key");
                     Helper::array_to_xml($value, $subnode);
                 }
             }else {
