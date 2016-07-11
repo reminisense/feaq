@@ -597,12 +597,12 @@ class Analytics extends Eloquent{
      */
     private function getTimeEstimate($time, $numbers_ahead, $mean, $standard_deviation, $accuracy = 2){
         $estimate = [
+            'time' => $time,
             'mean' => $mean,
             'standard_deviation' => $standard_deviation,
-            'time' => $time,
+            'lower_limit' => $time + (($numbers_ahead + 1) * $mean) - ($standard_deviation * $accuracy),
+            'upper_limit' => $time + (($numbers_ahead + 1) * $mean) + ($standard_deviation * $accuracy),
             'numbers_ahead' => $numbers_ahead,
-            'lower_limit' => $time + (($mean * $numbers_ahead) - ($standard_deviation * $accuracy)),
-            'upper_limit' => $time + (($mean * $numbers_ahead) + ($standard_deviation * $accuracy)) ,
         ];
 
         return $estimate;
