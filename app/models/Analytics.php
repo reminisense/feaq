@@ -519,8 +519,8 @@ class Analytics extends Eloquent{
             $numbers_ahead = Analytics::getServiceRemainingCount($service_id);
             $time_estimates = $this->getTimeEstimate($time, $numbers_ahead, $mean, $standard_deviation);
 
-            $time_estimates['upper_limit'] = date('Y-m-d h:i:s', $time_estimates['upper_limit']); //Helper::millisecondsToHMSFormat($time_estimates['upper_limit']);
-            $time_estimates['lower_limit'] = date('Y-m-d h:i:s', $time_estimates['lower_limit']); //Helper::millisecondsToHMSFormat($time_estimates['lower_limit']);
+            $time_estimates['upper_limit'] = date('h:ia', $time_estimates['upper_limit']); //Helper::millisecondsToHMSFormat($time_estimates['upper_limit']);
+            $time_estimates['lower_limit'] = $time_estimates['lower_limit'] > $time ? date('h:ia', $time_estimates['lower_limit']) : date('h:ia', $time); //Helper::millisecondsToHMSFormat($time_estimates['lower_limit']);
             $time_estimates['serving_times'] = $serving_times;
             return json_encode($time_estimates);
         }else{

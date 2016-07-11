@@ -136,6 +136,16 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="col-md-12">
+                            <div class="col-md-5">
+                                <h5 class="text-center">Estimated Time: </h5>
+                            </div>
+                            <div class="col-md-7">
+                                <h6 class="text-center">
+                                    <span class="glyphicon glyphicon-bell"></span> <span>@{{ estimates.lower_limit }}</span> - <span>@{{ estimates.upper_limit }}</span>
+                                </h6>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
