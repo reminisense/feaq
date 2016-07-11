@@ -143,26 +143,38 @@
 
       $scope.createForm = function(){
 
-          console.log($scope.fields);
-          $http.post('/forms/save-form',{
-              service_id: $('#select-service').val(),
-              name: $('#form-name').val(),
-              fields: $scope.fields
-          }).success(function(){
-             $('#form-success').fadeIn();
-             $('#form-success').fadeOut(4000);
-             $scope.fields = [];
-             $('#select-service').val(0);
-             $('#form-name').val();
+          var service_id =  $('#select-service').val();
+          var form_name = $('#form-name').val();
 
-          });
+          if( form_name==""){
+              $scope.error_message = "Please enter a valid name."
+              $('#form-error').fadeIn();
+              $('#form-error').fadeOut(4000);
+          }else if(service_id==null){
+              $scope.error_message = "Please select a service."
+              $('#form-error').fadeIn();
+              $('#form-error').fadeOut(4000);
+          }else{
+              $http.post('/forms/save-form',{
+                  service_id: service_id,
+                  name: form_name,
+                  fields: $scope.fields
+              }).success(function(){
+                  $('#form-success').fadeIn();
+                  $('#form-success').fadeOut(4000);
+                  $scope.fields = [];
+                  $('#select-service').val(0);
+                  $('#form-name').val();
+
+              });
+          }
       }
 
       $scope.addField = function(){
           var field = $("#option-field").val();
           var field_name = $("#for-label").val();
 
-          if (field != 0){
+          if (field != 0 && field_name != ""    ){
               if(field == 'checkbox' || field=='textfield'){
                   $scope.fields.push({
                       field_type: field,
@@ -200,7 +212,6 @@
                           options: options
                       }
                   });
-
               }
 
               $scope.dropdowns =[];
@@ -211,8 +222,6 @@
               $("#dropdown-0").val();
               $('#radio-options').hide();
               $('#dropdown-options').hide();
-
-              console.log($scope.fields);
           }
       }
 
@@ -230,7 +239,7 @@
           $scope.dropdowns.push({
              number_of_options : $scope.dropdowns.length + 1
           });
-          console.log($scope.dropdowns);
+
       }
 
       $scope.getForms($('#business_id').val());

@@ -127,6 +127,7 @@
                     </div>
                     <div class="clearfix form-footer">
                         <div class="alert alert-success mt10" id="form-success" style="display: none; text-align: center">Your form has been created.</div>
+                        <div class="alert alert-danger mt10" id="form-error" style="display: none; text-align: center">@{{ error_message }}.</div>
                     </div>
                 </form>
             </div>
