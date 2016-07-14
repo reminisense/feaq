@@ -16,6 +16,7 @@
       $scope.dropdowns = [];
 
     $scope.viewForm = function (form_id) {
+        console.log(form_id)
       $scope.formFields = '';
       $http.get('/forms/view-form/' + form_id).success(function (response) {
         var formFields = response.fields;
@@ -29,12 +30,12 @@
           if (fieldType == 'radio') {
             $scope.formFields += '<div class="entry clearfix"><div class="col-md-6 col-sm-6 col-xs-12">' +
               formLabel +
-              '</div><div class="col-md-6 col-sm-6 col-xs-10"><span><input type="radio" name="' +
+              '</div><div class="col-md-6 col-sm-6 col-xs-10"><span><input disabled type="radio" name="' +
               ngModelVar +
               '" value="' + formFields[i].field_data.value_a +
               '"> ' +
               formFields[i].field_data.value_a +
-              '</span> <span><input type="radio" name="' +
+              '</span> <span><input disabled type="radio" name="' +
               ngModelVar +
               '" value="' + formFields[i].field_data.value_b +
               '"> ' +
@@ -44,14 +45,14 @@
           else if (fieldType == 'textfield') {
             $scope.formFields += '<div class="entry clearfix"><div class="col-md-6 col-sm-6 col-xs-12">' +
               formLabel +
-              '</div><div class="col-md-6 col-sm-6 col-xs-10"><input class="form-control" type="text" id="' +
+              '</div><div class="col-md-6 col-sm-6 col-xs-10"><input disabled class="form-control" type="text" id="' +
               ngModelVar +
               '"></div></div>';
           }
           else if (fieldType == 'checkbox') {
             $scope.formFields += '<div class="entry clearfix"><div class="col-md-6 col-sm-6 col-xs-12">' +
               formLabel +
-              '</div><div class="col-md-6 col-sm-6 col-xs-10"><input type="checkbox" id="' +
+              '</div><div class="col-md-6 col-sm-6 col-xs-10"><input disabled type="checkbox" id="' +
               ngModelVar +
               '"></div></div>';
           }
@@ -62,14 +63,21 @@
             }
             $scope.formFields += '<div class="entry clearfix"><div class="col-md-6 col-sm-6 col-xs-12">' +
               formLabel +
-              '</div><div class="col-md-6 col-sm-6 col-xs-10"><select class="form-control" id="' +
+              '</div><div class="col-md-6 col-sm-6 col-xs-10"><select disabled class="form-control" id="' +
               ngModelVar +
               '">' +
               selectOptions +
               '</select></div></div>';
           }
         }
+
         $('#form-fields-html').html($scope.formFields);
+          $('#business-form-tabs-table').hide();
+          $('#business-forms-tabs').hide();
+          $('.create-form-wrap').hide();
+          $('.view-form-wrap').fadeIn();
+          $('.table-view-signups').fadeIn();
+
         console.log($scope.formName);
         console.log($scope.service_name);
         console.log(formFields);

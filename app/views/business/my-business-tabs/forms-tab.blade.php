@@ -191,7 +191,7 @@
         </div>
         <div class="clearfix view-form-wrap rel">
             <div class="abs" id="btn-goback">
-                <a href="" class="btn btn-md btn-primary"><span class="glyphicon glyphicon-arrow-left"></span>Go back to Forms</a>
+                <a href="" id="btn-back" class="btn btn-md btn-primary"><span class="glyphicon glyphicon-arrow-left"></span>Go back to Forms</a>
             </div>
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <h5>Transaction Info:</h5>
