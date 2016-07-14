@@ -35,17 +35,22 @@ $(document).ready(function() {
   });
 
   $('#option-field').change(function(){
-      var value = $('#option-field').val();
-      if(value == 'radio'){
-          $('#radio-options').fadeIn();
-          $('#dropdown-options').hide();
-      }else if(value == 'dropdown'){
-          $('#radio-options').hide();
-          $('#dropdown-options').fadeIn();
-      }else{
-          $('#radio-options').fadeOut();
-          $('#dropdown-options').fadeOut();
-      }
+        var value = $('#option-field').val();
+        if(value == 'radio'){
+            $('#radio-options').fadeIn();
+            $('#dropdown-options').hide();
+        }else if(value == 'dropdown'){
+            $('#radio-options').hide();
+            $('#dropdown-options').fadeIn();
+        }else{
+            $('#radio-options').fadeOut();
+            $('#dropdown-options').fadeOut();
+        }
 
-  });
+    });
+
+    $('#cancel-form').on('click', function(e) {
+        $('.create-form-wrap').slideToggle('fast');
+        e.preventDefault();
+    })
 });

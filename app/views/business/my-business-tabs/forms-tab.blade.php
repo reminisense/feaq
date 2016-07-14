@@ -19,8 +19,6 @@
                             </a>
                             <div class="clearfix" id="edit-form-title" style="display:none">
                                 <input id="form-name" class="mr5 form-control" type="text" placeholder="Form Title" />
-                                <a href="" class="btn btn-xs btn-default">Cancel</a>
-                                <a href="" class="btn btn-xs btn-primary">Save</a>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -35,34 +33,34 @@
                     <div class="clearfix form-body">
                         <div class="clearfix">
                             <div class="entry clearfix">
-                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="col-md-5 col-sm-5 col-xs-12">
                                     Priority Number
                                 </div>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="col-md-7 col-sm-7 col-xs-12">
                                     <p id="prio-number"># 25</p>
                                 </div>
                             </div>
                             <div class="entry clearfix">
-                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="col-md-5 col-sm-5 col-xs-12">
                                     Name
                                 </div>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="col-md-7 col-sm-7 col-xs-12">
                                     <input class="form-control" type="text" disabled placeholder="Stan Wayne"/>
                                 </div>
                             </div>
                             <div class="entry clearfix">
-                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="col-md-5 col-sm-5 col-xs-12">
                                     Cellphone
                                 </div>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="col-md-7 col-sm-7 col-xs-12">
                                     <input class="form-control" type="text" disabled placeholder="+639222010715"/>
                                 </div>
                             </div>
                             <div class="entry clearfix">
-                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="col-md-5 col-sm-5 col-xs-12">
                                     Email Address
                                 </div>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="col-md-7 col-sm-7 col-xs-12">
                                     <input class="form-control" type="text" disabled placeholder="stan.wayne@gmail.com"/>
                                 </div>
                             </div>
@@ -73,40 +71,32 @@
                             </div>
                         </div>
                         <div class="col-md-12" id="custom-fields">
-                            <div class="clearfix entry" ng-repeat="field in fields" id="@{{field.field_data.label}}">
-                                <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="clearfix entry mb20" ng-repeat="field in fields" id="@{{field.field_data.label}}">
+                                <div class="col-md-5 col-sm-5 col-xs-12">
                                     @{{ field.field_data.label }}
                                 </div>
                                 <div class="col-md-5 col-sm-5 col-xs-10">
                                     <input class="form-control" type="text" ng-if="field.field_type == 'textfield'"/>
                                     <input type="checkbox"ng-if="field.field_type == 'checkbox'"/>
                                     <div ng-if="field.field_type == 'radio'">
-                                        <input type="radio">@{{ field.field_data.value_a }}<br>
-                                        <input type="radio"> @{{ field.field_data.value_b }}<br>
+                                        <div class="mb10"><input type="radio" name="field.field_data.label"> @{{ field.field_data.value_a }}</div>
+                                        <div class="mb10"><input type="radio" name="field.field_data.label"> @{{ field.field_data.value_b }}</div>
                                     </div>
-                                    <select ng-if="field.field_type == 'dropdown'">
+                                    <select class="form-control" ng-if="field.field_type == 'dropdown'">
                                         <option ng-repeat="option in field.field_data.options">@{{ option }}</option>
                                     </select>
                                 </div>
-                                <div class="col-md-1 col-sm-1 col-xs-2" id="field-actions">
+                                <div class="col-md-2 col-sm-2 col-xs-2" id="field-actions">
                                     <button class="btn btn-blue" ng-click="deleteField(field.field_data.label)"><span class="glyphicon glyphicon-trash"></span></button>
                                 </div>
                             </div>
                         </div>
                         <!-- generate form fields -->
                         <div class="clearfix generate-forms entry">
-                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="col-md-5 col-sm-5 col-xs-12">
                                 <input id="for-label" type="text" class="form-control" placeholder="Put a Label" />
-                                <div id="radio-options" style="display:none">
-                                    <input id="for-label" class="form-control" type="text" placeholder="Option 1" />
-                                    <input id="for-label" class="form-control" type="text" placeholder="Option 2" />
-                                </div>
-                                <div id="dropdown-options" style="display:none">
-                                    <input id="for-label" class="form-control" type="text" placeholder="Option 1" />
-                                    <a ng-click="addDropdown()" id="btn-add-dropdown">Add Field</a>
-                                </div>
                             </div>
-                            <div class="col-md-4 col-sm-4 col-xs-10">
+                            <div class="col-md-5 col-sm-5 col-xs-10">
                                 <select id="option-field" class="form-control">
                                     <option value="0">Select a Field Type</option>
                                     <option value="textfield">Text Field</option>
@@ -114,17 +104,30 @@
                                     <option value="radio">Radio Button</option>
                                     <option value="dropdown">Dropdown</option>
                                 </select>
+                                <div id="radio-options" style="display:none">
+                                                                    <input id="value_a" class="form-control" type="text" placeholder="Option 1" />
+                                                                    <input id="value_b" class="form-control" type="text" placeholder="Option 2" />
+                                                                </div>
+                                                                <div id="dropdown-options" style="display:none">
+                                                                    <input id="dropdown-0" class="form-control" type="text" placeholder="Option 1" />
+                                                                    <input ng-repeat="dropdown in dropdowns" class="form-control" id="dropdown-@{{ dropdown.number_of_options}}" type="text" placeholder="Option @{{ dropdown.number_of_options + 1 }}" />
+                                                                    <a href ng-click="addDropdown()" id="btn-add-dropdown"><span class="glyphicon glyphicon-plus"></span> Add an option</a>
+                                                                </div>
                             </div>
-                            <div class="col-md-2 col-sm-2 col-xs-2">
+                            <div class="col-md-2 col-sm-2 col-xs-3">
                                 <button ng-click="addField()" class="btn btn-primary btn-md" id="btn-add-field">Add Field</button>
                             </div>
                         </div>
                     </div>
                     <div class="clearfix form-footer">
                         <div class="pull-right">
-                            <a href="" class="mr5 btn btn-md btn-default">Cancel</a>
-                            <a href="" class="btn btn-md btn-orange">Save Form</a>
+                            <button id="cancel-form" class="mr5 btn btn-md btn-default">Cancel</button>
+                            <button class="btn btn-md btn-orange" ng-click="createForm()">Save Form</button>
                         </div>
+                    </div>
+                    <div class="clearfix form-footer">
+                        <div class="alert alert-success mt10" id="form-success" style="display: none; text-align: center">Your form has been created.</div>
+                        <div class="alert alert-danger mt10" id="form-error" style="display: none; text-align: center">@{{ error_message }}.</div>
                     </div>
                 </form>
             </div>
