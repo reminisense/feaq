@@ -191,7 +191,7 @@
         </div>
         <div class="clearfix view-form-wrap rel">
             <div class="abs" id="btn-goback">
-                <a href="" id="btn-back" class="btn btn-md btn-primary"><span class="glyphicon glyphicon-arrow-left"></span>Go back to Forms</a>
+                <a href="" id="btn-back" ng-click="clearForms()" class="btn btn-md btn-primary"><span class="glyphicon glyphicon-arrow-left"></span>Go back to Forms</a>
             </div>
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <h5>Transaction Info:</h5>
@@ -215,11 +215,7 @@
                   </tr>
                   <tr>
                     <td><strong>Date</strong></td>
-                    <td>@{{ transactionDate }}</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Time Checked In</strong></td>
-                    <td>@{{ timeCheckIn }}</td>
+                    <td>@{{transactionDate }}</td>
                   </tr>
                   <tr>
                     <td><strong>Time Lined Up</strong></td>
@@ -228,6 +224,10 @@
                   <tr>
                     <td><strong>Time Called</strong></td>
                     <td>@{{ timeCalled }}</td>
+                  </tr>
+                  <tr>
+                      <td><strong>Time Finished</strong></td>
+                      <td>@{{ timeCompleted }}</td>
                   </tr>
                 </tbody>
               </table>

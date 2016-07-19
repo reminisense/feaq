@@ -16,7 +16,6 @@
       $scope.dropdowns = [];
 
     $scope.viewForm = function (form_id) {
-        console.log(form_id)
       $scope.formFields = '';
       $http.get('/forms/view-form/' + form_id).success(function (response) {
         var formFields = response.fields;
@@ -26,17 +25,17 @@
         for (var i = 0; i < formFields.length; i++) {
           var formLabel = formFields[i].field_data.label;
           var fieldType = formFields[i].field_type;
-          var ngModelVar = formLabel.toLowerCase().replace(/\s+/g, '');
+          var id = form_id+'_'+i;
           if (fieldType == 'radio') {
             $scope.formFields += '<div class="entry clearfix"><div class="col-md-6 col-sm-6 col-xs-12">' +
               formLabel +
               '</div><div class="col-md-6 col-sm-6 col-xs-10"><span><input disabled type="radio" name="' +
-              ngModelVar +
+            id +
               '" value="' + formFields[i].field_data.value_a +
               '"> ' +
               formFields[i].field_data.value_a +
               '</span> <span><input disabled type="radio" name="' +
-              ngModelVar +
+            id +
               '" value="' + formFields[i].field_data.value_b +
               '"> ' +
               formFields[i].field_data.value_b +
@@ -46,25 +45,25 @@
             $scope.formFields += '<div class="entry clearfix"><div class="col-md-6 col-sm-6 col-xs-12">' +
               formLabel +
               '</div><div class="col-md-6 col-sm-6 col-xs-10"><input disabled class="form-control" type="text" id="' +
-              ngModelVar +
+            id +
               '"></div></div>';
           }
           else if (fieldType == 'checkbox') {
             $scope.formFields += '<div class="entry clearfix"><div class="col-md-6 col-sm-6 col-xs-12">' +
               formLabel +
               '</div><div class="col-md-6 col-sm-6 col-xs-10"><input disabled type="checkbox" id="' +
-              ngModelVar +
+            id +
               '"></div></div>';
           }
           else if (fieldType == 'dropdown') {
-            var selectOptions = '';
+            var selectOptions = '<option value="0">Select an option.</option>';
             for (var optionVal in formFields[i].field_data.options) {
               selectOptions += '<option value="' + optionVal + '">' + optionVal + '</option>';
             }
             $scope.formFields += '<div class="entry clearfix"><div class="col-md-6 col-sm-6 col-xs-12">' +
               formLabel +
               '</div><div class="col-md-6 col-sm-6 col-xs-10"><select disabled class="form-control" id="' +
-              ngModelVar +
+            id +
               '">' +
               selectOptions +
               '</select></div></div>';
@@ -77,50 +76,42 @@
           $('.create-form-wrap').hide();
           $('.view-form-wrap').fadeIn();
           $('.table-view-signups').fadeIn();
-
-        console.log($scope.formName);
-        console.log($scope.service_name);
-        console.log(formFields);
-        console.log($scope.records);
       });
     };
 
     $scope.searchUserRecords = function (form_id, keyword) {
       $http.get('/records/search-records/' + form_id + '/' + keyword).success(function (response) {
-        console.log(keyword);
         $scope.records = response;
-        console.log($scope.records);
       });
     };
 
     $scope.viewRecord = function (record_id) {
       $http.get('/records/view-user/' + record_id).success(function (response) {
-        // $scope.fields = response.fields;
-        // $scope.service_name = response.service_name;
-        // $scope.form_name = response.form_name;
         var formData = response.form_data.form_data;
+          var i = 0;
         $.each(formData, function(key, val) {
-          $('#' + key).val(val); // textfield and select default
-          $('input:radio[name=' + key + ']').filter('[value=' + val + ']').prop('checked', true); // radio default
+            var id = response.form_id + '_' +i;
+          $('#' + id + ':input').val(val); // textfield and select default
+          $('input:radio[name=' + id + ']').filter('[value=' + val + ']').prop('checked', true); // radio default
           if (val == 1) { // checkbox default
-            $('#' + key).prop('checked', true);
+            $('#' + id).prop('checked', true);
           }
           else {
-            $('#' + key).prop('checked', false);
+            $('#' + id).prop('checked', false);
           }
+            i++;
         });
+
         $scope.fullName = response.full_name;
         $scope.transactionNumber = response.transaction_number;
         $scope.priorityNumber = response.transaction_history.priority_number;
-        $scope.transactionDate = response.transaction_history.date;
+        $scope.transactionDate =  getDate(response.transaction_history.date);
         $scope.userEmail = response.transaction_history.email;
-        $scope.timeCalled = response.transaction_history.time_called;
-        $scope.timeCompleted = response.transaction_history.time_completed;
-        $scope.timeQueued = response.transaction_history.time_queued;
-        // console.log($scope.service_name);
-        // console.log($scope.form_name);
-        console.log($scope.transactionNumber);
-        // console.log($scope.fields);
+        $scope.timeCalled = response.transaction_history.time_called ? getTime(response.transaction_history.time_called) : "Not Called";
+        $scope.timeCompleted = response.transaction_history.time_completed ? getTime(response.transaction_history.time_completed) : "Not Completed";
+        $scope.timeQueued = getTime(response.transaction_history.time_queued);
+
+
       });
     };
 
@@ -154,6 +145,8 @@
           var service_id =  $('#select-service').val();
           var form_name = $('#form-name').val();
 
+          console.log($scope.fields);
+
           if( form_name==""){
               $scope.error_message = "Please enter a valid name."
               $('#form-error').fadeIn();
@@ -167,13 +160,13 @@
                   service_id: service_id,
                   name: form_name,
                   fields: $scope.fields
-              }).success(function(){
+              }).success(function(response){
                   $('#form-success').fadeIn();
                   $('#form-success').fadeOut(4000);
                   $scope.fields = [];
                   $('#select-service').val(0);
-                  $('#form-name').val();
-
+                  $('#form-name').val('');
+                  $scope.getForms($('#business_id').val());
               });
           }
       }
@@ -225,9 +218,9 @@
               $scope.dropdowns =[];
               $('#for-label').val('');
               $('#option-field').val(0);
-              $("#value_a").val();
-              $("#value_b").val();
-              $("#dropdown-0").val();
+              $("#value_a").val('');
+              $("#value_b").val('');
+              $("#dropdown-0").val('');
               $('#radio-options').hide();
               $('#dropdown-options').hide();
           }
@@ -248,6 +241,61 @@
              number_of_options : $scope.dropdowns.length + 1
           });
 
+      }
+
+      $scope.clearForms = function(){
+          $('#form-fields-html').empty();
+          $scope.fullName = "";
+          $scope.transactionNumber = "";
+          $scope.priorityNumber = "";
+          $scope.transactionDate = "";
+          $scope.userEmail = "";
+          $scope.timeCalled = "";
+          $scope.timeCompleted = "";
+          $scope.timeQueued = "";
+      }
+
+      getDate = function(timestamp){
+
+          var value = new Date(timestamp * 1000);
+          var month = ['January', 'February',
+          'March', 'April', 'May', 'June',
+          'July', 'August', 'September',
+          'October', 'November', 'December']
+
+          var date =  month[value.getMonth()]+' '+value.getDay()+', '+value.getFullYear();
+
+          return date;
+
+      }
+
+      getTime = function(timestamp){
+
+          var value = new Date(timestamp * 1000);
+
+          if(value.getHours() >= 12){
+              var ampm = 'PM';
+          }else{
+              var ampm = 'AM';
+          }
+
+          if(value.getHours() < 10){
+              var hours = '0'+value.getHours();
+          }else if (value.getHours() > 12) {
+              var hours = value.getHours() - 12;
+          }else{
+              var hours = value.getHours();
+          }
+
+          if(value.getMinutes() < 10){
+              var minutes = '0'+value.getMinutes();
+          }else{
+              var minutes = value.getMinutes();
+          }
+
+          var time = hours+':'+minutes+' '+ampm;
+
+          return time;
       }
 
       $scope.getForms($('#business_id').val());

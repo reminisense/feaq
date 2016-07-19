@@ -30,7 +30,7 @@ $(document).ready(function() {
     $(document).on('click', '#btn-back',function(e) {
         $('#business-form-tabs-table').fadeIn();
         $('#business-forms-tabs').fadeIn();
-        $('.create-form-wrap').fadeIn();
+        $('.create-form-wrap').hide();
         $('.view-form-wrap').hide();
         $('.table-view-signups').hide();
         e.preventDefault();
