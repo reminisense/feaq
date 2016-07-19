@@ -229,6 +229,7 @@ class MobileController extends BaseController{
     //Screen #7
     public function getMyBusinessHistory($transaction_number){
         $user_queues = PriorityQueue::getTransactionHistory($transaction_number);
+        $service_id = Terminal::serviceId(TerminalTransaction::terminalId($transaction_number));
         $business = [
             'business_id' => $user_queues->business_id,
             'transaction_date' => $user_queues->date,
@@ -242,8 +243,9 @@ class MobileController extends BaseController{
             'priority_number' => $user_queues->priority_number,
             'time_issued' => $user_queues->time_queued,
             'time_called' => $user_queues->time_called,
+            'service_id' => $service_id,
+            'service_name' => Service::name($service_id),
             'rating' => UserRating::getUserRating($transaction_number) ? UserRating::getUserRating($transaction_number)->rating : 0
-
         ];
 
         return json_encode($business);
@@ -579,5 +581,24 @@ class MobileController extends BaseController{
         }
 
     }
+
+    public function getViewForm($form_id) {
+        $fields = unserialize(Forms::getFieldsByFormId($form_id));
+        return json_encode(array(
+          'fields' => $fields
+        ));
+    }
+
+  public function getDisplayForms($service_id) {
+    $data = array();
+    $forms = Forms::fetchFormsByServiceId($service_id);
+    foreach ($forms as $form) {
+      $data[] = array(
+        'form_id' => $form->form_id,
+        'form_name' => $form->form_name,
+      );
+    }
+    return json_encode(array('success'=> 1, 'forms' => $data));
+  }
 
 }
