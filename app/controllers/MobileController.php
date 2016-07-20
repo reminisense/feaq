@@ -606,4 +606,16 @@ class MobileController extends BaseController{
         return $analytics->getServiceTimeEstimates($service_id);
     }
 
+    public function getUserRecords($transaction_number) {
+        $arr = array();
+        $records = FormRecord::getRecordIdFormIdByTransactionNumber($transaction_number);
+        foreach ($records as $count => $record) {
+            $arr[] = array(
+              'record_id' => $record->record_id,
+              'form_name' => Forms::getTitleByFormId($record->form_id),
+            );
+        }
+        return json_encode($arr);
+    }
+
 }
