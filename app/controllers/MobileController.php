@@ -601,4 +601,9 @@ class MobileController extends BaseController{
     return json_encode(array('success'=> 1, 'forms' => $data));
   }
 
+    public function getServiceEstimates($service_id){
+        $analytics = new Analytics();
+        return $analytics->getServiceTimeEstimates($service_id);
+    }
+
 }
