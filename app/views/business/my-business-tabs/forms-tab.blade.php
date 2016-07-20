@@ -161,7 +161,7 @@
                         <td>@{{ form.service_name }}</td>
                         <td>@{{ form.date_created }}</td>
                         <td><a href="" id="btn-view-form" ng-click="viewForm(form.form_id)"><span class="glyphicon glyphicon-eye-open"></span>View</a></td>
-                        {{--<td id="onoff"><input type="checkbox" checked data-toggle="toggle"></td>--}}
+                        <td id="onoff"><input type="checkbox" checked data-toggle="toggle"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -182,8 +182,8 @@
                         <td>@{{ form.form_name }}</td>
                         <td>@{{ form.service_name }}</td>
                         <td>@{{ form.date_created }}</td>
-                        <td><a href="" id="btn-view-form" ><span class="glyphicon glyphicon-eye-open"></span>View</a></td>
-                        {{--<td id="onoff"><input type="checkbox" checked data-toggle="toggle"></td>--}}
+                        <td><a href="" id="btn-view-form" ng-click="viewForm(form.form_id)"><span class="glyphicon glyphicon-eye-open"></span>View</a></td>
+                        <td id="onoff"><input type="checkbox" checked data-toggle="toggle"></td>
                     </tr>
                     </tbody>
                 </table>
