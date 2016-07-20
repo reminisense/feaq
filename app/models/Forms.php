@@ -31,9 +31,9 @@ class Forms extends Eloquent {
   public static function postCreateForm($service_id, $name, $fields, $path) {
       $data = [
           'service_id' => $service_id,
-          'name' => $name,
+          'form_name' => $name,
           'fields' => $fields,
-          'path' => $path
+          'xml_path' => $path
       ];
       return Forms::insert($data);
   }

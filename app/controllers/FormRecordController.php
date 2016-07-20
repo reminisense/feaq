@@ -58,6 +58,7 @@ class FormRecordController extends BaseController {
       return json_encode(array(
         'fields' => $fields,
         'service_name' => $service_name,
+        'form_id' => $form_id,
         'form_name' => $form_name,
         'form_data' => simplexml_load_string(file_get_contents($form_data)),
         'transaction_number' => $transaction_number,

@@ -18,8 +18,7 @@ $(document).ready(function() {
     e.preventDefault();
   });
 
-  /*view forms*/
-  $('#btn-view-form').on('click', function(e) {
+  $('.btn-view-form').on('click', function(e) {
     $('#business-form-tabs-table').hide();
     $('#business-forms-tabs').hide();
     $('.create-form-wrap').hide();
@@ -28,6 +27,15 @@ $(document).ready(function() {
     e.preventDefault();
   });
 
+    $(document).on('click', '#btn-back',function(e) {
+        $('#business-form-tabs-table').fadeIn();
+        $('#business-forms-tabs').fadeIn();
+        $('.create-form-wrap').hide();
+        $('.view-form-wrap').hide();
+        $('.table-view-signups').hide();
+        e.preventDefault();
+    });
+
   $('.form-title').on('click', function(e) {
     $(this).hide();
     $('#edit-form-title').show();
@@ -35,17 +43,22 @@ $(document).ready(function() {
   });
 
   $('#option-field').change(function(){
-      var value = $('#option-field').val();
-      if(value == 'radio'){
-          $('#radio-options').fadeIn();
-          $('#dropdown-options').hide();
-      }else if(value == 'dropdown'){
-          $('#radio-options').hide();
-          $('#dropdown-options').fadeIn();
-      }else{
-          $('#radio-options').fadeOut();
-          $('#dropdown-options').fadeOut();
-      }
+        var value = $('#option-field').val();
+        if(value == 'radio'){
+            $('#radio-options').fadeIn();
+            $('#dropdown-options').hide();
+        }else if(value == 'dropdown'){
+            $('#radio-options').hide();
+            $('#dropdown-options').fadeIn();
+        }else{
+            $('#radio-options').fadeOut();
+            $('#dropdown-options').fadeOut();
+        }
 
-  });
+    });
+
+    $('#cancel-form').on('click', function(e) {
+        $('.create-form-wrap').slideToggle('fast');
+        e.preventDefault();
+    })
 });

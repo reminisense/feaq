@@ -40,13 +40,13 @@ class FormsController extends BaseController{
             $record_list[] = array(
               'full_name' => User::first_name($record->user_id) . ' ' . User::last_name($record->user_id),
               'transaction_number' => $record->transaction_number,
-              'date' => date("D, M j, Y g:i A", strtotime($record->time_created)),
+              'date' => date('F, d Y', strtotime($record->time_created)),
               'record_id' => $record->record_id,
             );
           }
           return json_encode(array(
             'fields' => $fields,
-//            'service_name' => $service_name,
+              'service_name' => $service_name,
             'form_name' => $form_name,
             'records' => $record_list,
           ));
@@ -58,5 +58,42 @@ class FormsController extends BaseController{
             ));
         }
     }
+
+    public function postSaveForm(){
+        if (Helper::isBusinessOwner(Business::getBusinessIdByServiceId(Input::get('service_id')), Helper::userId())) { // PAG added permission checking
+            $service_id = Input::get('service_id');
+            $name = Input::get('name');
+            $fields = Input::get('fields');
+            $form_tag = count(Forms::fetchFormsByServiceId($service_id))+1;
+            $form_data = array();
+
+            $to_xml = array(
+                'form_name' => $name,
+                'service_id' => $service_id,
+            );
+
+            foreach($fields as $field){
+                $form_data[preg_replace('/[^a-z]/', "", strtolower($field['field_data']['label']))] = '';
+            }
+
+            $to_xml['form_data'] = $form_data;
+
+            $path = 'public/forms/templates/form_'.$service_id.'_'.$form_tag.'.xml';
+
+            $xml = new SimpleXMLElement("<?xml version=\"1.0\"?><xml></xml>");
+
+            Helper::array_to_xml($to_xml,$xml);
+
+            $dom = dom_import_simplexml($xml)->ownerDocument;
+            $dom->formatOutput = true;
+            $dom->saveXML($dom,LIBXML_NOEMPTYTAG);
+            file_put_contents($path, $dom->saveXML($dom,LIBXML_NOEMPTYTAG));
+
+
+            Forms::postCreateForm($service_id ,$name,serialize($fields), $path);
+            return json_encode($to_xml);
+        }
+    }
+
 
 }
