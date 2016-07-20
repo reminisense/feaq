@@ -512,20 +512,27 @@ class Analytics extends Eloquent{
     public function getServiceTimeEstimates($service_id, $date = null){
         $date = $date == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $date;
         $serving_times = $this->getServingTimes($service_id, $date);
+        $all_numbers = ProcessQueue::allNumbers($service_id);
+        $numbers_ahead = Analytics::getServiceRemainingCount($service_id);
+        $next_number = $all_numbers->next_number;
         if(count($serving_times) > 1){
+            $time = time();
             $mean = $this->getMean($serving_times);
             $standard_deviation = $this->getStandardDeviation($serving_times);
-            $time = time();
-            $numbers_ahead = Analytics::getServiceRemainingCount($service_id);
             $time_estimates = $this->getTimeEstimate($time, $numbers_ahead, $mean, $standard_deviation);
 
-            $time_estimates['upper_limit'] = date('h:ia', $time_estimates['upper_limit']); //Helper::millisecondsToHMSFormat($time_estimates['upper_limit']);
-            $time_estimates['lower_limit'] = $time_estimates['lower_limit'] > $time ? date('h:ia', $time_estimates['lower_limit']) : date('h:ia', $time); //Helper::millisecondsToHMSFormat($time_estimates['lower_limit']);
+            $time_estimates['upper_limit'] = date('h:ia', $time_estimates['upper_limit']);
+            $time_estimates['lower_limit'] = $time_estimates['lower_limit'] > $time ? date('h:ia', $time_estimates['lower_limit']) : date('h:ia', $time);
+            $time_estimates['next_number'] = $next_number;
             $time_estimates['serving_times'] = $serving_times;
-            return json_encode($time_estimates);
         }else{
-            return 'Insufficient data';
+            $time_estimates['upper_limit'] = date('h:ia', time());
+            $time_estimates['lower_limit'] = date('h:ia', time());
+            $time_estimates['next_number'] = $next_number;
+            $time_estimates['numbers_ahead'] = $numbers_ahead;
         }
+
+        return json_encode($time_estimates);
     }
 
     /**
