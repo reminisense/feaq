@@ -608,6 +608,44 @@ h2.cyan span {
 #table-queue-history>tbody>tr>td {
     border: 1px solid #cfd8db;
 }
+td.links {
+    text-align: left!important;
+    vertical-align: middle!important;
+}
+.btn-links {
+    color: #fff;
+    font-size: 11px;
+    padding: 3px 4px;
+}
+.btn-links span {
+    color: #fff!important;
+}
+#modal-forms .modal-content {
+    padding-top: 0;
+}
+#modal-forms .modal-header {
+    padding-top: 15px;
+}
+#modal-forms table td {
+    text-align: left!important;
+    width: inherit;
+}
+#tab-forms li a {
+    padding: 13px 20px;
+    background-color: #eee;
+    font-family: ralewaybold;
+}
+#tab-forms li.active>a,
+#tab-forms li.active>a:focus,
+#tab-forms li.active>a:hover {
+    background-color: #00ba8b;
+    color: #fff;
+    border-bottom: 1px solid #00ba8b;
+}
+#tab-forms li a:hover {background-color: #f4f3f0; color: #00ba8b;}
+#tab-forms li.active>a {
+    border: 1px solid #00ba8b;
+}
 
 /*ARA added styles for new 2nd column (user info)*/
 @media only screen and (min-width: 991px) {
