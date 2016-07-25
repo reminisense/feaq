@@ -5,6 +5,8 @@
 
 $(document).ready(function() {
 
+  $( "#record-datepicker" ).datepicker();
+
   /*create form*/
   $('#create-form').on('click', function(e) {
     $('.create-form-wrap').slideToggle('fast');
@@ -55,6 +57,17 @@ $(document).ready(function() {
             $('#dropdown-options').fadeOut();
         }
 
+    });
+
+    $('#record-option').change(function(){
+        var value = $('#record-option').val();
+        if(value == 'date'){
+            $('#record-datepicker').show();
+            $('#record-name').hide();
+        }else{
+            $('#record-datepicker').hide();
+            $('#record-name').show();
+        }
     });
 
     $('#cancel-form').on('click', function(e) {

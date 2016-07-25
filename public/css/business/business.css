@@ -1277,3 +1277,7 @@ span.glyphicon {
   border-bottom-left-radius: 1px;
   border-bottom-right-radius: 1px;
 }
+
+#record-datepicker, #filtered-name, #filtered-date{
+    display:none;
+}

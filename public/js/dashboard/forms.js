@@ -14,6 +14,8 @@
       $scope.forms = [];
       $scope.fields = [];
       $scope.dropdowns = [];
+      $scope.records=[];
+      $scope.filtered_records=[]; //added for filtering
 
     $scope.viewForm = function (form_id) {
       $scope.formFields = '';
@@ -79,10 +81,36 @@
       });
     };
 
-    $scope.searchUserRecords = function (form_id, keyword) {
-      $http.get('/records/search-records/' + form_id + '/' + keyword).success(function (response) {
-        $scope.records = response;
-      });
+    $scope.searchUserRecords = function () {
+        $scope.filtered_records = [];
+        $scope.err_search =  '';
+        var option = $('#record-option').val();
+
+        if(option == 'all'){
+            $scope.filtered_records =[];
+            $scope.err_search =  '';
+        }else if(option == 'name'){
+            var name = $('#record-name').val();
+            for(i = 0; i< $scope.records.length; i++){
+                if($scope.records[i].full_name.toLowerCase().indexOf(name.toLowerCase()) > -1){
+                    $scope.filtered_records.push($scope.records[i]);
+                }
+            }
+            $scope.err_search = $scope.filtered_records.length ? '':'No matches found.';
+        }else if(option == 'date'){
+            var date = $('#record-datepicker').val();
+
+            for(i = 0; i< $scope.records.length; i++) {
+                var cur_date = new Date($scope.records[i].date);
+                var formatted_ = ('0' + (cur_date.getMonth()+1)).slice(-2)+'/'+('0' + cur_date.getDate()).slice(-2)+'/'+cur_date.getFullYear()
+               if(formatted_ == date){
+                   $scope.filtered_records.push($scope.records[i]);
+               }
+            }
+            $scope.err_search = $scope.filtered_records.length ? '':'No matches found.';
+        }
+
+
     };
 
     $scope.viewRecord = function (record_id) {
@@ -241,6 +269,17 @@
              number_of_options : $scope.dropdowns.length + 1
           });
 
+      }
+
+      $scope.saveFormStatus = function(form_id){
+          var status=0;
+          if ($('#status'+form_id).is(':checked')) {
+              status=1;
+          }
+          $http.post('/forms/save-status',{
+              status: status,
+              form_id: form_id
+          });
       }
 
       $scope.clearForms = function(){

@@ -152,7 +152,7 @@
                         <th>Service</th>
                         <th>Date</th>
                         <th>Action</th>
-                        <th class="text-right"></th>
+                        <th class="text-right">Enable</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -161,7 +161,7 @@
                         <td>@{{ form.service_name }}</td>
                         <td>@{{ form.date_created }}</td>
                         <td><a href="" id="btn-view-form" ng-click="viewForm(form.form_id)"><span class="glyphicon glyphicon-eye-open"></span>View</a></td>
-                        <td id="onoff"><input type="checkbox" checked data-toggle="toggle"></td>
+                        <td id="onoff"><input id="status@{{ form.form_id }}" ng-model="form.status" type="checkbox" ng-change="saveFormStatus(form.form_id)" data-toggle="toggle"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -174,7 +174,7 @@
                         <th>Service</th>
                         <th>Date</th>
                         <th>Action</th>
-                        <th class="text-right"></th>
+                        <th class="text-right">Enable</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -183,7 +183,7 @@
                         <td>@{{ form.service_name }}</td>
                         <td>@{{ form.date_created }}</td>
                         <td><a href="" id="btn-view-form" ng-click="viewForm(form.form_id)"><span class="glyphicon glyphicon-eye-open"></span>View</a></td>
-                        <td id="onoff"><input type="checkbox" checked data-toggle="toggle"></td>
+                        <td id="onoff"><input id="status@{{ form.form_id }}" ng-model="form.status" type="checkbox" ng-change="saveFormStatus(form.form_id)" data-toggle="toggle"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -247,6 +247,16 @@
             </div>
 
             <div class="clearfix table-view-signups">
+                <div>
+                    <select id='record-option'>
+                        <option value="all">All</option>
+                        <option value="name">Name</option>
+                        <option value="date">Date</option>
+                    </select>
+                    <input type="text" id="record-name">
+                    <input type="text" id="record-datepicker">
+                    <button ng-click="searchUserRecords()">Search</button>
+                </div>
               <table class="table table-hover table-striped">
                 <thead>
                   <tr>
@@ -257,14 +267,21 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr ng-repeat="(count, record) in records">
+                  <tr id='all-records' ng-repeat="(count, record) in records" ng-show="!filtered_records.length && !err_search">
                     <th>@{{ record.full_name }}</th>
                     <td>@{{ record.transaction_number }}</td>
                     <td>@{{ record.date }}</td>
                     <td class="text-right"><a href="" ng-click="viewRecord(record.record_id)"><span class="glyphicon glyphicon-eye-open"></span>View Transaction</a></td>
                   </tr>
+                  <tr id='filtered-records' ng-repeat="(count, record) in filtered_records" ng-show="filtered_records.length && !err_search">
+                      <th>@{{ record.full_name }}</th>
+                      <td>@{{ record.transaction_number }}</td>
+                      <td>@{{ record.date }}</td>
+                      <td class="text-right"><a href="" ng-click="viewRecord(record.record_id)"><span class="glyphicon glyphicon-eye-open"></span>View Transaction</a></td>
+                  </tr>
                 </tbody>
               </table>
+              <div class="alert alert-danger mt10" id="form-error" ng-show="err_search" style="text-align: center;">@{{ err_search }}</div>
             </div>
         </div>
 </div>
