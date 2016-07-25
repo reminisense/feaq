@@ -36,4 +36,8 @@ class FormRecord extends Eloquent {
     return FormRecord::where('record_id', '=', $record_id)->select(array('form_id'))->first()->form_id;
   }
 
+  public static function getRecordIdFormIdByTransactionNumber($transaction_number) {
+    return FormRecord::where('transaction_number', '=', $transaction_number)->select(array('record_id', 'form_id'))->get();
+  }
+
 }

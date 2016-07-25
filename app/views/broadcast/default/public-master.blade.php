@@ -120,13 +120,30 @@
                         <div class="col-md-7 getnum-info">
                             <div class="ng-binding">
                                 <h1 class="nomg">@{{ get_num }}</h1>
-                                {{--ng-if="queue_status == 1"--}}
-                                <a href="" class="btn-getnum" data-toggle="modal" data-target="#remote-queue-modal">
+                                @if($allow_remote)
+                                @if(Auth::check())
+                                <a href="" ng-if="queue_status == 1" class="btn-getnum" data-toggle="modal" data-target="#remote-queue-modal">
                                     Get this number <span class="glyphicon glyphicon-save"></span>
                                 </a>
-                                {{--<a ng-if="queue_status == 0" href="" class="btn-getnum @{{ user_queue.time_checked_in > 0 ? 'disabled' : '' }}" ng-click="checkIn()">--}}
-                                    {{--@{{ user_queue.time_checked_in > 0 ? 'You are checked in' : 'Check in' }}--}}
-                                {{--</a>--}}
+                                <a ng-if="queue_status == 0" href="" class="btn-getnum @{{ user_queue.time_checked_in > 0 ? 'disabled' : '' }}" ng-click="checkIn()">
+                                    @{{ user_queue.time_checked_in > 0 ? 'You are checked in' : 'Check in' }}
+                                </a>
+                                @else
+                                <a href="" class="btn-getnum disabled" data-toggle="modal" data-target="#remote-queue-modal">
+                                    Login to get this number
+                                </a>
+                                @endif
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-5">
+                                <h5 class="text-center">Estimated Time: </h5>
+                            </div>
+                            <div class="col-md-7">
+                                <h6 class="text-center">
+                                    <span class="glyphicon glyphicon-bell"></span> <span>@{{ estimates.lower_limit }}</span> - <span>@{{ estimates.upper_limit }}</span>
+                                </h6>
                             </div>
                         </div>
                     </div>
