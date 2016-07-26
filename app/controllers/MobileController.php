@@ -618,4 +618,14 @@ class MobileController extends BaseController{
         return json_encode($arr);
     }
 
+    public function getViewRecord($record_id) {
+      $form_id = FormRecord::getFormIdByRecordId($record_id);
+      $fields = unserialize(Forms::getFieldsByFormId($form_id));
+      $form_data = FormRecord::getXMLPathByRecordId($record_id);
+      return json_encode(array(
+        'fields' => $fields,
+        'form_data' => simplexml_load_string(file_get_contents($form_data)),
+      ));
+    }
+
 }
