@@ -40,4 +40,14 @@ class FormRecord extends Eloquent {
     return FormRecord::where('transaction_number', '=', $transaction_number)->select(array('record_id', 'form_id'))->get();
   }
 
+  public static function createRecord($transaction_number, $form_id, $user_id, $record_path) {
+    $data = array(
+      'transaction_number' => $transaction_number,
+      'form_id' => $form_id,
+      'user_id' => $user_id,
+      'record_path' => $record_path,
+    );
+    FormRecord::insert($data);
+  }
+
 }

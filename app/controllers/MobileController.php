@@ -628,4 +628,36 @@ class MobileController extends BaseController{
       ));
     }
 
+  public function postSubmitForm() {
+    $user_id = Input::get('user_id');
+    $transaction_number = Input::get('transaction_number');
+    $form_submissions = Input::get('form_submissions');
+    foreach ($form_submissions as $count => $form_submit) {
+      foreach ($form_submit as $form_id => $submit_data) {
+        $to_xml = array(
+          'form_name' => Forms::getTitleByFormId($form_id),
+          'service_id' => Input::get('service_id'),
+        );
+        $form_data = array();
+        $form_tag = count(FormRecord::fetchAllRecordsByFormId($form_id))+1;
+        foreach ($submit_data as $count2 => $xml_data) {
+          $form_data[$xml_data["xml_tag"]] = $xml_data["xml_val"];
+        }
+        $to_xml['form_data'] = $form_data;
+        $path = 'forms/records/form_'.$transaction_number.'_'.$form_id.'_'.$form_tag.'.xml';
+        $xml = new SimpleXMLElement("<?xml version=\"1.0\"?><xml></xml>");
+        Helper::array_to_xml($to_xml,$xml);
+        $dom = dom_import_simplexml($xml)->ownerDocument;
+        $dom->formatOutput = true;
+        $dom->saveXML($dom,LIBXML_NOEMPTYTAG);
+        file_put_contents($path, $dom->saveXML($dom,LIBXML_NOEMPTYTAG));
+        FormRecord::createRecord($transaction_number, $form_id, $user_id, $path);
+      }
+    }
+    return json_encode(array(
+      'status' => 201,
+      'msg' => 'OK'
+    ));
+  }
+
 }
