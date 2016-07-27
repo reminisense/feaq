@@ -1277,3 +1277,18 @@ span.glyphicon {
   border-bottom-left-radius: 1px;
   border-bottom-right-radius: 1px;
 }
+
+#record-datepicker, #filtered-name, #filtered-date{
+    display:none;
+}
+.clearfix.search-filter input,
+.clearfix.search-filter select {
+    height: 36px;
+    width: inherit;
+    display: inline-block;
+    margin-right: 5px;
+    margin-bottom: 10px;
+}
+.clearfix.search-filter select {
+    width: 120px;
+}

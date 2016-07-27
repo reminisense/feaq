@@ -87,7 +87,7 @@ var pq = {
                     $(this).attr('data-name'),
                     $(this).attr('data-email'),
                     $(this).attr('data-phone'),
-                    $(this).attr('data-custom_fields'),
+                    $(this).attr('data-form_records'),
                     $(this).attr('data-queue_platform'),
                     $(this).attr('data-checked_in')
                 );
@@ -128,7 +128,7 @@ var pq = {
                 name = $(this).attr('data-name') ? $(this).attr('data-name') : 'Not specified';
                 phone = $(this).attr('data-phone') ? $(this).attr('data-phone') : 'Not specified';
                 email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
-                custom_fields = $(this).data('custom_fields') ? $(this).data('custom_fields') : null;
+                forms_record = $(this).data('form_records') ? $(this).data('form_records') : null;
                 priority_number = $(this).attr('data-priority-number');
                 transaction_number = $(this).attr('data-transaction-number');
                 confirmation_code = $(this).attr('data-confirmation-code');
@@ -143,41 +143,16 @@ var pq = {
 
                 user_name = name;
 
-                if(custom_fields.length > 0){
+                if(forms_record.length > 0){
 
-                    var dropdown;
-
-                    for(i=0;i<custom_fields.length;i++){
-                        $('.priority-number-custom-fields').append('<div class="col-md-4 col-xs-4"><h5>'+custom_fields[i].label+': </h5></div>'+
-                        '<div class="col-md-8 col-xs-8"><h5 id="priority-number-email">'+custom_fields[i].input+'</h5></div>');
+                    for(var i = 0; i < forms_record.length; i++){
+                        $('.priority-number-custom-fields').append('<div><h4>'+forms_record[i].form_name+'</h4></div>');
+                        var forms_data = forms_record[i].form_data;
+                        for(var key in forms_data) {
+                            $('.priority-number-custom-fields').append('<div class="col-md-4 col-xs-4"><h5>'+key+': </h5></div>'+
+                            '<div class="col-md-8 col-xs-8"><h5>'+forms_data[key]+'</h5></div>');
+                        }
                     }
-
-                    dropdown = '<form method=post action="../../forms/convert-to-format" target="content_iframe">'+
-                    '<div class="col-md-4 col-xs-4">'+
-                    '<select name="data-format">'+
-                    '<option value="json">Json</option>'+
-                    '<option value="xml">XML</option>'+
-                    '<option value="csv">CSV</option>'+
-                    '</select></div>'+
-                    '<input type="hidden" name="name" value="'+user_name+'">'+
-                    '<input type="hidden" name="phone" value="'+phone+'">'+
-                    '<input type="hidden" name="email" value="'+email+'">';
-
-                    for(i=0;i<custom_fields.length;i++){
-                        dropdown+= '';
-                        dropdown+= '<input type="hidden" name="custom_fields['+i+']['+"id"+']" value="'+custom_fields[i].id+'">';
-                        dropdown+= '<input type="hidden" name="custom_fields['+i+']['+"id"+']" value="'+custom_fields[i].id+'">';
-                        dropdown+= '<input type="hidden" name="custom_fields['+i+']['+"label"+']" value="'+custom_fields[i].label+'">';
-                        dropdown+= '<input type="hidden" name="custom_fields['+i+']['+"input"+']" value="'+custom_fields[i].input+'">';
-                        dropdown+= '</div>';
-                    }
-
-                    dropdown+= '<div class="col-md-8 col-xs-8"><input type="submit" name="submit"></div>'+
-                    '</form>'+
-                    '<iframe name="content_iframe" style="display: none;"></iframe>'
-
-                    $('.priority-number-custom-fields').append(dropdown);
-
                 }
 
                 $('#priority-number-modal .modal-body ul .details a').trigger('click');
@@ -199,7 +174,7 @@ var pq = {
                 name = $(this).attr('data-name') ? $(this).attr('data-name') : 'Not specified';
                 phone = $(this).attr('data-phone') ? $(this).attr('data-phone') : 'Not specified';
                 email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
-                custom_fields = $(this).data('custom_fields') ? $(this).data('custom_fields') : null;
+                form_records = $(this).data('forms_data') ? $(this).data('forms_data') : null;
                 priority_number = $(this).attr('data-priority-number');
                 transaction_number = $(this).attr('data-transaction-number');
                 confirmation_code = $(this).attr('data-confirmation-code');
@@ -213,12 +188,15 @@ var pq = {
                 $('#priority-number-modal').attr('data-transaction-number', transaction_number);
 
 
-                if(custom_fields.length > 0){
+                if(forms_record.length > 0){
 
-                    for(i=0;i<custom_fields.length;i++){
-                        console.log(custom_fields[i]);
-                        $('.priority-number-custom-fields').append('<div class="col-md-4 col-xs-4"><h5>'+custom_fields[i].label+': </h5></div>'+
-                        '<div class="col-md-8 col-xs-8"><h5 id="priority-number-email">'+custom_fields[i].input+'</h5></div>');
+                    for(var i = 0; i < forms_record.length; i++){
+                        $('.priority-number-custom-fields').append('<div><h4>'+forms_record[i].form_name+'</h4></div>');
+                        var forms_data = forms_record[i].form_data;
+                        for(var key in forms_data) {
+                            $('.priority-number-custom-fields').append('<div class="col-md-4 col-xs-4"><h5>'+key+': </h5></div>'+
+                            '<div class="col-md-8 col-xs-8"><h5>'+forms_data[key]+'</h5></div>');
+                        }
                     }
                 }
 
@@ -233,7 +211,7 @@ var pq = {
                 name = $(this).attr('data-name') ? $(this).attr('data-name') : 'Not specified';
                 phone = $(this).attr('data-phone') ? $(this).attr('data-phone') : 'Not specified';
                 email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
-                custom_fields = $(this).data('custom_fields') ? $(this).data('custom_fields') : null;
+                form_records = $(this).data('form_records') ? $(this).data('form_records') : null;
                 priority_number = $(this).attr('data-priority-number');
                 transaction_number = $(this).attr('data-transaction-number');
                 confirmation_code = $(this).attr('data-confirmation-code');
@@ -246,12 +224,15 @@ var pq = {
                 $('#priority-number-email').html(email);
                 $('#priority-number-modal').attr('data-transaction-number', transaction_number);
 
-                if(custom_fields.length > 0){
+                if(forms_record.length > 0){
 
-                    for(i=0;i<custom_fields.length;i++){
-                        console.log(custom_fields[i]);
-                        $('.priority-number-custom-fields').append('<div class="col-md-4 col-xs-4"><h5>'+custom_fields[i].label+': </h5></div>'+
-                        '<div class="col-md-8 col-xs-8"><h5 id="priority-number-email">'+custom_fields[i].input+'</h5></div>');
+                    for(var i = 0; i < forms_record.length; i++){
+                        $('.priority-number-custom-fields').append('<div><h4>'+forms_record[i].form_name+'</h4></div>');
+                        var forms_data = forms_record[i].form_data;
+                        for(var key in forms_data) {
+                            $('.priority-number-custom-fields').append('<div class="col-md-4 col-xs-4"><h5>'+key+': </h5></div>'+
+                            '<div class="col-md-8 col-xs-8"><h5>'+forms_data[key]+'</h5></div>');
+                        }
                     }
                 }
 
@@ -274,7 +255,7 @@ var pq = {
                 name = $(this).attr('data-name') ? $(this).attr('data-name') : 'Not specified';
                 phone = $(this).attr('data-phone') ? $(this).attr('data-phone') : 'Not specified';
                 email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
-                custom_fields = $(this).data('custom_fields') ? $(this).data('custom_fields') : null;
+                form_records = $(this).data('form_records') ? $(this).data('form_records') : null;
                 priority_number = $(this).attr('data-priority-number');
                 transaction_number = $(this).attr('data-transaction-number');
                 confirmation_code = $(this).attr('data-confirmation-code');
@@ -286,12 +267,15 @@ var pq = {
                 $('#priority-number-email').html(email);
                 $('#priority-number-modal').attr('data-transaction-number', transaction_number);
 
-                if(custom_fields.length > 0){
+                if(forms_record.length > 0){
 
-                    for(i=0;i<custom_fields.length;i++){
-                        console.log(custom_fields[i]);
-                        $('.priority-number-custom-fields').append('<div class="col-md-4 col-xs-4"><h5>'+custom_fields[i].label+': </h5></div>'+
-                        '<div class="col-md-8 col-xs-8"><h5 id="priority-number-email">'+custom_fields[i].input+'</h5></div>');
+                    for(var i = 0; i < forms_record.length; i++){
+                        $('.priority-number-custom-fields').append('<div><h4>'+forms_record[i].form_name+'</h4></div>');
+                        var forms_data = forms_record[i].form_data;
+                        for(var key in forms_data) {
+                            $('.priority-number-custom-fields').append('<div class="col-md-4 col-xs-4"><h5>'+key+': </h5></div>'+
+                            '<div class="col-md-8 col-xs-8"><h5>'+forms_data[key]+'</h5></div>');
+                        }
                     }
                 }
 
@@ -329,7 +313,7 @@ var pq = {
             });
         },
 
-        select_number : function(tnumber, pnumber, username, email, phone, custom_fields, queue_platform, checked_in){
+        select_number : function(tnumber, pnumber, username, email, phone, form_records, queue_platform, checked_in){
             username = username != undefined ? username : '';
             queue_platform = queue_platform != undefined ? queue_platform : '';
             checked_in = checked_in != undefined ? checked_in : false;
@@ -345,7 +329,7 @@ var pq = {
                 'data-name="' + username + '" ' +
                 'data-email="' + email + '" ' +
                 'data-phone="' + phone + '" ' +
-                'data-custom_fields="' + custom_fields + '" ' +
+                'data-form_records="' + form_records + '" ' +
                 'data-toggle="modal" ' +
                 'data-target="#priority-number-modal"' +
                 '>';

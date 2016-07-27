@@ -209,6 +209,8 @@ class ProcessQueue extends Eloquent{
             $called = $number->time_called != 0 ? TRUE : FALSE;
             $served = $number->time_completed != 0 ? TRUE : FALSE;
             $removed = $number->time_removed != 0 ? TRUE : FALSE;
+            $records = FormRecord::getRecordIdFormIdByTransactionNumber($number->transaction_number);
+            $form_records = [];
 
             $timebound = ($number->time_assigned) != 0 && ($number->time_assigned <= time()) ? TRUE : FALSE;
             $checked_in = isset($number->time_checked_in) && $number->time_checked_in != 0 ? TRUE : FALSE;
@@ -240,7 +242,13 @@ class ProcessQueue extends Eloquent{
                 $verified = false;
             }
 
-            $custom_field = $number->custom_fields ? json_decode($number->custom_fields) : null;
+
+            foreach($records as $record){
+                 $form_data = FormRecord::getXMLPathByRecordId($record->record_id);
+                 $form_records[] = simplexml_load_string(file_get_contents($form_data));
+            }
+
+
             /*legend*/
             //uncalled  : not served and not removed
             //called    : called, not served and not removed
@@ -259,7 +267,7 @@ class ProcessQueue extends Eloquent{
                     'name' => $number->name,
                     'phone' => $number->phone,
                     'email' => $number->email,
-                    'custom_fields' => $custom_field,
+                    'form_records' => $form_records,
                     'verified_email' => $verified,
                     'checked_in' => $checked_in,
                     'time_called' => $number->time_called,
@@ -275,7 +283,7 @@ class ProcessQueue extends Eloquent{
                     'name' => $number->name,
                     'phone' => $number->phone,
                     'email' => $number->email,
-                    'custom_fields' => $custom_field,
+                    'form_records' => $form_records,
                     'verified_email' => $verified,
                     'checked_in' => $checked_in,
                     'time_called' => $number->time_called,
@@ -291,7 +299,7 @@ class ProcessQueue extends Eloquent{
                     'name' => $number->name,
                     'phone' => $number->phone,
                     'email' => $number->email,
-                    'custom_fields' => $custom_field,
+                    'form_records' => $form_records,
                     'verified_email' => $verified,
                     'checked_in' => $checked_in,
                     'time_called' => $number->time_called,
@@ -311,7 +319,7 @@ class ProcessQueue extends Eloquent{
                     'name' => $number->name,
                     'phone' => $number->phone,
                     'email' => $number->email,
-                    'custom_fields' => $custom_field,
+                    'form_records' => $form_records,
                     'verified_email' => $verified, //Added by JCA
                     'box_rank' => Terminal::boxRank($number->terminal_id), // Added by PAG
                     'color' => Terminal::getColorByTerminalId($number->terminal_id),

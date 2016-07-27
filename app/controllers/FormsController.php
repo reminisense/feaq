@@ -15,9 +15,10 @@ class FormsController extends BaseController{
                       'form_name' => $form->form_name,
                       'service_id' => $form->service_id,
                       'service_name' => Service::name($form->service_id),
-                      'date_created' => $date->format('F, d Y'),
+                      'date_created' => $date->format('F d, Y'),
                       'path' => $form->xml_path,
-                      'fields' => unserialize($form->fields)
+                      'fields' => unserialize($form->fields),
+                      'status' => $form->status ? true:false
                   );
               }
           }
@@ -40,7 +41,7 @@ class FormsController extends BaseController{
             $record_list[] = array(
               'full_name' => User::first_name($record->user_id) . ' ' . User::last_name($record->user_id),
               'transaction_number' => $record->transaction_number,
-              'date' => date('F, d Y', strtotime($record->time_created)),
+              'date' => date('F d, Y', strtotime($record->time_created)),
               'record_id' => $record->record_id,
             );
           }
@@ -95,5 +96,16 @@ class FormsController extends BaseController{
         }
     }
 
+    public function postSaveStatus(){
+
+           $form_id = Input::get('form_id');
+           $status = Input::get('status');
+
+           $form = Forms::find($form_id);
+           $form->status = $status;
+           $form->save();
+
+          return json_encode(array('success'=> 1));
+    }
 
 }
