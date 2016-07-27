@@ -1281,3 +1281,14 @@ span.glyphicon {
 #record-datepicker, #filtered-name, #filtered-date{
     display:none;
 }
+.clearfix.search-filter input,
+.clearfix.search-filter select {
+    height: 36px;
+    width: inherit;
+    display: inline-block;
+    margin-right: 5px;
+    margin-bottom: 10px;
+}
+.clearfix.search-filter select {
+    width: 120px;
+}

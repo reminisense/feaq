@@ -161,7 +161,9 @@
                         <td>@{{ form.service_name }}</td>
                         <td>@{{ form.date_created }}</td>
                         <td><a href="" id="btn-view-form" ng-click="viewForm(form.form_id)"><span class="glyphicon glyphicon-eye-open"></span>View</a></td>
-                        <td id="onoff"><input id="status@{{ form.form_id }}" ng-model="form.status" type="checkbox" ng-change="saveFormStatus(form.form_id)" data-toggle="toggle"></td>
+                        <td id="onoff">
+                            <input type="checkbox" checked data-toggle="toggle" id="status@{{ form.form_id }}" ng-model="form.status" ng-change="saveFormStatus(form.form_id)" >
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -247,15 +249,15 @@
             </div>
 
             <div class="clearfix table-view-signups">
-                <div>
-                    <select id='record-option'>
+                <div class="clearfix search-filter">
+                    <select class="col-md-2 col-xs-12 col-sm-2 form-control" id='record-option'>
                         <option value="all">All</option>
                         <option value="name">Name</option>
                         <option value="date">Date</option>
                     </select>
-                    <input type="text" id="record-name">
-                    <input type="text" id="record-datepicker">
-                    <button ng-click="searchUserRecords()">Search</button>
+                    <input class="form-control" type="text" id="record-name">
+                    <input class="form-control" type="text" id="record-datepicker">
+                    <button class="btn-primary btn btn-lg" ng-click="searchUserRecords()">Search</button>
                 </div>
               <table class="table table-hover table-striped">
                 <thead>
