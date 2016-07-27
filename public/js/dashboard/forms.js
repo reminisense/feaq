@@ -173,7 +173,6 @@
           var service_id =  $('#select-service').val();
           var form_name = $('#form-name').val();
 
-          console.log($scope.fields);
 
           if( form_name==""){
               $scope.error_message = "Please enter a valid name."

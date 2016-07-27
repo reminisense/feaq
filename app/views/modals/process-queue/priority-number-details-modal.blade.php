@@ -46,7 +46,6 @@
                             {{--<div class="col-md-12 col-xs-12 text-right"><button class="btn btn-primary" id="priority-number-modal-close" data-dismiss="modal">Close</button></div>--}}
                         </div>
                     </div>
-
                     <div class="tab-pane fade in" id="messages">
                         <div class="">
                             <div class="col-md-12 text-center"><h5>Conversation History</h5></div>
