@@ -33,7 +33,8 @@ class Forms extends Eloquent {
           'service_id' => $service_id,
           'form_name' => $name,
           'fields' => $fields,
-          'xml_path' => $path
+          'xml_path' => $path,
+          'status' => 1
       ];
       return Forms::insert($data);
   }

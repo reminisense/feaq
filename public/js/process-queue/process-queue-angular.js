@@ -274,7 +274,7 @@
                         $scope.timebound_numbers[0].name,
                         $scope.timebound_numbers[0].email,
                         $scope.timebound_numbers[0].phone,
-                        $scope.timebound_numbers[0].custom_fields,
+                        $scope.timebound_numbers[0].form_records,
                         $scope.timebound_numbers[0].queue_platform,
                         $scope.timebound_numbers[0].checked_in
                     );
@@ -285,7 +285,7 @@
                         $scope.uncalled_numbers[0].name,
                         $scope.uncalled_numbers[0].email,
                         $scope.uncalled_numbers[0].phone,
-                        $scope.uncalled_numbers[0].custom_fields,
+                        $scope.uncalled_numbers[0].form_records,
                         $scope.uncalled_numbers[0].queue_platform,
                         $scope.uncalled_numbers[0].checked_in
                     );
@@ -299,7 +299,7 @@
                     $scope.timebound_numbers[0].name,
                     $scope.timebound_numbers[0].email,
                     $scope.timebound_numbers[0].phone,
-                    $scope.timebound_numbers[0].custom_fields,
+                    $scope.timebound_numbers[0].form_records,
                     $scope.timebound_numbers[0].queue_platform,
                     $scope.timebound_numbers[0].checked_in
                 );
