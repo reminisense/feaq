@@ -218,9 +218,8 @@ Processs Queue > {{ $business_name }}
                         </th>
                         <td class="links">
                             <div ng-show="number.form_records.length">
-                                @{{ number.form_records }}
-                                <a href="#" class="btn btn-primary btn-xs btn-links" data-toggle="modal" data-target="#modal-forms"><span class="glyphicon glyphicon-list-alt"></span> View Form</a>
-                                <div class="modal fade" id="modal-forms" tabindex="-1" role="dialog">
+                                <a href="#" class="btn btn-primary btn-xs btn-links" data-toggle="modal" data-target="#modal-forms@{{ number.priority_number }}"><span class="glyphicon glyphicon-list-alt"></span> View Form</a>
+                                <div class="modal fade modal-forms" id="modal-forms@{{ number.priority_number }}" tabindex="-1" role="dialog">
                                     <div class="modal-dialog modal-md" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -230,7 +229,7 @@ Processs Queue > {{ $business_name }}
                                             <div class="modal-body">
                                                 <div class="clearfix">
                                                     <ul id="tab-forms" class="clearfix nav nav-tabs">
-                                                        <li role="presentation" class="@{{ $index == 0 ? 'active':''}}" ng-repeat="form in number.form_records">
+                                                        <li role="presentation" ng-repeat="form in number.form_records" class="@{{ $index == 0 ? 'active':''}}" >
                                                             <a href="#service-@{{ $index }}" data-toggle="tab">@{{form.form_name }}</a>
                                                         </li>
                                                         {{--<li role="presentation" class="">--}}
