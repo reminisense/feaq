@@ -118,9 +118,9 @@
         var formData = response.form_data.form_data;
           var i = 0;
         $.each(formData, function(key, val) {
-            var id = response.form_id + '_' +i;
+          var id = response.form_id + '_' +i;
           $('#' + id + ':input').val(val); // textfield and select default
-          $('input:radio[name=' + id + ']').filter('[value=' + val + ']').prop('checked', true); // radio default
+          $('input:radio[name=' + id + ']').filter('[value="' + val + '"]').prop('checked', true); // radio default
           if (val == 1) { // checkbox default
             $('#' + id).prop('checked', true);
           }
