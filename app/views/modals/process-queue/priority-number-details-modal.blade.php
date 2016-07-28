@@ -36,8 +36,8 @@
                             <div class="col-md-4 col-xs-4"><h5>Email: </h5></div>
                             <div class="col-md-8 col-xs-8"><h5 id="priority-number-email"></h5></div>
                         </div>
-                        <div class="priority-number-custom-fields">
-                        </div>
+                        {{--<div class="priority-number-custom-fields">--}}
+                        {{--</div>--}}
                         <div class="" id="allowed-businesses-area" style="display: none">
                             <div class="col-md-4 col-xs-4"><h5>Forward to: </h5></div>
                             <div class="col-md-7 col-xs-7"><select class="form-control" id="allowed-businesses"></select></div>
