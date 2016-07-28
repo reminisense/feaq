@@ -483,6 +483,7 @@ class RestController extends BaseController {
 
             $details = [
                 'number_assigned' => $priority_number,
+                'transaction_number' => $number['transaction_number'],
             ];
 
             return json_encode($details);
