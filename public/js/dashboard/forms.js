@@ -139,6 +139,9 @@
         $scope.timeCompleted = response.transaction_history.time_completed ? getTime(response.transaction_history.time_completed) : "Not Completed";
         $scope.timeQueued = getTime(response.transaction_history.time_queued);
 
+        $('html, body').animate({
+          scrollTop: $("#forms").offset().top
+        }, 100);
 
       });
     };
