@@ -9,6 +9,22 @@
 
 class MobileController extends BaseController{
 
+  public function __construct() {
+    $this->beforeFilter('@grantAccess');
+  }
+
+  public function grantAccess($route, $request) {
+    if ($request->path() != 'mobile/facebook-login') {
+      $auth_token = Request::header('Authorization');
+      if (!User::getValidateToken($auth_token) || !$auth_token) {
+        return Response::json(array(
+          'msg' => 'Your access token is not valid.',
+          'status' => 403,
+        ));
+      }
+    }
+  }
+
     public function getBusinessNumbers($business_id, $user_id){
         $business = Business::where('business_id', '=', $business_id)->first();
         $services = Service::getServicesByBusinessId($business_id);
@@ -416,6 +432,7 @@ class MobileController extends BaseController{
 
     public function postFacebookLogin(){
         $fb_id = Input::get('facebook_id');
+      $fb_token = Input::get('fb_token');
 
         if(isset($fb_id) && $fb_id != ""){
             $user = User::where('fb_id', '=', $fb_id)->first();
@@ -432,7 +449,7 @@ class MobileController extends BaseController{
                     'local_address' => $user->local_address,
                     'gender' => $user->gender,
                 ];
-                return json_encode(['success' => 1, 'user'=> $user_data, 'access_token' => Helper::generateAccessKey()]);
+                return json_encode(['success' => 1, 'user'=> $user_data, 'access_token' => Helper::generateAccessKey($fb_id, $fb_token)]);
             }else{
                 return json_encode(['error' => 'User does not exist.']);
             }

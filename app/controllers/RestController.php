@@ -8,6 +8,22 @@
 
 class RestController extends BaseController {
 
+    public function __construct() {
+        $this->beforeFilter('@grantAccess');
+    }
+
+  public function grantAccess($route, $request) {
+    if ($request->path() != 'rest/register-user') {
+      $auth_token = Request::header('Authorization');
+      if (!User::getValidateToken($auth_token) || !$auth_token) {
+        return Response::json(array(
+          'msg' => 'Your access token is not valid.',
+          'status' => 403,
+        ));
+      }
+    }
+  }
+
     /**
      * @author Ruffy
      * @param null $quantity when User wants to specify how many to return

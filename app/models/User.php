@@ -294,4 +294,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     public static function getUserIdByEmail($email) {
         return User::where('email', '=', $email)->select(array('user_id'))->first()->user_id;
     }
+
+  public static function getValidateToken($access_token) {
+    return User::where('auth_token', '=', $access_token)->exists();
+  }
+
+  public static function saveAuthToken($fb_id, $token) {
+    User::where('fb_id', '=', $fb_id)->update(array('auth_token' => $token));
+  }
+
 }

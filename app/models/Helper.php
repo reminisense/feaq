@@ -427,8 +427,10 @@ class Helper extends Eloquent
         }
     }
 
-    public static function generateAccessKey(){
-        return Hash::make('FeatherQ');
+    public static function generateAccessKey($fb_id, $fb_token) {
+      $auth_token = Hash::make($fb_token);
+      User::saveAuthToken($fb_id, $auth_token);
+      return $auth_token;
     }
 
     public static function checkAccessKey(){
