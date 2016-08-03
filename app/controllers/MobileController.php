@@ -15,7 +15,7 @@ class MobileController extends BaseController{
   }
 
   public function grantAccess($route, $request) {
-    if ($request->path() != 'mobile/facebook-login') {
+    if ($request->path() != 'mobile/facebook-login' && $request->path() != 'mobile/send-notif') {
       $auth_token = Request::header('Authorization');
       if (!User::getValidateToken($auth_token) || !$auth_token) {
         return Response::json(array(
