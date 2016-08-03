@@ -120,4 +120,9 @@ class ProcessQueueController extends BaseController{
         }
         return json_encode(['data' => QueueForwardTransactions::getForwardTransactionsByServiceId($service_id, $date)]);
     }
+
+    public function getNextNumber($service_id){
+        $all_numbers = ProcessQueue::allNumbers($service_id);
+        return json_encode(['next_number' => $all_numbers->next_number]);
+    }
 }

@@ -1,0 +1,10 @@
+<xml>
+    <form_name>Healthcare</form_name>
+    <service_name>Cashier</service_name>
+    <form_data>
+        <red>Next</red>
+        <bluemoon>1</bluemoon>
+        <bloodtype>O</bloodtype>
+        <xray>Yes</xray>
+    </form_data>
+</xml>

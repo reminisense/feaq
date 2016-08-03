@@ -204,12 +204,29 @@ class UserController extends BaseController{
      * @description: Get User by User ID for remote queue
      */
     public function getRemoteuser($user_id){
-        if($user_id != 0){
-            return json_encode(array('status' => '1', 'first_name' => User::first_name($user_id), 'last_name' => User::last_name($user_id), 'phone' => User::phone($user_id), 'email' => User::email($user_id)));
+        $user = User::where('user_id', '=', $user_id)->first();
+        if($user){
+            $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+            $user_queue = User::getUserHistory($user->user_id, 99, 0, $date);
+            if($user_queue){
+                $queue_status = $user_queue[0]['date'] == $date && $user_queue[0]['time_called'] == 0 ? 0 : 1;
+            }else{
+                $queue_status = 1;
+            }
+            return json_encode(
+                array(
+                    'status' => '1',
+                    'first_name' => $user->first_name,
+                    'last_name' => $user->last_name,
+                    'phone' => $user->phone,
+                    'email' => $user->email,
+                    'queue_status' => $queue_status,
+                    'user_queue' => $queue_status ? null : $user_queue[0],
+                )
+            );
         } else {
             return json_encode(array('status' => '0'));
         }
-
     }
 
     public function getSearchUser($keyword){
@@ -282,12 +299,7 @@ class UserController extends BaseController{
             }else if($user && Hash::check($password, $user->password)){
                 Session::put('FBaccessToken', null);
                 Auth::loginUsingId($user->user_id);
-                if (UserBusiness::getBusinessIdByOwner($user->user_id)) {
-                    return json_encode(array('success' => 1, 'redirect' => '/business/my-business'));
-                }
-                else {
-                    return json_encode(array('success' => 1, 'redirect' => '/'));
-                }
+                return json_encode(array('success' => 1, 'redirect' => '/business'));
             }else{
                 return json_encode(['error' => 'The email or password is incorrect.']);
             }
@@ -304,13 +316,14 @@ class UserController extends BaseController{
         }
     }
 
-    public function getRegister(){
-        if(Auth::check()){
-            return Redirect::to('/');
-        }else{
-            return View::make('user.email-registration');
-        }
-    }
+/* ARA - FQW-218 Removed to separate business and user registration*/
+//    public function getRegister(){
+//        if(Auth::check()){
+//            return Redirect::to('/');
+//        }else{
+//            return View::make('user.email-registration');
+//        }
+//    }
 
     public function getForgotPassword(){
         return View::make('user.password-reset-send');

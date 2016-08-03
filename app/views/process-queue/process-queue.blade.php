@@ -54,7 +54,7 @@ Processs Queue > {{ $business_name }}
             <div class="col-md-offset-1 col-md-7 col-sm-8">
                 <p>Processing Queues for:</p>
                 <h2><strong>{{ $business_name }}</strong></h2>
-                <h3><strong>{{ $service_name }} - {{ $terminal_name }}</strong></h3>
+                <h3 class="cyan"><strong>{{ $service_name }} - {{ $terminal_name }}</strong></h3>
                 Showing numbers for date:
                 <div class="col-md-12 row">
                     <div class="col-md-4">
@@ -94,12 +94,13 @@ Processs Queue > {{ $business_name }}
                                             data-name="@{{ number.name }}"
                                             data-email="@{{ number.email }}"
                                             data-phone="@{{ number.phone }}"
+                                            data-form_records="@{{ number.form_records }}"
                                             data-queue_platform="@{{ number.queue_platform }}"
                                             data-checked_in="@{{ number.checked_in }}"
                                             data-confirmation-code="@{{ number.confirmation_code }}"
                                             >
                                             @{{ number.priority_number }}
-                                            <small class="font-normal">via <span style="text-transform:capitalize;">@{{ number.queue_platform }}</span></small>
+                                            <small class="font-normal" ng-if="number.queue_platform != 'web'">via <span style="text-transform:capitalize;">@{{ number.queue_platform }}</span></small>
                                             <span
                                                class="pull-right font-normal mr5 userinfo show-messages"
                                                title="Number: @{{ number.priority_number }}"
@@ -109,6 +110,7 @@ Processs Queue > {{ $business_name }}
                                                data-name="@{{ number.name }}"
                                                data-email="@{{ number.email }}"
                                                data-phone="@{{ number.phone }}"
+                                               data-form_records="@{{ number.form_records }}"
                                                data-confirmation-code="@{{ number.confirmation_code }}"
                                             >
                                                 <a href="#">
@@ -133,12 +135,13 @@ Processs Queue > {{ $business_name }}
                                             data-name="@{{ number.name }}"
                                             data-email="@{{ number.email }}"
                                             data-phone="@{{ number.phone }}"
+                                            data-form_records="@{{ number.form_records }}"
                                             data-queue_platform="@{{ number.queue_platform }}"
                                             data-checked_in="@{{ number.checked_in }}"
                                             data-confirmation-code="@{{ number.confirmation_code }}"
                                             >
                                             @{{ number.priority_number }}
-                                            <small class="font-normal">via <span style="text-transform:capitalize;">@{{ number.queue_platform }}</span></small>
+                                            <small class="font-normal" ng-if="number.queue_platform != 'web'">via <span style="text-transform:capitalize;">@{{ number.queue_platform }}</span></small>
                                             <span
                                                class="font-normal pull-right mr5 userinfo show-messages"
                                                title="Number: @{{ number.priority_number }}"
@@ -148,6 +151,7 @@ Processs Queue > {{ $business_name }}
                                                data-name="@{{ number.name }}"
                                                data-email="@{{ number.email }}"
                                                data-phone="@{{ number.phone }}"
+                                               data-form_records="@{{ number.form_records }}"
                                                data-confirmation-code="@{{ number.confirmation_code }}"
                                             >
                                                 <a href="#" class="notcheckedin">
@@ -206,19 +210,72 @@ Processs Queue > {{ $business_name }}
                         </td>
                     </tr>
                     <tr ng-repeat="number in called_numbers" data-tnumber="@{{ number.transaction_number }}">
-                        <th scope="row">
-                            <a href="#" class="priority-number" title="Number: @{{ number.priority_number }}" data-transaction-number="@{{ number.transaction_number }}" data-priority-number="@{{ number.priority_number }}" data-name="@{{ number.name }}" data-phone="@{{ number.phone }}" data-email="@{{ number.email }}" data-confirmation-code="@{{ number.confirmation_code }}" data-toggle="modal" data-target="#priority-number-modal">
-                                @{{ number.priority_number }} <span class="glyphicon glyphicon-zoom-in"></span>
-                            </a>
-                        </th>
-                        <td>
-                            <div>
-                                <a ng-if="number.name" href="#" class="show-messages" title="Number: @{{ number.priority_number }}" data-transaction-number="@{{ number.transaction_number }}" data-priority-number="@{{ number.priority_number }}" data-name="@{{ number.name }}" data-phone="@{{ number.phone }}" data-email="@{{ number.email }}" data-confirmation-code="@{{ number.confirmation_code }}" data-toggle="modal" data-target="#priority-number-modal">
-                                    <span>@{{ number.name }}</span>
+                            <td scope="row" width="25%">
+                                <a href="#" class="priority-number" title="Number: @{{ number.priority_number }}" data-transaction-number="@{{ number.transaction_number }}" data-priority-number="@{{ number.priority_number }}" data-name="@{{ number.name }}" data-phone="@{{ number.phone }}" data-email="@{{ number.email }}"  data-form_records="@{{ number.form_records }}" data-confirmation-code="@{{ number.confirmation_code }}" data-toggle="modal" data-target="#priority-number-modal">
+                                    @{{ number.priority_number }}
                                 </a>
+                                <span class=" @{{ number.terminal_id == terminal_id ? 'cyan' : 'red' }}">@{{ number.terminal_name }}</span>
+                            </td>
+
+                        <td class="links">
+                            <div class="pt0" ng-show="number.form_records.length">
+                                <a href="#" class="btn btn-primary btn-xs btn-links" data-toggle="modal" data-target="#modal-forms@{{ number.priority_number }}"><span class="glyphicon glyphicon-list-alt"></span> View Form</a>
+                                <div class="modal fade modal-forms" id="modal-forms@{{ number.priority_number }}" tabindex="-1" role="dialog">
+                                    <div class="modal-dialog modal-md" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="myModalLabel">Forms Data</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="clearfix pt0">
+                                                    <ul id="tab-forms" class="clearfix nav nav-tabs">
+                                                        <li role="presentation" ng-repeat="form in number.form_records" class="@{{ $index == 0 ? 'active':''}}" >
+                                                            <a href="#service-@{{ $index }}" data-toggle="tab">@{{form.form_name }}</a>
+                                                        </li>
+                                                        {{--<li role="presentation" class="">--}}
+                                                            {{--<a href="#service-b" data-toggle="tab">Laboratory</a>--}}
+                                                        {{--</li>--}}
+                                                        {{--<li role="presentation" class="">--}}
+                                                            {{--<a href="#service-b" data-toggle="tab">Cashier / Billing</a>--}}
+                                                        {{--</li>--}}
+                                                    </ul>
+                                                    <div id="tab-forms-table" class="tab-content">
+                                                        <div role="tabpanel" ng-repeat="form in number.form_records" class="tab-pane fade @{{ $index == 0 ? 'active in':'' }}" id="service-@{{ $index }}" >
+                                                            <table class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Form Field</th>
+                                                                        <th>Form Data</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr ng-repeat="(key, value) in form.form_data">
+                                                                        <th scope="row">@{{ key }}</th>
+                                                                        <td>@{{ value }}</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        {{--<div class="tab-pane fade" id="service-b">--}}
+                                                            {{--<table class="table"> <thead> <tr> <th>#</th> <th>BBFirst Name</th> <th>Last Name</th> <th>Username</th> </tr> </thead> <tbody> <tr> <th scope="row">1</th> <td>Mark</td> <td>Otto</td> <td>@mdo</td> </tr> <tr> <th scope="row">2</th> <td>Jacob</td> <td>Thornton</td> <td>@fat</td> </tr> <tr> <th scope="row">3</th> <td>Larry</td> <td>the Bird</td> <td>@twitter</td> </tr> </tbody> </table>--}}
+                                                        {{--</div>--}}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
+                            {{--<div>--}}
+                            {{--<a ng-if="number.name" href="#" class="show-messages" title="Number: @{{ number.priority_number }}" data-transaction-number="@{{ number.transaction_number }}" data-priority-number="@{{ number.priority_number }}" data-name="@{{ number.name }}" data-phone="@{{ number.phone }}" data-email="@{{ number.email }}"  data-custom_fields="@{{ number.custom_fields }}" data-confirmation-code="@{{ number.confirmation_code }}" data-toggle="modal" data-target="#priority-number-modal">--}}
+                            {{--<span>@{{ number.name }}</span>--}}
+                            {{--</a>--}}
+                            {{--</div>--}}
                         </td>
-                        <td>
+                        <td width="20%">
                             <form ng-if="date == today" class="star-rating-form" ng-show="called_numbers[$index].verified_email">
                                 <span class="star-rating">
                                     <input type="radio" name="rating" ng-model="called_numbers_rating[$index]" value="1"><i></i>
@@ -228,8 +285,24 @@ Processs Queue > {{ $business_name }}
                                     <input type="radio" name="rating" ng-model="called_numbers_rating[$index]" value="5"><i></i>
                                 </span>
                             </form>
-                            <a ng-if="date == today" class="delete" ng-click="dropNumber(number.transaction_number)" ng-disabled="isProcessing"><span class="glyphicon glyphicon-trash"></span></a>
+                            <a ng-if="date == today" class="delete" ng-disabled="isProcessing" data-toggle="modal" data-target="#drop-modal"><span class="glyphicon glyphicon-trash"></span></a>
                             <a ng-if="date == today" class="btn btn-sm btn-default"  ng-click="serveAndCallNext(number.transaction_number)" ng-disabled="isProcessing">Next <span class="glyphicon glyphicon-arrow-right"></span></a>
+                            <div id="drop-modal" class="modal fade">
+                                <div class="modal-dialog">
+                                    <div class="modal-content text-left">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title">Drop Number</h3>
+                                        </div>
+                                        <div class="modal-body text-left">
+                                            <h5>Are you sure that you want to drop this number?</h5>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" data-dismiss="modal" class="btn btn-danger" id="delete" ng-click="dropNumber(number.transaction_number)">Drop</button>
+                                            <button type="button" data-dismiss="modal" class="btn">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                     </tbody>

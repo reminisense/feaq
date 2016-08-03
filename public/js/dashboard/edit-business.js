@@ -57,6 +57,22 @@ $(document).ready(function(){
     $(document).on('change', '#ad-video', function(){
         $('#vid-submit-btn').removeClass('btn-disabled');
     });
+    /*toggle qrcode image on business settings*/
+    $( '#toggle-qrcode' ).click(function() {
+        $( '.qrcode-wrap' ).toggle();
+        $(this).html( $(this).html() == '<i class="glyphicon glyphicon-eye-close"></i>  Hide QR Code' ? '<i class="glyphicon glyphicon-qrcode"></i>  Show QR Code' : '<i class="glyphicon glyphicon-eye-close"></i>  Hide QR Code' );
+    });
+    $( '#qr-decrease').click(function() {
+        $( '.qrcode-wrap').css({
+            'width' : $(this).width() - 20
+            /*haha di man mo gana pls ko enhance*/
+        });
+    });
+    $( '#qr-increase').click(function() {
+        $( '.qrcode-wrap').css({
+            'width' : $(this).width() + 20
+        });
+    });
 
     /*removed by rodel to give modal a go*/
     /*$(document).on('click', '.process-queue', function(e){
@@ -222,7 +238,6 @@ var eb = {
                 scope.business_id = business_id;
             });
         },
-
         setUserId : function(user_id){
             var scope = angular.element($("#editBusiness")).scope();
             scope.$apply(function(){
@@ -380,7 +395,7 @@ var eb = {
         $scope.selected_service = 0;
         $scope.selected_terminal = 0;
 
-        $scope.form_fields = [];
+        $scope.forms= [];
 
         $scope.remaining_character1  = 95;
         $scope.remaining_character2  = 95;
@@ -398,6 +413,7 @@ var eb = {
         $scope.input_sms_field = 0;
         $scope.allow_remote = 0;
         $scope.remote_limit = 0;
+        $scope.remote_time = null;
         $scope.process_queue_layout = 0;
 
         $scope.add_terminal = {
@@ -468,6 +484,7 @@ var eb = {
             $scope.input_sms_field = business.input_sms_field;
             $scope.allow_remote = business.allow_remote ? true : false;
             $scope.remote_limit = business.remote_limit;
+            $scope.remote_time = business.remote_time;
             $scope.process_queue_layout = business.process_queue_layout ? true : false;
             $scope.terminals = business.terminals;
             $scope.services = business.services;
@@ -775,6 +792,7 @@ var eb = {
                     input_sms_field: $scope.input_sms_field,
                     allow_remote: $scope.allow_remote ? 1 : 0,
                     remote_limit: $scope.remote_limit,
+                    remote_time: $scope.remote_time,
                     process_queue_layout: $scope.process_queue_layout ? 1 : 0,
                     sms_gateway : $scope.sms_gateway
                 }
@@ -902,7 +920,7 @@ var eb = {
                         handles: 'e'
                     }).bind( "resize", function(e) {
                         var total_width = parseInt($('#ad-well-inner').css('width'));
-                        var percent_num = Math.floor(parseInt(total_width) * 0.25);
+                        var percent_num = Math.floor(parseInt(total_width) * 0.10);
                         var percent_ad = Math.floor(parseInt(total_width) * 0.50);
 
                         var adwidth = parseInt($("#ad-width").css('width'));
@@ -911,12 +929,45 @@ var eb = {
                         if (numwidth >= percent_num && adwidth >= percent_ad){
                             $('#ad-width').css('width', adwidth);
                             $('#ad-num-width').css('width', numwidth);
+                            $('#ad-num-width h2').css({
+                                "font-size": "1vw",
+                                "width": "96%"
+                            });
+                            $('.q-numbers .half').css({
+                                "width": "47%"
+                            });
+                            $('.q-minus, .q-add').css({
+                                "width": "inherit",
+                                "font-size": "12px"
+                            });
                         } else if (numwidth <= percent_num) {
                             $('#ad-width').css('width', total_width - percent_num);
                             $('#ad-num-width').css('width', percent_num);
+                            $('#ad-num-width h2').css({
+                                "font-size": "0.8vw",
+                                "width": "100%"
+                            });
+                            $('.q-numbers .half').css({
+                                "width": "100%"
+                            });
+                            $('.q-minus, .q-add').css({
+                                "width": "100%",
+                                "font-size": "8px"
+                            });
                         } else if (adwidth <= percent_ad) {
                             $('#ad-width').css('width', percent_ad);
                             $('#ad-num-width').css('width', total_width - percent_ad);
+                            $('#ad-num-width h2').css({
+                                "font-size": "1vw",
+                                "width": "96%"
+                            });
+                            $('.q-numbers .half').css({
+                                "width": "47%"
+                            });
+                            $('.q-minus, .q-add').css({
+                                "width": "inherit",
+                                "font-size": "12px"
+                            });
                         }
                     });
 
@@ -1170,64 +1221,6 @@ var eb = {
             });
         });
 
-        $scope.addTextField = function(business_id) {
-            $http.post(eb.urls.forms.add_textfield_url, {
-                business_id : business_id,
-                text_field_label : $scope.text_field_label
-            }).success(function(response) {
-                $scope.displayFormFields(business_id);
-                $('#add-text-field').modal('hide');
-                $('#text-field-label').val('');
-            });
-        };
-
-        $scope.addRadioButton = function(business_id) {
-            $http.post(eb.urls.forms.add_radiobutton_url, {
-                business_id : business_id,
-                radio_button_label : $scope.radio_button_label,
-                radio_value_a : $scope.radio_value_a,
-                radio_value_b : $scope.radio_value_b
-            }).success(function(response) {
-                $scope.displayFormFields(business_id);
-                $('#add-radio-button').modal('hide');
-                $('#radio-button-label').val('');
-                $('#radio-value-a').val('');
-                $('#radio-value-b').val('');
-            });
-        };
-
-        $scope.addCheckbox = function(business_id) {
-            $http.post(eb.urls.forms.add_checkbox_url, {
-                business_id : business_id,
-                checkbox_label : $scope.checkbox_label
-            }).success(function(response) {
-                $scope.displayFormFields(business_id);
-                $('#add-check-box').modal('hide');
-                $('#check-box-label').val('');
-            });
-        };
-
-        $scope.addDropdown = function(business_id) {
-            $http.post(eb.urls.forms.add_dropdown_url, {
-                business_id : business_id,
-                dropdown_label : $scope.dropdown_label,
-                dropdown_options : $scope.dropdown_options
-            }).success(function(response) {
-                $scope.displayFormFields(business_id);
-                $('#add-dropdown').modal('hide');
-                $('#dropdown-label').val('');
-                $('#dropdown-options').val('');
-            });
-        };
-
-        $scope.displayFormFields = function(business_id) {
-            $http.post(eb.urls.forms.display_fields_url, {
-                business_id : business_id
-            }).success(function(response) {
-                $scope.form_fields = response.form_fields;
-            });
-        };
-
         /*
          $scope.showPreviewForm = function(business_id) {
          $http.post(eb.urls.forms.display_fields_url, {
@@ -1238,15 +1231,17 @@ var eb = {
          };
          */
 
-        $scope.deleteFormField = function(form_id) {
-            if (confirm('Are you sure you want to delete this field?')) {
-                $http.post(eb.urls.forms.delete_field_url, {
-                    form_id : form_id
-                }).success(function(response) {
-                    $('.field-'+form_id).remove();
-                });
-            }
-        };
+        //$scope.deleteFormField = function(form_id, business_id) {
+        //    console.log(business_id)
+        //    if (confirm('Are you sure you want to delete this field?')) {
+        //        $http.post(eb.urls.forms.delete_field_url, {
+        //            business_id : business_id,
+        //            form_id : form_id
+        //        }).success(function(response) {
+        //            $('.field-'+form_id).remove();
+        //        });
+        //    }
+        //};
 
         $scope.getBusinessAnalytics = function(startdate, enddate){
             $http.post('/business/business-analytics', { business_id: $scope.business_id, startdate: startdate, enddate: enddate }).success(function(response){

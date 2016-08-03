@@ -247,8 +247,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
                 business.business_id as business_id,
                 business.name as business_name,
                 business.local_address as business_address,
-                terminal_transaction.time_completed as time_completed,
                 terminal_transaction.time_queued as time_queued,
+                terminal_transaction.time_checked_in as time_checked_in,
+                terminal_transaction.time_called as time_called,
+                terminal_transaction.time_completed as time_completed,
                 MAX(queue_analytics.action) as status
             ')
             ->orderBy('queue_analytics.transaction_number', 'desc')
@@ -292,4 +294,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     public static function getUserIdByEmail($email) {
         return User::where('email', '=', $email)->select(array('user_id'))->first()->user_id;
     }
+
+  public static function getValidateToken($access_token) {
+    return User::where('auth_token', '=', $access_token)->exists();
+  }
+
+  public static function saveAuthToken($fb_id, $token) {
+    User::where('fb_id', '=', $fb_id)->update(array('auth_token' => $token));
+  }
+
 }

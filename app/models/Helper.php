@@ -427,11 +427,29 @@ class Helper extends Eloquent
         }
     }
 
-    public static function generateAccessKey(){
-        return Hash::make('FeatherQ');
+    public static function generateAccessKey($fb_id, $fb_token) {
+      $auth_token = Hash::make($fb_token);
+      User::saveAuthToken($fb_id, $auth_token);
+      return $auth_token;
     }
 
     public static function checkAccessKey(){
         return Hash::check('FeatherQ', Request::header('access_key'));
+    }
+
+    public static function array_to_xml($array, $xml){
+        foreach($array as $key => $value) {
+            if(is_array($value)) {
+                if(!is_numeric($key)){
+                    $subnode = $xml->addChild("$key");
+                    Helper::array_to_xml($value, $subnode);
+                }else{
+                    $subnode = $xml->addChild("field$key");
+                    Helper::array_to_xml($value, $subnode);
+                }
+            }else {
+                $xml->addChild("$key",htmlspecialchars("$value"));
+            }
+        }
     }
 }

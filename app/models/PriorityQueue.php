@@ -97,4 +97,12 @@ class PriorityQueue extends Eloquent {
         return $result;
     }
 
+    public static function updateCustomFieldsOfNumber($transaction_number, $data){
+
+       $value = ['custom_fields' => $data];
+       $result =  PriorityQueue::where('transaction_number', '=', $transaction_number)
+            ->update($value);
+
+        return $result;
+    }
 }

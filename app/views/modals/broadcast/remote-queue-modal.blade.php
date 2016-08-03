@@ -55,6 +55,28 @@
                         </form>
                     </div>
                 </div>
+                <div class="clearfix" id="custom-forms" ng-show="form_fields != 0">
+                    <div style=" border-top: 1px dotted #ccc;">
+                        <div class="mt20">
+                            <div class="tab-pane fade active in" id="insertq">
+                                <form class="navbar-form navbar-left">
+                                    <div class="form-group row">
+                                        <div ng-repeat="(form_id, field) in form_fields" class="col-md-12" id="custom-field-@{{ form_id }}" style="padding-left: 0px; padding-right: 0px;">
+                                            <div class="col-md-4">
+                                                <label>@{{ field.label }}</label>
+                                            </div>
+                                            <div class="col-md-8" id="field-@{{ form_id }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="alert alert-danger" role="alert" ng-show="issue_specific_error.length > 0">
+                                        <div><strong class="message">@{{ issue_specific_error }}</strong></div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="alert alert-success" style="display: none" role="alert" id="issue-number-success">
                     <div><strong class="message"></strong></div>
                 </div>

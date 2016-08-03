@@ -9,6 +9,22 @@
 
 class MobileController extends BaseController{
 
+  public function __construct() {
+    $this->beforeFilter('@grantAccess');
+  }
+
+  public function grantAccess($route, $request) {
+    if ($request->path() != 'mobile/facebook-login') {
+      $auth_token = Request::header('Authorization');
+      if (!User::getValidateToken($auth_token) || !$auth_token) {
+        return Response::json(array(
+          'msg' => 'Your access token is not valid.',
+          'status' => 403,
+        ));
+      }
+    }
+  }
+
     public function getBusinessNumbers($business_id, $user_id){
         $business = Business::where('business_id', '=', $business_id)->first();
         $services = Service::getServicesByBusinessId($business_id);
@@ -229,6 +245,7 @@ class MobileController extends BaseController{
     //Screen #7
     public function getMyBusinessHistory($transaction_number){
         $user_queues = PriorityQueue::getTransactionHistory($transaction_number);
+        $service_id = Terminal::serviceId(TerminalTransaction::terminalId($transaction_number));
         $business = [
             'business_id' => $user_queues->business_id,
             'transaction_date' => $user_queues->date,
@@ -242,8 +259,9 @@ class MobileController extends BaseController{
             'priority_number' => $user_queues->priority_number,
             'time_issued' => $user_queues->time_queued,
             'time_called' => $user_queues->time_called,
+            'service_id' => $service_id,
+            'service_name' => Service::name($service_id),
             'rating' => UserRating::getUserRating($transaction_number) ? UserRating::getUserRating($transaction_number)->rating : 0
-
         ];
 
         return json_encode($business);
@@ -414,6 +432,7 @@ class MobileController extends BaseController{
 
     public function postFacebookLogin(){
         $fb_id = Input::get('facebook_id');
+      $fb_token = Input::get('fb_token');
 
         if(isset($fb_id) && $fb_id != ""){
             $user = User::where('fb_id', '=', $fb_id)->first();
@@ -430,7 +449,7 @@ class MobileController extends BaseController{
                     'local_address' => $user->local_address,
                     'gender' => $user->gender,
                 ];
-                return json_encode(['success' => 1, 'user'=> $user_data, 'access_token' => Helper::generateAccessKey()]);
+                return json_encode(['success' => 1, 'user'=> $user_data, 'access_token' => Helper::generateAccessKey($fb_id, $fb_token)]);
             }else{
                 return json_encode(['error' => 'User does not exist.']);
             }
@@ -537,6 +556,126 @@ class MobileController extends BaseController{
             return json_encode(['success' => 0, 'error' => 'Transaction number not found.']);
         }
     }
+
+    public function getCustomFieldsData($transaction_number){
+        if(PriorityQueue::where('transaction_number', '=', $transaction_number)->exists()) {
+            $result= PriorityQueue::where('transaction_number', '=', $transaction_number)->first(['custom_fields']);
+            return json_decode($result->custom_fields);
+        }else{
+            return json_encode(['success' => 0, 'error' => 'Transaction number not found.']);
+        }
+    }
+
+    public function getCustomFields($service_id){
+
+        if(Forms::where('service_id', '=', $service_id)->exists()) {
+            $fields = array();
+            $res = Forms::getFieldsByServiceId($service_id);
+            foreach ($res as $count => $data) {
+                $field_data = unserialize($data->field_data);
+                $fields[$data->form_id] = array(
+                    'field_type' => $data->field_type,
+                    'label' => $field_data['label'],
+                    'options' => array_key_exists('options', $field_data) ? unserialize($field_data['options']) : array(),
+                    'value_a' => array_key_exists('value_a', $field_data) ? $field_data['value_a'] : '',
+                    'value_b' => array_key_exists('value_b', $field_data) ? $field_data['value_b'] : '',
+                );
+            }
+            return json_encode($fields);
+        }else{
+            return json_encode(['success' => 0, 'error' => 'Transaction number not found.']);
+        }
+    }
+
+    public function postInsertCustomFieldsData(){
+        $data = Input::all();
+        $result =  PriorityQueue::updateCustomFieldsOfNumber($data['transaction_number'], json_encode($data['input']));
+
+        if($result){
+            return json_encode(['success' => 1]);
+        }else{
+            return json_encode(['error' =>'Something Went Wrong']);
+        }
+
+    }
+
+    public function getViewForm($form_id) {
+        $fields = unserialize(Forms::getFieldsByFormId($form_id));
+        return json_encode(array(
+          'fields' => $fields
+        ));
+    }
+
+  public function getDisplayForms($service_id) {
+    $data = array();
+    $forms = Forms::fetchFormsByServiceId($service_id);
+    foreach ($forms as $form) {
+      $data[] = array(
+        'form_id' => $form->form_id,
+        'form_name' => $form->form_name,
+      );
+    }
+    return json_encode(array('success'=> 1, 'forms' => $data));
+  }
+
+    public function getServiceEstimates($service_id){
+        $analytics = new Analytics();
+        return $analytics->getServiceTimeEstimates($service_id);
+    }
+
+    public function getUserRecords($transaction_number) {
+        $arr = array();
+        $records = FormRecord::getRecordIdFormIdByTransactionNumber($transaction_number);
+        foreach ($records as $count => $record) {
+            $arr[] = array(
+              'record_id' => $record->record_id,
+              'form_name' => Forms::getTitleByFormId($record->form_id),
+            );
+        }
+        return json_encode($arr);
+    }
+
+    public function getViewRecord($record_id) {
+      $form_id = FormRecord::getFormIdByRecordId($record_id);
+      $fields = unserialize(Forms::getFieldsByFormId($form_id));
+      $form_data = FormRecord::getXMLPathByRecordId($record_id);
+      return json_encode(array(
+        'fields' => $fields,
+        'form_data' => simplexml_load_string(file_get_contents($form_data)),
+      ));
+    }
+
+  public function postSubmitForm() {
+    $user_id = Input::get('user_id');
+    $transaction_number = Input::get('transaction_number');
+    $form_submissions = Input::get('form_submissions');
+    foreach ($form_submissions as $count => $form_submit) {
+      foreach ($form_submit as $form_id => $submit_data) {
+        $to_xml = array(
+          'form_name' => Forms::getTitleByFormId($form_id),
+          'service_id' => Input::get('service_id'),
+        );
+        $form_data = array();
+        $form_tag = count(FormRecord::fetchAllRecordsByFormId($form_id))+1;
+        foreach ($submit_data as $count2 => $xml_data) {
+          $form_data[$xml_data["xml_tag"]] = $xml_data["xml_val"];
+        }
+        $to_xml['form_data'] = $form_data;
+        $path = 'forms/records/form_'.$transaction_number.'_'.$form_id.'_'.$form_tag.'.xml';
+        $xml = new SimpleXMLElement("<?xml version=\"1.0\"?><xml></xml>");
+        Helper::array_to_xml($to_xml,$xml);
+        $dom = dom_import_simplexml($xml)->ownerDocument;
+        $dom->formatOutput = true;
+        $dom->saveXML($dom,LIBXML_NOEMPTYTAG);
+        file_put_contents($path, $dom->saveXML($dom,LIBXML_NOEMPTYTAG));
+        FormRecord::createRecord($transaction_number, $form_id, $user_id, $path);
+      }
+    }
+    return json_encode(array(
+      'status' => 201,
+      'msg' => 'OK'
+    ));
+  }
 
     public function sendApnNotif() {
 

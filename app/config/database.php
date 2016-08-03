@@ -52,16 +52,16 @@ return array(
 			'prefix'   => '',
 		),
 
-        'mysql' => array(
-            'driver'    => 'mysql',
-            'host'      => 'localhost',
-            'database'  => 'feaq',
-            'username'  => 'forge',
-            'password'  => 'TkLKr5ysCF9DQfJuVzx7',
-            'charset'   => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix'    => '',
-        ),
+		'mysql' => array(
+			'driver'    => 'mysql',
+			'host'      => 'localhost',
+			'database'  => 'feaq',
+			'username'  => 'forge',
+			'password'  => 'TkLKr5ysCF9DQfJuVzx7',
+			'charset'   => 'utf8',
+			'collation' => 'utf8_unicode_ci',
+			'prefix'    => '',
+		),
 
         'pgsql' => array(
 			'driver'   => 'pgsql',

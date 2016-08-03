@@ -21,6 +21,8 @@ My Business
     <script src="/js/websocket-variables.js"></script>
     <script src="/js/dashboard/dashboard.js"></script>
     <script src="/js/dashboard/edit-business.js"></script>
+    <script src="/js/dashboard/forms.js"></script>
+    <script src="/js/dashboard/business-forms.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.4/jstz.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
@@ -105,6 +107,7 @@ My Business
                         <li class=""><a href="#terminals" id="terminals-tab" data-toggle="tab"><span class="glyphicon glyphicon-tasks"></span> Services</a></li>
                         <li class=""><a href="#settings" id="settings-tab" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
                         <li class=""><a href="#analytics" id="analytics-tab" data-toggle="tab"><span class="glyphicon glyphicon-stats"></span> Analytics</a></li>
+                        <li class=""><a href="#forms" id="forms-tab" data-toggle="tab"><span class="glyphicon glyphicon-list"></span> Forms</a></li>
                     </ul>
                     <div id="bizTabContent" class="tab-content" style="">
                         <div class="col-md-12">
@@ -126,6 +129,9 @@ My Business
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="analytics" aria-labelledby="analytics-tab">
                             <div class="clearfix">@include('business.my-business-tabs.analytics-tab')</div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="forms" aria-labelledby="forms-tab">
+                            <div class="clearfix">@include('business.my-business-tabs.forms-tab')</div>
                         </div>
                     </div>
                 </div>
