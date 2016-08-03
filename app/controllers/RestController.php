@@ -310,6 +310,7 @@ class RestController extends BaseController {
             'country' => Input::get('country'),
         );
         User::saveFBDetails($data);
+        UserDevice::saveDeviceToken(Input::get('device_token'), Input::get('device_type'), Input::get('fb_id'));
         return json_encode(array('status' => 200, 'msg' => 'OK'));
     }
 
