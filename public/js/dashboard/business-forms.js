@@ -41,6 +41,7 @@ $(document).ready(function() {
   $('.form-title').on('click', function(e) {
     $(this).hide();
     $('#edit-form-title').show();
+    $('#form-name').focus();
     e.preventDefault();
   });
 

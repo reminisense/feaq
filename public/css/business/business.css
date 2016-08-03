@@ -1242,6 +1242,7 @@ span.glyphicon {
 }
 .form-title {
   font-size: 18px;
+    color: #00ba8b;
 }
 .form-title:hover {
   text-decoration: none;
