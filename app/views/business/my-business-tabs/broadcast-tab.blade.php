@@ -44,6 +44,12 @@
                     <div class="ads-type acarousel">
                         <div class="clearfix">
                             <div class="col-md-12">
+                                <small>Directory Path: </small>
+                                <input type="text" id="video-directory" class="form-control" value="{{ exec('~#HOME') }}"/>
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                            <div class="col-md-12">
                                 <div class="">
                                     <form class="form-group" method="post" action="dump.php">
                                         <div id="html5_uploader" style="width: 100%; height: 330px;">Your browser doesn't support native upload.</div>
