@@ -485,8 +485,10 @@ class ProcessQueue extends Eloquent{
 
         $services = Service::where('branch_id', '=', $first_branch->branch_id)->get();
         $all_numbers = null;
+        $all_service_numbers = [];
         foreach($services as $service){
             $service_numbers = ProcessQueue::allNumbers($service->service_id);
+            $all_service_numbers[$service->service_id] = $service_numbers;
             if($all_numbers){
                 $all_numbers->called_numbers = array_merge($all_numbers->called_numbers, $service_numbers->called_numbers);
                 $all_numbers->uncalled_numbers = array_merge($all_numbers->uncalled_numbers, $service_numbers->uncalled_numbers);
@@ -544,6 +546,60 @@ class ProcessQueue extends Eloquent{
                     $box_count++;
                 }
             }
+            $boxes->get_num = $all_numbers->next_number;
+            File::put($file_path, json_encode($boxes, JSON_PRETTY_PRINT));
+        }
+
+        //ARA 08082016 - Added per service broadcast numbers
+        if($all_service_numbers){
+            $file_path = public_path() . '/json/' . $business_id . '.json';
+            $json = file_get_contents($file_path);
+            $boxes = json_decode($json);
+
+            // PAG Addition for Broadcast Display Settings
+            $max_count = explode("-", $boxes->display)[1];
+
+            foreach($all_service_numbers as $service_id => $all_numbers){
+                $boxes->$service_id = new stdClass();
+                //ARA conditions to determine if only called numbers will be displayed on broadcast page
+                if(!isset($boxes->show_issued) || $boxes->show_issued){
+                    $numbers =  array_merge($all_numbers->called_numbers, $all_numbers->uncalled_numbers);
+                }else{
+                    $numbers = $all_numbers->called_numbers;
+                }
+
+                $box_count = 1;
+                $existing = array();
+                for($counter = 1; $box_count <= $max_count; $counter++){
+                    if($counter <= count($numbers)){
+                        $index = $counter - 1;
+                        $number = isset($numbers[$index]['priority_number']) ? $numbers[$index]['priority_number'] : '';
+                        if(!in_array($numbers[$index]['transaction_number'], $existing) || $number == ''){ //check if same number already exists
+                            $existing[] = $numbers[$index]['transaction_number'];
+                            $box = 'box'.$box_count;
+                            $boxes->$service_id->$box = new stdClass();
+                            $boxes->$service_id->$box->number = $number;
+                            $boxes->$service_id->$box->service = isset($numbers[$index]['service_name']) ? $numbers[$index]['service_name'] : ''; //ARA Added service name for multiple services
+                            $boxes->$service_id->$box->terminal = isset($numbers[$index]['terminal_name']) ? $numbers[$index]['terminal_name'] : '';
+                            $boxes->$service_id->$box->rank = isset($numbers[$index]['box_rank']) ? $numbers[$index]['box_rank'] : ''; // Added by PAG
+                            $boxes->$service_id->$box->color = isset($numbers[$index]['color']) ? $numbers[$index]['color'] : ''; // Added by PAG
+                            $boxes->$service_id->$box->user = (isset($boxes->show_names) && $boxes->show_names) && isset($numbers[$index]['name']) ? $numbers[$index]['name'] : ''; //Added by ARA
+                            $box_count++;
+                        }
+                    }else{
+                        $box = 'box'.$box_count;
+                        $boxes->$service_id->$box = new stdClass();
+                        $boxes->$service_id->$box->number = '';
+                        $boxes->$service_id->$box->service = ''; //ARA Added service name for multiple services
+                        $boxes->$service_id->$box->terminal = '';
+                        $boxes->$service_id->$box->rank = ''; // Added by PAG
+                        $boxes->$service_id->$box->color = ''; // Added by PAG
+                        $boxes->$service_id->$box->user = ''; //Added by ARA
+                        $box_count++;
+                    }
+                }
+            }
+
             $boxes->get_num = $all_numbers->next_number;
             File::put($file_path, json_encode($boxes, JSON_PRETTY_PRINT));
         }
