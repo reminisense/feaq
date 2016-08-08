@@ -1,0 +1,139 @@
+
+    @media only screen and (max-width : 1200px) {
+        #banner h1 {
+            font-size: 26px;
+            line-height: 44px;
+        }
+        #phone {
+            background: url("../../../images/business/landing/featherq-on-mobile-md.png") bottom right no-repeat;
+        }
+    }
+
+    @media only screen and (max-width : 992px) {
+        .nav>li>a {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        #phone { background: none;}
+        #phone p {
+            font-size: 34px;
+            line-height: 55px;
+        }
+        #banner .btn {
+            font-size: 16px;
+        }
+        #banner #start {
+            margin-left:0px;
+            margin-bottom:0px;
+        }
+        #banner h1 {
+            margin-bottom: 40px;
+        }
+        #banner {
+            height: 740px;
+        }
+        #who-uses h5 {margin-bottom: 60px;}
+        .pricing #banner {
+            height: 1400px!important;
+            background: none;
+            background-color: #dd781c!important;
+        }
+        table#pricing td {
+            text-align: right!important;
+        }
+    }
+
+    @media only screen and (max-width : 768px) {
+        #featherq-works img {
+            width: 400px;
+        }
+        #featherq-works img, #benefits img {
+            width: 350px;
+        }
+        #featherq-works p {
+            font-size: 16px;
+            margin-bottom: 60px;
+        }
+        #featherq-features img {
+            margin: auto;
+        }
+        .table-responsive>.table>tbody>tr>td, .table-responsive>.table>tbody>tr>th, .table-responsive>.table>tfoot>tr>td, .table-responsive>.table>tfoot>tr>th, .table-responsive>.table>thead>tr>td, .table-responsive>.table>thead>tr>th {
+            white-space: inherit!important;
+        }
+        .pricing table td .btn {
+            padding: 12px 20px!important;
+            margin: 10px 0!important;
+        }
+    }
+
+    @media only screen and (max-width : 480px) {
+        #featherq-works img {
+            width: 300px;
+        }
+        #featherq-works img, #benefits img {
+            width: 300px;
+        }
+        #phone p {
+            font-size: 30px;
+            line-height: 50px;
+        }
+        #banner p {
+            margin-bottom: 30px;
+        }
+        #banner h1 {
+            font-size: 23px;
+            line-height: 38px;
+        }
+        #banner {
+            height: 780px;
+        }
+        #featherq-features img {
+            margin: auto;
+        }
+        .details {
+            height: 190px;
+        }
+        #featherq-works p {margin-bottom: 50px;}
+        #biz-fq-logo {width: 200px;}
+        #contact-us .socials span {
+            display: block;
+            margin-top: 20px;
+        }
+        #contact-us .socials .ml40 {
+            margin-left: 0!important;
+        }
+        #contact-us p.pull-left,
+        #contact-us p.pull-right {
+            float: none!important;
+            display: block;
+            text-align: center;
+        }
+        #contact-us #contact-number {
+            margin-bottom: 50px;
+        }
+
+    }
+
+    @media only screen and (max-width : 320px) {
+        #featherq-works img {
+            width: 280px;
+        }
+        #featherq-works img, #benefits img {
+            width: 85%;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        #featherq-works h4 {
+            margin-bottom: 20px;
+        }
+        #banner .btn {
+            font-size: 12px;
+        }
+        #banner .btn img {
+            width: 8px!important;
+            height: 13px;
+        }
+        #partners {
+            padding-top: 100px;
+        }
+    }

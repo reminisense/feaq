@@ -1,0 +1,138 @@
+html,body {
+  height: 100%;
+}
+body {
+  background-color: #000;
+  position: relative;
+}
+.boxed.itv,
+.boxed.itv4 {
+ background-color: white;
+  height: 100%;
+  min-height: 500px;
+  height: 100vh; 
+  position: relative;
+}
+.boxed.itv .head {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+}
+.boxed.itv .body,
+.boxed.itv4 .body {
+  position: absolute;
+  bottom: 30px;
+  height: 90%;
+}
+
+.boxed .broadcast .numbers .terminal {
+  height: 28px;
+}
+.broadcast.itv .numbers {
+  font-size: 75px!important;
+  font-size: 4vw!important;
+  padding: 10px 0!important;
+  height: 100%;
+  border-bottom: 2px solid #fff;
+}
+.broadcast.itv4 .numbers {
+  font-size: 75px!important;
+  font-size: 5vw!important;
+  padding: 10px 0!important;
+  height: 100%;
+  border-bottom: 1px solid #fff;
+  line-height: 60px!important;
+}
+.broadcast.itv .numbers .terminal {
+  font-size: 22px;
+}
+.broadcast.itv .callnum {
+  line-height: 70px;
+  margin-bottom: 0;
+    margin-top: 20px;
+}
+.broadcast.itv .terminal {
+    margin-top: 30px!important;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 0!important;
+}
+.broadcast.itv .col-md-12 {
+  height: 16%;
+}
+.broadcast.itv4 .col-md-12 {
+  height: 24%;
+}
+.broadcast.itv4 .numbers .terminal {
+    font-size: 22px;
+}
+.qrcode.qrwrap {
+  width: 200px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 99999;
+  text-align: center;
+  min-height: inherit!important;
+  padding: 15px!important;
+  background: white;
+}
+.qrcode.qrwrap .orange {
+  font-size: 20px!important;
+}
+.qrcode.qrwrap h4 {margin: 0!important;}
+.qrcode.qrwrap img {
+  width: 100%;
+  margin-top: 5px;
+}
+.rel {
+  position: relative;
+}
+/*iframe*/
+.vid-container {
+  position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.23%;
+}
+.vid-container iframe,
+.vid-container object,
+.vid-container embed {
+  position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.boxed.mb20.itv4 h4,
+.boxed.mb20.itv h4{
+    font-size: 18px!important;
+    margin: 0;
+}
+.boxed.mb20.itv .numbers.t1 .callnum,
+.boxed.mb20.itv .numbers.t2 .callnum,
+.boxed.mb20.itv .numbers.t3 .callnum,
+.boxed.mb20.itv4 .numbers.t1 .callnum,
+.boxed.mb20.itv4 .numbers.t2 .callnum,
+.boxed.mb20.itv4 .numbers.t3 .callnum {
+    color: #fff!important;
+}
+.boxed.mb20.itv4 .terminal {
+    margin-top: 0!important;
+    margin-bottom: 0!important;
+}
+.boxed.mb20.itv4 .numbers {
+    margin-bottom: 2px!important;
+}
+.boxed .body.broadcast {
+    background: #e7e7e7;
+    width: 100%;
+}
+.body.broadcast .ads-fournums .terminal {
+    line-height: 46px!important;
+}
+.body.broadcast .ads-sixnums .terminal {
+    height: 2.6em!important;
+}
