@@ -1,11 +1,14 @@
 <div class="ads-area {{ $ad_class }} abs">
   <div class="top">
-      <select class="form-control" id="show-only-service">
-          <option value="143">143</option>
-          <option value="222">222</option>
-          <option value="524">524</option>
-      </select>
-    <a class="" href="#"><img src="/images/featherq-home-logo.png"></a>
+      <div class="col-md-3 pull-right">
+          <select class="form-control" id="show-only-service">
+              <option value="0">ALL</option>
+              <?php foreach ($service_filters as $count => $service): ?>
+                <option value="{{ $service->service_id; }}">{{ $service->name; }}</option>
+              <?php endforeach; ?>
+          </select>
+      </div>
+      <a class="" href="#"><img src="/images/featherq-home-logo.png"></a>
   </div>
   <div class="vid-container">
     @if ($ad_type == 'internet_tv')

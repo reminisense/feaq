@@ -5,7 +5,9 @@ app.controller('nowServingCtrl', function($scope, $http) {
   establishSocketConnection($scope, $http, business_id);
 
   $scope.updateBroadcastPage = (function(response) {
-    response = response[sessionStorage.service_id];
+    if (typeof sessionStorage.service_id != "undefined" && sessionStorage.service_id != "0") {
+      response = response[sessionStorage.service_id];
+    }
     console.log(response);
 
     announceNumber($scope, response, 'rank1', 'box1', 'name1', 'service1', 'color1', 'user1');
