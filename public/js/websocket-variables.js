@@ -8,8 +8,9 @@ $(document).ready(function() {
 
   setDefaultServiceFilter();
 
-  $('#show-only-service').change(function() {
-    sessionStorage.setItem("service_id", $(this).val());
+  $('#show-only-service li').click(function(e) {
+    e.preventDefault();
+    sessionStorage.setItem("service_id", $(this).attr('service_id'));
     window.location.reload(true);
   });
 
@@ -17,9 +18,9 @@ $(document).ready(function() {
 
 var setDefaultServiceFilter = function() {
   if (typeof sessionStorage.service_id == "undefined") {
-    $('#show-only-service').val(0);
+    $('.service-filter-0').addClass("active");
   }
   else {
-    $('#show-only-service').val(sessionStorage.service_id);
+    $('.service-filter-'+sessionStorage.service_id).addClass("active");
   }
 }
