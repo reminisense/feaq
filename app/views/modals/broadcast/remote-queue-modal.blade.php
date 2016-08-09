@@ -55,24 +55,27 @@
                         </form>
                     </div>
                 </div>
-                <div class="clearfix" id="custom-forms" ng-show="form_fields != 0">
+                <div class="forms-container" ng-show="forms.length > 0">
                     <div style=" border-top: 1px dotted #ccc;">
-                        <div class="mt20">
-                            <div class="tab-pane fade active in" id="insertq">
-                                <form class="navbar-form navbar-left">
-                                    <div class="form-group row">
-                                        <div ng-repeat="(form_id, field) in form_fields" class="col-md-12" id="custom-field-@{{ form_id }}" style="padding-left: 0px; padding-right: 0px;">
-                                            <div class="col-md-4">
-                                                <label>@{{ field.label }}</label>
-                                            </div>
-                                            <div class="col-md-8" id="field-@{{ form_id }}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="alert alert-danger" role="alert" ng-show="issue_specific_error.length > 0">
-                                        <div><strong class="message">@{{ issue_specific_error }}</strong></div>
-                                    </div>
-                                </form>
+                        <ul class="nav nav-tabs">
+                            <li ng-repeat="form in filtered_forms" class="@{{ $index == 0 ? 'active in':''}}"><a data-toggle="tab" href="#@{{ form.form_id }}">@{{ form.form_name }}</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div ng-repeat="form in filtered_forms" id="@{{ form.form_id }}" class="tab-pane fade @{{ $index == 0 ? 'active in':''}}">
+                                <table class="table">
+                                    <tr ng-repeat="field in form.fields">
+                                        <th scope="row">@{{ field.field_data.label }}</th>
+                                        <td>
+                                            <input id="@{{ form.form_id }}_@{{ $index }}" type="textfield" ng-if="field.field_type == 'textfield'">
+                                            <input id="@{{ form.form_id }}_@{{ $index }}" type="checkbox" ng-if="field.field_type == 'checkbox'">
+                                            <input type="radio" ng-if="field.field_type == 'radio'" name="@{{ form.form_id }}_@{{ $index }}" value="@{{ field.field_data.value_a}}"> @{{ field.field_data.value_a }}
+                                            <input type="radio" ng-if="field.field_type == 'radio'" name="@{{ form.form_id }}_@{{ $index }}" value="@{{ field.field_data.value_b }}"> @{{ field.field_data.value_b }}
+                                            <select  id="@{{ form.form_id }}_@{{ $index }}" ng-if="field.field_type == 'dropdown'" >
+                                                <option ng-repeat="option in field.field_data.options" value="@{{ option }}">@{{ option }}</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
                     </div>

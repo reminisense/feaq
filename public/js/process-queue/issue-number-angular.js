@@ -18,7 +18,8 @@
 
         $scope.def_service_id = pq.ids.service_id;
 
-        $scope.form_fields = null;
+        $scope.forms = null;
+        $scope.filtered_forms = [];
         var biz_id = $('#business-id').attr('business_id');
 
         var user_id = $('#user-id').attr('user_id');
@@ -65,8 +66,8 @@
                         pq.jquery_functions.issue_number_success(message);
                         $scope.sendWebsocket();
 
-                        if($scope.form_fields != null){
-                          $scope.saveCustomFieldsData(response.number.transaction_number);
+                        if($scope.filtered_forms.length != 0){
+                          $scope.saveForms(response.number.transaction_number);
                         }
 
                         $scope.priority_number = '';
@@ -87,37 +88,45 @@
                 });
         };
 
-        $scope.saveCustomFieldsData = function(transaction_number){
+        $scope.saveForms = function(transaction_number){
 
 
-            var custom_fields = [];
-            var data;
+            var service_id = $('#services').val() ? $('#services').val() : pq.ids.service_id;
+            var form_submissions = [];
 
-            for (field in $scope.form_fields){
-
-                if($('#custom-field-'+field).is(":visible")){
-                    var input = $('#'+field).val();
-
-                    if($scope.form_fields[field].field_type == "Checkbox"){
-                        input = $('#' + field).prop('checked') ? "Yes" : "No";
-                    }else if($scope.form_fields[field].field_type == "Radio"){
-                        input = $('input[name="'+field+'"]:checked').val();
+            for(var i=0; i< $scope.filtered_forms.length; i++){
+                var form_id = $scope.filtered_forms[i].form_id;
+                var form_submit =[];
+                var submit_data  = [];
+                for(var x=0; x<$scope.filtered_forms[i].fields.length; x++ ){
+                    var input = $('#'+form_id+'_'+x).val();
+                    if($scope.filtered_forms[i].fields[x].field_type == "checkbox"){
+                        input = $('#'+form_id+'_'+x).prop('checked') ? 1 : 0;
+                    }else if($scope.filtered_forms[i].fields[x].field_type == "radio"){
+                        input = $('input[name="'+form_id+'_'+x+'"]:checked').val();
                     }
 
-                    custom_fields.push({
-                        'id': field,
-                        'label': $scope.form_fields[field].label,
-                        'input': input
-                    });
+                    submit_data.push({
+                        xml_tag: $scope.filtered_forms[i].fields[x].field_data.label,
+                        xml_val: input
+                    })
                 }
+
+               form_submit[form_id] = submit_data;
+               form_submissions.push(form_submit);
             }
 
-            data = {
-                'transaction_number': transaction_number,
-                'input': custom_fields
-            };
+            var data = {
+                user_id: user_id,
+                transaction_number: transaction_number,
+                service_id: service_id,
+                form_submissions: form_submissions
+            }
+            console.log('test');
+            console.log(data);
+            $http.post('/records/save-records', data).success(function(response){
 
-            $http.post('/issuenumber/insert-custom-fields/', data).success();
+            });
         };
 
         $scope.checkIssueSpecificErrors = function(priority_number, number_limit, issue){
@@ -307,6 +316,7 @@
 
         $scope.selectService = function(){
             service_id = $('#services').val();
+            displayFormFields(service_id);
             $http.get('/processqueue/next-number/' + service_id).success(function(response){
                 $('.nomg').html(response.next_number);
                 $('#insertq input[name=number]').val(response.next_number);
@@ -315,7 +325,6 @@
                 }, 5000);
                 if(service_id != $scope.def_service_id){
                     $scope.def_service_id = service_id;
-                    displayFormFields(service_id);
                 }
             });
         };
@@ -330,60 +339,22 @@
         };
 
         $scope.getFormFields = function(business_id) {
-
-            var field;
-            var option;
-            var dropdown;
-
-
-            $http.post('/forms/display-fields/', {
-                business_id : business_id
-            }).success(function(response) {
-                if(response!=0){
-                    $scope.form_fields = response.form_fields;
-                    for (field in response.form_fields) {
-                        if(response.form_fields[field].field_type == "Text Field"){
-                            $('#field-'+field).append('<input type="text" class="form-control" id="'+field+'" required>')
-
-                        }else if(response.form_fields[field].field_type == "Radio"){
-
-                            $('#field-'+field).append('<input type="radio" id="'+field+'" name="'+field+'" value="'+response.form_fields[field].value_a+'">'+response.form_fields[field].value_a +'</br>'+
-                            '<input type="radio" id="'+field+'" name="'+field+'" value="'+response.form_fields[field].value_b+'">'+response.form_fields[field].value_b)
-                            $('#field-'+field).css("padding-bottom", "20px");
-                        }else if(response.form_fields[field].field_type == "Checkbox"){
-
-                            $('#field-'+field).append('<input type="checkbox" id="'+field+'" required>')
-                            $('#field-'+field).css("padding-bottom", "20px");
-
-                        }else if(response.form_fields[field].field_type == "Dropdown"){
-                            dropdown = '<select class="form-control" id="'+field+'">'
-
-                            for (option in response.form_fields[field].options){
-                                dropdown += '<option value="'+response.form_fields[field].options[option]+'">'+response.form_fields[field].options[option]+'</option>';
-                            }
-
-                            dropdown += '</select>';
-                            $('#field-'+field).append(dropdown);
-                        }
-                    }
-                }else{
-                    $scope.form_fields = response.form_fields;
-                }
+            $http.get('/forms/display-forms/' + business_id).success(function(response) {
+                $scope.forms =  response.forms;
                 displayFormFields($scope.def_service_id);
             });
         };
 
-
         displayFormFields = function(service_id){
-
-            for (field in $scope.form_fields) {
-                if($scope.form_fields[field].service_id != service_id){
-                    $('#custom-field-'+field).css('display','none');
-                }else{
-                    $('#custom-field-'+field).show();
+            $scope.filtered_forms = [];
+            if($scope.forms){
+                for (var i = 0; i <  $scope.forms.length; i++){
+                    if(service_id == $scope.forms[i].service_id){
+                        $scope.filtered_forms.push($scope.forms[i]);
+                    }
                 }
+                console.log($scope.filtered_forms);
             }
-
         }
 
         $scope.getRemoteuser = function(){
