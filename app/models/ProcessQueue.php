@@ -480,15 +480,13 @@ class ProcessQueue extends Eloquent{
 
     public static function updateBusinessBroadcast($business_id){
         $first_branch = Branch::where('business_id', '=', $business_id)->first();
-        //$first_service = Service::where('branch_id', '=', $first_branch->branch_id)->first();
-        //$all_numbers = ProcessQueue::allNumbers($first_service->service_id);
 
         $services = Service::where('branch_id', '=', $first_branch->branch_id)->get();
         $all_numbers = null;
         $all_service_numbers = [];
         foreach($services as $service){
             $service_numbers = ProcessQueue::allNumbers($service->service_id);
-            $all_service_numbers[$service->service_id] = $service_numbers;
+            $all_service_numbers[$service->service_id] = clone $service_numbers; //because php passes objects by reference
             if($all_numbers){
                 $all_numbers->called_numbers = array_merge($all_numbers->called_numbers, $service_numbers->called_numbers);
                 $all_numbers->uncalled_numbers = array_merge($all_numbers->uncalled_numbers, $service_numbers->uncalled_numbers);
@@ -499,8 +497,36 @@ class ProcessQueue extends Eloquent{
             }else{
                 $all_numbers = $service_numbers;
             }
+            var_dump($all_service_numbers[178]);
         }
 
+        ProcessQueue::saveAllNumbersToJson($business_id, $all_numbers);
+        ProcessQueue::saveServiceNumbersToJSON($business_id, $all_service_numbers);
+
+        //return $all_numbers;
+    }
+
+    public static function businessAllNumbers($business_id){
+        $services = Service::getServicesByBusinessId($business_id);
+        $all_numbers = [];
+        foreach($services as $service){
+            $service_numbers = ProcessQueue::allNumbers($service->service_id);
+            if($all_numbers){
+                $all_numbers->called_numbers = array_merge($all_numbers->called_numbers, $service_numbers->called_numbers);
+                $all_numbers->uncalled_numbers = array_merge($all_numbers->uncalled_numbers, $service_numbers->uncalled_numbers);
+                $all_numbers->processed_numbers = array_merge($all_numbers->processed_numbers, $service_numbers->processed_numbers);
+                $all_numbers->timebound_numbers = array_merge($all_numbers->timebound_numbers, $service_numbers->timebound_numbers);
+
+                usort($all_numbers->called_numbers, array('ProcessQueue', 'sortCalledNumbers'));
+            }else{
+                $all_numbers = $service_numbers;
+            }
+
+        }
+        return $all_numbers;
+    }
+
+    public static function saveAllNumbersToJson($business_id, $all_numbers){
         if($all_numbers){
             $file_path = public_path() . '/json/' . $business_id . '.json';
             $json = file_get_contents($file_path);
@@ -549,7 +575,9 @@ class ProcessQueue extends Eloquent{
             $boxes->get_num = $all_numbers->next_number;
             File::put($file_path, json_encode($boxes, JSON_PRETTY_PRINT));
         }
+    }
 
+    public static function saveServiceNumbersToJSON($business_id, $all_service_numbers){
         //ARA 08082016 - Added per service broadcast numbers
         if($all_service_numbers){
             $file_path = public_path() . '/json/' . $business_id . '.json';
@@ -559,13 +587,13 @@ class ProcessQueue extends Eloquent{
             // PAG Addition for Broadcast Display Settings
             $max_count = explode("-", $boxes->display)[1];
 
-            foreach($all_service_numbers as $service_id => $all_numbers){
+            foreach($all_service_numbers as $service_id => $service_numbers){
                 $boxes->$service_id = new stdClass();
                 //ARA conditions to determine if only called numbers will be displayed on broadcast page
                 if(!isset($boxes->show_issued) || $boxes->show_issued){
-                    $numbers =  array_merge($all_numbers->called_numbers, $all_numbers->uncalled_numbers);
+                    $numbers =  array_merge($service_numbers->called_numbers, $service_numbers->uncalled_numbers);
                 }else{
-                    $numbers = $all_numbers->called_numbers;
+                    $numbers = $service_numbers->called_numbers;
                 }
 
                 $box_count = 1;
@@ -600,28 +628,8 @@ class ProcessQueue extends Eloquent{
                 }
             }
 
-            $boxes->get_num = $all_numbers->next_number;
+            //$boxes->get_num = $all_numbers->next_number;
             File::put($file_path, json_encode($boxes, JSON_PRETTY_PRINT));
         }
-        //return $all_numbers;
-    }
-
-    public static function businessAllNumbers($business_id){
-        $services = Service::getServicesByBusinessId($business_id);
-        $all_numbers = [];
-        foreach($services as $service){
-            $service_numbers = ProcessQueue::allNumbers($service->service_id);
-            if($all_numbers){
-                $all_numbers->called_numbers = array_merge($all_numbers->called_numbers, $service_numbers->called_numbers);
-                $all_numbers->uncalled_numbers = array_merge($all_numbers->uncalled_numbers, $service_numbers->uncalled_numbers);
-                $all_numbers->processed_numbers = array_merge($all_numbers->processed_numbers, $service_numbers->processed_numbers);
-                $all_numbers->timebound_numbers = array_merge($all_numbers->timebound_numbers, $service_numbers->timebound_numbers);
-
-                usort($all_numbers->called_numbers, array('ProcessQueue', 'sortCalledNumbers'));
-            }else{
-                $all_numbers = $service_numbers;
-            }
-        }
-        return $all_numbers;
     }
 }
