@@ -497,7 +497,6 @@ class ProcessQueue extends Eloquent{
             }else{
                 $all_numbers = $service_numbers;
             }
-            var_dump($all_service_numbers[178]);
         }
 
         ProcessQueue::saveAllNumbersToJson($business_id, $all_numbers);
