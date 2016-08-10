@@ -122,8 +122,6 @@
                 service_id: service_id,
                 form_submissions: form_submissions
             }
-            console.log('test');
-            console.log(data);
             $http.post('/records/save-records', data).success(function(response){
 
             });
@@ -349,11 +347,10 @@
             $scope.filtered_forms = [];
             if($scope.forms){
                 for (var i = 0; i <  $scope.forms.length; i++){
-                    if(service_id == $scope.forms[i].service_id){
+                    if(service_id == $scope.forms[i].service_id && $scope.forms[i].status == true ){
                         $scope.filtered_forms.push($scope.forms[i]);
                     }
                 }
-                console.log($scope.filtered_forms);
             }
         }
 
