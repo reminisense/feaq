@@ -28,8 +28,6 @@
   color: #ff925b;
 }
 
-
-
 .filters {
   background: url('/images/broadcast/default/bg-sep.jpg') repeat-x bottom;
   padding-bottom: 35px;
@@ -1186,4 +1184,17 @@ strong {
 .publiclogin {
     padding: 14px;
     text-align: center;
+}
+#custom-forms .nav-tabs>li>a {
+    padding-top: 10px!important;
+    padding-bottom: 10px!important;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+#custom-forms table td {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+#custom-forms .form-control {
+    margin-bottom: 0px;
 }
