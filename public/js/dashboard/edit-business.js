@@ -112,12 +112,19 @@ $(document).ready(function(){
 
         $('#select-ads-type').on("change",function () {
             $('.ads-type').hide();
+            $('#tv-channel').hide();
+            $('.tv-channel-label').hide();
             $('.a'+$(this).val()).show();
 
             if ($(this).val() == 'numbers_only'){
                 $('#ad-num-width').css('width', '100%');
                 $('#ad-width').hide();
-            } else {
+            }
+            else if ($(this).val() == 'internet_tv'){
+                $('#tv-channel').show();
+                $('.tv-channel-label').show();
+            }
+            else {
                 $('#ad-width').show();
                 $('#ad-width').css('width', '50%');
                 $('#ad-num-width').css('width', '50%');

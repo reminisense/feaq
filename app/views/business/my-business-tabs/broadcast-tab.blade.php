@@ -9,13 +9,43 @@
 <div class="col-md-12">
     <div class="broadcast-wrap" id="ad-well">
         <div class="clearfix">
-            <div class="col-md-4">
+            <div class="col-md-12">
                 <h3 class="mb20">Choose an Advertisement Type:</h3>
                 <select id="select-ads-type" name="cd-dropdown" class="form-control" ng-model="settings.ad_type" ng-init="settings.ad_type">
                     <option value="carousel">Image & Video Carousel</option>
                     <option value="internet_tv">Internet TV</option>
                     <option value="numbers_only">Numbers Only</option>
                 </select>
+                <small class="tv-channel-label mr10">Choose a channel:</small>
+                    <select ng-model="settings.tv_channel" ng-init="settings.tv_channel" id="tv-channel" class="form-control ng-pristine ng-valid ng-touched">
+                                                    <option value="">- Select A Channel -</option>
+                                                    <option value="<embed flashvars=&quot;vid=12163886&amp;autoplay=true&quot; width=&quot;100%&quot; allowfullscreen=&quot;true&quot; allowscriptaccess=&quot;always&quot; src=&quot;http://www.ustream.tv/flash/viewer.swf&quot; type=&quot;application/x-shockwave-flash&quot;>">TechCrunch TV</option>
+                                                    <option value="<iframe width='100%' src='http://www.ustream.tv/embed/14067349?v=3&amp;wmode=direct&amp;autoplay=true' scrolling='no' frameborder='0' style='border: 0px none transparent;'></iframe>">Arirang TV</option>
+                                                    <option value="<iframe width='100%' src='http://www.ustream.tv/embed/8429259?v=3&amp;wmode=direct&amp;autoplay=true' scrolling='no' frameborder='0' style='border: 0px none transparent;'></iframe>">EnergyFM Manila</option>
+                                                    <option value="<iframe width='100%' src='http://www.ustream.tv/embed/12762028?v=3&amp;wmode=direct&amp;autoplay=true' scrolling='no' frameborder='0' style='border: 0px none transparent;'></iframe>">Animal Planet</option>
+                                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=14&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">BBC One</option>
+                                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=27&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">BBC News</option>
+                                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=1808&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">CBS Reality</option>
+                                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=1805&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">CBS Drama</option>
+                                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=1952&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">CBS Action</option>
+                                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=4247&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">Golden Boy Channel</option>
+                                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=374&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">Filmon Football</option>
+                                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=4292&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">Filmon Wrestling</option>
+                                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=3806&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">Filmon Reality</option>
+                                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=1072&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">The Ellen Show</option>
+                                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=2999&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">JBTV Music</option>
+                                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=716&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">Popcorn TV</option>
+                                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=1286&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">Sesame Street</option>
+                                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=316&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">Kix!</option>
+                                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=4184&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">UFO Documentary</option>
+                                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=2954&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">War History</option>
+                                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=3554&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">Crime Documentary</option>
+                                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=713&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">UFC</option>
+                                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=3827&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">POSE Fashion</option>
+                                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=349&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">Pursuit Outdoor</option>
+                                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=767&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">Celebrity with Andy Dick</option>
+                                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=2945&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">Auto Tv</option>
+                                                </select>
             </div>
             {{--<div class="col-md-8">
                 <div role="alert" class="alert alert-warning">
@@ -87,38 +117,8 @@
                     <div class="ads-type ainternet_tv">
                         <div class="col-md-12">
                             <div class="form-group">
-                            <small>Choose a channel:</small>
-                                <select ng-model="settings.tv_channel" ng-init="settings.tv_channel" id="tv-channel" class="form-control ng-pristine ng-valid ng-touched">
-                                    <option value="">- Select A Channel -</option>
-                                    <option value="<embed flashvars=&quot;vid=12163886&amp;autoplay=true&quot; width=&quot;100%&quot; allowfullscreen=&quot;true&quot; allowscriptaccess=&quot;always&quot; src=&quot;http://www.ustream.tv/flash/viewer.swf&quot; type=&quot;application/x-shockwave-flash&quot;>">TechCrunch TV</option>
-                                    <option value="<iframe width='100%' src='http://www.ustream.tv/embed/14067349?v=3&amp;wmode=direct&amp;autoplay=true' scrolling='no' frameborder='0' style='border: 0px none transparent;'></iframe>">Arirang TV</option>
-                                    <option value="<iframe width='100%' src='http://www.ustream.tv/embed/8429259?v=3&amp;wmode=direct&amp;autoplay=true' scrolling='no' frameborder='0' style='border: 0px none transparent;'></iframe>">EnergyFM Manila</option>
-                                    <option value="<iframe width='100%' src='http://www.ustream.tv/embed/12762028?v=3&amp;wmode=direct&amp;autoplay=true' scrolling='no' frameborder='0' style='border: 0px none transparent;'></iframe>">Animal Planet</option>
-                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=14&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">BBC One</option>
-                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=27&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">BBC News</option>
-                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=1808&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">CBS Reality</option>
-                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=1805&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">CBS Drama</option>
-                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=1952&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">CBS Action</option>
-                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=4247&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">Golden Boy Channel</option>
-                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=374&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">Filmon Football</option>
-                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=4292&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">Filmon Wrestling</option>
-                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=3806&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">Filmon Reality</option>
-                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=1072&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">The Ellen Show</option>
-                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=2999&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">JBTV Music</option>
-                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=716&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">Popcorn TV</option>
-                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=1286&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">Sesame Street</option>
-                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=316&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">Kix!</option>
-                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=4184&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">UFO Documentary</option>
-                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=2954&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">War History</option>
-                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=3554&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">Crime Documentary</option>
-                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=713&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">UFC</option>
-                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=3827&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">POSE Fashion</option>
-                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=349&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">Pursuit Outdoor</option>
-                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=767&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">Celebrity with Andy Dick</option>
-                                    <option value="<iframe width='100%' src='https://www.filmon.com/tv/channel/export?channel_id=2945&autoPlay=1' frameborder='0' style='border: 0px none transparent;'> </iframe>">Auto Tv</option>
-                                </select>
                                 <div>
-                                    <img src="/images/samsung-tv.jpg" class="img-responsive" style="max-height: 315px;width: 745px;">
+                                    <img src="/images/samsung-tv.jpg" class="img-responsive" style="max-height: 450px;width: 100%;">
                                 </div>
                                 <div class="alert alert-success" id="tvchannel-success" style="display: none;">Success! <strong><a href="/broadcast/business/16" target="_blank">View Broadcast Page</a></strong></div>
                                 <div class="alert alert-danger" id="tvchannel-danger" style="display: none;">Oops! Something went wrong.</div>

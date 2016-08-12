@@ -488,8 +488,7 @@ h1,h2,h3,h4 {margin: 0;}
     .boxed.six .numbers .service,
     .boxed.seven .numbers .service,
     .boxed.eight .numbers .service,
-    .boxed.nine .numbers .service,
-    .boxed.ten .numbers .service { width:150px!important; }
+    .boxed.nine .numbers .service { width:150px!important; }
     .fifty .numbers .service { width:290px!important; }
     .fifty .boxed.six .numbers .service { width: 220px!important; }
     .numbers-area.ten .numbers .service,

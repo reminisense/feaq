@@ -9,14 +9,17 @@
     }
     #ad-well-inner #ad-width,
     #ad-well-inner #ad-num-width{
-        width: 100%!important;
+        width: 50%!important;
     }
-    .drag.abs {
+    .q-numbers .qbox > div {
+        padding: 6px 20px!important;
+    }
+    /*.drag.abs {
         display: none;
-    }
-    #ad-width {
+    }*/
+    /*#ad-width {
         border: 0px!important;
-    }
+    }*/
     #terminal-colors {
         margin-top: 10px!important;
     }
@@ -27,6 +30,13 @@
     }
     .nav>li>a {
         padding: 20px 10px;
+    }
+    #ad-well-inner #ad-width,
+    #ad-well-inner #ad-num-width{
+        width: 50%!important;
+    }
+    .q-numbers .qbox > div {
+        padding: 8px 20px!important;
     }
 }
 @media (min-width: 768px) and (max-width: 979px) {
@@ -51,6 +61,18 @@
     .well a.btn-boxy {
         margin-bottom: 20px;
     }
+    #ad-well-inner #ad-width,
+    #ad-well-inner #ad-num-width{
+        width: 50%!important;
+    }
+    .q-numbers .qbox > div {
+        padding: 6px 15px!important;
+        font-size: 25px;
+    }
+    #ad-num-width h2 {font-size: 15px;}
+    .broadcast-wrap {
+        padding: 15px;
+    }
 }
 @media (min-width: 480px) and (max-width: 768px) {
     #btn-analytics {margin-top: 0px;}
@@ -62,14 +84,20 @@
     }
     #ad-well-inner #ad-width,
     #ad-well-inner #ad-num-width{
-        width: 100%!important;
+        width: 50%!important;
     }
     #time-delay {
         width: inherit!important;
     }
-    #ad-width {
+    /*#ad-well-inner .drag{
+        display: none;
+    }*/
+    /*#ad-width {
         padding-right: 0px;
         border: none!important;
+    }*/
+    #select-ads-type, #tv-channel {
+        width: 140px;
     }
     #time-delay input[type="number"] {
         width: 100%!important;
@@ -78,10 +106,7 @@
         margin-left: 15px;
         margin-right: 15px;
     }
-    .dnmobile,
-    #ad-well-inner .drag{
-        display: none;
-    }
+    .dnmobile {display: none;}
     .nav-tabs > li {
         float:left;
         width: 50%;

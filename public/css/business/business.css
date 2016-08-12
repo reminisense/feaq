@@ -15,7 +15,7 @@
 }
 #view-broadcast,
 #process-queue {
-    font-family: 'ralewayregular';
+    font-family: 'ralewaysemibold';
     font-size: 16px;
     display: block;
     padding: 18px 20px;
@@ -56,8 +56,8 @@
 }
 #process-queue {
     border-bottom: 4px solid #d36e3c;
-    height: 80px;
-    padding-top: 30px;
+    height: 65px;
+    padding-top: 20px;
 }
 #process-queue a{
     color: #fff;
@@ -774,6 +774,9 @@ button#sendreply {
 #ad-num-width {
     background-color: #c6dce5;
 }
+#ad-num-width h2 {
+    font-size: 14px;
+}
 #ad-width, #ad-num-width {
     padding: 10px 5px;
     border: none;
@@ -801,13 +804,13 @@ button#sendreply {
     width: 47%;
     margin-bottom: 6px;
 }
-.q-numbers .half {padding: 20px 20px; text-align: center; font-size: 32px; background-color: #fff; font-family: 'ralewaybold';margin: 3px; }
+.q-numbers .half {padding: 6px 20px; text-align: center; font-size: 26px; background-color: #fff; font-family: 'ralewaybold';margin: 3px; }
 .q-numbers .full {width: 100%;}
 .rel {position: relative;} .abs {position: absolute;}
-#ad-well-inner .drag {right: -44px;top:7%;}
+#ad-well-inner .drag {right: -44px;top:9%;}
 #ad-well-inner .drag div {
     font-size:12px;
-    padding: 6px 10px;
+    padding: 10px;
     color: #fff; font-family: 'ralewayregular';
     background-color: #337ab7;
     -ms-transform: rotate(270deg); /* IE 9 */
@@ -1292,4 +1295,15 @@ span.glyphicon {
 }
 .clearfix.search-filter select {
     width: 120px;
+}
+#select-ads-type, #tv-channel {
+    display: inline-block;
+    margin-right: 20px;
+}
+#toggle-qrcode {
+    display: inline-block;
+    margin-top: 10px;
+}
+.mr10 {
+    margin-right: 10px;
 }
