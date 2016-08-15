@@ -59,6 +59,15 @@
             });
         };
 
+        $scope.checkIn = function(transaction_number){
+            transaction_number = transaction_number != undefined ? transaction_number : angular.element(document.querySelector('#selected-tnumber')).val();
+            getResponseResetValues('/processqueue/checkin-transaction/' + transaction_number, function(){
+                $scope.issue_call_number = null;
+                $scope.isCalling = false;
+                $scope.updateBroadcast();
+            });
+        };
+
         $scope.callNumber = function(transaction_number, callback){
             $scope.called_numbers_rating = [];
             $scope.isCalling = true;

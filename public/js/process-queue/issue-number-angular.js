@@ -322,7 +322,7 @@
 
         $scope.checkIn = function(){
             transaction_number = $scope.user_queue.transaction_number;
-            $http.get('/mobile/checkin-transaction/' + transaction_number).success(function(response){
+            $http.get('/processqueue/checkin-transaction/' + transaction_number).success(function(response){
                 $scope.sendWebsocket();
                 $('.btn-getnum').html('You are checked in');
                 $('.btn-getnum').addClass('disabled');

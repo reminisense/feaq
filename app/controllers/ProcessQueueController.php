@@ -125,4 +125,18 @@ class ProcessQueueController extends BaseController{
         $all_numbers = ProcessQueue::allNumbers($service_id);
         return json_encode(['next_number' => $all_numbers->next_number]);
     }
+
+    public function getCheckinTransaction($transaction_number){
+        if(TerminalTransaction::where('transaction_number', '=', $transaction_number)->exists()){
+            $time_checked_in = time();
+            TerminalTransaction::where('transaction_number', '=', $transaction_number)->update(['time_checked_in' => $time_checked_in]);
+            return json_encode([
+                'success' => 1,
+                'time_checked_in' => $time_checked_in,
+                'transaction_number' => $transaction_number
+            ]);
+        }else{
+            return json_encode(['success' => 0, 'error' => 'Transaction number not found.']);
+        }
+    }
 }
