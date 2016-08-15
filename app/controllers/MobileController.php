@@ -390,6 +390,7 @@ class MobileController extends BaseController{
 
             if($terminal_transaction->time_completed == 0 && $terminal_transaction->time_removed == 0){
                 $data->service_name = Service::name($priority_number->service_id);
+                $data->service_id = $priority_number->service_id;
                 $data->user_priority_number = $priority_queue->priority_number;
                 $data->number_people_ahead = Analytics::getNumbersAhead($transaction_number);
                 $data->estimated_time_left = Analytics::getWaitingTimeByTransactionNumber($transaction_number);
