@@ -177,7 +177,7 @@
                }
             }catch(err){}
 
-            if(!error && issue){
+            if(!error && issue && confirm('Are you sure you want to get this number?')){
                 $scope.issue_specific_error = '';
                 $scope.issueSpecific($scope.priority_number, $scope.name, $scope.phone, $scope.email, $scope.time_assigned);
             }else{
