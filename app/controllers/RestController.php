@@ -494,16 +494,24 @@ class RestController extends BaseController {
             $priority_number = $next_number;
             $queue_platform = 'android';
 
-            $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, 0, $user_id);
-            PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
-            if($email != ''){ Message::sendInitialMessage($business_id, $email, $name, $phone); }
+            if(($queue_platform == 'android' || $queue_platform == 'remote') && !QueueSettings::checkRemoteQueue($service_id)){
+                return json_encode(['error' => 'Remote queue option is not allowed at this time.']);
+            }elseif(($queue_platform == 'android' || $queue_platform == 'remote') && Helper::queueNumberExists($email)){
+                return json_encode(['error' => 'You are only allowed to queue remotely once per day.']);
+            }else {
+                $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, 0, $user_id);
+                PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
+                if ($email != '') {
+                    Message::sendInitialMessage($business_id, $email, $name, $phone);
+                }
 
-            $details = [
-                'number_assigned' => $priority_number,
-                'transaction_number' => $number['transaction_number'],
-            ];
+                $details = [
+                    'number_assigned' => $priority_number,
+                    'transaction_number' => $number['transaction_number'],
+                ];
 
-            return json_encode($details);
+                return json_encode($details);
+            }
         } else {
             return json_encode(['error' => 'You are not registered to FeatherQ.']);
         }

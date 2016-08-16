@@ -190,6 +190,14 @@ class MobileController extends BaseController{
                 $last_called = null;
             }
 
+            if(isset($last_called['service_id'])){
+                $analytics = new Analytics();
+                $estimates = json_decode($analytics->getServiceTimeEstimates($last_called['service_id']));
+                $estimated_time = $estimates->lower_limit . ' - ' . $estimates->upper_limit;
+            }else{
+                $estimated_time = ' - ';
+            }
+
             $data = [
                 'user_id' => $user->user_id,
                 'first_name' => $user->first_name,
@@ -198,7 +206,7 @@ class MobileController extends BaseController{
                 'contact' => $user->phone,
                 'transaction_number' => $transaction_number,
                 'priority_number' => $priority_queue->priority_number,
-                'estimated_time_left' => Analytics::getWaitingTimeByTransactionNumber($transaction_number),
+                'estimated_time' => $estimated_time,
                 'business' => [
                     'id' => $business->business_id,
                     'name' => $business->name,
