@@ -495,10 +495,15 @@ class RestController extends BaseController {
             $queue_platform = 'android';
 
             if(($queue_platform == 'android' || $queue_platform == 'remote') && !QueueSettings::checkRemoteQueue($service_id)){
-                return json_encode(['error' => 'Remote queue option is not allowed at this time.']);
-            }elseif(($queue_platform == 'android' || $queue_platform == 'remote') && Helper::queueNumberExists($email)){
-                return json_encode(['error' => 'You are only allowed to queue remotely once per day.']);
-            }else {
+                return json_encode([
+                  'status' => 404,
+                  'msg' => 'Remote queuing is not allowed as of this time.'
+                ]);
+            }
+//            elseif(($queue_platform == 'android' || $queue_platform == 'remote') && Helper::queueNumberExists($email)){
+//                return json_encode(['error' => 'You are only allowed to queue remotely once per day.']);
+//            }
+            else {
                 $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, 0, $user_id);
                 PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
                 if ($email != '') {

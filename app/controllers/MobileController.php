@@ -35,7 +35,7 @@ class MobileController extends BaseController{
             $services_list[] = [
                 "service_id"=> $service->service_id,
                 "service_name"=> $service->name,
-                "enabled"=> QueueSettings::allowRemote($service->service_id) > 0 ? true : false,
+                "enabled"=> QueueSettings::checkRemoteQueue($service->service_id) ? true : false,
             ];
         }
 
