@@ -35,7 +35,7 @@ class MobileController extends BaseController{
             $services_list[] = [
                 "service_id"=> $service->service_id,
                 "service_name"=> $service->name,
-                "enabled"=> QueueSettings::allowRemote($service->service_id) > 0 ? true : false,
+                "enabled"=> QueueSettings::checkRemoteQueue($service->service_id) ? true : false,
             ];
         }
 
@@ -190,6 +190,14 @@ class MobileController extends BaseController{
                 $last_called = null;
             }
 
+            if(isset($last_called['service_id'])){
+                $analytics = new Analytics();
+                $estimates = json_decode($analytics->getServiceTimeEstimates($last_called['service_id']));
+                $estimated_time = $estimates->lower_limit . ' - ' . $estimates->upper_limit;
+            }else{
+                $estimated_time = ' - ';
+            }
+
             $data = [
                 'user_id' => $user->user_id,
                 'first_name' => $user->first_name,
@@ -198,7 +206,7 @@ class MobileController extends BaseController{
                 'contact' => $user->phone,
                 'transaction_number' => $transaction_number,
                 'priority_number' => $priority_queue->priority_number,
-                'estimated_time_left' => Analytics::getWaitingTimeByTransactionNumber($transaction_number),
+                'estimated_time' => $estimated_time,
                 'business' => [
                     'id' => $business->business_id,
                     'name' => $business->name,
@@ -260,6 +268,7 @@ class MobileController extends BaseController{
             'priority_number' => $user_queues->priority_number,
             'time_issued' => $user_queues->time_queued,
             'time_called' => $user_queues->time_called,
+            'time_checked_in' => $user_queues->time_checked_in,
             'service_id' => $service_id,
             'service_name' => Service::name($service_id),
             'rating' => UserRating::getUserRating($transaction_number) ? UserRating::getUserRating($transaction_number)->rating : 0

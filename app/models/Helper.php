@@ -452,4 +452,16 @@ class Helper extends Eloquent
             }
         }
     }
+
+    public static function queueNumberExists($email){
+        $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+        $count = PriorityNumber::where('priority_number.date', '=', $date)
+            ->join('priority_queue', 'priority_queue.track_id', '=', 'priority_number.track_id')
+            ->where('priority_queue.email', '=', $email)
+            ->select(DB::raw('COUNT(priority_number.track_id) as number_exists'))
+            ->first()
+            ->number_exists;
+
+        return $count > 0 ? TRUE : FALSE;
+    }
 }
