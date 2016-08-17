@@ -268,6 +268,7 @@ class MobileController extends BaseController{
             'priority_number' => $user_queues->priority_number,
             'time_issued' => $user_queues->time_queued,
             'time_called' => $user_queues->time_called,
+            'time_checked_in' => $user_queues->time_checked_in,
             'service_id' => $service_id,
             'service_name' => Service::name($service_id),
             'rating' => UserRating::getUserRating($transaction_number) ? UserRating::getUserRating($transaction_number)->rating : 0

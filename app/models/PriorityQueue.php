@@ -90,6 +90,7 @@ class PriorityQueue extends Eloquent {
                 terminal_transaction.time_completed as time_completed,
                 terminal_transaction.time_queued as time_queued,
                 terminal_transaction.time_called as time_called,
+                terminal_transaction.time_checked_in as time_checked_in,
                 MAX(queue_analytics.action) as status
             ')
             ->first();
