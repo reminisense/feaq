@@ -8,6 +8,22 @@
 
 class RestController extends BaseController {
 
+    public function __construct() {
+        $this->beforeFilter('@grantAccess');
+    }
+
+  public function grantAccess($route, $request) {
+    if ($request->path() != 'rest/register-user') {
+      $auth_token = Request::header('Authorization');
+      if (!User::getValidateToken($auth_token) || !$auth_token) {
+        return Response::json(array(
+          'msg' => 'Your access token is not valid.',
+          'status' => 403,
+        ));
+      }
+    }
+  }
+
     /**
      * @author Ruffy
      * @param null $quantity when User wants to specify how many to return
@@ -294,6 +310,7 @@ class RestController extends BaseController {
             'country' => Input::get('country'),
         );
         User::saveFBDetails($data);
+        UserDevice::saveDeviceToken(Input::get('device_token'), Input::get('device_type'), Input::get('fb_id'));
         return json_encode(array('status' => 200, 'msg' => 'OK'));
     }
 
@@ -477,15 +494,29 @@ class RestController extends BaseController {
             $priority_number = $next_number;
             $queue_platform = 'android';
 
-            $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, 0, $user_id);
-            PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
-            if($email != ''){ Message::sendInitialMessage($business_id, $email, $name, $phone); }
+            if(($queue_platform == 'android' || $queue_platform == 'remote') && !QueueSettings::checkRemoteQueue($service_id)){
+                return json_encode([
+                  'status' => 404,
+                  'msg' => 'Remote queuing is not allowed as of this time.'
+                ]);
+            }
+//            elseif(($queue_platform == 'android' || $queue_platform == 'remote') && Helper::queueNumberExists($email)){
+//                return json_encode(['error' => 'You are only allowed to queue remotely once per day.']);
+//            }
+            else {
+                $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, 0, $user_id);
+                PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
+                if ($email != '') {
+                    Message::sendInitialMessage($business_id, $email, $name, $phone);
+                }
 
-            $details = [
-                'number_assigned' => $priority_number,
-            ];
+                $details = [
+                    'number_assigned' => $priority_number,
+                    'transaction_number' => $number['transaction_number'],
+                ];
 
-            return json_encode($details);
+                return json_encode($details);
+            }
         } else {
             return json_encode(['error' => 'You are not registered to FeatherQ.']);
         }

@@ -1,6 +1,14 @@
 <div class="ads-area {{ $ad_class }} abs">
   <div class="top">
-    <a class="" href="#"><img src="/images/featherq-home-logo.png"></a>
+      <div class="col-md-9 pull-right">
+          <ul class="nav nav-pills nav-justified pull-right" id="show-only-service" style="margin-top: -4px;">
+              <li role="presentation" class="service-filter-0" service_id="0"><a href="#">ALL</a></li>
+              <?php foreach ($service_filters as $count => $service): ?>
+                  <li role="presentation" class="service-filter-{{ $service->service_id; }}" service_id="{{ $service->service_id; }}"><a href="#">{{ $service->name; }}</a></li>
+              <?php endforeach; ?>
+          </ul>
+      </div>
+      <a class="" href="#"><img src="/images/featherq-home-logo.png"></a>
   </div>
   <div class="vid-container">
     @if ($ad_type == 'internet_tv')

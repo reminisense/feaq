@@ -77,6 +77,7 @@ class BroadcastController extends BaseController{
         ->with('row_class', $row_class)
         ->with('box_class', $box_class)
         ->with('user', Auth::user())
+        ->with('service_filters', Service::getServicesByBusinessId($business_id))
         ->with('keywords', Business::getKeywordsByBusinessId($business_id));
     }
 

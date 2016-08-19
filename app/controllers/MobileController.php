@@ -6,8 +6,25 @@
  * Time: 11:35 AM
  */
 
+use utils\ApplePushNotifications;
 
 class MobileController extends BaseController{
+
+  public function __construct() {
+    $this->beforeFilter('@grantAccess');
+  }
+
+  public function grantAccess($route, $request) {
+    if ($request->path() != 'mobile/facebook-login' && $request->path() != 'mobile/send-notif') {
+      $auth_token = Request::header('Authorization');
+      if (!User::getValidateToken($auth_token) || !$auth_token) {
+        return Response::json(array(
+          'msg' => 'Your access token is not valid.',
+          'status' => 403,
+        ));
+      }
+    }
+  }
 
     public function getBusinessNumbers($business_id, $user_id){
         $business = Business::where('business_id', '=', $business_id)->first();
@@ -18,7 +35,7 @@ class MobileController extends BaseController{
             $services_list[] = [
                 "service_id"=> $service->service_id,
                 "service_name"=> $service->name,
-                "enabled"=> QueueSettings::allowRemote($service->service_id) > 0 ? true : false,
+                "enabled"=> QueueSettings::checkRemoteQueue($service->service_id) ? true : false,
             ];
         }
 
@@ -173,6 +190,14 @@ class MobileController extends BaseController{
                 $last_called = null;
             }
 
+            if(isset($last_called['service_id'])){
+                $analytics = new Analytics();
+                $estimates = json_decode($analytics->getServiceTimeEstimates($last_called['service_id']));
+                $estimated_time = $estimates->lower_limit . ' - ' . $estimates->upper_limit;
+            }else{
+                $estimated_time = ' - ';
+            }
+
             $data = [
                 'user_id' => $user->user_id,
                 'first_name' => $user->first_name,
@@ -181,7 +206,7 @@ class MobileController extends BaseController{
                 'contact' => $user->phone,
                 'transaction_number' => $transaction_number,
                 'priority_number' => $priority_queue->priority_number,
-                'estimated_time_left' => Analytics::getWaitingTimeByTransactionNumber($transaction_number),
+                'estimated_time' => $estimated_time,
                 'business' => [
                     'id' => $business->business_id,
                     'name' => $business->name,
@@ -243,6 +268,7 @@ class MobileController extends BaseController{
             'priority_number' => $user_queues->priority_number,
             'time_issued' => $user_queues->time_queued,
             'time_called' => $user_queues->time_called,
+            'time_checked_in' => $user_queues->time_checked_in,
             'service_id' => $service_id,
             'service_name' => Service::name($service_id),
             'rating' => UserRating::getUserRating($transaction_number) ? UserRating::getUserRating($transaction_number)->rating : 0
@@ -373,6 +399,7 @@ class MobileController extends BaseController{
 
             if($terminal_transaction->time_completed == 0 && $terminal_transaction->time_removed == 0){
                 $data->service_name = Service::name($priority_number->service_id);
+                $data->service_id = $priority_number->service_id;
                 $data->user_priority_number = $priority_queue->priority_number;
                 $data->number_people_ahead = Analytics::getNumbersAhead($transaction_number);
                 $data->estimated_time_left = Analytics::getWaitingTimeByTransactionNumber($transaction_number);
@@ -416,6 +443,7 @@ class MobileController extends BaseController{
 
     public function postFacebookLogin(){
         $fb_id = Input::get('facebook_id');
+      $fb_token = Input::get('fb_token');
 
         if(isset($fb_id) && $fb_id != ""){
             $user = User::where('fb_id', '=', $fb_id)->first();
@@ -432,7 +460,7 @@ class MobileController extends BaseController{
                     'local_address' => $user->local_address,
                     'gender' => $user->gender,
                 ];
-                return json_encode(['success' => 1, 'user'=> $user_data, 'access_token' => Helper::generateAccessKey()]);
+                return json_encode(['success' => 1, 'user'=> $user_data, 'access_token' => Helper::generateAccessKey($fb_id, $fb_token)]);
             }else{
                 return json_encode(['error' => 'User does not exist.']);
             }
@@ -658,6 +686,15 @@ class MobileController extends BaseController{
       'status' => 201,
       'msg' => 'OK'
     ));
+  }
+
+  public function getSendNotif() {
+    $tokens = UserDevice::getDeviceTokensByFbId('10203814733394884');
+    foreach ($tokens as $count => $token) {
+      $APN = new \ApplePushNotifications($token->device_token, 'hello world');
+      $APN->sendNotif();
+    }
+    print 'hello world sent';
   }
 
 }

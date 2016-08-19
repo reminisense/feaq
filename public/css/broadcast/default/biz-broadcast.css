@@ -561,3 +561,10 @@ h1,h2,h3,h4 {margin: 0;}
 img.qrcode {
     margin-bottom: 10px;
 }
+#show-only-service a {
+    color: #ff8649;
+}
+#show-only-service>li.active>a, #show-only-service>li.active>a:focus, #show-only-service>li.active>a:hover {
+    background-color: #ff8649;
+    color: #fff;
+}
