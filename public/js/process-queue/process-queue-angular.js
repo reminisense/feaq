@@ -29,7 +29,7 @@
         $scope.number_limit = null;
         $scope.issue_call_number = null;
 
-        $scope.called_numbers_rating = []
+        $scope.called_numbers_rating = [];
 
         $scope.progress_current = 0;
         $scope.progress_max = 0;
@@ -39,10 +39,10 @@
         websocket.onopen = function(response) { // connection is open
             $('#WebsocketLoaderModal').modal('hide');
             $scope.updateBroadcast();
-        }
+        };
         websocket.onmessage = function(response){
             $scope.getAllNumbers();
-        }
+        };
 
         $scope.getAllNumbers = function(){
             url = pq.urls.process_queue.all_numbers_url + pq.ids.service_id + '/' + pq.ids.terminal_id + '/' + $scope.date;
@@ -51,21 +51,19 @@
             });
             getResponseResetValues(url, null, null, function(){
                 pq.jquery_functions.select_next_number();
-                if($scope.date != $scope.today && ($scope.timebound_numbers.length + $scope.uncalled_numbers.length == 0)){
-                    $scope.isCalling = true;
-                }else{
-                    $scope.isCalling = false;
-                }
+                $scope.isCalling = ($scope.date != $scope.today && ($scope.timebound_numbers.length + $scope.uncalled_numbers.length == 0));
             });
         };
 
         $scope.checkIn = function(transaction_number){
-            transaction_number = transaction_number != undefined ? transaction_number : angular.element(document.querySelector('#selected-tnumber')).val();
-            getResponseResetValues('/processqueue/checkin-transaction/' + transaction_number, function(){
-                $scope.issue_call_number = null;
-                $scope.isCalling = false;
-                $scope.updateBroadcast();
-            });
+            if(confirm('Are you sure you want to check in this number?')){
+                transaction_number = transaction_number != undefined ? transaction_number : angular.element(document.querySelector('#selected-tnumber')).val();
+                getResponseResetValues('/processqueue/checkin-transaction/' + transaction_number, function(){
+                    $scope.issue_call_number = null;
+                    $scope.isCalling = false;
+                    $scope.updateBroadcast();
+                });
+            }
         };
 
         $scope.callNumber = function(transaction_number, callback){
@@ -171,7 +169,7 @@
                 }).finally(function(){
                     $scope.isCalling = false;
                 });
-        }
+        };
 
         $scope.issueOrCall = function(){
             $scope.isCalling = true;
@@ -184,7 +182,7 @@
             }else{
                 $scope.callNumber();
             }
-        }
+        };
 
         $scope.moveToday = function(transaction_number){
             if($scope.timebound_numbers.length > 0 || $scope.uncalled_numbers.length > 0) {
@@ -221,7 +219,7 @@
                         $scope.getAllNumbers();
                     });
             }
-        }
+        };
 
         $scope.sendWebsocket = function(){
             websocket.send(JSON.stringify({
@@ -229,17 +227,17 @@
                 broadcast_update : true,
                 broadcast_reload: false
             }));
-        }
+        };
 
         $scope.updateBroadcast = function(){
             getResponseResetValues('/processqueue/update-broadcast/' + pq.ids.business_id, function(){
                 $scope.sendWebsocket();
             });
-        }
+        };
 
         checkTextfieldErrors = function(priority_number){
             return angular.element(document.querySelector('#moreq')).scope().checkIssueSpecificErrors(priority_number, $scope.number_limit, false);
-        }
+        };
 
         //non scope functions
         getResponseResetValues = function(url, successFunc, errorFunc, finallyFunc){
@@ -313,7 +311,7 @@
                     $scope.timebound_numbers[0].checked_in
                 );
             }
-        }
+        };
 
         getIndex = function(transaction_number){
             for(var i = 0;  i < $scope.called_numbers.length; i++) {
@@ -323,7 +321,7 @@
                 }
             }
 
-        }
+        };
 
         $scope.getAllowedBusinesses = function(){
             $('#allowed-businesses option').remove();
@@ -342,7 +340,7 @@
                     $('#allowed-businesses-area').hide();
                 }
             });
-        }
+        };
 
 
         $scope.issueToOther = function(service_id, transaction_number){
@@ -353,17 +351,20 @@
                 transaction_number: transaction_number
             };
 
-            $('#forward-btn').append(' <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
-            $('#forward-btn').attr('disabled', 'disabled');
+            $('#forward-btn')
+                .append(' <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>')
+                .attr('disabled', 'disabled');
             $scope.serveNumber(transaction_number, function(){
                 $http.post('/issuenumber/issue-other/', data).success(function(response){
                     $('#priority-number-modal-close').show();
                     $('#allowed-businesses').attr('disabled', 'disabled');
                     $('#forward-btn span').remove();
-                    $('#forward-btn').removeAttr('disabled');
-                    $('#forward-btn').hide();
-                    $('#forward-success').show();
-                    $('#forward-success').html('<p class="forward-num">Forward successful. The priority number given is </p><h2>' + response.number.priority_number + '</h2>');
+                    $('#forward-btn')
+                        .removeAttr('disabled')
+                        .hide();
+                    $('#forward-success')
+                        .html('<p class="forward-num">Forward successful. The priority number given is </p><h2>' + response.number.priority_number + '</h2>')
+                        .show();
                     var business_id = response.business_id;
                     websocket.send(JSON.stringify({
                         business_id : business_id,
@@ -372,7 +373,7 @@
                     }));
                 });
             });
-        }
+        };
 
         //****************************** refreshing
         $scope.getAllNumbers();
@@ -386,7 +387,7 @@
         };
         window.onbeforeunload = function(e) {
             websocket.close();
-        }
+        };
 
         setInterval(function () {
             $scope.sendWebsocket();
