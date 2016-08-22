@@ -211,13 +211,12 @@ Processs Queue > {{ $business_name }}
                         </td>
                     </tr>
                     <tr ng-repeat="number in called_numbers" data-tnumber="@{{ number.transaction_number }}">
-                            <td scope="row" width="25%">
+                            <td scope="row" width="15%">
                                 <a href="#" class="priority-number" title="Number: @{{ number.priority_number }}" data-transaction-number="@{{ number.transaction_number }}" data-priority-number="@{{ number.priority_number }}" data-name="@{{ number.name }}" data-phone="@{{ number.phone }}" data-email="@{{ number.email }}"  data-form_records="@{{ number.form_records }}" data-confirmation-code="@{{ number.confirmation_code }}" data-toggle="modal" data-target="#priority-number-modal">
                                     @{{ number.priority_number }}
                                 </a>
                                 <span class=" @{{ number.terminal_id == terminal_id ? 'cyan' : 'red' }}">@{{ number.terminal_name }}</span>
                             </td>
-
                         <td class="links">
                             <div class="pt0" ng-show="number.form_records.length">
                                 <a href="#" class="btn btn-primary btn-xs btn-links" data-toggle="modal" data-target="#modal-forms@{{ number.priority_number }}"><span class="glyphicon glyphicon-list-alt"></span> View Form</a>
@@ -252,7 +251,7 @@ Processs Queue > {{ $business_name }}
                                                                 </thead>
                                                                 <tbody>
                                                                     <tr ng-repeat="(key, value) in form.form_data">
-                                                                        <th scope="row">@{{ key }}</th>
+                                                                        <td>@{{ key }}</td>
                                                                         <td>@{{ value }}</td>
                                                                     </tr>
                                                                 </tbody>

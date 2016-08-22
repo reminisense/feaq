@@ -244,10 +244,18 @@ class ProcessQueue extends Eloquent{
 
 
             foreach($records as $record){
-                 $form_data = FormRecord::getXMLPathByRecordId($record->record_id);
-                 $form_records[] = simplexml_load_string(file_get_contents($form_data));
+                $form_data = FormRecord::getXMLPathByRecordId($record->record_id);
+                $form_fields = unserialize(Forms::getFieldsByFormId($record->form_id));
+                $content = simplexml_load_string(file_get_contents($form_data));
+                $label = array_keys(get_object_vars($content->form_data));
+                foreach($form_fields as $count=> $field){
+                    if($field['field_data']['label'] != $label[$count]){
+                        $content->form_data->{$field['field_data']['label']} = $content->form_data->{$label[$count]};
+                        unset($content->form_data->{$label[$count]});
+                    }
+                }
+                $form_records[] = $content;
             }
-
 
             /*legend*/
             //uncalled  : not served and not removed
