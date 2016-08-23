@@ -11,7 +11,7 @@ use utils\ApplePushNotifications;
 class Notifier extends Eloquent{
     public $timestamps = false;
 
-    public function sendNotif($message, $fb_id) {
+    public static function sendNotif($message, $fb_id) {
         $tokens = UserDevice::getDeviceTokensByFbId($fb_id);
         foreach ($tokens as $count => $token) {
             if ($token->device_type == "iOS") {
