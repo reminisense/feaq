@@ -213,6 +213,7 @@ class MobileController extends BaseController{
                     'address' => $business->local_address,
                     'image_url' => "http://imgur.com/as1DaJ.jpg",
                     'last_called' => $last_called,
+                    'queued_service' => Service::name($priority_number->service_id),
                 ],
                 'location' => [
                     'latitude' => $business->latitude,
