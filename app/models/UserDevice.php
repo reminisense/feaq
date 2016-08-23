@@ -24,4 +24,8 @@ class UserDevice extends Eloquent {
     return UserDevice::where('fb_id', '=', $fbId)->select(array('device_token'))->get();
   }
 
+  public static function checkForDevice($fbId) {
+    return UserDevice::where('fb_id', '=', $fbId)->exists();
+  }
+
 }
