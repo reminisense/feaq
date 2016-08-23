@@ -6,8 +6,20 @@
  * Time: 2:33 PM
  */
 
+use utils\ApplePushNotifications;
+
 class Notifier extends Eloquent{
     public $timestamps = false;
+
+    public function sendNotif($message, $fb_id) {
+        $tokens = UserDevice::getDeviceTokensByFbId($fb_id);
+        foreach ($tokens as $count => $token) {
+            if ($token->device_type == "iOS") {
+                $APN = new \ApplePushNotifications($token->device_token, $message);
+                $APN->sendNotif();
+            }
+        }
+    }
 
     public static function sendNumberCalledNotification($transaction_number, $terminal_id){
         
@@ -18,9 +30,8 @@ class Notifier extends Eloquent{
             $service_name = Service::name($service_id);
             $terminal_name = Terminal::name($terminal_id);
             $priority_number = PriorityQueue::priorityNumber($transaction_number);
-            $Mobile = new MobileController();
             $message = "Your number (" . $priority_number . ") is being called. Please proceed to " . $service_name . " - " . $terminal_name . ". Thank you!";
-            $Mobile->sendNotif($message, $fb_id);
+            Notifier::sendNotif($message, $fb_id);
         }
 
         if(isset($queue_setting->sms_current_number) && $queue_setting->sms_current_number) Notifier::sendNumberCalledToAllChannels($transaction_number);
