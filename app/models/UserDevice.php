@@ -20,8 +20,8 @@ class UserDevice extends Eloquent {
     ));
   }
 
-  public static function getDeviceTokensByFbId($fbId) {
-    return UserDevice::where('fb_id', '=', $fbId)->select(array('device_token'))->get();
+  public static function getTokenTypeByFbId($fbId) {
+    return UserDevice::where('fb_id', '=', $fbId)->select(array('device_token', 'device_type'))->get();
   }
 
   public static function checkForDevice($fbId) {

@@ -690,12 +690,13 @@ class MobileController extends BaseController{
   }
 
   public function getTestNotif() {
-    $tokens = UserDevice::getDeviceTokensByFbId('10203814733394884');
-    foreach ($tokens as $count => $token) {
-      $APN = new \ApplePushNotifications($token->device_token, 'hello world');
-      $APN->sendNotif();
-    }
-    print 'hello world sent';
+      $tokens = UserDevice::getTokenTypeByFbId('10203814733394884');
+      foreach ($tokens as $count => $token) {
+          if ($token->device_type == "iOS") {
+              $APN = new \ApplePushNotifications($token->device_token, "hello world");
+              $APN->sendNotif();
+          }
+      }
   }
 
 }
