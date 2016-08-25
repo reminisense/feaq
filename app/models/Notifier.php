@@ -27,7 +27,7 @@ class Notifier extends Eloquent{
             $tokens = UserDevice::getTokenTypeByFbId($fb_id);
             foreach ($tokens as $count => $token) {
                 if ($token->device_type == "iOS") {
-                    $APN = new \ApplePushNotifications($token->device_token, $message);
+                    $APN = new \ApplePushNotifications($token->device_token, $message, $terminal_name);
                     $APN->sendNotif();
                 }
             }

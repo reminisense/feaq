@@ -693,7 +693,7 @@ class MobileController extends BaseController{
       $tokens = UserDevice::getTokenTypeByFbId('10203814733394884');
       foreach ($tokens as $count => $token) {
           if ($token->device_type == "iOS") {
-              $APN = new \ApplePushNotifications($token->device_token, "hello world");
+              $APN = new \ApplePushNotifications($token->device_token, "hello world", "Teller A");
               $APN->sendNotif();
           }
       }
