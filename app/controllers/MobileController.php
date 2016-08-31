@@ -213,6 +213,7 @@ class MobileController extends BaseController{
                     'address' => $business->local_address,
                     'image_url' => "http://imgur.com/as1DaJ.jpg",
                     'last_called' => $last_called,
+                    'queued_service' => Service::name($priority_number->service_id),
                 ],
                 'location' => [
                     'latitude' => $business->latitude,
@@ -688,13 +689,14 @@ class MobileController extends BaseController{
     ));
   }
 
-  public function getSendNotif() {
-    $tokens = UserDevice::getDeviceTokensByFbId('10203814733394884');
-    foreach ($tokens as $count => $token) {
-      $APN = new \ApplePushNotifications($token->device_token, 'hello world');
-      $APN->sendNotif();
-    }
-    print 'hello world sent';
+  public function getTestNotif() {
+      $tokens = UserDevice::getTokenTypeByFbId('10203814733394884');
+      foreach ($tokens as $count => $token) {
+          if ($token->device_type == "iOS") {
+              $APN = new \ApplePushNotifications($token->device_token, "hello world", "Teller A");
+              $APN->sendNotif();
+          }
+      }
   }
 
 }

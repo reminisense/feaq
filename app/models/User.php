@@ -303,4 +303,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     User::where('fb_id', '=', $fb_id)->update(array('auth_token' => $token));
   }
 
+    public static function getFbIdByUserId($user_id) {
+        return User::where('user_id', '=', $user_id)->select(array('fb_id'))->first()->fb_id;
+    }
+
 }
