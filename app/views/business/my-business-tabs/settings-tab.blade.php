@@ -32,6 +32,15 @@
             </div>
             <div class="clearfix">
                 <div class="col-md-6 mb20">
+                    <p class="title">Check-in Request</p>
+                </div>
+                <div class="col-md-6 mb20">
+                    <input type="checkbox" ng-model="broadcast_check_in">
+                    Show <input id="input_check_in_field" type="text" ng-model="check_in_display" ng-disabled="!broadcast_check_in"> numbers for check-in
+                </div>
+            </div>
+            <div class="clearfix">
+                <div class="col-md-6 mb20">
                     <p class="title">Notifications</p>
                     <small><a class="info-button" href="#general-notif"><span class="glyphicon glyphicon-info-sign"></span>  More info...</a></small>
                     <div class="clearfix mb20">
@@ -39,7 +48,6 @@
                             When to notify users via SMS.
                         </div>
                     </div>
-
                 </div>
                 <div class="col-md-6 mb20">
                     <div class=" mb10">

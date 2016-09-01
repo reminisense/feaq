@@ -253,6 +253,7 @@ class BusinessController extends BaseController
                 $queue_settings->getUpdate($business['business_id'], 'remote_limit', $business_data['remote_limit']);
                 $queue_settings->getUpdate($business['business_id'], 'remote_time', $business_data['remote_time']);
                 $queue_settings->getUpdate($business['business_id'], 'process_queue_layout', $business_data['process_queue_layout']);
+                $queue_settings->getUpdate($business['business_id'], 'check_in_display', $business_data['check_in_display']);
 
                 //sms settings
                 $sms_api_data = [];

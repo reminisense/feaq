@@ -416,6 +416,12 @@ var eb = {
         $scope.remote_time = null;
         $scope.process_queue_layout = 0;
 
+        $scope.broadcast_check_in = false;
+        $scope.check_in_display = 0;
+        $scope.$watch('broadcast_check_in', function(newValue, oldValue){
+            $scope.check_in_display = newValue ? $scope.check_in_display : 0;
+        });
+
         $scope.add_terminal = {
             terminal_name : ""
         };
@@ -431,7 +437,7 @@ var eb = {
             ticker_message3 : "",
             ticker_message4 : "",
             ticker_message5 : ""
-        }
+        };
 
         $scope.business_features = {
             terminal_users: 3
@@ -446,7 +452,7 @@ var eb = {
                 broadcast_reload: false
             }));
             $('#WebsocketLoaderModal').modal('hide');
-        }
+        };
         websocket.onmessage = function(response){
 
         }
@@ -486,6 +492,7 @@ var eb = {
             $scope.remote_limit = business.remote_limit;
             $scope.remote_time = business.remote_time;
             $scope.process_queue_layout = business.process_queue_layout ? true : false;
+            $scope.check_in_display = business.check_in_display;
             $scope.terminals = business.terminals;
             $scope.services = business.services;
             $scope.analytics = business.analytics;
@@ -794,8 +801,9 @@ var eb = {
                     remote_limit: $scope.remote_limit,
                     remote_time: $scope.remote_time,
                     process_queue_layout: $scope.process_queue_layout ? 1 : 0,
+                    check_in_display: $scope.check_in_display,
                     sms_gateway : $scope.sms_gateway
-                }
+                };
 
                 if($scope.sms_gateway == 'frontline_sms'){
                     data.frontline_api_key = $scope.frontline_api_key;

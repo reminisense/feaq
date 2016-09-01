@@ -88,6 +88,10 @@ class QueueSettings extends Eloquent{
         return QueueSettings::queueSetting('process_queue_layout', 0, $service_id, $date);
     }
 
+    public static function checkInDisplay($service_id, $date = null){
+        return QueueSettings::queueSetting('check_in_display', 0, $service_id, $date);
+    }
+
 
     /**
      * SMS Gateway variables

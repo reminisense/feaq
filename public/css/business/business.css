@@ -504,7 +504,7 @@ table .title {
     height: 100%;
     font-size: 14px;
 }
-
+#input_check_in_field,
 #input_sms_field {
     border: none;
     border-bottom: 1px solid #c7c7c7;
@@ -570,6 +570,7 @@ table .title {
     background: url('../../img/bg-statuseshover-sep.jpg') top left no-repeat;
     content: #fff;
 }
+input#input_check_in_field:focus,
 input#input_sms_field:focus{
     outline-width: 0;
     background-color: #fff9e3;
