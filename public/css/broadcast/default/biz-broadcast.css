@@ -311,7 +311,17 @@ h1,h2,h3,h4 {margin: 0;}
 .top {background-color: #262a31;text-align: center;margin: auto;padding: 12px 0;}
 .ticker-message {background-color: #fff;color: #000;padding: 10px 0;position: absolute;bottom: 0;width: 100%;z-index: 1; max-height: 62px; overflow: hidden; white-space: nowrap;}
 .ticker-message p {font-size: 30px;font-weight: 900;margin-bottom: 0;}
-.qrcode.qrwrap {width: 100px;position: absolute;bottom: 10px;left: 0;z-index: 20;text-align: center;min-height: inherit!important;padding: 15px!important;background: rgba(255,255,255,0)!important;}
+.qrcode.qrwrap {
+    width: 180px;
+    position: absolute;
+    bottom: 34%;
+    left: 0;
+    z-index: 20;
+    text-align: center;
+    min-height: inherit!important;
+    padding: 15px!important;
+    background: #262a31!important;}
+
 .qrcode.qrwrap .orange {font-size: 20px!important;}
 .qrcode.qrwrap h4 {margin: 0;color: #ff8649;font-weight: 900;}
 .qrcode.qrwrap img {width: 100%;margin-top: 5px;}
@@ -321,7 +331,7 @@ h1,h2,h3,h4 {margin: 0;}
 /*.fifty .boxed.four .numbers .service { padding-bottom:50px; }*/
 .fifty .boxed.ten .numbers .callnum { line-height: inherit; }
 #cust-url {  margin-top: 8px; font-size: 14px; font-weight: bold; color: #fff;}
-#cust-url span {font-size: 24px; font-weight: bold; color: #ff8649;}
+#cust-url span {font-size: 16px; font-weight: bold; color: #ff8649;}
 
 #biz-broadcast-no-ads .row-4 .col-3 .terminal,
 .fifty .boxed.ten .terminal {font-size: 1.2vw!important;}
@@ -567,4 +577,52 @@ img.qrcode {
 #show-only-service>li.active>a, #show-only-service>li.active>a:focus, #show-only-service>li.active>a:hover {
     background-color: #ff8649;
     color: #fff;
+}
+.checkin-numbers-carousel {
+    width: 1200px;
+    overflow: hidden;
+}
+.checkin-carousel {
+    position: absolute;
+    bottom: 62px;
+    padding: 0px 20px;
+    height: 70px;
+    background-color: #ccc;
+    width: 100%;
+    z-index: 2;
+    display: flex;
+    text-align: center;
+}
+.carousel-inner {
+    width: 100%;
+    margin: 11px 0;
+    overflow-hidden
+}
+.carousel-caption {
+    bottom: 0;
+    position: static;
+    padding-top: 0!important;
+    padding-bottom: 0!important;
+    text-align: left;
+    height: 48px;
+    overflow: hidden;
+}
+.carousel-caption h3 {
+    font-weight: 900;
+    margin: 11px 20px 12px 0!important;
+}
+.carousel-caption h3,
+.carousel-caption p {
+    display: inline-block;
+    color: #111;
+    text-shadow: none;
+    margin-bottom: 0;
+}
+.carousel-caption .numbers {
+    font-size: 26px;
+    background-color: #262a31;
+    color: #fff;
+    padding: 4px 20px;
+    border-radius: 3px;
+    margin: 0 5px;
 }

@@ -3,7 +3,7 @@
 class FormsController extends BaseController{
 
   public function getDisplayForms($business_id) {
-      if (Helper::isBusinessOwner($business_id, Helper::userId())) { // PAG added permission checking
+      if (Helper::isBusinessOwner($business_id, Helper::userId()) || Auth::check()) { // PAG added permission checking
           $data = array();
           $services = Service::getServicesByBusinessId($business_id);
           foreach($services as $service){

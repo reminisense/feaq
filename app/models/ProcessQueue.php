@@ -97,11 +97,14 @@ class ProcessQueue extends Eloquent{
         if(is_numeric($terminal_id)){
             $pq = PriorityQueue::find($transaction_number);
             $pn = PriorityNumber::find($pq->track_id);
+          $terminal_name = Terminal::name($terminal_id);
+          $service_name = Service::name($pn->service_id);
             $time_called = time();
             $login_id = TerminalManager::hookedTerminal($terminal_id) ? TerminalManager::getLatestLoginIdOfTerminal($terminal_id) : 0;
             TerminalTransaction::updateTransactionTimeCalled($transaction_number, $login_id, $time_called, $terminal_id);
             Analytics::insertAnalyticsQueueNumberCalled($transaction_number, $pn->service_id, $pn->date, $time_called, $terminal_id, $pq->queue_platform); //insert to queue_analytics
             Notifier::sendNumberCalledNotification($transaction_number, $terminal_id); //notifies users that his/her number is called
+          Notifier::sendPushNotification($transaction_number, $terminal_name, $service_name, 'call'); // PAG send push notifications
             return json_encode(['success' => 1, /*'numbers' => ProcessQueue::allNumbers(Terminal::serviceId($terminal_id))*/]); //ARA removed all numbers to prevent redundant database query
         }else{
             return json_encode(['error' => 'Please assign a terminal.']);
@@ -152,9 +155,11 @@ class ProcessQueue extends Eloquent{
             if ($process == 'serve') {
                 TerminalTransaction::updateTransactionTimeCompleted($transaction_number, $time);
                 Analytics::insertAnalyticsQueueNumberServed($transaction_number, $priority_number->service_id, $priority_number->date, $time, $terminal_id, $priority_queue->queue_platform); //insert to queue_analytics
+              Notifier::sendPushNotification($transaction_number, "", "", $process); // PAG send push notifications
             } else if ($process == 'remove') {
                 TerminalTransaction::updateTransactionTimeRemoved($transaction_number, $time);
                 Analytics::insertAnalyticsQueueNumberRemoved($transaction_number, $priority_number->service_id, $priority_number->date, $time, $terminal_id, $priority_queue->queue_platform); //insert to queue_analytics
+              Notifier::sendPushNotification($transaction_number, "", "", $process); // PAG send push notifications
             }
         } else {
             return json_encode(array('error' => 'Number ' . $pnumber . ' has already been processed. If the number still exists, please reload the page.'));
@@ -244,10 +249,18 @@ class ProcessQueue extends Eloquent{
 
 
             foreach($records as $record){
-                 $form_data = FormRecord::getXMLPathByRecordId($record->record_id);
-                 $form_records[] = simplexml_load_string(file_get_contents($form_data));
+                $form_data = FormRecord::getXMLPathByRecordId($record->record_id);
+                $form_fields = unserialize(Forms::getFieldsByFormId($record->form_id));
+                $content = simplexml_load_string(file_get_contents($form_data));
+                $label = array_keys(get_object_vars($content->form_data));
+                foreach($form_fields as $count=> $field){
+                    if($field['field_data']['label'] != $label[$count]){
+                        $content->form_data->{$field['field_data']['label']} = $content->form_data->{$label[$count]};
+                        unset($content->form_data->{$label[$count]});
+                    }
+                }
+                $form_records[] = $content;
             }
-
 
             /*legend*/
             //uncalled  : not served and not removed

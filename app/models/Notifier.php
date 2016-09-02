@@ -6,14 +6,37 @@
  * Time: 2:33 PM
  */
 
+use utils\ApplePushNotifications;
+
 class Notifier extends Eloquent{
     public $timestamps = false;
 
-    public static function sendNumberCalledNotification($transaction_number, $terminal_id){
+    public static function sendPushNotification($transaction_number, $terminal_name, $service_name, $msg_type) {
+        if ($msg_type == 'call') {
+            $pq = PriorityQueue::find($transaction_number);
+            $message = "Your number (" . $pq->priority_number . ") is being called. Please proceed to " . $service_name . " - " . $terminal_name . ". Thank you!";
+        }
+        else if ($msg_type == 'serve') {
+            $message = "Your number has now been served. Thank you!";
+        }
+        else {
+            $message = "Your number has been dropped from the line.";
+        }
+        $fb_id = User::getFbIdByUserId(PriorityQueue::userId($transaction_number));
+        if (UserDevice::checkForDevice($fb_id)) {
+            $tokens = UserDevice::getTokenTypeByFbId($fb_id);
+            foreach ($tokens as $count => $token) {
+                if ($token->device_type == "iOS") {
+                    $APN = new \ApplePushNotifications($token->device_token, $message, $terminal_name);
+                    $APN->sendNotif();
+                }
+            }
+        }
+    }
 
+    public static function sendNumberCalledNotification($transaction_number, $terminal_id) {
         $service_id = Terminal::serviceId($terminal_id);
         $queue_setting = QueueSettings::getServiceQueueSettings($service_id);
-
         if(isset($queue_setting->sms_current_number) && $queue_setting->sms_current_number) Notifier::sendNumberCalledToAllChannels($transaction_number);
         if(isset($queue_setting->sms_1_ahead) && $queue_setting->sms_1_ahead) Notifier::sendNumberCalledToNextNumber($transaction_number, 1, $service_id);
         if(isset($queue_setting->sms_5_ahead) && $queue_setting->sms_5_ahead) Notifier::sendNumberCalledToNextNumber($transaction_number, 5, $service_id);

@@ -213,6 +213,7 @@ class MobileController extends BaseController{
                     'address' => $business->local_address,
                     'image_url' => "http://imgur.com/as1DaJ.jpg",
                     'last_called' => $last_called,
+                    'queued_service' => Service::name($priority_number->service_id),
                 ],
                 'location' => [
                     'latitude' => $business->latitude,
@@ -669,7 +670,7 @@ class MobileController extends BaseController{
         $form_data = array();
         $form_tag = count(FormRecord::fetchAllRecordsByFormId($form_id))+1;
         foreach ($submit_data as $count2 => $xml_data) {
-          $form_data[$xml_data["xml_tag"]] = $xml_data["xml_val"];
+          $form_data[preg_replace('/[^a-z]/', "", strtolower($xml_data["xml_tag"]))] = $xml_data["xml_val"];
         }
         $to_xml['form_data'] = $form_data;
         $path = 'forms/records/form_'.$transaction_number.'_'.$form_id.'_'.$form_tag.'.xml';
@@ -688,13 +689,14 @@ class MobileController extends BaseController{
     ));
   }
 
-  public function getSendNotif() {
-    $tokens = UserDevice::getDeviceTokensByFbId('10203814733394884');
-    foreach ($tokens as $count => $token) {
-      $APN = new \ApplePushNotifications($token->device_token, 'hello world');
-      $APN->sendNotif();
-    }
-    print 'hello world sent';
+  public function getTestNotif() {
+      $tokens = UserDevice::getTokenTypeByFbId('10203814733394884');
+      foreach ($tokens as $count => $token) {
+          if ($token->device_type == "iOS") {
+              $APN = new \ApplePushNotifications($token->device_token, "hello world", "Teller A");
+              $APN->sendNotif();
+          }
+      }
   }
 
 }
