@@ -464,4 +464,9 @@ class Helper extends Eloquent
 
         return $count > 0 ? TRUE : FALSE;
     }
+
+    public static function trim($text){
+       $trim = preg_replace('/[^a-z]/', "", strtolower($text));
+       return $trim;
+    }
 }

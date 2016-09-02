@@ -89,7 +89,7 @@ class FormRecordController extends BaseController {
               $form_data = array();
               $form_tag = count(FormRecord::fetchAllRecordsByFormId($form_id))+1;
               foreach ($submit_data as $count2 => $xml_data) {
-                  $form_data[preg_replace('/[^a-z]/', "", strtolower($xml_data["xml_tag"]))] = $xml_data["xml_val"];
+                  $form_data[Helper::trim($xml_data["xml_tag"])] = $xml_data["xml_val"];
               }
               $to_xml['form_data'] = $form_data;
               $path = 'forms/records/form_'.$transaction_number.'_'.$form_id.'_'.$form_tag.'.xml';
@@ -106,5 +106,31 @@ class FormRecordController extends BaseController {
           'status' => 201,
           'msg' => 'OK'
       ));
+  }
+
+  public function postSuggestedFields(){
+      $user_id = Input::get('user_id');
+      $forms = Input::get('forms');
+      $record_paths = FormRecord::fetchAllXMLPathOfUserID($user_id)->toArray();
+      $user_inputs = [];
+
+      foreach($record_paths as $path)
+      {
+        $form_data = simplexml_load_string(file_get_contents($path['record_path']));
+        $user_inputs = array_merge($user_inputs, get_object_vars($form_data->form_data));
+      }
+
+      $user_inputs_r = array_reverse($user_inputs);
+      foreach($forms as $form){
+          foreach($form['fields'] as $field){
+              foreach($user_inputs_r as $key=>$value){
+                  if(Helper::trim($field['field_data']['label']) == Helper::trim($key)){
+                        var_dump($key);
+                        var_dump($value);
+                      break;
+                  }
+              }
+          }
+      }
   }
 }

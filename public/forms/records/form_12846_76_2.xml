@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+  <form_name>Healthcare</form_name>
+  <service_id>248</service_id>
+  <form_data>
+    <address>d</address>
+    <hivtest>1</hivtest>
+    <xray>Body</xray>
+    <bloodtype>AB</bloodtype>
+  </form_data>
+</xml>
