@@ -148,6 +148,7 @@ class Business extends Eloquent
             'remote_limit' => QueueSettings::remoteLimit($first_service->service_id),
             'remote_time' => QueueSettings::remoteTime($first_service->service_id),
             'process_queue_layout' => QueueSettings::processQueueLayout($first_service->service_id),
+            'check_in_display' => QueueSettings::checkInDisplay($first_service->service_id),
             'terminals' => $terminals,
             'services' => $services,
             'analytics' => $analytics,
