@@ -13,12 +13,14 @@ class ApplePushNotifications
   private $passphrase = '';
   private $message;
   private $terminal_name;
+  private $msg_type;
 
-  public function __construct($deviceToken, $message, $terminal_name)
+  public function __construct($deviceToken, $message, $terminal_name, $msg_type)
   {
     $this->deviceToken = $deviceToken;
     $this->message = $message;
     $this->terminal_name = $terminal_name;
+    $this->msg_type = $msg_type;
   }
 
   public function sendNotif() {
@@ -36,6 +38,7 @@ class ApplePushNotifications
     $body['aps'] = array(
       'alert' => $this->message,
       'terminal_name' => $this->terminal_name,
+      'msg_type' => $this->msg_type,
       'sound' => 'default',
     );
     $payload = json_encode($body);
