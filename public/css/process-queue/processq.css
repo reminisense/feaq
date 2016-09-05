@@ -494,7 +494,6 @@ span.glyphicon-zoom-in {
 .cyan       {color: #00BA8B!important;}
 .blue       {color: #e46b2e!important;}
 .red        {color: #de411e!important;}
-.pt0        {padding-top: 0!important;}
 
 .bgdcyan:hover,
 .bgcyan:hover,
@@ -636,6 +635,9 @@ td.links {
     background-color: #eee;
     font-family: ralewaybold;
 }
+#tab-forms {
+    padding-top: 0;
+}
 #tab-forms li.active>a,
 #tab-forms li.active>a:focus,
 #tab-forms li.active>a:hover {
@@ -646,6 +648,28 @@ td.links {
 #tab-forms li a:hover {background-color: #f4f3f0; color: #00ba8b;}
 #tab-forms li.active>a {
     border: 1px solid #00ba8b;
+}
+.pt0 {
+    padding-top: 0px!important;
+}
+.modal-forms .modal-content {
+    padding-top: 0px!important;
+}
+.modal-forms .modal-header {
+    padding-top: 15px!important;
+}
+.modal-forms table thead th {
+    font-size: 14px!important;
+    font-family: 'ralewaysemibold'!important;
+    padding: 14px 20px!important;
+}
+.modal-forms table tbody td {
+    text-align: left!important;
+    padding: 12px 20px!important;
+    font-size: 14px!important;
+}
+.modal-forms table thead {
+    background-color: #f8f8f8;
 }
 .processq-box table td {vertical-align: middle!important;}
 /*ARA added styles for new 2nd column (user info)*/
