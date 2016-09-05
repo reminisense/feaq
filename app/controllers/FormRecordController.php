@@ -121,16 +121,39 @@ class FormRecordController extends BaseController {
       }
 
       $user_inputs_r = array_reverse($user_inputs);
-      foreach($forms as $form){
-          foreach($form['fields'] as $field){
-              foreach($user_inputs_r as $key=>$value){
-                  if(Helper::trim($field['field_data']['label']) == Helper::trim($key)){
-                        var_dump($key);
-                        var_dump($value);
-                      break;
+      foreach($forms as &$form) {
+          foreach ($form['fields'] as &$field) {
+              foreach ($user_inputs_r as $key => $value) {
+                  if (Helper::trim($field['field_data']['label']) == Helper::trim($key)) {
+                      if($field['field_type']=='checkbox' && $value == 1){
+                          $field['field_data']['suggested'] = $value;
+                          break;
+                      }else if($field['field_type']=='radio'){
+                          if(Helper::trim($field['field_data']['value_a'])==Helper::trim($value)){
+                              $field['field_data']['suggested'] = $field['field_data']['value_a'];
+                              break;
+                          }else if(Helper::trim($field['field_data']['value_b'])==Helper::trim($value)){
+                              $field['field_data']['suggested'] = $field['field_data']['value_b'];
+                              break;
+                          }
+                      }else if($field['field_type']=='dropdown'){
+                          foreach($field['field_data']['options'] as $option){
+                              if(Helper::trim($option) == Helper::trim($value)){
+                                  $field['field_data']['suggested'] = $option;
+                                  break 2;
+                              }
+                          }
+                      }else{
+                          $field['field_data']['suggested'] = $value;
+                          break;
+                      }
                   }
               }
           }
       }
+
+      return json_encode(array(
+         'forms' => $forms
+      ));
   }
 }
