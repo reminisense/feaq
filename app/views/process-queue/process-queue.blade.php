@@ -225,11 +225,11 @@ Processs Queue > {{ $business_name }}
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                <h4 class="modal-title" id="myModalLabel">Forms Data</h4>
+                                                <h3 class="modal-title" id="myModalLabel">Forms Data</h3>
                                             </div>
-                                            <div class="modal-body">
-                                                <div class="clearfix pt0">
-                                                    <ul id="tab-forms" class="clearfix nav nav-tabs">
+                                            <div class="modal-body pt0">
+                                                <div class="clearfix">
+                                                    <ul id="tab-forms" class="clearfix nav nav-tabs pt0">
                                                         <li role="presentation" ng-repeat="form in number.form_records" class="@{{ $index == 0 ? 'active':''}}" >
                                                             <a href="#service-@{{ $index }}" data-toggle="tab">@{{form.form_name }}</a>
                                                         </li>
@@ -240,18 +240,18 @@ Processs Queue > {{ $business_name }}
                                                             {{--<a href="#service-b" data-toggle="tab">Cashier / Billing</a>--}}
                                                         {{--</li>--}}
                                                     </ul>
-                                                    <div id="tab-forms-table" class="tab-content">
-                                                        <div role="tabpanel" ng-repeat="form in number.form_records" class="tab-pane fade @{{ $index == 0 ? 'active in':'' }}" id="service-@{{ $index }}" >
+                                                    <div id="tab-forms-table" class="pt0 tab-content">
+                                                        <div role="tabpanel" ng-repeat="form in number.form_records" class="pt0 tab-pane fade @{{ $index == 0 ? 'active in':'' }}" id="service-@{{ $index }}" >
                                                             <table class="table">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th>Form Field</th>
+                                                                        <th width="40%">Form Field</th>
                                                                         <th>Form Data</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
                                                                     <tr ng-repeat="(key, value) in form.form_data">
-                                                                        <td>@{{ key }}</td>
+                                                                        <td scope="row">@{{ key }}</td>
                                                                         <td>@{{ value }}</td>
                                                                     </tr>
                                                                 </tbody>

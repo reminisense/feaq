@@ -20,6 +20,8 @@
 
         $scope.forms = null;
         $scope.filtered_forms = [];
+        $scope.suggested_inputs = [];
+
         var biz_id = $('#business-id').attr('business_id');
 
         var user_id = $('#user-id').attr('user_id');
@@ -261,7 +263,7 @@
                         $scope.$apply(function(){
                             $scope.get_num = scope.get_num;
                         });
-                        $scope.getServiceEstimates($scope.def_service_id);
+                        //$scope.getServiceEstimates($scope.def_service_id);
                     }
                 }, 1000);
             }
@@ -336,20 +338,38 @@
             });
         };
 
-        $scope.getFormFields = function(business_id) {
-            $http.get('/forms/display-forms/' + business_id).success(function(response) {
-                $scope.forms =  response.forms;
-                displayFormFields($scope.def_service_id);
+        $scope.getFormFields = function() {
+            $http.get('/forms/display-forms/' + biz_id).success(function(response) {
+                var forms = response.forms;
+                if(forms){
+                    $scope.getSuggestedFields(forms);
+                }
             });
         };
 
+        $scope.getSuggestedFields = function(forms){
+
+            var data = {
+                user_id: user_id,
+                forms: forms
+            }
+            $http.post('/records/suggested-fields', data).success(function(response) {
+                $scope.forms = response.forms;
+                displayFormFields($scope.def_service_id);
+                setTimeout(function(){
+                    $('#remote-btn').removeClass('disabled');
+                    $('#remote-btn > span').removeClass('glyphicon-refresh glyphicon-refresh-animate');
+                    $('#remote-btn > span').addClass('glyphicon-save');
+                }, 2000);
+            });
+
+        }
+
         displayFormFields = function(service_id){
-            $scope.filtered_forms = [];
-            if($scope.forms){
-                for (var i = 0; i <  $scope.forms.length; i++){
-                    if(service_id == $scope.forms[i].service_id && $scope.forms[i].status == true ){
-                        $scope.filtered_forms.push($scope.forms[i]);
-                    }
+            $scope.filtered_forms.length = 0;
+            for (var i = 0; i <  $scope.forms.length; i++){
+                if(service_id == $scope.forms[i].service_id && $scope.forms[i].status == true ){
+                    $scope.filtered_forms.push($scope.forms[i]);
                 }
             }
         }
@@ -371,7 +391,7 @@
             });
         };
 
-        $scope.getFormFields(biz_id);
+        $scope.getFormFields();
         $scope.getBusinessServices();
         $scope.initializePriorityNumber();
         $scope.getRemoteuser();

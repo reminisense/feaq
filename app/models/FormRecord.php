@@ -36,6 +36,10 @@ class FormRecord extends Eloquent {
     return FormRecord::where('record_id', '=', $record_id)->select(array('form_id'))->first()->form_id;
   }
 
+  public static function fetchAllXMLPathOfUserID($user_id){
+    return FormRecord::where('user_id', '=', $user_id)->select(array('record_path'))->get();
+  }
+
   public static function getRecordIdFormIdByTransactionNumber($transaction_number) {
     return FormRecord::where('transaction_number', '=', $transaction_number)->select(array('record_id', 'form_id'))->get();
   }
