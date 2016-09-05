@@ -498,14 +498,19 @@ class ProcessQueue extends Eloquent{
         $all_numbers = null;
         $all_service_numbers = [];
         foreach($services as $service){
+            $check_in_display = QueueSettings::checkInDisplay($service->service_id);
             $service_numbers = ProcessQueue::allNumbers($service->service_id);
+
+            if($check_in_display){
+                $service_numbers->check_in_numbers = array_slice($service_numbers->uncalled_numbers, 0, 5);
+            }
+
             $all_service_numbers[$service->service_id] = clone $service_numbers; //because php passes objects by reference
             if($all_numbers){
                 $all_numbers->called_numbers = array_merge($all_numbers->called_numbers, $service_numbers->called_numbers);
                 $all_numbers->uncalled_numbers = array_merge($all_numbers->uncalled_numbers, $service_numbers->uncalled_numbers);
                 $all_numbers->processed_numbers = array_merge($all_numbers->processed_numbers, $service_numbers->processed_numbers);
                 $all_numbers->timebound_numbers = array_merge($all_numbers->timebound_numbers, $service_numbers->timebound_numbers);
-
                 usort($all_numbers->called_numbers, array('ProcessQueue', 'sortCalledNumbers'));
             }else{
                 $all_numbers = $service_numbers;
@@ -601,6 +606,8 @@ class ProcessQueue extends Eloquent{
 
             foreach($all_service_numbers as $service_id => $service_numbers){
                 $boxes->$service_id = new stdClass();
+                $boxes->$service_id->check_in = new stdClass();
+                $check_in_display = QueueSettings::checkInDisplay($service_id);
                 //ARA conditions to determine if only called numbers will be displayed on broadcast page
                 if(!isset($boxes->show_issued) || $boxes->show_issued){
                     $numbers =  array_merge($service_numbers->called_numbers, $service_numbers->uncalled_numbers);
@@ -611,6 +618,16 @@ class ProcessQueue extends Eloquent{
                 $box_count = 1;
                 $existing = array();
                 for($counter = 1; $box_count <= $max_count; $counter++){
+                    if($box_count <= $check_in_display){
+                        $index = $counter - 1;
+                        $check_in_box = 'check_in' . $box_count;
+                        $uncalled_number = isset($service_numbers->uncalled_numbers[$index]) ? $service_numbers->uncalled_numbers[$index] : null;
+                        $boxes->$service_id->check_in->$check_in_box = new stdClass();
+                        $boxes->$service_id->check_in->$check_in_box->number = $uncalled_number ? $uncalled_number['priority_number'] : '';
+                        $boxes->$service_id->check_in->$check_in_box->checked_in = $uncalled_number ? $uncalled_number['checked_in'] : '';
+
+                    }
+
                     if($counter <= count($numbers)){
                         $index = $counter - 1;
                         $number = isset($numbers[$index]['priority_number']) ? $numbers[$index]['priority_number'] : '';
