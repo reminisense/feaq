@@ -184,7 +184,7 @@
                }
             }catch(err){}
 
-            if(!error && issue){
+            if(!error && issue && confirm('Are you sure you want to get this number?')){
                 $scope.issue_specific_error = '';
                 $scope.issueSpecific($scope.priority_number, $scope.name, $scope.phone, $scope.email, $scope.time_assigned);
             }else{
@@ -329,7 +329,7 @@
 
         $scope.checkIn = function(){
             transaction_number = $scope.user_queue.transaction_number;
-            $http.get('/mobile/checkin-transaction/' + transaction_number).success(function(response){
+            $http.get('/processqueue/checkin-transaction/' + transaction_number).success(function(response){
                 $scope.sendWebsocket();
                 $('.btn-getnum').html('You are checked in');
                 $('.btn-getnum').addClass('disabled');
