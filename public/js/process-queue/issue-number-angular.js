@@ -20,7 +20,6 @@
 
         $scope.forms = null;
         $scope.filtered_forms = [];
-        $scope.suggested_inputs = [];
 
         var biz_id = $('#business-id').attr('business_id');
 
@@ -263,7 +262,7 @@
                         $scope.$apply(function(){
                             $scope.get_num = scope.get_num;
                         });
-                        //$scope.getServiceEstimates($scope.def_service_id);
+                        $scope.getServiceEstimates($scope.def_service_id);
                     }
                 }, 1000);
             }
