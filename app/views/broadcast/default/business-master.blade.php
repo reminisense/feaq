@@ -41,11 +41,42 @@
     <div class="text-center">
         <img class="qrcode" src="https://api.qrserver.com/v1/create-qr-code/?data={{ URL::to('/broadcast/business/' . $business_id) }}&size=120x120">
         <div id="cust-url">
-            {{ $_SERVER['HTTP_HOST'] }}/<span>{{ $custom_url }}</span>
+            {{ $_SERVER['HTTP_HOST'] }}/<br><span>{{ $custom_url }}</span>
         </div>
     </div>
 </div>
 @endif
+<div class="checkin-carousel">
+    <div id="checkin-numbers-carousel" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner" role="listbox">
+        <div class="item active">
+
+          <div class="carousel-caption">
+            <h3>Check-in Now:</h3>
+            <p class="numbers">6016</p>
+            <p class="numbers">ROMAN</p>
+            <p class="numbers">JONASZI</p>
+            <p class="numbers">8901</p>
+                        <p class="numbers">A2919</p>
+                        <p class="numbers">200</p>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="carousel-caption">
+            <h3>Check-in Now:</h3>
+            <p class="numbers">8901</p>
+            <p class="numbers">A2919</p>
+            <p class="numbers">200</p>
+            <p class="numbers">8901</p>
+                        <p class="numbers">A2919</p>
+                        <p class="numbers">200</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+</div>
 <div class="ticker-message" style="width: {{ $ticker_width }}%;">
     @foreach($ticker_message as $message)
         @if($message)
