@@ -419,7 +419,7 @@ var eb = {
         $scope.broadcast_check_in = false;
         $scope.check_in_display = 0;
         $scope.$watch('broadcast_check_in', function(newValue, oldValue){
-            $scope.check_in_display = newValue ? $scope.check_in_display : 0;
+            $scope.check_in_display = newValue ? 5 : 0;
         });
 
         $scope.add_terminal = {
