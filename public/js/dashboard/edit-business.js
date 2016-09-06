@@ -422,6 +422,13 @@ var eb = {
             $scope.check_in_display = newValue ? 5 : 0;
         });
 
+        $scope.$watch('check_in_display', function(newValue, oldValue){
+            if(newValue > 10){
+                alert('Cannot reach more than 10.');
+                $scope.check_in_display = oldValue;
+            }
+        });
+
         $scope.add_terminal = {
             terminal_name : ""
         };
