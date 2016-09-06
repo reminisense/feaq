@@ -16,6 +16,7 @@
     <link href="/css/broadcast/default/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
     <link href="/css/broadcast/default/dashboard.css" rel="stylesheet" type="text/css" media="all">
     <link href="/css/app-global.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/css/refresh-animate.css" rel="stylesheet" type="text/css" media="all">
     <link href="/css/broadcast/default/public-broadcast.css" rel="stylesheet" type="text/css" media="all">
     <link href="/css/broadcast/default/responsive.css" rel="stylesheet" type="text/css" media="all">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -121,8 +122,8 @@
                                 <h1 class="nomg">@{{ get_num }}</h1>
                                 @if($allow_remote)
                                 @if(Auth::check())
-                                <a href="" ng-if="queue_status == 1" class="btn-getnum" data-toggle="modal" data-target="#remote-queue-modal">
-                                    Get this number <span class="glyphicon glyphicon-save"></span>
+                                <a href="" id="remote-btn" ng-if="queue_status == 1" class="btn-getnum disabled"  data-toggle="modal" data-target="#remote-queue-modal">
+                                    Get this number <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
                                 </a>
                                 <a ng-if="queue_status == 0" href="" class="btn-getnum @{{ user_queue.time_checked_in > 0 ? 'disabled' : '' }}" ng-click="checkIn()">
                                     @{{ user_queue.time_checked_in > 0 ? 'You are checked in' : 'Check in' }}
