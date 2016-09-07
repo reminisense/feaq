@@ -52,7 +52,7 @@
         <div class="item active">
 
           <div class="carousel-caption">
-            <h3>Check-in Now:</h3>
+            <h3>Queue Now:</h3>
             <p class="numbers">6016</p>
             <p class="numbers">ROMAN</p>
             <p class="numbers">JONASZI</p>
@@ -64,7 +64,7 @@
 
         <div class="item">
           <div class="carousel-caption">
-            <h3>Check-in Now:</h3>
+            <h3>Queue Now:</h3>
             <p class="numbers">8901</p>
             <p class="numbers">A2919</p>
             <p class="numbers">200</p>
