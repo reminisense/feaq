@@ -68,6 +68,7 @@
         </th>
         <th width="" class="text-right">
             <a href="" ng-hide="service.edit_service" ng-click="service.edit_service = !service.edit_service" class="edit-terminal-button btn-boxy btn-light"  title="Edit Service"><span class="glyphicon glyphicon-pencil"></span></a>
+            <a href="" class="btn btn-boxy btn-light" data-toggle="modal" data-target="#settings-modal" title="Service Settings"><span class="glyphicon glyphicon-cog"></span></a>
             <a href="" class="btn-boxy btn-removeuser btn-light" ng-click="removeService(service.service_id)" title="Remove Service"><span class="glyphicon glyphicon-trash"></span></a>
         </th>
     </tr>
@@ -172,3 +173,4 @@
 </table>
 </div>
 <div class="alert alert-danger" id="terminal-delete-error" ng-show="terminal_delete_error"> @{{ terminal_delete_error }}</div>
+@include('modals.business.settings-modal')
