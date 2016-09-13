@@ -353,7 +353,21 @@ var pq = {
         },
 
         select_next_number : function(){
-            $('#uncalled-numbers li:first-child').trigger('click');
+            var count = $( "#uncalled-numbers li" ).length;
+            $( "#uncalled-numbers li" ).each(function( index ) {
+                var checked_in = $('#uncalled-numbers li:nth-child('+(index + 1)+')').attr('data-checked_in');
+                var queue_platform = $('#uncalled-numbers li:nth-child('+(index + 1)+')').attr('data-queue_platform');
+               if(queue_platform == 'remote'){
+                    if(checked_in == 'true' || count == 1){
+                        $('#uncalled-numbers li:nth-child('+(index + 1)+')').trigger('click');
+                        return false;
+                    }
+                }else{
+                    $('#uncalled-numbers li:nth-child('+(index + 1)+')').trigger('click');
+                   return false;
+               }
+            });
+
         },
 
         remove_from_dropdown : function(transaction_number){
