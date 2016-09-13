@@ -51,6 +51,17 @@ class BroadcastController extends BaseController{
       $numboxes = $this->numBoxesClassName($data->display, $regions['percentage']);
       $row_class = $numboxes['row_class'];
       $box_class = $numboxes['box_class'];
+      $service_filters = Service::getServicesByBusinessId($business_id);
+      $terminal_filters = array();
+      foreach ($service_filters as $count => $service_filter) {
+        $terminal_entries = Terminal::getTerminalsByServiceId($service_filter->service_id);
+        foreach ($terminal_entries as $count => $terminal_entry) {
+          $terminal_filters[$service_filter->service_id][] = array(
+            'terminal_id' => $terminal_entry["terminal_id"],
+            'terminal_name' => $terminal_entry["name"],
+          );
+        }
+      }
       return View::make($templates['broadcast_template'])
         //->with('custom_fields', $custom_fields)
         //->with('template_type', $data->d)
@@ -77,7 +88,8 @@ class BroadcastController extends BaseController{
         ->with('row_class', $row_class)
         ->with('box_class', $box_class)
         ->with('user', Auth::user())
-        ->with('service_filters', Service::getServicesByBusinessId($business_id))
+        ->with('service_filters', $service_filters)
+        ->with('terminal_filters', $terminal_filters)
         ->with('keywords', Business::getKeywordsByBusinessId($business_id));
     }
 

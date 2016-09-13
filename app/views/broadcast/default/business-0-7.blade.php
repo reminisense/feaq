@@ -4,10 +4,10 @@
           <div class="row-2">
             <div class="col-4">
                 <div class="numbers t@{{ rank1 }} @{{ color1 }}">
-                    <p class="service">@{{ service1 }}</p>
-                    <p class="terminal">@{{ name1 }}</p>
-                    <p class="callnum">@{{ box1 }}</p>
-                    <p class="terminal">@{{ user1 }}</p>
+                    <p class="service blink-num">@{{ service1 }}</p>
+                    <p class="terminal blink-num">@{{ name1 }}</p>
+                    <p class="callnum blink-num">@{{ box1 }}</p>
+                    <p class="terminal blink-num">@{{ user1 }}</p>
                 </div>
             </div>
             <div class="col-4">
