@@ -1,0 +1,629 @@
+html,body { height: 100%; }
+body { background-color: #fff; position: relative;  font-family: 'Lato', sans-serif; overflow: hidden; }
+.wrap-broadcast {  width: 100%; height: 100%; }
+
+/*.ten      { width:5%; }*/
+
+.twenty   { width:20%; }
+.thirty   { width:30%; }
+.forty    { width:40%; }
+.fifty    { width:50%; }
+.sixty    { width:60%; }
+.seventy  { width:70%; }
+.eighty   { width:80%; }
+.ninety   { width:90%; }
+.ads-area.seventy, .sixty, .eighty, .ninety, .fifty-a {left: 0;}
+.numbers-area.thirty, .forty, .twenty, .ten, .fifty-b {right: 0;}
+
+/*@10%*/
+.numbers-area.ten h3 {font-size: 15px; height:5.5vh!important;}
+.numbers-area.ten {
+  width: 10%;
+}
+.numbers-area.ten .numbers .service {
+  font-size: 1.2vw;
+  margin: auto;
+}
+.numbers-area.ten .numbers .terminal {
+  font-size: 1vw;
+  margin: auto;
+}
+.numbers-area.ten .boxed.one .numbers .callnum,
+.numbers-area.ten .boxed.two .numbers .callnum,
+.numbers-area.ten .boxed.three .numbers .callnum,
+.numbers-area.ten .boxed.four .numbers .callnum,
+.numbers-area.ten .boxed.five .numbers .callnum {
+  font-size: 3.4vw!important;
+}
+
+.numbers-area.ten .boxed.ten .numbers .service { font-size: 1vw;}
+.numbers-area.ten .boxed.ten .numbers .callnum {
+  font-size: 2vw!important;
+}
+.numbers-area.ten .boxed.four .row-5 > .col-1 .callnum,
+.numbers-area.ten .boxed.five .row-5 > .col-1 .callnum,
+.numbers-area.ten .boxed.three .row-3 > .col-1 .callnum { font-size: 3.7vw; }
+.numbers-area.ten .boxed.two .row-2 > .col-1 .callnum,
+.numbers-area.ten .boxed.one .row-1 > .col-1 .callnum { font-size: 4vw!important; }
+
+.numbers-area.ten .boxed.four .row-4 > .col-1 .service,
+.numbers-area.ten .boxed.five .row-5 > .col-1 .service,
+.numbers-area.ten .boxed.three .row-3 > .col-1 .service { font-size: 1.6vw; }
+.numbers-area.ten .boxed.two .row-2 > .col-1 .service,
+.numbers-area.ten .boxed.one .row-1 > .col-1 .service{ font-size: 1.7vw; }
+
+.numbers-area.ten .boxed.one .row-1 > .col-1 .terminal,
+.numbers-area.ten .boxed.two .row-2 > .col-1 .terminal,
+.numbers-area.ten .boxed.three .row-3 > .col-1 .terminal,
+.numbers-area.ten .boxed.four .row-4 > .col-1 .terminal {
+  font-size: 1.2vw; white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+
+.numbers-area.ten .boxed.five .row-5 > .col-1 {
+  height: 19.2%!important;
+  height: 19.2vh!important;
+}
+.numbers-area.ten .boxed.eight .numbers .callnum,
+.numbers-area.ten .boxed.seven .numbers .callnum,
+.numbers-area.ten .boxed.six .numbers .callnum {
+  font-size: 3vw!important;
+}
+.numbers-area.ten .boxed.six .row-3 > .col-2 {
+  height: 16%!important;
+  height: 16vh!important;
+  width: 100%!important;
+}
+.numbers-area.ten .boxed.seven .row-4 > .col-2,
+.numbers-area.ten .boxed.seven .row-4 > .col-1 {
+  height: 13.5%!important;
+  height: 13.5vh!important;
+  width: 100%;
+}
+.numbers-area.ten .boxed.eight .row-4 > .col-2 {
+  height: 11.8%!important;
+  height: 11.8vh!important;
+  width: 100%;
+}
+.numbers-area.ten .boxed.nine .row-5 > .col-2,
+.numbers-area.ten .boxed.nine .row-5 > .col-1 {
+  height: 10.5%!important;
+  height: 10.5vh!important;
+  width: 100%;
+}
+.numbers-area.ten .boxed.ten .row-5 > .col-2 {
+  height: 9.6%!important;
+  height: 9.6vh!important;
+  width: 100%;
+}
+.numbers-area.ten .boxed.ten h3,
+.numbers-area.ten .boxed.four h3{
+  padding-top: 14px;
+}
+.numbers-area.ten .boxed.three h3 {padding-top: 14px;}
+.numbers-area.ten .boxed.six h3,
+.numbers-area.ten .boxed.seven h3,
+.numbers-area.ten .boxed.eight h3,
+.numbers-area.ten .boxed.nine h3 { padding-top: 19px; }
+
+.numbers-area.ten .boxed.ten .terminal,
+.numbers-area.ten .boxed.nine .terminal,
+.numbers-area.ten .boxed.eight .terminal,
+.numbers-area.ten .boxed.seven .terminal,
+.numbers-area.ten .boxed.six .terminal,
+.numbers-area.ten .boxed.five .terminal { display: none; }
+
+.numbers-area.ten div.row-5,
+.numbers-area.ten .boxed.eight div.row-4,
+.numbers-area.ten .boxed.ten div.row-5{ top: 5vh; }
+
+.numbers-area.ten .boxed.seven div.row-4 { height: 100vh; }
+.numbers-area.ten .numbers .service,
+.numbers-area.ten .numbers .terminal { width: 120px!important; }
+
+/* @20% called number */
+.numbers-area.twenty .boxed.six .numbers .service,
+.numbers-area.twenty .boxed.seven .numbers .service,
+.numbers-area.twenty .boxed.eight .numbers .service,
+.numbers-area.twenty .boxed.nine .numbers .service,
+.numbers-area.twenty .numbers .service {
+  width: 139px!important;
+  margin: auto;
+}
+.numbers-area.twenty .boxed.five .numbers .service {
+  width: 170px!important;
+}
+.numbers-area.twenty .boxed.one .numbers .service,
+.numbers-area.twenty .boxed.two .numbers .service,
+.numbers-area.twenty .boxed.three .numbers .service,
+.numbers-area.twenty .boxed.four .numbers .service {
+  width: 200px!important;
+}
+.numbers-area.twenty .boxed.three .numbers .callnum,
+.numbers-area.twenty .boxed.four .numbers .callnum {
+  font-size: 5vw;
+}
+.numbers-area.twenty .boxed.one .numbers .callnum,
+.numbers-area.twenty .boxed.two .numbers .callnum {
+  font-size: 7vw;
+}
+.numbers-area.twenty .boxed.five .numbers .terminal,
+.numbers-area.twenty .boxed.six .numbers .terminal,
+.numbers-area.twenty .boxed.seven .numbers .terminal,
+.numbers-area.twenty .boxed.eight .numbers .terminal,
+.numbers-area.twenty .boxed.nine .numbers .terminal,
+.numbers-area.twenty .boxed.ten .numbers .terminal {
+  font-size: 0.9vw;
+}
+.numbers-area.twenty .boxed.five .numbers .service,
+.numbers-area.twenty .boxed.six .numbers .service {
+  font-size: 1.2vw!important;
+}
+.numbers-area.twenty .boxed.one .numbers .terminal,
+.numbers-area.twenty .boxed.two .numbers .terminal {
+  font-size: 1.6vw!important;
+}
+.numbers-area.twenty .boxed.two .numbers .service,
+.numbers-area.twenty .boxed.three .numbers .service {
+  font-size: 2vw!important;
+}
+/* eo 20percent screen*/
+
+
+
+/*--- 30% broadcast width---  */
+.boxed.ten .row-5,
+.boxed.nine .row-5 > .col-2,
+.boxed.nine .row-5 > .col-1,
+.boxed.eight .row-4 > .col-2,
+.boxed.seven .row-4 > .col-2,
+.boxed.seven .row-4 > .col-1,
+.boxed.six .row-3,
+.boxed.three .row-3,
+.boxed.five .row-5,
+.boxed.five .row-3,
+.boxed.four .row-4,
+#biz-broadcast-no-ads .row-4 .col-3,
+#biz-broadcast-no-ads .row-3 .col-3,
+#biz-broadcast-no-ads .row-2 .col-3,
+#biz-broadcast-no-ads .row-2 .col-2,
+#biz-broadcast-no-ads .row-1 .col-3,
+#biz-broadcast-no-ads .row-1 .col-2,
+#biz-broadcast-no-ads .row-2 .col-4,
+#biz-broadcast-no-ads .row-4 .col-2,
+#biz-broadcast-no-ads .row-3 .col-4,
+#biz-broadcast-no-ads .row-3 .col-2 { height:100vh; top:6vh; position:relative; }
+.boxed.one .row-1 > .col-1    { height:100%; height:100vh; width:100%; text-align:center; display:table; }
+.boxed.two .row-2 > .col-1    { height:50%;  height:50vh;  width:100%; text-align:center; display:table; }
+.boxed.three .row-2 > .col-1,
+.boxed.three .row-3 > .col-1,
+.boxed.five .row-3 > .col-1  { height:32%;  height:32vh;  width:100%; text-align:center; display:table; }
+.boxed.five .row-3 > .col-2,
+.boxed.six .row-3 > .col-2     { height:32%;  height:32vh;  width:50%; text-align:center; display:table; overflow:hidden; }
+.boxed.four .row-4 > .col-1   { height:23.6%;height:23.6vh; width:100%; text-align:center; display: table; }
+.boxed.five .row-5 > .col-1   { height:19%;  height:19vh; width:100%; text-align:center; display:table; }
+.boxed.seven .row-4 > .col-2  { height:23.6%;height:23.6vh; width:50%; text-align:center; display: table; }
+.boxed.seven .row-4 > .col-1  { height:23.6%;height:23.6vh; width:100%; text-align:center; display: table; }
+.boxed.eight .row-4 > .col-2  { height:23.6%;height:23.6vh; width:50%; text-align:center; display: table; }
+.boxed.ten .row-5 > .col-1    { height:29%;  height:29vh; width:100%; text-align:center; display:table; }
+.boxed.ten .row-5 > .col-2    { height:8%;  height:8vh; width:50%; text-align:center; display:table; }
+.boxed.nine .row-5 > .col-1   { height:29%;  height:29vh; width:100%; text-align:center; display:table; }
+.boxed.nine .row-5 > .col-2   { height:15%;  height:15vh; width:50%; text-align:center; display:table; }
+.fifty .boxed.four .row-2 > .col-2    { height:50%;  height:50vh;  width:50%; text-align:center; display:table; }
+#biz-broadcast-no-ads .ticker-message {width: 100%!important;}
+
+.boxed.three .callnum  {font-size: 6vw;}
+.boxed.four .callnum   {font-size: 6.5vw;}
+.boxed.four .service  {font-size: 1.6vw;}
+.boxed.five .callnum   {font-size: 4vw;}
+.boxed.five .service  {font-size: 1.4vw;}
+.boxed.six .callnum    {font-size: 4vw;}
+.boxed.six .service   {font-size: 2vw;}
+.boxed.seven .callnum  {font-size: 4vw;}
+.boxed.seven .service {font-size: 1.5vw;}
+.boxed.eight .callnum  {font-size: 4vw;}
+.boxed.eight .service {font-size: 1.5vw;}
+.boxed.nine .callnum   {font-size: 2.2vw;}
+.boxed.nine .service,
+.boxed.nine .terminal{font-size: 1.1vw;}
+.boxed.ten .callnum    {font-size: 2.72vw;}
+.boxed.ten .service   {font-size: 1vw;}
+.fifty .boxed.four .callnum    {font-size: 7vw;}
+.fifty .boxed.four .service   {font-size: 2vw;}
+.fifty .boxed.five .callnum    {font-size: 5.2vw;}
+.fifty .boxed.five .service   {font-size: 1.8vw;}
+.fifty .boxed.six .callnum    {font-size: 5vw;}
+.fifty .boxed.seven .callnum    {font-size: 3.5vw;}
+.fifty .boxed.eight .callnum    {font-size: 3.5vw;}
+.fifty .boxed.eight .service   {font-size: 1.5vw;}
+.fifty .boxed.ten .service   {font-size: 1.2vw;}
+.fifty .boxed.ten .callnum    {font-size: 2.5vw;}
+
+.fifty .row-2 .col-2 .numbers,
+.row-5 > .col-2 .numbers,
+.row-4 > .col-2 .numbers,
+.row-3 > .col-2 .numbers,
+.row-5 > .col-1 .numbers,
+.row-4 > .col-1 .numbers,
+.row-3 > .col-1 .numbers,
+.row-2 > .col-1 .numbers,
+.row-1 > .col-1 .numbers,
+#biz-broadcast-no-ads .row-4 .col-3 .numbers,
+#biz-broadcast-no-ads .row-3 .col-3 .numbers,
+#biz-broadcast-no-ads .row-2 .col-3 .numbers,
+#biz-broadcast-no-ads .row-2 .col-2 .numbers,
+#biz-broadcast-no-ads .row-1 .col-3 .numbers,
+#biz-broadcast-no-ads .row-1 .col-2 .numbers,
+#biz-broadcast-no-ads .row-2 .col-4 .numbers,
+#biz-broadcast-no-ads .row-4 .col-2 .numbers,
+#biz-broadcast-no-ads .row-3 .col-4 .numbers,
+#biz-broadcast-no-ads .row-3 .col-2 .numbers { display: table-cell; vertical-align: middle;}
+.col-2 { float: left; }
+
+.numbers .callnum { font-size: 10vw; font-weight: 900;}
+.boxed.two .numbers .callnum { line-height: 200px; }
+.thirty .numbers .service { width:400px; margin:auto; text-align:center; }
+.thirty .boxed.ten .numbers .service,
+.thirty .boxed.six .numbers .service,
+.thirty .boxed.seven .numbers .service,
+.thirty .boxed.eight .numbers .service,
+.thirty .boxed.nine .numbers .service { width:200px; }
+.thirty .boxed.six .numbers .callnum,
+.thirty .boxed.seven .numbers .callnum,
+.thirty .boxed.nine .numbers .callnum,
+.thirty .boxed.ten .numbers .callnum  { width:90%; }
+.forty .numbers .service { width:280px; margin:auto; text-align:center; }
+.fifty .numbers .service { width:330px; margin:auto; text-align:center; }
+
+.fifty .boxed.one .service,
+.fifty .boxed.three .service {width: 600px;}
+
+/*h3 {display: none;}*/
+h1,h2,h3,h4 {margin: 0;}
+.t1 {background-color: #44a9aa;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
+.t2 {background-color: #657fb3;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
+.t3 {background-color: #746ca8;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
+.t4 {background-color: #ff8649;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
+.cyan {background-color: #7acaad;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
+.yellow {background-color: #f9c44d;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
+.blue {background-color: #5d8dbc;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
+.borange {background-color: #ed8c5c;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
+.red {background-color: #de787c;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
+.green {background-color: #89c27b;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
+.violet {background-color: #887aac;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
+.ECD078 {background-color: #ECD078;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
+.D95B43 {background-color: #D95B43;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
+.C02942 {background-color: #C02942;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
+.x542437 {background-color: #542437;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
+.x53777A {background-color: #53777A;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
+.FCA78B {background-color: #FCA78B;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
+.FF745F {background-color: #FF745F;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
+.x78250A {background-color: #78250A;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
+.x242436 {background-color: #242436;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
+
+.numbers-area .boxed { background-color: white; height: 100vh; max-height: 100%; position: relative; z-index: 4;}
+.numbers-area .boxed h3 {text-align:center; margin:auto; width:100%; height: 6vh; padding-top:1.5vh; background-color:white; z-index: 2; font-weight: 900; vertical-align: middle; display: table;}
+.numbers p {margin: 0; padding: 0;}
+.numbers .service {font-size: 2.5vw; font-weight: 700;}
+.rel {position: relative;}
+.abs {position: absolute;}
+.callnum {margin:auto!important; text-align:center;}
+.service,.callnum {white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+.top {background-color: #262a31;text-align: center;margin: auto;padding: 12px 0;}
+.ticker-message {background-color: #fff;color: #000;padding: 10px 0;position: absolute;bottom: 0;width: 100%;z-index: 1; max-height: 62px; overflow: hidden; white-space: nowrap;}
+.ticker-message p {font-size: 30px;font-weight: 900;margin-bottom: 0;}
+.qrcode.qrwrap {
+  width: 180px;
+  position: absolute;
+  bottom: 34%;
+  left: 0;
+  z-index: 20;
+  text-align: center;
+  min-height: inherit!important;
+  padding: 15px!important;
+  background: #262a31!important;}
+
+.qrcode.qrwrap .orange {font-size: 20px!important;}
+.qrcode.qrwrap h4 {margin: 0;color: #ff8649;font-weight: 900;}
+.qrcode.qrwrap img {width: 100%;margin-top: 5px;}
+.vid-container {position: relative;width: 100%;height: 0;padding-bottom: 56.23%;}
+.vid-container iframe,.vid-container object,.vid-container embed {position: absolute;top: 0;left: 0;width: 100%;height: 100%;}
+/*.boxed.four .numbers .callnum {line-height: 120px;}*/
+/*.fifty .boxed.four .numbers .service { padding-bottom:50px; }*/
+.fifty .boxed.ten .numbers .callnum { line-height: inherit; }
+#cust-url {  margin-top: 8px; font-size: 14px; font-weight: bold; color: #fff;}
+#cust-url span {font-size: 16px; font-weight: bold; color: #ff8649;}
+
+#biz-broadcast-no-ads .row-4 .col-3 .terminal,
+.fifty .boxed.ten .terminal {font-size: 1.2vw!important;}
+#biz-broadcast-no-ads .terminal {font-size: 1.4vw;}
+.terminal {font-size: 1vw; text-align: center;}
+
+/*here comes no ADS*/
+#biz-broadcast-no-ads .ticker-message {z-index: 5;}
+#biz-broadcast-no-ads .row-4 .col-3 {
+  height: 22%;
+  height: 22vh;
+  width: 33.3333%;
+  float: left;
+  display: table;
+}
+#biz-broadcast-no-ads .row-3 .col-3 {
+  height: 30%;
+  height: 30vh;
+  width: 33.3333%;
+  float: left;
+  display: table;
+}
+#biz-broadcast-no-ads .row-2 .col-3 {
+  height: 45%;
+  height: 45vh;
+  width: 33.3333%;
+  float: left;
+  display: table;
+}
+#biz-broadcast-no-ads .row-2 .col-2 {
+  height: 45%;
+  height: 45vh;
+  width: 50%;
+  float: left;
+  display: table;
+}
+#biz-broadcast-no-ads .row-1 .col-3 {
+  height: 90%;
+  height: 90vh;
+  width: 33.3333%;
+  float: left;
+  display: table;
+}
+#biz-broadcast-no-ads .row-1 .col-2 {
+  height: 90%;
+  height: 90vh;
+  width: 50%;
+  float: left;
+  display: table;
+}
+#biz-broadcast-no-ads .row-2 .col-4 {
+  height: 45%;
+  height: 45vh;
+  width: 25%;
+  float: left;
+  display: table;
+}
+#biz-broadcast-no-ads .row-4 .col-2 {
+  height: 22%;
+  height: 22vh;
+  width: 50%;
+  float: left;
+  display: table;
+}
+#biz-broadcast-no-ads .row-3 .col-4 {
+  height: 30%;
+  height: 30vh;
+  width: 25%;
+  float: left;
+  display: table;
+}
+#biz-broadcast-no-ads .row-3 .col-2 {
+  height: 30%;
+  height: 30vh;
+  width: 50%;
+  float: left;
+  display: table;
+}
+/*#biz-broadcast-no-ads .row-4 .col-2 .qrcode img {width: 20%!important;}*/
+#biz-broadcast-no-ads .service {font-size: 1.4vw;}
+#biz-broadcast-no-ads .callnum {font-size: 5vw!important;}
+#biz-broadcast-no-ads .boxed.three .service {font-size: 2.2vw;}
+#biz-broadcast-no-ads .boxed.one .service {font-size: 3.5vw;}
+#biz-broadcast-no-ads .boxed.one .terminal {font-size: 2.5vw;}
+#biz-broadcast-no-ads .boxed.two .service {font-size: 2.6vw;}
+#biz-broadcast-no-ads .boxed.two .terminal {font-size: 2vw;}
+#biz-broadcast-no-ads .boxed.four .terminal {font-size: 2vw;}
+#biz-broadcast-no-ads .boxed.four .callnum {font-size: 6.5vw!important;}
+#biz-broadcast-no-ads .boxed.four .service {font-size: 2.5vw;}
+
+#biz-broadcast-no-ads .boxed.five .callnum {font-size: 6.6vw!important;}
+#biz-broadcast-no-ads .boxed.five .service {font-size: 1.8vw!important;}
+
+#biz-broadcast-no-ads .boxed.six .service {font-size: 1.8vw!important;}
+#biz-broadcast-no-ads .boxed.six .callnum {font-size: 6.3vw!important;}
+
+#biz-broadcast-no-ads .boxed.seven .service {font-size: 1.8vw!important;}
+#biz-broadcast-no-ads .boxed.seven .callnum {font-size: 6.5vw!important;}
+
+#biz-broadcast-no-ads .boxed.eight .service {font-size: 1.8vw!important;}
+#biz-broadcast-no-ads .boxed.eight .callnum {font-size: 4vw!important;}
+
+#biz-broadcast-no-ads .boxed.nine .callnum {font-size: 4vw!important;}
+
+#biz-broadcast-no-ads .boxed.ten .service {font-size: 1vw!important;}
+#biz-broadcast-no-ads .boxed.ten .terminal {font-size: 1vw!important;}
+#biz-broadcast-no-ads .boxed.ten .callnum {font-size: 3vw!important;}
+
+#biz-broadcast-no-ads .boxed.three .callnum {font-size: 6vw!important;}
+#biz-broadcast-no-ads .boxed.three .terminal {font-size: 2vw!important;}
+#biz-broadcast-no-ads .boxed.three {
+
+}
+/*#biz-broadcast-no-ads .boxed.four .row-2 .col-3 {  width: 31%!important;  }*/
+#biz-broadcast-no-ads .boxed.one .callnum {font-size: 12.5vw!important;}
+#biz-broadcast-no-ads .boxed.two .callnum {font-size: 9.5vw!important;}
+
+#biz-broadcast-no-ads .row-4 .col-3 .service,
+#biz-broadcast-no-ads .row-3 .col-3 .service,
+#biz-broadcast-no-ads .row-2 .col-3 .service,
+#biz-broadcast-no-ads .row-1 .col-3 .service { width: 200px; }
+#biz-broadcast-no-ads .row-2 .col-5 .service { width: 280px;}
+/*#biz-broadcast-no-ads .row-2 .col-2 .service,
+#biz-broadcast-no-ads .row-1 .col-2 .service { width: 550px;}*/
+#biz-broadcast-no-ads .row-2 .col-4 .service,
+#biz-broadcast-no-ads .row-3 .col-4 .service { width: 350px;}
+/*#biz-broadcast-no-ads .boxed.three .service { width: 550px;}*/
+#biz-broadcast-no-ads .service { text-align: center; margin: auto;}
+#biz-broadcast-no-ads .qrcode h4 {font-size: 20px; font-weight: 700;}
+#biz-broadcast-no-ads .qrcode p {font-size: 15px!important; margin-top: 5px;}
+
+#biz-broadcast-no-ads .boxed.three h4 {font-size: 20px;}
+#biz-broadcast-no-ads .boxed.four h4,
+#biz-broadcast-no-ads .boxed.ten h4{font-size: 18px;}
+#biz-broadcast-no-ads .boxed.eight h4 {font-size: 16px;}
+#biz-broadcast-no-ads .boxed.nine h4 {font-size: 16px;}
+#biz-broadcast-no-ads .boxed.four .qrcode img   {width: 100px;}
+#biz-broadcast-no-ads .boxed.five .qrcode img   {width: 100px;}
+#biz-broadcast-no-ads .boxed.seven .qrcode img  {width: 100px;}
+#biz-broadcast-no-ads .boxed.eight .qrcode img  {width: 100px;}
+#biz-broadcast-no-ads .boxed.nine .qrcode img,
+#biz-broadcast-no-ads .boxed.ten .qrcode img    {width: 60px;}
+#biz-broadcast-no-ads .boxed.ten h4,
+#biz-broadcast-no-ads .qrcode p {
+  font-size: 14px;
+  margin-top: 0;
+}
+
+/*
+#biz-broadcast-no-ads .boxed.ten h4
+*/
+
+.numbers-area.fifty .boxed.one p.terminal,
+.numbers-area.forty .boxed.one p.terminal,
+.numbers-area.thirty .boxed.one p.terminal,
+.numbers-area.fifty .boxed.two p.terminal,
+.numbers-area.forty .boxed.two p.terminal,
+.numbers-area.thirty .boxed.two p.terminal{font-size: 2vw;}
+
+@media only screen and (max-width : 1400px) {
+  .boxed.two .numbers .callnum { line-height:140px; }
+  /*.boxed.four .numbers .callnum { line-height:95px; }*/
+  .thirty .numbers .service { width:330px; }
+  .boxed.six .numbers .service,
+  .boxed.seven .numbers .service,
+  .boxed.eight .numbers .service,
+  .boxed.nine .numbers .service,
+  .boxed.ten .numbers .service { width:139px!important; }
+  .fifty .numbers .service { width:290px!important; }
+  .fifty .boxed.six .numbers .service { width: 220px!important; }
+  .numbers-area.ten .numbers .service,
+  .numbers-area.ten .numbers .terminal { width: 100px!important; }
+  .numbers-area.ten .boxed h3 { font-size: 13px;}
+}
+
+@media only screen and (max-width : 1200px) {
+  .boxed.two .numbers .callnum {line-height: 120px;}
+  .thirty .numbers .service { width: 280px;}
+  /*.boxed.four .numbers .callnum {line-height: 95px;}*/
+  .fifty .numbers .service { padding-bottom:0px; }
+  .fifty .boxed.ten .numbers .service { padding-bottom:0px; }
+  .fifty .numbers .service { width:230px!important; }
+  .numbers-area .boxed h3 { height:7vh; }
+  .fifty .boxed.ten .numbers .callnum { line-height: inherit!important; }
+  .numbers-area.ten .numbers .service,
+  .numbers-area.ten .numbers .terminal { width: 92px!important; }
+}
+
+@media only screen and (max-width : 992px) {
+  .thirty .numbers .service { width: 220px;}
+  /*.boxed.four .numbers .callnum {line-height: 90px;}*/
+  .numbers-area .boxed h3 {padding-top:1vh;}
+  .boxed.six .numbers .service,
+  .boxed.seven .numbers .service,
+  .boxed.eight .numbers .service,
+  .boxed.nine .numbers .service,
+  .boxed.ten .numbers .service { width:110px!important; }
+  .fifty .numbers .service { padding-bottom:inherit; }
+  .fifty .numbers .service { width:170px!important; }
+  .fifty .boxed.six .numbers .service { width:120px!important; }
+  .fifty .boxed.ten .numbers .callnum { line-height: inherit!important; }
+  .numbers-area.twenty .boxed.ten .numbers .service { width: 60px!important; }
+  .numbers-area.ten .numbers .service,
+  .numbers-area.ten .numbers .terminal { width: 85px!important; }
+}
+
+@media only screen and (max-width : 768px) {
+  .boxed.two .numbers .callnum {line-height: 100px;}
+  .thirty .numbers .service { width: 140px;}
+  .numbers-area .boxed h3 {font-size: 16px;}
+  .numbers-area .boxed h3 {padding-top:1.4vh;}
+  .boxed.six .numbers .service,
+  .boxed.seven .numbers .service,
+  .boxed.eight .numbers .service,
+  .boxed.nine .numbers .service,
+  .boxed.ten .numbers .service { width:50px!important; }
+  .fifty .numbers .service { width:110px!important; }
+  .fifty .boxed.six .numbers .service { width:100px!important; }
+  .fifty .boxed.ten .numbers .callnum { line-height: inherit!important; }
+  .numbers-area.twenty .boxed.ten .numbers .service { width: 30px!important; }
+}
+
+@media only screen and (max-width : 480px) {
+  .numbers-area .boxed h3 {font-size: 16px;}
+  .thirty .numbers .service { width: 120px;}
+  .numbers-area .boxed h3 {padding-top:1.4vh;}
+  .fifty .numbers .service { width:80px!important; }
+}
+
+@media only screen and (max-width : 320px) {
+
+}
+.lrpads {padding: 20px}
+.lrpads img {float: left; padding-right: 20px;}
+#biz-broadcast-no-ads #cust-url {font-size: 19px; text-align: center; background-color: #fff; padding: 6px 12px; color: #ff8649!important; margin-left: 15px; margin-right: 15px; border-radius: 4px; margin-top: 10px;}
+#biz-broadcast-no-ads #cust-url span {color: #ff8649!important;}
+img.qrcode {
+  margin-bottom: 10px;
+}
+#show-only-service a {
+  color: #ff8649;
+}
+#show-only-service>li.active>a, #show-only-service>li.active>a:focus, #show-only-service>li.active>a:hover {
+  background-color: #ff8649;
+  color: #fff;
+}
+.checkin-numbers-carousel {
+  width: 1200px;
+  overflow: hidden;
+}
+.checkin-carousel {
+  position: absolute;
+  bottom: 62px;
+  padding: 0px 20px;
+  height: 70px;
+  background-color: #ccc;
+  width: 100%;
+  z-index: 2;
+  display: flex;
+  text-align: center;
+}
+.carousel-inner {
+  width: 100%;
+  margin: 11px 0;
+  overflow-hidden
+}
+.carousel-caption {
+  bottom: 0;
+  position: static;
+  padding-top: 0!important;
+  padding-bottom: 0!important;
+  text-align: left;
+  height: 48px;
+  overflow: hidden;
+}
+.carousel-caption h3 {
+  font-weight: 900;
+  margin: 11px 20px 12px 0!important;
+}
+.carousel-caption h3,
+.carousel-caption p {
+  display: inline-block;
+  color: #111;
+  text-shadow: none;
+  margin-bottom: 0;
+}
+.carousel-caption .numbers {
+  font-size: 26px;
+  background-color: #262a31;
+  color: #fff;
+  padding: 4px 20px;
+  border-radius: 3px;
+  margin: 0 5px;
+}
