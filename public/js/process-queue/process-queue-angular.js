@@ -56,28 +56,48 @@
         };
 
         $scope.checkIn = function(transaction_number){
-            if(confirm('Are you sure you want to check in this number?')){
-                transaction_number = transaction_number != undefined ? transaction_number : angular.element(document.querySelector('#selected-tnumber')).val();
-                getResponseResetValues('/processqueue/checkin-transaction/' + transaction_number, function(){
-                    $scope.issue_call_number = null;
-                    $scope.isCalling = false;
-                    $scope.updateBroadcast();
-                });
+            var uncalled_number = getUncalledNumber(transaction_number);
+            if(uncalled_number != null && !uncalled_number.checked_in){
+                if(confirm('Are you sure you want to check in this number?')){
+                    transaction_number = transaction_number != undefined ? transaction_number : angular.element(document.querySelector('#selected-tnumber')).val();
+                    getResponseResetValues('/processqueue/checkin-transaction/' + transaction_number, function(){
+                        $scope.issue_call_number = null;
+                        $scope.isCalling = false;
+                        $scope.updateBroadcast();
+                        return true;
+                    });
+                }else{
+                    return false;
+                }
+            }else{
+                return true;
             }
+        };
+
+        getUncalledNumber = function(transaction_number){
+            for(index in $scope.uncalled_numbers){
+                if($scope.uncalled_numbers[index].transaction_number == transaction_number){
+                    return $scope.uncalled_numbers[index];
+                }
+            }
+            return null;
         };
 
         $scope.callNumber = function(transaction_number, callback){
             $scope.called_numbers_rating = [];
             $scope.isCalling = true;
             transaction_number = transaction_number != undefined ? transaction_number : angular.element(document.querySelector('#selected-tnumber')).val();
-
-            getResponseResetValues(pq.urls.process_queue.call_number_url + transaction_number + '/' + pq.ids.terminal_id, function(){
-                pq.jquery_functions.remove_and_update_dropdown(transaction_number);
-                $scope.issue_call_number = null;
+            if($scope.checkIn(transaction_number)){
+                getResponseResetValues(pq.urls.process_queue.call_number_url + transaction_number + '/' + pq.ids.terminal_id, function(){
+                    pq.jquery_functions.remove_and_update_dropdown(transaction_number);
+                    $scope.issue_call_number = null;
+                    $scope.isCalling = false;
+                    $scope.updateBroadcast();
+                    if(typeof callback === 'function') callback();
+                });
+            }else{
                 $scope.isCalling = false;
-                $scope.updateBroadcast();
-                if(typeof callback === 'function') callback();
-            });
+            }
         };
 
         $scope.serveNumber = function(transaction_number, callback){

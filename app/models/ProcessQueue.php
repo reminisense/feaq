@@ -19,9 +19,8 @@ class ProcessQueue extends Eloquent{
         $current_number = $service_properties->current_number;
         $time_queued = time();
 
-        if(!$priority_number){
-            $priority_number = $service_properties->next_number;
-        }
+        if(!$priority_number){ $priority_number = $service_properties->next_number; }
+        $priority_number = QueueSettings::numberPrefix($service_id) . $priority_number;
 
         $user_id = $user_id == null? Helper::userId() : $user_id;
         //$user_id = $queue_platform != 'web'? $user_id : 0;
@@ -207,8 +206,10 @@ class ProcessQueue extends Eloquent{
         $called_numbers = array();
         $uncalled_numbers = array();
         $processed_numbers = array();
+        $unchecked_numbers = array();
         $timebound_numbers = array(); //ARA Timebound assignment
         $priority_numbers = new stdClass();
+        $checkin_status = false; //JCA Added status for arrangment of unchecked numbers.
 
         foreach($numbers as $number){
             $called = $number->time_called != 0 ? TRUE : FALSE;
@@ -269,6 +270,7 @@ class ProcessQueue extends Eloquent{
             //removed   : not called but removed
             //served    : called and served
             //processed : dropped/removed/served
+            //unchecked : not checked in and remote queued
 
             if(!$called && !$removed && $timebound){
                 $timebound_numbers[] = array(
@@ -287,37 +289,75 @@ class ProcessQueue extends Eloquent{
                     'confirmation_code' => $number->confirmation_code,
                 );
             }else if(!$called && !$removed && $terminal_specific_calling && ($number->terminal_id == $terminal_id || $number->terminal_id == 0)){
-                $uncalled_numbers[] = array(
-                    'transaction_number' => $number->transaction_number,
-                    'queue_platform' => $number->queue_platform,
-                    'priority_number' => $number->priority_number,
-                    'service_id' => $service_id,
-                    'service_name' => $service_name,
-                    'name' => $number->name,
-                    'phone' => $number->phone,
-                    'email' => $number->email,
-                    'form_records' => $form_records,
-                    'verified_email' => $verified,
-                    'checked_in' => $checked_in,
-                    'time_called' => $number->time_called,
-                    'confirmation_code' => $number->confirmation_code,
-                );
+                if($number->queue_platform == 'remote' && $checked_in == FALSE && $checkin_status == FALSE){
+                    $unchecked_numbers[] = array(
+                        'transaction_number' => $number->transaction_number,
+                        'queue_platform' => $number->queue_platform,
+                        'priority_number' => $number->priority_number,
+                        'service_id' => $service_id,
+                        'service_name' => $service_name,
+                        'name' => $number->name,
+                        'phone' => $number->phone,
+                        'email' => $number->email,
+                        'form_records' => $form_records,
+                        'verified_email' => $verified,
+                        'checked_in' => $checked_in,
+                        'time_called' => $number->time_called,
+                        'confirmation_code' => $number->confirmation_code,
+                    );
+                }else{
+                    $uncalled_numbers[] = array(
+                        'transaction_number' => $number->transaction_number,
+                        'queue_platform' => $number->queue_platform,
+                        'priority_number' => $number->priority_number,
+                        'service_id' => $service_id,
+                        'service_name' => $service_name,
+                        'name' => $number->name,
+                        'phone' => $number->phone,
+                        'email' => $number->email,
+                        'form_records' => $form_records,
+                        'verified_email' => $verified,
+                        'checked_in' => $checked_in,
+                        'time_called' => $number->time_called,
+                        'confirmation_code' => $number->confirmation_code,
+                    );
+                    $checkin_status = true;
+                }
             }else if(!$called && !$removed && (!$terminal_specific_calling || $terminal_id == null)){
-                $uncalled_numbers[] = array(
-                    'transaction_number' => $number->transaction_number,
-                    'queue_platform' => $number->queue_platform,
-                    'priority_number' => $number->priority_number,
-                    'service_id' => $service_id,
-                    'service_name' => $service_name,
-                    'name' => $number->name,
-                    'phone' => $number->phone,
-                    'email' => $number->email,
-                    'form_records' => $form_records,
-                    'verified_email' => $verified,
-                    'checked_in' => $checked_in,
-                    'time_called' => $number->time_called,
-                    'confirmation_code' => $number->confirmation_code,
-                );
+                if($number->queue_platform == 'remote' && $checked_in == FALSE && $checkin_status == FALSE){
+                    $unchecked_numbers[] = array(
+                        'transaction_number' => $number->transaction_number,
+                        'queue_platform' => $number->queue_platform,
+                        'priority_number' => $number->priority_number,
+                        'service_id' => $service_id,
+                        'service_name' => $service_name,
+                        'name' => $number->name,
+                        'phone' => $number->phone,
+                        'email' => $number->email,
+                        'form_records' => $form_records,
+                        'verified_email' => $verified,
+                        'checked_in' => $checked_in,
+                        'time_called' => $number->time_called,
+                        'confirmation_code' => $number->confirmation_code,
+                    );
+                }else{
+                    $uncalled_numbers[] = array(
+                        'transaction_number' => $number->transaction_number,
+                        'queue_platform' => $number->queue_platform,
+                        'priority_number' => $number->priority_number,
+                        'service_id' => $service_id,
+                        'service_name' => $service_name,
+                        'name' => $number->name,
+                        'phone' => $number->phone,
+                        'email' => $number->email,
+                        'form_records' => $form_records,
+                        'verified_email' => $verified,
+                        'checked_in' => $checked_in,
+                        'time_called' => $number->time_called,
+                        'confirmation_code' => $number->confirmation_code,
+                    );
+                    $checkin_status = true;
+                }
             }else if($called && !$served && !$removed){
                 $called_numbers[] = array(
                     'transaction_number' => $number->transaction_number,
@@ -391,11 +431,11 @@ class ProcessQueue extends Eloquent{
         usort($called_numbers, array('ProcessQueue', 'sortCalledNumbers'));
 
         $priority_numbers->last_number_given = $last_number_given;
-        $priority_numbers->next_number = ProcessQueue::nextNumber($priority_numbers->last_number_given, QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
+        $priority_numbers->next_number = ProcessQueue::nextNumber($priority_numbers->last_number_given, QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id), QueueSettings::numberPrefix($service_id));
         $priority_numbers->current_number = $called_numbers ? $called_numbers[key($called_numbers)]['priority_number'] : 0;
         $priority_numbers->number_limit = $number_limit;
         $priority_numbers->called_numbers = $called_numbers;
-        $priority_numbers->uncalled_numbers = $uncalled_numbers;
+        $priority_numbers->uncalled_numbers = array_merge($uncalled_numbers,$unchecked_numbers);
         $priority_numbers->processed_numbers = array_reverse($processed_numbers);
         $priority_numbers->timebound_numbers = $timebound_numbers;
 
@@ -463,7 +503,15 @@ class ProcessQueue extends Eloquent{
         return $numbers ? $numbers->current_number : $default;
     }
 
-    public static function nextNumber($last_number_given, $number_start, $number_limit){
+    public static function nextNumber($last_number_given, $number_start, $number_limit, $prefix = ''){
+        if($prefix != ''){
+            $position = strpos($last_number_given, $prefix);
+            if($position === 0){
+                $last_number_given = substr($last_number_given, strlen($prefix));
+            }elseif(is_numeric($last_number_given)){
+                $last_number_given = $number_limit;
+            }
+        }
         return ($last_number_given < $number_limit && $last_number_given != 0) ? $last_number_given + 1 : $number_start;
     }
 
@@ -481,12 +529,14 @@ class ProcessQueue extends Eloquent{
 
     public static function getServiceProperties($service_id, $date = null){
         $date = $date == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $date;
+        $numbers = ProcessQueue::allNumbers($service_id, null, $date);
+
         $properties = new stdClass();
         $properties->number_start = QueueSettings::numberStart($service_id, $date);
         $properties->number_limit = QueueSettings::numberLimit($service_id, $date);
-        $properties->last_number_given = ProcessQueue::lastNumberGiven($service_id, $date);
-        $properties->current_number = ProcessQueue::currentNumber($service_id, $date);
-        $properties->next_number = ProcessQueue::nextNumber($properties->last_number_given, $properties->number_start, $properties->number_limit);
+        $properties->last_number_given = $numbers->last_number_given;
+        $properties->current_number = $numbers->current_number;
+        $properties->next_number = ProcessQueue::nextNumber($properties->last_number_given, $properties->number_start, $properties->number_limit, QueueSettings::numberPrefix($service_id, $date));
 
         return $properties;
     }

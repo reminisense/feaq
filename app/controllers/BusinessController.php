@@ -241,19 +241,6 @@ class BusinessController extends BaseController
 
                 //ARA For queue settings terminal-specific numbers
                 $queue_settings = new QueueSettingsController();
-                $queue_settings->getUpdate($business['business_id'], 'number_limit', $business_data['queue_limit']);
-                $queue_settings->getUpdate($business['business_id'], 'terminal_specific_issue', $business_data['terminal_specific_issue']);
-                $queue_settings->getUpdate($business['business_id'], 'sms_current_number', $business_data['sms_current_number']);
-                $queue_settings->getUpdate($business['business_id'], 'sms_1_ahead', $business_data['sms_1_ahead']);
-                $queue_settings->getUpdate($business['business_id'], 'sms_5_ahead', $business_data['sms_5_ahead']);
-                $queue_settings->getUpdate($business['business_id'], 'sms_10_ahead', $business_data['sms_10_ahead']);
-                $queue_settings->getUpdate($business['business_id'], 'sms_blank_ahead', $business_data['sms_blank_ahead']);
-                $queue_settings->getUpdate($business['business_id'], 'input_sms_field', $business_data['input_sms_field']);
-                $queue_settings->getUpdate($business['business_id'], 'allow_remote', $business_data['allow_remote']);
-                $queue_settings->getUpdate($business['business_id'], 'remote_limit', $business_data['remote_limit']);
-                $queue_settings->getUpdate($business['business_id'], 'remote_time', $business_data['remote_time']);
-                $queue_settings->getUpdate($business['business_id'], 'process_queue_layout', $business_data['process_queue_layout']);
-                $queue_settings->getUpdate($business['business_id'], 'check_in_display', $business_data['check_in_display']);
 
                 //sms settings
                 $sms_api_data = [];
