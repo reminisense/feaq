@@ -41,7 +41,7 @@ class Terminal extends Eloquent{
                 break;
             }
         }
-        return $serviceCount;
+        return $serviceCount + 1;
     }
 
     /*

@@ -715,7 +715,7 @@ class BroadcastController extends BaseController{
     $services = Service::getServicesByBusinessId($business_id);
     $arrSize = count($colors);
     foreach ($services as $count => $service) {
-      $serviceCount = $count;
+      $serviceCount = $count + 1;
       if ($serviceCount > $arrSize) {
         $serviceCount = $serviceCount % $arrSize;
       }
