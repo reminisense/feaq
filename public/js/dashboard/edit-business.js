@@ -384,7 +384,6 @@ var eb = {
         $scope.industry = null;
         $scope.time_open = null;
         $scope.time_closed = null;
-        $scope.queue_limit = null; /* RDH Added queue_limit to Edit Business Page */
         $scope.custom_url = "";
 
         $scope.terminals = [];
@@ -403,7 +402,9 @@ var eb = {
         $scope.remaining_character4  = 95;
         $scope.remaining_character5  = 95;
 
-        $scope.number_start = 1;
+        $scope.queue_prefix = '';
+        $scope.queue_start = 1;
+        $scope.queue_limit = null; /* RDH Added queue_limit to Edit Business Page */
         $scope.terminal_specific_issue = 0;
         $scope.sms_current_number = 0;
         $scope.sms_1_ahead  = 0;
@@ -416,10 +417,29 @@ var eb = {
         $scope.remote_time = null;
         $scope.process_queue_layout = 0;
 
-        $scope.broadcast_check_in = false;
-        $scope.check_in_display = 0;
-        $scope.$watch('broadcast_check_in', function(newValue, oldValue){
-            $scope.check_in_display = newValue ? 5 : 0;
+        $scope.service_settings = {
+            service_id: null,
+            number_prefix : '',
+            number_start : 1,
+            number_limit : 99,
+            terminal_specific_issue : 0,
+            sms_current_number : 0,
+            sms_1_ahead  : 0,
+            sms_5_ahead  : 0,
+            sms_10_ahead  : 0,
+            sms_blank_ahead : 0,
+            input_sms_field : 0,
+            allow_remote : 0,
+            remote_limit : 0,
+            remote_time : null,
+            process_queue_layout : 0,
+
+            broadcast_check_in : false,
+            check_in_display : 0
+        };
+
+        $scope.$watch('service_settings.broadcast_check_in', function(newValue, oldValue){
+            $scope.service_settings.check_in_display = newValue ? 5 : 0;
         });
 
         $scope.$watch('check_in_display', function(newValue, oldValue){
@@ -428,6 +448,50 @@ var eb = {
                 $scope.check_in_display = oldValue;
             }
         });
+
+        $scope.getServiceQueueSettings = function(service_id, service_name){
+            $http.get('/queuesettings/allvalues/' + service_id).success(function(response){
+                queue_settings = response.queue_settings;
+                $scope.edit_service_name = service_name;
+                $scope.service_settings.service_name = service_name;
+                $scope.service_settings.service_id = queue_settings.service_id;
+                //number settings
+                $scope.service_settings.number_prefix = queue_settings.number_prefix;
+                $scope.service_settings.number_start = queue_settings.number_start;
+                $scope.service_settings.number_limit = queue_settings.number_limit;
+
+                //process queue settings
+                $scope.service_settings.terminal_specific_issue = queue_settings.terminal_specific_issue ? true : false;
+                $scope.service_settings.process_queue_layout = queue_settings.process_queue_layout ? true : false;
+
+                //sms notification settings
+                $scope.service_settings.sms_current_number = queue_settings.sms_current_number;
+                $scope.service_settings.sms_1_ahead  = queue_settings.sms_1_ahead ? true : false;
+                $scope.service_settings.sms_5_ahead  = queue_settings.sms_5_ahead ? true : false;
+                $scope.service_settings.sms_10_ahead  = queue_settings.sms_10_ahead ? true : false;
+                $scope.service_settings.sms_blank_ahead = queue_settings.sms_blank_ahead ? true : false;
+                $scope.service_settings.input_sms_field = queue_settings.input_sms_field;
+
+                //remote queue_settings
+                $scope.service_settings.allow_remote = queue_settings.allow_remote ? true : false;
+                $scope.service_settings.remote_limit = queue_settings.remote_limit;
+                $scope.service_settings.remote_time = queue_settings.remote_time;
+
+                //broadcast screen settings
+                $scope.service_settings.broadcast_check_in = queue_settings.broadcast_check_in;
+                $scope.service_settings.check_in_display = queue_settings.check_in_display;
+            });
+        };
+
+        $scope.saveServiceQueueSettings = function(){
+            $http.post('/queuesettings/save-settings/', $scope.service_settings).success(function(response){
+                if($scope.edit_service_name != $scope.service_settings.service_name) {
+                    $scope.updateService($scope.edit_service_name, $scope.service_settings.service_id);
+                }else{
+                    $scope.getServiceQueueSettings($scope.service_settings.service_id, $scope.service_settings.service_name);
+                }
+            });
+        };
 
         $scope.add_terminal = {
             terminal_name : ""
@@ -487,25 +551,28 @@ var eb = {
             $scope.time_open = business.time_open;
             $scope.time_closed = business.time_closed;
             $scope.timezone = business.timezone; //ARA Added Timezone
-            $scope.queue_limit = business.queue_limit; /* RDH Added queue_limit to Edit Business Page */
-            $scope.terminal_specific_issue = business.terminal_specific_issue ? true : false;
-            $scope.sms_current_number = business.sms_current_number ? true : false;
-            $scope.sms_1_ahead  = business.sms_1_ahead ? true : false;
-            $scope.sms_5_ahead  = business.sms_5_ahead ? true : false;
-            $scope.sms_10_ahead  = business.sms_10_ahead ? true : false;
-            $scope.sms_blank_ahead = business.sms_blank_ahead ? true : false;
-            $scope.input_sms_field = business.input_sms_field;
-            $scope.allow_remote = business.allow_remote ? true : false;
-            $scope.remote_limit = business.remote_limit;
-            $scope.remote_time = business.remote_time;
-            $scope.process_queue_layout = business.process_queue_layout ? true : false;
-            $scope.check_in_display = business.check_in_display;
+
             $scope.terminals = business.terminals;
             $scope.services = business.services;
             $scope.analytics = business.analytics;
             $scope.terminal_delete_error = business.error ? business.error : null;
             $scope.allowed_businesses = business.allowed_businesses;
             $scope.custom_url = business.custom_url != '' ?  business.custom_url : business.raw_code;
+
+            //queue settings -> ARA Moved to service-specific settings
+            //$scope.queue_limit = business.queue_limit; /* RDH Added queue_limit to Edit Business Page */
+            //$scope.terminal_specific_issue = business.terminal_specific_issue ? true : false;
+            //$scope.sms_current_number = business.sms_current_number ? true : false;
+            //$scope.sms_1_ahead  = business.sms_1_ahead ? true : false;
+            //$scope.sms_5_ahead  = business.sms_5_ahead ? true : false;
+            //$scope.sms_10_ahead  = business.sms_10_ahead ? true : false;
+            //$scope.sms_blank_ahead = business.sms_blank_ahead ? true : false;
+            //$scope.input_sms_field = business.input_sms_field;
+            //$scope.allow_remote = business.allow_remote ? true : false;
+            //$scope.remote_limit = business.remote_limit;
+            //$scope.remote_time = business.remote_time;
+            //$scope.process_queue_layout = business.process_queue_layout ? true : false;
+            //$scope.check_in_display = business.check_in_display;
 
             $scope.services.unshift({ name: 'SELECT SERVICE' });
             $scope.selected_service = 0;
@@ -1331,12 +1398,13 @@ var eb = {
                 $http.put('/services/' + service_id, {name: name}).success(function(response){
                     if(response.error){
                         $scope.service_error = response.error;
+                        $scope.getServiceQueueSettings($scope.service_settings.service_id, $scope.service_settings.service_name);
                         eb.jquery_functions.clear_service_error_msg();
                     }else{
+                        $scope.getServiceQueueSettings($scope.service_settings.service_id, $scope.edit_service_name);
                         $scope.getBusinessDetails();
                         $scope.edit_service_name = '';
                     }
-
                 });
             }else{
                 $scope.service_error = 'Service name is not valid.';

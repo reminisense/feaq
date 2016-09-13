@@ -8,44 +8,22 @@
             <div class="modal-body">
                 <div>
                     <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a role="tab" data-toggle="tab" href="#queueing">QUEUEING</a></li>
+                        <li role="presentation" class="active"><a role="tab" data-toggle="tab" href="#general">GENERAL</a></li>
+                        <li role="presentation" class=""><a role="tab" data-toggle="tab" href="#numbers">NUMBERS</a></li>
                         <li role="presentation" class=""><a role="tab" data-toggle="tab" href="#remote">REMOTE</a></li>
                         <li role="presentation" class=""><a role="tab" data-toggle="tab" href="#sms">SMS</a></li>
                     </ul>
 
                     <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane fade in active" id="queueing">
+                        <div role="tabpanel" class="tab-pane fade in active" id="general">
                             <div class="broadcast-wrap2">
                                 <div class="clearfix">
                                     <div class="col-md-6 mb20">
-                                        <p class="title">Number Prefix</p>
+                                        <p class="title">Service Name</p>
                                     </div>
                                     <div class="col-md-6 mb20">
-                                        <input class="mb0 form-control white" type="text" value="@{{ queue_prefix }}" ng-model="queue_prefix" ></td>
-                                    </div>
-                                </div>
-                                <div class="clearfix">
-                                    <div class="col-md-6 mb20">
-                                        <p class="title">Number Start</p>
-                                    </div>
-                                    <div class="col-md-6 mb20">
-                                        <input class="mb0 form-control white" type="text" value="@{{ queue_start }}" ng-model="queue_start" ></td>
-                                    </div>
-                                </div>
-                                <div class="clearfix">
-                                    <div class="col-md-6 mb20">
-                                        <p class="title">Number Limit</p>
-                                    </div>
-                                    <div class="col-md-6 mb20">
-                                        <input class="mb0 form-control white" type="text" value="@{{ queue_limit }}" ng-model="queue_limit" ></td>  {{--RDH Added queue_limit to Edit Business Page--}}
-                                    </div>
-                                </div>
-                                <div class="clearfix">
-                                    <div class="col-md-6 mb20">
-                                        <p class="title">View</p>
-                                    </div>
-                                    <div class="col-md-6 mb20">
-                                        <strong>@{{ queue_prefix + queue_start }} - @{{ queue_prefix + queue_limit }}</strong>
+                                        <input class="mb0 form-control white" type="text" ng-model="edit_service_name" placeholder="@{{ service_settings.service_name }}"/>
+                                        <div class="mt10 alert alert-danger" ng-show="service_error"> @{{ service_error }}</div>
                                     </div>
                                 </div>
                                 <div class="clearfix">
@@ -53,7 +31,7 @@
                                         <p class="title">Show Numbers</p>
                                     </div>
                                     <div class="col-md-6 mb20">
-                                        <input type="checkbox" ng-model="terminal_specific_issue">
+                                        <input type="checkbox" ng-model="service_settings.terminal_specific_issue">
                                         Only Numbers Issued By Terminal
                                     </div>
                                 </div>
@@ -62,7 +40,7 @@
                                         <p class="title">Process Queue Layout</p>
                                     </div>
                                     <div class="col-md-6 mb20">
-                                        <input type="checkbox" ng-model="process_queue_layout">
+                                        <input type="checkbox" ng-model="service_settings.process_queue_layout">
                                         New Layout
                                     </div>
                                 </div>
@@ -71,8 +49,8 @@
                                         <p class="title">Queue Now</p>
                                     </div>
                                     <div class="col-md-6 mb20">
-                                        <input type="checkbox" ng-model="broadcast_check_in">
-                                        Show <input id="input_check_in_field" type="text" ng-model="check_in_display" ng-disabled="!broadcast_check_in"> numbers for standby
+                                        <input type="checkbox" ng-model="service_settings.broadcast_check_in">
+                                        Show <input id="input_check_in_field" type="text" ng-model="service_settings.check_in_display" ng-disabled="!service_settings.broadcast_check_in"> numbers for standby
                                     </div>
                                 </div>
                                 <div class="clearfix">
@@ -87,25 +65,61 @@
                                     </div>
                                     <div class="col-md-6 mb20">
                                         <div class=" mb10">
-                                            <input type="checkbox" ng-model="sms_current_number">Priority Number is called
+                                            <input type="checkbox" ng-model="service_settings.sms_current_number">Priority Number is called
                                         </div>
                                         <div class=" mb10">
-                                            <input type="checkbox"  ng-model="sms_1_ahead">
+                                            <input type="checkbox"  ng-model="service_settings.sms_1_ahead">
                                             Priority Number is next in queue
                                         </div>
                                         <div class="mb10">
-                                            <input type="checkbox"  ng-model="sms_5_ahead">
+                                            <input type="checkbox"  ng-model="service_settings.sms_5_ahead">
                                             5 Numbers ahead in queue
                                         </div>
                                         <div class="mb10">
-                                            <input type="checkbox"  ng-model="sms_10_ahead">
+                                            <input type="checkbox"  ng-model="service_settings.sms_10_ahead">
                                             10 Numbers ahead in queue
                                         </div>
                                         <div class="mb10">
-                                            <input id="input_sms_field" type="text" ng-model="input_sms_field">
-                                            <input type="checkbox"  ng-model="sms_blank_ahead">
+                                            <input id="input_sms_field" type="text" ng-model="service_settings.input_sms_field">
+                                            <input type="checkbox"  ng-model="service_settings.sms_blank_ahead">
                                             Numbers ahead in queue.
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="numbers">
+                            <div class="broadcast-wrap2">
+                                <div class="clearfix">
+                                    <div class="col-md-6 mb20">
+                                        <p class="title">Number Prefix</p>
+                                    </div>
+                                    <div class="col-md-6 mb20">
+                                        <input class="mb0 form-control white" type="text" ng-model="service_settings.number_prefix" >
+                                    </div>
+                                </div>
+                                <div class="clearfix">
+                                    <div class="col-md-6 mb20">
+                                        <p class="title">Number Start</p>
+                                    </div>
+                                    <div class="col-md-6 mb20">
+                                        <input class="mb0 form-control white" type="text" ng-model="service_settings.number_start" >
+                                    </div>
+                                </div>
+                                <div class="clearfix">
+                                    <div class="col-md-6 mb20">
+                                        <p class="title">Number Limit</p>
+                                    </div>
+                                    <div class="col-md-6 mb20">
+                                        <input class="mb0 form-control white" type="text" ng-model="service_settings.number_limit" > {{--RDH Added queue_limit to Edit Business Page--}}
+                                    </div>
+                                </div>
+                                <div class="clearfix">
+                                    <div class="col-md-6 mb20">
+                                        <p class="title">Numbers Range from</p>
+                                    </div>
+                                    <div class="col-md-6 mb20">
+                                        <strong>@{{ service_settings.number_prefix + service_settings.number_start }} to @{{ service_settings.number_prefix + service_settings.number_limit }}</strong>
                                     </div>
                                 </div>
                             </div>
@@ -118,7 +132,7 @@
                                         <small><a class="info-button" href="#remote-queue"><span class="glyphicon glyphicon-info-sign"></span>  More info...</a></small>
                                     </div>
                                     <div class="col-md-6 mb20">
-                                        <input type="checkbox" ng-model="allow_remote"> Allow
+                                        <input type="checkbox" ng-model="service_settings.allow_remote"> Allow
                                     </div>
                                 </div>
                                 <div class="clearfix">
@@ -136,7 +150,7 @@
                                         </p>
                                     </div>
                                     <div class="col-md-6 mb20">
-                                        <input type="text" id="remote-limit" readonly style="border:0; font-weight:bold; width: 28px;" ng-model="remote_limit"> %
+                                        <input type="text" id="remote-limit" readonly style="border:0; font-weight:bold; width: 28px;" ng-model="service_settings.remote_limit"> %
                                         <div id="remote-slider"></div>
                                     </div>
                                 </div>
@@ -156,7 +170,7 @@
                                         </p>
                                     </div>
                                     <div class="col-md-6 mb20">
-                                        <input type="text" id="remote-time" class="form-control" ng-model="remote_time"/>
+                                        <input type="text" id="remote-time" class="form-control" ng-model="service_settings.remote_time"/>
                                     </div>
                                 </div>
                                 <div class="clearfix">
@@ -172,8 +186,8 @@
                             <div class="broadcast-wrap2">
                                 <div class="col-md-12">
                                     <div class="clearfix mb10">
-                                        <span class="inline-b" style="padding-right:12px;"><label>Frontline SMS </label> <input ng-disabled="business_features.allow_sms == 'false'" type="radio" value="frontline_sms" ng-model="sms_gateway"/></span>
-                                        <span><label>Twilio</label> <input ng-disabled="business_features.allow_sms == 'false'" type="radio" value="twilio" ng-model="sms_gateway"/></span>
+                                        <span class="inline-b" style="padding-right:12px;"><label>Frontline SMS </label> <input ng-disabled="business_features.allow_sms == 'false'" type="radio" value="frontline_sms" ng-model="service_settings.sms_gateway"/></span>
+                                        <span><label>Twilio</label> <input ng-disabled="business_features.allow_sms == 'false'" type="radio" value="twilio" ng-model="service_settings.sms_gateway"/></span>
                                         <br><small><a class="info-button" href="#sms-alert"><span class="glyphicon glyphicon-info-sign"></span> More info...</a></small>
                                     </div>
                                 </div>
@@ -246,7 +260,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-orange btn-lg" ng-click="saveBusinessDetails()"><span class="glyphicon glyphicon-check"></span> SUBMIT</button>
+                <button type="button" class="btn btn-orange btn-lg" ng-click="saveServiceQueueSettings()"><span class="glyphicon glyphicon-check"></span> SUBMIT</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
