@@ -222,9 +222,9 @@ body { background-color: #fff; position: relative;  font-family: 'Lato', sans-se
 .boxed.seven .service {font-size: 1.5vw;}
 .boxed.eight .callnum  {font-size: 4vw;}
 .boxed.eight .service {font-size: 1.5vw;}
-.boxed.nine .callnum   {font-size: 2.2vw;}
+.boxed.nine .callnum   {font-size: 4vw;}
 .boxed.nine .service,
-.boxed.nine .terminal{font-size: 1.1vw;}
+.boxed.nine .terminal{font-size: 1.2vw;}
 .boxed.ten .callnum    {font-size: 4vw;}
 .boxed.ten .service   {font-size: 1.2vw;}
 .fifty .boxed.four .callnum    {font-size: 7vw;}
@@ -499,7 +499,7 @@ h1,h2,h3,h4 {margin: 0;}
     .boxed.seven .numbers .service,
     .boxed.eight .numbers .service,
     .boxed.nine .numbers .service,
-    .boxed.ten .numbers .service { width:150px!important; }
+    .boxed.ten .numbers .service { width:139px!important; }
     .fifty .numbers .service { width:290px!important; }
     .fifty .boxed.six .numbers .service { width: 220px!important; }
     .numbers-area.ten .numbers .service,
@@ -571,12 +571,15 @@ h1,h2,h3,h4 {margin: 0;}
 img.qrcode {
     margin-bottom: 10px;
 }
-#show-only-service a {
+#show-only-service a, #show-all-numbers a, .dropdown a {
     color: #ff8649;
 }
 #show-only-service>li.active>a, #show-only-service>li.active>a:focus, #show-only-service>li.active>a:hover {
     background-color: #ff8649;
     color: #fff;
+}
+.nav-tabs.nav-justified > li > a {
+    border-bottom: none;
 }
 .checkin-numbers-carousel {
     width: 1200px;
@@ -596,7 +599,7 @@ img.qrcode {
 .carousel-inner {
     width: 100%;
     margin: 11px 0;
-    overflow-hidden
+    overflow: hidden;
 }
 .carousel-caption {
     bottom: 0;

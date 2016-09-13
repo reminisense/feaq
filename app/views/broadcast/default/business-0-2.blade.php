@@ -1,6 +1,6 @@
 <div class="numbers-area" style="width: 100% !important;">
     <div class="boxed two">
-        <h3 class="abs">NOW SERVING</h3>
+        <h3 class="abs">{{ $business_name }}</h3>
         <div class="row-1">
             <div class="col-3">
                 <div class="numbers t@{{ rank1 }} @{{ color1 }}">

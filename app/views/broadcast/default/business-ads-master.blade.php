@@ -2,9 +2,9 @@
   <div class="top">
       <div class="col-md-9 pull-right">
           <ul class="nav nav-tabs nav-justified pull-right" style="margin-top: -4px;">
-              <li role="presentation" class="service-filter-0" service_id="0"><a href="#">ALL</a></li>
+              <li role="presentation" id="show-all-numbers"><a href="#">ALL</a></li>
               <?php foreach ($service_filters as $count => $service): ?>
-                  <li role="presentation" class="service-filter-{{ $service->service_id; }} dropdown" service_id="{{ $service->service_id; }}">
+                  <li role="presentation" class="dropdown">
                       <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#"> {{ $service->name; }} <span class="caret"></span> </a>
                       <ul class="dropdown-menu" id="show-only-service">
                           <li service_id="{{ $service->service_id; }}"><a href="">All Terminals</a></li>

@@ -6,9 +6,9 @@
     <div class="row-5">
       <div class="col-1">
         <div class="numbers t@{{ rank1 }} @{{ color1 }}">
-          <p class="service blink-num" style="font-size: 2vw;">@{{ service1 }}</p>
-          <p class="terminal blink-num" style="font-size: 2vw;">@{{ name1 }}</p>
-          <p class="callnum blink-num" style="font-size: 9vw;">@{{ box1 }}</p>
+          <p class="service blink-num">@{{ service1 }}</p>
+          <p class="terminal blink-num">@{{ name1 }}</p>
+          <p class="callnum blink-num">@{{ box1 }}</p>
           <p class="terminal blink-num">@{{ user1 }}</p>
         </div>
       </div>
@@ -79,5 +79,3 @@
     </div>
   </div>
 </div>
-
-<link rel="stylesheet" type="text/css" href="/css/broadcast/default/biz-broadcast-new.css"/>

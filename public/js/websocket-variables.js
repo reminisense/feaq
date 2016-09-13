@@ -8,6 +8,12 @@ $(document).ready(function() {
 
   setDefaultServiceFilter();
 
+  $('#show-all-numbers').click(function(e) {
+    e.preventDefault();
+    sessionStorage.setItem("service_id", "0");
+    window.location.reload(true);
+  });
+
   $('#show-only-service li').click(function(e) {
     e.preventDefault();
     sessionStorage.setItem("service_id", $(this).attr('service_id'));
@@ -18,9 +24,9 @@ $(document).ready(function() {
 
 var setDefaultServiceFilter = function() {
   if (typeof sessionStorage.service_id == "undefined") {
-    $('.service-filter-0').addClass("active");
+    // $('.service-filter-0').addClass("active");
   }
   else {
-    $('.service-filter-'+sessionStorage.service_id).addClass("active");
+    // $('.service-filter-'+sessionStorage.service_id).addClass("active");
   }
 }
