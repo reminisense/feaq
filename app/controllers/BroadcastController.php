@@ -710,6 +710,23 @@ class BroadcastController extends BaseController{
     echo 'JSON files are now fixed.';
   }
 
+  public function getResetBusinessColors($business_id) {
+    $colors = array('', 'blue', 'borange', 'violet', 'green', 'red', 'yellow', 'cyan', 'x242436', 'x78250A', 'FF745F', 'FCA78B', 'x53777A', 'x542437', 'C02942', 'D95B43', 'ECD078');
+    $services = Service::getServicesByBusinessId($business_id);
+    $arrSize = count($colors);
+    foreach ($services as $count => $service) {
+      $serviceCount = $count;
+      if ($serviceCount > $arrSize) {
+        $serviceCount = $serviceCount % $arrSize;
+      }
+      $terminals = Terminal::getTerminalsByServiceId($service->service_id);
+      foreach ($terminals as $count2 => $terminal) {
+        Terminal::setColor($colors[$serviceCount], $terminal['terminal_id']);
+      }
+    }
+    echo 'colors reset';
+  }
+
   public function getJsonRecreate(){
     $res = Business::all();
     foreach ($res as $count => $business) {
