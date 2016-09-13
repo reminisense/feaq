@@ -57,32 +57,32 @@ class QueueSettingsController extends BaseController{
         $queue_settings->save();
 
         //sms settings
-        $sms_api_data = [];
-        $sms_gateway_api = NULL;
-        if ($data['sms_gateway'] == 'frontline_sms') {
-            $sms_api_data = [
-                'frontline_sms_url' => $data['frontline_sms_url'],
-                'frontline_sms_api_key' => $data['frontline_sms_api_key'],
-            ];
-            $sms_gateway_api = serialize($sms_api_data);
-        } elseif ($data['sms_gateway'] == 'twilio') {
-            if ($data['twilio_account_sid'] == TWILIO_ACCOUNT_SID &&
-                $data['twilio_auth_token'] == TWILIO_AUTH_TOKEN &&
-                $data['twilio_phone_number'] == TWILIO_PHONE_NUMBER
-            ) {
-                $business_data['sms_gateway'] = NULL;
-                $sms_gateway_api = NULL;
-            } else {
-                $sms_api_data = [
-                    'twilio_account_sid' => $data['twilio_account_sid'],
-                    'twilio_auth_token' => $data['twilio_auth_token'],
-                    'twilio_phone_number' => $data['twilio_phone_number'],
-                ];
-                $sms_gateway_api = serialize($sms_api_data);
-            }
-        }
-        QueueSettings::updateQueueSetting($data['service_id'], 'sms_gateway', $data['sms_gateway']);
-        QueueSettings::updateQueueSetting($data['service_id'], 'sms_gateway_api', $sms_gateway_api);
+//        $sms_api_data = [];
+//        $sms_gateway_api = NULL;
+//        if ($data['sms_gateway'] == 'frontline_sms') {
+//            $sms_api_data = [
+//                'frontline_sms_url' => $data['frontline_sms_url'],
+//                'frontline_sms_api_key' => $data['frontline_sms_api_key'],
+//            ];
+//            $sms_gateway_api = serialize($sms_api_data);
+//        } elseif ($data['sms_gateway'] == 'twilio') {
+//            if ($data['twilio_account_sid'] == TWILIO_ACCOUNT_SID &&
+//                $data['twilio_auth_token'] == TWILIO_AUTH_TOKEN &&
+//                $data['twilio_phone_number'] == TWILIO_PHONE_NUMBER
+//            ) {
+//                $business_data['sms_gateway'] = NULL;
+//                $sms_gateway_api = NULL;
+//            } else {
+//                $sms_api_data = [
+//                    'twilio_account_sid' => $data['twilio_account_sid'],
+//                    'twilio_auth_token' => $data['twilio_auth_token'],
+//                    'twilio_phone_number' => $data['twilio_phone_number'],
+//                ];
+//                $sms_gateway_api = serialize($sms_api_data);
+//            }
+//        }
+//        QueueSettings::updateQueueSetting($data['service_id'], 'sms_gateway', $data['sms_gateway']);
+//        QueueSettings::updateQueueSetting($data['service_id'], 'sms_gateway_api', $sms_gateway_api);
         QueueSettings::updateQueueSetting($data['service_id'], 'remote_time', $data['remote_time']);
 
         return json_encode(['success' => 1]);

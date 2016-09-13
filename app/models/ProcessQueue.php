@@ -19,9 +19,8 @@ class ProcessQueue extends Eloquent{
         $current_number = $service_properties->current_number;
         $time_queued = time();
 
-        if(!$priority_number){
-            $priority_number = $service_properties->next_number;
-        }
+        if(!$priority_number){ $priority_number = $service_properties->next_number; }
+        $priority_number = QueueSettings::numberPrefix($service_id) . $priority_number;
 
         $user_id = $user_id == null? Helper::userId() : $user_id;
         //$user_id = $queue_platform != 'web'? $user_id : 0;
@@ -391,7 +390,7 @@ class ProcessQueue extends Eloquent{
         usort($called_numbers, array('ProcessQueue', 'sortCalledNumbers'));
 
         $priority_numbers->last_number_given = $last_number_given;
-        $priority_numbers->next_number = ProcessQueue::nextNumber($priority_numbers->last_number_given, QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
+        $priority_numbers->next_number = ProcessQueue::nextNumber($priority_numbers->last_number_given, QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id), QueueSettings::numberPrefix($service_id));
         $priority_numbers->current_number = $called_numbers ? $called_numbers[key($called_numbers)]['priority_number'] : 0;
         $priority_numbers->number_limit = $number_limit;
         $priority_numbers->called_numbers = $called_numbers;
@@ -463,7 +462,15 @@ class ProcessQueue extends Eloquent{
         return $numbers ? $numbers->current_number : $default;
     }
 
-    public static function nextNumber($last_number_given, $number_start, $number_limit){
+    public static function nextNumber($last_number_given, $number_start, $number_limit, $prefix = ''){
+        if($prefix != ''){
+            $position = strpos($last_number_given, $prefix);
+            if($position === 0){
+                $last_number_given = substr($last_number_given, strlen($prefix));
+            }elseif(is_numeric($last_number_given)){
+                $last_number_given = $number_limit;
+            }
+        }
         return ($last_number_given < $number_limit && $last_number_given != 0) ? $last_number_given + 1 : $number_start;
     }
 
@@ -481,12 +488,14 @@ class ProcessQueue extends Eloquent{
 
     public static function getServiceProperties($service_id, $date = null){
         $date = $date == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $date;
+        $numbers = ProcessQueue::allNumbers($service_id, null, $date);
+
         $properties = new stdClass();
         $properties->number_start = QueueSettings::numberStart($service_id, $date);
         $properties->number_limit = QueueSettings::numberLimit($service_id, $date);
-        $properties->last_number_given = ProcessQueue::lastNumberGiven($service_id, $date);
-        $properties->current_number = ProcessQueue::currentNumber($service_id, $date);
-        $properties->next_number = ProcessQueue::nextNumber($properties->last_number_given, $properties->number_start, $properties->number_limit);
+        $properties->last_number_given = $numbers->last_number_given;
+        $properties->current_number = $numbers->current_number;
+        $properties->next_number = ProcessQueue::nextNumber($properties->last_number_given, $properties->number_start, $properties->number_limit, QueueSettings::numberPrefix($service_id, $date));
 
         return $properties;
     }

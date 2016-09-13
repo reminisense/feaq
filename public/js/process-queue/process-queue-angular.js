@@ -57,7 +57,7 @@
 
         $scope.checkIn = function(transaction_number){
             var uncalled_number = getUncalledNumber(transaction_number);
-            if(!uncalled_number.checked_in){
+            if(uncalled_number != null && !uncalled_number.checked_in){
                 if(confirm('Are you sure you want to check in this number?')){
                     transaction_number = transaction_number != undefined ? transaction_number : angular.element(document.querySelector('#selected-tnumber')).val();
                     getResponseResetValues('/processqueue/checkin-transaction/' + transaction_number, function(){
@@ -69,8 +69,9 @@
                 }else{
                     return false;
                 }
+            }else{
+                return true;
             }
-            return true;
         };
 
         getUncalledNumber = function(transaction_number){

@@ -26,6 +26,79 @@
                 </div>
             </div>
         </div>
+        <div class=" header">
+            <h5>SMS SETTINGS</h5>
+        </div>
+        <div class="broadcast-wrap2">
+            <div class="col-md-12">
+                <div class="clearfix mb10">
+                    <span class="inline-b" style="padding-right:12px;"><label>Frontline SMS </label> <input ng-disabled="business_features.allow_sms == 'false'" type="radio" value="frontline_sms" ng-model="sms_gateway"/></span>
+                    <span><label>Twilio</label> <input ng-disabled="business_features.allow_sms == 'false'" type="radio" value="twilio" ng-model="sms_gateway"/></span>
+                    <br><small><a class="info-button" href="#sms-alert"><span class="glyphicon glyphicon-info-sign"></span> More info...</a></small>
+                </div>
+            </div>
+            <div class="clearfix mb20">
+                <div class="col-md-12">
+                    <div class="alert alert-warning hidden" role="alert" id="sms-alert">
+                        <strong>FeatherQ SMS Notifications</strong> will soon be enjoyed by business partners that have been in close contact with us.
+                        To be one of these partners, you may contact us at <strong><a href="mailto:contact@featherq.com">contact@featherq.com</a></strong>.
+                        You may also call us at <strong>(+63 32) 345-4658</strong> for further inquiries.
+                    </div>
+                </div>
+            </div>
+            <div ng-show="sms_gateway == 'frontline_sms'">
+                <div class="clearfix">
+                    <div class="col-md-6 mb20">
+                        <p class="title">Frontline SMS API Key
+                            <a href="https://frontlinecloud.zendesk.com/entries/28395408-Using-the-WebConnection-API-to-send-messages" target="_blank">
+                                <span class="glyphicon glyphicon-question-sign" title="How to create a Web Connection in Frontlinesms"></span>
+                            </a>
+                        </p>
+                    </div>
+                    <div class="col-md-6 mb20">
+                        <input class="mb0 white form-control" ng-disabled="business_features.allow_sms == 'false'" type="password" value="@{{ frontline_api_key }}" ng-model="frontline_api_key" ng-disabled="true">
+                    </div>
+                </div>
+                <div class="clearfix">
+                    <div class="col-md-6 mb20">
+                        <p class="title">Frontline SMS URL
+                            <a href="https://frontlinecloud.zendesk.com/entries/28395408-Using-the-WebConnection-API-to-send-messages" target="_blank">
+                                <span class="glyphicon glyphicon-question-sign" title="How to create a Web Connection in Frontlinesms"></span>
+                            </a>
+                        </p>
+                    </div>
+                    <div class="col-md-6 mb20">
+                        <input class="mb0 white form-control" ng-disabled="business_features.allow_sms == 'false'" type="text" value="@{{ frontline_url }}" ng-model="frontline_url" ng-disabled="true">
+                    </div>
+                </div>
+            </div>
+            <div ng-show="sms_gateway == 'twilio'">
+                <div class="clearfix">
+                    <div class="col-md-6 mb20">
+                        <p class="title">Twilio Account SID</p>
+                    </div>
+                    <div class="col-md-6 mb20">
+                        <input class="mb0 white form-control" ng-disabled="business_features.allow_sms == 'false'" type="password" value="@{{ twilio_account_sid }}" ng-model="twilio_account_sid" ng-disabled="true">
+                    </div>
+                </div>
+                <div class="clearfix">
+                    <div class="col-md-6 mb20">
+                        <p class="title">Twilio Auth Token</p>
+                    </div>
+                    <div class="col-md-6 mb20">
+                        <input class="mb0 white form-control" ng-disabled="business_features.allow_sms == 'false'" type="password" value="@{{ twilio_auth_token }}" ng-model="twilio_auth_token" ng-disabled="true">
+                    </div>
+                </div>
+                <div class="clearfix">
+                    <div class="col-md-6 mb20">
+                        <p class="title">Twilio phone number</p>
+                    </div>
+                    <div class="col-md-6 mb20">
+                        <input class="mb0 white form-control" ng-disabled="business_features.allow_sms == 'false'" type="text" value="@{{ twilio_phone_number }}" ng-model="twilio_phone_number" ng-disabled="true">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="col-md-6" ng-show="business_features.queue_forwarding == 'true'">
         <div class=" header">

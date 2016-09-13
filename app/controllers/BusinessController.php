@@ -239,6 +239,36 @@ class BusinessController extends BaseController
                 $business->save();
                 Helper::dbLogger('Business', 'business', 'update', 'postEditBusiness', User::email(Helper::userId()), 'business_id:' . $business->business_id . ', business_name:' . $business->name);
 
+                //ARA For queue settings terminal-specific numbers
+                $queue_settings = new QueueSettingsController();
+
+                //sms settings
+                $sms_api_data = [];
+                $sms_gateway_api = NULL;
+                if ($business_data['sms_gateway'] == 'frontline_sms') {
+                    $sms_api_data = [
+                        'frontline_sms_url' => $business_data['frontline_sms_url'],
+                        'frontline_sms_api_key' => $business_data['frontline_sms_api_key'],
+                    ];
+                    $sms_gateway_api = serialize($sms_api_data);
+                } elseif ($business_data['sms_gateway'] == 'twilio') {
+                    if ($business_data['twilio_account_sid'] == TWILIO_ACCOUNT_SID &&
+                        $business_data['twilio_auth_token'] == TWILIO_AUTH_TOKEN &&
+                        $business_data['twilio_phone_number'] == TWILIO_PHONE_NUMBER
+                    ) {
+                        $business_data['sms_gateway'] = NULL;
+                        $sms_gateway_api = NULL;
+                    } else {
+                        $sms_api_data = [
+                            'twilio_account_sid' => $business_data['twilio_account_sid'],
+                            'twilio_auth_token' => $business_data['twilio_auth_token'],
+                            'twilio_phone_number' => $business_data['twilio_phone_number'],
+                        ];
+                        $sms_gateway_api = serialize($sms_api_data);
+                    }
+                }
+                $queue_settings->getUpdate($business['business_id'], 'sms_gateway', $business_data['sms_gateway']);
+                $queue_settings->getUpdate($business['business_id'], 'sms_gateway_api', $sms_gateway_api);
                 $business = Business::getBusinessDetails($business->business_id);
                 return json_encode([
                     'success' => 1,

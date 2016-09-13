@@ -289,7 +289,7 @@ var eb = {
 
         load_remote_limit_slider : function(){
             var scope = angular.element($("#editBusiness")).scope();
-            var value = scope.remote_limit;
+            var value = scope.service_settings.remote_limit;
 
             $( "#remote-slider" ).slider({
                 range: "max",
@@ -298,7 +298,7 @@ var eb = {
                 value: value,
                 slide: function( event, ui ) {
                     scope.$apply(function(){
-                        scope.remote_limit = ui.value;
+                        scope.service_settings.remote_limit = ui.value;
                     });
                 }
             });
@@ -442,10 +442,24 @@ var eb = {
             $scope.service_settings.check_in_display = newValue ? 5 : 0;
         });
 
-        $scope.$watch('check_in_display', function(newValue, oldValue){
+        $scope.$watch('service_settings.check_in_display', function(newValue, oldValue){
             if(newValue > 10){
-                alert('Cannot reach more than 10.');
-                $scope.check_in_display = oldValue;
+                alert('Cannot exceed more than 10.');
+                $scope.service_settings.check_in_display = oldValue;
+            }
+        });
+
+        $scope.$watch('service_settings.number_limit', function(newValue, oldValue){
+            if(newValue > 9999){
+                alert('Cannot exceed more than 9999.');
+                $scope.service_settings.number_limit = oldValue;
+            }
+        });
+
+        $scope.$watch('service_settings.number_start', function(newValue, oldValue){
+            if(newValue > $scope.service_settings.number_limit){
+                alert('Cannot exceed more than ' + $scope.service_settings.number_limit + '.');
+                $scope.service_settings.number_start = oldValue;
             }
         });
 
@@ -480,6 +494,8 @@ var eb = {
                 //broadcast screen settings
                 $scope.service_settings.broadcast_check_in = queue_settings.broadcast_check_in;
                 $scope.service_settings.check_in_display = queue_settings.check_in_display;
+
+                eb.jquery_functions.load_remote_limit_slider();
             });
         };
 
@@ -524,9 +540,7 @@ var eb = {
             }));
             $('#WebsocketLoaderModal').modal('hide');
         };
-        websocket.onmessage = function(response){
-
-        }
+        websocket.onmessage = function(response){};
 
         $scope.startdate = $filter('date')(new Date(),'MM/dd/yyyy');
         $scope.enddate = $filter('date')(new Date(),'MM/dd/yyyy');
@@ -540,7 +554,7 @@ var eb = {
                         setBusinessFeatures(response.business.features);
                     });
             }
-        }
+        };
 
         setBusinessFields = function(business){
             $scope.business_id = business.business_id;
@@ -588,8 +602,7 @@ var eb = {
                 $scope.twilio_auth_token = business.twilio_auth_token;
                 $scope.twilio_phone_number = business.twilio_phone_number;
             }
-            eb.jquery_functions.load_remote_limit_slider();
-        }
+        };
 
         setBusinessFeatures = function(features){
             if(features){
@@ -604,7 +617,7 @@ var eb = {
                     $scope.twilio_phone_number = null;
                 }
             }
-        }
+        };
 
         $scope.unassignFromTerminal = function(user_id, terminal_id){
             var confirmDel = confirm("Are you sure you want to remove this terminal user?");
@@ -628,7 +641,7 @@ var eb = {
                     }
                 });
             }
-        }
+        };
 
         $scope.assignToTerminal = function(user_id, terminal_id){
             if(!terminal_id){
@@ -661,7 +674,7 @@ var eb = {
                     }
                 });
             }
-        }
+        };
 
         $scope.emailSearch = function(email, terminal_id){
             if(email != ''){
@@ -694,7 +707,7 @@ var eb = {
                     });
                 }, 3000);
             }
-        }
+        };
 
         $scope.user_results = {users : []};
         $scope.userSearch = function(keyword){
@@ -703,14 +716,14 @@ var eb = {
             }).error(function(response){
                 $scope.user_results.users = [];
             });
-        }
+        };
 
         $scope.clearUserResults = function(){
             $scope.user_results.users = [];
-        }
+        };
 
         $scope.isAssignedUser = function(user_id, terminal_id){
-            terminals = $scope.terminals
+            terminals = $scope.terminals;
             assigned = false;
             for(terminal in terminals){
                 if(terminals[terminal].terminal_id == terminal_id){
@@ -722,7 +735,7 @@ var eb = {
                 }
             }
             return assigned;
-        }
+        };
 
         $scope.deleteTerminal = function($event, terminal_id) {
             var confirmDel = confirm("Are you sure you want to delete this terminal?");
@@ -735,7 +748,7 @@ var eb = {
                 });
             }
             $event.preventDefault();
-        }
+        };
 
         $scope.editTerminal = function($event, terminal_id){
             $('.terminal-name-display[terminal_id='+terminal_id+']').hide();
@@ -743,7 +756,7 @@ var eb = {
             $('.terminal-name-update[terminal_id='+terminal_id+']').show();
             $('.update-terminal-button[terminal_id='+terminal_id+']').show();
             $event.preventDefault();
-        }
+        };
 
         $scope.updateTerminal = (function($event, terminal_id) {
             var new_name = $('.terminal-name-update[terminal_id='+terminal_id+']').val().trim();
@@ -802,12 +815,12 @@ var eb = {
                 $('.terminal-error-msg').show();
                 setTimeout(function(){$('.terminal-error-msg').fadeOut('slow')}, 3000);
             }
-        }
+        };
 
         $scope.isValidTime = function(time){
             var regex = /^(0?[1-9]|1[012])(:[0-5]\d) [APap][mM]$/;
             return regex.test(time);
-        }
+        };
 
         /*
          * @author: CSD
@@ -906,7 +919,7 @@ var eb = {
                         }
                     })
             }
-        }
+        };
 
         $scope.deleteBusiness = (function(business_id) {
             if (confirm('Are you sure you want to remove this business?')) {
@@ -1066,7 +1079,8 @@ var eb = {
                     // default number of boxes and function to increase or decrease
                     for (var qx = 0; qx < response.display.split("-")[1]; qx++) {
                         $($(".q-nums-wrap")).append('<div class="qbox"><div class="pull-left half">'+(qx+1)+'</div></div>');
-                    };
+                    }
+
                     $(".q-add").click(function(e){
                         e.preventDefault();
                         if(qx < 10){
@@ -1358,7 +1372,7 @@ var eb = {
                 $scope.queue_forward_accesskey = '';
                 $scope.allowed_businesses = response.allowed_businesses;
             });
-        }
+        };
 
         $scope.deletePermission = function(forwarder_id){
             $http.post('/business/delete-permission/', {
@@ -1367,13 +1381,13 @@ var eb = {
             }).success(function(response){
                 $scope.allowed_businesses = response.allowed_businesses;
             });
-        }
+        };
 
         $scope.getAccesskey = function(){
             $http.get('/business/access-key/' + $scope.business_id).success(function(response){
                 $scope.my_accesskey = response.access_key;
             });
-        }
+        };
 
         //Service functions
         $scope.createService = function(name){
@@ -1392,7 +1406,7 @@ var eb = {
                 $scope.service_error = 'Service name is not valid.';
                 eb.jquery_functions.clear_service_error_msg();
             }
-        }
+        };
         $scope.updateService = function(name, service_id){
             if(name != '' && name != undefined){
                 $http.put('/services/' + service_id, {name: name}).success(function(response){
@@ -1410,7 +1424,7 @@ var eb = {
                 $scope.service_error = 'Service name is not valid.';
                 eb.jquery_functions.clear_service_error_msg();
             }
-        }
+        };
         $scope.removeService = function(service_id){
             var confirmDel = confirm("Are you sure you want to remove this service?");
             if(confirmDel){
@@ -1423,7 +1437,7 @@ var eb = {
                     }
                 });
             }
-        }
+        };
         $scope.setTerminalColor = function(terminal_id, color) {
             $('#btn-terminal-color-'+terminal_id).removeClass('cyan yellow blue borange red violet green x242436 x78250A FF745F FCA78B x53777A x542437 C02942 D95B43 ECD078');
             $('#btn-terminal-color-'+terminal_id).addClass(color);
@@ -1435,7 +1449,7 @@ var eb = {
             }).success(function(response) {
                console.log(response.status+" "+response.message);
             });
-        }
+        };
 
         websocket.onerror	= function(response){
             $('#WebsocketLoaderModal').modal('show');
@@ -1445,7 +1459,7 @@ var eb = {
         };
         window.onbeforeunload = function(e) {
             websocket.close();
-        }
+        };
     });
 
 })();

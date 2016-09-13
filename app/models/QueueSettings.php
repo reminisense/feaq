@@ -15,6 +15,10 @@ class QueueSettings extends Eloquent{
      * Queue Settings
      */
 
+    public static function numberPrefix($service_id, $date = null){
+        return QueueSettings::queueSetting('number_prefix', '', $service_id, $date);
+    }
+
     public static function numberStart($service_id, $date = null){
         return QueueSettings::queueSetting('number_start', 1, $service_id, $date);
     }
