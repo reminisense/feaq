@@ -689,6 +689,10 @@ class MobileController extends BaseController{
     ));
   }
 
+  public function getServiceTerminals($service_id) {
+    return Terminal::getTerminalsByServiceId($service_id);
+  }
+
   public function getTestNotif() {
       $tokens = UserDevice::getTokenTypeByFbId('10203814733394884');
       foreach ($tokens as $count => $token) {
