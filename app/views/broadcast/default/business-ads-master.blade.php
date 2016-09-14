@@ -6,11 +6,15 @@
               <?php foreach ($service_filters as $count => $service): ?>
                   <li role="presentation" class="dropdown">
                       <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#"> {{ $service->name; }} <span class="caret"></span> </a>
-                      <ul class="dropdown-menu" id="show-only-service">
-                          <li service_id="{{ $service->service_id; }}"><a href="">All Terminals</a></li>
+                      <ul class="dropdown-menu" id="filter-broadcast">
+                          <li class="show-only-service" service_id="{{ $service->service_id; }}">
+                              <a href="">{{ $service->name }}</a>
+                          </li>
                           <li class="divider" role="separator"></li>
                           <?php foreach ($terminal_filters[$service->service_id] as $count2 => $terminal): ?>
-                            <li terminal_id={{ $terminal["terminal_id"] }}><a href="#">{{ $terminal["terminal_name"] }}</a></li>
+                            <li class="show-only-terminal" terminal_id="{{ $terminal["terminal_id"] }}" service_name="{{ $service->name }}">
+                                <a href="#">{{ $terminal["terminal_name"] }}</a>
+                            </li>
                           <?php endforeach; ?>
                       </ul>
                   </li>

@@ -597,7 +597,7 @@ img.qrcode {
 .carousel-inner {
   width: 100%;
   margin: 11px 0;
-  overflow-hidden
+  overflow: hidden;
 }
 .carousel-caption {
   bottom: 0;

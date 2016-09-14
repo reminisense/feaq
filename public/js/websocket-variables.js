@@ -6,27 +6,28 @@ var mailsocket_url = "ws://188.166.234.33:443/mail/server.php";
 
 $(document).ready(function() {
 
-  setDefaultServiceFilter();
-
   $('#show-all-numbers').click(function(e) {
     e.preventDefault();
+    sessionStorage.setItem("service_id", "0");
+    sessionStorage.setItem("terminal_id", "0");
+    window.location.reload(true);
+  });
+
+  $('#filter-broadcast .show-only-service').click(function(e) {
+    e.preventDefault();
+    sessionStorage.setItem("service_id", $(this).attr('service_id'));
+    sessionStorage.setItem("service_name", $(this).text());
+    sessionStorage.setItem("terminal_id", "0");
+    window.location.reload(true);
+  });
+
+  $('#filter-broadcast .show-only-terminal').click(function(e) {
+    e.preventDefault();
+    sessionStorage.setItem("terminal_id", $(this).attr('terminal_id'));
+    sessionStorage.setItem("service_name", $(this).attr('service_name'));
+    sessionStorage.setItem("terminal_name", $(this).text());
     sessionStorage.setItem("service_id", "0");
     window.location.reload(true);
   });
 
-  $('#show-only-service li').click(function(e) {
-    e.preventDefault();
-    sessionStorage.setItem("service_id", $(this).attr('service_id'));
-    window.location.reload(true);
-  });
-
 });
-
-var setDefaultServiceFilter = function() {
-  if (typeof sessionStorage.service_id == "undefined") {
-    // $('.service-filter-0').addClass("active");
-  }
-  else {
-    // $('.service-filter-'+sessionStorage.service_id).addClass("active");
-  }
-}

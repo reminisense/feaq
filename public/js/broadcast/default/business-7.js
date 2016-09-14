@@ -6,7 +6,18 @@ app.controller('nowServingCtrl', function($scope, $http) {
 
   $scope.updateBroadcastPage = (function(response) {
     if (typeof sessionStorage.service_id != "undefined" && sessionStorage.service_id != "0") {
-      response = response[sessionStorage.service_id];
+      response = response[sessionStorage.service_id]; // response["services"][sessionStorage.service_id];
+      $('#now-serving-title').text(sessionStorage.service_name);
+      $('.blink-num').hide();
+      $('.numbers .service').hide();
+      $('.numbers .terminal').removeClass('terminal').addClass('service');
+    }
+    else if (typeof sessionStorage.terminal_id != "undefined" && sessionStorage.terminal_id != "0") {
+      response = response[sessionStorage.terminal_id]; // response["terminals"][sessionStorage.terminal_id];
+      $('#now-serving-title').text(sessionStorage.service_name + " - " + sessionStorage.terminal_name);
+      $('.blink-num').hide();
+      $('.numbers .service').hide();
+      $('.numbers .terminal').hide();
     }
     console.log(response);
 

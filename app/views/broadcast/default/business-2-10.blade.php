@@ -2,7 +2,7 @@
 
 <div class="numbers-area {{ $num_class }} abs">
     <div class="boxed ten">
-        <h3 class="abs">{{ $business_name }}</h3>
+        <h3 class="abs"><span id="">{{ $business_name }}</span></h3>
         <div class="row-5">
             <div class="col-2">
                 <div class="numbers t@{{ rank1 }} @{{ color1 }}">
