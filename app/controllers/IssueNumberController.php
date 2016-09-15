@@ -36,7 +36,7 @@ class IssueNumberController extends BaseController{
         $terminal_id = QueueSettings::terminalSpecificIssue($service_id) ? $terminal_id : 0;
         $business_id = Business::getBusinessIdByServiceId($service_id);
 
-        $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
+        $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id), QueueSettings::numberPrefix($service_id));
         $queue_platform = $priority_number == $next_number || $priority_number == null ? $queue_platform : 'specific';
 
         if($email != ''){ Message::sendInitialMessage($business_id, $email, $name, $phone); }
