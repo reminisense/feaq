@@ -2,7 +2,7 @@
 
 <div class="numbers-area {{ $num_class }} abs">
     <div class="boxed nine">
-        <h3 class="abs">{{ $business_name }}</h3>
+        <h3 class="abs"><span id="now-serving-title">{{ $business_name }}</span></h3>
         <div class="row-5">
             <div class="col-1">
                 <div class="numbers t@{{ rank1 }} @{{ color1 }} blink-num">
