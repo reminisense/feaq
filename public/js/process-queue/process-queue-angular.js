@@ -87,17 +87,13 @@
             $scope.called_numbers_rating = [];
             $scope.isCalling = true;
             transaction_number = transaction_number != undefined ? transaction_number : angular.element(document.querySelector('#selected-tnumber')).val();
-            if($scope.checkIn(transaction_number)){
-                getResponseResetValues(pq.urls.process_queue.call_number_url + transaction_number + '/' + pq.ids.terminal_id, function(){
-                    pq.jquery_functions.remove_and_update_dropdown(transaction_number);
-                    $scope.issue_call_number = null;
-                    $scope.isCalling = false;
-                    $scope.updateBroadcast();
-                    if(typeof callback === 'function') callback();
-                });
-            }else{
+            getResponseResetValues(pq.urls.process_queue.call_number_url + transaction_number + '/' + pq.ids.terminal_id, function(){
+                pq.jquery_functions.remove_and_update_dropdown(transaction_number);
+                $scope.issue_call_number = null;
                 $scope.isCalling = false;
-            }
+                $scope.updateBroadcast();
+                if(typeof callback === 'function') callback();
+            });
         };
 
         $scope.serveNumber = function(transaction_number, callback){
