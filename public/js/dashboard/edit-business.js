@@ -492,7 +492,7 @@ var eb = {
                 $scope.service_settings.remote_time = queue_settings.remote_time;
 
                 //broadcast screen settings
-                $scope.service_settings.broadcast_check_in = queue_settings.broadcast_check_in;
+                $scope.service_settings.broadcast_check_in = queue_settings.check_in_display ? true : false;
                 $scope.service_settings.check_in_display = queue_settings.check_in_display;
 
                 eb.jquery_functions.load_remote_limit_slider();
