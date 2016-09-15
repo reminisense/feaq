@@ -12,10 +12,10 @@
             </div>
             <div class="modal-body">
                 {{--ARA 09132016 Commented out to remove issue multiple numbers--}}
-                {{--<ul id="pmore-tab" class="nav nav-tabs">--}}
-                    {{--<li class="active"><a data-submit="#issue-specific-submit" href="#insertq" data-toggle="tab">INSERT TO QUEUE</a></li>--}}
+                <ul id="pmore-tab" class="nav nav-tabs">
+                    <li class="active"><a data-submit="#issue-specific-submit" href="#insertq" data-toggle="tab">INSERT TO QUEUE</a></li>
                     {{--<li><a data-submit="#issue-multiple-submit" href="#multipleq" data-toggle="tab" >ISSUE MULTIPLE</a></li>--}}
-                {{--</ul>--}}
+                </ul>
                 <div class="clearfix">
                     <div class="" id="insertq">
                         <form class="navbar-form navbar-left" name="issue_specific_form">
@@ -91,14 +91,14 @@
                             {{--</div>--}}
                         {{--</form>--}}
                     {{--</div>--}}
-                {{--</div>--}}
+                </div>
                 <div class="alert alert-success" style="display: none" role="alert" id="issue-number-success">
                     <div><strong class="message"></strong></div>
                 </div>
                 {{--ARA 09132016 Commented out to remove issue multiple numbers--}}
-                {{--<div class="alert alert-danger" style="display: none" role="alert" id="issue-number-error">--}}
-                    {{--<div><strong class="message"></strong></div>--}}
-                {{--</div>--}}
+                <div class="alert alert-danger" style="display: none" role="alert" id="issue-number-error">
+                    <div><strong class="message"></strong></div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button id="issue-specific-submit" type="button" class="issue-submit-btn btn btn-orange btn-md" ng-disabled="isIssuing" ng-click="checkIssueSpecificErrors(priority_number, number_limit)">SUBMIT</button>
