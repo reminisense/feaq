@@ -25,31 +25,30 @@
                                         <div class="mt10 alert alert-danger" ng-show="service_error"> @{{ service_error }}</div>
                                     </div>
                                 </div>
-                                <div class="clearfix">
-                                    <div class="col-md-6 mb20">
-                                        <p class="title">Show Numbers</p>
-                                    </div>
-                                    <div class="col-md-6 mb20">
-                                        <input type="checkbox" ng-model="service_settings.terminal_specific_issue">
-                                        Only Numbers Issued By Terminal
-                                    </div>
-                                </div>
-                                <div class="clearfix">
-                                    <div class="col-md-6 mb20">
-                                        <p class="title">Process Queue Layout</p>
-                                    </div>
-                                    <div class="col-md-6 mb20">
-                                        <input type="checkbox" ng-model="service_settings.process_queue_layout">
-                                        New Layout
-                                    </div>
-                                </div>
+                                {{--<div class="clearfix">--}}
+                                    {{--<div class="col-md-6 mb20">--}}
+                                        {{--<p class="title">Show Numbers</p>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-md-6 mb20">--}}
+                                        {{--<input type="checkbox" ng-model="service_settings.terminal_specific_issue">--}}
+                                        {{--Only Numbers Issued By Terminal--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div class="clearfix">--}}
+                                    {{--<div class="col-md-6 mb20">--}}
+                                        {{--<p class="title">Process Queue Layout</p>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-md-6 mb20">--}}
+                                        {{--<input type="checkbox" ng-model="service_settings.process_queue_layout">--}}
+                                        {{--New Layout--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
                                 <div class="clearfix">
                                     <div class="col-md-6 mb20">
                                         <p class="title">Queue Now</p>
                                     </div>
                                     <div class="col-md-6 mb20">
-                                        <input type="checkbox" ng-model="service_settings.broadcast_check_in">
-                                        Show <input id="input_check_in_field" type="text" ng-model="service_settings.check_in_display" ng-disabled="!service_settings.broadcast_check_in"> numbers for standby
+                                        <input id="input_check_in_field" type="text" ng-model="service_settings.check_in_display"> numbers for standby
                                     </div>
                                 </div>
                                 <div class="clearfix">
@@ -115,10 +114,18 @@
                                 </div>
                                 <div class="clearfix">
                                     <div class="col-md-6 mb20">
+                                        <p class="title">Number Prefix</p>
+                                    </div>
+                                    <div class="col-md-6 mb20">
+                                        <input class="mb0 form-control white" type="text" ng-model="service_settings.number_suffix" >
+                                    </div>
+                                </div>
+                                <div class="clearfix">
+                                    <div class="col-md-6 mb20">
                                         <p class="title">Numbers Range from</p>
                                     </div>
                                     <div class="col-md-6 mb20">
-                                        <strong>@{{ service_settings.number_prefix + service_settings.number_start }} to @{{ service_settings.number_prefix + service_settings.number_limit }}</strong>
+                                        <strong>@{{ service_settings.number_prefix + service_settings.number_start + service_settings.number_suffix }} to @{{ service_settings.number_prefix + service_settings.number_limit  + service_settings.number_suffix }}</strong>
                                     </div>
                                     <div class="col-md-12 mb20">
                                         <div class="alert alert-warning" role="alert">

@@ -14,7 +14,7 @@ class IssueNumberController extends BaseController{
         }
 
         $terminal_id = QueueSettings::terminalSpecificIssue($service_id) ? $terminal_id : 0;
-        $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
+        $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id), QueueSettings::numberPrefix($service_id), QueueSettings::numberSuffix($service_id));
         $queue_platform = $number_start == $next_number || $number_start == null ? 'web' : 'specific';
         $number_start = $number_start == null ? $next_number : $number_start;
 
@@ -36,7 +36,7 @@ class IssueNumberController extends BaseController{
         $terminal_id = QueueSettings::terminalSpecificIssue($service_id) ? $terminal_id : 0;
         $business_id = Business::getBusinessIdByServiceId($service_id);
 
-        $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id), QueueSettings::numberPrefix($service_id));
+        $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id), QueueSettings::numberPrefix($service_id), QueueSettings::numberSuffix($service_id));
         $queue_platform = $priority_number == $next_number || $priority_number == null ? $queue_platform : 'specific';
 
         if($email != ''){ Message::sendInitialMessage($business_id, $email, $name, $phone); }
@@ -100,7 +100,7 @@ class IssueNumberController extends BaseController{
             $pqueue = PriorityQueue::where('transaction_number', '=', $transaction_number)->first();
             $terminal_transaction = TerminalTransaction::where('transaction_number', '=', $transaction_number)->first();
 
-            $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
+            $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id), QueueSettings::numberPrefix($service_id), QueueSettings::numberSuffix($service_id));
             $priority_number = $next_number;
 
             $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, $terminal_id, null, $pqueue->confirmation_code);

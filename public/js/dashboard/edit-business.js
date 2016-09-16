@@ -420,6 +420,7 @@ var eb = {
         $scope.service_settings = {
             service_id: null,
             number_prefix : '',
+            number_suffix : '',
             number_start : 1,
             number_limit : 99,
             terminal_specific_issue : 0,
@@ -471,12 +472,13 @@ var eb = {
                 $scope.service_settings.service_id = queue_settings.service_id;
                 //number settings
                 $scope.service_settings.number_prefix = queue_settings.number_prefix;
+                $scope.service_settings.number_suffix = queue_settings.number_suffix;
                 $scope.service_settings.number_start = queue_settings.number_start;
                 $scope.service_settings.number_limit = queue_settings.number_limit;
 
                 //process queue settings
-                $scope.service_settings.terminal_specific_issue = queue_settings.terminal_specific_issue ? true : false;
-                $scope.service_settings.process_queue_layout = queue_settings.process_queue_layout ? true : false;
+                $scope.service_settings.terminal_specific_issue = false; //queue_settings.terminal_specific_issue ? true : false; //ARA Removed since this does not make sense anymore
+                $scope.service_settings.process_queue_layout = false; //queue_settings.process_queue_layout ? true : false; //ARA Removed since this does not make sense anymore
 
                 //sms notification settings
                 $scope.service_settings.sms_current_number = queue_settings.sms_current_number;
@@ -492,7 +494,7 @@ var eb = {
                 $scope.service_settings.remote_time = queue_settings.remote_time;
 
                 //broadcast screen settings
-                $scope.service_settings.broadcast_check_in = queue_settings.check_in_display ? true : false;
+                //$scope.service_settings.broadcast_check_in = queue_settings.check_in_display ? true : false; //ARA Removed since this does not make sense anymore
                 $scope.service_settings.check_in_display = queue_settings.check_in_display;
 
                 eb.jquery_functions.load_remote_limit_slider();
