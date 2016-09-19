@@ -150,24 +150,23 @@
             $scope.isStopping = true;
             $scope.isCalling = true;
             $scope.progress_max = $scope.progress_max > 0 ? $scope.progress_max : $scope.called_numbers.length;
-            $scope.progress_current = $scope.progress_max - $scope.called_numbers.length;
-            $scope.stop_progress = ($scope.progress_current / $scope.progress_max) * 100;
-            if($scope.called_numbers.length > 0){
-                $scope.serveNumber($scope.called_numbers[0].transaction_number, function(){
-                    $scope.stopProcessQueue();
-                });
-            }
-            else {
-                setTimeout(function(){
-                    $scope.isStopping = false;
-                    $scope.isCalling = false;
-                    $scope.progress_current = 0;
-                    $scope.progress_max = 0;
-                    $scope.stop_progress = 0;
-                    $scope.clearBroadcastNumbers();
-                }, 1000);
 
+            var ids = [];
+            for(index in $scope.called_numbers){
+                ids.push($scope.called_numbers[index].transaction_number);
             }
+
+            $scope.stop_progress = 50;
+            setTimeout(function(){
+                $scope.stop_progress = 75;
+            }, 500);
+            $http.post('/processqueue/stop-queue', {ids: JSON.stringify(ids)}).success(function(){
+                $scope.stop_progress = 100;
+                $scope.updateBroadcast();
+                $scope.isStopping = false;
+                $scope.isCalling = false;
+            });
+
         };
 
         $scope.clearBroadcastNumbers = function() {
@@ -281,8 +280,6 @@
             $scope.number_limit = numbers.number_limit;
             $scope.number_prefix = numbers.number_prefix;
             $scope.number_suffix = numbers.number_suffix;
-
-            console.log(numbers.number_prefix);
 
             $scope.dateString = pq.jquery_functions.converDateToString($scope.date);
             pq.jquery_functions.set_next_number_placeholder($scope.next_number);

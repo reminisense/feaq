@@ -139,4 +139,11 @@ class ProcessQueueController extends BaseController{
             return json_encode(['success' => 0, 'error' => 'Transaction number not found.']);
         }
     }
+
+    public function postStopQueue(){
+        $numbers = Input::get('ids');
+        $numbers = json_decode($numbers, true);
+        TerminalTransaction::whereIn('transaction_number', $numbers)->update(['time_completed' => time()]);
+        return json_encode(['success' => 1]);
+    }
 }
