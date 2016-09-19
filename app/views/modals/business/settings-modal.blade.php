@@ -14,6 +14,11 @@
                     </ul>
 
                     <div class="tab-content">
+                        <div class="col-md-12 mb20 mt10">
+                            <div class="alert alert-@{{ service_settings.success.type ? 'success' : 'danger' }}" id="service-settings-message" ng-show="service_settings.success.type != undefined">
+                                <p style="text-align: center;">@{{ service_settings.success.message }}</p>
+                            </div>
+                        </div>
                         <div role="tabpanel" class="tab-pane fade in active" id="general">
                             <div class="broadcast-wrap2">
                                 <div class="clearfix">
