@@ -45,9 +45,9 @@ class IssueNumberController extends BaseController{
         if(($queue_platform == 'android' || $queue_platform == 'remote') && !QueueSettings::checkRemoteQueue($service_id)){
             return json_encode(['error' => 'Remote queue option is not allowed at this time.']);
         }
-        elseif(($queue_platform == 'android' || $queue_platform == 'remote') && $this->queueNumberExists($email)){
-            return json_encode(['error' => 'You are only allowed to queue remotely once per day.']);
-        }
+//        elseif(($queue_platform == 'android' || $queue_platform == 'remote') && $this->queueNumberExists($email)){
+//            return json_encode(['error' => 'You are only allowed to queue remotely once per day.']);
+//        }
         else{
             $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, $terminal_id);
             PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);

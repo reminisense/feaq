@@ -92,7 +92,7 @@ class FormRecordController extends BaseController {
                   $form_data[Helper::trim($xml_data["xml_tag"])] = $xml_data["xml_val"];
               }
               $to_xml['form_data'] = $form_data;
-              $path = 'forms/records/form_'.$transaction_number.'_'.$form_id.'_'.$form_tag.'.xml';
+              $path = public_path('forms/records/form_'.$transaction_number.'_'.$form_id.'_'.$form_tag.'.xml');
               $xml = new SimpleXMLElement("<?xml version=\"1.0\"?><xml></xml>");
               Helper::array_to_xml($to_xml,$xml);
               $dom = dom_import_simplexml($xml)->ownerDocument;
