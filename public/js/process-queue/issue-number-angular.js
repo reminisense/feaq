@@ -262,11 +262,11 @@
                     if($scope.queue_status == 1){
                         scope = angular.element('#nowServingCtrl').scope();
                         $scope.$apply(function(){
-                            $scope.get_num = scope.get_num;
+                            $scope.get_num = $scope.number_prefix +  scope.get_num + $scope.number_suffix;
                         });
                         $scope.getServiceEstimates($scope.def_service_id);
                     }
-                }, 1000);
+                }, 5000);
             }
         };
 

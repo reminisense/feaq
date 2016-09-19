@@ -186,6 +186,8 @@ class ProcessQueue extends Eloquent{
         }else{
             $priority_numbers = new stdClass();
             $priority_numbers->last_number_given = 0;
+            $priority_numbers->number_prefix = QueueSettings::numberPrefix($service_id);
+            $priority_numbers->number_suffix = QueueSettings::numberSuffix($service_id);
             $priority_numbers->next_number = QueueSettings::numberStart($service_id);
             $priority_numbers->current_number = 0;
             $priority_numbers->number_limit = QueueSettings::numberLimit($service_id);
