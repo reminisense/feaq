@@ -436,6 +436,8 @@ var pq = {
             process_queue = angular.element($("#process-queue-wrapper")).scope();
             issue_number = angular.element($("#moreq")).scope();
             issue_number.$apply(function(){
+                issue_number.number_prefix = process_queue.number_prefix;
+                issue_number.number_suffix = process_queue.number_suffix;
                 issue_number.priority_number = process_queue.next_number;
                 issue_number.number_start = process_queue.next_number;
                 issue_number.number_end = process_queue.next_number;

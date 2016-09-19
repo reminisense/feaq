@@ -4,6 +4,8 @@
 (function(){
     //Issue numbers
     app.controller('issuenumberController', function($scope, $http){
+        $scope.number_prefix = '';
+        $scope.number_suffix = '';
         $scope.priority_number = null;
         $scope.number_limit = null;
         $scope.queue_platform = 'web';
