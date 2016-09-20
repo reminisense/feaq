@@ -37,6 +37,13 @@ var writeNumber = function ($scope, response, box_num, service_num, user_num, co
   }
 };
 
+var writeQueueNow = function ($scope, response, service_id, queue_now_num, on_standby_num) {
+  if (typeof response["services"][service_id]["queue_now"][queue_now_num] != 'undefined') {
+    $scope["queue_now"][queue_now_num] = response["services"][service_id]["queue_now"][queue_now_num].number;
+    $scope["queue_now"][on_standby_num] = response["services"][service_id]["queue_now"][queue_now_num].on_standby;
+  }
+};
+
 var getNum = function($scope, response) {
   $scope.get_num = (response.get_num === "") ? "-": response.get_num;
 }
