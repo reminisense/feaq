@@ -133,7 +133,7 @@
         $scope.checkIssueSpecificErrors = function(priority_number, number_limit, issue){
             time_format = /^([0-9]{2})\:([0-9]{2})([ ][aApP][mM])$/g;
             issue = issue != undefined ? issue : true;
-            error = false
+            error = false;
             error_message = '';
 
             //variables
@@ -144,6 +144,15 @@
             //    error = true;
             //    error_message += 'Priority number is invalid. ';
             //}
+
+            var new_number = $scope.number_prefix + priority_number + $scope.number_suffix;
+            for(index in process_queue.unprocessed_numbers){
+                if(new_number == process_queue.unprocessed_numbers[index].priority_number){
+                    error = true;
+                    error_message += 'Priority number is still active. ';
+                    break;
+                }
+            }
 
             if(number_limit != null && (priority_number > number_limit)){
                 error = true;

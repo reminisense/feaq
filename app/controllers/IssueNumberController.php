@@ -48,6 +48,9 @@ class IssueNumberController extends BaseController{
 //        elseif(($queue_platform == 'android' || $queue_platform == 'remote') && $this->queueNumberExists($email)){
 //            return json_encode(['error' => 'You are only allowed to queue remotely once per day.']);
 //        }
+        elseif($this->queueNumberActive($service_id, $priority_number, $next_number)){
+            return json_encode(['error' => 'Priority number is still active.']);
+        }
         else{
             $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, $terminal_id);
             PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
@@ -74,6 +77,27 @@ class IssueNumberController extends BaseController{
         $count = PriorityNumber::where('priority_number.date', '=', $date)
             ->join('priority_queue', 'priority_queue.track_id', '=', 'priority_number.track_id')
             ->where('priority_queue.email', '=', $email)
+            ->select(DB::raw('COUNT(priority_number.track_id) as number_exists'))
+            ->first()
+            ->number_exists;
+
+        return $count > 0 ? TRUE : FALSE;
+    }
+
+    private function queueNumberActive($service_id, $priority_number, $next_number = null){
+        if($priority_number == null){
+            return $this->queueNumberActive($service_id, $next_number);
+        }
+
+        $priority_number = QueueSettings::numberPrefix($service_id) . $priority_number . QueueSettings::numberSuffix($service_id);
+        $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+        $count = PriorityNumber::where('priority_number.date', '=', $date)
+            ->join('priority_queue', 'priority_queue.track_id', '=', 'priority_number.track_id')
+            ->join('terminal_transaction', 'terminal_transaction.transaction_number', '=', 'priority_queue.transaction_number')
+            ->where('priority_number.service_id', '=', $service_id)
+            ->where('priority_queue.priority_number', '=', $priority_number)
+            ->where('terminal_transaction.time_completed', '=', 0)
+            ->where('terminal_transaction.time_removed', '=', 0)
             ->select(DB::raw('COUNT(priority_number.track_id) as number_exists'))
             ->first()
             ->number_exists;
