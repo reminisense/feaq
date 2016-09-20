@@ -24,7 +24,11 @@
                                     <label><strong>Specific #</strong></label>
                                 </div>
                                 <div class="col-md-9">
-                                    <input type="text" min="1" class="form-control" ng-model="priority_number" name="priority_number">
+                                    <div class="input-group mb20" style="width: 100%;">
+                                        <span class="input-group-addon" ng-show="number_prefix">@{{ number_prefix }}</span>
+                                        <input type="text" min="1" class="form-control" ng-model="priority_number" name="priority_number">
+                                        <span class="input-group-addon" ng-show="number_suffix">@{{ number_suffix }}</span>
+                                    </div>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Time to call</label>

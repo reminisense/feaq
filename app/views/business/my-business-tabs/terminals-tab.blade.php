@@ -63,7 +63,7 @@
                 <strong>@{{ $index }} - <span class="service-name" ng-hide="service.edit_service">@{{ service.name }}</span></strong>
             </th>
             <th width="" class="text-right">
-                <a href="" class="btn-boxy btn-light" ng-click="getServiceQueueSettings(service.service_id, service.name)" data-toggle="modal" data-target="#settings-modal" title="Service Settings"><span class="glyphicon glyphicon-cog"></span></a>
+                <a href="" class="btn-boxy btn-light" ng-click="getServiceQueueSettings(service.service_id, service.name)" title="Service Settings"><span class="glyphicon glyphicon-cog"></span></a>
                 <a href="" class="btn-boxy btn-removeuser btn-light" ng-click="removeService(service.service_id)" title="Remove Service"><span class="glyphicon glyphicon-trash"></span></a>
             </th>
         </tr>

@@ -420,6 +420,7 @@ var eb = {
         $scope.service_settings = {
             service_id: null,
             number_prefix : '',
+            number_suffix : '',
             number_start : 1,
             number_limit : 99,
             terminal_specific_issue : 0,
@@ -435,72 +436,102 @@ var eb = {
             process_queue_layout : 0,
 
             broadcast_check_in : false,
-            check_in_display : 0
-        };
+            check_in_display : 0,
 
-        $scope.$watch('service_settings.broadcast_check_in', function(newValue, oldValue){
-            $scope.service_settings.check_in_display = newValue ? 5 : 0;
-        });
+            success: {
+                type: undefined,
+                message: ''
+            }
+        };
 
         $scope.$watch('service_settings.check_in_display', function(newValue, oldValue){
             if(newValue > 10){
-                alert('Cannot exceed more than 10.');
+                showServiceSettingsMessage(0, 'Queue now cannot exceed more than 10.');
                 $scope.service_settings.check_in_display = oldValue;
+            }
+        });
+
+        $scope.$watch('service_settings.number_prefix', function(newValue, oldValue){
+            if(newValue.length > 5){
+                showServiceSettingsMessage(0, 'Number prefix cannot exceed more than 5 characters.');
+                $scope.service_settings.number_prefix = oldValue;
+            }
+        });
+
+        $scope.$watch('service_settings.number_suffix', function(newValue, oldValue){
+            if(newValue.length > 5){
+                showServiceSettingsMessage(0, 'Number suffix cannot exceed more than 5 characters.');
+                $scope.service_settings.number_suffix = oldValue;
             }
         });
 
         $scope.$watch('service_settings.number_limit', function(newValue, oldValue){
             if(newValue > 9999){
-                alert('Cannot exceed more than 9999.');
+                showServiceSettingsMessage(0, 'Number limit cannot exceed more than 9999.');
                 $scope.service_settings.number_limit = oldValue;
             }
         });
 
         $scope.$watch('service_settings.number_start', function(newValue, oldValue){
             if(newValue > $scope.service_settings.number_limit){
-                alert('Cannot exceed more than ' + $scope.service_settings.number_limit + '.');
+                showServiceSettingsMessage(0, 'Number start cannot exceed more than ' + $scope.service_settings.number_limit + '.');
                 $scope.service_settings.number_start = oldValue;
             }
         });
 
         $scope.getServiceQueueSettings = function(service_id, service_name){
             $http.get('/queuesettings/allvalues/' + service_id).success(function(response){
-                queue_settings = response.queue_settings;
-                $scope.edit_service_name = service_name;
-                $scope.service_settings.service_name = service_name;
-                $scope.service_settings.service_id = queue_settings.service_id;
-                //number settings
-                $scope.service_settings.number_prefix = queue_settings.number_prefix;
-                $scope.service_settings.number_start = queue_settings.number_start;
-                $scope.service_settings.number_limit = queue_settings.number_limit;
+                if(response.success == 1){
+                    queue_settings = response.queue_settings;
+                    $scope.edit_service_name = service_name;
+                    $scope.service_settings.service_name = service_name;
+                    $scope.service_settings.service_id = queue_settings.service_id;
+                    //number settings
+                    $scope.service_settings.number_prefix = queue_settings.number_prefix;
+                    $scope.service_settings.number_suffix = queue_settings.number_suffix;
+                    $scope.service_settings.number_start = queue_settings.number_start;
+                    $scope.service_settings.number_limit = queue_settings.number_limit;
 
-                //process queue settings
-                $scope.service_settings.terminal_specific_issue = queue_settings.terminal_specific_issue ? true : false;
-                $scope.service_settings.process_queue_layout = queue_settings.process_queue_layout ? true : false;
+                    //process queue settings
+                    $scope.service_settings.terminal_specific_issue = false; //queue_settings.terminal_specific_issue ? true : false; //ARA Removed since this does not make sense anymore
+                    $scope.service_settings.process_queue_layout = false; //queue_settings.process_queue_layout ? true : false; //ARA Removed since this does not make sense anymore
 
-                //sms notification settings
-                $scope.service_settings.sms_current_number = queue_settings.sms_current_number;
-                $scope.service_settings.sms_1_ahead  = queue_settings.sms_1_ahead ? true : false;
-                $scope.service_settings.sms_5_ahead  = queue_settings.sms_5_ahead ? true : false;
-                $scope.service_settings.sms_10_ahead  = queue_settings.sms_10_ahead ? true : false;
-                $scope.service_settings.sms_blank_ahead = queue_settings.sms_blank_ahead ? true : false;
-                $scope.service_settings.input_sms_field = queue_settings.input_sms_field;
+                    //sms notification settings
+                    $scope.service_settings.sms_current_number = queue_settings.sms_current_number;
+                    $scope.service_settings.sms_1_ahead  = queue_settings.sms_1_ahead ? true : false;
+                    $scope.service_settings.sms_5_ahead  = queue_settings.sms_5_ahead ? true : false;
+                    $scope.service_settings.sms_10_ahead  = queue_settings.sms_10_ahead ? true : false;
+                    $scope.service_settings.sms_blank_ahead = queue_settings.sms_blank_ahead ? true : false;
+                    $scope.service_settings.input_sms_field = queue_settings.input_sms_field;
 
-                //remote queue_settings
-                $scope.service_settings.allow_remote = queue_settings.allow_remote ? true : false;
-                $scope.service_settings.remote_limit = queue_settings.remote_limit;
-                $scope.service_settings.remote_time = queue_settings.remote_time;
+                    //remote queue_settings
+                    $scope.service_settings.allow_remote = queue_settings.allow_remote ? true : false;
+                    $scope.service_settings.remote_limit = queue_settings.remote_limit;
+                    $scope.service_settings.remote_time = queue_settings.remote_time;
 
-                //broadcast screen settings
-                $scope.service_settings.broadcast_check_in = queue_settings.check_in_display ? true : false;
-                $scope.service_settings.check_in_display = queue_settings.check_in_display;
+                    //broadcast screen settings
+                    //$scope.service_settings.broadcast_check_in = queue_settings.check_in_display ? true : false; //ARA Removed since this does not make sense anymore
+                    $scope.service_settings.check_in_display = queue_settings.check_in_display;
 
-                eb.jquery_functions.load_remote_limit_slider();
+                    eb.jquery_functions.load_remote_limit_slider();
+                    $('#settings-modal').modal('show');
+                }else{
+                    var errorMessage = response.message != undefined ? response.message : 'Failed in getting service settings.';
+                    $('#edit_message').removeClass('alert-success');
+                    $('#edit_message').addClass('alert-danger');
+                    $('#edit_message p').html(errorMessage);
+                    $('#edit_message').fadeIn();
+                    setTimeout(function(){ $('#edit_message').fadeOut(); }, 3000);
+                }
             });
         };
 
         $scope.saveServiceQueueSettings = function(){
             $http.post('/queuesettings/save-settings/', $scope.service_settings).success(function(response){
+                if(response.success != undefined){
+                    showServiceSettingsMessage(response.success, response.message);
+                }
+
                 if($scope.edit_service_name != $scope.service_settings.service_name) {
                     $scope.updateService($scope.edit_service_name, $scope.service_settings.service_id);
                 }else{
@@ -508,6 +539,24 @@ var eb = {
                 }
             });
         };
+
+        showServiceSettingsMessage = function(type, message){
+            $scope.service_settings.success.type = type;
+            if(message != undefined){
+                $scope.service_settings.success.message = message;
+            }else if(type == 1){
+                $scope.service_settings.success.message = 'Success.';
+            }else{
+                $scope.service_settings.success.message = 'An error occurred.';
+            }
+
+            setTimeout(function(){
+                $scope.$apply(function(){
+                    $scope.service_settings.success.type = undefined;
+                    $scope.service_settings.success.message = '';
+                });
+            }, 3000);
+        }
 
         $scope.add_terminal = {
             terminal_name : ""

@@ -20,7 +20,7 @@ class ProcessQueue extends Eloquent{
         $time_queued = time();
 
         if(!$priority_number){ $priority_number = $service_properties->next_number; }
-        $priority_number = QueueSettings::numberPrefix($service_id) . $priority_number;
+        $priority_number = QueueSettings::numberPrefix($service_id) . $priority_number . QueueSettings::numberSuffix($service_id);
 
         $user_id = $user_id == null? Helper::userId() : $user_id;
         //$user_id = $queue_platform != 'web'? $user_id : 0;
@@ -186,6 +186,8 @@ class ProcessQueue extends Eloquent{
         }else{
             $priority_numbers = new stdClass();
             $priority_numbers->last_number_given = 0;
+            $priority_numbers->number_prefix = QueueSettings::numberPrefix($service_id);
+            $priority_numbers->number_suffix = QueueSettings::numberSuffix($service_id);
             $priority_numbers->next_number = QueueSettings::numberStart($service_id);
             $priority_numbers->current_number = 0;
             $priority_numbers->number_limit = QueueSettings::numberLimit($service_id);
@@ -431,7 +433,11 @@ class ProcessQueue extends Eloquent{
         usort($called_numbers, array('ProcessQueue', 'sortCalledNumbers'));
 
         $priority_numbers->last_number_given = $last_number_given;
-        $priority_numbers->next_number = ProcessQueue::nextNumber($priority_numbers->last_number_given, QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id), QueueSettings::numberPrefix($service_id));
+        $priority_numbers->number_prefix = QueueSettings::numberPrefix($service_id);
+        $priority_numbers->number_suffix = QueueSettings::numberSuffix($service_id);
+        $priority_numbers->number_start = QueueSettings::numberStart($service_id);
+        $priority_numbers->number_limit = QueueSettings::numberLimit($service_id);
+        $priority_numbers->next_number = ProcessQueue::nextNumber($priority_numbers->last_number_given, $priority_numbers->number_start, $priority_numbers->number_limit, $priority_numbers->number_prefix, $priority_numbers->number_suffix);
         $priority_numbers->current_number = $called_numbers ? $called_numbers[key($called_numbers)]['priority_number'] : 0;
         $priority_numbers->number_limit = $number_limit;
         $priority_numbers->called_numbers = $called_numbers;
@@ -503,15 +509,21 @@ class ProcessQueue extends Eloquent{
         return $numbers ? $numbers->current_number : $default;
     }
 
-    public static function nextNumber($last_number_given, $number_start, $number_limit, $prefix = ''){
-        if($prefix != ''){
-            $position = strpos($last_number_given, $prefix);
-            if($position === 0){
-                $last_number_given = substr($last_number_given, strlen($prefix));
-            }elseif(is_numeric($last_number_given)){
-                $last_number_given = $number_limit;
+    public static function nextNumber($last_number_given, $number_start, $number_limit, $prefix = '', $suffix = ''){
+        if($prefix != '' || $suffix != ''){
+            if($prefix != ''){
+                $prefix_position = strpos($last_number_given, $prefix);
+                if($prefix_position === 0){ $last_number_given = substr($last_number_given, strlen($prefix)); }
+                elseif(is_numeric($last_number_given)){ $last_number_given = $number_limit; }
+            }
+
+            if($suffix != ''){
+                $suffix_position = strpos($last_number_given, $suffix);
+                if($suffix_position >= 1){ $last_number_given = substr($last_number_given, 0, (0 - strlen($suffix))); }
+                elseif(is_numeric($last_number_given)){ $last_number_given = $number_limit; }
             }
         }
+
         return ($last_number_given < $number_limit && $last_number_given != 0) ? $last_number_given + 1 : $number_start;
     }
 
@@ -534,9 +546,11 @@ class ProcessQueue extends Eloquent{
         $properties = new stdClass();
         $properties->number_start = QueueSettings::numberStart($service_id, $date);
         $properties->number_limit = QueueSettings::numberLimit($service_id, $date);
+        $properties->number_prefix = QueueSettings::numberPrefix($service_id, $date);
+        $properties->number_suffix = QueueSettings::numberSuffix($service_id, $date);
         $properties->last_number_given = $numbers->last_number_given;
         $properties->current_number = $numbers->current_number;
-        $properties->next_number = ProcessQueue::nextNumber($properties->last_number_given, $properties->number_start, $properties->number_limit, QueueSettings::numberPrefix($service_id, $date));
+        $properties->next_number = ProcessQueue::nextNumber($properties->last_number_given, $properties->number_start, $properties->number_limit, $properties->number_prefix, $properties->number_suffix);
 
         return $properties;
     }
@@ -657,7 +671,7 @@ class ProcessQueue extends Eloquent{
             $boxes->services = new stdClass();
             foreach($all_service_numbers as $service_id => $service_numbers){
                 $boxes->services->$service_id = new stdClass();
-                $boxes->services->$service_id->check_in = new stdClass();
+                $boxes->services->$service_id->queue_now = new stdClass();
                 $check_in_display = QueueSettings::checkInDisplay($service_id);
                 //ARA conditions to determine if only called numbers will be displayed on broadcast page
                 if(!isset($boxes->show_issued) || $boxes->show_issued){
@@ -671,11 +685,13 @@ class ProcessQueue extends Eloquent{
                 for($counter = 1; $box_count <= $max_count; $counter++){
                     if($box_count <= $check_in_display){
                         $index = $counter - 1;
-                        $check_in_box = 'check_in' . $box_count;
+                        $queue_now_box = 'queue_now' . $box_count;
                         $uncalled_number = isset($service_numbers->uncalled_numbers[$index]) ? $service_numbers->uncalled_numbers[$index] : null;
-                        $boxes->services->$service_id->check_in->$check_in_box = new stdClass();
-                        $boxes->services->$service_id->check_in->$check_in_box->number = $uncalled_number ? $uncalled_number['priority_number'] : '';
-                        $boxes->services->$service_id->check_in->$check_in_box->checked_in = $uncalled_number ? $uncalled_number['checked_in'] : '';
+                        $boxes->services->$service_id->queue_now->$queue_now_box = new stdClass();
+                        $boxes->services->$service_id->queue_now->$queue_now_box->number = $uncalled_number ? $uncalled_number['priority_number'] : '';
+                        $boxes->services->$service_id->queue_now->$queue_now_box->on_standby = $uncalled_number ? $uncalled_number['checked_in'] : '';
+                        $boxes->services->$service_id->queue_now->$queue_now_box->rank = $uncalled_number ? $uncalled_number['service_id'] : '';
+                        $boxes->services->$service_id->queue_now->$queue_now_box->service = $uncalled_number ? $uncalled_number['service_name'] : '';
 
                     }
 

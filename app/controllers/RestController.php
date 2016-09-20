@@ -455,7 +455,7 @@ class RestController extends BaseController {
             $phone = User::phone($user_id);
             $email = User::email($user_id);
 
-            $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
+            $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id), QueueSettings::numberPrefix($service_id), QueueSettings::numberSuffix($service_id));
             $priority_number = $next_number;
             $queue_platform = 'android';
 
@@ -490,7 +490,7 @@ class RestController extends BaseController {
             $phone = User::phone($user_id);
             $email = User::email($user_id);
 
-            $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
+            $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id), QueueSettings::numberPrefix($service_id), QueueSettings::numberSuffix($service_id));
             $priority_number = $next_number;
             $queue_platform = 'android';
 
@@ -683,7 +683,7 @@ class RestController extends BaseController {
             $estimated_time = Analytics::getWaitingTime($business_id);
             $service= Service::getFirstServiceOfBusiness($business_id);
             $remaining_queue_count = Analytics::getServiceRemainingCount($service->service_id);
-            $next_available_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service->service_id), QueueSettings::numberStart($service->service_id), QueueSettings::numberLimit($service->service_id));
+            $next_available_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service->service_id), QueueSettings::numberStart($service->service_id), QueueSettings::numberLimit($service->service_id), QueueSettings::numberPrefix($service->service_id), QueueSettings::numberSuffix($service->service_id));
 
             $details = [
                 'business_id' => $business_id,
@@ -730,7 +730,7 @@ class RestController extends BaseController {
             foreach($services as $service) {
                 $service_id = $service->service_id;
                 $rqc =  Analytics::getServiceRemainingCount($service_id);
-                $nam = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
+                $nam = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id), QueueSettings::numberPrefix($service_id), QueueSettings::numberSuffix($service_id));
                 $service['people_in_queue'] = $rqc;
                 $service['next_available_number'] = $nam;
             }
@@ -759,7 +759,7 @@ class RestController extends BaseController {
     public function getQueueNumber($service_id, $name, $phone, $email) {
 
         try{
-            $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
+            $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id), QueueSettings::numberPrefix($service_id), QueueSettings::numberSuffix($service_id));
             $priority_number = $next_number;
             $queue_platform = 'kiosk';
 

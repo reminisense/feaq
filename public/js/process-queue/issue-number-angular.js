@@ -4,6 +4,8 @@
 (function(){
     //Issue numbers
     app.controller('issuenumberController', function($scope, $http){
+        $scope.number_prefix = '';
+        $scope.number_suffix = '';
         $scope.priority_number = null;
         $scope.number_limit = null;
         $scope.queue_platform = 'web';
@@ -260,11 +262,11 @@
                     if($scope.queue_status == 1){
                         scope = angular.element('#nowServingCtrl').scope();
                         $scope.$apply(function(){
-                            $scope.get_num = scope.get_num;
+                            $scope.get_num = $scope.number_prefix +  scope.get_num + $scope.number_suffix;
                         });
                         $scope.getServiceEstimates($scope.def_service_id);
                     }
-                }, 1000);
+                }, 5000);
             }
         };
 
