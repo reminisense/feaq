@@ -18,7 +18,7 @@
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </a>
                             <div class="clearfix" id="edit-form-title" style="display:none">
-                                <input id="form-name" class="mr5 form-control" type="text" placeholder="Form Title" />
+                                <input id="form-name" class="mr5 form-control" type="text" placeholder="Form Title" maxlength="24"/>
                             </div>
                         </div>
                         <div class="col-md-6">
