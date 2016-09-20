@@ -37,10 +37,23 @@ var writeNumber = function ($scope, response, box_num, service_num, user_num, co
   }
 };
 
-var writeQueueNow = function ($scope, response, service_id, queue_now_num, on_standby_num) {
-  if (typeof response["services"][service_id]["queue_now"][queue_now_num] != 'undefined') {
-    $scope["queue_now"][queue_now_num] = response["services"][service_id]["queue_now"][queue_now_num].number;
-    $scope["queue_now"][on_standby_num] = response["services"][service_id]["queue_now"][queue_now_num].on_standby;
+var writeQueueNow = function ($scope, response) {
+  $scope.queue_now_services = [];
+  if (typeof sessionStorage.service_id != "undefined" && sessionStorage.service_id != "0") {
+    $scope.queue_now_nums = [];
+    for (var queue_now_num in response["queue_now"]) {
+      $scope.queue_now_nums.push(response["queue_now"][queue_now_num].number);
+    }
+    $scope.queue_now_services.push($scope.queue_now_nums);
+  }
+  else {
+    for (var service_id in response["services"]) {
+      $scope.queue_now_nums = [];
+      for (var queue_now_num in response["services"][service_id]["queue_now"]) {
+        $scope.queue_now_nums.push(response["services"][service_id]["queue_now"][queue_now_num].number);
+      }
+      $scope.queue_now_services.push($scope.queue_now_nums);
+    }
   }
 };
 
