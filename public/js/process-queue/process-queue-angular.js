@@ -263,19 +263,6 @@
             return angular.element(document.querySelector('#moreq')).scope().checkIssueSpecificErrors(priority_number, $scope.number_limit, false);
         };
 
-        $scope.$watch('issue_call_number', function(newValue, oldValue){
-            var new_number = $scope.number_prefix + newValue + $scope.number_suffix;
-            for(index in $scope.unprocessed_numbers) {
-                if (new_number == $scope.unprocessed_numbers[index].priority_number) {
-                    $scope.issue_call_number = oldValue;
-                    $scope.issue_call_error = 'Number ' + new_number + ' is still active. ';
-                    break;
-                }
-            }
-
-            setTimeout(function(){ $scope.issue_call_error = '';}, 3000);
-        });
-
         //non scope functions
         getResponseResetValues = function(url, successFunc, errorFunc, finallyFunc){
             $http.get(url, {ignoreLoadingBar: true})
@@ -414,6 +401,25 @@
                 });
             });
         };
+
+        //****************************** watches
+
+        $scope.$watch('issue_call_number', function(newValue, oldValue){
+            var new_number = $scope.number_prefix + newValue + $scope.number_suffix;
+            for(index in $scope.unprocessed_numbers) {
+                if (new_number == $scope.unprocessed_numbers[index].priority_number) {
+                    $scope.issue_call_number = oldValue;
+                    $scope.issue_call_error = 'Number ' + new_number + ' is still active. ';
+                    setTimeout(function(){ $scope.issue_call_error = '';}, 3000);
+                    break;
+                }
+            }
+
+            if($scope.number_limit != null && (newValue > $scope.number_limit)){
+                $scope.issue_call_error = 'Priority number is greater than the limit. ';
+                setTimeout(function(){ $scope.issue_call_error = '';}, 3000);
+            }
+        });
 
         //****************************** refreshing
         $scope.getAllNumbers();
