@@ -82,6 +82,9 @@
                         if(!process_queue){
                             $('.btn-getnum').addClass('disabled');
                         }
+                        setTimeout(function(){
+                            $('#remote-queue-modal').modal('toggle');
+                        }, 3000);
                     }else if(response.error){
                         pq.jquery_functions.issue_number_error(response.error);
                     }
@@ -349,13 +352,13 @@
         };
 
         $scope.getSuggestedFields = function(forms){
-
             var data = {
                 user_id: user_id,
                 forms: forms
             }
             $http.post('/records/suggested-fields', data).success(function(response) {
                 $scope.forms = response.forms;
+
                 displayFormFields($scope.def_service_id);
                 setTimeout(function(){
                     $('#remote-btn').removeClass('disabled');
@@ -368,9 +371,11 @@
 
         displayFormFields = function(service_id){
             $scope.filtered_forms.length = 0;
-            for (var i = 0; i <  $scope.forms.length; i++){
-                if(service_id == $scope.forms[i].service_id && $scope.forms[i].status == true ){
-                    $scope.filtered_forms.push($scope.forms[i]);
+            if($scope.forms){
+                for (var i = 0; i <  $scope.forms.length; i++){
+                    if(service_id == $scope.forms[i].service_id && $scope.forms[i].status == true ){
+                        $scope.filtered_forms.push($scope.forms[i]);
+                    }
                 }
             }
         }
