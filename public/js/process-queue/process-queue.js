@@ -447,7 +447,7 @@ var pq = {
         set_next_number_placeholder : function(next_number){
             $('#moreq form input[name=priority_number]').attr('placeholder', next_number);
             $('#moreq form input[name=number_start]').attr('placeholder', next_number);
-            $('#issue-call-number').attr('placeholder', next_number);
+            $('.issue-call-number').attr('placeholder', next_number);
         },
 
         send_pq_websocket_data : function(data){

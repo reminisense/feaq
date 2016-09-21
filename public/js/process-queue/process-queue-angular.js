@@ -22,6 +22,7 @@
         $scope.called_numbers = [];
         $scope.uncalled_numbers = [];
         $scope.processed_numbers = [];
+        $scope.unprocessed_numbers = [];
         $scope.timebound_numbers = [];
 
         $scope.called_number = 0;
@@ -29,7 +30,9 @@
         $scope.number_suffix = '';
         $scope.next_number = 0;
         $scope.number_limit = null;
+
         $scope.issue_call_number = null;
+        $scope.issue_call_error = '';
 
         $scope.called_numbers_rating = [];
 
@@ -182,7 +185,11 @@
         $scope.issueAndCall = function(priority_number){
             $http.post(pq.urls.issue_numbers.issue_specific_url + pq.ids.service_id + '/' + pq.ids.terminal_id, {priority_number : priority_number})
                 .success(function(response){
-                    $scope.callNumber(response.number.transaction_number);
+                    if(response.error){
+                        $scope.issue_call_error = response.error;
+                    }else{
+                        $scope.callNumber(response.number.transaction_number);
+                    }
                 }).finally(function(){
                     $scope.isCalling = false;
                 });
@@ -280,6 +287,7 @@
             $scope.number_limit = numbers.number_limit;
             $scope.number_prefix = numbers.number_prefix;
             $scope.number_suffix = numbers.number_suffix;
+            $scope.unprocessed_numbers = numbers.unprocessed_numbers;
 
             $scope.dateString = pq.jquery_functions.converDateToString($scope.date);
             pq.jquery_functions.set_next_number_placeholder($scope.next_number);
@@ -393,6 +401,25 @@
                 });
             });
         };
+
+        //****************************** watches
+
+        $scope.$watch('issue_call_number', function(newValue, oldValue){
+            var new_number = $scope.number_prefix + newValue + $scope.number_suffix;
+            for(index in $scope.unprocessed_numbers) {
+                if (new_number == $scope.unprocessed_numbers[index].priority_number) {
+                    $scope.issue_call_number = oldValue;
+                    $scope.issue_call_error = 'Number ' + new_number + ' is still active. ';
+                    setTimeout(function(){ $scope.issue_call_error = '';}, 3000);
+                    break;
+                }
+            }
+
+            if($scope.number_limit != null && (newValue > $scope.number_limit)){
+                $scope.issue_call_error = 'Priority number is greater than the limit. ';
+                setTimeout(function(){ $scope.issue_call_error = '';}, 3000);
+            }
+        });
 
         //****************************** refreshing
         $scope.getAllNumbers();

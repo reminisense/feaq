@@ -79,7 +79,7 @@ class FormsController extends BaseController{
 
             $to_xml['form_data'] = $form_data;
 
-            $path = 'forms/templates/form_'.$service_id.'_'.$form_tag.'.xml';
+            $path = public_path('forms/templates/form_'.$service_id.'_'.$form_tag.'.xml');
 
             $xml = new SimpleXMLElement("<?xml version=\"1.0\"?><xml></xml>");
 

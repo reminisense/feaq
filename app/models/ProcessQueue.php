@@ -378,8 +378,6 @@ class ProcessQueue extends Eloquent{
                     'verified_email' => $verified, //Added by JCA
                     'box_rank' => Terminal::boxRank($number->terminal_id), // Added by PAG
                     'color' => Terminal::getColorByTerminalId($number->terminal_id),
-                    'time_called' => $number->time_called,
-                    'confirmation_code' => $number->confirmation_code,
                 );
             }else if($called && !$served && $removed){
                 $processed_numbers[] = array(
@@ -394,7 +392,6 @@ class ProcessQueue extends Eloquent{
                     'time_processed' => $number->time_removed,
                     'status' => 'Dropped',
                     'time_called' => $number->time_called,
-                    'confirmation_code' => $number->confirmation_code,
                 );
             }else if(!$called && $removed){
                 $processed_numbers[] = array(
@@ -409,7 +406,6 @@ class ProcessQueue extends Eloquent{
                     'time_processed' => $number->time_removed,
                     'status' => 'Removed',
                     'time_called' => $number->time_called,
-                    'confirmation_code' => $number->confirmation_code,
                 );
             }else if($called && $served){
                 $processed_numbers[] = array(
