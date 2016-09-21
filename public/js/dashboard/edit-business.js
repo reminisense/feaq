@@ -59,8 +59,14 @@ $(document).ready(function(){
     });
     /*toggle qrcode image on business settings*/
     $( '#toggle-qrcode' ).click(function() {
-        $( '.qrcode-wrap' ).toggle();
-        $(this).html( $(this).html() == '<i class="glyphicon glyphicon-eye-close"></i>  Hide QR Code' ? '<i class="glyphicon glyphicon-qrcode"></i>  Show QR Code' : '<i class="glyphicon glyphicon-eye-close"></i>  Hide QR Code' );
+      $( '.qrcode-wrap' ).toggle();
+      if ($(this).attr('show_qr') == 'no') {
+        $(this).attr('show_qr', 'yes');
+      }
+      else {
+        $(this).attr('show_qr', 'no');
+      }
+      $(this).html( $(this).html() == '<i class="glyphicon glyphicon-eye-close"></i>  Hide QR Code' ? '<i class="glyphicon glyphicon-qrcode"></i>  Show QR Code' : '<i class="glyphicon glyphicon-eye-close"></i>  Hide QR Code' );
     });
     $( '#qr-decrease').click(function() {
         $( '.qrcode-wrap').css({
@@ -1010,6 +1016,8 @@ var eb = {
                 }
             });
 
+          alert
+
             $http.post('/broadcast/save-settings', {
                 business_id : business_id,
                 adspace_size : $('#ad-width').css('width'),
@@ -1024,7 +1032,8 @@ var eb = {
                 ticker_message2 : ticker_message2,
                 ticker_message3 : ticker_message3,
                 ticker_message4 : ticker_message4,
-                ticker_message5 : ticker_message5
+                ticker_message5 : ticker_message5,
+                show_qr_setting : $('#toggle-qrcode').attr('show_qr')
             }).success(function(response) {
                 $http.get('/processqueue/update-broadcast/' + business_id).success(function(response) {
                     websocket.send(JSON.stringify({
@@ -1050,6 +1059,13 @@ var eb = {
                     $scope.theme_type = response.display;
                     $scope.settings.tv_channel = response.tv_channel;
                     $scope.settings.carousel_delay = response.carousel_delay / 1000; // convert to seconds for display
+
+                    // set qr code setting
+                    if (response.show_qr_setting == 'yes') {
+                      $( '.qrcode-wrap' ).toggle();
+                      $('#toggle-qrcode').attr('show_qr', response.show_qr_setting);
+                      $('#toggle-qrcode').html('<i class="glyphicon glyphicon-eye-close"></i>  Hide QR Code');
+                    }
 
                     // default ad screen size
                     if (!response.adspace_size) {

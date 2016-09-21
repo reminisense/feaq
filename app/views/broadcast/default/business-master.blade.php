@@ -36,7 +36,7 @@
 <div id="ad-type" ad_type="{{ $ad_type }}"></div>
 <div id="adspace-size" adspace_size="{{ $adspace_size }}"></div>
 @if (strpos($broadcast_type, '0-') === false)
-<div class="qrcode qrwrap">
+<div class="qrcode qrwrap" style="display: <?php $show_qr_setting == 'yes' ? print 'block' : print 'none'; ?>;">
     <p class="nomg"><h4 class="orange">Monitor via your PHONE.</h4></p>
     <div class="text-center">
         <img class="qrcode" src="https://api.qrserver.com/v1/create-qr-code/?data={{ URL::to('/broadcast/business/' . $business_id) }}&size=120x120">
