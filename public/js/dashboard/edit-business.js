@@ -720,6 +720,7 @@ var eb = {
                         }, 3000);
                     }else{
                         setBusinessFields(response.business);
+                        $scope.search_user = '';
                     }
                 });
             }
@@ -732,7 +733,6 @@ var eb = {
                         if(response.user){
                             $scope.assignToTerminal(response.user.user_id, terminal_id);
                             $scope.clearUserResults();
-                            $scope.search_user = '';
                         }else{
                             $scope.assign_error = 'User does not exist in FeatherQ.'
                             setTimeout(function(){
