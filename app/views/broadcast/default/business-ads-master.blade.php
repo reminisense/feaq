@@ -11,11 +11,13 @@
                               <a href="">{{ $service->name }}</a>
                           </li>
                           <li class="divider" role="separator"></li>
-                          <?php foreach ($terminal_filters[$service->service_id] as $count2 => $terminal): ?>
-                            <li class="show-only-terminal" terminal_id="{{ $terminal["terminal_id"] }}" service_name="{{ $service->name }}">
-                                <a href="#">{{ $terminal["terminal_name"] }}</a>
-                            </li>
-                          <?php endforeach; ?>
+                          @if (isset($terminal_filters[$service->service_id]))
+                              @foreach ($terminal_filters[$service->service_id] as $count2 => $terminal)
+                                <li class="show-only-terminal" terminal_id="{{ $terminal["terminal_id"] }}" service_name="{{ $service->name }}">
+                                    <a href="#">{{ $terminal["terminal_name"] }}</a>
+                                </li>
+                              @endforeach
+                          @endif
                       </ul>
                   </li>
               <?php endforeach; ?>
