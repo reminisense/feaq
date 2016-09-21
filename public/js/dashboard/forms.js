@@ -185,6 +185,10 @@
               $scope.error_message = "Please select a service."
               $('#form-error').fadeIn();
               $('#form-error').fadeOut(4000);
+          }else if($scope.fields.length == 0) {
+              $scope.error_message = "Forms cannot be empty."
+              $('#form-error').fadeIn();
+              $('#form-error').fadeOut(4000);
           }else{
               $http.post('/forms/save-form',{
                   service_id: service_id,
