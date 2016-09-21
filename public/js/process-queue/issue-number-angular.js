@@ -104,7 +104,7 @@
                 for(var x=0; x<$scope.filtered_forms[i].fields.length; x++ ){
                     var input = $('#'+form_id+'_'+x).val();
                     if($scope.filtered_forms[i].fields[x].field_type == "checkbox"){
-                        input = $('#'+form_id+'_'+x).prop('checked') ? 1 : 0;
+                        input = $('#'+form_id+'_'+x).prop('checked') ? "Yes" : "No";
                     }else if($scope.filtered_forms[i].fields[x].field_type == "radio"){
                         input = $('input[name="'+form_id+'_'+x+'"]:checked').val();
                     }

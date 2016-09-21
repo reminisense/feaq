@@ -67,7 +67,7 @@
                                         <th scope="row" width="35%">@{{ field.field_data.label }}</th>
                                         <td>
                                             <input class="form-control" id="@{{ form.form_id }}_@{{ $index }}" type="textfield" ng-if="field.field_type == 'textfield'" value="@{{field.field_data.suggested}}" style="margin-bottom: 10px">
-                                            <input id="@{{ form.form_id }}_@{{ $index }}" type="checkbox" ng-if="field.field_type == 'checkbox'" style="margin-bottom: 10px" ng-checked="@{{field.field_data.suggested}}">
+                                            <input id="@{{ form.form_id }}_@{{ $index }}" type="checkbox" ng-if="field.field_type == 'checkbox'" style="margin-bottom: 10px" ng-checked="@{{field.field_data.suggested == 'Yes' ? '1':'0'}}">
                                             <div  ng-if="field.field_type == 'radio'" style="margin-bottom: 10px">
                                                 <input type="radio" name="@{{ form.form_id }}_@{{ $index }}" value="@{{ field.field_data.value_a}}" ng-checked="@{{ field.field_data.value_a == field.field_data.suggested ? '1':'0' }}"> @{{ field.field_data.value_a }} <br>
                                                 <input type="radio" name="@{{ form.form_id }}_@{{ $index }}" value="@{{ field.field_data.value_b }}" ng-checked="@{{ field.field_data.value_b == field.field_data.suggested ? '1':'0' }}"> @{{ field.field_data.value_b }}
