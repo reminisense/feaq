@@ -154,7 +154,7 @@
                         </div>
                     </form>
                     <div class="col-md-2 col-sm-2 col-xs-6">
-                        <button type="button" class=" btn btn-black btn-md" ng-click="searchBusiness(location_filter, industry_filter, search_keyword);">SEARCH</button>
+                        <button type="button" class=" btn btn-black btn-md" ng-click="searchBusiness(location_filter, industry_filter);">SEARCH</button>
                     </div>
                 </div>
             </div>

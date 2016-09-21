@@ -46,13 +46,13 @@
 
         $scope.industry_filter = 'Industry';
 
-        $scope.searchBusiness = (function(location, industry, search_keyword, $event) {
+        $scope.searchBusiness = (function(location, industry, $event) {
             $('#search-filter').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate" style="margin-right: 0px;"></span> SEARCHING');
             $('#browse-label').hide();
             $('#search-grid').hide();
             $('#search-loader').show();
+            var search_keyword = $('#search-keyword').val();
             if (typeof $event != 'undefined') $event.preventDefault();
-            if (typeof search_keyword == 'undefined') search_keyword = '';
             if (typeof $('#time_open-filter').val() == 'undefined') $('#time_open-filter').val('');
             var data = {
                 "keyword": search_keyword,
