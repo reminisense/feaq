@@ -53,5 +53,7 @@ app.controller('nowServingCtrl', function($scope, $http) {
     writeNumber($scope, response, 'box8', 'service8', 'user8', 'color8');
     writeNumber($scope, response, 'box9', 'service9', 'user9', 'color9');
     writeNumber($scope, response, 'box10', 'service10', 'user10', 'color10');
+
+    writeQueueNow($scope, response);
   });
 });
