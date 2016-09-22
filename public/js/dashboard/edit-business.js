@@ -639,6 +639,16 @@ var eb = {
                 $('#edit_message').fadeIn();
                 setTimeout(function(){ $('#edit_message').fadeOut(); }, 3000);
             }
+
+            if(newValue < $scope.startdate){
+                $scope.enddate = oldValue;
+                var errorMessage = 'End date cannot be set before the start date.';
+                $('#edit_message').removeClass('alert-success');
+                $('#edit_message').addClass('alert-danger');
+                $('#edit_message p').html(errorMessage);
+                $('#edit_message').fadeIn();
+                setTimeout(function(){ $('#edit_message').fadeOut(); }, 3000);
+            }
         });
 
         $scope.my_accesskey = null;
