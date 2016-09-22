@@ -172,11 +172,16 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="input-group" ng-show="timebound_numbers.length == 0 && uncalled_numbers.length == 0">
-                                        <span class="input-group-addon" ng-show="number_prefix">@{{ number_prefix }}</span>
-                                        <input id="issue-call-number" type="text" class="form-control" min="1" max="@{{ number_limit }}"  ng-model="issue_call_number">
-                                        <span class="input-group-addon" ng-show="number_suffix">@{{ number_suffix }}</span>
-                                    </div>
+
+                                    <div ng-show="timebound_numbers.length == 0 && uncalled_numbers.length == 0"> <!-- process queue issue number textfield -->
+                                        <input ng-show="number_prefix == '' && number_suffix == '' " type="text" class="form-control issue-call-number" min="1" max="@{{ number_limit }}"  ng-model="issue_call_number">
+                                        <div class="input-group mb10" ng-show="number_prefix != '' || number_suffix != '' ">
+                                            <span class="input-group-addon" ng-show="number_prefix">@{{ number_prefix }}</span>
+                                            <input type="text" class="form-control issue-call-number" min="1" max="@{{ number_limit }}"  ng-model="issue_call_number">
+                                            <span class="input-group-addon" ng-show="number_suffix">@{{ number_suffix }}</span>
+                                        </div>
+                                        <div class="alert alert-danger" ng-show="issue_call_error != ''">@{{ issue_call_error }}</div>
+                                    </div> <!-- end process queue issue number textfield -->
                                 </div>
                                 <point-of-interest position="left" bottom="85" right="100"  title="Issued Numbers" description="Look for the numbers you want to call in this drop-down list or type the number you want call when the list is empty."></point-of-interest>
                                 <div class="col-md-1 col-sm-1 col-xs-3">

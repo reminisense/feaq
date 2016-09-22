@@ -122,8 +122,8 @@
                                 <h1 class="nomg">@{{ get_num }}</h1>
                                 @if($allow_remote)
                                 @if(Auth::check())
-                                <a href="" id="remote-btn" ng-if="queue_status == 1" class="btn-getnum disabled"  data-toggle="modal" data-target="#remote-queue-modal">
-                                    Get this number <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+                                <a href="" id="remote-btn" ng-if="queue_status == 1" class="btn-getnum" ng-click="getFormFields()">
+                                    Get this number <span class=""></span>
                                 </a>
                                 <a ng-if="queue_status == 0" href="" class="btn-getnum @{{ user_queue.time_checked_in > 0 ? 'disabled' : '' }}" ng-click="checkIn()">
                                     @{{ user_queue.time_checked_in > 0 ? 'You are checked in' : 'Check in' }}
@@ -136,7 +136,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-12" ng-show="estimates.lower_limit && estimates.upper_limit">
                             <div class="col-md-5">
                                 <h5 class="text-center">Estimated Time: </h5>
                             </div>

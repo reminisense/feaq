@@ -146,4 +146,9 @@ class ProcessQueueController extends BaseController{
         TerminalTransaction::whereIn('transaction_number', $numbers)->update(['time_completed' => time()]);
         return json_encode(['success' => 1]);
     }
+
+    public function getServiceEstimates($service_id){
+        $analytics = new Analytics();
+        return $analytics->getServiceTimeEstimates($service_id);
+    }
 }

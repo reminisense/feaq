@@ -556,7 +556,7 @@ var eb = {
                     $scope.service_settings.success.message = '';
                 });
             }, 3000);
-        }
+        };
 
         $scope.add_terminal = {
             terminal_name : ""
@@ -593,6 +593,30 @@ var eb = {
 
         $scope.startdate = $filter('date')(new Date(),'MM/dd/yyyy');
         $scope.enddate = $filter('date')(new Date(),'MM/dd/yyyy');
+
+        $scope.$watch('startdate', function(newValue, oldValue){
+            if(newValue > $scope.enddate){
+                $scope.startdate = oldValue;
+                var errorMessage = 'Start date cannot exceed the end date.';
+                $('#edit_message').removeClass('alert-success');
+                $('#edit_message').addClass('alert-danger');
+                $('#edit_message p').html(errorMessage);
+                $('#edit_message').fadeIn();
+                setTimeout(function(){ $('#edit_message').fadeOut(); }, 3000);
+            }
+        });
+
+        $scope.$watch('enddate', function(newValue, oldValue){
+            if(newValue > $filter('date')(new Date(),'MM/dd/yyyy')){
+                $scope.enddate = oldValue;
+                var errorMessage = 'End date cannot exceed the current date.';
+                $('#edit_message').removeClass('alert-success');
+                $('#edit_message').addClass('alert-danger');
+                $('#edit_message p').html(errorMessage);
+                $('#edit_message').fadeIn();
+                setTimeout(function(){ $('#edit_message').fadeOut(); }, 3000);
+            }
+        });
 
         $scope.my_accesskey = null;
         $scope.getBusinessDetails = function(){

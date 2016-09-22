@@ -60,7 +60,7 @@
                         <ul id="form-tabs" class="nav nav-tabs">
                             <li ng-repeat="form in filtered_forms" class="@{{ $index == 0 ? 'active in':''}}"><a data-toggle="tab" href="#@{{ form.form_id }}">@{{ form.form_name }}</a></li>
                         </ul>
-                        <div class="tab-content">
+                        <div class="tab-content" style="max-height: 150px; overflow: auto;">
                             <div ng-repeat="form in filtered_forms" id="@{{ form.form_id }}" class="tab-pane fade @{{ $index == 0 ? 'active in':''}}">
                                 <table class="table" id="borderless">
                                     <tr ng-repeat="field in form.fields">
