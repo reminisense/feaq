@@ -116,10 +116,10 @@
     $scope.viewRecord = function (record_id) {
       $http.get('/records/view-user/' + record_id).success(function (response) {
         var formData = response.form_data.form_data;
-          var i = 0;
+          var i = 0;;
         $.each(formData, function(key, val) {
           var id = response.form_id + '_' +i;
-          $('#' + id + ':input').val(val); // textfield and select default
+          val.length == undefined ?   $('#' + id + ':input').val('N/A') :   $('#' + id + ':input').val(val);
           $('input:radio[name=' + id + ']').filter('[value="' + val + '"]').prop('checked', true); // radio default
           if (val == "Yes") { // checkbox default
             $('#' + id).prop('checked', true);
