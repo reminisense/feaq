@@ -118,6 +118,7 @@
                                 <button ng-click="addField()" class="btn btn-primary btn-md" id="btn-add-field">Add Field</button>
                             </div>
                         </div>
+                        <div class="alert alert-danger mt10" id="field-error" style="display: none; text-align: center">@{{ err_message }}</div>
                     </div>
                     <div class="clearfix form-footer">
                         <div class="pull-right">
