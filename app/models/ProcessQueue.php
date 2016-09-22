@@ -676,21 +676,20 @@ class ProcessQueue extends Eloquent{
                     $numbers = $service_numbers->called_numbers;
                 }
 
+                for($counter = 1; $counter <= $check_in_display; $counter++){
+                    $index = $counter - 1;
+                    $queue_now_box = 'queue_now' . $counter;
+                    $uncalled_number = isset($service_numbers->uncalled_numbers[$index]) ? $service_numbers->uncalled_numbers[$index] : null;
+                    $boxes->services->$service_id->queue_now->$queue_now_box = new stdClass();
+                    $boxes->services->$service_id->queue_now->$queue_now_box->number = $uncalled_number ? $uncalled_number['priority_number'] : '';
+                    $boxes->services->$service_id->queue_now->$queue_now_box->on_standby = $uncalled_number ? $uncalled_number['checked_in'] : '';
+                    $boxes->services->$service_id->queue_now->$queue_now_box->rank = $uncalled_number ? $uncalled_number['service_id'] : '';
+                    $boxes->services->$service_id->queue_now->$queue_now_box->service = $uncalled_number ? $uncalled_number['service_name'] : '';
+                }
+
                 $box_count = 1;
                 $existing = array();
                 for($counter = 1; $box_count <= $max_count; $counter++){
-                    if($box_count <= $check_in_display){
-                        $index = $counter - 1;
-                        $queue_now_box = 'queue_now' . $box_count;
-                        $uncalled_number = isset($service_numbers->uncalled_numbers[$index]) ? $service_numbers->uncalled_numbers[$index] : null;
-                        $boxes->services->$service_id->queue_now->$queue_now_box = new stdClass();
-                        $boxes->services->$service_id->queue_now->$queue_now_box->number = $uncalled_number ? $uncalled_number['priority_number'] : '';
-                        $boxes->services->$service_id->queue_now->$queue_now_box->on_standby = $uncalled_number ? $uncalled_number['checked_in'] : '';
-                        $boxes->services->$service_id->queue_now->$queue_now_box->rank = $uncalled_number ? $uncalled_number['service_id'] : '';
-                        $boxes->services->$service_id->queue_now->$queue_now_box->service = $uncalled_number ? $uncalled_number['service_name'] : '';
-
-                    }
-
                     if($counter <= count($numbers)){
                         $index = $counter - 1;
                         $number = isset($numbers[$index]['priority_number']) ? $numbers[$index]['priority_number'] : '';
