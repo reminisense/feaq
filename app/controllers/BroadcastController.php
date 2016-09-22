@@ -90,6 +90,7 @@ class BroadcastController extends BaseController{
         ->with('user', Auth::user())
         ->with('service_filters', $service_filters)
         ->with('terminal_filters', $terminal_filters)
+        ->with('show_qr_setting', $data->show_qr_setting)
         ->with('keywords', Business::getKeywordsByBusinessId($business_id));
     }
 
@@ -249,6 +250,7 @@ class BroadcastController extends BaseController{
       $data->ticker_message3 = Input::get('ticker_message3');
       $data->ticker_message4 = Input::get('ticker_message4');
       $data->ticker_message5 = Input::get('ticker_message5');
+      $data->show_qr_setting = Input::get('show_qr_setting');
       $data = $this->boxObjectCreator($data, Input::get('num_boxes'));
       $encode = json_encode($data);
       file_put_contents(public_path() . '/json/' . Input::get('business_id') . '.json', $encode);
