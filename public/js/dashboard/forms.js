@@ -121,7 +121,7 @@
           var id = response.form_id + '_' +i;
           $('#' + id + ':input').val(val); // textfield and select default
           $('input:radio[name=' + id + ']').filter('[value="' + val + '"]').prop('checked', true); // radio default
-          if (val == 1) { // checkbox default
+          if (val == "Yes") { // checkbox default
             $('#' + id).prop('checked', true);
           }
           else {
