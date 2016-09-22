@@ -46,48 +46,31 @@
     </div>
 </div>
 @endif
-<div class="checkin-carousel">
-    <div id="checkin-numbers-carousel" class="carousel slide" data-ride="carousel">
-      <div class="carousel-inner" role="listbox">
-        <div class="item active">
-
-          <div class="carousel-caption">
-            <h3>Queue Now:</h3>
-            <p class="numbers">6016</p>
-            <p class="numbers">ROMAN</p>
-            <p class="numbers">JONASZI</p>
-            <p class="numbers">8901</p>
-                        <p class="numbers">A2919</p>
-                        <p class="numbers">200</p>
+<div ng-controller="nowServingCtrl">
+    <div class="checkin-carousel">
+        <div id="checkin-numbers-carousel" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner" role="listbox">
+              <div ng-class="{'item active': $index == 0, 'item': $index > 0,}" ng-repeat="queue_nums in queue_now_services">
+                  <div class="carousel-caption">
+                      <h3>Queue Now:</h3>
+                      <p class="numbers" ng-repeat="queue_num in queue_nums">@{{ queue_num }}</p>
+                  </div>
+              </div>
           </div>
         </div>
-
-        <div class="item">
-          <div class="carousel-caption">
-            <h3>Queue Now:</h3>
-            <p class="numbers">8901</p>
-            <p class="numbers">A2919</p>
-            <p class="numbers">200</p>
-            <p class="numbers">8901</p>
-                        <p class="numbers">A2919</p>
-                        <p class="numbers">200</p>
-          </div>
-        </div>
-
-      </div>
     </div>
-</div>
-<div class="ticker-message" style="width: {{ $ticker_width }}%;">
-    @foreach($ticker_message as $message)
-        @if($message)
-            <div class="marquee-text hidden">{{ $message }}</div>
-        @endif
-    @endforeach
-    <p class="nomg real-marquee-text"></p>
-</div>
-<div class="wrap-broadcast rel" ng-controller="nowServingCtrl">
-    <audio id="call-number-sound" src="/audio/doorbell_x.wav" controls preload="auto" autobuffer style="display: none;"></audio>
-    @include('broadcast.default.business-' . $broadcast_type)
+    <div class="ticker-message" style="width: {{ $ticker_width }}%;">
+        @foreach($ticker_message as $message)
+            @if($message)
+                <div class="marquee-text hidden">{{ $message }}</div>
+            @endif
+        @endforeach
+        <p class="nomg real-marquee-text"></p>
+    </div>
+    <div class="wrap-broadcast rel">
+        <audio id="call-number-sound" src="/audio/doorbell_x.wav" controls preload="auto" autobuffer style="display: none;"></audio>
+        @include('broadcast.default.business-' . $broadcast_type)
+    </div>
 </div>
 
 @include('modals.websockets.websocket-loader')
