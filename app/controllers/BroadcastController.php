@@ -671,51 +671,52 @@ class BroadcastController extends BaseController{
       $business_id = $business->business_id;
       //$data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
       $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
-      if (!isset($data->show_issued)) {
-        $data->show_issued = TRUE;
-      }
-      if (!isset($data->show_names)) {
-        $data->show_names = FALSE;
-      }
-      if (!isset($data->ad_image)) {
-        $data->ad_image = "";
-      }
-      if (!isset($data->ad_video)) {
-        $data->ad_video = "";
-      }
-      if (!isset($data->ad_type) || $data->ad_type == "") {
-        $data->ad_type = "carousel";
-      }
-      if (!isset($data->turn_on_tv)) {
-        $data->turn_on_tv = FALSE;
-      }
-      if (!isset($data->tv_channel)) {
-        $data->tv_channel = "";
-      }
-      if (!isset($data->ticker_message)) {
-        $data->ticker_message = "";
-      }
-      if (!isset($data->ticker_message2)) {
-        $data->ticker_message2 = "";
-      }
-      if (!isset($data->ticker_message3)) {
-        $data->ticker_message3 = "";
-      }
-      if (!isset($data->ticker_message4)) {
-        $data->ticker_message4 = "";
-      }
-      if (!isset($data->ticker_message5)) {
-        $data->ticker_message5 = "";
-      }
-      if (!isset($data->adspace_size)) {
-        $data->adspace_size = "517px";
-      }
-      if (!isset($data->numspace_size)) {
-        $data->numspace_size = "517px";
-      }
-      $data->adspace_size = "517px";
-      $data->numspace_size = "517px";
-      $data->ad_type = "carousel";
+//      if (!isset($data->show_issued)) {
+//        $data->show_issued = TRUE;
+//      }
+//      if (!isset($data->show_names)) {
+//        $data->show_names = FALSE;
+//      }
+//      if (!isset($data->ad_image)) {
+//        $data->ad_image = "";
+//      }
+//      if (!isset($data->ad_video)) {
+//        $data->ad_video = "";
+//      }
+//      if (!isset($data->ad_type) || $data->ad_type == "") {
+//        $data->ad_type = "carousel";
+//      }
+//      if (!isset($data->turn_on_tv)) {
+//        $data->turn_on_tv = FALSE;
+//      }
+//      if (!isset($data->tv_channel)) {
+//        $data->tv_channel = "";
+//      }
+//      if (!isset($data->ticker_message)) {
+//        $data->ticker_message = "";
+//      }
+//      if (!isset($data->ticker_message2)) {
+//        $data->ticker_message2 = "";
+//      }
+//      if (!isset($data->ticker_message3)) {
+//        $data->ticker_message3 = "";
+//      }
+//      if (!isset($data->ticker_message4)) {
+//        $data->ticker_message4 = "";
+//      }
+//      if (!isset($data->ticker_message5)) {
+//        $data->ticker_message5 = "";
+//      }
+//      if (!isset($data->adspace_size)) {
+//        $data->adspace_size = "517px";
+//      }
+//      if (!isset($data->numspace_size)) {
+//        $data->numspace_size = "517px";
+//      }
+//      $data->adspace_size = "517px";
+//      $data->numspace_size = "517px";
+//      $data->ad_type = "carousel";
+      $data->show_qr_setting = "yes";
 
       //$data->display = "1-6";
       $encode = json_encode($data);
