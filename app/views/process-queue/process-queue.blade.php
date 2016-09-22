@@ -226,7 +226,7 @@
                                     @{{ number.priority_number }}
                                 </a>
                             </td>
-                            <td width="15%">
+                            <td width="15%" class="text-center">
                                 <span class="@{{ number.terminal_id == terminal_id ? 'cyan' : 'red' }}">@{{ number.terminal_name }}</span>
                             </td>
                             <td class="links">

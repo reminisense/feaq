@@ -70,6 +70,11 @@ class TerminalController extends BaseController{
         $post = json_decode(file_get_contents("php://input"));
         $business_id = Business::getBusinessIdByTerminalId($post->terminal_id);
         if (Helper::isBusinessOwner($business_id, Helper::userId()) || Admin::isAdmin() ) { // PAG added permission checking
+
+            if(strlen($post->name) > 25){
+                return json_encode(array('status' => 0, 'error' => 'Terminal name is too long.'));
+            }
+
             if ($this->validateTerminalName($business_id, $post->name, $post->terminal_id)) {
                 Terminal::setName($post->terminal_id, $post->name);
                 $business = Business::getBusinessDetails($business_id);

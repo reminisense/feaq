@@ -446,35 +446,52 @@ var eb = {
 
         $scope.$watch('service_settings.check_in_display', function(newValue, oldValue){
             if(newValue > 10){
-                showServiceSettingsMessage(0, 'Queue now cannot exceed more than 10.');
+                showServiceSettingsMessage(0, 'Queue now cannot exceed 10.');
                 $scope.service_settings.check_in_display = oldValue;
             }
         });
 
         $scope.$watch('service_settings.number_prefix', function(newValue, oldValue){
             if(newValue.length > 5){
-                showServiceSettingsMessage(0, 'Number prefix cannot exceed more than 5 characters.');
+                showServiceSettingsMessage(0, 'Number prefix cannot exceed 5 characters.');
                 $scope.service_settings.number_prefix = oldValue;
             }
+
+            if((newValue + $scope.service_settings.number_limit + $scope.service_settings.number_suffix).length > 7){
+                showServiceSettingsMessage(0, 'The total number of characters cannot exceed 7.');
+                $scope.service_settings.number_prefix = oldValue;
+            }
+
         });
 
         $scope.$watch('service_settings.number_suffix', function(newValue, oldValue){
             if(newValue.length > 5){
-                showServiceSettingsMessage(0, 'Number suffix cannot exceed more than 5 characters.');
+                showServiceSettingsMessage(0, 'Number suffix cannot exceed 5 characters.');
                 $scope.service_settings.number_suffix = oldValue;
             }
+
+            if(($scope.service_settings.number_prefix + $scope.service_settings.number_limit + newValue).length > 7){
+                showServiceSettingsMessage(0, 'The total number of characters cannot exceed 7.');
+                $scope.service_settings.number_suffix = oldValue;
+            }
+
         });
 
         $scope.$watch('service_settings.number_limit', function(newValue, oldValue){
             if(newValue > 9999){
-                showServiceSettingsMessage(0, 'Number limit cannot exceed more than 9999.');
+                showServiceSettingsMessage(0, 'Number limit cannot exceed 9999.');
+                $scope.service_settings.number_limit = oldValue;
+            }
+
+            if(($scope.service_settings.number_prefix + newValue + $scope.service_settings.number_suffix).length > 7){
+                showServiceSettingsMessage(0, 'The total number of characters cannot exceed 7.');
                 $scope.service_settings.number_limit = oldValue;
             }
         });
 
         $scope.$watch('service_settings.number_start', function(newValue, oldValue){
             if(newValue > $scope.service_settings.number_limit){
-                showServiceSettingsMessage(0, 'Number start cannot exceed more than ' + $scope.service_settings.number_limit + '.');
+                showServiceSettingsMessage(0, 'Number start cannot exceed ' + $scope.service_settings.number_limit + '.');
                 $scope.service_settings.number_start = oldValue;
             }
         });
@@ -847,7 +864,12 @@ var eb = {
                         $('.edit-terminal-button[terminal_id=' + terminal_id + ']').show();
                         $('.terminal-error-message[terminal_id=' + terminal_id + ']').hide();
                     }else{
-                        $('.terminal-error-message[terminal_id=' + terminal_id + ']').html('Terminal name already exists.');
+                        if(response.error){
+                            error = response.error;
+                        }else{
+                            error = 'Something went wrong.'
+                        }
+                        $('.terminal-error-message[terminal_id=' + terminal_id + ']').html(error);
                         $('.terminal-error-message[terminal_id=' + terminal_id + ']').show();
                         setTimeout(function(){$('.terminal-error-message[terminal_id=' + terminal_id + ']').fadeOut('slow')}, 3000);
                     }
