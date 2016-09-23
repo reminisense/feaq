@@ -106,11 +106,7 @@
                             <h2 class="">Remote Queue Number:</h2>
                             <p>
                                 Remote queuing allows you to get this number before being at the location.
-                                <select class="form-control" id="services" ng-model="service_id" ng-change="selectService()">
-                                    <option value="179">Service 1</option>
-                                    <option>Service 2</option>
-                                    <option>Service 3</option>
-                                </select>
+                                <select class="form-control" id="services" ng-model="service_id" ng-change="selectService()"></select>
                             </p>
                             @else
                             <h2 class="">Next Available Number:</h2>

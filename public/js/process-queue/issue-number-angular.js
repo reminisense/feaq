@@ -325,23 +325,30 @@
                             $('#services').append('<option value="' + business_services[branch][service].service_id +'">' + business_services[branch][service].name + '</option>');
                         }
                     }
+                    $scope.selectService();
                 });
             }
         };
 
         $scope.selectService = function(){
-            service_id = $('#services').val();
-            displayFormFields(service_id);
-            $http.get('/processqueue/next-number/' + service_id).success(function(response){
-                $('.nomg').html(response.next_number);
-                $('#insertq input[name=number]').val(response.next_number);
+            if($scope.queue_status == 1){
+                service_id = $('#services').val();
+                displayFormFields(service_id);
+                $http.get('/processqueue/next-number/' + service_id).success(function(response){
+                    $('.nomg').html(response.next_number);
+                    $('#insertq input[name=number]').val(response.next_number);
+                    setTimeout(function(){
+                        $scope.selectService();
+                    }, 5000);
+                    if(service_id != $scope.def_service_id){
+                        $scope.def_service_id = service_id;
+                    }
+                });
+            }else{
                 setTimeout(function(){
                     $scope.selectService();
                 }, 5000);
-                if(service_id != $scope.def_service_id){
-                    $scope.def_service_id = service_id;
-                }
-            });
+            }
         };
 
         $scope.checkIn = function(){
@@ -404,7 +411,6 @@
             });
         };
 
-        //$scope.selectService();
         $scope.getBusinessServices();
         $scope.initializePriorityNumber();
         $scope.getRemoteuser();
