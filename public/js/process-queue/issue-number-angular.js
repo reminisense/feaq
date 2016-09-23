@@ -373,17 +373,7 @@
                     $('#remote-queue-modal').modal('show');
                 });
             }
-            $http.post('/records/suggested-fields', data).success(function(response) {
-                $scope.forms = response.forms;
-                displayFormFields($scope.def_service_id);
-                setTimeout(function(){
-                    $('#remote-btn').removeClass('disabled');
-                    $('#remote-btn > span').removeClass('glyphicon-refresh glyphicon-refresh-animate');
-                    $('#remote-btn > span').addClass('glyphicon-save');
-                }, 2000);
-            });
-
-        }
+        };
 
         displayFormFields = function(service_id){
             $scope.filtered_forms.length = 0;
@@ -413,7 +403,7 @@
             });
         };
 
-        $scope.getFormFields();
+        //$scope.selectService();
         $scope.getBusinessServices();
         $scope.initializePriorityNumber();
         $scope.getRemoteuser();
