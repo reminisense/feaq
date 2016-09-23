@@ -91,6 +91,7 @@ class BroadcastController extends BaseController{
         ->with('service_filters', $service_filters)
         ->with('terminal_filters', $terminal_filters)
         ->with('show_qr_setting', $data->show_qr_setting)
+        ->with('movie_list', explode("\n", $data->movie_list)[1])
         ->with('keywords', Business::getKeywordsByBusinessId($business_id));
     }
 
@@ -245,6 +246,7 @@ class BroadcastController extends BaseController{
       $data->display = $this->generateDisplayCode($data->ad_type, Input::get('num_boxes'));
       $data->show_issued = Input::get('show_issued');
       $data->show_names = Input::get('show_names');
+      $data->movie_list = Input::get('movie_list');
       $data->ticker_message = Input::get('ticker_message');
       $data->ticker_message2 = Input::get('ticker_message2');
       $data->ticker_message3 = Input::get('ticker_message3');
@@ -268,6 +270,9 @@ class BroadcastController extends BaseController{
     }
     elseif ($ad_type == 'internet_tv') {
       $display = '2-';
+    }
+    elseif ($ad_type == 'movie') {
+      $display = '3-';
     }
     else {
       $display = '0-';

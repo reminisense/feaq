@@ -50,6 +50,10 @@
                 </div>
             </div>
         </div>
+    @elseif ($ad_type == 'movie') {
+      <video controls="" autoplay name="media" width="100%">
+          <source src="http://127.0.0.1/videos/{{ $movie_list }}" type="video/webm">
+      </video>
     @endif
   </div>
 </div>

@@ -12,7 +12,8 @@
             <div class="col-md-4">
                 <h3 class="mb20">Choose an Advertisement Type:</h3>
                 <select id="select-ads-type" name="cd-dropdown" class="form-control" ng-model="settings.ad_type" ng-init="settings.ad_type">
-                    <option value="carousel">Image & Video Carousel</option>
+                    <option value="carousel">Image Carousel</option>
+                    <option value="movie">Movie List</option>
                     <option value="internet_tv">Internet TV</option>
                     <option value="numbers_only">Numbers Only</option>
                 </select>
@@ -79,6 +80,26 @@
                             </div>
                             <div class="col-md-6 col-xs-12">
                                 <input type="number" min="0" step="1" ng-model="settings.carousel_delay" class="form-control ng-pristine ng-untouched ng-valid ng-valid-min" width="30px">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ads-type amovie">
+                        <div class="clearfix">
+                            <div class="col-md-6 col-xs-12">
+                                <button class="btn btn-info" onclick="window.open('http://127.0.0.1/videos/script/generate.php', 'FeatherQ',
+                                    'height=200, width=300');">Generate Movie File Names</button>
+                            </div>
+                        </div>
+                        <div class="clearfix" style="margin-top: 20px;">
+                            <div class="col-md-6 col-xs-12">
+                                <small>Movie File Name Listing</small>
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                            <div class="col-md-12">
+                                <div class="">
+                                    <textarea class="form-control" rows="10" cols="2" id="movie-list" ng-model="settings.movie_list"></textarea>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -590,6 +590,7 @@ var eb = {
             tv_channel : "",
             show_issued : "",
             show_names : "",
+            movie_list : "",
             carousel_delay : "",
             ticker_message : "",
             ticker_message2 : "",
@@ -1082,6 +1083,7 @@ var eb = {
                 ad_type : $scope.settings.ad_type,
                 tv_channel : $scope.settings.tv_channel,
                 carousel_delay : $scope.settings.carousel_delay,
+                movie_list : $scope.settings.movie_list,
                 show_issued : !$scope.settings.show_called, //ARA Added negation and changed variable name since UI says "Show only called numbers in broadcast page"
                 show_names : $scope.settings.show_names, //ARA Added to show names of customer in broadcast page
                 ticker_message : ticker_message,
@@ -1115,6 +1117,9 @@ var eb = {
                     $scope.theme_type = response.display;
                     $scope.settings.tv_channel = response.tv_channel;
                     $scope.settings.carousel_delay = response.carousel_delay / 1000; // convert to seconds for display
+                    
+                    // default movie listing
+                    $('#movie-list').val(response.movie_list);
 
                     // set qr code setting
                     if (response.show_qr_setting == 'yes') {
