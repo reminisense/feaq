@@ -441,6 +441,13 @@ class ProcessQueue extends Eloquent{
         $priority_numbers->processed_numbers = array_reverse($processed_numbers);
         $priority_numbers->timebound_numbers = $timebound_numbers;
 
+        //
+        $after_next = ProcessQueue::nextNumber($priority_numbers->number_prefix . $priority_numbers->next_number . $priority_numbers->number_suffix, $priority_numbers->number_start, $priority_numbers->number_limit, $priority_numbers->number_prefix, $priority_numbers->number_suffix);
+        while(ProcessQueue::queueNumberActive($service_id, $priority_numbers->next_number, $after_next)){
+            $priority_numbers->next_number = $after_next;
+            $after_next = ProcessQueue::nextNumber($priority_numbers->number_prefix . $after_next . $priority_numbers->number_suffix, $priority_numbers->number_start, $priority_numbers->number_limit, $priority_numbers->number_prefix, $priority_numbers->number_suffix);
+        }
+
         $priority_numbers->unprocessed_numbers = array_merge($priority_numbers->uncalled_numbers, $priority_numbers->called_numbers);
         usort($priority_numbers->unprocessed_numbers, array('ProcessQueue', 'sortUnprocessedNumbers'));
         $priority_numbers->unprocessed_numbers = array_merge($priority_numbers->timebound_numbers, $priority_numbers->unprocessed_numbers);
@@ -521,6 +528,10 @@ class ProcessQueue extends Eloquent{
         }
 
         return ($last_number_given < $number_limit && $last_number_given != 0) ? $last_number_given + 1 : $number_start;
+    }
+
+    public static function afterNextNumber(){
+
     }
 
     private static function sortProcessedNumbers($a, $b){
@@ -755,5 +766,26 @@ class ProcessQueue extends Eloquent{
             }
             File::put($file_path, json_encode($boxes, JSON_PRETTY_PRINT));
         }
+    }
+
+    public static function queueNumberActive($service_id, $priority_number, $next_number = null){
+        if($priority_number == null){
+            return ProcessQueue::queueNumberActive($service_id, $next_number);
+        }
+
+        $priority_number = QueueSettings::numberPrefix($service_id) . $priority_number . QueueSettings::numberSuffix($service_id);
+        $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+        $count = PriorityNumber::where('priority_number.date', '=', $date)
+            ->join('priority_queue', 'priority_queue.track_id', '=', 'priority_number.track_id')
+            ->join('terminal_transaction', 'terminal_transaction.transaction_number', '=', 'priority_queue.transaction_number')
+            ->where('priority_number.service_id', '=', $service_id)
+            ->where('priority_queue.priority_number', '=', $priority_number)
+            ->where('terminal_transaction.time_completed', '=', 0)
+            ->where('terminal_transaction.time_removed', '=', 0)
+            ->select(DB::raw('COUNT(priority_number.track_id) as number_exists'))
+            ->first()
+            ->number_exists;
+
+        return $count > 0 ? TRUE : FALSE;
     }
 }
