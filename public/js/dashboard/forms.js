@@ -116,10 +116,10 @@
     $scope.viewRecord = function (record_id) {
       $http.get('/records/view-user/' + record_id).success(function (response) {
         var formData = response.form_data.form_data;
-          var i = 0;
+          var i = 0;;
         $.each(formData, function(key, val) {
           var id = response.form_id + '_' +i;
-          $('#' + id + ':input').val(val); // textfield and select default
+          val.length == undefined ?   $('#' + id + ':input').val('N/A') :   $('#' + id + ':input').val(val);
           $('input:radio[name=' + id + ']').filter('[value="' + val + '"]').prop('checked', true); // radio default
           if (val == "Yes") { // checkbox default
             $('#' + id).prop('checked', true);
@@ -175,9 +175,10 @@
 
           var service_id =  $('#select-service').val();
           var form_name = $('#form-name').val();
+          var dup = false;
 
 
-          if( form_name==""){
+          if(form_name==""){
               $scope.error_message = "Please enter a valid name."
               $('#form-error').fadeIn();
               $('#form-error').fadeOut(4000);
@@ -190,73 +191,108 @@
               $('#form-error').fadeIn();
               $('#form-error').fadeOut(4000);
           }else{
-              $http.post('/forms/save-form',{
-                  service_id: service_id,
-                  name: form_name,
-                  fields: $scope.fields
-              }).success(function(response){
-                  $('#form-success').fadeIn();
-                  $('#form-success').fadeOut(4000);
-                  $scope.fields = [];
-                  $('#select-service').val(0);
-                  $('#form-name').val('');
-                  $scope.getForms($('#business_id').val());
-              });
+              for(var i = 0; i < $scope.forms.length; i++){
+                  if(form_name.replace(/[^\w\s]/gi, '').toLowerCase() == $scope.forms[i].form_name.replace(/[^\w\s]/gi, '').toLowerCase()
+                  && service_id == $scope.forms[i].service_id){
+                      dup = true;
+                      break;
+                  }
+              }
+              if(!dup){
+                  $http.post('/forms/save-form',{
+                      service_id: service_id,
+                      name: form_name,
+                      fields: $scope.fields
+                  }).success(function(response){
+                      $('#form-success').fadeIn();
+                      $('#form-success').fadeOut(4000);
+                      $scope.fields = [];
+                      $('#select-service').val(0);
+                      $('#form-name').val('');
+                      $scope.getForms($('#business_id').val());
+                  });
+              }else{
+                  $scope.error_message = "Form name already exists in the same service."
+                  $('#form-error').fadeIn();
+                  $('#form-error').fadeOut(4000);
+              }
           }
       }
 
-      $scope.addField = function(){
+      $scope.addField = function() {
           var field = $("#option-field").val();
           var field_name = $("#for-label").val();
+          var dup = false;
 
-          if (field != 0 && field_name != ""    ){
-              if(field == 'checkbox' || field=='textfield'){
-                  $scope.fields.push({
-                      field_type: field,
-                      field_data: {
-                          label: field_name
+          for (var i = 0; i < $scope.fields.length; i++) {
+              if (field_name.replace(/[^\w\s]/gi, '').toLowerCase() == $scope.fields[i].field_data.label.replace(/[^\w\s]/gi, '').toLowerCase()) {
+                  dup = true;
+                  break;
+              }
+          }
+
+          if (!dup) {
+              if (field_name == "") {
+                  $scope.err_message = "Field name cannot be blank."
+                  $('#field-error').fadeIn();
+                  $('#field-error').fadeOut(4000);
+              }else if(field==0) {
+                  $scope.err_message = "Please select a field type."
+                  $('#field-error').fadeIn();
+                  $('#field-error').fadeOut(4000);
+              }else {
+                  if (field == 'checkbox' || field == 'textfield') {
+                      $scope.fields.push({
+                          field_type: field,
+                          field_data: {
+                              label: field_name
+                          }
+                      });
+                  } else if (field == "radio") {
+
+                      var value_a = $("#value_a").val();
+                      var value_b = $("#value_b").val();
+
+                      $scope.fields.push({
+                          field_type: field,
+                          field_data: {
+                              label: field_name,
+                              value_a: value_a,
+                              value_b: value_b
+                          }
+                      });
+
+                  } else if (field == 'dropdown') {
+
+                      var options = {};
+
+                      for (var i = 0; i <= $scope.dropdowns.length; i++) {
+                          var name = $('#dropdown-' + i).val();
+                          options[name] = name;
                       }
-                  });
-              }else if(field == "radio"){
 
-                  var value_a = $("#value_a").val();
-                  var value_b = $("#value_b").val();
-
-                  $scope.fields.push({
-                      field_type: field,
-                      field_data: {
-                          label: field_name,
-                          value_a: value_a,
-                          value_b: value_b
-                      }
-                  });
-
-              }else if(field == 'dropdown'){
-
-                  var options = {};
-
-                  for(var i=0; i<=$scope.dropdowns.length; i++){
-                      var name = $('#dropdown-'+i).val();
-                      options[name] = name;
+                      $scope.fields.push({
+                          field_type: field,
+                          field_data: {
+                              label: field_name,
+                              options: options
+                          }
+                      });
                   }
 
-                  $scope.fields.push({
-                      field_type: field,
-                      field_data: {
-                          label: field_name,
-                          options: options
-                      }
-                  });
+                  $scope.dropdowns = [];
+                  $('#for-label').val('');
+                  $('#option-field').val(0);
+                  $("#value_a").val('');
+                  $("#value_b").val('');
+                  $("#dropdown-0").val('');
+                  $('#radio-options').hide();
+                  $('#dropdown-options').hide();
               }
-
-              $scope.dropdowns =[];
-              $('#for-label').val('');
-              $('#option-field').val(0);
-              $("#value_a").val('');
-              $("#value_b").val('');
-              $("#dropdown-0").val('');
-              $('#radio-options').hide();
-              $('#dropdown-options').hide();
+          }  else {
+              $scope.err_message = "Field name already exists."
+              $('#field-error').fadeIn();
+              $('#field-error').fadeOut(4000);
           }
       }
 

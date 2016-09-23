@@ -172,7 +172,6 @@
             }
 
             try{
-                //for public broadcast only
                if(angular.module('PublicBroadcast')){
                    if($scope.issue_specific_form.name.$error.required){
                        error = true;
@@ -387,7 +386,7 @@
             $scope.filtered_forms.length = 0;
             if($scope.forms){
                 for (var i = 0; i <  $scope.forms.length; i++){
-                    if(service_id == $scope.forms[i].service_id && $scope.forms[i].status == true ){
+                    if(service_id == $scope.forms[i].service_id && $scope.forms[i].status == true &&  $scope.forms[i].fields.length != 0){
                         $scope.filtered_forms.push($scope.forms[i]);
                     }
                 }
