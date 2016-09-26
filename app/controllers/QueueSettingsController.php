@@ -65,6 +65,7 @@ class QueueSettingsController extends BaseController{
             $queue_settings->remote_limit = $data['remote_limit'];
             $queue_settings->process_queue_layout = $data['process_queue_layout'];
             $queue_settings->check_in_display = $data['check_in_display'];
+            $queue_settings->grace_period = $data['grace_period'];
             $queue_settings->save();
 
             QueueSettings::updateQueueSetting($data['service_id'], 'remote_time', $data['remote_time']);

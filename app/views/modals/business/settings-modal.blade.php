@@ -58,6 +58,14 @@
                                 </div>
                                 <div class="clearfix">
                                     <div class="col-md-6 mb20">
+                                        <p class="title">Grace Period</p>
+                                    </div>
+                                    <div class="col-md-6 mb20">
+                                        <input id="input_grace_period" type="text" ng-model="service_settings.grace_period"> seconds before number is dropped.
+                                    </div>
+                                </div>
+                                <div class="clearfix">
+                                    <div class="col-md-6 mb20">
                                         <p class="title">Notifications</p>
                                         <small><a class="info-button" href="#general-notif"><span class="glyphicon glyphicon-info-sign"></span>  More info...</a></small>
                                         <div class="clearfix mb20">

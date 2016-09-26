@@ -203,6 +203,7 @@ class ProcessQueue extends Eloquent{
 
     public static function segregatedNumbers($numbers, $service_id, $terminal_id){
         $number_limit = QueueSettings::numberLimit($service_id);
+        $grace_period = QueueSettings::gracePeriod($service_id);
         $terminal_specific_calling = QueueSettings::terminalSpecificIssue($service_id);
         $last_number_given = 0;
         $called_numbers = array();
@@ -222,6 +223,12 @@ class ProcessQueue extends Eloquent{
 
             $timebound = ($number->time_assigned) != 0 && ($number->time_assigned <= time()) ? TRUE : FALSE;
             $checked_in = isset($number->time_checked_in) && $number->time_checked_in != 0 ? TRUE : FALSE;
+
+            //checking if number exceeds grace period given by business
+            if(!$removed && $called && (time() >= ($number->time_called + $grace_period))){
+                $number->time_removed = $number->time_called + $grace_period;
+                TerminalTransaction::where('transaction_number', '=', $number->transaction_number)->update(['time_removed' => ($number->time_called + $grace_period)]);
+            }
 
             try{
                 $service_name = Service::name($service_id);
