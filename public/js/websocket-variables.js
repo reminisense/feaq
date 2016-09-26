@@ -26,7 +26,7 @@ $(document).ready(function() {
     sessionStorage.setItem("service_name", $(this).attr('service_name'));
     sessionStorage.setItem("terminal_name", $(this).text());
     sessionStorage.setItem("service_id", "0");
-    sessionStorage.setItem("broadcast_spec", "boxed service-spec");
+    sessionStorage.setItem("broadcast_spec", "boxed terminal-spec");
     window.location.reload(true);
   });
 

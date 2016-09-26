@@ -36,6 +36,7 @@
 <div id="broadcast-type" broadcast_type="{{ $broadcast_type }}"></div>
 <div id="ad-type" ad_type="{{ $ad_type }}"></div>
 <div id="adspace-size" adspace_size="{{ $adspace_size }}"></div>
+<div id="percentage" percentage="{{ $percentage }}"></div>
 @if (strpos($broadcast_type, '0-') === false)
 <div class="qrcode qrwrap" style="display: <?php $show_qr_setting == 'yes' ? print 'block' : print 'none'; ?>;">
     <p class="nomg"><h4 class="orange">Monitor via your PHONE.</h4></p>

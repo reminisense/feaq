@@ -109,9 +109,9 @@
     height: 100%;
     display: flex;
 }
-.parent-num>.numbers p {
-    display: flex!important;
-}
+/*.parent-num>.numbers p {*/
+    /*display: flex!important;*/
+/*}*/
 .parent-num .numbers .wrap-nums {
     display: block;
     align-items: center;
@@ -317,7 +317,7 @@
 .forty .business-spec .child-nums.four-nums .number p:first-child,
 .thirty .business-spec .child-nums.five-nums .number p:first-child,
 .thirty .business-spec .child-nums.four-nums .number p:first-child,
-.thirty .business-spec .child-nums.three-nums .number p:first-child { font-size: 4.2vw; line-height: 5vw;},
+.thirty .business-spec .child-nums.three-nums .number p:first-child { font-size: 4.2vw; line-height: 5vw;}
 .forty .business-spec .child-nums.three-nums .number { padding: 1.2vw 2.4vw;}
 .forty .business-spec .child-nums.three-nums .number p:first-child { font-size: 5.5vw; line-height: 7.5vw;}
 .forty .business-spec .child-nums.three-nums .number .terminal,

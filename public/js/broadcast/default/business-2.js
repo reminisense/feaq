@@ -5,11 +5,15 @@ app.controller('nowServingCtrl', function($scope, $http) {
   establishSocketConnection($scope, $http, business_id);
 
   $scope.updateBroadcastPage = (function(response) {
+    var percentage_val = $('#percentage').attr('percentage');
     if (typeof sessionStorage.service_id != "undefined" && sessionStorage.service_id != "0") {
       response = response["services"][sessionStorage.service_id];
       $('#callednums-title').text(sessionStorage.service_name);
       $('.wrap-nums .service').hide();
       $('#broadcast-spec').attr('class', sessionStorage.broadcast_spec);
+      if (percentage_val == '20' || percentage_val == '50') {
+        $('#parent-num-spec').attr('class', 'parent-num two-nums');
+      }
     }
     else if (typeof sessionStorage.terminal_id != "undefined" && sessionStorage.terminal_id != "0") {
       response = response["terminals"][sessionStorage.terminal_id];
@@ -17,6 +21,14 @@ app.controller('nowServingCtrl', function($scope, $http) {
       $('.wrap-nums .service').hide();
       $('.wrap-nums .terminal').hide();
       $('#broadcast-spec').attr('class', sessionStorage.broadcast_spec);
+      if (percentage_val == '20') {
+        $('#parent-num-spec').attr('class', 'parent-num two-nums');
+      }
+    }
+    else {
+      if (percentage_val == '20' || percentage_val == '40' || percentage_val == '50') {
+        $('#parent-num-spec').attr('class', 'parent-num two-nums');
+      }
     }
     console.log(response);
 

@@ -5,11 +5,11 @@
         <div class="title">
             <h3><span id="callednums-title">{{ $business_name }}</span></h3>
         </div>
-        <div class="parent-num">
+        <div class="parent-num" id="parent-num-spec">
             <div class="numbers t@{{ rank1 }} @{{ color1 }} ">
                 <div class="wrap-nums">
                     <p class="callnum ng-binding">@{{ box1 }}</p>
-                    <p class="service ng-binding">@{{ service1 }}</p>
+                    <p class="service ng-binding" id="blinking-service">@{{ service1 }}</p>
                     <p class="terminal ng-binding">@{{ name1 }}</p>
                     <p class="terminal ng-binding">@{{ user1 }}</p>
                     <!-- below is the same color as parent div -->

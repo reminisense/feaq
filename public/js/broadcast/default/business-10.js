@@ -10,6 +10,10 @@ app.controller('nowServingCtrl', function($scope, $http) {
       $('#callednums-title').text(sessionStorage.service_name);
       $('.wrap-nums .service').hide();
       $('#broadcast-spec').attr('class', sessionStorage.broadcast_spec);
+      var percentage_val = $('#percentage').attr('percentage');
+      if (percentage_val == '20') {
+        $('#parent-num-spec').attr('class', 'parent-num ten-nums');
+      }
     }
     else if (typeof sessionStorage.terminal_id != "undefined" && sessionStorage.terminal_id != "0") {
       response = response["terminals"][sessionStorage.terminal_id];
