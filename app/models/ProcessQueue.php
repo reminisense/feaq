@@ -225,7 +225,7 @@ class ProcessQueue extends Eloquent{
             $checked_in = isset($number->time_checked_in) && $number->time_checked_in != 0 ? TRUE : FALSE;
 
             //checking if number exceeds grace period given by business
-            if(!$removed && $called && (time() >= ($number->time_called + $grace_period))){
+            if((!$removed || !$served) && $called && (time() >= ($number->time_called + $grace_period))){
                 $number->time_removed = $number->time_called + $grace_period;
                 TerminalTransaction::where('transaction_number', '=', $number->transaction_number)->update(['time_removed' => ($number->time_called + $grace_period)]);
             }
