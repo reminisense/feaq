@@ -516,7 +516,7 @@ var eb = {
                     queue_settings = response.queue_settings;
                     $scope.edit_service_name = service_name;
                     $scope.service_settings.service_name = service_name;
-                    $scope.service_settings.service_id = queue_settings.service_id;
+                    $scope.service_settings.service_id = queue_settings.service_id ? queue_settings.service_id : service_id;
                     //number settings
                     $scope.service_settings.number_prefix = queue_settings.number_prefix;
                     $scope.service_settings.number_suffix = queue_settings.number_suffix;

@@ -50,6 +50,10 @@ class QueueSettingsController extends BaseController{
         try{
             $data = Input::all();
             $queue_settings = QueueSettings::where('service_id', '=', $data['service_id'])->first();
+            if(!$queue_settings){
+                $queue_settings = new QueueSettings();
+                $queue_settings->service_id =  $data['service_id'];
+            }
             $queue_settings->number_prefix = $data['number_prefix'];
             $queue_settings->number_suffix = $data['number_suffix'];
             $queue_settings->number_start = $data['number_start'];
