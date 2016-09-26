@@ -144,7 +144,7 @@ class FormRecordController extends BaseController {
                               }
                           }
                       }else{
-                          $field['field_data']['suggested'] = $value;
+                          $field['field_data']['suggested'] = is_object($value)?"":$value;
                           break;
                       }
                   }

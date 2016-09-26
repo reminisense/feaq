@@ -258,7 +258,8 @@ class ProcessQueue extends Eloquent{
                 $label = array_keys(get_object_vars($content->form_data));
                 foreach($form_fields as $count=> $field){
                     if($field['field_data']['label'] != $label[$count]){
-                        $content->form_data->{$field['field_data']['label']} = $content->form_data->{$label[$count]};
+                        $arr = (array) $content->form_data->{$label[$count]};
+                        $content->form_data->{$field['field_data']['label']} = empty($arr) ? "N/A" :$content->form_data->{$label[$count]};
                         unset($content->form_data->{$label[$count]});
                     }
                 }
