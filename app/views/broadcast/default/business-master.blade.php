@@ -13,6 +13,7 @@
     <!-- Bootstrap core CSS -->
     <link href="/css/broadcast/default/bootstrap.min.css" rel="stylesheet">
     <link href="/css/broadcast/default/biz-broadcast.css" rel="stylesheet">
+    <link href="/css/broadcast/default/broadcastv2.css" rel="stylesheet">
     <link href="/css/broadcast/default/responsive-bizbroadcast.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet' type='text/css'>
 
@@ -47,18 +48,6 @@
 </div>
 @endif
 <div ng-controller="nowServingCtrl">
-    <div class="checkin-carousel">
-        <div id="checkin-numbers-carousel" class="carousel slide" data-ride="carousel">
-          <div class="carousel-inner" role="listbox">
-              <div ng-class="{'item active': $index == 0, 'item': $index > 0,}" ng-repeat="queue_nums in queue_now_services">
-                  <div class="carousel-caption">
-                      <h3>Queue Now:</h3>
-                      <p class="numbers" ng-repeat="queue_num in queue_nums">@{{ queue_num }}</p>
-                  </div>
-              </div>
-          </div>
-        </div>
-    </div>
     <div class="ticker-message" style="width: {{ $ticker_width }}%;">
         @foreach($ticker_message as $message)
             @if($message)
