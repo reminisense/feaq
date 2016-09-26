@@ -119,7 +119,7 @@
                                 @if($allow_remote)
                                 @if(Auth::check())
                                 <a href="" id="remote-btn" ng-if="queue_status == 1" class="btn-getnum" ng-click="getFormFields()">
-                                    Get this number <span class=""></span>
+                                    Get this number <span class="glyphicon glyphicon-save"></span>
                                 </a>
                                 <a ng-if="queue_status == 0" href="" class="btn-getnum @{{ user_queue.time_checked_in > 0 ? 'disabled' : '' }}" ng-click="checkIn()">
                                     @{{ user_queue.time_checked_in > 0 ? 'You are checked in' : 'Check in' }}
