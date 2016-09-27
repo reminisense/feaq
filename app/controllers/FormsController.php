@@ -74,7 +74,7 @@ class FormsController extends BaseController{
             );
 
             foreach($fields as $field){
-                $form_data[preg_replace('/[^a-z]/', "", strtolower($field['field_data']['label']))] = '';
+                $form_data[preg_replace('/[^a-z0-9]/', "", strtolower($field['field_data']['label']))] = '';
             }
 
             $to_xml['form_data'] = $form_data;

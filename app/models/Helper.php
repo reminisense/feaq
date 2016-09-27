@@ -466,7 +466,7 @@ class Helper extends Eloquent
     }
 
     public static function trim($text){
-       $trim = preg_replace('/[^a-z]/', "", strtolower($text));
+       $trim = preg_replace('/[^a-z0-9]/', "", strtolower($text));
        return $trim;
     }
 }
