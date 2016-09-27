@@ -108,52 +108,93 @@ class FormRecordController extends BaseController {
       ));
   }
 
-  public function postSuggestedFields(){
-      $user_id = Input::get('user_id');
-      $forms = Input::get('forms');
-      $record_paths = FormRecord::fetchAllXMLPathOfUserID($user_id)->toArray();
-      $user_inputs = [];
+//  public function postSuggestedFields(){
+//      $user_id = Input::get('user_id');
+//      $forms = Input::get('forms');
+//      $record_paths = FormRecord::fetchAllXMLPathOfUserID($user_id)->toArray();
+//      $user_inputs = [];
+//
+//      foreach($record_paths as $path)
+//      {
+//        $form_data = simplexml_load_string(file_get_contents($path['record_path']));
+//        $user_inputs = array_merge($user_inputs, get_object_vars($form_data->form_data));
+//      }
+//
+//      $user_inputs_r = array_reverse($user_inputs);
+//      foreach($forms as &$form) {
+//          foreach ($form['fields'] as &$field) {
+//              foreach ($user_inputs_r as $key => $value) {
+//                  if (Helper::trim($field['field_data']['label']) == Helper::trim($key)) {
+//                      if($field['field_type']=='checkbox' && $value == 1){
+//                          $field['field_data']['suggested'] = $value;
+//                          break;
+//                      }else if($field['field_type']=='radio'){
+//                          if(Helper::trim($field['field_data']['value_a'])==Helper::trim($value)){
+//                              $field['field_data']['suggested'] = $field['field_data']['value_a'];
+//                              break;
+//                          }else if(Helper::trim($field['field_data']['value_b'])==Helper::trim($value)){
+//                              $field['field_data']['suggested'] = $field['field_data']['value_b'];
+//                              break;
+//                          }
+//                      }else if($field['field_type']=='dropdown'){
+//                          foreach($field['field_data']['options'] as $option){
+//                              if(Helper::trim($option) == Helper::trim($value)){
+//                                  $field['field_data']['suggested'] = $option;
+//                                  break 2;
+//                              }
+//                          }
+//                      }else{
+//                          $field['field_data']['suggested'] = is_object($value)?"":$value;
+//                          break;
+//                      }
+//                  }
+//              }
+//          }
+//      }
+//
+//      return json_encode(array(
+//         'forms' => $forms
+//      ));
+//  }
 
-      foreach($record_paths as $path)
-      {
-        $form_data = simplexml_load_string(file_get_contents($path['record_path']));
-        $user_inputs = array_merge($user_inputs, get_object_vars($form_data->form_data));
-      }
+    public function postSuggestedFields(){
+        $user_id = Input::get('user_id');
+        $forms = Input::get('forms');
 
-      $user_inputs_r = array_reverse($user_inputs);
-      foreach($forms as &$form) {
-          foreach ($form['fields'] as &$field) {
-              foreach ($user_inputs_r as $key => $value) {
-                  if (Helper::trim($field['field_data']['label']) == Helper::trim($key)) {
-                      if($field['field_type']=='checkbox' && $value == 1){
-                          $field['field_data']['suggested'] = $value;
-                          break;
-                      }else if($field['field_type']=='radio'){
-                          if(Helper::trim($field['field_data']['value_a'])==Helper::trim($value)){
-                              $field['field_data']['suggested'] = $field['field_data']['value_a'];
-                              break;
-                          }else if(Helper::trim($field['field_data']['value_b'])==Helper::trim($value)){
-                              $field['field_data']['suggested'] = $field['field_data']['value_b'];
-                              break;
-                          }
-                      }else if($field['field_type']=='dropdown'){
-                          foreach($field['field_data']['options'] as $option){
-                              if(Helper::trim($option) == Helper::trim($value)){
-                                  $field['field_data']['suggested'] = $option;
-                                  break 2;
-                              }
-                          }
-                      }else{
-                          $field['field_data']['suggested'] = is_object($value)?"":$value;
-                          break;
-                      }
-                  }
-              }
-          }
-      }
+        foreach($forms as &$form){
+            $records_reverse = array_reverse(FormRecord::fetchRecordsByUserIdFormId($user_id, $form['form_id'])->toArray());
+            if($records_reverse){
+                $last_record = current($records_reverse);
+                $last_record_data = simplexml_load_string(file_get_contents($last_record['record_path']));
+                foreach ($form['fields'] as &$field) {
+                    $label = Helper::trim($field['field_data']['label']);
+                    if(property_exists($last_record_data->form_data,$label )){
+                        $value = (array) $last_record_data->form_data->{$label};
+                        if($field['field_type']=='checkbox' &&  current($value) == 1){
+                            $field['field_data']['suggested'] =  current($value);
+                        }else if($field['field_type']=='radio'){
+                            if($field['field_data']['value_a']==current($value)){
+                                $field['field_data']['suggested'] = $field['field_data']['value_a'];
+                            }else{
+                                $field['field_data']['suggested'] = $field['field_data']['value_b'];
+                            }
+                        }else if($field['field_type']=='dropdown'){
+                            foreach($field['field_data']['options'] as $option){
+                                if($option == current($value)){
+                                    $field['field_data']['suggested'] = $option;
+                                    break ;
+                                }
+                            }
+                        }else{
+                            $field['field_data']['suggested'] = empty($value)?"":current($value);
+                        }
+                    }
+                }
+            }
+        }
 
-      return json_encode(array(
-         'forms' => $forms
-      ));
-  }
+        return json_encode(array(
+            'forms' => $forms
+        ));
+    }
 }
