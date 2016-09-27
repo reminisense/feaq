@@ -203,6 +203,7 @@ class ProcessQueue extends Eloquent{
 
     public static function segregatedNumbers($numbers, $service_id, $terminal_id){
         $number_limit = QueueSettings::numberLimit($service_id);
+        $grace_period = QueueSettings::gracePeriod($service_id);
         $terminal_specific_calling = QueueSettings::terminalSpecificIssue($service_id);
         $last_number_given = 0;
         $called_numbers = array();
@@ -222,6 +223,14 @@ class ProcessQueue extends Eloquent{
 
             $timebound = ($number->time_assigned) != 0 && ($number->time_assigned <= time()) ? TRUE : FALSE;
             $checked_in = isset($number->time_checked_in) && $number->time_checked_in != 0 ? TRUE : FALSE;
+
+            //checking if number exceeds grace period given by business
+            if(!$removed && !$served && $called && (time() >= ($number->time_called + $grace_period))){
+                $number->time_removed = $number->time_called + $grace_period;
+                TerminalTransaction::where('transaction_number', '=', $number->transaction_number)
+                    ->where('time_completed', '=', 0)
+                    ->update(['time_removed' => ($number->time_called + $grace_period)]);
+            }
 
             try{
                 $service_name = Service::name($service_id);
@@ -257,9 +266,12 @@ class ProcessQueue extends Eloquent{
                 $content = simplexml_load_string(file_get_contents($form_data));
                 $label = array_keys(get_object_vars($content->form_data));
                 foreach($form_fields as $count=> $field){
+                    $arr = (array) $content->form_data->{$label[$count]};
                     if($field['field_data']['label'] != $label[$count]){
-                        $content->form_data->{$field['field_data']['label']} = $content->form_data->{$label[$count]};
+                        $content->form_data->{$field['field_data']['label']} = empty($arr) ? "N/A" :$content->form_data->{$label[$count]};
                         unset($content->form_data->{$label[$count]});
+                    }else{
+                        $content->form_data->{$label[$count]} = empty($arr) ? "N/A" :$content->form_data->{$label[$count]};
                     }
                 }
                 $form_records[] = $content;
@@ -678,6 +690,7 @@ class ProcessQueue extends Eloquent{
             $boxes->services = new stdClass();
             foreach($all_service_numbers as $service_id => $service_numbers){
                 $boxes->services->$service_id = new stdClass();
+                $boxes->services->$service_id->get_num = $service_numbers->number_prefix . $service_numbers->next_number . $service_numbers->number_suffix;
                 $boxes->services->$service_id->queue_now = new stdClass();
                 $check_in_display = QueueSettings::checkInDisplay($service_id);
                 //ARA conditions to determine if only called numbers will be displayed on broadcast page
@@ -749,6 +762,7 @@ class ProcessQueue extends Eloquent{
             foreach($all_terminals as $terminal){
                 $boxes->terminals->$terminal['terminal_id'] = new stdClass();
                 $boxes->terminals->$terminal['terminal_id']->box_count = 0;
+                $boxes->terminals->$terminal['terminal_id']->queue_now = $boxes->services->$terminal['service_id']->queue_now;
             }
 
             foreach($numbers as $index => $number){

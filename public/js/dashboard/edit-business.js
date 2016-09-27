@@ -440,6 +440,7 @@ var eb = {
             remote_limit : 0,
             remote_time : null,
             process_queue_layout : 0,
+            grace_period: 300,
 
             broadcast_check_in : false,
             check_in_display : 0,
@@ -502,18 +503,26 @@ var eb = {
             }
         });
 
+        $scope.$watch('service_settings.grace_period', function(newValue, oldValue){
+            if(newValue > 9999){
+                showServiceSettingsMessage(0, 'Grace period cannot exceed 9999 seconds.');
+                $scope.service_settings.grace_period = oldValue;
+            }
+        });
+
         $scope.getServiceQueueSettings = function(service_id, service_name){
             $http.get('/queuesettings/allvalues/' + service_id).success(function(response){
                 if(response.success == 1){
                     queue_settings = response.queue_settings;
                     $scope.edit_service_name = service_name;
                     $scope.service_settings.service_name = service_name;
-                    $scope.service_settings.service_id = queue_settings.service_id;
+                    $scope.service_settings.service_id = queue_settings.service_id ? queue_settings.service_id : service_id;
                     //number settings
                     $scope.service_settings.number_prefix = queue_settings.number_prefix;
                     $scope.service_settings.number_suffix = queue_settings.number_suffix;
                     $scope.service_settings.number_start = queue_settings.number_start;
                     $scope.service_settings.number_limit = queue_settings.number_limit;
+                    $scope.service_settings.grace_period = queue_settings.grace_period;
 
                     //process queue settings
                     $scope.service_settings.terminal_specific_issue = false; //queue_settings.terminal_specific_issue ? true : false; //ARA Removed since this does not make sense anymore

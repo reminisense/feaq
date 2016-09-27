@@ -50,6 +50,10 @@ class QueueSettingsController extends BaseController{
         try{
             $data = Input::all();
             $queue_settings = QueueSettings::where('service_id', '=', $data['service_id'])->first();
+            if(!$queue_settings){
+                $queue_settings = new QueueSettings();
+                $queue_settings->service_id =  $data['service_id'];
+            }
             $queue_settings->number_prefix = $data['number_prefix'];
             $queue_settings->number_suffix = $data['number_suffix'];
             $queue_settings->number_start = $data['number_start'];
@@ -65,6 +69,7 @@ class QueueSettingsController extends BaseController{
             $queue_settings->remote_limit = $data['remote_limit'];
             $queue_settings->process_queue_layout = $data['process_queue_layout'];
             $queue_settings->check_in_display = $data['check_in_display'];
+            $queue_settings->grace_period = $data['grace_period'];
             $queue_settings->save();
 
             QueueSettings::updateQueueSetting($data['service_id'], 'remote_time', $data['remote_time']);

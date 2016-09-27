@@ -143,7 +143,10 @@ class ProcessQueueController extends BaseController{
     public function postStopQueue(){
         $numbers = Input::get('ids');
         $numbers = json_decode($numbers, true);
-        TerminalTransaction::whereIn('transaction_number', $numbers)->update(['time_completed' => time()]);
+        TerminalTransaction::whereIn('transaction_number', $numbers)
+            ->where('time_completed', '=', 0)
+            ->where('time_removed', '=', 0)
+            ->update(['time_completed' => time()]);
         return json_encode(['success' => 1]);
     }
 

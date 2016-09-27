@@ -30,6 +30,7 @@ class QueueSettings extends Eloquent{
         'remote_time' => '12:00 AM',
         'process_queue_layout' => 0,
         'check_in_display' => 0,
+        'grace_period' => 300,
         'frontline_sms_secret' => FRONTLINE_SMS_SECRET,
         'frontline_sms_url' => FRONTLINE_SMS_URL,
     ];
@@ -102,6 +103,10 @@ class QueueSettings extends Eloquent{
 
     public static function checkInDisplay($service_id, $date = null){
         return QueueSettings::queueSetting('check_in_display', 0, $service_id, $date);
+    }
+
+    public static function gracePeriod($service_id, $date = null){
+        return QueueSettings::queueSetting('grace_period', 300, $service_id, $date);
     }
 
     public static function frontlineSecret($service_id, $date = null){
