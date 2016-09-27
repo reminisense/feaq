@@ -690,6 +690,7 @@ class ProcessQueue extends Eloquent{
             $boxes->services = new stdClass();
             foreach($all_service_numbers as $service_id => $service_numbers){
                 $boxes->services->$service_id = new stdClass();
+                $boxes->services->$service_id->get_num = $service_numbers->number_prefix . $service_numbers->next_number . $service_numbers->number_suffix;
                 $boxes->services->$service_id->queue_now = new stdClass();
                 $check_in_display = QueueSettings::checkInDisplay($service_id);
                 //ARA conditions to determine if only called numbers will be displayed on broadcast page
@@ -761,6 +762,7 @@ class ProcessQueue extends Eloquent{
             foreach($all_terminals as $terminal){
                 $boxes->terminals->$terminal['terminal_id'] = new stdClass();
                 $boxes->terminals->$terminal['terminal_id']->box_count = 0;
+                $boxes->terminals->$terminal['terminal_id']->queue_now = $boxes->services->$terminal['service_id']->queue_now;
             }
 
             foreach($numbers as $index => $number){
