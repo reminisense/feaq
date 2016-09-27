@@ -58,5 +58,10 @@ var writeQueueNow = function ($scope, response) {
 };
 
 var getNum = function($scope, response) {
-  $scope.get_num = (response.get_num === "") ? "-": response.get_num;
-}
+  var service_id = $('#services').val();
+  if(service_id){
+    $scope.get_num = response.services[service_id].get_num;
+  }else{
+    $scope.get_num = (response.get_num === "") ? "-": response.get_num;
+  }
+};

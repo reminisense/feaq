@@ -673,7 +673,7 @@ class ProcessQueue extends Eloquent{
                     $box_count++;
                 }
             }
-            $boxes->get_num = $all_numbers->next_number;
+            $boxes->get_num = $all_numbers->number_prefix . $all_numbers->next_number . $all_numbers->number_suffix;
             File::put($file_path, json_encode($boxes, JSON_PRETTY_PRINT));
         }
     }

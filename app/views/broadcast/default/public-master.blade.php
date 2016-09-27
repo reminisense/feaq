@@ -99,7 +99,7 @@
                 <a href="" class="btn btn-fb" role="button" ng-click="login()"><span class="fa fa-facebook"></span> Login with Facebook</a>
             @endif
         </div>
-        <div class="col-md-6 pull-right" ng-if="get_num > 0">
+        <div class="col-md-6 pull-right" ng-if="get_num">
             <div class="boxed boxed-single">
                 <div class="wrap">
                     <div class="row" ng-controller="issuenumberController">
