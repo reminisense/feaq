@@ -5,7 +5,7 @@
     <div class="title">
       <h3><span id="callednums-title">{{ $business_name }}</span></h3>
     </div>
-    <div class="parent-num">
+    <div class="parent-num" id="parent-num-spec">
       <div class="numbers t@{{ rank1 }} @{{ color1 }} ">
         <div class="wrap-nums">
           <p class="callnum ng-binding">@{{ box1 }}</p>

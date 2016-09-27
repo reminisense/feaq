@@ -39,7 +39,8 @@ var writeNumber = function ($scope, response, box_num, service_num, user_num, co
 
 var writeQueueNow = function ($scope, response) {
   $scope.queue_now_services = [];
-  if (typeof sessionStorage.service_id != "undefined" && sessionStorage.service_id != "0") {
+  if ((typeof sessionStorage.service_id != "undefined" && sessionStorage.service_id != "0")
+    || (typeof sessionStorage.terminal_id != "undefined" && sessionStorage.terminal_id != "0")) {
     $scope.queue_now_nums = [];
     for (var queue_now_num in response["queue_now"]) {
       $scope.queue_now_nums.push(response["queue_now"][queue_now_num].number);

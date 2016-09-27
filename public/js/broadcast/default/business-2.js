@@ -10,6 +10,8 @@ app.controller('nowServingCtrl', function($scope, $http) {
       response = response["services"][sessionStorage.service_id];
       $('#callednums-title').text(sessionStorage.service_name);
       $('.wrap-nums .service').hide();
+      $('#business-queue-now').hide();
+      $('#service-queue-now').show();
       $('#broadcast-spec').attr('class', sessionStorage.broadcast_spec);
       if (percentage_val == '20' || percentage_val == '50') {
         $('#parent-num-spec').attr('class', 'parent-num two-nums');
@@ -20,6 +22,8 @@ app.controller('nowServingCtrl', function($scope, $http) {
       $('#callednums-title').text(sessionStorage.service_name + " - " + sessionStorage.terminal_name);
       $('.wrap-nums .service').hide();
       $('.wrap-nums .terminal').hide();
+      $('#business-queue-now').hide();
+      $('#service-queue-now').show();
       $('#broadcast-spec').attr('class', sessionStorage.broadcast_spec);
       if (percentage_val == '20') {
         $('#parent-num-spec').attr('class', 'parent-num two-nums');
