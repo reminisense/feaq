@@ -71,7 +71,7 @@
                             </div>
                         </div>
                         <div class="col-md-12" id="custom-fields">
-                            <div class="clearfix entry mb20" ng-repeat="field in fields" id="@{{field.field_data.label}}">
+                            <div class="clearfix entry mb20" ng-repeat="field in fields" id="@{{field.field_id}}">
                                 <div class="col-md-5 col-sm-5 col-xs-12">
                                     @{{ field.field_data.label }}
                                 </div>
@@ -87,7 +87,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-2 col-sm-2 col-xs-2" id="field-actions">
-                                    <button class="btn btn-blue" ng-click="deleteField(field.field_data.label)"><span class="glyphicon glyphicon-trash"></span></button>
+                                    <button class="btn btn-blue" ng-click="deleteField(field.field_id)"><span class="glyphicon glyphicon-trash"></span></button>
                                 </div>
                             </div>
                         </div>

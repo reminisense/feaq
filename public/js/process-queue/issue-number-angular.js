@@ -363,7 +363,8 @@
             $('#remote-btn')
                 .addClass('disabled')
                 .children('span')
-                .addClass('glyphicon glyphicon-refresh glyphicon-refresh-animate');
+                .removeClass('glyphicon-save')
+                .addClass('glyphicon-refresh glyphicon-refresh-animate');
             $http.get('/forms/display-forms/' + biz_id).success(getSuggestedFields);
         };
 
@@ -376,7 +377,8 @@
                     $('#remote-btn')
                         .removeClass('disabled')
                         .children('span')
-                        .removeClass('glyphicon glyphicon-refresh glyphicon-refresh-animate');
+                        .addClass('glyphicon-save')
+                        .removeClass('glyphicon-refresh glyphicon-refresh-animate');
                     $('#remote-queue-modal').modal('show');
                 });
             }

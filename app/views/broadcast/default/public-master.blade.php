@@ -21,8 +21,10 @@
     <link href="/css/broadcast/default/responsive.css" rel="stylesheet" type="text/css" media="all">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet' type='text/css'>
+    <link href="/css/jquery-ui.min.css" rel="stylesheet" type="text/css" media="all">
 
     <script src="/js/jquery-1.11.2.min.js"></script>
+    <script src="/js/jquery-ui.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
     <script type="text/javascript" src="/js/jquery.marquee.min.js"></script>
     <script src="/js/ngFacebook.js"></script>
@@ -119,7 +121,7 @@
                                 @if($allow_remote)
                                 @if(Auth::check())
                                 <a href="" id="remote-btn" ng-if="queue_status == 1" class="btn-getnum" ng-click="getFormFields()">
-                                    Get this number <span class=""></span>
+                                    Get this number <span class="glyphicon glyphicon-save"></span>
                                 </a>
                                 <a ng-if="queue_status == 0" href="" class="btn-getnum @{{ user_queue.time_checked_in > 0 ? 'disabled' : '' }}" ng-click="checkIn()">
                                     @{{ user_queue.time_checked_in > 0 ? 'You are checked in' : 'Check in' }}
