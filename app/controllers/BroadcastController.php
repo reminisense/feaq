@@ -91,6 +91,7 @@ class BroadcastController extends BaseController{
         ->with('service_filters', $service_filters)
         ->with('terminal_filters', $terminal_filters)
         ->with('show_qr_setting', $data->show_qr_setting)
+        ->with('percentage', $regions['percentage'])
         ->with('keywords', Business::getKeywordsByBusinessId($business_id));
     }
 
