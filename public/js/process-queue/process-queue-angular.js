@@ -260,7 +260,9 @@
         };
 
         checkTextfieldErrors = function(priority_number){
-            return angular.element(document.querySelector('#moreq')).scope().checkIssueSpecificErrors(priority_number, $scope.number_limit, false);
+            var issueController = angular.element(document.querySelector('#moreq')).scope();
+            issueController.priority_number = $scope.next_number;
+            return issueController.checkIssueSpecificErrors(priority_number, $scope.number_limit, false);
         };
 
         //non scope functions
