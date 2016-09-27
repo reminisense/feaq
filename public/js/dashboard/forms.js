@@ -223,6 +223,8 @@
           var field = $("#option-field").val();
           var field_name = $("#for-label").val();
           var dup = false;
+          var checker = false;
+          var index =  $scope.fields.length;
 
           for (var i = 0; i < $scope.fields.length; i++) {
               if (field_name.replace(/[^\w\s]/gi, '').toLowerCase() == $scope.fields[i].field_data.label.replace(/[^\w\s]/gi, '').toLowerCase()) {
@@ -243,6 +245,7 @@
               }else {
                   if (field == 'checkbox' || field == 'textfield') {
                       $scope.fields.push({
+                          field_id: index,
                           field_type: field,
                           field_data: {
                               label: field_name
@@ -253,41 +256,63 @@
                       var value_a = $("#value_a").val();
                       var value_b = $("#value_b").val();
 
-                      $scope.fields.push({
-                          field_type: field,
-                          field_data: {
-                              label: field_name,
-                              value_a: value_a,
-                              value_b: value_b
+                      if (value_a == "" || value_b == "") {
+                          checker = true;
+                          $scope.err_message = "Selections can not be empty."
+                          $('#field-error').fadeIn();
+                          $('#field-error').fadeOut(4000);
+                      }else{
+                          $scope.fields.push({
+                              field_id: index,
+                              field_type: field,
+                              field_data: {
+                                  label: field_name,
+                                  value_a: value_a,
+                                  value_b: value_b
+                              }
+                          });
                           }
-                      });
-
                   } else if (field == 'dropdown') {
 
                       var options = {};
 
                       for (var i = 0; i <= $scope.dropdowns.length; i++) {
                           var name = $('#dropdown-' + i).val();
-                          options[name] = name;
+                          if(name == ""){
+                              checker = true;
+                              break;
+                          }else{
+                              options[name] = name;
+                          }
                       }
 
-                      $scope.fields.push({
-                          field_type: field,
-                          field_data: {
-                              label: field_name,
-                              options: options
-                          }
-                      });
+                      if(!checker){
+                          $scope.fields.push({
+                              field_id: index,
+                              field_type: field,
+                              field_data: {
+                                  label: field_name,
+                                  options: options
+                              }
+                          });
+                      }else{
+                          $scope.err_message = "Selections can not be empty."
+                          $('#field-error').fadeIn();
+                          $('#field-error').fadeOut(4000);
+                      }
+
                   }
 
-                  $scope.dropdowns = [];
-                  $('#for-label').val('');
-                  $('#option-field').val(0);
-                  $("#value_a").val('');
-                  $("#value_b").val('');
-                  $("#dropdown-0").val('');
-                  $('#radio-options').hide();
-                  $('#dropdown-options').hide();
+                  if(!checker) {
+                      $scope.dropdowns = [];
+                      $('#for-label').val('');
+                      $('#option-field').val(0);
+                      $("#value_a").val('');
+                      $("#value_b").val('');
+                      $("#dropdown-0").val('');
+                      $('#radio-options').hide();
+                      $('#dropdown-options').hide();
+                  }
               }
           }  else {
               $scope.err_message = "Field name already exists."
@@ -296,10 +321,10 @@
           }
       }
 
-      $scope.deleteField = function(label){
-          $( "#"+label ).remove();
+      $scope.deleteField = function(id){
+          $( "#"+id ).remove();
           for(var i=0; i<$scope.fields.length; i++){
-              if(label == $scope.fields[i].field_data.label){
+              if(id == $scope.fields[i].field_id){
                   $scope.fields.splice(i, 1)
                   break;
               }
