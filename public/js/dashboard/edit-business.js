@@ -671,28 +671,20 @@ var eb = {
             }
         };
 
-        setBusinessFields = function(business){
+        setBusinessFields = function(business) {
             $scope.business_id = business.business_id;
             $scope.business_name = business.business_name;
             $scope.business_address = business.business_address;
             $scope.facebook_url = business.facebook_url;
             $scope.industry = business.industry;
-            $scope.time_open = business.time_open.length == 6 ? [business.time_open.slice(0, 2),0, business.time_open.slice(2)].join(''):business.time_open;
-            $scope.time_closed = business.time_closed.length == 6 ? [business.time_closed.slice(0, 2),0, business.time_closed.slice(2)].join(''):business.time_closed;
+            $scope.time_open = setTimeFormat(business.time_open);
+            $scope.time_closed = setTimeFormat(business.time_closed);
+
             $scope.timezone = business.timezone; //ARA Added Timezone
 
             $scope.terminals = business.terminals;
             $scope.services = business.services;
-            $scope.analytics = business.analytics;
-            $scope.terminal_delete_error = business.error ? business.error : null;
-            $scope.allowed_businesses = business.allowed_businesses;
-            $scope.custom_url = business.custom_url != '' ?  business.custom_url : business.raw_code;
-
-            //queue settings -> ARA Moved to service-specific settings
-            //$scope.queue_limit = business.queue_limit; /* RDH Added queue_limit to Edit Business Page */
-            //$scope.terminal_specific_issue = business.terminal_specific_issue ? true : false;
-            //$scope.sms_current_number = business.sms_current_number ? true : false;
-            //$scope.sms_1_ahead  = business.sms_1_ahead ? true : false;
+            $scope.analytics = business.analytics;false;
             //$scope.sms_5_ahead  = business.sms_5_ahead ? true : false;
             //$scope.sms_10_ahead  = business.sms_10_ahead ? true : false;
             //$scope.sms_blank_ahead = business.sms_blank_ahead ? true : false;
@@ -711,6 +703,15 @@ var eb = {
             $scope.sms_gateway = business.sms_gateway;
             if(business.sms_gateway == 'frontline_sms'){
                 $scope.frontline_api_key = business.frontline_api_key;
+                $scope.terminal_delete_error = business.error ? business.error : null;
+                $scope.allowed_businesses = business.allowed_businesses;
+                $scope.custom_url = business.custom_url != '' ?  business.custom_url : business.raw_code;
+
+                //queue settings -> ARA Moved to service-specific settings
+                //$scope.queue_limit = business.queue_limit; /* RDH Added queue_limit to Edit Business Page */
+                //$scope.terminal_specific_issue = business.terminal_specific_issue ? true : false;
+                //$scope.sms_current_number = business.sms_current_number ? true : false;
+                //$scope.sms_1_ahead  = business.sms_1_ahead ? true :
                 $scope.frontline_url = business.frontline_sms_url;
             }else if(business.sms_gateway == 'twilio'){
                 $scope.twilio_account_sid = business.twilio_account_sid;
@@ -733,6 +734,24 @@ var eb = {
                 }
             }
         };
+
+        setTimeFormat = function(time){
+            var formatted_time;
+
+            if (time.length == 6) {
+                formatted_time = [time.slice(0, 2), 0, time.slice(2)].join('');
+            } else if(time.length == 7 && time.charAt(4) == " "){
+                if(time.charAt(2) != ":"){
+                    formatted_time =time;
+                }else{
+                    formatted_time = [time.slice(0, 3), 0, time.slice(3)].join('');
+                }
+            } else {
+                formatted_time = time;
+            }
+
+            return formatted_time;
+        }
 
         $scope.unassignFromTerminal = function(user_id, terminal_id){
             var confirmDel = confirm("Are you sure you want to remove this terminal user?");
