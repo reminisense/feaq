@@ -601,8 +601,8 @@ class ProcessQueue extends Eloquent{
         }
 
         ProcessQueue::saveAllNumbersToJson($business_id, $all_numbers);
-        ProcessQueue::saveTerminalNumbersToJSON($business_id, $all_numbers);
         ProcessQueue::saveServiceNumbersToJSON($business_id, $all_service_numbers);
+        ProcessQueue::saveTerminalNumbersToJSON($business_id, $all_numbers);
 
         //return $all_numbers;
     }
