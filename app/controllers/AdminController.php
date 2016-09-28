@@ -153,7 +153,8 @@ class AdminController extends BaseController{
                   "ticker_message5" : "",
                   "adspace_size" : "517px",
                   "numspace_size": "517px",
-                  "num_boxes" : "6"
+                  "num_boxes" : "6",
+                  "show_qr_setting": "yes"
                 }
             ';
 
