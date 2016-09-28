@@ -222,6 +222,7 @@
       $scope.addField = function() {
           var field = $("#option-field").val();
           var field_name = $("#for-label").val();
+          var clean_name = field_name.replace(/[^a-zA-Z ]/g, "");
           var dup = false;
           var checker = false;
           var index =  $scope.fields.length;
@@ -236,6 +237,10 @@
           if (!dup) {
               if (field_name == "") {
                   $scope.err_message = "Field name cannot be blank."
+                  $('#field-error').fadeIn();
+                  $('#field-error').fadeOut(4000);
+              }else if(clean_name == ""){
+                  $scope.err_message = "Field must have letters."
                   $('#field-error').fadeIn();
                   $('#field-error').fadeOut(4000);
               }else if(field==0) {

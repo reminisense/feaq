@@ -677,8 +677,8 @@ var eb = {
             $scope.business_address = business.business_address;
             $scope.facebook_url = business.facebook_url;
             $scope.industry = business.industry;
-            $scope.time_open = business.time_open;
-            $scope.time_closed = business.time_closed;
+            $scope.time_open = business.time_open.length == 6 ? [business.time_open.slice(0, 2),0, business.time_open.slice(2)].join(''):business.time_open;
+            $scope.time_closed = business.time_closed.length == 6 ? [business.time_closed.slice(0, 2),0, business.time_closed.slice(2)].join(''):business.time_closed;
             $scope.timezone = business.timezone; //ARA Added Timezone
 
             $scope.terminals = business.terminals;
@@ -787,6 +787,15 @@ var eb = {
                     }else{
                         setBusinessFields(response.business);
                         $scope.search_user = '';
+                        $scope.assign_suc = 'User has been added.';
+                        setTimeout(function(){
+                            $('#add-user-suc').fadeOut('slow', function(){
+                                $scope.$apply(function(){
+                                    $scope.assign_suc = '';
+                                });
+                                $('#add-user-suc').show();
+                            });
+                        }, 3000);
                     }
                 });
             }
