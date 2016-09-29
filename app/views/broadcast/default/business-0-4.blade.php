@@ -1,6 +1,8 @@
 <div class="numbers-area">
         <div class="boxed four">
-          <h3 class="abs">{{ $business_name }}</h3>
+            <div class="biz-title">
+                <h3 class="abs">{{ $business_name }}</h3>
+            </div>
             <div class="row-2">
             <div class="col-2">
                 <div class="numbers t@{{ rank1 }} @{{ color1 }} blink-num">

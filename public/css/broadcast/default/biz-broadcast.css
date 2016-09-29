@@ -638,5 +638,19 @@ img.qrcode {
     margin: 3px 2px;
 }
 
+#biz-broadcast-no-ads .biz-title {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 57px;
+    justify-content: center;
+}
+#biz-broadcast-no-ads .biz-title h3 {
+    text-align: center;
+    margin: auto;
+    font-weight: 800;
+}
+
+
 
 
