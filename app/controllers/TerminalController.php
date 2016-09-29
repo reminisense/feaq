@@ -52,7 +52,7 @@ class TerminalController extends BaseController{
     public function postCreate(){
         if (Helper::isBusinessOwner(Input::get('business_id'), Helper::userId()) || Admin::isAdmin() ) { // PAG added permission checking
             $terminal_id = count(Terminal::getTerminalsByBusinessId(Input::get('business_id')));
-            if ($this->validateTerminalName(Input::get('business_id'), Input::get('name'), $terminal_id)) {
+            if ($this->validateTerminalName(Input::get('service_id'), Input::get('name'), $terminal_id)) {
                 Terminal::createTerminal(Input::get('service_id'), Input::get('name'));
                 $business = Business::getBusinessDetails(Input::get('business_id'));
                 return json_encode(['success' => 1, 'business' => $business]);
@@ -69,13 +69,14 @@ class TerminalController extends BaseController{
     public function postEdit() {
         $post = json_decode(file_get_contents("php://input"));
         $business_id = Business::getBusinessIdByTerminalId($post->terminal_id);
+        $service_id = Terminal::serviceId($post->terminal_id);
         if (Helper::isBusinessOwner($business_id, Helper::userId()) || Admin::isAdmin() ) { // PAG added permission checking
 
             if(strlen($post->name) > 25){
                 return json_encode(array('status' => 0, 'error' => 'Terminal name is too long.'));
             }
 
-            if ($this->validateTerminalName($business_id, $post->name, $post->terminal_id)) {
+            if ($this->validateTerminalName($service_id, $post->name, $post->terminal_id)) {
                 Terminal::setName($post->terminal_id, $post->name);
                 $business = Business::getBusinessDetails($business_id);
                 return json_encode(array('status' => 1, 'business' => $business));
@@ -89,8 +90,8 @@ class TerminalController extends BaseController{
         }
     }
 
-    public function validateTerminalName($business_id, $input_terminal_name, $terminal_id){
-        $terminals = Terminal::getTerminalsByBusinessId($business_id);
+    public function validateTerminalName($service_id, $input_terminal_name, $terminal_id){
+        $terminals = Terminal::getTerminalsByServiceId($service_id);
 
         foreach($terminals as $terminal){
 
