@@ -279,7 +279,7 @@
                         });
                         $scope.getServiceEstimates($scope.def_service_id);
                     }
-                }, 5000);
+                }, 3000);
             }
         };
 
@@ -336,17 +336,10 @@
                 $http.get('/processqueue/next-number/' + service_id).success(function(response){
                     $('.nomg').html(response.next_number);
                     $('#insertq input[name=number]').val(response.next_number);
-                    setTimeout(function(){
-                        $scope.selectService();
-                    }, 5000);
                     if(service_id != $scope.def_service_id){
                         $scope.def_service_id = service_id;
                     }
                 });
-            }else{
-                setTimeout(function(){
-                    $scope.selectService();
-                }, 5000);
             }
         };
 
@@ -401,7 +394,7 @@
                     $scope.populateRemoteQueueModal(response);
                     setTimeout(function(){
                         $scope.getRemoteuser();
-                    }, 5000);
+                    }, 3000);
                 });
             }
         };
