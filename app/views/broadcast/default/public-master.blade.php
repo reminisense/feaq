@@ -149,14 +149,17 @@
             </div>
             @include('modals.broadcast.remote-queue-modal')
         </div>
-
-        <div class="col-md-12 ticker-message mt20">
-            @foreach($ticker_message as $message)
-                @if($message)
-                    <div class="marquee-text hidden">{{ $message }}</div>
-                @endif
-            @endforeach
-            <div class="real-marquee-text"></div>
+        <div class="clearfix">
+            <div class="col-md-12">
+                <div class="col-md-12 ticker-message mt20">
+                    @foreach($ticker_message as $message)
+                        @if($message)
+                            <div class="marquee-text hidden">{{ $message }}</div>
+                        @endif
+                    @endforeach
+                    <div class="real-marquee-text"></div>
+                </div>
+            </div>
         </div>
     </div>
 

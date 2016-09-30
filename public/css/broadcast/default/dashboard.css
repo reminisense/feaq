@@ -344,7 +344,7 @@ body {
 }
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   font-weight: normal;
-  font-family: 'ralewaybold';
+  font-family: 'ArialMTStd-ExtraBold';
 }
 h2 {
   color: #00ba8b;
