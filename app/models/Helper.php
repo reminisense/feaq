@@ -343,7 +343,20 @@ class Helper extends Eloquent
     public static function changeBusinessTimeTimezone($date, $business_timezone, $browser_timezone)
     {
         if (is_numeric($browser_timezone)) $browser_timezone = Helper::timezoneOffsetToName($browser_timezone);
-        $datetime = new DateTime($date, new DateTimeZone($business_timezone));
+        $new_date = "";
+        if(strlen($date) == 6){
+            $new_date = substr_replace($date, "0", 2, 0);
+        }else if(strlen($date) == 7 && $date[4] == " "){
+            if($date[2] != ":"){
+                $new_date = $date;
+            }else{
+                $new_date = substr_replace($date, "0", 3, 0);
+            }
+        }else{
+            $new_date = $date;
+       }
+
+        $datetime = new DateTime($new_date, new DateTimeZone($business_timezone));
         $datetime->setTimezone(new DateTimeZone($browser_timezone));
         return $datetime->format('g:i A');
     }

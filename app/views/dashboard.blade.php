@@ -70,7 +70,7 @@
                     <point-of-interest class="my-business" position='bottom' title="My Business" description="Click here to create your own business or to edit the details of your existing business."></point-of-interest>
                 </li>
                 @endif
-                <li><a href="http://guides.featherq.com" target="_blank"><span class="glyphicon glyphicon-book"></span>Setup Guide</a></li>
+                {{--<li><a href="http://guides.featherq.com" target="_blank"><span class="glyphicon glyphicon-book"></span>Setup Guide</a></li>--}}
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> My Account <b class="caret"></b></a>
                     <ul class="dropdown-menu">
