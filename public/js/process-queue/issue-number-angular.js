@@ -409,7 +409,7 @@
                         }
                     }
                 }
-            }, 1000);
+            }, 500);
         };
 
         $scope.getRemoteuser = function(){
