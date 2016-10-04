@@ -73,6 +73,10 @@
 <script type="text/javascript" src="/js/broadcast/custom.js"></script>
 <script type="text/javascript" src="/js/broadcast/default/business-{{ $box_num }}.js"></script>
 <script type="text/javascript" src="/js/user/Usertracker.js"></script> {{-- ARA For user tracking --}}
+<script type="text/javascript" src="/js/fittext.js"></script> {{-- RBM To fit called number on broadcast screen --}}
+<script type="text/javascript">
+    $("#biz-broadcast-no-ads .boxed .callnum").fitText(1.2);
+</script>
 </body>
 
 </html>

@@ -52,7 +52,7 @@
     font-size: 2vw;
 }
 .parent-num .callnum {
-    font-size: 6vw;
+    font-size: 4vw;
     font-weight: 800;
 }
 .child-nums.ten-nums {
@@ -81,7 +81,7 @@
     font-weight: 900;
 }
 .wrap-nums .number {
-    margin: 3px 0;
+    margin: 1px 0;
 }
 .parent-num .numbers .blink-num {
     position: absolute;
@@ -127,6 +127,7 @@
     align-items: center;
     justify-content: center;
 }
+
 .parent-num .numbers .service {
     width: 100%;
 }
@@ -249,12 +250,12 @@
 /*-----------------------*/
 /*business specific*/
 .business-spec { width: 100%; }
-    .business-spec .callnum {
+    /*.business-spec .callnum {
         font-size: 11vw;
         height: 40vh;
         height: 40%;
         line-height: 11vw;
-    }
+    }*/
 .business-spec .child-nums .number {display: inline-block;}
 .fifty .business-spec .child-nums .number {
     line-height: 3vw;
@@ -263,10 +264,10 @@
     display: inline-block;
 }
 .fifty .business-spec .child-nums .number .service {
-    font-size: 1.3vw;
+    font-size: 1.1vw;
     display: block;
-    font-weight: 700;
-    line-height: 1.8vw;
+    font-weight: 600;
+    line-height: 1.5vw;
 }
 .fifty .business-spec .child-nums .number .terminal {
     font-size: 1.1vw;
@@ -275,8 +276,8 @@
 }
 .fifty .business-spec .child-nums.nine-nums .number  { padding: 0.9vw 1.6vw; }
 .fifty .business-spec .child-nums.eight-nums .number { padding: 0.9vw 2vw; }
-.fifty .business-spec .child-nums.seven-nums .number { padding: 0.9vw 3vw;}
-.fifty .business-spec .child-nums.seven-nums .number p:first-child { font-size: 3vw; }
+.fifty .business-spec .child-nums.seven-nums .number { padding: 0.9vw 2vw;}
+.fifty .business-spec .child-nums.seven-nums .number p:first-child { font-size: 1.5vw; line-height: 1.5vw; }
 .fifty .business-spec .child-nums.six-nums .number { padding: 0.9vw 2.5vw;}
 .fifty .business-spec .child-nums.six-nums .number p:first-child { font-size: 3.4vw; }
 .fifty .business-spec .child-nums.six-nums .number .terminal { font-size: 1.5vw; }
@@ -304,7 +305,7 @@
     color: #fff;
     padding: 0.6vw 0.6vw;
 }
-.business-spec .parent-num .numbers .service {font-weight: 800; font-size: 2.4vw;}
+.business-spec .parent-num .numbers .service {font-weight: 700; font-size: 2vw;}
 .forty .business-spec .child-nums .number p:first-child,
 .thirty .business-spec .child-nums .number p:first-child { font-size: 2.6vw; line-height: 2.5vw;}
 .forty .business-spec .child-nums .number .service,

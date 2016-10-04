@@ -427,7 +427,12 @@ h1,h2,h3,h4 {margin: 0;}
 #biz-broadcast-no-ads .boxed.five .service {font-size: 1.8vw!important;}
 
 #biz-broadcast-no-ads .boxed.six .service {font-size: 1.8vw!important;}
-#biz-broadcast-no-ads .boxed.six .callnum {font-size: 6.3vw!important;}
+#biz-broadcast-no-ads .boxed.six .callnum {
+    text-align: center;
+    color:#fff;
+    display: block;
+    margin: 5% auto 5%;
+}
 
 #biz-broadcast-no-ads .boxed.seven .service {font-size: 1.8vw!important;}
 #biz-broadcast-no-ads .boxed.seven .callnum {font-size: 6.5vw!important;}
