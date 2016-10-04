@@ -6,7 +6,8 @@
 <div class="clearfix">
     <form ng-submit="emailSearch(search_user, selected_terminal)">
         <div class="col-md-12">
-            <div class="alert alert-danger" id="add-user-error" ng-show="assign_error">@{{ assign_error }}</div>
+            <div class="alert alert-danger" id="add-user-error" ng-show="assign_error" style="text-align: center">@{{ assign_error }}</div>
+            <div class="alert alert-success" id="add-user-suc" ng-show="assign_suc" style="text-align: center">@{{ assign_suc }}</div>
         </div>
         <div class="col-md-2">
             Assign to terminal :
