@@ -386,6 +386,30 @@
                     }
                 }
             }
+            setTimeout(function(){
+                if($scope.forms){
+                    for (var i = 0; i <  $scope.forms.length; i++){
+                        if(service_id == $scope.forms[i].service_id && $scope.forms[i].status == true &&  $scope.forms[i].fields.length != 0){
+                            for(var z = 0; z < $scope.forms[i].fields.length; z++){
+                                if($scope.forms[i].fields[z].field_type == 'radio'){
+                                    if($scope.forms[i].fields[z].field_data.hasOwnProperty('suggested')){
+                                        if($scope.forms[i].fields[z].field_data.value_a == $scope.forms[i].fields[z].field_data.suggested){
+                                            $('#'+$scope.forms[i].form_id+'_'+z).append('<input type="radio" name="'+$scope.forms[i].form_id+'_'+z+' value="'+$scope.forms[i].fields[z].field_data.value_a+'" checked="checked">'+$scope.forms[i].fields[z].field_data.value_a+'<br>'+
+                                            '<input type="radio" name="'+$scope.forms[i].form_id+'_'+z+' value="'+$scope.forms[i].fields[z].field_data.value_b+'">'+$scope.forms[i].fields[z].field_data.value_b+'<br>');
+                                        }else{
+                                            $('#'+$scope.forms[i].form_id+'_'+z).append('<input type="radio" name="'+$scope.forms[i].form_id+'_'+z+' value="'+$scope.forms[i].fields[z].field_data.value_a+'">'+$scope.forms[i].fields[z].field_data.value_a+'<br>'+
+                                            '<input type="radio" name="'+$scope.forms[i].form_id+'_'+z+' value="'+$scope.forms[i].fields[z].field_data.value_b+'" checked="checked">'+$scope.forms[i].fields[z].field_data.value_b+'<br>');
+                                        }
+                                    }else{
+                                        $('#'+$scope.forms[i].form_id+'_'+z).append('<input type="radio" name="'+$scope.forms[i].form_id+'_'+z+' value="'+$scope.forms[i].fields[z].field_data.value_a+'" checked="checked">'+$scope.forms[i].fields[z].field_data.value_a+'<br>'+
+                                        '<input type="radio" name="'+$scope.forms[i].form_id+'_'+z+' value="'+$scope.forms[i].fields[z].field_data.value_b+'">'+$scope.forms[i].fields[z].field_data.value_b+'<br>');
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }, 1000);
         };
 
         $scope.getRemoteuser = function(){
