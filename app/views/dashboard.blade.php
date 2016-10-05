@@ -67,7 +67,6 @@
                 {{--<li id="message-inbox"><a href="{{ url('message/display') }}"><span class="glyphicon glyphicon-envelope"></span> My Messages</a></li>--}}
                 <li id="my-business">
                     <a href="{{ url('/business/my-business') }}" ><span class="glyphicon glyphicon-home"></span> My Business</a>
-                    <point-of-interest class="my-business" position='bottom' title="My Business" description="Click here to create your own business or to edit the details of your existing business."></point-of-interest>
                 </li>
                 @endif
                 {{--<li><a href="http://guides.featherq.com" target="_blank"><span class="glyphicon glyphicon-book"></span>Setup Guide</a></li>--}}

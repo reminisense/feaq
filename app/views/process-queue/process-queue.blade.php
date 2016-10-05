@@ -68,7 +68,6 @@
                 <div class="col-md-3 col-sm-4 ">
                     {{--<a id="view-broadcast" target="_blank" href="{{ url('/broadcast/business/' . $business_id) }}">View Broadcast <br>Screen</a>--}}
                     <a id="view-broadcast" target="_blank" href="{{ url('/broadcast/business/' . $business_id) }}"><span class="glyphicon glyphicon-th-large"></span> View Broadcast Screen</a>
-                    <point-of-interest position="left" bottom="35" right="100" title="Broadcast Page" description="Click on the <strong>View Broadcast Page</strong> link to view the numbers being called."></point-of-interest>
                     <a ng-show="allowed_businesses.length > 0" id="forward-history" target="_blank" href="{{ url('/processqueue/forward-history/' . $service_id) }}"><span class="glyphicon glyphicon-share-alt"></span> View Forwarding History</a>
                 </div>
             </div>
@@ -183,24 +182,18 @@
                                         <div class="alert alert-danger" ng-show="issue_call_error != ''">@{{ issue_call_error }}</div>
                                     </div> <!-- end process queue issue number textfield -->
                                 </div>
-                                <point-of-interest position="left" bottom="85" right="100"  title="Issued Numbers" description="Look for the numbers you want to call in this drop-down list or type the number you want call when the list is empty."></point-of-interest>
                                 <div class="col-md-1 col-sm-1 col-xs-3">
                                     <a ng-if="date == today" id="btn-pmore" class="btn btn-md btn-primary" data-toggle="modal" data-target="#moreq" title="Issue a number.">+</a>
                                 </div>
-                                <point-of-interest position="right" bottom="85" right="25"  title="Issue Numbers" description="Click on the blue '+' (plus) button to issue more numbers."></point-of-interest>
                                 <div class="col-md-3 col-sm-3 col-xs-12 text-right">
                                     {{--<button class="btn btn-orange btn-md" id="btn-check" ng-click="checkIn()" ng-disabled="isCalling" ng-if="date == today"><span class="glyphicon glyphicon-ok white"></span></button>--}}
                                     <button class="btn btn-orange btn-md" id="btn-call" ng-click="issueOrCall()" ng-disabled="isCalling" ng-if="date == today">CALL NUMBER</button>
                                     <button class="btn btn-orange btn-md" id="btn-call" ng-click="moveToday()" ng-disabled="isCalling" ng-if="date != today">MOVE TO CURRENT</button>
                                 </div>
-                                <point-of-interest position="right" bottom="85" right="-1"  title="Call Numbers" description="Click on the <strong>CALL NUMBER</strong> button to call the number selected on the drop-down list."></point-of-interest>
                             </form>
                         </div>
                     </div>
                     <div ng-show="called_numbers.length != 0">
-                        <point-of-interest position="left" bottom="68" right="96" title="Called Number" description="Click on the number to view the information about the user assigned to this number."></point-of-interest>
-                        <point-of-interest position="left" bottom="68" right="16.5" title="Drop Number" description="The <strong>Drop</strong> button (trashcan icon) indicates that the person assigned to the number did not show thus removes the number from the list."></point-of-interest>
-                        <point-of-interest position="left" bottom="68" right="1.5" title="Next Number" description="The <strong>Next</strong> button indicates that the number has been served and calls the next number on the list."></point-of-interest>
                     </div>
                     <table class="table table-striped">
                         <tbody>

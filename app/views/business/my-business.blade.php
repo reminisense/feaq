@@ -55,10 +55,8 @@ My Business
                             <a href="#assigned" id="assigned_business"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;My Assigned Businesses</a>
                         @endif
                     </div>
-                    <point-of-interest position="bottom" bottom="37" right="83" title="Download QR Code" description="Download this QR Code so you can print it out and post it for your customers to view your broadcast screen from their mobile phones."></point-of-interest>
                     <div class="col-md-3 col-sm-5 col-xs-12 ">
                         <a id="view-broadcast" href="{{ url('broadcast/business/' . $business_id) }}" target="_blank"><span class="glyphicon glyphicon-th-large"></span> View Broadcast Screen</a>
-                        <point-of-interest position="left" bottom="55" right="100" title="Broadcast Page" description="Click on the <strong>View Broadcast Page</strong> link to view the numbers being called."></point-of-interest>
                         <div id="process-queue" href="#" class="edit-biz process-queue" data-toggle="modal" data-target="#modal-terminals">
                             <a href="#" style=""><span class="glyphicon glyphicon-share-alt"></span>Process Queue</a>
                         </div>
@@ -91,7 +89,6 @@ My Business
                                 </div>
                             </div>
                         </div>
-                        <point-of-interest position="left" bottom="15" right="100" title="Process Queue" description="Click on the <strong>Process Queue</strong> link to choose the terminal you would like to process numbers."></point-of-interest>
                     </div>
                 </div>
             </div>
