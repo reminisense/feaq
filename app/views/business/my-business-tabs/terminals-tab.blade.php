@@ -77,11 +77,11 @@
             <td width="50%">
                 <div class="mt10 mb10 block clearfix">
                     <form ng-submit="updateTerminal($event, terminal.terminal_id)">
-                        <div class="col-md-7">
+                        <div class="col-md-12">
                             <input type="text" class="form-control terminal-name-update terminal-update-field" terminal_id="@{{ terminal.terminal_id }}" value="@{{ terminal.name }}" style="display: none;">
                             <span class="terminal-name-display" terminal_id="@{{ terminal.terminal_id }}" style="font-size: 14px;">@{{ terminal.name }}</span>
                             <div style="display: none; margin-top: 10px;" class="alert alert-danger terminal-error-message" terminal_id="@{{ terminal.terminal_id }}"></div>
-                            <div class="">
+                            <div id="terminal-actions">
                                 <button type="button" ng-click="editTerminal($event, terminal.terminal_id)" class="edit-terminal-button btn-boxy btn-light" terminal_id="@{{ terminal.terminal_id }}" title="Edit Terminal">
                                     <span class="glyphicon glyphicon-pencil"></span>
                                 </button>
@@ -91,38 +91,39 @@
                                 <button type="submit" class="update-terminal-button btn-boxy btn-success" terminal_id="@{{ terminal.terminal_id }}" style="display: none;" title="Save">
                                     <span class="glyphicon glyphicon-floppy-disk"></span>
                                 </button>
-                            </div>
-                        </div>
-                        <div class="col-md-5 clearfix">
-                            <div class="pull-left">
                                 <div id="terminal-colors" class="clearfix">
-                                    <div class="dropdown">
-                                        <button id="btn-terminal-color-@{{ terminal.terminal_id }}" class="btn btn-md btn-primary t-btn dropdown-toggle @{{ terminal.color }}" type="button" data-toggle="dropdown" aria-expanded="false">
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu banana" id="">
-                                            <li><a id="cyan" data-color="cyan" href="" ng-click="setTerminalColor(terminal.terminal_id, 'cyan')"></a></li>
-                                            <li><a id="yellow" data-color="yellow" href="" ng-click="setTerminalColor(terminal.terminal_id, 'yellow')"></a></li>
-                                            <li><a id="blue" data-color="blue" href="" ng-click="setTerminalColor(terminal.terminal_id, 'blue')"></a></li>
-                                            <li><a id="orange" data-color="borange" href="" ng-click="setTerminalColor(terminal.terminal_id, 'borange')"></a></li>
-                                            <li><a id="red" data-color="red" href="" ng-click="setTerminalColor(terminal.terminal_id, 'red')"></a></li>
-                                            <li><a id="green" data-color="green" href="" ng-click="setTerminalColor(terminal.terminal_id, 'green')"></a></li>
-                                            <li><a id="violet" data-color="violet" href="" ng-click="setTerminalColor(terminal.terminal_id, 'violet')"></a></li>
-                                            <li><a id="ECD078" data-color="ECD078" href="" ng-click="setTerminalColor(terminal.terminal_id, 'ECD078')"></a></li>
-                                            <li><a id="D95B43" data-color="D95B43" href="" ng-click="setTerminalColor(terminal.terminal_id, 'D95B43')"></a></li>
-                                            <li><a id="C02942" data-color="C02942" href="" ng-click="setTerminalColor(terminal.terminal_id, 'C02942')"></a></li>
-                                            <li><a id="x542437" data-color="x542437" href="" ng-click="setTerminalColor(terminal.terminal_id, 'x542437')"></a></li>
-                                            <li><a id="x53777A" data-color="x53777A" href="" ng-click="setTerminalColor(terminal.terminal_id, 'x53777A')"></a></li>
-                                            <li><a id="FCA78B" data-color="FCA78B" href="" ng-click="setTerminalColor(terminal.terminal_id, 'FCA78B')"></a></li>
-                                            <li><a id="FF745F" data-color="FF745F" href="" ng-click="setTerminalColor(terminal.terminal_id, 'FF745F')"></a></li>
-                                            <li><a id="x78250A" data-color="x78250A" href="" ng-click="setTerminalColor(terminal.terminal_id, 'x78250A')"></a></li>
-                                            <li><a id="x242436" data-color="x242436" href="" ng-click="setTerminalColor(terminal.terminal_id, 'x242436')"></a></li>
-                                        </ul>
-                                    </div>
-                                    {{--<small id="color-info-@{{ terminal.terminal_id }}">*Colors will take effect on the next number.</small>--}}
-                                </div>
+                                                                    <div class="dropdown">
+                                                                        <button id="btn-terminal-color-@{{ terminal.terminal_id }}" class="btn btn-md btn-primary t-btn dropdown-toggle @{{ terminal.color }}" type="button" data-toggle="dropdown" aria-expanded="false">
+                                                                            <span class="glyphicon glyphicon-text-background"></span>
+                                                                        </button>
+                                                                        <ul class="dropdown-menu banana" id="">
+                                                                            <li><a id="cyan" data-color="cyan" href="" ng-click="setTerminalColor(terminal.terminal_id, 'cyan')"></a></li>
+                                                                            <li><a id="yellow" data-color="yellow" href="" ng-click="setTerminalColor(terminal.terminal_id, 'yellow')"></a></li>
+                                                                            <li><a id="blue" data-color="blue" href="" ng-click="setTerminalColor(terminal.terminal_id, 'blue')"></a></li>
+                                                                            <li><a id="orange" data-color="borange" href="" ng-click="setTerminalColor(terminal.terminal_id, 'borange')"></a></li>
+                                                                            <li><a id="red" data-color="red" href="" ng-click="setTerminalColor(terminal.terminal_id, 'red')"></a></li>
+                                                                            <li><a id="green" data-color="green" href="" ng-click="setTerminalColor(terminal.terminal_id, 'green')"></a></li>
+                                                                            <li><a id="violet" data-color="violet" href="" ng-click="setTerminalColor(terminal.terminal_id, 'violet')"></a></li>
+                                                                            <li><a id="ECD078" data-color="ECD078" href="" ng-click="setTerminalColor(terminal.terminal_id, 'ECD078')"></a></li>
+                                                                            <li><a id="D95B43" data-color="D95B43" href="" ng-click="setTerminalColor(terminal.terminal_id, 'D95B43')"></a></li>
+                                                                            <li><a id="C02942" data-color="C02942" href="" ng-click="setTerminalColor(terminal.terminal_id, 'C02942')"></a></li>
+                                                                            <li><a id="x542437" data-color="x542437" href="" ng-click="setTerminalColor(terminal.terminal_id, 'x542437')"></a></li>
+                                                                            <li><a id="x53777A" data-color="x53777A" href="" ng-click="setTerminalColor(terminal.terminal_id, 'x53777A')"></a></li>
+                                                                            <li><a id="FCA78B" data-color="FCA78B" href="" ng-click="setTerminalColor(terminal.terminal_id, 'FCA78B')"></a></li>
+                                                                            <li><a id="FF745F" data-color="FF745F" href="" ng-click="setTerminalColor(terminal.terminal_id, 'FF745F')"></a></li>
+                                                                            <li><a id="x78250A" data-color="x78250A" href="" ng-click="setTerminalColor(terminal.terminal_id, 'x78250A')"></a></li>
+                                                                            <li><a id="x242436" data-color="x242436" href="" ng-click="setTerminalColor(terminal.terminal_id, 'x242436')"></a></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    {{--<small id="color-info-@{{ terminal.terminal_id }}">*Colors will take effect on the next number.</small>--}}
+                                                                </div>
                             </div>
                         </div>
+                        {{--<div class="col-md-5 clearfix">
+                            <div class="pull-left">
+
+                            </div>
+                        </div>--}}
                     </form>
                 </div>
             </td>

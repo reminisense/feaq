@@ -918,6 +918,7 @@ button#sendreply {
 }
 #terminal-colors {
     padding-left: 0;
+    display: inline-block;
 }
 #terminal-colors p {margin-bottom: 5px;}
 #terminal-colors input[type="color"] {
@@ -931,7 +932,7 @@ button#sendreply {
     padding-left: 10px;
     padding-right: 10px;
     display: inline-block;
-    width: 100px;
+    /*width: 100px;*/
 }
 #terminal-colors .t-btn {
     margin: 4px 4px 4px 0;
@@ -1295,4 +1296,7 @@ span.glyphicon {
 }
 .clearfix.search-filter select {
     width: 120px;
+}
+#terminal-actions button span.glyphicon {
+    margin-right: 0px!important;
 }
