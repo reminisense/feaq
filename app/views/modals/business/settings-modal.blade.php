@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Service Settings</h4>
+                <h4 class="modal-title">@{{ service_settings.service_name }} Settings</h4>
             </div>
             <div class="modal-body">
                 <div>
@@ -30,24 +30,6 @@
                                         <div class="mt10 alert alert-danger" ng-show="service_error"> @{{ service_error }}</div>
                                     </div>
                                 </div>
-                                {{--<div class="clearfix">--}}
-                                    {{--<div class="col-md-6 mb20">--}}
-                                        {{--<p class="title">Show Numbers</p>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col-md-6 mb20">--}}
-                                        {{--<input type="checkbox" ng-model="service_settings.terminal_specific_issue">--}}
-                                        {{--Only Numbers Issued By Terminal--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                                {{--<div class="clearfix">--}}
-                                    {{--<div class="col-md-6 mb20">--}}
-                                        {{--<p class="title">Process Queue Layout</p>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col-md-6 mb20">--}}
-                                        {{--<input type="checkbox" ng-model="service_settings.process_queue_layout">--}}
-                                        {{--New Layout--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
                                 <div class="clearfix">
                                     <div class="col-md-6 mb20">
                                         <p class="title">Queue Now</p>
@@ -97,6 +79,11 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="clearfix">
+                                    <div class="col-md-6 col-md-offset-6">
+                                        <button type="button" class="btn btn-danger btn-removeuser" ng-click="removeService(service_settings.service_id)" title="Remove Service"><span class="glyphicon glyphicon-trash"></span> DELETE SERVICE</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="numbers">
@@ -127,7 +114,7 @@
                                 </div>
                                 <div class="clearfix">
                                     <div class="col-md-6 mb20">
-                                        <p class="title">Number Prefix</p>
+                                        <p class="title">Number Suffix</p>
                                     </div>
                                     <div class="col-md-6 mb20">
                                         <input class="mb0 form-control white" type="text" ng-model="service_settings.number_suffix" >
@@ -210,7 +197,6 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-orange btn-lg" ng-click="saveServiceQueueSettings()"><span class="glyphicon glyphicon-check"></span> SUBMIT</button>
             </div>
         </div><!-- /.modal-content -->

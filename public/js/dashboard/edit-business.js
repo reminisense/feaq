@@ -11,6 +11,18 @@ $(document).ready(function(){
 //        $('#editbiz-tabs li.active a').trigger('click'); //ARA Added to execute functions triggered by clicking tabs
 //    });
 
+    $('body').on('click', '.service-name',function(e){
+        e.preventDefault();
+        $(this).parent().siblings('.service-buttons').toggle('slideDown');
+        $(this).find('.glyphicon').toggleClass('glyphicon-chevron-up').toggleClass('glyphicon-chevron-down');
+    });
+
+    $('body').on('click', '.terminal-name',function(e){
+        e.preventDefault();
+        $(this).parent().siblings('.terminal-buttons').toggle('slideDown');
+        $(this).find('.glyphicon').toggleClass('glyphicon-chevron-up').toggleClass('glyphicon-chevron-down');
+    });
+
     $('body').on('click', '.btn-addterminal',function (e) {
         $(this).next('.inputterminal-form').show();
         $(this).hide();
@@ -1588,6 +1600,7 @@ var eb = {
             if(confirmDel){
                 $http.delete('/services/' + service_id).success(function(response){
                     if(response.success){
+                        $('#settings-modal').modal('hide');
                         $scope.getBusinessDetails();
                     }else if(response.error){
                         $scope.service_error = response.error;
@@ -1606,6 +1619,7 @@ var eb = {
                 terminal_id: terminal_id
             }).success(function(response) {
                console.log(response.status+" "+response.message);
+                $scope.getBusinessDetails();
             });
         };
 
