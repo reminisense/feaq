@@ -82,7 +82,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group" id="local-media-mode" style="display: none;">
-
+                                <form action="/upload-target" class="form-control dropzone" style="height: 315px;"></form>
                             </div>
                             <div class="form-group" id="internet-tv-mode">
                             <small>Choose a channel:</small>
