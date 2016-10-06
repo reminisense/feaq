@@ -59,7 +59,7 @@ $(document).ready(function(){
     });
     /*toggle qrcode image on business settings*/
     $( '#toggle-qrcode' ).click(function() {
-      $( '.qrcode-wrap' ).toggle();
+        $( '#qrcode-preview-wrapper' ).toggle();
       if ($(this).attr('show_qr') == 'no') {
         $(this).attr('show_qr', 'yes');
       }
@@ -1155,7 +1155,7 @@ var eb = {
 
                     // set qr code setting
                     if (response.show_qr_setting == 'yes') {
-                      $( '.qrcode-wrap' ).toggle();
+                      $( '#qrcode-preview-wrapper' ).toggle();
                       $('#toggle-qrcode').attr('show_qr', response.show_qr_setting);
                       $('#toggle-qrcode').html('<i class="glyphicon glyphicon-eye-close"></i>  Hide QR Code');
                     }
@@ -1235,15 +1235,24 @@ var eb = {
                     $('.a'+response.ad_type).show();
 
                     // default number of boxes and function to increase or decrease
+                    $('#qrcode-preview-wrapper').remove();
                     for (var qx = 0; qx < response.display.split("-")[1]; qx++) {
-                        $($(".q-nums-wrap")).append('<div class="qbox"><div class="pull-left half">'+(qx+1)+'</div></div>');
+                        if (qx == 0) {
+                            $($(".q-nums-wrap")).append('<div class="qbox"><div class="pull-left half" style="width:100%;">' + (qx + 1) + '</div></div>');
+                        }
+                        else {
+                            $($(".q-nums-wrap")).append('<div class="qbox"><div class="pull-left half">' + (qx + 1) + '</div></div>');
+                        }
                     }
+                    $($(".q-nums-wrap")).append('<div class="qbox" id="qrcode-preview-wrapper"><div class="pull-left half" id="qrcode-preview"><img src="/images/qrcode.jpg" height="85px"/></div></div>');
 
                     $(".q-add").click(function(e){
                         e.preventDefault();
                         if(qx < 10){
                             qx++;
+                            $('#qrcode-preview-wrapper').remove();
                             $($(".q-nums-wrap")).append('<div class="qbox"><div class="pull-left half">'+qx+'</div></div>');
+                            $($(".q-nums-wrap")).append('<div class="qbox" id="qrcode-preview-wrapper"><div class="pull-left half" id="qrcode-preview"><img src="/images/qrcode.jpg" height="85px"/></div></div>');
                         }
                     });
                     $('.q-minus').on("click", function(e){ //user click on remove text
@@ -1253,7 +1262,7 @@ var eb = {
                             $('.q-nums-wrap .qbox:last-child .half').html(qx);
                         }
                         else {
-                            e.preventDefault(); $('.q-nums-wrap .qbox:last-child').remove();
+                            e.preventDefault(); $('.q-nums-wrap .qbox:nth-last-child(2)').remove();
                         }
                     });
 
