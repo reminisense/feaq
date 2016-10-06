@@ -47,7 +47,7 @@ My Business
         <div class="biz-details-wrap clearfix">
             <div class="col-md-12">
                 <div class="row">
-                    <div class="biz-details col-md-7 col-sm-7 col-xs-12">
+                    <div class="biz-details col-md-9 col-sm-9 col-xs-12">
                         <h2>@{{ business_name }}</h2>
                         <p class="address"><span class="glyphicon glyphicon-map-marker"></span> @{{ business_address }}</p>
                         <a class="btn btn-sm btn-primary" href="{{ url('business/pdf-download/' . $business_id) }}" target="_blank">Download QR Code</a><br>
@@ -56,7 +56,7 @@ My Business
                         {{--@endif--}}
                     </div>
                     <point-of-interest position="bottom" bottom="37" right="83" title="Download QR Code" description="Download this QR Code so you can print it out and post it for your customers to view your broadcast screen from their mobile phones."></point-of-interest>
-                    <div class="col-md-3 col-sm-5 col-xs-12 ">
+                    <div class="col-md-3 col-sm-3 col-xs-12 ">
                         <a id="view-broadcast" href="{{ url('broadcast/business/' . $business_id) }}" target="_blank"><span class="glyphicon glyphicon-th-large"></span> View Broadcast Screen</a>
                         <point-of-interest position="left" bottom="55" right="100" title="Broadcast Page" description="Click on the <strong>View Broadcast Page</strong> link to view the numbers being called."></point-of-interest>
                         <div id="process-queue" href="#" class="edit-biz process-queue" data-toggle="modal" data-target="#modal-terminals">
