@@ -9,6 +9,7 @@ My Business
     <link rel='stylesheet' type='text/css' href='/css/business/business.css'>
     <link rel='stylesheet' type='text/css' href='/css/business/responsive.css'>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 @stop
 
 @section('scripts')
@@ -46,14 +47,13 @@ My Business
         <div class="biz-details-wrap clearfix">
             <div class="col-md-12">
                 <div class="row">
-                    <img class="col-md-2 col-sm-2 dnmobile" src="{{ "https://api.qrserver.com/v1/create-qr-code/?data=" . url('/' . $raw_code) . "&size=302x302" }}">
                     <div class="biz-details col-md-7 col-sm-7 col-xs-12">
                         <h2>@{{ business_name }}</h2>
                         <p class="address"><span class="glyphicon glyphicon-map-marker"></span> @{{ business_address }}</p>
                         <a class="btn btn-sm btn-primary" href="{{ url('business/pdf-download/' . $business_id) }}" target="_blank">Download QR Code</a><br>
-                        @if($assigned_businesses)
-                            <a href="#assigned" id="assigned_business"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;My Assigned Businesses</a>
-                        @endif
+                        {{--@if($assigned_businesses)--}}
+                            {{--<a href="#assigned" id="assigned_business"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;My Assigned Businesses</a>--}}
+                        {{--@endif--}}
                     </div>
                     <point-of-interest position="bottom" bottom="37" right="83" title="Download QR Code" description="Download this QR Code so you can print it out and post it for your customers to view your broadcast screen from their mobile phones."></point-of-interest>
                     <div class="col-md-3 col-sm-5 col-xs-12 ">
@@ -102,10 +102,10 @@ My Business
             <form>
                 <div class="form-group row">
                     <ul id="bizTab" class="nav nav-tabs" role="tablist">
-                        <li class="active"><a href="#broadcast" id="broadcast-tab" data-toggle="tab"><span class="glyphicon glyphicon-th-large"></span> Layouts & Advertisements</a></li>
-                        <li class=""><a href="#details" id="details-tab" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span>Details</a></li>
+                        <li class="active"><a href="#broadcast" id="broadcast-tab" data-toggle="tab"><span class="glyphicon glyphicon-th-large"></span> Layouts</a></li>
+                        {{--<li class=""><a href="#details" id="details-tab" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span>Details</a></li>--}}
                         <li class=""><a href="#terminals" id="terminals-tab" data-toggle="tab"><span class="glyphicon glyphicon-tasks"></span> Services</a></li>
-                        <li class=""><a href="#settings" id="settings-tab" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+                        {{--<li class=""><a href="#settings" id="settings-tab" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>--}}
                         <li class=""><a href="#analytics" id="analytics-tab" data-toggle="tab"><span class="glyphicon glyphicon-stats"></span> Analytics</a></li>
                         <li class=""><a href="#forms" id="forms-tab" data-toggle="tab"><span class="glyphicon glyphicon-list"></span> Forms</a></li>
                     </ul>
@@ -118,15 +118,15 @@ My Business
                         <div role="tabpanel" class="tab-pane fade active in" id="broadcast" aria-labelledby="broadcast-tab">
                             <div class="clearfix">@include('business.my-business-tabs.broadcast-tab')</div>
                         </div>
-                        <div role="tabpanel" class="tab-pane fade" id="details" aria-labelledby="details-tab">
-                            <div class="clearfix">@include('business.my-business-tabs.details-tab')</div>
-                        </div>
+                        {{--<div role="tabpanel" class="tab-pane fade" id="details" aria-labelledby="details-tab">--}}
+                            {{--<div class="clearfix">@include('business.my-business-tabs.details-tab')</div>--}}
+                        {{--</div>--}}
                         <div role="tabpanel" class="tab-pane fade" id="terminals" aria-labelledby="terminals-tab">
                             <div class="clearfix">@include('business.my-business-tabs.terminals-tab')</div>
                         </div>
-                        <div role="tabpanel" class="tab-pane fade" id="settings" aria-labelledby="settings-tab">
-                            <div class="clearfix">@include('business.my-business-tabs.settings-tab')</div>
-                        </div>
+                        {{--<div role="tabpanel" class="tab-pane fade" id="settings" aria-labelledby="settings-tab">--}}
+                            {{--<div class="clearfix">@include('business.my-business-tabs.settings-tab')</div>--}}
+                        {{--</div>--}}
                         <div role="tabpanel" class="tab-pane fade" id="analytics" aria-labelledby="analytics-tab">
                             <div class="clearfix">@include('business.my-business-tabs.analytics-tab')</div>
                         </div>
@@ -239,4 +239,5 @@ My Business
 <input type="hidden" id="queue-settings-update-url" value="{{ url('/queuesettings/update/') }}">
 {{--@include('modals.business.setup-business-modal')--}}
 {{--@include('modals.websockets.websocket-loader')--}}
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 @stop

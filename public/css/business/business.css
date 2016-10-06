@@ -1296,3 +1296,7 @@ span.glyphicon {
 .clearfix.search-filter select {
     width: 120px;
 }
+
+#all-records:hover, #filtered-records:hover  {
+    background-color: lightgray;
+}

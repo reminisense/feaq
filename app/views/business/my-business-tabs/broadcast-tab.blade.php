@@ -142,17 +142,20 @@
                         </div>
                     </div>
                     <div class="clearfix">
-                        <span class="blue mt20" style="display: block"><input style="font-size: 30px;" type="checkbox" ng-model="settings.show_called"> &nbsp; Show only called numbers</span>
-                        <span class="blue mt20" style="display: block"><input style="font-size: 30px;" type="checkbox" ng-model="settings.show_names"> &nbsp; Show customer names</span>
+                        {{--<span class="blue mt20" style="display: block"><input style="font-size: 30px;" type="checkbox" ng-model="settings.show_called"> &nbsp; Show only called numbers</span>--}}
+                        {{--<span class="blue mt20" style="display: block"><input style="font-size: 30px;" type="checkbox" ng-model="settings.show_names"> &nbsp; Show customer names</span>--}}
+                        <span class="blue mt20" style="display: block"><input type="checkbox" checked class="toggle" data-toggle="toggle" data-on="On" data-off="Off" data-height="20" data-width="70"> &nbsp; Show only called numbers</span>
+                        <span class="blue mt20" style="display: block"><input type="checkbox" checked class="toggle" data-toggle="toggle" data-on="On" data-off="Off" data-height="20" data-width="70"> &nbsp; Show customer names</span>
                     </div>
                 </div>
             </div>
             <div class="ticker-wrap text-right">
-                <div class="ticker-field-wrap">
+                <div>
+                    <div class="rel">
+                        <textarea id="ticker_message" class="form-control ticker_message" placeholder="Your Ticker Messages here separated by a line break." rows="5" id="comment"
+                                  style="border: 1px solid #337ab7 !important; color: #333; background-color: #fff !important; border-radius: 0px 5px 5px 0px; -webkit-border-radius: 0px 5px 5px 0px !important; resize: none"></textarea>
+                    </div>
                 </div>
-                <button type="button" id="" class="btn btn-primary btn-lg add-ticker">
-                    <span class="glyphicon glyphicon-plus"></span> Add New Ticker Message
-                </button>
             </div>
             <div class="col-md-12" style="margin-top: 20px;">
                 <button ng-click="saveBroadcastSettings(business_id)" type="submit" class="center-block btn btn-lg btn-orange" id=""><span class="glyphicon glyphicon-check"></span> SAVE SETTINGS</button>

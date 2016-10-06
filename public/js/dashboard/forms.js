@@ -23,7 +23,7 @@
         var formFields = response.fields;
         $scope.service_name = response.service_name;
         $scope.formName = response.form_name;
-        $scope.records = response.records;
+        $scope.records = response.records.reverse();
         for (var i = 0; i < formFields.length; i++) {
           var formLabel = formFields[i].field_data.label;
           var fieldType = formFields[i].field_type;

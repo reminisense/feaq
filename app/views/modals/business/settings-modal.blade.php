@@ -76,24 +76,19 @@
                                     </div>
                                     <div class="col-md-6 mb20">
                                         <div class=" mb10">
-                                            <input type="checkbox" ng-model="service_settings.sms_current_number">Priority Number is called
+                                            <input type="checkbox" checked class="toggle" data-toggle="toggle" data-on=" " data-off=" " data-height="10" data-width="10"> Priority Number is called
                                         </div>
                                         <div class=" mb10">
-                                            <input type="checkbox"  ng-model="service_settings.sms_1_ahead">
-                                            Priority Number is next in queue
+                                            <input type="checkbox" checked class="toggle" data-toggle="toggle" data-on=" " data-off=" " data-height="10" data-width="10"> Priority Number is next in queue
                                         </div>
                                         <div class="mb10">
-                                            <input type="checkbox"  ng-model="service_settings.sms_5_ahead">
-                                            5 Numbers ahead in queue
+                                            <input type="checkbox" checked class="toggle" data-toggle="toggle" data-on=" " data-off=" " data-height="10" data-width="10"> 5 Numbers ahead in queue
                                         </div>
                                         <div class="mb10">
-                                            <input type="checkbox"  ng-model="service_settings.sms_10_ahead">
-                                            10 Numbers ahead in queue
+                                            <input type="checkbox" checked class="toggle" data-toggle="toggle" data-on=" " data-off=" " data-height="10" data-width="10"> 10 Numbers ahead in queue
                                         </div>
                                         <div class="mb10">
-                                            <input id="input_sms_field" type="text" ng-model="service_settings.input_sms_field">
-                                            <input type="checkbox"  ng-model="service_settings.sms_blank_ahead">
-                                            Numbers ahead in queue.
+                                            <input id="input_sms_field" type="text" ng-model="service_settings.input_sms_field"> Numbers ahead in queue.
                                         </div>
                                     </div>
                                 </div>

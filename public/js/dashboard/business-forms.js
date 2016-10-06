@@ -73,6 +73,12 @@ $(document).ready(function() {
 
     $('#cancel-form').on('click', function(e) {
         $('.create-form-wrap').slideToggle('fast');
+        $('.forms-wrap').show();
+        e.preventDefault();
+    })
+
+    $('#create-form').on('click', function(e) {
+        $('.forms-wrap').hide();
         e.preventDefault();
     })
 });

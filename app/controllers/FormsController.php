@@ -41,7 +41,7 @@ class FormsController extends BaseController{
             $record_list[] = array(
               'full_name' => User::first_name($record->user_id) . ' ' . User::last_name($record->user_id),
               'transaction_number' => $record->transaction_number,
-              'date' => date('F d, Y', strtotime($record->time_created)),
+              'date' => date('F d, Y  h:i A', strtotime($record->time_created)),
               'record_id' => $record->record_id,
             );
           }

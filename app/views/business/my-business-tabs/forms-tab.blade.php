@@ -134,48 +134,129 @@
             </div>
         </div>
     </div>
-    <div class="clearfix">
+    <div class="clearfix forms-wrap">
         <ul id="business-forms-tabs" class="clearfix nav nav-tabs">
-            <li role="presentation" class="" ng-repeat="service in services track by $index">
+            <li role="presentation" class="text-center" ng-repeat="service in services track by $index" style="width: 130px">
                 <a href="#service-@{{ $index+1 }}" data-toggle="tab">@{{ service.name }}</a>
             </li>
-            <li role="presentation" class="active">
+            <li role="presentation" class="active text-center" style="width: 130px">
                 <a href="#service-0" data-toggle="tab">All Services</a>
             </li>
-            <li id="label-services">SERVICES &rarr;</li>
         </ul>
         <div id="business-form-tabs-table" class="tab-content">
             <div role="tabpanel" class="tab-pane fade active in" id="service-0" >
                 <table class="table table-striped table-hover">
+                    <ul class="pagination">
+                        <li><a href="#" style="color:black;">1</a></li>
+                        <li><a href="#" style="color:black;">2</a></li>
+                        <li><a href="#" style="color:black;">3</a></li>
+                        <li><a href="#" style="color:black;">4</a></li>
+                        <li><a href="#" style="color:black;">5</a></li>
+                    </ul>
                     <thead>
                     <tr>
                         <th>Form Name/Title</th>
                         <th>Service</th>
-                        <th>Date</th>
+                        <th>Date Created</th>
                         <th>Action</th>
                         <th class="text-right">Enable</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="form in forms">
-                        <td>@{{ form.form_name }}</td>
-                        <td>@{{ form.service_name }}</td>
-                        <td>@{{ form.date_created }}</td>
+                    {{--<tr ng-repeat="form in forms" ng-show="$index < 10">--}}
+                        {{--<td>@{{ form.form_name }}</td>--}}
+                        {{--<td>@{{ form.service_name }}</td>--}}
+                        {{--<td>@{{ form.date_created }}</td>--}}
+                        {{--<td><a href="" id="btn-view-form" ng-click="viewForm(form.form_id)"><span class="glyphicon glyphicon-eye-open"></span>View</a></td>--}}
+                        {{--<td id="onoff@{{ $index}}">--}}
+                            {{--<input type="checkbox" checked class="toggle" data-toggle="toggle" id="status@{{ form.form_id }}" ng-model="form.status" ng-change="saveFormStatus(form.form_id)" >--}}
+                            {{--<input type="checkbox" checked class="toggle" data-toggle="toggle" data-on=" " data-off=" ">--}}
+                        {{--</td>--}}
+                    {{--</tr>--}}
+                    <tr>
+                        <td>Arrival</td>
+                        <td>Cashier</td>
+                        <td>September 16, 2016</td>
+                        <td><a href="" id="btn-view-form" ng-click="viewForm(76)"><span class="glyphicon glyphicon-eye-open"></span>View</a></td>
+                        <td id="onoff">
+                            {{--<input type="checkbox" checked class="toggle" data-toggle="toggle" id="status@{{ form.form_id }}" ng-model="form.status" ng-change="saveFormStatus(form.form_id)" >--}}
+                            <input type="checkbox" checked class="toggle" data-toggle="toggle" data-on="On" data-off="Off" data-height="20" data-width="70">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Bank Deposit</td>
+                        <td>Retrieval</td>
+                        <td>August 13, 2016</td>
                         <td><a href="" id="btn-view-form" ng-click="viewForm(form.form_id)"><span class="glyphicon glyphicon-eye-open"></span>View</a></td>
                         <td id="onoff">
-                            <input type="checkbox" checked data-toggle="toggle" id="status@{{ form.form_id }}" ng-model="form.status" ng-change="saveFormStatus(form.form_id)" >
+                            {{--<input type="checkbox" checked class="toggle" data-toggle="toggle" id="status@{{ form.form_id }}" ng-model="form.status" ng-change="saveFormStatus(form.form_id)" >--}}
+                            <input type="checkbox" checked class="toggle" data-toggle="toggle" data-on="On" data-off="Off" data-height="20" data-width="70">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Register</td>
+                        <td>Retrieval</td>
+                        <td>August 21, 2016</td>
+                        <td><a href="" id="btn-view-form" ng-click="viewForm(form.form_id)"><span class="glyphicon glyphicon-eye-open"></span>View</a></td>
+                        <td id="onoff">
+                            {{--<input type="checkbox" checked class="toggle" data-toggle="toggle" id="status@{{ form.form_id }}" ng-model="form.status" ng-change="saveFormStatus(form.form_id)" >--}}
+                            <input type="checkbox" checked class="toggle" data-toggle="toggle" data-on="On" data-off="Off" data-height="20" data-width="70">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Sentence Phrasing</td>
+                        <td>Department</td>
+                        <td>September 12, 2016</td>
+                        <td><a href="" id="btn-view-form" ng-click="viewForm(form.form_id)"><span class="glyphicon glyphicon-eye-open"></span>View</a></td>
+                        <td id="onoff">
+                            {{--<input type="checkbox" checked class="toggle" data-toggle="toggle" id="status@{{ form.form_id }}" ng-model="form.status" ng-change="saveFormStatus(form.form_id)" >--}}
+                            <input type="checkbox" checked class="toggle" data-toggle="toggle" data-on="On" data-off="Off" data-height="20" data-width="70">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Volunteers</td>
+                        <td>Cashier</td>
+                        <td>August 30, 2016</td>
+                        <td><a href="" id="btn-view-form" ng-click="viewForm(form.form_id)"><span class="glyphicon glyphicon-eye-open"></span>View</a></td>
+                        <td id="onoff">
+                            {{--<input type="checkbox" checked class="toggle" data-toggle="toggle" id="status@{{ form.form_id }}" ng-model="form.status" ng-change="saveFormStatus(form.form_id)" >--}}
+                            <input type="checkbox" checked class="toggle" data-toggle="toggle" data-on="On" data-off="Off" data-height="20" data-width="70">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Yorkshire</td>
+                        <td>Cashier</td>
+                        <td>September 14, 2016</td>
+                        <td><a href="" id="btn-view-form" ng-click="viewForm(form.form_id)"><span class="glyphicon glyphicon-eye-open"></span>View</a></td>
+                        <td id="onoff">
+                            {{--<input type="checkbox" checked class="toggle" data-toggle="toggle" id="status@{{ form.form_id }}" ng-model="form.status" ng-change="saveFormStatus(form.form_id)" >--}}
+                            <input type="checkbox" checked class="toggle" data-toggle="toggle" data-on="On" data-off="Off" data-height="20" data-width="70">
                         </td>
                     </tr>
                     </tbody>
                 </table>
+                <ul class="pagination">
+                    <li><a href="#" style="color:black;">1</a></li>
+                    <li><a href="#" style="color:black;">2</a></li>
+                    <li><a href="#" style="color:black;">3</a></li>
+                    <li><a href="#" style="color:black;">4</a></li>
+                    <li><a href="#" style="color:black;">5</a></li>
+                </ul>
             </div>
             <div class="tab-pane fade" id="service-@{{ $index+1 }}" ng-repeat="service in services track by $index">
                 <table class="table table-striped table-hover">
+                    <ul class="pagination">
+                        <li><a href="#" style="color:black;">1</a></li>
+                        <li><a href="#" style="color:black;">2</a></li>
+                        <li><a href="#" style="color:black;">3</a></li>
+                        <li><a href="#" style="color:black;">4</a></li>
+                        <li><a href="#" style="color:black;">5</a></li>
+                    </ul>
                     <thead>
                     <tr>
                         <th>Form Name/Title</th>
                         <th>Service</th>
-                        <th>Date</th>
+                        <th>Date Created</th>
                         <th>Action</th>
                         <th class="text-right">Enable</th>
                     </tr>
@@ -186,10 +267,20 @@
                         <td>@{{ form.service_name }}</td>
                         <td>@{{ form.date_created }}</td>
                         <td><a href="" id="btn-view-form" ng-click="viewForm(form.form_id)"><span class="glyphicon glyphicon-eye-open"></span>View</a></td>
-                        <td id="onoff"><input id="status@{{ form.form_id }}" ng-model="form.status" type="checkbox" ng-change="saveFormStatus(form.form_id)" data-toggle="toggle"></td>
+                        <td id="onoff@{{ $index}}">
+                            {{--<input id="status@{{ form.form_id }}" ng-model="form.status" type="checkbox" ng-change="saveFormStatus(form.form_id)" data-toggle="toggle">--}}
+                            <input type="checkbox" checked class="toggle" data-toggle="toggle" data-on=" " data-off=" ">
+                        </td>
                     </tr>
                     </tbody>
                 </table>
+                <ul class="pagination">
+                    <li><a href="#" style="color:black;">1</a></li>
+                    <li><a href="#" style="color:black;">2</a></li>
+                    <li><a href="#" style="color:black;">3</a></li>
+                    <li><a href="#" style="color:black;">4</a></li>
+                    <li><a href="#" style="color:black;">5</a></li>
+                </ul>
             </div>
         </div>
         <div class="clearfix view-form-wrap rel">
@@ -250,40 +341,52 @@
             </div>
 
             <div class="clearfix table-view-signups">
-                <div class="clearfix search-filter">
-                    <select class="col-md-2 col-xs-12 col-sm-2 form-control" id='record-option'>
-                        <option value="all">All</option>
-                        <option value="name">Name</option>
-                        <option value="date">Date</option>
-                    </select>
-                    <input class="form-control" type="text" id="record-name">
-                    <input class="form-control" type="text" id="record-datepicker">
-                    <button class="btn-primary btn btn-lg" ng-click="searchUserRecords()">Search</button>
+                <div class="clearfix search-filter container">
+                    <div class="col-md-6">
+                        <ul class="pagination" style="margin: 0 0;">
+                            <li><a href="#" style="color:black;">1</a></li>
+                            <li><a href="#" style="color:black;">2</a></li>
+                            <li><a href="#" style="color:black;">3</a></li>
+                            <li><a href="#" style="color:black;">4</a></li>
+                            <li><a href="#" style="color:black;">5</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6" style="text-align: right; padding-right: 30px;">
+                        <input class="form-control" type="text" id="record-name">
+                        <button class="btn-primary btn btn-lg" ng-click="searchUserRecords()">Search</button>
+                    </div>
                 </div>
               <table class="table table-hover table-striped">
                 <thead>
                   <tr>
-                    <th>Costumer</th>
-                    <th>Transaction #</th>
-                    <th>Date</th>
-                    <th class="text-right">Action</th>
+                    <th width="25%">Customer</th>
+                    <th width="25%">Priority Number</th>
+                    <th width="25%">Transaction Number</th>
+                    <th width="25%">Date Filled Up</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr id='all-records' ng-repeat="(count, record) in records" ng-show="!filtered_records.length && !err_search">
-                    <th>@{{ record.full_name }}</th>
-                    <td>@{{ record.transaction_number }}</td>
-                    <td>@{{ record.date }}</td>
-                    <td class="text-right"><a href="" ng-click="viewRecord(record.record_id)"><span class="glyphicon glyphicon-eye-open"></span>View Transaction</a></td>
+                  <tr id='all-records' ng-repeat="(count, record) in records" ng-show="!filtered_records.length && !err_search && $index < 10" style="cursor: pointer">
+                        <th width="25%">@{{ record.full_name }}</th>
+                        <td width="25%">@{{ $index }}</td>
+                        <td width="25%">@{{ record.transaction_number }}</td>
+                        <td width="25%">@{{ record.date }}</td>
                   </tr>
-                  <tr id='filtered-records' ng-repeat="(count, record) in filtered_records" ng-show="filtered_records.length && !err_search">
-                      <th>@{{ record.full_name }}</th>
-                      <td>@{{ record.transaction_number }}</td>
-                      <td>@{{ record.date }}</td>
-                      <td class="text-right"><a href="" ng-click="viewRecord(record.record_id)"><span class="glyphicon glyphicon-eye-open"></span>View Transaction</a></td>
+                  <tr id='filtered-records' ng-repeat="(count, record) in filtered_records" ng-show="filtered_records.length && !err_search" style="cursor: pointer">
+                      <th width="25%">@{{ record.full_name }}</th>
+                      <td width="25%">@{{ $index }}</td>
+                      <td width="25%">@{{ record.transaction_number }}</td>
+                      <td width="25%">@{{ record.date }}</td>
                   </tr>
                 </tbody>
               </table>
+                <ul class="pagination" style="margin: 0 0;">
+                    <li><a href="#" style="color:black;">1</a></li>
+                    <li><a href="#" style="color:black;">2</a></li>
+                    <li><a href="#" style="color:black;">3</a></li>
+                    <li><a href="#" style="color:black;">4</a></li>
+                    <li><a href="#" style="color:black;">5</a></li>
+                </ul>
               <div class="alert alert-danger mt10" id="form-error" ng-show="err_search" style="text-align: center;">@{{ err_search }}</div>
             </div>
         </div>
