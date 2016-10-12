@@ -82,7 +82,20 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group" id="local-media-mode" style="display: none;">
-                                <form action="/upload-target" class="form-control dropzone" style="height: 315px;"></form>
+                                <form action="/upload-target" id="local-media">
+                                    <input type="file" id="local-media-files" class="form-control" multiple="multiple">
+                                </form>
+                                <script>
+                                    var URL = window.URL || window.webkitURL
+                                    var playSelectedFile = function (event) {
+                                        var file = this.files[0];
+                                        var fileURL = URL.createObjectURL(file);
+                                        sessionStorage.setItem("fileURL", fileURL);
+                                        alert('saved. please visit broadcast screen.');
+                                    }
+                                    var inputNode = document.getElementById('local-media-files');
+                                    inputNode.addEventListener('change', playSelectedFile, false);
+                                </script>
                             </div>
                             <div class="form-group" id="internet-tv-mode">
                             <small>Choose a channel:</small>

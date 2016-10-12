@@ -27,7 +27,11 @@
   </div>
   <div class="vid-container">
     @if ($ad_type == 'internet_tv')
-        {{ $ad_src }}
+          <video controls autoplay width="100%" id="local-video"></video>
+        <script>
+            var videoNode = document.getElementById('local-video');
+            videoNode.src = sessionStorage.fileURL;
+        </script>
     @elseif ($ad_type == 'carousel')
         <div id="fqCarousel" class="carousel slide" data-ride="carousel" data-interval="<?php print $carousel_delay; ?>" style="min-height: 550px;">
             <!-- Wrapper for slides -->
