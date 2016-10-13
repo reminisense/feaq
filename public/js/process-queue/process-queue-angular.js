@@ -159,15 +159,15 @@
                 ids.push($scope.called_numbers[index].transaction_number);
             }
 
-            $scope.stop_progress = 50;
-            setTimeout(function(){
-                $scope.stop_progress = 75;
-            }, 500);
+            $scope.stop_progress = 15;
+            setInterval(function(){
+                if($scope.stop_progress < 90) $scope.stop_progress += 15;
+            }, 20);
             $http.post('/processqueue/stop-queue', {ids: JSON.stringify(ids)}).success(function(){
-                $scope.stop_progress = 100;
                 $scope.updateBroadcast();
-                $scope.isStopping = false;
+                $scope.stop_progress = 100;
                 $scope.isCalling = false;
+                $scope.isStopping = false;
             });
 
         };

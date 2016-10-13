@@ -157,7 +157,7 @@ span.glyphicon-zoom-in {
     height: 40px;
 }
 .processq-box .q-actions .btn-primary {
-    font-size: 40px;
+    /*font-size: 40px;*/
     padding-top: 0;
     padding-bottom: 0;
     line-height: 38px;
@@ -336,9 +336,10 @@ span.glyphicon-zoom-in {
     height: 50px;
     width: 50px;
     padding: 0;*/
-    padding: 6px 20px;
-    width: 85px;
-    margin-right: 5px;
+    /*padding: 6px 20px;*/
+    /*width: 85px;*/
+    /*margin-right: 5px;*/
+    height: 40px;
 }
 .stopbutton span {
     color: #fff!important;

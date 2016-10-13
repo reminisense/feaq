@@ -60,7 +60,7 @@
                         <div class="col-md-4">
                             <p class="date-today">
                                 <span class="glyphicon glyphicon-calendar"></span>@{{ dateString }}
-                                <input type="text" class="datepicker" ng-model="date" ng-change="getAllNumbers()" readonly="readonly" style="height: 0px; width:0px; border: 0px;"/>
+                                {{--<input type="text" class="datepicker" ng-model="date" ng-change="getAllNumbers()" readonly="readonly" style="height: 0px; width:0px; border: 0px;"/>--}}
                             </p>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
                 <div class="col-md-3 col-sm-4 ">
                     {{--<a id="view-broadcast" target="_blank" href="{{ url('/broadcast/business/' . $business_id) }}">View Broadcast <br>Screen</a>--}}
                     <a id="view-broadcast" target="_blank" href="{{ url('/broadcast/business/' . $business_id) }}"><span class="glyphicon glyphicon-th-large"></span> View Broadcast Screen</a>
-                    <a ng-show="allowed_businesses.length > 0" id="forward-history" target="_blank" href="{{ url('/processqueue/forward-history/' . $service_id) }}"><span class="glyphicon glyphicon-share-alt"></span> View Forwarding History</a>
+                    {{--<a ng-show="allowed_businesses.length > 0" id="forward-history" target="_blank" href="{{ url('/processqueue/forward-history/' . $service_id) }}"><span class="glyphicon glyphicon-share-alt"></span> View Forwarding History</a>--}}
                 </div>
             </div>
         </div>
@@ -78,7 +78,7 @@
                     <div class="row">
                         <div class="q-actions clearfix">
                             <form>
-                                <div class="col-md-8 col-sm-8 col-xs-9">
+                                <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input id="selected-tnumber" type="hidden" ng-value="called_number" value=0>
                                     <div class="dropdown-wrapper" ng-show="timebound_numbers.length != 0 || uncalled_numbers.length != 0">
                                         <button class="btn-select btn-md dropdown-toggle" type="button" data-toggle="dropdown">
@@ -182,13 +182,35 @@
                                         <div class="alert alert-danger" ng-show="issue_call_error != ''">@{{ issue_call_error }}</div>
                                     </div> <!-- end process queue issue number textfield -->
                                 </div>
-                                <div class="col-md-1 col-sm-1 col-xs-3">
-                                    <a ng-if="date == today" id="btn-pmore" class="btn btn-md btn-primary" data-toggle="modal" data-target="#moreq" title="Issue a number.">+</a>
-                                </div>
-                                <div class="col-md-3 col-sm-3 col-xs-12 text-right">
-                                    {{--<button class="btn btn-orange btn-md" id="btn-check" ng-click="checkIn()" ng-disabled="isCalling" ng-if="date == today"><span class="glyphicon glyphicon-ok white"></span></button>--}}
-                                    <button class="btn btn-orange btn-md" id="btn-call" ng-click="issueOrCall()" ng-disabled="isCalling" ng-if="date == today">CALL NUMBER</button>
-                                    <button class="btn btn-orange btn-md" id="btn-call" ng-click="moveToday()" ng-disabled="isCalling" ng-if="date != today">MOVE TO CURRENT</button>
+                                {{--<div class="col-md-2 col-sm-2 col-xs-4 text-right">--}}
+                                    {{--<button ng-if="date == today" id="btn-pmore" class="btn btn-md btn-primary" data-toggle="modal" data-target="#moreq" title="Issue a number.">--}}
+                                        {{--ISSUE NUMBER--}}
+                                    {{--</button>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-md-2 col-sm-2 col-xs-4">--}}
+                                    {{--<button ng-if="date == today" class="btn btn-md btn-danger stopbutton" ng-click="stopProcessQueue()">--}}
+                                        {{--<span class="glyphicon glyphicon-stop"></span>--}}
+                                        {{--STOP--}}
+                                    {{--</button>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-md-2 col-sm-2 col-xs-4">--}}
+                                    {{--<button class="btn btn-orange btn-md" id="btn-call" ng-click="issueOrCall()" ng-disabled="isCalling" ng-if="date == today">--}}
+                                        {{--CALL NUMBER--}}
+                                    {{--</button>--}}
+                                {{--</div>--}}
+                                <div class="col-md-6 col-sm-6 col-xs-12 text-center">
+                                    <div class="btn-group btn-group-lg">
+                                        <button ng-if="date == today" id="btn-pmore" class="btn btn-md btn-primary" data-toggle="modal" data-target="#moreq" title="Issue a number.">
+                                            ISSUE NUMBER
+                                        </button>
+                                        <button ng-if="date == today" class="btn btn-md btn-danger stopbutton" ng-click="stopProcessQueue()">
+                                            <span class="glyphicon glyphicon-stop"></span>
+                                            STOP
+                                        </button>
+                                        <button class="btn btn-md btn-orange" id="btn-call" ng-click="issueOrCall()" ng-disabled="isCalling" ng-if="date == today">
+                                            CALL NUMBER
+                                        </button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -198,19 +220,12 @@
                     <table class="table table-striped">
                         <tbody>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td>
+                            <td colspan="4">
                                 <div class="progress" style="padding-top: 0;" ng-show="isStopping">
                                     <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="@{{ progress_current }}" aria-valuemin="0" aria-valuemax="@{{ progress_max }}" style="padding-top: 0; width: @{{ stop_progress + '%' }}">
                                         <span> Stopping... </span>
                                     </div>
                                 </div>
-                            </td>
-                            <td>
-                                <button ng-if="date == today" class="pull-right btn btn-sm btn-danger stopbutton" ng-click="stopProcessQueue()">
-                                    <span class="glyphicon glyphicon-stop"></span> STOP
-                                </button>
                             </td>
                         </tr>
                         <tr ng-repeat="number in called_numbers" data-tnumber="@{{ number.transaction_number }}">
@@ -238,12 +253,6 @@
                                                             <li role="presentation" ng-repeat="form in number.form_records" class="@{{ $index == 0 ? 'active':''}}" >
                                                                 <a href="#service-@{{ $index }}" data-toggle="tab">@{{form.form_name }}</a>
                                                             </li>
-                                                            {{--<li role="presentation" class="">--}}
-                                                            {{--<a href="#service-b" data-toggle="tab">Laboratory</a>--}}
-                                                            {{--</li>--}}
-                                                            {{--<li role="presentation" class="">--}}
-                                                            {{--<a href="#service-b" data-toggle="tab">Cashier / Billing</a>--}}
-                                                            {{--</li>--}}
                                                         </ul>
                                                         <div id="tab-forms-table" class="pt0 tab-content">
                                                             <div role="tabpanel" ng-repeat="form in number.form_records" class="pt0 tab-pane fade @{{ $index == 0 ? 'active in':'' }}" id="service-@{{ $index }}" >
@@ -262,9 +271,6 @@
                                                                     </tbody>
                                                                 </table>
                                                             </div>
-                                                            {{--<div class="tab-pane fade" id="service-b">--}}
-                                                            {{--<table class="table"> <thead> <tr> <th>#</th> <th>BBFirst Name</th> <th>Last Name</th> <th>Username</th> </tr> </thead> <tbody> <tr> <th scope="row">1</th> <td>Mark</td> <td>Otto</td> <td>@mdo</td> </tr> <tr> <th scope="row">2</th> <td>Jacob</td> <td>Thornton</td> <td>@fat</td> </tr> <tr> <th scope="row">3</th> <td>Larry</td> <td>the Bird</td> <td>@twitter</td> </tr> </tbody> </table>--}}
-                                                            {{--</div>--}}
                                                         </div>
                                                     </div>
                                                 </div>
