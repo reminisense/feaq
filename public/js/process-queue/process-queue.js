@@ -441,6 +441,8 @@ var pq = {
                 issue_number.priority_number = process_queue.next_number;
                 issue_number.number_start = process_queue.next_number;
                 issue_number.number_end = process_queue.next_number;
+
+                issue_number.appointment = process_queue.appointment;
             });
         },
 

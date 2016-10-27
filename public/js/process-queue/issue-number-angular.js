@@ -18,6 +18,13 @@
         $scope.number_end = null;
         $scope.range = null;
 
+        $scope.appointment = {
+            number_start: 1,
+            number_limit: 99,
+            number_prefix: '',
+            number_suffix: ''
+        };
+
         $scope.def_service_id = pq.ids.service_id;
 
         $scope.forms = null;

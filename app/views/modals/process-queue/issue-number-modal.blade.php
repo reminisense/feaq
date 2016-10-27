@@ -25,9 +25,9 @@
                                 </div>
                                 <div class="col-md-9">
                                     <div class="input-group mb20" style="width: 100%;">
-                                        <span class="input-group-addon" ng-show="number_prefix">@{{ number_prefix }}</span>
+                                        <span class="input-group-addon" ng-show="number_prefix">@{{ time_assigned ? appointment.number_prefix : number_prefix}}</span>
                                         <input type="text" min="1" class="form-control" ng-model="priority_number" name="priority_number">
-                                        <span class="input-group-addon" ng-show="number_suffix">@{{ number_suffix }}</span>
+                                        <span class="input-group-addon" ng-show="number_suffix">@{{ time_assigned ? appointment.number_suffix : number_suffix }}</span>
                                     </div>
                                 </div>
                                 <div class="col-md-3">

@@ -70,6 +70,13 @@ class QueueSettingsController extends BaseController{
             $queue_settings->process_queue_layout = $data['process_queue_layout'];
             $queue_settings->check_in_display = $data['check_in_display'];
             $queue_settings->grace_period = $data['grace_period'];
+
+            $queue_settings->appointment_time_interval = $data['appointment']['time_interval'];
+            $queue_settings->appointment_number_prefix = $data['appointment']['number_prefix'];
+            $queue_settings->appointment_number_suffix = $data['appointment']['number_suffix'];
+            $queue_settings->appointment_number_start = $data['appointment']['number_start'];
+            $queue_settings->appointment_number_limit = $data['appointment']['number_limit'];
+
             $queue_settings->save();
 
             QueueSettings::updateQueueSetting($data['service_id'], 'remote_time', $data['remote_time']);

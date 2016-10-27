@@ -11,6 +11,7 @@
                         <li role="presentation" class="active"><a role="tab" data-toggle="tab" href="#general">GENERAL</a></li>
                         <li role="presentation" class=""><a role="tab" data-toggle="tab" href="#numbers">NUMBERS</a></li>
                         <li role="presentation" class=""><a role="tab" data-toggle="tab" href="#remote">REMOTE</a></li>
+                        <li role="presentation" class=""><a role="tab" data-toggle="tab" href="#appointments">APPOINTMENTS</a></li>
                     </ul>
 
                     <div class="tab-content">
@@ -30,24 +31,6 @@
                                         <div class="mt10 alert alert-danger" ng-show="service_error"> @{{ service_error }}</div>
                                     </div>
                                 </div>
-                                {{--<div class="clearfix">--}}
-                                    {{--<div class="col-md-6 mb20">--}}
-                                        {{--<p class="title">Show Numbers</p>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col-md-6 mb20">--}}
-                                        {{--<input type="checkbox" ng-model="service_settings.terminal_specific_issue">--}}
-                                        {{--Only Numbers Issued By Terminal--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                                {{--<div class="clearfix">--}}
-                                    {{--<div class="col-md-6 mb20">--}}
-                                        {{--<p class="title">Process Queue Layout</p>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col-md-6 mb20">--}}
-                                        {{--<input type="checkbox" ng-model="service_settings.process_queue_layout">--}}
-                                        {{--New Layout--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
                                 <div class="clearfix">
                                     <div class="col-md-6 mb20">
                                         <p class="title">Queue Now</p>
@@ -201,6 +184,66 @@
                                     <div class="col-md-12 mb20">
                                         <div class="alert alert-warning hidden" role="alert" id="remote-queue-time-alert">
                                             <strong>Remote Queue Time</strong> - Set the time when customers are allowed to start getting numbers remotely.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="appointments">
+                            <div class="broadcast-wrap2">
+                                <div class="clearfix">
+                                    <div class="col-md-6 mb20">
+                                        <p class="title">Time Interval</p>
+                                    </div>
+                                    <div class="col-md-6 mb20">
+                                        <div class="input-group">
+                                            <input class="mb0 form-control white" type="text" ng-model="service_settings.appointment.time_interval" >
+                                            <span class="input-group-addon">mins</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix">
+                                    <div class="col-md-6 mb20">
+                                        <p class="title">Number Prefix</p>
+                                    </div>
+                                    <div class="col-md-6 mb20">
+                                        <input class="mb0 form-control white" type="text" ng-model="service_settings.appointment.number_prefix" >
+                                    </div>
+                                </div>
+                                <div class="clearfix">
+                                    <div class="col-md-6 mb20">
+                                        <p class="title">Number Start</p>
+                                    </div>
+                                    <div class="col-md-6 mb20">
+                                        <input class="mb0 form-control white" type="text" ng-model="service_settings.appointment.number_start" >
+                                    </div>
+                                </div>
+                                <div class="clearfix">
+                                    <div class="col-md-6 mb20">
+                                        <p class="title">Number Limit</p>
+                                    </div>
+                                    <div class="col-md-6 mb20">
+                                        <input class="mb0 form-control white" type="text" ng-model="service_settings.appointment.number_limit" >
+                                    </div>
+                                </div>
+                                <div class="clearfix">
+                                    <div class="col-md-6 mb20">
+                                        <p class="title">Number Prefix</p>
+                                    </div>
+                                    <div class="col-md-6 mb20">
+                                        <input class="mb0 form-control white" type="text" ng-model="service_settings.appointment.number_suffix" >
+                                    </div>
+                                </div>
+                                <div class="clearfix">
+                                    <div class="col-md-6 mb20">
+                                        <p class="title">Numbers Range from</p>
+                                    </div>
+                                    <div class="col-md-6 mb20">
+                                        <strong>@{{ service_settings.appointment.number_prefix + service_settings.appointment.number_start + service_settings.appointment.number_suffix }} to @{{ service_settings.appointment.number_prefix + service_settings.appointment.number_limit  + service_settings.appointment.number_suffix }}</strong>
+                                    </div>
+                                    <div class="col-md-12 mb20">
+                                        <div class="alert alert-warning" role="alert">
+                                            <p>Once the number prefix is changed, the queue will automatically reset to the starting number</p>
                                         </div>
                                     </div>
                                 </div>

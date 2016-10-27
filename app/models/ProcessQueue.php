@@ -8,7 +8,7 @@
 
 class ProcessQueue extends Eloquent{
 
-    public static function issueNumber($service_id, $priority_number = null, $date = null, $queue_platform = 'web', $terminal_id = 0, $user_id = null, $confirmation_code = null){
+    public static function issueNumber($service_id, $priority_number = null, $date = null, $queue_platform = 'web', $terminal_id = 0, $user_id = null, $confirmation_code = null, $time_assigned = null){
         $date = $date == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $date;
 
         $service_properties = ProcessQueue::getServiceProperties($service_id, $date);
@@ -20,7 +20,10 @@ class ProcessQueue extends Eloquent{
         $time_queued = time();
 
         if(!$priority_number){ $priority_number = $service_properties->next_number; }
-        $priority_number = QueueSettings::numberPrefix($service_id) . $priority_number . QueueSettings::numberSuffix($service_id);
+
+        $number_prefix = $time_assigned ? QueueSettings::appointmentNumberPrefix($service_id) : QueueSettings::numberPrefix($service_id);
+        $number_suffix = $time_assigned ? QueueSettings::appointmentNumberSuffix($service_id) : QueueSettings::numberSuffix($service_id);
+        $priority_number = $number_prefix . $priority_number . $number_suffix;
 
         $user_id = $user_id == null? Helper::userId() : $user_id;
         //$user_id = $queue_platform != 'web'? $user_id : 0;
@@ -196,6 +199,10 @@ class ProcessQueue extends Eloquent{
             $priority_numbers->processed_numbers = array();
             $priority_numbers->timebound_numbers = array();
             $priority_numbers->unprocessed_numbers = array();
+            $priority_numbers->appointment_number_start = QueueSettings::appointmentNumberStart($service_id);
+            $priority_numbers->appointment_number_limit = QueueSettings::appointmentNumberLimit($service_id);
+            $priority_numbers->appointment_number_prefix = QueueSettings::appointmentNumberPrefix($service_id);
+            $priority_numbers->appointment_number_suffix = QueueSettings::appointmentNumberSuffix($service_id);
         }
 
         return $priority_numbers;
@@ -452,6 +459,11 @@ class ProcessQueue extends Eloquent{
         $priority_numbers->uncalled_numbers = array_merge($uncalled_numbers,$unchecked_numbers);
         $priority_numbers->processed_numbers = array_reverse($processed_numbers);
         $priority_numbers->timebound_numbers = $timebound_numbers;
+
+        $priority_numbers->appointment_number_start = QueueSettings::appointmentNumberStart($service_id);
+        $priority_numbers->appointment_number_limit = QueueSettings::appointmentNumberLimit($service_id);
+        $priority_numbers->appointment_number_prefix = QueueSettings::appointmentNumberPrefix($service_id);
+        $priority_numbers->appointment_number_suffix = QueueSettings::appointmentNumberSuffix($service_id);
 
         //
         $after_next = ProcessQueue::nextNumber($priority_numbers->number_prefix . $priority_numbers->next_number . $priority_numbers->number_suffix, $priority_numbers->number_start, $priority_numbers->number_limit, $priority_numbers->number_prefix, $priority_numbers->number_suffix);

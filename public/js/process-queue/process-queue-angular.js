@@ -291,6 +291,13 @@
             $scope.number_suffix = numbers.number_suffix;
             $scope.unprocessed_numbers = numbers.unprocessed_numbers;
 
+            $scope.appointment = {
+                number_start: numbers.appointment_number_start,
+                number_limit: numbers.appointment_number_limit,
+                number_prefix: numbers.appointment_number_prefix,
+                number_suffix: numbers.appointment_number_suffix
+            };
+
             $scope.dateString = pq.jquery_functions.converDateToString($scope.date);
             pq.jquery_functions.set_next_number_placeholder($scope.next_number);
         };

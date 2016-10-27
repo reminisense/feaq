@@ -36,11 +36,11 @@ class IssueNumberController extends BaseController{
         $terminal_id = QueueSettings::terminalSpecificIssue($service_id) ? $terminal_id : 0;
         $business_id = Business::getBusinessIdByServiceId($service_id);
 
-        $number_prefix = QueueSettings::numberPrefix($service_id);
-        $number_suffix = QueueSettings::numberSuffix($service_id);
-        $number_start = QueueSettings::numberStart($service_id);
-        $number_limit = QueueSettings::numberLimit($service_id);
-
+        $number_prefix = $time_assigned ? QueueSettings::appointmentNumberPrefix($service_id) : QueueSettings::numberPrefix($service_id);
+        $number_suffix = $time_assigned ? QueueSettings::appointmentNumberSuffix($service_id) : QueueSettings::numberSuffix($service_id);
+        $number_start = $time_assigned ? QueueSettings::appointmentNumberStart($service_id) : QueueSettings::numberStart($service_id);
+        $number_limit = $time_assigned ? QueueSettings::appointmentNumberLimit($service_id) : QueueSettings::numberLimit($service_id);
+        
         $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), $number_start, $number_limit, $number_prefix, $number_suffix);
         $queue_platform = $priority_number == $next_number || $priority_number == null ? $queue_platform : 'specific';
 
@@ -67,7 +67,7 @@ class IssueNumberController extends BaseController{
             return json_encode(['error' => 'Priority number is still active.']);
         }
         else{
-            $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, $terminal_id);
+            $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, $terminal_id, null, null, $time_assigned);
             PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
             TerminalTransaction::where('transaction_number', '=', $number['transaction_number'])->update(['time_assigned' => $time_assigned]);
             ProcessQueue::updateBusinessBroadcast($business_id);

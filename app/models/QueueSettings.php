@@ -54,6 +54,22 @@ class QueueSettings extends Eloquent{
         return QueueSettings::queueSetting('number_limit', 99, $service_id, $date);
     }
 
+    public static function appointmentNumberStart($service_id, $date = null){
+        return QueueSettings::queueSetting('appointment_number_start', 1, $service_id, $date);
+    }
+
+    public static function appointmentNumberLimit($service_id, $date = null){
+        return QueueSettings::queueSetting('appointment_number_limit', 99, $service_id, $date);
+    }
+
+    public static function appointmentNumberPrefix($service_id, $date = null){
+        return QueueSettings::queueSetting('appointment_number_prefix', '', $service_id, $date);
+    }
+
+    public static function appointmentNumberSuffix($service_id, $date = null){
+        return QueueSettings::queueSetting('appointment_number_suffix', '', $service_id, $date);
+    }
+
     public static function terminalSpecificIssue($service_id, $date = null){
         return QueueSettings::queueSetting('terminal_specific_issue', 0, $service_id, $date);
     }

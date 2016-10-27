@@ -445,6 +445,14 @@ var eb = {
             broadcast_check_in : false,
             check_in_display : 0,
 
+            appointment : {
+                time_interval : 30,
+                number_prefix : '',
+                number_suffix : '',
+                number_start : 1,
+                number_limit : 99
+            },
+
             success: {
                 type: undefined,
                 message: ''
@@ -540,6 +548,13 @@ var eb = {
                     $scope.service_settings.allow_remote = queue_settings.allow_remote ? true : false;
                     $scope.service_settings.remote_limit = queue_settings.remote_limit;
                     $scope.service_settings.remote_time = queue_settings.remote_time;
+
+                    //appointments settings
+                    $scope.service_settings.appointment.time_interval = queue_settings.appointment_time_interval;
+                    $scope.service_settings.appointment.number_prefix = queue_settings.appointment_number_prefix;
+                    $scope.service_settings.appointment.number_suffix = queue_settings.appointment_number_suffix;
+                    $scope.service_settings.appointment.number_start = queue_settings.appointment_number_start;
+                    $scope.service_settings.appointment.number_limit = queue_settings.appointment_number_limit;
 
                     //broadcast screen settings
                     //$scope.service_settings.broadcast_check_in = queue_settings.check_in_display ? true : false; //ARA Removed since this does not make sense anymore
