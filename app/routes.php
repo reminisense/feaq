@@ -79,3 +79,5 @@ Route::controller('services', 'ServiceController');
 Route::get('/{raw_code?}', 'UserController@getUserDashboard');
 
 Route::controller('records', 'FormRecordController');
+
+Route::controller('api', 'FreeApiController');
