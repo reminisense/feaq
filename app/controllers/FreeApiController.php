@@ -11,7 +11,20 @@ class FreeApiController extends BaseController{
 
     public $freeApi;
     public function __construct(){
+        $this->beforeFilter('@grantAccess');
         $this->freeApi = new FreeApi();
+    }
+
+    public function grantAccess($route, $request) {
+        if ($request->path() != 'api/register' && $request->path() != 'api/login') {
+            $auth_token = Request::header('Authorization');
+            if (!User::getValidateToken($auth_token) || !$auth_token) {
+                return Response::json(array(
+                    'msg' => 'Your access token is not valid.',
+                    'status' => 403,
+                ));
+            }
+        }
     }
 
     /*******************************************************************************************************************
@@ -35,22 +48,27 @@ class FreeApiController extends BaseController{
     }
 
     /*******************************************************************************************************************
-     * Login page webservices here
-     */
-
-    /**
-     * Login to featherq account
-     */
-    public function postLogin(){}
-
-    /*******************************************************************************************************************
      * Register page webservices here
      */
 
     /**
      * Register new user and create new business
      */
-    public function postRegister(){}
+    public function postRegister(){
+        return $this->freeApi->postRegister(Input::all());
+    }
+
+    /*******************************************************************************************************************
+     * Login page webservices here
+     */
+
+    /**
+     * Login to featherq account
+     */
+    public function postLogin(){
+        return $this->freeApi->postLogin(Input::all());
+    }
+
 
     /*******************************************************************************************************************
      * Dashboard/Settings page webservices here
