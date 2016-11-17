@@ -7,8 +7,9 @@
  */
 require 'FreeApi/FreeSearch.php';
 require 'FreeApi/FreeAuth.php';
+require 'FreeApi/FreeBusiness.php';
 
-class FreeApi extends Eloquent {
+class FreeApi {
 
     private $search;
     private $auth;
@@ -16,6 +17,11 @@ class FreeApi extends Eloquent {
     public function __construct(){
         $this->search = new FreeSearch();
         $this->auth = new FreeAuth();
+        $this->business = new FreeBusiness();
+    }
+
+    public function grantAccess($request){
+        return $this->auth->grantAccess($request);
     }
 
     public function getBusinessSearch($data){
@@ -28,6 +34,14 @@ class FreeApi extends Eloquent {
 
     public function postRegister($data){
         return $this->auth->register($data);
+    }
+
+    public function getBusiness($business_id){
+        return $this->business->businessDetails($business_id);
+    }
+
+    public function putBusiness($data){
+        return $this->business->updateBusiness($data);
     }
 
 }

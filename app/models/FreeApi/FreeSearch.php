@@ -62,7 +62,7 @@ class FreeSearch {
                 'time_close' => Helper::mergeTime($business->close_hour, $business->close_minute, $business->close_ampm),
                 'people_in_line' => Analytics::getBusinessRemainingCount($business->business_id),
                 'serving_time' => '',
-                'logo' => '',
+                'logo' => $business->logo,
             ];
         }
 

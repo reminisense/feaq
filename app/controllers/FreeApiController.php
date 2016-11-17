@@ -16,15 +16,7 @@ class FreeApiController extends BaseController{
     }
 
     public function grantAccess($route, $request) {
-        if ($request->path() != 'api/register' && $request->path() != 'api/login') {
-            $auth_token = Request::header('Authorization');
-            if (!User::getValidateToken($auth_token) || !$auth_token) {
-                return Response::json(array(
-                    'msg' => 'Your access token is not valid.',
-                    'status' => 403,
-                ));
-            }
-        }
+        return $this->freeApi->grantAccess($request);
     }
 
     /*******************************************************************************************************************
@@ -78,19 +70,22 @@ class FreeApiController extends BaseController{
      * get business details by business id
      * @param $business_id
      */
-    public function getBusiness($business_id){}
+    public function getBusiness($business_id){
+        return $this->freeApi->getBusiness($business_id);
+    }
 
     /**
      * edit and save business details
-     * @param $business_id
      */
-    public function postSaveDetails($business_id){}
+    public function putBusiness(){
+        return $this->freeApi->putBusiness(Input::all());
+    }
 
     /**
      * Resets the password of the user
      * @param $user_id
      */
-    public function postResetPassword($user_id){}
+    public function postResetPassword(){}
 
     /**
      * Change password of the user

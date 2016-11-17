@@ -45,6 +45,7 @@ class FreeAuth {
             'close_minute' => $time_array['min'],
             'close_ampm' => $time_array['ampm'],
             'free_account' => 1,
+            'raw_code' => Helper::generateRawCode(),
         ];
         $business_id = $this->createBusiness($user_id, $business_details);
 
@@ -66,6 +67,23 @@ class FreeAuth {
             }
         }else{
             return json_encode(['error' => 'User does not exist.']);
+        }
+    }
+
+    /**
+     * grants access to users that are logged in on the site and have an access key
+     * @param $request
+     * @return mixed
+     */
+    public function grantAccess($request){
+        if ($request->path() != 'api/register' && $request->path() != 'api/login') {
+            $auth_token = Request::header('Authorization');
+            if (!User::getValidateToken($auth_token) || !$auth_token) {
+                return Response::json(array(
+                    'msg' => 'Your access token is not valid.',
+                    'status' => 403,
+                ));
+            }
         }
     }
 
