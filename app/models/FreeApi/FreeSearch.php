@@ -35,12 +35,12 @@ class FreeSearch {
         }
 
         //get the category given by the user and search businesses with that category
-        if(isset($data['category']) || $data['category'] != ''){
+        if(isset($data['category']) && $data['category'] != ''){
             $query->where('industry', '=', $data['category']);
         }
 
         //get a keyword from the user and search the name, raw_code and address for that keyword
-        if(isset($data['key'] )  || $data['key'] != ''){
+        if(isset($data['key'] )  && $data['key'] != ''){
             $query->orWhere('raw_code', '=', $data['key'])
                 ->orWhere('name', 'LIKE', $data['key'])
                 ->orWhere('local_address', 'LIKE', $data['key']);

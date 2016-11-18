@@ -8,6 +8,12 @@
  */
 class FreeQueue{
 
+    /**
+     * Issue a number to the service
+     * @param $data[service_id]
+     * @param $data[priority_number]
+     * @return string
+     */
     public function issueNumber($data){
         if(ProcessQueue::queueNumberActive($data['service_id'], $data['priority_number'])){
             return json_encode(['error' => 'Priority number is still active.']);
@@ -20,6 +26,11 @@ class FreeQueue{
         }
     }
 
+    /**
+     * get all numbers of tbe service
+     * @param $service_id
+     * @return string
+     */
     public function allNumbers($service_id){
         return json_encode(['numbers' => ProcessQueue::allNumbers($service_id)]);
     }
