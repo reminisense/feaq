@@ -110,7 +110,9 @@ class FreeApiController extends BaseController{
      * @param $post[service_id]
      * @param $post[priority_number]
      */
-    public function postIssueNumber(){}
+    public function postIssueNumber(){
+        return $this->freeApi->postIssueNumber(Input::all());
+    }
 
     /**
      * gets the estimated time to call the number specified
@@ -126,7 +128,9 @@ class FreeApiController extends BaseController{
      * get all numbers of a service
      * @param $service_id
      */
-    public function getAllNumbers($service_id){}
+    public function getAllNumbers($service_id){
+        return $this->freeApi->getAllNumbers($service_id);
+    }
 
     /**
      * calls the number specified

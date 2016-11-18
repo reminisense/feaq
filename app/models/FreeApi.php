@@ -8,16 +8,16 @@
 require 'FreeApi/FreeSearch.php';
 require 'FreeApi/FreeAuth.php';
 require 'FreeApi/FreeBusiness.php';
+require 'FreeApi/FreeQueue.php';
 
 class FreeApi {
 
-    private $search;
-    private $auth;
-
+    private $search, $auth, $business, $queue;
     public function __construct(){
         $this->search = new FreeSearch();
         $this->auth = new FreeAuth();
         $this->business = new FreeBusiness();
+        $this->queue = new FreeQueue();
     }
 
     public function grantAccess($request){
@@ -42,6 +42,14 @@ class FreeApi {
 
     public function putBusiness($data){
         return $this->business->updateBusiness($data);
+    }
+
+    public function postIssueNumber($data){
+        return $this->queue->issueNumber($data);
+    }
+
+    public function getAllNumbers($service_id){
+        return $this->queue->allNumbers($service_id);
     }
 
 }

@@ -63,7 +63,6 @@ class IssueNumberController extends BaseController{
 //            return json_encode(['error' => 'You are only allowed to queue remotely once per day.']);
 //        }
         elseif(ProcessQueue::queueNumberActive($service_id, $priority_number, $next_number)){
-            var_dump($priority_number);
             return json_encode(['error' => 'Priority number is still active.']);
         }
         else{
