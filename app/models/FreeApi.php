@@ -52,4 +52,16 @@ class FreeApi {
         return $this->queue->allNumbers($service_id);
     }
 
+    public function getCallNumber($transaction_number){
+        return $this->queue->callNumber($transaction_number);
+    }
+
+    public function getServeNumber($transaction_number){
+        return $this->queue->serveNumber($transaction_number);
+    }
+
+    public function getDropNumber($transaction_number){
+        return $this->queue->dropNumber($transaction_number);
+    }
+
 }

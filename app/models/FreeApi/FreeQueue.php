@@ -35,4 +35,18 @@ class FreeQueue{
         return json_encode(['numbers' => ProcessQueue::allNumbers($service_id)]);
     }
 
+    public function callNumber($transaction_number){
+        TerminalTransaction::where('terminal_transaction', '=', $transaction_number)->update(['time_called' => time()]);
+        return json_encode(['success' => 1]);
+    }
+
+    public function serveNumber($transaction_number){
+        TerminalTransaction::where('terminal_transaction', '=', $transaction_number)->update(['time_completed' => time()]);
+        return json_encode(['success' => 1]);
+    }
+
+    public function dropNumber($transaction_number){
+        TerminalTransaction::where('terminal_transaction', '=', $transaction_number)->update(['time_removed' => time()]);
+        return json_encode(['success' => 1]);
+    }
 }

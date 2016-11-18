@@ -136,19 +136,25 @@ class FreeApiController extends BaseController{
      * calls the number specified
      * @param $post[transaction_number]
      */
-    public function postCallNumber(){}
+    public function getCallNumber($transaction_number){
+        return $this->freeApi->getCallNumber($transaction_number);
+    }
 
     /**
      * serves the number specified
      * @param $post[transaction_number]
      */
-    public function postServeNumber(){}
+    public function getServeNumber($transaction_number){
+        return $this->freeApi->getServeNumber($transaction_number);
+    }
 
     /**
      * drops the number specified
      * @param $post[transaction_number]
      */
-    public function postDropNumber(){}
+    public function getDropNumber($transaction_number){
+        return $this->freeApi->getDropNumber($transaction_number);
+    }
 
     /*******************************************************************************************************************
      * Customer broadcast page webservices here
