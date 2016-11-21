@@ -237,10 +237,18 @@ class ProcessQueue extends Eloquent{
                 if($number->terminal_id){
                     $terminal = Terminal::findOrFail($number->terminal_id);
                     $terminal_name = $terminal->name;
+                    $box_rank = Terminal::boxRank($number->terminal_id);
+                    $terminal_color = Terminal::getColorByTerminalId($number->terminal_id);
+                }else{
+                    $terminal_name = '';
+                    $box_rank = '';
+                    $terminal_color = '';
                 }
             }catch(Exception $e){
                 $service_name = '';
                 $terminal_name = '';
+                $box_rank = '';
+                $terminal_color = '';
             }
 
             if($number->queue_platform != 'specific'){
@@ -388,8 +396,8 @@ class ProcessQueue extends Eloquent{
                     'email' => $number->email,
                     'form_records' => $form_records,
                     'verified_email' => $verified, //Added by JCA
-                    'box_rank' => Terminal::boxRank($number->terminal_id), // Added by PAG
-                    'color' => Terminal::getColorByTerminalId($number->terminal_id),
+                    'box_rank' => $box_rank, // Added by PAG
+                    'color' => $terminal_color,
                 );
             }else if($called && !$served && $removed){
                 $processed_numbers[] = array(

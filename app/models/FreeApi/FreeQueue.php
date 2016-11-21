@@ -35,18 +35,33 @@ class FreeQueue{
         return json_encode(['numbers' => ProcessQueue::allNumbers($service_id)]);
     }
 
+    /**
+     * Calls the given transaction number
+     * @param $transaction_number
+     * @return string
+     */
     public function callNumber($transaction_number){
-        TerminalTransaction::where('terminal_transaction', '=', $transaction_number)->update(['time_called' => time()]);
+        TerminalTransaction::where('transaction_number', '=', $transaction_number)->update(['time_called' => time()]);
         return json_encode(['success' => 1]);
     }
 
+    /**
+     * Serves the given transaction number
+     * @param $transaction_number
+     * @return string
+     */
     public function serveNumber($transaction_number){
-        TerminalTransaction::where('terminal_transaction', '=', $transaction_number)->update(['time_completed' => time()]);
+        TerminalTransaction::where('transaction_number', '=', $transaction_number)->update(['time_completed' => time()]);
         return json_encode(['success' => 1]);
     }
 
+    /**
+     * Drops the given transaction number
+     * @param $transaction_number
+     * @return string
+     */
     public function dropNumber($transaction_number){
-        TerminalTransaction::where('terminal_transaction', '=', $transaction_number)->update(['time_removed' => time()]);
+        TerminalTransaction::where('transaction_number', '=', $transaction_number)->update(['time_removed' => time()]);
         return json_encode(['success' => 1]);
     }
 }
