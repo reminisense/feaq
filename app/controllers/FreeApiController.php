@@ -11,7 +11,7 @@ class FreeApiController extends BaseController{
 
     public $freeApi;
     public function __construct(){
-        $this->beforeFilter('@grantAccess');
+//        $this->beforeFilter('@grantAccess');
         $this->freeApi = new FreeApi();
     }
 
