@@ -64,4 +64,12 @@ class FreeApi {
         return $this->queue->dropNumber($transaction_number);
     }
 
+    public function postResetPassword($data){
+        return $this->auth->resetPassword($data);
+    }
+
+    public function putChangePassword($data){
+        return $this->auth->changePassword($data);
+    }
+
 }

@@ -87,6 +87,37 @@ class FreeAuth {
         }
     }
 
+    public function resetPassword($data){
+        if(!isset($data['email'])){
+            return json_encode(['error' => 'No email address']);
+        }
+
+        if(!User::where('email', '=', $data['email'])->exists()){
+            return json_encode(['error' => 'User not found.']);
+        }
+
+
+        $temp_pass = \RandomStringGenerator::generate(8);
+        try{
+            Notifier::sendEmail($data['email'], 'emails.auth.free-password-reset', 'Password Reset', ['temp_pass' => $temp_pass]);
+        }catch(Exception $e){
+            return json_encode(['error' => $e->getMessage()]);
+        }
+
+        User::where('email', '=', $data['email'])->update(['password' => Hash::make($temp_pass)]);
+        return json_encode(['success' => 1]);
+
+    }
+
+    public function changePassword($data){
+        if($data['password'] != $data['password_confirm']){
+            return json_encode(['error' => 'Passwords do not match.']);
+        }
+
+        User::where('email', '=', $data['email'])->update(['password' => Hash::make($data['password'])]);
+        return json_encode(['success' => 1]);
+    }
+
     private function generateAccessKey($user_id){
         $auth_token = Hash::make($user_id);
         User::where('user_id', '=', $user_id)->update(array('auth_token' => $auth_token));

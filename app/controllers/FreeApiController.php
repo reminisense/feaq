@@ -85,7 +85,9 @@ class FreeApiController extends BaseController{
      * Resets the password of the user
      * @param $user_id
      */
-    public function postResetPassword(){}
+    public function postResetPassword(){
+        return $this->freeApi->postResetPassword(Input::all());
+    }
 
     /**
      * Change password of the user
@@ -93,7 +95,9 @@ class FreeApiController extends BaseController{
      * @param $post[old_password]
      * @param $post[new_password]
      */
-    public function postChangePassword(){}
+    public function putChangePassword(){
+        return $this->freeApi->putChangePassword(Input::all());
+    }
 
     /*******************************************************************************************************************
      * Issue number page webservices here
