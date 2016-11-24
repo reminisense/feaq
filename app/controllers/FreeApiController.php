@@ -168,7 +168,9 @@ class FreeApiController extends BaseController{
      * get broadcast screen and details for business view
      * @param $business_id
      */
-    public function getBusinessBroadcast($business_id){}
+    public function getBusinessBroadcast($business_id){
+        return $this->freeApi->getBusinessBroadcast($business_id);
+    }
 
     /*******************************************************************************************************************
      * Business broadcast page webservices here
@@ -178,6 +180,8 @@ class FreeApiController extends BaseController{
      * get broadcast screen and details for customer view
      * @param $business_id
      */
-    public function getCustomerBroadcast($business_id){}
+    public function getCustomerBroadcast($business_id){
+        return $this->freeApi->getCustomerBroadcast($business_id);
+    }
 
 }

@@ -9,15 +9,17 @@ require 'FreeApi/FreeSearch.php';
 require 'FreeApi/FreeAuth.php';
 require 'FreeApi/FreeBusiness.php';
 require 'FreeApi/FreeQueue.php';
+require 'FreeApi/FreeBroadcast.php';
 
 class FreeApi {
 
-    private $search, $auth, $business, $queue;
+    private $search, $auth, $business, $queue, $broadcast;
     public function __construct(){
         $this->search = new FreeSearch();
         $this->auth = new FreeAuth();
         $this->business = new FreeBusiness();
         $this->queue = new FreeQueue();
+        $this->broadcast = new FreeBroadcast();
     }
 
     public function grantAccess($request){
@@ -70,6 +72,14 @@ class FreeApi {
 
     public function putChangePassword($data){
         return $this->auth->changePassword($data);
+    }
+
+    public function getBusinessBroadcast($business_id){
+        return $this->broadcast->businessBroadcast($business_id);
+    }
+
+    public function getCustomerBroadcast($business_id){
+        return $this->broadcast->customerBroadcast($business_id);
     }
 
 }
