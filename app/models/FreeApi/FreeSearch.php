@@ -19,8 +19,8 @@ class FreeSearch {
     public function businessSearch($data){
         //@todo do some error checking here
 
+        $query = Business::where('status', '=', 1)->where('free_account', '=', 1);
 
-        $query = Business::where('status', '=', 1);
         //get the geolocation of the user and search businesses near that user
         if(isset($data['latitude']) && isset($data['longitude'])){
             $max_lat = $data['latitude'] + 0.06;
@@ -47,7 +47,8 @@ class FreeSearch {
         }
 
         //display all results
-        return $this->organizeBusinessData($query->get());
+        $businesses = $query->get();
+        return $this->organizeBusinessData($businesses);
     }
 
     private function organizeBusinessData($businesses){
