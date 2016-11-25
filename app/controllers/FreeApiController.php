@@ -99,6 +99,14 @@ class FreeApiController extends BaseController{
         return $this->freeApi->putChangePassword(Input::all());
     }
 
+    public function postEmailVerification(){
+        return $this->freeApi->postEmailVerification(Input::all());
+    }
+
+    public function postVerifyCode(){
+        return $this->freeApi->postVerifyCode(Input::all());
+    }
+
     /*******************************************************************************************************************
      * Issue number page webservices here
      */

@@ -70,6 +70,14 @@ class FreeApi {
         return $this->auth->resetPassword($data);
     }
 
+    public function postEmailVerification($data){
+        return $this->auth->emailVerification($data);
+    }
+
+    public function postVerifyCode($data){
+        return $this->auth->verifyCode($data);
+    }
+
     public function putChangePassword($data){
         return $this->auth->changePassword($data);
     }

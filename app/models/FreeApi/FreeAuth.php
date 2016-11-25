@@ -70,6 +70,19 @@ class FreeAuth {
         }
     }
 
+    public function emailVerification($data){
+        $secret = $this->encrypt($data['email']);
+        return json_encode(['success' => 1, 'code' => $secret]);
+    }
+
+    public function verifyCode($data){
+        try{
+            return json_encode(['success' => $this->compareCode($data['email'], $data['verification_code'])]);
+        }catch (Exception $e){
+            return json_encode(['error' => $e->getMessage()]);
+        }
+    }
+
     /**
      * grants access to users that are logged in on the site and have an access key
      * @param $request
@@ -194,4 +207,15 @@ class FreeAuth {
         QueueSettings::insertGetId($queue_settings);
     }
 
+    private function encrypt($secret){
+        return Crypt::encrypt($secret);
+    }
+
+    private function decrypt($code){
+        return Crypt::decrypt($code);
+    }
+
+    private function compareCode($email, $code){
+        return ($email === $this->decrypt($code)) ? 1 : 0;
+    }
 }
