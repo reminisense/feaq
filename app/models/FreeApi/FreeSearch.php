@@ -22,7 +22,7 @@ class FreeSearch {
         $query = Business::where('status', '=', 1)->where('free_account', '=', 1);
 
         //get the geolocation of the user and search businesses near that user
-        if(isset($data['latitude']) && isset($data['longitude'])){
+        if(isset($data['latitude']) && $data['latitude'] != '' && isset($data['longitude']) && $data['longitude'] != ''){
             $max_lat = $data['latitude'] + 0.06;
             $max_long = $data['longitude'] + 0.06;
             $min_lat = $data['latitude'] - 0.06;
