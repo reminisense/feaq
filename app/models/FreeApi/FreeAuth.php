@@ -19,6 +19,7 @@ class FreeAuth {
      * @param $data[time_close]
      * @param $data[number_start]
      * @param $data[number_limit]
+     * @return mixed
      */
     public function register($data){
         //@todo data checking
@@ -56,6 +57,7 @@ class FreeAuth {
 
     /**
      * @param $data
+     * @return mixed
      */
     public function login($data){
         $user = User::where('email', '=', $data['email'])->first();
@@ -71,13 +73,24 @@ class FreeAuth {
     }
 
     public function emailVerification($data){
-        $secret = $this->encrypt($data['email']);
+        $secret = $this->getVerificationCode();
+        try{
+            if(DB::table('email_verification')->where('email', '=', $data['email'])->exists()){
+                DB::table('email_verification')->where('email', '=', $data['email'])->update(['verification_code' => $secret]);
+            }else{
+                DB::table('email_verification')->insert(['email' => $data['email'], 'verification_code' => $secret]);
+            }
+            Notifier::sendEmail($data['email'], 'emails.auth.free-email-verification', 'Email_verification', ['verification_code' => $secret]);
+        }catch(Exception $e){
+            return json_encode(['error' => $e->getMessage()]);
+        }
+
         return json_encode(['success' => 1, 'code' => $secret]);
     }
 
     public function verifyCode($data){
         try{
-            return json_encode(['success' => $this->compareCode($data['email'], $data['verification_code'])]);
+            return json_encode(['success' => $this->checkVerificationCode($data['email'], $data['verification_code'])]);
         }catch (Exception $e){
             return json_encode(['error' => $e->getMessage()]);
         }
@@ -207,15 +220,11 @@ class FreeAuth {
         QueueSettings::insertGetId($queue_settings);
     }
 
-    private function encrypt($secret){
-        return Crypt::encrypt($secret);
+    private function getVerificationCode(){
+        return \RandomStringGenerator::generate(8);
     }
 
-    private function decrypt($code){
-        return Crypt::decrypt($code);
-    }
-
-    private function compareCode($email, $code){
-        return ($email === $this->decrypt($code)) ? 1 : 0;
+    private function checkVerificationCode($email, $code){
+        return DB::table('email_verification')->where('email', '=', $email)->where('verification_code', '=', $code)->exists() ? 1 : 0;
     }
 }
