@@ -23,7 +23,7 @@ class FreeAuth {
     public function register($data){
         //@todo data checking
         $data = $this->checkRegistrationData($data);
-        if($data['error']){
+        if(isset($data['error'])){
             return json_encode($data);
         }
 
