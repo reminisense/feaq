@@ -11,7 +11,7 @@ class FreeApiController extends BaseController{
 
     public $freeApi;
     public function __construct(){
-//        $this->beforeFilter('@grantAccess');
+        $this->beforeFilter('@grantAccess');
         $this->freeApi = new FreeApi();
     }
 
@@ -69,6 +69,7 @@ class FreeApiController extends BaseController{
     /**
      * get business details by business id
      * @param $business_id
+     * @return mixed
      */
     public function getBusiness($business_id){
         return $this->freeApi->getBusiness($business_id);
@@ -84,6 +85,7 @@ class FreeApiController extends BaseController{
     /**
      * Resets the password of the user
      * @param $user_id
+     * @return mixed
      */
     public function postResetPassword(){
         return $this->freeApi->postResetPassword(Input::all());
@@ -94,6 +96,7 @@ class FreeApiController extends BaseController{
      * @param $post[user_id]
      * @param $post[old_password]
      * @param $post[new_password]
+     * @return mixed
      */
     public function putChangePassword(){
         return $this->freeApi->putChangePassword(Input::all());
@@ -127,6 +130,7 @@ class FreeApiController extends BaseController{
      * issue a new number for the service
      * @param $post[service_id]
      * @param $post[priority_number]
+     * @return mixed
      */
     public function postIssueNumber(){
         return $this->freeApi->postIssueNumber(Input::all());
@@ -145,6 +149,7 @@ class FreeApiController extends BaseController{
     /**
      * get all numbers of a service
      * @param $service_id
+     * @return mixed
      */
     public function getAllNumbers($service_id){
         return $this->freeApi->getAllNumbers($service_id);
@@ -153,6 +158,7 @@ class FreeApiController extends BaseController{
     /**
      * calls the number specified
      * @param $post[transaction_number]
+     * @return mixed
      */
     public function getCallNumber($transaction_number){
         return $this->freeApi->getCallNumber($transaction_number);
@@ -161,6 +167,7 @@ class FreeApiController extends BaseController{
     /**
      * serves the number specified
      * @param $post[transaction_number]
+     * @return mixed
      */
     public function getServeNumber($transaction_number){
         return $this->freeApi->getServeNumber($transaction_number);
@@ -169,6 +176,7 @@ class FreeApiController extends BaseController{
     /**
      * drops the number specified
      * @param $post[transaction_number]
+     * @return mixed
      */
     public function getDropNumber($transaction_number){
         return $this->freeApi->getDropNumber($transaction_number);
@@ -181,6 +189,7 @@ class FreeApiController extends BaseController{
     /**
      * get broadcast screen and details for business view
      * @param $business_id
+     * @return mixed
      */
     public function getBusinessBroadcast($business_id){
         return $this->freeApi->getBusinessBroadcast($business_id);
@@ -193,6 +202,7 @@ class FreeApiController extends BaseController{
     /**
      * get broadcast screen and details for customer view
      * @param $business_id
+     * @return mixed
      */
     public function getCustomerBroadcast($business_id){
         return $this->freeApi->getCustomerBroadcast($business_id);

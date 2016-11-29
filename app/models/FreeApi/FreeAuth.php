@@ -7,6 +7,33 @@
  */
 
 class FreeAuth {
+    private $allowed_urls = [
+        'api/register',
+        'api/login',
+        'api/search-business',
+        'api/reset-password',
+        'api/email-verification',
+        'api/verify-code',
+        'api/customer-broadcast',
+    ];
+
+    /**
+     * grants access to users that are logged in on the site and have an access key
+     * @param $request
+     * @return mixed
+     */
+    public function grantAccess($request){
+        if(!in_array($request->path(), $this->allowed_urls)){
+            $auth_token = Request::header('Authorization');
+            if (!User::getValidateToken($auth_token) || !$auth_token) {
+                return Response::json(array(
+                    'msg' => 'Your access token is not valid.',
+                    'status' => 403,
+                ));
+            }
+        }
+    }
+
     /**
      * Crate user and business
      * @param $data[email]
@@ -40,8 +67,8 @@ class FreeAuth {
         $business_details = [
             'name' => $data['name'],
             'local_address' => $data['address'],
-            'logo' => $data['logo'],
             'industry' => $data['category'],
+            'logo' => $data['logo'],
             'close_hour' => $time_array['hour'],
             'close_minute' => $time_array['min'],
             'close_ampm' => $time_array['ampm'],
@@ -93,23 +120,6 @@ class FreeAuth {
             return json_encode(['success' => $this->checkVerificationCode($data['email'], $data['verification_code'])]);
         }catch (Exception $e){
             return json_encode(['error' => $e->getMessage()]);
-        }
-    }
-
-    /**
-     * grants access to users that are logged in on the site and have an access key
-     * @param $request
-     * @return mixed
-     */
-    public function grantAccess($request){
-        if ($request->path() != 'api/register' && $request->path() != 'api/login') {
-            $auth_token = Request::header('Authorization');
-            if (!User::getValidateToken($auth_token) || !$auth_token) {
-                return Response::json(array(
-                    'msg' => 'Your access token is not valid.',
-                    'status' => 403,
-                ));
-            }
         }
     }
 

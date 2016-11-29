@@ -72,6 +72,7 @@ class FreeBusiness{
                     'business.name' => $data['name'],
                     'business.local_address' => $data['address'],
                     'business.industry' => $data['category'],
+                    'business.logo' => $data['logo'],
 
                     'business.close_hour' => $time_array['hour'],
                     'business.close_minute' => $time_array['min'],
