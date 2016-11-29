@@ -46,6 +46,8 @@ class FreeAuth {
      * @param $data[time_close]
      * @param $data[number_start]
      * @param $data[number_limit]
+     * @param $data[device_token]
+     * @param $data[platform]
      * @return mixed
      */
     public function register($data){
@@ -79,17 +81,21 @@ class FreeAuth {
 
         //create business branch, service, and terminal
         $this->createBusinessSetup($business_id, $data['name'], $data['number_start'], $data['number_limit']);
-        return json_encode(['success' => 1, 'access_token' => $this->generateAccessKey($user_id)]);
+        return $this->login(['email' => $data['email'], 'password' => $data['password'], 'device_token' => $data['device_token']]);
     }
 
     /**
-     * @param $data
+     * @param $data[email]
+     * @param $data[password]
+     * @param $data[device_token]
+     * @param $data[platform]
      * @return mixed
      */
     public function login($data){
         $user = User::where('email', '=', $data['email'])->first();
         if($user){
             if(Hash::check($data['password'], $user->password)){
+                $this->saveLogin($user->user_id, $data['platform'], $data['device_token']);
                 return json_encode(['success' => 1, 'access_token' => $this->generateAccessKey($user->user_id)]);
             }else{
                 return json_encode(['error' => 'Passwords do not match.']);
@@ -236,5 +242,16 @@ class FreeAuth {
 
     private function checkVerificationCode($email, $code){
         return DB::table('email_verification')->where('email', '=', $email)->where('verification_code', '=', $code)->exists() ? 1 : 0;
+    }
+
+    private function saveLogin($user_id, $platform, $device_token){
+        $business_id = UserBusiness::getBusinessIdByOwner($user_id);
+        DB::table('business_login')->insert([
+            'device_token' => $device_token,
+            'business_id' => $business_id,
+            'action' => 1,
+            'platform' => $platform,
+            'added_on' => time(),
+        ]);
     }
 }
