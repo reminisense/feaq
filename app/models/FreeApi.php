@@ -26,7 +26,7 @@ class FreeApi {
         return $this->auth->grantAccess($request);
     }
 
-    public function getBusinessSearch($data){
+    public function postBusinessSearch($data){
         return $this->search->businessSearch($data);
     }
 
@@ -50,8 +50,8 @@ class FreeApi {
         return $this->queue->issueNumber($data);
     }
 
-    public function getAllNumbers($service_id){
-        return $this->queue->allNumbers($service_id);
+    public function getAllNumbers($business_id){
+        return $this->queue->allNumbers($business_id);
     }
 
     public function getCallNumber($transaction_number){

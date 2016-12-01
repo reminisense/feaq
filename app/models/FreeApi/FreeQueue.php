@@ -33,8 +33,9 @@ class FreeQueue{
      * @param $service_id
      * @return string
      */
-    public function allNumbers($service_id){
-        return json_encode(['numbers' => ProcessQueue::allNumbers($service_id)]);
+    public function allNumbers($business_id){
+        $service = Service::getFirstServiceOfBusiness($business_id);
+        return json_encode(['numbers' => ProcessQueue::allNumbers($service->service_id)]);
     }
 
     /**

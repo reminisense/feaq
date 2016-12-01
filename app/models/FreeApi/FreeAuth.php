@@ -25,7 +25,7 @@ class FreeAuth {
     public function grantAccess($request){
         if(!in_array($request->path(), $this->allowed_urls)){
             $auth_token = Request::header('Authorization');
-            if (!User::getValidateToken($auth_token) || !$auth_token) {
+            if (!$this->checkAccessKey($auth_token)) {
                 return Response::json(array(
                     'msg' => 'Your access token is not valid.',
                     'status' => 403,
@@ -160,11 +160,6 @@ class FreeAuth {
         return json_encode(['success' => 1]);
     }
 
-    private function generateAccessKey($user_id){
-        $auth_token = Hash::make($user_id);
-        User::where('user_id', '=', $user_id)->update(array('auth_token' => $auth_token));
-        return $auth_token;
-    }
     /**
      * check for errors in the data
      * @param $data
@@ -253,5 +248,15 @@ class FreeAuth {
             'platform' => $platform,
             'added_on' => time(),
         ]);
+    }
+
+    private function generateAccessKey($user_id){
+        $auth_token = Hash::make($user_id);
+        User::where('user_id', '=', $user_id)->update(array('auth_token' => $auth_token));
+        return $auth_token;
+    }
+
+    private function checkAccessKey($auth_token){
+        return User::getValidateToken($auth_token) || $auth_token;
     }
 }

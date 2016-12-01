@@ -36,7 +36,7 @@ class FreeApiController extends BaseController{
      * @return mixed
      */
     public function postSearchBusiness(){
-        return $this->freeApi->getBusinessSearch(Input::all());
+        return $this->freeApi->postBusinessSearch(Input::all());
     }
 
     /*******************************************************************************************************************
@@ -151,8 +151,8 @@ class FreeApiController extends BaseController{
      * @param $service_id
      * @return mixed
      */
-    public function getAllNumbers($service_id){
-        return $this->freeApi->getAllNumbers($service_id);
+    public function getAllNumbers($business_id){
+        return $this->freeApi->getAllNumbers($business_id);
     }
 
     /**
