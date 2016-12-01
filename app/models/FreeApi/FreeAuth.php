@@ -70,7 +70,6 @@ class FreeAuth {
             'name' => $data['name'],
             'local_address' => $data['address'],
             'industry' => $data['category'],
-            'logo' => $data['logo'],
             'close_hour' => $time_array['hour'],
             'close_minute' => $time_array['min'],
             'close_ampm' => $time_array['ampm'],
@@ -78,10 +77,13 @@ class FreeAuth {
             'raw_code' => Helper::generateRawCode(),
         ];
         $business_id = $this->createBusiness($user_id, $business_details);
+        if(isset($data['logo']) && $data['logo'] != null){
+            $this->uploadBusinessLogo($data['logo'], $business_id);
+        }
 
         //create business branch, service, and terminal
         $this->createBusinessSetup($business_id, $data['name'], $data['number_start'], $data['number_limit']);
-        return $this->login(['email' => $data['email'], 'password' => $data['password'], 'device_token' => $data['device_token']]);
+        return $this->login(['email' => $data['email'], 'password' => $data['password'], 'device_token' => $data['device_token'], 'platform' => $data['platform']]);
     }
 
     /**
@@ -190,6 +192,13 @@ class FreeAuth {
         UserBusiness::insert($user_business);
 
         return $business_id;
+    }
+
+    private function uploadBusinessLogo($file, $business_id){
+        $file_path = public_path() . '/logos/' . $business_id;
+        $filename = $file->getClientOriginalName();
+        $file->move($file_path, $filename);
+        Business::where('business_id', '=', $business_id)->update(['logo' => $file_path . '/' . $filename]);
     }
 
     /**
