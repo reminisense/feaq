@@ -42,7 +42,7 @@ class FreeApi {
         return $this->business->businessDetails($business_id);
     }
 
-    public function putBusiness($data){
+    public function postUpdateBusiness($data){
         return $this->business->updateBusiness($data);
     }
 

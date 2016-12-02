@@ -72,7 +72,6 @@ class FreeBusiness{
                     'business.name' => $data['name'],
                     'business.local_address' => $data['address'],
                     'business.industry' => $data['category'],
-                    'business.logo' => $data['logo'],
 
                     'business.close_hour' => $time_array['hour'],
                     'business.close_minute' => $time_array['min'],
@@ -82,20 +81,86 @@ class FreeBusiness{
                     'queue_settings.number_limit' => $data['number_limit'],
                 ];
 
-                //Business::where('business_id', '=', $business_id)->update($business_data);
-
                 Business::join('branch', 'branch.business_id', '=', 'business.business_id')
                     ->join('service', 'service.branch_id', '=', 'branch.branch_id')
                     ->join('queue_settings', 'queue_settings.service_id', '=', 'service.service_id')
                     ->where('business.business_id', '=', $business_id)
                     ->update($business_data);
 
+                if(isset($data['logo']) && $data['logo'] != null){
+                    $this->uploadBusinessLogo($data['logo'], $business_id);
+                }
+
                 return $this->businessDetails($business_id);
             }catch (Exception $e){
                 return json_encode(['error' => $e->getMessage()]);
             }
-
         }
+    }
+
+    /**
+     * Insert business and user_business data
+     * @param $user_id
+     * @param $business_details
+     * @return mixed
+     */
+    public function createBusiness($user_id, $business_details){
+        //create business
+        $business_id = Business::insertGetId($business_details);
+
+        //create user business
+        $user_business = [
+            'user_id' => $user_id,
+            'business_id' => $business_id,
+        ];
+        UserBusiness::insert($user_business);
+
+        return $business_id;
+    }
+
+    public function uploadBusinessLogo($file, $business_id){
+        $file_path = public_path() . '/logos/' . $business_id;
+        $file->move($file_path, 'logo.png');
+        Business::where('business_id', '=', $business_id)->update(['logo' => $file_path . '/logo.png']);
+    }
+
+    /**
+     * Create branch, service, terminal
+     * @param $business_id
+     * @param $business_name
+     * @param int $number_start
+     * @param int $number_limit
+     */
+    public function createBusinessSetup($business_id, $business_name, $number_start = 1, $number_limit = 99){
+        //insert branch details
+        $branch_details = [
+            'business_id' => $business_id,
+            'name' => $business_name . ' Branch',
+        ];
+        $branch_id = Branch::insertGetId($branch_details);
+
+        //insert service details
+        $service_details = [
+            'branch_id' => $branch_id,
+            'name' => $business_name . ' Service',
+        ];
+        $service_id = Service::insertGetId($service_details);
+
+        //insert terminal details
+        $terminal_details = [
+            'service_id' => $service_id,
+            'name' => 'Counter 1',
+        ];
+        Terminal::insert($terminal_details);
+
+        //inser queue settings
+        $queue_settings = [
+            'date' => mktime(0, 0, 0, date('m'), date('d'), date('Y')),
+            'service_id' => $service_id,
+            'number_start' => $number_start,
+            'number_limit' => $number_limit,
+        ];
+        QueueSettings::insertGetId($queue_settings);
     }
 
 }

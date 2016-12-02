@@ -78,8 +78,8 @@ class FreeApiController extends BaseController{
     /**
      * edit and save business details
      */
-    public function putBusiness(){
-        return $this->freeApi->putBusiness(Input::all());
+    public function postUpdateBusiness(){
+        return $this->freeApi->postUpdateBusiness(Input::all());
     }
 
     /**

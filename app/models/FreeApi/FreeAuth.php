@@ -5,7 +5,6 @@
  * Date: 11/15/2016
  * Time: 6:39 PM
  */
-
 class FreeAuth {
     private $allowed_urls = [
         'api/register',
@@ -16,6 +15,11 @@ class FreeAuth {
         'api/verify-code',
         'api/customer-broadcast',
     ];
+
+    private $freeBusiness;
+    public function __construct(){
+        $this->freeBusiness = new FreeBusiness();
+    }
 
     /**
      * grants access to users that are logged in on the site and have an access key
@@ -76,13 +80,13 @@ class FreeAuth {
             'free_account' => 1,
             'raw_code' => Helper::generateRawCode(),
         ];
-        $business_id = $this->createBusiness($user_id, $business_details);
+        $business_id = $this->freeBusiness->createBusiness($user_id, $business_details);
         if(isset($data['logo']) && $data['logo'] != null){
-            $this->uploadBusinessLogo($data['logo'], $business_id);
+            $this->freeBusiness->uploadBusinessLogo($data['logo'], $business_id);
         }
 
         //create business branch, service, and terminal
-        $this->createBusinessSetup($business_id, $data['name'], $data['number_start'], $data['number_limit']);
+        $this->freeBusiness->createBusinessSetup($business_id, $data['name'], $data['number_start'], $data['number_limit']);
         return $this->login(['email' => $data['email'], 'password' => $data['password'], 'device_token' => $data['device_token'], 'platform' => $data['platform']]);
     }
 
@@ -172,72 +176,6 @@ class FreeAuth {
             return ['error' => 'Passwords do not match.'];
         }
         return $data;
-    }
-
-    /**
-     * Insert business and user_business data
-     * @param $user_id
-     * @param $business_details
-     * @return mixed
-     */
-    private function createBusiness($user_id, $business_details){
-        //create business
-        $business_id = Business::insertGetId($business_details);
-
-        //create user business
-        $user_business = [
-            'user_id' => $user_id,
-            'business_id' => $business_id,
-        ];
-        UserBusiness::insert($user_business);
-
-        return $business_id;
-    }
-
-    private function uploadBusinessLogo($file, $business_id){
-        $file_path = public_path() . '/logos/' . $business_id;
-        $filename = $file->getClientOriginalName();
-        $file->move($file_path, $filename);
-        Business::where('business_id', '=', $business_id)->update(['logo' => $file_path . '/' . $filename]);
-    }
-
-    /**
-     * Create branch, service, terminal
-     * @param $business_id
-     * @param $business_name
-     * @param int $number_start
-     * @param int $number_limit
-     */
-    private function createBusinessSetup($business_id, $business_name, $number_start = 1, $number_limit = 99){
-        //insert branch details
-        $branch_details = [
-            'business_id' => $business_id,
-            'name' => $business_name . ' Branch',
-        ];
-        $branch_id = Branch::insertGetId($branch_details);
-
-        //insert service details
-        $service_details = [
-            'branch_id' => $branch_id,
-            'name' => $business_name . ' Service',
-        ];
-        $service_id = Service::insertGetId($service_details);
-
-        //insert terminal details
-        $terminal_details = [
-            'service_id' => $service_id,
-            'name' => 'Counter 1',
-        ];
-        Terminal::insert($terminal_details);
-
-        //inser queue settings
-        $queue_settings = [
-            'date' => mktime(0, 0, 0, date('m'), date('d'), date('Y')),
-            'service_id' => $service_id,
-            'number_start' => $number_start,
-            'number_limit' => $number_limit,
-        ];
-        QueueSettings::insertGetId($queue_settings);
     }
 
     private function getVerificationCode(){
