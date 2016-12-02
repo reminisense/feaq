@@ -97,8 +97,8 @@ class FreeAuth {
         $user = User::where('email', '=', $data['email'])->first();
         if($user){
             if(Hash::check($data['password'], $user->password)){
-                $this->saveLogin($user->user_id, $data['platform'], $data['device_token']);
-                return json_encode(['success' => 1, 'access_token' => $this->generateAccessKey($user->user_id)]);
+                $business_id = $this->saveLogin($user->user_id, $data['platform'], $data['device_token']);
+                return json_encode(['success' => 1, 'business_id' => $business_id, 'access_token' => $this->generateAccessKey($user->user_id)]);
             }else{
                 return json_encode(['error' => 'Passwords do not match.']);
             }
@@ -257,6 +257,8 @@ class FreeAuth {
             'platform' => $platform,
             'added_on' => time(),
         ]);
+
+        return $business_id;
     }
 
     private function generateAccessKey($user_id){
