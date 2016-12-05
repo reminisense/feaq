@@ -308,6 +308,7 @@ class ProcessQueue extends Eloquent{
                     'form_records' => $form_records,
                     'verified_email' => $verified,
                     'checked_in' => $checked_in,
+                    'time_queued' => $number->time_queued,
                     'time_called' => $number->time_called,
                     'confirmation_code' => $number->confirmation_code,
                 );
@@ -325,6 +326,7 @@ class ProcessQueue extends Eloquent{
                         'form_records' => $form_records,
                         'verified_email' => $verified,
                         'checked_in' => $checked_in,
+                        'time_queued' => $number->time_queued,
                         'time_called' => $number->time_called,
                         'confirmation_code' => $number->confirmation_code,
                     );
@@ -341,6 +343,7 @@ class ProcessQueue extends Eloquent{
                         'form_records' => $form_records,
                         'verified_email' => $verified,
                         'checked_in' => $checked_in,
+                        'time_queued' => $number->time_queued,
                         'time_called' => $number->time_called,
                         'confirmation_code' => $number->confirmation_code,
                     );
@@ -360,6 +363,7 @@ class ProcessQueue extends Eloquent{
                         'form_records' => $form_records,
                         'verified_email' => $verified,
                         'checked_in' => $checked_in,
+                        'time_queued' => $number->time_queued,
                         'time_called' => $number->time_called,
                         'confirmation_code' => $number->confirmation_code,
                     );
@@ -376,6 +380,7 @@ class ProcessQueue extends Eloquent{
                         'form_records' => $form_records,
                         'verified_email' => $verified,
                         'checked_in' => $checked_in,
+                        'time_queued' => $number->time_queued,
                         'time_called' => $number->time_called,
                         'confirmation_code' => $number->confirmation_code,
                     );
@@ -399,6 +404,7 @@ class ProcessQueue extends Eloquent{
                     'verified_email' => $verified, //Added by JCA
                     'box_rank' => $box_rank, // Added by PAG
                     'color' => $terminal_color,
+                    'time_queued' => $number->time_queued,
                 );
             }else if($called && !$served && $removed){
                 $processed_numbers[] = array(
@@ -412,6 +418,7 @@ class ProcessQueue extends Eloquent{
                     'service_name' => $service_name,
                     'time_processed' => $number->time_removed,
                     'status' => 'Dropped',
+                    'time_queued' => $number->time_queued,
                     'time_called' => $number->time_called,
                 );
             }else if(!$called && $removed){
@@ -426,6 +433,7 @@ class ProcessQueue extends Eloquent{
                     'service_name' => $service_name,
                     'time_processed' => $number->time_removed,
                     'status' => 'Removed',
+                    'time_queued' => $number->time_queued,
                     'time_called' => $number->time_called,
                 );
             }else if($called && $served){
@@ -440,6 +448,7 @@ class ProcessQueue extends Eloquent{
                     'service_name' => $service_name,
                     'time_processed' => $number->time_completed,
                     'status' => 'Served',
+                    'time_queued' => $number->time_queued,
                     'time_called' => $number->time_called,
                     'confirmation_code' => $number->confirmation_code,
                 );
@@ -489,6 +498,7 @@ class ProcessQueue extends Eloquent{
 			    q.email,
 			    q.custom_fields,
 				t.transaction_number,
+				t.time_queued,
 				t.time_called,
 				t.time_removed,
 				t.time_completed,
