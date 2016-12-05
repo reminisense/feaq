@@ -185,6 +185,7 @@ class ProcessQueue extends Eloquent{
             $priority_numbers = ProcessQueue::segregatedNumbers($numbers, $service_id, $terminal_id);
         }else{
             $priority_numbers = new stdClass();
+            $priority_numbers->service_id = $service_id;
             $priority_numbers->last_number_given = 0;
             $priority_numbers->number_prefix = QueueSettings::numberPrefix($service_id);
             $priority_numbers->number_suffix = QueueSettings::numberSuffix($service_id);
@@ -448,6 +449,7 @@ class ProcessQueue extends Eloquent{
         usort($processed_numbers, array('ProcessQueue', 'sortProcessedNumbers'));
         usort($called_numbers, array('ProcessQueue', 'sortCalledNumbers'));
 
+        $priority_numbers->service_id = $service_id;
         $priority_numbers->last_number_given = $last_number_given;
         $priority_numbers->number_prefix = QueueSettings::numberPrefix($service_id);
         $priority_numbers->number_suffix = QueueSettings::numberSuffix($service_id);

@@ -521,13 +521,13 @@ class Analytics extends Eloquent{
             $standard_deviation = $this->getStandardDeviation($serving_times);
             $time_estimates = $this->getTimeEstimate($time, $numbers_ahead, $mean, $standard_deviation);
 
-            $time_estimates['upper_limit'] = date('h:ia', $time_estimates['upper_limit']);
-            $time_estimates['lower_limit'] = $time_estimates['lower_limit'] > $time ? date('h:ia', $time_estimates['lower_limit']) : date('h:ia', $time);
+            $time_estimates['upper_limit'] = date('h:i A', $time_estimates['upper_limit']);
+            $time_estimates['lower_limit'] = $time_estimates['lower_limit'] > $time ? date('h:ia', $time_estimates['lower_limit']) : date('h:i A', $time);
             $time_estimates['next_number'] = $next_number;
             $time_estimates['serving_times'] = $serving_times;
         }else{
-            $time_estimates['upper_limit'] = date('h:ia', time());
-            $time_estimates['lower_limit'] = date('h:ia', time());
+            $time_estimates['upper_limit'] = date('h:i A', time());
+            $time_estimates['lower_limit'] = date('h:i A', time());
             $time_estimates['next_number'] = $next_number;
             $time_estimates['numbers_ahead'] = $numbers_ahead;
         }

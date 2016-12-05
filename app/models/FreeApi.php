@@ -51,7 +51,7 @@ class FreeApi {
     }
 
     public function getAllNumbers($business_id){
-        return $this->queue->allNumbers($business_id);
+        return $this->queue->getNumbers($business_id);
     }
 
     public function getCallNumber($transaction_number){
