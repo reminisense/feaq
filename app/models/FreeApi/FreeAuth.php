@@ -115,9 +115,9 @@ class FreeAuth {
         $secret = $this->getVerificationCode();
         try{
             if(DB::table('email_verification')->where('email', '=', $data['email'])->exists()){
-                DB::table('email_verification')->where('email', '=', $data['email'])->update(['verification_code' => $secret]);
+                DB::table('email_verification')->where('email', '=', $data['email'])->update(['verification_code' => Hash::make($secret)]);
             }else{
-                DB::table('email_verification')->insert(['email' => $data['email'], 'verification_code' => $secret]);
+                DB::table('email_verification')->insert(['email' => $data['email'], 'verification_code' => Hash::make($secret)]);
             }
             Notifier::sendEmail($data['email'], 'emails.auth.free-email-verification', 'Email_verification', ['verification_code' => $secret]);
         }catch(Exception $e){
@@ -144,16 +144,17 @@ class FreeAuth {
             return json_encode(['error' => 'User not found.']);
         }
 
+        return $this->emailVerification($data);
 
-        $temp_pass = \RandomStringGenerator::generate(8);
-        try{
-            Notifier::sendEmail($data['email'], 'emails.auth.free-password-reset', 'Password Reset', ['temp_pass' => $temp_pass]);
-        }catch(Exception $e){
-            return json_encode(['error' => $e->getMessage()]);
-        }
-
-        User::where('email', '=', $data['email'])->update(['password' => Hash::make($temp_pass)]);
-        return json_encode(['success' => 1]);
+//        try{
+//            $temp_pass = $this->getVerificationCode();
+//            Notifier::sendEmail($data['email'], 'emails.auth.free-password-reset', 'Password Reset', ['temp_pass' => $temp_pass]);
+//        }catch(Exception $e){
+//            return json_encode(['error' => $e->getMessage()]);
+//        }
+//
+//        User::where('email', '=', $data['email'])->update(['password' => Hash::make($temp_pass)]);
+//        return json_encode(['success' => 1]);
 
     }
 
@@ -183,7 +184,8 @@ class FreeAuth {
     }
 
     private function checkVerificationCode($email, $code){
-        return DB::table('email_verification')->where('email', '=', $email)->where('verification_code', '=', $code)->exists() ? 1 : 0;
+        $email = DB::table('email_verification')->where('email', '=', $email)->first();
+        return Hash::check($code, $email->verification_code) ? 1 : 0;
     }
 
     private function saveLogin($user_id, $platform, $device_token){
