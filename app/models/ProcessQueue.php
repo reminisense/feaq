@@ -311,6 +311,7 @@ class ProcessQueue extends Eloquent{
                     'time_queued' => $number->time_queued,
                     'time_called' => $number->time_called,
                     'confirmation_code' => $number->confirmation_code,
+                    'note' => $number->note,
                 );
             }else if(!$called && !$removed && $terminal_specific_calling && ($number->terminal_id == $terminal_id || $number->terminal_id == 0)){
                 if($number->queue_platform == 'remote' && $checked_in == FALSE && $checkin_status == FALSE){
@@ -329,6 +330,7 @@ class ProcessQueue extends Eloquent{
                         'time_queued' => $number->time_queued,
                         'time_called' => $number->time_called,
                         'confirmation_code' => $number->confirmation_code,
+                        'note' => $number->note,
                     );
                 }else{
                     $uncalled_numbers[] = array(
@@ -346,6 +348,7 @@ class ProcessQueue extends Eloquent{
                         'time_queued' => $number->time_queued,
                         'time_called' => $number->time_called,
                         'confirmation_code' => $number->confirmation_code,
+                        'note' => $number->note,
                     );
                     $checkin_status = true;
                 }
@@ -366,6 +369,7 @@ class ProcessQueue extends Eloquent{
                         'time_queued' => $number->time_queued,
                         'time_called' => $number->time_called,
                         'confirmation_code' => $number->confirmation_code,
+                        'note' => $number->note,
                     );
                 }else{
                     $uncalled_numbers[] = array(
@@ -383,6 +387,7 @@ class ProcessQueue extends Eloquent{
                         'time_queued' => $number->time_queued,
                         'time_called' => $number->time_called,
                         'confirmation_code' => $number->confirmation_code,
+                        'note' => $number->note,
                     );
                     $checkin_status = true;
                 }
@@ -405,6 +410,7 @@ class ProcessQueue extends Eloquent{
                     'box_rank' => $box_rank, // Added by PAG
                     'color' => $terminal_color,
                     'time_queued' => $number->time_queued,
+                    'note' => $number->note,
                 );
             }else if($called && !$served && $removed){
                 $processed_numbers[] = array(
@@ -420,6 +426,7 @@ class ProcessQueue extends Eloquent{
                     'status' => 'Dropped',
                     'time_queued' => $number->time_queued,
                     'time_called' => $number->time_called,
+                    'note' => $number->note,
                 );
             }else if(!$called && $removed){
                 $processed_numbers[] = array(
@@ -435,6 +442,7 @@ class ProcessQueue extends Eloquent{
                     'status' => 'Removed',
                     'time_queued' => $number->time_queued,
                     'time_called' => $number->time_called,
+                    'note' => $number->note,
                 );
             }else if($called && $served){
                 $processed_numbers[] = array(
@@ -450,7 +458,7 @@ class ProcessQueue extends Eloquent{
                     'status' => 'Served',
                     'time_queued' => $number->time_queued,
                     'time_called' => $number->time_called,
-                    'confirmation_code' => $number->confirmation_code,
+                    'note' => $number->note,
                 );
             }
         }
@@ -497,6 +505,7 @@ class ProcessQueue extends Eloquent{
 			    q.phone,
 			    q.email,
 			    q.custom_fields,
+				q.note,
 				t.transaction_number,
 				t.time_queued,
 				t.time_called,
@@ -523,7 +532,7 @@ class ProcessQueue extends Eloquent{
 			    q.phone,
 			    q.email,
                 q.custom_fields,
-				t.transaction_number,
+                t.transaction_number,
 				t.time_called,
 				t.time_removed,
 				t.time_completed,
