@@ -23,6 +23,9 @@ class FreeBusiness{
                 ->select('business.*', 'queue_settings.service_id', 'queue_settings.number_start', 'queue_settings.number_limit')
                 ->first();
 
+            $analytics = new Analytics();
+            $time_estimates = $analytics->getServiceEstimateResults($business->service_id);
+
             return json_encode([
                 'business' => [
                     'business_id' => $business->business_id,
@@ -39,7 +42,7 @@ class FreeBusiness{
                     'number_start' => $business->number_start,
                     'number_limit' => $business->number_limit,
 
-                    'serving_time' => '',
+                    'serving_time' => round($time_estimates['upper_waiting_time'] / 60, 2) . ' min',
                 ]
             ]);
         }

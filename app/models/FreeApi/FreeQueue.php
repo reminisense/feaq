@@ -44,6 +44,7 @@ class FreeQueue{
      */
     public function callNumber($transaction_number){
         TerminalTransaction::where('transaction_number', '=', $transaction_number)->update(['time_called' => time()]);
+        $this->saveAnalytics($transaction_number, 1, time());
         return json_encode(['success' => 1]);
     }
 
@@ -54,6 +55,7 @@ class FreeQueue{
      */
     public function serveNumber($transaction_number){
         TerminalTransaction::where('transaction_number', '=', $transaction_number)->update(['time_completed' => time()]);
+        $this->saveAnalytics($transaction_number, 2, time());
         return json_encode(['success' => 1]);
     }
 
@@ -64,6 +66,7 @@ class FreeQueue{
      */
     public function dropNumber($transaction_number){
         TerminalTransaction::where('transaction_number', '=', $transaction_number)->update(['time_removed' => time()]);
+        $this->saveAnalytics($transaction_number, 3, time());
         return json_encode(['success' => 1]);
     }
 
@@ -86,7 +89,15 @@ class FreeQueue{
         PriorityQueue::where('transaction_number', '=', $transaction_number)->update(['note' => $note]);
     }
 
-    public function getServingTime($business_id){
+    public function getServingTime($business_id){}
 
+    private function saveAnalytics($transaction_number, $action, $time){
+        $transaction = DB::table('priority_number')
+            ->join('priority_queue', 'priority_queue.track_id', '=', 'priority_number.track_id')
+            ->join('terminal_transaction', 'terminal_transaction.transaction_number', '=', 'priority_queue.transaction_number')
+            ->where('terminal_transaction.transaction_number', '=', $transaction_number)
+            ->first();
+        $terminal = Terminal::where('service_id', '=', $transaction->service_id)->first();
+        Analytics::insertAnalyticsQueueNumber($action, $transaction_number, $transaction->service_id, $transaction->date, $time, $terminal->terminal_id, $transaction->queue_platform);
     }
 }

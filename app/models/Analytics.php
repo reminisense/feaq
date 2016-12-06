@@ -510,6 +510,10 @@ class Analytics extends Eloquent{
      *
      */
     public function getServiceTimeEstimates($service_id, $date = null){
+        return json_encode($this->getServiceEstimateResults($service_id, $date));
+    }
+
+    public function getServiceEstimateResults($service_id, $date = null){
         $date = $date == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $date;
         $serving_times = $this->getServingTimes($service_id, $date);
         $all_numbers = ProcessQueue::allNumbers($service_id);
@@ -524,15 +528,18 @@ class Analytics extends Eloquent{
             $time_estimates['upper_limit'] = date('h:i A', $time_estimates['upper_limit']);
             $time_estimates['lower_limit'] = $time_estimates['lower_limit'] > $time ? date('h:ia', $time_estimates['lower_limit']) : date('h:i A', $time);
             $time_estimates['next_number'] = $next_number;
+            $time_estimates['numbers_ahead'] = $numbers_ahead;
             $time_estimates['serving_times'] = $serving_times;
         }else{
             $time_estimates['upper_limit'] = date('h:i A', time());
-            $time_estimates['lower_limit'] = date('h:i A', time());
+            $time_estimates['lower_limit'] = date('h:i A', time() + 60);
+            $time_estimates['upper_waiting_time'] = 60;
+            $time_estimates['lower_waiting_time'] = 0;
             $time_estimates['next_number'] = $next_number;
             $time_estimates['numbers_ahead'] = $numbers_ahead;
         }
 
-        return json_encode($time_estimates);
+        return $time_estimates;
     }
 
     /**
@@ -603,13 +610,17 @@ class Analytics extends Eloquent{
      * get the time estimate using the given standard deviation
      */
     private function getTimeEstimate($time, $numbers_ahead, $mean, $standard_deviation, $accuracy = 2){
+        $lower_waiting_time = (($numbers_ahead + 1) * $mean) - ($standard_deviation * $accuracy);
+        $upper_waiting_time = (($numbers_ahead + 1) * $mean) + ($standard_deviation * $accuracy);
         $estimate = [
             'time' => $time,
             'mean' => $mean,
             'standard_deviation' => $standard_deviation,
-            'lower_limit' => $time + (($numbers_ahead + 1) * $mean) - ($standard_deviation * $accuracy),
-            'upper_limit' => $time + (($numbers_ahead + 1) * $mean) + ($standard_deviation * $accuracy),
+            'lower_limit' => $time + $lower_waiting_time,
+            'upper_limit' => $time + $upper_waiting_time,
             'numbers_ahead' => $numbers_ahead,
+            'lower_waiting_time' => $lower_waiting_time,
+            'upper_waiting_time' => $upper_waiting_time,
         ];
 
         return $estimate;
