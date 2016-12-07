@@ -8,6 +8,11 @@
  */
 class FreeQueue{
 
+    private $freeBroadcast;
+    public function __construct(){
+        $this->freeBroadcast = new FreeBroadcast();
+    }
+
     /**
      * Issue a number to the service
      * @param $data[service_id]
@@ -45,6 +50,7 @@ class FreeQueue{
     public function callNumber($transaction_number){
         TerminalTransaction::where('transaction_number', '=', $transaction_number)->update(['time_called' => time()]);
         $this->saveAnalytics($transaction_number, 1, time());
+        $this->freeBroadcast->sendNotifications($transaction_number, 'call');
         return json_encode(['success' => 1]);
     }
 
@@ -56,6 +62,7 @@ class FreeQueue{
     public function serveNumber($transaction_number){
         TerminalTransaction::where('transaction_number', '=', $transaction_number)->update(['time_completed' => time()]);
         $this->saveAnalytics($transaction_number, 2, time());
+        $this->freeBroadcast->sendNotifications($transaction_number, 'serve');
         return json_encode(['success' => 1]);
     }
 
@@ -67,6 +74,7 @@ class FreeQueue{
     public function dropNumber($transaction_number){
         TerminalTransaction::where('transaction_number', '=', $transaction_number)->update(['time_removed' => time()]);
         $this->saveAnalytics($transaction_number, 3, time());
+        $this->freeBroadcast->sendNotifications($transaction_number, 'drop');
         return json_encode(['success' => 1]);
     }
 

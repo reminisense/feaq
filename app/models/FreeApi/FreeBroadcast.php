@@ -5,6 +5,7 @@
  * Date: 11/24/2016
  * Time: 3:39 PM
  */
+use utils\ApplePushNotifications;
 
 class FreeBroadcast {
 
@@ -46,5 +47,40 @@ class FreeBroadcast {
         ];
 
         return $data;
+    }
+
+    public function sendNotifications($transaction_number, $msg_type){
+        $transaction = PriorityQueue::join('priority_number', 'priority_number.track_id', '=', 'priority_queue.track_id')
+            ->join('service', 'service.service_id', '=', 'priority_number.service_id')
+            ->join('branch', 'branch.branch_id', '=', 'service.branch_id')
+            ->join('business', 'business.business_id', '=', 'branch.business_id')
+            ->where('priority_queue.transaction_number', '=', $transaction_number)
+            ->select('priority_queue.*', 'service.service_id', 'branch.branch_id', 'business.business_id')
+            ->first();
+
+        $business_logins = DB::table('business_login')
+            ->where('business_id', '=', $transaction->business_id)
+            ->groupBy('device_token')
+            ->get();
+
+        $message = '';
+        if($msg_type == 'call'){
+            $message = 'Number ' . $transaction->priority_number . ' has been called.';
+        }elseif($msg_type == 'serve'){
+            $message = 'Number ' . $transaction->priority_number . ' has been served.';
+        }elseif($msg_type == 'drop'){
+            $message = 'Number ' . $transaction->priority_number . ' has been dropped.';
+        }
+
+        foreach($business_logins as $login){
+            $this->sendAppleNotification($login->device_token, $message, $msg_type);
+        }
+    }
+
+    private function sendAppleNotification($device_token, $message, $msg_type){
+        if(ctype_xdigit($device_token)){
+            $APN = new \ApplePushNotifications($device_token, $message, null, $msg_type);
+            $APN->sendNotif();
+        }
     }
 }
