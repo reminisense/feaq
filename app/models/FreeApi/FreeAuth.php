@@ -182,9 +182,22 @@ class FreeAuth {
      * @return mixed
      */
     private function checkRegistrationData($data){
+        if(!isset($data['email'])){
+            return ['error' => 'Invalid email.'];
+        }
+
+        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            return ['error' => "Invalid email format"];
+        }
+
+        if(User::where('email', '=', $data['email'])->exists()){
+            return ['error' => "User already exists"];
+        }
+
         if($data['password'] != $data['password_confirm']){
             return ['error' => 'Passwords do not match.'];
         }
+
         return $data;
     }
 
@@ -211,8 +224,13 @@ class FreeAuth {
     }
 
     private function generateAccessKey($user_id){
-        $auth_token = Hash::make($user_id);
-        User::where('user_id', '=', $user_id)->update(array('auth_token' => $auth_token));
+        $user = User::where('user_id', '=', $user_id)->first();
+        if($user->auth_token != ''){
+            $auth_token = $user->auth_token;
+        }else{
+            $auth_token = Hash::make($user_id);
+            $user->update(array('auth_token' => $auth_token));
+        }
         return $auth_token;
     }
 
