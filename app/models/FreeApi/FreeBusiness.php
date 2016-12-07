@@ -42,7 +42,7 @@ class FreeBusiness{
                     'number_start' => $business->number_start,
                     'number_limit' => $business->number_limit,
 
-                    'serving_time' => round($time_estimates['upper_waiting_time'] / 60, 2) . ' min',
+                    'serving_time' => Helper::millisecondsToHMSFormat($time_estimates['upper_waiting_time']),
                 ]
             ]);
         }
