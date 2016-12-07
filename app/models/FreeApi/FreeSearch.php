@@ -17,9 +17,19 @@ class FreeSearch {
      * @return mixed
      */
     public function businessSearch($data){
-        //@todo do some error checking here
+        if(isset($data['latitude']) && !is_numeric($data['latitude'])){
+            return json_encode(['error' => 'Latitude is not a number']);
+        }
 
-        $query = Business::where('status', '=', 1)->where('free_account', '=', 1);
+        if(isset($data['longitude']) && !is_numeric($data['longitude'])){
+            return json_encode(['error' => 'Longitude is not a number']);
+        }
+
+
+        $query = Business::join('branch', 'branch.business_id', '=', 'business.business_id')
+            ->join('service', 'service.branch_id', '=', 'branch.branch_id')
+            ->where('business.status', '=', 1)
+            ->where('business.free_account', '=', 1);
 
         //get the geolocation of the user and search businesses near that user
         if(isset($data['latitude']) && $data['latitude'] != '' && isset($data['longitude']) && $data['longitude'] != ''){
@@ -28,32 +38,38 @@ class FreeSearch {
             $min_lat = $data['latitude'] - 0.06;
             $min_long = $data['longitude'] - 0.06;
 
-            $query->where('latitude', '>=', $min_lat)
-                ->where('latitude', '<=', $max_lat)
-                ->where('longitude', '>=', $min_long)
-                ->where('longitude', '<=', $max_long);
+            $query->where('business.latitude', '>=', $min_lat)
+                ->where('business.latitude', '<=', $max_lat)
+                ->where('business.longitude', '>=', $min_long)
+                ->where('business.longitude', '<=', $max_long);
         }
 
         //get the category given by the user and search businesses with that category
         if(isset($data['category']) && $data['category'] != ''){
-            $query->where('industry', '=', $data['category']);
+            $query->where('business.industry', '=', $data['category']);
         }
 
         //get a keyword from the user and search the name, raw_code and address for that keyword
         if(isset($data['key'] )  && $data['key'] != ''){
-            $query->orWhere('raw_code', '=', $data['key'])
-                ->orWhere('name', 'LIKE', $data['key'])
-                ->orWhere('local_address', 'LIKE', $data['key']);
+            $query->orWhere('business.raw_code', '=', $data['key'])
+                ->orWhere('business.name', 'LIKE', $data['key'])
+                ->orWhere('business.local_address', 'LIKE', $data['key']);
         }
 
         //display all results
-        $businesses = $query->get();
+        $businesses = $query
+            ->groupBy('business.business_id')
+            ->select('business.*', 'branch.branch_id', 'service.service_id')
+            ->get();
         return $this->organizeBusinessData($businesses);
     }
 
     private function organizeBusinessData($businesses){
         $business_data = array();
         foreach($businesses as $business){
+            $analytics = new Analytics();
+            $time_estimates = $analytics->getServiceEstimateResults($business->service_id);
+
             $business_data[] = [
                 'business_id' => $business->business_id,
                 'name' => $business->name,
@@ -62,7 +78,7 @@ class FreeSearch {
                 'key' => $business->raw_code,
                 'time_close' => Helper::mergeTime($business->close_hour, $business->close_minute, $business->close_ampm),
                 'people_in_line' => Analytics::getBusinessRemainingCount($business->business_id),
-                'serving_time' => '',
+                'serving_time' => Helper::millisecondsToHMSFormat($time_estimates['upper_waiting_time']),
                 'logo' => $business->logo,
             ];
         }
