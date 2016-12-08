@@ -530,13 +530,15 @@ class Analytics extends Eloquent{
             $time_estimates['next_number'] = $next_number;
             $time_estimates['numbers_ahead'] = $numbers_ahead;
             $time_estimates['serving_times'] = $serving_times;
+            $time_estimates['estimated_serving_time'] = $time_estimates['mean'];
         }else{
-            $time_estimates['upper_limit'] = date('h:i A', time());
             $time_estimates['lower_limit'] = date('h:i A', time() + 60);
-            $time_estimates['upper_waiting_time'] = 60;
-            $time_estimates['lower_waiting_time'] = 0;
+            $time_estimates['upper_limit'] = date('h:i A', time() + (60 * ($numbers_ahead + 2)));
+            $time_estimates['lower_waiting_time'] = 60;
+            $time_estimates['upper_waiting_time'] = 60 * ($numbers_ahead + 2);
             $time_estimates['next_number'] = $next_number;
             $time_estimates['numbers_ahead'] = $numbers_ahead;
+            $time_estimates['estimated_serving_time'] = 60;
         }
 
         return $time_estimates;
@@ -616,6 +618,7 @@ class Analytics extends Eloquent{
             'time' => $time,
             'mean' => $mean,
             'standard_deviation' => $standard_deviation,
+            'sd_from_mean' => $accuracy,
             'lower_limit' => $time + $lower_waiting_time,
             'upper_limit' => $time + $upper_waiting_time,
             'numbers_ahead' => $numbers_ahead,

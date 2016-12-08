@@ -138,9 +138,11 @@ class FreeApiController extends BaseController{
 
     /**
      * gets the estimated time to call the number specified
-     * @param $number
+     * @param $business_id
      */
-    public function getEstimatedTime($number){}
+    public function getEstimatedTime($business_id){
+        return $this->freeApi->getEstimatedTime($business_id);
+    }
 
     /*******************************************************************************************************************
      * Call number page webservices here

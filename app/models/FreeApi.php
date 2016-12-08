@@ -90,4 +90,8 @@ class FreeApi {
         return $this->broadcast->customerBroadcast($business_id);
     }
 
+    public function getEstimatedTime($business_id){
+        return $this->queue->getServingTime($business_id);
+    }
+
 }

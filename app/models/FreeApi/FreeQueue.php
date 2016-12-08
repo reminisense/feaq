@@ -94,11 +94,16 @@ class FreeQueue{
         return $all_numbers->called_numbers;
     }
 
+    public function getServingTime($business_id){
+        $service = Service::getFirstServiceOfBusiness($business_id);
+        $analytics = new Analytics();
+        $time_estimates = $analytics->getServiceEstimateResults($service->service_id);
+        return json_encode(['estimated_serving_time' => $time_estimates['estimated_serving_time']]);
+    }
+
     private function saveNote($transaction_number, $note){
         PriorityQueue::where('transaction_number', '=', $transaction_number)->update(['note' => $note]);
     }
-
-    public function getServingTime($business_id){}
 
     private function saveAnalytics($transaction_number, $action, $time){
         $transaction = DB::table('priority_number')
