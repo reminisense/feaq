@@ -28,6 +28,7 @@ class FreeQueue{
             //$business_id = Business::getBusinessIdByServiceId($data['service_id']);
             $number = ProcessQueue::issueNumber($data['service_id'], $data['priority_number'], null, 'free');
             if(isset($data['note'])){ $this->saveNote($number['transaction_number'], $data['note']); }
+            $this->freeBroadcast->sendNotifications($number['transaction_number'], 'issue');
             //ProcessQueue::updateBusinessBroadcast($business_id);
             return json_encode(['success' => 1, 'number' => $number]);
         }

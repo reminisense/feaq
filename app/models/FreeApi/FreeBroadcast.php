@@ -64,7 +64,9 @@ class FreeBroadcast {
             ->get();
 
         $message = '';
-        if($msg_type == 'call'){
+        if($msg_type == 'issue'){
+            $message = 'Number ' . $transaction->priority_number . ' has been issued.';
+        }elseif($msg_type == 'call'){
             $message = 'Number ' . $transaction->priority_number . ' has been called.';
         }elseif($msg_type == 'serve'){
             $message = 'Number ' . $transaction->priority_number . ' has been served.';
