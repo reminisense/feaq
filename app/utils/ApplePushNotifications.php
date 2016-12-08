@@ -32,7 +32,7 @@ class ApplePushNotifications
     $fp = stream_socket_client('ssl://gateway.sandbox.push.apple.com:2195', $err, $errstr, 60, STREAM_CLIENT_CONNECT|STREAM_CLIENT_PERSISTENT, $ctx);
 
     if (!$fp) exit("Failed to connect: $err $errstr" . PHP_EOL);
-    echo 'Connected to APNS' . PHP_EOL;
+//    echo 'Connected to APNS' . PHP_EOL;
 
     // Create the payload body
     $body['aps'] = array(
@@ -44,8 +44,8 @@ class ApplePushNotifications
     $payload = json_encode($body);
     $msg = chr(0) . pack('n', 32) . pack('H*', $this->deviceToken) . pack('n', strlen($payload)) . $payload; // Build the binary notification
     $result = fwrite($fp, $msg, strlen($msg)); // Send it to the server
-    if (!$result) echo 'Message not delivered' . PHP_EOL;
-    else echo 'Message successfully delivered' . PHP_EOL;
+//    if (!$result) echo 'Message not delivered' . PHP_EOL;
+//    else echo 'Message successfully delivered' . PHP_EOL;
     fclose($fp); // Close the connection to the server
   }
 
