@@ -99,6 +99,26 @@ class FreeAuth {
      * @return mixed
      */
     public function login($data){
+        if(!isset($data['email'])){
+            return ['error' => 'Invalid email.'];
+        }
+
+        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            return ['error' => "Invalid email format."];
+        }
+
+        if(!isset($data['password'])){
+            return ['error' => 'Password is missing.'];
+        }
+
+        if(!isset($data['device_token'])){
+            return ['error' => 'Device token is missing.'];
+        }
+
+        if(!isset($data['platform'])){
+            return ['error' => 'Platform is missing.'];
+        }
+
         $user = User::where('email', '=', $data['email'])->first();
         if($user){
             if(Hash::check($data['password'], $user->password)){
@@ -154,17 +174,6 @@ class FreeAuth {
         }
 
         return $this->emailVerification($data);
-
-//        try{
-//            $temp_pass = $this->getVerificationCode();
-//            Notifier::sendEmail($data['email'], 'emails.auth.free-password-reset', 'Password Reset', ['temp_pass' => $temp_pass]);
-//        }catch(Exception $e){
-//            return json_encode(['error' => $e->getMessage()]);
-//        }
-//
-//        User::where('email', '=', $data['email'])->update(['password' => Hash::make($temp_pass)]);
-//        return json_encode(['success' => 1]);
-
     }
 
     public function changePassword($data){
@@ -187,15 +196,67 @@ class FreeAuth {
         }
 
         if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            return ['error' => "Invalid email format"];
+            return ['error' => "Invalid email format."];
         }
 
         if(User::where('email', '=', $data['email'])->exists()){
-            return ['error' => "User already exists"];
+            return ['error' => "User already exists."];
+        }
+
+        if(!isset($data['password'])){
+            return ['error' => 'Password is missing.'];
+        }
+
+        if(!isset($data['password_confirm'])){
+            return ['error' => 'Please retype password.'];
         }
 
         if($data['password'] != $data['password_confirm']){
             return ['error' => 'Passwords do not match.'];
+        }
+
+        if(!isset($data['name'])){
+            return ['error' => 'Business name is missing.'];
+        }
+
+        if(!isset($data['address'])){
+            return ['error' => 'Address is missing.'];
+        }
+
+        if(!isset($data['category'])){
+            return ['error' => 'Category is missing.'];
+        }
+
+        if(!isset($data['time_close'])){
+            return ['error' => 'Time close is missing'];
+        }
+
+        if(!preg_match('/^([1-9]|1[0-2]|0[1-9]){1}(:[0-5][0-9] [aApP][mM]){1}$/', $data['time_close'])){
+            return ['error' => 'Invalid time format.'];
+        }
+
+        if(!isset($data['number_start'])){
+            return ['error' => 'Number start is missing.'];
+        }
+
+        if(!is_numeric($data['number_start'])){
+            return ['error' => 'Invalid number.'];
+        }
+
+        if(!isset($data['number_limit'])){
+            return ['error' => 'Number limit is missing.'];
+        }
+
+        if(!is_numeric($data['number_limit'])){
+            return ['error' => 'Invalid number.'];
+        }
+
+        if(!isset($data['device_token'])){
+            return ['error' => 'Device token is missing.'];
+        }
+
+        if(!isset($data['platform'])){
+            return ['error' => 'Platform is missing.'];
         }
 
         return $data;
