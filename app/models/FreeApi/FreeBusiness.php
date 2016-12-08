@@ -60,8 +60,9 @@ class FreeBusiness{
      * @return array|string
      */
     public function updateBusiness($data){
-        if(!isset($data['business_id']) || $data['business_id'] == ''){
-            return json_encode(['error' => 'Invalid Business ID.']);
+        $data = $this->checkBusinessErrors($data);
+        if(isset($data['error'])){
+            return json_encode($data);
         }
 
         $business_id = $data['business_id'];
@@ -164,6 +165,50 @@ class FreeBusiness{
             'number_limit' => $number_limit,
         ];
         QueueSettings::insertGetId($queue_settings);
+    }
+
+    private function checkBusinessErrors($data){
+        if(!isset($data['business_id']) || $data['business_id'] == ''){
+            return ['error' => 'Invalid Business id.'];
+        }
+
+        if(!isset($data['name'])){
+            return ['error' => 'Business name is missing.'];
+        }
+
+        if(!isset($data['address'])){
+            return ['error' => 'Address is missing.'];
+        }
+
+        if(!isset($data['category'])){
+            return ['error' => 'Category is missing.'];
+        }
+
+        if(!isset($data['time_close'])){
+            return ['error' => 'Time close is missing'];
+        }
+
+        if(!preg_match('/^([1-9]|1[0-2]|0[1-9]){1}(:[0-5][0-9] [aApP][mM]){1}$/', $data['time_close'])){
+            return ['error' => 'Invalid time format.'];
+        }
+
+        if(!isset($data['number_start'])){
+            return ['error' => 'Number start is missing.'];
+        }
+
+        if(!is_numeric($data['number_start'])){
+            return ['error' => 'Invalid number.'];
+        }
+
+        if(!isset($data['number_limit'])){
+            return ['error' => 'Number limit is missing.'];
+        }
+
+        if(!is_numeric($data['number_limit'])){
+            return ['error' => 'Invalid number.'];
+        }
+
+        return $data;
     }
 
 }
