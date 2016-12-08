@@ -290,7 +290,8 @@ class FreeAuth {
             $auth_token = $user->auth_token;
         }else{
             $auth_token = Hash::make($user_id);
-            $user->update(array('auth_token' => $auth_token));
+            $user->auth_token = $auth_token;
+            $user->save();
         }
         return $auth_token;
     }
