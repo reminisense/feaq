@@ -14,6 +14,7 @@ class FreeAuth {
         'api/email-verification',
         'api/verify-code',
         'api/customer-broadcast',
+        'api/change-password',
     ];
 
     private $freeBusiness, $freeQueue;
@@ -28,7 +29,7 @@ class FreeAuth {
      * @return mixed
      */
     public function grantAccess($request){
-        if(!in_array($request->path(), $this->allowed_urls)){
+        if(!$this->pathAllowed($request->path())){
             $auth_token = Request::header('Authorization');
             if (!$this->checkAccessKey($auth_token)) {
                 return Response::json(array(
@@ -305,5 +306,18 @@ class FreeAuth {
 
     private function checkAccessKey($auth_token){
         return User::getValidateToken($auth_token) || $auth_token;
+    }
+
+    private function pathAllowed($path){
+        if(in_array($path, $this->allowed_urls)){
+            return true;
+        }else{
+            foreach($this->allowed_urls as $url){
+                if(is_numeric(strpos($path, $url))){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
