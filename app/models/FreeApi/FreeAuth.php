@@ -177,6 +177,10 @@ class FreeAuth {
     }
 
     public function changePassword($data){
+        if(!$this->checkVerificationCode($data['email'], $data['verification_code'])){
+            return json_encode(['error' => 'Invalid verification code.']);
+        }
+
         if($data['password'] != $data['password_confirm']){
             return json_encode(['error' => 'Passwords do not match.']);
         }
@@ -268,7 +272,10 @@ class FreeAuth {
 
     private function checkVerificationCode($email, $code){
         $email = DB::table('email_verification')->where('email', '=', $email)->first();
-        return Hash::check($code, $email->verification_code) ? 1 : 0;
+        if($email){
+            return Hash::check($code, $email->verification_code) ? 1 : 0;
+        }
+        return 0;
     }
 
     private function saveLogin($user_id, $platform, $device_token){
