@@ -21,25 +21,38 @@ class FreeQueue{
      * @return string
      */
     public function issueNumber($data){
+        if(!isset($data['service_id']) || $data['service_id'] == ''){
+            return json_encode(['error' => 'Service ID is required.']);
+        }
+
+        if(!Service::where('service_id', '=', $data['service_id'])->exists()){
+            return json_encode(['error' => 'Service does not exist.']);
+        }
+
+        if(!isset($data['priority_number']) || $data['priority_number'] == ''){
+            return json_encode(['error' => 'Priority number is required.']);
+        }
+
         if(ProcessQueue::queueNumberActive($data['service_id'], $data['priority_number'])){
             return json_encode(['error' => 'Priority number is still active.']);
         }
-        else{
-            //$business_id = Business::getBusinessIdByServiceId($data['service_id']);
-            $number = ProcessQueue::issueNumber($data['service_id'], $data['priority_number'], null, 'free');
-            if(isset($data['note'])){ $this->saveNote($number['transaction_number'], $data['note']); }
-            $this->freeBroadcast->sendNotifications($number['transaction_number'], 'issue');
-            //ProcessQueue::updateBusinessBroadcast($business_id);
-            return json_encode(['success' => 1, 'number' => $number]);
-        }
+
+        $number = ProcessQueue::issueNumber($data['service_id'], $data['priority_number'], null, 'free');
+        if(isset($data['note'])){ $this->saveNote($number['transaction_number'], $data['note']); }
+        $this->freeBroadcast->sendNotifications($number['transaction_number'], 'issue');
+        return json_encode(['success' => 1, 'number' => $number]);
+
     }
 
     /**
      * get all numbers of tbe service
-     * @param $service_id
+     * @param $business_id
      * @return string
      */
     public function getNumbers($business_id){
+        if(!Business::where('business_id', '=', $business_id)->exists()){
+            return json_encode(['error' => 'Business does not exist.']);
+        }
         return json_encode(['numbers' => $this->allNumbers($business_id)]);
     }
 
@@ -49,10 +62,19 @@ class FreeQueue{
      * @return string
      */
     public function callNumber($transaction_number){
+        if(!$this->checkTransactionExists($transaction_number)){
+            return json_encode(['error' => 'Transaction does not exist.']);
+        }
+
+        if($this->checkTransactionCalled($transaction_number)){
+            return json_encode(['error' => 'Transaction has recently been called.']);
+        }
+
         TerminalTransaction::where('transaction_number', '=', $transaction_number)->update(['time_called' => time()]);
         $this->saveAnalytics($transaction_number, 1, time());
         $this->freeBroadcast->sendNotifications($transaction_number, 'call');
         return json_encode(['success' => 1]);
+
     }
 
     /**
@@ -61,10 +83,23 @@ class FreeQueue{
      * @return string
      */
     public function serveNumber($transaction_number){
+        if(!$this->checkTransactionExists($transaction_number)){
+            return json_encode(['error' => 'Transaction does not exist.']);
+        }
+
+        if(!$this->checkTransactionCalled($transaction_number)){
+            return json_encode(['error' => 'Transaction has not yet been called.']);
+        }
+
+        if($this->checkTransactionProcessed($transaction_number)){
+            return json_encode(['error' => 'Transaction has recently been processed.']);
+        }
+
         TerminalTransaction::where('transaction_number', '=', $transaction_number)->update(['time_completed' => time()]);
         $this->saveAnalytics($transaction_number, 2, time());
         $this->freeBroadcast->sendNotifications($transaction_number, 'serve');
         return json_encode(['success' => 1]);
+
     }
 
     /**
@@ -73,10 +108,23 @@ class FreeQueue{
      * @return string
      */
     public function dropNumber($transaction_number){
+        if(!$this->checkTransactionExists($transaction_number)){
+            return json_encode(['error' => 'Transaction does not exist.']);
+        }
+
+        if(!$this->checkTransactionCalled($transaction_number)){
+            return json_encode(['error' => 'Transaction has not yet been called.']);
+        }
+
+        if($this->checkTransactionProcessed($transaction_number)){
+            return json_encode(['error' => 'Transaction has recently been processed.']);
+        }
+
         TerminalTransaction::where('transaction_number', '=', $transaction_number)->update(['time_removed' => time()]);
         $this->saveAnalytics($transaction_number, 3, time());
         $this->freeBroadcast->sendNotifications($transaction_number, 'drop');
         return json_encode(['success' => 1]);
+
     }
 
     public function allNumbers($business_id){
@@ -113,5 +161,25 @@ class FreeQueue{
             ->first();
         $terminal = Terminal::where('service_id', '=', $transaction->service_id)->first();
         Analytics::insertAnalyticsQueueNumber($action, $transaction_number, $transaction->service_id, $transaction->date, $time, $terminal->terminal_id, $transaction->queue_platform);
+    }
+
+    private function checkTransactionExists($transaction_number){
+        return TerminalTransaction::where('transaction_number', '=', $transaction_number)->exists();
+    }
+
+    private function checkTransactionCalled($transaction_number){
+        $transaction = TerminalTransaction::where('transaction_number', '=', $transaction_number)->first();
+        if($transaction && $transaction->time_called > 0){
+            return true;
+        }
+        return false;
+    }
+
+    private function checkTransactionProcessed($transaction_number){
+        $transaction = TerminalTransaction::where('transaction_number', '=', $transaction_number)->first();
+        if($transaction && ($transaction->time_completed > 0 || $transaction->time_removed > 0)){
+            return true;
+        }
+        return false;
     }
 }

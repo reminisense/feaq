@@ -30,7 +30,6 @@ class FreeBroadcast {
             'address' => $business->local_address,
             'time_close' => Helper::mergeTime($business->close_hour, $business->close_minute, $business->close_ampm),
             'people_in_line' => Analytics::getBusinessRemainingCount($business_id),
-            'total_waiting_time' => '',
         ];
         $broadcast_data = $this->getBroadcastData($business_id);
         $broadcast_data = array_merge($business_data, $broadcast_data);
@@ -41,9 +40,13 @@ class FreeBroadcast {
         $first_service = Service::getFirstServiceOfBusiness($business_id);
         $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
 
+        $analytics = new Analytics();
+        $time_estimates = $analytics->getServiceEstimateResults($first_service->service_id);
+
         $data = [
             'name' => Business::name($business_id),
             'called_numbers' => $all_numbers->called_numbers,
+            'total_waiting_time' => $time_estimates['estimated_serving_time'],
         ];
 
         return $data;
