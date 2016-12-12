@@ -106,7 +106,7 @@ class QueueSettings extends Eloquent{
     }
 
     public static function gracePeriod($service_id, $date = null){
-        return QueueSettings::queueSetting('grace_period', 300, $service_id, $date);
+        return QueueSettings::queueSetting('grace_period', 0, $service_id, $date);
     }
 
     public static function frontlineSecret($service_id, $date = null){
