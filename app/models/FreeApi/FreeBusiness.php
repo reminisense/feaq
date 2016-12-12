@@ -9,23 +9,23 @@
 class FreeBusiness{
     public function businessCategories(){
         $categories = [
-           ["name" => "Agriculture", "image" => ""],
-           ["name" => "Energy", "image" => ""],
-           ["name" => "Mining and Quarrying", "image" => ""],
-           ["name" => "Manufacturing", "image" => ""],
-           ["name" => "Government", "image" => ""],
-           ["name" => "Construction", "image" => ""],
-           ["name" => "Wholesale and Retail", "image" => ""],
-           ["name" => "Hotels and Restaurants", "image" => ""],
-           ["name" => "Transportation", "image" => ""],
-           ["name" => "Telecommunications", "image" => ""],
-           ["name" => "Financial", "image" => ""],
-           ["name" => "Education", "image" => ""],
-           ["name" => "Social Services", "image" => ""],
-           ["name" => "Health Care", "image" => ""],
-           ["name" => "Technology", "image" => ""],
-           ["name" => "Entertainment", "image" => ""],
-           ["name" => "Mass Media", "image" => ""],
+           ["name" => "Agriculture", "image" => "http://i.imgur.com/xSyk3bU.jpg"],
+           ["name" => "Energy", "image" => "http://i.imgur.com/3oZ7ylw.jpg"],
+           ["name" => "Mining and Quarrying", "image" => "http://i.imgur.com/9hTs5NI.jpg"],
+           ["name" => "Manufacturing", "image" => "http://i.imgur.com/1HE9m2i.jpg"],
+           ["name" => "Government", "image" => "http://i.imgur.com/MfUDbhM.png"],
+           ["name" => "Construction", "image" => "http://i.imgur.com/WqvbstH.jpg"],
+           ["name" => "Wholesale and Retail", "image" => "http://i.imgur.com/0ikoTVW.jpg"],
+           ["name" => "Hotels and Restaurants", "image" => "http://i.imgur.com/nTAyp2x.jpg"],
+           ["name" => "Transportation", "image" => "http://i.imgur.com/4XX339B.jpg"],
+           ["name" => "Telecommunications", "image" => "http://i.imgur.com/rMExRv9.jpg"],
+           ["name" => "Financial", "image" => "http://i.imgur.com/dh3tEsN.png"],
+           ["name" => "Education", "image" => "http://i.imgur.com/PcDmVM3.jpg"],
+           ["name" => "Social Services", "image" => "http://i.imgur.com/dE5tbfr.jpg"],
+           ["name" => "Health Care", "image" => "http://i.imgur.com/eSwQlvj.png"],
+           ["name" => "Technology", "image" => "http://i.imgur.com/Hwaf0f9.jpg"],
+           ["name" => "Entertainment", "image" => "http://i.imgur.com/5iK1lyh.jpg"],
+           ["name" => "Mass Media", "image" => "http://i.imgur.com/jXUlyGG.jpg"],
         ];
 
         return json_encode($categories);
@@ -100,6 +100,7 @@ class FreeBusiness{
                     'business.name' => $data['name'],
                     'business.local_address' => $data['address'],
                     'business.industry' => $data['category'],
+                    'business.logo' => $data['logo'],
 
                     'business.close_hour' => $time_array['hour'],
                     'business.close_minute' => $time_array['min'],
@@ -115,9 +116,9 @@ class FreeBusiness{
                     ->where('business.business_id', '=', $business_id)
                     ->update($business_data);
 
-                if(isset($data['logo']) && $data['logo'] != null){
-                    $this->uploadBusinessLogo($data['logo'], $business_id);
-                }
+//                if(isset($data['logo']) && $data['logo'] != null){
+//                    $this->uploadBusinessLogo($data['logo'], $business_id);
+//                }
 
                 return $this->businessDetails($business_id);
             }catch (Exception $e){
@@ -230,6 +231,10 @@ class FreeBusiness{
 
         if(!is_numeric($data['number_limit'])){
             return ['error' => 'Invalid number.'];
+        }
+
+        if(!isset($data['logo'])){
+            $data['logo'] = '';
         }
 
         return $data;
