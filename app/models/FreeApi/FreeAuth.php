@@ -83,6 +83,8 @@ class FreeAuth {
             'free_account' => 1,
             'raw_code' => Helper::generateRawCode(),
             'logo' => $data['logo'],
+            'latitude' => $data['latitude'],
+            'longitude' => $data['longitude'],
         ];
         $business_id = $this->freeBusiness->createBusiness($user_id, $business_details);
 //        if(isset($data['logo']) && $data['logo'] != null){
@@ -268,6 +270,14 @@ class FreeAuth {
 
         if(!isset($data['logo'])){
             $data['logo'] = '';
+        }
+
+        if(isset($data['latitude']) && !is_numeric($data['latitude'])){
+            return ['error' => 'Incorrect latitude value.'];
+        }
+
+        if(isset($data['longitude']) && !is_numeric($data['longitude'])){
+            return ['error' => 'Incorrect longitude value.'];
         }
 
         return $data;

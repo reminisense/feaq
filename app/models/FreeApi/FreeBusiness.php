@@ -102,6 +102,9 @@ class FreeBusiness{
                     'business.industry' => $data['category'],
                     'business.logo' => $data['logo'],
 
+                    'business.latitude' => $data['latitude'],
+                    'business.longitude' => $data['longitude'],
+
                     'business.close_hour' => $time_array['hour'],
                     'business.close_minute' => $time_array['min'],
                     'business.close_ampm' => $time_array['ampm'],
@@ -235,6 +238,14 @@ class FreeBusiness{
 
         if(!isset($data['logo'])){
             $data['logo'] = '';
+        }
+
+        if(isset($data['latitude']) && !is_numeric($data['latitude'])){
+            return ['error' => 'Incorrect latitude value.'];
+        }
+
+        if(isset($data['longitude']) && !is_numeric($data['longitude'])){
+            return ['error' => 'Incorrect longitude value.'];
         }
 
         return $data;
