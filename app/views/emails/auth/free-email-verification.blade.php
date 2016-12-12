@@ -24,7 +24,7 @@
             <td height="2px" bgcolor="#ff925b" style="padding:0px"></td>
         </tr>
         <tr>
-            <td><h1 style="color:rgb(255,146,91)">Hello!</h1><br> Your verification code is {{ $verification_code }}.</td>
+            <td><h1 style="color:rgb(255,146,91)">Hello!</h1><br> Your verification code is <strong>{{ $verification_code }}</strong>.</td>
         </tr>
         <tr>
             <td height="2px" bgcolor="#aeaeae" style="padding:0px"></td>

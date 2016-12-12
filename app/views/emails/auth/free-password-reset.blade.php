@@ -24,7 +24,7 @@
             <td height="2px" bgcolor="#ff925b" style="padding:0px"></td>
         </tr>
         <tr>
-            <td><h1 style="color:rgb(255,146,91)">Hello!</h1><br> Your temporary password is {{ $temp_pass }}.</td>
+            <td><h1 style="color:rgb(255,146,91)">Hello!</h1><br> Your temporary password is <strong>{{ $temp_pass }}</strong>.</td>
         </tr>
         <tr>
             <td height="2px" bgcolor="#aeaeae" style="padding:0px"></td>
