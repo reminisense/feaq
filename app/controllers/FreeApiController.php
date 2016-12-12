@@ -28,7 +28,7 @@ class FreeApiController extends BaseController{
      * @return string
      */
     public function getCategories(){
-        return json_encode(['categories' => Business::getAvailableIndustries()]);
+        return $this->freeApi->getCategories();
     }
 
     /**

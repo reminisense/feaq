@@ -26,6 +26,10 @@ class FreeApi {
         return $this->auth->grantAccess($request);
     }
 
+    public function getCategories(){
+        return $this->business->businessCategories();
+    }
+
     public function postBusinessSearch($data){
         return $this->search->businessSearch($data);
     }

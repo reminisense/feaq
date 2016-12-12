@@ -7,6 +7,30 @@
  */
 
 class FreeBusiness{
+    public function businessCategories(){
+        $categories = [
+           ["name" => "Agriculture", "image" => ""],
+           ["name" => "Energy", "image" => ""],
+           ["name" => "Mining and Quarrying", "image" => ""],
+           ["name" => "Manufacturing", "image" => ""],
+           ["name" => "Government", "image" => ""],
+           ["name" => "Construction", "image" => ""],
+           ["name" => "Wholesale and Retail", "image" => ""],
+           ["name" => "Hotels and Restaurants", "image" => ""],
+           ["name" => "Transportation", "image" => ""],
+           ["name" => "Telecommunications", "image" => ""],
+           ["name" => "Financial", "image" => ""],
+           ["name" => "Education", "image" => ""],
+           ["name" => "Social Services", "image" => ""],
+           ["name" => "Health Care", "image" => ""],
+           ["name" => "Technology", "image" => ""],
+           ["name" => "Entertainment", "image" => ""],
+           ["name" => "Mass Media", "image" => ""],
+        ];
+
+        return json_encode($categories);
+    }
+
     /**
      * Gets details of business
      * @param $business_id
