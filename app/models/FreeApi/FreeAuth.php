@@ -82,11 +82,12 @@ class FreeAuth {
             'close_ampm' => $time_array['ampm'],
             'free_account' => 1,
             'raw_code' => Helper::generateRawCode(),
+            'logo' => $data['logo'],
         ];
         $business_id = $this->freeBusiness->createBusiness($user_id, $business_details);
-        if(isset($data['logo']) && $data['logo'] != null){
-            $this->freeBusiness->uploadBusinessLogo($data['logo'], $business_id);
-        }
+//        if(isset($data['logo']) && $data['logo'] != null){
+//            $this->freeBusiness->uploadBusinessLogo($data['logo'], $business_id);
+//        }
 
         //create business branch, service, and terminal
         $this->freeBusiness->createBusinessSetup($business_id, $data['name'], $data['number_start'], $data['number_limit']);
@@ -263,6 +264,10 @@ class FreeAuth {
 
         if(!isset($data['platform'])){
             return ['error' => 'Platform is missing.'];
+        }
+
+        if(!isset($data['logo'])){
+            $data['logo'] = '';
         }
 
         return $data;
