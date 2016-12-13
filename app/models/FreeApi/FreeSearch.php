@@ -51,9 +51,12 @@ class FreeSearch {
 
         //get a keyword from the user and search the name, raw_code and address for that keyword
         if(isset($data['key'] )  && $data['key'] != ''){
-            $query->orWhere('business.raw_code', '=', $data['key'])
-                ->orWhere('business.name', 'LIKE', $data['key'])
-                ->orWhere('business.local_address', 'LIKE', $data['key']);
+            $query->where(function($query) use ($data){
+                $query->where('business.raw_code', '=', $data['key'])
+                    ->orWhere('business.name', 'LIKE', '%' . $data['key'] . '%')
+                    ->orWhere('business.local_address', 'LIKE', '%' . $data['key'] . '%');
+            });
+
         }
 
         //display all results
