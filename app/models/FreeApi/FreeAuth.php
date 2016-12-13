@@ -105,23 +105,23 @@ class FreeAuth {
      */
     public function login($data){
         if(!isset($data['email'])){
-            return ['error' => 'Invalid email.'];
+            return json_encode(['error' => 'Invalid email.']);
         }
 
         if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            return ['error' => "Invalid email format."];
+            return json_encode(['error' => "Invalid email format."]);
         }
 
         if(!isset($data['password'])){
-            return ['error' => 'Password is missing.'];
+            return json_encode(['error' => 'Password is missing.']);
         }
 
         if(!isset($data['device_token'])){
-            return ['error' => 'Device token is missing.'];
+            return json_encode(['error' => 'Device token is missing.']);
         }
 
         if(!isset($data['platform'])){
-            return ['error' => 'Platform is missing.'];
+            return json_encode(['error' => 'Platform is missing.']);
         }
 
         $user = User::where('email', '=', $data['email'])->first();
@@ -146,6 +146,10 @@ class FreeAuth {
     }
 
     public function emailVerification($data){
+        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            return json_encode(['error' => "Invalid email format."]);
+        }
+
         $secret = $this->getVerificationCode();
         try{
             if(DB::table('email_verification')->where('email', '=', $data['email'])->exists()){
@@ -162,6 +166,10 @@ class FreeAuth {
     }
 
     public function verifyCode($data){
+        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            return json_encode(['error' => "Invalid email format."]);
+        }
+
         try{
             return json_encode(['success' => $this->checkVerificationCode($data['email'], $data['verification_code'])]);
         }catch (Exception $e){
@@ -182,6 +190,10 @@ class FreeAuth {
     }
 
     public function changePassword($data){
+        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            return json_encode(['error' => "Invalid email format."]);
+        }
+
         if(!$this->checkVerificationCode($data['email'], $data['verification_code'])){
             return json_encode(['error' => 'Invalid verification code.']);
         }

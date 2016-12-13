@@ -15,6 +15,10 @@ class FreeBroadcast {
      * @return string
      */
     public function businessBroadcast($business_id){
+        if(!Business::where('business_id', '=', $business_id)->exists()){
+            return json_encode(['error' => 'Business does not exist.']);
+        }
+
         $broadcast_data = $this->getBroadcastData($business_id);
         return json_encode(['success' => 1, 'broadcast_data' => $broadcast_data]);
     }
@@ -26,6 +30,10 @@ class FreeBroadcast {
      */
     public function customerBroadcast($business_id){
         $business = Business::where('business_id', '=', $business_id)->first();
+        if(!$business){
+            return json_encode(['error' => 'Business does not exist.']);
+        }
+
         $business_data = [
             'address' => $business->local_address,
             'time_close' => Helper::mergeTime($business->close_hour, $business->close_minute, $business->close_ampm),
