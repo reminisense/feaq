@@ -45,7 +45,7 @@ class FreeSearch {
         }
 
         //get the category given by the user and search businesses with that category
-        if(isset($data['category']) && $data['category'] != ''){
+        if(isset($data['category']) && $data['category'] != '' && $data['category'] != 'All'){
             $query->where('business.industry', '=', $data['category']);
         }
 
