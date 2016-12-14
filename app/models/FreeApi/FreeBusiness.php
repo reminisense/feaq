@@ -67,6 +67,9 @@ class FreeBusiness{
                     'number_start' => $business->number_start,
                     'number_limit' => $business->number_limit,
 
+                    'latitude' => $business->latitude,
+                    'longitude' => $business->longitude,
+
                     'serving_time' => Helper::millisecondsToHMSFormat($time_estimates['upper_waiting_time']),
                 ]
             ]);
