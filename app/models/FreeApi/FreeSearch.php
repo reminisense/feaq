@@ -81,7 +81,7 @@ class FreeSearch {
                 'key' => $business->raw_code,
                 'time_close' => Helper::mergeTime($business->close_hour, $business->close_minute, $business->close_ampm),
                 'people_in_line' => Analytics::getBusinessRemainingCount($business->business_id),
-                'serving_time' => $time_estimates['upper_waiting_time'],
+                'serving_time' => Helper::millisecondsToHMSFormat($time_estimates['upper_waiting_time']),
                 'logo' => $business->logo,
             ];
         }
