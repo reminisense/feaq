@@ -206,6 +206,19 @@ class FreeAuth {
         return json_encode(['success' => 1]);
     }
 
+    public function updatePassword($data){
+        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            return json_encode(['error' => "Invalid email format."]);
+        }
+
+        if($data['password'] != $data['password_confirm']){
+            return json_encode(['error' => 'Passwords do not match.']);
+        }
+
+        User::where('email', '=', $data['email'])->update(['password' => Hash::make($data['password'])]);
+        return json_encode(['success' => 1]);
+    }
+
     /**
      * check for errors in the data
      * @param $data

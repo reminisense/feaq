@@ -93,13 +93,25 @@ class FreeApiController extends BaseController{
 
     /**
      * Change password of the user
-     * @param $post[user_id]
-     * @param $post[old_password]
-     * @param $post[new_password]
+     * @param $post[email]
+     * @param $post[verification_code]
+     * @param $post[password]
+     * @param $post[password_confirm]
      * @return mixed
      */
     public function putChangePassword(){
         return $this->freeApi->putChangePassword(Input::all());
+    }
+
+    /**
+     * Change password of the user
+     * @param $post[email]
+     * @param $post[password]
+     * @param $post[password_confirm]
+     * @return mixed
+     */
+    public function putUpdatePassword(){
+        return $this->freeApi->putUpdatePassword(Input::all());
     }
 
     /**

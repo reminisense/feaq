@@ -86,6 +86,10 @@ class FreeApi {
         return $this->auth->changePassword($data);
     }
 
+    public function putUpdatePassword($data){
+        return $this->auth->updatePassword($data);
+    }
+
     public function getBusinessBroadcast($business_id){
         return $this->broadcast->businessBroadcast($business_id);
     }
