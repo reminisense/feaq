@@ -72,14 +72,18 @@ class FreeAuth {
         $user_id = User::insertGetId($user_details);
 
         //create business
-        $time_array = Helper::parseTime($data['time_close']);
+        $time_open_array = Helper::parseTime($data['time_open']);
+        $time_close_array = Helper::parseTime($data['time_close']);
         $business_details = [
             'name' => $data['name'],
             'local_address' => $data['address'],
             'industry' => $data['category'],
-            'close_hour' => $time_array['hour'],
-            'close_minute' => $time_array['min'],
-            'close_ampm' => $time_array['ampm'],
+            'open_hour' => $time_open_array['hour'],
+            'open_minute' => $time_open_array['min'],
+            'open_ampm' => $time_open_array['ampm'],
+            'close_hour' => $time_close_array['hour'],
+            'close_minute' => $time_close_array['min'],
+            'close_ampm' => $time_close_array['ampm'],
             'free_account' => 1,
             'raw_code' => Helper::generateRawCode(),
             'logo' => $data['logo'],
@@ -128,11 +132,13 @@ class FreeAuth {
         if($user){
             if(Hash::check($data['password'], $user->password)){
                 $business_id = $this->saveLogin($user->user_id, $data['platform'], $data['device_token']);
+                $business = Business::where('business_id', '=', $business_id)->first();
                 $all_numbers = $this->freeQueue->allNumbers($business_id);
                 return json_encode([
                     'success' => 1,
                     'access_token' => $this->generateAccessKey($user->user_id),
                     'business_id' => $business_id,
+                    'raw_code' => $business->raw_code,
                     'service_id' => $all_numbers->service_id,
                     'issued_numbers' => $all_numbers->uncalled_numbers,
                     'called_numbers' => $all_numbers->called_numbers,
@@ -261,12 +267,20 @@ class FreeAuth {
             return ['error' => 'Category is missing.'];
         }
 
+        if(!isset($data['time_open'])){
+            return ['error' => 'Time open is missing'];
+        }
+
+        if(!preg_match('/^([1-9]|1[0-2]|0[1-9]){1}(:[0-5][0-9] [aApP][mM]){1}$/', $data['time_open'])){
+            return ['error' => 'Invalid time open format.'];
+        }
+
         if(!isset($data['time_close'])){
             return ['error' => 'Time close is missing'];
         }
 
         if(!preg_match('/^([1-9]|1[0-2]|0[1-9]){1}(:[0-5][0-9] [aApP][mM]){1}$/', $data['time_close'])){
-            return ['error' => 'Invalid time format.'];
+            return ['error' => 'Invalid time close format.'];
         }
 
         if(!isset($data['number_start'])){
