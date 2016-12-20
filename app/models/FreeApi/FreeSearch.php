@@ -80,6 +80,7 @@ class FreeSearch {
                 'category' => $business->industry,
                 'key' => $business->raw_code,
                 'time_close' => Helper::mergeTime($business->close_hour, $business->close_minute, $business->close_ampm),
+                'time_open' => Helper::mergeTime($business->open_hour, $business->open_minute, $business->open_ampm),
                 'people_in_line' => Analytics::getBusinessRemainingCount($business->business_id),
                 'serving_time' => Helper::millisecondsToHMSFormat($time_estimates['upper_waiting_time']),
                 'logo' => $business->logo,
