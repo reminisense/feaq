@@ -9,24 +9,18 @@
 class FreeBusiness{
     public function businessCategories(){
         $categories = [
-            ["name" => "All", "image" => ""],
-            ["name" => "Agriculture", "image" => "http://i.imgur.com/xSyk3bU.jpg"],
-            ["name" => "Energy", "image" => "http://i.imgur.com/3oZ7ylw.jpg"],
-            ["name" => "Mining and Quarrying", "image" => "http://i.imgur.com/9hTs5NI.jpg"],
-            ["name" => "Manufacturing", "image" => "http://i.imgur.com/1HE9m2i.jpg"],
-            ["name" => "Government", "image" => "http://i.imgur.com/MfUDbhM.png"],
-            ["name" => "Construction", "image" => "http://i.imgur.com/WqvbstH.jpg"],
-            ["name" => "Wholesale and Retail", "image" => "http://i.imgur.com/0ikoTVW.jpg"],
-            ["name" => "Hotels and Restaurants", "image" => "http://i.imgur.com/nTAyp2x.jpg"],
-            ["name" => "Transportation", "image" => "http://i.imgur.com/4XX339B.jpg"],
-            ["name" => "Telecommunications", "image" => "http://i.imgur.com/rMExRv9.jpg"],
-            ["name" => "Financial", "image" => "http://i.imgur.com/dh3tEsN.png"],
-            ["name" => "Education", "image" => "http://i.imgur.com/PcDmVM3.jpg"],
-            ["name" => "Social Services", "image" => "http://i.imgur.com/dE5tbfr.jpg"],
+            ["name" => "Banking", "image" => "http://i.imgur.com/dh3tEsN.png"],
+            ["name" => "Government Institutions", "image" => "http://i.imgur.com/MfUDbhM.png"],
             ["name" => "Health Care", "image" => "http://i.imgur.com/eSwQlvj.png"],
+            ["name" => "Restaurants", "image" => "http://i.imgur.com/nTAyp2x.jpg"],
+            ["name" => "Retail", "image" => "http://i.imgur.com/0ikoTVW.jpg"],
+            ["name" => "Schools", "image" => "http://i.imgur.com/PcDmVM3.jpg"],
             ["name" => "Technology", "image" => "http://i.imgur.com/Hwaf0f9.jpg"],
-            ["name" => "Entertainment", "image" => "http://i.imgur.com/5iK1lyh.jpg"],
-            ["name" => "Mass Media", "image" => "http://i.imgur.com/jXUlyGG.jpg"],
+            ["name" => "Ticketing ", "image" => "http://i.imgur.com/wk5GI0n.jpg"],
+            ["name" => "Transportation", "image" => "http://i.imgur.com/4XX339B.jpg"],
+            ["name" => "Utilities", "image" => "http://i.imgur.com/3oZ7ylw.jpg"],
+            ["name" => "Others", "image" => ""],
+            ["name" => "All", "image" => ""]
         ];
 
         return json_encode($categories);
