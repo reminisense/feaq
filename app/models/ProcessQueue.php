@@ -815,7 +815,7 @@ class ProcessQueue extends Eloquent{
     }
 
     public static function queueNumberActive($service_id, $priority_number, $next_number = null){
-        if ($priority_number == null && $next_number == null) {
+        if ($priority_number == null && ($next_number == null || $next_number == 0)) {
             return FALSE;
         }
         if($priority_number == null){
