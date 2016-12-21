@@ -179,11 +179,11 @@ class ProcessQueue extends Eloquent{
 
     public static function allNumbers($service_id, $terminal_id = null, $date = null){
         $date = $date == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $date;
-        $numbers = ProcessQueue::queuedNumbers($service_id, $date);
+//        $numbers = ProcessQueue::queuedNumbers($service_id, $date);
 
-        if($numbers){
-            $priority_numbers = ProcessQueue::segregatedNumbers($numbers, $service_id, $terminal_id);
-        }else{
+//        if($numbers){
+//            $priority_numbers = ProcessQueue::segregatedNumbers($numbers, $service_id, $terminal_id);
+//        }else{
             $priority_numbers = new stdClass();
             $priority_numbers->service_id = $service_id;
             $priority_numbers->last_number_given = 0;
@@ -197,7 +197,7 @@ class ProcessQueue extends Eloquent{
             $priority_numbers->processed_numbers = array();
             $priority_numbers->timebound_numbers = array();
             $priority_numbers->unprocessed_numbers = array();
-        }
+//        }
 
         return $priority_numbers;
     }
