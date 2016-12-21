@@ -133,15 +133,15 @@ class FreeAuth {
             if(Hash::check($data['password'], $user->password)){
                 $business_id = $this->saveLogin($user->user_id, $data['platform'], $data['device_token']);
                 $business = Business::where('business_id', '=', $business_id)->first();
-//                $all_numbers = $this->freeQueue->allNumbers($business_id);
+                $all_numbers = $this->freeQueue->allNumbers($business_id);
                 return json_encode([
                     'success' => 1,
                     'access_token' => $this->generateAccessKey($user->user_id),
                     'business_id' => $business_id,
                     'raw_code' => $business->raw_code,
-                    'service_id' => Service::getFirstServiceOfBusiness($business_id),
-//                    'issued_numbers' => $all_numbers->uncalled_numbers,
-//                    'called_numbers' => $all_numbers->called_numbers,
+                    'service_id' => $all_numbers->service_id,
+                    'issued_numbers' => $all_numbers->uncalled_numbers,
+                    'called_numbers' => $all_numbers->called_numbers,
                 ]);
             }else{
                 return json_encode(['error' => 'Passwords do not match.']);
