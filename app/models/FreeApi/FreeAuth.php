@@ -140,8 +140,8 @@ class FreeAuth {
                     'business_id' => $business_id,
                     'raw_code' => $business->raw_code,
                     'service_id' => $all_numbers->service_id,
-                    'issued_numbers' => $all_numbers->uncalled_numbers,
-                    'called_numbers' => $all_numbers->called_numbers,
+//                    'issued_numbers' => $all_numbers->uncalled_numbers,
+//                    'called_numbers' => $all_numbers->called_numbers,
                 ]);
             }else{
                 return json_encode(['error' => 'Passwords do not match.']);
