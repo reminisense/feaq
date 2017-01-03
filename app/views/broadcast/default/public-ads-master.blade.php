@@ -1,5 +1,5 @@
 <div class="col-md-6">
-    <div id="fqCarousel" class="carousel slide" data-ride="carousel" data-interval="<?php print $carousel_delay; ?>" style="min-height: 550px;">
+    <div id="fqCarousel" class="carousel slide" data-ride="carousel" data-interval="<?php print $carousel_delay; ?>">
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
             @foreach ($ad_src as $count => $filename)

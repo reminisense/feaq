@@ -198,20 +198,9 @@
         };
 
         $scope.getAllowedBusinesses = function(){
-            $('#allowed-businesses option').remove();
-            $('#allowed-businesses-area').hide();
             $http.get('/business/allowed-businesses/' + pq.ids.business_id).success(function(response){
                 if(response.allowed_businesses && response.allowed_businesses.length != 0 ){
                     $scope.allowed_businesses = response.allowed_businesses;
-                    for(var index in $scope.allowed_businesses){
-                        if($scope.allowed_businesses[index].service_id != pq.ids.service_id){
-                            $('#allowed-businesses').append('<option value="' + $scope.allowed_businesses[index].service_id +'">' + $scope.allowed_businesses[index].name + ' - ' + $scope.allowed_businesses[index].service_name + '</option>');
-                            $('#allowed-businesses-area').show();
-                        }
-                    }
-                }else{
-                    $('#allowed-businesses option').remove();
-                    $('#allowed-businesses-area').hide();
                 }
             });
         }

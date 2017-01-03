@@ -100,7 +100,7 @@ span.glyphicon-zoom-in {
     overflow: auto; /*ARA prevents page stretching when too many numbers are called*/
     margin-bottom: 40px;
 }
-.processq-box table td:nth-child(3){ /* ARA added new second column style for 3rd column should be retained*/
+.processq-box table td:nth-child(4){ /* ARA added new second column style for 3rd column should be retained*/
     text-align: right;
     padding-top: 12px;
     padding-bottom: 12px;
@@ -234,7 +234,7 @@ span.glyphicon-zoom-in {
     font-size: 0;
     white-space: nowrap;
     display: inline-block;
-    width: 80px;
+    width: 75px;
     height: 15px;
     overflow: hidden;
     position: relative;
@@ -493,7 +493,7 @@ span.glyphicon-zoom-in {
 .bgblue     {background-color: #337ab7; border-bottom: 1px solid #2a6aa1; border-top: 1px solid #2a6aa1; }
 .cyan       {color: #00BA8B!important;}
 .blue       {color: #e46b2e!important;}
-.red       {color: #de411e!important;}
+.red        {color: #de411e!important;}
 
 .bgdcyan:hover,
 .bgcyan:hover,
@@ -608,10 +608,73 @@ h2.cyan span {
 #table-queue-history>tbody>tr>td {
     border: 1px solid #cfd8db;
 }
-
+td.links {
+    text-align: left!important;
+    vertical-align: middle!important;
+}
+.btn-links {
+    color: #fff;
+    font-size: 11px;
+    padding: 3px 4px;
+}
+.btn-links span {
+    color: #fff!important;
+}
+#modal-forms .modal-content {
+    padding-top: 0;
+}
+#modal-forms .modal-header {
+    padding-top: 15px;
+}
+#modal-forms table td {
+    text-align: left!important;
+    width: inherit;
+}
+#tab-forms li a {
+    padding: 13px 20px;
+    background-color: #eee;
+    font-family: ralewaybold;
+}
+#tab-forms {
+    padding-top: 0;
+}
+#tab-forms li.active>a,
+#tab-forms li.active>a:focus,
+#tab-forms li.active>a:hover {
+    background-color: #00ba8b;
+    color: #fff;
+    border-bottom: 1px solid #00ba8b;
+}
+#tab-forms li a:hover {background-color: #f4f3f0; color: #00ba8b;}
+#tab-forms li.active>a {
+    border: 1px solid #00ba8b;
+}
+.pt0 {
+    padding-top: 0px!important;
+}
+.modal-forms .modal-content {
+    padding-top: 0px!important;
+}
+.modal-forms .modal-header {
+    padding-top: 15px!important;
+}
+.modal-forms table thead th {
+    font-size: 14px!important;
+    font-family: 'ralewaysemibold'!important;
+    padding: 14px 20px!important;
+}
+.modal-forms table tbody td {
+    text-align: left!important;
+    padding: 12px 20px!important;
+    font-size: 14px!important;
+}
+.modal-forms table thead {
+    background-color: #f8f8f8;
+}
+.processq-box table td {vertical-align: middle!important;}
 /*ARA added styles for new 2nd column (user info)*/
 @media only screen and (min-width: 991px) {
-    .processq-box table td:nth-child(2){
+    .processq-box table td:nth-child(3){
         font-size: 16px;
         text-align: right;
         padding-top: 12px;
@@ -619,7 +682,7 @@ h2.cyan span {
         width: 600px;
     }
 
-    .processq-box table td:nth-child(2) div{
+    .processq-box table td:nth-child(3) div{
         padding-top: 26px;
     }
 }
@@ -628,4 +691,23 @@ h2.cyan span {
     .processq-box table td:nth-child(2){
         display: none;
     }
+}
+.modal-forms .modal-content {
+    padding-top: 0px!important;
+}
+
+#tab-forms-table,
+#tab-forms-table > div {
+    padding-top: 0;
+}
+#tab-forms-table thead th {
+    padding-top: 12px!important;
+    padding-bottom: 12px!important;
+    background-color: #f8f8f8;
+    font-family: ralewaybold;
+}
+#tab-forms-table th,
+#tab-forms-table td {
+    font-size: 14px!important;
+    padding-left: 10px!important;
 }

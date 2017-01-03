@@ -2,13 +2,175 @@ html,body { height: 100%; }
 body { background-color: #fff; position: relative;  font-family: 'Lato', sans-serif; overflow: hidden; }
 .wrap-broadcast {  width: 100%; height: 100%; }
 
+/*.ten      { width:5%; }*/
+
+.twenty   { width:20%; }
 .thirty   { width:30%; }
 .forty    { width:40%; }
 .fifty    { width:50%; }
 .sixty    { width:60%; }
 .seventy  { width:70%; }
-.ads-area.seventy, .sixty, .fifty-a {left: 0;}
-.numbers-area.thirty, .forty ,.fifty-b {right: 0;}
+.eighty   { width:80%; }
+.ninety   { width:90%; }
+.ads-area.seventy, .sixty, .eighty, .ninety, .fifty-a {left: 0;}
+.numbers-area.thirty, .forty, .twenty, .ten, .fifty-b {right: 0;}
+
+/*@10%*/
+.numbers-area.ten h3 {font-size: 15px; height:5.5vh!important;}
+.numbers-area.ten {
+    width: 10%;
+}
+.numbers-area.ten .numbers .service {
+    font-size: 1.2vw;
+    margin: auto;
+}
+.numbers-area.ten .numbers .terminal {
+    font-size: 1vw;
+    margin: auto;
+}
+.numbers-area.ten .boxed.one .numbers .callnum,
+.numbers-area.ten .boxed.two .numbers .callnum,
+.numbers-area.ten .boxed.three .numbers .callnum,
+.numbers-area.ten .boxed.four .numbers .callnum,
+.numbers-area.ten .boxed.five .numbers .callnum {
+    font-size: 3.4vw!important;
+}
+
+.numbers-area.ten .boxed.ten .numbers .service { font-size: 1vw;}
+.numbers-area.ten .boxed.ten .numbers .callnum {
+    font-size: 2vw!important;
+}
+.numbers-area.ten .boxed.four .row-5 > .col-1 .callnum,
+.numbers-area.ten .boxed.five .row-5 > .col-1 .callnum,
+.numbers-area.ten .boxed.three .row-3 > .col-1 .callnum { font-size: 3.7vw; }
+.numbers-area.ten .boxed.two .row-2 > .col-1 .callnum,
+.numbers-area.ten .boxed.one .row-1 > .col-1 .callnum { font-size: 4vw!important; }
+
+.numbers-area.ten .boxed.four .row-4 > .col-1 .service,
+.numbers-area.ten .boxed.five .row-5 > .col-1 .service,
+.numbers-area.ten .boxed.three .row-3 > .col-1 .service { font-size: 1.6vw; }
+.numbers-area.ten .boxed.two .row-2 > .col-1 .service,
+.numbers-area.ten .boxed.one .row-1 > .col-1 .service{ font-size: 1.7vw; }
+
+.numbers-area.ten .boxed.one .row-1 > .col-1 .terminal,
+.numbers-area.ten .boxed.two .row-2 > .col-1 .terminal,
+.numbers-area.ten .boxed.three .row-3 > .col-1 .terminal,
+.numbers-area.ten .boxed.four .row-4 > .col-1 .terminal {
+    font-size: 1.2vw; 
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+
+.numbers-area.ten .boxed.five .row-5 > .col-1 {
+    height: 19.2%!important;
+    height: 19.2vh!important;
+}
+.numbers-area.ten .boxed.eight .numbers .callnum,
+.numbers-area.ten .boxed.seven .numbers .callnum,
+.numbers-area.ten .boxed.six .numbers .callnum {
+    font-size: 3vw!important;
+}
+.numbers-area.ten .boxed.six .row-3 > .col-2 {
+    height: 16%!important;
+    height: 16vh!important;
+    width: 100%!important;
+}
+.numbers-area.ten .boxed.seven .row-4 > .col-2,
+.numbers-area.ten .boxed.seven .row-4 > .col-1 {
+    height: 13.5%!important;
+    height: 13.5vh!important;
+    width: 100%;
+}
+.numbers-area.ten .boxed.eight .row-4 > .col-2 {
+    height: 11.8%!important;
+    height: 11.8vh!important;
+    width: 100%;
+}
+.numbers-area.ten .boxed.nine .row-5 > .col-2,
+.numbers-area.ten .boxed.nine .row-5 > .col-1 {
+    height: 10.5%!important;
+    height: 10.5vh!important;
+    width: 100%;
+}
+.numbers-area.ten .boxed.ten .row-5 > .col-2 {
+    height: 9.6%!important;
+    height: 9.6vh!important;
+    width: 100%;
+}
+.numbers-area.ten .boxed.ten h3,
+.numbers-area.ten .boxed.four h3{
+    padding-top: 14px;
+}
+.numbers-area.ten .boxed.three h3 {padding-top: 14px;}
+.numbers-area.ten .boxed.six h3,
+.numbers-area.ten .boxed.seven h3,
+.numbers-area.ten .boxed.eight h3,
+.numbers-area.ten .boxed.nine h3 { padding-top: 19px; }
+
+.numbers-area.ten .boxed.ten .terminal,
+.numbers-area.ten .boxed.nine .terminal,
+.numbers-area.ten .boxed.eight .terminal,
+.numbers-area.ten .boxed.seven .terminal,
+.numbers-area.ten .boxed.six .terminal,
+.numbers-area.ten .boxed.five .terminal { display: none; }
+
+.numbers-area.ten div.row-5,
+.numbers-area.ten .boxed.eight div.row-4,
+.numbers-area.ten .boxed.ten div.row-5{ top: 5vh; }
+
+.numbers-area.ten .boxed.seven div.row-4 { height: 100vh; }
+.numbers-area.ten .numbers .service,
+.numbers-area.ten .numbers .terminal { width: 120px!important; }
+
+/* @20% called number */
+.numbers-area.twenty .boxed.six .numbers .service,
+.numbers-area.twenty .boxed.seven .numbers .service,
+.numbers-area.twenty .boxed.eight .numbers .service,
+.numbers-area.twenty .boxed.nine .numbers .service
+/*.numbers-area.twenty .numbers .service*/ {
+    width: 139px!important;
+    margin: auto;
+}
+.numbers-area.twenty .boxed.five .numbers .service {
+    width: 170px!important;
+}
+.numbers-area.twenty .boxed.one .numbers .service,
+.numbers-area.twenty .boxed.two .numbers .service,
+.numbers-area.twenty .boxed.three .numbers .service,
+.numbers-area.twenty .boxed.four .numbers .service {
+    width: 200px!important;
+}
+.numbers-area.twenty .boxed.three .numbers .callnum,
+.numbers-area.twenty .boxed.four .numbers .callnum {
+    font-size: 5vw;
+}
+.numbers-area.twenty .boxed.one .numbers .callnum,
+.numbers-area.twenty .boxed.two .numbers .callnum {
+    font-size: 7vw;
+}
+.numbers-area.twenty .boxed.five .numbers .terminal,
+.numbers-area.twenty .boxed.six .numbers .terminal,
+.numbers-area.twenty .boxed.seven .numbers .terminal,
+.numbers-area.twenty .boxed.eight .numbers .terminal,
+.numbers-area.twenty .boxed.nine .numbers .terminal,
+.numbers-area.twenty .boxed.ten .numbers .terminal {
+    font-size: 0.9vw;
+}
+.numbers-area.twenty .boxed.five .numbers .service,
+.numbers-area.twenty .boxed.six .numbers .service {
+    font-size: 1.2vw!important;
+}
+.numbers-area.twenty .boxed.one .numbers .terminal,
+.numbers-area.twenty .boxed.two .numbers .terminal {
+    font-size: 1.6vw!important;
+}
+.numbers-area.twenty .boxed.two .numbers .service,
+.numbers-area.twenty .boxed.three .numbers .service {
+    font-size: 2vw!important;
+}
+/* eo 20percent screen*/
+
+
 
 /*--- 30% broadcast width---  */
 .boxed.ten .row-5,
@@ -61,9 +223,9 @@ body { background-color: #fff; position: relative;  font-family: 'Lato', sans-se
 .boxed.seven .service {font-size: 1.5vw;}
 .boxed.eight .callnum  {font-size: 4vw;}
 .boxed.eight .service {font-size: 1.5vw;}
-.boxed.nine .callnum   {font-size: 2.2vw;}
+.boxed.nine .callnum   {font-size: 4vw;}
 .boxed.nine .service,
-.boxed.nine .terminal{font-size: 1.1vw;}
+.boxed.nine .terminal{font-size: 1.2vw;}
 .boxed.ten .callnum    {font-size: 4vw;}
 .boxed.ten .service   {font-size: 1.2vw;}
 .fifty .boxed.four .callnum    {font-size: 7vw;}
@@ -98,7 +260,7 @@ body { background-color: #fff; position: relative;  font-family: 'Lato', sans-se
 #biz-broadcast-no-ads .row-3 .col-2 .numbers { display: table-cell; vertical-align: middle;}
 .col-2 { float: left; }
 
-.numbers .callnum { font-size: 10vw; font-weight: 900;}
+/*.numbers .callnum { font-size: 10vw; font-weight: 900;}*/
 .boxed.two .numbers .callnum { line-height: 200px; }
 .thirty .numbers .service { width:400px; margin:auto; text-align:center; }
 .thirty .boxed.ten .numbers .service,
@@ -111,7 +273,7 @@ body { background-color: #fff; position: relative;  font-family: 'Lato', sans-se
 .thirty .boxed.nine .numbers .callnum,
 .thirty .boxed.ten .numbers .callnum  { width:90%; }
 .forty .numbers .service { width:280px; margin:auto; text-align:center; }
-.fifty .numbers .service { width:330px; margin:auto; text-align:center; }
+/*.fifty .numbers .service { width:330px; margin:auto; text-align:center; }*/
 
 .fifty .boxed.one .service,
 .fifty .boxed.three .service {width: 600px;}
@@ -126,6 +288,7 @@ h1,h2,h3,h4 {margin: 0;}
 .yellow {background-color: #f9c44d;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
 .blue {background-color: #5d8dbc;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
 .borange {background-color: #ed8c5c;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
+.dark-orange {background-color: #a6542c;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
 .red {background-color: #de787c;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
 .green {background-color: #89c27b;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
 .violet {background-color: #887aac;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
@@ -140,9 +303,8 @@ h1,h2,h3,h4 {margin: 0;}
 .x242436 {background-color: #242436;color: #fff;-webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);}
 
 .numbers-area .boxed { background-color: white; height: 100vh; max-height: 100%; position: relative; z-index: 4;}
-.numbers-area .boxed h3 {text-align:center; margin:auto; width:100%; height: 6vh; padding-top:1.5vh; background-color:white; z-index: 2; font-weight: 900; vertical-align: middle; display: table;}
 .numbers p {margin: 0; padding: 0;}
-.numbers .service {font-size: 2.5vw; font-weight: 700;}
+/*.numbers .service {font-size: 2.5vw; font-weight: 700;}*/
 .rel {position: relative;}
 .abs {position: absolute;}
 .callnum {margin:auto!important; text-align:center;}
@@ -150,7 +312,17 @@ h1,h2,h3,h4 {margin: 0;}
 .top {background-color: #262a31;text-align: center;margin: auto;padding: 12px 0;}
 .ticker-message {background-color: #fff;color: #000;padding: 10px 0;position: absolute;bottom: 0;width: 100%;z-index: 1; max-height: 62px; overflow: hidden; white-space: nowrap;}
 .ticker-message p {font-size: 30px;font-weight: 900;margin-bottom: 0;}
-.qrcode.qrwrap {width: 220px;position: absolute;bottom: 62px;left: 0;z-index: 20;text-align: center;min-height: inherit!important;padding: 15px!important;background: rgba(255,255,255,0.85)!important;}
+.qrcode.qrwrap {
+    width: 180px;
+    position: absolute;
+    bottom: 34%;
+    left: 0;
+    z-index: 20;
+    text-align: center;
+    min-height: inherit!important;
+    padding: 15px!important;
+    background: #262a31!important;}
+
 .qrcode.qrwrap .orange {font-size: 20px!important;}
 .qrcode.qrwrap h4 {margin: 0;color: #ff8649;font-weight: 900;}
 .qrcode.qrwrap img {width: 100%;margin-top: 5px;}
@@ -159,13 +331,13 @@ h1,h2,h3,h4 {margin: 0;}
 /*.boxed.four .numbers .callnum {line-height: 120px;}*/
 /*.fifty .boxed.four .numbers .service { padding-bottom:50px; }*/
 .fifty .boxed.ten .numbers .callnum { line-height: inherit; }
-#cust-url {  margin-top: 8px; font-size: 14px; font-weight: bold; }
-#cust-url span {font-size: 24px; font-weight: bold; color: #ff8649;}
+#cust-url {  margin-top: 8px; font-size: 14px; font-weight: bold; color: #fff;}
+#cust-url span {font-size: 16px; font-weight: bold; color: #ff8649;}
 
 #biz-broadcast-no-ads .row-4 .col-3 .terminal,
 .fifty .boxed.ten .terminal {font-size: 1.2vw!important;}
 #biz-broadcast-no-ads .terminal {font-size: 1.4vw;}
-.terminal {font-size: 1.2vw; text-align: center;}
+
 
 /*here comes no ADS*/
 #biz-broadcast-no-ads .ticker-message {z-index: 5;}
@@ -308,7 +480,17 @@ h1,h2,h3,h4 {margin: 0;}
     font-size: 14px;
     margin-top: 0;
 }
+
+/*
 #biz-broadcast-no-ads .boxed.ten h4
+*/
+
+.numbers-area.fifty .boxed.one p.terminal,
+.numbers-area.forty .boxed.one p.terminal,
+.numbers-area.thirty .boxed.one p.terminal,
+.numbers-area.fifty .boxed.two p.terminal,
+.numbers-area.forty .boxed.two p.terminal,
+.numbers-area.thirty .boxed.two p.terminal{font-size: 2vw;}
 
 @media only screen and (max-width : 1400px) {
     .boxed.two .numbers .callnum { line-height:140px; }
@@ -318,9 +500,12 @@ h1,h2,h3,h4 {margin: 0;}
     .boxed.seven .numbers .service,
     .boxed.eight .numbers .service,
     .boxed.nine .numbers .service,
-    .boxed.ten .numbers .service { width:150px!important; }
-    .fifty .numbers .service { width:290px!important; }
-    .fifty .boxed.six .numbers .service { width:220px!important; }
+    .boxed.ten .numbers .service { width:139px!important; }
+    /*.fifty .numbers .service { width:290px!important; }*/
+    .fifty .boxed.six .numbers .service { width: 220px!important; }
+    .numbers-area.ten .numbers .service,
+    .numbers-area.ten .numbers .terminal { width: 100px!important; }
+    .numbers-area.ten .boxed h3 { font-size: 13px;}
 }
 
 @media only screen and (max-width : 1200px) {
@@ -329,46 +514,52 @@ h1,h2,h3,h4 {margin: 0;}
     /*.boxed.four .numbers .callnum {line-height: 95px;}*/
     .fifty .numbers .service { padding-bottom:0px; }
     .fifty .boxed.ten .numbers .service { padding-bottom:0px; }
-    .fifty .numbers .service { width:230px!important; }
-    .numbers-area .boxed h3 { height:7vh; }
+    /*.fifty .numbers .service { width:230px!important; }*/
+    /*.numbers-area .boxed h3 { height:7vh; }*/
     .fifty .boxed.ten .numbers .callnum { line-height: inherit!important; }
+    .numbers-area.ten .numbers .service,
+    .numbers-area.ten .numbers .terminal { width: 92px!important; }
 }
 
 @media only screen and (max-width : 992px) {
     .thirty .numbers .service { width: 220px;}
     /*.boxed.four .numbers .callnum {line-height: 90px;}*/
-    .numbers-area .boxed h3 {padding-top:1vh;}
+    /*.numbers-area .boxed h3 {padding-top:1vh;}*/
     .boxed.six .numbers .service,
     .boxed.seven .numbers .service,
     .boxed.eight .numbers .service,
     .boxed.nine .numbers .service,
     .boxed.ten .numbers .service { width:110px!important; }
-    .fifty .numbers .service { padding-bottom:inherit; }
-    .fifty .numbers .service { width:170px!important; }
+    /*.fifty .numbers .service { padding-bottom:inherit; }*/
+    /*.fifty .numbers .service { width:170px!important; }*/
     .fifty .boxed.six .numbers .service { width:120px!important; }
     .fifty .boxed.ten .numbers .callnum { line-height: inherit!important; }
+    .numbers-area.twenty .boxed.ten .numbers .service { width: 60px!important; }
+    .numbers-area.ten .numbers .service,
+    .numbers-area.ten .numbers .terminal { width: 85px!important; }
 }
 
 @media only screen and (max-width : 768px) {
     .boxed.two .numbers .callnum {line-height: 100px;}
     .thirty .numbers .service { width: 140px;}
-    .numbers-area .boxed h3 {font-size: 16px;}
-    .numbers-area .boxed h3 {padding-top:1.4vh;}
+    /*.numbers-area .boxed h3 {font-size: 16px;}*/
+    /*.numbers-area .boxed h3 {padding-top:1.4vh;}*/
     .boxed.six .numbers .service,
     .boxed.seven .numbers .service,
     .boxed.eight .numbers .service,
     .boxed.nine .numbers .service,
     .boxed.ten .numbers .service { width:50px!important; }
-    .fifty .numbers .service { width:110px!important; }
+    /*.fifty .numbers .service { width:110px!important; }*/
     .fifty .boxed.six .numbers .service { width:100px!important; }
     .fifty .boxed.ten .numbers .callnum { line-height: inherit!important; }
+    .numbers-area.twenty .boxed.ten .numbers .service { width: 30px!important; }
 }
 
 @media only screen and (max-width : 480px) {
-    .numbers-area .boxed h3 {font-size: 16px;}
+    /*.numbers-area .boxed h3 {font-size: 16px;}
     .thirty .numbers .service { width: 120px;}
     .numbers-area .boxed h3 {padding-top:1.4vh;}
-    .fifty .numbers .service { width:80px!important; }
+    .fifty .numbers .service { width:80px!important; }*/
 }
 
 @media only screen and (max-width : 320px) {
@@ -381,3 +572,71 @@ h1,h2,h3,h4 {margin: 0;}
 img.qrcode {
     margin-bottom: 10px;
 }
+#show-only-service a, #show-all-numbers a, .dropdown a {
+    color: #ff8649;
+}
+#show-only-service>li.active>a, #show-only-service>li.active>a:focus, #show-only-service>li.active>a:hover {
+    background-color: #ff8649;
+    color: #fff;
+}
+.nav-tabs.nav-justified > li > a {
+    border-bottom: none;
+}
+.checkin-numbers-carousel {
+    width: 1200px;
+    overflow: hidden;
+}
+.carousel {
+    width: 100%;
+}
+.checkin-carousel {
+    height: 100vh;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    display: flex;
+    text-align: center;
+}
+.carousel-inner {
+    width: 100%;
+    height: 100vh;
+    height: 100%;
+}
+.carousel-inner .item {
+    height: 100%;
+    width: 100%;
+}
+.carousel-inner .item .carousel-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.carousel-caption {
+    bottom: 0;
+    position: static;
+    padding-top: 0!important;
+    padding-bottom: 0!important;
+    width: 100%;
+}
+.carousel-caption h3 {
+    font-weight: 900;
+    margin: 11px 20px 12px 0!important;
+}
+.carousel-caption h3,
+.carousel-caption p {
+    display: inline-block;
+    color: #111;
+    text-shadow: none;
+    margin-bottom: 0;
+}
+.carousel-caption .numbers {
+    font-size: 2.4vw;
+    background-color: #262a31;
+    color: #fff;
+    font-weight: 900;
+    padding: 1vw 2vw;
+    margin: 3px 2px;
+}
+
+
+

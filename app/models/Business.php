@@ -146,7 +146,9 @@ class Business extends Eloquent
             'input_sms_field' => QueueSettings::inputSmsField($first_service->service_id),
             'allow_remote' => QueueSettings::allowRemote($first_service->service_id),
             'remote_limit' => QueueSettings::remoteLimit($first_service->service_id),
+            'remote_time' => QueueSettings::remoteTime($first_service->service_id),
             'process_queue_layout' => QueueSettings::processQueueLayout($first_service->service_id),
+            'check_in_display' => QueueSettings::checkInDisplay($first_service->service_id),
             'terminals' => $terminals,
             'services' => $services,
             'analytics' => $analytics,
@@ -682,6 +684,29 @@ class Business extends Eloquent
 
     public static function getIndustryKeywords($industry){
         return isset(Business::$keywords[$industry]) ? Business::$keywords[$industry] : [];
+    }
+
+    public static function getCustomFieldsDataByBusinessId($business_id){
+
+        $result = Business::where('business.business_id', '=', $business_id)
+            ->join('branch', 'branch.business_id', '=', 'business.business_id')
+            ->join('service', 'service.branch_id', '=', 'branch.branch_id')
+            ->join('priority_number', 'priority_number.service_id','=','service.service_id')
+            ->join('priority_queue', 'priority_queue.track_id', '=', 'priority_number.track_id')
+            ->whereIn('priority_queue.queue_platform',array('android','remote'))
+            ->selectRaw('
+                priority_queue.transaction_number,
+                priority_queue.priority_number,
+                priority_queue.confirmation_code,
+                priority_queue.name,
+                priority_queue.phone,
+                priority_queue.email,
+                priority_queue.custom_fields
+            ')
+            ->orderBy('priority_queue.transaction_number')
+            ->get();
+
+        return $result;
     }
 
     private static $keywords = [

@@ -16,6 +16,8 @@ Route::post('/', 'UserController@processContactForm');
 
 Route::get('rest/register-user/{fb_id}/{first_name}/{last_name}/{email}/{gender}/{phone}/{country}', 'RestController@getRegisterUser');
 
+Route::get('forms/business/{business_id}', 'FormsController@getBusinessData');
+
 Route::controller('fb', 'FBController');
 
 Route::controller('processqueue', 'ProcessQueueController');
@@ -75,3 +77,7 @@ Route::controller('services', 'ServiceController');
 
 //raw code implementation
 Route::get('/{raw_code?}', 'UserController@getUserDashboard');
+
+Route::controller('records', 'FormRecordController');
+
+Route::controller('api', 'FreeApiController');

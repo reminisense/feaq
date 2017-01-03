@@ -221,9 +221,9 @@ app.controller('adminController', function($scope, $http){
             // Chart data records -- each entry in this array corresponds to a point on
             // the chart.
             data: data,
-            // The name of the data record attribute that contains x-values.
+            // The name of the data records attribute that contains x-values.
             xkey: 'parameter',
-            // A list of names of data record attributes that contain y-values.
+            // A list of names of data records attributes that contain y-values.
             ykeys: ['value'],
             // Labels for the ykeys -- will be displayed when you hover over the
             // chart.
@@ -586,7 +586,8 @@ app.controller('adminController', function($scope, $http){
         $http.post('/admin/reset-password', {
             user_id: user_id
         }).success(function(response) {
-            alert(response.password);
+            $scope.new_password = response.password;
+            //alert(response.password);
         });
     }
 

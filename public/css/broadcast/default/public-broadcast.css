@@ -105,7 +105,7 @@
     color: #333;
     /*margin-bottom: 5px;*/
     margin-bottom: 0px;
-    font-size: 60px;
+    font-size: 40px;
 }
 
 .boxed .broadcast .numbers {
@@ -210,7 +210,7 @@
 }
 
 .ticker-message {
-    z-index: 9999;
+    z-index: 11;
     bottom: 0px;
     width: 100%;
     background: rgba(255, 255, 255, 0.93);
@@ -243,5 +243,29 @@
 .numbers.t .terminal,
 .numbers.t h3 {
     color: #333!important;
+}
+
+#form-tabs li a {
+    padding: 13px 20px;
+    background-color: #eee;
+    font-family: ralewaybold;
+    color:#337ab7;
+    border: 1px solid #eee;
+    border-top-left-radius: .3em;
+    border-top-right-radius: .3em;
+}
+#form-tabs li.active>a,
+#form-tabs li.active>a:focus,
+#form-tabs li.active>a:hover {
+    background-color: #00ba8b;
+    color: #fff;
+    border-bottom: 1px solid #00ba8b;
+}
+#form-tabs li a:hover {background-color: #f4f3f0; color: #00ba8b;}
+#form-tabs li.active>a {
+    border: 1px solid #00ba8b;
+}
+#borderless td, #borderless th {
+    border: none;
 }
 

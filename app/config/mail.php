@@ -28,7 +28,7 @@ return array(
 	|
 	*/
 
-	'host' => 'outlook.office365.com',
+	'host' => 'smtp.office365.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-    'from' => array('address' => 'contact@featherq.com', 'name' => 'FeatherQ'),
+    'from' => array('address' => 'aunne@reminisense.com', 'name' => 'FeatherQ'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return array(
 	|
 	*/
 
-    'username' => 'contact@featherq.com',
+    'username' => 'aunne@reminisense.com',
 
 	/*
 	|--------------------------------------------------------------------------

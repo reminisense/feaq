@@ -6,8 +6,25 @@
  * Time: 11:35 AM
  */
 
+use utils\ApplePushNotifications;
 
 class MobileController extends BaseController{
+
+  public function __construct() {
+    $this->beforeFilter('@grantAccess');
+  }
+
+  public function grantAccess($route, $request) {
+    if ($request->path() != 'mobile/facebook-login' && $request->path() != 'mobile/send-notif') {
+      $auth_token = Request::header('Authorization');
+      if (!User::getValidateToken($auth_token) || !$auth_token) {
+        return Response::json(array(
+          'msg' => 'Your access token is not valid.',
+          'status' => 403,
+        ));
+      }
+    }
+  }
 
     public function getBusinessNumbers($business_id, $user_id){
         $business = Business::where('business_id', '=', $business_id)->first();
@@ -18,7 +35,7 @@ class MobileController extends BaseController{
             $services_list[] = [
                 "service_id"=> $service->service_id,
                 "service_name"=> $service->name,
-                "enabled"=> QueueSettings::allowRemote($service->service_id) > 0 ? true : false,
+                "enabled"=> QueueSettings::checkRemoteQueue($service->service_id) ? true : false,
             ];
         }
 
@@ -103,8 +120,10 @@ class MobileController extends BaseController{
                         'queue_user_email' => $last_called->email,
                         'queue_user_contact' => $last_called->phone,
                     ];
+                    $last_called_array = $last_called;
                 }else{
                     $last_called = null;
+                    $last_called_array = [];
                 }
 
                 $services_list = [];
@@ -128,6 +147,7 @@ class MobileController extends BaseController{
                     'remote_queue' => $allow_remote,
                     'service_list'  => $services_list,
                     'last_called' => $last_called,
+                    'last_called_array' => $last_called_array,
                 ];
             }
         }
@@ -142,7 +162,7 @@ class MobileController extends BaseController{
         $terminal_transaction = TerminalTransaction::where('transaction_number', '=', $transaction_number)->first();
 
         $data = [];
-        if($terminal_transaction->time_completed == 0 && $terminal_transaction->time_removed == 0){
+        if(isset($terminal_transaction) && $terminal_transaction->time_completed == 0 && $terminal_transaction->time_removed == 0){
             //user priority_number details
             $priority_queue = PriorityQueue::find($transaction_number);
             $priority_number = PriorityNumber::find($priority_queue->track_id);
@@ -170,20 +190,30 @@ class MobileController extends BaseController{
                 $last_called = null;
             }
 
+            if(isset($last_called['service_id'])){
+                $analytics = new Analytics();
+                $estimates = json_decode($analytics->getServiceTimeEstimates($last_called['service_id']));
+                $estimated_time = $estimates->lower_limit . ' - ' . $estimates->upper_limit;
+            }else{
+                $estimated_time = ' - ';
+            }
+
             $data = [
                 'user_id' => $user->user_id,
                 'first_name' => $user->first_name,
                 'last_name' => $user->last_name,
                 'email' => $user->email,
                 'contact' => $user->phone,
+                'transaction_number' => $transaction_number,
                 'priority_number' => $priority_queue->priority_number,
-                'estimated_time_left' => Analytics::getWaitingTimeByTransactionNumber($transaction_number),
+                'estimated_time' => $estimated_time,
                 'business' => [
                     'id' => $business->business_id,
                     'name' => $business->name,
                     'address' => $business->local_address,
                     'image_url' => "http://imgur.com/as1DaJ.jpg",
                     'last_called' => $last_called,
+                    'queued_service' => Service::name($priority_number->service_id),
                 ],
                 'location' => [
                     'latitude' => $business->latitude,
@@ -191,8 +221,11 @@ class MobileController extends BaseController{
                 ],
 
             ];
+            return json_encode($data);
+        }else{
+            return '{}';
         }
-        return json_encode($data);
+
     }
 
     //Screen #6
@@ -221,10 +254,8 @@ class MobileController extends BaseController{
 
     //Screen #7
     public function getMyBusinessHistory($transaction_number){
-
-        $user_id = PriorityQueue::userId($transaction_number);
-        $user_queues = User::getUserBusinessHistory($user_id, $transaction_number);
-
+        $user_queues = PriorityQueue::getTransactionHistory($transaction_number);
+        $service_id = Terminal::serviceId(TerminalTransaction::terminalId($transaction_number));
         $business = [
             'business_id' => $user_queues->business_id,
             'transaction_date' => $user_queues->date,
@@ -238,8 +269,10 @@ class MobileController extends BaseController{
             'priority_number' => $user_queues->priority_number,
             'time_issued' => $user_queues->time_queued,
             'time_called' => $user_queues->time_called,
+            'time_checked_in' => $user_queues->time_checked_in,
+            'service_id' => $service_id,
+            'service_name' => Service::name($service_id),
             'rating' => UserRating::getUserRating($transaction_number) ? UserRating::getUserRating($transaction_number)->rating : 0
-
         ];
 
         return json_encode($business);
@@ -353,6 +386,7 @@ class MobileController extends BaseController{
     }
 
     //Screen #13
+    // Use this function when the user_id is in a remote queue. Otherwise this will result in an object not found error.
     public function getBusinessBroadcast($business_id, $user_id){
         $data = $this->getBusinessStatus($business_id, false);
         $data = json_decode($data);
@@ -366,6 +400,7 @@ class MobileController extends BaseController{
 
             if($terminal_transaction->time_completed == 0 && $terminal_transaction->time_removed == 0){
                 $data->service_name = Service::name($priority_number->service_id);
+                $data->service_id = $priority_number->service_id;
                 $data->user_priority_number = $priority_queue->priority_number;
                 $data->number_people_ahead = Analytics::getNumbersAhead($transaction_number);
                 $data->estimated_time_left = Analytics::getWaitingTimeByTransactionNumber($transaction_number);
@@ -404,6 +439,63 @@ class MobileController extends BaseController{
             }
         }else{
             return json_encode(['error' => 'The email or password should not be blank.']);
+        }
+    }
+
+    public function postFacebookLogin(){
+        $fb_id = Input::get('facebook_id');
+      $fb_token = Input::get('fb_token');
+
+        if(isset($fb_id) && $fb_id != ""){
+            $user = User::where('fb_id', '=', $fb_id)->first();
+            if($user && !$user->verified){
+                return json_encode(['error' => 'Email verification required.']);
+            }else if($user && $user->verified){
+                $user_data = [
+                    'user_id' => $user->user_id,
+                    'facebook_id' => $user->fb_id,
+                    'first_name' => $user->first_name,
+                    'last_name' => $user->last_name,
+                    'email' => $user->email,
+                    'phone' => $user->phone,
+                    'local_address' => $user->local_address,
+                    'gender' => $user->gender,
+                ];
+                return json_encode(['success' => 1, 'user'=> $user_data, 'access_token' => Helper::generateAccessKey($fb_id, $fb_token)]);
+            }else{
+                return json_encode(['error' => 'User does not exist.']);
+            }
+        }else{
+            return json_encode(['error' => 'The email or password should not be blank.']);
+        }
+    }
+
+    public function postUpdateUser(){
+        $user_id = Input::get('user_id');
+        if(User::where('user_id', '=', $user_id)->exists()){
+            $user = User::find($user_id);
+            $user->first_name = Input::get('first_name');
+            $user->last_name = Input::get('last_name');
+            $user->phone = Input::get('phone');
+            $user->local_address = Input::get('location');
+            try{
+                $user->save();
+                $user_data = [
+                    'user_id' => $user->user_id,
+                    'facebook_id' => $user->fb_id,
+                    'first_name' => $user->first_name,
+                    'last_name' => $user->last_name,
+                    'email' => $user->email,
+                    'phone' => $user->phone,
+                    'local_address' => $user->local_address,
+                    'gender' => $user->gender,
+                ];
+                return json_encode(['success' => 1, 'user'=> $user_data]);
+            }catch (Exception $e){
+                return json_encode(['error' => $e->getMessage()]);
+            }
+        }else{
+            return json_encode(['error' => 'User does not exist.']);
         }
     }
 
@@ -448,7 +540,167 @@ class MobileController extends BaseController{
     }
 
     public function getCheckinTransaction($transaction_number){
-        TerminalTransaction::where('transaction_number', '=', $transaction_number)->update(['time_checked_in' => time()]);
-        return json_encode(['success' => 1]);
+        if(TerminalTransaction::where('transaction_number', '=', $transaction_number)->exists()){
+            $time_checked_in = time();
+            TerminalTransaction::where('transaction_number', '=', $transaction_number)->update(['time_checked_in' => $time_checked_in]);
+            return json_encode([
+                'success' => 1,
+                'time_checked_in' => $time_checked_in,
+                'transaction_number' => $transaction_number
+            ]);
+        }else{
+            return json_encode(['success' => 0, 'error' => 'Transaction number not found.']);
+        }
+
     }
+
+    public function getCheckedIn($transaction_number){
+        if(TerminalTransaction::where('transaction_number', '=', $transaction_number)->exists()) {
+            $transaction = TerminalTransaction::where('transaction_number', '=', $transaction_number)->first();
+            $time_checked_in = isset($transaction->time_checked_in) ? $transaction->time_checked_in : 0;
+            $is_checked_in = $time_checked_in ? true : false;
+            return json_encode([
+                'is_checked_in' => $is_checked_in,
+                'time_checked_in' => $time_checked_in,
+                'transaction_number' => $transaction_number,
+            ]);
+        }else{
+            return json_encode(['success' => 0, 'error' => 'Transaction number not found.']);
+        }
+    }
+
+    public function getCustomFieldsData($transaction_number){
+        if(PriorityQueue::where('transaction_number', '=', $transaction_number)->exists()) {
+            $result= PriorityQueue::where('transaction_number', '=', $transaction_number)->first(['custom_fields']);
+            return json_decode($result->custom_fields);
+        }else{
+            return json_encode(['success' => 0, 'error' => 'Transaction number not found.']);
+        }
+    }
+
+    public function getCustomFields($service_id){
+
+        if(Forms::where('service_id', '=', $service_id)->exists()) {
+            $fields = array();
+            $res = Forms::getFieldsByServiceId($service_id);
+            foreach ($res as $count => $data) {
+                $field_data = unserialize($data->field_data);
+                $fields[$data->form_id] = array(
+                    'field_type' => $data->field_type,
+                    'label' => $field_data['label'],
+                    'options' => array_key_exists('options', $field_data) ? unserialize($field_data['options']) : array(),
+                    'value_a' => array_key_exists('value_a', $field_data) ? $field_data['value_a'] : '',
+                    'value_b' => array_key_exists('value_b', $field_data) ? $field_data['value_b'] : '',
+                );
+            }
+            return json_encode($fields);
+        }else{
+            return json_encode(['success' => 0, 'error' => 'Transaction number not found.']);
+        }
+    }
+
+    public function postInsertCustomFieldsData(){
+        $data = Input::all();
+        $result =  PriorityQueue::updateCustomFieldsOfNumber($data['transaction_number'], json_encode($data['input']));
+
+        if($result){
+            return json_encode(['success' => 1]);
+        }else{
+            return json_encode(['error' =>'Something Went Wrong']);
+        }
+
+    }
+
+    public function getViewForm($form_id) {
+        $fields = unserialize(Forms::getFieldsByFormId($form_id));
+        return json_encode(array(
+          'fields' => $fields
+        ));
+    }
+
+  public function getDisplayForms($service_id) {
+    $data = array();
+    $forms = Forms::fetchFormsByServiceId($service_id);
+    foreach ($forms as $form) {
+      $data[] = array(
+        'form_id' => $form->form_id,
+        'form_name' => $form->form_name,
+      );
+    }
+    return json_encode(array('success'=> 1, 'forms' => $data));
+  }
+
+    public function getServiceEstimates($service_id){
+        $analytics = new Analytics();
+        return $analytics->getServiceTimeEstimates($service_id);
+    }
+
+    public function getUserRecords($transaction_number) {
+        $arr = array();
+        $records = FormRecord::getRecordIdFormIdByTransactionNumber($transaction_number);
+        foreach ($records as $count => $record) {
+            $arr[] = array(
+              'record_id' => $record->record_id,
+              'form_name' => Forms::getTitleByFormId($record->form_id),
+            );
+        }
+        return json_encode($arr);
+    }
+
+    public function getViewRecord($record_id) {
+      $form_id = FormRecord::getFormIdByRecordId($record_id);
+      $fields = unserialize(Forms::getFieldsByFormId($form_id));
+      $form_data = FormRecord::getXMLPathByRecordId($record_id);
+      return json_encode(array(
+        'fields' => $fields,
+        'form_data' => simplexml_load_string(file_get_contents($form_data)),
+      ));
+    }
+
+  public function postSubmitForm() {
+    $user_id = Input::get('user_id');
+    $transaction_number = Input::get('transaction_number');
+    $form_submissions = Input::get('form_submissions');
+    foreach ($form_submissions as $count => $form_submit) {
+      foreach ($form_submit as $form_id => $submit_data) {
+        $to_xml = array(
+          'form_name' => Forms::getTitleByFormId($form_id),
+          'service_id' => Input::get('service_id'),
+        );
+        $form_data = array();
+        $form_tag = count(FormRecord::fetchAllRecordsByFormId($form_id))+1;
+        foreach ($submit_data as $count2 => $xml_data) {
+          $form_data[preg_replace('/[^a-z]/', "", strtolower($xml_data["xml_tag"]))] = $xml_data["xml_val"];
+        }
+        $to_xml['form_data'] = $form_data;
+        $path = 'forms/records/form_'.$transaction_number.'_'.$form_id.'_'.$form_tag.'.xml';
+        $xml = new SimpleXMLElement("<?xml version=\"1.0\"?><xml></xml>");
+        Helper::array_to_xml($to_xml,$xml);
+        $dom = dom_import_simplexml($xml)->ownerDocument;
+        $dom->formatOutput = true;
+        $dom->saveXML($dom,LIBXML_NOEMPTYTAG);
+        file_put_contents($path, $dom->saveXML($dom,LIBXML_NOEMPTYTAG));
+        FormRecord::createRecord($transaction_number, $form_id, $user_id, $path);
+      }
+    }
+    return json_encode(array(
+      'status' => 201,
+      'msg' => 'OK'
+    ));
+  }
+
+  public function getServiceTerminals($service_id) {
+    return Terminal::getTerminalsByServiceId($service_id);
+  }
+
+  public function getTestNotif() {
+      $tokens = UserDevice::getTokenTypeByFbId('10203814733394884');
+      foreach ($tokens as $count => $token) {
+          if ($token->device_type == "iOS") {
+              $APN = new \ApplePushNotifications($token->device_token, "hello world", "Teller A");
+              $APN->sendNotif();
+          }
+      }
+  }
+
 }

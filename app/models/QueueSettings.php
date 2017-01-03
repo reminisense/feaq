@@ -14,27 +14,48 @@ class QueueSettings extends Eloquent{
     /**
      * Queue Settings
      */
+    public static $defaults = [
+        'number_prefix' => '',
+        'number_suffix' => '',
+        'number_start'  => 1,
+        'number_limit'  => 99,
+        'terminal_specific_issue' => 0,
+        'sms_current_number' => 0,
+        'sms_1_ahead' => 0,
+        'sms_5_ahead' => 0,
+        'sms_10_ahead' => 0,
+        'input_sms_field' => 0,
+        'allow_remote' => 0,
+        'remote_limit' => 0,
+        'remote_time' => '12:00 AM',
+        'process_queue_layout' => 0,
+        'check_in_display' => 0,
+        'grace_period' => 300,
+        'frontline_sms_secret' => FRONTLINE_SMS_SECRET,
+        'frontline_sms_url' => FRONTLINE_SMS_URL,
+    ];
+
+
+    public static function numberPrefix($service_id, $date = null){
+        return QueueSettings::queueSetting('number_prefix', '', $service_id, $date);
+    }
+
+    public static function numberSuffix($service_id, $date = null){
+        return QueueSettings::queueSetting('number_suffix', '', $service_id, $date);
+    }
 
     public static function numberStart($service_id, $date = null){
         return QueueSettings::queueSetting('number_start', 1, $service_id, $date);
     }
 
     public static function numberLimit($service_id, $date = null){
-        $business_id = Business::getBusinessIdByServiceId($service_id);
-        return Business::find($business_id)->queue_limit;
-        //return QueueSettings::queueSetting('number_limit', 99, $service_id, $date);
+        //$business_id = Business::getBusinessIdByServiceId($service_id);
+        //return Business::find($business_id)->queue_limit;
+        return QueueSettings::queueSetting('number_limit', 99, $service_id, $date);
     }
 
     public static function terminalSpecificIssue($service_id, $date = null){
         return QueueSettings::queueSetting('terminal_specific_issue', 0, $service_id, $date);
-    }
-
-    public static function frontlineSecret($service_id, $date = null){
-        return QueueSettings::queueSetting('frontline_sms_secret', FRONTLINE_SMS_SECRET, $service_id, $date);
-    }
-
-    public static function frontlineUrl($service_id, $date = null){
-        return QueueSettings::queueSetting('frontline_sms_url', FRONTLINE_SMS_URL, $service_id, $date);
     }
 
     public static function smsCurrentNumber($service_id, $date = null){
@@ -69,16 +90,39 @@ class QueueSettings extends Eloquent{
         return QueueSettings::queueSetting('remote_limit', 0, $service_id, $date);
     }
 
+    public static function remoteTime($service_id, $date = null){
+        $hour = QueueSettings::queueSetting('remote_hour', 12, $service_id, $date);
+        $min = QueueSettings::queueSetting('remote_min', 0, $service_id, $date);
+        $ampm = QueueSettings::queueSetting('remote_ampm', 'AM', $service_id, $date);
+        return Helper::mergeTime($hour, $min, $ampm);
+    }
+
+    public static function processQueueLayout($service_id, $date = null){
+        return QueueSettings::queueSetting('process_queue_layout', 0, $service_id, $date);
+    }
+
+    public static function checkInDisplay($service_id, $date = null){
+        return QueueSettings::queueSetting('check_in_display', 0, $service_id, $date);
+    }
+
+    public static function gracePeriod($service_id, $date = null){
+        return QueueSettings::queueSetting('grace_period', 0, $service_id, $date);
+    }
+
+    public static function frontlineSecret($service_id, $date = null){
+        return QueueSettings::queueSetting('frontline_sms_secret', FRONTLINE_SMS_SECRET, $service_id, $date);
+    }
+
+    public static function frontlineUrl($service_id, $date = null){
+        return QueueSettings::queueSetting('frontline_sms_url', FRONTLINE_SMS_URL, $service_id, $date);
+    }
+
     public static function smsGateway($service_id, $date = null){
         return QueueSettings::queueSetting('sms_gateway', 'twilio', $service_id, $date);
     }
 
     public static function smsGatewayApi($service_id, $date = null){
         return QueueSettings::queueSetting('sms_gateway_api', serialize(QueueSettings::$sms_gateway_api['twilio']), $service_id, $date);
-    }
-
-    public static function processQueueLayout($service_id, $date = null){
-        return QueueSettings::queueSetting('process_queue_layout', 0, $service_id, $date);
     }
 
 
@@ -105,7 +149,11 @@ class QueueSettings extends Eloquent{
      */
 
     public static function updateQueueSetting($service_id, $field, $value){
-        QueueSettings::where('service_id', '=', $service_id)->update([$field => $value]);
+        if($field == 'remote_time'){
+            QueueSettings::setRemoteTime($service_id, $value);
+        }else{
+            QueueSettings::where('service_id', '=', $service_id)->update([$field => $value]);
+        }
         Helper::dbLogger('QueueSettings', 'queue_settings', 'update', 'updateQueueSetting', User::email(Helper::userId()), 'service_id:' . $service_id);
     }
 
@@ -116,6 +164,16 @@ class QueueSettings extends Eloquent{
 
     public static function serviceExists($service_id){
         return isset(QueueSettings::where('service_id', '=', $service_id)->first()->service_id) ? true : false;
+    }
+
+    public static function setRemoteTime($service_id, $time){
+        $remote_time = Helper::parseTime($time);
+        $data = [
+            'remote_hour' => $remote_time['hour'],
+            'remote_minute' => $remote_time['min'],
+            'remote_ampm' => $remote_time['ampm'],
+        ];
+        QueueSettings::where('service_id', '=', $service_id)->update($data);
     }
 
     /**
@@ -145,6 +203,8 @@ class QueueSettings extends Eloquent{
         $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
         $allow_remote = QueueSettings::allowRemote($service_id);
         $remote_limit = QueueSettings::remoteLimit($service_id);
+        $remote_time = QueueSettings::remoteTime($service_id);
+
         $total_numbers_today = PriorityNumber::where('date', '=', $date)
             ->select(DB::raw('COUNT(priority_number.track_id) as total_numbers_today'))
             ->first()
@@ -160,7 +220,7 @@ class QueueSettings extends Eloquent{
             ->total_remote_today;
 
         $remote_queue_value = floor($total_numbers_today * ($remote_limit / 100));
-        $result = $allow_remote && ($remote_queue_value > $total_remote_today) ? true : false;
+        $result = $allow_remote && ($remote_queue_value > $total_remote_today) && (time() > strtotime($remote_time)) ? true : false;
 
         return $result;
     }
