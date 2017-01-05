@@ -55,6 +55,7 @@ class FreeBusiness{
                     'category' => $business->industry,
                     'key' => $business->raw_code,
                     'time_close' => Helper::mergeTime($business->close_hour, $business->close_minute, $business->close_ampm),
+                    'time_open' => Helper::mergeTime($business->open_hour, $business->open_minute, $business->open_ampm),
                     'people_in_line' => Analytics::getBusinessRemainingCount($business->business_id),
                     'logo' => $business->logo,
 
@@ -94,6 +95,7 @@ class FreeBusiness{
             //update business details
             try{
                 $time_array = Helper::parseTime($data['time_close']);
+                $time_open_array = Helper::parseTime($data['time_open']);
                 $business_data = [
                     'business.name' => $data['name'],
                     'business.local_address' => $data['address'],
@@ -106,6 +108,10 @@ class FreeBusiness{
                     'business.close_hour' => $time_array['hour'],
                     'business.close_minute' => $time_array['min'],
                     'business.close_ampm' => $time_array['ampm'],
+
+                  'business.open_hour' => $time_open_array['hour'],
+                  'business.open_minute' => $time_open_array['min'],
+                  'business.open_ampm' => $time_open_array['ampm'],
 
                     'queue_settings.number_start' => $data['number_start'],
                     'queue_settings.number_limit' => $data['number_limit'],
