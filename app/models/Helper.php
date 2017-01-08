@@ -16,8 +16,6 @@ use utils\RandomStringGenerator;
 class Helper extends Eloquent
 {
 
-class Helper extends Eloquent {
-
   public static function VerifyFB($accessToken) {
     // Call Facebook and let them verify if the information sent by the user
     // is the same with the ones in their database.
