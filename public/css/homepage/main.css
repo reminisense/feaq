@@ -558,6 +558,38 @@ ul.nav li a.fadeout {
 #navbar .nav li#login:hover a {
     color: #fff;
 }
+.navbar-inverse .navbar-nav>.open>a,
+.navbar-inverse .navbar-nav>.open>a:focus,
+.navbar-inverse .navbar-nav>.open>a:hover,
+#user-landing ul.dropdown-menu.navbar-inverse {
+    background-color: #fe9636!important;
+    color: #fff!important;
+}
+
+#user-landing ul.dropdown-menu.navbar-inverse {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    top: 91%;
+    right: -1px;
+
+}
+#user-landing #login.dropdown.open,
+#user-landing #login.dropdown.open a{
+    color: #fff;
+}
+#user-landing #login.dropdown.open ul {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+#user-landing #login.dropdown.open ul li a {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-weight: 600;
+}
+#user-landing #login.dropdown.open ul li a:hover {
+    color: #333;
+    background: none!important;
+}
 
 @media only screen and (max-width: 1200px) {
   ul.nav {
@@ -670,4 +702,9 @@ ul.nav li a.fadeout {
 /*ARA search dropdown*/
 #search-suggest{
   display: block;
+}
+#btnGroupDrop1{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

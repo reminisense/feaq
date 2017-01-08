@@ -83,12 +83,12 @@
                             </div>
                         </form>
                     </div>
-                    <div class=" text-center col-md-12" ng-controller="fbController">
-                        <p class="or">Or</p>
-                        <a href="#" ng-click="login()" class="no-line btn btn-fb"><img src="/images/homepage/fb2.png">LOGIN WITH FACEBOOK</a>
-                        <br><br><br>
-                        <p>Doesn't have an account? <a href="/user/register"> Create an account for Free!</a></p>
-                    </div>
+                    {{--<div class=" text-center col-md-12" ng-controller="fbController">--}}
+                        {{--<p class="or">Or</p>--}}
+                        {{--<a href="#" ng-click="login()" class="no-line btn btn-fb"><img src="/images/homepage/fb2.png">LOGIN WITH FACEBOOK</a>--}}
+                        {{--<br><br><br>--}}
+                        {{--<p>Doesn't have an account? <a href="/user/register"> Create an account for Free!</a></p>--}}
+                    {{--</div>--}}
                 </div>
             </div>
     </section>

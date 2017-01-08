@@ -17,7 +17,15 @@ $(document).ready(function(){
             duration: 10000
         });
     }
+
+    setInterval(blinker, 1000); //Runs every second
+
 });
+
+function blinker() {
+  $('.blink-num').fadeOut(500);
+  $('.blink-num').fadeIn(500);
+}
 
 /*broadcast - more details*/
 $('#btn-bcast-details').click(function () {

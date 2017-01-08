@@ -80,7 +80,7 @@
                                             <input type="text" class=" form-control" id="last_name" name="last_name" ng-model="last_name" required />
                                         </div>
                                         <div class="col-md-6 col-xs-12">
-                                            <label>Email <small>(We will only make use of your Facebook email)</small></label>
+                                            <label>Email</label>
                                             <input type="email" class=" form-control" id="email" name="email" readonly style="color: #bbb;" value="{{ $email }}" />
                                         </div>
                                         <div class="col-md-6 col-xs-12">

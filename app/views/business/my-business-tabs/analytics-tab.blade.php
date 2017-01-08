@@ -4,11 +4,11 @@
         <div class="clearfix">
             <div class="col-md-2 col-sm-3 col-xs-6">
                 <small>From:</small><br>
-                <input type="text" id="start-date" name="start-date" class=" form-control datepicker" ng-model="startdate"/>
+                <input type="text" id="start-date" name="start-date" class=" form-control datepicker" ng-model="startdate" style="cursor: pointer;" readonly/>
             </div>
             <div class="col-md-2 col-sm-3 col-xs-6">
                 <small>To:</small><br>
-                <input type="text" id="end-date" name="end-date" class="form-control datepicker" ng-model="enddate"/>
+                <input type="text" id="end-date" name="end-date" class="form-control datepicker" ng-model="enddate" style="cursor: pointer;" readonly/>
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
                 <button id="btn-analytics" class="btn btn-lg btn-primary" type="submit" ng-disabled="startdate > enddate">Get Analytics</button>

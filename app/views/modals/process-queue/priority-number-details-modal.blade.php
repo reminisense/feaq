@@ -12,7 +12,7 @@
             <div class="modal-body">
                 <ul id="pmore-tab" class="nav nav-tabs">
                     <li class="details active"><a href="#details" data-toggle="tab">DETAILS</a></li>
-                    <li class="messages"><a href="#messages" data-toggle="tab" ng-click="getMessages()">MESSAGES</a></li>
+                    {{--<li class="messages"><a href="#messages" data-toggle="tab" ng-click="getMessages()">MESSAGES</a></li>--}}
                 </ul>
                 <div class="clearfix tab-content">
                     <div class="tab-pane fade active in" id="details">
@@ -36,6 +36,8 @@
                             <div class="col-md-4 col-xs-4"><h5>Email: </h5></div>
                             <div class="col-md-8 col-xs-8"><h5 id="priority-number-email"></h5></div>
                         </div>
+                        {{--<div class="priority-number-custom-fields">--}}
+                        {{--</div>--}}
                         <div class="" id="allowed-businesses-area" style="display: none">
                             <div class="col-md-4 col-xs-4"><h5>Forward to: </h5></div>
                             <div class="col-md-7 col-xs-7"><select class="form-control" id="allowed-businesses"></select></div>
@@ -44,7 +46,6 @@
                             {{--<div class="col-md-12 col-xs-12 text-right"><button class="btn btn-primary" id="priority-number-modal-close" data-dismiss="modal">Close</button></div>--}}
                         </div>
                     </div>
-
                     <div class="tab-pane fade in" id="messages">
                         <div class="">
                             <div class="col-md-12 text-center"><h5>Conversation History</h5></div>

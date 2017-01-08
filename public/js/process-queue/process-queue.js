@@ -36,7 +36,6 @@ $(document).ready(function(){
     $('.date-today').on('click', function(){
         $('.datepicker').datepicker('show');
     });
-
 });
 
 //these functions and variables are separated since they are using jquery
@@ -88,6 +87,7 @@ var pq = {
                     $(this).attr('data-name'),
                     $(this).attr('data-email'),
                     $(this).attr('data-phone'),
+                    $(this).attr('data-form_records'),
                     $(this).attr('data-queue_platform'),
                     $(this).attr('data-checked_in')
                 );
@@ -100,7 +100,6 @@ var pq = {
             $('#message-inbox').removeClass('active');
             $('#my-business').addClass('active');
         },
-
         load_show_modal : function(){
             process_queue = angular.element($("#process-queue-wrapper")).scope();
             issue_number_modal = angular.element($("#moreq")).scope();
@@ -129,6 +128,7 @@ var pq = {
                 name = $(this).attr('data-name') ? $(this).attr('data-name') : 'Not specified';
                 phone = $(this).attr('data-phone') ? $(this).attr('data-phone') : 'Not specified';
                 email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
+                forms_record = $(this).data('form_records') ? $(this).data('form_records') : null;
                 priority_number = $(this).attr('data-priority-number');
                 transaction_number = $(this).attr('data-transaction-number');
                 confirmation_code = $(this).attr('data-confirmation-code');
@@ -140,6 +140,20 @@ var pq = {
                 $('#priority-number-phone').html(phone);
                 $('#priority-number-email').html(email);
                 $('#priority-number-modal').attr('data-transaction-number', transaction_number);
+
+                user_name = name;
+
+                if(forms_record.length > 0){
+
+                    for(var i = 0; i < forms_record.length; i++){
+                        $('.priority-number-custom-fields').append('<div><h4>'+forms_record[i].form_name+'</h4></div>');
+                        var forms_data = forms_record[i].form_data;
+                        for(var key in forms_data) {
+                            $('.priority-number-custom-fields').append('<div class="col-md-4 col-xs-4"><h5>'+key+': </h5></div>'+
+                            '<div class="col-md-8 col-xs-8"><h5>'+forms_data[key]+'</h5></div>');
+                        }
+                    }
+                }
 
                 $('#priority-number-modal .modal-body ul .details a').trigger('click');
 
@@ -160,6 +174,7 @@ var pq = {
                 name = $(this).attr('data-name') ? $(this).attr('data-name') : 'Not specified';
                 phone = $(this).attr('data-phone') ? $(this).attr('data-phone') : 'Not specified';
                 email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
+                form_records = $(this).data('forms_data') ? $(this).data('forms_data') : null;
                 priority_number = $(this).attr('data-priority-number');
                 transaction_number = $(this).attr('data-transaction-number');
                 confirmation_code = $(this).attr('data-confirmation-code');
@@ -171,6 +186,20 @@ var pq = {
                 $('#priority-number-phone').html(phone);
                 $('#priority-number-email').html(email);
                 $('#priority-number-modal').attr('data-transaction-number', transaction_number);
+
+
+                if(forms_record.length > 0){
+
+                    for(var i = 0; i < forms_record.length; i++){
+                        $('.priority-number-custom-fields').append('<div><h4>'+forms_record[i].form_name+'</h4></div>');
+                        var forms_data = forms_record[i].form_data;
+                        for(var key in forms_data) {
+                            $('.priority-number-custom-fields').append('<div class="col-md-4 col-xs-4"><h5>'+key+': </h5></div>'+
+                            '<div class="col-md-8 col-xs-8"><h5>'+forms_data[key]+'</h5></div>');
+                        }
+                    }
+                }
+
 
                 $('#priority-number-modal .modal-body #pmore-tab .messages a').trigger('click');
             });
@@ -182,6 +211,7 @@ var pq = {
                 name = $(this).attr('data-name') ? $(this).attr('data-name') : 'Not specified';
                 phone = $(this).attr('data-phone') ? $(this).attr('data-phone') : 'Not specified';
                 email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
+                form_records = $(this).data('form_records') ? $(this).data('form_records') : null;
                 priority_number = $(this).attr('data-priority-number');
                 transaction_number = $(this).attr('data-transaction-number');
                 confirmation_code = $(this).attr('data-confirmation-code');
@@ -193,6 +223,18 @@ var pq = {
                 $('#priority-number-phone').html(phone);
                 $('#priority-number-email').html(email);
                 $('#priority-number-modal').attr('data-transaction-number', transaction_number);
+
+                if(forms_record.length > 0){
+
+                    for(var i = 0; i < forms_record.length; i++){
+                        $('.priority-number-custom-fields').append('<div><h4>'+forms_record[i].form_name+'</h4></div>');
+                        var forms_data = forms_record[i].form_data;
+                        for(var key in forms_data) {
+                            $('.priority-number-custom-fields').append('<div class="col-md-4 col-xs-4"><h5>'+key+': </h5></div>'+
+                            '<div class="col-md-8 col-xs-8"><h5>'+forms_data[key]+'</h5></div>');
+                        }
+                    }
+                }
 
                 $('#priority-number-modal .modal-body ul .details a').trigger('click');
 
@@ -213,10 +255,10 @@ var pq = {
                 name = $(this).attr('data-name') ? $(this).attr('data-name') : 'Not specified';
                 phone = $(this).attr('data-phone') ? $(this).attr('data-phone') : 'Not specified';
                 email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
+                form_records = $(this).data('form_records') ? $(this).data('form_records') : null;
                 priority_number = $(this).attr('data-priority-number');
                 transaction_number = $(this).attr('data-transaction-number');
                 confirmation_code = $(this).attr('data-confirmation-code');
-
                 $('#priority-number-modal .modal-title').html('#' + priority_number);
                 $('#priority-number-number').html(priority_number);
                 $('#priority-number-confirmation-code').html(confirmation_code);
@@ -224,6 +266,18 @@ var pq = {
                 $('#priority-number-phone').html(phone);
                 $('#priority-number-email').html(email);
                 $('#priority-number-modal').attr('data-transaction-number', transaction_number);
+
+                if(forms_record.length > 0){
+
+                    for(var i = 0; i < forms_record.length; i++){
+                        $('.priority-number-custom-fields').append('<div><h4>'+forms_record[i].form_name+'</h4></div>');
+                        var forms_data = forms_record[i].form_data;
+                        for(var key in forms_data) {
+                            $('.priority-number-custom-fields').append('<div class="col-md-4 col-xs-4"><h5>'+key+': </h5></div>'+
+                            '<div class="col-md-8 col-xs-8"><h5>'+forms_data[key]+'</h5></div>');
+                        }
+                    }
+                }
 
                 $('#allowed-businesses option').remove();
                 $('#allowed-businesses-area').hide();
@@ -244,6 +298,7 @@ var pq = {
             $('#priority-number-name').html('');
             $('#priority-number-phone').html('');
             $('#priority-number-email').html('');
+            $('.priority-number-custom-fields').html('');
         },
 
         remove_and_update_dropdown : function(transaction_number){
@@ -258,7 +313,7 @@ var pq = {
             });
         },
 
-        select_number : function(tnumber, pnumber, username, email, phone, queue_platform, checked_in){
+        select_number : function(tnumber, pnumber, username, email, phone, form_records, queue_platform, checked_in){
             username = username != undefined ? username : '';
             queue_platform = queue_platform != undefined ? queue_platform : '';
             checked_in = checked_in != undefined ? checked_in : false;
@@ -272,8 +327,9 @@ var pq = {
                 'title="Number: ' + pnumber + '" ' +
                 'data-priority-number="' + pnumber + '" ' +
                 'data-name="' + username + '" ' +
-                'data-phone="' + phone + '" ' +
                 'data-email="' + email + '" ' +
+                'data-phone="' + phone + '" ' +
+                'data-form_records="' + form_records + '" ' +
                 'data-toggle="modal" ' +
                 'data-target="#priority-number-modal"' +
                 '>';
@@ -282,9 +338,9 @@ var pq = {
             userinfo += '</a>';
             userinfo += '</span>';
 
-            if((queue_platform == 'remote' || queue_platform == 'android') && (checked_in == "true" || checked_in == true)){
+            if((checked_in == "true" || checked_in == true) && queue_platform == 'remote'){
                 userinfo += '<span><small class="c-status pull-right mr5 checkedin font-normal">checked in</small><span class="dpq-icons pull-right checkedin glyphicon glyphicon-ok"></span></span>';
-            }else if((queue_platform == 'remote' || queue_platform == 'android') && (checked_in == "false" || checked_in == false)){
+            }else if((checked_in == "false" || checked_in == false) && queue_platform == 'remote'){
                 userinfo += '<span><small class="c-status pull-right mr5 font-normal notcheckedin">not checked in</small><span class="notcheckedin dpq-icons pull-right glyphicon glyphicon-remove"></span></span>';
             }else{
                 userinfo += '';
@@ -292,12 +348,26 @@ var pq = {
 
 
             $('#selected-tnumber').val(tnumber);
-            $('#selected-pnumber').html(pnumber + ' <small class="font-normal"> via <span style="text-transform:capitalize;">' + queue_platform + '</span></small>');
+            $('#selected-pnumber').html( queue_platform != 'web' ? pnumber + ' <small class="font-normal"> via <span style="text-transform:capitalize;">' + queue_platform + '</span></small>' : pnumber);
             $('#selected-userinfo').html(userinfo);
         },
 
         select_next_number : function(){
-            $('#uncalled-numbers li:first-child').trigger('click');
+            var count = $( "#uncalled-numbers li" ).length;
+            $( "#uncalled-numbers li" ).each(function( index ) {
+                var checked_in = $('#uncalled-numbers li:nth-child('+(index + 1)+')').attr('data-checked_in');
+                var queue_platform = $('#uncalled-numbers li:nth-child('+(index + 1)+')').attr('data-queue_platform');
+               if(queue_platform == 'remote'){
+                    if(checked_in == 'true' || count == 1){
+                        $('#uncalled-numbers li:nth-child('+(index + 1)+')').trigger('click');
+                        return false;
+                    }
+                }else{
+                    $('#uncalled-numbers li:nth-child('+(index + 1)+')').trigger('click');
+                   return false;
+               }
+            });
+
         },
 
         remove_from_dropdown : function(transaction_number){
@@ -366,6 +436,8 @@ var pq = {
             process_queue = angular.element($("#process-queue-wrapper")).scope();
             issue_number = angular.element($("#moreq")).scope();
             issue_number.$apply(function(){
+                issue_number.number_prefix = process_queue.number_prefix;
+                issue_number.number_suffix = process_queue.number_suffix;
                 issue_number.priority_number = process_queue.next_number;
                 issue_number.number_start = process_queue.next_number;
                 issue_number.number_end = process_queue.next_number;
@@ -375,7 +447,7 @@ var pq = {
         set_next_number_placeholder : function(next_number){
             $('#moreq form input[name=priority_number]').attr('placeholder', next_number);
             $('#moreq form input[name=number_start]').attr('placeholder', next_number);
-            $('#issue-call-number').attr('placeholder', next_number);
+            $('.issue-call-number').attr('placeholder', next_number);
         },
 
         send_pq_websocket_data : function(data){

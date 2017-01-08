@@ -14,16 +14,34 @@ class Terminal extends Eloquent{
 
     public static function createTerminal($service_id, $name){
         $colors = array('', 'blue', 'borange', 'violet', 'green', 'red', 'yellow', 'cyan', 'x242436', 'x78250A', 'FF745F', 'FCA78B', 'x53777A', 'x542437', 'C02942', 'D95B43', 'ECD078');
+        $serviceCount = Terminal::generateTerminalColor($service_id, $colors);
         $terminal = new Terminal();
         $terminal->name = $name;
         $terminal->service_id = $service_id;
         $terminal->status = 1;
         $terminal->box_rank = Terminal::generateBoxRank($service_id); // Added by PAG
-        $terminal->color = $colors[$terminal->box_rank];
+        $terminal->color = $colors[$serviceCount];
         $terminal->save();
         Helper::dbLogger('Terminal', 'terminal', 'insert', 'createTerminal', User::email(Helper::userId()), 'terminal_id:' . $terminal->terminal_id);
 
         return $terminal;
+    }
+
+    private static function generateTerminalColor($service_id, $colors) {
+        $business_id = Business::getBusinessIdByServiceId($service_id);
+        $services = Service::getServicesByBusinessId($business_id);
+        $arrSize = count($colors);
+        $serviceCount = 0;
+        foreach ($services as $count => $service) {
+            if ($service->service_id == $service_id) {
+                $serviceCount = $count;
+                if ($serviceCount > $arrSize) {
+                    $serviceCount = $serviceCount % $arrSize;
+                }
+                break;
+            }
+        }
+        return $serviceCount + 1;
     }
 
     /*

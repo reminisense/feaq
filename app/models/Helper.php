@@ -13,6 +13,8 @@ use utils\RandomStringGenerator;
  * Date: 1/22/15
  * Time: 2:37 PM
  */
+class Helper extends Eloquent
+{
 
 class Helper extends Eloquent {
 
@@ -66,10 +68,11 @@ class Helper extends Eloquent {
      * gets the user id of the current user
      * @return mixed
      */
-    public static function userId(){
-        if(Auth::check()){
+    public static function userId()
+    {
+        if (Auth::check()) {
             return Auth::user()->user_id;
-        }else{
+        } else {
             return 0;
         }
     }
@@ -78,7 +81,8 @@ class Helper extends Eloquent {
      * gets the role id of the current session's user
      * @return mixed
      */
-    public static function currentUserRoleId(){
+    public static function currentUserRoleId()
+    {
         return DB::table('user_role')->where('user_id', '=', Helper::userId())->first()->role_id;
     }
 
@@ -86,30 +90,35 @@ class Helper extends Eloquent {
      * checks if the role of the current user is in the given array
      * @return mixed
      */
-    public static function currentUserIsEither($roles = array()){
+    public static function currentUserIsEither($roles = array())
+    {
         return in_array(Helper::currentUserRoleId(), $roles);
     }
 
-    public static function parseTime($time){
+    public static function parseTime($time)
+    {
         $arr = explode(' ', $time);
         $hourmin = explode(':', $arr[0]);
 
         return [
             'hour' => trim($hourmin[0]),
-            'min'  => trim($hourmin[1]),
+            'min' => trim($hourmin[1]),
             'ampm' => trim($arr[1]),
         ];
     }
 
-    public static function mergeTime($hour, $min, $ampm){
-        return Helper::doubleZero($hour).':'.Helper::doubleZero($min).' '.$ampm;
+    public static function mergeTime($hour, $min, $ampm)
+    {
+        return Helper::doubleZero($hour) . ':' . Helper::doubleZero($min) . ' ' . $ampm;
     }
 
-    public static function doubleZero($number){
+    public static function doubleZero($number)
+    {
         return $number == 0 ? '00' : $number;
     }
 
-    public static function millisecondsToHMSFormat($ms){
+    public static function millisecondsToHMSFormat($ms)
+    {
         $second = $ms % 60;
         $ms = floor($ms / 60);
 
@@ -120,7 +129,8 @@ class Helper extends Eloquent {
         return Helper::formatTime($second, $minute, $hour);
     }
 
-    public static function formatTime($second, $minute, $hour){
+    public static function formatTime($second, $minute, $hour)
+    {
         $time_string = '';
         $time_string .= $hour > 0 ? $hour . ' hour(s) ' : '';
         $time_string .= $minute > 0 ? $minute . ' minute(s) ' : '';
@@ -128,15 +138,18 @@ class Helper extends Eloquent {
         return $time_string;
     }
 
-    public static function customSort($property, $var1, $var2){
+    public static function customSort($property, $var1, $var2)
+    {
         return $var1[$property] - $var2[$property];
     }
 
-    public static function customSortRev($property, $var1, $var2){
+    public static function customSortRev($property, $var1, $var2)
+    {
         return $var2[$property] - $var1[$property];
     }
 
-    public static function firstFromTable($table, $field, $value, $operator = '='){
+    public static function firstFromTable($table, $field, $value, $operator = '=')
+    {
         return DB::table($table)->where($field, $operator, $value)->first();
     }
 
@@ -146,13 +159,14 @@ class Helper extends Eloquent {
      * @param $conditions
      * @return mixed
      */
-    public static function getMultipleQueries($table, $conditions){
+    public static function getMultipleQueries($table, $conditions)
+    {
         $query = DB::table($table);
-        foreach($conditions as $field => $value){
+        foreach ($conditions as $field => $value) {
             $field = strpos($field, '.') > 0 ? substr($field, 0, strpos($field, '.')) : $field;
-            if(is_array($value)){
+            if (is_array($value)) {
                 $query->where($field, $value[0], $value[1]);
-            }else{
+            } else {
                 $query->where($field, '=', $value);
             }
         }
@@ -171,27 +185,28 @@ class Helper extends Eloquent {
         $tmp = getenv("HTTP_CLIENT_IP");
         // you DON'T want the HTTP_CLIENT_ID to equal unknown. That said, I don't
         // believe it ever will (same for all below)
-        if ( $tmp && !strcasecmp($tmp, "unknown"))
+        if ($tmp && !strcasecmp($tmp, "unknown"))
             return $tmp;
 
         $tmp = getenv("HTTP_X_FORWARDED_FOR");
-        if( $tmp && !strcasecmp($tmp, "unknown"))
+        if ($tmp && !strcasecmp($tmp, "unknown"))
             return $tmp;
 
         // no sense in testing SERVER after this.
         // $_SERVER[ 'REMOTE_ADDR' ] == gentenv( 'REMOTE_ADDR' );
         $tmp = getenv("REMOTE_ADDR");
-        if($tmp && !strcasecmp($tmp, "unknown"))
+        if ($tmp && !strcasecmp($tmp, "unknown"))
             return $tmp;
 
-        return("unknown");
+        return ("unknown");
     }
 
     /**
      * @param $birthdate must be int ex. strtotime(1/1/1990)
      */
-    public static function getAge($birthdate){
-        return floor( (time() - $birthdate) / 31556926);
+    public static function getAge($birthdate)
+    {
+        return floor((time() - $birthdate) / 31556926);
     }
 
     public static function getTimezoneList()
@@ -326,9 +341,23 @@ class Helper extends Eloquent {
      * @param $user_timezone
      * @return string
      */
-    public static function changeBusinessTimeTimezone($date, $business_timezone, $browser_timezone){
-        if(is_numeric($browser_timezone)) $browser_timezone = Helper::timezoneOffsetToName($browser_timezone);
-        $datetime = new DateTime($date, new DateTimeZone($business_timezone));
+    public static function changeBusinessTimeTimezone($date, $business_timezone, $browser_timezone)
+    {
+        if (is_numeric($browser_timezone)) $browser_timezone = Helper::timezoneOffsetToName($browser_timezone);
+        $new_date = "";
+        if(strlen($date) == 6){
+            $new_date = substr_replace($date, "0", 2, 0);
+        }else if(strlen($date) == 7 && $date[4] == " "){
+            if($date[2] != ":"){
+                $new_date = $date;
+            }else{
+                $new_date = substr_replace($date, "0", 3, 0);
+            }
+        }else{
+            $new_date = $date;
+       }
+
+        $datetime = new DateTime($new_date, new DateTimeZone($business_timezone));
         $datetime->setTimezone(new DateTimeZone($browser_timezone));
         return $datetime->format('g:i A');
     }
@@ -338,7 +367,8 @@ class Helper extends Eloquent {
      * @param $offset
      * @return bool
      */
-    public static function timezoneOffsetToName($offset){
+    public static function timezoneOffsetToName($offset)
+    {
         $abbrarray = timezone_abbreviations_list();
         foreach ($abbrarray as $abbr) {
             foreach ($abbr as $city) {
@@ -350,7 +380,8 @@ class Helper extends Eloquent {
         return false;
     }
 
-    public static function timezoneOffsetToNameArray($offset){
+    public static function timezoneOffsetToNameArray($offset)
+    {
         $timezones = [];
         $abbrarray = timezone_abbreviations_list();
         foreach ($abbrarray as $abbr) {
@@ -363,25 +394,28 @@ class Helper extends Eloquent {
         return $timezones;
     }
 
-  public static function isBusinessOwner($business_id, $user_id) {
-    return $business_id == UserBusiness::getBusinessIdByOwner($user_id);
-  }
-
-  public static function isPartOfBusiness($business_id, $user_id) {
-    $res = TerminalUser::getTerminalAssignement($user_id);
-    if (isset($res)) {
-      foreach ($res as $count => $data) {
-        if ($business_id == Business::getBusinessIdByTerminalId($data['terminal_id'])) {
-          return TRUE;
-        }
-      }
+    public static function isBusinessOwner($business_id, $user_id)
+    {
+        return $business_id == UserBusiness::getBusinessIdByOwner($user_id);
     }
-    return FALSE;
-  }
 
-  public static function isNotAnOwner($user_id) {
-    return !UserBusiness::getBusinessIdByOwner($user_id);
-  }
+    public static function isPartOfBusiness($business_id, $user_id)
+    {
+        $res = TerminalUser::getTerminalAssignement($user_id);
+        if (isset($res)) {
+            foreach ($res as $count => $data) {
+                if ($business_id == Business::getBusinessIdByTerminalId($data['terminal_id'])) {
+                    return TRUE;
+                }
+            }
+        }
+        return FALSE;
+    }
+
+    public static function isNotAnOwner($user_id)
+    {
+        return !UserBusiness::getBusinessIdByOwner($user_id);
+    }
 
     public static function assignedToBusiness()
     {
@@ -394,6 +428,10 @@ class Helper extends Eloquent {
         return md5($business_id . 'fq' . $email);
     }
 
+    /**
+     * @deprecated
+     * Please use Log::Xxx() instead.
+     */
     public static function dbLogger($model, $table, $action, $method, $email, $infos = NULL) {
         // [2016/1/26 13:23]User [Jonas] updated Business [XXX] Record [Business Name]
         $log = date("Y-m-d H:i:s", time()) . " Model: " . $model . "| Table: " . $table . "| Action: " .
@@ -403,11 +441,46 @@ class Helper extends Eloquent {
         }
     }
 
-    public static function generateAccessKey(){
-        return Hash::make('FeatherQ');
+    public static function generateAccessKey($fb_id, $fb_token) {
+      $auth_token = Hash::make($fb_token);
+      User::saveAuthToken($fb_id, $auth_token);
+      return $auth_token;
     }
 
     public static function checkAccessKey(){
         return Hash::check('FeatherQ', Request::header('access_key'));
+    }
+
+    public static function array_to_xml($array, $xml){
+        foreach($array as $key => $value) {
+            if(is_array($value)) {
+                if(!is_numeric($key)){
+                    $subnode = $xml->addChild("$key");
+                    Helper::array_to_xml($value, $subnode);
+                }else{
+                    $subnode = $xml->addChild("field$key");
+                    Helper::array_to_xml($value, $subnode);
+                }
+            }else {
+                $xml->addChild("$key",htmlspecialchars("$value"));
+            }
+        }
+    }
+
+    public static function queueNumberExists($email){
+        $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+        $count = PriorityNumber::where('priority_number.date', '=', $date)
+            ->join('priority_queue', 'priority_queue.track_id', '=', 'priority_number.track_id')
+            ->where('priority_queue.email', '=', $email)
+            ->select(DB::raw('COUNT(priority_number.track_id) as number_exists'))
+            ->first()
+            ->number_exists;
+
+        return $count > 0 ? TRUE : FALSE;
+    }
+
+    public static function trim($text){
+       $trim = preg_replace('/[^a-z0-9]/', "", strtolower($text));
+       return $trim;
     }
 }

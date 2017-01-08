@@ -11,19 +11,24 @@
                 <h3 class="modal-title" id="myModalLabel">Insert Queue</h3>
             </div>
             <div class="modal-body">
+                {{--ARA 09132016 Commented out to remove issue multiple numbers--}}
                 <ul id="pmore-tab" class="nav nav-tabs">
                     <li class="active"><a data-submit="#issue-specific-submit" href="#insertq" data-toggle="tab">INSERT TO QUEUE</a></li>
-                    <li><a data-submit="#issue-multiple-submit" href="#multipleq" data-toggle="tab" >ISSUE MULTIPLE</a></li>
+                    {{--<li><a data-submit="#issue-multiple-submit" href="#multipleq" data-toggle="tab" >ISSUE MULTIPLE</a></li>--}}
                 </ul>
-                <div class="clearfix tab-content">
-                    <div class="tab-pane fade active in" id="insertq">
+                <div class="clearfix">
+                    <div class="" id="insertq">
                         <form class="navbar-form navbar-left" name="issue_specific_form">
                             <div class="form-group">
                                 <div class="col-md-3">
                                     <label><strong>Specific #</strong></label>
                                 </div>
                                 <div class="col-md-9">
-                                    <input type="text" min="1" class="form-control" ng-model="priority_number" name="priority_number">
+                                    <div class="input-group mb20" style="width: 100%;">
+                                        <span class="input-group-addon" ng-show="number_prefix">@{{ number_prefix }}</span>
+                                        <input type="text" min="1" class="form-control" ng-model="priority_number" name="priority_number">
+                                        <span class="input-group-addon" ng-show="number_suffix">@{{ number_suffix }}</span>
+                                    </div>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Time to call</label>
@@ -55,9 +60,6 @@
                                     </div>
                                 </div>
                             </div>
-                            {{--<div class="clearfix" style="margin:0 8px;">
-
-                            </div>--}}
                             <div class="alert alert-warning" role="alert" ng-show="priority_number.length > 3">
                                 <div>
                                     <strong class="message">Please make sure that the length of your number will fit the boxes of your broadcast screen.
@@ -71,31 +73,33 @@
                             </div>
                         </form>
                     </div>
-                    <div class="tab-pane fade" id="multipleq" aria-labelledby="profile-tab">
-                        <form class="navbar-form navbar-left" name="issue_multiple_form">
-                            <div class="form-group">
-                                <div class="col-md-3">
-                                    <label><strong>First Number</strong></label>
-                                </div>
-                                <div class="col-md-9">
-                                    <input type="number" class="form-control" ng-model="number_start" name="number_start" required>
-                                </div>
-                                <div class="col-md-3">
-                                    <label><strong>Last Number</strong></label>
-                                </div>
-                                <div class="col-md-9">
-                                    <input type="number" class="form-control" ng-model="number_end" name="number_end" required>
-                                </div>
-                            </div>
-                            <div class="alert alert-danger" role="alert" ng-show="issue_multiple_error.length > 0">
-                                <div><strong class="message">@{{ issue_multiple_error }}</strong></div>
-                            </div>
-                        </form>
-                    </div>
+                    {{--ARA 09132016 Commented out to remove issue multiple numbers--}}
+                    {{--<div class="tab-pane fade" id="multipleq" aria-labelledby="profile-tab">--}}
+                        {{--<form class="navbar-form navbar-left" name="issue_multiple_form">--}}
+                            {{--<div class="form-group">--}}
+                                {{--<div class="col-md-3">--}}
+                                    {{--<label><strong>First Number</strong></label>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-md-9">--}}
+                                    {{--<input type="number" class="form-control" ng-model="number_start" name="number_start" required>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-md-3">--}}
+                                    {{--<label><strong>Last Number</strong></label>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-md-9">--}}
+                                    {{--<input type="number" class="form-control" ng-model="number_end" name="number_end" required>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="alert alert-danger" role="alert" ng-show="issue_multiple_error.length > 0">--}}
+                                {{--<div><strong class="message">@{{ issue_multiple_error }}</strong></div>--}}
+                            {{--</div>--}}
+                        {{--</form>--}}
+                    {{--</div>--}}
                 </div>
                 <div class="alert alert-success" style="display: none" role="alert" id="issue-number-success">
                     <div><strong class="message"></strong></div>
                 </div>
+                {{--ARA 09132016 Commented out to remove issue multiple numbers--}}
                 <div class="alert alert-danger" style="display: none" role="alert" id="issue-number-error">
                     <div><strong class="message"></strong></div>
                 </div>
