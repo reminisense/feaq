@@ -155,20 +155,23 @@ class FreeAuth {
         if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             return json_encode(['error' => "Invalid email format."]);
         }
-
-        $secret = $this->getVerificationCode();
-        try{
-            if(DB::table('email_verification')->where('email', '=', $data['email'])->exists()){
-                DB::table('email_verification')->where('email', '=', $data['email'])->update(['verification_code' => Hash::make($secret)]);
-            }else{
-                DB::table('email_verification')->insert(['email' => $data['email'], 'verification_code' => Hash::make($secret)]);
+        if (!User::isEmailTaken($data['email'])) {
+            $secret = $this->getVerificationCode();
+            try{
+                if(DB::table('email_verification')->where('email', '=', $data['email'])->exists()){
+                    DB::table('email_verification')->where('email', '=', $data['email'])->update(['verification_code' => Hash::make($secret)]);
+                }else{
+                    DB::table('email_verification')->insert(['email' => $data['email'], 'verification_code' => Hash::make($secret)]);
+                }
+                Notifier::sendEmail($data['email'], 'emails.auth.free-email-verification', 'Email_verification', ['verification_code' => $secret]);
+            }catch(Exception $e){
+                return json_encode(['error' => $e->getMessage()]);
             }
-            Notifier::sendEmail($data['email'], 'emails.auth.free-email-verification', 'Email_verification', ['verification_code' => $secret]);
-        }catch(Exception $e){
-            return json_encode(['error' => $e->getMessage()]);
+            return json_encode(['success' => 1, 'code' => $secret]);
         }
-
-        return json_encode(['success' => 1, 'code' => $secret]);
+        else {
+            return json_encode(['success' => 0, 'msg' => 'Email is already taken.']);
+        }
     }
 
     public function verifyCode($data){
