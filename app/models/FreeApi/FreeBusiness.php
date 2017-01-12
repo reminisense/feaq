@@ -19,7 +19,7 @@ class FreeBusiness{
             ["name" => "Ticketing ", "image" => "http://i.imgur.com/wk5GI0n.jpg"],
             ["name" => "Transportation", "image" => "http://i.imgur.com/4XX339B.jpg"],
             ["name" => "Utilities", "image" => "http://i.imgur.com/3oZ7ylw.jpg"],
-            ["name" => "Others", "image" => ""],
+            ["name" => "Others", "image" => "http://i.imgur.com/j5qQnRa.png"],
             ["name" => "All", "image" => ""]
         ];
 

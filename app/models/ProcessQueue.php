@@ -483,11 +483,11 @@ class ProcessQueue extends Eloquent{
         $priority_numbers->processed_numbers = array_reverse($processed_numbers);
         $priority_numbers->timebound_numbers = $timebound_numbers;
 
-        //
+
         $after_next = ProcessQueue::nextNumber($priority_numbers->number_prefix . $priority_numbers->next_number . $priority_numbers->number_suffix, $priority_numbers->number_start, $priority_numbers->number_limit, $priority_numbers->number_prefix, $priority_numbers->number_suffix);
         while(ProcessQueue::queueNumberActive($service_id, $priority_numbers->next_number, $after_next)) {
             $priority_numbers->next_number = $after_next;
-            if ($after_next == $priority_numbers->number_start) break;
+            if($after_next == $priority_numbers->number_start)break;
             $after_next = ProcessQueue::nextNumber($priority_numbers->number_prefix . $after_next . $priority_numbers->number_suffix, $priority_numbers->number_start, $priority_numbers->number_limit, $priority_numbers->number_prefix, $priority_numbers->number_suffix);
         }
 
@@ -816,6 +816,9 @@ class ProcessQueue extends Eloquent{
     }
 
     public static function queueNumberActive($service_id, $priority_number, $next_number = null){
+        if ($priority_number == null && $next_number == null) {
+            return FALSE;
+        }
         if($priority_number == null){
             return ProcessQueue::queueNumberActive($service_id, $next_number);
         }
