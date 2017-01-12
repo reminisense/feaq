@@ -546,13 +546,13 @@ class Analytics extends Eloquent{
 
   public function getServiceEstimatesFreeApp($service_id) {
     $meanServingTimes = array();
-    $meanServingTimes["today"] = $this->getMeanServingTimeByType($service_id, "today");
-    $meanServingTimes["yesterday"] = $this->getMeanServingTimeByType($service_id, "yesterday");
-    $meanServingTimes["three_days"] = $this->getMeanServingTimeByType($service_id, "three_days");
-    $meanServingTimes["this_week"] = $this->getMeanServingTimeByType($service_id, "this_week");
-    $meanServingTimes["last_week"] = $this->getMeanServingTimeByType($service_id, "last_week");
-    $meanServingTimes["this_month"] = $this->getMeanServingTimeByType($service_id, "this_month");
-    $meanServingTimes["last_month"] = $this->getMeanServingTimeByType($service_id, "last_month");
+    $meanServingTimes["today"] = (string)$this->getMeanServingTimeByType($service_id, "today");
+    $meanServingTimes["yesterday"] = (string)$this->getMeanServingTimeByType($service_id, "yesterday");
+    $meanServingTimes["three_days"] = (string)$this->getMeanServingTimeByType($service_id, "three_days");
+    $meanServingTimes["this_week"] = (string)$this->getMeanServingTimeByType($service_id, "this_week");
+    $meanServingTimes["last_week"] = (string)$this->getMeanServingTimeByType($service_id, "last_week");
+    $meanServingTimes["this_month"] = (string)$this->getMeanServingTimeByType($service_id, "this_month");
+    $meanServingTimes["last_month"] = (string)$this->getMeanServingTimeByType($service_id, "last_month");
     return $meanServingTimes;
   }
 
@@ -641,16 +641,20 @@ class Analytics extends Eloquent{
      * @return float mean
      * get the mean of the entries given
      */
-    private function getMean($serving_times){
+    private function getMean($serving_times) {
         $sum = 0;
         $entries = count($serving_times);
-
-        foreach($serving_times as $serving_time){
-            $sum += $serving_time;
+      if ($entries != 0) {
+        foreach ($serving_times as $serving_time) {
+          $sum += $serving_time;
         }
 
         $mean = $sum / $entries;
         return $mean;
+      }
+      else {
+        return 0;
+      }
     }
 
     /**

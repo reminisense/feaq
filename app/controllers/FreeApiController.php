@@ -222,4 +222,10 @@ class FreeApiController extends BaseController{
         return $this->freeApi->getCustomerBroadcast($business_id);
     }
 
+    public function getEstimatesTester($service_id) {
+        $analytics = new Analytics();
+        $time_estimates_free = $analytics->getServiceEstimatesFreeApp($service_id);
+        return $time_estimates_free;
+    }
+
 }
