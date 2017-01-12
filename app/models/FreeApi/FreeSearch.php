@@ -72,6 +72,7 @@ class FreeSearch {
         foreach($businesses as $business){
             $analytics = new Analytics();
             $time_estimates = $analytics->getServiceEstimateResults($business->service_id);
+            $time_estimates_free = $analytics->getServiceEstimatesFreeApp($business->service_id);
 
             $business_data[] = [
                 'business_id' => $business->business_id,
@@ -83,6 +84,7 @@ class FreeSearch {
                 'time_open' => Helper::mergeTime($business->open_hour, $business->open_minute, $business->open_ampm),
                 'people_in_line' => Analytics::getBusinessRemainingCount($business->business_id),
                 'serving_time' => Helper::millisecondsToHMSFormat($time_estimates['upper_waiting_time']),
+                'serving_time_free' => $time_estimates_free,
                 'logo' => $business->logo,
             ];
         }
