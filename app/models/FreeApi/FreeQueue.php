@@ -97,9 +97,15 @@ class FreeQueue{
 
         TerminalTransaction::where('transaction_number', '=', $transaction_number)->update(['time_completed' => time()]);
         $this->saveAnalytics($transaction_number, 2, time());
+
+        // update mean calculations every processed number
+        $priority_queue = PriorityQueue::find($transaction_number);
+        $priority_number = PriorityNumber::find($priority_queue->track_id);
+        $meanServingTimes = Analytics::getServiceEstimatesFreeApp($priority_number->service_id);
+        $this->storeMeanServingTimes($priority_number->service_id, $meanServingTimes);
+        
         $this->freeBroadcast->sendNotifications($transaction_number, 'serve');
         return json_encode(['success' => 1]);
-
     }
 
     /**
@@ -122,9 +128,35 @@ class FreeQueue{
 
         TerminalTransaction::where('transaction_number', '=', $transaction_number)->update(['time_removed' => time()]);
         $this->saveAnalytics($transaction_number, 3, time());
+
+        // update mean calculations every processed number
+//        $priority_queue = PriorityQueue::find($transaction_number);
+//        $priority_number = PriorityNumber::find($priority_queue->track_id);
+//        $meanServingTimes = Analytics::getServiceEstimatesFreeApp($priority_number->service_id);
+//        $this->storeMeanServingTimes($priority_number->service_id, $meanServingTimes);
+
         $this->freeBroadcast->sendNotifications($transaction_number, 'drop');
         return json_encode(['success' => 1]);
+    }
 
+    private function storeMeanServingTimes($service_id, $means) {
+        $data = array(
+          'mean_today' => $means["today"],
+          'mean_yesterday' => $means["yesterday"],
+          'mean_three_days' => $means["three_days"],
+          'mean_this_week' => $means["this_week"],
+          'mean_last_week' => $means["last_week"],
+          'mean_this_month' => $means["this_month"],
+          'mean_last_month' => $means["last_month"],
+          'last_changed' => time(),
+        );
+        if (MeanServingTime::isServiceExisting($service_id)) {
+            MeanServingTime::updateMeans($data, $service_id);
+        }
+        else {
+            $data["service_id"] = $service_id;
+            MeanServingTime::saveMeans($data);
+        }
     }
 
     public function allNumbers($business_id){

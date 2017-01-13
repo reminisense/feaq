@@ -544,46 +544,46 @@ class Analytics extends Eloquent{
         return $time_estimates;
     }
 
-  public function getServiceEstimatesFreeApp($service_id) {
+  public static function getServiceEstimatesFreeApp($service_id) {
     $meanServingTimes = array();
-    $meanServingTimes["today"] = (string)$this->getMeanServingTimeByType($service_id, "today");
-    $meanServingTimes["yesterday"] = (string)$this->getMeanServingTimeByType($service_id, "yesterday");
-    $meanServingTimes["three_days"] = (string)$this->getMeanServingTimeByType($service_id, "three_days");
-    $meanServingTimes["this_week"] = (string)$this->getMeanServingTimeByType($service_id, "this_week");
-    $meanServingTimes["last_week"] = (string)$this->getMeanServingTimeByType($service_id, "last_week");
-    $meanServingTimes["this_month"] = (string)$this->getMeanServingTimeByType($service_id, "this_month");
-    $meanServingTimes["last_month"] = (string)$this->getMeanServingTimeByType($service_id, "last_month");
+    $meanServingTimes["today"] = (string)Analytics::getMeanServingTimeByType($service_id, "today");
+    $meanServingTimes["yesterday"] = (string)Analytics::getMeanServingTimeByType($service_id, "yesterday");
+    $meanServingTimes["three_days"] = (string)Analytics::getMeanServingTimeByType($service_id, "three_days");
+    $meanServingTimes["this_week"] = (string)Analytics::getMeanServingTimeByType($service_id, "this_week");
+    $meanServingTimes["last_week"] = (string)Analytics::getMeanServingTimeByType($service_id, "last_week");
+    $meanServingTimes["this_month"] = (string)Analytics::getMeanServingTimeByType($service_id, "this_month");
+    $meanServingTimes["last_month"] = (string)Analytics::getMeanServingTimeByType($service_id, "last_month");
     return $meanServingTimes;
   }
 
-  public function getMeanServingTimeByType($service_id, $ave_type) {
+  public static function getMeanServingTimeByType($service_id, $ave_type) {
     $serving_times = array();
     $currentDate = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
     if ($ave_type == "today") {
-      $serving_times = $this->getServingTimesByDateRange($service_id, $currentDate, $currentDate);
+      $serving_times = Analytics::getServingTimesByDateRange($service_id, $currentDate, $currentDate);
     }
     else if ($ave_type == "yesterday") {
       $yesterday = strtotime("-1 day", $currentDate);
-      $serving_times = $this->getServingTimesByDateRange($service_id, $yesterday, $yesterday);
+      $serving_times = Analytics::getServingTimesByDateRange($service_id, $yesterday, $yesterday);
     }
     else if ($ave_type == "three_days") {
-      $serving_times = $this->getServingTimesByDateRange($service_id, strtotime("-3 days", $currentDate), $currentDate);
+      $serving_times = Analytics::getServingTimesByDateRange($service_id, strtotime("-3 days", $currentDate), $currentDate);
     }
     else if ($ave_type == "this_week") {
-      $serving_times = $this->getServingTimesByDateRange($service_id, strtotime("-7 days", $currentDate), $currentDate);
+      $serving_times = Analytics::getServingTimesByDateRange($service_id, strtotime("-7 days", $currentDate), $currentDate);
     }
     else if ($ave_type == "last_week") {
       $thisWeek = strtotime("-7 days", $currentDate);
-      $serving_times = $this->getServingTimesByDateRange($service_id, strtotime("-7 days", $thisWeek), $thisWeek);
+      $serving_times = Analytics::getServingTimesByDateRange($service_id, strtotime("-7 days", $thisWeek), $thisWeek);
     }
     else if ($ave_type == "this_month") {
-      $serving_times = $this->getServingTimesByDateRange($service_id, strtotime("-30 days", $currentDate), $currentDate);
+      $serving_times = Analytics::getServingTimesByDateRange($service_id, strtotime("-30 days", $currentDate), $currentDate);
     }
     else if ($ave_type == "last_month") {
       $thisMonth = strtotime("-30 days", $currentDate);
-      $serving_times = $this->getServingTimesByDateRange($service_id, strtotime("-30 days", $thisMonth), $thisMonth);
+      $serving_times = Analytics::getServingTimesByDateRange($service_id, strtotime("-30 days", $thisMonth), $thisMonth);
     }
-    $mean = $this->getMean($serving_times);
+    $mean = Analytics::getStaticMean($serving_times);
     return $mean;
   }
 
@@ -614,7 +614,7 @@ class Analytics extends Eloquent{
         return $serving_times;
     }
 
-  private function getServingTimesByDateRange($service_id, $lower, $upper) {
+  private static function getServingTimesByDateRange($service_id, $lower, $upper) {
     $called_numbers = Analytics::where('service_id', '=', $service_id)
       ->where('date', '>=', $lower)
       ->where('date', '<=', $upper)
@@ -656,6 +656,22 @@ class Analytics extends Eloquent{
         return 0;
       }
     }
+
+  private static function getStaticMean($serving_times) {
+    $sum = 0;
+    $entries = count($serving_times);
+    if ($entries != 0) {
+      foreach ($serving_times as $serving_time) {
+        $sum += $serving_time;
+      }
+
+      $mean = $sum / $entries;
+      return $mean;
+    }
+    else {
+      return 0;
+    }
+  }
 
     /**
      * @param $serving_times = array
