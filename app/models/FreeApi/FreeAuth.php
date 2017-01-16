@@ -15,7 +15,8 @@ class FreeAuth {
         'api/verify-code',
         'api/customer-broadcast',
         'api/change-password',
-        'api/categories'
+        'api/categories',
+        'api/mean-weights'
     ];
 
     private $freeBusiness, $freeQueue;

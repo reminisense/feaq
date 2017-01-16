@@ -222,6 +222,21 @@ class FreeApiController extends BaseController{
         return $this->freeApi->getCustomerBroadcast($business_id);
     }
 
+    /**
+     * @return string
+     */
+    public function postUpdateMeanweights() {
+        return $this->freeApi->postUpdateMeanweights(Input::all());
+    }
+
+    public function getMeanWeights($service_id) {
+        return $this->freeApi->getMeanWeights($service_id);
+    }
+
+    /**
+     * @param $service_id
+     * @return array
+     */
     public function getEstimatesTester($service_id) {
         $analytics = new Analytics();
         $time_estimates_free = $analytics->getServiceEstimatesFreeApp($service_id);
