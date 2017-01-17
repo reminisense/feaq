@@ -70,9 +70,14 @@ class FreeSearch {
     private function organizeBusinessData($businesses){
         $business_data = array();
         foreach($businesses as $business){
-            $analytics = new Analytics();
-            $time_estimates = $analytics->getServiceEstimateResults($business->service_id);
-//            $time_estimates =
+//            $analytics = new Analytics();
+//            $time_estimates = $analytics->getServiceEstimateResults($business->service_id);
+            if (MeanServingTime::isServiceExisting($business->service_id)) {
+                $final_mean = MeanServingTime::fetchMeans($business->service_id)->final_mean;
+            }
+            else {
+                $final_mean = 0;
+            }
 
             $business_data[] = [
                 'business_id' => $business->business_id,
@@ -83,8 +88,8 @@ class FreeSearch {
                 'time_close' => Helper::mergeTime($business->close_hour, $business->close_minute, $business->close_ampm),
                 'time_open' => Helper::mergeTime($business->open_hour, $business->open_minute, $business->open_ampm),
                 'people_in_line' => Analytics::getBusinessRemainingCount($business->business_id),
-                'serving_time' => Helper::millisecondsToHMSFormat($time_estimates['upper_waiting_time']),
-//                'serving_time' => $time_estimates,
+//                'serving_time' => Helper::millisecondsToHMSFormat($time_estimates['upper_waiting_time']),
+                'serving_time' => $final_mean,
                 'logo' => $business->logo,
             ];
         }

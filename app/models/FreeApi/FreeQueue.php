@@ -176,9 +176,16 @@ class FreeQueue{
 
     public function getServingTime($business_id){
         $service = Service::getFirstServiceOfBusiness($business_id);
-        $analytics = new Analytics();
-        $time_estimates = $analytics->getServiceEstimateResults($service->service_id);
-        return json_encode(['estimated_serving_time' => $time_estimates['estimated_serving_time']]);
+//        $analytics = new Analytics();
+//        $time_estimates = $analytics->getServiceEstimateResults($service->service_id);
+        if (MeanServingTime::isServiceExisting($service->service_id)) {
+            $final_mean = MeanServingTime::fetchMeans($service->service_id)->final_mean;
+        }
+        else {
+            $final_mean = 0;
+        }
+//        return json_encode(['estimated_serving_time' => $time_estimates['estimated_serving_time']]);
+        return json_encode(['estimated_serving_time' => $final_mean]);
     }
 
     private function saveNote($transaction_number, $note){
