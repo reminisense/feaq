@@ -42,8 +42,14 @@ class FreeBusiness{
                 ->select('business.*', 'queue_settings.service_id', 'queue_settings.number_start', 'queue_settings.number_limit')
                 ->first();
 
-            $analytics = new Analytics();
-            $time_estimates = $analytics->getServiceEstimateResults($business->service_id);
+//            $analytics = new Analytics();
+//            $time_estimates = $analytics->getServiceEstimateResults($business->service_id);
+          if (MeanServingTime::isServiceExisting($business->service_id)) {
+            $final_mean = MeanServingTime::fetchMeans($business->service_id)->final_mean;
+          }
+          else {
+            $final_mean = 0;
+          }
 
             return json_encode([
                 'business' => [
@@ -65,7 +71,8 @@ class FreeBusiness{
                     'latitude' => $business->latitude,
                     'longitude' => $business->longitude,
 
-                    'serving_time' => Helper::millisecondsToHMSFormat($time_estimates['upper_waiting_time']),
+//                    'serving_time' => Helper::millisecondsToHMSFormat($time_estimates['upper_waiting_time']),
+                  'serving_time' => $final_mean,
                 ]
             ]);
         }
