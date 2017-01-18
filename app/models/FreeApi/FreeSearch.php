@@ -72,14 +72,12 @@ class FreeSearch {
         foreach($businesses as $business){
 //            $analytics = new Analytics();
 //            $time_estimates = $analytics->getServiceEstimateResults($business->service_id);
-            $numbers_ahead = Analytics::getServiceRemainingCount($business->service_id);
             if (MeanServingTime::isServiceExisting($business->service_id)) {
                 $final_mean = MeanServingTime::fetchMeans($business->service_id)->final_mean;
             }
             else {
                 $final_mean = 0;
             }
-            $final_mean = $final_mean * $numbers_ahead;
 
             $business_data[] = [
                 'business_id' => $business->business_id,
