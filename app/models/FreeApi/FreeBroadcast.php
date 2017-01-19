@@ -55,6 +55,7 @@ class FreeBroadcast {
             'name' => Business::name($business_id),
             'called_numbers' => $all_numbers->called_numbers,
             'total_waiting_time' => $time_estimates['estimated_serving_time'],
+            'last_number_given' => $all_numbers->last_number_given
         ];
 
         return $data;

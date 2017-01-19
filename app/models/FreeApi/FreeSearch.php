@@ -46,7 +46,8 @@ class FreeSearch {
 
         //get the category given by the user and search businesses with that category
         if(isset($data['category']) && $data['category'] != '' && $data['category'] != 'All'){
-            $query->where('business.industry', '=', $data['category']);
+//            $query->where('business.industry', '=', $data['category']);
+                $query->whereIn('business.industry', $data['category']);
         }
 
         //get a keyword from the user and search the name, raw_code and address for that keyword
