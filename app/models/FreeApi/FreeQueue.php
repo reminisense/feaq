@@ -185,7 +185,10 @@ class FreeQueue{
             $final_mean = 0;
         }
 //        return json_encode(['estimated_serving_time' => $time_estimates['estimated_serving_time']]);
-        return json_encode(['estimated_serving_time' => $final_mean]);
+        return json_encode([
+          'estimated_serving_time' => $final_mean,
+          'people_in_line' => Analytics::getBusinessRemainingCount($business_id),
+        ]);
     }
 
     private function saveNote($transaction_number, $note){
