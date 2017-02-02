@@ -155,6 +155,27 @@ class FreeQueue{
         }
         else {
             $data["service_id"] = $service_id;
+            if ($means["today"] > 0) {
+                $data["weight_today"] = 1;
+            }
+            if ($means["yesterday"] > 0) {
+                $data["weight_yesterday"] = 1;
+            }
+            if ($means["three_days"] > 0) {
+                $data["weight_three_days"] = 1;
+            }
+            if ($means["this_week"] > 0) {
+                $data["weight_this_week"] = 1;
+            }
+            if ($means["last_week"] > 0) {
+                $data["weight_last_week"] = 1;
+            }
+            if ($means["this_month"] > 0) {
+                $data["weight_this_month"] = 1;
+            }
+            if ($means["last_month"] > 0) {
+                $data["weight_last_month"] = 1;
+            }
             MeanServingTime::saveMeans($data);
         }
     }
