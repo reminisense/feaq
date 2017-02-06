@@ -233,6 +233,10 @@ class FreeApiController extends BaseController{
         return $this->freeApi->getMeanWeights($service_id);
     }
 
+    public function postPunchQueuestatus() {
+        return $this->freeApi->postPunchQueuestatus(Input::all());
+    }
+
     /**
      * @param $service_id
      * @return array
