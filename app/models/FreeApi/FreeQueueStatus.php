@@ -11,6 +11,7 @@ class FreeQueueStatus
 
   public function postPunchQueuestatus($data = array()) {
     QueueStatus::savePunch($data);
+    return json_encode(['status' => 201, 'msg' => 'OK']);
   }
   
   
