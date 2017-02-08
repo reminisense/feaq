@@ -20,7 +20,7 @@ class FreeQueueStatus
       ->groupBy('device_token')
       ->get();
     foreach($business_logins as $login){
-      $this->sendAppleNotification($login->device_token, 'Line is now in ' . $data["punch_type"] . 'status.', 'punch');
+      $this->sendAppleNotification($login->device_token, 'Line is now in ' . $data["punch_type"] . ' status.', 'punch');
     }
     return json_encode(['status' => 201, 'msg' => 'OK']);
   }
