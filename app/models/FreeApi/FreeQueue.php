@@ -53,7 +53,14 @@ class FreeQueue{
         if(!Business::where('business_id', '=', $business_id)->exists()){
             return json_encode(['error' => 'Business does not exist.']);
         }
-        return json_encode(['numbers' => $this->allNumbers($business_id)]);
+        $first_service = Service::getFirstServiceOfBusiness($business_id);
+        if (QueueStatus::isPunchTypeExists($first_service->service_id)) {
+            $punch_type = QueueStatus::getLatestPunchTypeByServiceId($first_service->service_id);
+        }
+        else {
+            $punch_type = 'Play';
+        }
+        return json_encode(['numbers' => $this->allNumbers($business_id), 'punch_type' => $punch_type]);
     }
 
     /**
