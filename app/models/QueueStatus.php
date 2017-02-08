@@ -17,4 +17,12 @@ class QueueStatus extends Eloquent
     QueueStatus::insert($data);
   }
 
+  public static function isPunchTypeExists($service_id) {
+    return QueueStatus::where('service_id', '=', $service_id)->exists();
+  }
+
+  public static function getLatestPunchTypeByServiceId($service_id) {
+    return QueueStatus::where('service_id', '=', $service_id)->orderBy('id','desc')->first()->punch_type;
+  }
+
 }
