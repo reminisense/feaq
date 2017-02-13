@@ -58,7 +58,7 @@ class FreeQueue{
             $punch_type = QueueStatus::getLatestPunchTypeByServiceId($first_service->service_id);
         }
         else {
-            $punch_type = 'Play';
+            $punch_type = 'Stop';
         }
         return json_encode(['numbers' => $this->allNumbers($business_id), 'punch_type' => $punch_type]);
     }

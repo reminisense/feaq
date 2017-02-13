@@ -55,7 +55,7 @@ class FreeBroadcast {
             $punch_type = QueueStatus::getLatestPunchTypeByServiceId($first_service->service_id);
         }
         else {
-            $punch_type = 'Play';
+            $punch_type = 'Stop';
         }
 
 //        $analytics = new Analytics();

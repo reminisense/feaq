@@ -79,6 +79,12 @@ class FreeSearch {
             else {
                 $final_mean = 0;
             }
+            if (QueueStatus::isPunchTypeExists($business->service_id)) {
+                $punch_type = QueueStatus::getLatestPunchTypeByServiceId($business->service_id);
+            }
+            else {
+                $punch_type = 'Stop';
+            }
 
             $business_data[] = [
                 'business_id' => $business->business_id,
@@ -91,6 +97,7 @@ class FreeSearch {
                 'people_in_line' => Analytics::getBusinessRemainingCount($business->business_id),
 //                'serving_time' => Helper::millisecondsToHMSFormat($time_estimates['upper_waiting_time']),
                 'serving_time' => $final_mean,
+                'punch_type' => $punch_type,
                 'logo' => $business->logo,
             ];
         }
