@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-    'from' => array('address' => 'aunne@reminisense.com', 'name' => 'FeatherQ'),
+    'from' => array('address' => 'paul@reminisense.com', 'name' => 'FeatherQ'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return array(
 	|
 	*/
 
-    'username' => 'aunne@reminisense.com',
+    'username' => 'paul@reminisense.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return array(
 	|
 	*/
 
-    'password' => 'Reminisense!1',
+    'password' => '6i8y7u86&U',
 
 	/*
 	|--------------------------------------------------------------------------
