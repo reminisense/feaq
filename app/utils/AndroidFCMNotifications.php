@@ -6,7 +6,7 @@
  * Time: 7:33 PM
  */
 
-class AndroidFCMNotification {
+class AndroidFCMNotifications {
 
     private $deviceToken;
     private $message;
@@ -20,7 +20,7 @@ class AndroidFCMNotification {
 
     }
 
-    public function sentNotif(){
+    public function sendNotif(){
 
         $path_to_form = 'https://fcm.googleapis.com/fcm/send';
         $headers = array

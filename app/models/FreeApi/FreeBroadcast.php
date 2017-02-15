@@ -102,7 +102,7 @@ class FreeBroadcast {
         foreach($business_logins as $login){
             if($login->platform == "iOS"){
                 $this->sendAppleNotification($login->device_token, $message, $msg_type);
-            }else{
+            }else if($login->platform == "ANDROID"){
                 $this->sendAndroidNotification($login->device_token, $message, $msg_type);
             }
         }
@@ -116,7 +116,7 @@ class FreeBroadcast {
     }
 
     public function sendAndroidNotification($device_token, $message, $msg_type ) {
-            $AFBN = new \AndroidFCMNotification($device_token, $message, $msg_type);
+            $AFBN = new \AndroidFCMNotifications($device_token, $message,$msg_type);
             $AFBN->sendNotif();
     }
 }
