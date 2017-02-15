@@ -60,6 +60,8 @@ Route::controller('articles', 'ContentController');
 
 Route::controller('how-to', 'ContentController');
 
+Route::get('privacy', 'ContentController@getPrivacy');
+
 Route::controller('test', 'TestController');
 
 Route::controller('mobile', 'MobileController');
