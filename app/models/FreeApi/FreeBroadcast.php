@@ -33,11 +33,9 @@ class FreeBroadcast {
         if(!$business){
             return json_encode(['error' => 'Business does not exist.']);
         }
-
         $business_data = [
             'address' => $business->local_address,
             'time_close' => Helper::mergeTime($business->close_hour, $business->close_minute, $business->close_ampm),
-            'people_in_line' => Analytics::getBusinessRemainingCount($business_id),
         ];
         $broadcast_data = $this->getBroadcastData($business_id);
         $broadcast_data = array_merge($business_data, $broadcast_data);
@@ -47,14 +45,30 @@ class FreeBroadcast {
     private function getBroadcastData($business_id){
         $first_service = Service::getFirstServiceOfBusiness($business_id);
         $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
+        if (MeanServingTime::isServiceExisting($first_service->service_id)) {
+            $final_mean = MeanServingTime::fetchMeans($first_service->service_id)->final_mean;
+        }
+        else {
+            $final_mean = 0;
+        }
+        if (QueueStatus::isPunchTypeExists($first_service->service_id)) {
+            $punch_type = QueueStatus::getLatestPunchTypeByServiceId($first_service->service_id);
+        }
+        else {
+            $punch_type = 'Play';
+        }
 
-        $analytics = new Analytics();
-        $time_estimates = $analytics->getServiceEstimateResults($first_service->service_id);
+//        $analytics = new Analytics();
+//        $time_estimates = $analytics->getServiceEstimateResults($first_service->service_id);
 
         $data = [
             'name' => Business::name($business_id),
             'called_numbers' => $all_numbers->called_numbers,
-            'total_waiting_time' => $time_estimates['estimated_serving_time'],
+//            'total_waiting_time' => $time_estimates['estimated_serving_time'],
+            'serving_time' => $final_mean,
+          'people_in_line' => Analytics::getBusinessRemainingCount($business_id),
+            'last_called' => $all_numbers->last_number_called,
+            'punch_type' => $punch_type,
         ];
 
         return $data;

@@ -83,4 +83,8 @@ class ContentController extends BaseController {
         return View::make('content.guide-call-serve-next');
     }
 
+    public function getPrivacy() {
+        return View::make('content.privacy-policy');
+    }
+
 }

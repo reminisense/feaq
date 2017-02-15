@@ -46,7 +46,8 @@ class FreeSearch {
 
         //get the category given by the user and search businesses with that category
         if(isset($data['category']) && $data['category'] != '' && $data['category'] != 'All'){
-            $query->where('business.industry', '=', $data['category']);
+//            $query->where('business.industry', '=', $data['category']);
+                $query->whereIn('business.industry', $data['category']);
         }
 
         //get a keyword from the user and search the name, raw_code and address for that keyword
@@ -70,8 +71,14 @@ class FreeSearch {
     private function organizeBusinessData($businesses){
         $business_data = array();
         foreach($businesses as $business){
-            $analytics = new Analytics();
-            $time_estimates = $analytics->getServiceEstimateResults($business->service_id);
+//            $analytics = new Analytics();
+//            $time_estimates = $analytics->getServiceEstimateResults($business->service_id);
+            if (MeanServingTime::isServiceExisting($business->service_id)) {
+                $final_mean = MeanServingTime::fetchMeans($business->service_id)->final_mean;
+            }
+            else {
+                $final_mean = 0;
+            }
 
             $business_data[] = [
                 'business_id' => $business->business_id,
@@ -82,7 +89,8 @@ class FreeSearch {
                 'time_close' => Helper::mergeTime($business->close_hour, $business->close_minute, $business->close_ampm),
                 'time_open' => Helper::mergeTime($business->open_hour, $business->open_minute, $business->open_ampm),
                 'people_in_line' => Analytics::getBusinessRemainingCount($business->business_id),
-                'serving_time' => Helper::millisecondsToHMSFormat($time_estimates['upper_waiting_time']),
+//                'serving_time' => Helper::millisecondsToHMSFormat($time_estimates['upper_waiting_time']),
+                'serving_time' => $final_mean,
                 'logo' => $business->logo,
             ];
         }

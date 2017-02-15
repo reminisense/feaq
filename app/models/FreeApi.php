@@ -10,16 +10,20 @@ require 'FreeApi/FreeAuth.php';
 require 'FreeApi/FreeBusiness.php';
 require 'FreeApi/FreeQueue.php';
 require 'FreeApi/FreeBroadcast.php';
+require 'FreeApi/FreeMeans.php';
+require 'FreeApi/FreeQueueStatus.php';
 
 class FreeApi {
 
-    private $search, $auth, $business, $queue, $broadcast;
+    private $search, $auth, $business, $queue, $broadcast, $means, $status;
     public function __construct(){
         $this->search = new FreeSearch();
         $this->auth = new FreeAuth();
         $this->business = new FreeBusiness();
         $this->queue = new FreeQueue();
         $this->broadcast = new FreeBroadcast();
+        $this->means = new FreeMeans();
+        $this->status = new FreeQueueStatus();
     }
 
     public function grantAccess($request){
@@ -100,6 +104,18 @@ class FreeApi {
 
     public function getEstimatedTime($business_id){
         return $this->queue->getServingTime($business_id);
+    }
+
+    public function postUpdateMeanweights($data) {
+        return $this->means->postUpdateMeanweights($data);
+    }
+
+    public function getMeanWeights($service_id) {
+        return $this->means->getMeanWeights($service_id);
+    }
+    
+    public function postPunchQueuestatus($data) {
+        return $this->status->postPunchQueuestatus($data);
     }
 
 }
