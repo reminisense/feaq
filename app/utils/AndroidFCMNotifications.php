@@ -31,7 +31,7 @@ class AndroidFCMNotifications {
 
         $fields = array
         (
-            'to'  => $path_to_form  ,
+            'to'  => $this->deviceToken,
             'notification' => array(
                 'message'=>$this->message,
                 'message_type'=>$this->msg_type
