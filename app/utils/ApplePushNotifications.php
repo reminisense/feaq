@@ -25,13 +25,13 @@ class ApplePushNotifications
 
   public function sendNotif() {
     $ctx = stream_context_create();
-    stream_context_set_option($ctx, 'ssl', 'local_cert', app_path() . '/certs/featherqiosapn.pem');
-//    stream_context_set_option($ctx, 'ssl', 'local_cert', app_path() . '/certs/featherq_dist_apns.pem'); // uncomment when deployed to production
+//    stream_context_set_option($ctx, 'ssl', 'local_cert', app_path() . '/certs/featherqiosapn.pem');
+    stream_context_set_option($ctx, 'ssl', 'local_cert', app_path() . '/certs/featherq_dist_apns.pem'); // uncomment when deployed to production
     stream_context_set_option($ctx, 'ssl', 'passphrase', $this->passphrase);
 
     // Open a connection to the APNS server
-    $fp = stream_socket_client('ssl://gateway.sandbox.push.apple.com:2195', $err, $errstr, 60, STREAM_CLIENT_CONNECT|STREAM_CLIENT_PERSISTENT, $ctx);
-//    $fp = stream_socket_client('ssl://gateway.push.apple.com:2195', $err, $errstr, 60, STREAM_CLIENT_CONNECT|STREAM_CLIENT_PERSISTENT, $ctx); // uncomment when deployed to production
+//    $fp = stream_socket_client('ssl://gateway.sandbox.push.apple.com:2195', $err, $errstr, 60, STREAM_CLIENT_CONNECT|STREAM_CLIENT_PERSISTENT, $ctx);
+    $fp = stream_socket_client('ssl://gateway.push.apple.com:2195', $err, $errstr, 60, STREAM_CLIENT_CONNECT|STREAM_CLIENT_PERSISTENT, $ctx); // uncomment when deployed to production
 
     if (!$fp) exit("Failed to connect: $err $errstr" . PHP_EOL);
 //    echo 'Connected to APNS' . PHP_EOL;
