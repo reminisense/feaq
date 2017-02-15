@@ -57,7 +57,8 @@ class FeatherqConstants {
     //Define Android constants
     public static function android(){
         // API access key from Google API's Console
-        define( 'API_ACCESS_KEY', 'AIzaSyCj0EfjXkZe-USRLOlTXxywayUXSIYg1wA' );
+//        define( 'API_ACCESS_KEY', 'AIzaSyCj0EfjXkZe-USRLOlTXxywayUXSIYg1wA' );
+        define( 'API_ACCESS_KEY', 'AIzaSyDUytScOhaR7g0H5iH9G6YX0N5tlQK5ZFY');
     }
 
 }
