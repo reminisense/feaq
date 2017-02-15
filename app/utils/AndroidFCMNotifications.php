@@ -25,8 +25,8 @@ class AndroidFCMNotifications {
         $path_to_form = 'https://fcm.googleapis.com/fcm/send';
         $headers = array
         (
-            'Authorization: key=' . API_ACCESS_KEY,
-            'Content-Type: application/json'
+            'Authorization:key=' . API_ACCESS_KEY,
+            'Content-Type:application/json'
         );
 
         $fields = array
