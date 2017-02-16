@@ -100,7 +100,11 @@ class FreeBroadcast {
         }
 
         foreach($business_logins as $login){
-            $this->sendAppleNotification($login->device_token, $message, $msg_type);
+            if($login->platform == "iOS"){
+                $this->sendAppleNotification($login->device_token, $message, $msg_type);
+            }else if($login->platform == "ANDROID"){
+                $this->sendAndroidNotification($login->device_token, $message, $msg_type);
+            }
         }
     }
 
@@ -109,5 +113,10 @@ class FreeBroadcast {
             $APN = new \ApplePushNotifications($device_token, $message, null, $msg_type);
             $APN->sendNotif();
         }
+    }
+
+    public function sendAndroidNotification($device_token, $message, $msg_type ) {
+            $AFBN = new \AndroidFCMNotifications($device_token, $message,$msg_type);
+            $AFBN->sendNotif();
     }
 }
