@@ -164,7 +164,7 @@ class FreeAuth {
                 }else{
                     DB::table('email_verification')->insert(['email' => $data['email'], 'verification_code' => Hash::make($secret)]);
                 }
-                Notifier::sendEmail($data['email'], 'emails.auth.free-email-verification', 'Email_verification', ['verification_code' => $secret]);
+                Notifier::sendEmail($data['email'], 'emails.auth.free-email-verification', 'FeatherQ Email Verification Code', ['verification_code' => $secret]);
             }catch(Exception $e){
                 return json_encode(['error' => $e->getMessage()]);
             }
