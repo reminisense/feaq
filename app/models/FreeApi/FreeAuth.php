@@ -196,7 +196,21 @@ class FreeAuth {
             return json_encode(['error' => 'User not found.']);
         }
 
-        return $this->emailVerification($data);
+        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            return json_encode(['error' => "Invalid email format."]);
+        }
+        $secret = $this->getVerificationCode();
+        try{
+            if(DB::table('email_verification')->where('email', '=', $data['email'])->exists()){
+                DB::table('email_verification')->where('email', '=', $data['email'])->update(['verification_code' => Hash::make($secret)]);
+            }else{
+                DB::table('email_verification')->insert(['email' => $data['email'], 'verification_code' => Hash::make($secret)]);
+            }
+            Notifier::sendEmail($data['email'], 'emails.auth.free-email-verification', 'FeatherQ Email Verification Code', ['verification_code' => $secret]);
+        }catch(Exception $e){
+            return json_encode(['error' => $e->getMessage()]);
+        }
+        return json_encode(['success' => 1, 'code' => $secret]);
     }
 
     public function changePassword($data){
