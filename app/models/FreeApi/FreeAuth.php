@@ -157,22 +157,26 @@ class FreeAuth {
             return json_encode(['error' => "Invalid email format."]);
         }
         if (!User::isEmailTaken($data['email'])) {
-            $secret = $this->getVerificationCode();
-            try{
-                if(DB::table('email_verification')->where('email', '=', $data['email'])->exists()){
-                    DB::table('email_verification')->where('email', '=', $data['email'])->update(['verification_code' => Hash::make($secret)]);
-                }else{
-                    DB::table('email_verification')->insert(['email' => $data['email'], 'verification_code' => Hash::make($secret)]);
-                }
-                Notifier::sendEmail($data['email'], 'emails.auth.free-email-verification', 'FeatherQ Email Verification Code', ['verification_code' => $secret]);
-            }catch(Exception $e){
-                return json_encode(['error' => $e->getMessage()]);
-            }
-            return json_encode(['success' => 1, 'code' => $secret]);
+            return $this->generateVerCode($data);
         }
         else {
             return json_encode(['success' => 0, 'msg' => 'Email is already taken.']);
         }
+    }
+
+    public function generateVerCode($data) {
+        $secret = $this->getVerificationCode();
+        try{
+            if(DB::table('email_verification')->where('email', '=', $data['email'])->exists()){
+                DB::table('email_verification')->where('email', '=', $data['email'])->update(['verification_code' => Hash::make($secret)]);
+            }else{
+                DB::table('email_verification')->insert(['email' => $data['email'], 'verification_code' => Hash::make($secret)]);
+            }
+            Notifier::sendEmail($data['email'], 'emails.auth.free-email-verification', 'FeatherQ Email Verification Code', ['verification_code' => $secret]);
+        }catch(Exception $e){
+            return json_encode(['error' => $e->getMessage()]);
+        }
+        return json_encode(['success' => 1, 'code' => $secret]);
     }
 
     public function verifyCode($data){
@@ -196,7 +200,11 @@ class FreeAuth {
             return json_encode(['error' => 'User not found.']);
         }
 
-        return $this->emailVerification($data);
+        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            return json_encode(['error' => "Invalid email format."]);
+        }
+
+        return $this->generateVerCode($data);
     }
 
     public function changePassword($data){
