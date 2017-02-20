@@ -157,14 +157,14 @@ class FreeAuth {
             return json_encode(['error' => "Invalid email format."]);
         }
         if (!User::isEmailTaken($data['email'])) {
-            return $this->generateVerCode();
+            return $this->generateVerCode($data);
         }
         else {
             return json_encode(['success' => 0, 'msg' => 'Email is already taken.']);
         }
     }
 
-    public function generateVerCode() {
+    public function generateVerCode($data) {
         $secret = $this->getVerificationCode();
         try{
             if(DB::table('email_verification')->where('email', '=', $data['email'])->exists()){
@@ -204,7 +204,7 @@ class FreeAuth {
             return json_encode(['error' => "Invalid email format."]);
         }
 
-        return $this->generateVerCode();
+        return $this->generateVerCode($data);
     }
 
     public function changePassword($data){
