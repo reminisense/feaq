@@ -14,7 +14,6 @@ class FreeQueueStatus
 
   public function postPunchQueuestatus($data = array()) {
     QueueStatus::savePunch($data);
-     var_dump($data);
     $business_id = Business::getBusinessIdByServiceId($data["service_id"]);
     $business_logins = DB::table('business_login')
       ->where('business_id', '=', $business_id)
