@@ -60,10 +60,8 @@
             @if (!Auth::check())
             <a ng-controller="fbController" href="" class="btn btn-fb" role="button" ng-click="login()"><span class="fa fa-facebook"></span> Login with Facebook</a>
             @endif
-            <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
-              <img alt="Android app on Google Play"
-              src="/images/homepage/btn-download-app.png" height="40"/>
-            </a>
+            <a href='https://play.google.com/store/apps/details?id=com.reminisense.feaqfree&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height="91px"/></a>
+            <a href="https://itunes.apple.com/ph/app/featherq/id1203716312?mt=8" target="_blank"><img alt="iOS App on App Store" src="/images/homepage/appstore.svg" height="61px"></a>
         </div>
         <div id="navbar" class="hidden-xs hidden hidden-sm hidden-md navbar-collapse collapse">
             <ul class="nav hidden navbar-nav navbar-right">
@@ -73,10 +71,8 @@
                     <li ng-controller="fbController"><a href="" class="btn btn-fb" role="button" ng-click="login()"><span class="fa fa-facebook"></span> Login with Facebook</a></li>
                 @endif
                 <li class="hidden-md hidden-sm hidden-xs btn-gplay">
-                    <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
-                      <img alt="Android app on Google Play"
-                      src="/images/homepage/btn-download-app.png" height="50"/>
-                    </a>
+                    <a href='https://play.google.com/store/apps/details?id=com.reminisense.feaqfree&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height="91px"/></a>
+                    <a href="https://itunes.apple.com/ph/app/featherq/id1203716312?mt=8" target="_blank"><img alt="iOS App on App Store" src="/images/homepage/appstore.svg" height="61px"></a>
                 </li>
             </ul>
         </div><!--/.nav-collapse -->
@@ -92,9 +88,8 @@
 
         @include('broadcast.default.public-' . $broadcast_type)
         <div class="publiclogin ng-scope hidden-lg hidden-md visible-sm visible-xs text-center" ng-controller="fbController">
-            <a class="btn-play" style="margin-right:5px;" href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
-                <img alt="Android app on Google Play" src="/images/homepage/btn-download-app.png">
-            </a>
+            <a href='https://play.google.com/store/apps/details?id=com.reminisense.feaqfree&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height="91px"/></a>
+            <a href="https://itunes.apple.com/ph/app/featherq/id1203716312?mt=8" target="_blank"><img alt="iOS App on App Store" src="/images/homepage/appstore.svg" height="61px"></a>
             @if (!Auth::check())
                 <a href="" class="btn btn-fb" role="button" ng-click="login()"><span class="fa fa-facebook"></span> Login with Facebook</a>
             @endif
