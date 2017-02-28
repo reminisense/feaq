@@ -60,8 +60,8 @@
             @if (!Auth::check())
             <a ng-controller="fbController" href="" class="btn btn-fb" role="button" ng-click="login()"><span class="fa fa-facebook"></span> Login with Facebook</a>
             @endif
-            <a href='https://play.google.com/store/apps/details?id=com.reminisense.feaqfree&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height="91px"/></a>
-            <a href="https://itunes.apple.com/ph/app/featherq/id1203716312?mt=8" target="_blank"><img alt="iOS App on App Store" src="/images/homepage/appstore.svg" height="61px"></a>
+            <a href='https://play.google.com/store/apps/details?id=com.reminisense.feaqfree&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height="39px"/></a>
+            <a href="https://itunes.apple.com/ph/app/featherq/id1203716312?mt=8" target="_blank"><img alt="iOS App on App Store" src="/images/homepage/appstore.svg" height="27px"></a>
         </div>
         <div id="navbar" class="hidden-xs hidden hidden-sm hidden-md navbar-collapse collapse">
             <ul class="nav hidden navbar-nav navbar-right">
