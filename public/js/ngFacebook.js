@@ -7,7 +7,7 @@ fbapp.run(function($http) {
             appId      : '1577295149183234',
             cookie     : true,
             xfbml      : true,
-            version    : 'v2.8'
+            version    : 'v2.3'
         });
 
         FB.getLoginStatus(function(response) {
@@ -43,7 +43,7 @@ fbapp.controller('fbController', function($scope, $http) {
             if (response.authResponse) {
                 $scope.saveFbDetails(response.authResponse.accessToken);
             }
-        }, {'scope': 'public_profile,email,user_friends'});
+        }, {scope: 'public_profile,email,user_friends'});
     });
 
     $scope.saveFbDetails = function(accessToken) {
