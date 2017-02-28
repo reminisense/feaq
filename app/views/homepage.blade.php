@@ -81,10 +81,6 @@
                       <div class="col-lg-6 col-md-6 col-sm-8">
                         <h1>FeatherQ is a DIY cloud-based queuing platform. We make it easy for businesses to <span>manage their lines better</span> and allow customers to wait on their own terms.</h1>
                         <div class="mt40 mb40" ng-controller="fbController">
-                            <a style="margin-right:5px;" href="https://play.google.com/store/apps/details?id=com.reminisense.featherq">
-                                                                                                                                            <img alt="Android app on Google Play"
-                                                                                                                                            src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png" />
-                                                                                    </a>
                           <a href="" class="btn btn-fb" ng-click="login()" role="button"><span class="fa fa-facebook"></span> Login with Facebook</a>
                         </div>
                       </div>
