@@ -7,7 +7,7 @@ fbapp.run(function($http) {
             appId      : '1577295149183234',
             cookie     : true,
             xfbml      : true,
-            version    : 'v2.2'
+            version    : 'v2.8'
         });
 
         FB.getLoginStatus(function(response) {
