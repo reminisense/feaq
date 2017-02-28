@@ -8,7 +8,7 @@ fbapp.run(function($http) {
             cookie     : true,  // enable cookies to allow the server to access
                                 // the session
             xfbml      : true,  // parse social plugins on this page
-            version    : 'v2.2' // use version 2.2
+            version    : 'v2.3' // use version 2.3
         });
 
         FB.getLoginStatus(function(response) {
@@ -44,7 +44,7 @@ fbapp.controller('fbController', function($scope, $http) {
             if (response.authResponse) {
                 $scope.saveFbDetails(response.authResponse.accessToken);
             }
-        }, {'scope': 'public_profile,email,user_friends'});
+        }, {scope: 'public_profile,email,user_friends'});
     });
 
     $scope.saveFbDetails = function(accessToken) {
