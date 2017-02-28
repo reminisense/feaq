@@ -104,7 +104,9 @@
             <h2 class="sub-heading">Reduce the hassle of waiting and turn your waiting time into a better experience.</h2>
             <h2 class="sub-heading">FeatherQ is a line-management application that uses your mobile device and internet connection to line up for a business.</h2>
             <div class="cta">
-                <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" target="_blank"><img alt="Android app on Google Play" src="/images/homepage/btn-download-app.png"></a>
+                <a href='https://play.google.com/store/apps/details?id=com.reminisense.feaqfree&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height="91px"/></a>
+                <a href="https://itunes.apple.com/ph/app/featherq/id1203716312?mt=8" target="_blank"><img alt="iOS App on App Store" src="/images/homepage/appstore.svg" height="61px"></a>
+                &nbsp;&nbsp;
                 <a href="#" class="btn btn-blue" ng-click="login()">SIGN UP FOR FREE!</a>
             </div>
         </div>
