@@ -13,6 +13,7 @@
 .biz-navs .nav>li>a .glyphicon {
     font-size: 11px;
 }
+#open-kiosk,
 #view-broadcast,
 #process-queue {
     font-family: 'ralewayregular';
@@ -30,6 +31,10 @@
     /*margin-top: 30px;*/
     color: #fff;
     /*background: #00ba8b url('/img/bg-view-broadcast.png') left no-repeat;*/
+    background: #c9302c;
+}
+#open-kiosk {
+    color: #fff;
     background: #00ba8b;
 }
 #process-queue {
@@ -40,17 +45,22 @@
     background: #ff925b;
 }
 #process-queue a > span,
-#view-broadcast > span {
+#view-broadcast > span,
+#open-kiosk > span {
     margin-right: 8px;
 }
 #view-broadcast:hover {
+    background-color: #ac2925;
+}
+#open-kiosk:hover {
     background-color: #009b74;
 }
 #process-queue:hover {
     background-color: #d36e3c;
 }
 #view-broadcast:hover,
-#process-queue:hover {
+#process-queue:hover,
+#open-kiosk:hover {
     text-decoration: none;
     cursor: pointer;
 }
@@ -85,8 +95,12 @@
     background-color: #d36e3c;
 }
 #view-broadcast {
+    border-bottom: 4px solid #ac2925;
+}
+#open-kiosk {
     border-bottom: 4px solid #009b74;
 }
+#open-kiosk:hover,
 #view-broadcast:hover,
 #add-business:hover {
     text-decoration: none;
