@@ -66,8 +66,7 @@
 }
 #process-queue {
     border-bottom: 4px solid #d36e3c;
-    height: 80px;
-    padding-top: 30px;
+    height: 60px;
 }
 #process-queue a{
     color: #fff;
