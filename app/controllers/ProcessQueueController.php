@@ -155,8 +155,9 @@ class ProcessQueueController extends BaseController{
         return $analytics->getServiceTimeEstimates($service_id);
     }
 
-    public function getKiosk() {
-        return View::make('kiosk.kiosk');
+    public function getKiosk($business_id) {
+        return View::make('kiosk.kiosk')
+            ->with('business_id', $business_id);
     }
 
 }

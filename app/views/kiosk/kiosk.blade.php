@@ -35,7 +35,7 @@
     <div class="container" id="kiosk-wrapper" ng-controller="kioskController">
         <br/>
         <div class="row">
-            <ul class="nav nav-pills nav-justified">
+            <ul class="nav nav-pills nav-justified" id="services-list">
                 <li role="presentation" class="active"><a href="#">Service A</a></li>
                 <li role="presentation"><a href="#">Service B</a></li>
                 <li role="presentation"><a href="#">Service C</a></li>
@@ -55,8 +55,10 @@
                 </div>
             </div>
         </div>
-    </div>
 
+    </div>
+    <!--constants-->
+    <input type="hidden" id="business-id" value="{{ $business_id }}">
     <!-- urls -->
     <input type="hidden" id="issue-specific-url" value="{{ url('/issuenumber/insertspecific/') }}">
     <!-- end urls -->
