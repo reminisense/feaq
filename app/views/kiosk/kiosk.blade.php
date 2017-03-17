@@ -44,7 +44,7 @@
         <div class="row">
             <div class="col-md-6 issue-number">
                 <span class="number-to-issue">1</span><br/>
-                <button class="btn btn-lg btn-success" id="get-number"><strong><span class="glyphicon glyphicon-download"></span> GET NUMBER</strong></button>
+                <button class="btn btn-lg btn-success" id="get-number" data-toggle="modal" data-target="#issue-confirmation-code"><strong><span class="glyphicon glyphicon-download"></span> GET NUMBER</strong></button>
             </div>
             <div class="col-md-6 well well-lg">
                 <div class="clearfix">
@@ -62,4 +62,5 @@
     <!-- end urls -->
     <!-- end process queue main -->
     @include('modals.websockets.websocket-loader')
+    @include('modals.kiosk.confirmation-code')
 @stop

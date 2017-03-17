@@ -23,3 +23,12 @@
   height: 70px;
   font-size: 27px;
 }
+
+#issue-confirmation-code .modal-dialog {
+  width: 300px;
+}
+
+#issue-confirmation-code .modal-title {
+  color: #00ba8b;
+  font-family: 'ralewaybold';
+}
