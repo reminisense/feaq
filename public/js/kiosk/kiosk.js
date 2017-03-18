@@ -16,6 +16,7 @@
     $scope.uncalled_numbers = null;
     $scope.next_number = null;
     $scope.business_id = $('#business_id').val();
+    $scope.confirmation_code = null;
 
 
     //websocket = new ReconnectingWebSocket(websocket_url);
@@ -74,6 +75,7 @@
           };
           $http.post('/issuenumber/insertspecific/' + $scope.services[0].service_id + '/' + null + '/' + 'kiosk', data).success(function(response) {
               $scope.getNextNumber($scope.services[0].service_id);
+              $scope.confirmation_code = response.number.confirmation_code;
            });
       }
 
