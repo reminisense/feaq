@@ -49,8 +49,8 @@
             <div class="col-md-6 well well-lg">
                 <div class="clearfix">
                     <div class="col-md-6">
-                        <p class="title">Business Name</p>
-                        <input type="text" class="form-control ng-pristine ng-untouched ng-valid" value="THIS IS A DEMO">
+                        <p class="title">Notes</p>
+                        <input type="text" class="form-control ng-pristine ng-untouched ng-valid" value="THIS IS A DEMO" ng-model="business_name">
                     </div>
                 </div>
             </div>
@@ -63,5 +63,6 @@
     <input type="hidden" id="issue-specific-url" value="{{ url('/issuenumber/insertspecific/') }}">
     <!-- end urls -->
     <!-- end process queue main -->
-    @include('modals.websockets.websocket-loader')
+{{--    @include('modals.websockets.websocket-loader')--}}
+    @include('modals.kiosk.confirmation-code')
 @stop

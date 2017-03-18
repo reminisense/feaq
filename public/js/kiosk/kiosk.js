@@ -11,11 +11,12 @@
   //}]);
 
   app.controller('kioskController', function ($scope, $http) {
+    
+    $scope.services = [];
+    $scope.uncalled_numbers = null;
+    $scope.next_number = null;
+    $scope.business_id = $('#business_id').val();
 
-      $scope.services = [];
-      $scope.uncalled_numbers = null;
-      $scope.next_number = null;
-      $scope.business_id = $('#business_id').val();
 
     //websocket = new ReconnectingWebSocket(websocket_url);
     //websocket.onopen = function(response) { // connection is open
@@ -40,9 +41,8 @@
     //  broadcast_reload: false
     //}));
 
-
-      $scope.getBusinessServices = function(){
-
+    $scope.getBusinessServices = function(){
+      
           var business_id = $scope.business_id;
           var res_array = [];
 
@@ -81,3 +81,9 @@
 
   });
 })();
+
+$(document).ready(function() {
+
+  
+
+});
