@@ -36,21 +36,21 @@
         <br/>
         <div class="row">
             <ul class="nav nav-pills nav-justified" id="services-list">
-                <li role="presentation" class="active"><a href="#">Service A</a></li>
-                <li role="presentation"><a href="#">Service B</a></li>
-                <li role="presentation"><a href="#">Service C</a></li>
+                <li role="presentation" ng-repeat="service in services" ng-class="$index==0?'active':'' " ><a href="#">@{{service.name}}</a></li>
             </ul>
         </div>
         <div class="row">
+            {{--@{{services}}--}}
+            {{--@{{rawr}}--}}
             <div class="col-md-6 issue-number">
-                <span class="number-to-issue">1</span><br/>
-                <button class="btn btn-lg btn-success" id="get-number"><strong><span class="glyphicon glyphicon-download"></span> GET NUMBER</strong></button>
+                <span class="number-to-issue" id="next-number">@{{ next_number }}</span><br/>
+                <button class="btn btn-lg btn-success" id="get-number" ng-click="getIssueNumber()"><strong><span class="glyphicon glyphicon-download"></span> GET NUMBER</strong></button>
             </div>
             <div class="col-md-6 well well-lg">
                 <div class="clearfix">
                     <div class="col-md-6">
                         <p class="title">Business Name</p>
-                        <input type="text" class="form-control ng-pristine ng-untouched ng-valid" value="THIS IS A DEMO" ng-model="business_name">
+                        <input type="text" class="form-control ng-pristine ng-untouched ng-valid" value="THIS IS A DEMO">
                     </div>
                 </div>
             </div>
@@ -58,7 +58,7 @@
 
     </div>
     <!--constants-->
-    <input type="hidden" id="business-id" value="{{ $business_id }}">
+    <input type="hidden" id="business_id" value="{{ $business_id }}">
     <!-- urls -->
     <input type="hidden" id="issue-specific-url" value="{{ url('/issuenumber/insertspecific/') }}">
     <!-- end urls -->

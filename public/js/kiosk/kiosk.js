@@ -12,7 +12,10 @@
 
   app.controller('kioskController', function ($scope, $http) {
 
-      $scope.business_id = $('#business-id').val();
+      $scope.services = [];
+      $scope.uncalled_numbers = null;
+      $scope.next_number = null;
+      $scope.business_id = $('#business_id').val();
 
     //websocket = new ReconnectingWebSocket(websocket_url);
     //websocket.onopen = function(response) { // connection is open
@@ -41,23 +44,40 @@
       $scope.getBusinessServices = function(){
 
           var business_id = $scope.business_id;
-          if(typeof business_id != 'undefined'){
+          var res_array = [];
 
+          if(typeof business_id != 'undefined'){
               $http.get('/services/business/' + business_id).success(function(response){
-                  $('#services').empty();
-                  business_services = response.business_services;
-                  for(branch in business_services){
-                      for(service in business_services[branch]){
-                          $('#services').append('<option value="' + business_services[branch][service].service_id +'">' + business_services[branch][service].name + '</option>');
-                      }
-                  }
-                  $scope.selectService();
+                  $('#services_list').empty();
+                  res_array = response.business_services;
+                  $scope.services = res_array[0];
+                  $scope.getNextNumber($scope.services[0].service_id);
               });
           }
       };
 
+      $scope.getNextNumber = function(service_id){
+          $http.get('/processqueue/next-number/' + service_id).success(function(response){
+              $scope.next_number = response.next_number;
+          });
 
+      }
+
+
+      $scope.getIssueNumber = function(){
+
+          var data = {
+              priority_number : $scope.next_number,
+              name : "",
+              phone : "",
+              email : ""
+          };
+          $http.post('/issuenumber/insertspecific/' + $scope.services[0].service_id + '/' + null + '/' + 'kiosk', data).success(function(response) {
+              $scope.getNextNumber($scope.services[0].service_id);
+           });
+      }
 
       $scope.getBusinessServices();
+
   });
 })();
