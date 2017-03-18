@@ -11,10 +11,12 @@
 
   app.controller('kioskController', function ($scope, $http) {
     websocket = new ReconnectingWebSocket(websocket_url);
+
     websocket.onopen = function(response) { // connection is open
       $('#WebsocketLoaderModal').modal('hide');
 
     };
+
     websocket.onerror	= function(response){
       $('#WebsocketLoaderModal').modal('show');
     };
@@ -32,6 +34,13 @@
       broadcast_update : false,
       broadcast_reload: false
     }));
+
   });
 
 })();
+
+$(document).ready(function() {
+
+  
+
+});

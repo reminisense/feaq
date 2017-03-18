@@ -34,25 +34,77 @@
 
     <div class="container" id="kiosk-wrapper" ng-controller="kioskController">
         <br/>
-        <div class="row">
-            <ul class="nav nav-pills nav-justified">
-                <li role="presentation" class="active"><a href="#">Service A</a></li>
-                <li role="presentation"><a href="#">Service B</a></li>
-                <li role="presentation"><a href="#">Service C</a></li>
-            </ul>
-        </div>
-        <div class="row">
-            <div class="col-md-6 issue-number">
-                <span class="number-to-issue">1</span><br/>
-                <button class="btn btn-lg btn-success" id="get-number" data-toggle="modal" data-target="#issue-confirmation-code"><strong><span class="glyphicon glyphicon-download"></span> GET NUMBER</strong></button>
-            </div>
-            <div class="col-md-6 well well-lg">
+        <ul class="nav nav-tabs nav-justified" role="tablist">
+            <li class="active"><a href="#service-a" id="service-a-tab" data-toggle="tab">Service A</a></li>
+            <li class=""><a href="#service-b" id="service-b-tab" data-toggle="tab">Service B</a></li>
+            <li class=""><a href="#service-c" id="service-c-tab" data-toggle="tab">Service C</a></li>
+            <li class=""><a href="#service-d" id="service-d-tab" data-toggle="tab">Service D</a></li>
+        </ul>
+        <div class="tab-content" id="kioskTabContent">
+            <div role="tabpanel" class="tab-pane fade active in" id="service-a" aria-labelledby="service-a-tab">
                 <div class="clearfix">
-                    <div class="col-md-6">
-                        <p class="title">Business Name</p>
-                        <input type="text" class="form-control ng-pristine ng-untouched ng-valid" value="THIS IS A DEMO" ng-model="business_name">
+                    <div class="col-md-12 emphasis">
+                        <div class="col-md-6 issue-number">
+                            <span class="number-to-issue">1</span><br/>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="well well-sm">
+                                <p class="title">Notes</p>
+                                <input type="text" class="form-control ng-pristine ng-untouched ng-valid" value="THIS IS A DEMO">
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="service-b" aria-labelledby="service-b-tab">
+                <div class="clearfix">
+                    <div class="col-md-12 emphasis">
+                        <div class="col-md-6 issue-number">
+                            <span class="number-to-issue">21</span>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="well well-sm">
+                                <p class="title">Requests</p>
+                                <input type="text" class="form-control ng-pristine ng-untouched ng-valid" value="THIS IS A DEMO">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="service-c" aria-labelledby="service-c-tab">
+                <div class="clearfix">
+                    <div class="col-md-12 emphasis">
+                        <div class="col-md-6 issue-number">
+                            <span class="number-to-issue">41</span>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="well well-sm">
+                                <p class="title">Others</p>
+                                <input type="text" class="form-control ng-pristine ng-untouched ng-valid" value="THIS IS A DEMO">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="service-d" aria-labelledby="service-d-tab">
+                <div class="clearfix">
+                    <div class="col-md-12 emphasis">
+                        <div class="col-md-6 issue-number">
+                            <span class="number-to-issue">61</span>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="well well-sm">
+                                <p class="title">Diagnosis</p>
+                                <input type="text" class="form-control ng-pristine ng-untouched ng-valid" value="THIS IS A DEMO">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <center>
+                    <button class="btn btn-lg btn-success" id="get-number" data-toggle="modal" data-target="#issue-confirmation-code"><span class="glyphicon glyphicon-download"></span> GET NUMBER</button>
+                </center>
             </div>
         </div>
     </div>
@@ -61,6 +113,6 @@
     <input type="hidden" id="issue-specific-url" value="{{ url('/issuenumber/insertspecific/') }}">
     <!-- end urls -->
     <!-- end process queue main -->
-    @include('modals.websockets.websocket-loader')
+{{--    @include('modals.websockets.websocket-loader')--}}
     @include('modals.kiosk.confirmation-code')
 @stop
