@@ -18,6 +18,7 @@
     $scope.business_id = $('#business_id').val();
     $scope.confirmation_code = null;
     $scope.issued_number = null;
+    $scope.active_service_id = null;
 
 
     //websocket = new ReconnectingWebSocket(websocket_url);
@@ -43,7 +44,7 @@
     //  broadcast_reload: false
     //}));
 
-    $scope.getBusinessServices = function(){
+      $scope.getBusinessServices = function(){
       
           var business_id = $scope.business_id;
           var res_array = [];
@@ -53,17 +54,17 @@
                   $('#services_list').empty();
                   res_array = response.business_services;
                   $scope.services = res_array[0];
-                  $scope.getNextNumber($scope.services[0].service_id);
+                $scope.active_service_id = $scope.services[0].service_id
+                  $scope.getNextNumber();
               });
           }
       };
 
-      $scope.getNextNumber = function(service_id){
-          $http.get('/processqueue/next-number/' + service_id).success(function(response) {
+      $scope.getNextNumber = function(){
+          $http.get('/processqueue/next-number/' + $scope.active_service_id).success(function(response) {
               $scope.next_number = response.next_number;
           });
-
-      }
+      };
 
 
       $scope.getIssueNumber = function(){
@@ -74,21 +75,20 @@
               phone : "",
               email : ""
           };
-          $http.post('/issuenumber/insertspecific/' + $scope.services[0].service_id + '/' + null + '/' + 'kiosk', data).success(function(response) {
+          $http.post('/issuenumber/insertspecific/' + $scope.active_service_id + '/' + null + '/' + 'kiosk', data).success(function(response) {
               $scope.issued_number = $scope.next_number;
-              $scope.getNextNumber($scope.services[0].service_id);
+              $scope.getNextNumber();
               $scope.confirmation_code = response.number.confirmation_code;
               $('#issue-confirmation-code').modal('show');
           });
       }
 
+    $scope.switchActiveService = function(service_id) {
+      $scope.active_service_id = service_id;
+      $scope.getNextNumber();
+    };
+
       $scope.getBusinessServices();
 
   });
 })();
-
-$(document).ready(function() {
-
-  
-
-});

@@ -34,65 +34,20 @@
     <div class="container" id="kiosk-wrapper" ng-controller="kioskController">
         <br/>
         <ul class="nav nav-tabs nav-justified" role="tablist">
-            <li ng-repeat="service in services" ng-class="$index==0?'active':'' " >
+            <li ng-repeat="service in services" ng-class="$index==0?'active':''" ng-click="switchActiveService(service.service_id);">
                 <a href="#@{{service.name}}" id="#@{{service.name}}-tab" data-toggle="tab"> @{{service.name}}</a>
             </li>
         </ul>
         <div class="tab-content" id="kioskTabContent">
-            <div role="tabpanel" class="tab-pane fade active in" id="service-a" aria-labelledby="service-a-tab">
+            <div ng-repeat="service in services" ng-class="$index==0?'tab-pane fade active in':'tab-pane fade'" role="tabpanel" id="@{{service.name}}" aria-labelledby="@{{service.name}}-tab">
                 <div class="clearfix">
                     <div class="col-md-12 emphasis">
                         <div class="col-md-6 issue-number">
-                            <span class="number-to-issue" id="next-number">@{{ next_number }}</span><br/>
+                            <span class="number-to-issue">@{{ next_number }}</span><br/>
                         </div>
                         <div class="col-md-6">
                             <div class="well well-sm">
                                 <p class="title">Notes</p>
-                                <input type="text" class="form-control ng-pristine ng-untouched ng-valid" value="THIS IS A DEMO">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div role="tabpanel" class="tab-pane fade" id="service-b" aria-labelledby="service-b-tab">
-                <div class="clearfix">
-                    <div class="col-md-12 emphasis">
-                        <div class="col-md-6 issue-number">
-                            <span class="number-to-issue">21</span>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="well well-sm">
-                                <p class="title">Requests</p>
-                                <input type="text" class="form-control ng-pristine ng-untouched ng-valid" value="THIS IS A DEMO">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div role="tabpanel" class="tab-pane fade" id="service-c" aria-labelledby="service-c-tab">
-                <div class="clearfix">
-                    <div class="col-md-12 emphasis">
-                        <div class="col-md-6 issue-number">
-                            <span class="number-to-issue">41</span>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="well well-sm">
-                                <p class="title">Others</p>
-                                <input type="text" class="form-control ng-pristine ng-untouched ng-valid" value="THIS IS A DEMO">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div role="tabpanel" class="tab-pane fade" id="service-d" aria-labelledby="service-d-tab">
-                <div class="clearfix">
-                    <div class="col-md-12 emphasis">
-                        <div class="col-md-6 issue-number">
-                            <span class="number-to-issue">61</span>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="well well-sm">
-                                <p class="title">Diagnosis</p>
                                 <input type="text" class="form-control ng-pristine ng-untouched ng-valid" value="THIS IS A DEMO">
                             </div>
                         </div>
@@ -107,32 +62,6 @@
         </div>
         @include('modals.kiosk.confirmation-code')
     </div>
-
-    <!--OLD UI CODE WITH ANGULAR-->
-
-    {{--<div class="container" id="kiosk-wrapper" ng-controller="kioskController">--}}
-        {{--<br/>--}}
-        {{--<div class="row">--}}
-            {{--<ul class="nav nav-tabs nav-justified" id="services-list">--}}
-                {{--<li role="presentation" ng-repeat="service in services" ng-class="$index==0?'active':'' " ><a href="#">@{{service.name}}</a></li>--}}
-            {{--</ul>--}}
-        {{--</div>--}}
-        {{--<div class="row" id="kioskTabContent">--}}
-            {{--<div class="col-md-6 issue-number">--}}
-                {{--<span class="number-to-issue" id="next-number">@{{ next_number }}</span><br/>--}}
-                {{--<button class="btn btn-lg btn-success" id="get-number" ng-click="getIssueNumber()"><strong><span class="glyphicon glyphicon-download"></span> GET NUMBER</strong></button>--}}
-            {{--</div>--}}
-            {{--<div class="col-md-6 well well-lg">--}}
-                {{--<div class="clearfix">--}}
-                    {{--<div class="col-md-6">--}}
-                        {{--<p class="title">Notes</p>--}}
-                        {{--<input type="text" class="form-control ng-pristine ng-untouched ng-valid" value="THIS IS A DEMO" ng-model="business_name">--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
-
 
     <!--constants-->
     <input type="hidden" id="business_id" value="{{ $business_id }}">
