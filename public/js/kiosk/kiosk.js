@@ -17,6 +17,7 @@
     $scope.next_number = null;
     $scope.business_id = $('#business_id').val();
     $scope.confirmation_code = null;
+    $scope.issued_number = null;
 
 
     //websocket = new ReconnectingWebSocket(websocket_url);
@@ -58,7 +59,7 @@
       };
 
       $scope.getNextNumber = function(service_id){
-          $http.get('/processqueue/next-number/' + service_id).success(function(response){
+          $http.get('/processqueue/next-number/' + service_id).success(function(response) {
               $scope.next_number = response.next_number;
           });
 
@@ -74,9 +75,11 @@
               email : ""
           };
           $http.post('/issuenumber/insertspecific/' + $scope.services[0].service_id + '/' + null + '/' + 'kiosk', data).success(function(response) {
+              $scope.issued_number = $scope.next_number;
               $scope.getNextNumber($scope.services[0].service_id);
               $scope.confirmation_code = response.number.confirmation_code;
-           });
+              $('#issue-confirmation-code').modal('show');
+          });
       }
 
       $scope.getBusinessServices();

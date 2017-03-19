@@ -34,11 +34,9 @@
     <div class="container" id="kiosk-wrapper" ng-controller="kioskController">
         <br/>
         <ul class="nav nav-tabs nav-justified" role="tablist">
-            <li class="active"><a href="#service-a" id="service-a-tab" data-toggle="tab">Service A</a></li>
-            {{--<ling-repeat="service in services" ng-class="$index==0?'active':'' " >@{{service.name}}</li>--}}
-            <li class=""><a href="#service-b" id="service-b-tab" data-toggle="tab">Service B</a></li>
-            <li class=""><a href="#service-c" id="service-c-tab" data-toggle="tab">Service C</a></li>
-            <li class=""><a href="#service-d" id="service-d-tab" data-toggle="tab">Service D</a></li>
+            <li ng-repeat="service in services" ng-class="$index==0?'active':'' " >
+                <a href="#@{{service.name}}" id="#@{{service.name}}-tab" data-toggle="tab"> @{{service.name}}</a>
+            </li>
         </ul>
         <div class="tab-content" id="kioskTabContent">
             <div role="tabpanel" class="tab-pane fade active in" id="service-a" aria-labelledby="service-a-tab">
@@ -103,10 +101,11 @@
             </div>
             <div class="row">
                 <center>
-                    <button class="btn btn-lg btn-success" id="get-number" data-toggle="modal" data-target="#issue-confirmation-code" ng-click="getIssueNumber()"><span class="glyphicon glyphicon-download"></span> GET NUMBER</button>
+                    <button class="btn btn-lg btn-success" id="get-number" ng-click="getIssueNumber()"><span class="glyphicon glyphicon-download"></span> GET NUMBER</button>
                 </center>
             </div>
         </div>
+        @include('modals.kiosk.confirmation-code')
     </div>
 
     <!--OLD UI CODE WITH ANGULAR-->
@@ -142,5 +141,4 @@
     <!-- end urls -->
     <!-- end process queue main -->
 {{--    @include('modals.websockets.websocket-loader')--}}
-    @include('modals.kiosk.confirmation-code')
 @stop

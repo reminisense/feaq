@@ -6,7 +6,7 @@
                 <h4 class="modal-title">Confirmation Code</h4>
             </div>
             <div class="modal-body">
-                <center><h1 style="font-family: 'ralewaybold' !important;"><span style="color: darkorange;">1</span> - A34D9</h1></center>
+                <center><h1 style="font-family: 'ralewaybold' !important;"><span style="color: darkorange;">@{{ issued_number }}</span> - @{{ confirmation_code }}</h1></center>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" data-dismiss="modal">DONE</button>
