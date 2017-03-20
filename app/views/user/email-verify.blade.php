@@ -35,7 +35,7 @@
     <script type="text/javascript" src="/js/jquery.timeentry.js"></script>
 
     <script src="/js/jquery-ui.min.js"></script>
-    <script src="/js/maps-api-sensor-false-libraries-places.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
     <script src="/js/jquery.geocomplete.js"></script>
     <script src="/js/intlTelInput.js"></script>
 
