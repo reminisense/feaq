@@ -384,7 +384,7 @@
                 .append(' <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>')
                 .attr('disabled', 'disabled');
             $scope.serveNumber(transaction_number, function(){
-                $http.post('/issuenumber/issue-other/', data).success(function(response){
+                $http.post('/issuenumber/issue-other', data).success(function(response){
                     $('#priority-number-modal-close').show();
                     $('#allowed-businesses').attr('disabled', 'disabled');
                     $('#forward-btn span').remove();

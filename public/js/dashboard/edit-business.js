@@ -559,7 +559,7 @@ var eb = {
         };
 
         $scope.saveServiceQueueSettings = function(){
-            $http.post('/queuesettings/save-settings/', $scope.service_settings).success(function(response){
+            $http.post('/queuesettings/save-settings', $scope.service_settings).success(function(response){
                 if(response.success != undefined){
                     showServiceSettingsMessage(response.success, response.message);
                 }
@@ -1523,7 +1523,7 @@ var eb = {
         };
 
         $scope.saveQueueForwardingBusiness = function(){
-            $http.post('/business/forwarding-permission/', {
+            $http.post('/business/forwarding-permission', {
                 business_id: $scope.business_id,
                 access_key: $scope.queue_forward_accesskey
             }).success(function(response){
@@ -1533,7 +1533,7 @@ var eb = {
         };
 
         $scope.deletePermission = function(forwarder_id){
-            $http.post('/business/delete-permission/', {
+            $http.post('/business/delete-permission', {
                 business_id: $scope.business_id,
                 forwarder_id: forwarder_id
             }).success(function(response){
