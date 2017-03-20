@@ -47,8 +47,31 @@
                         </div>
                         <div class="col-md-6">
                             <div class="well well-sm">
-                                <p class="title">Notes</p>
-                                <input type="text" class="form-control ng-pristine ng-untouched ng-valid" value="THIS IS A DEMO">
+                                <div id="fqCarousel" class="carousel slide" data-ride="carousel">
+                                    <!-- Wrapper for slides -->
+                                    <div class="carousel-inner" role="listbox">
+                                        <div class="item active">
+                                            <img src="/images/broadcast/carousel/bs images 13.jpg" alt="ad1">
+                                        </div>
+                                        <div class="item">
+                                            <img src="/images/broadcast/carousel/bs images 14.jpg" alt="ad2">
+                                        </div>
+                                        <div class="item">
+                                            <img src="/images/broadcast/carousel/car1.jpg" alt="ad3">
+                                        </div>
+                                        <div class="item">
+                                            <img src="/images/broadcast/carousel/car2.jpg" alt="ad4">
+                                        </div>
+                                        <div class="item">
+                                            <img src="/images/broadcast/carousel/car3.jpg" alt="ad5">
+                                        </div>
+                                        <div class="item">
+                                            <img src="/images/broadcast/carousel/car4.jpg" alt="ad6">
+                                        </div>
+                                        <div class="item">
+                                            <img src="/images/broadcast/carousel/poster.jpg" alt="ad7">
+                                        </div>
+                                    </div>
                             </div>
                         </div>
                     </div>
