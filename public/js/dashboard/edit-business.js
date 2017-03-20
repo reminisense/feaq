@@ -559,7 +559,7 @@ var eb = {
         };
 
         $scope.saveServiceQueueSettings = function(){
-            $http.post('/queuesettings/save-settings/', $scope.service_settings).success(function(response){
+            $http.post('/queuesettings/save-settings', $scope.service_settings).success(function(response){
                 if(response.success != undefined){
                     showServiceSettingsMessage(response.success, response.message);
                 }

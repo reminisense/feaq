@@ -17,7 +17,7 @@
   <link rel="stylesheet" type="text/css" href="/css/homepage/slick-theme.css"/>
   <link rel="stylesheet" type="text/css" href="/css/refresh-animate.css"/>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
 
   <script type="text/javascript" src="/js/jquery-1.11.2.min.js"></script>
   <script type="text/javascript" src="/js/angular.min.js"></script>
@@ -29,7 +29,7 @@
   <script type="text/javascript" src="/js/jquery.timeentry.js"></script>
   <script type="text/javascript" src="/js/search-business.js"></script>
   <script type="text/javascript" src="/js/user/Usertracker.js"></script>
-  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.0/slick.min.js"></script>
+  <script type="text/javascript" src="/js/slick.min.js"></script>
 
   <script src="/js/google-analytics/googleAnalytics.js"></script>
   <script src="/js/google-analytics/ga-page_front.js"></script>

@@ -13,7 +13,7 @@ Processs Queue > {{ $business_name }}
 
 @section('scripts')
 {{--disabled for faster loading--}}
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-sanitize.min.js"></script>
+<script src="/js/angular-sanitize.min.js"></script>
 <script src="/js/reconnecting-websocket.min.js"></script>
 <script src="/js/websocket-variables.js"></script>
 {{--
@@ -30,10 +30,10 @@ Processs Queue > {{ $business_name }}
     UPLOADCARE_PUBLIC_KEY = "844c2b9e554c2ee5cc0a";
 </script>
 <script src="/js/dashboard/dashboard.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.4/jstz.min.js"></script>
+<script type="text/javascript" src="/js/jstz.min.js"></script>
 {{--
 --}}
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.2/isotope.pkgd.min.js"></script>
+<script src="/js/isotope.pkgd.min.js"></script>
 <script src="/js/process-queue/process-queue.js"></script>
 
 @stop
@@ -126,7 +126,7 @@ Processs Queue > {{ $business_name }}
                     </div>
                     <div class="box-body clearfix">
                         <div class="img-thumb pull-right">
-                            <img src="http://placehold.it/30x30">
+                            <img src="/img/placeholdit30x30.png">
                         </div>
                         <p class="name">@{{ number.name }}</p>
                         <p class="time"> @{{ number.confirmation_code }}</p>
