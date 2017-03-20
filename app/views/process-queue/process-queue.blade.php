@@ -12,7 +12,7 @@
 @stop
 
 @section('scripts')
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-sanitize.min.js"></script>
+    <script src="/js/angular-sanitize.min.js"></script>
     <script src="/js/reconnecting-websocket.min.js"></script>
     <script src="/js/websocket-variables.js"></script>
     <script src="/js/process-queue/process-queue.js"></script>
@@ -30,7 +30,7 @@
         UPLOADCARE_PUBLIC_KEY = "844c2b9e554c2ee5cc0a";
     </script>
     <script src="/js/dashboard/dashboard.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.4/jstz.min.js"></script>
+    <script type="text/javascript" src="/js/jstz.min.js"></script>
 @stop
 
 @section('container')

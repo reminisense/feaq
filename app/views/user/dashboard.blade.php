@@ -26,7 +26,7 @@
     {{--{{ HTML::script('js/dashboard/search-business.js') }}--}}
     <script src="/js/dashboard/search-business.js"></script>
 
-    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+    <script src="/js/maps-api-sensor-false-libraries-places.js"></script>
 
     {{--{{ HTML::script('js/jquery.geocomplete.js') }}--}}
     <script src="/js/jquery.geocomplete.js"></script>

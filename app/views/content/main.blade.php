@@ -30,7 +30,7 @@
     <script src="/js/jquery.timeentry.js"></script>
     <script src="/js/search-business.js"></script>
     <script src="/js/user/Usertracker.js"></script>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.0/slick.min.js"></script>
+    <script type="text/javascript" src="/js/slick.min.js"></script>
 
     <script src="/js/google-analytics/googleAnalytics.js"></script>
     <script src="/js/google-analytics/ga-page_front.js"></script>

@@ -12,7 +12,7 @@
     <link rel='stylesheet' type='text/css' href='/css/business_list/business-directory.css'>
     <link rel='stylesheet' type='text/css' href='/css/business_list/responsive.css'>
     <link href='https://fonts.googleapis.com/css?family=Raleway:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
     <link rel="apple-touch-icon" sizes="57x57" href="img/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="img/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="img/apple-icon-72x72.png">
@@ -43,7 +43,7 @@
     <script type="text/javascript" src="/js/ngFeatherQ.js"></script>
     <script src="/js/ngFacebook.js"></script>
     <script src="/js/ngAutocomplete.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-sanitize.min.js"></script>
+    <script type="text/javascript" src="/js/angular-sanitize.min.js"></script>
     <script type="text/javascript" src="/js/loading-bar.min.js"></script>
     <script type="text/javascript" src="/js/business-list/business-list-angular.js"></script>
 
@@ -147,7 +147,7 @@
                 <div class="col-md-6 col-xs-12" ng-repeat="businessRecord in directory_list">
                     <div class="entry clearfix @{{ businessRecord.business_id ? 'on-featherq' : '' }}">
                         <div class="pull-left">
-                            <img class="hidden-sm hidden-xs pull-left" src="http://placehold.it/80x80">
+                            <img class="hidden-sm hidden-xs pull-left" src="/img/placeholdit80x80.png">
                             <div class="pull-left">
                                 <h2>@{{ businessRecord.name }}</h2>
                                 <p class="truncate"><i class="fa fa-map-pin"></i> @{{ businessRecord.local_address }}</p>

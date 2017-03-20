@@ -10,7 +10,7 @@
 <table class="head-wrap" bgcolor="#FFFFFF" style="width:600px;">
     <tr>
         <td>
-            <img src="http://dev.featherq.com/images/featherq-headerbiz.jpg" alt="featherQ">
+            <img src="http://featherq.com/images/featherq-headerbiz.jpg" alt="featherQ">
         <td>
     </tr>
 </table>

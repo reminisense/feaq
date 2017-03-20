@@ -12,7 +12,7 @@
 @stop
 
 @section('scripts')
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-sanitize.min.js"></script>
+    <script src="/js/angular-sanitize.min.js"></script>
     <script type="text/javascript">
         (function(){
             $(".datepicker").datepicker({ dateFormat: 'mm-dd-yy' });

@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="/css/ngCloak.css">
 
     {{--{{ HTML::style('css/bootstrap.min.css') }}--}}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 
     {{--{{ HTML::style('css/animate.css') }}--}}
     <link media="all" type="text/css" rel="stylesheet" href="/css/animate.css">
@@ -32,7 +32,7 @@
     <script src="/js/jquery-1.11.2.min.js"></script>
 
     {{--{{ HTML::script('js/bootstrap.min.js') }}--}}
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
 
     {{--{{ HTML::script('js/wow.min.js') }}--}}
     <script src="/js/wow.min.js"></script>
@@ -41,7 +41,7 @@
     <script src="/js/custom.js"></script>
 
     {{--{{ HTML::script('js/angular.js') }}--}}
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script src="/js/angular.min.js"></script>
 
     {{--{{ HTML::script('js/ngFeatherQ.js') }}--}}
     <script src="/js/ngFeatherQ.js"></script>

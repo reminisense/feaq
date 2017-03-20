@@ -26,8 +26,6 @@
     <link rel="stylesheet" href="/css/homepage/main.css">
     <link rel="stylesheet" href="/css/homepage/animate.css">
     <link rel="stylesheet" href="/css/homepage/responsive.css">
-    <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
-
     <link rel="apple-touch-icon" sizes="57x57" href="/images/homepage/landing/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/images/homepage/landing/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/images/homepage/landing/apple-icon-72x72.png">
@@ -48,6 +46,7 @@
     <meta name="msapplication-TileImage" content="img/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
+    <script src="/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
     <script type="text/javascript" src="/js/angular.min.js"></script>
     <script type="text/javascript" src="/js/ngFeatherQ.js"></script>
     <script type="text/javascript" src="/js/ngFacebook.js"></script>
