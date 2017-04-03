@@ -5,7 +5,7 @@
  *
  */
 
-$host = '128.199.169.32';
+$host = '127.0.0.1';
 //$host = 'localhost';
 $port = '55346';
 $null = NULL; // only variables can be passed by reference in socket_select function
