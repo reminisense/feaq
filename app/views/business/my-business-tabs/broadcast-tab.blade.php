@@ -12,7 +12,7 @@
             <div class="col-md-4">
                 <h3 class="mb20">Choose an Advertisement Type:</h3>
                 <select id="select-ads-type" name="cd-dropdown" class="form-control" ng-model="settings.ad_type" ng-init="settings.ad_type">
-                    <option value="carousel">Image & Video Carousel</option>
+                    <option value="carousel">Image Carousel</option>
                     <option value="internet_tv">Internet TV</option>
                     <option value="numbers_only">Numbers Only</option>
                 </select>
