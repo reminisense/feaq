@@ -13,6 +13,7 @@
                 <h3 class="mb20">Choose an Advertisement Type:</h3>
                 <select id="select-ads-type" name="cd-dropdown" class="form-control" ng-model="settings.ad_type" ng-init="settings.ad_type">
                     <option value="carousel">Image Carousel</option>
+                    <option value="local_video">Local Video</option>
                     <option value="internet_tv">Internet TV</option>
                     <option value="numbers_only">Numbers Only</option>
                 </select>
@@ -82,6 +83,22 @@
                             </div>
                         </div>
                     </div>
+                    <div class="ads-type alocal_video">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <small>You can choose your own video to play on the Broadcast Screen:</small>
+                            </div>
+                            <div class="clearfix">
+                                <div class="col-md-12">
+                                    <div role="alert" class="alert alert-warning">
+                                        <strong>Play Your Own Videos Locally</strong> <br/>
+                                        You can choose your videos directly from the Broadcast Screen.<br/><br/>
+                                        <button class="btn btn-lg btn-danger" onclick="window.open('{{ url('broadcast/business/' . $business_id) }}')">View Broadcast Screen</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="ads-type ainternet_tv">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -118,8 +135,6 @@
                                 <div>
                                     <img src="/images/samsung-tv.jpg" class="img-responsive" style="max-height: 315px;width: 745px;">
                                 </div>
-                                <div class="alert alert-success" id="tvchannel-success" style="display: none;">Success! <strong><a href="/broadcast/business/16" target="_blank">View Broadcast Page</a></strong></div>
-                                <div class="alert alert-danger" id="tvchannel-danger" style="display: none;">Oops! Something went wrong.</div>
                             </div>
                         </div>
                     </div>

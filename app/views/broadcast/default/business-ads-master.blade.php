@@ -28,6 +28,57 @@
   <div class="vid-container">
     @if ($ad_type == 'internet_tv')
         {{ $ad_src }}
+    @elseif ($ad_type == 'local_video')
+        <div class="clearfix">
+            <div class="row">
+                <div class="well">
+                <div class="cold-md-12">
+                    <div class="alert alert-info">Supported video types: <strong>MP4, Ogg, WebM</strong></div>
+                </div>
+                <input type="file" multiple="multiple" accept="video/*"/>
+                <video style="width: 100%;" controls autoplay></video>
+                </div>
+            </div>
+        </div>
+        <script>
+            (function localFileVideoPlayer() {
+                'use strict'
+                var URL = window.URL || window.webkitURL
+                var videoNode = document.querySelector('video')
+                var queuedVideos = []
+                var videoIndex = 0
+                var queueVideoFiles = function (event) {
+                    var videoFiles = [];
+                    for (var i=0; i < this.files.length; i++) {
+                        var file = this.files[i]
+                        var type = file.type
+                        var canPlay = videoNode.canPlayType(type)
+                        if (canPlay === '') canPlay = 'no'
+                        var isError = canPlay === 'no'
+                        if (isError) {
+                            alert("Please upload only MP4, Ogg, and WebM video types.")
+                            return
+                        }
+                        videoFiles[i] = URL.createObjectURL(file)
+                    }
+                    queuedVideos = videoFiles
+                    videoNode.src = queuedVideos[0]
+                    videoIndex = 0
+                }
+                var nextVideo = function() {
+                    if (videoIndex < queuedVideos.length-1) {
+                        videoIndex = videoIndex + 1
+                    }
+                    else {
+                        videoIndex = 0
+                    }
+                    videoNode.src = queuedVideos[videoIndex]
+                }
+                var inputNode = document.querySelector('input')
+                inputNode.addEventListener('change', queueVideoFiles, false)
+                videoNode.addEventListener('ended', nextVideo, false);
+            })()
+        </script>
     @elseif ($ad_type == 'carousel')
         <div id="fqCarousel" class="carousel slide" data-ride="carousel" data-interval="<?php print $carousel_delay; ?>" style="min-height: 550px;">
             <!-- Wrapper for slides -->

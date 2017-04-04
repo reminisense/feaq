@@ -267,7 +267,7 @@ class BroadcastController extends BaseController{
     if ($ad_type == 'carousel') {
       $display = '1-';
     }
-    elseif ($ad_type == 'internet_tv') {
+    elseif ($ad_type == 'internet_tv' || $ad_type == 'local_video') {
       $display = '2-';
     }
     else {
