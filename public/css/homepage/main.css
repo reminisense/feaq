@@ -197,6 +197,10 @@ section {
   .pre-footer .socials img {
     width: 40px;
     margin-right: 2px; }
+  .pre-footer a {
+    color: #fff;
+    text-decoration: none;
+   }
 
 footer {
   background-color: #181e22;

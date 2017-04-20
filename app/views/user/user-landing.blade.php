@@ -79,6 +79,7 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 {{--<li><a href="#" ng-click="login()" id="nav-fb" style="display:none">Login with Facebook <span class="sr-only">(current)</span></a></li>--}}
+                <li><a href="http://188.166.230.31/" >Articles</a></li>
                 <li><a href="/business">FeatherQ for Business</a></li>
                 <li id="login" class="dropdown">
                     <a href="#" id="login-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -306,7 +307,7 @@
     <div class="container">
         <div class="clearfix text-center">
             <div class="col-md-12">
-                <p>&copy; 2015 : Reminisense Corporation</p>
+                <p>2015  : <a href="http://reminisense.com/" target="_blank">Reminisense Corporation</a></p>
             </div>
         </div>
     </div>

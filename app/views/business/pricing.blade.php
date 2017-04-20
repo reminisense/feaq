@@ -235,7 +235,7 @@
 <div class="clearfix">
     <footer class="text-center">
         <div class="container">
-            <p>&copy; 2015 : Reminisense Corporation</p>
+            <p>2015  : <a href="http://reminisense.com/" target="_blank">Reminisense Corporation</a></p>
         </div>
     </footer>
 </div>

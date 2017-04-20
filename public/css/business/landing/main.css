@@ -273,6 +273,9 @@ footer {
   footer p {
     margin: 0;
     color: #fff; }
+footer a {
+    color: #fff;
+    text-decoration: none;}
 
 ul.nav {
   -webkit-border-radius: 24px;
