@@ -22,9 +22,9 @@ class Helper extends Eloquent
         // is the same with the ones in their database.
         // This will save us from the exploit of a post request with bogus details
         $fb = new Facebook\Facebook(array(
-            'app_id' => '1577295149183234',
-            'app_secret' => '23a15a243f7ce66a648ec6c48fa6bee9',
-            'default_graph_version' => 'v2.4',
+            'app_id' => '1574952899417459',
+            'app_secret' => '9a1e18932bdb13b32066c891581f9384',
+            'default_graph_version' => 'v2.3',
         ));
         try {
             // Returns a `Facebook\FacebookResponse` object
