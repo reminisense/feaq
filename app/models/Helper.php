@@ -16,27 +16,28 @@ use utils\RandomStringGenerator;
 class Helper extends Eloquent
 {
 
-  public static function VerifyFB($accessToken) {
-    // Call Facebook and let them verify if the information sent by the user
-    // is the same with the ones in their database.
-    // This will save us from the exploit of a post request with bogus details
-    $fb = new Facebook\Facebook(array(
-      'app_id' => '1574952899417459',
-      'app_secret' => '9a1e18932bdb13b32066c891581f9384',
-      'default_graph_version' => 'v2.4',
-    ));
-    try {
-      // Returns a `Facebook\FacebookResponse` object
-      $response = $fb->get('/me', $accessToken); // Use the access token retrieved by JS login
-      return $response;
-    } catch(Facebook\Exceptions\FacebookResponseException $e) {
-      //return json_encode(array('message' => $e->getMessage()));
-      Auth::logout();
-    } catch(Facebook\Exceptions\FacebookSDKException $e) {
-        //return json_encode(array('message' => $e->getMessage()));
-        Auth::logout();
+    public static function VerifyFB($accessToken)
+    {
+        // Call Facebook and let them verify if the information sent by the user
+        // is the same with the ones in their database.
+        // This will save us from the exploit of a post request with bogus details
+        $fb = new Facebook\Facebook(array(
+            'app_id' => '1574952899417459',
+            'app_secret' => '9a1e18932bdb13b32066c891581f9384',
+            'default_graph_version' => 'v2.3',
+        ));
+        try {
+            // Returns a `Facebook\FacebookResponse` object
+            $response = $fb->get('/me', $accessToken); // Use the access token retrieved by JS login
+            return $response;
+        } catch (Facebook\Exceptions\FacebookResponseException $e) {
+            //return json_encode(array('message' => $e->getMessage()));
+            Auth::logout();
+        } catch (Facebook\Exceptions\FacebookSDKException $e) {
+            //return json_encode(array('message' => $e->getMessage()));
+            Auth::logout();
+        }
     }
-  }
 
     /**
      * Generates random 4-character raw_code.
@@ -51,7 +52,7 @@ class Helper extends Eloquent
 
         return $raw_id;
     }
-    
+
     /**
      * Returns true if raw_code exists in database.
      * @param $rawCode
