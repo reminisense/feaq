@@ -110,7 +110,8 @@ class UserController extends BaseController{
           return View::make('user.dashboardnew');
         }
         else {
-          return View::make('user.user-landing');
+//          return View::make('user.user-landing');
+            return View::make('business.business-landing');
         }
     }
 
