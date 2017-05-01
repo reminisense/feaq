@@ -11,7 +11,8 @@
 		"twilio/sdk": "^4.2",
         "facebook/php-sdk-v4" : "~5.0",
 	    "phpunit/phpunit": "4.0.*",
-        "phpoffice/phpexcel": "dev-develop"
+        "phpoffice/phpexcel": "dev-develop",
+		"mike42/escpos-php": "^1.5"
 	},
 	"autoload": {
 		"classmap": [
