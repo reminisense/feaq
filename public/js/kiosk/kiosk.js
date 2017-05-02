@@ -54,7 +54,7 @@
                   $('#services_list').empty();
                   res_array = response.business_services;
                   $scope.services = res_array[0];
-                $scope.active_service_id = $scope.services[0].service_id
+                $scope.active_service_id = $scope.services[0].service_id;
                   $scope.getNextNumber();
               });
           }
