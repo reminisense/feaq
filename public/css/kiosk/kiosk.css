@@ -8,7 +8,7 @@
 }
 
 .number-to-issue {
-  font-size: 400px;
+  font-size: 200px;
   font-weight: bold;
   color: darkorange;
   line-height: normal;
@@ -16,6 +16,7 @@
 
 #kiosk-wrapper .issue-number {
   text-align: center;
+  margin-top: 120px;
 }
 
 #get-number {
@@ -51,6 +52,16 @@
   background-color: #daebf2;
 }
 
+.nav-tabs.nav-justified>li {
+  width: 33.33%;
+  float: left;
+  list-style: none;
+}
+
+.nav-tabs.nav-justified>li>a {
+  border-radius: 0px 0px 0px 0px;
+}
+
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li>a:hover, .nav-tabs>li.active>a:hover {
   background-color: #00ba8b;
   color: #fff;
@@ -64,4 +75,5 @@
   background-color: #333a44;
   font-size: 20px;
   font-family: 'ralewaymedium';
+  height: 60px;
 }

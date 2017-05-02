@@ -1,9 +1,9 @@
 ************
 FeatherQ Demo
 ************
-Service:   Senior Citizen
-Priority Number:   F502
-Confirmation Code:   1AFA
+Service:   OPD ATTENDANT
+Priority Number:   G603
+Confirmation Code:   6C4B
 ************
 
 
