@@ -50,7 +50,7 @@
           var res_array = [];
 
           if(typeof business_id != 'undefined'){
-              $http.get('/services/business/' + business_id).success(function(response){
+            $http.get('/services/business/' + business_id).success(function(response){
                   $('#services_list').empty();
                   res_array = response.business_services;
                   $scope.services = res_array[0];
@@ -70,7 +70,7 @@
       $scope.getIssueNumber = function(){
 
           var data = {
-              priority_number : $scope.next_number,
+              priority_number : $scope.next_number.replace(/\D/g,''),
               name : "",
               phone : "",
               email : ""

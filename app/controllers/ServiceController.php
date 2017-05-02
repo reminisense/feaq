@@ -66,4 +66,19 @@ class ServiceController extends Controller{
         }
     }
 
+//    public function getKioskList($business_id) {
+//        $business_services = [];
+//        $business_terminals = [];
+//        $branches = Branch::getBranchesByBusinessId($business_id);
+//        foreach($branches as $branch){
+//            $services = Service::getServicesByBranchId($branch->branch_id);
+//            array_push($business_services, $services);
+//            foreach ($services as $service_instance) {
+//                $terminals = Terminal::getTerminalsByServiceId($service_instance->service_id);
+//                array_push($business_terminals, $terminals);
+//            }
+//        }
+//        return json_encode(['business_services' => $business_services, 'business_terminals' => $business_terminals]);
+//    }
+
 }

@@ -119,6 +119,7 @@ class Service extends Eloquent{
     public static function serviceNameExists($name, $service_id){
         $branch_id = Service::branchId($service_id);
         return Service::branchServiceNameExists($name, $branch_id);
+//        return FALSE;
     }
 
     public static function branchServiceNameExists($name, $branch_id){
@@ -131,5 +132,6 @@ class Service extends Eloquent{
             ->where('service.name', '=', $name)
             ->where('business.business_id', '=', $business_id)
             ->exists();
+//        return FALSE;
     }
 }
