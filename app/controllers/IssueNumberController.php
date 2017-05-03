@@ -153,7 +153,7 @@ class IssueNumberController extends BaseController{
         $servName = "Service:   " . Service::name($service_id) . "\n";
         $pNumVal = "Priority Number:   " . $number["priority_number"] . "\n";
         $confirmVal = "Confirmation Code:   " . $number["confirmation_code"] . "\n";
-        File::put($filePath, $borderLine . $bizName . $borderLine . $servName . $pNumVal . $confirmVal . $borderLine . "\n\n\n");
+        File::put($filePath, $borderLine . $bizName . $servName . $pNumVal . $confirmVal . $borderLine . "\n\n\n");
         //exec("lpr -o raw -H localhost -P STMicroelectronics_USB_Portable_Printer " . $filePath);
         exec("lpr -o raw -H " . $host . " -P " . $printerName . " " . $filePath);
     }

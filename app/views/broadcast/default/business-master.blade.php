@@ -20,6 +20,7 @@
     <script src="/js/jquery-1.11.2.min.js"></script>
     <script src="/js/angular.min.js"></script> {{-- RDH Using CDN for Angular JS File --}}
 
+    <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
     <script type="text/javascript" src="/js/jquery.marquee.min.js"></script>
     <script type="text/javascript" src="/js/google-analytics/googleAnalytics.js"></script>
     <script type="text/javascript" src="/js/google-analytics/ga-broadcast.js"></script>
