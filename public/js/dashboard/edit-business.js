@@ -423,6 +423,23 @@ var eb = {
         $scope.remote_time = null;
         $scope.process_queue_layout = 0;
 
+        $scope.box1_service = 0;
+        $scope.box2_service = 0;
+        $scope.box3_service = 0;
+        $scope.box4_service = 0;
+        $scope.box5_service = 0;
+        $scope.box6_service = 0;
+        $scope.box7_service = 0;
+        $scope.box8_service = 0;
+        $scope.box9_service = 0;
+        $scope.box10_service = 0;
+        $scope.box11_service = 0;
+        $scope.box12_service = 0;
+        $scope.box13_service = 0;
+        $scope.box14_service = 0;
+        $scope.box15_service = 0;
+        $scope.box16_service = 0;
+
         $scope.service_settings = {
             service_id: null,
             number_prefix : '',
@@ -1109,8 +1126,7 @@ var eb = {
                 }
             });
 
-          alert
-
+            alert($scope.box4_service);
             $http.post('/broadcast/save-settings', {
                 business_id : business_id,
                 adspace_size : $('#ad-width').css('width'),
@@ -1235,13 +1251,13 @@ var eb = {
                     $('.a'+response.ad_type).show();
 
                     // default number of boxes and function to increase or decrease
-                    for (var qx = 0; qx < response.display.split("-")[1]; qx++) {
-                        $($(".q-nums-wrap")).append('<div class="qbox"><div class="pull-left half">'+(qx+1)+'</div></div>');
-                    }
+                    // for (var qx = 0; qx < response.display.split("-")[1]; qx++) {
+                    //     $($(".q-nums-wrap")).append('<div class="qbox"><div class="pull-left half">'+(qx+1)+'</div></div>');
+                    // }
 
                     $(".q-add").click(function(e){
                         e.preventDefault();
-                        if(qx < 10){
+                        if(qx < 16){
                             qx++;
                             $($(".q-nums-wrap")).append('<div class="qbox"><div class="pull-left half">'+qx+'</div></div>');
                         }

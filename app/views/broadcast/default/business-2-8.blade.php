@@ -5,64 +5,79 @@
         <div class="title">
             <h3><span id="callednums-title">{{ $business_name }}</span></h3>
         </div>
-        <div class="parent-num">
-            <div class="numbers t@{{ rank1 }} @{{ color1 }} ">
-                <div class="wrap-nums">
-                    <p class="callnum ng-binding">@{{ box1 }}</p>
-                    <p class="service ng-binding">@{{ service1 }}</p>
-                    <p class="terminal ng-binding">@{{ name1 }}</p>
-                    <p class="terminal ng-binding">@{{ user1 }}</p>
-                    <!-- below is the same color as parent div -->
-                    <div class="dark-orange blink-num"></div>
+        <div class="row services-container four-rows">
+            <div class="col-md-6 service1 service-box">
+                <div class="row title">CONSULTATION - PWD</div>
+                <div class="row number-list">
+                    <div class="col-md-8 current dark-orange blink-num">W777<p style="margin-top: -10px; font-size: 26px;">Desk 1</p></div>
+                    <div class="col-md-4">
+                        <marquee>A4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A9</marquee>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 service1 service-box">
+                <div class="row title">CONSULTATION - Senior Citizen</div>
+                <div class="row number-list">
+                    <div class="col-md-8 current dark-orange blink-num">W777<p style="margin-top: -10px; font-size: 26px;">Desk 1</p></div>
+                    <div class="col-md-4">
+                        <marquee>A4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A9</marquee>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 service1 service-box">
+                <div class="row title">CONSULTATION - General</div>
+                <div class="row number-list">
+                    <div class="col-md-8 current dark-orange blink-num">W777<p style="margin-top: -10px; font-size: 26px;">Desk 1</p></div>
+                    <div class="col-md-4">
+                        <marquee>A4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A9</marquee>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 service1 service-box">
+                <div class="row title">CONSULTATION - General</div>
+                <div class="row number-list">
+                    <div class="col-md-8 current dark-orange blink-num">W777<p style="margin-top: -10px; font-size: 26px;">Desk 1</p></div>
+                    <div class="col-md-4">
+                        <marquee>A4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A9</marquee>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 service1 service-box">
+                <div class="row title">CONSULTATION - General</div>
+                <div class="row number-list">
+                    <div class="col-md-8 current dark-orange blink-num">W777<p style="margin-top: -10px; font-size: 26px;">Desk 1</p></div>
+                    <div class="col-md-4">
+                        <marquee>A4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A9</marquee>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 service2 service-box">
+                <div class="row title">MOTHER & CHILD - PWD</div>
+                <div class="row number-list">
+                    <div class="col-md-8 current dark-orange blink-num">W777<p style="margin-top: -10px; font-size: 26px;">Desk 1</p></div>
+                    <div class="col-md-4">
+                        <marquee>A4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A9</marquee>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 service2 service-box">
+                <div class="row title">MOTHER & CHILD - Senior Citizen</div>
+                <div class="row number-list">
+                    <div class="col-md-8 current dark-orange blink-num">W777<p style="margin-top: -10px; font-size: 26px;">Desk 1</p></div>
+                    <div class="col-md-4">
+                        <marquee>A4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A9</marquee>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 service2 service-box">
+                <div class="row title">MOTHER & CHILD - PWD</div>
+                <div class="row number-list">
+                    <div class="col-md-8 current dark-orange blink-num">W777<p style="margin-top: -10px; font-size: 26px;">Desk 1</p></div>
+                    <div class="col-md-4">
+                        <marquee>A4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A9</marquee>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="child-nums eight-nums">
-            <div class="wrap-nums">
-                <div class="number @{{ color2 }}">
-                    <p>@{{ box2 }}</p>
-                    <p class="service ng-binding">@{{ service2 }}</p>
-                    <p class="terminal ng-binding">@{{ name2 }}</p>
-                    <p class="terminal ng-binding">@{{ user2 }}</p>
-                </div>
-                <div class="number @{{ color3 }}">
-                    <p>@{{ box3 }}</p>
-                    <p class="service ng-binding">@{{ service3 }}</p>
-                    <p class="terminal ng-binding">@{{ name3 }}</p>
-                    <p class="terminal ng-binding">@{{ user3 }}</p>
-                </div>
-                <div class="number @{{ color4 }}">
-                    <p>@{{ box4 }}</p>
-                    <p class="service ng-binding">@{{ service4 }}</p>
-                    <p class="terminal ng-binding">@{{ name4 }}</p>
-                    <p class="terminal ng-binding">@{{ user4 }}</p>
-                </div>
-                <div class="number @{{ color5 }}">
-                    <p>@{{ box5 }}</p>
-                    <p class="service ng-binding">@{{ service5 }}</p>
-                    <p class="terminal ng-binding">@{{ name5 }}</p>
-                    <p class="terminal ng-binding">@{{ user5 }}</p>
-                </div>
-                <div class="number @{{ color6 }}">
-                    <p>@{{ box6 }}</p>
-                    <p class="service ng-binding">@{{ service6 }}</p>
-                    <p class="terminal ng-binding">@{{ name6 }}</p>
-                    <p class="terminal ng-binding">@{{ user6 }}</p>
-                </div>
-                <div class="number @{{ color7 }}">
-                    <p>@{{ box7 }}</p>
-                    <p class="service ng-binding">@{{ service7 }}</p>
-                    <p class="terminal ng-binding">@{{ name7 }}</p>
-                    <p class="terminal ng-binding">@{{ user7 }}</p>
-                </div>
-                <div class="number @{{ color8 }}">
-                    <p>@{{ box8 }}</p>
-                    <p class="service ng-binding">@{{ service8 }}</p>
-                    <p class="terminal ng-binding">@{{ name8 }}</p>
-                    <p class="terminal ng-binding">@{{ user8 }}</p>
-                </div>
-            </div>
-        </div>
-        @include('broadcast.default.queue-now')
     </div>
 </div>

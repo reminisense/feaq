@@ -111,7 +111,7 @@
                             @endif
                         </div>
                         <div class="col-md-7 getnum-info">
-                            <div class="ng-binding">
+                            <div class="">
                                 <h1 class="nomg">@{{ get_num }}</h1>
                                 @if($allow_remote)
                                 @if(Auth::check())

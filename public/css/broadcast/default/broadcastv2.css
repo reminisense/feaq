@@ -532,6 +532,228 @@
 
 
 
+.services-container {
+    font-family: 'Lato', sans-serif;
+    color: #fff;
+    margin: 0px;
+}
+
+.service-box {
+    -webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);
+    border-right: 3px solid white;
+}
+
+.service-box .title {
+    background-color: black;
+}
+
+.eight-rows .service-box {
+    height: 11.7vh;
+}
+
+.fifty .eight-rows .title {
+    font-size: 1.6vw;
+    display: block;
+    font-weight: 800;
+    line-height: 1.8vw;
+    height: 28%;
+}
+
+.fifty .eight-rows .current {
+    font-size: 2.8vw;
+    margin: 0px;
+}
+
+.fifty .eight-rows .number-list {
+    font-size: 2.55vw;
+    font-weight: 900;
+}
+
+.seven-rows .service-box {
+    height: 13.4vh;
+}
+
+.fifty .seven-rows .title {
+    font-size: 1.6vw;
+    display: block;
+    font-weight: 800;
+    line-height: 1.8vw;
+    height: 24%;
+}
+
+.fifty .seven-rows .current {
+    font-size: 3.25vw;
+    margin: 0px;
+}
+
+.fifty .seven-rows .number-list {
+    font-size: 3.25vw;
+    font-weight: 900;
+}
+
+.six-rows .service-box {
+    height: 15.6vh;
+}
+
+.fifty .six-rows .title {
+    font-size: 2.0vw;
+    display: block;
+    font-weight: 800;
+    line-height: 2.0vw;
+    height: 44%;
+}
+
+.fifty .six-rows .current {
+    font-size: 2.7vw;
+    margin: 0px;
+}
+
+.fifty .six-rows .number-list {
+    font-size: 2.7vw;
+    font-weight: 900;
+}
+
+.five-rows .service-box {
+    height: 18.75vh;
+}
+
+.fifty .five-rows .title {
+    font-size: 2.4vw;
+    display: block;
+    font-weight: 800;
+    line-height: 2.3vw;
+    height: 44%;
+}
+
+.fifty .five-rows .current {
+    font-size: 3.25vw;
+    margin: 0px;
+}
+
+.fifty .five-rows .number-list {
+    font-size: 3.25vw;
+    font-weight: 900;
+}
+
+.four-rows .service-box {
+    height: 23.45vh;
+}
+
+.fifty .four-rows .title {
+    font-size: 2.8vw;
+    display: block;
+    font-weight: 800;
+    line-height: 2.6vw;
+    height: 40%;
+}
+
+.fifty .four-rows .current {
+    font-size: 4.4vw;
+    margin: 0px;
+}
+
+.fifty .four-rows .number-list {
+    font-size: 4.4vw;
+    font-weight: 900;
+}
+
+.three-rows .service-box {
+    height: 31.2vh;
+}
+
+.fifty .three-rows .title {
+    font-size: 2.8vw;
+    display: block;
+    font-weight: 800;
+    line-height: 2.6vw;
+    height: 30%;
+}
+
+.fifty .three-rows .current {
+    font-size: 3.5vw;
+    margin: 0px;
+}
+
+.fifty .three-rows .number-list {
+    font-size: 3.5vw;
+    font-weight: 900;
+}
+
+.two-rows .service-box {
+    height: 46.9vh;
+}
+
+.fifty .two-rows .title {
+    font-size: 2.8vw;
+    display: block;
+    font-weight: 800;
+    line-height: 2.6vw;
+    height: 21%;
+}
+
+.fifty .two-rows .current {
+    font-size: 6vw;
+    margin: 0px;
+}
+
+.fifty .two-rows .number-list {
+    font-size: 6vw;
+    font-weight: 900;
+}
+
+.one-rows .service-box {
+    height: 93.5vh;
+}
+
+.fifty .one-rows .title {
+    font-size: 4vw;
+    display: block;
+    font-weight: 800;
+    line-height: 4.4vw;
+    height: 17%;
+}
+
+.fifty .one-rows .current {
+    font-size: 12vw;
+    margin: 0px;
+}
+
+.fifty .one-rows .number-list {
+    font-size: 12vw;
+    font-weight: 900;
+}
 
 
 
+.fifty .service1 {
+    background-color: #7acaad;
+}
+
+.fifty .service2 {
+    background-color: #f9c44d;
+}
+
+.fifty .service3 {
+    background-color: #ed8c5c;
+}
+
+.fifty .service4 {
+    background-color: #542437;
+}
+
+.fifty .service5 {
+    background-color: #887aac;
+}
+
+.fifty .service6 {
+    background-color: #C02942;
+}
+
+.fifty .service7 {
+    background-color: #FCA78B;
+}
+
+.fifty .service8 {
+    background-color: #5d8dbc;
+}

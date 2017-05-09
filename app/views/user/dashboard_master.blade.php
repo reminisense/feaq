@@ -373,7 +373,7 @@
                         </ul>
                     </div>
                     <div class="btn-group" role="group">
-                        <button id="btnTimeOpen" type="button" class="btn btn-default dropdown-toggle ng-binding" data-toggle="dropdown" aria-expanded="false">
+                        <button id="btnTimeOpen" type="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown" aria-expanded="false">
                             Time Open
                             <span class="caret"></span>
                         </button>
