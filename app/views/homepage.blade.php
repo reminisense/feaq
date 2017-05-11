@@ -28,7 +28,7 @@
   <script type="text/javascript" src="/js/jquery.plugin.js"></script>
   <script type="text/javascript" src="/js/jquery.timeentry.js"></script>
   <script type="text/javascript" src="/js/search-business.js"></script>
-  <script type="text/javascript" src="/js/user/Usertracker.js"></script>
+  {{--<script type="text/javascript" src="/js/user/Usertracker.js"></script>--}}
   <script type="text/javascript" src="/js/slick.min.js"></script>
 
   <script src="/js/google-analytics/googleAnalytics.js"></script>

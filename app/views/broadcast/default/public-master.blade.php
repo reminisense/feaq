@@ -180,7 +180,7 @@
 <script type="text/javascript" src="/js/broadcast/socket.js"></script>
 <script src="/js/broadcast/default/public-{{ $box_num }}.js"></script>
 
-<script src="/js/user/Usertracker.js"></script>
+{{--<script src="/js/user/Usertracker.js"></script>--}}
 <script src="/js/process-queue/process-queue.js"></script>
 <script src="/js/process-queue/issue-number-angular.js"></script>
 

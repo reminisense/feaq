@@ -57,7 +57,7 @@
     <script type="text/javascript" src="/js/jquery.plugin.js"></script>
     <script type="text/javascript" src="/js/jquery.timeentry.js"></script>
     <script type="text/javascript" src="/js/search-business.js"></script>
-    <script type="text/javascript" src="/js/user/Usertracker.js"></script>
+    {{--<script type="text/javascript" src="/js/user/Usertracker.js"></script>--}}
 
 </head>
 <body id="user-landing" ng-app="FeatherQ" ng-cloak>

@@ -530,7 +530,7 @@
 .twenty .business-spec .qnow-nums.two-nums      { height: 16%; height: 16vh; }
 .twenty .business-spec .child-nums.four-nums .number {padding: 0.8vw 1vw;}
 
-
+/* PGOC Broadcast Screen */
 
 .services-container {
     font-family: 'Lato', sans-serif;
@@ -724,36 +724,18 @@
     font-weight: 900;
 }
 
-
-
-.fifty .service1 {
-    background-color: #7acaad;
+#currently-called-number .modal-header {
+  background-color: #000;
 }
 
-.fifty .service2 {
-    background-color: #f9c44d;
+#currently-called-number .modal-title {
+  color: #fff; font-size: 2.0vw; display: block; font-weight: 800; line-height: 2.0vw
 }
 
-.fifty .service3 {
-    background-color: #ed8c5c;
+#currently-called-number .modal-number {
+  font-size: 25vh; font-weight: 800; text-align: center;
 }
 
-.fifty .service4 {
-    background-color: #542437;
-}
-
-.fifty .service5 {
-    background-color: #887aac;
-}
-
-.fifty .service6 {
-    background-color: #C02942;
-}
-
-.fifty .service7 {
-    background-color: #FCA78B;
-}
-
-.fifty .service8 {
-    background-color: #5d8dbc;
+#currently-called-number .modal-terminal {
+  font-size: 10vh; font-weight: 800; text-align: center
 }

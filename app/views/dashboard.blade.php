@@ -37,7 +37,7 @@
     <script src="/js/ngFeatherQ.js"></script>
     <script src="/js/ngFacebook.js"></script>
     <script src="/js/ngAutocomplete.js"></script>
-    <script src="/js/user/Usertracker.js"></script> {{-- ARA For user tracking --}}
+    {{--<script src="/js/user/Usertracker.js"></script> --}}{{-- ARA For user tracking --}}
     <script src="/js/ngDirectives.js"></script>     {{-- ARA add angularjs directives --}}
     <script src="/js/dashboard/points-of-interest.js"></script> {{-- ARA points of interest --}}
     <script src="/js/loading-bar.min.js"></script>

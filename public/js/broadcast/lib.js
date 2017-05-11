@@ -25,7 +25,7 @@ var announceNumberFromBlank = function ($scope, response, box_num, rank_num) {
     if ($scope[box_num] != response[box_num].number && $scope[rank_num] != "") {
       callNumberSound('call-number-sound');
     }
-    if(box_num == "box1"){
+    if (box_num == "box1") {
       responsiveVoice.speak(response[box_num].number, "UK English Male");
     }
   }
@@ -61,11 +61,19 @@ var writeQueueNow = function ($scope, response) {
   }
 };
 
-var getNum = function($scope, response) {
+var getNum = function ($scope, response) {
   var service_id = $('#services').val();
-  if(service_id){
+  if (service_id) {
     $scope.get_num = response.services[service_id].get_num;
-  }else{
-    $scope.get_num = (response.get_num === "") ? "-": response.get_num;
+  } else {
+    $scope.get_num = (response.get_num === "") ? "-" : response.get_num;
   }
+};
+
+var writeNumberToBoxes = function ($scope, response, box_num, service, current, terminal, color, called) {
+  $scope[service] = response[box_num].service_name;
+  $scope[current] = response[box_num].current_number;
+  $scope[terminal] = response[box_num].terminal;
+  $scope[color] = response[box_num].color;
+  $scope[called] = response[box_num].called_numbers;
 };
