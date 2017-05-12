@@ -26,7 +26,7 @@ var announceNumberFromBlank = function ($scope, response, box_num, rank_num) {
       callNumberSound('call-number-sound');
     }
     if (box_num == "box1") {
-      responsiveVoice.speak(response[box_num].number, "UK English Male");
+      responsiveVoice.speak(response[box_num].number, "UK English Male", {rate: .4, pitch: .9});
     }
   }
 };
