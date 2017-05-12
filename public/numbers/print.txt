@@ -1,8 +1,8 @@
 ************
 FeatherQ Demo
-Service:   REGISTRATION - Senior Citizen
-Priority Number:   U21
-Confirmation Code:   0D7D
+Service:   MOTHER and CHILD - PWD
+Priority Number:   C105
+Confirmation Code:   71A3
 ************
 
 

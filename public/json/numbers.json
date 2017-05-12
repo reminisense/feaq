@@ -42,9 +42,9 @@
     "box6": {
         "service_id": "4",
         "service_name": "MOTHER and CHILD - PWD",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
+        "current_number": "C105",
+        "terminal": "Desk 3",
+        "color": "borange",
         "called_numbers": ""
     },
     "box7": {
@@ -74,17 +74,17 @@
     "box10": {
         "service_id": "16",
         "service_name": "REGISTRATION - Senior Citizen",
-        "current_number": "U21",
-        "terminal": "Front Desk 4",
-        "color": "FCA78B",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
         "called_numbers": ""
     },
     "box11": {
         "service_id": "13",
         "service_name": "OPD ATTENDANT",
-        "current_number": "R16",
-        "terminal": "Front Desk 1",
-        "color": "x78250A",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
         "called_numbers": ""
     },
     "box12": {
@@ -114,14 +114,14 @@
     "box15": {
         "service_id": "1",
         "service_name": "CONSULTATION - PWD",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
+        "current_number": "A4",
+        "terminal": "Desk 1",
+        "color": "cyan",
+        "called_numbers": "A3 .. "
     },
-    "now_num": "U21",
-    "now_service": "REGISTRATION - Senior Citizen",
-    "now_terminal": "Front Desk 4",
-    "now_color": "FCA78B",
+    "now_num": "C105",
+    "now_service": "MOTHER and CHILD - PWD",
+    "now_terminal": "Desk 3",
+    "now_color": "borange",
     "display": "2-15"
 }

@@ -186,7 +186,7 @@
       </div>
       <div class="modal-body @{{ now_color }}">
         <div class="modal-number">
-          W777
+          @{{ now_number }}
           <p class="modal-terminal">
             @{{ now_terminal }}
           </p>
