@@ -22,8 +22,7 @@
         <div class="row title">@{{ service2 }}</div>
         <div class="row number-list">
           <div class="col-md-6 current dark-orange blink-num">@{{ current2 }}
-            <p class="terminal"
-               style="margin-top: -10px; font-size: 20px;">@{{ terminal2 }}</p>
+            <p class="terminal" style="margin-top: -10px; font-size: 20px;">@{{ terminal2 }}</p>
           </div>
           <div class="col-md-6">
             <marquee>@{{ called2 }}</marquee>
@@ -34,8 +33,7 @@
         <div class="row title">@{{ service3 }}</div>
         <div class="row number-list">
           <div class="col-md-6 current dark-orange blink-num">@{{ current3 }}
-            <p class="terminal"
-               style="margin-top: -10px; font-size: 20px;">@{{ terminal3 }}</p>
+            <p class="terminal" style="margin-top: -10px; font-size: 20px;">@{{ terminal3 }}</p>
           </div>
           <div class="col-md-6">
             <marquee>@{{ called3 }}</marquee>
@@ -46,8 +44,7 @@
         <div class="row title">@{{ service4 }}</div>
         <div class="row number-list">
           <div class="col-md-6 current dark-orange blink-num">@{{ current4 }}
-            <p class="terminal"
-               style="margin-top: -10px; font-size: 20px;">@{{ terminal4 }}</p>
+            <p class="terminal" style="margin-top: -10px; font-size: 20px;">@{{ terminal4 }}</p>
           </div>
           <div class="col-md-6">
             <marquee>@{{ called4 }}</marquee>
@@ -58,8 +55,7 @@
         <div class="row title">@{{ service5 }}</div>
         <div class="row number-list">
           <div class="col-md-6 current dark-orange blink-num">@{{ current5 }}
-            <p class="terminal"
-               style="margin-top: -10px; font-size: 20px;">@{{ terminal5 }}</p>
+            <p class="terminal" style="margin-top: -10px; font-size: 20px;">@{{ terminal5 }}</p>
           </div>
           <div class="col-md-6">
             <marquee>@{{ called5 }}</marquee>
@@ -69,8 +65,8 @@
       <div class="col-md-6 service-box @{{ color6 }}">
         <div class="row title">@{{ service6 }}</div>
         <div class="row number-list">
-          <div class="col-md-6 current dark-orange blink-num">@{{ current6 }}<p class="terminal"
-                                                                                style="margin-top: -10px; font-size: 20px;">@{{ terminal6 }}</p>
+          <div class="col-md-6 current dark-orange blink-num">@{{ current6 }}
+            <p class="terminal" style="margin-top: -10px; font-size: 20px;">@{{ terminal6 }}</p>
           </div>
           <div class="col-md-6">
             <marquee>@{{ called6 }}</marquee>
@@ -81,8 +77,7 @@
         <div class="row title">@{{ service7 }}</div>
         <div class="row number-list">
           <div class="col-md-6 current dark-orange blink-num">@{{ current7 }}
-            <p class="terminal"
-               style="margin-top: -10px; font-size: 20px;">@{{ terminal7 }}</p>
+            <p class="terminal" style="margin-top: -10px; font-size: 20px;">@{{ terminal7 }}</p>
           </div>
           <div class="col-md-6">
             <marquee>@{{ called7 }}</marquee>
@@ -93,8 +88,7 @@
         <div class="row title">@{{ service8 }}</div>
         <div class="row number-list">
           <div class="col-md-6 current dark-orange blink-num">@{{ current8 }}
-            <p class="terminal"
-               style="margin-top: -10px; font-size: 20px;">@{{ terminal8 }}</p>
+            <p class="terminal" style="margin-top: -10px; font-size: 20px;">@{{ terminal8 }}</p>
           </div>
           <div class="col-md-6">
             <marquee>@{{ called8 }}</marquee>
@@ -105,8 +99,7 @@
         <div class="row title">@{{ service9 }}</div>
         <div class="row number-list">
           <div class="col-md-6 current dark-orange blink-num">@{{ current9 }}
-            <p class="terminal"
-               style="margin-top: -10px; font-size: 20px;">@{{ terminal9 }}</p>
+            <p class="terminal" style="margin-top: -10px; font-size: 20px;">@{{ terminal9 }}</p>
           </div>
           <div class="col-md-6">
             <marquee>@{{ called9 }}</marquee>
@@ -117,8 +110,7 @@
         <div class="row title">@{{ service10 }}</div>
         <div class="row number-list">
           <div class="col-md-6 current dark-orange blink-num">@{{ current10 }}
-            <p class="terminal"
-               style="margin-top: -10px; font-size: 20px;">@{{ terminal10 }}</p>
+            <p class="terminal" style="margin-top: -10px; font-size: 20px;">@{{ terminal10 }}</p>
           </div>
           <div class="col-md-6">
             <marquee>@{{ called10 }}</marquee>
@@ -129,8 +121,7 @@
         <div class="row title">@{{ service11 }}</div>
         <div class="row number-list">
           <div class="col-md-6 current dark-orange blink-num">@{{ current11 }}
-            <p class="terminal"
-               style="margin-top: -10px; font-size: 20px;">@{{ terminal11 }}</p>
+            <p class="terminal" style="margin-top: -10px; font-size: 20px;">@{{ terminal11 }}</p>
           </div>
           <div class="col-md-6">
             <marquee>@{{ called11 }}</marquee>
@@ -141,8 +132,7 @@
         <div class="row title">@{{ service12 }}</div>
         <div class="row number-list">
           <div class="col-md-6 current dark-orange blink-num">@{{ current12 }}
-            <p class="terminal"
-               style="margin-top: -10px; font-size: 20px;">@{{ terminal12 }}</p>
+            <p class="terminal" style="margin-top: -10px; font-size: 20px;">@{{ terminal12 }}</p>
           </div>
           <div class="col-md-6">
             <marquee>@{{ called12 }}</marquee>
@@ -155,7 +145,7 @@
 
 <div class="modal fade" id="currently-called-number" tabindex="-1" role="dialog"
      aria-labelledby="currentlyCalledNumber">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span

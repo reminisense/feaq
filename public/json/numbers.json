@@ -2,102 +2,126 @@
     "box1": {
         "service_id": 15,
         "service_name": "REGISTRATION - PWD",
-        "current_number": "T1",
-        "terminal": "Front Desk 3",
-        "color": "x78250A",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
         "called_numbers": ""
     },
     "box2": {
-        "service_id": 16,
-        "service_name": "REGISTRATION - Senior Citizen",
-        "current_number": "U10",
-        "terminal": "Front Desk 4",
-        "color": "FCA78B",
-        "called_numbers": "U9 .. U8 .. "
+        "service_id": "5",
+        "service_name": "MOTHER and CHILD - Senior Citizen",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
+        "called_numbers": ""
     },
     "box3": {
-        "service_id": 13,
-        "service_name": "OPD ATTENDANT",
+        "service_id": "14",
+        "service_name": "OPD NURSE",
         "current_number": "",
         "terminal": "",
         "color": "",
         "called_numbers": ""
     },
     "box4": {
-        "service_id": 14,
-        "service_name": "OPD NURSE",
-        "current_number": "S3",
-        "terminal": "Front Desk 2",
-        "color": "FF745F",
-        "called_numbers": "S2 .. "
+        "service_id": "9",
+        "service_name": "DENTAL - PWD",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
+        "called_numbers": ""
     },
     "box5": {
-        "service_id": 4,
-        "service_name": "MOTHER and CHILD - PWD",
-        "current_number": "C103",
-        "terminal": "Desk 3",
-        "color": "borange",
-        "called_numbers": "C102 .. C101 .. "
+        "service_id": "10",
+        "service_name": "DENTAL - Senior Citizen",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
+        "called_numbers": ""
     },
     "box6": {
-        "service_id": 5,
-        "service_name": "MOTHER and CHILD - Senior Citizen",
-        "current_number": "D153",
-        "terminal": "Desk 4",
-        "color": "red",
-        "called_numbers": "D152 .. D151 .. "
+        "service_id": "4",
+        "service_name": "MOTHER and CHILD - PWD",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
+        "called_numbers": ""
     },
     "box7": {
-        "service_id": 9,
-        "service_name": "DENTAL - PWD",
-        "current_number": "G302",
-        "terminal": "Desk 5",
-        "color": "D95B43",
-        "called_numbers": "G303 .. G301 .. "
-    },
-    "box8": {
-        "service_id": 10,
-        "service_name": "DENTAL - Senior Citizen",
-        "current_number": "H352",
-        "terminal": "Desk 6",
-        "color": "C02942",
-        "called_numbers": "H351 .. "
-    },
-    "box9": {
-        "service_id": 11,
+        "service_id": "11",
         "service_name": "ANIMAL BITES - PWD",
         "current_number": "",
         "terminal": "",
         "color": "",
         "called_numbers": ""
     },
+    "box8": {
+        "service_id": "5",
+        "service_name": "MOTHER and CHILD - Senior Citizen",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
+        "called_numbers": ""
+    },
+    "box9": {
+        "service_id": "15",
+        "service_name": "REGISTRATION - PWD",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
+        "called_numbers": ""
+    },
     "box10": {
-        "service_id": 12,
-        "service_name": "ANIMAL BITES - Senior Citizen",
-        "current_number": "J451",
-        "terminal": "Desk 8",
-        "color": "x53777A",
+        "service_id": "16",
+        "service_name": "REGISTRATION - Senior Citizen",
+        "current_number": "U21",
+        "terminal": "Front Desk 4",
+        "color": "FCA78B",
         "called_numbers": ""
     },
     "box11": {
-        "service_id": 1,
-        "service_name": "CONSULTATION - PWD",
-        "current_number": "A1",
-        "terminal": "Desk 2",
-        "color": "blue",
+        "service_id": "13",
+        "service_name": "OPD ATTENDANT",
+        "current_number": "R16",
+        "terminal": "Front Desk 1",
+        "color": "x78250A",
         "called_numbers": ""
     },
     "box12": {
-        "service_id": 2,
-        "service_name": "CONSULTATION - Senior Citizen",
-        "current_number": "B54",
-        "terminal": "Desk 2",
-        "color": "yellow",
-        "called_numbers": "B53 .. B52 .. B51 .. "
+        "service_id": "14",
+        "service_name": "OPD NURSE",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
+        "called_numbers": ""
     },
-    "now_num": "J451",
-    "now_service": "ANIMAL BITES - Senior Citizen",
-    "now_terminal": "Desk 8",
-    "now_color": "x53777A",
-    "display": "2-12"
+    "box13": {
+        "service_id": "9",
+        "service_name": "DENTAL - PWD",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
+        "called_numbers": ""
+    },
+    "box14": {
+        "service_id": "10",
+        "service_name": "DENTAL - Senior Citizen",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
+        "called_numbers": ""
+    },
+    "box15": {
+        "service_id": "1",
+        "service_name": "CONSULTATION - PWD",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
+        "called_numbers": ""
+    },
+    "now_num": "U21",
+    "now_service": "REGISTRATION - Senior Citizen",
+    "now_terminal": "Front Desk 4",
+    "now_color": "FCA78B",
+    "display": "2-15"
 }

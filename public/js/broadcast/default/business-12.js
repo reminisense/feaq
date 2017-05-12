@@ -25,5 +25,5 @@ app.controller('nowServingCtrl', function ($scope, $http) {
     setTimeout(function() {$('#currently-called-number').modal('hide');}, 5000);
     callNumberSound('call-number-sound');
   });
-  
+
 });

@@ -729,11 +729,11 @@
 }
 
 #currently-called-number .modal-title {
-  color: #fff; font-size: 2.0vw; display: block; font-weight: 800; line-height: 2.0vw
+  color: #fff; font-size: 2.0vw; display: block; font-weight: 800; line-height: 2.0vw; text-align: center;
 }
 
 #currently-called-number .modal-number {
-  font-size: 25vh; font-weight: 800; text-align: center;
+  font-size: 35vh; font-weight: 800; text-align: center;
 }
 
 #currently-called-number .modal-terminal {

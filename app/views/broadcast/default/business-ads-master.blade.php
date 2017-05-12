@@ -1,14 +1,5 @@
 <div class="ads-area {{ $ad_class }} abs">
   <div class="top">
-      <div class="col-md-9 pull-right">
-          <select id="show-only-service" class="form-control">
-              <option value="0" service_id="0">- Select A Service -</option>
-              <option value="all" service_id="all">All</option>
-              <?php foreach ($service_filters as $count => $service): ?>
-                <option value="{{ $service->service_id }}" service_id="{{ $service->service_id }}">{{ $service->name }}</option>
-              <?php endforeach; ?>
-          </select>
-      </div>
       <a class="" href="#"><img src="/images/featherq-home-logo.png"></a>
   </div>
   <div class="vid-container">
