@@ -134,7 +134,6 @@
         };
 
         $scope.checkIssueSpecificErrors = function(priority_number, number_limit, issue){
-            time_format = /^([0-9]{2})\:([0-9]{2})([ ][aApP][mM])$/g;
             issue = issue != undefined ? issue : true;
             error = false;
             error_message = '';
@@ -147,6 +146,12 @@
             //    error = true;
             //    error_message += 'Priority number is invalid. ';
             //}
+
+            // check time assigned
+            if ($scope.time_assigned == null) {
+                error = true;
+                error_message += 'Time to Call value is invalid. ';
+            }
 
             if(number_limit != null && (priority_number > number_limit)){
                 error = true;
@@ -163,12 +168,6 @@
             if($scope.issue_specific_form.email.$error.email ){
                 error = true;
                 error_message += 'Invalid email format. ';
-            }
-
-            //check time assigned
-            if(time_format.test($scope.time_assigned) != true && $scope.time_assigned){
-                error = true;
-                error_message += 'Invalid time format. ';
             }
 
             try{
@@ -202,7 +201,7 @@
 
             if(!error && issue && confirm('Are you sure you want to get this number?')){
                 $scope.issue_specific_error = '';
-                $scope.issueSpecific($scope.priority_number, $scope.name, $scope.phone, $scope.email, $scope.time_assigned);
+                $scope.issueSpecific($scope.priority_number, $scope.name, $scope.phone, $scope.email, $scope.time_assigned.getTime());
             }else{
                 $scope.issue_specific_error = error_message;
                 setTimeout(function(){ $scope.issue_specific_error = '';}, 3000);
