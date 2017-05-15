@@ -32,7 +32,7 @@ class IssueNumberController extends BaseController {
     $name = Input::get('name');
     $phone = Input::get('phone');
     $email = Input::get('email');
-    $time_assigned = Input::get('time_assigned') ? strtotime(Input::get('time_assigned')) : 0;
+    $time_assigned = Input::get('time_assigned') ? Input::get('time_assigned') : 0;
     $terminal_id = QueueSettings::terminalSpecificIssue($service_id) ? $terminal_id : 0;
     $business_id = Business::getBusinessIdByServiceId($service_id);
 

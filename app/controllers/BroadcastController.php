@@ -522,10 +522,10 @@ class BroadcastController extends BaseController {
 
   // generate a representation for the combination of ad_type and num_boxes
   private function generateDisplayCode($ad_type, $num_boxes) {
-    if ($ad_type == 'carousel') {
-      $display = '1-';
-    }
-    elseif ($ad_type == 'internet_tv' || $ad_type == 'local_video') {
+//    if ($ad_type == 'carousel') {
+//      $display = '1-';
+//    }
+    if ($ad_type == 'carousel' || $ad_type == 'internet_tv' || $ad_type == 'local_video') {
       $display = '2-';
     }
     else {
