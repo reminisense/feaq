@@ -29,7 +29,7 @@ var announceNumberFromBlank = function ($scope, response, box_num, rank_num)
             callNumberSound('call-number-sound');
         }
         if (box_num == "box1") {
-            responsiveVoice.speak(response[box_num].number, "UK English Male");
+            responsiveVoice.speak(response[box_num].number, "UK English Male", {rate: .6, pitch: .9});
         }
     }
 };
@@ -41,28 +41,6 @@ var writeNumber = function ($scope, response, box_num, service_num, user_num, co
         $scope[service_num] = response[box_num].service;
         $scope[user_num] = response[box_num].user;
         $scope[color_num] = response[box_num].color;
-    }
-};
-
-var writeQueueNow = function ($scope, response)
-{
-    $scope.queue_now_services = [];
-    if ((typeof sessionStorage.service_id != "undefined" && sessionStorage.service_id != "0")
-      || (typeof sessionStorage.terminal_id != "undefined" && sessionStorage.terminal_id != "0")) {
-        $scope.queue_now_nums = [];
-        for (var queue_now_num in response["queue_now"]) {
-            $scope.queue_now_nums.push(response["queue_now"][queue_now_num].number);
-        }
-        $scope.queue_now_services.push($scope.queue_now_nums);
-    }
-    else {
-        for (var service_id in response["services"]) {
-            $scope.queue_now_nums = [];
-            for (var queue_now_num in response["services"][service_id]["queue_now"]) {
-                $scope.queue_now_nums.push(response["services"][service_id]["queue_now"][queue_now_num].number);
-            }
-            $scope.queue_now_services.push($scope.queue_now_nums);
-        }
     }
 };
 
@@ -83,5 +61,5 @@ var writeNumberToBoxes = function ($scope, response, box_num, service, current, 
     $scope[terminal] = response[box_num].terminal;
     $scope[color] = response[box_num].color;
     $scope[called] = response[box_num].called_numbers;
-    responsiveVoice.speak(response[box_num].current_number, "UK English Male");
+    responsiveVoice.speak(response[box_num].current_number, "UK English Male", {rate: .6, pitch: .9});
 };
