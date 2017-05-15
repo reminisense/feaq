@@ -122,7 +122,7 @@
                                     </div>
                                     <div class="col-md-6 mb20">
                                         <input class="mb0 form-control white" type="datetime-local"
-                                               ng-model="settings.schedule">
+                                               ng-model="service_settings.schedule">
                                     </div>
                                 </div>
                                 <div class="clearfix">
@@ -130,8 +130,8 @@
                                         <p class="title">Quantity</p>
                                     </div>
                                     <div class="col-md-6 mb20">
-                                        <input class="mb0 form-control white" type="text"
-                                               ng-model="settings.quantity">
+                                        <input class="mb0 form-control white" type="number"
+                                               ng-model="service_settings.quantity">
                                     </div>
                                 </div>
                                 <div class="clearfix">

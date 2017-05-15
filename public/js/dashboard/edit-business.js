@@ -776,6 +776,35 @@ var eb = {
               );
           };
 
+          $scope.setPaceSchedule = function ()
+          {
+              alert($scope.service_settings.schedule);
+              if (typeof ($scope.service_settings.schedule) == "undefined" || $scope.service_settings.schedule == null
+                || $scope.service_settings.schedule == 0) {
+                  showServiceSettingsMessage(0, "Invalid date-time format for the schedule.");
+                  return;
+              }
+              else {
+                  if ($scope.service_settings.quantity == null || $scope.service_settings.quantity == 0) {
+                      showServiceSettingsMessage(0, "Quantity must be greater than zero (0).");
+                      return;
+                  }
+              }
+              $http.post('/services/add-pacing', {
+                  'service_id': $scope.service_settings.service_id,
+                  'schedule': $scope.service_settings.schedule,
+                  'quantity': $scope.service_settings.quantity
+              }).success(function (response)
+              {
+                  if (response.status == 1) {
+                      showServiceSettingsMessage(1, "Pacing schedule added successfully.");
+                  }
+                  else {
+                      showServiceSettingsMessage(0, "Something went wrong.. Please try again.");
+                  }
+              });
+          };
+
           $scope.saveServiceQueueSettings = function ()
           {
               $http.post(

@@ -119,7 +119,7 @@
             </div>
             <div class="modal-footer">
                 <button id="issue-specific-submit" type="button" class="issue-submit-btn btn btn-orange btn-md"
-                        ng-disabled="isIssuing" ng-click="checkIssueSpecificErrors(priority_number, number_limit)">
+                        ng-disabled="isIssuing" ng-click="checkIssueSpecificErrors(priority_number, number_limit, true, true)">
                     SUBMIT
                 </button>
                 <button id="issue-multiple-submit" type="button" class="issue-submit-btn btn btn-orange btn-md"

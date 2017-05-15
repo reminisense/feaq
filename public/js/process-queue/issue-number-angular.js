@@ -133,7 +133,7 @@
             });
         };
 
-        $scope.checkIssueSpecificErrors = function(priority_number, number_limit, issue){
+        $scope.checkIssueSpecificErrors = function(priority_number, number_limit, issue, time_check){
             issue = issue != undefined ? issue : true;
             error = false;
             error_message = '';
@@ -148,9 +148,9 @@
             //}
 
             // check time assigned
-            if ($scope.time_assigned == null) {
+            if (time_check == true && $scope.time_assigned == null) {
                 error = true;
-                error_message += 'Time to Call value is invalid. ';
+                error_message += 'Time to Call date-time format is invalid. ';
             }
 
             if(number_limit != null && (priority_number > number_limit)){
