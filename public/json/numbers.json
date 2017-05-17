@@ -2,21 +2,21 @@
     "box1": {
         "service_id": "5",
         "service_name": "CONSULTATION",
-        "current_number": "2",
-        "terminal": "PWD",
-        "color": "blue",
-        "called_numbers": "1 .. "
+        "current_number": "",
+        "terminal": "",
+        "color": "",
+        "called_numbers": ""
     },
     "box2": {
-        "service_id": "5",
+        "service_id": "6",
         "service_name": "CONSULTATION",
-        "current_number": "2",
-        "terminal": "PWD",
-        "color": "blue",
-        "called_numbers": "1 .. "
+        "current_number": "",
+        "terminal": "",
+        "color": "",
+        "called_numbers": ""
     },
     "box3": {
-        "service_id": "7",
+        "service_id": 7,
         "service_name": "MOTHER and CHILD",
         "current_number": "",
         "terminal": "",
@@ -24,7 +24,7 @@
         "called_numbers": ""
     },
     "box4": {
-        "service_id": "8",
+        "service_id": 8,
         "service_name": "MOTHER and CHILD",
         "current_number": "",
         "terminal": "",
@@ -32,7 +32,7 @@
         "called_numbers": ""
     },
     "box5": {
-        "service_id": "9",
+        "service_id": 9,
         "service_name": "DENTAL",
         "current_number": "",
         "terminal": "",
@@ -40,7 +40,7 @@
         "called_numbers": ""
     },
     "box6": {
-        "service_id": "10",
+        "service_id": 10,
         "service_name": "DENTAL",
         "current_number": "",
         "terminal": "",
@@ -48,7 +48,7 @@
         "called_numbers": ""
     },
     "box7": {
-        "service_id": "11",
+        "service_id": 11,
         "service_name": "ANIMAL BITES",
         "current_number": "",
         "terminal": "",
@@ -56,16 +56,16 @@
         "called_numbers": ""
     },
     "box8": {
-        "service_id": "12",
+        "service_id": 12,
         "service_name": "ANIMAL BITES",
         "current_number": "",
         "terminal": "",
         "color": "",
         "called_numbers": ""
     },
-    "now_num": "2",
-    "now_service": "CONSULTATION",
-    "now_terminal": "PWD",
-    "now_color": "blue",
+    "now_num": "",
+    "now_service": "",
+    "now_terminal": "",
+    "now_color": "",
     "display": "2-8"
 }

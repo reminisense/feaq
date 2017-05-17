@@ -226,7 +226,7 @@
                                 </div>
                                 <div class="clearfix">
                                     <div class="col-md-6 mb20">
-                                        <p class="title">Number Prefix</p>
+                                        <p class="title">Number Suffix</p>
                                     </div>
                                     <div class="col-md-6 mb20">
                                         <input class="mb0 form-control white" type="text"
