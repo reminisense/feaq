@@ -62,7 +62,7 @@
         </div>
         <nav class="pull-right collapse navbar-collapse bs-navbar-collapse" role="navigation">
             <ul class="nav navbar-nav">
-                <li id="search-business" class="active"><a href="{{ url('/') }}"><span class="glyphicon glyphicon-search"></span> Business Search</a></li>
+                {{--<li id="search-business" class="active"><a href="{{ url('/') }}"><span class="glyphicon glyphicon-search"></span> Business Search</a></li>--}}
                 @if($assigned_to_business)
                 {{--<li id="message-inbox"><a href="{{ url('message/display') }}"><span class="glyphicon glyphicon-envelope"></span> My Messages</a></li>--}}
                 <li id="my-business">

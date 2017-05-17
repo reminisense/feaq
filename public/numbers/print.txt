@@ -1,8 +1,8 @@
 ************
 FeatherQ Demo
-Service:   MOTHER and CHILD - PWD
-Priority Number:   C105
-Confirmation Code:   71A3
+Service:   CONSULTATION
+Priority Number:   2
+Confirmation Code:   9778
 ************
 
 

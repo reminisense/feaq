@@ -1,127 +1,71 @@
 {
     "box1": {
-        "service_id": 15,
-        "service_name": "REGISTRATION - PWD",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
+        "service_id": "5",
+        "service_name": "CONSULTATION",
+        "current_number": "2",
+        "terminal": "PWD",
+        "color": "blue",
+        "called_numbers": "1 .. "
     },
     "box2": {
         "service_id": "5",
-        "service_name": "MOTHER and CHILD - Senior Citizen",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
+        "service_name": "CONSULTATION",
+        "current_number": "2",
+        "terminal": "PWD",
+        "color": "blue",
+        "called_numbers": "1 .. "
     },
     "box3": {
-        "service_id": "14",
-        "service_name": "OPD NURSE",
+        "service_id": "7",
+        "service_name": "MOTHER and CHILD",
         "current_number": "",
         "terminal": "",
         "color": "",
         "called_numbers": ""
     },
     "box4": {
-        "service_id": "9",
-        "service_name": "DENTAL - PWD",
+        "service_id": "8",
+        "service_name": "MOTHER and CHILD",
         "current_number": "",
         "terminal": "",
         "color": "",
         "called_numbers": ""
     },
     "box5": {
-        "service_id": "10",
-        "service_name": "DENTAL - Senior Citizen",
+        "service_id": "9",
+        "service_name": "DENTAL",
         "current_number": "",
         "terminal": "",
         "color": "",
         "called_numbers": ""
     },
     "box6": {
-        "service_id": "4",
-        "service_name": "MOTHER and CHILD - PWD",
-        "current_number": "C105",
-        "terminal": "Desk 3",
-        "color": "borange",
+        "service_id": "10",
+        "service_name": "DENTAL",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
         "called_numbers": ""
     },
     "box7": {
         "service_id": "11",
-        "service_name": "ANIMAL BITES - PWD",
+        "service_name": "ANIMAL BITES",
         "current_number": "",
         "terminal": "",
         "color": "",
         "called_numbers": ""
     },
     "box8": {
-        "service_id": "5",
-        "service_name": "MOTHER and CHILD - Senior Citizen",
+        "service_id": "12",
+        "service_name": "ANIMAL BITES",
         "current_number": "",
         "terminal": "",
         "color": "",
         "called_numbers": ""
     },
-    "box9": {
-        "service_id": "15",
-        "service_name": "REGISTRATION - PWD",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
-    },
-    "box10": {
-        "service_id": "16",
-        "service_name": "REGISTRATION - Senior Citizen",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
-    },
-    "box11": {
-        "service_id": "13",
-        "service_name": "OPD ATTENDANT",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
-    },
-    "box12": {
-        "service_id": "14",
-        "service_name": "OPD NURSE",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
-    },
-    "box13": {
-        "service_id": "9",
-        "service_name": "DENTAL - PWD",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
-    },
-    "box14": {
-        "service_id": "10",
-        "service_name": "DENTAL - Senior Citizen",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
-    },
-    "box15": {
-        "service_id": "1",
-        "service_name": "CONSULTATION - PWD",
-        "current_number": "A4",
-        "terminal": "Desk 1",
-        "color": "cyan",
-        "called_numbers": "A3 .. "
-    },
-    "now_num": "C105",
-    "now_service": "MOTHER and CHILD - PWD",
-    "now_terminal": "Desk 3",
-    "now_color": "borange",
-    "display": "2-15"
+    "now_num": "2",
+    "now_service": "CONSULTATION",
+    "now_terminal": "PWD",
+    "now_color": "blue",
+    "display": "2-8"
 }
