@@ -73,7 +73,7 @@
 <script type="text/javascript" src="/js/broadcast/socket.js"></script>
 <script type="text/javascript" src="/js/broadcast/custom.js"></script>
 <script type="text/javascript" src="/js/broadcast/default/business-{{ $box_num }}.js"></script>
-<script type="text/javascript" src="/js/user/Usertracker.js"></script> {{-- ARA For user tracking --}}
+{{--<script type="text/javascript" src="/js/user/Usertracker.js"></script> --}}{{-- ARA For user tracking --}}
 </body>
 
 </html>

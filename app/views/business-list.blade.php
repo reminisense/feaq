@@ -78,7 +78,7 @@
                 <div class="filterwrap col-md-offset-2 col-md-8">
                     <div class="row">
                         <div class="col-md-2 col-sm-2 col-xs-4 btn-group">
-                            <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle ng-binding" data-toggle="dropdown">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                 @{{ location }}
                                 <span class="caret"></span>
                             </button>

@@ -28,7 +28,7 @@
   <script type="text/javascript" src="/js/jquery.plugin.js"></script>
   <script type="text/javascript" src="/js/jquery.timeentry.js"></script>
   <script type="text/javascript" src="/js/search-business.js"></script>
-  <script type="text/javascript" src="/js/user/Usertracker.js"></script>
+  {{--<script type="text/javascript" src="/js/user/Usertracker.js"></script>--}}
   <script type="text/javascript" src="/js/slick.min.js"></script>
 
   <script src="/js/google-analytics/googleAnalytics.js"></script>
@@ -123,7 +123,7 @@
                 <div class="row">
                   <form ng-submit="searchBusiness(location_filter, industry_filter, search_keyword)">
                     <div class="col-md-2 col-sm-2 col-xs-4 btn-group">
-                      <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle ng-binding" data-toggle="dropdown">
+                      <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown">
                         @{{ location_filter }}
                         <span class="caret"></span>
                       </button>
@@ -132,7 +132,7 @@
                       </ul>
                     </div>
                     <div class="col-md-2 col-sm-2 col-xs-4 btn-group">
-                      <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle ng-binding" data-toggle="dropdown">
+                      <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown">
                         @{{ industry_filter }}
                         <span class="caret"></span>
                       </button>

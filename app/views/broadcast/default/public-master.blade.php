@@ -26,6 +26,7 @@
     <script src="/js/jquery-1.11.2.min.js"></script>
     <script src="/js/jquery-ui.min.js"></script>
     <script src="/js/angular.min.js"></script>
+    <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
     <script type="text/javascript" src="/js/jquery.marquee.min.js"></script>
     <script src="/js/ngFacebook.js"></script>
     <script src="/js/google-analytics/googleAnalytics.js"></script>
@@ -111,7 +112,7 @@
                             @endif
                         </div>
                         <div class="col-md-7 getnum-info">
-                            <div class="ng-binding">
+                            <div class="">
                                 <h1 class="nomg">@{{ get_num }}</h1>
                                 @if($allow_remote)
                                 @if(Auth::check())
@@ -177,10 +178,10 @@
 <script type="text/javascript" src="/js/reconnecting-websocket.min.js"></script>
 <script type="text/javascript" src="/js/websocket-variables.js"></script>
 <script type="text/javascript" src="/js/broadcast/lib.js"></script>
-<script type="text/javascript" src="/js/broadcast/socket.js"></script>
+<script type="text/javascript" src="/js/broadcast/public-socket.js"></script>
 <script src="/js/broadcast/default/public-{{ $box_num }}.js"></script>
 
-<script src="/js/user/Usertracker.js"></script>
+{{--<script src="/js/user/Usertracker.js"></script>--}}
 <script src="/js/process-queue/process-queue.js"></script>
 <script src="/js/process-queue/issue-number-angular.js"></script>
 

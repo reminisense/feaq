@@ -15,7 +15,6 @@
                     <option value="carousel">Image Carousel</option>
                     <option value="local_video">Local Video</option>
                     <option value="internet_tv">Internet TV</option>
-                    <option value="numbers_only">Numbers Only</option>
                 </select>
             </div>
             {{--<div class="col-md-8">
@@ -28,7 +27,6 @@
         </div>
         <div class="clearfix">
         <div class="col-md-12" id="qrcode-widget">
-            <a href="" id="toggle-qrcode" class="mb20 btn btn-md btn-primary" show_qr="no"><i class="glyphicon glyphicon-qrcode"></i> Show QR Code</a>
             <div class="clearfix qrcode-wrap">
                 <div class="clearfix text-center abs" id="qrcode-size">
                     FeatherQ.com
@@ -95,6 +93,9 @@
                                         You can choose your videos directly from the Broadcast Screen.<br/><br/>
                                         <button class="btn btn-lg btn-danger" onclick="window.open('{{ url('broadcast/business/' . $business_id) }}')">View Broadcast Screen</button>
                                     </div>
+                                    <div>
+                                        <img src="/images/samsung-tv.jpg" class="img-responsive" style="max-height: 315px;width: 745px;">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -146,14 +147,167 @@
                 <div class="mb30 ui-widget ui-widget-content" id="ad-num-width" style="float: left; min-height: 400px;">
                     <h2 style="background-color: #b9ccd5;margin-top: -10px;padding: 13px 10px;width: 96%;" class="mb30 text-center">NOW SERVING</h2>
                     <div class="q-wrap q-numbers">
-                        <button type="button" id="" class="mb10 btn btn-primary btn-md q-minus">
-                            <span class="glyphicon glyphicon-minus"></span> Numbers
-                        </button>
-                        <button type="button" id="" class="mb10 btn btn-primary btn-md q-add">
-                            <span class="glyphicon glyphicon-plus"></span> Numbers
-                        </button>
                         <div class="q-nums-wrap clearfix">
-
+                            <div class="qbox">
+                                <div class="pull-left half">
+                                    <div class="col-md-3">1</div>
+                                    <div class="col-md-9">
+                                        <select class="form-control select-service" ng-model="service_boxes.box1_service" id="box1_service">
+                                            <option ng-repeat="service in services" value="@{{ service.service_id }}">@{{ service.name }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="qbox">
+                                <div class="pull-left half">
+                                    <div class="col-md-3">2</div>
+                                    <div class="col-md-9">
+                                        <select class="form-control select-service" ng-model="service_boxes.box2_service">
+                                            <option ng-repeat="service in services" value="@{{ service.service_id }}">@{{ service.name }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="qbox">
+                                <div class="pull-left half">
+                                    <div class="col-md-3">3</div>
+                                    <div class="col-md-9">
+                                        <select class="form-control select-service" ng-model="service_boxes.box3_service">
+                                            <option ng-repeat="service in services" value="@{{ service.service_id }}">@{{ service.name }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="qbox">
+                                <div class="pull-left half">
+                                    <div class="col-md-3">4</div>
+                                    <div class="col-md-9">
+                                        <select class="form-control select-service" ng-model="service_boxes.box4_service">
+                                            <option ng-repeat="service in services" value="@{{ service.service_id }}">@{{ service.name }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="qbox">
+                                <div class="pull-left half">
+                                    <div class="col-md-3">5</div>
+                                    <div class="col-md-9">
+                                        <select class="form-control select-service" ng-model="service_boxes.box5_service">
+                                            <option ng-repeat="service in services" value="@{{ service.service_id }}">@{{ service.name }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="qbox">
+                                <div class="pull-left half">
+                                    <div class="col-md-3">6</div>
+                                    <div class="col-md-9">
+                                        <select class="form-control select-service" ng-model="service_boxes.box6_service">
+                                            <option ng-repeat="service in services" value="@{{ service.service_id }}">@{{ service.name }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="qbox">
+                                <div class="pull-left half">
+                                    <div class="col-md-3">7</div>
+                                    <div class="col-md-9">
+                                        <select class="form-control select-service" ng-model="service_boxes.box7_service">
+                                            <option ng-repeat="service in services" value="@{{ service.service_id }}">@{{ service.name }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="qbox">
+                                <div class="pull-left half">
+                                    <div class="col-md-3">8</div>
+                                    <div class="col-md-9">
+                                        <select class="form-control select-service" ng-model="service_boxes.box8_service">
+                                            <option ng-repeat="service in services" value="@{{ service.service_id }}">@{{ service.name }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="qbox">
+                                <div class="pull-left half">
+                                    <div class="col-md-3">9</div>
+                                    <div class="col-md-9">
+                                        <select class="form-control select-service" ng-model="service_boxes.box9_service">
+                                            <option ng-repeat="service in services" value="@{{ service.service_id }}">@{{ service.name }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="qbox">
+                                <div class="pull-left half">
+                                    <div class="col-md-3">10</div>
+                                    <div class="col-md-9">
+                                        <select class="form-control select-service" ng-model="service_boxes.box10_service">
+                                            <option ng-repeat="service in services" value="@{{ service.service_id }}">@{{ service.name }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="qbox">
+                                <div class="pull-left half">
+                                    <div class="col-md-3">11</div>
+                                    <div class="col-md-9">
+                                        <select class="form-control select-service" ng-model="service_boxes.box11_service">
+                                            <option ng-repeat="service in services" value="@{{ service.service_id }}">@{{ service.name }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="qbox">
+                                <div class="pull-left half">
+                                    <div class="col-md-3">12</div>
+                                    <div class="col-md-9">
+                                        <select class="form-control select-service" ng-model="service_boxes.box12_service">
+                                            <option ng-repeat="service in services" value="@{{ service.service_id }}">@{{ service.name }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="qbox">
+                                <div class="pull-left half">
+                                    <div class="col-md-3">13</div>
+                                    <div class="col-md-9">
+                                        <select class="form-control select-service" ng-model="service_boxes.box13_service">
+                                            <option ng-repeat="service in services" value="@{{ service.service_id }}">@{{ service.name }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="qbox">
+                                <div class="pull-left half">
+                                    <div class="col-md-3">14</div>
+                                    <div class="col-md-9">
+                                        <select class="form-control select-service" ng-model="service_boxes.box14_service">
+                                            <option ng-repeat="service in services" value="@{{ service.service_id }}">@{{ service.name }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="qbox">
+                                <div class="pull-left half">
+                                    <div class="col-md-3">15</div>
+                                    <div class="col-md-9">
+                                        <select class="form-control select-service" ng-model="service_boxes.box15_service">
+                                            <option ng-repeat="service in services" value="@{{ service.service_id }}">@{{ service.name }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="qbox">
+                                <div class="pull-left half">
+                                    <div class="col-md-3">16</div>
+                                    <div class="col-md-9">
+                                        <select class="form-control select-service" ng-model="service_boxes.box16_service">
+                                            <option ng-repeat="service in services" value="@{{ service.service_id }}">@{{ service.name }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="clearfix">

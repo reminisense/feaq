@@ -530,8 +530,284 @@
 .twenty .business-spec .qnow-nums.two-nums      { height: 16%; height: 16vh; }
 .twenty .business-spec .child-nums.four-nums .number {padding: 0.8vw 1vw;}
 
+/* PGOC Broadcast Screen */
 
+.services-container {
+    font-family: 'Lato', sans-serif;
+    color: #fff;
+    margin: 0px;
+}
 
+.service-box {
+    -webkit-box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 80px 0 rgba(0,0,0,0.3);
+    border-right: 3px solid white;
+}
 
+.service-box .title {
+    background-color: black;
+}
 
+.eight-rows .service-box {
+    height: 11.7vh;
+}
 
+.fifty .eight-rows .title,
+.forty .eight-rows .title,
+.thirty .eight-rows .title,
+.twenty .eight-rows .title {
+    font-size: 1.6vw;
+    display: block;
+    font-weight: 800;
+    line-height: 1.8vw;
+    height: 28%;
+}
+
+.fifty .eight-rows .current,
+.forty .eight-rows .current,
+.thirty .eight-rows .current,
+.twenty .eight-rows .current {
+    font-size: 2.8vw;
+    margin: 0px;
+}
+
+.fifty .eight-rows .number-list,
+.forty .eight-rows .number-list,
+.thirty .eight-rows .number-list,
+.twenty .eight-rows .number-list {
+    font-size: 2.55vw;
+    font-weight: 900;
+}
+
+.seven-rows .service-box {
+    height: 13.4vh;
+}
+
+.fifty .seven-rows .title,
+.forty .seven-rows .title,
+.thirty .seven-rows .title,
+.twenty .seven-rows .title {
+    font-size: 1.6vw;
+    display: block;
+    font-weight: 800;
+    line-height: 1.8vw;
+    height: 24%;
+}
+
+.fifty .seven-rows .current,
+.forty .seven-rows .current,
+.thirty .seven-rows .current,
+.twenty .seven-rows .current {
+    font-size: 3.25vw;
+    margin: 0px;
+}
+
+.fifty .seven-rows .number-list,
+.forty .seven-rows .number-list,
+.thirty .seven-rows .number-list,
+.twenty .seven-rows .number-list {
+    font-size: 3.25vw;
+    font-weight: 900;
+}
+
+.six-rows .service-box {
+    height: 15.6vh;
+}
+
+.fifty .six-rows .title,
+.forty .six-rows .title,
+.thirty .six-rows .title,
+.twenty .six-rows .title {
+    font-size: 2.0vw;
+    display: block;
+    font-weight: 800;
+    line-height: 2.0vw;
+    height: 44%;
+}
+
+.fifty .six-rows .current,
+.forty .six-rows .current,
+.thirty .six-rows .current,
+.twenty .six-rows .current {
+    font-size: 2.7vw;
+    margin: 0px;
+}
+
+.fifty .six-rows .number-list,
+.forty .six-rows .number-list,
+.thirty .six-rows .number-list,
+.twenty .six-rows .number-list {
+    font-size: 2.7vw;
+    font-weight: 900;
+}
+
+.five-rows .service-box {
+    height: 18.75vh;
+}
+
+.fifty .five-rows .title,
+.forty .five-rows .title,
+.thirty .five-rows .title,
+.twenty .five-rows .title {
+    font-size: 2.4vw;
+    display: block;
+    font-weight: 800;
+    line-height: 2.3vw;
+    height: 44%;
+}
+
+.fifty .five-rows .current,
+.forty .five-rows .current,
+.thirty .five-rows .current,
+.twenty .five-rows .current {
+    font-size: 3.25vw;
+    margin: 0px;
+}
+
+.fifty .five-rows .number-list,
+.forty .five-rows .number-list,
+.thirty .five-rows .number-list,
+.twenty .five-rows .number-list {
+    font-size: 3.25vw;
+    font-weight: 900;
+}
+
+.four-rows .service-box {
+    height: 23.45vh;
+}
+
+.fifty .four-rows .title,
+.forty .four-rows .title,
+.thirty .four-rows .title,
+.twenty .four-rows .title {
+    font-size: 2.8vw;
+    display: block;
+    font-weight: 800;
+    line-height: 2.6vw;
+    height: 40%;
+}
+
+.fifty .four-rows .current,
+.forty .four-rows .current,
+.thirty .four-rows .current,
+.twenty .four-rows .current {
+    font-size: 4.4vw;
+    margin: 0px;
+}
+
+.fifty .four-rows .number-list,
+.forty .four-rows .number-list,
+.thirty .four-rows .number-list,
+.twenty .four-rows .number-list {
+    font-size: 4.4vw;
+    font-weight: 900;
+}
+
+.three-rows .service-box {
+    height: 31.2vh;
+}
+
+.fifty .three-rows .title,
+.forty .three-rows .title,
+.thirty .three-rows .title,
+.twenty .three-rows .title {
+    font-size: 2.8vw;
+    display: block;
+    font-weight: 800;
+    line-height: 2.6vw;
+    height: 30%;
+}
+
+.fifty .three-rows .current,
+.forty .three-rows .current,
+.thirty .three-rows .current,
+.twenty .three-rows .current {
+    font-size: 3.5vw;
+    margin: 0px;
+}
+
+.fifty .three-rows .number-list,
+.forty .three-rows .number-list,
+.thirty .three-rows .number-list,
+.twenty .three-rows .number-list {
+    font-size: 3.5vw;
+    font-weight: 900;
+}
+
+.two-rows .service-box {
+    height: 46.9vh;
+}
+
+.fifty .two-rows .title,
+.forty .two-rows .title,
+.thirty .two-rows .title,
+.twenty .two-rows .title {
+    font-size: 2.8vw;
+    display: block;
+    font-weight: 800;
+    line-height: 2.6vw;
+    height: 21%;
+}
+
+.fifty .two-rows .current,
+.forty .two-rows .current,
+.thirty .two-rows .current,
+.twenty .two-rows .current {
+    font-size: 6vw;
+    margin: 0px;
+}
+
+.fifty .two-rows .number-list,
+.forty .two-rows .number-list,
+.thirty .two-rows .number-list,
+.twenty .two-rows .number-list {
+    font-size: 6vw;
+    font-weight: 900;
+}
+
+.one-rows .service-box {
+    height: 93.5vh;
+}
+
+.fifty .one-rows .title,
+.forty .one-rows .title,
+.thirty .one-rows .title,
+.twenty .one-rows .title {
+    font-size: 4vw;
+    display: block;
+    font-weight: 800;
+    line-height: 4.4vw;
+    height: 17%;
+}
+
+.fifty .one-rows .current,
+.forty .one-rows .current,
+.thirty .one-rows .current,
+.twenty .one-rows .current {
+    font-size: 12vw;
+    margin: 0px;
+}
+
+.fifty .one-rows .number-list,
+.forty .one-rows .number-list,
+.thirty .one-rows .number-list,
+.twenty .one-rows .number-list {
+    font-size: 12vw;
+    font-weight: 900;
+}
+
+#currently-called-number .modal-header {
+  background-color: #000;
+}
+
+#currently-called-number .modal-title {
+  color: #fff; font-size: 2.0vw; display: block; font-weight: 800; line-height: 2.0vw; text-align: center;
+}
+
+#currently-called-number .modal-number {
+  font-size: 35vh; font-weight: 800; text-align: center;
+}
+
+#currently-called-number .modal-terminal {
+  font-size: 10vh; font-weight: 800; text-align: center
+}

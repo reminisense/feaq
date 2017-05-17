@@ -5,64 +5,116 @@
         <div class="title">
             <h3><span id="callednums-title">{{ $business_name }}</span></h3>
         </div>
-        <div class="parent-num">
-            <div class="numbers t@{{ rank1 }} @{{ color1 }} ">
-                <div class="wrap-nums">
-                    <p class="callnum ng-binding">@{{ box1 }}</p>
-                    <p class="service ng-binding">@{{ service1 }}</p>
-                    <p class="terminal ng-binding">@{{ name1 }}</p>
-                    <p class="terminal ng-binding">@{{ user1 }}</p>
-                    <!-- below is the same color as parent div -->
-                    <div class="dark-orange blink-num"></div>
-                </div>
+        <div class="row services-container four-rows">
+          <div class="col-md-6 service-box @{{ color1 }}">
+            <div class="row title">@{{ service1 }}</div>
+            <div class="row number-list">
+              <div class="col-md-8 current dark-orange blink-num">@{{ current1 }}
+                <p class="terminal" style="margin-top: -10px; font-size: 26px;">@{{ terminal1 }}</p>
+              </div>
+              <div class="col-md-4">
+                <marquee>@{{ called1 }}</marquee>
+              </div>
             </div>
-        </div>
-        <div class="child-nums eight-nums">
-            <div class="wrap-nums">
-                <div class="number @{{ color2 }}">
-                    <p>@{{ box2 }}</p>
-                    <p class="service ng-binding">@{{ service2 }}</p>
-                    <p class="terminal ng-binding">@{{ name2 }}</p>
-                    <p class="terminal ng-binding">@{{ user2 }}</p>
-                </div>
-                <div class="number @{{ color3 }}">
-                    <p>@{{ box3 }}</p>
-                    <p class="service ng-binding">@{{ service3 }}</p>
-                    <p class="terminal ng-binding">@{{ name3 }}</p>
-                    <p class="terminal ng-binding">@{{ user3 }}</p>
-                </div>
-                <div class="number @{{ color4 }}">
-                    <p>@{{ box4 }}</p>
-                    <p class="service ng-binding">@{{ service4 }}</p>
-                    <p class="terminal ng-binding">@{{ name4 }}</p>
-                    <p class="terminal ng-binding">@{{ user4 }}</p>
-                </div>
-                <div class="number @{{ color5 }}">
-                    <p>@{{ box5 }}</p>
-                    <p class="service ng-binding">@{{ service5 }}</p>
-                    <p class="terminal ng-binding">@{{ name5 }}</p>
-                    <p class="terminal ng-binding">@{{ user5 }}</p>
-                </div>
-                <div class="number @{{ color6 }}">
-                    <p>@{{ box6 }}</p>
-                    <p class="service ng-binding">@{{ service6 }}</p>
-                    <p class="terminal ng-binding">@{{ name6 }}</p>
-                    <p class="terminal ng-binding">@{{ user6 }}</p>
-                </div>
-                <div class="number @{{ color7 }}">
-                    <p>@{{ box7 }}</p>
-                    <p class="service ng-binding">@{{ service7 }}</p>
-                    <p class="terminal ng-binding">@{{ name7 }}</p>
-                    <p class="terminal ng-binding">@{{ user7 }}</p>
-                </div>
-                <div class="number @{{ color8 }}">
-                    <p>@{{ box8 }}</p>
-                    <p class="service ng-binding">@{{ service8 }}</p>
-                    <p class="terminal ng-binding">@{{ name8 }}</p>
-                    <p class="terminal ng-binding">@{{ user8 }}</p>
-                </div>
+          </div>
+          <div class="col-md-6 service-box @{{ color2 }}">
+            <div class="row title">@{{ service2 }}</div>
+            <div class="row number-list">
+              <div class="col-md-8 current dark-orange blink-num">@{{ current2 }}
+                <p class="terminal" style="margin-top: -10px; font-size: 26px;">@{{ terminal2 }}</p>
+              </div>
+              <div class="col-md-4">
+                <marquee>@{{ called2 }}</marquee>
+              </div>
             </div>
+          </div>
+          <div class="col-md-6 service-box @{{ color3 }}">
+            <div class="row title">@{{ service3 }}</div>
+            <div class="row number-list">
+              <div class="col-md-8 current dark-orange blink-num">@{{ current3 }}
+                <p class="terminal" style="margin-top: -10px; font-size: 26px;">@{{ terminal3 }}</p>
+              </div>
+              <div class="col-md-4">
+                <marquee>@{{ called3 }}</marquee>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 service-box @{{ color4 }}">
+            <div class="row title">@{{ service4 }}</div>
+            <div class="row number-list">
+              <div class="col-md-8 current dark-orange blink-num">@{{ current4 }}
+                <p class="terminal" style="margin-top: -10px; font-size: 26px;">@{{ terminal4 }}</p>
+              </div>
+              <div class="col-md-4">
+                <marquee>@{{ called4 }}</marquee>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 service-box @{{ color5 }}">
+            <div class="row title">@{{ service5 }}</div>
+            <div class="row number-list">
+              <div class="col-md-8 current dark-orange blink-num">@{{ current5 }}
+                <p class="terminal" style="margin-top: -10px; font-size: 26px;">@{{ terminal5 }}</p>
+              </div>
+              <div class="col-md-4">
+                <marquee>@{{ called5 }}</marquee>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 service-box @{{ color6 }}">
+            <div class="row title">@{{ service6 }}</div>
+            <div class="row number-list">
+              <div class="col-md-8 current dark-orange blink-num">@{{ current6 }}
+                <p class="terminal" style="margin-top: -10px; font-size: 26px;">@{{ terminal6 }}</p>
+              </div>
+              <div class="col-md-4">
+                <marquee>@{{ called6 }}</marquee>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 service-box @{{ color7 }}">
+            <div class="row title">@{{ service7 }}</div>
+            <div class="row number-list">
+              <div class="col-md-8 current dark-orange blink-num">@{{ current7 }}
+                <p class="terminal" style="margin-top: -10px; font-size: 26px;">@{{ terminal7 }}</p>
+              </div>
+              <div class="col-md-4">
+                <marquee>@{{ called7 }}</marquee>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 service-box @{{ color8 }}">
+            <div class="row title">@{{ service8 }}</div>
+            <div class="row number-list">
+              <div class="col-md-8 current dark-orange blink-num">@{{ current8 }}
+                <p class="terminal" style="margin-top: -10px; font-size: 26px;">@{{ terminal8 }}</p>
+              </div>
+              <div class="col-md-4">
+                <marquee>@{{ called8 }}</marquee>
+              </div>
+            </div>
+          </div>
         </div>
-        @include('broadcast.default.queue-now')
     </div>
+</div>
+
+<div class="modal fade" id="currently-called-number" tabindex="-1" role="dialog"
+     aria-labelledby="currentlyCalledNumber">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">@{{ now_service }}</h4>
+      </div>
+      <div class="modal-body @{{ now_color }}">
+        <div class="modal-number">
+          @{{ now_number }}
+          <p class="modal-terminal">
+            @{{ now_terminal }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

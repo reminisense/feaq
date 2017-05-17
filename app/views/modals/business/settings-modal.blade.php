@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
+                      aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Service Settings</h4>
             </div>
             <div class="modal-body">
@@ -79,7 +79,7 @@
                                     <div class="col-md-6 mb20">
                                         <p class="title">Notifications</p>
                                         <small><a class="info-button" href="#general-notif"><span
-                                                        class="glyphicon glyphicon-info-sign"></span> More info...</a>
+                                                  class="glyphicon glyphicon-info-sign"></span> More info...</a>
                                         </small>
                                         <div class="clearfix mb20">
                                             <div class="alert alert-warning hidden" role="alert" id="general-notif">
@@ -137,7 +137,7 @@
                                 <div class="clearfix">
                                     <div class="col-md-12 mb20">
                                         <button class="btn btn-warning pull-right" ng-click="setPaceSchedule()"><span
-                                                    class="glyphicon glyphicon-ok"></span> SET PACE
+                                              class="glyphicon glyphicon-ok"></span> SET PACE
                                         </button>
                                     </div>
                                 </div>
@@ -159,7 +159,7 @@
                                                 <td><strong>40</strong></td>
                                                 <td>
                                                     <button class="btn btn-danger btn-xs"><span
-                                                                class="glyphicon glyphicon-remove"></span></button>
+                                                          class="glyphicon glyphicon-remove"></span></button>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -168,7 +168,7 @@
                                                 <td><strong>20</strong></td>
                                                 <td>
                                                     <button class="btn btn-danger btn-xs"><span
-                                                                class="glyphicon glyphicon-remove"></span></button>
+                                                          class="glyphicon glyphicon-remove"></span></button>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -177,7 +177,7 @@
                                                 <td><strong>30</strong></td>
                                                 <td>
                                                     <button class="btn btn-danger btn-xs"><span
-                                                                class="glyphicon glyphicon-remove"></span></button>
+                                                          class="glyphicon glyphicon-remove"></span></button>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -186,7 +186,7 @@
                                                 <td><strong>60</strong></td>
                                                 <td>
                                                     <button class="btn btn-danger btn-xs"><span
-                                                                class="glyphicon glyphicon-remove"></span></button>
+                                                          class="glyphicon glyphicon-remove"></span></button>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -257,7 +257,7 @@
                                     <div class="col-md-6 mb20">
                                         <p class="title">Permission</p>
                                         <small><a class="info-button" href="#remote-queue"><span
-                                                        class="glyphicon glyphicon-info-sign"></span> More info...</a>
+                                                  class="glyphicon glyphicon-info-sign"></span> More info...</a>
                                         </small>
                                     </div>
                                     <div class="col-md-6 mb20">
@@ -277,7 +277,7 @@
                                             Remote Queue Limit
                                             <br>
                                             <small><a class="info-button" href="#remote-queue-limit-alert"> <span
-                                                            class="glyphicon glyphicon-info-sign"></span> More
+                                                      class="glyphicon glyphicon-info-sign"></span> More
                                                     info...</a></small>
                                         </p>
                                     </div>
@@ -305,7 +305,7 @@
                                             Remote Queue Time
                                             <br>
                                             <small><a class="info-button" href="#remote-queue-time-alert"> <span
-                                                            class="glyphicon glyphicon-info-sign"></span> More
+                                                      class="glyphicon glyphicon-info-sign"></span> More
                                                     info...</a></small>
                                         </p>
                                     </div>
@@ -332,7 +332,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-orange btn-lg" ng-click="saveServiceQueueSettings()"><span
-                            class="glyphicon glyphicon-check"></span> SUBMIT
+                      class="glyphicon glyphicon-check"></span> SUBMIT
                 </button>
             </div>
         </div><!-- /.modal-content -->

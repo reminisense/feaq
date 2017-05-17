@@ -4,7 +4,7 @@ var establishSocketConnection = function($scope, $http, business_id) {
   websocket = new ReconnectingWebSocket(websocket_url);
 
   websocket.onopen = function (response) { // connection is open
-    $http.get('/json/' + business_id + '.json?nocache=' + Math.floor((Math.random() * 10000) + 1)).success($scope.updateBroadcastPage);
+    $http.get('/json/numbers.json?nocache=' + Math.floor((Math.random() * 10000) + 1)).success($scope.updateBroadcastPage);
     websocket.send(JSON.stringify({
       business_id: business_id,
       broadcast_update: false,
@@ -16,7 +16,7 @@ var establishSocketConnection = function($scope, $http, business_id) {
   websocket.onmessage = function (response) { // what happens when data is received
     var result = JSON.parse(response.data);
     if (result.broadcast_update) {
-      $http.get('/json/' + business_id + '.json?nocache=' + Math.floor((Math.random() * 10000) + 1)).success($scope.updateBroadcastPage);
+      $http.get('/json/numbers.json?nocache=' + Math.floor((Math.random() * 10000) + 1)).success($scope.updateBroadcastPage);
     }
     if (result.broadcast_reload) {
       window.location.reload(true);

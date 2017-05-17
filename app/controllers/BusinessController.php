@@ -167,7 +167,7 @@ class BusinessController extends BaseController
                   "adspace_size" : "517px",
                   "numspace_size": "517px",
                   "num_boxes" : "6",
-                  "show_qr_setting": "yes"
+                  "show_qr_setting": "no"
                 }
             ';
 

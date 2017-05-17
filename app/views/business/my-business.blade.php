@@ -46,11 +46,10 @@ My Business
         <div class="biz-details-wrap clearfix">
             <div class="col-md-12">
                 <div class="row">
-                    <img class="col-md-2 col-sm-2 dnmobile" src="{{ "https://api.qrserver.com/v1/create-qr-code/?data=" . url('/' . $raw_code) . "&size=302x302" }}">
+                    <img class="col-md-2 col-sm-2 dnmobile" src="/img/business_logo.gif">
                     <div class="biz-details col-md-7 col-sm-7 col-xs-12">
                         <h2>@{{ business_name }}</h2>
                         <p class="address"><span class="glyphicon glyphicon-map-marker"></span> @{{ business_address }}</p>
-                        <a class="btn btn-sm btn-primary" href="{{ url('business/pdf-download/' . $business_id) }}" target="_blank">Download QR Code</a><br>
                         @if($assigned_businesses)
                             <a href="#assigned" id="assigned_business"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;My Assigned Businesses</a>
                         @endif

@@ -37,7 +37,7 @@
     {{--{{ HTML::script('js/google-analytics/ga-dashboard.js') }}--}}
     <script src="/js/google-analytics/ga-dashboard.js"></script>
 
-    <script src="/js/user/Usertracker.js"></script>
+    {{--<script src="/js/user/Usertracker.js"></script>--}}
 
 @stop
 

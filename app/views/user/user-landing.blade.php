@@ -57,7 +57,7 @@
     <script type="text/javascript" src="/js/jquery.plugin.js"></script>
     <script type="text/javascript" src="/js/jquery.timeentry.js"></script>
     <script type="text/javascript" src="/js/search-business.js"></script>
-    <script type="text/javascript" src="/js/user/Usertracker.js"></script>
+    {{--<script type="text/javascript" src="/js/user/Usertracker.js"></script>--}}
 
 </head>
 <body id="user-landing" ng-app="FeatherQ" ng-cloak>
@@ -119,7 +119,7 @@
             <div class="filterwrap col-md-offset-2 col-md-8">
                 <div class="row">
                     <div class="col-md-2 col-sm-2 col-xs-4 btn-group">
-                        <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle ng-binding" data-toggle="dropdown">
+                        <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown">
                             @{{ location_filter }}
                             <span class="caret"></span>
                         </button>
@@ -128,7 +128,7 @@
                         </ul>
                     </div>
                     <div class="col-md-2 col-sm-2 col-xs-4 btn-group">
-                        <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle ng-binding" data-toggle="dropdown">
+                        <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown">
                             @{{ industry_filter }}
                             <span class="caret"></span>
                         </button>
@@ -168,8 +168,8 @@
             <div class="col-md-3 col-sm-6 col-xs-12 ng-scope" ng-repeat="business in businesses">
                 <a class="business_link" href="/broadcast/business/@{{ business.business_id }}" target="_blank">
                     <div class="box-wrap">
-                        <p class="title ng-binding">@{{ business.business_name }}</p>
-                        <small class="address ng-binding">@{{ business.local_address }}</small>
+                        <p class="title ">@{{ business.business_name }}</p>
+                        <small class="address ">@{{ business.local_address }}</small>
                         <!-- inactive business -->
                         <div class="statuses clearfix" ng-if="!business.card_bool">
                             <p><span class="icon-lineq"></span> Business Hours: <span class="pull-right">@{{ business.time_open }} - @{{ business.time_close }}</span> <span class="icon-busy"></span> </p>
@@ -207,10 +207,10 @@
             <div class="col-md-3 col-sm-6 col-xs-12 ng-scope" ng-controller="fbController">
                 <a class="business_link" href="/user/login">
                     <div class="box-wrap box-fb text-center">
-                        {{--<p class="title ng-binding"> More Businesses</p>--}}
+                        {{--<p class="title "> More Businesses</p>--}}
                         <a href="#" ng-click="login()">
                             <span>LOGIN TO FEATHERQ</span>
-                            <small class="ng-binding">{{--<img src="/images/homepage/landing/fb.png"> --}} to view More Businesses</small>
+                            <small class="">{{--<img src="/images/homepage/landing/fb.png"> --}} to view More Businesses</small>
                         </a>
                     </div>
                 </a>
