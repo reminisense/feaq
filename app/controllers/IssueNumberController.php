@@ -74,7 +74,7 @@ class IssueNumberController extends BaseController {
         ->update(['time_assigned' => $time_assigned]);
       ProcessQueue::updateBusinessBroadcast($business_id);
 
-      $this->printToPOS($service_id, $number, 'STMicroelectronics_USB_Portable_Printer', 'localhost');
+      $this->printToPOS($business_id, $service_id, $number, 'STMicroelectronics_USB_Portable_Printer', 'localhost');
 
       return json_encode(['success' => 1, 'number' => $number]);
     }
@@ -159,10 +159,10 @@ class IssueNumberController extends BaseController {
     }
   }
 
-  private function printToPOS($service_id, $number, $printerName, $host) {
+  private function printToPOS($business_id, $service_id, $number, $printerName, $host) {
     $filePath = public_path() . '/numbers/print.txt';
     $borderLine = "************\n";
-    $bizName = "FeatherQ Demo\n";
+    $bizName = Business::name($business_id) . "\n";
     $servName = "Service:   " . Service::name($service_id) . "\n";
     $pNumVal = "Priority Number:   " . $number["priority_number"] . "\n";
     $confirmVal = "Confirmation Code:   " . $number["confirmation_code"] . "\n";
