@@ -1,1 +1,0 @@
-Do not delete this file so that the directory will exist in versioning.

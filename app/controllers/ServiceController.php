@@ -18,6 +18,23 @@ class ServiceController extends Controller{
         return json_encode(['business_services' => $business_services]);
     }
 
+    public function getKioskServices($business_id) {
+        $business_services = [];
+        $service_terminals = [];
+        $branches = Branch::getBranchesByBusinessId($business_id);
+        foreach($branches as $branch){
+            $services = Service::getServicesByBranchId($branch->branch_id);
+            foreach ($services as $key=>$service) {
+                $terminals = Terminal::getTerminalsByServiceId($service->service_id);
+                $first_terminal = $terminals[0]['name'];
+                $service['first_terminal'] = $first_terminal;
+                array_push($service_terminals, $terminals);
+            }
+            array_push($business_services, $services);
+        }
+        return json_encode(['business_services' => $business_services, 'terminals' => $service_terminals]);
+    }
+
     //get services
     //not used by business
     public function getIndex($service_id = null){
@@ -74,6 +91,8 @@ class ServiceController extends Controller{
         ));
         return json_encode(array('success' => 1));
     }
+
+
 
 //    public function getKioskList($business_id) {
 //        $business_services = [];

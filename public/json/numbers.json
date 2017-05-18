@@ -1,26 +1,26 @@
 {
     "box1": {
-        "service_id": "5",
+        "service_id": 5,
         "service_name": "CONSULTATION",
-        "current_number": "2",
+        "current_number": "1",
         "terminal": "PWD",
         "color": "blue",
-        "called_numbers": "1 .. "
+        "called_numbers": ""
     },
     "box2": {
-        "service_id": "5",
+        "service_id": "6",
         "service_name": "CONSULTATION",
-        "current_number": "2",
-        "terminal": "PWD",
-        "color": "blue",
-        "called_numbers": "1 .. "
+        "current_number": "5",
+        "terminal": "SENIOR CITIZEN",
+        "color": "borange",
+        "called_numbers": "4 .. 2 .. 1 .. "
     },
     "box3": {
         "service_id": "7",
         "service_name": "MOTHER and CHILD",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
+        "current_number": "9",
+        "terminal": "Child",
+        "color": "violet",
         "called_numbers": ""
     },
     "box4": {
@@ -31,41 +31,9 @@
         "color": "",
         "called_numbers": ""
     },
-    "box5": {
-        "service_id": "9",
-        "service_name": "DENTAL",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
-    },
-    "box6": {
-        "service_id": "10",
-        "service_name": "DENTAL",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
-    },
-    "box7": {
-        "service_id": "11",
-        "service_name": "ANIMAL BITES",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
-    },
-    "box8": {
-        "service_id": "12",
-        "service_name": "ANIMAL BITES",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
-    },
-    "now_num": "2",
-    "now_service": "CONSULTATION",
-    "now_terminal": "PWD",
-    "now_color": "blue",
-    "display": "2-8"
+    "now_num": "9",
+    "now_service": "MOTHER and CHILD",
+    "now_terminal": "Child",
+    "now_color": "violet",
+    "display": "2-4"
 }

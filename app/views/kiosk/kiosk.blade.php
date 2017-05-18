@@ -35,7 +35,7 @@
         <br/>
         <ul class="nav nav-tabs nav-justified" role="tablist">
             <li ng-repeat="service in services" ng-class="$index==0?'active':''" ng-click="switchActiveService(service.service_id);">
-                <a href="#@{{service.name}}" id="#@{{service.name}}-tab" data-toggle="tab"> @{{service.name}}</a>
+                <a href="#@{{service.name}}" id="#@{{service.name}}-tab" data-toggle="tab"> @{{service.name}} <br/>  [@{{service.first_terminal}}] </a>
             </li>
         </ul>
         <div class="tab-content" id="kioskTabContent">
