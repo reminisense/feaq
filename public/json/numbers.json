@@ -2,9 +2,9 @@
     "box1": {
         "service_id": 5,
         "service_name": "CONSULTATION",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
+        "current_number": "A25",
+        "terminal": "PWD",
+        "color": "ECD078",
         "called_numbers": ""
     },
     "box2": {
@@ -63,9 +63,9 @@
         "color": "",
         "called_numbers": ""
     },
-    "now_num": "2",
-    "now_service": "ANIMAL BITES",
+    "now_num": "A25",
+    "now_service": "CONSULTATION",
     "now_terminal": "PWD",
-    "now_color": "cyan",
+    "now_color": "ECD078",
     "display": "2-8"
 }

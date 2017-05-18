@@ -34,63 +34,76 @@
     <div class="container" id="kiosk-wrapper" ng-controller="kioskController">
         <br/>
         <ul class="nav nav-tabs nav-justified" role="tablist">
-            <li ng-repeat="service in services" ng-class="$index==0?'active':''" ng-click="switchActiveService(service.service_id);">
-                <a href="#@{{service.name}}" id="#@{{service.name}}-tab" data-toggle="tab"> @{{service.name}} <br/>  [@{{service.first_terminal}}] </a>
+            <li ng-repeat="service in services" ng-class="$index==0?'active':''"
+                ng-click="switchActiveService(service.service_id);" data-toggle="modal" data-target="#kioskModal">
+                <a href="#@{{service.name}}" id="#@{{service.name}}-tab" data-toggle="tab"> @{{service.name}} <br/>
+                    [@{{service.first_terminal}}] </a>
             </li>
         </ul>
-        <div class="tab-content" id="kioskTabContent">
-            <div ng-repeat="service in services" ng-class="$index==0?'tab-pane fade active in':'tab-pane fade'" role="tabpanel" id="@{{service.name}}" aria-labelledby="@{{service.name}}-tab">
-                <div class="clearfix">
-                    <div class="col-md-12 emphasis">
-                        <div class="col-md-6 issue-number">
-                            <span class="number-to-issue">@{{ next_number }}</span><br/>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="well well-sm">
-                                <div id="fqCarousel" class="carousel slide" data-ride="carousel">
-                                    <!-- Wrapper for slides -->
-                                    <div class="carousel-inner" role="listbox">
-                                        <div class="item active">
-                                            <img src="/images/broadcast/carousel/bs images 13.jpg" alt="ad1">
-                                        </div>
-                                        <div class="item">
-                                            <img src="/images/broadcast/carousel/bs images 14.jpg" alt="ad2">
-                                        </div>
-                                        <div class="item">
-                                            <img src="/images/broadcast/carousel/car1.jpg" alt="ad3">
-                                        </div>
-                                        <div class="item">
-                                            <img src="/images/broadcast/carousel/car2.jpg" alt="ad4">
-                                        </div>
-                                        <div class="item">
-                                            <img src="/images/broadcast/carousel/car3.jpg" alt="ad5">
-                                        </div>
-                                        <div class="item">
-                                            <img src="/images/broadcast/carousel/car4.jpg" alt="ad6">
-                                        </div>
-                                        <div class="item">
-                                            <img src="/images/broadcast/carousel/poster.jpg" alt="ad7">
+        <div class="modal fade" tabindex="-1" role="dialog" id="kioskModal" aria-labelledby="kioskModal">
+            <div class="modal-dialog modal-lg" role="document" style="width: 85%">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="tab-content" id="kioskTabContent">
+                            <div class="clearfix">
+                                <div class="col-md-12 emphasis" data-dismiss="modal">
+                                    <div class="col-md-6 issue-number">
+                                        <span class="number-to-issue">@{{ next_number }}</span><br/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="well well-sm">
+                                            <div id="fqCarousel" class="carousel slide" data-ride="carousel">
+                                                <!-- Wrapper for slides -->
+                                                <div class="carousel-inner" role="listbox">
+                                                    <div class="item active">
+                                                        <img src="/images/broadcast/carousel/bs images 13.jpg"
+                                                             alt="ad1">
+                                                    </div>
+                                                    <div class="item">
+                                                        <img src="/images/broadcast/carousel/bs images 14.jpg"
+                                                             alt="ad2">
+                                                    </div>
+                                                    <div class="item">
+                                                        <img src="/images/broadcast/carousel/car1.jpg" alt="ad3">
+                                                    </div>
+                                                    <div class="item">
+                                                        <img src="/images/broadcast/carousel/car2.jpg" alt="ad4">
+                                                    </div>
+                                                    <div class="item">
+                                                        <img src="/images/broadcast/carousel/car3.jpg" alt="ad5">
+                                                    </div>
+                                                    <div class="item">
+                                                        <img src="/images/broadcast/carousel/car4.jpg" alt="ad6">
+                                                    </div>
+                                                    <div class="item">
+                                                        <img src="/images/broadcast/carousel/poster.jpg" alt="ad7">
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+                                </div>
                             </div>
+                            <div class="row">
+                                <center>
+                                    <button class="btn btn-lg btn-success" id="get-number"
+                                            ng-click="getIssueNumber()"><span
+                                          class="glyphicon glyphicon-download"></span> GET NUMBER
+                                    </button>
+                                </center>
+                            </div>
+                            @include('modals.kiosk.confirmation-code')
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <center>
-                    <button class="btn btn-lg btn-success" id="get-number" ng-click="getIssueNumber()"><span class="glyphicon glyphicon-download"></span> GET NUMBER</button>
-                </center>
-            </div>
         </div>
-        @include('modals.kiosk.confirmation-code')
-    </div>
 
-    <!--constants-->
-    <input type="hidden" id="business_id" value="{{ $business_id }}">
-    <!-- urls -->
-    <input type="hidden" id="issue-specific-url" value="{{ url('/issuenumber/insertspecific/') }}">
-    <!-- end urls -->
-    <!-- end process queue main -->
-{{--    @include('modals.websockets.websocket-loader')--}}
+        <!--constants-->
+        <input type="hidden" id="business_id" value="{{ $business_id }}">
+        <!-- urls -->
+        <input type="hidden" id="issue-specific-url" value="{{ url('/issuenumber/insertspecific/') }}">
+        <!-- end urls -->
+        <!-- end process queue main -->
+    {{--    @include('modals.websockets.websocket-loader')--}}
 @stop

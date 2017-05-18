@@ -1,8 +1,8 @@
 ************
 PGOC - Carcar Provincial Hospital
 Service:   CONSULTATION
-Priority Number:   A10
-Confirmation Code:   2665
+Priority Number:   A26
+Confirmation Code:   2B24
 ************
 
 
