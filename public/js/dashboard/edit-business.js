@@ -117,7 +117,6 @@ $(document).ready(function ()
 
     $(".datepicker").datepicker();
 
-
     /*select option chooser for how many numbers to display*/
     /*$(function () {
      $('.q-numbers').hide();

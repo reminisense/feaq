@@ -1,6 +1,6 @@
 {
     "box1": {
-        "service_id": "5",
+        "service_id": 5,
         "service_name": "CONSULTATION",
         "current_number": "",
         "terminal": "",
@@ -8,7 +8,7 @@
         "called_numbers": ""
     },
     "box2": {
-        "service_id": "6",
+        "service_id": 6,
         "service_name": "CONSULTATION",
         "current_number": "",
         "terminal": "",
@@ -50,10 +50,10 @@
     "box7": {
         "service_id": 11,
         "service_name": "ANIMAL BITES",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
+        "current_number": "2",
+        "terminal": "PWD",
+        "color": "cyan",
+        "called_numbers": "1 .. "
     },
     "box8": {
         "service_id": 12,
@@ -63,9 +63,9 @@
         "color": "",
         "called_numbers": ""
     },
-    "now_num": "",
-    "now_service": "",
-    "now_terminal": "",
-    "now_color": "",
+    "now_num": "2",
+    "now_service": "ANIMAL BITES",
+    "now_terminal": "PWD",
+    "now_color": "cyan",
     "display": "2-8"
 }

@@ -817,7 +817,7 @@ button#sendreply {
     width: 47%;
     margin-bottom: 6px;
 }
-.q-numbers .half {padding: 2px 20px; text-align: center; font-size: 32px; background-color: #fff; font-family: 'ralewaybold';margin: 3px; }
+.q-numbers .half {padding: 2px 10px; text-align: center; font-size: 32px; background-color: #fff; font-family: 'ralewaybold';margin: 3px; }
 .q-numbers .full {width: 100%;}
 .rel {position: relative;} .abs {position: absolute;}
 #ad-well-inner .drag {right: -44px;top:7%;}
@@ -1312,6 +1312,6 @@ span.glyphicon {
 
 .qbox .select-service {
     width: 100%;
-    margin: 6px 0px 0px 0px;
+    margin: 6px 0px 6px 0px;
     padding: 0px;
 }
