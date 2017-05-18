@@ -71,6 +71,8 @@ Route::controller('list', 'BusinessListController');
 //services methods
 Route::get('services/{id}', 'ServiceController@getIndex');
 
+Route::get('services/business/{id}', 'ServiceController@getKioskServices');
+
 Route::put('services/{id}', 'ServiceController@putIndex');
 
 Route::delete('services/{id}', 'ServiceController@deleteIndex');
