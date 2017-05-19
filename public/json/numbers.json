@@ -2,70 +2,70 @@
     "box1": {
         "service_id": 5,
         "service_name": "CONSULTATION",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
+        "current_number": "A8",
+        "terminal": "PWD",
+        "color": "ECD078",
+        "called_numbers": "A7 .. A6 .. A5 .. "
     },
     "box2": {
         "service_id": 6,
         "service_name": "CONSULTATION",
-        "current_number": "B41",
+        "current_number": "B44",
         "terminal": "SENIOR CITIZEN",
         "color": "borange",
-        "called_numbers": ""
+        "called_numbers": "B43 .. B42 .. B41 .. "
     },
     "box3": {
         "service_id": 7,
         "service_name": "MOTHER and CHILD",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
+        "current_number": "C8",
+        "terminal": "PWD",
+        "color": "violet",
+        "called_numbers": "C7 .. C5 .. C3 .. C2 .. C1 .. "
     },
     "box4": {
         "service_id": 8,
         "service_name": "MOTHER and CHILD",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
+        "current_number": "D104",
+        "terminal": "SENIOR CITIZEN",
+        "color": "green",
+        "called_numbers": "D103 .. D102 .. D101 .. "
     },
     "box5": {
         "service_id": 9,
         "service_name": "DENTAL",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
+        "current_number": "E209",
+        "terminal": "PWD",
+        "color": "red",
+        "called_numbers": "E208 .. E206 .. E205 .. "
     },
     "box6": {
         "service_id": 10,
         "service_name": "DENTAL",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
+        "current_number": "F406",
+        "terminal": "SENIOR CITIZEN",
+        "color": "yellow",
+        "called_numbers": "F405 .. F404 .. F403 .. F402 .. F401 .. "
     },
     "box7": {
         "service_id": 11,
         "service_name": "ANIMAL BITES",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
+        "current_number": "4",
+        "terminal": "PWD",
+        "color": "cyan",
+        "called_numbers": "3 .. 2 .. 1 .. "
     },
     "box8": {
         "service_id": 12,
         "service_name": "ANIMAL BITES",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
+        "current_number": "104",
+        "terminal": "SENIOR CITIZEN",
+        "color": "x242436",
+        "called_numbers": "103 .. 102 .. 101 .. "
     },
-    "now_num": "B41",
-    "now_service": "CONSULTATION",
+    "now_num": "F406",
+    "now_service": "DENTAL",
     "now_terminal": "SENIOR CITIZEN",
-    "now_color": "borange",
+    "now_color": "yellow",
     "display": "2-8"
 }

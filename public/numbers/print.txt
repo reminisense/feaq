@@ -1,8 +1,8 @@
 ************
-PGOC - Carcar Provincial Hospital
+PGOC Demo
 Service:   DENTAL
-Priority Number:   E200
-Confirmation Code:   A8F1
+Priority Number:   F406
+Confirmation Code:   BD68
 ************
 
 

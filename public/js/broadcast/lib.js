@@ -61,5 +61,5 @@ var writeNumberToBoxes = function ($scope, response, box_num, service, current, 
     $scope[terminal] = response[box_num].terminal;
     $scope[color] = response[box_num].color;
     $scope[called] = response[box_num].called_numbers;
-    responsiveVoice.speak(response[box_num].current_number, "UK English Male", {rate: .6, pitch: .9});
+//    responsiveVoice.speak(response[box_num].current_number, "UK English Male", {rate: .6, pitch: .9});
 };

@@ -1,3 +1,5 @@
+//var websocket_url = "ws://192.168.8.101:55346/socket/server.php";
+//var mailsocket_url = "ws://192.168.8.101:55346/mail/server.php";
 var websocket_url = "ws://127.0.0.1:55346/socket/server.php";
 var mailsocket_url = "ws://127.0.0.1:55346/mail/server.php";
 

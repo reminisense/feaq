@@ -20,6 +20,7 @@ app.controller('nowServingCtrl', function ($scope, $http) {
     $('#currently-called-number').modal('show');
     setTimeout(function() {$('#currently-called-number').modal('hide');}, 5000);
     callNumberSound('call-number-sound');
+    responsiveVoice.speak($scope.now_number, "UK English Male", {rate: .6, pitch: .9});
   });
 
 });
