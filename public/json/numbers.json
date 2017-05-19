@@ -2,17 +2,17 @@
     "box1": {
         "service_id": 5,
         "service_name": "CONSULTATION",
-        "current_number": "A25",
-        "terminal": "PWD",
-        "color": "ECD078",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
         "called_numbers": ""
     },
     "box2": {
         "service_id": 6,
         "service_name": "CONSULTATION",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
+        "current_number": "B41",
+        "terminal": "SENIOR CITIZEN",
+        "color": "borange",
         "called_numbers": ""
     },
     "box3": {
@@ -50,10 +50,10 @@
     "box7": {
         "service_id": 11,
         "service_name": "ANIMAL BITES",
-        "current_number": "2",
-        "terminal": "PWD",
-        "color": "cyan",
-        "called_numbers": "1 .. "
+        "current_number": "",
+        "terminal": "",
+        "color": "",
+        "called_numbers": ""
     },
     "box8": {
         "service_id": 12,
@@ -63,9 +63,9 @@
         "color": "",
         "called_numbers": ""
     },
-    "now_num": "A25",
+    "now_num": "B41",
     "now_service": "CONSULTATION",
-    "now_terminal": "PWD",
-    "now_color": "ECD078",
+    "now_terminal": "SENIOR CITIZEN",
+    "now_color": "borange",
     "display": "2-8"
 }

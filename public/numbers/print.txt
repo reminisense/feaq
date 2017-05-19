@@ -1,8 +1,8 @@
 ************
 PGOC - Carcar Provincial Hospital
-Service:   CONSULTATION
-Priority Number:   A26
-Confirmation Code:   2B24
+Service:   DENTAL
+Priority Number:   E200
+Confirmation Code:   A8F1
 ************
 
 

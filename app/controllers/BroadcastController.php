@@ -337,7 +337,7 @@ class BroadcastController extends BaseController
             if (Input::get('box16_service')) {
                 $serviceList[] = Input::get('box16_service');
             }
-            $data->display = $this->generateDisplayCode($data->ad_type, count($serviceList));
+            $data->display = '2-' . count($serviceList); //$this->generateDisplayCode($data->ad_type, count($serviceList));
             $data = $this->boxObjectCreator($data, Input::get('num_boxes'));
             $encode = json_encode($data);
             file_put_contents(public_path() . '/json/' . Input::get('business_id') . '.json', $encode);
@@ -371,18 +371,19 @@ class BroadcastController extends BaseController
     }
 
     // generate a representation for the combination of ad_type and num_boxes
-    private function generateDisplayCode($ad_type, $num_boxes)
-    {
+//    private function generateDisplayCode($ad_type, $num_boxes)
+//    {
 //    if ($ad_type == 'carousel') {
 //      $display = '1-';
 //    }
-        if ($ad_type == 'carousel' || $ad_type == 'internet_tv' || $ad_type == 'local_video') {
-            $display = '2-';
-        } else {
-            $display = '0-';
-        }
-        return $display . $num_boxes;
-    }
+//        if ($ad_type == 'carousel' || $ad_type == 'internet_tv' || $ad_type == 'local_video') {
+//            $display = '2-';
+//        } else {
+//            $display = '0-';
+//        }
+//        $display = '2-';
+//        return $display . $num_boxes;
+//    }
 
     private function boxObjectCreator($data, $num_boxes)
     {
