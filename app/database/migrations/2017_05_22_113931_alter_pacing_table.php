@@ -15,6 +15,10 @@ class AlterPacingTable extends Migration {
 		Schema::table('pacing', function(Blueprint $table)
 		{
 			//
+			$table->dropColumn('schedule');
+			$table->renameColumn('quantity', 'quota');
+			$table->string('time_start');
+			$table->string('time_end');
 		});
 	}
 
