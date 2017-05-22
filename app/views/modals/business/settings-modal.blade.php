@@ -117,21 +117,52 @@
                         <div role="tabpanel" class="tab-pane fade" id="pacing">
                             <div class="broadcast-wrap2">
                                 <div class="clearfix">
-                                    <div class="col-md-6 mb20">
-                                        <p class="title">Schedule</p>
+                                    <div class="col-md-6 mb0">
+                                        <p class="title">Enable Pacing: </p>
                                     </div>
-                                    <div class="col-md-6 mb20">
-                                        <input class="mb0 form-control white" type="datetime-local"
-                                               ng-model="service_settings.schedule">
+                                    <div class="col-md-6 mb0">
+                                        <div class="col-md-3">
+                                            <input class="mb0" type="radio"
+                                                   ng-model="service_settings.isEnabled" name="enable_pacing" value="Yes"
+                                                   ng-value="1"> <label>Yes</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input class="mb0" type="radio"
+                                                   ng-model="service_settings.isEnabled" name="enable_pacing" value="No"
+                                                   ng-value="0"> <label>No</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mb20">
+                                        <div class="alert alert-warning" role="alert">
+                                            <p><strong>Note:</strong> Pacing will override the current number limit to the total number of quota per time slot.</p>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="clearfix">
                                     <div class="col-md-6 mb20">
-                                        <p class="title">Quantity</p>
+                                        <p class="title">Time Start</p>
+                                    </div>
+                                    <div class="col-md-6 mb20">
+                                        <input class="mb0 form-control white" type="time"
+                                               ng-model="service_settings.timeStart">
+                                    </div>
+                                </div>
+                                <div class="clearfix">
+                                    <div class="col-md-6 mb20">
+                                        <p class="title">Time End</p>
+                                    </div>
+                                    <div class="col-md-6 mb20">
+                                        <input class="mb0 form-control white" type="time"
+                                               ng-model="service_settings.timeEnd">
+                                    </div>
+                                </div>
+                                <div class="clearfix">
+                                    <div class="col-md-6 mb20">
+                                        <p class="title">Quota</p>
                                     </div>
                                     <div class="col-md-6 mb20">
                                         <input class="mb0 form-control white" type="number"
-                                               ng-model="service_settings.quantity">
+                                               ng-model="service_settings.quota">
                                     </div>
                                 </div>
                                 <div class="clearfix">
@@ -146,16 +177,16 @@
                                         <table class="table table-condensed table-hover" style="text-align: center;">
                                             <thead>
                                             <tr>
-                                                <th style="text-align: center;">Time</th>
-                                                <th style="text-align: center;">Date</th>
-                                                <th style="text-align: center;">Quantity</th>
+                                                <th style="text-align: center;">Time Start</th>
+                                                <th style="text-align: center;">Time End</th>
+                                                <th style="text-align: center;">Quota</th>
                                                 <th style="text-align: center;">Remove</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr>
                                                 <td><strong>08:00 AM</strong></td>
-                                                <td><strong>Wednesday, May 17, 2017</strong></td>
+                                                <td><strong>09:00 AM</strong></td>
                                                 <td><strong>40</strong></td>
                                                 <td>
                                                     <button class="btn btn-danger btn-xs"><span
@@ -163,8 +194,8 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td><strong>02:00 PM</strong></td>
-                                                <td><strong>Wednesday, May 17, 2017</strong></td>
+                                                <td><strong>09:00 AM</strong></td>
+                                                <td><strong>10:00 AM</strong></td>
                                                 <td><strong>20</strong></td>
                                                 <td>
                                                     <button class="btn btn-danger btn-xs"><span
@@ -172,8 +203,8 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td><strong>09:00 AM</strong></td>
-                                                <td><strong>Thursday, May 18, 2017</strong></td>
+                                                <td><strong>10:00 AM</strong></td>
+                                                <td><strong>12:00 NN</strong></td>
                                                 <td><strong>30</strong></td>
                                                 <td>
                                                     <button class="btn btn-danger btn-xs"><span
@@ -182,8 +213,17 @@
                                             </tr>
                                             <tr>
                                                 <td><strong>01:00 PM</strong></td>
-                                                <td><strong>Thursday, May 18, 2017</strong></td>
+                                                <td><strong>03:00 PM</strong></td>
                                                 <td><strong>60</strong></td>
+                                                <td>
+                                                    <button class="btn btn-danger btn-xs"><span
+                                                          class="glyphicon glyphicon-remove"></span></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>03:00 PM</strong></td>
+                                                <td><strong>04:00 PM</strong></td>
+                                                <td><strong>10</strong></td>
                                                 <td>
                                                     <button class="btn btn-danger btn-xs"><span
                                                           class="glyphicon glyphicon-remove"></span></button>

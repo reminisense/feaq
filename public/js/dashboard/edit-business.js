@@ -519,8 +519,10 @@ var eb = {
                 message: ''
             },
 
-            schedule: 0,
-            quantity: 0
+            isEnabled: 0,
+            timeStart: 0,
+            timeEnd: 0,
+            quota: 0
         };
 
         $scope.$watch('service_settings.check_in_display', function (newValue, oldValue)
@@ -646,30 +648,34 @@ var eb = {
 
         $scope.setPaceSchedule = function ()
         {
-            if (typeof ($scope.service_settings.schedule) == "undefined" || $scope.service_settings.schedule == null
-              || $scope.service_settings.schedule == 0) {
-                showServiceSettingsMessage(0, "Invalid date-time format for the schedule.");
+            if (typeof ($scope.service_settings.timeStart) == "undefined" || $scope.service_settings.timeStart == null
+              || $scope.service_settings.timeStart == 0 || typeof ($scope.service_settings.timeEnd) == "undefined"
+              || $scope.service_settings.timeEnd == null
+              || $scope.service_settings.timeEnd == 0) {
+                showServiceSettingsMessage(0, "Invalid time format for the schedules.");
                 return;
             }
             else {
-                if ($scope.service_settings.quantity == null || $scope.service_settings.quantity == 0) {
-                    showServiceSettingsMessage(0, "Quantity must be greater than zero (0).");
+                if ($scope.service_settings.quota == null || $scope.service_settings.quota == 0) {
+                    showServiceSettingsMessage(0, "Quota must be greater than zero (0).");
                     return;
                 }
             }
-            $http.post('/services/add-pacing', {
-                'service_id': $scope.service_settings.service_id,
-                'schedule': $scope.service_settings.schedule.getTime(),
-                'quantity': $scope.service_settings.quantity
-            }).success(function (response)
-            {
-                if (response.success == 1) {
-                    showServiceSettingsMessage(1, "Pacing schedule added successfully.");
-                }
-                else {
-                    showServiceSettingsMessage(0, "Something went wrong.. Please try again.");
-                }
-            });
+            var timeStartVal = $scope.service_settings.timeStart.getHours() + ":" + $scope.service_settings.timeStart.getMinutes();
+            var timeEndVal = $scope.service_settings.timeEnd.getHours() + ":" + $scope.service_settings.timeEnd.getMinutes();
+//            $http.post('/services/add-pacing', {
+//                'service_id': $scope.service_settings.service_id,
+//                'schedule': $scope.service_settings.schedule.getTime(),
+//                'quantity': $scope.service_settings.quantity
+//            }).success(function (response)
+//            {
+//                if (response.success == 1) {
+//                    showServiceSettingsMessage(1, "Pacing schedule added successfully.");
+//                }
+//                else {
+//                    showServiceSettingsMessage(0, "Something went wrong.. Please try again.");
+//                }
+//            });
         };
 
         $scope.saveServiceQueueSettings = function ()
