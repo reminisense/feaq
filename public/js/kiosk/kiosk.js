@@ -21,7 +21,7 @@
         $scope.confirmation_code = null;
         $scope.issued_number = null;
         $scope.active_service_id = null;
-
+        $scope.selected_pacing_id = 0;
 
         //websocket = new ReconnectingWebSocket(websocket_url);
         //websocket.onopen = function(response) { // connection is open
@@ -100,6 +100,11 @@
             $scope.next_number = '--';
             $scope.active_service_id = service_id;
             $scope.getNextNumber();
+        };
+
+        $scope.switchPacingSchedule = function (pacing_id)
+        {
+            $scope.selected_pacing_id = pacing_id;
         };
 
         $scope.getBusinessServices();

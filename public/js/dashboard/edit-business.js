@@ -678,6 +678,11 @@ var eb = {
 //            });
         };
 
+        $scope.removePacing = function (pacing_id) {
+            $('#pacing-record-' + pacing_id).remove();
+            showServiceSettingsMessage(1, "Pacing schedule has been removed.");
+        };
+
         $scope.saveServiceQueueSettings = function ()
         {
             $http.post('/queuesettings/save-settings', $scope.service_settings).success(function (response)

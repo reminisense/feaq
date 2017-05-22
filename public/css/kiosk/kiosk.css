@@ -78,3 +78,21 @@
   font-family: 'ralewaymedium';
   height: 95px;
 }
+
+#pacing-schedule.nav-tabs>li>a {
+  height: 60px;
+}
+
+#pacing-schedule.nav-tabs.nav-justified>li {
+  width: 32.7%;
+}
+
+#time-slot-title {
+  color: #00ba8b;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+#time-slot-title h1 {
+  font-weight: bolder;
+}
