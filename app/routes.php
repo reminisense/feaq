@@ -79,6 +79,9 @@ Route::delete('services/{id}', 'ServiceController@deleteIndex');
 
 Route::controller('services', 'ServiceController');
 
+//pacing methods
+Route::resource('pacing', 'PacingController');
+
 //raw code implementation
 Route::get('/{raw_code?}', 'UserController@getUserDashboard');
 
