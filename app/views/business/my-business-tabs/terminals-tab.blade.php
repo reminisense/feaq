@@ -33,6 +33,56 @@
 </div>
 <!-- end new services form -->
 
+<div class="clearfix header mb10">
+    <h5 class="col-md-12">GROUP MANAGEMENT</h5>
+</div>
+
+<!-- Start new group form -->
+<div class="clearfix">
+    <!-- TODO code for submit code for add group -->
+    <form ng-submit="">
+        <div class="col-md-12">
+            <div class="alert alert-danger" id="add-group-error" ng-show="assign_error" style="text-align: center">@{{ assign_error }}</div>
+            <div class="alert alert-success" id="add-group-suc" ng-show="assign_suc" style="text-align: center">@{{ assign_suc }}</div>
+        </div>
+        <div class="col-md-2">
+            Create a new group:
+        </div>
+        <div class="col-md-2">
+            <input type="text" class="form-control" placeholder="Group Name" ng-model="add_group" title="Group Name" required/>
+        </div>
+        <div class="col-md-1">
+            <button type="submit" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+        </div>
+    </form>
+</div>
+<!-- end new group form -->
+
+<!-- Start delete group form -->
+<div class="clearfix">
+    <!-- TODO code for submit code for delete group-->
+    <form ng-submit="">
+        <div class="col-md-12">
+            <div class="alert alert-danger" id="delete-group-error" ng-show="assign_error" style="text-align: center">@{{ assign_error }}</div>
+            <div class="alert alert-success" id="delete-group-suc" ng-show="assign_suc" style="text-align: center">@{{ assign_suc }}</div>
+        </div>
+        <div class="col-md-2">
+            Delete an existing group:
+        </div>
+        <div class="col-md-2">
+            <select class="form-control" ng-model="selected_group" title="Select Group">
+                <option value="" selected disabled>Select Group</option>
+                <option >Group 1</option>
+                <option >Group 2</option>
+            </select>
+        </div>
+        <div class="col-md-1">
+            <button type="submit" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-trash"></span></button>
+        </div>
+    </form>
+</div>
+<!-- end delete group form -->
+
 <div class="clearfix mt20 mb10">
     <div class="col-md-12">
         <h5 class=mb10"">SERVICES MANAGEMENT</h5>

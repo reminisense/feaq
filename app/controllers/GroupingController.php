@@ -8,5 +8,17 @@
  */
 class GroupingController extends BaseController
 {
-    
+    public function getGroups($business_id){
+        return Grouping::fetchGroupsByBusiness($business_id);
+    }
+
+    public function postDeleteGroup() {
+        $groupId = Input::get();
+        return Grouping::deleteGroup($groupId);
+    }
+
+    public function postCreateGroup(){
+        $groupId = Input::get();
+        return Grouping::createGroup($groupId);
+    }
 }
