@@ -525,6 +525,10 @@ var eb = {
             quota: 0
         };
 
+        $scope.groupings = [];
+        $scope.groupToAdd = "";
+        $scope.groupToDelete = 0;
+
         $scope.$watch('service_settings.check_in_display', function (newValue, oldValue)
         {
             if (newValue > 10) {
@@ -661,8 +665,10 @@ var eb = {
                     return;
                 }
             }
-            var timeStartVal = $scope.service_settings.timeStart.getHours() + ":" + $scope.service_settings.timeStart.getMinutes();
-            var timeEndVal = $scope.service_settings.timeEnd.getHours() + ":" + $scope.service_settings.timeEnd.getMinutes();
+            var timeStartVal = $scope.service_settings.timeStart.getHours() + ":"
+              + $scope.service_settings.timeStart.getMinutes();
+            var timeEndVal = $scope.service_settings.timeEnd.getHours() + ":"
+              + $scope.service_settings.timeEnd.getMinutes();
 //            $http.post('/services/add-pacing', {
 //                'service_id': $scope.service_settings.service_id,
 //                'schedule': $scope.service_settings.schedule.getTime(),
@@ -678,7 +684,8 @@ var eb = {
 //            });
         };
 
-        $scope.removePacing = function (pacing_id) {
+        $scope.removePacing = function (pacing_id)
+        {
             $('#pacing-record-' + pacing_id).remove();
             showServiceSettingsMessage(1, "Pacing schedule has been removed.");
         };
@@ -816,6 +823,7 @@ var eb = {
                   {
                       setBusinessFields(response.business);
                       setServiceBoxes();
+                      setGroupingList();
                       setBusinessFeatures(response.business.features);
                   });
             }
@@ -911,6 +919,14 @@ var eb = {
                 $scope.service_boxes.box14_service = response.box14;
                 $scope.service_boxes.box15_service = response.box15;
                 $scope.service_boxes.box16_service = response.box16;
+            });
+        };
+
+        setGroupingList = function ()
+        {
+            $http.get('/grouping/groups/' + $scope.business_id).success(function (response)
+            {
+                $scope.groupings = response;
             });
         };
 
@@ -1983,6 +1999,41 @@ var eb = {
             {
                 console.log(response.status + " " + response.message);
             });
+        };
+
+        $scope.addNewGroup = function ()
+        {
+            if ($scope.groupToAdd.trim()) {
+                $http.post('/grouping/create-group', {
+                    'group_name': $scope.groupToAdd,
+                    'business_id': $scope.business_id
+                }).success(function (response)
+                {
+                    if (response.status == 1) {
+                        $scope.groupToAdd = "";
+                        setGroupingList();
+                    }
+                    else {
+                        alert(response.msg);
+                    }
+                });
+            }
+            else {
+                alert("Cannot add empty group name.");
+            }
+        };
+
+        $scope.deleteGrouping = function (group_id)
+        {
+            if (confirm("Are you sure you want to remove this group?")) {
+                $http.post('/grouping/delete-group', {
+                    'group_id': group_id
+                }).success(function (response)
+                {
+                    setGroupingList();
+                    $scope.groupToDelete = 0;
+                });
+            }
         };
 
         websocket.onerror = function (response)

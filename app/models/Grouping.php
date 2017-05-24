@@ -28,4 +28,9 @@ class Grouping extends Eloquent
         Grouping::where('group_id', '=', $group_id)->delete();
     }
 
+    public static function isGroupExists($group_name)
+    {
+        return Grouping::where('group_name', '=', $group_name)->exists();
+    }
+
 }
