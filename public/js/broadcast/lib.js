@@ -56,7 +56,7 @@ var getNum = function ($scope, response)
 
 var writeNumberToBoxes = function ($scope, response, box_num, service, current, terminal, color, called)
 {
-    $scope[service] = response[box_num].service_name;
+    $scope[service] = response[box_num].group_name;
     $scope[current] = response[box_num].current_number;
     $scope[terminal] = response[box_num].terminal;
     $scope[color] = response[box_num].color;
