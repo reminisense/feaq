@@ -28,4 +28,5 @@ class GroupingController extends BaseController
         }
         return json_encode(array('status' => 0, 'msg' => 'Group name already taken.'));
     }
+
 }

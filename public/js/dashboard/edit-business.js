@@ -690,6 +690,20 @@ var eb = {
             showServiceSettingsMessage(1, "Pacing schedule has been removed.");
         };
 
+        $scope.setServiceGroup = function(service_id){
+            var group_name = $("#service-group-"+service_id+" option:selected").text();
+            alert("service id:" + service_id);
+            alert(group_name);
+            $http.post('/services/update-group', {
+                'service_id' : service_id,
+                'group_name' : group_name
+            }).success(function (response)
+            {
+
+            });
+
+        };
+
         $scope.saveServiceQueueSettings = function ()
         {
             $http.post('/queuesettings/save-settings', $scope.service_settings).success(function (response)
@@ -2000,6 +2014,7 @@ var eb = {
                 console.log(response.status + " " + response.message);
             });
         };
+
 
         $scope.addNewGroup = function ()
         {

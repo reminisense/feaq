@@ -134,4 +134,8 @@ class Service extends Eloquent{
             ->exists();
 //        return FALSE;
     }
+
+    public static function updateGroup($service_id, $group_id) {
+        Service::where('service_id', '=', $service_id)->update(array('group_id' => $group_id));
+    }
 }
