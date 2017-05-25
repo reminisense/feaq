@@ -52,6 +52,25 @@ $(document).ready(function ()
 
     })
 
+    $('#service-group').on('change', function ()
+    {
+        console.log("test");
+        //var selectedValue = $parse(jQuery(this).val());
+        ////Depend on Value i.e. 0 or 1 respective function gets called.
+        //switch(selectedValue){
+        //    case 'a':
+        //        handlerFunctionA();
+        //        break;
+        //    case 'b':
+        //        handlerFunctionB();
+        //        break;
+        //    //etc...
+        //    default:
+        //        alert("catch default");
+        //        break;
+        //}
+    });
+
     $('#tv-channel').on('change', function ()
     {
         $('#tv-script-submit-btn').removeAttr('disabled');
@@ -2000,7 +2019,10 @@ var eb = {
                 console.log(response.status + " " + response.message);
             });
         };
-
+        $scope.testClick = function ()
+        {
+            console.log("test");
+        };
         $scope.addNewGroup = function ()
         {
             if ($scope.groupToAdd.trim()) {

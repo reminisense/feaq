@@ -39,7 +39,6 @@
 
 <!-- Start new group form -->
 <div class="clearfix">
-    <!-- TODO code for submit code for add group -->
     <form ng-submit="">
         <div class="col-md-2">
             Create a new group:
@@ -56,7 +55,6 @@
 
 <!-- Start delete group form -->
 <div class="clearfix">
-    <!-- TODO code for submit code for delete group-->
     <form ng-submit="">
         <div class="col-md-2">
             Delete an existing group:
@@ -102,6 +100,11 @@
         <thead>
         <tr>
             <th colspan="2">
+                <div class="col-md-2">
+                    <select id="service-group" name="service-group" class="form-control" ng-model="serviceGroup" title="Select Group">
+                        <option ng-repeat="grouping in groupings"  ng-click="testClick()" value="@{{ grouping.group_id }}">@{{ grouping.group_name }}</option>
+                    </select>
+                </div>
                 <strong>@{{ $index }} - <span class="service-name" ng-hide="service.edit_service">@{{ service.name }}</span></strong>
             </th>
             <th width="" class="text-right">
