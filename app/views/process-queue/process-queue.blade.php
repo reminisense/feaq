@@ -54,7 +54,7 @@
         <div class="col-md-offset-1 col-md-7 col-sm-8">
           <p>Processing Queues for:</p>
           <h2><strong>{{ $business_name }}</strong></h2>
-          <h3 class="cyan"><strong>{{ $service_name }} - {{ $terminal_name }}</strong></h3>
+          <h3 class="cyan"><strong>{{ $group_name }} - {{ $service_name }} - {{ $terminal_name }}</strong></h3>
           <div class="col-md-12 row mb10">
             <div class="col-md-4">Showing numbers for date:</div>
             <div class="col-md-8">

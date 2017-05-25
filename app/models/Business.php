@@ -118,6 +118,7 @@ class Business extends Eloquent
     {
         $business = Business::where('business_id', '=', $business_id)->get()->first();
         $services = Service::getBusinessServicesWithTerminals($business_id);
+        $groupings = Grouping::fetchGroupsByBusiness($business_id);
         $terminals = Terminal::getTerminalsByBusinessId($business_id);
         $terminals = Terminal::getAssignedTerminalWithUsers($terminals);
         $analytics = Analytics::getBusinessAnalytics($business_id);
@@ -152,6 +153,7 @@ class Business extends Eloquent
             'terminals' => $terminals,
             'services' => $services,
             'analytics' => $analytics,
+            'groupings' => $groupings,
             'features' => Business::getBusinessFeatures($business_id),
             'sms_gateway' => QueueSettings::smsGateway($first_service->service_id),
             'allowed_businesses' => Business::getForwardingAllowedBusinesses($business_id),

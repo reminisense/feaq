@@ -526,6 +526,7 @@ var eb = {
         };
 
         $scope.groupings = [];
+        $scope.serviceGroupings = [];
         $scope.groupToAdd = "";
         $scope.groupToDelete = 0;
 
@@ -822,7 +823,6 @@ var eb = {
                   .success(function (response)
                   {
                       setBusinessFields(response.business);
-                      setServiceBoxes();
                       setGroupingList();
                       setBusinessFeatures(response.business.features);
                   });
@@ -843,7 +843,7 @@ var eb = {
             $scope.terminals = business.terminals;
             $scope.services = business.services;
             $scope.analytics = business.analytics;
-            false;
+            $scope.groupings = business.groupings;
             //$scope.sms_5_ahead  = business.sms_5_ahead ? true : false;
             //$scope.sms_10_ahead  = business.sms_10_ahead ? true : false;
             //$scope.sms_blank_ahead = business.sms_blank_ahead ? true : false;
@@ -899,7 +899,7 @@ var eb = {
             }
         };
 
-        setServiceBoxes = function ()
+        setGroupingList = function ()
         {
             $http.get('/broadcast/service-boxes').success(function (response)
             {
@@ -919,14 +919,6 @@ var eb = {
                 $scope.service_boxes.box14_service = response.box14;
                 $scope.service_boxes.box15_service = response.box15;
                 $scope.service_boxes.box16_service = response.box16;
-            });
-        };
-
-        setGroupingList = function ()
-        {
-            $http.get('/grouping/groups/' + $scope.business_id).success(function (response)
-            {
-                $scope.groupings = response;
             });
         };
 
@@ -2030,8 +2022,13 @@ var eb = {
                     'group_id': group_id
                 }).success(function (response)
                 {
-                    setGroupingList();
-                    $scope.groupToDelete = 0;
+                    if (response.status == 1) {
+                        setGroupingList();
+                        $scope.groupToDelete = 0;
+                    }
+                    else {
+                        alert(response.msg);
+                    }
                 });
             }
         };

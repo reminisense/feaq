@@ -345,7 +345,7 @@ class BroadcastController extends BaseController
             $service_boxes = array();
             ServiceBoxes::clearBoxes();
             foreach ($serviceList as $sListId) {
-                $sListName = Service::name($sListId);
+                $sListName = Grouping::getGroupName($sListId);
                 $service_boxes['box' . $boxCount] = array(
                   'service_id'     => $sListId,
                   'service_name'   => $sListName,

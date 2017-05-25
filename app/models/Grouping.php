@@ -33,4 +33,9 @@ class Grouping extends Eloquent
         return Grouping::where('group_name', '=', $group_name)->exists();
     }
 
+    public static function getGroupName($group_id)
+    {
+        return Grouping::where('group_id', '=', $group_id)->first()->group_name;
+    }
+
 }

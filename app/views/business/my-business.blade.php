@@ -74,7 +74,7 @@ My Business
                                         <table class="table table-responsive table-condense table-striped" ng-repeat="service in services" ng-if="$index > 0">
                                             <thead>
                                                 <tr>
-                                                    <th>@{{ service.name }}</th>
+                                                    <th>@{{ service.group_name }} - @{{ service.name }}</th>
                                                     <th class="text-right"><small></small></th>
                                                 </tr>
                                             </thead>
