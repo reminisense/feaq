@@ -10,8 +10,7 @@
         <div class="row title">@{{ service1 }}</div>
         <div class="row number-list">
           <div class="col-md-12 current dark-orange blink-num">@{{ current1 }}
-            <p class="terminal"
-               style="margin-top: -10px; font-size: 60px;">@{{ terminal1 }}</p>
+            <p class="terminal">@{{ terminal1 }}</p>
           </div>
           <div class="col-md-12">
             <marquee>@{{ called1 }}</marquee>
@@ -29,11 +28,14 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
             aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">@{{ now_service }}</h4>
+        <h4 class="modal-title">@{{ now_group }}</h4>
       </div>
       <div class="modal-body @{{ now_color }}">
         <div class="modal-number">
           @{{ now_number }}
+          <p class="modal-service">
+            @{{ now_service }}
+          </p>
           <p class="modal-terminal">
             @{{ now_terminal }}
           </p>

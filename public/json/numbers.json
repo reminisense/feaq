@@ -1,71 +1,168 @@
 {
     "box1": {
-        "service_id": 5,
-        "service_name": "CONSULTATION",
-        "current_number": "A8",
+        "group_id": 5,
+        "group_name": "REGISTRATION",
+        "service_id": 17,
+        "service_name": "SENIOR CITIZEN",
+        "current_number": "1",
         "terminal": "PWD",
-        "color": "ECD078",
-        "called_numbers": "A7 .. A6 .. A5 .. "
+        "color": "x78250A",
+        "called_numbers": ""
     },
     "box2": {
-        "service_id": 6,
-        "service_name": "CONSULTATION",
-        "current_number": "B44",
-        "terminal": "SENIOR CITIZEN",
-        "color": "borange",
-        "called_numbers": "B43 .. B42 .. B41 .. "
+        "group_id": 25,
+        "group_name": "CASHIER",
+        "service_id": "",
+        "service_name": "",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
+        "called_numbers": ""
     },
     "box3": {
-        "service_id": 7,
-        "service_name": "MOTHER and CHILD",
-        "current_number": "C8",
+        "group_id": 1,
+        "group_name": "CONSULTATION",
+        "service_id": 5,
+        "service_name": "General",
+        "current_number": "A2",
         "terminal": "PWD",
-        "color": "violet",
-        "called_numbers": "C7 .. C5 .. C3 .. C2 .. C1 .. "
+        "color": "ECD078",
+        "called_numbers": ""
     },
     "box4": {
-        "service_id": 8,
-        "service_name": "MOTHER and CHILD",
-        "current_number": "D104",
-        "terminal": "SENIOR CITIZEN",
-        "color": "green",
-        "called_numbers": "D103 .. D102 .. D101 .. "
+        "group_id": 2,
+        "group_name": "MOTHER & CHILD",
+        "service_id": 7,
+        "service_name": "PWD",
+        "current_number": "C5",
+        "terminal": "PWD",
+        "color": "violet",
+        "called_numbers": "C4, C3, C2, C1, D114, "
     },
     "box5": {
+        "group_id": 3,
+        "group_name": "DENTAL",
         "service_id": 9,
-        "service_name": "DENTAL",
-        "current_number": "E209",
-        "terminal": "PWD",
+        "service_name": "PWD",
+        "current_number": "E211",
+        "terminal": "Desk A",
         "color": "red",
-        "called_numbers": "E208 .. E206 .. E205 .. "
+        "called_numbers": "E210, E209, E208, E207, "
     },
     "box6": {
-        "service_id": 10,
-        "service_name": "DENTAL",
-        "current_number": "F406",
-        "terminal": "SENIOR CITIZEN",
-        "color": "yellow",
-        "called_numbers": "F405 .. F404 .. F403 .. F402 .. F401 .. "
-    },
-    "box7": {
-        "service_id": 11,
-        "service_name": "ANIMAL BITES",
-        "current_number": "4",
-        "terminal": "PWD",
-        "color": "cyan",
-        "called_numbers": "3 .. 2 .. 1 .. "
-    },
-    "box8": {
+        "group_id": 4,
+        "group_name": "ANIMAL BITES",
         "service_id": 12,
-        "service_name": "ANIMAL BITES",
-        "current_number": "104",
+        "service_name": "Senior Citizen",
+        "current_number": "101",
         "terminal": "SENIOR CITIZEN",
         "color": "x242436",
-        "called_numbers": "103 .. 102 .. 101 .. "
+        "called_numbers": ""
     },
-    "now_num": "F406",
-    "now_service": "DENTAL",
-    "now_terminal": "SENIOR CITIZEN",
-    "now_color": "yellow",
-    "display": "2-8"
+    "box7": {
+        "group_id": 6,
+        "group_name": "PHARMACY",
+        "service_id": "",
+        "service_name": "",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
+        "called_numbers": ""
+    },
+    "box8": {
+        "group_id": 26,
+        "group_name": "MRI",
+        "service_id": "",
+        "service_name": "",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
+        "called_numbers": ""
+    },
+    "box9": {
+        "group_id": 8,
+        "group_name": "OPD",
+        "service_id": "",
+        "service_name": "",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
+        "called_numbers": ""
+    },
+    "box10": {
+        "group_id": 7,
+        "group_name": "CHECK-UP",
+        "service_id": "",
+        "service_name": "",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
+        "called_numbers": ""
+    },
+    "box11": {
+        "group_id": 9,
+        "group_name": "REHAB",
+        "service_id": "",
+        "service_name": "",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
+        "called_numbers": ""
+    },
+    "box12": {
+        "group_id": 22,
+        "group_name": "LOGISTICS",
+        "service_id": "",
+        "service_name": "",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
+        "called_numbers": ""
+    },
+    "box13": {
+        "group_id": 27,
+        "group_name": "EMERGENCY",
+        "service_id": "",
+        "service_name": "",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
+        "called_numbers": ""
+    },
+    "box14": {
+        "group_id": 13,
+        "group_name": "CANTEEN",
+        "service_id": "",
+        "service_name": "",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
+        "called_numbers": ""
+    },
+    "box15": {
+        "group_id": 11,
+        "group_name": "X-RAY",
+        "service_id": "",
+        "service_name": "",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
+        "called_numbers": ""
+    },
+    "box16": {
+        "group_id": 21,
+        "group_name": "RELEASING",
+        "service_id": "",
+        "service_name": "",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
+        "called_numbers": ""
+    },
+    "now_num": "C5",
+    "now_group": "MOTHER & CHILD",
+    "now_service": "PWD",
+    "now_terminal": "PWD",
+    "now_color": "violet",
+    "display": "2-16"
 }

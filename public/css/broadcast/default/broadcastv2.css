@@ -552,6 +552,35 @@
     height: 11.7vh;
 }
 
+.eight-rows .service-box .terminal {
+    margin-top: -10px; font-size: 18px;
+}
+
+.seven-rows .service-box .terminal,
+.six-rows .service-box .terminal {
+    margin-top: -10px; font-size: 20px;
+}
+
+.five-rows .service-box .terminal {
+    margin-top: -10px; font-size: 22px;
+}
+
+.four-rows .service-box .terminal {
+    margin-top: -10px; font-size: 26px;
+}
+
+.three-rows .service-box .terminal {
+    margin-top: -10px; font-size: 24px;
+}
+
+.two-rows .service-box .terminal {
+    margin-top: -10px; font-size: 30px;
+}
+
+.one-rows .service-box .terminal {
+    margin-top: -10px; font-size: 60px;
+}
+
 .fifty .eight-rows .title,
 .forty .eight-rows .title,
 .thirty .eight-rows .title,
@@ -808,6 +837,11 @@
   font-size: 35vh; font-weight: 800; text-align: center;
 }
 
+#currently-called-number .modal-service {
+  font-size: 10vh; font-weight: 800; text-align: center;
+    text-decoration: underline;
+}
+
 #currently-called-number .modal-terminal {
-  font-size: 10vh; font-weight: 800; text-align: center
+    font-size: 7vh; font-weight: 500; text-align: center
 }

@@ -10,8 +10,7 @@
         <div class="row title">@{{ service1 }}</div>
         <div class="row number-list">
           <div class="col-md-12 current dark-orange blink-num">@{{ current1 }}
-            <p class="terminal"
-               style="margin-top: -10px; font-size: 30px;">@{{ terminal1 }}</p>
+            <p class="terminal">@{{ terminal1 }}</p>
           </div>
           <div class="col-md-12">
             <marquee>@{{ called1 }}</marquee>
@@ -22,7 +21,7 @@
         <div class="row title">@{{ service2 }}</div>
         <div class="row number-list">
           <div class="col-md-12 current dark-orange blink-num">@{{ current2 }}
-            <p class="terminal" style="margin-top: -10px; font-size: 30px;">@{{ terminal2 }}</p>
+            <p class="terminal">@{{ terminal2 }}</p>
           </div>
           <div class="col-md-12">
             <marquee>@{{ called2 }}</marquee>
@@ -33,7 +32,7 @@
         <div class="row title">@{{ service3 }}</div>
         <div class="row number-list">
           <div class="col-md-12 current dark-orange blink-num">@{{ current3 }}
-            <p class="terminal" style="margin-top: -10px; font-size: 30px;">@{{ terminal3 }}</p>
+            <p class="terminal">@{{ terminal3 }}</p>
           </div>
           <div class="col-md-12">
             <marquee>@{{ called3 }}</marquee>
@@ -44,7 +43,7 @@
         <div class="row title">@{{ service4 }}</div>
         <div class="row number-list">
           <div class="col-md-12 current dark-orange blink-num">@{{ current4 }}
-            <p class="terminal" style="margin-top: -10px; font-size: 30px;">@{{ terminal4 }}</p>
+            <p class="terminal">@{{ terminal4 }}</p>
           </div>
           <div class="col-md-12">
             <marquee>@{{ called4 }}</marquee>
@@ -62,11 +61,14 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
             aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">@{{ now_service }}</h4>
+        <h4 class="modal-title">@{{ now_group }}</h4>
       </div>
       <div class="modal-body @{{ now_color }}">
         <div class="modal-number">
           @{{ now_number }}
+          <p class="modal-service">
+            @{{ now_service }}
+          </p>
           <p class="modal-terminal">
             @{{ now_terminal }}
           </p>

@@ -45,7 +45,7 @@
                   message = 'Issue number successful! <br> First number : ' + response.first_number
                     + ' <br> Last number : ' + response.last_number;
                   pq.jquery_functions.issue_number_success(message);
-                  $scope.sendWebsocket();
+//                  $scope.sendWebsocket();
 
                   $scope.number_start = '';
                   $scope.number_end = '';
@@ -82,7 +82,7 @@
                   if (response.number) {
                       message = 'Issue number successful! <br> Number : ' + response.number.priority_number;
                       pq.jquery_functions.issue_number_success(message);
-                      $scope.sendWebsocket();
+//                      $scope.sendWebsocket();
 
                       if ($scope.filtered_forms.length != 0) {
                           $scope.saveForms(response.number.transaction_number);
@@ -409,7 +409,7 @@
             transaction_number = $scope.user_queue.transaction_number;
             $http.get('/processqueue/checkin-transaction/' + transaction_number).success(function (response)
             {
-                $scope.sendWebsocket();
+//                $scope.sendWebsocket();
                 $('.btn-getnum').html('You are checked in');
                 $('.btn-getnum').addClass('disabled');
             });

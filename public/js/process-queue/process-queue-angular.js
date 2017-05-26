@@ -89,7 +89,7 @@
                       {
                           $scope.issue_call_number = null;
                           $scope.isCalling = false;
-                          $scope.updateBroadcast();
+//                          $scope.updateBroadcast();
                           return true;
                       });
                 } else {
@@ -157,7 +157,7 @@
                   if (typeof callback === 'function') {
                       callback();
                   }
-                  $scope.updateBroadcast();
+//                  $scope.updateBroadcast();
               }, null, function ()
               {
                   $scope.isProcessing = false;
@@ -532,11 +532,11 @@
                           + response.number.priority_number + '</h2>')
                         .show();
                       var business_id = response.business_id;
-                      websocket.send(JSON.stringify({
-                          business_id: business_id,
-                          broadcast_update: true,
-                          broadcast_reload: false
-                      }));
+//                      websocket.send(JSON.stringify({
+//                          business_id: business_id,
+//                          broadcast_update: true,
+//                          broadcast_reload: false
+//                      }));
                   });
             });
         };

@@ -72,7 +72,7 @@ class IssueNumberController extends BaseController {
       PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
       TerminalTransaction::where('transaction_number', '=', $number['transaction_number'])
         ->update(['time_assigned' => $time_assigned]);
-      ProcessQueue::updateBusinessBroadcast($business_id);
+//      ProcessQueue::updateBusinessBroadcast($business_id);
 
       $this->printToPOS($business_id, $service_id, $number, 'STMicroelectronics_USB_Portable_Printer', 'localhost');
 

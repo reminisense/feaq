@@ -361,6 +361,7 @@ class BroadcastController extends BaseController
                 $boxCount++;
             }
             $service_boxes['now_num'] = '';
+            $service_boxes['now_group'] = '';
             $service_boxes['now_service'] = '';
             $service_boxes['now_terminal'] = '';
             $service_boxes['now_color'] = '';

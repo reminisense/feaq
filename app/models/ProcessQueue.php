@@ -215,7 +215,7 @@ class ProcessQueue extends Eloquent
         }
 
         return json_encode(array(
-          'success' => 1,
+          'success'         => 1,
           'priority_number' => array(
             'transaction_number' => $transaction_number,
             'priority_number'    => $pnumber,
@@ -1006,37 +1006,29 @@ class ProcessQueue extends Eloquent
 
     public static function saveNumbersToJSON($service_id, $terminal_id, $priority_number)
     {
+        $groupId = Service::getGroupIdByService($service_id);
+        $serviceName = Service::name($service_id);
+        $terminalName = Terminal::name($terminal_id);
+        $terminalColor = Terminal::getColorByTerminalId($terminal_id);
         $data = json_decode(file_get_contents(public_path() . '/json/numbers.json'));
         $max_count = explode('-', $data->display)[1];
-//        for ($box_count = 1; $box_count <= $max_count; $box_count++) {
-//            $box_num = 'box' . $box_count;
-//            $current_number = '';
-//            $current_terminal = '';
-//            $current_color = '';
-//            $priority_numbers = '';
-//            $called_numbers = $all_numbers->called_numbers;
-//            foreach ($called_numbers as $count => $called_number) {
-//                if ($count == 0) {
-//                    $current_number = $called_number["priority_number"];
-//                    $current_terminal = $called_number["terminal_name"];
-//                } else {
-//                    $priority_numbers .= $called_number["priority_number"] . ' .. ';
-//                }
-//                $current_color = $called_number["color"];
-//            }
-//            $data->$box_num->terminal = $current_terminal;
-//            $data->$box_num->color = $current_color;
-//            $data->$box_num->current_number = $priority_number;
-//            $data->$box_num->called_numbers = $priority_numbers;
-//        }
-//        $file_path = public_path() . '/json/' . $business_id . '.json';
-//        $json = file_get_contents($file_path);
-//        $data2 = json_decode($json);
+        for ($box_count = 1; $box_count <= $max_count; $box_count++) {
+            $box_num = 'box' . $box_count;
+            if ($data->$box_num->group_id == $groupId) {
+                $data->$box_num->called_numbers = $data->$box_num->current_number; // . ', ' . $data->$box_num->called_numbers;
+                $data->$box_num->service_id = $service_id;
+                $data->$box_num->service_name = $serviceName;
+                $data->$box_num->current_number = $priority_number;
+                $data->$box_num->terminal = $terminalName;
+                $data->$box_num->color = $terminalColor;
+                break;
+            }
+        }
         $data->now_num = $priority_number; //$data2->box1->number;
-        $data->now_service = Grouping::getGroupName(Service::getGroupIdByService($service_id)) . ' - '
-          . Service::name($service_id); //$data2->box1->service;
-        $data->now_terminal = Terminal::name($terminal_id); // $data2->box1->terminal;
-        $data->now_color = Terminal::getColorByTerminalId($terminal_id);
+        $data->now_group = Grouping::getGroupName($groupId); //$data2->box1->service;
+        $data->now_service = $serviceName; // $data2->box1->terminal;
+        $data->now_terminal = $terminalName;
+        $data->now_color = $terminalColor;
         $file_path = public_path() . '/json/numbers.json';
         File::put($file_path, json_encode($data, JSON_PRETTY_PRINT));
     }

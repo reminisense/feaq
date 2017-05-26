@@ -123,7 +123,7 @@ class ProcessQueueController extends BaseController
 
     public function getUpdateBroadcast($business_id)
     {
-        $numbers = ProcessQueue::updateBusinessBroadcast($business_id);
+        $numbers = []; //ProcessQueue::updateBusinessBroadcast($business_id);
         return json_encode(['success' => 1, 'numbers' => $numbers], JSON_PRETTY_PRINT);
     }
 
