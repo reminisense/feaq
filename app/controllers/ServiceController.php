@@ -92,7 +92,9 @@ class ServiceController extends Controller{
         return json_encode(array('success' => 1));
     }
 
-
+    public function postUpdateGroup(){
+        return Service::updateGroup(Input::get('service_id'), Grouping::findIdByGroupName(Input::get('group_name')));
+    }
 
 //    public function getKioskList($business_id) {
 //        $business_services = [];
