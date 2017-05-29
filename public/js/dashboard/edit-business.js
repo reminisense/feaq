@@ -526,7 +526,6 @@ var eb = {
         };
 
         $scope.groupings = [];
-        $scope.serviceGroupings = [];
         $scope.groupToAdd = "";
         $scope.groupToDelete = 0;
 
@@ -693,8 +692,6 @@ var eb = {
 
         $scope.setServiceGroup = function(service_id){
             var group_name = $("#service-group-"+service_id+" option:selected").text();
-            alert("service id:" + service_id);
-            alert(group_name);
             $http.post('/services/update-group', {
                 'service_id' : service_id,
                 'group_name' : group_name
@@ -843,7 +840,6 @@ var eb = {
             }
         };
 
-
         setBusinessFields = function (business)
         {
             $scope.business_id = business.business_id;
@@ -943,6 +939,13 @@ var eb = {
             });
         };
 
+        setDefaultGroupings = function ()
+        {
+            for (var i=1; i < $scope.services.length; i++) {
+//                $('#service-group-' + $scope.services[i].service_id).val($scope.services[i].group_id);
+                $('#service-group-' + $scope.services[i].service_id + ' option[value="' + $scope.services[i].group_id + '"]').attr("selected", true);
+            }
+        };
 
         setTimeFormat = function (time)
         {

@@ -100,12 +100,14 @@
         <thead>
         <tr>
             <th colspan="2">
-                <div class="col-md-2">
-                    <select id="service-group-@{{ service.service_id }}" name="service-group" class="form-control" ng-model="serviceGroup" title="Select Group" ng-change="setServiceGroup(service.service_id)">
-                        <option ng-repeat="grouping in groupings" value="@{{ grouping.group_id }}">@{{ grouping.group_name }}</option>
+                <div class="col-md-3">
+                     <select id="service-group-@{{ service.service_id }}" name="service-group" class="form-control" ng-model="serviceGroup" title="Select Group" ng-change="setServiceGroup(service.service_id)">
+                        <option ng-selected="service.group_id == grouping.group_id" ng-repeat="grouping in groupings" value="@{{ grouping.group_id }}">@{{ grouping.group_name }}</option>
                     </select>
                 </div>
-                <strong>@{{$index }} - <span class="service-name" ng-hide="service.edit_service">@{{ service.name }}</span></strong>
+                <div class="col-md-7" style="padding-top: 6px;">
+                    <strong><span class="service-name" ng-hide="service.edit_service">@{{ service.name }}</span></strong>
+                </div>
             </th>
             <th width="" class="text-right">
                 <a href="" class="btn-boxy btn-light" ng-click="getServiceQueueSettings(service.service_id, service.name)" title="Service Settings"><span class="glyphicon glyphicon-cog"></span></a>
