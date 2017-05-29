@@ -39,7 +39,6 @@
 
 <!-- Start new group form -->
 <div class="clearfix">
-    <!-- TODO code for submit code for add group -->
     <form ng-submit="">
         <div class="col-md-2">
             Create a new group:
@@ -56,7 +55,6 @@
 
 <!-- Start delete group form -->
 <div class="clearfix">
-    <!-- TODO code for submit code for delete group-->
     <form ng-submit="">
         <div class="col-md-2">
             Delete an existing group:
@@ -102,7 +100,12 @@
         <thead>
         <tr>
             <th colspan="2">
-                <strong>@{{ $index }} - <span class="service-name" ng-hide="service.edit_service">@{{ service.name }}</span></strong>
+                <div class="col-md-2">
+                    <select id="service-group-@{{ service.service_id }}" name="service-group" class="form-control" ng-model="serviceGroup" title="Select Group" ng-change="setServiceGroup(service.service_id)">
+                        <option ng-repeat="grouping in groupings" value="@{{ grouping.group_id }}">@{{ grouping.group_name }}</option>
+                    </select>
+                </div>
+                <strong>@{{$index }} - <span class="service-name" ng-hide="service.edit_service">@{{ service.name }}</span></strong>
             </th>
             <th width="" class="text-right">
                 <a href="" class="btn-boxy btn-light" ng-click="getServiceQueueSettings(service.service_id, service.name)" title="Service Settings"><span class="glyphicon glyphicon-cog"></span></a>
