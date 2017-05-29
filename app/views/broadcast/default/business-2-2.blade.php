@@ -9,22 +9,22 @@
       <div class="col-md-12 service-box @{{ color1 }}">
         <div class="row title">@{{ service1 }}</div>
         <div class="row number-list">
-          <div class="col-md-12 current dark-orange blink-num">@{{ current1 }}
+          <div class="col-md-8 current dark-orange blink-num">@{{ current1 }}
             <p class="terminal">@{{ terminal1 }}</p>
           </div>
-          <div class="col-md-12">
-            <marquee>@{{ called1 }}</marquee>
+          <div class="col-md-4">
+            <p>@{{ called1 }}</p>
           </div>
         </div>
       </div>
       <div class="col-md-12 service-box @{{ color2 }}">
         <div class="row title">@{{ service2 }}</div>
         <div class="row number-list">
-          <div class="col-md-12 current dark-orange blink-num">@{{ current2 }}
+          <div class="col-md-8 current dark-orange blink-num">@{{ current2 }}
             <p class="terminal">@{{ terminal2 }}</p>
           </div>
-          <div class="col-md-12">
-            <marquee>@{{ called2 }}</marquee>
+          <div class="col-md-4">
+            <p>@{{ called2 }}</p>
           </div>
         </div>
       </div>

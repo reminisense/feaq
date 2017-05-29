@@ -53,9 +53,8 @@
       <div class="col-md-6 service-box @{{ color5 }}">
         <div class="row title">@{{ service5 }}</div>
         <div class="row number-list">
-          <div class="col-md-8 current dark-orange blink-num">
-            <div class="col-md-6">@{{ current5 }}</div>
-            <div class="col-md-6"><p class="terminal">@{{ terminal5 }}</p></div>
+          <div class="col-md-8 current dark-orange blink-num">@{{ current5 }}
+            <p class="terminal">@{{ terminal5 }}</p>
           </div>
           <div class="col-md-4">
             <p>@{{ called5 }}</p>

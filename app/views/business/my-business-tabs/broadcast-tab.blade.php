@@ -105,7 +105,7 @@
                             <div class="form-group">
                             <small>Choose a channel:</small>
                                 <select ng-model="settings.tv_channel" ng-init="settings.tv_channel" id="tv-channel" class="form-control ng-pristine ng-valid ng-touched">
-                                    <option value="">- Select A Channel -</option>
+                                    <option value="0">- Select A Channel -</option>
                                     <option value="<embed flashvars=&quot;vid=12163886&amp;autoplay=true&quot; width=&quot;100%&quot; allowfullscreen=&quot;true&quot; allowscriptaccess=&quot;always&quot; src=&quot;http://www.ustream.tv/flash/viewer.swf&quot; type=&quot;application/x-shockwave-flash&quot;>">TechCrunch TV</option>
                                     <option value="<iframe width='100%' src='http://www.ustream.tv/embed/14067349?v=3&amp;wmode=direct&amp;autoplay=true' scrolling='no' frameborder='0' style='border: 0px none transparent;'></iframe>">Arirang TV</option>
                                     <option value="<iframe width='100%' src='http://www.ustream.tv/embed/8429259?v=3&amp;wmode=direct&amp;autoplay=true' scrolling='no' frameborder='0' style='border: 0px none transparent;'></iframe>">EnergyFM Manila</option>
@@ -152,6 +152,7 @@
                                 <div class="pull-left half">
                                     <div class="col-md-12">
                                         <select class="form-control select-service" ng-model="service_boxes.box1_service">
+                                            <option value="0">- NONE -</option>
                                             <option ng-repeat="grouping in groupings" value="@{{ grouping.group_id }}">@{{ grouping.group_name }}</option>
                                         </select>
                                     </div>
@@ -161,6 +162,7 @@
                                 <div class="pull-left half">
                                     <div class="col-md-12">
                                         <select class="form-control select-service" ng-model="service_boxes.box2_service">
+                                            <option value="0">- NONE -</option>
                                             <option ng-repeat="grouping in groupings" value="@{{ grouping.group_id }}">@{{ grouping.group_name }}</option>
                                         </select>
                                     </div>
@@ -170,6 +172,7 @@
                                 <div class="pull-left half">
                                     <div class="col-md-12">
                                         <select class="form-control select-service" ng-model="service_boxes.box3_service">
+                                            <option value="0">- NONE -</option>
                                             <option ng-repeat="grouping in groupings" value="@{{ grouping.group_id }}">@{{ grouping.group_name }}</option>
                                         </select>
                                     </div>
@@ -179,6 +182,7 @@
                                 <div class="pull-left half">
                                     <div class="col-md-12">
                                         <select class="form-control select-service" ng-model="service_boxes.box4_service">
+                                            <option value="0">- NONE -</option>
                                             <option ng-repeat="grouping in groupings" value="@{{ grouping.group_id }}">@{{ grouping.group_name }}</option>
                                         </select>
                                     </div>
@@ -188,6 +192,7 @@
                                 <div class="pull-left half">
                                     <div class="col-md-12">
                                         <select class="form-control select-service" ng-model="service_boxes.box5_service">
+                                            <option value="0">- NONE -</option>
                                             <option ng-repeat="grouping in groupings" value="@{{ grouping.group_id }}">@{{ grouping.group_name }}</option>
                                         </select>
                                     </div>
@@ -197,6 +202,7 @@
                                 <div class="pull-left half">
                                     <div class="col-md-12">
                                         <select class="form-control select-service" ng-model="service_boxes.box6_service">
+                                            <option value="0">- NONE -</option>
                                             <option ng-repeat="grouping in groupings" value="@{{ grouping.group_id }}">@{{ grouping.group_name }}</option>
                                         </select>
                                     </div>
@@ -206,6 +212,7 @@
                                 <div class="pull-left half">
                                     <div class="col-md-12">
                                         <select class="form-control select-service" ng-model="service_boxes.box7_service">
+                                            <option value="0">- NONE -</option>
                                             <option ng-repeat="grouping in groupings" value="@{{ grouping.group_id }}">@{{ grouping.group_name }}</option>
                                         </select>
                                     </div>
@@ -215,6 +222,7 @@
                                 <div class="pull-left half">
                                     <div class="col-md-12">
                                         <select class="form-control select-service" ng-model="service_boxes.box8_service">
+                                            <option value="0">- NONE -</option>
                                             <option ng-repeat="grouping in groupings" value="@{{ grouping.group_id }}">@{{ grouping.group_name }}</option>
                                         </select>
                                     </div>
@@ -224,6 +232,7 @@
                                 <div class="pull-left half">
                                     <div class="col-md-12">
                                         <select class="form-control select-service" ng-model="service_boxes.box9_service">
+                                            <option value="0">- NONE -</option>
                                             <option ng-repeat="grouping in groupings" value="@{{ grouping.group_id }}">@{{ grouping.group_name }}</option>
                                         </select>
                                     </div>
@@ -233,6 +242,7 @@
                                 <div class="pull-left half">
                                     <div class="col-md-12">
                                         <select class="form-control select-service" ng-model="service_boxes.box10_service">
+                                            <option value="0">- NONE -</option>
                                             <option ng-repeat="grouping in groupings" value="@{{ grouping.group_id }}">@{{ grouping.group_name }}</option>
                                         </select>
                                     </div>
@@ -242,6 +252,7 @@
                                 <div class="pull-left half">
                                     <div class="col-md-12">
                                         <select class="form-control select-service" ng-model="service_boxes.box11_service">
+                                            <option value="0">- NONE -</option>
                                             <option ng-repeat="grouping in groupings" value="@{{ grouping.group_id }}">@{{ grouping.group_name }}</option>
                                         </select>
                                     </div>
@@ -251,6 +262,7 @@
                                 <div class="pull-left half">
                                     <div class="col-md-12">
                                         <select class="form-control select-service" ng-model="service_boxes.box12_service">
+                                            <option value="0">- NONE -</option>
                                             <option ng-repeat="grouping in groupings" value="@{{ grouping.group_id }}">@{{ grouping.group_name }}</option>
                                         </select>
                                     </div>
@@ -260,6 +272,7 @@
                                 <div class="pull-left half">
                                     <div class="col-md-12">
                                         <select class="form-control select-service" ng-model="service_boxes.box13_service">
+                                            <option value="0">- NONE -</option>
                                             <option ng-repeat="grouping in groupings" value="@{{ grouping.group_id }}">@{{ grouping.group_name }}</option>
                                         </select>
                                     </div>
@@ -269,6 +282,7 @@
                                 <div class="pull-left half">
                                     <div class="col-md-12">
                                         <select class="form-control select-service" ng-model="service_boxes.box14_service">
+                                            <option value="0">- NONE -</option>
                                             <option ng-repeat="grouping in groupings" value="@{{ grouping.group_id }}">@{{ grouping.group_name }}</option>
                                         </select>
                                     </div>
@@ -278,6 +292,7 @@
                                 <div class="pull-left half">
                                     <div class="col-md-12">
                                         <select class="form-control select-service" ng-model="service_boxes.box15_service">
+                                            <option value="0">- NONE -</option>
                                             <option ng-repeat="grouping in groupings" value="@{{ grouping.group_id }}">@{{ grouping.group_name }}</option>
                                         </select>
                                     </div>
@@ -287,6 +302,7 @@
                                 <div class="pull-left half">
                                     <div class="col-md-12">
                                         <select class="form-control select-service" ng-model="service_boxes.box16_service">
+                                            <option value="0">- NONE -</option>
                                             <option ng-repeat="grouping in groupings" value="@{{ grouping.group_id }}">@{{ grouping.group_name }}</option>
                                         </select>
                                     </div>

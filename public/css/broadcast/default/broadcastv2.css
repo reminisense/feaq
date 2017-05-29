@@ -553,32 +553,32 @@
 }
 
 .eight-rows .service-box .terminal {
-    margin-top: -10px; font-size: 18px;
+    margin-top: -10px; font-size: 19px;
 }
 
 .seven-rows .service-box .terminal,
 .six-rows .service-box .terminal {
-    margin-top: -10px; font-size: 20px;
-}
-
-.five-rows .service-box .terminal {
     margin-top: -10px; font-size: 22px;
 }
 
-.four-rows .service-box .terminal {
+.five-rows .service-box .terminal {
     margin-top: -10px; font-size: 26px;
 }
 
-.three-rows .service-box .terminal {
-    margin-top: -10px; font-size: 24px;
+.four-rows .service-box .terminal {
+    margin-top: -10px; font-size: 28px;
 }
 
-.two-rows .service-box .terminal {
+.three-rows .service-box .terminal {
     margin-top: -10px; font-size: 30px;
 }
 
+.two-rows .service-box .terminal {
+    margin-top: -10px; font-size: 40px;
+}
+
 .one-rows .service-box .terminal {
-    margin-top: -10px; font-size: 60px;
+    margin-top: -10px; font-size: 70px;
 }
 
 .fifty .eight-rows .title,
@@ -596,7 +596,7 @@
 .forty .eight-rows .current,
 .thirty .eight-rows .current,
 .twenty .eight-rows .current {
-    font-size: 2.8vw;
+    font-size: 2.9vw;
     margin: 0px;
 }
 
@@ -604,7 +604,7 @@
 .forty .eight-rows .number-list,
 .thirty .eight-rows .number-list,
 .twenty .eight-rows .number-list {
-    font-size: 2.55vw;
+    font-size: 1.95vw;
     font-weight: 900;
 }
 
@@ -635,7 +635,7 @@
 .forty .seven-rows .number-list,
 .thirty .seven-rows .number-list,
 .twenty .seven-rows .number-list {
-    font-size: 3.25vw;
+    font-size: 2.1vw;
     font-weight: 900;
 }
 
@@ -666,7 +666,7 @@
 .forty .six-rows .number-list,
 .thirty .six-rows .number-list,
 .twenty .six-rows .number-list {
-    font-size: 2.7vw;
+    font-size: 1.7vw;
     font-weight: 900;
 }
 
@@ -697,7 +697,7 @@
 .forty .five-rows .number-list,
 .thirty .five-rows .number-list,
 .twenty .five-rows .number-list {
-    font-size: 3.25vw;
+    font-size: 2.1vw;
     font-weight: 900;
 }
 
@@ -720,7 +720,7 @@
 .forty .four-rows .current,
 .thirty .four-rows .current,
 .twenty .four-rows .current {
-    font-size: 4.4vw;
+    font-size: 4.5vw;
     margin: 0px;
 }
 
@@ -728,7 +728,7 @@
 .forty .four-rows .number-list,
 .thirty .four-rows .number-list,
 .twenty .four-rows .number-list {
-    font-size: 4.4vw;
+    font-size: 2.8vw;
     font-weight: 900;
 }
 
@@ -751,7 +751,7 @@
 .forty .three-rows .current,
 .thirty .three-rows .current,
 .twenty .three-rows .current {
-    font-size: 3.5vw;
+    font-size: 4.8vw;
     margin: 0px;
 }
 
@@ -759,7 +759,7 @@
 .forty .three-rows .number-list,
 .thirty .three-rows .number-list,
 .twenty .three-rows .number-list {
-    font-size: 3.5vw;
+    font-size: 2.7vw;
     font-weight: 900;
 }
 
@@ -782,7 +782,7 @@
 .forty .two-rows .current,
 .thirty .two-rows .current,
 .twenty .two-rows .current {
-    font-size: 6vw;
+    font-size: 6.7vw;
     margin: 0px;
 }
 
@@ -790,7 +790,7 @@
 .forty .two-rows .number-list,
 .thirty .two-rows .number-list,
 .twenty .two-rows .number-list {
-    font-size: 6vw;
+    font-size: 3.2vw;
     font-weight: 900;
 }
 
@@ -813,7 +813,7 @@
 .forty .one-rows .current,
 .thirty .one-rows .current,
 .twenty .one-rows .current {
-    font-size: 12vw;
+    font-size: 14vw;
     margin: 0px;
 }
 
@@ -821,7 +821,7 @@
 .forty .one-rows .number-list,
 .thirty .one-rows .number-list,
 .twenty .one-rows .number-list {
-    font-size: 12vw;
+    font-size: 7vw;
     font-weight: 900;
 }
 
@@ -830,7 +830,7 @@
 }
 
 #currently-called-number .modal-title {
-  color: #fff; font-size: 2.0vw; display: block; font-weight: 800; line-height: 2.0vw; text-align: center;
+  color: #fff; font-size: 3.7vw; display: block; font-weight: 800; line-height: 2.0vw; text-align: center;
 }
 
 #currently-called-number .modal-number {

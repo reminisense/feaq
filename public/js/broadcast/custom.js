@@ -23,7 +23,7 @@ $(document).ready(function(){
 });
 
 function blinker() {
-  $('.blink-num').fadeOut(500);
+  $('.blink-num').fadeOut(1500);
   $('.blink-num').fadeIn(500);
 }
 

@@ -13,7 +13,7 @@
             <p class="terminal">@{{ terminal1 }}</p>
           </div>
           <div class="col-md-12">
-            <marquee>@{{ called1 }}</marquee>
+            <p>@{{ called1 }}</p>
           </div>
         </div>
       </div>
@@ -24,7 +24,7 @@
             <p class="terminal">@{{ terminal2 }}</p>
           </div>
           <div class="col-md-12">
-            <marquee>@{{ called2 }}</marquee>
+            <p>@{{ called2 }}</p>
           </div>
         </div>
       </div>
@@ -35,7 +35,7 @@
             <p class="terminal">@{{ terminal3 }}</p>
           </div>
           <div class="col-md-12">
-            <marquee>@{{ called3 }}</marquee>
+            <p>@{{ called3 }}</p>
           </div>
         </div>
       </div>

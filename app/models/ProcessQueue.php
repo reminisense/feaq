@@ -1015,7 +1015,7 @@ class ProcessQueue extends Eloquent
         for ($box_count = 1; $box_count <= $max_count; $box_count++) {
             $box_num = 'box' . $box_count;
             if ($data->$box_num->group_id == $groupId) {
-                $data->$box_num->called_numbers = $data->$box_num->current_number; // . ', ' . $data->$box_num->called_numbers;
+                $data->$box_num->called_numbers = $data->$box_num->current_number . ', ' . $data->$box_num->called_numbers;
                 $data->$box_num->service_id = $service_id;
                 $data->$box_num->service_name = $serviceName;
                 $data->$box_num->current_number = $priority_number;

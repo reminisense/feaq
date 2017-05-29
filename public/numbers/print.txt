@@ -1,8 +1,8 @@
 ************
 PGOC Demo
-Service:   PWD
-Priority Number:   C5
-Confirmation Code:   03C6
+Service:   Senior Citizen
+Priority Number:   F434
+Confirmation Code:   BCA8
 ************
 
 

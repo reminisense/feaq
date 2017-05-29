@@ -9,88 +9,88 @@
       <div class="col-md-6 service-box @{{ color1 }}">
         <div class="row title">@{{ service1 }}</div>
         <div class="row number-list">
-          <div class="col-md-6 current dark-orange blink-num">@{{ current1 }}
+          <div class="col-md-8 current dark-orange blink-num">@{{ current1 }}
             <p class="terminal">@{{ terminal1 }}</p>
           </div>
-          <div class="col-md-6">
-            <marquee>@{{ called1 }}</marquee>
+          <div class="col-md-4">
+            <p>@{{ called1 }}</p>
           </div>
         </div>
       </div>
       <div class="col-md-6 service-box @{{ color2 }}">
         <div class="row title">@{{ service2 }}</div>
         <div class="row number-list">
-          <div class="col-md-6 current dark-orange blink-num">@{{ current2 }}
+          <div class="col-md-8 current dark-orange blink-num">@{{ current2 }}
             <p class="terminal">@{{ terminal2 }}</p>
           </div>
-          <div class="col-md-6">
-            <marquee>@{{ called2 }}</marquee>
+          <div class="col-md-4">
+            <p>@{{ called2 }}</p>
           </div>
         </div>
       </div>
       <div class="col-md-6 service-box @{{ color3 }}">
         <div class="row title">@{{ service3 }}</div>
         <div class="row number-list">
-          <div class="col-md-6 current dark-orange blink-num">@{{ current3 }}
+          <div class="col-md-8 current dark-orange blink-num">@{{ current3 }}
             <p class="terminal">@{{ terminal3 }}</p>
           </div>
-          <div class="col-md-6">
-            <marquee>@{{ called3 }}</marquee>
+          <div class="col-md-4">
+            <p>@{{ called3 }}</p>
           </div>
         </div>
       </div>
       <div class="col-md-6 service-box @{{ color4 }}">
         <div class="row title">@{{ service4 }}</div>
         <div class="row number-list">
-          <div class="col-md-6 current dark-orange blink-num">@{{ current4 }}
+          <div class="col-md-8 current dark-orange blink-num">@{{ current4 }}
             <p class="terminal">@{{ terminal4 }}</p>
           </div>
-          <div class="col-md-6">
-            <marquee>@{{ called4 }}</marquee>
+          <div class="col-md-4">
+            <p>@{{ called4 }}</p>
           </div>
         </div>
       </div>
       <div class="col-md-6 service-box @{{ color5 }}">
         <div class="row title">@{{ service5 }}</div>
         <div class="row number-list">
-          <div class="col-md-6 current dark-orange blink-num">@{{ current5 }}
+          <div class="col-md-8 current dark-orange blink-num">@{{ current5 }}
             <p class="terminal">@{{ terminal5 }}</p>
           </div>
-          <div class="col-md-6">
-            <marquee>@{{ called5 }}</marquee>
+          <div class="col-md-4">
+            <p>@{{ called5 }}</p>
           </div>
         </div>
       </div>
       <div class="col-md-6 service-box @{{ color6 }}">
         <div class="row title">@{{ service6 }}</div>
         <div class="row number-list">
-          <div class="col-md-6 current dark-orange blink-num">@{{ current6 }}
+          <div class="col-md-8 current dark-orange blink-num">@{{ current6 }}
             <p class="terminal">@{{ terminal6 }}</p>
           </div>
-          <div class="col-md-6">
-            <marquee>@{{ called6 }}</marquee>
+          <div class="col-md-4">
+            <p>@{{ called6 }}</p>
           </div>
         </div>
       </div>
       <div class="col-md-6 service-box @{{ color7 }}">
         <div class="row title">@{{ service7 }}</div>
         <div class="row number-list">
-          <div class="col-md-6 current dark-orange blink-num">@{{ current7 }}
+          <div class="col-md-8 current dark-orange blink-num">@{{ current7 }}
             <p class="terminal">@{{ terminal7 }}</p>
           </div>
-          <div class="col-md-6">
-            <marquee>@{{ called7 }}</marquee>
+          <div class="col-md-4">
+            <p>@{{ called7 }}</p>
           </div>
         </div>
       </div>
       <div class="col-md-6 service-box @{{ color8 }}">
         <div class="row title">@{{ service8 }}</div>
         <div class="row number-list">
-          <div class="col-md-6 current dark-orange blink-num">@{{ current8 }}
+          <div class="col-md-8 current dark-orange blink-num">@{{ current8 }}
             <p class="terminal">@{{ terminal8 }}</p>
           </div>
-          <div class="col-md-6">
-            <marquee>@{{ called8 }}</marquee>
+          <div class="col-md-4">
+            <p>@{{ called8 }}</p>
           </div>
         </div>
       </div>
@@ -101,7 +101,7 @@
             <p class="terminal">@{{ terminal9 }}</p>
           </div>
           <div class="col-md-6">
-            <marquee>@{{ called9 }}</marquee>
+            <p>@{{ called9 }}</p>
           </div>
         </div>
       </div>
