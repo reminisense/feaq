@@ -16,23 +16,23 @@ class Pacing extends Eloquent
         Pacing::insert($values);
     }
 
-    public static function create_record($service_id, $quota, $time_start, $time_end){
+    public static function createPace($pace){
         $pacing_record = [
-            'service_id' => $service_id,
-            'quota' => $quota,
-            'time_start' => $time_start,
-            'time_end' => $time_end
+            'service_id' => $pace['service_id'],
+            'quota' => $pace['quota'],
+            'time_start' => $pace['time_start'],
+            'time_end' => $pace['time_end']
         ];
 
         Pacing::insertGetId($pacing_record);
     }
 
-    public static function fetch_records($service_id){
+    public static function fetchPaces($service_id){
         return Pacing::where('service_id', $service_id)->get();
     }
 
 
-    public static function delete_record($pacing_id){
+    public static function deletePace($pacing_id){
         return Pacing::where('pacing_id', '=', $pacing_id)->delete();
     }
 }
