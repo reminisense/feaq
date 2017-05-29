@@ -33,7 +33,7 @@ class Service extends Eloquent
      * @description: create new service
      * @return service_id
      */
-    public static function createService($branch_id, $name)
+    public static function createService($branch_id, $name, $group_id)
     {
         $service = new Service();
         $service->name = $name;
@@ -51,10 +51,10 @@ class Service extends Eloquent
      * @description: create new service for business
      * @return service_id
      */
-    public static function createBusinessService($business_id, $name)
+    public static function createBusinessService($business_id, $name, $group_id)
     {
         $first_branch = Branch::getFirstBranchOfBusiness($business_id);
-        return Service::createService($first_branch->branch_id, $name,$group_id);
+        return Service::createService($first_branch->branch_id, $name, $group_id);
     }
 
     /*
