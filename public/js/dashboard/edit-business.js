@@ -837,7 +837,7 @@ var eb = {
                   .success(function (response)
                   {
                       setBusinessFields(response.business);
-                      setGroupingList();
+                      setServiceBoxes();
                       setBusinessFeatures(response.business.features);
                   });
             }
@@ -915,6 +915,13 @@ var eb = {
 
         setGroupingList = function ()
         {
+            $http.get('/grouping/groups/' + $scope.business_id).success(function (response) {
+                $scope.groupings = response;
+            });
+        };
+
+        setServiceBoxes = function ()
+        {
             $http.get('/broadcast/service-boxes').success(function (response)
             {
                 $scope.service_boxes.box1_service = response.box1;
@@ -935,6 +942,7 @@ var eb = {
                 $scope.service_boxes.box16_service = response.box16;
             });
         };
+
 
         setTimeFormat = function (time)
         {

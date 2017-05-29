@@ -1,17 +1,17 @@
 {
     "box1": {
-        "group_id": 3,
-        "group_name": "DENTAL",
-        "service_id": 10,
-        "service_name": "Senior Citizen",
-        "current_number": "F434",
-        "terminal": "Desk 1",
-        "color": "yellow",
-        "called_numbers": "F433, F432, F431, , "
+        "group_id": "11",
+        "group_name": "ISSUANCE",
+        "service_id": "",
+        "service_name": "",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
+        "called_numbers": ""
     },
     "box2": {
-        "group_id": "22",
-        "group_name": "LOGISTICS",
+        "group_id": "5",
+        "group_name": "CASHIER",
         "service_id": "",
         "service_name": "",
         "current_number": "",
@@ -20,27 +20,7 @@
         "called_numbers": ""
     },
     "box3": {
-        "group_id": "2",
-        "group_name": "MOTHER & CHILD",
-        "service_id": "",
-        "service_name": "",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
-    },
-    "box4": {
-        "group_id": "4",
-        "group_name": "ANIMAL BITES",
-        "service_id": "",
-        "service_name": "",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
-    },
-    "box5": {
-        "group_id": "5",
+        "group_id": "12",
         "group_name": "REGISTRATION",
         "service_id": "",
         "service_name": "",
@@ -49,9 +29,9 @@
         "color": "",
         "called_numbers": ""
     },
-    "box6": {
-        "group_id": "6",
-        "group_name": "PHARMACY",
+    "box4": {
+        "group_id": 8,
+        "group_name": "VITAL SIGNS",
         "service_id": "",
         "service_name": "",
         "current_number": "",
@@ -59,80 +39,30 @@
         "color": "",
         "called_numbers": ""
     },
-    "box7": {
-        "group_id": "7",
-        "group_name": "CHECK-UP",
-        "service_id": "",
-        "service_name": "",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
-    },
-    "box8": {
-        "group_id": "8",
-        "group_name": "OPD",
-        "service_id": "",
-        "service_name": "",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
-    },
-    "box9": {
-        "group_id": "9",
-        "group_name": "REHAB",
-        "service_id": "",
-        "service_name": "",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
-    },
-    "box10": {
-        "group_id": "11",
-        "group_name": "X-RAY",
-        "service_id": "",
-        "service_name": "",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
-    },
-    "box11": {
-        "group_id": "13",
-        "group_name": "CANTEEN",
-        "service_id": "",
-        "service_name": "",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
-    },
-    "box12": {
-        "group_id": "21",
-        "group_name": "RELEASING",
-        "service_id": "",
-        "service_name": "",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
-    },
-    "box13": {
-        "group_id": "1",
+    "box5": {
+        "group_id": 9,
         "group_name": "CONSULTATION",
-        "service_id": 5,
-        "service_name": "General",
-        "current_number": "A10",
-        "terminal": "Desk 1",
-        "color": "ECD078",
-        "called_numbers": "A9, A8, , "
+        "service_id": "",
+        "service_name": "",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
+        "called_numbers": ""
     },
-    "now_num": "F434",
-    "now_group": "DENTAL",
-    "now_service": "Senior Citizen",
-    "now_terminal": "Desk 1",
-    "now_color": "yellow",
-    "display": "2-13"
+    "box6": {
+        "group_id": 10,
+        "group_name": "LABORATORY",
+        "service_id": "",
+        "service_name": "",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
+        "called_numbers": ""
+    },
+    "now_num": "",
+    "now_group": "",
+    "now_service": "",
+    "now_terminal": "",
+    "now_color": "",
+    "display": "2-6"
 }
