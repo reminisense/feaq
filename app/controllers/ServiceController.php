@@ -52,7 +52,7 @@ class ServiceController extends Controller{
 //        if(Service::businessServiceNameExists(Input::get('name'), Input::get('business_id'))){
 //            return json_encode(['error' => 'Service name already exists']);
 //        }else{
-            $service_id = Service::createBusinessService(Input::get('business_id'), Input::get('name'));
+            $service_id = Service::createBusinessService(Input::get('business_id'), Input::get('name'), Input::get('group_id'));
             return json_encode(['service_id' => $service_id]);
 //        }
     }

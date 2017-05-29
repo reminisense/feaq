@@ -39,6 +39,7 @@ class Service extends Eloquent
         $service->name = $name;
         $service->status = 1;
         $service->branch_id = $branch_id;
+        $service->group_id = $group_id;
         $service->save();
         Helper::dbLogger('Service', 'service', 'insert', 'createService', User::email(Helper::userId()),
           'service_id:' . $service->service_id . ', service_name:' . $name);
@@ -53,7 +54,7 @@ class Service extends Eloquent
     public static function createBusinessService($business_id, $name)
     {
         $first_branch = Branch::getFirstBranchOfBusiness($business_id);
-        return Service::createService($first_branch->branch_id, $name);
+        return Service::createService($first_branch->branch_id, $name,$group_id);
     }
 
     /*
