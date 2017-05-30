@@ -17,10 +17,10 @@ class PacingController extends \BaseController
     public function postCreatePace()
     {
         $data = array(
-            'service_id' => Input::get('$service_id'),
-            'quota' => Input::get('$quota'),
-            'time_start' => Input::get('$time_start'),
-            'time_end' => Input::get('$time_end')
+            'service_id' => Input::get('service_id'),
+            'quota' => Input::get('quota'),
+            'time_start' => Input::get('time_start'),
+            'time_end' => Input::get('time_end')
         );
 
         Pacing::createPace($data);

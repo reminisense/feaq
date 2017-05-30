@@ -196,6 +196,7 @@ class QueueSettings extends Eloquent{
             ->orderBy('queue_setting_id', 'desc')
             ->orderBy('date', 'asc')
             ->first();
+        $queue_setting['paces'] = Pacing::fetchPaces($service_id);
         return $queue_setting;
     }
 
