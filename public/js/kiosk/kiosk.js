@@ -22,6 +22,9 @@
         $scope.issued_number = null;
         $scope.active_service_id = null;
         $scope.selected_pacing_id = 0;
+        $scope.groups = [];
+        $scope.group_services = [];
+        $scope.active_group_id = null;
 
         //websocket = new ReconnectingWebSocket(websocket_url);
         //websocket.onopen = function(response) { // connection is open
@@ -58,11 +61,46 @@
                     $('#services_list').empty();
                     res_array = response.business_services;
                     $scope.services = res_array[0];
-                    $scope.active_service_id = $scope.services[0].service_id;
+                    $scope.active_service_id = $scope.services[0].group_id;
                     $scope.getNextNumber();
                 });
             }
         };
+
+        $scope.getGroups = function()
+        {
+            var business_id = $scope.business_id;
+            var res_array = [];
+
+            if (typeof business_id != 'undefined') {
+                $http.get('/grouping/groups/' + business_id).success(function (response)
+                {
+                    //$('#services_list').empty();
+                    res_array = response;
+                    $scope.groups = res_array;
+                    $scope.active_group_id = $scope.groups[0].group_id;
+                    //$scope.getNextNumber();
+                    console.log("active id: " + $scope.active_group_id);
+                });
+            }
+        }
+
+        $scope.getGroupServices = function (group_id){
+            var res_array = [];
+
+            if (typeof business_id != 'undefined') {
+                $http.get('/services/service-by-group/' + group_id).success(function (response)
+                {
+                    //$('#services_list').empty();
+                    res_array = response;
+                    $scope.group_services = res_array;
+                    $scope.active_service_id = $scope.group_services[0].service_id;
+                    $scope.getNextNumber();
+                    //$scope.setAc
+                    console.log("active service id: " + $scope.active_service_id);
+                });
+            }
+        }
 
         $scope.getNextNumber = function ()
         {
@@ -100,6 +138,7 @@
             $scope.next_number = '--';
             $scope.active_service_id = service_id;
             $scope.getNextNumber();
+            console.log("active service id: " + $scope.active_service_id);
         };
 
         $scope.switchPacingSchedule = function (pacing_id)
@@ -107,7 +146,18 @@
             $scope.selected_pacing_id = pacing_id;
         };
 
-        $scope.getBusinessServices();
+        $scope.switchActiveGroup = function (group_id)
+        {
+            $scope.getGroupServices(group_id);
+            $scope.next_number = '--';
+            $scope.active_group_id = group_id;
+            console.log("active id: " + $scope.active_group_id);
+            $scope.getNextNumber();
+        };
+
+        //$scope.getBusinessServices();
+        $scope.getGroups();
+       // $scope.getGroupServices();
 
     });
 })();

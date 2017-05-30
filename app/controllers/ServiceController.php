@@ -96,6 +96,9 @@ class ServiceController extends Controller{
         return Service::updateGroup(Input::get('service_id'), Grouping::findIdByGroupName(Input::get('group_name')));
     }
 
+    public function getServiceByGroup($group_id){
+        return Service::getServicesByGroup($group_id);
+    }
 //    public function getKioskList($business_id) {
 //        $business_services = [];
 //        $business_terminals = [];
