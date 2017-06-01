@@ -58,7 +58,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="/" class="navbar-brand"><img src="/img/featherq-logo.svg"></a>
+            <a class="navbar-brand"><img src="/img/featherq-logo.svg"></a>
         </div>
     </div>
 </header>
