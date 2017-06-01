@@ -79,8 +79,6 @@
                     res_array = response;
                     $scope.groups = res_array;
                     $scope.active_group_id = $scope.groups[0].group_id;
-                    //$scope.getNextNumber();
-                    console.log("active id: " + $scope.active_group_id);
                 });
             }
         }
@@ -96,8 +94,6 @@
                     $scope.group_services = res_array;
                     $scope.active_service_id = $scope.group_services[0].service_id;
                     $scope.getNextNumber();
-                    //$scope.setAc
-                    console.log("active service id: " + $scope.active_service_id);
                 });
             }
         }
@@ -138,7 +134,6 @@
             $scope.next_number = '--';
             $scope.active_service_id = service_id;
             $scope.getNextNumber();
-            console.log("active service id: " + $scope.active_service_id);
         };
 
         $scope.switchPacingSchedule = function (pacing_id)
@@ -151,7 +146,6 @@
             $scope.getGroupServices(group_id);
             $scope.next_number = '--';
             $scope.active_group_id = group_id;
-            console.log("active id: " + $scope.active_group_id);
             $scope.getNextNumber();
         };
 
@@ -159,5 +153,89 @@
         $scope.getGroups();
        // $scope.getGroupServices();
 
+    });
+
+    app.controller('groupKioskController', function($scope, $http){
+
+        $scope.group_id = $('#group_id').val();
+        $scope.services_in_group = [];
+        $scope.active_service_id = null;
+        $scope.uncalled_numbers = null;
+        $scope.next_number = null;
+        $scope.confirmation_code = null;
+        $scope.group_name = null;
+
+        $scope.getGroupName = function(){
+            if (typeof group_id != 'undefined') {
+                $http.get('/grouping/name/' + $scope.group_id).success(function (response)
+                {
+                    if(response.length > 0) {
+                        $scope.group_name = response[0]['group_name'];
+                    }
+                });
+            }
+
+        }
+
+        $scope.getServicesInGroup = function ()
+        {
+
+            var group_id = $scope.group_id;
+            var res_array = [];
+
+            if (typeof group_id != 'undefined') {
+                $http.get('/services/service-by-group/' + group_id).success(function (response)
+                {
+                    res_array = response;
+                    if(res_array.length > 0){
+                        $scope.services_in_group = res_array;
+                        $scope.active_service_id = $scope.services_in_group[0].service_id;
+                        $scope.getNextNumber();
+                    }
+                });
+
+                if($scope.services_in_group.length == 0){
+                    $scope.next_number = "--";
+                }
+            }
+        };
+
+
+        $scope.switchActiveService = function (service_id)
+        {
+            $scope.next_number = '--';
+            $scope.active_service_id = service_id;
+            $scope.getNextNumber()
+        };
+
+        $scope.getNextNumber = function ()
+        {
+            $http.get('/processqueue/next-number/' + $scope.active_service_id).success(function (response)
+            {
+                $scope.next_number = response.next_number;
+
+            });
+        };
+
+        $scope.getIssueNumber = function ()
+        {
+            var data = {
+                priority_number: $scope.next_number.replace(/\D/g, ''),
+                name: "",
+                phone: "",
+                email: ""
+            };
+            $http.post('/issuenumber/insertspecific/' + $scope.active_service_id + '/' + null + '/' + 'kiosk', data)
+                .success(function (response)
+                {
+                    $scope.issued_number = $scope.next_number;
+                    $scope.getNextNumber();
+                    $scope.confirmation_code = response.number.confirmation_code;
+                    $('#kioskModal').modal('hide');
+                });
+        }
+
+        $scope.getGroupName();
+        $scope.getServicesInGroup();
     });
 })();

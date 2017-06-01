@@ -1,4 +1,4 @@
-@extends('dashboard')
+@extends('kiosk.kiosk-dashboard')
 
 @section('styles')
     <link media="all" type="text/css" rel="stylesheet" href="/css/kiosk/kiosk.css">

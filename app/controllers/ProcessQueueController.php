@@ -183,4 +183,8 @@ class ProcessQueueController extends BaseController
           ->with('business_id', $business_id);
     }
 
+    public function getGroupKiosk($group_id){
+        return View::make('kiosk.group_kiosk')
+            ->with('group_id', $group_id);
+    }
 }
