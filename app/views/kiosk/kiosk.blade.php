@@ -1,4 +1,4 @@
-@extends('dashboard')
+@extends('kiosk.kiosk-dashboard')
 
 @section('styles')
     <link media="all" type="text/css" rel="stylesheet" href="/css/kiosk/kiosk.css">
@@ -34,10 +34,9 @@
     <div class="container" id="kiosk-wrapper" ng-controller="kioskController">
         <br/>
         <ul class="nav nav-tabs nav-justified" role="tablist">
-            <li ng-repeat="service in services" ng-class="$index==0?'active':''"
-                ng-click="switchActiveService(service.service_id);" data-toggle="modal" data-target="#kioskModal">
-                <a href="#@{{service.name}}" id="#@{{service.name}}-tab" data-toggle="tab"> @{{service.name}} <br/>
-                    [@{{service.first_terminal}}] </a>
+            <li ng-repeat="group in groups" ng-class="$index==0?'active':''"
+                ng-click="switchActiveGroup(group.group_id);" data-toggle="modal" data-target="#kioskModal">
+                <a href="#@{{group.group_name}}" id="#@{{group.group_name}}-tab" data-toggle="tab"> @{{group.group_name}}</a>
             </li>
         </ul>
         <div class="modal fade" tabindex="-1" role="dialog" id="kioskModal" aria-labelledby="kioskModal">
@@ -46,25 +45,12 @@
                     <div class="modal-body">
                         <div class="tab-content" id="kioskTabContent">
                             <div class="col-md-12" id="time-slot-title">
-                                <h1>Choose a Time Slot</h1>
+                                <h1>Choose a Service</h1>
                             </div>
                             <div class="clearfix">
                                 <ul class="nav nav-tabs nav-justified" id="pacing-schedule">
-                                    <li ng-click="switchPacingSchedule(1)" ng-class="selected_pacing_id == 1 ? 'active' : ''">
-                                        <a href>8:00 AM to 9:00 AM</a>
-                                    </li>
-                                    <li ng-click="switchPacingSchedule(2)" ng-class="selected_pacing_id == 2 ? 'active' : ''">
-                                        <a href>9:00 AM to 10:00 AM</a>
-                                    </li>
-                                    <li ng-click="switchPacingSchedule(3)" ng-class="selected_pacing_id == 3 ? 'active' : ''">
-                                        <a href>10:00 AM to 12:00 NN</a>
-                                    </li>
-                                    <li ng-click="switchPacingSchedule(4)" ng-class="selected_pacing_id == 4 ? 'active' : ''">
-                                        <a href>1:00 PM to 3:00 PM</a>
-                                    </li>
-                                    <li ng-click="switchPacingSchedule(5)" ng-class="selected_pacing_id == 5 ? 'active' : ''">
-                                        <a href>3:00 PM to 5:00 PM</a>
-                                    </li>
+                                    <li ng-repeat="service in group_services" ng-click="switchActiveService(service.service_id)" ng-class="$index==0?'active':''">
+                                        <a href="#@{{ service.service_name }}" id="#@{{ service.service_id }}-tab" data-toggle="tab">@{{ service.name }}</a>
                                 </ul>
                             </ul>
                             <div class="clearfix">

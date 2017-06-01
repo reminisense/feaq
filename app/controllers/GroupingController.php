@@ -32,6 +32,9 @@ class GroupingController extends BaseController
         return json_encode(array('status' => 0, 'msg' => 'Group name already taken.'));
     }
 
+    public function getName($group_id){
+        return Grouping::getGroupDetails($group_id);
+    }
 //    public function getServiceGroupings($business_id)
 //    {
 //        $serviceGroupings = array();

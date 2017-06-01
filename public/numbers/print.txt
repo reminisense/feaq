@@ -1,8 +1,8 @@
 ************
-PGOC Demo
+PGOC - Carcar Provincial Hospital
 Service:   Senior Citizen
-Priority Number:   F434
-Confirmation Code:   BCA8
+Priority Number:   7
+Confirmation Code:   EC5D
 ************
 
 
