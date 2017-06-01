@@ -19,8 +19,26 @@ class BroadcastController extends BaseController
     }
 
     // The broadcast rendering function
-    public function viewBroadcastPage($raw_code = '')
-    {
+    public function viewBroadcastPage(
+      $raw_code = '',
+      $templateId1 = null,
+      $templateId2 = null,
+      $templateId3 = null,
+      $templateId4 = null,
+      $templateId5 = null,
+      $templateId6 = null,
+      $templateId7 = null,
+      $templateId8 = null,
+      $templateId9 = null,
+      $templateId10 = null,
+      $templateId11 = null,
+      $templateId12 = null,
+      $templateId13 = null,
+      $templateId14 = null,
+      $templateId15 = null,
+      $templateId16 = null
+    ) {
+
         if (Business::businessWithVanityURLExists($raw_code)) {
             $business_id = Business::getBusinessIdByVanityURL($raw_code);
             $custom_url = $raw_code;
@@ -47,7 +65,6 @@ class BroadcastController extends BaseController
         $allow_remote = $first_service ? QueueSettings::allowRemote($first_service->service_id) : 0;
         $ticker_message = $this->tickerPusher($data->ticker_message, $data->ticker_message2, $data->ticker_message3,
           $data->ticker_message4, $data->ticker_message5);
-        $templates = $this->broadcastTemplate($data->display, $business_id);
         $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
         $regions = $this->broadcastRegionsClassName($data->adspace_size, $data->numspace_size);
         $ad_class = $regions['ad_class'];
@@ -66,6 +83,29 @@ class BroadcastController extends BaseController
                 );
             }
         }
+        $origTemplate = explode("-", $data->display);
+        $templateCount = $this->generateTemplateBoxCount(
+          $origTemplate[1],
+          $templateId1,
+          $templateId2,
+          $templateId3,
+          $templateId4,
+          $templateId5,
+          $templateId6,
+          $templateId7,
+          $templateId8,
+          $templateId9,
+          $templateId10,
+          $templateId11,
+          $templateId12,
+          $templateId13,
+          $templateId14,
+          $templateId15,
+          $templateId16
+        );
+        $newTemplate = $origTemplate[0] . '-' . $templateCount;
+        $templates = $this->broadcastTemplate($newTemplate, $business_id);
+
         return View::make($templates['broadcast_template'])
           //->with('custom_fields', $custom_fields)
           //->with('template_type', $data->d)
@@ -77,8 +117,7 @@ class BroadcastController extends BaseController
           ->with('carousel_delay', isset($data->carousel_delay) ? (int)$data->carousel_delay : 5000)
           ->with('ad_type', $data->ad_type)
           ->with('ad_src', $ad_src)
-          ->with('box_num',
-            explode("-", $data->display)[1])// the second index tells how many numbers to show in the broadcast screen
+          ->with('box_num', $templateCount)
           ->with('broadcast_type', $templates['broadcast_type'])
           ->with('open_time', $open_time)
           ->with('close_time', $close_time)
@@ -99,6 +138,77 @@ class BroadcastController extends BaseController
           ->with('show_qr_setting', $data->show_qr_setting)
           ->with('percentage', $regions['percentage'])
           ->with('keywords', Business::getKeywordsByBusinessId($business_id));
+    }
+
+    private function generateTemplateBoxCount(
+      $templateCount,
+      $templateId1 = null,
+      $templateId2 = null,
+      $templateId3 = null,
+      $templateId4 = null,
+      $templateId5 = null,
+      $templateId6 = null,
+      $templateId7 = null,
+      $templateId8 = null,
+      $templateId9 = null,
+      $templateId10 = null,
+      $templateId11 = null,
+      $templateId12 = null,
+      $templateId13 = null,
+      $templateId14 = null,
+      $templateId15 = null,
+      $templateId16 = null
+    ) {
+        if ($templateId1) {
+            $templateCount = 0;
+            $templateCount++;
+            if ($templateId2) {
+                $templateCount++;
+                if ($templateId3) {
+                    $templateCount++;
+                    if ($templateId4) {
+                        $templateCount++;
+                        if ($templateId5) {
+                            $templateCount++;
+                            if ($templateId6) {
+                                $templateCount++;
+                                if ($templateId7) {
+                                    $templateCount++;
+                                    if ($templateId8) {
+                                        $templateCount++;
+                                        if ($templateId9) {
+                                            $templateCount++;
+                                            if ($templateId10) {
+                                                $templateCount++;
+                                                if ($templateId11) {
+                                                    $templateCount++;
+                                                    if ($templateId12) {
+                                                        $templateCount++;
+                                                        if ($templateId13) {
+                                                            $templateCount++;
+                                                            if ($templateId14) {
+                                                                $templateCount++;
+                                                                if ($templateId15) {
+                                                                    $templateCount++;
+                                                                    if ($templateId16) {
+                                                                        $templateCount++;
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return $templateCount;
     }
 
     // set the appropriate responsive class names

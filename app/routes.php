@@ -14,7 +14,8 @@
 
 Route::post('/', 'UserController@processContactForm');
 
-Route::get('rest/register-user/{fb_id}/{first_name}/{last_name}/{email}/{gender}/{phone}/{country}', 'RestController@getRegisterUser');
+Route::get('rest/register-user/{fb_id}/{first_name}/{last_name}/{email}/{gender}/{phone}/{country}',
+  'RestController@getRegisterUser');
 
 Route::get('forms/business/{business_id}', 'FormsController@getBusinessData');
 
@@ -84,8 +85,9 @@ Route::controller('pacing', 'PacingController');
 
 Route::controller('grouping', 'GroupingController');
 
-//raw code implementation
-Route::get('/{raw_code?}', 'UserController@getUserDashboard');
+// raw code and broadcast screen multiple groups selection
+Route::get('/{raw_code?}/{templateId1?}/{templateId2?}/{templateId3?}/{templateId4?}/{templateId5?}/{templateId6?}/{templateId7?}/{templateId8?}/{templateId9?}/{templateId10?}/{templateId11?}/{templateId12?}/{templateId13?}/{templateId14?}/{templateId15?}/{templateId16?}',
+  'UserController@getUserDashboard');
 
 Route::controller('records', 'FormRecordController');
 
