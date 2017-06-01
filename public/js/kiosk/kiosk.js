@@ -102,7 +102,10 @@
         {
             $http.get('/processqueue/next-number/' + $scope.active_service_id).success(function (response)
             {
-                $scope.next_number = response.next_number;
+                if($scope.group_services.length == 0)
+                    $scope.next_number = "--";
+                else
+                    $scope.next_number = response.next_number;
             });
         };
 
