@@ -1,5 +1,8 @@
 @include('broadcast.default.business-ads-master')
 
+<input type="hidden" value="{{ $groupsToShow[0] }}" ng-model="box1" id="box1">
+<input type="hidden" value="{{ $groupsToShow[1] }}" ng-model="box2" id="box2">
+
 <div class="numbers-area {{ $num_class }} abs">
   <div class="boxed business-spec" id="broadcast-spec">
     <div class="title">

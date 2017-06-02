@@ -7,7 +7,7 @@ app.controller('nowServingCtrl', function ($scope, $http)
 
     $scope.updateBroadcastPage = (function (response)
     {
-        writeNumberToBoxes($scope, response, 'box1', 'service1', 'current1', 'terminal1', 'color1', 'called1');
+        writeNumberToBoxes($scope, response, "id_" + $('#box1').val(), 'service1', 'current1', 'terminal1', 'color1', 'called1');
         $scope.now_number = response.now_num;
         $scope.now_group = response.now_group;
         $scope.now_service = response.now_service;

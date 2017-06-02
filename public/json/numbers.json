@@ -1,16 +1,5 @@
 {
-    "box1": {
-        "group_id": "11",
-        "group_name": "ISSUANCE",
-        "service_id": "",
-        "service_name": "",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
-    },
-    "box2": {
-        "group_id": "5",
+    "id_5": {
         "group_name": "CASHIER",
         "service_id": "",
         "service_name": "",
@@ -19,18 +8,7 @@
         "color": "",
         "called_numbers": ""
     },
-    "box3": {
-        "group_id": "12",
-        "group_name": "REGISTRATION",
-        "service_id": "",
-        "service_name": "",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
-    },
-    "box4": {
-        "group_id": 8,
+    "id_8": {
         "group_name": "VITAL SIGNS",
         "service_id": "",
         "service_name": "",
@@ -39,8 +17,7 @@
         "color": "",
         "called_numbers": ""
     },
-    "box5": {
-        "group_id": 9,
+    "id_9": {
         "group_name": "CONSULTATION",
         "service_id": "",
         "service_name": "",
@@ -49,8 +26,7 @@
         "color": "",
         "called_numbers": ""
     },
-    "box6": {
-        "group_id": 10,
+    "id_10": {
         "group_name": "LABORATORY",
         "service_id": "",
         "service_name": "",
@@ -59,10 +35,31 @@
         "color": "",
         "called_numbers": ""
     },
-    "now_num": "",
-    "now_group": "",
-    "now_service": "",
-    "now_terminal": "",
-    "now_color": "",
-    "display": "2-6"
+    "id_11": {
+        "group_name": "ISSUANCE",
+        "service_id": "",
+        "service_name": "",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
+        "called_numbers": ""
+    },
+    "id_12": {
+        "group_name": "REGISTRATION",
+        "service_id": "",
+        "service_name": "",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
+        "called_numbers": ""
+    },
+    "id_13": {
+        "group_name": "CHARGING",
+        "service_id": "",
+        "service_name": "",
+        "current_number": "",
+        "terminal": "",
+        "color": "",
+        "called_numbers": ""
+    }
 }

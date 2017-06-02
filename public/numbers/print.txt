@@ -1,8 +1,8 @@
 ************
-PGOC - Carcar Provincial Hospital
-Service:   Senior Citizen
-Priority Number:   7
-Confirmation Code:   EC5D
+Talisay District Hospital
+Service:   PWD
+Priority Number:   12
+Confirmation Code:   03C6
 ************
 
 

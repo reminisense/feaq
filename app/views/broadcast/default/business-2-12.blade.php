@@ -1,5 +1,18 @@
 @include('broadcast.default.business-ads-master')
 
+<input type="hidden" value="{{ $groupsToShow[0] }}" ng-model="box1" id="box1">
+<input type="hidden" value="{{ $groupsToShow[1] }}" ng-model="box2" id="box2">
+<input type="hidden" value="{{ $groupsToShow[2] }}" ng-model="box3" id="box3">
+<input type="hidden" value="{{ $groupsToShow[3] }}" ng-model="box4" id="box4">
+<input type="hidden" value="{{ $groupsToShow[4] }}" ng-model="box5" id="box5">
+<input type="hidden" value="{{ $groupsToShow[5] }}" ng-model="box6" id="box6">
+<input type="hidden" value="{{ $groupsToShow[6] }}" ng-model="box7" id="box7">
+<input type="hidden" value="{{ $groupsToShow[7] }}" ng-model="box8" id="box8">
+<input type="hidden" value="{{ $groupsToShow[8] }}" ng-model="box9" id="box9">
+<input type="hidden" value="{{ $groupsToShow[9] }}" ng-model="box10" id="box10">
+<input type="hidden" value="{{ $groupsToShow[10] }}" ng-model="box11" id="box11">
+<input type="hidden" value="{{ $groupsToShow[11] }}" ng-model="box12" id="box12">
+
 <div class="numbers-area {{ $num_class }} abs">
   <div class="boxed business-spec" id="broadcast-spec">
     <div class="title">
