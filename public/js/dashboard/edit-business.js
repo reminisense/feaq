@@ -451,6 +451,7 @@ var eb = {
         $scope.remote_limit = 0;
         $scope.remote_time = null;
         $scope.process_queue_layout = 0;
+        $scope.broadcastURL = "";
 
         $scope.service_boxes = {
             box1_service: 0,
@@ -808,6 +809,7 @@ var eb = {
             $scope.services = business.services;
             $scope.analytics = business.analytics;
             $scope.groupings = business.groupings;
+            $scope.broadcastURL = business.broadcastURL;
             //$scope.sms_5_ahead  = business.sms_5_ahead ? true : false;
             //$scope.sms_10_ahead  = business.sms_10_ahead ? true : false;
             //$scope.sms_blank_ahead = business.sms_blank_ahead ? true : false;
@@ -1905,6 +1907,59 @@ var eb = {
                     }
                 });
             }
+        };
+
+        $scope.viewCustomBroadcast = function () {
+            var customURL = "";
+            if ($scope.service_boxes.box1_service > 0) {
+                customURL = customURL + "/" + $scope.service_boxes.box1_service;
+            }
+            if ($scope.service_boxes.box2_service > 0) {
+                customURL = customURL + "/" + $scope.service_boxes.box2_service;
+            }
+            if ($scope.service_boxes.box3_service > 0) {
+                customURL = customURL + "/" + $scope.service_boxes.box3_service;
+            }
+            if ($scope.service_boxes.box4_service > 0) {
+                customURL = customURL + "/" + $scope.service_boxes.box4_service;
+            }
+            if ($scope.service_boxes.box5_service > 0) {
+                customURL = customURL + "/" + $scope.service_boxes.box5_service;
+            }
+            if ($scope.service_boxes.box6_service > 0) {
+                customURL = customURL + "/" + $scope.service_boxes.box6_service;
+            }
+            if ($scope.service_boxes.box7_service > 0) {
+                customURL = customURL + "/" + $scope.service_boxes.box7_service;
+            }
+            if ($scope.service_boxes.box8_service > 0) {
+                customURL = customURL + "/" + $scope.service_boxes.box8_service;
+            }
+            if ($scope.service_boxes.box9_service > 0) {
+                customURL = customURL + "/" + $scope.service_boxes.box9_service;
+            }
+            if ($scope.service_boxes.box10_service > 0) {
+                customURL = customURL + "/" + $scope.service_boxes.box10_service;
+            }
+            if ($scope.service_boxes.box11_service > 0) {
+                customURL = customURL + "/" + $scope.service_boxes.box11_service;
+            }
+            if ($scope.service_boxes.box12_service > 0) {
+                customURL = customURL + "/" + $scope.service_boxes.box12_service;
+            }
+            if ($scope.service_boxes.box13_service > 0) {
+                customURL = customURL + "/" + $scope.service_boxes.box13_service;
+            }
+            if ($scope.service_boxes.box14_service > 0) {
+                customURL = customURL + "/" + $scope.service_boxes.box14_service;
+            }
+            if ($scope.service_boxes.box15_service > 0) {
+                customURL = customURL + "/" + $scope.service_boxes.box15_service;
+            }
+            if ($scope.service_boxes.box16_service > 0) {
+                customURL = customURL + "/" + $scope.service_boxes.box16_service;
+            }
+            window.open($scope.broadcastURL + customURL, "");
         };
 
         websocket.onerror = function (response) {

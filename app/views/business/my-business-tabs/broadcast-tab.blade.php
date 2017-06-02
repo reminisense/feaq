@@ -90,8 +90,7 @@
                                 <div class="col-md-12">
                                     <div role="alert" class="alert alert-warning">
                                         <strong>Play Your Own Videos Locally</strong> <br/>
-                                        You can choose your videos directly from the Broadcast Screen.<br/><br/>
-                                        <button class="btn btn-lg btn-danger" onclick="window.open('{{ url('broadcast/business/' . $business_id) }}')">View Broadcast Screen</button>
+                                        You can choose your videos directly from the Broadcast Screen.
                                     </div>
                                     <div>
                                         <img src="/images/samsung-tv.jpg" class="img-responsive" style="max-height: 315px;width: 745px;">
@@ -145,9 +144,10 @@
                     </div>
                 </div>
                 <div class="mb30 ui-widget ui-widget-content" id="ad-num-width" style="float: left; min-height: 400px;">
-                    <h2 style="background-color: #b9ccd5;margin-top: -10px;padding: 13px 10px;width: 96%;" class="mb30 text-center">NOW SERVING</h2>
+                    <h2 style="background-color: #b9ccd5;margin-top: -10px;padding: 13px 10px;width: 96%;" class="text-center">NOW SERVING</h2>
                     <div class="q-wrap q-numbers">
                         <div class="q-nums-wrap clearfix">
+                            <button type="button" class="btn btn-lg mb10" id="viewCustomBroadcast" ng-click="viewCustomBroadcast()">View Custom Broadcast</button>
                             <div class="qbox">
                                 <div class="pull-left half">
                                     <div class="col-md-12">

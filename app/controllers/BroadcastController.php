@@ -399,85 +399,85 @@ class BroadcastController extends BaseController
             $data->ticker_message4 = Input::get('ticker_message4');
             $data->ticker_message5 = Input::get('ticker_message5');
             $data->show_qr_setting = Input::get('show_qr_setting');
-            $groupList = array();
-            if (Input::get('box1_service')) {
-                $groupList[] = Input::get('box1_service');
-            }
-            if (Input::get('box2_service')) {
-                $groupList[] = Input::get('box2_service');
-            }
-            if (Input::get('box3_service')) {
-                $groupList[] = Input::get('box3_service');
-            }
-            if (Input::get('box4_service')) {
-                $groupList[] = Input::get('box4_service');
-            }
-            if (Input::get('box5_service')) {
-                $groupList[] = Input::get('box5_service');
-            }
-            if (Input::get('box6_service')) {
-                $groupList[] = Input::get('box6_service');
-            }
-            if (Input::get('box7_service')) {
-                $groupList[] = Input::get('box7_service');
-            }
-            if (Input::get('box8_service')) {
-                $groupList[] = Input::get('box8_service');
-            }
-            if (Input::get('box9_service')) {
-                $groupList[] = Input::get('box9_service');
-            }
-            if (Input::get('box10_service')) {
-                $groupList[] = Input::get('box10_service');
-            }
-            if (Input::get('box11_service')) {
-                $groupList[] = Input::get('box11_service');
-            }
-            if (Input::get('box12_service')) {
-                $groupList[] = Input::get('box12_service');
-            }
-            if (Input::get('box13_service')) {
-                $groupList[] = Input::get('box13_service');
-            }
-            if (Input::get('box14_service')) {
-                $groupList[] = Input::get('box14_service');
-            }
-            if (Input::get('box15_service')) {
-                $groupList[] = Input::get('box15_service');
-            }
-            if (Input::get('box16_service')) {
-                $groupList[] = Input::get('box16_service');
-            }
-            $data->display = '2-' . count($groupList); //$this->generateDisplayCode($data->ad_type, count($groupList));
+//            $groupList = array();
+//            if (Input::get('box1_service')) {
+//                $groupList[] = Input::get('box1_service');
+//            }
+//            if (Input::get('box2_service')) {
+//                $groupList[] = Input::get('box2_service');
+//            }
+//            if (Input::get('box3_service')) {
+//                $groupList[] = Input::get('box3_service');
+//            }
+//            if (Input::get('box4_service')) {
+//                $groupList[] = Input::get('box4_service');
+//            }
+//            if (Input::get('box5_service')) {
+//                $groupList[] = Input::get('box5_service');
+//            }
+//            if (Input::get('box6_service')) {
+//                $groupList[] = Input::get('box6_service');
+//            }
+//            if (Input::get('box7_service')) {
+//                $groupList[] = Input::get('box7_service');
+//            }
+//            if (Input::get('box8_service')) {
+//                $groupList[] = Input::get('box8_service');
+//            }
+//            if (Input::get('box9_service')) {
+//                $groupList[] = Input::get('box9_service');
+//            }
+//            if (Input::get('box10_service')) {
+//                $groupList[] = Input::get('box10_service');
+//            }
+//            if (Input::get('box11_service')) {
+//                $groupList[] = Input::get('box11_service');
+//            }
+//            if (Input::get('box12_service')) {
+//                $groupList[] = Input::get('box12_service');
+//            }
+//            if (Input::get('box13_service')) {
+//                $groupList[] = Input::get('box13_service');
+//            }
+//            if (Input::get('box14_service')) {
+//                $groupList[] = Input::get('box14_service');
+//            }
+//            if (Input::get('box15_service')) {
+//                $groupList[] = Input::get('box15_service');
+//            }
+//            if (Input::get('box16_service')) {
+//                $groupList[] = Input::get('box16_service');
+//            }
+            $data->display = '2-' . count(Grouping::all()); //$this->generateDisplayCode($data->ad_type, count($groupList));
             $data = $this->boxObjectCreator($data, Input::get('num_boxes'));
             $encode = json_encode($data);
             file_put_contents(public_path() . '/json/' . Input::get('business_id') . '.json', $encode);
-            $boxCount = 1;
-            $service_boxes = array();
-            ServiceBoxes::clearBoxes();
-            foreach ($groupList as $gListId) {
-                $gListName = Grouping::getGroupName($gListId);
-                $service_boxes['box' . $boxCount] = array(
-                  'group_id'       => $gListId,
-                  'group_name'     => $gListName,
-                  'service_id'     => '',
-                  'service_name'   => '',
-                  'current_number' => '',
-                  'terminal'       => '',
-                  'color'          => '',
-                  'called_numbers' => '',
-                );
-                ServiceBoxes::updateBoxes($boxCount, $gListId, $gListName);
-                $boxCount++;
-            }
-            $service_boxes['now_num'] = '';
-            $service_boxes['now_group'] = '';
-            $service_boxes['now_service'] = '';
-            $service_boxes['now_terminal'] = '';
-            $service_boxes['now_color'] = '';
-            $service_boxes['display'] = $data->display;
-            $file_path = public_path() . '/json/numbers.json';
-            File::put($file_path, json_encode($service_boxes, JSON_PRETTY_PRINT));
+//            $boxCount = 1;
+//            $service_boxes = array();
+//            ServiceBoxes::clearBoxes();
+//            foreach ($groupList as $gListId) {
+//                $gListName = Grouping::getGroupName($gListId);
+//                $service_boxes['box' . $boxCount] = array(
+//                  'group_id'       => $gListId,
+//                  'group_name'     => $gListName,
+//                  'service_id'     => '',
+//                  'service_name'   => '',
+//                  'current_number' => '',
+//                  'terminal'       => '',
+//                  'color'          => '',
+//                  'called_numbers' => '',
+//                );
+//                ServiceBoxes::updateBoxes($boxCount, $gListId, $gListName);
+//                $boxCount++;
+//            }
+//            $service_boxes['now_num'] = '';
+//            $service_boxes['now_group'] = '';
+//            $service_boxes['now_service'] = '';
+//            $service_boxes['now_terminal'] = '';
+//            $service_boxes['now_color'] = '';
+//            $service_boxes['display'] = $data->display;
+//            $file_path = public_path() . '/json/numbers.json';
+//            File::put($file_path, json_encode($service_boxes, JSON_PRETTY_PRINT));
             return json_encode(array('status' => 1));
         } else {
             return json_encode(array('status' => 0));

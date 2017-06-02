@@ -1315,3 +1315,14 @@ span.glyphicon {
     margin: 6px 0px 6px 0px;
     padding: 0px;
 }
+
+#viewCustomBroadcast {
+    font-weight: bold;
+    background-color: #c9302c;
+    border-bottom: 4px solid #ac2925;
+    width: 95%;
+}
+
+#viewCustomBroadcast:hover {
+    background-color: #ac2925;
+}

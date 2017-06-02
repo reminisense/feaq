@@ -160,6 +160,7 @@ class Business extends Eloquent
             'raw_code' => $business->raw_code,
             'business_features' => unserialize($business->business_features),
             'custom_url' => $business->vanity_url,
+            'broadcastURL' => URL::to('/') . '/' . $business->vanity_url,
         ];
 
 
