@@ -56,7 +56,39 @@ My Business
                     </div>
                     <point-of-interest position="bottom" bottom="37" right="83" title="Download QR Code" description="Download this QR Code so you can print it out and post it for your customers to view your broadcast screen from their mobile phones."></point-of-interest>
                     <div class="col-md-3 col-sm-5 col-xs-12 ">
-                        <a id="open-kiosk" href="{{ url('processqueue/kiosk/' . $business_id) }}" target="_blank"><span class="glyphicon glyphicon-modal-window"></span> Open Kiosk</a>
+                        <a id="open-kiosk" data-toggle="modal" data-target="#modal-kiosk"><span class="glyphicon glyphicon-modal-window"></span> Open Kiosk</a>
+                        <div class="modal fade" id="modal-kiosk" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">Choose a Group</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table class="table table-responsive table-condense table-striped">
+                                            <tbody>
+                                            <tr>
+                                                <td>ALL</td>
+                                                <td class="text-right">
+                                                    <a class="btn btn-sm btn-cyan" href="{{ url('processqueue/kiosk/' . $business_id) }}" target="_blank">Open Kiosk</a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <table class="table table-responsive table-condense table-striped">
+                                            <tbody>
+                                            <tr ng-repeat="group in groupings">
+                                                <td>@{{ group.group_name }}</td>
+                                                <td class="text-right">
+                                                    <a class="btn btn-sm btn-cyan" href="{{ url('processqueue/group-kiosk/') }}/@{{ group.group_id }}" target="_blank">Open Kiosk</a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <point-of-interest position="left" bottom="55" right="100" title="Kiosk Page" description="Click on the <strong>Open Kiosk</strong> link to allow customers to get numbers."></point-of-interest>
                         <a id="view-broadcast" href="{{ url('broadcast/business/' . $business_id) }}" target="_blank"><span class="glyphicon glyphicon-th-large"></span> View Broadcast Screen</a>
                         <point-of-interest position="left" bottom="55" right="100" title="Broadcast Page" description="Click on the <strong>View Broadcast Page</strong> link to view the numbers being called."></point-of-interest>

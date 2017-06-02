@@ -192,4 +192,8 @@ body#processq .tab-pane .navbar-form {
     width: 100%;
 }
 
+#modal-kiosk .modal-title {
+    color: #00ba8b;
+    font-family: 'ralewaybold';
+}
 
