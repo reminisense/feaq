@@ -17,7 +17,10 @@
         </div>
         <div class="col-md-2">
             <select class="form-control" ng-model="selected_service" title="Select Service">
-                <option ng-repeat="service in services" value="@{{ $index }}">@{{ service.name }}</option>
+                <option value="0">SELECT SERVICE</option>
+                <optgroup ng-repeat="grouping in groupings" label="@{{ grouping.group_name }}">
+                    <option ng-repeat="service in services" ng-if="grouping.group_id == service.group_id" value="@{{ $index }}">@{{ service.name }}</option>
+                </optgroup>
             </select>
         </div>
         <div class="col-md-2">
