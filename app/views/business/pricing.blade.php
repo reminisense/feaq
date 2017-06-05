@@ -23,7 +23,8 @@
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600' rel='stylesheet' type='text/css'>
+    {{--<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600' rel='stylesheet' type='text/css'>--}}
+    <link rel="stylesheet" href="/css/open-sans.css">
     <link rel="stylesheet" href="/css/business/landing/main.css">
     <link rel="stylesheet" href="/css/business/landing/animate.css">
     <link rel="stylesheet" href="/css/business/landing/responsive.css">

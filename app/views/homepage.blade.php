@@ -16,7 +16,8 @@
   <link rel="stylesheet" type="text/css" href="/css/homepage/slick.css"/>
   <link rel="stylesheet" type="text/css" href="/css/homepage/slick-theme.css"/>
   <link rel="stylesheet" type="text/css" href="/css/refresh-animate.css"/>
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+  {{--<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>--}}
+  <link rel="stylesheet" href="/css/open-sans.css">
   <link rel="stylesheet" href="/css/font-awesome.min.css">
 
   <script type="text/javascript" src="/js/jquery-1.11.2.min.js"></script>

@@ -69,10 +69,20 @@ var writeNumberToBoxes = function ($scope, response, box_num, service, current, 
 //    responsiveVoice.speak(response[box_num].current_number, "UK English Male", {rate: .6, pitch: .9});
 };
 
-var checkGroupExistenceInBroadcast = function (groupList, now_group_id)
+var alertCalledNumber = function ($scope, response, groupList)
 {
-    if (groupList.indexOf(now_group_id.toString()) == -1) {
-        return false;
+    if (groupList.indexOf(response.now_group_id.toString()) != -1) {
+        $scope.now_number = response.now_num;
+        $scope.now_group = response.now_group;
+        $scope.now_service = response.now_service;
+        $scope.now_terminal = response.now_terminal;
+        $scope.now_color = response.now_color;
+        $('#currently-called-number').modal('show');
+        setTimeout(function ()
+        {
+            $('#currently-called-number').modal('hide');
+        }, 5000);
+        callNumberSound('call-number-sound');
+        responsiveVoice.speak($scope.now_number, "UK English Male", {rate: .6, pitch: .9});
     }
-    return true;
 }

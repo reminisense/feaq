@@ -20,18 +20,23 @@ app.controller('nowServingCtrl', function ($scope, $http)
         writeNumberToBoxes($scope, response, "id_" + $('#box11').val(), 'service11', 'current11', 'terminal11', 'color11', 'called11');
         writeNumberToBoxes($scope, response, "id_" + $('#box12').val(), 'service12', 'current12', 'terminal12', 'color12', 'called12');
         writeNumberToBoxes($scope, response, "id_" + $('#box13').val(), 'service13', 'current13', 'terminal13', 'color13', 'called13');
-        $scope.now_number = response.now_num;
-        $scope.now_group = response.now_group;
-        $scope.now_service = response.now_service;
-        $scope.now_terminal = response.now_terminal;
-        $scope.now_color = response.now_color;
-        $('#currently-called-number').modal('show');
-        setTimeout(function ()
-        {
-            $('#currently-called-number').modal('hide');
-        }, 5000);
-        callNumberSound('call-number-sound');
-        responsiveVoice.speak($scope.now_number, "UK English Male", {rate: .6, pitch: .9});
+
+        var groupList = [
+            $('#box1').val(),
+            $('#box2').val(),
+            $('#box3').val(),
+            $('#box4').val(),
+            $('#box5').val(),
+            $('#box6').val(),
+            $('#box7').val(),
+            $('#box8').val(),
+            $('#box9').val(),
+            $('#box10').val(),
+            $('#box11').val(),
+            $('#box12').val(),
+            $('#box13').val()
+        ];
+        alertCalledNumber($scope, response, groupList);
     });
 
 });

@@ -15,18 +15,18 @@ app.controller('nowServingCtrl', function ($scope, $http)
         writeNumberToBoxes($scope, response, "id_" + $('#box6').val(), 'service6', 'current6', 'terminal6', 'color6', 'called6');
         writeNumberToBoxes($scope, response, "id_" + $('#box7').val(), 'service7', 'current7', 'terminal7', 'color7', 'called7');
         writeNumberToBoxes($scope, response, "id_" + $('#box8').val(), 'service8', 'current8', 'terminal8', 'color8', 'called8');
-        $scope.now_number = response.now_num;
-        $scope.now_group = response.now_group;
-        $scope.now_service = response.now_service;
-        $scope.now_terminal = response.now_terminal;
-        $scope.now_color = response.now_color;
-        $('#currently-called-number').modal('show');
-        setTimeout(function ()
-        {
-            $('#currently-called-number').modal('hide');
-        }, 5000);
-        callNumberSound('call-number-sound');
-        responsiveVoice.speak($scope.now_number, "UK English Male", {rate: .6, pitch: .9});
+
+        var groupList = [
+            $('#box1').val(),
+            $('#box2').val(),
+            $('#box3').val(),
+            $('#box4').val(),
+            $('#box5').val(),
+            $('#box6').val(),
+            $('#box7').val(),
+            $('#box8').val()
+        ];
+        alertCalledNumber($scope, response, groupList);
     });
 
 });
