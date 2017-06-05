@@ -1012,7 +1012,11 @@ class ProcessQueue extends Eloquent
         $terminalColor = Terminal::getColorByTerminalId($terminal_id);
         $data = json_decode(file_get_contents(public_path() . '/json/numbers.json'));
         $box_num = 'id_' . $groupId;
-        $data->$box_num->called_numbers = $data->$box_num->current_number . ', ' . $data->$box_num->called_numbers;
+        echo $data->$box_num->called_numbers;
+        if(strpos($data->$box_num->called_numbers, ' '))
+            $data->$box_num->called_numbers = $data->$box_num->current_number . ', ' . $data->$box_num->called_numbers;
+        else
+            $data->$box_num->called_numbers = $data->$box_num->current_number . ' ' . $data->$box_num->called_numbers;
         $data->$box_num->service_id = $service_id;
         $data->$box_num->service_name = $serviceName;
         $data->$box_num->current_number = $priority_number;
