@@ -68,3 +68,11 @@ var writeNumberToBoxes = function ($scope, response, box_num, service, current, 
     $scope[called] = response[box_num].called_numbers;
 //    responsiveVoice.speak(response[box_num].current_number, "UK English Male", {rate: .6, pitch: .9});
 };
+
+var checkGroupExistenceInBroadcast = function (groupList, now_group_id)
+{
+    if (groupList.indexOf(now_group_id.toString()) == -1) {
+        return false;
+    }
+    return true;
+}

@@ -19,12 +19,12 @@
     },
     "id_9": {
         "group_name": "CONSULTATION",
-        "service_id": "",
-        "service_name": "",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
+        "service_id": 31,
+        "service_name": "PWD",
+        "current_number": "6",
+        "terminal": "Desk 18",
+        "color": "x53777A",
+        "called_numbers": "5, 4, 3, 2, 1, , "
     },
     "id_10": {
         "group_name": "LABORATORY",
@@ -46,12 +46,12 @@
     },
     "id_12": {
         "group_name": "REGISTRATION",
-        "service_id": "",
-        "service_name": "",
-        "current_number": "",
-        "terminal": "",
-        "color": "",
-        "called_numbers": ""
+        "service_id": 22,
+        "service_name": "Old Patient",
+        "current_number": "27",
+        "terminal": "Desk 8",
+        "color": "yellow",
+        "called_numbers": "26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, , "
     },
     "id_13": {
         "group_name": "CHARGING",
@@ -61,5 +61,11 @@
         "terminal": "",
         "color": "",
         "called_numbers": ""
-    }
+    },
+    "now_group_id": 9,
+    "now_num": "6",
+    "now_group": "CONSULTATION",
+    "now_service": "PWD",
+    "now_terminal": "Desk 18",
+    "now_color": "x53777A"
 }

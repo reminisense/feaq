@@ -1011,19 +1011,27 @@ class ProcessQueue extends Eloquent
         $terminalName = Terminal::name($terminal_id);
         $terminalColor = Terminal::getColorByTerminalId($terminal_id);
         $data = json_decode(file_get_contents(public_path() . '/json/numbers.json'));
-        $max_count = explode('-', $data->display)[1];
-        for ($box_count = 1; $box_count <= $max_count; $box_count++) {
-            $box_num = 'box' . $box_count;
-            if ($data->$box_num->group_id == $groupId) {
-                $data->$box_num->called_numbers = $data->$box_num->current_number . ', ' . $data->$box_num->called_numbers;
-                $data->$box_num->service_id = $service_id;
-                $data->$box_num->service_name = $serviceName;
-                $data->$box_num->current_number = $priority_number;
-                $data->$box_num->terminal = $terminalName;
-                $data->$box_num->color = $terminalColor;
-                break;
-            }
-        }
+        $box_num = 'id_' . $groupId;
+        $data->$box_num->called_numbers = $data->$box_num->current_number . ', ' . $data->$box_num->called_numbers;
+        $data->$box_num->service_id = $service_id;
+        $data->$box_num->service_name = $serviceName;
+        $data->$box_num->current_number = $priority_number;
+        $data->$box_num->terminal = $terminalName;
+        $data->$box_num->color = $terminalColor;
+//        $max_count = explode('-', $data->display)[1];
+//        for ($box_count = 1; $box_count <= $max_count; $box_count++) {
+//            $box_num = 'id_' . $groupId;
+//            if ($data->$box_num->group_id == $groupId) {
+//                $data->$box_num->called_numbers = $data->$box_num->current_number . ', ' . $data->$box_num->called_numbers;
+//                $data->$box_num->service_id = $service_id;
+//                $data->$box_num->service_name = $serviceName;
+//                $data->$box_num->current_number = $priority_number;
+//                $data->$box_num->terminal = $terminalName;
+//                $data->$box_num->color = $terminalColor;
+//                break;
+//            }
+//        }
+        $data->now_group_id = $groupId;
         $data->now_num = $priority_number; //$data2->box1->number;
         $data->now_group = Grouping::getGroupName($groupId); //$data2->box1->service;
         $data->now_service = $serviceName; // $data2->box1->terminal;

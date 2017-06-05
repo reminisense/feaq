@@ -83,9 +83,8 @@ class BroadcastController extends BaseController
                 );
             }
         }
-        $origTemplate = explode("-", $data->display);
+        $displayTemplate = explode("-", $data->display);
         $templateArray = $this->generateTemplateBoxCount(
-          $origTemplate[1],
           $templateId1,
           $templateId2,
           $templateId3,
@@ -103,7 +102,7 @@ class BroadcastController extends BaseController
           $templateId15,
           $templateId16
         );
-        $newTemplate = $origTemplate[0] . '-' . $templateArray[0];
+        $newTemplate = $displayTemplate[0] . '-' . $templateArray[0];
         $templates = $this->broadcastTemplate($newTemplate, $business_id);
 
         return View::make($templates['broadcast_template'])
@@ -118,7 +117,7 @@ class BroadcastController extends BaseController
           ->with('ad_type', $data->ad_type)
           ->with('ad_src', $ad_src)
           ->with('box_num', $templateArray[0])
-          ->with('groupsToShow',$templateArray[1])
+          ->with('groupsToShow', $templateArray[1])
           ->with('broadcast_type', $templates['broadcast_type'])
           ->with('open_time', $open_time)
           ->with('close_time', $close_time)
@@ -142,7 +141,6 @@ class BroadcastController extends BaseController
     }
 
     private function generateTemplateBoxCount(
-      $templateCount,
       $templateId1 = null,
       $templateId2 = null,
       $templateId3 = null,
@@ -225,6 +223,14 @@ class BroadcastController extends BaseController
                     }
                 }
             }
+        } else {
+            $servBoxes = ServiceBoxes::fetchBoxes();
+            foreach ($servBoxes as $servBox) {
+                if ($servBox->service_id != 0) {
+                    $groupList[] = $servBox->service_id;
+                }
+            }
+            $templateCount = count($groupList);
         }
         return array($templateCount, $groupList);
     }
@@ -473,29 +479,12 @@ class BroadcastController extends BaseController
             $encode = json_encode($data);
             file_put_contents(public_path() . '/json/' . Input::get('business_id') . '.json', $encode);
             $boxCount = 1;
-//            $service_boxes = array();
             ServiceBoxes::clearBoxes();
             foreach ($groupList as $gListId) {
                 $gListName = Grouping::getGroupName($gListId);
-                $service_boxes['box' . $boxCount] = array(
-                  'group_id'       => $gListId,
-                  'group_name'     => $gListName,
-                  'service_id'     => '',
-                  'service_name'   => '',
-                  'current_number' => '',
-                  'terminal'       => '',
-                  'color'          => '',
-                  'called_numbers' => '',
-                );
                 ServiceBoxes::updateBoxes($boxCount, $gListId, $gListName);
                 $boxCount++;
             }
-//            $service_boxes['now_num'] = '';
-//            $service_boxes['now_group'] = '';
-//            $service_boxes['now_service'] = '';
-//            $service_boxes['now_terminal'] = '';
-//            $service_boxes['now_color'] = '';
-//            $service_boxes['display'] = $data->display;
             $groups = array();
             $groupings = Grouping::all();
             foreach ($groupings as $grouping) {
@@ -509,6 +498,13 @@ class BroadcastController extends BaseController
                   'called_numbers' => '',
                 );
             }
+            $groups['now_group_id'] = '';
+            $groups['now_num'] = '';
+            $groups['now_group'] = '';
+            $groups['now_service'] = '';
+            $groups['now_terminal'] = '';
+            $groups['now_color'] = '';
+//            $groups['display'] = $data->display;
             $file_path = public_path() . '/json/numbers.json';
             File::put($file_path, json_encode($groups, JSON_PRETTY_PRINT));
             return json_encode(array('status' => 1));

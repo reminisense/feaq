@@ -68,7 +68,7 @@ My Business
                                         <table class="table table-responsive table-condense table-striped">
                                             <tbody>
                                             <tr>
-                                                <td>ALL</td>
+                                                <td><strong>ALL</strong></td>
                                                 <td class="text-right">
                                                     <a class="btn btn-sm btn-cyan" href="{{ url('processqueue/kiosk/' . $business_id) }}" target="_blank">Open Kiosk</a>
                                                 </td>
@@ -78,7 +78,7 @@ My Business
                                         <table class="table table-responsive table-condense table-striped">
                                             <tbody>
                                             <tr ng-repeat="group in groupings">
-                                                <td>@{{ group.group_name }}</td>
+                                                <td><strong>@{{ group.group_name }}</strong></td>
                                                 <td class="text-right">
                                                     <a class="btn btn-sm btn-cyan" href="{{ url('processqueue/group-kiosk/') }}/@{{ group.group_id }}" target="_blank">Open Kiosk</a>
                                                 </td>
