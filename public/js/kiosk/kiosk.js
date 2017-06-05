@@ -26,6 +26,17 @@
         $scope.group_services = [];
         $scope.active_group_id = null;
 
+        websocket = new ReconnectingWebSocket(websocket_url);
+        websocket.onopen = function (response)
+        { // connection is open
+            $('#WebsocketLoaderModal').modal('hide');
+            $scope.sendWebsocket();
+        };
+        websocket.onmessage = function (response)
+        {
+            $scope.getNextNumber();
+        };
+
         //websocket = new ReconnectingWebSocket(websocket_url);
         //websocket.onopen = function(response) { // connection is open
         //  $('#WebsocketLoaderModal').modal('hide');
@@ -123,6 +134,7 @@
               {
                   $scope.issued_number = $scope.next_number;
                   $scope.getNextNumber();
+                  $scope.sendWebsocket();
                   $scope.confirmation_code = response.number.confirmation_code;
                   $('#kioskModal').modal('hide');
               });
@@ -156,10 +168,33 @@
         $scope.getGroups();
        // $scope.getGroupServices();
 
+        $scope.sendWebsocket = function ()
+        {
+            websocket.send(JSON.stringify({
+                business_id: $scope.business_id,
+                broadcast_update: true,
+                broadcast_reload: false
+            }));
+        };
+
+        websocket.onerror = function (response)
+        {
+            $('#WebsocketLoaderModal').modal('show');
+        };
+        websocket.onclose = function (response)
+        {
+            $('#WebsocketLoaderModal').modal('show');
+        };
+        window.onbeforeunload = function (e)
+        {
+            websocket.close();
+        };
+
     });
 
     app.controller('groupKioskController', function($scope, $http){
 
+        $scope.business_id = $('#business_id').val();
         $scope.group_id = $('#group_id').val();
         $scope.services_in_group = [];
         $scope.active_service_id = null;
@@ -167,6 +202,17 @@
         $scope.next_number = null;
         $scope.confirmation_code = null;
         $scope.group_name = null;
+
+        websocket = new ReconnectingWebSocket(websocket_url);
+        websocket.onopen = function (response)
+        { // connection is open
+            $('#WebsocketLoaderModal').modal('hide');
+            $scope.sendWebsocket();
+        };
+        websocket.onmessage = function (response)
+        {
+            $scope.getNextNumber();
+        };
 
         $scope.getGroupName = function(){
             if (typeof group_id != 'undefined') {
@@ -233,6 +279,7 @@
                 {
                     $scope.issued_number = $scope.next_number;
                     $scope.getNextNumber();
+                    $scope.sendWebsocket();
                     $scope.confirmation_code = response.number.confirmation_code;
                     $('#kioskModal').modal('hide');
                 });
@@ -240,5 +287,28 @@
 
         $scope.getGroupName();
         $scope.getServicesInGroup();
+
+        $scope.sendWebsocket = function ()
+        {
+            websocket.send(JSON.stringify({
+                business_id: $scope.business_id,
+                broadcast_update: false,
+                broadcast_reload: false
+            }));
+        };
+
+        websocket.onerror = function (response)
+        {
+            $('#WebsocketLoaderModal').modal('show');
+        };
+        websocket.onclose = function (response)
+        {
+            $('#WebsocketLoaderModal').modal('show');
+        };
+        window.onbeforeunload = function (e)
+        {
+            websocket.close();
+        };
+
     });
 })();

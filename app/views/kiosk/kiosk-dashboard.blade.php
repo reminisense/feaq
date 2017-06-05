@@ -70,6 +70,7 @@
 </footer>
 @include('modals.user.edit-user-modal')
 @include('modals.business.verify-user-modal')
+@include('modals.websockets.websocket-loader')
 @yield('scripts'){{-- ARA scripts at the bottom so html can load before js --}}
 </body>
 </html>

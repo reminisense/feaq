@@ -99,6 +99,7 @@
     </div>
             <!--constants-->
             <input type="hidden" id="group_id" value="{{ $group_id }}">
+            <input type="hidden" id="business_id" value="{{ $business_id }}">
             <!-- urls -->
             <input type="hidden" id="issue-specific-url" value="{{ url('/issuenumber/insertspecific/') }}">
             <!-- end urls -->

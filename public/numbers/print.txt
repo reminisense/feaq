@@ -1,8 +1,8 @@
 ************
 Talisay District Hospital
-Service:   PWD
-Priority Number:   12
-Confirmation Code:   03C6
+Service:   General
+Priority Number:   58
+Confirmation Code:   82CE
 ************
 
 

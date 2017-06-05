@@ -47,4 +47,9 @@ class Grouping extends Eloquent
         return Grouping::where('group_id', '=', $group_id)->get();
     }
 
+    public static function getBusinessId($group_id)
+    {
+        return Grouping::where('group_id', '=', $group_id)->first()->business_id;
+    }
+
 }

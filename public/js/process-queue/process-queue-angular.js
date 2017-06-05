@@ -62,10 +62,10 @@
         {
             url = pq.urls.process_queue.all_numbers_url + pq.ids.service_id
               + '/' + pq.ids.terminal_id + '/' + $scope.date;
-            setTimeout(function ()
-            {
-                $scope.isCalling = true;
-            });
+//            setTimeout(function ()
+//            {
+//                $scope.isCalling = true;
+//            });
             getResponseResetValues(url, null, null, function ()
             {
                 pq.jquery_functions.select_next_number();
