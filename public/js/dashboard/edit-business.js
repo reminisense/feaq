@@ -695,8 +695,19 @@ var eb = {
 
         $scope.removePacing = function (pacing_id)
         {
-            $('#pacing-record-' + pacing_id).remove();
-            showServiceSettingsMessage(1, "Pacing schedule has been removed.");
+            if (confirm("Do you want to remove this pacing schedule?")) {
+                $http.post("/pacing/delete-pace", {
+                    pacing_id: pacing_id
+                }).success(function (response) {
+                    if (response.status == 1) {
+                        $('#pacing-record-' + pacing_id).remove();
+                        showServiceSettingsMessage(1, "Pacing schedule has been removed.");
+                    }
+                    else {
+                        showServiceSettingsMessage(0, "Something went wrong.. Please try again.");
+                    }
+                });
+            }
         };
 
         $scope.setServiceGroup = function (service_id)

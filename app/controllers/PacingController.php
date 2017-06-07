@@ -8,9 +8,9 @@ class PacingController extends \BaseController
         return Pacing::fetchPacesByService($service_id);
     }
 
-    public function postDeletePace($pace_id)
+    public function postDeletePace()
     {
-        Pacing::deletePace($pace_id);
+        Pacing::deletePace(Input::get('pacing_id'));
         return json_encode(array('status' => 1, 'msg' => 'SUCCESS'));
     }
 

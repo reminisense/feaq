@@ -33,6 +33,6 @@ class Pacing extends Eloquent
 
 
     public static function deletePace($pacing_id){
-        return Pacing::where('pacing_id', '=', $pacing_id)->delete();
+        Pacing::where('pacing_id', '=', $pacing_id)->delete();
     }
 }
