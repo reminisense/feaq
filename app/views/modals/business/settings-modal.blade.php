@@ -13,7 +13,7 @@
                                                                   href="#general">GENERAL</a></li>
                         <li role="presentation" class=""><a role="tab" data-toggle="tab" href="#numbers">NUMBERS</a>
                         </li>
-                        <!--li role="presentation" class=""><a role="tab" data-toggle="tab" href="#pacing">PACING</a></li-->
+                        <li role="presentation" class=""><a role="tab" data-toggle="tab" href="#pacing">PACING</a></li>
                         <li role="presentation" class=""><a role="tab" data-toggle="tab" href="#remote">REMOTE</a></li>
                     </ul>
 
@@ -123,13 +123,14 @@
                                     <div class="col-md-6 mb0">
                                         <div class="col-md-3">
                                             <input class="mb0" type="radio"
-                                                   ng-model="service_settings.isEnabled" name="enable_pacing"
+                                                   ng-model="service_settings.pacingStatus" name="enable_pacing"
                                                    value="Yes"
                                                    ng-value="1"> <label>Yes</label>
                                         </div>
                                         <div class="col-md-3">
                                             <input class="mb0" type="radio"
-                                                   ng-model="service_settings.isEnabled" name="enable_pacing" value="No"
+                                                   ng-model="service_settings.pacingStatus" name="enable_pacing"
+                                                   value="No"
                                                    ng-value="0"> <label>No</label>
                                         </div>
                                     </div>
@@ -186,53 +187,14 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr id="pacing-record-1">
-                                                <td><strong>08:00 AM</strong></td>
-                                                <td><strong>09:00 AM</strong></td>
-                                                <td><strong>40</strong></td>
+                                            <tr ng-repeat="pacingRecord in service_settings.pacingRecords" id="pacing-record-@{{ pacingRecord.pacing_id }}">
+                                                <td><strong>@{{ pacingRecord.time_start }}</strong></td>
+                                                <td><strong>@{{ pacingRecord.time_end }}</strong></td>
+                                                <td><strong>@{{ pacingRecord.quota }}</strong></td>
                                                 <td>
-                                                    <button class="btn btn-danger btn-xs" ng-click="removePacing(1)"><span
+                                                    <button class="btn btn-danger btn-xs"
+                                                            ng-click="removePacing(pacingRecord.pacing_id)"><span
                                                           class="glyphicon glyphicon-remove"></span></button>
-                                                </td>
-                                            </tr>
-                                            <tr id="pacing-record-2">
-                                                <td><strong>09:00 AM</strong></td>
-                                                <td><strong>10:00 AM</strong></td>
-                                                <td><strong>20</strong></td>
-                                                <td>
-                                                    <button class="btn btn-danger btn-xs" ng-click="removePacing(2)">
-                                                        <span class="glyphicon glyphicon-remove"></span>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr id="pacing-record-3">
-                                                <td><strong>10:00 AM</strong></td>
-                                                <td><strong>12:00 NN</strong></td>
-                                                <td><strong>30</strong></td>
-                                                <td>
-                                                    <button class="btn btn-danger btn-xs" ng-click="removePacing(3)">
-                                                        <span class="glyphicon glyphicon-remove"></span>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr id="pacing-record-4">
-                                                <td><strong>01:00 PM</strong></td>
-                                                <td><strong>03:00 PM</strong></td>
-                                                <td><strong>60</strong></td>
-                                                <td>
-                                                    <button class="btn btn-danger btn-xs" ng-click="removePacing(4)">
-                                                        <span class="glyphicon glyphicon-remove"></span>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr id="pacing-record-5">
-                                                <td><strong>03:00 PM</strong></td>
-                                                <td><strong>04:00 PM</strong></td>
-                                                <td><strong>10</strong></td>
-                                                <td>
-                                                    <button class="btn btn-danger btn-xs" ng-click="removePacing(5)">
-                                                        <span class="glyphicon glyphicon-remove"></span>
-                                                    </button>
                                                 </td>
                                             </tr>
                                             </tbody>

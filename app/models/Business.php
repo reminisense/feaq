@@ -1,11 +1,11 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: USER
  * Date: 1/22/15
  * Time: 5:20 PM
  */
-
 class Business extends Eloquent
 {
 
@@ -20,7 +20,9 @@ class Business extends Eloquent
 
     public static function localAddress($business_id)
     {
-        return Business::where('business_id', '=', $business_id)->select(array('local_address'))->first()->local_address;
+        return Business::where('business_id', '=', $business_id)
+          ->select(array('local_address'))
+          ->first()->local_address;
     }
 
     public static function openHour($business_id)
@@ -58,11 +60,13 @@ class Business extends Eloquent
         return Business::where('business_id', '=', $business_id)->select(array('industry'))->first()->industry;
     }
 
-    public static function getBusinessIdByRawCode($raw_code = '') {
+    public static function getBusinessIdByRawCode($raw_code = '')
+    {
         return Business::where('raw_code', '=', $raw_code)->select(array('business_id'))->first()->business_id;
     }
 
-    public static function getBusinessIdByVanityURL($vanity_url = '') {
+    public static function getBusinessIdByVanityURL($vanity_url = '')
+    {
         return Business::where('vanity_url', '=', $vanity_url)->select(array('business_id'))->first()->business_id;
     }
 
@@ -71,7 +75,8 @@ class Business extends Eloquent
         return Business::where('business_id', '=', $business_id)->select(array('raw_code'))->first()->raw_code;
     }
 
-    public static function businessWithVanityURLExists($vanity_url) {
+    public static function businessWithVanityURLExists($vanity_url)
+    {
         return Business::where('vanity_url', '=', $vanity_url)->exists();
     }
 
@@ -101,17 +106,21 @@ class Business extends Eloquent
         return Branch::businessId(Service::branchId($service_id));
     }
 
-    public static function getVanityURLByBusinessId($business_id) {
+    public static function getVanityURLByBusinessId($business_id)
+    {
         return Business::where('business_id', '=', $business_id)->select(array('vanity_url'))->first()->vanity_url;
     }
-    
-    public static function getVanityURLByRawCode($raw_code) {
+
+    public static function getVanityURLByRawCode($raw_code)
+    {
         return Business::where('raw_code', '=', $raw_code)->select(array('vanity_url'))->first()->vanity_url;
     }
 
-    public static function saveVanityURL($business_id, $vanity_url){
+    public static function saveVanityURL($business_id, $vanity_url)
+    {
         Business::where('business_id', '=', $business_id)->update(['vanity_url' => $vanity_url]);
-        Helper::dbLogger('Business', 'business', 'update', 'saveVanityURL', User::email(Helper::userId()), 'business_id:' . $business_id . ', vanity_url:' . $vanity_url);
+        Helper::dbLogger('Business', 'business', 'update', 'saveVanityURL', User::email(Helper::userId()),
+          'business_id:' . $business_id . ', vanity_url:' . $vanity_url);
     }
 
     public static function getBusinessDetails($business_id)
@@ -122,74 +131,82 @@ class Business extends Eloquent
         $terminals = Terminal::getTerminalsByBusinessId($business_id);
         $terminals = Terminal::getAssignedTerminalWithUsers($terminals);
         $analytics = Analytics::getBusinessAnalytics($business_id);
-        if(Service::getFirstServiceOfBusiness($business_id)) {
-            $first_service = Service::getFirstServiceOfBusiness($business_id);
-        }else{
-            $first_service = new stdClass();
-            $first_service->service_id = 0;
-        }
+        $first_service = self::generateBusinessFirstService($business_id);
         $business_details = [
-            'business_id' => $business_id,
-            'business_name' => $business->name,
-            'business_address' => $business->local_address,
-            'facebook_url' => $business->fb_url,
-            'industry' => $business->industry,
-            'time_open' => Helper::mergeTime($business->open_hour, $business->open_minute, $business->open_ampm),
-            'time_closed' => Helper::mergeTime($business->close_hour, $business->close_minute, $business->close_ampm),
-            'timezone' => $business->timezone, //ARA Added timezone
-            'queue_limit' => $business->queue_limit, /* RDH Added queue_limit to Edit Business Page */
-            'terminal_specific_issue' => QueueSettings::terminalSpecificIssue($first_service->service_id),
-            'sms_current_number' => QueueSettings::smsCurrentNumber($first_service->service_id),
-            'sms_1_ahead' => QueueSettings::smsOneAhead($first_service->service_id),
-            'sms_5_ahead' => QueueSettings::smsFiveAhead($first_service->service_id),
-            'sms_10_ahead' => QueueSettings::smsTenAhead($first_service->service_id),
-            'sms_blank_ahead' => QueueSettings::smsBlankAhead($first_service->service_id),
-            'input_sms_field' => QueueSettings::inputSmsField($first_service->service_id),
-            'allow_remote' => QueueSettings::allowRemote($first_service->service_id),
-            'remote_limit' => QueueSettings::remoteLimit($first_service->service_id),
-            'remote_time' => QueueSettings::remoteTime($first_service->service_id),
-            'process_queue_layout' => QueueSettings::processQueueLayout($first_service->service_id),
-            'check_in_display' => QueueSettings::checkInDisplay($first_service->service_id),
-            'terminals' => $terminals,
-            'services' => $services,
-            'analytics' => $analytics,
-            'groupings' => $groupings,
-            'features' => Business::getBusinessFeatures($business_id),
-            'sms_gateway' => QueueSettings::smsGateway($first_service->service_id),
-            'allowed_businesses' => Business::getForwardingAllowedBusinesses($business_id),
-            'raw_code' => $business->raw_code,
-            'business_features' => unserialize($business->business_features),
-            'custom_url' => $business->vanity_url,
-            'broadcastURL' => URL::to('/') . '/' . $business->vanity_url,
+          'business_id'             => $business_id,
+          'business_name'           => $business->name,
+          'business_address'        => $business->local_address,
+          'facebook_url'            => $business->fb_url,
+          'industry'                => $business->industry,
+          'time_open'               => Helper::mergeTime($business->open_hour, $business->open_minute,
+            $business->open_ampm),
+          'time_closed'             => Helper::mergeTime($business->close_hour, $business->close_minute,
+            $business->close_ampm),
+          'timezone'                => $business->timezone, //ARA Added timezone
+          'queue_limit'             => $business->queue_limit, /* RDH Added queue_limit to Edit Business Page */
+          'terminal_specific_issue' => QueueSettings::terminalSpecificIssue($first_service->service_id),
+          'sms_current_number'      => QueueSettings::smsCurrentNumber($first_service->service_id),
+          'sms_1_ahead'             => QueueSettings::smsOneAhead($first_service->service_id),
+          'sms_5_ahead'             => QueueSettings::smsFiveAhead($first_service->service_id),
+          'sms_10_ahead'            => QueueSettings::smsTenAhead($first_service->service_id),
+          'sms_blank_ahead'         => QueueSettings::smsBlankAhead($first_service->service_id),
+          'input_sms_field'         => QueueSettings::inputSmsField($first_service->service_id),
+          'allow_remote'            => QueueSettings::allowRemote($first_service->service_id),
+          'remote_limit'            => QueueSettings::remoteLimit($first_service->service_id),
+          'remote_time'             => QueueSettings::remoteTime($first_service->service_id),
+          'process_queue_layout'    => QueueSettings::processQueueLayout($first_service->service_id),
+          'check_in_display'        => QueueSettings::checkInDisplay($first_service->service_id),
+          'terminals'               => $terminals,
+          'services'                => $services,
+          'analytics'               => $analytics,
+          'groupings'               => $groupings,
+          'features'                => Business::getBusinessFeatures($business_id),
+          'sms_gateway'             => QueueSettings::smsGateway($first_service->service_id),
+          'allowed_businesses'      => Business::getForwardingAllowedBusinesses($business_id),
+          'raw_code'                => $business->raw_code,
+          'business_features'       => unserialize($business->business_features),
+          'custom_url'              => $business->vanity_url,
+          'broadcastURL'            => URL::to('/') . '/' . $business->vanity_url,
         ];
 
 
         $sms_gateway_api = unserialize(QueueSettings::smsGatewayApi($first_service->service_id));
-        if($business_details['sms_gateway'] == 'frontline_sms' && $sms_gateway_api){
+        if ($business_details['sms_gateway'] == 'frontline_sms' && $sms_gateway_api) {
             $business_details['frontline_sms_url'] = $sms_gateway_api['frontline_sms_url'];
             $business_details['frontline_sms_api_key'] = $sms_gateway_api['frontline_sms_api_key'];
-        }elseif($business_details['sms_gateway'] == 'twilio' && $sms_gateway_api){
-            if($sms_gateway_api['twilio_account_sid'] == TWILIO_ACCOUNT_SID &&
-                $sms_gateway_api['twilio_auth_token'] == TWILIO_AUTH_TOKEN &&
-                $sms_gateway_api['twilio_phone_number'] == TWILIO_PHONE_NUMBER){
-                $business_details['sms_gateway'] = NULL;
-                $business_details['twilio_account_sid'] = NULL;
-                $business_details['twilio_auth_token'] = NULL;
-                $business_details['twilio_phone_number'] = NULL;
-            }else{
+        } elseif ($business_details['sms_gateway'] == 'twilio' && $sms_gateway_api) {
+            if ($sms_gateway_api['twilio_account_sid'] == TWILIO_ACCOUNT_SID
+              && $sms_gateway_api['twilio_auth_token'] == TWILIO_AUTH_TOKEN
+              && $sms_gateway_api['twilio_phone_number'] == TWILIO_PHONE_NUMBER
+            ) {
+                $business_details['sms_gateway'] = null;
+                $business_details['twilio_account_sid'] = null;
+                $business_details['twilio_auth_token'] = null;
+                $business_details['twilio_phone_number'] = null;
+            } else {
                 $business_details['twilio_account_sid'] = $sms_gateway_api['twilio_account_sid'];
                 $business_details['twilio_auth_token'] = $sms_gateway_api['twilio_auth_token'];
                 $business_details['twilio_phone_number'] = $sms_gateway_api['twilio_phone_number'];
             }
-        }else{
-            $business_details['sms_gateway'] = NULL;
-            $business_details['twilio_account_sid'] = NULL;
-            $business_details['twilio_auth_token'] = NULL;
-            $business_details['twilio_phone_number'] = NULL;
+        } else {
+            $business_details['sms_gateway'] = null;
+            $business_details['twilio_account_sid'] = null;
+            $business_details['twilio_auth_token'] = null;
+            $business_details['twilio_phone_number'] = null;
         }
 
 
         return $business_details;
+    }
+
+    private static function generateBusinessFirstService($business_id)
+    {
+        $first_service = Service::getFirstServiceOfBusiness($business_id);
+        if (!$first_service) {
+            $first_service = new stdClass();
+            $first_service->service_id = 0;
+        }
+        return $first_service;
     }
 
     /*
@@ -215,7 +232,8 @@ class Business extends Eloquent
                 $rawTerminals = Terminal::getTerminalsByServiceId($service->service_id);
 
                 /* get terminal id's of assigned terminals */
-                $user_id = isset(Auth::user()->user_id) ? Auth::user()->user_id : 0; // ARA Checks if user has been logged in
+                $user_id = isset(Auth::user()->user_id) ? Auth::user()->user_id
+                  : 0; // ARA Checks if user has been logged in
                 $terminalAssignments = TerminalUser::getTerminalAssignement($user_id);
                 $terminalIds = [];
                 foreach ($terminalAssignments as $assignment) {
@@ -241,8 +259,13 @@ class Business extends Eloquent
         return $business;
     }
 
-    public static function getBusinessByNameCountryIndustryTimeopen($name, $country, $industry, $time_open = null, $timezone = null)
-    {
+    public static function getBusinessByNameCountryIndustryTimeopen(
+      $name,
+      $country,
+      $industry,
+      $time_open = null,
+      $timezone = null
+    ) {
         if ($time_open) {
             $time_open_arr = Helper::parseTime($time_open);
         } else {
@@ -255,38 +278,38 @@ class Business extends Eloquent
             $industry = '';
         }
 
-        if(is_numeric($timezone)){
+        if (is_numeric($timezone)) {
             $timezones = Helper::timezoneOffsetToNameArray($timezone);
-        }else{
+        } else {
             $timezones = [$timezone];
         }
 
         //ARA this makes editing queries easier
         $query = Business::where('name', 'LIKE', '%' . $name . '%')
-            //->where('local_address', 'LIKE', '%' . $country . '%')
-            ->where('latitude', '<=', $country['ne_lat'])
-            ->where('latitude', '>=', $country['sw_lat'])
-            ->where('longitude', '<=', $country['ne_lng'])
-            ->where('longitude', '>=', $country['sw_lng'])
-            ->where('industry', 'LIKE', '%' . $industry . '%');
+          //->where('local_address', 'LIKE', '%' . $country . '%')
+          ->where('latitude', '<=', $country['ne_lat'])
+          ->where('latitude', '>=', $country['sw_lat'])
+          ->where('longitude', '<=', $country['ne_lng'])
+          ->where('longitude', '>=', $country['sw_lng'])
+          ->where('industry', 'LIKE', '%' . $industry . '%');
 
-        if($name == ''){
+        if ($name == '') {
             $query->whereIn('timezone', $timezones);
         }
 
         if ($time_open_arr['ampm'] == 'PM' && $time_open_arr['min'] == '00') {
             $query->where('open_ampm', '=', 'PM')
-                ->where('open_hour', '>=', $time_open_arr['hour']);
+              ->where('open_hour', '>=', $time_open_arr['hour']);
         } elseif ($time_open_arr['ampm'] == 'PM' && $time_open_arr['min'] == '30') {
             $query->where('open_ampm', '=', 'PM')
-                ->whereRaw('open_hour > ? OR (open_hour = ? AND open_minute = ?)',
-                    array($time_open_arr['hour'], $time_open_arr['hour'], '30'));
+              ->whereRaw('open_hour > ? OR (open_hour = ? AND open_minute = ?)',
+                array($time_open_arr['hour'], $time_open_arr['hour'], '30'));
         } elseif ($time_open_arr['ampm'] == 'AM' && $time_open_arr['min'] == '00') {
             $query->whereRaw('(open_hour >= ? AND open_ampm = ?) OR (open_hour < ? AND open_ampm = ?)',
-                array($time_open_arr['hour'], 'AM', $time_open_arr['hour'], 'PM'));
+              array($time_open_arr['hour'], 'AM', $time_open_arr['hour'], 'PM'));
         } elseif ($time_open_arr['ampm'] == 'AM' && $time_open_arr['min'] == '30') {
             $query->whereRaw('(open_hour > ? AND open_ampm = ?) OR (open_hour < ? AND open_ampm = ?) OR (open_hour = ? AND open_minute = ? AND open_ampm = ?)',
-                array($time_open_arr['hour'], 'AM', $time_open_arr['hour'], 'PM', $time_open_arr['hour'], '30', 'AM'));
+              array($time_open_arr['hour'], 'AM', $time_open_arr['hour'], 'PM', $time_open_arr['hour'], '30', 'AM'));
         }
         return $query->get();
     }
@@ -294,8 +317,8 @@ class Business extends Eloquent
     public static function businessExistsByNameByAddress($business_name, $business_address)
     {
         return Business::where('name', '=', $business_name)
-            ->where('local_address', '=', $business_address)
-            ->get();
+          ->where('local_address', '=', $business_address)
+          ->get();
     }
 
     public static function deleteBusinessByBusinessId($business_id)
@@ -305,7 +328,8 @@ class Business extends Eloquent
         // PAG delete also the json file
         unlink(public_path() . '/json/' . $business_id . '.json');
 
-        Helper::dbLogger('Business', 'business', 'delete', 'deleteBusinessByBusinessId', User::email(Helper::userId()), 'business_id:' . $business_id);
+        Helper::dbLogger('Business', 'business', 'delete', 'deleteBusinessByBusinessId', User::email(Helper::userId()),
+          'business_id:' . $business_id);
     }
 
     /*
@@ -365,17 +389,19 @@ class Business extends Eloquent
                     foreach ($priority_numbers as $count4 => $priority_number) {
                         $priority_queues = PriorityQueue::getTransactionNumberByTrackId($priority_number->track_id);
                         foreach ($priority_queues as $count5 => $priority_queue) {
-                            $terminal_transactions = TerminalTransaction::getTimesByTransactionNumber($priority_queue->transaction_number);
+                            $terminal_transactions
+                              = TerminalTransaction::getTimesByTransactionNumber($priority_queue->transaction_number);
                             foreach ($terminal_transactions as $count6 => $terminal_transaction) {
-                                $grace_period = time() - $terminal_transaction->time_queued; // issued time must be on the current day to count as active
+                                $grace_period = time()
+                                  - $terminal_transaction->time_queued; // issued time must be on the current day to count as active
                                 if ($terminal_transaction->time_queued != 0
-                                    && $terminal_transaction->time_completed == 0
-                                    && $terminal_transaction->time_removed == 0
-                                    && $grace_period < 86400
+                                  && $terminal_transaction->time_completed == 0
+                                  && $terminal_transaction->time_removed == 0
+                                  && $grace_period < 86400
                                 ) { // 1 day; 60secs * 60 min * 24 hours
                                     $active_businesses[$business->business_id] = array(
-                                        'local_address' => $business->local_address,
-                                        'name' => $business->name,
+                                      'local_address' => $business->local_address,
+                                      'name'          => $business->name,
                                     );
                                     break;
                                 }
@@ -403,7 +429,9 @@ class Business extends Eloquent
 
     public static function getNewBusinesses()
     {
-        return Business::orderBy('business_id', 'desc')->limit(5)->get(); // RDH Changed implementation to only include newest 4 businesses
+        return Business::orderBy('business_id', 'desc')
+          ->limit(5)
+          ->get(); // RDH Changed implementation to only include newest 4 businesses
     }
 
     public static function getProcessingBusinesses()
@@ -485,6 +513,7 @@ class Business extends Eloquent
 
     /**
      * ARA merges active businesses and other businesses
+     *
      * @return array
      */
     public static function getDashboardBusinesses()
@@ -493,33 +522,38 @@ class Business extends Eloquent
         $active_businesses = Business::getProcessingBusinesses();
         $all_businesses = Business::where('status', '=', 1)->get()->toArray();
         foreach ($all_businesses as $index => $business) {
-            $open_time_string = $business['open_hour'] . ':' . Helper::doubleZero($business['open_minute']) . ' ' . $business['open_ampm'];
-            $closing_time_string = $business['close_hour'] . ':' . Helper::doubleZero($business['close_minute']) . ' ' . $business['close_ampm'];
-            $waiting_time = Analytics::getWaitingTimeString($business['business_id']); //get time before the next available number is called. should be in minutes
+            $open_time_string = $business['open_hour'] . ':' . Helper::doubleZero($business['open_minute']) . ' '
+              . $business['open_ampm'];
+            $closing_time_string = $business['close_hour'] . ':' . Helper::doubleZero($business['close_minute']) . ' '
+              . $business['close_ampm'];
+            $waiting_time
+              = Analytics::getWaitingTimeString($business['business_id']); //get time before the next available number is called. should be in minutes
 
             //ARA more info for business cards
             $first_service = Service::getFirstServiceOfBusiness($business['business_id']);
             $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
-            $last_number_called = count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'none';
+            $last_number_called = count($all_numbers->called_numbers) > 0
+              ? $all_numbers->called_numbers[0]['priority_number'] : 'none';
             $next_number = $all_numbers->next_number;
             $is_calling = count($all_numbers->called_numbers) > 0 ? true : false;
-            $is_issuing = count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? true : false;
+            $is_issuing = count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? true
+              : false;
             $last_active = Analytics::daysAgoActive($business['business_id']);
 
             $business_details = array(
-                'business_id' => $business['business_id'],
-                'name' => $business['name'],
-                'local_address' => $business['local_address'],
-                'open_time' => $open_time_string,
-                'close_time' => $closing_time_string,
-                'waiting_time' => $waiting_time,
+              'business_id'           => $business['business_id'],
+              'name'                  => $business['name'],
+              'local_address'         => $business['local_address'],
+              'open_time'             => $open_time_string,
+              'close_time'            => $closing_time_string,
+              'waiting_time'          => $waiting_time,
 
-                //ARA more info for business cards
-                'last_number_called' => $last_number_called, //ok
-                'next_available_number' => $next_number, //ok
-                'is_calling' => $is_calling, //ok
-                'is_issuing' => $is_issuing, //ok
-                'last_active' => $last_active
+              //ARA more info for business cards
+              'last_number_called'    => $last_number_called, //ok
+              'next_available_number' => $next_number, //ok
+              'is_calling'            => $is_calling, //ok
+              'is_issuing'            => $is_issuing, //ok
+              'last_active'           => $last_active
             );
 
             //Add active business to top of list
@@ -540,164 +574,190 @@ class Business extends Eloquent
         $min_long = $longitude - 0.06;
         $timezones = Helper::timezoneOffsetToNameArray($timezone);
         return Business::where('latitude', '>=', $min_lat)
-            ->where('latitude', '<=', $max_lat)
-            ->where('longitude', '>=', $min_long)
-            ->where('longitude', '<=', $max_long)
-            ->whereIn('timezone', $timezones)
-            ->get();
+          ->where('latitude', '<=', $max_lat)
+          ->where('longitude', '>=', $min_long)
+          ->where('longitude', '<=', $max_long)
+          ->whereIn('timezone', $timezones)
+          ->get();
     }
 
     public static function processingBusinessBool($business_id)
     {
-      /*
-        $filepath = public_path() . '/json/' . $business_id . '.json';
-        $data = json_decode(file_get_contents($filepath));
-        if ($data->box1->number != '') {
-            return TRUE;
-        } elseif (isset($data->box2)) {
-            if ($data->box2->number != '') {
-                return TRUE;
-            }
-        } elseif (isset($data->box3)) {
-            if ($data->box3->number != '') {
-                return TRUE;
-            }
-        } elseif (isset($data->box4)) {
-            if ($data->box4->number != '') {
-                return TRUE;
-            }
-        } elseif (isset($data->box5)) {
-            if ($data->box5->number != '') {
-                return TRUE;
-            }
-        } elseif (isset($data->box6)) {
-            if ($data->box6->number != '') {
-                return TRUE;
-            }
-        } elseif ($data->get_num != '') {
-            return TRUE;
-        }
-        return FALSE;
-      */
+        /*
+          $filepath = public_path() . '/json/' . $business_id . '.json';
+          $data = json_decode(file_get_contents($filepath));
+          if ($data->box1->number != '') {
+              return TRUE;
+          } elseif (isset($data->box2)) {
+              if ($data->box2->number != '') {
+                  return TRUE;
+              }
+          } elseif (isset($data->box3)) {
+              if ($data->box3->number != '') {
+                  return TRUE;
+              }
+          } elseif (isset($data->box4)) {
+              if ($data->box4->number != '') {
+                  return TRUE;
+              }
+          } elseif (isset($data->box5)) {
+              if ($data->box5->number != '') {
+                  return TRUE;
+              }
+          } elseif (isset($data->box6)) {
+              if ($data->box6->number != '') {
+                  return TRUE;
+              }
+          } elseif ($data->get_num != '') {
+              return TRUE;
+          }
+          return FALSE;
+        */
 
-      // will be using Aunne's data from process queue to determine if the business is active or inactive
-      $all_numbers = ProcessQueue::businessAllNumbers($business_id);
-      $is_calling = count($all_numbers->called_numbers) > 0 ? true : false;
-      $is_issuing = count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? true : false;
-      return $is_calling || $is_issuing;
+        // will be using Aunne's data from process queue to determine if the business is active or inactive
+        $all_numbers = ProcessQueue::businessAllNumbers($business_id);
+        $is_calling = count($all_numbers->called_numbers) > 0 ? true : false;
+        $is_issuing = count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? true : false;
+        return $is_calling || $is_issuing;
     }
 
-    public static function getBusinessIdByName($business_name){
+    public static function getBusinessIdByName($business_name)
+    {
         return Business::where('name', $business_name)->get();
     }
 
-    public static function getByLikeName($business_name){
+    public static function getByLikeName($business_name)
+    {
         return Business::where('name', 'LIKE', '%' . $business_name . '%')->get();
     }
 
-    public static function getBusinessByRange($start_date, $end_date){
+    public static function getBusinessByRange($start_date, $end_date)
+    {
         $temp_start_date = date("Y/m/d", $start_date);
         $temp_end_date = date("Y/m/d", $end_date);
-        return Business::where('registration_date', '>=', $temp_start_date)->where('registration_date','<', $temp_end_date)->get();
+        return Business::where('registration_date', '>=', $temp_start_date)
+          ->where('registration_date', '<', $temp_end_date)
+          ->get();
     }
 
-    public static function getAllBusinessNames(){
+    public static function getAllBusinessNames()
+    {
         return Business::select('business_id', 'name')->get();
     }
 
-    public static function getBusinessIdsByIndustry($industry){
-        return Business::select('business_id')->where('industry',"=", $industry)->get();
+    public static function getBusinessIdsByIndustry($industry)
+    {
+        return Business::select('business_id')->where('industry', "=", $industry)->get();
     }
 
-    public static function getBusinessIdsByCountry($country){
+    public static function getBusinessIdsByCountry($country)
+    {
         return Business::select('business_id')->where('local_address', 'LIKE', '%' . $country . '%')->get();
     }
 
-    public static function getAvailableIndustries(){
+    public static function getAvailableIndustries()
+    {
         return Business::select('industry')->groupBy('industry')->get();
     }
 
-    public static function saveBusinessFeatures($business_id, $features = array()){
+    public static function saveBusinessFeatures($business_id, $features = array())
+    {
         Business::where('business_id', '=', $business_id)->update(['business_features' => serialize($features)]);
-        Helper::dbLogger('Business', 'business', 'update', 'saveBusinessFeatures', User::email(Helper::userId()), 'business_id:' . $business_id);
+        Helper::dbLogger('Business', 'business', 'update', 'saveBusinessFeatures', User::email(Helper::userId()),
+          'business_id:' . $business_id);
     }
 
-    public static function getBusinessFeatures($business_id){
-        $serialized = Business::where('business_id', '=', $business_id)->select('business_features')->first()->business_features;
+    public static function getBusinessFeatures($business_id)
+    {
+        $serialized = Business::where('business_id', '=', $business_id)
+          ->select('business_features')
+          ->first()->business_features;
         return unserialize($serialized);
     }
 
-    public static function getBusinessAccessKey($business_id){
+    public static function getBusinessAccessKey($business_id)
+    {
         return Crypt::encrypt($business_id);
     }
 
     /**
      * Gets the businesses that you allow to forward
+     *
      * @param $business_id
+     *
      * @return mixed
      */
-    public static function getForwardingAllowedBusinesses($business_id){
+    public static function getForwardingAllowedBusinesses($business_id)
+    {
         $my_business = Business::where('business_id', '=', $business_id)
-            ->select('business.business_id', 'business.name')
-            ->first();
+          ->select('business.business_id', 'business.name')
+          ->first();
 
         $allowed_businesses = DB::table('queue_forward_permissions')
-            ->where('queue_forward_permissions.business_id', '=', $business_id)
-            ->join('business', 'business.business_id', '=', 'queue_forward_permissions.forwarder_id')
-            ->select('business.business_id', 'business.name')
-            ->get();
+          ->where('queue_forward_permissions.business_id', '=', $business_id)
+          ->join('business', 'business.business_id', '=', 'queue_forward_permissions.forwarder_id')
+          ->select('business.business_id', 'business.name')
+          ->get();
         array_push($allowed_businesses, $my_business);
         return $allowed_businesses;
     }
 
-    public static function getForwarderAllowedServices($business_id){
+    public static function getForwarderAllowedServices($business_id)
+    {
         $my_services = Business::where('business.business_id', '=', $business_id)
-            ->join('branch', 'branch.business_id', '=', 'business.business_id')
-            ->join('service', 'service.branch_id', '=', 'branch.branch_id')
-            ->select('business.business_id', 'business.name')
-            ->select('business.business_id', 'business.name', 'branch.branch_id', 'service.service_id', 'service.name as service_name')
-            ->get()->toArray();
+          ->join('branch', 'branch.business_id', '=', 'business.business_id')
+          ->join('service', 'service.branch_id', '=', 'branch.branch_id')
+          ->select('business.business_id', 'business.name')
+          ->select('business.business_id', 'business.name', 'branch.branch_id', 'service.service_id',
+            'service.name as service_name')
+          ->get()->toArray();
 
         $allowed_services = DB::table('queue_forward_permissions')
-            ->where('queue_forward_permissions.forwarder_id', '=', $business_id)
-            ->join('business', 'business.business_id', '=', 'queue_forward_permissions.business_id')
-            ->join('branch', 'branch.business_id', '=', 'business.business_id')
-            ->join('service', 'service.branch_id', '=', 'branch.branch_id')
-            ->select('business.business_id', 'business.name', 'branch.branch_id', 'service.service_id', 'service.name as service_name')
-            ->get();
+          ->where('queue_forward_permissions.forwarder_id', '=', $business_id)
+          ->join('business', 'business.business_id', '=', 'queue_forward_permissions.business_id')
+          ->join('branch', 'branch.business_id', '=', 'business.business_id')
+          ->join('service', 'service.branch_id', '=', 'branch.branch_id')
+          ->select('business.business_id', 'business.name', 'branch.branch_id', 'service.service_id',
+            'service.name as service_name')
+          ->get();
 
         return array_merge($allowed_services, $my_services);
     }
 
-    public static function getForwarderAllowedInBusiness($business_id, $forwarder_id){
-        return $business_id == $forwarder_id || DB::table('queue_forward_permissions')
+    public static function getForwarderAllowedInBusiness($business_id, $forwarder_id)
+    {
+        return $business_id == $forwarder_id
+          || DB::table('queue_forward_permissions')
             ->where('business_id', '=', $business_id)
             ->where('forwarder_id', '=', $forwarder_id)
             ->first();
     }
 
-    public static function getKeywordsByBusinessId($business_id){
-        try{
+    public static function getKeywordsByBusinessId($business_id)
+    {
+        try {
             $industry = Business::industry($business_id);
-        }catch(Exception $e){
+        } catch (Exception $e) {
             $industry = '';
         }
         return Business::getIndustryKeywords($industry);
     }
 
-    public static function getIndustryKeywords($industry){
+    public static function getIndustryKeywords($industry)
+    {
         return isset(Business::$keywords[$industry]) ? Business::$keywords[$industry] : [];
     }
 
-    public static function getCustomFieldsDataByBusinessId($business_id){
+    public static function getCustomFieldsDataByBusinessId($business_id)
+    {
 
         $result = Business::where('business.business_id', '=', $business_id)
-            ->join('branch', 'branch.business_id', '=', 'business.business_id')
-            ->join('service', 'service.branch_id', '=', 'branch.branch_id')
-            ->join('priority_number', 'priority_number.service_id','=','service.service_id')
-            ->join('priority_queue', 'priority_queue.track_id', '=', 'priority_number.track_id')
-            ->whereIn('priority_queue.queue_platform',array('android','remote'))
-            ->selectRaw('
+          ->join('branch', 'branch.business_id', '=', 'business.business_id')
+          ->join('service', 'service.branch_id', '=', 'branch.branch_id')
+          ->join('priority_number', 'priority_number.service_id', '=', 'service.service_id')
+          ->join('priority_queue', 'priority_queue.track_id', '=', 'priority_number.track_id')
+          ->whereIn('priority_queue.queue_platform', array('android', 'remote'))
+          ->selectRaw('
                 priority_queue.transaction_number,
                 priority_queue.priority_number,
                 priority_queue.confirmation_code,
@@ -706,57 +766,58 @@ class Business extends Eloquent
                 priority_queue.email,
                 priority_queue.custom_fields
             ')
-            ->orderBy('priority_queue.transaction_number')
-            ->get();
+          ->orderBy('priority_queue.transaction_number')
+          ->get();
 
         return $result;
     }
 
-    private static $keywords = [
-        'Accounting'                => ['accounting'],
-        'Advertising'               => ['advertising'],
-        'Agriculture'               => ['agriculture'],
-        'Air Services'              => ['air services'],
-        'Airlines'                  => ['airlines'],
-        'Apparel'                   => ['apparel'],
-        'Appliances'                => ['appliances'],
-        'Auto Dealership'           => ['auto dealership'],
-        'Banking'                   => ['banking'],
-        'Broadcasting'              => ['broadcasting'],
-        'Business Services'         => ['business services'],
-        'Communications'            => ['communications'],
-        'Corporate'                 => ['corporate'],
-        'Customer Service'          => ['customer service'],
-        'Delivery'                  => ['delivery'],
-        'Delivery Services'         => ['delivery services'],
-        'Education'                 => ['education'],
-        'Energy'                    => ['energy', 'electricity', 'power'],
-        'Entertainment'             => ['entertainment'],
-        'Events'                    => ['events'],
-        'Food and Beverage'         => ['food', 'beverage'],
-        'Government'                => ['government'],
-        'Grocery'                   => ['grocery'],
-        'Healthcare'                => ['healthcare'],
-        'Hobbies and Collections'   => ['hobbies', 'collections'],
-        'Hospitality'               => ['hospitality'],
-        'Insurance'                 => ['insurance'],
-        'Information Technology'    => ['information technology'],
-        'Lifestyle'                 => ['lifestyle'],
-        'Mail Order Services'       => ['mail order service', 'mail order'],
-        'Manufacturing'             => ['manufacturing'],
-        'Media'                     => ['media'],
-        'Pharmaceutical'            => ['pharmaceutical', 'pharmacy'],
-        'Professional services'     => ['professional services'],
-        'Publishing'                => ['publishing'],
-        'Real Estate'               => ['real estate'],
-        'Recreation'                => ['recreation'],
-        'Rentals'                   => ['rentals'],
-        'Retail'                    => ['retail'],
-        'Software Development'      => ['software development', 'software'],
-        'Technology'                => ['technology'],
-        'Travel and Tours'          => ['travel and tours', 'travel', 'tours'],
-        'Utility services'          => ['utility services'],
-        'Web Services'              => ['web services'],
-        'Wholesale'                 => ['wholesale'],
-    ];
+    private static $keywords
+      = [
+        'Accounting'              => ['accounting'],
+        'Advertising'             => ['advertising'],
+        'Agriculture'             => ['agriculture'],
+        'Air Services'            => ['air services'],
+        'Airlines'                => ['airlines'],
+        'Apparel'                 => ['apparel'],
+        'Appliances'              => ['appliances'],
+        'Auto Dealership'         => ['auto dealership'],
+        'Banking'                 => ['banking'],
+        'Broadcasting'            => ['broadcasting'],
+        'Business Services'       => ['business services'],
+        'Communications'          => ['communications'],
+        'Corporate'               => ['corporate'],
+        'Customer Service'        => ['customer service'],
+        'Delivery'                => ['delivery'],
+        'Delivery Services'       => ['delivery services'],
+        'Education'               => ['education'],
+        'Energy'                  => ['energy', 'electricity', 'power'],
+        'Entertainment'           => ['entertainment'],
+        'Events'                  => ['events'],
+        'Food and Beverage'       => ['food', 'beverage'],
+        'Government'              => ['government'],
+        'Grocery'                 => ['grocery'],
+        'Healthcare'              => ['healthcare'],
+        'Hobbies and Collections' => ['hobbies', 'collections'],
+        'Hospitality'             => ['hospitality'],
+        'Insurance'               => ['insurance'],
+        'Information Technology'  => ['information technology'],
+        'Lifestyle'               => ['lifestyle'],
+        'Mail Order Services'     => ['mail order service', 'mail order'],
+        'Manufacturing'           => ['manufacturing'],
+        'Media'                   => ['media'],
+        'Pharmaceutical'          => ['pharmaceutical', 'pharmacy'],
+        'Professional services'   => ['professional services'],
+        'Publishing'              => ['publishing'],
+        'Real Estate'             => ['real estate'],
+        'Recreation'              => ['recreation'],
+        'Rentals'                 => ['rentals'],
+        'Retail'                  => ['retail'],
+        'Software Development'    => ['software development', 'software'],
+        'Technology'              => ['technology'],
+        'Travel and Tours'        => ['travel and tours', 'travel', 'tours'],
+        'Utility services'        => ['utility services'],
+        'Web Services'            => ['web services'],
+        'Wholesale'               => ['wholesale'],
+      ];
 }

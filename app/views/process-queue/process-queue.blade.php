@@ -65,7 +65,7 @@
               </span>
             </div>
           </div>
-          <!--div class="col-md-12 row">
+          <div class="col-md-12 row">
             <div class="col-md-4">Current pace:</div>
             <div class="col-md-8">
               <span class="date-today">
@@ -75,7 +75,7 @@
                        style="height: 0px; width:0px; border: 0px;"/>
               </span>
             </div>
-          </div-->
+          </div>
         </div>
         <div class="col-md-3 col-sm-4 ">
           {{--<a id="view-broadcast" target="_blank" href="{{ url('/broadcast/business/' . $business_id) }}">View Broadcast <br>Screen</a>--}}

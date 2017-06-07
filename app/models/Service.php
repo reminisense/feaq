@@ -175,4 +175,14 @@ class Service extends Eloquent
         Service::where('service_id', '=', $service_id)->update(array('group_id' => $group_id));
     }
 
+    public static function setPacingStatus($status, $service_id)
+    {
+        Service::where('service_id', '=', $service_id)->update(array('pacing_status' => $status));
+    }
+
+    public static function getPacingStatus($service_id)
+    {
+        return Service::where('service_id', '=', $service_id)->first()->pacing_status;
+    }
+
 }

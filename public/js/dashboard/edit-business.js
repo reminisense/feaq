@@ -282,22 +282,28 @@ var eb = {
 //            });
 //        },
 
-        hide_add_terminal_form: function () {
+        hide_add_terminal_form: function ()
+        {
             $('.inputterminal-form').hide();
             $('.btn-addterminal').show();
         },
 
-        my_business_link_active: function () {
+        my_business_link_active: function ()
+        {
             $('#my-business').addClass('active');
             $('#search-business').removeClass('active');
             $('#message-inbox').removeClass('active');
         },
 
-        clear_terminal_delete_msg: function () {
-            setTimeout(function () {
-                $("#terminal-delete-error").fadeOut('slow', function () {
+        clear_terminal_delete_msg: function ()
+        {
+            setTimeout(function ()
+            {
+                $("#terminal-delete-error").fadeOut('slow', function ()
+                {
                     var scope = angular.element($("#editBusiness")).scope();
-                    scope.$apply(function () {
+                    scope.$apply(function ()
+                    {
                         scope.terminal_delete_error = null;
                     });
                     $("#terminal-delete-error").show();
@@ -305,11 +311,15 @@ var eb = {
             }, 3000);
         },
 
-        clear_service_error_msg: function () {
-            setTimeout(function () {
-                $("#service-error").fadeOut('slow', function () {
+        clear_service_error_msg: function ()
+        {
+            setTimeout(function ()
+            {
+                $("#service-error").fadeOut('slow', function ()
+                {
                     var scope = angular.element($("#editBusiness")).scope();
-                    scope.$apply(function () {
+                    scope.$apply(function ()
+                    {
                         scope.service_error = null;
                     });
                     $("#service-error").show();
@@ -317,7 +327,8 @@ var eb = {
             }, 3000);
         },
 
-        load_remote_limit_slider: function () {
+        load_remote_limit_slider: function ()
+        {
             var scope = angular.element($("#editBusiness")).scope();
             var value = scope.service_settings.remote_limit;
 
@@ -326,15 +337,18 @@ var eb = {
                 min: 0,
                 max: 20,
                 value: value,
-                slide: function (event, ui) {
-                    scope.$apply(function () {
+                slide: function (event, ui)
+                {
+                    scope.$apply(function ()
+                    {
                         scope.service_settings.remote_limit = ui.value;
                     });
                 }
             });
         },
 
-        activate_plupload: function () {
+        activate_plupload: function ()
+        {
             $("#html5_uploader").pluploadQueue({
                 // General settings
                 runtimes: 'html5',
@@ -358,15 +372,18 @@ var eb = {
                 },
 
                 init: {
-                    UploadComplete: function (up, files) {
+                    UploadComplete: function (up, files)
+                    {
                         $.post(eb.urls.advertisement.get_slider_image, {
                             'business_id': $('#business_id').val()
-                        }, function (result) {
+                        }, function (result)
+                        {
                             var response = jQuery.parseJSON(result);
                             $('#adimage-success').fadeIn();
                             $('#adimage-success').fadeOut(7000);
                             var scope = angular.element($("#editBusiness")).scope();
-                            scope.$apply(function () {
+                            scope.$apply(function ()
+                            {
                                 scope.slider_images = response.slider_images;
                                 if ($.trim(response.slider_images)) {
                                     $('.reorder-note').show();
@@ -382,10 +399,13 @@ var eb = {
             });
         },
 
-        reorder_ad_image: function () {
+        reorder_ad_image: function ()
+        {
             $("#ad-images-preview tbody").sortable({
-                stop: function (event, ui) {
-                    $(this).find('tr').each(function (i) {
+                stop: function (event, ui)
+                {
+                    $(this).find('tr').each(function (i)
+                    {
                         $(this).attr('img_weight', i + 1);
                         $.post('/advertisement/reorder-images', {
                             business_id: $('#business_id').val(),
@@ -400,14 +420,17 @@ var eb = {
 };
 
 
-(function () {
+(function ()
+{
     app.requires.push('angular-loading-bar'); //add angular loading bar
     app.config([
-        'cfpLoadingBarProvider', function (cfpLoadingBarProvider) {
+        'cfpLoadingBarProvider', function (cfpLoadingBarProvider)
+        {
             cfpLoadingBarProvider.includeSpinner = false;
         }
     ]);
-    app.controller('editBusinessController', function ($scope, $http, $filter) {
+    app.controller('editBusinessController', function ($scope, $http, $filter)
+    {
         $scope.user_id = null;
         $scope.business_id = null;
         $scope.business_name = null;
@@ -499,24 +522,27 @@ var eb = {
                 message: ''
             },
 
-            isEnabled: 0,
+            pacingStatus: 0,
             timeStart: 0,
             timeEnd: 0,
-            quota: 0
+            quota: 0,
+            pacingRecords: []
         };
 
         $scope.groupings = [];
         $scope.groupToAdd = "";
         $scope.groupToDelete = 0;
 
-        $scope.$watch('service_settings.check_in_display', function (newValue, oldValue) {
+        $scope.$watch('service_settings.check_in_display', function (newValue, oldValue)
+        {
             if (newValue > 10) {
                 showServiceSettingsMessage(0, 'Queue now cannot exceed 10.');
                 $scope.service_settings.check_in_display = oldValue;
             }
         });
 
-        $scope.$watch('service_settings.number_prefix', function (newValue, oldValue) {
+        $scope.$watch('service_settings.number_prefix', function (newValue, oldValue)
+        {
             if (newValue.length > 5) {
                 showServiceSettingsMessage(0, 'Number prefix cannot exceed 5 characters.');
                 $scope.service_settings.number_prefix = oldValue;
@@ -529,7 +555,8 @@ var eb = {
 
         });
 
-        $scope.$watch('service_settings.number_suffix', function (newValue, oldValue) {
+        $scope.$watch('service_settings.number_suffix', function (newValue, oldValue)
+        {
             if (newValue.length > 5) {
                 showServiceSettingsMessage(0, 'Number suffix cannot exceed 5 characters.');
                 $scope.service_settings.number_suffix = oldValue;
@@ -542,7 +569,8 @@ var eb = {
 
         });
 
-        $scope.$watch('service_settings.number_limit', function (newValue, oldValue) {
+        $scope.$watch('service_settings.number_limit', function (newValue, oldValue)
+        {
             if (newValue > 9999) {
                 showServiceSettingsMessage(0, 'Number limit cannot exceed 9999.');
                 $scope.service_settings.number_limit = oldValue;
@@ -554,29 +582,33 @@ var eb = {
             }
         });
 
-        $scope.$watch('service_settings.number_start', function (newValue, oldValue) {
+        $scope.$watch('service_settings.number_start', function (newValue, oldValue)
+        {
             if (newValue > $scope.service_settings.number_limit) {
                 showServiceSettingsMessage(0,
-                    'Number start cannot exceed ' + $scope.service_settings.number_limit + '.');
+                  'Number start cannot exceed ' + $scope.service_settings.number_limit + '.');
                 $scope.service_settings.number_start = oldValue;
             }
         });
 
-        $scope.$watch('service_settings.grace_period', function (newValue, oldValue) {
+        $scope.$watch('service_settings.grace_period', function (newValue, oldValue)
+        {
             if (newValue > 9999) {
                 showServiceSettingsMessage(0, 'Grace period cannot exceed 9999 seconds.');
                 $scope.service_settings.grace_period = oldValue;
             }
         });
 
-        $scope.getServiceQueueSettings = function (service_id, service_name) {
-            $http.get('/queuesettings/allvalues/' + service_id).success(function (response) {
+        $scope.getServiceQueueSettings = function (service_id, service_name)
+        {
+            $http.get('/queuesettings/allvalues/' + service_id).success(function (response)
+            {
                 if (response.success == 1) {
                     queue_settings = response.queue_settings;
                     $scope.edit_service_name = service_name;
                     $scope.service_settings.service_name = service_name;
                     $scope.service_settings.service_id = queue_settings.service_id ? queue_settings.service_id
-                        : service_id;
+                      : service_id;
                     //number settings
                     $scope.service_settings.number_prefix = queue_settings.number_prefix;
                     $scope.service_settings.number_suffix = queue_settings.number_suffix;
@@ -596,6 +628,10 @@ var eb = {
                     $scope.service_settings.sms_blank_ahead = queue_settings.sms_blank_ahead ? true : false;
                     $scope.service_settings.input_sms_field = queue_settings.input_sms_field;
 
+                    // pacing records
+                    $scope.service_settings.pacingRecords = response.pacingRecords;
+                    $scope.service_settings.pacingStatus = response.pacingStatus;
+
                     //remote queue_settings
                     $scope.service_settings.allow_remote = queue_settings.allow_remote ? true : false;
                     $scope.service_settings.remote_limit = queue_settings.remote_limit;
@@ -609,23 +645,25 @@ var eb = {
                     $('#settings-modal').modal('show');
                 } else {
                     var errorMessage = response.message != undefined ? response.message
-                        : 'Failed in getting service settings.';
+                      : 'Failed in getting service settings.';
                     $('#edit_message').removeClass('alert-success');
                     $('#edit_message').addClass('alert-danger');
                     $('#edit_message p').html(errorMessage);
                     $('#edit_message').fadeIn();
-                    setTimeout(function () {
+                    setTimeout(function ()
+                    {
                         $('#edit_message').fadeOut();
                     }, 3000);
                 }
             });
         };
 
-        $scope.setPaceSchedule = function () {
+        $scope.setPaceSchedule = function ()
+        {
             if (typeof ($scope.service_settings.timeStart) == "undefined" || $scope.service_settings.timeStart == null
-                || $scope.service_settings.timeStart == 0 || typeof ($scope.service_settings.timeEnd) == "undefined"
-                || $scope.service_settings.timeEnd == null
-                || $scope.service_settings.timeEnd == 0) {
+              || $scope.service_settings.timeStart == 0 || typeof ($scope.service_settings.timeEnd) == "undefined"
+              || $scope.service_settings.timeEnd == null
+              || $scope.service_settings.timeEnd == 0) {
                 showServiceSettingsMessage(0, "Invalid time format for the schedules.");
                 return;
             }
@@ -636,42 +674,48 @@ var eb = {
                 }
             }
             var timeStartVal = $scope.service_settings.timeStart.getHours() + ":"
-                + $scope.service_settings.timeStart.getMinutes();
+              + $scope.service_settings.timeStart.getMinutes();
             var timeEndVal = $scope.service_settings.timeEnd.getHours() + ":"
-                + $scope.service_settings.timeEnd.getMinutes();
-//            $http.post('/services/add-pacing', {
-//                'service_id': $scope.service_settings.service_id,
-//                'schedule': $scope.service_settings.schedule.getTime(),
-//                'quantity': $scope.service_settings.quantity
-//            }).success(function (response)
-//            {
-//                if (response.success == 1) {
-//                    showServiceSettingsMessage(1, "Pacing schedule added successfully.");
-//                }
-//                else {
-//                    showServiceSettingsMessage(0, "Something went wrong.. Please try again.");
-//                }
-//            });
+              + $scope.service_settings.timeEnd.getMinutes();
+            $http.post('/pacing/create-pace', {
+                'service_id': $scope.service_settings.service_id,
+                'time_start': timeStartVal,
+                'time_end': timeEndVal,
+                'quota': $scope.service_settings.quota
+            }).success(function (response)
+            {
+                if (response.status == 1) {
+                    showServiceSettingsMessage(1, "Pacing schedule added successfully.");
+                }
+                else {
+                    showServiceSettingsMessage(0, "Something went wrong.. Please try again.");
+                }
+            });
         };
 
-        $scope.removePacing = function (pacing_id) {
+        $scope.removePacing = function (pacing_id)
+        {
             $('#pacing-record-' + pacing_id).remove();
             showServiceSettingsMessage(1, "Pacing schedule has been removed.");
         };
 
-        $scope.setServiceGroup = function(service_id){
-            var group_name = $("#service-group-"+service_id+" option:selected").text();
+        $scope.setServiceGroup = function (service_id)
+        {
+            var group_name = $("#service-group-" + service_id + " option:selected").text();
             $http.post('/services/update-group', {
                 'service_id': service_id,
                 'group_name': group_name
-            }).success(function (response) {
+            }).success(function (response)
+            {
 
             });
 
         };
 
-        $scope.saveServiceQueueSettings = function () {
-            $http.post('/queuesettings/save-settings', $scope.service_settings).success(function (response) {
+        $scope.saveServiceQueueSettings = function ()
+        {
+            $http.post('/queuesettings/save-settings', $scope.service_settings).success(function (response)
+            {
                 if (response.success != undefined) {
                     showServiceSettingsMessage(response.success, response.message);
                 }
@@ -680,12 +724,13 @@ var eb = {
                     $scope.updateService($scope.edit_service_name, $scope.service_settings.service_id);
                 } else {
                     $scope.getServiceQueueSettings($scope.service_settings.service_id,
-                        $scope.service_settings.service_name);
+                      $scope.service_settings.service_name);
                 }
             });
         };
 
-        showServiceSettingsMessage = function (type, message) {
+        showServiceSettingsMessage = function (type, message)
+        {
             $scope.service_settings.success.type = type;
             if (message != undefined) {
                 $scope.service_settings.success.message = message;
@@ -697,8 +742,10 @@ var eb = {
                 }
             }
 
-            setTimeout(function () {
-                $scope.$apply(function () {
+            setTimeout(function ()
+            {
+                $scope.$apply(function ()
+                {
                     $scope.service_settings.success.type = undefined;
                     $scope.service_settings.success.message = '';
                 });
@@ -728,7 +775,8 @@ var eb = {
 
         //open a web socket connection
         websocket = new ReconnectingWebSocket(websocket_url);
-        websocket.onopen = function (response) { // connection is open
+        websocket.onopen = function (response)
+        { // connection is open
             websocket.send(JSON.stringify({
                 business_id: $scope.business_id,
                 broadcast_update: false,
@@ -736,13 +784,15 @@ var eb = {
             }));
             $('#WebsocketLoaderModal').modal('hide');
         };
-        websocket.onmessage = function (response) {
+        websocket.onmessage = function (response)
+        {
         };
 
         $scope.startdate = $filter('date')(new Date(), 'MM/dd/yyyy');
         $scope.enddate = $filter('date')(new Date(), 'MM/dd/yyyy');
 
-        $scope.$watch('startdate', function (newValue, oldValue) {
+        $scope.$watch('startdate', function (newValue, oldValue)
+        {
             if (newValue > $scope.enddate) {
                 $scope.startdate = oldValue;
                 var errorMessage = 'Start date cannot exceed the end date.';
@@ -750,13 +800,15 @@ var eb = {
                 $('#edit_message').addClass('alert-danger');
                 $('#edit_message p').html(errorMessage);
                 $('#edit_message').fadeIn();
-                setTimeout(function () {
+                setTimeout(function ()
+                {
                     $('#edit_message').fadeOut();
                 }, 3000);
             }
         });
 
-        $scope.$watch('enddate', function (newValue, oldValue) {
+        $scope.$watch('enddate', function (newValue, oldValue)
+        {
             if (newValue > $filter('date')(new Date(), 'MM/dd/yyyy')) {
                 $scope.enddate = oldValue;
                 var errorMessage = 'End date cannot exceed the current date.';
@@ -764,7 +816,8 @@ var eb = {
                 $('#edit_message').addClass('alert-danger');
                 $('#edit_message p').html(errorMessage);
                 $('#edit_message').fadeIn();
-                setTimeout(function () {
+                setTimeout(function ()
+                {
                     $('#edit_message').fadeOut();
                 }, 3000);
             }
@@ -776,14 +829,16 @@ var eb = {
                 $('#edit_message').addClass('alert-danger');
                 $('#edit_message p').html(errorMessage);
                 $('#edit_message').fadeIn();
-                setTimeout(function () {
+                setTimeout(function ()
+                {
                     $('#edit_message').fadeOut();
                 }, 3000);
             }
         });
 
         $scope.my_accesskey = null;
-        $scope.getBusinessDetails = function () {
+        $scope.getBusinessDetails = function ()
+        {
             if ($scope.business_id > 0) {
                 $http.get(eb.urls.business.business_details_url + $scope.business_id)
                   .success(function (response)
@@ -847,7 +902,8 @@ var eb = {
             }
         };
 
-        setBusinessFeatures = function (features) {
+        setBusinessFeatures = function (features)
+        {
             if (features) {
                 $scope.business_features = features;
                 if (features.terminal_users == undefined) {
@@ -866,7 +922,8 @@ var eb = {
 
         setGroupingList = function ()
         {
-            $http.get('/grouping/groups/' + $scope.business_id).success(function (response) {
+            $http.get('/grouping/groups/' + $scope.business_id).success(function (response)
+            {
                 $scope.groupings = response;
             });
         };
@@ -894,7 +951,8 @@ var eb = {
             });
         };
 
-        setTimeFormat = function (time) {
+        setTimeFormat = function (time)
+        {
             var formatted_time;
 
             if (time.length == 6) {
@@ -914,18 +972,23 @@ var eb = {
             return formatted_time;
         }
 
-        $scope.unassignFromTerminal = function (user_id, terminal_id) {
+        $scope.unassignFromTerminal = function (user_id, terminal_id)
+        {
             var confirmDel = confirm("Are you sure you want to remove this terminal user?");
             if (confirmDel) {
                 $http.post(eb.urls.terminals.terminal_unassign_url, {
                     user_id: user_id,
                     terminal_id: terminal_id
-                }).success(function (response) {
+                }).success(function (response)
+                {
                     if (response.error) {
                         $scope.assign_error = response.error;
-                        setTimeout(function () {
-                            $('#add-user-error').fadeOut('slow', function () {
-                                $scope.$apply(function () {
+                        setTimeout(function ()
+                        {
+                            $('#add-user-error').fadeOut('slow', function ()
+                            {
+                                $scope.$apply(function ()
+                                {
                                     $scope.assign_error = '';
                                 });
                                 $('#add-user-error').show();
@@ -938,12 +1001,16 @@ var eb = {
             }
         };
 
-        $scope.assignToTerminal = function (user_id, terminal_id) {
+        $scope.assignToTerminal = function (user_id, terminal_id)
+        {
             if (!terminal_id) {
                 $scope.assign_error = 'Please select a terminal.';
-                setTimeout(function () {
-                    $('#add-user-error').fadeOut('slow', function () {
-                        $scope.$apply(function () {
+                setTimeout(function ()
+                {
+                    $('#add-user-error').fadeOut('slow', function ()
+                    {
+                        $scope.$apply(function ()
+                        {
                             $scope.assign_error = '';
                         });
                         $('#add-user-error').show();
@@ -953,12 +1020,16 @@ var eb = {
                 $http.post(eb.urls.terminals.terminal_assign_url, {
                     user_id: user_id,
                     terminal_id: terminal_id
-                }).success(function (response) {
+                }).success(function (response)
+                {
                     if (response.error) {
                         $scope.assign_error = response.error;
-                        setTimeout(function () {
-                            $('#add-user-error').fadeOut('slow', function () {
-                                $scope.$apply(function () {
+                        setTimeout(function ()
+                        {
+                            $('#add-user-error').fadeOut('slow', function ()
+                            {
+                                $scope.$apply(function ()
+                                {
                                     $scope.assign_error = '';
                                 });
                                 $('#add-user-error').show();
@@ -968,9 +1039,12 @@ var eb = {
                         setBusinessFields(response.business);
                         $scope.search_user = '';
                         $scope.assign_suc = 'User has been added.';
-                        setTimeout(function () {
-                            $('#add-user-suc').fadeOut('slow', function () {
-                                $scope.$apply(function () {
+                        setTimeout(function ()
+                        {
+                            $('#add-user-suc').fadeOut('slow', function ()
+                            {
+                                $scope.$apply(function ()
+                                {
                                     $scope.assign_suc = '';
                                 });
                                 $('#add-user-suc').show();
@@ -981,30 +1055,38 @@ var eb = {
             }
         };
 
-        $scope.emailSearch = function (email, terminal_id) {
+        $scope.emailSearch = function (email, terminal_id)
+        {
             if (email != '') {
                 $http.get(eb.urls.terminals.user_emailsearch_url + email)
-                    .success(function (response) {
-                        if (response.user) {
-                            $scope.assignToTerminal(response.user.user_id, terminal_id);
-                            $scope.clearUserResults();
-                        } else {
-                            $scope.assign_error = 'User does not exist in FeatherQ.'
-                            setTimeout(function () {
-                                $('#add-user-error').fadeOut('slow', function () {
-                                    $scope.$apply(function () {
-                                        $scope.assign_error = '';
-                                    });
-                                    $('#add-user-error').show();
-                                });
-                            }, 3000);
-                        }
-                    });
+                  .success(function (response)
+                  {
+                      if (response.user) {
+                          $scope.assignToTerminal(response.user.user_id, terminal_id);
+                          $scope.clearUserResults();
+                      } else {
+                          $scope.assign_error = 'User does not exist in FeatherQ.'
+                          setTimeout(function ()
+                          {
+                              $('#add-user-error').fadeOut('slow', function ()
+                              {
+                                  $scope.$apply(function ()
+                                  {
+                                      $scope.assign_error = '';
+                                  });
+                                  $('#add-user-error').show();
+                              });
+                          }, 3000);
+                      }
+                  });
             } else {
                 $scope.assign_error = 'Email field cannot be empty.';
-                setTimeout(function () {
-                    $('#add-user-error').fadeOut('slow', function () {
-                        $scope.$apply(function () {
+                setTimeout(function ()
+                {
+                    $('#add-user-error').fadeOut('slow', function ()
+                    {
+                        $scope.$apply(function ()
+                        {
                             $scope.assign_error = '';
                         });
                         $('#add-user-error').show();
@@ -1014,19 +1096,24 @@ var eb = {
         };
 
         $scope.user_results = {users: []};
-        $scope.userSearch = function (keyword) {
-            $http.get('/user/search-user/' + keyword).success(function (response) {
+        $scope.userSearch = function (keyword)
+        {
+            $http.get('/user/search-user/' + keyword).success(function (response)
+            {
                 $scope.user_results.users = response.users;
-            }).error(function (response) {
+            }).error(function (response)
+            {
                 $scope.user_results.users = [];
             });
         };
 
-        $scope.clearUserResults = function () {
+        $scope.clearUserResults = function ()
+        {
             $scope.user_results.users = [];
         };
 
-        $scope.isAssignedUser = function (user_id, terminal_id) {
+        $scope.isAssignedUser = function (user_id, terminal_id)
+        {
             terminals = $scope.terminals;
             assigned = false;
             for (terminal in terminals) {
@@ -1041,12 +1128,14 @@ var eb = {
             return assigned;
         };
 
-        $scope.deleteTerminal = function ($event, terminal_id) {
+        $scope.deleteTerminal = function ($event, terminal_id)
+        {
             var confirmDel = confirm("Are you sure you want to delete this terminal?");
             if (confirmDel) {
                 $http.post(eb.urls.terminals.terminal_delete_url, {
                     terminal_id: terminal_id
-                }).success(function (response) {
+                }).success(function (response)
+                {
                     setBusinessFields(response.business);
                     eb.jquery_functions.clear_terminal_delete_msg();
                 });
@@ -1054,7 +1143,8 @@ var eb = {
             $event.preventDefault();
         };
 
-        $scope.editTerminal = function ($event, terminal_id) {
+        $scope.editTerminal = function ($event, terminal_id)
+        {
             $('.terminal-name-display[terminal_id=' + terminal_id + ']').hide();
             $('.edit-terminal-button[terminal_id=' + terminal_id + ']').hide();
             $('.terminal-name-update[terminal_id=' + terminal_id + ']').show();
@@ -1062,14 +1152,16 @@ var eb = {
             $event.preventDefault();
         };
 
-        $scope.updateTerminal = (function ($event, terminal_id) {
+        $scope.updateTerminal = (function ($event, terminal_id)
+        {
             var new_name = $('.terminal-name-update[terminal_id=' + terminal_id + ']').val().trim();
             if (new_name !== "") {
                 $('.terminal-name-display[terminal_id=' + terminal_id + ']').text(new_name);
                 $http.post(eb.urls.terminals.terminal_edit_url, {
                     terminal_id: terminal_id,
                     name: new_name
-                }).success(function (response) {
+                }).success(function (response)
+                {
                     if (response.status) {
                         $('.terminal-name-update[terminal_id=' + terminal_id + ']').val(new_name);
                         $('.update-terminal-button[terminal_id=' + terminal_id + ']').hide();
@@ -1085,18 +1177,21 @@ var eb = {
                         }
                         $('.terminal-error-message[terminal_id=' + terminal_id + ']').html(error);
                         $('.terminal-error-message[terminal_id=' + terminal_id + ']').show();
-                        setTimeout(function () {
+                        setTimeout(function ()
+                        {
                             $('.terminal-error-message[terminal_id=' + terminal_id + ']').fadeOut('slow')
                         }, 3000);
                     }
                     setBusinessFields(response.business);
-                }).error(function (response) {
+                }).error(function (response)
+                {
                     alert('Something went wrong..');
                 });
             } else {
                 $('.terminal-error-message[terminal_id=' + terminal_id + ']').html('Terminal name cannot be empty.');
                 $('.terminal-error-message[terminal_id=' + terminal_id + ']').show();
-                setTimeout(function () {
+                setTimeout(function ()
+                {
                     $('.terminal-error-message[terminal_id=' + terminal_id + ']').fadeOut('slow')
                 }, 3000);
             }
@@ -1104,18 +1199,21 @@ var eb = {
             $event.preventDefault();
         });
 
-        $scope.createTerminal = function (service_id) {
+        $scope.createTerminal = function (service_id)
+        {
             var terminal_name = $scope.add_terminal.terminal_name.trim();
             if (terminal_name !== "") {
                 $http.post(eb.urls.terminals.terminal_create_url, {
                     business_id: $scope.business_id,
                     service_id: service_id,
                     name: terminal_name
-                }).success(function (response) {
+                }).success(function (response)
+                {
                     if (response.status == 0) {
                         $('.terminal-error-msg').html("Terminal name already exists.");
                         $('.terminal-error-msg').show();
-                        setTimeout(function () {
+                        setTimeout(function ()
+                        {
                             $('.terminal-error-msg').fadeOut('slow')
                         }, 3000);
                     } else {
@@ -1128,13 +1226,15 @@ var eb = {
             } else {
                 $('.terminal-error-msg').html("Terminal name cannot be empty.");
                 $('.terminal-error-msg').show();
-                setTimeout(function () {
+                setTimeout(function ()
+                {
                     $('.terminal-error-msg').fadeOut('slow')
                 }, 3000);
             }
         };
 
-        $scope.isValidTime = function (time) {
+        $scope.isValidTime = function (time)
+        {
             var regex = /^(0?[1-9]|1[012])(:[0-5]\d) [APap][mM]$/;
             return regex.test(time);
         };
@@ -1143,7 +1243,8 @@ var eb = {
          * @author: CSD
          * @description: post edit business form
          */
-        $scope.saveBusinessDetails = function (business) {
+        $scope.saveBusinessDetails = function (business)
+        {
             var errorMessage = "";
             if ($scope.business_name == "") {
                 errorMessage = "Business Name field is required. ";
@@ -1188,7 +1289,8 @@ var eb = {
                 $('#edit_message').addClass('alert-danger');
                 $('#edit_message p').html(errorMessage);
                 $('#edit_message').fadeIn();
-                setTimeout(function () {
+                setTimeout(function ()
+                {
                     $('#edit_message').fadeOut();
                 }, 3000);
             } else {
@@ -1229,34 +1331,39 @@ var eb = {
                 }
 
                 $http.post(eb.urls.business.business_edit_url, data)
-                    .success(function (response) {
-                        if (response.success == 1) {
-                            setBusinessFields(response.business);
-                            $('#edit_message').removeClass('alert-danger');
-                            $('#edit_message').addClass('alert-success');
-                            $('#edit_message p').html("Your business details have been updated.");
-                            $('#edit_message').fadeIn();
-                            setTimeout(function () {
-                                $('#edit_message').fadeOut();
-                            }, 3000);
-                        } else {
-                            $('#edit_message').removeClass('alert-success');
-                            $('#edit_message').addClass('alert-danger');
-                            $('#edit_message p').html(response.error);
-                            $('#edit_message').fadeIn();
-                            setTimeout(function () {
-                                $('#edit_message').fadeOut();
-                            }, 3000);
-                        }
-                    })
+                  .success(function (response)
+                  {
+                      if (response.success == 1) {
+                          setBusinessFields(response.business);
+                          $('#edit_message').removeClass('alert-danger');
+                          $('#edit_message').addClass('alert-success');
+                          $('#edit_message p').html("Your business details have been updated.");
+                          $('#edit_message').fadeIn();
+                          setTimeout(function ()
+                          {
+                              $('#edit_message').fadeOut();
+                          }, 3000);
+                      } else {
+                          $('#edit_message').removeClass('alert-success');
+                          $('#edit_message').addClass('alert-danger');
+                          $('#edit_message p').html(response.error);
+                          $('#edit_message').fadeIn();
+                          setTimeout(function ()
+                          {
+                              $('#edit_message').fadeOut();
+                          }, 3000);
+                      }
+                  })
             }
         };
 
-        $scope.deleteBusiness = (function (business_id) {
+        $scope.deleteBusiness = (function (business_id)
+        {
             if (confirm('Are you sure you want to remove this business?')) {
                 $http.post(eb.urls.business.business_remove_url, {
                     business_id: business_id
-                }).success(function (response) {
+                }).success(function (response)
+                {
                     //console.log(response);
                     $('.col-md-3[business_id=' + business_id + ']').remove();
                     location.reload();
@@ -1264,7 +1371,8 @@ var eb = {
             }
         });
 
-        $scope.saveBroadcastSettings = function (business_id) {
+        $scope.saveBroadcastSettings = function (business_id)
+        {
 
             // count the number of activated tickers in order to save them
             var counter = 0;
@@ -1273,7 +1381,8 @@ var eb = {
             var ticker_message3 = "";
             var ticker_message4 = "";
             var ticker_message5 = "";
-            $('.ticker-field-wrap .ticker_message').each(function () {
+            $('.ticker-field-wrap .ticker_message').each(function ()
+            {
                 counter++;
                 if (counter == 1) {
                     ticker_message = $(this).val();
@@ -1331,8 +1440,10 @@ var eb = {
                 box14_service: $scope.service_boxes.box14_service,
                 box15_service: $scope.service_boxes.box15_service,
                 box16_service: $scope.service_boxes.box16_service
-            }).success(function (response) {
-                $http.get('/processqueue/update-broadcast/' + business_id).success(function (response) {
+            }).success(function (response)
+            {
+                $http.get('/processqueue/update-broadcast/' + business_id).success(function (response)
+                {
                     websocket.send(JSON.stringify({
                         business_id: business_id,
                         broadcast_update: false,
@@ -1343,17 +1454,20 @@ var eb = {
                     $('#edit_message').addClass('alert-success');
                     $('#edit_message p').html('Your broadcast page layouts have been saved.');
                     $('#edit_message').fadeIn();
-                    setTimeout(function () {
+                    setTimeout(function ()
+                    {
                         $('#edit_message').fadeOut();
                     }, 3000);
                 });
             });
         };
 
-        $scope.currentActiveBroadcastDetails = function (business_id) {
+        $scope.currentActiveBroadcastDetails = function (business_id)
+        {
             if (business_id > 0) {
                 $http.get(eb.urls.broadcast.broadcast_json_url + business_id + '.json?nocache=' + Math.floor(
-                        (Math.random() * 10000) + 1)).success(function (response) {
+                    (Math.random() * 10000) + 1)).success(function (response)
+                {
                     $scope.settings.ad_type = response.ad_type;
                     $scope.settings.show_called = !response.show_issued; //ARA Added negation and changed variable name since UI says "Show only called numbers in broadcast page"
                     $scope.theme_type = response.display;
@@ -1378,7 +1492,8 @@ var eb = {
 
                     $("#ad-width").resizable({
                         handles: 'e'
-                    }).bind("resize", function (e) {
+                    }).bind("resize", function (e)
+                    {
                         var total_width = parseInt($('#ad-well-inner').css('width'));
                         var percent_num = Math.floor(parseInt(total_width) * 0.10);
                         var percent_ad = Math.floor(parseInt(total_width) * 0.50);
@@ -1452,15 +1567,17 @@ var eb = {
                     //     $($(".q-nums-wrap")).append('<div class="qbox"><div class="pull-left half">'+(qx+1)+'</div></div>');
                     // }
 
-                    $(".q-add").click(function (e) {
+                    $(".q-add").click(function (e)
+                    {
                         e.preventDefault();
                         if (qx < 16) {
                             qx++;
                             $($(".q-nums-wrap"))
-                                .append('<div class="qbox"><div class="pull-left half">' + qx + '</div></div>');
+                              .append('<div class="qbox"><div class="pull-left half">' + qx + '</div></div>');
                         }
                     });
-                    $('.q-minus').on("click", function (e) { //user click on remove text
+                    $('.q-minus').on("click", function (e)
+                    { //user click on remove text
                         qx--;
                         if (qx < 1) {
                             qx = 1;
@@ -1513,17 +1630,18 @@ var eb = {
                             }
                         }
                         $(".ticker-field-wrap")
-                            .append(
+                          .append(
                             '<div class="rel"><input class="form-control ticker_message" placeholder="Your Ticker Message Here" type="text" value="'
                             + ticker_value
                             + '"/><a href="#" class="btn btn-md btn-primary abs remove_field"> Remove</a></div>');
                     }
-                    $(".add-ticker").click(function (e) {
+                    $(".add-ticker").click(function (e)
+                    {
                         e.preventDefault();
                         if (ticker_size < 5) {
                             ticker_size++;
                             $(".ticker-field-wrap")
-                                .append(
+                              .append(
                                 '<div class="rel"><input class="form-control ticker_message" placeholder="Your Ticker Message Here" type="text"/><a href="#" class="btn btn-md btn-primary abs remove_field"> Remove</a></div>');
                         }
 
@@ -1533,7 +1651,8 @@ var eb = {
                         }
 
                     });
-                    $(".ticker-field-wrap").on("click", ".remove_field", function (e) { //user click on remove text
+                    $(".ticker-field-wrap").on("click", ".remove_field", function (e)
+                    { //user click on remove text
                         e.preventDefault();
                         $(this).parent('div').remove();
                         ticker_size--;
@@ -1543,7 +1662,8 @@ var eb = {
                 });
                 $http.post(eb.urls.advertisement.get_slider_image, {
                     'business_id': business_id
-                }).success(function (response) {
+                }).success(function (response)
+                {
                     $scope.slider_images = response.slider_images;
                     if ($.trim(response.slider_images)) {
                         $('.reorder-note').show();
@@ -1555,12 +1675,14 @@ var eb = {
             }
         };
 
-        $scope.deleteImageSlide = function (business_id, count, img_path) {
+        $scope.deleteImageSlide = function (business_id, count, img_path)
+        {
             if (confirm('Are you sure you want to delete this image?')) {
                 $http.post(eb.urls.advertisement.delete_slider_image, {
                     business_id: business_id,
                     path: img_path
-                }).success(function (response) {
+                }).success(function (response)
+                {
                     $('#slide' + count).remove();
                     if (!$('#ad-images-preview tr').length) {
                         $('.reorder-note').hide();
@@ -1569,19 +1691,22 @@ var eb = {
             }
         };
 
-        $scope.adVideoEmbed = (function (business_id) {
+        $scope.adVideoEmbed = (function (business_id)
+        {
             $('#image-submit-btn').addClass('btn-disabled');
             if (eb.jquery_functions.validYouTubeURL($scope.ad_video)) {
                 $http.post(eb.urls.broadcast.ads_embed_video_url, {
                     business_id: business_id,
                     ad_video: $scope.ad_video
-                }).success(function (response) {
+                }).success(function (response)
+                {
                     $('#advideo-preview').attr('src', response.ad_video);
                     $('#advideo-danger').hide();
                     $('#advideo-success').fadeIn();
                     $('#advideo-success').fadeOut(7000);
                     $('#image-submit-btn').removeClass('btn-disabled');
-                }).error(function () {
+                }).error(function ()
+                {
                     $('#advideo-danger').hide();
                     $('#advideo-success').fadeIn();
                     $('#image-submit-btn').removeClass('btn-disabled');
@@ -1593,16 +1718,19 @@ var eb = {
             }
         });
 
-        $scope.selectTV = (function (business_id) {
+        $scope.selectTV = (function (business_id)
+        {
             if ($scope.tv_channel) {
                 $http.post(eb.urls.broadcast.ads_tv_select_url, {
                     business_id: business_id,
                     tv_channel: $scope.tv_channel
-                }).success(function () {
+                }).success(function ()
+                {
                     $('#tvchannel-danger').hide();
                     $('#tvchannel-success').fadeIn();
                     $('#tvchannel-success').fadeOut(7000);
-                }).error(function () {
+                }).error(function ()
+                {
                     $('#tvchannel-danger').hide();
                     $('#tvchannel-success').fadeIn();
                 });
@@ -1612,7 +1740,8 @@ var eb = {
             }
         });
 
-        $scope.setTicker = (function (business_id) {
+        $scope.setTicker = (function (business_id)
+        {
             $http.post(eb.urls.broadcast.save_ticker_url, {
                 business_id: business_id,
                 ticker_message: $scope.ticker_message,
@@ -1620,7 +1749,8 @@ var eb = {
                 ticker_message3: $scope.ticker_message3,
                 ticker_message4: $scope.ticker_message4,
                 ticker_message5: $scope.ticker_message5
-            }).success(function () {
+            }).success(function ()
+            {
                 $('#ticker-danger').hide();
                 $('#ticker-success').fadeIn();
                 $('#ticker-success').fadeOut(7000);
@@ -1629,17 +1759,20 @@ var eb = {
                     broadcast_update: true,
                     broadcast_reload: false
                 }));
-            }).error(function () {
+            }).error(function ()
+            {
                 $('#ticker-danger').hide();
                 $('#ticker-success').fadeIn();
             });
         });
 
-        $scope.setCarouselDelay = (function () {
+        $scope.setCarouselDelay = (function ()
+        {
             $http.post(eb.urls.advertisement.carousel_delay, {
                 business_id: $scope.business_id,
                 carousel_delay: $scope.carousel_delay
-            }).success(function () {
+            }).success(function ()
+            {
                 $('#carouseldelay-danger').hide();
                 $('#carouseldelay-success').fadeIn();
                 $('#carouseldelay-success').fadeOut(7000);
@@ -1648,13 +1781,15 @@ var eb = {
                     broadcast_update: true,
                     broadcast_reload: false
                 }));
-            }).error(function () {
+            }).error(function ()
+            {
                 $('#carouseldelay-danger').hide();
                 $('#carouseldelay-success').fadeIn();
             });
         });
 
-        $scope.setRemainingCharacter = (function () {
+        $scope.setRemainingCharacter = (function ()
+        {
             var bla = $('#ticker-message').val();
             var bla2 = $('#ticker-message2').val();
             var bla3 = $('#ticker-message3').val();
@@ -1682,38 +1817,44 @@ var eb = {
             $scope.remaining_character4 = accepted_char - bla4.length;
             $scope.remaining_character5 = accepted_char - bla5.length;
             if ($scope.remaining_character < 0 ||
-                $scope.remaining_character2 < 0 ||
-                $scope.remaining_character3 < 0 ||
-                $scope.remaining_character4 < 0 ||
-                $scope.remaining_character5 < 0) {
+              $scope.remaining_character2 < 0 ||
+              $scope.remaining_character3 < 0 ||
+              $scope.remaining_character4 < 0 ||
+              $scope.remaining_character5 < 0) {
                 $('#ticker-message-submit-btn').attr('disabled', 'disabled');
             } else {
                 $('#ticker-message-submit-btn').removeAttr('disabled');
             }
         });
 
-        $scope.turnOnTV = (function (business_id) {
+        $scope.turnOnTV = (function (business_id)
+        {
             $http.post(eb.urls.broadcast.ads_tv_on_url, {
                 business_id: business_id,
                 status: $scope.tv_status
-            }).success(function () {
+            }).success(function ()
+            {
                 $('#turnon-danger').hide();
                 $('#turnon-success').fadeIn();
             });
         });
 
-        $scope.adType = (function (ad_type, business_id) {
+        $scope.adType = (function (ad_type, business_id)
+        {
             $http.post(eb.urls.broadcast.ads_type_url, {
                 ad_type: ad_type,
                 business_id: business_id
-            }).success(function () {
+            }).success(function ()
+            {
                 if (ad_type == 'video') {
-                    $('#image-adtype').fadeOut(300, function () {
+                    $('#image-adtype').fadeOut(300, function ()
+                    {
                         $('#video-adtype').show();
                     });
                 }
                 else {
-                    $('#video-adtype').fadeOut(300, function () {
+                    $('#video-adtype').fadeOut(300, function ()
+                    {
                         $('#image-adtype').show();
                     });
                 }
@@ -1742,18 +1883,21 @@ var eb = {
         //    }
         //};
 
-        $scope.getBusinessAnalytics = function (startdate, enddate) {
+        $scope.getBusinessAnalytics = function (startdate, enddate)
+        {
             $http.post('/business/business-analytics', {
                 business_id: $scope.business_id,
                 startdate: startdate,
                 enddate: enddate
-            }).success(function (response) {
+            }).success(function (response)
+            {
                 $scope.analytics = response.analytics;
                 $scope.generateQueueGraph();
             });
         };
 
-        $scope.generateQueueGraph = function () {
+        $scope.generateQueueGraph = function ()
+        {
             $scope.emptyGraph();
             if ($scope.analytics.queue_activity.length > 0) {
                 new Morris.Line({
@@ -1767,43 +1911,52 @@ var eb = {
             }
         };
 
-        $scope.emptyGraph = function () {
+        $scope.emptyGraph = function ()
+        {
             angular.element('#queue-activity-graph').empty();
         };
 
-        $scope.saveQueueForwardingBusiness = function () {
+        $scope.saveQueueForwardingBusiness = function ()
+        {
             $http.post('/business/forwarding-permission', {
                 business_id: $scope.business_id,
                 access_key: $scope.queue_forward_accesskey
-            }).success(function (response) {
+            }).success(function (response)
+            {
                 $scope.queue_forward_accesskey = '';
                 $scope.allowed_businesses = response.allowed_businesses;
             });
         };
 
-        $scope.deletePermission = function (forwarder_id) {
+        $scope.deletePermission = function (forwarder_id)
+        {
             $http.post('/business/delete-permission', {
                 business_id: $scope.business_id,
                 forwarder_id: forwarder_id
-            }).success(function (response) {
+            }).success(function (response)
+            {
                 $scope.allowed_businesses = response.allowed_businesses;
             });
         };
 
-        $scope.getAccesskey = function () {
-            $http.get('/business/access-key/' + $scope.business_id).success(function (response) {
+        $scope.getAccesskey = function ()
+        {
+            $http.get('/business/access-key/' + $scope.business_id).success(function (response)
+            {
                 $scope.my_accesskey = response.access_key;
             });
         };
 
         //Service functions
-        $scope.createService = function (name, group) {
+        $scope.createService = function (name, group)
+        {
             if (name != '' && name != undefined && group != 0 && group != undefined) {
                 $http.post('/services', {
                     name: name,
                     business_id: $scope.business_id,
                     group_id: group
-                }).success(function (response) {
+                }).success(function (response)
+                {
                     if (response.error) {
                         $scope.service_error = response.error;
                         eb.jquery_functions.clear_service_error_msg();
@@ -1814,21 +1967,25 @@ var eb = {
                     }
                 });
             }
-            else if (group == 0 || group == undefined) {
-                $scope.service_error = 'Please select a group.';
-                eb.jquery_functions.clear_service_error_msg();
-            } else {
-                $scope.service_error = 'Service name is not valid.';
-                eb.jquery_functions.clear_service_error_msg();
+            else {
+                if (group == 0 || group == undefined) {
+                    $scope.service_error = 'Please select a group.';
+                    eb.jquery_functions.clear_service_error_msg();
+                } else {
+                    $scope.service_error = 'Service name is not valid.';
+                    eb.jquery_functions.clear_service_error_msg();
+                }
             }
         };
-        $scope.updateService = function (name, service_id) {
+        $scope.updateService = function (name, service_id)
+        {
             if (name != '' && name != undefined) {
-                $http.put('/services/' + service_id, {name: name}).success(function (response) {
+                $http.put('/services/' + service_id, {name: name}).success(function (response)
+                {
                     if (response.error) {
                         $scope.service_error = response.error;
                         $scope.getServiceQueueSettings($scope.service_settings.service_id,
-                            $scope.service_settings.service_name);
+                          $scope.service_settings.service_name);
                         eb.jquery_functions.clear_service_error_msg();
                     } else {
                         $scope.getServiceQueueSettings($scope.service_settings.service_id, $scope.edit_service_name);
@@ -1841,10 +1998,12 @@ var eb = {
                 eb.jquery_functions.clear_service_error_msg();
             }
         };
-        $scope.removeService = function (service_id) {
+        $scope.removeService = function (service_id)
+        {
             var confirmDel = confirm("Are you sure you want to remove this service?");
             if (confirmDel) {
-                $http.delete('/services/' + service_id).success(function (response) {
+                $http.delete('/services/' + service_id).success(function (response)
+                {
                     if (response.success) {
                         $scope.getBusinessDetails();
                     } else {
@@ -1856,9 +2015,10 @@ var eb = {
                 });
             }
         };
-        $scope.setTerminalColor = function (terminal_id, color) {
+        $scope.setTerminalColor = function (terminal_id, color)
+        {
             $('#btn-terminal-color-' + terminal_id)
-                .removeClass(
+              .removeClass(
                 'cyan yellow blue borange red violet green x242436 x78250A FF745F FCA78B x53777A x542437 C02942 D95B43 ECD078');
             $('#btn-terminal-color-' + terminal_id).addClass(color);
             /*$('#color-info-'+terminal_id).fadeIn(1000);
@@ -1866,18 +2026,21 @@ var eb = {
             $http.post('/terminal/set-color', {
                 color_value: color,
                 terminal_id: terminal_id
-            }).success(function (response) {
+            }).success(function (response)
+            {
                 console.log(response.status + " " + response.message);
             });
         };
 
 
-        $scope.addNewGroup = function () {
+        $scope.addNewGroup = function ()
+        {
             if ($scope.groupToAdd.trim()) {
                 $http.post('/grouping/create-group', {
                     'group_name': $scope.groupToAdd,
                     'business_id': $scope.business_id
-                }).success(function (response) {
+                }).success(function (response)
+                {
                     if (response.status == 1) {
                         $scope.groupToAdd = "";
                         setGroupingList();
@@ -1892,7 +2055,8 @@ var eb = {
             }
         };
 
-        $scope.deleteGrouping = function (group_id) {
+        $scope.deleteGrouping = function (group_id)
+        {
             if (confirm("Are you sure you want to remove this group?")) {
                 $http.post('/grouping/delete-group', {
                     'group_id': group_id
@@ -1909,7 +2073,8 @@ var eb = {
             }
         };
 
-        $scope.viewCustomBroadcast = function () {
+        $scope.viewCustomBroadcast = function ()
+        {
             var customURL = "";
             if ($scope.service_boxes.box1_service > 0) {
                 customURL = customURL + "/" + $scope.service_boxes.box1_service;
@@ -1962,13 +2127,16 @@ var eb = {
             window.open($scope.broadcastURL + customURL, "");
         };
 
-        websocket.onerror = function (response) {
+        websocket.onerror = function (response)
+        {
             $('#WebsocketLoaderModal').modal('show');
         };
-        websocket.onclose = function (response) {
+        websocket.onclose = function (response)
+        {
             $('#WebsocketLoaderModal').modal('show');
         };
-        window.onbeforeunload = function (e) {
+        window.onbeforeunload = function (e)
+        {
             websocket.close();
         };
     });
