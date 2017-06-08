@@ -13,7 +13,7 @@
                     <div class="alert alert-info">Supported video types: <br/><strong>MP4, Ogg, WebM</strong></div>
                 </div>
                 <input type="file" multiple="multiple" accept="video/mp4,video/x-m4v,video/*" />
-                <video style="width: 100%;" controls autoplay></video>
+                <video style="height: 100%;" controls autoplay></video>
                 </div>
             </div>
         </div>

@@ -310,8 +310,8 @@ h1,h2,h3,h4 {margin: 0;}
 .callnum {margin:auto!important; text-align:center;}
 .service,.callnum {white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 .top {background-color: #262a31;text-align: center;margin: auto;padding: 12px 0;}
-.ticker-message {background-color: #fff;color: #000;padding: 10px 0;position: absolute;bottom: 0;width: 100%;z-index: 1; max-height: 62px; overflow: hidden; white-space: nowrap;}
-.ticker-message p {font-size: 30px;font-weight: 900;margin-bottom: 0;}
+.ticker-message {background-color: #fff;color: #000;padding-bottom: 70px;position: absolute;bottom: 0;width: 100%;z-index: 1; max-height: 62px; overflow: hidden; white-space: nowrap;}
+.ticker-message p {font-size: 50px;font-weight: 900;margin-bottom: 0;}
 .qrcode.qrwrap {
     width: 180px;
     position: absolute;

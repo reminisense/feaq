@@ -18,14 +18,14 @@ $(document).ready(function(){
         });
     }
 
-    setInterval(blinker, 1000); //Runs every second
+//    setInterval(blinker, 1000); //Runs every second
 
 });
 
-function blinker() {
-  $('.blink-num').fadeOut(1500);
-  $('.blink-num').fadeIn(500);
-}
+//function blinker() {
+//  $('.blink-num').fadeOut(1500);
+//  $('.blink-num').fadeIn(500);
+//}
 
 /*broadcast - more details*/
 $('#btn-bcast-details').click(function () {
