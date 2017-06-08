@@ -666,32 +666,81 @@ var eb = {
               || $scope.service_settings.timeEnd == 0) {
                 showServiceSettingsMessage(0, "Invalid time format for the schedules.");
                 return;
-            }
-            else {
+            } else if($scope.service_settings.timeStart.getHours() >= $scope.service_settings.timeEnd.getHours()){
+                if($scope.service_settings.timeStart.getMinutes() > $scope.service_settings.timeEnd.getMinutes()){
+                    showServiceSettingsMessage(0, "Time Start cannot be greater than Time End.");
+                    return;
+                }
+                showServiceSettingsMessage(0, "Time Start cannot be greater than Time End.");
+                return;
+            } else {
                 if ($scope.service_settings.quota == null || $scope.service_settings.quota == 0) {
                     showServiceSettingsMessage(0, "Quota must be greater than zero (0).");
                     return;
                 }
             }
-            var timeStartVal = $scope.service_settings.timeStart.getHours() + ":"
-              + $scope.service_settings.timeStart.getMinutes();
-            var timeEndVal = $scope.service_settings.timeEnd.getHours() + ":"
-              + $scope.service_settings.timeEnd.getMinutes();
-            $http.post('/pacing/create-pace', {
-                'service_id': $scope.service_settings.service_id,
-                'time_start': timeStartVal,
-                'time_end': timeEndVal,
-                'quota': $scope.service_settings.quota
-            }).success(function (response)
-            {
-                if (response.status == 1) {
-                    showServiceSettingsMessage(1, "Pacing schedule added successfully.");
+
+            var timeStartVal = normalizeTime($scope.service_settings.timeStart.getHours(), $scope.service_settings.timeStart.getMinutes());
+            var timeEndVal = normalizeTime($scope.service_settings.timeEnd.getHours(), $scope.service_settings.timeEnd.getMinutes());
+            var exists = false;
+
+            if(timeStartVal == timeEndVal){
+                showServiceSettingsMessage(0, "Time Start cannot be the same with Time End.");
+                return;
+            }
+
+            for(var i=0; i < $scope.service_settings.pacingRecords.length ; i++){
+                if(($scope.service_settings.pacingRecords[i].time_start == timeStartVal) &&
+                   ($scope.service_settings.pacingRecords[i].time_end == timeEndVal)) {
+                    showServiceSettingsMessage(0, "Pacing already exists.");
+                    exists = true;
+                    return;
                 }
-                else {
-                    showServiceSettingsMessage(0, "Something went wrong.. Please try again.");
-                }
-            });
+            }
+
+            if(!exists){
+                $http.post('/pacing/create-pace', {
+                    'service_id': $scope.service_settings.service_id,
+                    'time_start': timeStartVal,
+                    'time_end': timeEndVal,
+                    'quota': $scope.service_settings.quota
+                }).success(function (response)
+                {
+                    if (response.status == 1) {
+                        showServiceSettingsMessage(1, "Pacing schedule added successfully.");
+                        $scope.getServiceQueueSettings($scope.service_settings.service_id,
+                            $scope.service_settings.service_name);
+                    }
+                    else {
+                        showServiceSettingsMessage(0, "Something went wrong.. Please try again.");
+                    }
+                });
+            }
+
         };
+
+        normalizeTime = function(hour, minute){
+            var amPM = "AM";
+
+            if (hour >= 12 && minute >= 0) {
+                amPM = "PM";
+            }
+
+            if (hour == 0 && minute >= 0) {
+                hour += 12;
+            }
+
+            // Convert 24hr format to 12hr format
+            hour = (hour > 12) ? hour - 12 : hour;
+
+            // Append 0 for single digit hour and minute to preserve syntax
+            var hourString = hour < 10 ? "0" + hour : "" + hour;
+            var minuteString = minute < 10 ? "0" + minute : "" + minute;
+
+            return hourString + ":" + minuteString + " " + amPM;
+        }
+
+
 
         $scope.removePacing = function (pacing_id)
         {
