@@ -666,13 +666,15 @@ var eb = {
               || $scope.service_settings.timeEnd == 0) {
                 showServiceSettingsMessage(0, "Invalid time format for the schedules.");
                 return;
-            } else if($scope.service_settings.timeStart.getHours() >= $scope.service_settings.timeEnd.getHours()){
+            } else if($scope.service_settings.timeStart.getHours() > $scope.service_settings.timeEnd.getHours()){
+
+                showServiceSettingsMessage(0, "Time Start cannot be greater than Time End.");
+                return;
+            } else if($scope.service_settings.timeStart.getHours() == $scope.service_settings.timeEnd.getHours()){
                 if($scope.service_settings.timeStart.getMinutes() > $scope.service_settings.timeEnd.getMinutes()){
                     showServiceSettingsMessage(0, "Time Start cannot be greater than Time End.");
                     return;
                 }
-                showServiceSettingsMessage(0, "Time Start cannot be greater than Time End.");
-                return;
             } else {
                 if ($scope.service_settings.quota == null || $scope.service_settings.quota == 0) {
                     showServiceSettingsMessage(0, "Quota must be greater than zero (0).");
