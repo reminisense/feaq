@@ -68,7 +68,6 @@ class QueueSettingsController extends BaseController
             $queue_settings->number_prefix = $data['number_prefix'];
             $queue_settings->number_suffix = $data['number_suffix'];
             $queue_settings->number_start = $data['number_start'];
-            $queue_settings->number_limit = $data['number_limit'];
             $queue_settings->terminal_specific_issue = $data['terminal_specific_issue'];
             $queue_settings->sms_current_number = $data['sms_current_number'];
             $queue_settings->sms_1_ahead = $data['sms_1_ahead'];
@@ -81,14 +80,29 @@ class QueueSettingsController extends BaseController
             $queue_settings->process_queue_layout = $data['process_queue_layout'];
             $queue_settings->check_in_display = $data['check_in_display'];
             $queue_settings->grace_period = $data['grace_period'];
+            $queue_settings->number_limit = $this->setNumberLimit($data['pacingStatus'], $data['number_limit'], $data['service_id']);
             $queue_settings->save();
-
             QueueSettings::updateQueueSetting($data['service_id'], 'remote_time', $data['remote_time']);
             Service::setPacingStatus($data['pacingStatus'], $data['service_id']);
             return json_encode(['success' => 1, 'message' => 'Service settings have been saved.']);
         } catch (Exception $e) {
             return json_encode(['success' => 0, 'message' => $e->getMessage()]);
         }
+    }
 
+    private function setNumberLimit($pacingStatus, $numberLimit, $service_id) {
+        if ($pacingStatus == "1") {
+            return $this->calculateTotalQuota($service_id);
+        }
+        return $numberLimit;
+    }
+
+    private function calculateTotalQuota($service_id) {
+        $total = 0;
+        $pacings = Pacing::fetchPacesByService($service_id);
+        foreach ($pacings as $pacing) {
+            $total = $total + (int)$pacing->quota;
+        }
+        return $total;
     }
 }

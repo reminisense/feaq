@@ -189,4 +189,8 @@ class ProcessQueueController extends BaseController
             ->with('business_id', $business_id)
             ->with('group_id', $group_id);
     }
+
+    public function getCurrentPace($currentTime, $service_id) {
+        return Pacing::getCurrentPacing($currentTime, $service_id);
+    }
 }

@@ -46,6 +46,11 @@
         $scope.progress_current = 0;
         $scope.progress_max = 0;
         $scope.stop_progress = 0;
+        $scope.currentPace = {
+            time_range: '',
+            numbers_remaining: ''
+        };
+
         //open a web socket connection
         websocket = new ReconnectingWebSocket(websocket_url);
         websocket.onopen = function (response)
@@ -339,6 +344,23 @@
               });
         };
 
+        $scope.getCurrentPace = function (service_id, servedNumsCount)
+        {
+            var currentTime = new Date().toLocaleTimeString();
+            $http.get("/processqueue/current-pace/" + currentTime + "/" + service_id).success(function (response)
+            {
+                if (response.time_start != "") {
+                    $scope.currentPace.time_range = response.time_start + " " + response.time_end;
+                    var remainingNumbers = response.quota - servedNumsCount;
+                    $scope.currentPace.numbers_remaining = remainingNumbers + " remaining";
+                }
+                else {
+                    $scope.currentPace.time_range = "No pacing has been scheduled at this time."
+                    $scope.currentPace.numbers_remaining = ""
+                }
+            });
+        };
+
         checkTextfieldErrors = function (priority_number)
         {
             var issueController = angular.element(
@@ -391,6 +413,9 @@
             $scope.number_prefix = numbers.number_prefix;
             $scope.number_suffix = numbers.number_suffix;
             $scope.unprocessed_numbers = numbers.unprocessed_numbers;
+            if (typeof (numbers.processed_numbers) != "undefined") {
+                $scope.getCurrentPace(numbers.service_id, numbers.processed_numbers.length);
+            }
 
             $scope.dateString = pq.jquery_functions.converDateToString(
               $scope.date);
