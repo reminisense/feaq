@@ -13,7 +13,7 @@
                                                                   href="#general">GENERAL</a></li>
                         <li role="presentation" class=""><a role="tab" data-toggle="tab" href="#numbers">NUMBERS</a>
                         </li>
-                        <li role="presentation" class=""><a role="tab" data-toggle="tab" href="#pacing">PACING</a></li>
+                        {{--<li role="presentation" class=""><a role="tab" data-toggle="tab" href="#pacing">PACING</a></li>--}}
                         <li role="presentation" class=""><a role="tab" data-toggle="tab" href="#remote">REMOTE</a></li>
                     </ul>
 
