@@ -32,7 +32,8 @@ class GroupingController extends BaseController
         return json_encode(array('status' => 0, 'msg' => 'Group name already taken.'));
     }
 
-    public function getName($group_id){
+    public function getName($group_id)
+    {
         return Grouping::getGroupDetails($group_id);
     }
 //    public function getServiceGroupings($business_id)
@@ -47,5 +48,12 @@ class GroupingController extends BaseController
 //        }
 //        return json_encode($serviceGroupings);
 //    }
+    public function postUpdatePrecedence() {
+        $groupIds = Input::get('precedence');
+        foreach ($groupIds as $count => $groupId) {
+            Grouping::updatePrecedenceById($groupId, $count);
+        }
+        return json_encode(array('status' => 1, 'msg' => 'SUCCESS'));
+    }
 
 }

@@ -105,40 +105,54 @@
             <h5>QUEUE FORWARDING</h5>
         </div>
         <div class="broadcast-wrap2 clearfix">
-            <div class="col-md-6 mb20">
-                <p class="title">My Access Key</p>
+            <div class="col-md-5 mb20">
+                <p class="title">Precedence</p>
             </div>
-            <div class="col-md-6 mb20">
-                <p ng-hide="my_accesskey.length > 0">
-                    <a href="" ng-click="getAccesskey()">
-                        <span class="glyphicon glyphicon-chevron-down mr10"></span>&nbsp;
-                        <span class="glyphicon glyphicon-chevron-down mr10"></span>&nbsp;
-                        <span class="glyphicon glyphicon-chevron-down mr10"></span>&nbsp;
-                        <span class="glyphicon glyphicon-chevron-down mr10"></span>&nbsp;
-                        <span class="glyphicon glyphicon-chevron-down mr10"></span>&nbsp;
-                    </a>
-                </p>
-                <input type="text" class="form-control" ng-show="my_accesskey.length > 0" ng-model="my_accesskey">
-            </div>
-            <div class="col-md-6 mb20">
-                <p class="title">Allowed Businesses</p>
-            </div>
-            <div class="col-md-6 mb20">
-                <form ng-submit="saveQueueForwardingBusiness()">
-                    <input type="text" class="form-control" id="queue_forward_accesskey" ng-model="queue_forward_accesskey" placeholder="Input the access key of a business">
-                    <button type="submit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus"></span> Add</button>
-                </form>
-            </div>
-            <div class="clearfix">
-                <div class="col-md-6 mb20" ng-repeat="allowed_business in allowed_businesses">
-                    <div class="form-control">
-                        <span class="pull-left">@{{ allowed_business.name }}</span>
-                        <a ng-if="allowed_business.business_id != business_id" href="" class="pull-right" ng-click="deletePermission(allowed_business.business_id)">
-                            <span class="glyphicon glyphicon-trash"></span>
-                        </a>
+            <div class="col-md-7 mb20">
+                <div ng-repeat="grouping in groupings">
+                    <div class="col-md-4"><label class="pull-right" style="margin-top: 7px;">Step @{{ $index+1 }}</label></div>
+                    <div class="col-md-8">
+                        <select id="grouping-precedence" class="form-control" ng-model="groupPrecedence[$index]" title="Select Group" style="margin-bottom: 5px;">
+                            <option value="0">Select Group</option>
+                            <option ng-repeat="grouping in groupings" value="@{{ grouping.group_id }}" ng-selected="grouping.precedence == $parent.$index">@{{ grouping.group_name }}</option>
+                        </select>
                     </div>
                 </div>
             </div>
+            {{--<div class="col-md-6 mb20">--}}
+                {{--<p class="title">My Access Key</p>--}}
+            {{--</div>--}}
+            {{--<div class="col-md-6 mb20">--}}
+                {{--<p ng-hide="my_accesskey.length > 0">--}}
+                    {{--<a href="" ng-click="getAccesskey()">--}}
+                        {{--<span class="glyphicon glyphicon-chevron-down mr10"></span>&nbsp;--}}
+                        {{--<span class="glyphicon glyphicon-chevron-down mr10"></span>&nbsp;--}}
+                        {{--<span class="glyphicon glyphicon-chevron-down mr10"></span>&nbsp;--}}
+                        {{--<span class="glyphicon glyphicon-chevron-down mr10"></span>&nbsp;--}}
+                        {{--<span class="glyphicon glyphicon-chevron-down mr10"></span>&nbsp;--}}
+                    {{--</a>--}}
+                {{--</p>--}}
+                {{--<input type="text" class="form-control" ng-show="my_accesskey.length > 0" ng-model="my_accesskey">--}}
+            {{--</div>--}}
+            {{--<div class="col-md-6 mb20">--}}
+                {{--<p class="title">Allowed Businesses</p>--}}
+            {{--</div>--}}
+            {{--<div class="col-md-6 mb20">--}}
+                {{--<form ng-submit="saveQueueForwardingBusiness()">--}}
+                    {{--<input type="text" class="form-control" id="queue_forward_accesskey" ng-model="queue_forward_accesskey" placeholder="Input the access key of a business">--}}
+                    {{--<button type="submit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus"></span> Add</button>--}}
+                {{--</form>--}}
+            {{--</div>--}}
+            {{--<div class="clearfix">--}}
+                {{--<div class="col-md-6 mb20" ng-repeat="allowed_business in allowed_businesses">--}}
+                    {{--<div class="form-control">--}}
+                        {{--<span class="pull-left">@{{ allowed_business.name }}</span>--}}
+                        {{--<a ng-if="allowed_business.business_id != business_id" href="" class="pull-right" ng-click="deletePermission(allowed_business.business_id)">--}}
+                            {{--<span class="glyphicon glyphicon-trash"></span>--}}
+                        {{--</a>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</div>--}}
         </div>
     </div>
 </div>

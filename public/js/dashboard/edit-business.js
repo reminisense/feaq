@@ -533,6 +533,8 @@ var eb = {
         $scope.groupToAdd = "";
         $scope.groupToDelete = 0;
 
+        $scope.groupPrecedence = [];
+
         $scope.$watch('service_settings.check_in_display', function (newValue, oldValue)
         {
             if (newValue > 10) {
@@ -1391,6 +1393,12 @@ var eb = {
                         data.twilio_phone_number = $scope.twilio_phone_number;
                     }
                 }
+
+                $http.post('/grouping/update-precedence', {
+                    precedence : $scope.groupPrecedence
+                }).success(function (response) {
+                    console.log(response);
+                });
 
                 $http.post(eb.urls.business.business_edit_url, data)
                   .success(function (response)

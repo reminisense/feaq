@@ -52,4 +52,8 @@ class Grouping extends Eloquent
         return Grouping::where('group_id', '=', $group_id)->first()->business_id;
     }
 
+    public static function updatePrecedenceById($group_id, $precedence) {
+        Grouping::where('group_id', '=', $group_id)->update(array('precedence' => $precedence));
+    }
+
 }
