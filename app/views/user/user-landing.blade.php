@@ -79,6 +79,7 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 {{--<li><a href="#" ng-click="login()" id="nav-fb" style="display:none">Login with Facebook <span class="sr-only">(current)</span></a></li>--}}
+                <li><a href="/blog">Blog</a></li>
                 <li><a href="/business">FeatherQ for Business</a></li>
                 <li id="login" class="dropdown">
                     <a href="#" id="login-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -532,11 +532,7 @@
                           + response.number.priority_number + '</h2>')
                         .show();
                       var business_id = response.business_id;
-//                      websocket.send(JSON.stringify({
-//                          business_id: business_id,
-//                          broadcast_update: true,
-//                          broadcast_reload: false
-//                      }));
+                      $scope.sendWebsocket();
                   });
             });
         };

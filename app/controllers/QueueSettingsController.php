@@ -1,24 +1,27 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: USER
  * Date: 1/28/15
  * Time: 6:55 PM
  */
-class QueueSettingsController extends BaseController{
-    public function getUpdate($business_id, $field, $value){
+class QueueSettingsController extends BaseController
+{
+    public function getUpdate($business_id, $field, $value)
+    {
         $first_branch = Branch::where('business_id', '=', $business_id)->first();
         $services = Service::where('branch_id', '=', $first_branch->branch_id)->get();
 
-        foreach($services as $service){
-            if(QueueSettings::serviceExists($service->service_id)){
+        foreach ($services as $service) {
+            if (QueueSettings::serviceExists($service->service_id)) {
                 QueueSettings::updateQueueSetting($service->service_id, $field, $value);
-            }else{
+            } else {
                 QueueSettings::createQueueSetting([
-                    'service_id' => $service->service_id,
-                    'date' => mktime(0, 0, 0, date('m'), date('d'), date('Y')),
-                    'number_start' => 1,
-                    $field => $value
+                  'service_id'   => $service->service_id,
+                  'date'         => mktime(0, 0, 0, date('m'), date('d'), date('Y')),
+                  'number_start' => 1,
+                  $field         => $value
                 ]);
             }
         }
@@ -26,33 +29,41 @@ class QueueSettingsController extends BaseController{
         return json_encode(['success' => 1]);
     }
 
-    public function getAllvalues($service_id){
-        try{
+    public function getAllvalues($service_id)
+    {
+        try {
             $values = QueueSettings::getServiceQueueSettings($service_id);
-            if($values){
+            if ($values) {
                 $values->remote_time = QueueSettings::remoteTime($service_id);
-            }else{
+            } else {
                 $values = QueueSettings::$defaults;
             }
-            return json_encode(['success' => 1, 'queue_settings' => $values]);
-        }catch(Exception $e){
+            return json_encode([
+              'success'        => 1,
+              'queue_settings' => $values,
+              'pacingRecords'  => Pacing::fetchPacesByService($service_id),
+              'pacingStatus' => Service::getPacingStatus($service_id),
+            ]);
+        } catch (Exception $e) {
             return json_encode(['success' => 0, 'message' => $e->getMessage()]);
         }
 
     }
 
-    public function getAssignterminal($terminal_id, $user_id){
+    public function getAssignterminal($terminal_id, $user_id)
+    {
         TerminalManager::addToTerminal($user_id, $terminal_id);
         return json_encode(['success' => 1]);
     }
 
-    public function postSaveSettings(){
-        try{
+    public function postSaveSettings()
+    {
+        try {
             $data = Input::all();
             $queue_settings = QueueSettings::where('service_id', '=', $data['service_id'])->first();
-            if(!$queue_settings){
+            if (!$queue_settings) {
                 $queue_settings = new QueueSettings();
-                $queue_settings->service_id =  $data['service_id'];
+                $queue_settings->service_id = $data['service_id'];
             }
             $queue_settings->number_prefix = $data['number_prefix'];
             $queue_settings->number_suffix = $data['number_suffix'];
@@ -73,8 +84,9 @@ class QueueSettingsController extends BaseController{
             $queue_settings->save();
 
             QueueSettings::updateQueueSetting($data['service_id'], 'remote_time', $data['remote_time']);
+            Service::setPacingStatus($data['pacingStatus'], $data['service_id']);
             return json_encode(['success' => 1, 'message' => 'Service settings have been saved.']);
-        }catch (Exception $e){
+        } catch (Exception $e) {
             return json_encode(['success' => 0, 'message' => $e->getMessage()]);
         }
 

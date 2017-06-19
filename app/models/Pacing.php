@@ -17,22 +17,22 @@ class Pacing extends Eloquent
     }
 
     public static function createPace($pace){
-        $pacing_record = [
-            'service_id' => $pace['service_id'],
-            'quota' => $pace['quota'],
-            'time_start' => $pace['time_start'],
-            'time_end' => $pace['time_end']
-        ];
+//        $pacing_record = [
+//            'service_id' => $pace['service_id'],
+//            'quota' => $pace['quota'],
+//            'time_start' => $pace['time_start'],
+//            'time_end' => $pace['time_end']
+//        ];
 
-        Pacing::insertGetId($pacing_record);
+        Pacing::insertGetId($pace);
     }
 
-    public static function fetchPaces($service_id){
+    public static function fetchPacesByService($service_id){
         return Pacing::where('service_id', $service_id)->get();
     }
 
 
     public static function deletePace($pacing_id){
-        return Pacing::where('pacing_id', '=', $pacing_id)->delete();
+        Pacing::where('pacing_id', '=', $pacing_id)->delete();
     }
 }

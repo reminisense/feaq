@@ -83,15 +83,6 @@ class ServiceController extends Controller{
         }
     }
 
-    public function postAddPacing() {
-        Pacing::addSlots(array(
-          'service_id' => Input::get('service_id'),
-          'schedule' => Input::get('schedule'),
-          'quantity' => Input::get('quantity'),
-        ));
-        return json_encode(array('success' => 1));
-    }
-
     public function postUpdateGroup(){
         return Service::updateGroup(Input::get('service_id'), Grouping::findIdByGroupName(Input::get('group_name')));
     }
