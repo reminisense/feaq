@@ -487,7 +487,7 @@
                               $('#allowed-businesses')
                                 .append('<option value="'
                                   + $scope.allowed_businesses[index].service_id
-                                  + '">' + $scope.allowed_businesses[index].name
+                                  + '">' + $scope.allowed_businesses[index].group_name
                                   + ' - '
                                   + $scope.allowed_businesses[index].service_name
                                   + '</option>');
@@ -502,13 +502,14 @@
         };
 
 
-        $scope.issueToOther = function (service_id, transaction_number)
+        $scope.issueToOther = function (service_id, transaction_number, priority_number)
         {
             var forwarder_id = pq.ids.business_id;
             data = {
                 service_id: service_id, //the service to forward to
                 forwarder_id: forwarder_id, //your business
-                transaction_number: transaction_number
+                transaction_number: transaction_number,
+                priority_number: priority_number
             };
 
             $('#forward-btn')

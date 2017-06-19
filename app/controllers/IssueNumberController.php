@@ -112,6 +112,7 @@ class IssueNumberController extends BaseController {
     $forwarder_id = Input::get('forwarder_id');
     $service_id = Input::get('service_id');
     $transaction_number = Input::get('transaction_number');
+    $next_number = Input::get('priority_number');
     $business_id = Business::getBusinessIdByServiceId($service_id);
 
     if (Business::getForwarderAllowedInBusiness($business_id, $forwarder_id)) {
@@ -126,7 +127,7 @@ class IssueNumberController extends BaseController {
       $terminal_transaction = TerminalTransaction::where('transaction_number', '=', $transaction_number)
         ->first();
 
-      $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id), QueueSettings::numberPrefix($service_id), QueueSettings::numberSuffix($service_id));
+      //$next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id), QueueSettings::numberPrefix($service_id), QueueSettings::numberSuffix($service_id));
       $priority_number = $next_number;
 
       $number = ProcessQueue::issueNumber($service_id, $priority_number, NULL, $queue_platform, $terminal_id, NULL, $pqueue->confirmation_code);

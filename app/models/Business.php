@@ -702,24 +702,22 @@ class Business extends Eloquent
         return $allowed_businesses;
     }
 
-    public static function getForwarderAllowedServices($business_id)
-    {
+    public static function getForwarderAllowedServices($business_id){
         $my_services = Business::where('business.business_id', '=', $business_id)
-          ->join('branch', 'branch.business_id', '=', 'business.business_id')
-          ->join('service', 'service.branch_id', '=', 'branch.branch_id')
-          ->select('business.business_id', 'business.name')
-          ->select('business.business_id', 'business.name', 'branch.branch_id', 'service.service_id',
-            'service.name as service_name')
-          ->get()->toArray();
+            ->join('grouping', 'grouping.business_id', '=', 'business.business_id')
+            ->join('service', 'service.group_id', '=', 'grouping.group_id')
+            ->select('business.business_id', 'business.name')
+            ->select('business.business_id', 'grouping.group_name', 'service.service_id', 'service.name as service_name')
+            ->orderBy('grouping.group_name', 'ASC')
+            ->get()->toArray();
 
         $allowed_services = DB::table('queue_forward_permissions')
-          ->where('queue_forward_permissions.forwarder_id', '=', $business_id)
-          ->join('business', 'business.business_id', '=', 'queue_forward_permissions.business_id')
-          ->join('branch', 'branch.business_id', '=', 'business.business_id')
-          ->join('service', 'service.branch_id', '=', 'branch.branch_id')
-          ->select('business.business_id', 'business.name', 'branch.branch_id', 'service.service_id',
-            'service.name as service_name')
-          ->get();
+            ->where('queue_forward_permissions.forwarder_id', '=', $business_id)
+            ->join('business', 'business.business_id', '=', 'queue_forward_permissions.business_id')
+            ->join('branch', 'branch.business_id', '=', 'business.business_id')
+            ->join('service', 'service.branch_id', '=', 'branch.branch_id')
+            ->select('business.business_id', 'business.name', 'branch.branch_id', 'service.service_id', 'service.name as service_name')
+            ->get();
 
         return array_merge($allowed_services, $my_services);
     }

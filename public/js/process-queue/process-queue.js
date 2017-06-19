@@ -19,8 +19,9 @@ $(document).ready(function(){
         e.preventDefault();
         service_id = $('#allowed-businesses').val();
         transaction_number = $('#priority-number-modal').attr('data-transaction-number');
+        priority_number = $('#priority-number-number').text();
         process_queue_scope = angular.element($("#process-queue-wrapper")).scope();
-        process_queue_scope.issueToOther(service_id, transaction_number);
+        process_queue_scope.issueToOther(service_id, transaction_number, priority_number);
     });
 
     /*add box cards animation*/
