@@ -8,6 +8,7 @@ My Business
     <link rel="stylesheet" href="/plupload/js/jquery.plupload.queue/css/jquery.plupload.queue.css" type="text/css" media="screen" />
     <link rel='stylesheet' type='text/css' href='/css/business/business.css'>
     <link rel='stylesheet' type='text/css' href='/css/business/responsive.css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
 @stop
 
 @section('scripts')
@@ -20,7 +21,11 @@ My Business
     <script src="/js/websocket-variables.js"></script>
     <script src="/js/dashboard/dashboard.js"></script>
     <script src="/js/dashboard/edit-business.js"></script>
+    <script src="/js/dashboard/forms.js"></script>
+    <script src="/js/dashboard/business-forms.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.4/jstz.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 @stop
 
 @section('container')
@@ -54,19 +59,34 @@ My Business
                     <div class="col-md-3 col-sm-5 col-xs-12 ">
                         <a id="view-broadcast" href="{{ url('broadcast/business/' . $business_id) }}" target="_blank"><span class="glyphicon glyphicon-th-large"></span> View Broadcast Screen</a>
                         <point-of-interest position="left" bottom="55" right="100" title="Broadcast Page" description="Click on the <strong>View Broadcast Page</strong> link to view the numbers being called."></point-of-interest>
-                        <div id="process-queue" href="#" class="edit-biz process-queue">
+                        <div id="process-queue" href="#" class="edit-biz process-queue" data-toggle="modal" data-target="#modal-terminals">
                             <a href="#" style=""><span class="glyphicon glyphicon-share-alt"></span>Process Queue</a>
-                            <div class="biz-terminals">
-                                <div class="clearfix">
-                                    <div ng-repeat="terminal in terminals" >
-                                        <a ng-if="isAssignedUser(user_id, terminal.terminal_id)" href="{{ url('/processqueue/terminal') }}/@{{ terminal.terminal_id }}" target="_blank">
-                                            <span class=" glyphicon glyphicon-check"></span>
-                                            <small>@{{ terminal.name }}</small>
-                                        </a>
-                                        <a ng-if="!isAssignedUser(user_id, terminal.terminal_id)" href="#" class="not-active">
-                                            <span class=" glyphicon glyphicon-ban-circle"></span>
-                                            <small>@{{ terminal.name }}</small>
-                                        </a>
+                        </div>
+                        <div class="modal fade" id="modal-terminals" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">Choose Terminals</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table class="table table-responsive table-condense table-striped" ng-repeat="service in services" ng-if="$index > 0">
+                                            <thead>
+                                                <tr>
+                                                    <th>@{{ service.name }}</th>
+                                                    <th class="text-right"><small></small></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="terminal in service.terminals">
+                                                    <td>@{{ terminal.name }}</td>
+                                                    <td class="text-right">
+                                                        <button ng-if="!isAssignedUser(user_id, terminal.terminal_id)" class="btn btn-sm disabled">Process</button>
+                                                        <a ng-if="isAssignedUser(user_id, terminal.terminal_id)" class="btn btn-sm btn-cyan" href="{{ url('/processqueue/terminal') }}/@{{ terminal.terminal_id }}" target="_blank">Process</a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -87,6 +107,7 @@ My Business
                         <li class=""><a href="#terminals" id="terminals-tab" data-toggle="tab"><span class="glyphicon glyphicon-tasks"></span> Services</a></li>
                         <li class=""><a href="#settings" id="settings-tab" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
                         <li class=""><a href="#analytics" id="analytics-tab" data-toggle="tab"><span class="glyphicon glyphicon-stats"></span> Analytics</a></li>
+                        <li class=""><a href="#forms" id="forms-tab" data-toggle="tab"><span class="glyphicon glyphicon-list"></span> Forms</a></li>
                     </ul>
                     <div id="bizTabContent" class="tab-content" style="">
                         <div class="col-md-12">
@@ -109,45 +130,68 @@ My Business
                         <div role="tabpanel" class="tab-pane fade" id="analytics" aria-labelledby="analytics-tab">
                             <div class="clearfix">@include('business.my-business-tabs.analytics-tab')</div>
                         </div>
+                        <div role="tabpanel" class="tab-pane fade" id="forms" aria-labelledby="forms-tab">
+                            <div class="clearfix">@include('business.my-business-tabs.forms-tab')</div>
+                        </div>
                     </div>
                 </div>
             </form>
         </div>
     </div>
     @else
-    <div class="row">
-        <div class="biz-details-wrap">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-4 col-md-offset-4 col-xs-12" data-toggle="modal" id="add_business">
-                        <a id="add-business" target="_blank"><span class="glyphicon glyphicon-plus"></span> Create Your First Business</a>
-                    </div>
-                </div>
-                <point-of-interest position="left" bottom="35" right="67" title="Create A Business" description="Click the link to create your very own business."></point-of-interest>
-            </div>
-        </div>
-    </div>
+    {{--<div class="row">--}}
+        {{--<div class="biz-details-wrap">--}}
+            {{--<div class="col-md-12">--}}
+                {{--<div class="row">--}}
+                    {{--<div class="col-md-4 col-md-offset-4 col-xs-12" data-toggle="modal" id="add_business">--}}
+                        {{--<a id="add-business" target="_blank"><span class="glyphicon glyphicon-plus"></span> Create Your First Business</a>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+                {{--<point-of-interest position="left" bottom="35" right="67" title="Create A Business" description="Click the link to create your very own business."></point-of-interest>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</div>--}}
     @endif
-    <div class="row assigned-business"> <!-- assigned business -->
     @if($assigned_businesses)
+    <div class="row assigned-business mt50"> <!-- assigned business -->
         <a name="assigned"></a>
         <div class="rounded-box" id="box-wrapper">
             <div id="biz-grid" class="clearfix">
                 <h5 class="col-md-12 col-xs-12 mb20">ASSIGNED BUSINESSES</h5>
                 @foreach($assigned_businesses as $business)
                 <div class="col-md-3 col-sm-4 col-xs-12">
-                    <div class="boxed edit-biz process-queue">
+                    <div class="boxed edit-biz process-queue" data-toggle="modal" data-target="#modal-{{ $business['business_id'] }}">
                         <p class="title"><span class="glyphicon glyphicon-home"></span> {{ $business['name'] }}</p>
-                        <div class="biz-terminals assigned-terminals">
-                            <div class="clearfix">
-                                @foreach($business['terminals'] as $terminal)
-                                <div>
-                                    <a href="{{ url('/processqueue/terminal/' . $terminal['terminal_id'] ) }}" target="_blank" style="padding: 12px;">
-                                        <span class=" glyphicon glyphicon-check"></span>
-                                        <small>{{ $terminal['name'] }}</small>
-                                    </a>
+                    </div>
+                    <div class="modal fade" id="modal-{{ $business['business_id'] }}" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">Choose Terminals</h4>
                                 </div>
-                                @endforeach
+                                <div class="modal-body">
+                                    @foreach($business['services'] as $service)
+                                    <table class="table table-responsive table-condense table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>{{ $service['name'] }}</th>
+                                            <th class="text-right"><small></small></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($service['terminals'] as $terminal)
+                                            <tr>
+                                                <td>{{ $terminal['name'] }}</td>
+                                                <td class="text-right">
+                                                    <a class="btn btn-sm btn-cyan" href="{{ url('/processqueue/terminal/' . $terminal['terminal_id'] ) }}" target="_blank">Process</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -155,8 +199,15 @@ My Business
                 @endforeach
             </div>
         </div>
-    @endif
     </div>
+    @endif
+    @if(!$assigned_to_business)
+        <div class="alert alert-danger mt50 text-center">
+            <p>
+                 If you are interested to create a FeatherQ business account, email us at <a href="mailto:contact@featherq.com">contact@featherq.com</a>
+            </p>
+        </div>
+    @endif
 </div>
 
 {{-- js variables used --}}
@@ -186,6 +237,6 @@ My Business
 <!-- queue settings-->
 <input type="hidden" id="queue-settings-get-url" value="{{ url('/queuesettings/allvalues/') }}">
 <input type="hidden" id="queue-settings-update-url" value="{{ url('/queuesettings/update/') }}">
-@include('modals.business.setup-business-modal')
-@include('modals.websockets.websocket-loader')
+{{--@include('modals.business.setup-business-modal')--}}
+{{--@include('modals.websockets.websocket-loader')--}}
 @stop

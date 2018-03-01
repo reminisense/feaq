@@ -22,9 +22,9 @@ class Helper extends Eloquent
         // is the same with the ones in their database.
         // This will save us from the exploit of a post request with bogus details
         $fb = new Facebook\Facebook(array(
-            'app_id' => '1577295149183234',
-            'app_secret' => '23a15a243f7ce66a648ec6c48fa6bee9',
-            'default_graph_version' => 'v2.4',
+            'app_id' => '1574952899417459',
+            'app_secret' => '9a1e18932bdb13b32066c891581f9384',
+            'default_graph_version' => 'v2.3',
         ));
         try {
             // Returns a `Facebook\FacebookResponse` object
@@ -270,6 +270,7 @@ class Helper extends Eloquent
             'Europe/Bucharest' => "(GMT+02:00) Bucharest",
             'Africa/Cairo' => "(GMT+02:00) Cairo",
             'Africa/Harare' => "(GMT+02:00) Harare",
+            'Africa/Bujumbura' => "(GMT+02:00) Bujumbura",
             'Europe/Helsinki' => "(GMT+02:00) Helsinki",
             'Europe/Istanbul' => "(GMT+02:00) Istanbul",
             'Asia/Jerusalem' => "(GMT+02:00) Jerusalem",
@@ -342,7 +343,20 @@ class Helper extends Eloquent
     public static function changeBusinessTimeTimezone($date, $business_timezone, $browser_timezone)
     {
         if (is_numeric($browser_timezone)) $browser_timezone = Helper::timezoneOffsetToName($browser_timezone);
-        $datetime = new DateTime($date, new DateTimeZone($business_timezone));
+        $new_date = "";
+        if(strlen($date) == 6){
+            $new_date = substr_replace($date, "0", 2, 0);
+        }else if(strlen($date) == 7 && $date[4] == " "){
+            if($date[2] != ":"){
+                $new_date = $date;
+            }else{
+                $new_date = substr_replace($date, "0", 3, 0);
+            }
+        }else{
+            $new_date = $date;
+       }
+
+        $datetime = new DateTime($new_date, new DateTimeZone($business_timezone));
         $datetime->setTimezone(new DateTimeZone($browser_timezone));
         return $datetime->format('g:i A');
     }
@@ -402,4 +416,70 @@ class Helper extends Eloquent
         return !UserBusiness::getBusinessIdByOwner($user_id);
     }
 
+    public static function assignedToBusiness()
+    {
+        $businesses = UserBusiness::getAllBusinessIdByOwner(Helper::userId());
+        $terminals = TerminalUser::getTerminalAssignement(Helper::userId());
+
+        return (count($businesses) || count($terminals));
+    }
+    public static function threadKeyGenerator($business_id, $email) {
+        return md5($business_id . 'fq' . $email);
+    }
+
+    /**
+     * @deprecated
+     * Please use Log::Xxx() instead.
+     */
+    public static function dbLogger($model, $table, $action, $method, $email, $infos = NULL) {
+        // [2016/1/26 13:23]User [Jonas] updated Business [XXX] Record [Business Name]
+        $log = date("Y-m-d H:i:s", time()) . " Model: " . $model . "| Table: " . $table . "| Action: " .
+            $action . "| Method: " . $method . "| By: " . $email . "| Info: " . $infos . "\n";
+        if(Config::get('debug')) {
+            Log::info($log);
+        }
+    }
+
+    public static function generateAccessKey($fb_id, $fb_token) {
+      $auth_token = Hash::make($fb_token);
+      User::saveAuthToken($fb_id, $auth_token);
+      return $auth_token;
+    }
+
+    public static function checkAccessKey(){
+        return Hash::check('FeatherQ', Request::header('access_key'));
+    }
+
+    public static function array_to_xml($array, $xml){
+        foreach($array as $key => $value) {
+            if(is_array($value)) {
+                if(!is_numeric($key)){
+                    $subnode = $xml->addChild("$key");
+                    Helper::array_to_xml($value, $subnode);
+                }else{
+                    $subnode = $xml->addChild("field$key");
+                    Helper::array_to_xml($value, $subnode);
+                }
+            }else {
+                $xml->addChild("$key",htmlspecialchars("$value"));
+            }
+        }
+    }
+
+    public static function queueNumberExists($email){
+        $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+        $count = PriorityNumber::where('priority_number.date', '=', $date)
+            ->join('priority_queue', 'priority_queue.track_id', '=', 'priority_number.track_id')
+            ->where('priority_queue.email', '=', $email)
+            ->select(DB::raw('COUNT(priority_number.track_id) as number_exists'))
+            ->first()
+            ->number_exists;
+
+        return $count > 0 ? TRUE : FALSE;
+    }
+
+    public static function trim($text){
+       $trim = preg_replace('/[^a-z0-9]/', "", strtolower($text));
+       return $trim;
+    }
 }

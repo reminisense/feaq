@@ -78,9 +78,18 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#" ng-click="login()" id="nav-fb" style="display:none">Login with Facebook <span class="sr-only">(current)</span></a></li>
-                <li><a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" target="_blank">Download the App</a></li>
+                {{--<li><a href="#" ng-click="login()" id="nav-fb" style="display:none">Login with Facebook <span class="sr-only">(current)</span></a></li>--}}
                 <li><a href="/business">FeatherQ for Business</a></li>
+                <li id="login" class="dropdown">
+                    <a href="#" id="login-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Login
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu navbar-inverse" aria-labelledby="login-dropdown">
+                        <li><a href="#" ng-click="login()">Login as User</a></li>
+                        <li><a href="/user/login">Login as Business</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
@@ -88,14 +97,16 @@
 
 <section id="banner" ng-controller="fbController">
     <div class="container">
-        <div class="col-md-6">
-            <h1>Don't Waste Your Life &mdash; Waiting</h1>
-            <h2 class="sub-heading">Use FeatherQ's mobile application to join lines from anywhere, using your mobile device.</h2>
+        <div class="col-md-8">
+            <h1>Change the Wait.</h1>
+            <h2 class="sub-heading">Reduce the hassle of waiting and turn your waiting time into a better experience.</h2>
+            <h2 class="sub-heading">FeatherQ is a line-management application that uses your mobile device and internet connection to line up for a business.</h2>
             <div class="cta">
-                <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" target="_blank"><img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png"></a>
-                <a href="#" ng-click="login()" class="btn btn-blue"><img src="/images/homepage/landing/fb.png">LOGIN WITH FACEBOOK</a>
+                <a href='https://play.google.com/store/apps/details?id=com.reminisense.feaqfree&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height="91px"/></a>
+                <a href="https://itunes.apple.com/ph/app/featherq/id1203716312?mt=8" target="_blank"><img alt="iOS App on App Store" src="/images/homepage/appstore.svg" height="61px"></a>
+                &nbsp;&nbsp;
+                <a href="#" class="btn btn-blue" ng-click="login()">SIGN UP FOR FREE!</a>
             </div>
-
         </div>
     </div>
 </section>
@@ -195,11 +206,11 @@
                 </a>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12 ng-scope" ng-controller="fbController">
-                <a class="business_link" href="#" ng-click="login()">
+                <a class="business_link" href="/user/login">
                     <div class="box-wrap box-fb text-center">
                         {{--<p class="title ng-binding"> More Businesses</p>--}}
                         <a href="#" ng-click="login()">
-                            <span>LOGIN WITH FACEBOOK</span>
+                            <span>LOGIN TO FEATHERQ</span>
                             <small class="ng-binding">{{--<img src="/images/homepage/landing/fb.png"> --}} to view More Businesses</small>
                         </a>
                     </div>
@@ -276,14 +287,14 @@
 <section id="beat" ng-controller="fbController">
     <div class="container text-center">
         <div class="col-md-12">
-            <h2 class="wow fadeInUp text-center">Beat the waiting game</h2>
+            <h2 class="wow fadeInUp text-center">Get started now.</h2>
         </div>
         <div class="col-md-offset-2 col-md-8 text-center wow fadeInUp">
-            <p>FeatherQ helps people line up and reduce the hassle of waiting. All you need to start queuing is a Facebook account and an internet connection.</p>
-            <p>Get started now. Download the app  and login using your Facebook account and discover a better way to wait.</p>
+            <p>Download the app and login using your FeatherQ account and discover a better way to wait.</p>
             <div class="cta">
-                <a href="https://play.google.com/store/apps/details?id=com.reminisense.featherq" target="_blank"><img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png"></a>
-                <a href="#" ng-click="login()" class="btn btn-blue"><img src="/images/homepage/landing/fb.png">LOGIN WITH FACEBOOK</a>
+                <a href='https://play.google.com/store/apps/details?id=com.reminisense.feaqfree&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height="91px"/></a>
+                <a href="https://itunes.apple.com/ph/app/featherq/id1203716312?mt=8" target="_blank"><img alt="iOS App on App Store" src="/images/homepage/appstore.svg" height="61px"></a>
+                <a href="#" class="btn btn-blue" ng-click="login()">SIGN UP FOR FREE!</a>
             </div>
             <p class="black">Looking to manage your own line?<p>
                 <a href="/business">Try FeatherQ for Business</a>

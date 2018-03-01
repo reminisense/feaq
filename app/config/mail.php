@@ -28,7 +28,7 @@ return array(
 	|
 	*/
 
-	'host' => 'smtp.gmail.com',
+	'host' => 'smtp.office365.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-    'from' => array('address' => 'contact@featherq.com', 'name' => 'FeatherQ'),
+    'from' => array('address' => 'paul@reminisense.com', 'name' => 'FeatherQ'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return array(
 	|
 	*/
 
-    'username' => 'contact@featherq.com',
+    'username' => 'paul@reminisense.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return array(
 	|
 	*/
 
-    'password' => '9v4fgMMm',
+    'password' => '6i8y7u86&U',
 
 	/*
 	|--------------------------------------------------------------------------

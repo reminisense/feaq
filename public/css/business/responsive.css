@@ -11,6 +11,15 @@
     #ad-well-inner #ad-num-width{
         width: 100%!important;
     }
+    .drag.abs {
+        display: none;
+    }
+    #ad-width {
+        border: 0px!important;
+    }
+    #terminal-colors {
+        margin-top: 10px!important;
+    }
 }
 @media (min-width: 980px) and (max-width: 991px) {
     #bizTab li a {
@@ -44,6 +53,7 @@
     }
 }
 @media (min-width: 480px) and (max-width: 768px) {
+    #btn-analytics {margin-top: 0px;}
     .nav>li>a {
         padding: 12px 20px;
     }
@@ -117,10 +127,10 @@
         margin-bottom: 20px;
     }
     .btn-removeuser, .btn-adduser {
-        width: 90px;
+        /*width: 90px;*/
     }
     .delete-terminal-button, .edit-terminal-button, .update-terminal-button {
-        width: 90px;
+        /*width: 90px;*/
     }
     .cancel-adduser, .cancel-add-terminal  {
         margin-top: 4px;
@@ -137,6 +147,16 @@
     .mobile-hidden {
         display: none;
     }
+}
+@media (max-width: 544px) {
+    #bizTabContent .table-responsive td .panel-default {
+        border: none!important;
+        box-shadow: none!important;
+    }
+    #bizTabContent .table-responsive td .panel-body {
+        padding: 0px!important;
+    }
+    
 }
 @media (max-width: 480px) {
     .nav>li>a {
@@ -209,10 +229,10 @@
         margin-bottom: 20px;
     }
     .btn-removeuser, .btn-adduser {
-        width: 90px;
+        /*width: 90px;*/
     }
     .delete-terminal-button, .edit-terminal-button, .update-terminal-button {
-        width: 90px;
+        /*width: 90px;*/
     }
     .cancel-adduser, .cancel-add-terminal  {
         margin-top: 4px;
@@ -236,8 +256,10 @@
     .biz-terminals a:hover {
         height: 80px;
     }
+    #btn-analytics {margin-top: 0px; width: 100%;}
 }
 @media (max-width: 320px) {
+    #btn-analytics {margin-top: 0px; width: 100%;}
     .nav>li>a {
         padding: 12px 20px;
     }

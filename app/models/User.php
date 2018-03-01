@@ -70,15 +70,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     public static function saveFBDetails($data)
     {
-        if (!User::checkFBUser($data['fb_id']))
-        {
+        if (!User::checkFBUser($data['fb_id'])) {
             User::insert($data);
             Notifier::sendSignupEmail($data['email'], $data['first_name'] . ' ' . $data['last_name']);
+            Helper::dbLogger('User', 'user', 'insert', 'saveFBDetails', $data['email'], 'fb_id:' . $data['fb_id']);
         }
     }
 
     public static function updateContactCountry($fb_id, $contact, $country)
     {
+        Helper::dbLogger('User', 'user', 'update', 'updateContactCountry', $fb_id);
         return User::where('fb_id', '=', $fb_id)
             ->update(array(
                 'phone' => $contact,
@@ -90,7 +91,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public static function checkFBUser($fb_id)
     {
         return User::where('fb_id', '=', $fb_id)->exists();
+    }
 
+    public static function isEmailTaken($email)
+    {
+        return User::where('email', '=', $email)->exists();
     }
 
     public static function getUserIdByFbId($fb_id)
@@ -103,7 +108,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
             ->where('email', '=', $email )
             ->select('user_id', 'first_name', 'last_name', 'email')
             ->first();
-        return $user ? $user->toArray() : null;
+
+        return $user ? $user->toArray() : array();
     }
 
     public static function searchByKeyword($keyword){
@@ -161,6 +167,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
      * @description Update GCM Token
      */
     public static function updateGCMToken($fb_id, $gcm){
+        Helper::dbLogger('User', 'user', 'update', 'updateGCMToken', $fb_id, 'gcm_token:' . $gcm);
         return User::where('fb_id', '=', $fb_id)->update(array('gcm_token' => $gcm));
     }
 
@@ -205,6 +212,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return User::where('user_id', '=', $user_id)->first()->birthdate;
     }
 
+    public static function getStatusByUserId($user_id){
+        return User::where('user_id', '=', $user_id)->first()->status;
+    }
+
     public static function age($user_id){
         $birthdate = User::birthdate($user_id);
         if($birthdate){
@@ -231,6 +242,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
             ->join('priority_queue', 'priority_queue.email', '=', 'user.email')
             ->join('queue_analytics', 'queue_analytics.transaction_number', '=', 'priority_queue.transaction_number')
             ->join('business', 'business.business_id', '=', 'queue_analytics.business_id')
+            ->join('terminal_transaction', 'terminal_transaction.transaction_number', '=', 'priority_queue.transaction_number')
             ->selectRaw('
                 queue_analytics.transaction_number,
                 queue_analytics.date as date,
@@ -239,6 +251,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
                 business.business_id as business_id,
                 business.name as business_name,
                 business.local_address as business_address,
+                terminal_transaction.time_queued as time_queued,
+                terminal_transaction.time_checked_in as time_checked_in,
+                terminal_transaction.time_called as time_called,
+                terminal_transaction.time_completed as time_completed,
                 MAX(queue_analytics.action) as status
             ')
             ->orderBy('queue_analytics.transaction_number', 'desc')
@@ -250,4 +266,49 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
         return $results;
     }
+
+    public static function getUserBusinessHistory($user_id, $transaction_number){
+
+        $result = User::where('user.user_id', '=', $user_id)
+            ->join('priority_queue', 'priority_queue.email', '=', 'user.email')
+            ->join('queue_analytics', 'queue_analytics.transaction_number', '=', 'priority_queue.transaction_number')
+            ->join('business', 'business.business_id', '=', 'queue_analytics.business_id')
+            ->join('terminal_transaction', 'terminal_transaction.transaction_number', '=', 'priority_queue.transaction_number')
+            ->where('priority_queue.transaction_number','=',$transaction_number)
+            ->selectRaw('
+                queue_analytics.transaction_number,
+                queue_analytics.date as date,
+                priority_queue.priority_number,
+                priority_queue.email,
+                business.business_id as business_id,
+                business.name as business_name,
+                business.local_address as business_address,
+                business.longitude as longitude,
+                business.latitude as latitude,
+                terminal_transaction.time_completed as time_completed,
+                terminal_transaction.time_queued as time_queued,
+                terminal_transaction.time_queued as time_called,
+                MAX(queue_analytics.action) as status
+            ')
+            ->first();
+
+        return $result;
+    }
+
+    public static function getUserIdByEmail($email) {
+        return User::where('email', '=', $email)->select(array('user_id'))->first()->user_id;
+    }
+
+  public static function getValidateToken($access_token) {
+    return User::where('auth_token', '=', $access_token)->exists();
+  }
+
+  public static function saveAuthToken($fb_id, $token) {
+    User::where('fb_id', '=', $fb_id)->update(array('auth_token' => $token));
+  }
+
+    public static function getFbIdByUserId($user_id) {
+        return User::where('user_id', '=', $user_id)->select(array('fb_id'))->first()->fb_id;
+    }
+
 }

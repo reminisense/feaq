@@ -55,6 +55,33 @@
                         </form>
                     </div>
                 </div>
+                <div class="forms-container" ng-show="forms.length > 0">
+                    <div style=" border-top: 1px dotted #ccc; padding-top: 20px;">
+                        <ul id="form-tabs" class="nav nav-tabs">
+                            <li ng-repeat="form in filtered_forms" class="@{{ $index == 0 ? 'active in':''}}"><a data-toggle="tab" href="#@{{ form.form_id }}">@{{ form.form_name }}</a></li>
+                        </ul>
+                        <div class="tab-content" style="max-height: 150px; overflow: auto;">
+                            <div ng-repeat="form in filtered_forms" id="@{{ form.form_id }}" class="tab-pane fade @{{ $index == 0 ? 'active in':''}}">
+                                <table class="table" id="borderless">
+                                    <tr ng-repeat="field in form.fields">
+                                        <th scope="row" width="35%">@{{ field.field_data.label }}</th>
+                                        <td>
+                                            <input class="form-control" id="@{{ form.form_id }}_@{{ $index }}" type="textfield" ng-if="field.field_type == 'textfield'" value="@{{field.field_data.suggested}}" style="margin-bottom: 10px">
+                                            <input id="@{{ form.form_id }}_@{{ $index }}" type="checkbox" ng-if="field.field_type == 'checkbox'" style="margin-bottom: 10px" ng-checked="@{{field.field_data.suggested == 'Yes' ? '1':'0'}}">
+                                            <div  ng-if="field.field_type == 'radio'" style="margin-bottom: 10px" id="@{{ form.form_id }}_@{{ $index }}">
+                                                    {{--<input type="radio" name="@{{ form.form_id }}_@{{ $index }}" value="@{{ field.field_data.value_a}}" ng-checked="@{{ !field.field_data.suggested || field.field_data.value_a == field.field_data.suggested ? '1':'0' }}"> @{{ field.field_data.value_a }} <br>--}}
+                                                    {{--<input type="radio" name="@{{ form.form_id }}_@{{ $index }}" value="@{{ field.field_data.value_b }}" ng-checked="@{{ field.field_data.value_b == field.field_data.suggested ? '1':'0' }}"> @{{ field.field_data.value_b }}--}}
+                                            </div>
+                                            <select  class="form-control" id="@{{ form.form_id }}_@{{ $index }}" ng-if="field.field_type == 'dropdown'"  style="margin-bottom: 10px">
+                                                <option ng-repeat="option in field.field_data.options" value="@{{ option }}" ng-selected="@{{ option == field.field_data.suggested ? '1':'0' }}">@{{ option }}</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="alert alert-success" style="display: none" role="alert" id="issue-number-success">
                     <div><strong class="message"></strong></div>
                 </div>

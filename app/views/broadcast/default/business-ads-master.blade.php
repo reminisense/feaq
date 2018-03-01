@@ -1,6 +1,29 @@
 <div class="ads-area {{ $ad_class }} abs">
   <div class="top">
-    <a class="" href="#"><img src="/images/featherq-home-logo.png"></a>
+      <div class="col-md-9 pull-right">
+          <ul class="nav nav-tabs nav-justified pull-right" style="margin-top: -4px;">
+              <li role="presentation" id="show-all-numbers"><a href="#">ALL</a></li>
+              <?php foreach ($service_filters as $count => $service): ?>
+                  <li role="presentation" class="dropdown">
+                      <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#"> {{ $service->name; }} <span class="caret"></span> </a>
+                      <ul class="dropdown-menu" id="filter-broadcast">
+                          <li class="show-only-service" service_id="{{ $service->service_id; }}">
+                              <a href="">{{ $service->name }}</a>
+                          </li>
+                          <li class="divider" role="separator"></li>
+                          @if (isset($terminal_filters[$service->service_id]))
+                              @foreach ($terminal_filters[$service->service_id] as $count2 => $terminal)
+                                <li class="show-only-terminal" terminal_id="{{ $terminal["terminal_id"] }}" service_name="{{ $service->name }}">
+                                    <a href="#">{{ $terminal["terminal_name"] }}</a>
+                                </li>
+                              @endforeach
+                          @endif
+                      </ul>
+                  </li>
+              <?php endforeach; ?>
+          </ul>
+      </div>
+      <a class="" href="#"><img src="/images/featherq-home-logo.png"></a>
   </div>
   <div class="vid-container">
     @if ($ad_type == 'internet_tv')
@@ -20,16 +43,10 @@
                     <?php $count = count($ad_src); ?>
                 @endif
                 <div class="item <?php $count == 0 ? print 'active' : print ''; ?>">
-                    <img id="ad<?php print $count+1; ?>" src="/images/broadcast/carousel/car1.jpg" alt="Ad<?php print $count+1; ?>" class="center-block">
+                    <img id="ad<?php print $count+1; ?>" src="/images/broadcast/carousel/bs images 13.jpg" alt="Ad<?php print $count+1; ?>" class="center-block">
                 </div>
                 <div class="item">
-                    <img id="ad<?php print $count+2; ?>" src="/images/broadcast/carousel/car2.jpg" alt="Ad<?php print $count+2; ?>" class="center-block">
-                </div>
-                <div class="item">
-                    <img id="ad<?php print $count+3; ?>" src="/images/broadcast/carousel/car3.jpg" alt="Ad<?php print $count+3; ?>" class="center-block">
-                </div>
-                <div class="item">
-                    <img id="ad<?php print $count+4; ?>" src="/images/broadcast/carousel/car4.jpg" alt="Ad<?php print $count+4; ?>" class="center-block">
+                    <img id="ad<?php print $count+2; ?>" src="/images/broadcast/carousel/bs images 14.jpg" alt="Ad<?php print $count+3; ?>" class="center-block">
                 </div>
             </div>
         </div>

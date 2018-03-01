@@ -13,7 +13,7 @@ class UserRating extends Eloquent{
     public $timestamps = false;
 
 
-    public static function rateUser($date, $business_id, $rating, $user_id, $terminal_user_id, $action){
+    public static function rateUser($date, $business_id, $rating, $user_id, $terminal_user_id, $action, $transaction_number){
 
         $data= [
             'business_id' => $business_id,
@@ -21,7 +21,9 @@ class UserRating extends Eloquent{
             'user_id' => $user_id,
             'terminal_user_id' => $terminal_user_id,
             'action' => $action,
-            'date' => $date
+            'date' => $date,
+            'transaction_number' => $transaction_number,
+            'rated_by' => 'business'
         ];
 
         UserRating::saveRatingUser($data);
@@ -38,6 +40,7 @@ class UserRating extends Eloquent{
             'action' => $action,
             'date' => $date,
             'transaction_number' => $transaction_number,
+            'rated_by' => 'user'
         ];
 
         UserRating::saveRatingUser($data);
@@ -46,11 +49,13 @@ class UserRating extends Eloquent{
 
     public static function saveRatingUser($data){
         DB::table('user_rating')->insert($data);
+        Helper::dbLogger('UserRating', 'user_rating', 'insert', 'saveRatingUser', User::email($data['user_id']), 'rating:' . $data['rating']);
     }
 
     public static function getUserRating($transaction_number) {
-        return $user_rating = DB::table('user_rating')
+            $user_rating = DB::table('user_rating')
             ->where('transaction_number', '=', $transaction_number)
             ->first();
+        return $user_rating ? $user_rating : null;
     }
 }

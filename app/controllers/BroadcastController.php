@@ -19,27 +19,54 @@ class BroadcastController extends BaseController{
 
     // The broadcast rendering function
     public function viewBroadcastPage($raw_code = '') {
-      $business_id = Business::getBusinessIdByRawCode($raw_code);
+      if (Business::businessWithVanityURLExists($raw_code)) {
+        $business_id = Business::getBusinessIdByVanityURL($raw_code);
+        $custom_url = $raw_code;
+      }
+      else {
+        try{
+          $business_id = Business::getBusinessIdByRawCode($raw_code);
+          $vanity_url = Business::getVanityURLByRawCode($raw_code);
+          if ($vanity_url && trim($vanity_url) != '') {
+            return Redirect::to('/' . $vanity_url);
+          }
+          $custom_url = $raw_code;
+        }catch(Exception $e){
+          return Redirect::to('/');
+        }
+      }
       $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
       $ad_src = $this->fetchAdSource($data->ad_type, $business_id, $data->tv_channel);
       $business_name = Business::name($business_id);
       $open_time = str_pad(Business::openHour($business_id), 2, 0, STR_PAD_LEFT) . ':' . str_pad(Business::openMinute($business_id), 2, 0, STR_PAD_LEFT) . ' ' . Business::openAMPM($business_id);
       $close_time = str_pad(Business::closeHour($business_id), 2, 0, STR_PAD_LEFT) . ':' . str_pad(Business::closeMinute($business_id), 2, 0, STR_PAD_LEFT) . ' ' . Business::closeAMPM($business_id);
       $first_service = Service::getFirstServiceOfBusiness($business_id);
-      $allow_remote = QueueSettings::allowRemote($first_service->service_id);
+      $allow_remote = $first_service ? QueueSettings::allowRemote($first_service->service_id) : 0;
       $ticker_message = $this->tickerPusher($data->ticker_message, $data->ticker_message2, $data->ticker_message3, $data->ticker_message4, $data->ticker_message5);
       $templates = $this->broadcastTemplate($data->display, $business_id);
       $date = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
       $regions = $this->broadcastRegionsClassName($data->adspace_size, $data->numspace_size);
       $ad_class = $regions['ad_class'];
       $num_class = $regions['num_class'];
-      $custom_url = Business::getRawCodeByBusinessId($business_id);
       $numboxes = $this->numBoxesClassName($data->display, $regions['percentage']);
       $row_class = $numboxes['row_class'];
       $box_class = $numboxes['box_class'];
+      $service_filters = Service::getServicesByBusinessId($business_id);
+      $terminal_filters = array();
+      foreach ($service_filters as $count => $service_filter) {
+        $terminal_entries = Terminal::getTerminalsByServiceId($service_filter->service_id);
+        foreach ($terminal_entries as $count => $terminal_entry) {
+          $terminal_filters[$service_filter->service_id][] = array(
+            'terminal_id' => $terminal_entry["terminal_id"],
+            'terminal_name' => $terminal_entry["name"],
+          );
+        }
+      }
       return View::make($templates['broadcast_template'])
         //->with('custom_fields', $custom_fields)
         //->with('template_type', $data->d)
+        ->with('first_service', Service::getFirstServiceOfBusiness($business_id))
+        ->with('allow_remote', $allow_remote)
         ->with('ticker_width', 100 - $regions['percentage'])
         ->with('custom_url', $custom_url)
         ->with('adspace_size', $data->adspace_size)
@@ -55,14 +82,16 @@ class BroadcastController extends BaseController{
         ->with('business_name', $business_name)
         ->with('lines_in_queue', Analytics::getBusinessRemainingCount($business_id))
         ->with('estimate_serving_time', Analytics::getAverageTimeServedByBusinessId($business_id, 'string', $date, $date))
-        ->with('first_service', Service::getFirstServiceOfBusiness($business_id))
-        ->with('allow_remote', $allow_remote)
         ->with('ticker_message', $ticker_message)
         ->with('ad_class', $ad_class)
         ->with('num_class', $num_class)
         ->with('row_class', $row_class)
         ->with('box_class', $box_class)
         ->with('user', Auth::user())
+        ->with('service_filters', $service_filters)
+        ->with('terminal_filters', $terminal_filters)
+        ->with('show_qr_setting', $data->show_qr_setting)
+        ->with('percentage', $regions['percentage'])
         ->with('keywords', Business::getKeywordsByBusinessId($business_id));
     }
 
@@ -102,6 +131,14 @@ class BroadcastController extends BaseController{
       if ($percentage == '40') {
         $ad_class = 'sixty';
         $num_class = 'forty';
+      }
+      else if ($percentage == 10) {
+        $ad_class = 'ninety';
+        $num_class = 'ten';
+      }
+      else if ($percentage == 20) {
+        $ad_class = 'eighty';
+        $num_class = 'twenty';
       }
       elseif ($percentage <= 30) {
         $ad_class = 'seventy';
@@ -208,11 +245,13 @@ class BroadcastController extends BaseController{
       }
       $data->display = $this->generateDisplayCode($data->ad_type, Input::get('num_boxes'));
       $data->show_issued = Input::get('show_issued');
+      $data->show_names = Input::get('show_names');
       $data->ticker_message = Input::get('ticker_message');
       $data->ticker_message2 = Input::get('ticker_message2');
       $data->ticker_message3 = Input::get('ticker_message3');
       $data->ticker_message4 = Input::get('ticker_message4');
       $data->ticker_message5 = Input::get('ticker_message5');
+      $data->show_qr_setting = Input::get('show_qr_setting');
       $data = $this->boxObjectCreator($data, Input::get('num_boxes'));
       $encode = json_encode($data);
       file_put_contents(public_path() . '/json/' . Input::get('business_id') . '.json', $encode);
@@ -244,6 +283,7 @@ class BroadcastController extends BaseController{
       $data->box2->terminal = '';
       $data->box2->rank = '';
       $data->box2->service = '';
+      $data->box2->color = '';
     }
     if ($num_boxes >= '3') {
       $data->box3 = new stdClass();
@@ -251,6 +291,7 @@ class BroadcastController extends BaseController{
       $data->box3->terminal = '';
       $data->box3->rank = '';
       $data->box3->service = '';
+      $data->box3->color = '';
     }
     if ($num_boxes >= '4') {
       $data->box4 = new stdClass();
@@ -258,6 +299,7 @@ class BroadcastController extends BaseController{
       $data->box4->terminal = '';
       $data->box4->rank = '';
       $data->box4->service = '';
+      $data->box4->color = '';
     }
     if ($num_boxes >= '5') {
       $data->box5 = new stdClass();
@@ -265,6 +307,7 @@ class BroadcastController extends BaseController{
       $data->box5->terminal = '';
       $data->box5->rank = '';
       $data->box5->service = '';
+      $data->box5->color = '';
     }
     if ($num_boxes >= '6') {
       $data->box6 = new stdClass();
@@ -272,6 +315,7 @@ class BroadcastController extends BaseController{
       $data->box6->terminal = '';
       $data->box6->rank = '';
       $data->box6->service = '';
+      $data->box6->color = '';
     }
     if ($num_boxes >= '7') {
       $data->box7 = new stdClass();
@@ -279,6 +323,7 @@ class BroadcastController extends BaseController{
       $data->box7->terminal = '';
       $data->box7->rank = '';
       $data->box7->service = '';
+      $data->box7->color = '';
     }
     if ($num_boxes >= '8') {
       $data->box8 = new stdClass();
@@ -286,6 +331,7 @@ class BroadcastController extends BaseController{
       $data->box8->terminal = '';
       $data->box8->rank = '';
       $data->box8->service = '';
+      $data->box8->color = '';
     }
     if ($num_boxes >= '9') {
       $data->box9 = new stdClass();
@@ -293,6 +339,7 @@ class BroadcastController extends BaseController{
       $data->box9->terminal = '';
       $data->box9->rank = '';
       $data->box9->service = '';
+      $data->box9->color = '';
     }
     if ($num_boxes == '10') {
       $data->box10 = new stdClass();
@@ -300,6 +347,7 @@ class BroadcastController extends BaseController{
       $data->box10->terminal = '';
       $data->box10->rank = '';
       $data->box10->service = '';
+      $data->box10->color = '';
     }
     $data = $this->boxObjectUnsetter($data, $num_boxes);
     return $data;
@@ -381,59 +429,69 @@ class BroadcastController extends BaseController{
         $data->box1->terminal = '';
         $data->box1->rank = '';
         $data->box1->service = '';
+        $data->box1->color = '';
         if (isset($data->box2)) {
           $data->box2->number = '';
           $data->box2->terminal = '';
           $data->box2->rank = '';
           $data->box2->service = '';
+          $data->box2->color = '';
         }
         if (isset($data->box3)) {
           $data->box3->number = '';
           $data->box3->terminal = '';
           $data->box3->rank = '';
           $data->box3->service = '';
+          $data->box3->color = '';
         }
         if (isset($data->box4)) {
           $data->box4->number = '';
           $data->box4->terminal = '';
           $data->box4->rank = '';
           $data->box4->service = '';
+          $data->box4->color = '';
         }
         if (isset($data->box5)) {
           $data->box5->number = '';
           $data->box5->terminal = '';
           $data->box5->rank = '';
           $data->box5->service = '';
+          $data->box5->color = '';
         }
         if (isset($data->box6)) {
           $data->box6->number = '';
           $data->box6->terminal = '';
           $data->box6->rank = '';
           $data->box6->service = '';
+          $data->box6->color = '';
         }
         if (isset($data->box7)) {
           $data->box7->number = '';
           $data->box7->terminal = '';
           $data->box7->rank = '';
           $data->box7->service = '';
+          $data->box7->color = '';
         }
         if (isset($data->box8)) {
           $data->box8->number = '';
           $data->box8->terminal = '';
           $data->box8->rank = '';
           $data->box8->service = '';
+          $data->box8->color = '';
         }
         if (isset($data->box9)) {
           $data->box9->number = '';
           $data->box9->terminal = '';
           $data->box9->rank = '';
           $data->box9->service = '';
+          $data->box9->color = '';
         }
         if (isset($data->box10)) {
           $data->box10->number = '';
           $data->box10->terminal = '';
           $data->box10->rank = '';
           $data->box10->service = '';
+          $data->box10->color = '';
         }
         $data->get_num = '';
         $data->date = date("mdy");
@@ -457,59 +515,69 @@ class BroadcastController extends BaseController{
       $data->box1->terminal = '';
       $data->box1->rank = '';
       $data->box1->service = '';
+      $data->box1->color = '';
       if (isset($data->box2)) {
         $data->box2->number = '';
         $data->box2->terminal = '';
         $data->box2->rank = '';
         $data->box2->service = '';
+        $data->box2->color = '';
       }
       if (isset($data->box3)) {
         $data->box3->number = '';
         $data->box3->terminal = '';
         $data->box3->rank = '';
         $data->box3->service = '';
+        $data->box3->color = '';
       }
       if (isset($data->box4)) {
         $data->box4->number = '';
         $data->box4->terminal = '';
         $data->box4->rank = '';
         $data->box4->service = '';
+        $data->box4->color = '';
       }
       if (isset($data->box5)) {
         $data->box5->number = '';
         $data->box5->terminal = '';
         $data->box5->rank = '';
         $data->box5->service = '';
+        $data->box5->color = '';
       }
       if (isset($data->box6)) {
         $data->box6->number = '';
         $data->box6->terminal = '';
         $data->box6->rank = '';
         $data->box6->service = '';
+        $data->box6->color = '';
       }
       if (isset($data->box7)) {
         $data->box7->number = '';
         $data->box7->terminal = '';
         $data->box7->rank = '';
         $data->box7->service = '';
+        $data->box7->color = '';
       }
       if (isset($data->box8)) {
         $data->box8->number = '';
         $data->box8->terminal = '';
         $data->box8->rank = '';
         $data->box8->service = '';
+        $data->box8->color = '';
       }
       if (isset($data->box9)) {
         $data->box9->number = '';
         $data->box9->terminal = '';
         $data->box9->rank = '';
         $data->box9->service = '';
+        $data->box9->color = '';
       }
       if (isset($data->box10)) {
         $data->box10->number = '';
         $data->box10->terminal = '';
         $data->box10->rank = '';
         $data->box10->service = '';
+        $data->box10->color = '';
       }
       $encode = json_encode($data);
       file_put_contents(public_path() . '/json/' . Input::get('business_id') . '.json', $encode);
@@ -604,48 +672,52 @@ class BroadcastController extends BaseController{
       $business_id = $business->business_id;
       //$data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
       $data = json_decode(file_get_contents(public_path() . '/json/' . $business_id . '.json'));
-      if (!isset($data->show_issued)) {
-        $data->show_issued = TRUE;
-      }
-      if (!isset($data->ad_image)) {
-        $data->ad_image = "";
-      }
-      if (!isset($data->ad_video)) {
-        $data->ad_video = "";
-      }
-      if (!isset($data->ad_type) || $data->ad_type == "") {
-        $data->ad_type = "carousel";
-      }
-      if (!isset($data->turn_on_tv)) {
-        $data->turn_on_tv = FALSE;
-      }
-      if (!isset($data->tv_channel)) {
-        $data->tv_channel = "";
-      }
-      if (!isset($data->ticker_message)) {
-        $data->ticker_message = "";
-      }
-      if (!isset($data->ticker_message2)) {
-        $data->ticker_message2 = "";
-      }
-      if (!isset($data->ticker_message3)) {
-        $data->ticker_message3 = "";
-      }
-      if (!isset($data->ticker_message4)) {
-        $data->ticker_message4 = "";
-      }
-      if (!isset($data->ticker_message5)) {
-        $data->ticker_message5 = "";
-      }
-      if (!isset($data->adspace_size)) {
-        $data->adspace_size = "517px";
-      }
-      if (!isset($data->numspace_size)) {
-        $data->numspace_size = "517px";
-      }
-      $data->adspace_size = "517px";
-      $data->numspace_size = "517px";
-      $data->ad_type = "carousel";
+//      if (!isset($data->show_issued)) {
+//        $data->show_issued = TRUE;
+//      }
+//      if (!isset($data->show_names)) {
+//        $data->show_names = FALSE;
+//      }
+//      if (!isset($data->ad_image)) {
+//        $data->ad_image = "";
+//      }
+//      if (!isset($data->ad_video)) {
+//        $data->ad_video = "";
+//      }
+//      if (!isset($data->ad_type) || $data->ad_type == "") {
+//        $data->ad_type = "carousel";
+//      }
+//      if (!isset($data->turn_on_tv)) {
+//        $data->turn_on_tv = FALSE;
+//      }
+//      if (!isset($data->tv_channel)) {
+//        $data->tv_channel = "";
+//      }
+//      if (!isset($data->ticker_message)) {
+//        $data->ticker_message = "";
+//      }
+//      if (!isset($data->ticker_message2)) {
+//        $data->ticker_message2 = "";
+//      }
+//      if (!isset($data->ticker_message3)) {
+//        $data->ticker_message3 = "";
+//      }
+//      if (!isset($data->ticker_message4)) {
+//        $data->ticker_message4 = "";
+//      }
+//      if (!isset($data->ticker_message5)) {
+//        $data->ticker_message5 = "";
+//      }
+//      if (!isset($data->adspace_size)) {
+//        $data->adspace_size = "517px";
+//      }
+//      if (!isset($data->numspace_size)) {
+//        $data->numspace_size = "517px";
+//      }
+//      $data->adspace_size = "517px";
+//      $data->numspace_size = "517px";
+//      $data->ad_type = "carousel";
+      $data->show_qr_setting = "yes";
 
       //$data->display = "1-6";
       $encode = json_encode($data);
@@ -653,6 +725,71 @@ class BroadcastController extends BaseController{
     }
     echo 'JSON files are now fixed.';
   }
+
+  public function getResetBusinessColors($business_id) {
+    $colors = array('', 'blue', 'borange', 'violet', 'green', 'red', 'yellow', 'cyan', 'x242436', 'x78250A', 'FF745F', 'FCA78B', 'x53777A', 'x542437', 'C02942', 'D95B43', 'ECD078');
+    $services = Service::getServicesByBusinessId($business_id);
+    $arrSize = count($colors);
+    foreach ($services as $count => $service) {
+      $serviceCount = $count + 1;
+      if ($serviceCount > $arrSize) {
+        $serviceCount = $serviceCount % $arrSize;
+      }
+      $terminals = Terminal::getTerminalsByServiceId($service->service_id);
+      foreach ($terminals as $count2 => $terminal) {
+        Terminal::setColor($colors[$serviceCount], $terminal['terminal_id']);
+      }
+    }
+    echo 'colors reset';
+  }
+
+  public function getJsonRecreate(){
+    $res = Business::all();
+    foreach ($res as $count => $business) {
+        $business_id = $business->business_id;
+        $this->getJsonCreate($business_id);
+    }
+    echo 'JSON files deleted and recreated.';
+  }
+
+    public function getJsonCreate($business_id){
+        $file = public_path() . '/json/' . $business_id . '.json';
+        if(file_exists($file)){
+            unlink($file);
+        }
+        $data = new stdClass();
+        for($boxnum = 1; $boxnum <= 6; $boxnum++){
+            $box = new stdClass();
+            $box->number = '';
+            $box->terminal = '';
+            $box->rank = '';
+            $box->service = '';
+            $data->{"box" . $boxnum} = $box;
+        }
+        for($boxnum = 5; $boxnum > 1; $boxnum--){
+            $data->{"ticker_message" . $boxnum} = '';
+        }
+        $data->ticker_message = '';
+        $data->show_issued = TRUE;
+        $data->show_names = FALSE;
+        $data->ad_image = "";
+        $data->ad_video = "";
+        $data->ad_type = "carousel";
+        $data->turn_on_tv = FALSE;
+        $data->tv_channel = "";
+        $data->adspace_size = "517px";
+        $data->numspace_size = "517px";
+        $data->display = "1-6";
+        $data->get_num = " ";
+        $data->carousel_delay = "5000";
+        $data->date = date("mdy");
+        $data->num_boxes = "6";
+        $data->adspace_size = "517px";
+        $data->numspace_size = "517px";
+        $data->ad_type = "carousel";
+        $encode = json_encode($data, JSON_PRETTY_PRINT);
+        file_put_contents($file, $encode);
+    }
 
 }
 

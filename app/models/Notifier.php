@@ -6,19 +6,42 @@
  * Time: 2:33 PM
  */
 
+use utils\ApplePushNotifications;
+
 class Notifier extends Eloquent{
     public $timestamps = false;
 
-    public static function sendNumberCalledNotification($transaction_number, $terminal_id){
+    public static function sendPushNotification($transaction_number, $terminal_name, $service_name, $msg_type) {
+        if ($msg_type == 'call') {
+            $pq = PriorityQueue::find($transaction_number);
+            $message = "Your number (" . $pq->priority_number . ") is being called. Please proceed to " . $service_name . " - " . $terminal_name . ". Thank you!";
+        }
+        else if ($msg_type == 'serve') {
+            $message = "Your number has now been served. Thank you!";
+        }
+        else {
+            $message = "Your number has been dropped from the line.";
+        }
+        $fb_id = User::getFbIdByUserId(PriorityQueue::userId($transaction_number));
+        if (UserDevice::checkForDevice($fb_id)) {
+            $tokens = UserDevice::getTokenTypeByFbId($fb_id);
+            foreach ($tokens as $count => $token) {
+                if ($token->device_type == "iOS") {
+                    $APN = new \ApplePushNotifications($token->device_token, $message, $terminal_name, $msg_type);
+                    $APN->sendNotif();
+                }
+            }
+        }
+    }
 
+    public static function sendNumberCalledNotification($transaction_number, $terminal_id) {
         $service_id = Terminal::serviceId($terminal_id);
         $queue_setting = QueueSettings::getServiceQueueSettings($service_id);
-
         if(isset($queue_setting->sms_current_number) && $queue_setting->sms_current_number) Notifier::sendNumberCalledToAllChannels($transaction_number);
-        if(isset($queue_setting->sms_1_ahead) && $queue_setting->sms_1_ahead) Notifier::sendNumberCalledToNextNumber($transaction_number, 1);
-        if(isset($queue_setting->sms_5_ahead) && $queue_setting->sms_5_ahead) Notifier::sendNumberCalledToNextNumber($transaction_number, 5);
-        if(isset($queue_setting->sms_10_ahead) && $queue_setting->sms_10_ahead) Notifier::sendNumberCalledToNextNumber($transaction_number, 10);
-        if(isset($queue_setting->sms_blank_ahead) && $queue_setting->sms_blank_ahead) Notifier::sendNumberCalledToNextNumber($transaction_number, $queue_setting->input_sms_field);
+        if(isset($queue_setting->sms_1_ahead) && $queue_setting->sms_1_ahead) Notifier::sendNumberCalledToNextNumber($transaction_number, 1, $service_id);
+        if(isset($queue_setting->sms_5_ahead) && $queue_setting->sms_5_ahead) Notifier::sendNumberCalledToNextNumber($transaction_number, 5, $service_id);
+        if(isset($queue_setting->sms_10_ahead) && $queue_setting->sms_10_ahead) Notifier::sendNumberCalledToNextNumber($transaction_number, 10, $service_id);
+        if(isset($queue_setting->sms_blank_ahead) && $queue_setting->sms_blank_ahead) Notifier::sendNumberCalledToNextNumber($transaction_number, $queue_setting->input_sms_field, $service_id);
     }
 
     public static function sendNumberCalledToAllChannels($transaction_number){
@@ -33,8 +56,13 @@ class Notifier extends Eloquent{
         Notifier::sendNumberNextAndroid($transaction_number, $diff);
     }
 
-    public static function sendNumberCalledToNextNumber($transaction_number, $diff){
-        $number = TerminalTransaction::where('transaction_number', '>=', $transaction_number)->skip($diff)->first();
+    public static function sendNumberCalledToNextNumber($transaction_number, $diff, $service_id){
+        $number = TerminalTransaction::join('priority_queue', 'terminal_transaction.transaction_number', '=', 'priority_queue.transaction_number')
+            ->join('priority_number', 'priority_number.track_id', '=', 'priority_queue.track_id')
+            ->where('terminal_transaction.transaction_number', '>=', $transaction_number)
+            ->where('priority_number.service_id', '=', $service_id)
+            ->skip($diff)
+            ->first();
         if($number){
             Notifier::sendNumberNextToAllChannels($number->transaction_number, $diff);
         }
@@ -83,6 +111,13 @@ class Notifier extends Eloquent{
         Notifier::sendEmail($email, 'emails.auth.signup', 'Welcome to FeatherQ', ['name' => $name]);
     }
 
+    public static function sendConfirmationEmail($email){
+        Notifier::sendEmail($email, 'emails.auth.confirmation', 'Welcome to FeatherQ', ['email' => $email]);
+    }
+
+    public static function sendPasswordResetEmail($email, $email_message){
+        Notifier::sendEmail($email, 'emails.auth.forgot-password', 'Reset FeatherQ Password', ['email_message' => $email_message]);
+    }
 
     /**
      * Sms sending templates
@@ -198,6 +233,7 @@ class Notifier extends Eloquent{
             $message->subject($subject);
             $message->to($email);
         });
+//        Helper::dbLogger('Notifier', 'notifier', 'email', 'sendConfirmationEmail', User::email(Helper::userId()), 'to:' . $email);
     }
 
     public static function sendSMS($message, $phone, $service_id){
@@ -280,8 +316,6 @@ class Notifier extends Eloquent{
     }
 
     public static function sendAndroid($device_token, $message, $title = "FeatherQ", $subtitle = null){
-        $registrationIds = array($device_token);
-
         // prep the bundle
         $msg = array
         (
@@ -295,8 +329,8 @@ class Notifier extends Eloquent{
 
         $fields = array
         (
-            'registration_ids'  => $registrationIds,
-            'data'              => $msg
+            'to'                => $device_token,
+            'data'              => $msg,
         );
 
         $headers = array
@@ -306,7 +340,7 @@ class Notifier extends Eloquent{
         );
 
         $ch = curl_init();
-        curl_setopt( $ch,CURLOPT_URL, 'https://android.googleapis.com/gcm/send' );
+        curl_setopt( $ch,CURLOPT_URL, 'https://gcm-http.googleapis.com/gcm/send' );
         curl_setopt( $ch,CURLOPT_POST, true );
         curl_setopt( $ch,CURLOPT_HTTPHEADER, $headers );
         curl_setopt( $ch,CURLOPT_RETURNTRANSFER, true );

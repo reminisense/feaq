@@ -62,9 +62,17 @@ class Business extends Eloquent
         return Business::where('raw_code', '=', $raw_code)->select(array('business_id'))->first()->business_id;
     }
 
+    public static function getBusinessIdByVanityURL($vanity_url = '') {
+        return Business::where('vanity_url', '=', $vanity_url)->select(array('business_id'))->first()->business_id;
+    }
+
     public static function getRawCodeByBusinessId($business_id)
     {
         return Business::where('business_id', '=', $business_id)->select(array('raw_code'))->first()->raw_code;
+    }
+
+    public static function businessWithVanityURLExists($vanity_url) {
+        return Business::where('vanity_url', '=', $vanity_url)->exists();
     }
 
     /** functions to get the Business name **/
@@ -91,6 +99,19 @@ class Business extends Eloquent
     public static function getBusinessIdByServiceId($service_id)
     {
         return Branch::businessId(Service::branchId($service_id));
+    }
+
+    public static function getVanityURLByBusinessId($business_id) {
+        return Business::where('business_id', '=', $business_id)->select(array('vanity_url'))->first()->vanity_url;
+    }
+    
+    public static function getVanityURLByRawCode($raw_code) {
+        return Business::where('raw_code', '=', $raw_code)->select(array('vanity_url'))->first()->vanity_url;
+    }
+
+    public static function saveVanityURL($business_id, $vanity_url){
+        Business::where('business_id', '=', $business_id)->update(['vanity_url' => $vanity_url]);
+        Helper::dbLogger('Business', 'business', 'update', 'saveVanityURL', User::email(Helper::userId()), 'business_id:' . $business_id . ', vanity_url:' . $vanity_url);
     }
 
     public static function getBusinessDetails($business_id)
@@ -125,6 +146,9 @@ class Business extends Eloquent
             'input_sms_field' => QueueSettings::inputSmsField($first_service->service_id),
             'allow_remote' => QueueSettings::allowRemote($first_service->service_id),
             'remote_limit' => QueueSettings::remoteLimit($first_service->service_id),
+            'remote_time' => QueueSettings::remoteTime($first_service->service_id),
+            'process_queue_layout' => QueueSettings::processQueueLayout($first_service->service_id),
+            'check_in_display' => QueueSettings::checkInDisplay($first_service->service_id),
             'terminals' => $terminals,
             'services' => $services,
             'analytics' => $analytics,
@@ -132,6 +156,8 @@ class Business extends Eloquent
             'sms_gateway' => QueueSettings::smsGateway($first_service->service_id),
             'allowed_businesses' => Business::getForwardingAllowedBusinesses($business_id),
             'raw_code' => $business->raw_code,
+            'business_features' => unserialize($business->business_features),
+            'custom_url' => $business->vanity_url,
         ];
 
 
@@ -275,6 +301,8 @@ class Business extends Eloquent
 
         // PAG delete also the json file
         unlink(public_path() . '/json/' . $business_id . '.json');
+
+        Helper::dbLogger('Business', 'business', 'delete', 'deleteBusinessByBusinessId', User::email(Helper::userId()), 'business_id:' . $business_id);
     }
 
     /*
@@ -550,8 +578,7 @@ class Business extends Eloquent
       */
 
       // will be using Aunne's data from process queue to determine if the business is active or inactive
-      $first_service = Service::getFirstServiceOfBusiness($business_id);
-      $all_numbers = ProcessQueue::allNumbers($first_service->service_id);
+      $all_numbers = ProcessQueue::businessAllNumbers($business_id);
       $is_calling = count($all_numbers->called_numbers) > 0 ? true : false;
       $is_issuing = count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? true : false;
       return $is_calling || $is_issuing;
@@ -559,6 +586,10 @@ class Business extends Eloquent
 
     public static function getBusinessIdByName($business_name){
         return Business::where('name', $business_name)->get();
+    }
+
+    public static function getByLikeName($business_name){
+        return Business::where('name', 'LIKE', '%' . $business_name . '%')->get();
     }
 
     public static function getBusinessByRange($start_date, $end_date){
@@ -585,6 +616,7 @@ class Business extends Eloquent
 
     public static function saveBusinessFeatures($business_id, $features = array()){
         Business::where('business_id', '=', $business_id)->update(['business_features' => serialize($features)]);
+        Helper::dbLogger('Business', 'business', 'update', 'saveBusinessFeatures', User::email(Helper::userId()), 'business_id:' . $business_id);
     }
 
     public static function getBusinessFeatures($business_id){
@@ -602,23 +634,43 @@ class Business extends Eloquent
      * @return mixed
      */
     public static function getForwardingAllowedBusinesses($business_id){
-        return DB::table('queue_forward_permissions')
+        $my_business = Business::where('business_id', '=', $business_id)
+            ->select('business.business_id', 'business.name')
+            ->first();
+
+        $allowed_businesses = DB::table('queue_forward_permissions')
             ->where('queue_forward_permissions.business_id', '=', $business_id)
             ->join('business', 'business.business_id', '=', 'queue_forward_permissions.forwarder_id')
             ->select('business.business_id', 'business.name')
             ->get();
+        array_push($allowed_businesses, $my_business);
+        return $allowed_businesses;
     }
 
-    public static function getForwarderAllowedBusinesses($business_id){
-        return DB::table('queue_forward_permissions')
+    public static function getForwarderAllowedServices($business_id){
+        $my_services = Business::where('business.business_id', '=', $business_id)
+            ->join('branch', 'branch.business_id', '=', 'business.business_id')
+            ->join('service', 'service.branch_id', '=', 'branch.branch_id')
+            ->select('business.business_id', 'business.name')
+            ->select('business.business_id', 'business.name', 'branch.branch_id', 'service.service_id', 'service.name as service_name')
+            ->get()->toArray();
+
+        $allowed_services = DB::table('queue_forward_permissions')
             ->where('queue_forward_permissions.forwarder_id', '=', $business_id)
             ->join('business', 'business.business_id', '=', 'queue_forward_permissions.business_id')
-            ->select('business.business_id', 'business.name')
+            ->join('branch', 'branch.business_id', '=', 'business.business_id')
+            ->join('service', 'service.branch_id', '=', 'branch.branch_id')
+            ->select('business.business_id', 'business.name', 'branch.branch_id', 'service.service_id', 'service.name as service_name')
             ->get();
+
+        return array_merge($allowed_services, $my_services);
     }
 
     public static function getForwarderAllowedInBusiness($business_id, $forwarder_id){
-        return DB::table('queue_forward_permissions')->where('business_id', '=', $business_id)->where('forwarder_id', '=', $forwarder_id)->first();
+        return $business_id == $forwarder_id || DB::table('queue_forward_permissions')
+            ->where('business_id', '=', $business_id)
+            ->where('forwarder_id', '=', $forwarder_id)
+            ->first();
     }
 
     public static function getKeywordsByBusinessId($business_id){
@@ -632,6 +684,29 @@ class Business extends Eloquent
 
     public static function getIndustryKeywords($industry){
         return isset(Business::$keywords[$industry]) ? Business::$keywords[$industry] : [];
+    }
+
+    public static function getCustomFieldsDataByBusinessId($business_id){
+
+        $result = Business::where('business.business_id', '=', $business_id)
+            ->join('branch', 'branch.business_id', '=', 'business.business_id')
+            ->join('service', 'service.branch_id', '=', 'branch.branch_id')
+            ->join('priority_number', 'priority_number.service_id','=','service.service_id')
+            ->join('priority_queue', 'priority_queue.track_id', '=', 'priority_number.track_id')
+            ->whereIn('priority_queue.queue_platform',array('android','remote'))
+            ->selectRaw('
+                priority_queue.transaction_number,
+                priority_queue.priority_number,
+                priority_queue.confirmation_code,
+                priority_queue.name,
+                priority_queue.phone,
+                priority_queue.email,
+                priority_queue.custom_fields
+            ')
+            ->orderBy('priority_queue.transaction_number')
+            ->get();
+
+        return $result;
     }
 
     private static $keywords = [

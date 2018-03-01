@@ -6,6 +6,8 @@ var timeoutfunc;
 
 //load functions
 $(document).ready(function(){
+    $(".datepicker").datepicker({ dateFormat: 'mm-dd-yy' });
+
     pq.jquery_functions.load_switch_tabs();
     pq.jquery_functions.load_select_number();
     pq.jquery_functions.load_default_navbar_link();
@@ -15,12 +17,25 @@ $(document).ready(function(){
 
     $(document).on('click', '#forward-btn', function(e){
         e.preventDefault();
-        business_id = $('#allowed-businesses').val();
+        service_id = $('#allowed-businesses').val();
         transaction_number = $('#priority-number-modal').attr('data-transaction-number');
         process_queue_scope = angular.element($("#process-queue-wrapper")).scope();
-        process_queue_scope.issueToOther(business_id, transaction_number);
+        process_queue_scope.issueToOther(service_id, transaction_number);
     });
 
+    /*add box cards animation*/
+    $('.box a.removeCard').on('click', function() {
+        $(this).parents('.box').remove();
+        $('.box-wrap').isotope({ layoutMode : 'fitRows' });
+    });
+
+    //$('.box-wrap').isotope({
+    //    itemSelector : '.box'
+    //});
+
+    $('.date-today').on('click', function(){
+        $('.datepicker').datepicker('show');
+    });
 });
 
 //these functions and variables are separated since they are using jquery
@@ -71,7 +86,10 @@ var pq = {
                     $(this).attr('data-pnumber'),
                     $(this).attr('data-name'),
                     $(this).attr('data-email'),
-                    $(this).attr('data-phone')
+                    $(this).attr('data-phone'),
+                    $(this).attr('data-form_records'),
+                    $(this).attr('data-queue_platform'),
+                    $(this).attr('data-checked_in')
                 );
                 $('#btn-call').removeAttr('disabled');
             });
@@ -82,7 +100,6 @@ var pq = {
             $('#message-inbox').removeClass('active');
             $('#my-business').addClass('active');
         },
-
         load_show_modal : function(){
             process_queue = angular.element($("#process-queue-wrapper")).scope();
             issue_number_modal = angular.element($("#moreq")).scope();
@@ -111,21 +128,43 @@ var pq = {
                 name = $(this).attr('data-name') ? $(this).attr('data-name') : 'Not specified';
                 phone = $(this).attr('data-phone') ? $(this).attr('data-phone') : 'Not specified';
                 email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
+                forms_record = $(this).data('form_records') ? $(this).data('form_records') : null;
                 priority_number = $(this).attr('data-priority-number');
                 transaction_number = $(this).attr('data-transaction-number');
-
-                if(transaction_number == undefined){
-                    $('#allowed-businesses-area').hide();
-                }else{
-                    $('#allowed-businesses-area').show();
-                }
+                confirmation_code = $(this).attr('data-confirmation-code');
 
                 $('#priority-number-modal .modal-title').html('#' + priority_number);
                 $('#priority-number-number').html(priority_number);
+                $('#priority-number-confirmation-code').html(confirmation_code);
                 $('#priority-number-name').html(name);
                 $('#priority-number-phone').html(phone);
                 $('#priority-number-email').html(email);
                 $('#priority-number-modal').attr('data-transaction-number', transaction_number);
+
+                user_name = name;
+
+                if(forms_record.length > 0){
+
+                    for(var i = 0; i < forms_record.length; i++){
+                        $('.priority-number-custom-fields').append('<div><h4>'+forms_record[i].form_name+'</h4></div>');
+                        var forms_data = forms_record[i].form_data;
+                        for(var key in forms_data) {
+                            $('.priority-number-custom-fields').append('<div class="col-md-4 col-xs-4"><h5>'+key+': </h5></div>'+
+                            '<div class="col-md-8 col-xs-8"><h5>'+forms_data[key]+'</h5></div>');
+                        }
+                    }
+                }
+
+                $('#priority-number-modal .modal-body ul .details a').trigger('click');
+
+                process_queue = angular.element($("#process-queue-wrapper")).scope();
+                process_queue.getAllowedBusinesses();
+
+                $('#priority-number-modal-close').hide();
+                $('#allowed-businesses').removeAttr('disabled');
+                $('#forward-btn').show();
+                $('#forward-success').hide();
+                $('#forward-success').html('');
 
             });
 
@@ -135,23 +174,115 @@ var pq = {
                 name = $(this).attr('data-name') ? $(this).attr('data-name') : 'Not specified';
                 phone = $(this).attr('data-phone') ? $(this).attr('data-phone') : 'Not specified';
                 email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
+                form_records = $(this).data('forms_data') ? $(this).data('forms_data') : null;
                 priority_number = $(this).attr('data-priority-number');
                 transaction_number = $(this).attr('data-transaction-number');
-
-                if(transaction_number == undefined){
-                    $('#allowed-businesses-area').hide();
-                }else{
-                    $('#allowed-businesses-area').show();
-                }
+                confirmation_code = $(this).attr('data-confirmation-code');
 
                 $('#priority-number-modal .modal-title').html('#' + priority_number);
                 $('#priority-number-number').html(priority_number);
+                $('#priority-number-confirmation-code').html(confirmation_code);
                 $('#priority-number-name').html(name);
                 $('#priority-number-phone').html(phone);
                 $('#priority-number-email').html(email);
                 $('#priority-number-modal').attr('data-transaction-number', transaction_number);
 
+
+                if(forms_record.length > 0){
+
+                    for(var i = 0; i < forms_record.length; i++){
+                        $('.priority-number-custom-fields').append('<div><h4>'+forms_record[i].form_name+'</h4></div>');
+                        var forms_data = forms_record[i].form_data;
+                        for(var key in forms_data) {
+                            $('.priority-number-custom-fields').append('<div class="col-md-4 col-xs-4"><h5>'+key+': </h5></div>'+
+                            '<div class="col-md-8 col-xs-8"><h5>'+forms_data[key]+'</h5></div>');
+                        }
+                    }
+                }
+
+
                 $('#priority-number-modal .modal-body #pmore-tab .messages a').trigger('click');
+            });
+
+            // Redesign functions
+            $('body').on('click', '.priority-number-forward', function(e){
+                e.preventDefault();
+                pq.jquery_functions.clear_pnumber_modal();
+                name = $(this).attr('data-name') ? $(this).attr('data-name') : 'Not specified';
+                phone = $(this).attr('data-phone') ? $(this).attr('data-phone') : 'Not specified';
+                email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
+                form_records = $(this).data('form_records') ? $(this).data('form_records') : null;
+                priority_number = $(this).attr('data-priority-number');
+                transaction_number = $(this).attr('data-transaction-number');
+                confirmation_code = $(this).attr('data-confirmation-code');
+
+                $('#priority-number-modal .modal-title').html('#' + priority_number);
+                $('#priority-number-number').html(priority_number);
+                $('#priority-number-confirmation-code').html(confirmation_code);
+                $('#priority-number-name').html(name);
+                $('#priority-number-phone').html(phone);
+                $('#priority-number-email').html(email);
+                $('#priority-number-modal').attr('data-transaction-number', transaction_number);
+
+                if(forms_record.length > 0){
+
+                    for(var i = 0; i < forms_record.length; i++){
+                        $('.priority-number-custom-fields').append('<div><h4>'+forms_record[i].form_name+'</h4></div>');
+                        var forms_data = forms_record[i].form_data;
+                        for(var key in forms_data) {
+                            $('.priority-number-custom-fields').append('<div class="col-md-4 col-xs-4"><h5>'+key+': </h5></div>'+
+                            '<div class="col-md-8 col-xs-8"><h5>'+forms_data[key]+'</h5></div>');
+                        }
+                    }
+                }
+
+                $('#priority-number-modal .modal-body ul .details a').trigger('click');
+
+                process_queue = angular.element($("#process-queue-wrapper")).scope();
+                process_queue.getAllowedBusinesses();
+
+                $('#priority-number-modal-close').hide();
+                $('#allowed-businesses').removeAttr('disabled');
+                $('#forward-btn').show();
+                $('#forward-success').hide();
+                $('#forward-success').html('');
+
+            });
+
+            $('body').on('click', '.priority-number-details', function(e){
+                e.preventDefault();
+                pq.jquery_functions.clear_pnumber_modal();
+                name = $(this).attr('data-name') ? $(this).attr('data-name') : 'Not specified';
+                phone = $(this).attr('data-phone') ? $(this).attr('data-phone') : 'Not specified';
+                email = $(this).attr('data-email') ? $(this).attr('data-email') : 'Not specified';
+                form_records = $(this).data('form_records') ? $(this).data('form_records') : null;
+                priority_number = $(this).attr('data-priority-number');
+                transaction_number = $(this).attr('data-transaction-number');
+                confirmation_code = $(this).attr('data-confirmation-code');
+                $('#priority-number-modal .modal-title').html('#' + priority_number);
+                $('#priority-number-number').html(priority_number);
+                $('#priority-number-confirmation-code').html(confirmation_code);
+                $('#priority-number-name').html(name);
+                $('#priority-number-phone').html(phone);
+                $('#priority-number-email').html(email);
+                $('#priority-number-modal').attr('data-transaction-number', transaction_number);
+
+                if(forms_record.length > 0){
+
+                    for(var i = 0; i < forms_record.length; i++){
+                        $('.priority-number-custom-fields').append('<div><h4>'+forms_record[i].form_name+'</h4></div>');
+                        var forms_data = forms_record[i].form_data;
+                        for(var key in forms_data) {
+                            $('.priority-number-custom-fields').append('<div class="col-md-4 col-xs-4"><h5>'+key+': </h5></div>'+
+                            '<div class="col-md-8 col-xs-8"><h5>'+forms_data[key]+'</h5></div>');
+                        }
+                    }
+                }
+
+                $('#allowed-businesses option').remove();
+                $('#allowed-businesses-area').hide();
+
+                $('#priority-number-modal .modal-body ul .details a').trigger('click');
             });
         },
 
@@ -167,6 +298,7 @@ var pq = {
             $('#priority-number-name').html('');
             $('#priority-number-phone').html('');
             $('#priority-number-email').html('');
+            $('.priority-number-custom-fields').html('');
         },
 
         remove_and_update_dropdown : function(transaction_number){
@@ -181,33 +313,61 @@ var pq = {
             });
         },
 
-        select_number : function(tnumber, pnumber, username, email, phone){
+        select_number : function(tnumber, pnumber, username, email, phone, form_records, queue_platform, checked_in){
             username = username != undefined ? username : '';
-
+            queue_platform = queue_platform != undefined ? queue_platform : '';
+            checked_in = checked_in != undefined ? checked_in : false;
             //ARA add priority number and
-            var userinfo = '<span ' +
+            var userinfo = '';
+
+
+            userinfo += '<span ' +
                 'class="pull-right user-info show-messages" ' +
                 'style="margin-right: 20px; z-index: 99999" ' +
                 'title="Number: ' + pnumber + '" ' +
                 'data-priority-number="' + pnumber + '" ' +
                 'data-name="' + username + '" ' +
-                'data-phone="' + phone + '" ' +
                 'data-email="' + email + '" ' +
+                'data-phone="' + phone + '" ' +
+                'data-form_records="' + form_records + '" ' +
                 'data-toggle="modal" ' +
                 'data-target="#priority-number-modal"' +
                 '>';
             userinfo += '<a href="#">';
-            userinfo += username != undefined? '<span>' + username + ' </span>' : '';
+            userinfo += username != undefined ? '<span>' + username + ' </span>' : '';
             userinfo += '</a>';
             userinfo += '</span>';
 
+            if((checked_in == "true" || checked_in == true) && queue_platform == 'remote'){
+                userinfo += '<span><small class="c-status pull-right mr5 checkedin font-normal">checked in</small><span class="dpq-icons pull-right checkedin glyphicon glyphicon-ok"></span></span>';
+            }else if((checked_in == "false" || checked_in == false) && queue_platform == 'remote'){
+                userinfo += '<span><small class="c-status pull-right mr5 font-normal notcheckedin">not checked in</small><span class="notcheckedin dpq-icons pull-right glyphicon glyphicon-remove"></span></span>';
+            }else{
+                userinfo += '';
+            }
+
+
             $('#selected-tnumber').val(tnumber);
-            $('#selected-pnumber').html(pnumber);
+            $('#selected-pnumber').html( queue_platform != 'web' ? pnumber + ' <small class="font-normal"> via <span style="text-transform:capitalize;">' + queue_platform + '</span></small>' : pnumber);
             $('#selected-userinfo').html(userinfo);
         },
 
         select_next_number : function(){
-            $('#uncalled-numbers li:first-child').trigger('click');
+            var count = $( "#uncalled-numbers li" ).length;
+            $( "#uncalled-numbers li" ).each(function( index ) {
+                var checked_in = $('#uncalled-numbers li:nth-child('+(index + 1)+')').attr('data-checked_in');
+                var queue_platform = $('#uncalled-numbers li:nth-child('+(index + 1)+')').attr('data-queue_platform');
+               if(queue_platform == 'remote'){
+                    if(checked_in == 'true' || count == 1){
+                        $('#uncalled-numbers li:nth-child('+(index + 1)+')').trigger('click');
+                        return false;
+                    }
+                }else{
+                    $('#uncalled-numbers li:nth-child('+(index + 1)+')').trigger('click');
+                   return false;
+               }
+            });
+
         },
 
         remove_from_dropdown : function(transaction_number){
@@ -276,6 +436,8 @@ var pq = {
             process_queue = angular.element($("#process-queue-wrapper")).scope();
             issue_number = angular.element($("#moreq")).scope();
             issue_number.$apply(function(){
+                issue_number.number_prefix = process_queue.number_prefix;
+                issue_number.number_suffix = process_queue.number_suffix;
                 issue_number.priority_number = process_queue.next_number;
                 issue_number.number_start = process_queue.next_number;
                 issue_number.number_end = process_queue.next_number;
@@ -285,7 +447,7 @@ var pq = {
         set_next_number_placeholder : function(next_number){
             $('#moreq form input[name=priority_number]').attr('placeholder', next_number);
             $('#moreq form input[name=number_start]').attr('placeholder', next_number);
-            $('#issue-call-number').attr('placeholder', next_number);
+            $('.issue-call-number').attr('placeholder', next_number);
         },
 
         send_pq_websocket_data : function(data){
@@ -296,7 +458,29 @@ var pq = {
             data.service_id = pq.ids.service_id;
             data.terminal_id = pq.ids.terminal_id;
             pq_websocket.send(JSON.stringify(data));
-        }
+        },
+
+        getMonthString : function(month){
+            switch(month){
+                case '01': return 'January'; break;
+                case '02': return 'February'; break;
+                case '03': return 'March'; break;
+                case '04': return 'April'; break;
+                case '05': return 'May'; break;
+                case '06': return 'June'; break;
+                case '07': return 'July'; break;
+                case '08': return 'August'; break;
+                case '09': return 'September'; break;
+                case '10': return 'October'; break;
+                case '11': return 'November'; break;
+                case '12': return 'December'; break;
+            }
+        },
+
+        converDateToString : function(date){
+            date_array = date.split('-');
+            return pq.jquery_functions.getMonthString(date_array[0]) + ' ' + date_array[1] + ', ' + date_array[2];
+        },
     }
 };
 

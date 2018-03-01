@@ -33,6 +33,14 @@
             height: 740px;
         }
         #who-uses h5 {margin-bottom: 60px;}
+        .pricing #banner {
+            height: 1400px!important;
+            background: none;
+            background-color: #dd781c!important;
+        }
+        table#pricing td {
+            text-align: right!important;
+        }
     }
 
     @media only screen and (max-width : 768px) {
@@ -48,6 +56,13 @@
         }
         #featherq-features img {
             margin: auto;
+        }
+        .table-responsive>.table>tbody>tr>td, .table-responsive>.table>tbody>tr>th, .table-responsive>.table>tfoot>tr>td, .table-responsive>.table>tfoot>tr>th, .table-responsive>.table>thead>tr>td, .table-responsive>.table>thead>tr>th {
+            white-space: inherit!important;
+        }
+        .pricing table td .btn {
+            padding: 12px 20px!important;
+            margin: 10px 0!important;
         }
     }
 
@@ -96,6 +111,7 @@
         #contact-us #contact-number {
             margin-bottom: 50px;
         }
+
     }
 
     @media only screen and (max-width : 320px) {

@@ -10,7 +10,7 @@
                 <form id="update_user_form" class="clearfix" action="/user/update-user" method="post">
                     <input type="hidden" class="user_id" name="user_id" value="" />
                     <div class="form-group">
-                        <div class="col-md-6 has-warning">
+                        <div class="col-md-6">
                             <label>First Name</label>
                             <input type="text" class=" form-control modal-input" id="edit_first_name" name="edit_first_name" required />
                         </div>
@@ -29,6 +29,9 @@
                         <div class="col-md-12">
                             <label>Location</label>
                             <input type="text" class=" form-control modal-input" id="edit_user_location" name="edit_user_location" autocomplete="off" required=""/>
+                        </div>
+                        <div class="col-md-12">
+                            <a href="{{ url('/user/password-reset/' . $user_code ) }}">Reset Password</a>
                         </div>
                     </div>
                 </form>

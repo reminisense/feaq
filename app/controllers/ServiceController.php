@@ -32,20 +32,38 @@ class ServiceController extends Controller{
 
     //create service
     public function postIndex(){
-        $service_id = Service::createBusinessService(Input::get('business_id'), Input::get('name'));
-        return json_encode(['service_id' => $service_id]);
+        if(Service::businessServiceNameExists(Input::get('name'), Input::get('business_id'))){
+            return json_encode(['error' => 'Service name already exists']);
+        }else{
+            $service_id = Service::createBusinessService(Input::get('business_id'), Input::get('name'));
+            return json_encode(['service_id' => $service_id]);
+        }
     }
 
     //update service
     public function putIndex($service_id){
-        Service::updateServiceName($service_id, Input::get('name'));
-        return json_encode(['success' => 1]);
+        if(Service::serviceNameExists(Input::get('name'), $service_id)){
+            return json_encode(['error' => 'Service name already exists']);
+        }else{
+            Service::updateServiceName($service_id, Input::get('name'));
+            return json_encode(['success' => 1]);
+        }
     }
 
     //delete service
     public function deleteIndex($service_id){
-        Service::deleteService($service_id);
-        return json_encode(['success' => 1]);
+        $terminals = Terminal::getTerminalsByServiceId($service_id);
+        $delete = true;
+        foreach($terminals as $terminal){
+            $delete = TerminalTransaction::terminalActiveNumbers($terminal['terminal_id']) == 0 ? $delete : false;
+        }
+
+        if($delete){
+            Service::deleteService($service_id);
+            return json_encode(['success' => 1]);
+        }else{
+            return json_encode(['error' => 'There are still active numbers for this service.']);
+        }
     }
 
 }

@@ -127,6 +127,9 @@ return array(
         'Barryvdh\DomPDF\ServiceProvider',
 		'Davibennun\LaravelPushNotification\LaravelPushNotificationServiceProvider',
 
+        'Way\Generators\GeneratorsServiceProvider',
+        'Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider',
+
 	),
 
 	/*

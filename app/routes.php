@@ -15,6 +15,8 @@ Route::post('/', 'UserController@processContactForm');
 
 Route::get('rest/register-user/{fb_id}/{first_name}/{last_name}/{email}/{gender}/{phone}/{country}', 'RestController@getRegisterUser');
 
+Route::get('forms/business/{business_id}', 'FormsController@getBusinessData');
+
 Route::controller('fb', 'FBController');
 
 Route::controller('processqueue', 'ProcessQueueController');
@@ -57,7 +59,13 @@ Route::controller('articles', 'ContentController');
 
 Route::controller('how-to', 'ContentController');
 
+Route::get('privacy', 'ContentController@getPrivacy');
+
 Route::controller('test', 'TestController');
+
+Route::controller('mobile', 'MobileController');
+
+Route::controller('list', 'BusinessListController');
 
 //services methods
 Route::get('services/{id}', 'ServiceController@getIndex');
@@ -73,3 +81,6 @@ Route::get('/{raw_code?}', 'UserController@getUserDashboard');
 
 // localization testing
 Route::get('/lang/{lang?}', 'TestController@testLocale');
+Route::controller('records', 'FormRecordController');
+
+Route::controller('api', 'FreeApiController');

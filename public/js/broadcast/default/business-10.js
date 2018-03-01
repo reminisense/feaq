@@ -5,16 +5,39 @@ app.controller('nowServingCtrl', function($scope, $http) {
   establishSocketConnection($scope, $http, business_id);
 
   $scope.updateBroadcastPage = (function(response) {
-    announceNumber($scope, response, 'rank1', 'box1', 'name1', 'service1');
-    announceNumber($scope, response, 'rank2', 'box2', 'name2', 'service2');
-    announceNumber($scope, response, 'rank3', 'box3', 'name3', 'service3');
-    announceNumber($scope, response, 'rank4', 'box4', 'name4', 'service4');
-    announceNumber($scope, response, 'rank5', 'box5', 'name5', 'service5');
-    announceNumber($scope, response, 'rank6', 'box6', 'name6', 'service6');
-    announceNumber($scope, response, 'rank7', 'box7', 'name7', 'service7');
-    announceNumber($scope, response, 'rank8', 'box8', 'name8', 'service8');
-    announceNumber($scope, response, 'rank9', 'box9', 'name9', 'service9');
-    announceNumber($scope, response, 'rank10', 'box10', 'name10', 'service10');
+    if (typeof sessionStorage.service_id != "undefined" && sessionStorage.service_id != "0") {
+      response = response["services"][sessionStorage.service_id];
+      $('#callednums-title').text(sessionStorage.service_name);
+      $('.wrap-nums .service').hide();
+      $('#business-queue-now').hide();
+      $('#service-queue-now').show();
+      $('#broadcast-spec').attr('class', sessionStorage.broadcast_spec);
+      var percentage_val = $('#percentage').attr('percentage');
+      if (percentage_val == '20') {
+        $('#parent-num-spec').attr('class', 'parent-num ten-nums');
+      }
+    }
+    else if (typeof sessionStorage.terminal_id != "undefined" && sessionStorage.terminal_id != "0") {
+      response = response["terminals"][sessionStorage.terminal_id];
+      $('#callednums-title').text(sessionStorage.service_name + " - " + sessionStorage.terminal_name);
+      $('.wrap-nums .service').hide();
+      $('.wrap-nums .terminal').hide();
+      $('#business-queue-now').hide();
+      $('#service-queue-now').show();
+      $('#broadcast-spec').attr('class', sessionStorage.broadcast_spec);
+    }
+    console.log(response);
+
+    announceNumber($scope, response, 'rank1', 'box1', 'name1', 'service1', 'color1', 'user1');
+    announceNumber($scope, response, 'rank2', 'box2', 'name2', 'service2', 'color2', 'user2');
+    announceNumber($scope, response, 'rank3', 'box3', 'name3', 'service3', 'color3', 'user3');
+    announceNumber($scope, response, 'rank4', 'box4', 'name4', 'service4', 'color4', 'user4');
+    announceNumber($scope, response, 'rank5', 'box5', 'name5', 'service5', 'color5', 'user5');
+    announceNumber($scope, response, 'rank6', 'box6', 'name6', 'service6', 'color6', 'user6');
+    announceNumber($scope, response, 'rank7', 'box7', 'name7', 'service7', 'color7', 'user7');
+    announceNumber($scope, response, 'rank8', 'box8', 'name8', 'service8', 'color8', 'user8');
+    announceNumber($scope, response, 'rank9', 'box9', 'name9', 'service9', 'color9', 'user9');
+    announceNumber($scope, response, 'rank10', 'box10', 'name10', 'service10', 'color10', 'user10');
 
     announceNumberFromBlank($scope, response, 'box1', 'rank1');
     announceNumberFromBlank($scope, response, 'box2', 'rank2');
@@ -27,15 +50,17 @@ app.controller('nowServingCtrl', function($scope, $http) {
     announceNumberFromBlank($scope, response, 'box9', 'rank9');
     announceNumberFromBlank($scope, response, 'box10', 'rank10');
 
-    writeNumber($scope, response, 'box1', 'service1');
-    writeNumber($scope, response, 'box2', 'service2');
-    writeNumber($scope, response, 'box3', 'service3');
-    writeNumber($scope, response, 'box4', 'service4');
-    writeNumber($scope, response, 'box5', 'service5');
-    writeNumber($scope, response, 'box6', 'service6');
-    writeNumber($scope, response, 'box7', 'service7');
-    writeNumber($scope, response, 'box8', 'service8');
-    writeNumber($scope, response, 'box9', 'service9');
-    writeNumber($scope, response, 'box10', 'service10');
+    writeNumber($scope, response, 'box1', 'service1', 'user1', 'color1');
+    writeNumber($scope, response, 'box2', 'service2', 'user2', 'color2');
+    writeNumber($scope, response, 'box3', 'service3', 'user3', 'color3');
+    writeNumber($scope, response, 'box4', 'service4', 'user4', 'color4');
+    writeNumber($scope, response, 'box5', 'service5', 'user5', 'color5');
+    writeNumber($scope, response, 'box6', 'service6', 'user6', 'color6');
+    writeNumber($scope, response, 'box7', 'service7', 'user7', 'color7');
+    writeNumber($scope, response, 'box8', 'service8', 'user8', 'color8');
+    writeNumber($scope, response, 'box9', 'service9', 'user9', 'color9');
+    writeNumber($scope, response, 'box10', 'service10', 'user10', 'color10');
+
+    writeQueueNow($scope, response);
   });
 });

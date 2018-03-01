@@ -8,6 +8,22 @@
 
 class RestController extends BaseController {
 
+    public function __construct() {
+        $this->beforeFilter('@grantAccess');
+    }
+
+  public function grantAccess($route, $request) {
+    if ($request->path() != 'rest/register-user') {
+      $auth_token = Request::header('Authorization');
+      if (!User::getValidateToken($auth_token) || !$auth_token) {
+        return Response::json(array(
+          'msg' => 'Your access token is not valid.',
+          'status' => 403,
+        ));
+      }
+    }
+  }
+
     /**
      * @author Ruffy
      * @param null $quantity when User wants to specify how many to return
@@ -246,6 +262,7 @@ class RestController extends BaseController {
         unset($numbers['carousel_delay']);
         unset($numbers['adspace_size']);
         unset($numbers['numspace_size']);
+        unset($numbers['num_boxes']);
 
         foreach($numbers as $key => $box_data) {
             // generate object attribute
@@ -279,6 +296,22 @@ class RestController extends BaseController {
         User::saveFBDetails($data);
 //        Auth::loginUsingId(User::getUserIdByFbId($data['fb_id']));
         return json_encode(array('success' => $data['fb_id']));
+    }
+
+    public function postRegisterUser() {
+        $data = array(
+            'fb_id' => Input::get('fb_id'),
+            'fb_url' => 'https://www.facebook.com/app_scoped_user_id/' . Input::get('fb_id') . '/', // https://www.facebook.com/app_scoped_user_id/1438888283100110/
+            'first_name' => Input::get('first_name'),
+            'last_name' => Input::get('last_name'),
+            'email' => Input::get('email'),
+            'gender' => Input::get('gender'),
+            'phone' => Input::get('phone'),
+            'country' => Input::get('country'),
+        );
+        User::saveFBDetails($data);
+        UserDevice::saveDeviceToken(Input::get('device_token'), Input::get('device_type'), Input::get('fb_id'));
+        return json_encode(array('status' => 200, 'msg' => 'OK'));
     }
 
     /**
@@ -344,6 +377,7 @@ class RestController extends BaseController {
             $business_id = Branch::businessId(Service::branchId($service_id));
 
             $details = [
+                'transaction_number' => $transaction_number,
                 'number_assigned' => $priority_number,
                 'business_id' => $business_id,
                 'business_name' => Business::name($business_id),
@@ -354,12 +388,13 @@ class RestController extends BaseController {
             ];
             }catch(Exception $e){
                 $details = [
+                    'transaction_number' => 0,
                     'number_assigned' => 0,
                     'business_id' => 0,
                     'business_name' => '',
                     'current_number_called' => 0,
                     'estimated_time_until_called' => 0,
-                    'status' => 'Error',
+                    'status' => 'None',
                     'allow_remote' => isset($allow_remote) ? $allow_remote : null,
                 ];
             }
@@ -390,6 +425,9 @@ class RestController extends BaseController {
                 $search_results[$index]->last_number_called = count($all_numbers->called_numbers) > 0 ? $all_numbers->called_numbers[0]['priority_number'] : 'none';
                 $search_results[$index]->next_available_number = $all_numbers->next_number;
                 $search_results[$index]->active = count($all_numbers->called_numbers) + count($all_numbers->uncalled_numbers) + count($all_numbers->timebound_numbers) > 0 ? 1: 0;
+
+                $dist = $this->getDistanceFromLatLonInKm(NULL, NULL, $business->latitude, $business->longitude);
+                $search_results[$index]->distance = $dist;
             }
 
         $found_business = array('search-result' => $search_results);
@@ -417,12 +455,13 @@ class RestController extends BaseController {
             $phone = User::phone($user_id);
             $email = User::email($user_id);
 
-            $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
+            $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id), QueueSettings::numberPrefix($service_id), QueueSettings::numberSuffix($service_id));
             $priority_number = $next_number;
             $queue_platform = 'android';
 
             $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, 0, $user_id);
             PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
+            if($email != ''){ Message::sendInitialMessage($business_id, $email, $name, $phone); }
 
             $details = [
                 'number_assigned' => $priority_number,
@@ -435,10 +474,64 @@ class RestController extends BaseController {
 
     }
 
+
+    /**
+     * ARA 03082016
+     * Queue To Service
+     * @param $facebook_id
+     * @param $service_id
+     * @return string
+     */
+    public function getQueueService($user_id, $service_id){
+        $user = User::where('user_id', '=', $user_id)->first();
+        if ($user) {
+            $business_id = Business::getBusinessIdByServiceId($service_id);
+            $name = User::full_name($user_id);
+            $phone = User::phone($user_id);
+            $email = User::email($user_id);
+
+            $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id), QueueSettings::numberPrefix($service_id), QueueSettings::numberSuffix($service_id));
+            $priority_number = $next_number;
+            $queue_platform = 'android';
+
+            if(($queue_platform == 'android' || $queue_platform == 'remote') && !QueueSettings::checkRemoteQueue($service_id)){
+                return json_encode([
+                  'status' => 404,
+                  'msg' => 'Remote queuing is not allowed as of this time.'
+                ]);
+            }
+//            elseif(($queue_platform == 'android' || $queue_platform == 'remote') && Helper::queueNumberExists($email)){
+//                return json_encode(['error' => 'You are only allowed to queue remotely once per day.']);
+//            }
+            else {
+                $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform, 0, $user_id);
+                PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
+                if ($email != '') {
+                    Message::sendInitialMessage($business_id, $email, $name, $phone);
+                }
+
+                $details = [
+                    'number_assigned' => $priority_number,
+                    'transaction_number' => $number['transaction_number'],
+                ];
+
+                return json_encode($details);
+            }
+        } else {
+            return json_encode(['error' => 'You are not registered to FeatherQ.']);
+        }
+    }
+
     public function getSendMessage($device_token = null, $message = null) {
-        PushNotification::app('featherqAndroid')
-            ->to($device_token)
-            ->send($message);
+//        PushNotification::app('featherqAndroid')
+//            ->to($device_token)
+//            ->send($message);
+
+        try{
+            return Notifier::sendAndroid($device_token, $message);
+        }catch(Exception $e){
+            return $e->getMessage();
+        }
     }
 
     public function getSendManual($device_token, $message, $title = "FeatherQ", $subtitle = null) {
@@ -590,9 +683,10 @@ class RestController extends BaseController {
             $estimated_time = Analytics::getWaitingTime($business_id);
             $service= Service::getFirstServiceOfBusiness($business_id);
             $remaining_queue_count = Analytics::getServiceRemainingCount($service->service_id);
-            $next_available_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service->service_id), QueueSettings::numberStart($service->service_id), QueueSettings::numberLimit($service->service_id));
+            $next_available_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service->service_id), QueueSettings::numberStart($service->service_id), QueueSettings::numberLimit($service->service_id), QueueSettings::numberPrefix($service->service_id), QueueSettings::numberSuffix($service->service_id));
 
             $details = [
+                'business_id' => $business_id,
                 'business_name' => $business_name,
                 'estimated_time' => $estimated_time,
                 'people_in_queue' => $remaining_queue_count,
@@ -601,6 +695,55 @@ class RestController extends BaseController {
 
             return Response::json($details, 200, array(), JSON_PRETTY_PRINT);
         }else{
+            return json_encode(['error' => 'Something went wrong!']);
+        }
+    }
+
+    /**
+     * @param $facebook_id
+     * @return JSON-formatted response of the business name, estimated time, people-in-queue and next number available .
+     */
+    public function getBusinessDetailsByFacebook($facebook_id)
+    {
+        try {
+            $user_id = User::getUserIdByFbId($facebook_id);
+        } catch (Exception $e) {
+            $user_id = null;
+        }
+
+        return getBusinessDetailsByUser($user_id);
+    }
+
+    /**
+     * @param $user_id
+     * @return JSON-formatted response of the business name, estimated time, people-in-queue and next number available .
+     */
+    public function getBusinessDetailsByUser($user_id) {
+        if ($user_id) {
+
+            $business_id = UserBusiness::getBusinessIdByOwner($user_id);
+            $business_name = Business::name($business_id);
+            $estimated_time = Analytics::getWaitingTime($business_id);
+
+            // $services
+            $services = Service::getServicesByBusinessId($business_id);
+            foreach($services as $service) {
+                $service_id = $service->service_id;
+                $rqc =  Analytics::getServiceRemainingCount($service_id);
+                $nam = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id), QueueSettings::numberPrefix($service_id), QueueSettings::numberSuffix($service_id));
+                $service['people_in_queue'] = $rqc;
+                $service['next_available_number'] = $nam;
+            }
+
+            $details = [
+                'business_id' => $business_id,
+                'business_name' => $business_name,
+                'estimated_time' => $estimated_time,
+                'services' => $services
+            ];
+
+            return Response::json($details, 200, array(), JSON_PRETTY_PRINT);
+        } else {
             return json_encode(['error' => 'Something went wrong!']);
         }
     }
@@ -616,12 +759,15 @@ class RestController extends BaseController {
     public function getQueueNumber($service_id, $name, $phone, $email) {
 
         try{
-            $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id));
+            $next_number = ProcessQueue::nextNumber(ProcessQueue::lastNumberGiven($service_id), QueueSettings::numberStart($service_id), QueueSettings::numberLimit($service_id), QueueSettings::numberPrefix($service_id), QueueSettings::numberSuffix($service_id));
             $priority_number = $next_number;
             $queue_platform = 'kiosk';
 
             $number = ProcessQueue::issueNumber($service_id, $priority_number, null, $queue_platform);
             PriorityQueue::updatePriorityQueueUser($number['transaction_number'], $name, $phone, $email);
+
+            $business_id = Business::getBusinessIdByServiceId($service_id);
+            if($email != ''){ Message::sendInitialMessage($business_id, $email, $name, $phone); }
 
             $details = [
                 'number_assigned' => $priority_number,
@@ -761,5 +907,68 @@ class RestController extends BaseController {
             ];
         }
         return Response::json(['transaction_stats' => $transaction_stats], 200, array(), JSON_PRETTY_PRINT);
+    }
+
+    /**
+     * Retrieves the business assignments of a given user.
+     * Used by desktop application.
+     * @author NMEnego
+     * @param $user_id
+     */
+    public function getBusinessAssignments($user_id) {
+        try {
+            $business_assignments = DB::table('terminal_user AS tu')
+                ->where('tu.user_id', '=', $user_id)
+                ->join('terminal AS t', 'tu.terminal_id', '=', 't.terminal_id')
+                ->join('service AS s', 't.service_id', '=', 's.service_id')
+                ->join('branch AS br', 's.branch_id', '=', 'br.business_id')
+                ->join('business AS b', 'br.branch_id', '=', 'b.business_id')
+                ->select(
+                    'tu.user_id AS user_id',
+                    't.terminal_id AS terminal_id',
+                    't.name AS terminal_name',
+                    's.service_id AS service_id',
+                    's.name AS service_name',
+                    'b.business_id AS business_id',
+                    'b.name AS business_name'
+                )->get();
+        } catch (Exception $e) {
+            return Response::json(['error' => $e->getMessage()], 200, array(), JSON_PRETTY_PRINT);
+        }
+        return Response::json($business_assignments, 200, array(), JSON_PRETTY_PRINT);
+    }
+
+    /**
+     * Mark $transaction_number as served.
+     * @author NMEnego
+     * @return string
+     */
+    public function postServeNumber()
+    {
+        $transaction_number = Input::get('transaction_number');
+        $terminal_id = Input::get('terminal_id');
+        $user_id = Input::get('user_id');
+        try {
+            return ProcessQueue::processNumber($transaction_number, 'serve', $terminal_id, $user_id);
+        } catch (Exception $e) {
+            return json_encode(['error' => $e->getMessage()]);
+        }
+    }
+
+    /**
+     * Mark a $transaction_number as dropped.
+     * @author NMEnego
+     * @return string
+     */
+    public function postDropNumber()
+    {
+        $transaction_number = Input::get('transaction_number');
+        $terminal_id = Input::get('terminal_id');
+        $user_id = Input::get('user_id');
+        try {
+            return ProcessQueue::processNumber($transaction_number, 'remove', $terminal_id, $user_id);
+        } catch (Exception $e) {
+            return json_encode(['error' => $e->getMessage()]);
+        }
     }
 }
