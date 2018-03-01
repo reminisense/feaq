@@ -57,7 +57,8 @@ class FeatherqConstants {
     //Define Android constants
     public static function android(){
         // API access key from Google API's Console
-        define( 'API_ACCESS_KEY', 'AIzaSyCj0EfjXkZe-USRLOlTXxywayUXSIYg1wA' );
+//        define( 'API_ACCESS_KEY', 'AIzaSyCj0EfjXkZe-USRLOlTXxywayUXSIYg1wA' );
+        define( 'API_ACCESS_KEY', 'AAAAYKcr28s:APA91bF1WA7byOkaFGCtcJnpoSOn3NxonKSlbaWJZadscRCXNirUvMhsTqHbT5LmgiQazHPWvKE5kpMD4e1pt6AZ-hHAKUi_XYWd22vQwj4ZzunfQshB8yOeofCecjiIgxk8mE0cz7gl');
     }
 
 }

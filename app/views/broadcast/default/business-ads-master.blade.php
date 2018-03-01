@@ -1,10 +1,25 @@
 <div class="ads-area {{ $ad_class }} abs">
   <div class="top">
       <div class="col-md-9 pull-right">
-          <ul class="nav nav-pills nav-justified pull-right" id="show-only-service" style="margin-top: -4px;">
-              <li role="presentation" class="service-filter-0" service_id="0"><a href="#">ALL</a></li>
+          <ul class="nav nav-tabs nav-justified pull-right" style="margin-top: -4px;">
+              <li role="presentation" id="show-all-numbers"><a href="#">ALL</a></li>
               <?php foreach ($service_filters as $count => $service): ?>
-                  <li role="presentation" class="service-filter-{{ $service->service_id; }}" service_id="{{ $service->service_id; }}"><a href="#">{{ $service->name; }}</a></li>
+                  <li role="presentation" class="dropdown">
+                      <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#"> {{ $service->name; }} <span class="caret"></span> </a>
+                      <ul class="dropdown-menu" id="filter-broadcast">
+                          <li class="show-only-service" service_id="{{ $service->service_id; }}">
+                              <a href="">{{ $service->name }}</a>
+                          </li>
+                          <li class="divider" role="separator"></li>
+                          @if (isset($terminal_filters[$service->service_id]))
+                              @foreach ($terminal_filters[$service->service_id] as $count2 => $terminal)
+                                <li class="show-only-terminal" terminal_id="{{ $terminal["terminal_id"] }}" service_name="{{ $service->name }}">
+                                    <a href="#">{{ $terminal["terminal_name"] }}</a>
+                                </li>
+                              @endforeach
+                          @endif
+                      </ul>
+                  </li>
               <?php endforeach; ?>
           </ul>
       </div>

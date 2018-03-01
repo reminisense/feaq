@@ -4,10 +4,10 @@ fbapp.run(function($http) {
 
     window.fbAsyncInit = (function () {
         FB.init({
-            appId      : '1577295149183234',
+            appId      : '1574952899417459',
             cookie     : true,
             xfbml      : true,
-            version    : 'v2.2'
+            version    : 'v2.3'
         });
 
         FB.getLoginStatus(function(response) {
@@ -43,7 +43,7 @@ fbapp.controller('fbController', function($scope, $http) {
             if (response.authResponse) {
                 $scope.saveFbDetails(response.authResponse.accessToken);
             }
-        }, {'scope': 'public_profile,email,user_friends'});
+        }, {scope: 'public_profile,email,user_friends'});
     });
 
     $scope.saveFbDetails = function(accessToken) {

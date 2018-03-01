@@ -22,9 +22,9 @@ class Helper extends Eloquent
         // is the same with the ones in their database.
         // This will save us from the exploit of a post request with bogus details
         $fb = new Facebook\Facebook(array(
-            'app_id' => '1577295149183234',
-            'app_secret' => '23a15a243f7ce66a648ec6c48fa6bee9',
-            'default_graph_version' => 'v2.4',
+            'app_id' => '1574952899417459',
+            'app_secret' => '9a1e18932bdb13b32066c891581f9384',
+            'default_graph_version' => 'v2.3',
         ));
         try {
             // Returns a `Facebook\FacebookResponse` object
@@ -343,7 +343,20 @@ class Helper extends Eloquent
     public static function changeBusinessTimeTimezone($date, $business_timezone, $browser_timezone)
     {
         if (is_numeric($browser_timezone)) $browser_timezone = Helper::timezoneOffsetToName($browser_timezone);
-        $datetime = new DateTime($date, new DateTimeZone($business_timezone));
+        $new_date = "";
+        if(strlen($date) == 6){
+            $new_date = substr_replace($date, "0", 2, 0);
+        }else if(strlen($date) == 7 && $date[4] == " "){
+            if($date[2] != ":"){
+                $new_date = $date;
+            }else{
+                $new_date = substr_replace($date, "0", 3, 0);
+            }
+        }else{
+            $new_date = $date;
+       }
+
+        $datetime = new DateTime($new_date, new DateTimeZone($business_timezone));
         $datetime->setTimezone(new DateTimeZone($browser_timezone));
         return $datetime->format('g:i A');
     }
@@ -466,7 +479,7 @@ class Helper extends Eloquent
     }
 
     public static function trim($text){
-       $trim = preg_replace('/[^a-z]/', "", strtolower($text));
+       $trim = preg_replace('/[^a-z0-9]/', "", strtolower($text));
        return $trim;
     }
 }

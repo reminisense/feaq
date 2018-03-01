@@ -74,12 +74,12 @@ class FormsController extends BaseController{
             );
 
             foreach($fields as $field){
-                $form_data[preg_replace('/[^a-z]/', "", strtolower($field['field_data']['label']))] = '';
+                $form_data[preg_replace('/[^a-z0-9]/', "", strtolower($field['field_data']['label']))] = '';
             }
 
             $to_xml['form_data'] = $form_data;
 
-            $path = 'forms/templates/form_'.$service_id.'_'.$form_tag.'.xml';
+            $path = public_path('forms/templates/form_'.$service_id.'_'.$form_tag.'.xml');
 
             $xml = new SimpleXMLElement("<?xml version=\"1.0\"?><xml></xml>");
 

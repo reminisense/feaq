@@ -4,6 +4,8 @@
 (function(){
     //Issue numbers
     app.controller('issuenumberController', function($scope, $http){
+        $scope.number_prefix = '';
+        $scope.number_suffix = '';
         $scope.priority_number = null;
         $scope.number_limit = null;
         $scope.queue_platform = 'web';
@@ -80,6 +82,9 @@
                         if(!process_queue){
                             $('.btn-getnum').addClass('disabled');
                         }
+                        setTimeout(function(){
+                            $('#remote-queue-modal').modal('toggle');
+                        }, 3000);
                     }else if(response.error){
                         pq.jquery_functions.issue_number_error(response.error);
                     }
@@ -102,7 +107,7 @@
                 for(var x=0; x<$scope.filtered_forms[i].fields.length; x++ ){
                     var input = $('#'+form_id+'_'+x).val();
                     if($scope.filtered_forms[i].fields[x].field_type == "checkbox"){
-                        input = $('#'+form_id+'_'+x).prop('checked') ? 1 : 0;
+                        input = $('#'+form_id+'_'+x).prop('checked') ? "Yes" : "No";
                     }else if($scope.filtered_forms[i].fields[x].field_type == "radio"){
                         input = $('input[name="'+form_id+'_'+x+'"]:checked').val();
                     }
@@ -131,7 +136,7 @@
         $scope.checkIssueSpecificErrors = function(priority_number, number_limit, issue){
             time_format = /^([0-9]{2})\:([0-9]{2})([ ][aApP][mM])$/g;
             issue = issue != undefined ? issue : true;
-            error = false
+            error = false;
             error_message = '';
 
             //variables
@@ -183,7 +188,17 @@
                        error_message += 'Email address is required. ';
                    }
                }
-            }catch(err){}
+            }catch(err){
+                // for process queue only
+                var new_number = $scope.number_prefix + priority_number + $scope.number_suffix;
+                for(index in process_queue.unprocessed_numbers){
+                    if(new_number == process_queue.unprocessed_numbers[index].priority_number){
+                        error = true;
+                        error_message += 'Priority number is still active. ';
+                        break;
+                    }
+                }
+            }
 
             if(!error && issue && confirm('Are you sure you want to get this number?')){
                 $scope.issue_specific_error = '';
@@ -260,11 +275,11 @@
                     if($scope.queue_status == 1){
                         scope = angular.element('#nowServingCtrl').scope();
                         $scope.$apply(function(){
-                            $scope.get_num = scope.get_num;
+                            $scope.get_num = $scope.number_prefix +  scope.get_num + $scope.number_suffix;
                         });
                         $scope.getServiceEstimates($scope.def_service_id);
                     }
-                }, 1000);
+                }, 3000);
             }
         };
 
@@ -309,23 +324,23 @@
                             $('#services').append('<option value="' + business_services[branch][service].service_id +'">' + business_services[branch][service].name + '</option>');
                         }
                     }
+                    $scope.selectService();
                 });
             }
         };
 
         $scope.selectService = function(){
-            service_id = $('#services').val();
-            displayFormFields(service_id);
-            $http.get('/processqueue/next-number/' + service_id).success(function(response){
-                $('.nomg').html(response.next_number);
-                $('#insertq input[name=number]').val(response.next_number);
-                setTimeout(function(){
-                    $scope.selectService();
-                }, 5000);
-                if(service_id != $scope.def_service_id){
-                    $scope.def_service_id = service_id;
-                }
-            });
+            if($scope.queue_status == 1){
+                service_id = $('#services').val();
+                displayFormFields(service_id);
+                $http.get('/processqueue/next-number/' + service_id).success(function(response){
+                    $('.nomg').html(response.next_number);
+                    $('#insertq input[name=number]').val(response.next_number);
+                    if(service_id != $scope.def_service_id){
+                        $scope.def_service_id = service_id;
+                    }
+                });
+            }
         };
 
         $scope.checkIn = function(){
@@ -338,40 +353,64 @@
         };
 
         $scope.getFormFields = function() {
-            $http.get('/forms/display-forms/' + biz_id).success(function(response) {
-                var forms = response.forms;
-                if(forms){
-                    $scope.getSuggestedFields(forms);
-                }
-            });
+            $('#remote-btn')
+                .addClass('disabled')
+                .children('span')
+                .removeClass('glyphicon-save')
+                .addClass('glyphicon-refresh glyphicon-refresh-animate');
+            $http.get('/forms/display-forms/' + biz_id).success(getSuggestedFields);
         };
 
-        $scope.getSuggestedFields = function(forms){
-
-            var data = {
-                user_id: user_id,
-                forms: forms
+        getSuggestedFields = function(response){
+            if(response.forms){
+                var forms = response.forms;
+                $http.post('/records/suggested-fields', {user_id: user_id, forms: forms}).success(function(response) {
+                    $scope.forms = response.forms;
+                    displayFormFields($scope.def_service_id);
+                    $('#remote-btn')
+                        .removeClass('disabled')
+                        .children('span')
+                        .addClass('glyphicon-save')
+                        .removeClass('glyphicon-refresh glyphicon-refresh-animate');
+                    $('#remote-queue-modal').modal('show');
+                });
             }
-            $http.post('/records/suggested-fields', data).success(function(response) {
-                $scope.forms = response.forms;
-                displayFormFields($scope.def_service_id);
-                setTimeout(function(){
-                    $('#remote-btn').removeClass('disabled');
-                    $('#remote-btn > span').removeClass('glyphicon-refresh glyphicon-refresh-animate');
-                    $('#remote-btn > span').addClass('glyphicon-save');
-                }, 2000);
-            });
-
-        }
+        };
 
         displayFormFields = function(service_id){
             $scope.filtered_forms.length = 0;
-            for (var i = 0; i <  $scope.forms.length; i++){
-                if(service_id == $scope.forms[i].service_id && $scope.forms[i].status == true ){
-                    $scope.filtered_forms.push($scope.forms[i]);
+            if($scope.forms){
+                for (var i = 0; i <  $scope.forms.length; i++){
+                    if(service_id == $scope.forms[i].service_id && $scope.forms[i].status == true &&  $scope.forms[i].fields.length != 0){
+                        $scope.filtered_forms.push($scope.forms[i]);
+                    }
                 }
             }
-        }
+            setTimeout(function(){
+                if($scope.forms){
+                    for (var i = 0; i <  $scope.forms.length; i++){
+                        if(service_id == $scope.forms[i].service_id && $scope.forms[i].status == true &&  $scope.forms[i].fields.length != 0){
+                            for(var z = 0; z < $scope.forms[i].fields.length; z++){
+                                if($scope.forms[i].fields[z].field_type == 'radio'){
+                                    if($scope.forms[i].fields[z].field_data.hasOwnProperty('suggested')){
+                                        if($scope.forms[i].fields[z].field_data.value_a == $scope.forms[i].fields[z].field_data.suggested){
+                                            $('#'+$scope.forms[i].form_id+'_'+z).append('<input type="radio" name="'+$scope.forms[i].form_id+'_'+z+' value="'+$scope.forms[i].fields[z].field_data.value_a+'" checked="checked">'+$scope.forms[i].fields[z].field_data.value_a+'<br>'+
+                                            '<input type="radio" name="'+$scope.forms[i].form_id+'_'+z+' value="'+$scope.forms[i].fields[z].field_data.value_b+'">'+$scope.forms[i].fields[z].field_data.value_b+'<br>');
+                                        }else{
+                                            $('#'+$scope.forms[i].form_id+'_'+z).append('<input type="radio" name="'+$scope.forms[i].form_id+'_'+z+' value="'+$scope.forms[i].fields[z].field_data.value_a+'">'+$scope.forms[i].fields[z].field_data.value_a+'<br>'+
+                                            '<input type="radio" name="'+$scope.forms[i].form_id+'_'+z+' value="'+$scope.forms[i].fields[z].field_data.value_b+'" checked="checked">'+$scope.forms[i].fields[z].field_data.value_b+'<br>');
+                                        }
+                                    }else{
+                                        $('#'+$scope.forms[i].form_id+'_'+z).append('<input type="radio" name="'+$scope.forms[i].form_id+'_'+z+' value="'+$scope.forms[i].fields[z].field_data.value_a+'" checked="checked">'+$scope.forms[i].fields[z].field_data.value_a+'<br>'+
+                                        '<input type="radio" name="'+$scope.forms[i].form_id+'_'+z+' value="'+$scope.forms[i].fields[z].field_data.value_b+'">'+$scope.forms[i].fields[z].field_data.value_b+'<br>');
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }, 500);
+        };
 
         $scope.getRemoteuser = function(){
             if(!process_queue){
@@ -379,18 +418,17 @@
                     $scope.populateRemoteQueueModal(response);
                     setTimeout(function(){
                         $scope.getRemoteuser();
-                    }, 5000);
+                    }, 3000);
                 });
             }
         };
 
         $scope.getServiceEstimates = function(service_id){
-            $http.get('/mobile/service-estimates/' + service_id).success(function(response){
+            $http.get('/processqueue/service-estimates/' + service_id).success(function(response){
                 $scope.estimates = response;
             });
         };
 
-        $scope.getFormFields();
         $scope.getBusinessServices();
         $scope.initializePriorityNumber();
         $scope.getRemoteuser();

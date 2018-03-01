@@ -27,12 +27,10 @@
         </div>
         <div class="clearfix">
         <div class="col-md-12" id="qrcode-widget">
-            <a href="" id="toggle-qrcode" class="mb20 btn btn-md btn-primary"><i class="glyphicon glyphicon-qrcode"></i> Show QR Code</a>
+            <a href="" id="toggle-qrcode" class="mb20 btn btn-md btn-primary" show_qr="no"><i class="glyphicon glyphicon-qrcode"></i> Show QR Code</a>
             <div class="clearfix qrcode-wrap">
                 <div class="clearfix text-center abs" id="qrcode-size">
-                    <a class="pull-left" id="qr-decrease"><i class="glyphicon glyphicon-minus"></i></a>
-                    Size
-                    <a class="pull-right" id="qr-increase"><i class="glyphicon glyphicon-plus"></i></a>
+                    FeatherQ.com
                 </div>
                 <p>Monitor via phone</p>
                     <img src="/images/qrcode.jpg" />

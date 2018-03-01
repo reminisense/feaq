@@ -14,27 +14,48 @@ class QueueSettings extends Eloquent{
     /**
      * Queue Settings
      */
+    public static $defaults = [
+        'number_prefix' => '',
+        'number_suffix' => '',
+        'number_start'  => 1,
+        'number_limit'  => 99,
+        'terminal_specific_issue' => 0,
+        'sms_current_number' => 0,
+        'sms_1_ahead' => 0,
+        'sms_5_ahead' => 0,
+        'sms_10_ahead' => 0,
+        'input_sms_field' => 0,
+        'allow_remote' => 0,
+        'remote_limit' => 0,
+        'remote_time' => '12:00 AM',
+        'process_queue_layout' => 0,
+        'check_in_display' => 0,
+        'grace_period' => 300,
+        'frontline_sms_secret' => FRONTLINE_SMS_SECRET,
+        'frontline_sms_url' => FRONTLINE_SMS_URL,
+    ];
+
+
+    public static function numberPrefix($service_id, $date = null){
+        return QueueSettings::queueSetting('number_prefix', '', $service_id, $date);
+    }
+
+    public static function numberSuffix($service_id, $date = null){
+        return QueueSettings::queueSetting('number_suffix', '', $service_id, $date);
+    }
 
     public static function numberStart($service_id, $date = null){
         return QueueSettings::queueSetting('number_start', 1, $service_id, $date);
     }
 
     public static function numberLimit($service_id, $date = null){
-        $business_id = Business::getBusinessIdByServiceId($service_id);
-        return Business::find($business_id)->queue_limit;
-        //return QueueSettings::queueSetting('number_limit', 99, $service_id, $date);
+        //$business_id = Business::getBusinessIdByServiceId($service_id);
+        //return Business::find($business_id)->queue_limit;
+        return QueueSettings::queueSetting('number_limit', 99, $service_id, $date);
     }
 
     public static function terminalSpecificIssue($service_id, $date = null){
         return QueueSettings::queueSetting('terminal_specific_issue', 0, $service_id, $date);
-    }
-
-    public static function frontlineSecret($service_id, $date = null){
-        return QueueSettings::queueSetting('frontline_sms_secret', FRONTLINE_SMS_SECRET, $service_id, $date);
-    }
-
-    public static function frontlineUrl($service_id, $date = null){
-        return QueueSettings::queueSetting('frontline_sms_url', FRONTLINE_SMS_URL, $service_id, $date);
     }
 
     public static function smsCurrentNumber($service_id, $date = null){
@@ -76,20 +97,32 @@ class QueueSettings extends Eloquent{
         return Helper::mergeTime($hour, $min, $ampm);
     }
 
-    public static function smsGateway($service_id, $date = null){
-        return QueueSettings::queueSetting('sms_gateway', 'twilio', $service_id, $date);
-    }
-
-    public static function smsGatewayApi($service_id, $date = null){
-        return QueueSettings::queueSetting('sms_gateway_api', serialize(QueueSettings::$sms_gateway_api['twilio']), $service_id, $date);
-    }
-
     public static function processQueueLayout($service_id, $date = null){
         return QueueSettings::queueSetting('process_queue_layout', 0, $service_id, $date);
     }
 
     public static function checkInDisplay($service_id, $date = null){
         return QueueSettings::queueSetting('check_in_display', 0, $service_id, $date);
+    }
+
+    public static function gracePeriod($service_id, $date = null){
+        return QueueSettings::queueSetting('grace_period', 0, $service_id, $date);
+    }
+
+    public static function frontlineSecret($service_id, $date = null){
+        return QueueSettings::queueSetting('frontline_sms_secret', FRONTLINE_SMS_SECRET, $service_id, $date);
+    }
+
+    public static function frontlineUrl($service_id, $date = null){
+        return QueueSettings::queueSetting('frontline_sms_url', FRONTLINE_SMS_URL, $service_id, $date);
+    }
+
+    public static function smsGateway($service_id, $date = null){
+        return QueueSettings::queueSetting('sms_gateway', 'twilio', $service_id, $date);
+    }
+
+    public static function smsGatewayApi($service_id, $date = null){
+        return QueueSettings::queueSetting('sms_gateway_api', serialize(QueueSettings::$sms_gateway_api['twilio']), $service_id, $date);
     }
 
 

@@ -60,6 +60,8 @@ Route::controller('articles', 'ContentController');
 
 Route::controller('how-to', 'ContentController');
 
+Route::get('privacy', 'ContentController@getPrivacy');
+
 Route::controller('test', 'TestController');
 
 Route::controller('mobile', 'MobileController');
@@ -79,3 +81,5 @@ Route::controller('services', 'ServiceController');
 Route::get('/{raw_code?}', 'UserController@getUserDashboard');
 
 Route::controller('records', 'FormRecordController');
+
+Route::controller('api', 'FreeApiController');

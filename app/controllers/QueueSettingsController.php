@@ -27,20 +27,56 @@ class QueueSettingsController extends BaseController{
     }
 
     public function getAllvalues($service_id){
-        $values = QueueSettings::getServiceQueueSettings($service_id);
-        $queue_settings = [
-            'number_start' => $values->number_start,
-            'number_limit' => $values->number_limit,
-            'auto_issue' => $values->auto_issue,
-            'allow_sms' => $values->allow_sms,
-            'allow_remote' => $values->allow_remote,
-        ];
+        try{
+            $values = QueueSettings::getServiceQueueSettings($service_id);
+            if($values){
+                $values->remote_time = QueueSettings::remoteTime($service_id);
+            }else{
+                $values = QueueSettings::$defaults;
+            }
+            return json_encode(['success' => 1, 'queue_settings' => $values]);
+        }catch(Exception $e){
+            return json_encode(['success' => 0, 'message' => $e->getMessage()]);
+        }
 
-        return json_encode(['success' => 1, 'queue_settings' => $queue_settings]);
     }
 
     public function getAssignterminal($terminal_id, $user_id){
         TerminalManager::addToTerminal($user_id, $terminal_id);
         return json_encode(['success' => 1]);
+    }
+
+    public function postSaveSettings(){
+        try{
+            $data = Input::all();
+            $queue_settings = QueueSettings::where('service_id', '=', $data['service_id'])->first();
+            if(!$queue_settings){
+                $queue_settings = new QueueSettings();
+                $queue_settings->service_id =  $data['service_id'];
+            }
+            $queue_settings->number_prefix = $data['number_prefix'];
+            $queue_settings->number_suffix = $data['number_suffix'];
+            $queue_settings->number_start = $data['number_start'];
+            $queue_settings->number_limit = $data['number_limit'];
+            $queue_settings->terminal_specific_issue = $data['terminal_specific_issue'];
+            $queue_settings->sms_current_number = $data['sms_current_number'];
+            $queue_settings->sms_1_ahead = $data['sms_1_ahead'];
+            $queue_settings->sms_5_ahead = $data['sms_5_ahead'];
+            $queue_settings->sms_10_ahead = $data['sms_10_ahead'];
+            $queue_settings->sms_blank_ahead = $data['sms_blank_ahead'];
+            $queue_settings->input_sms_field = $data['input_sms_field'];
+            $queue_settings->allow_remote = $data['allow_remote'];
+            $queue_settings->remote_limit = $data['remote_limit'];
+            $queue_settings->process_queue_layout = $data['process_queue_layout'];
+            $queue_settings->check_in_display = $data['check_in_display'];
+            $queue_settings->grace_period = $data['grace_period'];
+            $queue_settings->save();
+
+            QueueSettings::updateQueueSetting($data['service_id'], 'remote_time', $data['remote_time']);
+            return json_encode(['success' => 1, 'message' => 'Service settings have been saved.']);
+        }catch (Exception $e){
+            return json_encode(['success' => 0, 'message' => $e->getMessage()]);
+        }
+
     }
 }

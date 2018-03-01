@@ -703,3 +703,8 @@ ul.nav li a.fadeout {
 #search-suggest{
   display: block;
 }
+#btnGroupDrop1{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

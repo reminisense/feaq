@@ -22,12 +22,17 @@
         $scope.called_numbers = [];
         $scope.uncalled_numbers = [];
         $scope.processed_numbers = [];
+        $scope.unprocessed_numbers = [];
         $scope.timebound_numbers = [];
 
         $scope.called_number = 0;
+        $scope.number_prefix = '';
+        $scope.number_suffix = '';
         $scope.next_number = 0;
         $scope.number_limit = null;
+
         $scope.issue_call_number = null;
+        $scope.issue_call_error = '';
 
         $scope.called_numbers_rating = [];
 
@@ -56,21 +61,37 @@
         };
 
         $scope.checkIn = function(transaction_number){
-            if(confirm('Are you sure you want to check in this number?')){
-                transaction_number = transaction_number != undefined ? transaction_number : angular.element(document.querySelector('#selected-tnumber')).val();
-                getResponseResetValues('/processqueue/checkin-transaction/' + transaction_number, function(){
-                    $scope.issue_call_number = null;
-                    $scope.isCalling = false;
-                    $scope.updateBroadcast();
-                });
+            var uncalled_number = getUncalledNumber(transaction_number);
+            if(uncalled_number != null && !uncalled_number.checked_in){
+                if(confirm('Are you sure you want to check in this number?')){
+                    transaction_number = transaction_number != undefined ? transaction_number : angular.element(document.querySelector('#selected-tnumber')).val();
+                    getResponseResetValues('/processqueue/checkin-transaction/' + transaction_number, function(){
+                        $scope.issue_call_number = null;
+                        $scope.isCalling = false;
+                        $scope.updateBroadcast();
+                        return true;
+                    });
+                }else{
+                    return false;
+                }
+            }else{
+                return true;
             }
+        };
+
+        getUncalledNumber = function(transaction_number){
+            for(index in $scope.uncalled_numbers){
+                if($scope.uncalled_numbers[index].transaction_number == transaction_number){
+                    return $scope.uncalled_numbers[index];
+                }
+            }
+            return null;
         };
 
         $scope.callNumber = function(transaction_number, callback){
             $scope.called_numbers_rating = [];
             $scope.isCalling = true;
             transaction_number = transaction_number != undefined ? transaction_number : angular.element(document.querySelector('#selected-tnumber')).val();
-
             getResponseResetValues(pq.urls.process_queue.call_number_url + transaction_number + '/' + pq.ids.terminal_id, function(){
                 pq.jquery_functions.remove_and_update_dropdown(transaction_number);
                 $scope.issue_call_number = null;
@@ -132,24 +153,23 @@
             $scope.isStopping = true;
             $scope.isCalling = true;
             $scope.progress_max = $scope.progress_max > 0 ? $scope.progress_max : $scope.called_numbers.length;
-            $scope.progress_current = $scope.progress_max - $scope.called_numbers.length;
-            $scope.stop_progress = ($scope.progress_current / $scope.progress_max) * 100;
-            if($scope.called_numbers.length > 0){
-                $scope.serveNumber($scope.called_numbers[0].transaction_number, function(){
-                    $scope.stopProcessQueue();
-                });
-            }
-            else {
-                setTimeout(function(){
-                    $scope.isStopping = false;
-                    $scope.isCalling = false;
-                    $scope.progress_current = 0;
-                    $scope.progress_max = 0;
-                    $scope.stop_progress = 0;
-                    $scope.clearBroadcastNumbers();
-                }, 1000);
 
+            var ids = [];
+            for(index in $scope.called_numbers){
+                ids.push($scope.called_numbers[index].transaction_number);
             }
+
+            $scope.stop_progress = 50;
+            setTimeout(function(){
+                $scope.stop_progress = 75;
+            }, 500);
+            $http.post('/processqueue/stop-queue', {ids: JSON.stringify(ids)}).success(function(){
+                $scope.stop_progress = 100;
+                $scope.updateBroadcast();
+                $scope.isStopping = false;
+                $scope.isCalling = false;
+            });
+
         };
 
         $scope.clearBroadcastNumbers = function() {
@@ -165,7 +185,11 @@
         $scope.issueAndCall = function(priority_number){
             $http.post(pq.urls.issue_numbers.issue_specific_url + pq.ids.service_id + '/' + pq.ids.terminal_id, {priority_number : priority_number})
                 .success(function(response){
-                    $scope.callNumber(response.number.transaction_number);
+                    if(response.error){
+                        $scope.issue_call_error = response.error;
+                    }else{
+                        $scope.callNumber(response.number.transaction_number);
+                    }
                 }).finally(function(){
                     $scope.isCalling = false;
                 });
@@ -236,7 +260,9 @@
         };
 
         checkTextfieldErrors = function(priority_number){
-            return angular.element(document.querySelector('#moreq')).scope().checkIssueSpecificErrors(priority_number, $scope.number_limit, false);
+            var issueController = angular.element(document.querySelector('#moreq')).scope();
+            issueController.priority_number = $scope.next_number;
+            return issueController.checkIssueSpecificErrors(priority_number, $scope.number_limit, false);
         };
 
         //non scope functions
@@ -261,6 +287,9 @@
             $scope.timebound_numbers = numbers.timebound_numbers;
             $scope.next_number = numbers.next_number;
             $scope.number_limit = numbers.number_limit;
+            $scope.number_prefix = numbers.number_prefix;
+            $scope.number_suffix = numbers.number_suffix;
+            $scope.unprocessed_numbers = numbers.unprocessed_numbers;
 
             $scope.dateString = pq.jquery_functions.converDateToString($scope.date);
             pq.jquery_functions.set_next_number_placeholder($scope.next_number);
@@ -374,6 +403,25 @@
                 });
             });
         };
+
+        //****************************** watches
+
+        $scope.$watch('issue_call_number', function(newValue, oldValue){
+            var new_number = $scope.number_prefix + newValue + $scope.number_suffix;
+            for(index in $scope.unprocessed_numbers) {
+                if (new_number == $scope.unprocessed_numbers[index].priority_number) {
+                    $scope.issue_call_number = oldValue;
+                    $scope.issue_call_error = 'Number ' + new_number + ' is still active. ';
+                    setTimeout(function(){ $scope.issue_call_error = '';}, 3000);
+                    break;
+                }
+            }
+
+            if($scope.number_limit != null && (newValue > $scope.number_limit)){
+                $scope.issue_call_error = 'Priority number is greater than the limit. ';
+                setTimeout(function(){ $scope.issue_call_error = '';}, 3000);
+            }
+        });
 
         //****************************** refreshing
         $scope.getAllNumbers();

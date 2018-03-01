@@ -6,7 +6,25 @@ app.controller('nowServingCtrl', function($scope, $http) {
 
   $scope.updateBroadcastPage = (function(response) {
     if (typeof sessionStorage.service_id != "undefined" && sessionStorage.service_id != "0") {
-      response = response[sessionStorage.service_id];
+      response = response["services"][sessionStorage.service_id];
+      $('#callednums-title').text(sessionStorage.service_name);
+      $('.wrap-nums .service').hide();
+      $('#business-queue-now').hide();
+      $('#service-queue-now').show();
+      $('#broadcast-spec').attr('class', sessionStorage.broadcast_spec);
+      var percentage_val = $('#percentage').attr('percentage');
+      if (percentage_val == '20') {
+        $('#parent-num-spec').attr('class', 'parent-num ten-nums');
+      }
+    }
+    else if (typeof sessionStorage.terminal_id != "undefined" && sessionStorage.terminal_id != "0") {
+      response = response["terminals"][sessionStorage.terminal_id];
+      $('#callednums-title').text(sessionStorage.service_name + " - " + sessionStorage.terminal_name);
+      $('.wrap-nums .service').hide();
+      $('.wrap-nums .terminal').hide();
+      $('#business-queue-now').hide();
+      $('#service-queue-now').show();
+      $('#broadcast-spec').attr('class', sessionStorage.broadcast_spec);
     }
     console.log(response);
 
@@ -42,5 +60,7 @@ app.controller('nowServingCtrl', function($scope, $http) {
     writeNumber($scope, response, 'box8', 'service8', 'user8', 'color8');
     writeNumber($scope, response, 'box9', 'service9', 'user9', 'color9');
     writeNumber($scope, response, 'box10', 'service10', 'user10', 'color10');
+
+    writeQueueNow($scope, response);
   });
 });

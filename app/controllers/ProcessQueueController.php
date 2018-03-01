@@ -123,7 +123,7 @@ class ProcessQueueController extends BaseController{
 
     public function getNextNumber($service_id){
         $all_numbers = ProcessQueue::allNumbers($service_id);
-        return json_encode(['next_number' => $all_numbers->next_number]);
+        return json_encode(['next_number' => $all_numbers->number_prefix . $all_numbers->next_number . $all_numbers->number_suffix]);
     }
 
     public function getCheckinTransaction($transaction_number){
@@ -138,5 +138,20 @@ class ProcessQueueController extends BaseController{
         }else{
             return json_encode(['success' => 0, 'error' => 'Transaction number not found.']);
         }
+    }
+
+    public function postStopQueue(){
+        $numbers = Input::get('ids');
+        $numbers = json_decode($numbers, true);
+        TerminalTransaction::whereIn('transaction_number', $numbers)
+            ->where('time_completed', '=', 0)
+            ->where('time_removed', '=', 0)
+            ->update(['time_completed' => time()]);
+        return json_encode(['success' => 1]);
+    }
+
+    public function getServiceEstimates($service_id){
+        $analytics = new Analytics();
+        return $analytics->getServiceTimeEstimates($service_id);
     }
 }

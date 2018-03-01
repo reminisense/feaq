@@ -510,6 +510,10 @@ class Analytics extends Eloquent{
      *
      */
     public function getServiceTimeEstimates($service_id, $date = null){
+        return json_encode($this->getServiceEstimateResults($service_id, $date));
+    }
+
+    public function getServiceEstimateResults($service_id, $date = null){
         $date = $date == null ? mktime(0, 0, 0, date('m'), date('d'), date('Y')) : $date;
         $serving_times = $this->getServingTimes($service_id, $date);
         $all_numbers = ProcessQueue::allNumbers($service_id);
@@ -521,19 +525,67 @@ class Analytics extends Eloquent{
             $standard_deviation = $this->getStandardDeviation($serving_times);
             $time_estimates = $this->getTimeEstimate($time, $numbers_ahead, $mean, $standard_deviation);
 
-            $time_estimates['upper_limit'] = date('h:ia', $time_estimates['upper_limit']);
-            $time_estimates['lower_limit'] = $time_estimates['lower_limit'] > $time ? date('h:ia', $time_estimates['lower_limit']) : date('h:ia', $time);
-            $time_estimates['next_number'] = $next_number;
-            $time_estimates['serving_times'] = $serving_times;
-        }else{
-            $time_estimates['upper_limit'] = date('h:ia', time());
-            $time_estimates['lower_limit'] = date('h:ia', time());
+            $time_estimates['upper_limit'] = date('h:i A', $time_estimates['upper_limit']);
+            $time_estimates['lower_limit'] = $time_estimates['lower_limit'] > $time ? date('h:ia', $time_estimates['lower_limit']) : date('h:i A', $time);
             $time_estimates['next_number'] = $next_number;
             $time_estimates['numbers_ahead'] = $numbers_ahead;
+            $time_estimates['serving_times'] = $serving_times;
+            $time_estimates['estimated_serving_time'] = $time_estimates['mean'];
+        }else{
+            $time_estimates['lower_limit'] = date('h:i A', time() + 60);
+            $time_estimates['upper_limit'] = date('h:i A', time() + (60 * ($numbers_ahead + 2)));
+            $time_estimates['lower_waiting_time'] = 60;
+            $time_estimates['upper_waiting_time'] = 60 * ($numbers_ahead + 2);
+            $time_estimates['next_number'] = $next_number;
+            $time_estimates['numbers_ahead'] = $numbers_ahead;
+            $time_estimates['estimated_serving_time'] = 60;
         }
 
-        return json_encode($time_estimates);
+        return $time_estimates;
     }
+
+  public static function getServiceEstimatesFreeApp($service_id) {
+    $meanServingTimes = array();
+    $meanServingTimes["today"] = (string)Analytics::getMeanServingTimeByType($service_id, "today");
+    $meanServingTimes["yesterday"] = (string)Analytics::getMeanServingTimeByType($service_id, "yesterday");
+    $meanServingTimes["three_days"] = (string)Analytics::getMeanServingTimeByType($service_id, "three_days");
+    $meanServingTimes["this_week"] = (string)Analytics::getMeanServingTimeByType($service_id, "this_week");
+    $meanServingTimes["last_week"] = (string)Analytics::getMeanServingTimeByType($service_id, "last_week");
+    $meanServingTimes["this_month"] = (string)Analytics::getMeanServingTimeByType($service_id, "this_month");
+    $meanServingTimes["last_month"] = (string)Analytics::getMeanServingTimeByType($service_id, "last_month");
+    return $meanServingTimes;
+  }
+
+  public static function getMeanServingTimeByType($service_id, $ave_type) {
+    $serving_times = array();
+    $currentDate = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+    if ($ave_type == "today") {
+      $serving_times = Analytics::getServingTimesByDateRange($service_id, $currentDate, $currentDate);
+    }
+    else if ($ave_type == "yesterday") {
+      $yesterday = strtotime("-1 day", $currentDate);
+      $serving_times = Analytics::getServingTimesByDateRange($service_id, $yesterday, $yesterday);
+    }
+    else if ($ave_type == "three_days") {
+      $serving_times = Analytics::getServingTimesByDateRange($service_id, strtotime("-3 days", $currentDate), $currentDate);
+    }
+    else if ($ave_type == "this_week") {
+      $serving_times = Analytics::getServingTimesByDateRange($service_id, strtotime("-7 days", $currentDate), $currentDate);
+    }
+    else if ($ave_type == "last_week") {
+      $thisWeek = strtotime("-7 days", $currentDate);
+      $serving_times = Analytics::getServingTimesByDateRange($service_id, strtotime("-7 days", $thisWeek), $thisWeek);
+    }
+    else if ($ave_type == "this_month") {
+      $serving_times = Analytics::getServingTimesByDateRange($service_id, strtotime("-30 days", $currentDate), $currentDate);
+    }
+    else if ($ave_type == "last_month") {
+      $thisMonth = strtotime("-30 days", $currentDate);
+      $serving_times = Analytics::getServingTimesByDateRange($service_id, strtotime("-30 days", $thisMonth), $thisMonth);
+    }
+    $mean = Analytics::getStaticMean($serving_times);
+    return $mean;
+  }
 
     /**
      * @param $service_id
@@ -562,22 +614,64 @@ class Analytics extends Eloquent{
         return $serving_times;
     }
 
+  private static function getServingTimesByDateRange($service_id, $lower, $upper) {
+    $called_numbers = Analytics::where('service_id', '=', $service_id)
+      ->where('date', '>=', $lower)
+      ->where('date', '<=', $upper)
+      ->where('action', '=', '1')
+      ->get();
+    $served_numbers = Analytics::where('service_id', '=', $service_id)
+      ->where('date', '>=', $lower)
+      ->where('date', '<=', $upper)
+      ->where('action', '=', '2')
+      ->get();
+    $serving_times = [];
+    foreach($called_numbers as $called){
+      foreach($served_numbers as $served){
+        if($called->transaction_number == $served->transaction_number){
+          $serving_times[] = ($served->action_time - $called->action_time);
+        }
+      }
+    }
+    return $serving_times;
+  }
+
     /**
      * @param $serving_times
      * @return float mean
      * get the mean of the entries given
      */
-    private function getMean($serving_times){
+    private function getMean($serving_times) {
         $sum = 0;
         $entries = count($serving_times);
-
-        foreach($serving_times as $serving_time){
-            $sum += $serving_time;
+      if ($entries != 0) {
+        foreach ($serving_times as $serving_time) {
+          $sum += $serving_time;
         }
 
         $mean = $sum / $entries;
         return $mean;
+      }
+      else {
+        return 0;
+      }
     }
+
+  private static function getStaticMean($serving_times) {
+    $sum = 0;
+    $entries = count($serving_times);
+    if ($entries != 0) {
+      foreach ($serving_times as $serving_time) {
+        $sum += $serving_time;
+      }
+
+      $mean = $sum / $entries;
+      return $mean;
+    }
+    else {
+      return 0;
+    }
+  }
 
     /**
      * @param $serving_times = array
@@ -603,18 +697,21 @@ class Analytics extends Eloquent{
      * get the time estimate using the given standard deviation
      */
     private function getTimeEstimate($time, $numbers_ahead, $mean, $standard_deviation, $accuracy = 2){
+        $lower_waiting_time = (($numbers_ahead + 1) * $mean) - ($standard_deviation * $accuracy);
+        $upper_waiting_time = (($numbers_ahead + 1) * $mean) + ($standard_deviation * $accuracy);
         $estimate = [
             'time' => $time,
             'mean' => $mean,
             'standard_deviation' => $standard_deviation,
-            'lower_limit' => $time + (($numbers_ahead + 1) * $mean) - ($standard_deviation * $accuracy),
-            'upper_limit' => $time + (($numbers_ahead + 1) * $mean) + ($standard_deviation * $accuracy),
+            'sd_from_mean' => $accuracy,
+            'lower_limit' => $time + $lower_waiting_time,
+            'upper_limit' => $time + $upper_waiting_time,
             'numbers_ahead' => $numbers_ahead,
+            'lower_waiting_time' => $lower_waiting_time,
+            'upper_waiting_time' => $upper_waiting_time,
         ];
 
         return $estimate;
     }
-
-
 
 }

@@ -13,6 +13,7 @@
     <!-- Bootstrap core CSS -->
     <link href="/css/broadcast/default/bootstrap.min.css" rel="stylesheet">
     <link href="/css/broadcast/default/biz-broadcast.css" rel="stylesheet">
+    <link href="/css/broadcast/default/broadcastv2.css" rel="stylesheet">
     <link href="/css/broadcast/default/responsive-bizbroadcast.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet' type='text/css'>
 
@@ -35,8 +36,9 @@
 <div id="broadcast-type" broadcast_type="{{ $broadcast_type }}"></div>
 <div id="ad-type" ad_type="{{ $ad_type }}"></div>
 <div id="adspace-size" adspace_size="{{ $adspace_size }}"></div>
+<div id="percentage" percentage="{{ $percentage }}"></div>
 @if (strpos($broadcast_type, '0-') === false)
-<div class="qrcode qrwrap">
+<div class="qrcode qrwrap" style="display: <?php $show_qr_setting == 'yes' ? print 'block' : print 'none'; ?>;">
     <p class="nomg"><h4 class="orange">Monitor via your PHONE.</h4></p>
     <div class="text-center">
         <img class="qrcode" src="https://api.qrserver.com/v1/create-qr-code/?data={{ URL::to('/broadcast/business/' . $business_id) }}&size=120x120">
@@ -75,19 +77,20 @@
         </div>
 
       </div>
+
+<div ng-controller="nowServingCtrl">
+    <div class="ticker-message" style="width: {{ $ticker_width }}%;">
+        @foreach($ticker_message as $message)
+            @if($message)
+                <div class="marquee-text hidden">{{ $message }}</div>
+            @endif
+        @endforeach
+        <p class="nomg real-marquee-text"></p>
     </div>
-</div>
-<div class="ticker-message" style="width: {{ $ticker_width }}%;">
-    @foreach($ticker_message as $message)
-        @if($message)
-            <div class="marquee-text hidden">{{ $message }}</div>
-        @endif
-    @endforeach
-    <p class="nomg real-marquee-text"></p>
-</div>
-<div class="wrap-broadcast rel" ng-controller="nowServingCtrl">
-    <audio id="call-number-sound" src="/audio/doorbell_x.wav" controls preload="auto" autobuffer style="display: none;"></audio>
-    @include('broadcast.default.business-' . $broadcast_type)
+    <div class="wrap-broadcast rel">
+        <audio id="call-number-sound" src="/audio/doorbell_x.wav" controls preload="auto" autobuffer style="display: none;"></audio>
+        @include('broadcast.default.business-' . $broadcast_type)
+    </div>
 </div>
 
 @include('modals.websockets.websocket-loader')

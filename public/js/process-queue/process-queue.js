@@ -338,9 +338,9 @@ var pq = {
             userinfo += '</a>';
             userinfo += '</span>';
 
-            if((checked_in == "true" || checked_in == true)){
+            if((checked_in == "true" || checked_in == true) && queue_platform == 'remote'){
                 userinfo += '<span><small class="c-status pull-right mr5 checkedin font-normal">checked in</small><span class="dpq-icons pull-right checkedin glyphicon glyphicon-ok"></span></span>';
-            }else if((checked_in == "false" || checked_in == false)){
+            }else if((checked_in == "false" || checked_in == false) && queue_platform == 'remote'){
                 userinfo += '<span><small class="c-status pull-right mr5 font-normal notcheckedin">not checked in</small><span class="notcheckedin dpq-icons pull-right glyphicon glyphicon-remove"></span></span>';
             }else{
                 userinfo += '';
@@ -353,7 +353,21 @@ var pq = {
         },
 
         select_next_number : function(){
-            $('#uncalled-numbers li:first-child').trigger('click');
+            var count = $( "#uncalled-numbers li" ).length;
+            $( "#uncalled-numbers li" ).each(function( index ) {
+                var checked_in = $('#uncalled-numbers li:nth-child('+(index + 1)+')').attr('data-checked_in');
+                var queue_platform = $('#uncalled-numbers li:nth-child('+(index + 1)+')').attr('data-queue_platform');
+               if(queue_platform == 'remote'){
+                    if(checked_in == 'true' || count == 1){
+                        $('#uncalled-numbers li:nth-child('+(index + 1)+')').trigger('click');
+                        return false;
+                    }
+                }else{
+                    $('#uncalled-numbers li:nth-child('+(index + 1)+')').trigger('click');
+                   return false;
+               }
+            });
+
         },
 
         remove_from_dropdown : function(transaction_number){
@@ -422,6 +436,8 @@ var pq = {
             process_queue = angular.element($("#process-queue-wrapper")).scope();
             issue_number = angular.element($("#moreq")).scope();
             issue_number.$apply(function(){
+                issue_number.number_prefix = process_queue.number_prefix;
+                issue_number.number_suffix = process_queue.number_suffix;
                 issue_number.priority_number = process_queue.next_number;
                 issue_number.number_start = process_queue.next_number;
                 issue_number.number_end = process_queue.next_number;
@@ -431,7 +447,7 @@ var pq = {
         set_next_number_placeholder : function(next_number){
             $('#moreq form input[name=priority_number]').attr('placeholder', next_number);
             $('#moreq form input[name=number_start]').attr('placeholder', next_number);
-            $('#issue-call-number').attr('placeholder', next_number);
+            $('.issue-call-number').attr('placeholder', next_number);
         },
 
         send_pq_websocket_data : function(data){

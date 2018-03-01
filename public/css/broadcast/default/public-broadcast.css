@@ -105,7 +105,7 @@
     color: #333;
     /*margin-bottom: 5px;*/
     margin-bottom: 0px;
-    font-size: 60px;
+    font-size: 40px;
 }
 
 .boxed .broadcast .numbers {
@@ -210,7 +210,7 @@
 }
 
 .ticker-message {
-    z-index: 9999;
+    z-index: 11;
     bottom: 0px;
     width: 100%;
     background: rgba(255, 255, 255, 0.93);
@@ -268,3 +268,4 @@
 #borderless td, #borderless th {
     border: none;
 }
+
